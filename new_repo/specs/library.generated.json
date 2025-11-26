@@ -1,228 +1,135 @@
 {
-  "base_url": "",
+  "sut": "library",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "Book": {
-      "displayName": "book",
+    "User": {
+      "displayName": "user",
+      "params": [
+        "user_id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{id}",
-            "title": "{title}"
-          },
-          "descriptionTemplate": "Add book {id}",
+          "name": "createUser",
           "method": "POST",
-          "name": "addBook",
-          "params": [
-            "id",
-            "title"
-          ],
-          "path": "/books"
+          "path": "/users",
+          "descriptionTemplate": "Create a user",
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
-          "descriptionTemplate": "Delete book {book_id}",
+          "name": "deleteUser",
           "method": "DELETE",
-          "name": "deleteBook",
+          "path": "/users/{user_id}",
+          "descriptionTemplate": "Delete user {user_id}",
           "params": [
-            "book_id"
-          ],
-          "path": "/books/{book_id}"
-        },
-        "get": {
-          "descriptionTemplate": "Get book {book_id}",
-          "method": "GET",
-          "name": "getBook",
-          "params": [
-            "book_id"
-          ],
-          "path": "/books/{book_id}"
-        },
-        "list": {
-          "descriptionTemplate": "List books with query {q}",
-          "method": "GET",
-          "name": "listBooks",
-          "params": [
-            "q"
-          ],
-          "path": "/books"
+            "user_id"
+          ]
         }
       },
-      "params": [
-        "book_id",
-        "q",
-        "id",
-        "title"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add book (.+)",
-          "name": "waitForAnyBookAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete book (.+)",
-          "name": "waitForAnyBookDeleted"
-        }
+        "add": "Create a user",
+        "delete": "Delete user \\{user_id\\}"
       }
     },
-    "Hold": {
-      "displayName": "hold",
+    "Book": {
+      "displayName": "book",
+      "params": [
+        "book_id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "bookId": "{bookId}",
-            "hold_id": "{hold_id}",
-            "userId": "{userId}"
-          },
-          "descriptionTemplate": "Add hold {hold_id}",
+          "name": "createBook",
           "method": "POST",
-          "name": "addHold",
-          "params": [
-            "hold_id",
-            "userId",
-            "bookId"
-          ],
-          "path": "/holds"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete hold {hold_id}",
-          "method": "DELETE",
-          "name": "deleteHold",
-          "params": [
-            "hold_id"
-          ],
-          "path": "/holds/{hold_id}"
+          "path": "/books",
+          "descriptionTemplate": "Create a book",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Get holds",
+          "name": "getBook",
           "method": "GET",
-          "name": "getHolds",
-          "params": [],
-          "path": "/holds"
+          "path": "/books/{book_id}",
+          "descriptionTemplate": "Get book by id {book_id}",
+          "params": [
+            "book_id"
+          ]
+        },
+        "delete": {
+          "name": "deleteBook",
+          "method": "DELETE",
+          "path": "/books/{book_id}",
+          "descriptionTemplate": "Delete book {book_id}",
+          "params": [
+            "book_id"
+          ]
         }
       },
-      "params": [
-        "hold_id",
-        "userId",
-        "bookId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add hold (.+)",
-          "name": "waitForAnyHoldAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete hold (.+)",
-          "name": "waitForAnyHoldDeleted"
-        }
+        "add": "Create a book",
+        "get": "Get book by id \\{book_id\\}",
+        "delete": "Delete book \\{book_id\\}"
       }
     },
     "Loan": {
       "displayName": "loan",
+      "params": [
+        "user_id",
+        "book_id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "bookId": "{bookId}",
-            "userId": "{userId}"
-          },
-          "descriptionTemplate": "Add loan user {userId} book {bookId}",
+          "name": "createLoan",
           "method": "POST",
-          "name": "addLoan",
-          "params": [
-            "userId",
-            "bookId"
-          ],
-          "path": "/loans"
+          "path": "/loans",
+          "descriptionTemplate": "Create a loan",
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
-          "descriptionTemplate": "Delete loan user {user_id} book {book_id}",
-          "method": "DELETE",
           "name": "deleteLoan",
+          "method": "DELETE",
+          "path": "/loans/{user_id}/{book_id}",
+          "descriptionTemplate": "Delete a loan by composite id {user_id} {book_id}",
           "params": [
             "user_id",
             "book_id"
-          ],
-          "path": "/loans/{user_id}/{book_id}"
-        },
-        "get": {
-          "descriptionTemplate": "Get loans with userId {userId} and bookId {bookId}",
-          "method": "GET",
-          "name": "getLoans",
-          "params": [
-            "userId",
-            "bookId"
-          ],
-          "path": "/loans"
+          ]
         }
       },
-      "params": [
-        "user_id",
-        "book_id",
-        "userId",
-        "bookId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add loan user (.+) book (.+)",
-          "name": "waitForAnyLoanAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete loan user (.+) book (.+)",
-          "name": "waitForAnyLoanDeleted"
-        }
+        "add": "Create a loan",
+        "delete": "Delete a loan by composite id \\{user_id\\} \\{book_id\\}"
       }
     },
-    "User": {
-      "displayName": "user",
+    "Hold": {
+      "displayName": "hold",
+      "params": [
+        "hold_id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          },
-          "descriptionTemplate": "Add user {id}",
+          "name": "createHold",
           "method": "POST",
-          "name": "addUser",
-          "params": [
-            "id",
-            "name"
-          ],
-          "path": "/users"
+          "path": "/holds",
+          "descriptionTemplate": "Create a hold",
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
-          "descriptionTemplate": "Delete user {user_id}",
+          "name": "deleteHold",
           "method": "DELETE",
-          "name": "deleteUser",
+          "path": "/holds/{hold_id}",
+          "descriptionTemplate": "Delete a hold {hold_id}",
           "params": [
-            "user_id"
-          ],
-          "path": "/users/{user_id}"
-        },
-        "get": {
-          "descriptionTemplate": "Get users with query {q}",
-          "method": "GET",
-          "name": "getUsers",
-          "params": [
-            "q"
-          ],
-          "path": "/users"
+            "hold_id"
+          ]
         }
       },
-      "params": [
-        "user_id",
-        "q",
-        "id",
-        "name"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add user (.+)",
-          "name": "waitForAnyUserAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete user (.+)",
-          "name": "waitForAnyUserDeleted"
-        }
+        "add": "Create a hold",
+        "delete": "Delete a hold \\{hold_id\\}"
       }
     }
   },
-  "sut": "library"
+  "stories": []
 }

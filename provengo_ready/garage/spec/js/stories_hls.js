@@ -6,34 +6,34 @@ const bthread = bp.registerBThread;
 // Story: crud:Chain:nondet:1:1
 bthread("crud:Chain:nondet:1:1", function () {
   let chainId = 200;
-  addChain(200);
+  createChain(200);
   tryToAddExistingChain(200);
-  verifyChainExists(chainId);
-  updateChain(chainId, 200);
-  deleteChain(chainId);
-  tryToDeleteANonExistingChain(chainId);
-  verifyChainDoesNotExist(chainId);
+  verifyChainExists(200);
+  updateChain(200);
+  deleteChain(200);
+  tryToDeleteANonExistingChain(200);
+  verifyChainDoesNotExist(200);
 });
 
 // Story: crud:Chain:nondet:1:2
 bthread("crud:Chain:nondet:1:2", function () {
   let chainId = 201;
-  addChain(201);
+  createChain(201);
   tryToAddExistingChain(201);
-  updateChain(chainId, 201);
-  verifyChainExists(chainId);
-  deleteChain(chainId);
-  tryToDeleteANonExistingChain(chainId);
-  verifyChainDoesNotExist(chainId);
+  updateChain(201);
+  verifyChainExists(201);
+  deleteChain(201);
+  tryToDeleteANonExistingChain(201);
+  verifyChainDoesNotExist(201);
 });
 
 // Story: crud:Chain:nondet:negative:dup-add
 bthread("crud:Chain:nondet:negative:dup-add", function () {
   let chainId = 206;
-  addChain(206);
-  verifyChainExists(chainId);
+  createChain(206);
+  verifyChainExists(206);
   tryToAddExistingChain(206);
-  verifyChainExists(chainId);
+  verifyChainExists(206);
 });
 
 // Story: crud:Chain:nondet:existing:update
@@ -41,8 +41,9 @@ bthread("crud:Chain:nondet:existing:update", function () {
   let ev = waitForAnyChainAdded();
   let args = Object.values(ev);
   block(matchDeletedChain.apply(null, args), function () {
-    // verifyChainExists.apply(null, args);
-    // updateChain.apply(null, args);
+    verifyChainExists.apply(null, args);
+    updateChain.apply(null, args);
+    verifyChainExists.apply(null, args);
   });
 });
 
@@ -52,7 +53,7 @@ bthread("monitor:Chain:add", function () {
     let ev = waitForAnyChainAdded();
     let args = Object.values(ev);
     block(matchDeletedChain.apply(null, args), function () {
-      // verifyChainExists.apply(null, args);
+      verifyChainExists.apply(null, args);
     });
   }
 });
@@ -60,34 +61,34 @@ bthread("monitor:Chain:add", function () {
 // Story: crud:Garage:nondet:1:1
 bthread("crud:Garage:nondet:1:1", function () {
   let garageId = 210;
-  addGarage(210);
+  createGarage(210);
   tryToAddExistingGarage(210);
-  verifyGarageExists(garageId);
-  updateGarage(garageId, 210);
-  deleteGarage(garageId);
-  tryToDeleteANonExistingGarage(garageId);
-  verifyGarageDoesNotExist(garageId);
+  verifyGarageExists(210);
+  updateGarage(210);
+  deleteGarage(210);
+  tryToDeleteANonExistingGarage(210);
+  verifyGarageDoesNotExist(210);
 });
 
 // Story: crud:Garage:nondet:1:2
 bthread("crud:Garage:nondet:1:2", function () {
   let garageId = 211;
-  addGarage(211);
+  createGarage(211);
   tryToAddExistingGarage(211);
-  updateGarage(garageId, 211);
-  verifyGarageExists(garageId);
-  deleteGarage(garageId);
-  tryToDeleteANonExistingGarage(garageId);
-  verifyGarageDoesNotExist(garageId);
+  updateGarage(211);
+  verifyGarageExists(211);
+  deleteGarage(211);
+  tryToDeleteANonExistingGarage(211);
+  verifyGarageDoesNotExist(211);
 });
 
 // Story: crud:Garage:nondet:negative:dup-add
 bthread("crud:Garage:nondet:negative:dup-add", function () {
   let garageId = 216;
-  addGarage(216);
-  verifyGarageExists(garageId);
+  createGarage(216);
+  verifyGarageExists(216);
   tryToAddExistingGarage(216);
-  verifyGarageExists(garageId);
+  verifyGarageExists(216);
 });
 
 // Story: crud:Garage:nondet:existing:update
@@ -95,8 +96,9 @@ bthread("crud:Garage:nondet:existing:update", function () {
   let ev = waitForAnyGarageAdded();
   let args = Object.values(ev);
   block(matchDeletedGarage.apply(null, args), function () {
-    // verifyGarageExists.apply(null, args);
-    // updateGarage.apply(null, args);
+    verifyGarageExists.apply(null, args);
+    updateGarage.apply(null, args);
+    verifyGarageExists.apply(null, args);
   });
 });
 
@@ -106,7 +108,7 @@ bthread("monitor:Garage:add", function () {
     let ev = waitForAnyGarageAdded();
     let args = Object.values(ev);
     block(matchDeletedGarage.apply(null, args), function () {
-      // verifyGarageExists.apply(null, args);
+      verifyGarageExists.apply(null, args);
     });
   }
 });
@@ -114,34 +116,34 @@ bthread("monitor:Garage:add", function () {
 // Story: crud:Customer:nondet:1:1
 bthread("crud:Customer:nondet:1:1", function () {
   let customerId = 220;
-  addCustomer(220);
+  createCustomer(220);
   tryToAddExistingCustomer(220);
-  verifyCustomerExists(customerId);
-  updateCustomer(customerId, 220);
-  deleteCustomer(customerId);
-  tryToDeleteANonExistingCustomer(customerId);
-  verifyCustomerDoesNotExist(customerId);
+  verifyCustomerExists(220);
+  updateCustomer(220);
+  deleteCustomer(220);
+  tryToDeleteANonExistingCustomer(220);
+  verifyCustomerDoesNotExist(220);
 });
 
 // Story: crud:Customer:nondet:1:2
 bthread("crud:Customer:nondet:1:2", function () {
   let customerId = 221;
-  addCustomer(221);
+  createCustomer(221);
   tryToAddExistingCustomer(221);
-  updateCustomer(customerId, 221);
-  verifyCustomerExists(customerId);
-  deleteCustomer(customerId);
-  tryToDeleteANonExistingCustomer(customerId);
-  verifyCustomerDoesNotExist(customerId);
+  updateCustomer(221);
+  verifyCustomerExists(221);
+  deleteCustomer(221);
+  tryToDeleteANonExistingCustomer(221);
+  verifyCustomerDoesNotExist(221);
 });
 
 // Story: crud:Customer:nondet:negative:dup-add
 bthread("crud:Customer:nondet:negative:dup-add", function () {
   let customerId = 226;
-  addCustomer(226);
-  verifyCustomerExists(customerId);
+  createCustomer(226);
+  verifyCustomerExists(226);
   tryToAddExistingCustomer(226);
-  verifyCustomerExists(customerId);
+  verifyCustomerExists(226);
 });
 
 // Story: crud:Customer:nondet:existing:update
@@ -149,8 +151,9 @@ bthread("crud:Customer:nondet:existing:update", function () {
   let ev = waitForAnyCustomerAdded();
   let args = Object.values(ev);
   block(matchDeletedCustomer.apply(null, args), function () {
-    // verifyCustomerExists.apply(null, args);
-    // updateCustomer.apply(null, args);
+    verifyCustomerExists.apply(null, args);
+    updateCustomer.apply(null, args);
+    verifyCustomerExists.apply(null, args);
   });
 });
 
@@ -160,7 +163,7 @@ bthread("monitor:Customer:add", function () {
     let ev = waitForAnyCustomerAdded();
     let args = Object.values(ev);
     block(matchDeletedCustomer.apply(null, args), function () {
-      // verifyCustomerExists.apply(null, args);
+      verifyCustomerExists.apply(null, args);
     });
   }
 });
@@ -168,34 +171,34 @@ bthread("monitor:Customer:add", function () {
 // Story: crud:Car:nondet:1:1
 bthread("crud:Car:nondet:1:1", function () {
   let vin = "vin_230";
-  addCar("vin_230");
+  createCar("vin_230");
   tryToAddExistingCar("vin_230");
-  verifyCarExists(vin);
-  updateCar(vin, "vin_230");
-  deleteCar(vin);
-  tryToDeleteANonExistingCar(vin);
-  verifyCarDoesNotExist(vin);
+  verifyCarExists("vin_230");
+  updateCar("vin_230");
+  deleteCar("vin_230");
+  tryToDeleteANonExistingCar("vin_230");
+  verifyCarDoesNotExist("vin_230");
 });
 
 // Story: crud:Car:nondet:1:2
 bthread("crud:Car:nondet:1:2", function () {
   let vin = "vin_231";
-  addCar("vin_231");
+  createCar("vin_231");
   tryToAddExistingCar("vin_231");
-  updateCar(vin, "vin_231");
-  verifyCarExists(vin);
-  deleteCar(vin);
-  tryToDeleteANonExistingCar(vin);
-  verifyCarDoesNotExist(vin);
+  updateCar("vin_231");
+  verifyCarExists("vin_231");
+  deleteCar("vin_231");
+  tryToDeleteANonExistingCar("vin_231");
+  verifyCarDoesNotExist("vin_231");
 });
 
 // Story: crud:Car:nondet:negative:dup-add
 bthread("crud:Car:nondet:negative:dup-add", function () {
   let vin = "vin_236";
-  addCar("vin_236");
-  verifyCarExists(vin);
+  createCar("vin_236");
+  verifyCarExists("vin_236");
   tryToAddExistingCar("vin_236");
-  verifyCarExists(vin);
+  verifyCarExists("vin_236");
 });
 
 // Story: crud:Car:nondet:existing:update
@@ -203,8 +206,9 @@ bthread("crud:Car:nondet:existing:update", function () {
   let ev = waitForAnyCarAdded();
   let args = Object.values(ev);
   block(matchDeletedCar.apply(null, args), function () {
-    // verifyCarExists.apply(null, args);
-    // updateCar.apply(null, args);
+    verifyCarExists.apply(null, args);
+    updateCar.apply(null, args);
+    verifyCarExists.apply(null, args);
   });
 });
 
@@ -214,7 +218,7 @@ bthread("monitor:Car:add", function () {
     let ev = waitForAnyCarAdded();
     let args = Object.values(ev);
     block(matchDeletedCar.apply(null, args), function () {
-      // verifyCarExists.apply(null, args);
+      verifyCarExists.apply(null, args);
     });
   }
 });
@@ -222,34 +226,34 @@ bthread("monitor:Car:add", function () {
 // Story: crud:PeriodicMaintenance:nondet:1:1
 bthread("crud:PeriodicMaintenance:nondet:1:1", function () {
   let pmId = 240;
-  addPeriodicMaintenance(240);
+  createPM(240);
   tryToAddExistingPeriodicMaintenance(240);
-  verifyPeriodicMaintenanceExists(pmId);
-  updatePeriodicMaintenance(pmId, 240);
-  deletePeriodicMaintenance(pmId);
-  tryToDeleteANonExistingPeriodicMaintenance(pmId);
-  verifyPeriodicMaintenanceDoesNotExist(pmId);
+  verifyPeriodicMaintenanceExists(240);
+  updatePM(240);
+  deletePM(240);
+  tryToDeleteANonExistingPeriodicMaintenance(240);
+  verifyPeriodicMaintenanceDoesNotExist(240);
 });
 
 // Story: crud:PeriodicMaintenance:nondet:1:2
 bthread("crud:PeriodicMaintenance:nondet:1:2", function () {
   let pmId = 241;
-  addPeriodicMaintenance(241);
+  createPM(241);
   tryToAddExistingPeriodicMaintenance(241);
-  updatePeriodicMaintenance(pmId, 241);
-  verifyPeriodicMaintenanceExists(pmId);
-  deletePeriodicMaintenance(pmId);
-  tryToDeleteANonExistingPeriodicMaintenance(pmId);
-  verifyPeriodicMaintenanceDoesNotExist(pmId);
+  updatePM(241);
+  verifyPeriodicMaintenanceExists(241);
+  deletePM(241);
+  tryToDeleteANonExistingPeriodicMaintenance(241);
+  verifyPeriodicMaintenanceDoesNotExist(241);
 });
 
 // Story: crud:PeriodicMaintenance:nondet:negative:dup-add
 bthread("crud:PeriodicMaintenance:nondet:negative:dup-add", function () {
   let pmId = 246;
-  addPeriodicMaintenance(246);
-  verifyPeriodicMaintenanceExists(pmId);
+  createPM(246);
+  verifyPeriodicMaintenanceExists(246);
   tryToAddExistingPeriodicMaintenance(246);
-  verifyPeriodicMaintenanceExists(pmId);
+  verifyPeriodicMaintenanceExists(246);
 });
 
 // Story: crud:PeriodicMaintenance:nondet:existing:update
@@ -257,8 +261,9 @@ bthread("crud:PeriodicMaintenance:nondet:existing:update", function () {
   let ev = waitForAnyPeriodicMaintenanceAdded();
   let args = Object.values(ev);
   block(matchDeletedPeriodicMaintenance.apply(null, args), function () {
-    // verifyPeriodicMaintenanceExists.apply(null, args);
-    // updatePeriodicMaintenance.apply(null, args);
+    verifyPeriodicMaintenanceExists.apply(null, args);
+    updatePM.apply(null, args);
+    verifyPeriodicMaintenanceExists.apply(null, args);
   });
 });
 
@@ -268,7 +273,7 @@ bthread("monitor:PeriodicMaintenance:add", function () {
     let ev = waitForAnyPeriodicMaintenanceAdded();
     let args = Object.values(ev);
     block(matchDeletedPeriodicMaintenance.apply(null, args), function () {
-      // verifyPeriodicMaintenanceExists.apply(null, args);
+      verifyPeriodicMaintenanceExists.apply(null, args);
     });
   }
 });
@@ -276,34 +281,34 @@ bthread("monitor:PeriodicMaintenance:add", function () {
 // Story: crud:RepairOrder:nondet:1:1
 bthread("crud:RepairOrder:nondet:1:1", function () {
   let roId = 250;
-  addRepairOrder(250);
+  createRepairOrder(250);
   tryToAddExistingRepairOrder(250);
-  verifyRepairOrderExists(roId);
-  updateRepairOrder(roId, 250);
-  deleteRepairOrder(roId);
-  tryToDeleteANonExistingRepairOrder(roId);
-  verifyRepairOrderDoesNotExist(roId);
+  verifyRepairOrderExists(250);
+  updateRepairOrder(250);
+  deleteRepairOrder(250);
+  tryToDeleteANonExistingRepairOrder(250);
+  verifyRepairOrderDoesNotExist(250);
 });
 
 // Story: crud:RepairOrder:nondet:1:2
 bthread("crud:RepairOrder:nondet:1:2", function () {
   let roId = 251;
-  addRepairOrder(251);
+  createRepairOrder(251);
   tryToAddExistingRepairOrder(251);
-  updateRepairOrder(roId, 251);
-  verifyRepairOrderExists(roId);
-  deleteRepairOrder(roId);
-  tryToDeleteANonExistingRepairOrder(roId);
-  verifyRepairOrderDoesNotExist(roId);
+  updateRepairOrder(251);
+  verifyRepairOrderExists(251);
+  deleteRepairOrder(251);
+  tryToDeleteANonExistingRepairOrder(251);
+  verifyRepairOrderDoesNotExist(251);
 });
 
 // Story: crud:RepairOrder:nondet:negative:dup-add
 bthread("crud:RepairOrder:nondet:negative:dup-add", function () {
   let roId = 256;
-  addRepairOrder(256);
-  verifyRepairOrderExists(roId);
+  createRepairOrder(256);
+  verifyRepairOrderExists(256);
   tryToAddExistingRepairOrder(256);
-  verifyRepairOrderExists(roId);
+  verifyRepairOrderExists(256);
 });
 
 // Story: crud:RepairOrder:nondet:existing:update
@@ -311,8 +316,9 @@ bthread("crud:RepairOrder:nondet:existing:update", function () {
   let ev = waitForAnyRepairOrderAdded();
   let args = Object.values(ev);
   block(matchDeletedRepairOrder.apply(null, args), function () {
-    // verifyRepairOrderExists.apply(null, args);
-    // updateRepairOrder.apply(null, args);
+    verifyRepairOrderExists.apply(null, args);
+    updateRepairOrder.apply(null, args);
+    verifyRepairOrderExists.apply(null, args);
   });
 });
 
@@ -322,7 +328,7 @@ bthread("monitor:RepairOrder:add", function () {
     let ev = waitForAnyRepairOrderAdded();
     let args = Object.values(ev);
     block(matchDeletedRepairOrder.apply(null, args), function () {
-      // verifyRepairOrderExists.apply(null, args);
+      verifyRepairOrderExists.apply(null, args);
     });
   }
 });

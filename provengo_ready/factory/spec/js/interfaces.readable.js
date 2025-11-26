@@ -4,7 +4,7 @@
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 
-const svc = new RESTSession("", "provengo-client", {
+const svc = new RESTSession("http://localhost:8080", "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
@@ -17,24 +17,24 @@ function matchesDescriptionRegex(re) {
 
 // ---- Entity: machine ----
 
-function addMachine() {
+function listMachines() {
   var url = "/machines";
-  var description = "Add machine";
+  var description = "List machines";
   var body = undefined;
   return svc.request({
-    method: "POST",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function getMachines() {
+function createMachine() {
   var url = "/machines";
-  var description = "Get machines";
+  var description = "Create machine";
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "POST",
     url: url,
     parameters: { description: description },
     body: body
@@ -42,56 +42,37 @@ function getMachines() {
 }
 
 function tryToAddExistingMachine() {
-  return addMachine();
+  return createMachine();
 }
 
 function verifyMachineExists() {
-  return getMachines();
+  return listMachines();
 }
 
 function verifyMachineDoesNotExist() {
-  return getMachines();
-}
-
-function matchAddedMachine() {
-  return bp.EventSet("matchAddedMachine", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
-
-function waitForAnyMachineAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add machine/)});
-  var m = ev.data.parameters.description.match(/Add machine/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+  return listMachines();
 }
 
 // ---- Entity: workorder ----
 
-function addWorkorder() {
+function listWorkorders() {
   var url = "/workorders";
-  var description = "Add workorder";
+  var description = "List workorders";
   var body = undefined;
   return svc.request({
-    method: "POST",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function getWorkorders() {
+function createWorkorder() {
   var url = "/workorders";
-  var description = "Get workorders";
+  var description = "Create workorder";
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "POST",
     url: url,
     parameters: { description: description },
     body: body
@@ -99,56 +80,37 @@ function getWorkorders() {
 }
 
 function tryToAddExistingWorkorder() {
-  return addWorkorder();
+  return createWorkorder();
 }
 
 function verifyWorkorderExists() {
-  return getWorkorders();
+  return listWorkorders();
 }
 
 function verifyWorkorderDoesNotExist() {
-  return getWorkorders();
+  return listWorkorders();
 }
 
-function matchAddedWorkorder() {
-  return bp.EventSet("matchAddedWorkorder", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: maintenance ticket ----
 
-function waitForAnyWorkorderAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add workorder/)});
-  var m = ev.data.parameters.description.match(/Add workorder/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: maintenanceticket ----
-
-function addMaintenanceTicket() {
+function listMaintenanceTickets() {
   var url = "/maintenance-tickets";
-  var description = "Add maintenanceticket";
+  var description = "List maintenance tickets";
   var body = undefined;
   return svc.request({
-    method: "POST",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function getMaintenanceTickets() {
+function createMaintenanceTicket() {
   var url = "/maintenance-tickets";
-  var description = "Get maintenancetickets";
+  var description = "Create maintenance ticket";
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "POST",
     url: url,
     parameters: { description: description },
     body: body
@@ -156,53 +118,22 @@ function getMaintenanceTickets() {
 }
 
 function tryToAddExistingMaintenanceTicket() {
-  return addMaintenanceTicket();
+  return createMaintenanceTicket();
 }
 
 function verifyMaintenanceTicketExists() {
-  return getMaintenanceTickets();
+  return listMaintenanceTickets();
 }
 
 function verifyMaintenanceTicketDoesNotExist() {
-  return getMaintenanceTickets();
+  return listMaintenanceTickets();
 }
 
-function matchAddedMaintenanceTicket() {
-  return bp.EventSet("matchAddedMaintenanceTicket", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: sensor reading ----
 
-function waitForAnyMaintenanceTicketAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add maintenanceticket/)});
-  var m = ev.data.parameters.description.match(/Add maintenanceticket/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: sensorreading ----
-
-function addSensorReading() {
+function listSensorReadings() {
   var url = "/sensor-readings";
-  var description = "Add sensorreading";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getSensorReadings() {
-  var url = "/sensor-readings";
-  var description = "Get sensorreadings";
+  var description = "List sensor readings";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -212,33 +143,26 @@ function getSensorReadings() {
   });
 }
 
-function tryToAddExistingSensorReading() {
-  return addSensorReading();
-}
-
-function verifySensorReadingExists() {
-  return getSensorReadings();
-}
-
-function verifySensorReadingDoesNotExist() {
-  return getSensorReadings();
-}
-
-function matchAddedSensorReading() {
-  return bp.EventSet("matchAddedSensorReading", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
+function createSensorReading() {
+  var url = "/sensor-readings";
+  var description = "Create sensor reading";
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
   });
 }
 
-function waitForAnySensorReadingAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add sensorreading/)});
-  var m = ev.data.parameters.description.match(/Add sensorreading/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function tryToAddExistingSensorReading() {
+  return createSensorReading();
+}
+
+function verifySensorReadingExists() {
+  return listSensorReadings();
+}
+
+function verifySensorReadingDoesNotExist() {
+  return listSensorReadings();
 }

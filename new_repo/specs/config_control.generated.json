@@ -1,181 +1,132 @@
 {
-  "base_url": "",
+  "sut": "config_control",
+  "base_url": "http://localhost:8080",
   "entities": {
     "App": {
       "displayName": "app",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{appId}"
-          },
-          "descriptionTemplate": "Add app {appId}",
+          "name": "createApp",
           "method": "POST",
-          "name": "addApp",
-          "params": [
-            "appId"
-          ],
-          "path": "/apps"
+          "path": "/apps",
+          "descriptionTemplate": "Create app",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Get app {appId}",
+          "name": "getApps",
           "method": "GET",
-          "name": "getApp",
-          "params": [
-            "appId"
-          ],
-          "path": "/apps"
+          "path": "/apps",
+          "descriptionTemplate": "Get apps",
+          "params": []
         }
       },
-      "params": [
-        "appId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add app (.+)",
-          "name": "waitForAnyAppAdded"
-        }
-      }
-    },
-    "Config": {
-      "displayName": "config",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{configId}"
-          },
-          "descriptionTemplate": "Add config {configId}",
-          "method": "POST",
-          "name": "addConfig",
-          "params": [
-            "configId"
-          ],
-          "path": "/configs"
-        },
-        "get": {
-          "descriptionTemplate": "Get config {configId}",
-          "method": "GET",
-          "name": "getConfig",
-          "params": [
-            "configId"
-          ],
-          "path": "/configs"
-        }
-      },
-      "params": [
-        "configId"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add config (.+)",
-          "name": "waitForAnyConfigAdded"
-        }
+        "add": "^Create app$",
+        "get": "^Get apps$"
       }
     },
     "Env": {
       "displayName": "env",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{envId}"
-          },
-          "descriptionTemplate": "Add env {envId}",
+          "name": "createEnv",
           "method": "POST",
-          "name": "addEnv",
-          "params": [
-            "envId"
-          ],
-          "path": "/envs"
+          "path": "/envs",
+          "descriptionTemplate": "Create env",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Get env {envId}",
+          "name": "getEnvs",
           "method": "GET",
-          "name": "getEnv",
-          "params": [
-            "envId"
-          ],
-          "path": "/envs"
+          "path": "/envs",
+          "descriptionTemplate": "Get envs",
+          "params": []
         }
       },
-      "params": [
-        "envId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add env (.+)",
-          "name": "waitForAnyEnvAdded"
-        }
+        "add": "^Create env$",
+        "get": "^Get envs$"
       }
     },
-    "Policy": {
-      "displayName": "policy",
+    "Config": {
+      "displayName": "config",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{policyId}"
-          },
-          "descriptionTemplate": "Add policy {policyId}",
+          "name": "createConfig",
           "method": "POST",
-          "name": "addPolicy",
-          "params": [
-            "policyId"
-          ],
-          "path": "/policies"
+          "path": "/configs",
+          "descriptionTemplate": "Create config",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Get policy {policyId}",
+          "name": "getConfigs",
           "method": "GET",
-          "name": "getPolicy",
-          "params": [
-            "policyId"
-          ],
-          "path": "/policies"
+          "path": "/configs",
+          "descriptionTemplate": "Get configs",
+          "params": []
         }
       },
-      "params": [
-        "policyId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add policy (.+)",
-          "name": "waitForAnyPolicyAdded"
-        }
+        "add": "^Create config$",
+        "get": "^Get configs$"
       }
     },
     "Release": {
       "displayName": "release",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{releaseId}"
-          },
-          "descriptionTemplate": "Add release {releaseId}",
+          "name": "createRelease",
           "method": "POST",
-          "name": "addRelease",
-          "params": [
-            "releaseId"
-          ],
-          "path": "/releases"
+          "path": "/releases",
+          "descriptionTemplate": "Create release",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Get release {releaseId}",
+          "name": "getReleases",
           "method": "GET",
-          "name": "getRelease",
-          "params": [
-            "releaseId"
-          ],
-          "path": "/releases"
+          "path": "/releases",
+          "descriptionTemplate": "Get releases",
+          "params": []
         }
       },
-      "params": [
-        "releaseId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add release (.+)",
-          "name": "waitForAnyReleaseAdded"
+        "add": "^Create release$",
+        "get": "^Get releases$"
+      }
+    },
+    "Policy": {
+      "displayName": "policy",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createPolicy",
+          "method": "POST",
+          "path": "/policies",
+          "descriptionTemplate": "Create policy",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getPolicies",
+          "method": "GET",
+          "path": "/policies",
+          "descriptionTemplate": "Get policies",
+          "params": []
         }
+      },
+      "waitForPatterns": {
+        "add": "^Create policy$",
+        "get": "^Get policies$"
       }
     }
   },
-  "sut": "config_control"
+  "stories": []
 }

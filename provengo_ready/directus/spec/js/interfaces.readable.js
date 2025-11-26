@@ -4,7 +4,7 @@
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 
-const svc = new RESTSession("", "provengo-client", {
+const svc = new RESTSession("http://localhost:8080", "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
@@ -15,11 +15,51 @@ function matchesDescriptionRegex(re) {
   });
 }
 
-// ---- Entity: activity ----
+// ---- Entity: user ----
 
-function getActivity(id) {
-  var url = "/activity/" + id;
-  var description = "Retrieve an Activity Action " + id;
+function createUser() {
+  var url = "/users";
+  var description = "Create a user";
+  var body = {
+    "user": user,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteUser(id) {
+  var url = "/users/" + id;
+  var description = "Delete user " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateUser(id) {
+  var url = "/users/" + id;
+  var description = "Update user " + id;
+  var body = {
+    "user": user,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getUser(id) {
+  var url = "/users/" + id;
+  var description = "Retrieve user " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -29,91 +69,27 @@ function getActivity(id) {
   });
 }
 
-function listActivities() {
-  var url = "/activity";
-  var description = "List Activity Actions";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingUser(id) {
+  return createUser();
 }
 
-function verifyActivityExists(id) {
-  return getActivity(id);
+function verifyUserExists(id) {
+  return getUser(id);
 }
 
-function verifyActivityDoesNotExist(id) {
-  return getActivity(id);
+function verifyUserDoesNotExist(id) {
+  return getUser(id);
 }
 
-function matchAddedActivity(id) {
-  return bp.EventSet("matchAddedActivity", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
+function tryToDeleteANonExistingUser(id) {
+  return deleteUser(id);
 }
 
-function waitForAnyActivityAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add activity (.+)/)});
-  var m = ev.data.parameters.description.match(/Add activity (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedActivity(id) {
-  return bp.EventSet("matchDeletedActivity", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyActivityDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete activity (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete activity (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: assets ----
-
-function getAsset(id) {
-  var url = "/assets/" + id;
-  var description = "Get an Asset " + id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyAssetsExists(id) {
-  return getAsset(id);
-}
-
-function verifyAssetsDoesNotExist(id) {
-  return getAsset(id);
-}
-
-// ---- Entity: authentication ----
+// ---- Entity: auth ----
 
 function login(email, password, mode, otp) {
   var url = "/auth/login";
-  var description = "Retrieve a Temporary Access Token";
+  var description = "Retrieve a Temporary Access Token for " + email;
   var body = {
     "email": email,
     "password": password,
@@ -130,7 +106,7 @@ function login(email, password, mode, otp) {
 
 function refresh(refresh_token, mode) {
   var url = "/auth/refresh";
-  var description = "Refresh a Temporary Access Token";
+  var description = "Refresh Token";
   var body = {
     "refresh_token": refresh_token,
     "mode": mode,
@@ -160,7 +136,7 @@ function logout(refresh_token, mode) {
 
 function passwordRequest(email) {
   var url = "/auth/password/request";
-  var description = "Request a Password Reset " + email;
+  var description = "Request a Password Reset for " + email;
   var body = {
     "email": email,
   };
@@ -174,7 +150,7 @@ function passwordRequest(email) {
 
 function passwordReset(token, password) {
   var url = "/auth/password/reset";
-  var description = "Reset a Password " + token;
+  var description = "Reset a Password using token " + token;
   var body = {
     "token": token,
     "password": password,
@@ -201,7 +177,7 @@ function oauth() {
 
 function oauthProvider(provider, redirect) {
   var url = "/auth/oauth/" + provider;
-  var description = "Authenticated using an OAuth provider " + provider;
+  var description = "Authenticated using OAuth provider " + provider;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -211,23 +187,121 @@ function oauthProvider(provider, redirect) {
   });
 }
 
-function tryToAddExistingAuthentication(email, password, mode, otp) {
+function tryToAddExistingAuth(email, password, mode, otp, refresh_token, token, provider, redirect) {
   return login(email, password, mode, otp);
 }
 
-function verifyAuthenticationExists() {
-  return oauth();
+function tryToDeleteANonExistingAuth(email, password, mode, otp, refresh_token, token, provider, redirect) {
+  return logout(refresh_token, mode);
 }
 
-function verifyAuthenticationDoesNotExist() {
-  return oauth();
+// ---- Entity: hash ----
+
+function generateHash(string) {
+  var url = "/utils/hash/generate";
+  var description = "Hash a string";
+  var body = {
+    "string": string,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-// ---- Entity: items ----
+function verifyHash(string, hash) {
+  var url = "/utils/hash/verify";
+  var description = "Verify hash for string";
+  var body = {
+    "string": string,
+    "hash": hash,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
 
-function addItem(collection) {
-  var url = "/items/" + collection;
-  var description = "Create an Item in collection " + collection;
+function tryToAddExistingHash(string, hash) {
+  return generateHash(string);
+}
+
+function verifyHashExists(string, hash) {
+  return verifyHash(string, hash);
+}
+
+function verifyHashDoesNotExist(string, hash) {
+  return verifyHash(string, hash);
+}
+
+// ---- Entity: collection item ----
+
+function sortItems(collection, item, to) {
+  var url = "/utils/sort/" + collection;
+  var description = "Sort items in collection " + collection;
+  var body = {
+    "item": item,
+    "to": to,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function importItems(collection) {
+  var url = "/utils/import/" + collection;
+  var description = "Import items into collection " + collection;
+  var body = {
+    "file": file,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function exportItems(collection, format, query, file) {
+  var url = "/utils/export/" + collection;
+  var description = "Export items from collection " + collection + " in format " + format;
+  var body = {
+    "format": format,
+    "query": query,
+    "file": file,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCollectionItems(collection, item, to, format, query, file) {
+  return importItems(collection);
+}
+
+function verifyCollectionItemsExists(collection, item, to, format, query, file) {
+  return exportItems(collection, format, query, file);
+}
+
+function verifyCollectionItemsDoesNotExist(collection, item, to, format, query, file) {
+  return exportItems(collection, format, query, file);
+}
+
+// ---- Entity: cache ----
+
+function clearCache() {
+  var url = "/utils/cache/clear";
+  var description = "Clear Cache";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -237,21 +311,15 @@ function addItem(collection) {
   });
 }
 
-function deleteItem(collection, id) {
-  var url = "/items/" + collection + "/" + id;
-  var description = "Delete an Item " + id + " in collection " + collection;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToDeleteANonExistingCache() {
+  return clearCache();
 }
 
-function getItem(collection, id) {
-  var url = "/items/" + collection + "/" + id;
-  var description = "Retrieve an Item " + id + " in collection " + collection;
+// ---- Entity: random string ----
+
+function getRandomString(length) {
+  var url = "/utils/random/string";
+  var description = "Get a Random String of length " + length;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -261,101 +329,19 @@ function getItem(collection, id) {
   });
 }
 
-function updateItem(collection, id) {
-  var url = "/items/" + collection + "/" + id;
-  var description = "Update an Item " + id + " in collection " + collection;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyRandomStringExists(length) {
+  return getRandomString(length);
 }
 
-function updateItems(collection) {
-  var url = "/items/" + collection;
-  var description = "Update Multiple Items in collection " + collection;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyRandomStringDoesNotExist(length) {
+  return getRandomString(length);
 }
 
-function deleteItems(collection) {
-  var url = "/items/" + collection;
-  var description = "Delete Multiple Items in collection " + collection;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
+// ---- Entity: content version ----
 
-function tryToAddExistingItems(collection) {
-  return addItem(collection);
-}
-
-function verifyItemsExists(collection, id) {
-  return getItem(collection, id);
-}
-
-function verifyItemsDoesNotExist(collection, id) {
-  return getItem(collection, id);
-}
-
-function tryToDeleteANonExistingItems(collection, id) {
-  return deleteItem(collection, id);
-}
-
-function matchAddedItems(collection) {
-  return bp.EventSet("matchAddedItems", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(collection);
-  });
-}
-
-function waitForAnyItemsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create an Item in collection (.+)/)});
-  var m = ev.data.parameters.description.match(/Create an Item in collection (.+)/);
-  var captures = m.slice(1);
-  var names = ["collection"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedItems(collection) {
-  return bp.EventSet("matchDeletedItems", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(collection);
-  });
-}
-
-function waitForAnyItemsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete an Item (.+) in collection (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete an Item (.+) in collection (.+)/);
-  var captures = m.slice(1);
-  var names = ["collection"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: presets ----
-
-function addPreset() {
-  var url = "/presets";
-  var description = "Create a Preset";
+function createContentVersion() {
+  var url = "/versions";
+  var description = "Create content version";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -365,9 +351,9 @@ function addPreset() {
   });
 }
 
-function deletePreset(id) {
-  var url = "/presets/" + id;
-  var description = "Delete a Preset " + id;
+function deleteContentVersion(id) {
+  var url = "/versions/" + id;
+  var description = "Delete content version " + id;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -377,21 +363,9 @@ function deletePreset(id) {
   });
 }
 
-function getPreset(id) {
-  var url = "/presets/" + id;
-  var description = "Retrieve a Preset " + id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updatePreset(id) {
-  var url = "/presets/" + id;
-  var description = "Update a Preset " + id;
+function updateContentVersion(id) {
+  var url = "/versions/" + id;
+  var description = "Update content version " + id;
   var body = undefined;
   return svc.request({
     method: "PATCH",
@@ -401,33 +375,9 @@ function updatePreset(id) {
   });
 }
 
-function updatePresets() {
-  var url = "/presets";
-  var description = "Update Multiple Presets";
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deletePresets() {
-  var url = "/presets";
-  var description = "Delete Multiple Presets";
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listPresets() {
-  var url = "/presets";
-  var description = "List Presets";
+function getContentVersion(id) {
+  var url = "/versions/" + id;
+  var description = "Retrieve content version " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -437,65 +387,27 @@ function listPresets() {
   });
 }
 
-function tryToAddExistingPresets() {
-  return addPreset();
+function tryToAddExistingContentVersion(id) {
+  return createContentVersion();
 }
 
-function verifyPresetsExists(id) {
-  return getPreset(id);
+function verifyContentVersionExists(id) {
+  return getContentVersion(id);
 }
 
-function verifyPresetsDoesNotExist(id) {
-  return getPreset(id);
+function verifyContentVersionDoesNotExist(id) {
+  return getContentVersion(id);
 }
 
-function tryToDeleteANonExistingPresets(id) {
-  return deletePreset(id);
+function tryToDeleteANonExistingContentVersion(id) {
+  return deleteContentVersion(id);
 }
 
-function matchAddedPresets(id) {
-  return bp.EventSet("matchAddedPresets", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
+// ---- Entity: content versions ----
 
-function waitForAnyPresetsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Preset/)});
-  var m = ev.data.parameters.description.match(/Create a Preset/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedPresets(id) {
-  return bp.EventSet("matchDeletedPresets", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyPresetsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a Preset (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a Preset (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: collections ----
-
-function addCollection() {
-  var url = "/collections";
-  var description = "Create a Collection";
+function createContentVersion() {
+  var url = "/versions";
+  var description = "Create multiple content versions";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -505,9 +417,9 @@ function addCollection() {
   });
 }
 
-function deleteCollection(id) {
-  var url = "/collections/" + id;
-  var description = "Delete a Collection " + id;
+function deleteContentVersions() {
+  var url = "/versions";
+  var description = "Delete multiple content versions";
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -517,9 +429,21 @@ function deleteCollection(id) {
   });
 }
 
-function getCollection(id) {
-  var url = "/collections/" + id;
-  var description = "Retrieve a Collection " + id;
+function updateContentVersions() {
+  var url = "/versions";
+  var description = "Update multiple content versions";
+  var body = undefined;
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getContentVersions() {
+  var url = "/versions";
+  var description = "List content versions";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -529,249 +453,23 @@ function getCollection(id) {
   });
 }
 
-function updateCollection(id) {
-  var url = "/collections/" + id;
-  var description = "Update a Collection " + id;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingContentVersionsBulk() {
+  return createContentVersion();
 }
 
-function listCollections() {
-  var url = "/collections";
-  var description = "List Collections";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyContentVersionsBulkExists() {
+  return getContentVersions();
 }
 
-function tryToAddExistingCollections() {
-  return addCollection();
+function verifyContentVersionsBulkDoesNotExist() {
+  return getContentVersions();
 }
 
-function verifyCollectionsExists(id) {
-  return getCollection(id);
+function tryToDeleteANonExistingContentVersionsBulk() {
+  return deleteContentVersions();
 }
 
-function verifyCollectionsDoesNotExist(id) {
-  return getCollection(id);
-}
-
-function tryToDeleteANonExistingCollections(id) {
-  return deleteCollection(id);
-}
-
-function matchAddedCollections(id) {
-  return bp.EventSet("matchAddedCollections", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyCollectionsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Collection/)});
-  var m = ev.data.parameters.description.match(/Create a Collection/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedCollections(id) {
-  return bp.EventSet("matchDeletedCollections", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyCollectionsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a Collection (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a Collection (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: comments ----
-
-function addComment() {
-  var url = "/comments";
-  var description = "Create a Comment";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteComment(id) {
-  var url = "/comments/" + id;
-  var description = "Delete a Comment " + id;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getComment(id) {
-  var url = "/comments/" + id;
-  var description = "Retrieve a Comment " + id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateComment(id) {
-  var url = "/comments/" + id;
-  var description = "Update a Comment " + id;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateComments() {
-  var url = "/comments";
-  var description = "Update Multiple Comments";
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteComments() {
-  var url = "/comments";
-  var description = "Delete Multiple Comments";
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listComments() {
-  var url = "/comments";
-  var description = "List Comments";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingComments() {
-  return addComment();
-}
-
-function verifyCommentsExists(id) {
-  return getComment(id);
-}
-
-function verifyCommentsDoesNotExist(id) {
-  return getComment(id);
-}
-
-function tryToDeleteANonExistingComments(id) {
-  return deleteComment(id);
-}
-
-function matchAddedComments(id) {
-  return bp.EventSet("matchAddedComments", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyCommentsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Comment/)});
-  var m = ev.data.parameters.description.match(/Create a Comment/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedComments(id) {
-  return bp.EventSet("matchDeletedComments", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyCommentsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a Comment (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a Comment (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: extensions ----
-
-function updateExtension(name) {
-  var url = "/extensions/" + name;
-  var description = "Update an Extension " + name;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateExtensionBundle(bundle, name) {
-  var url = "/extensions/" + bundle + "/" + name;
-  var description = "Update an Extension " + name + " in bundle " + bundle;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
+// ---- Entity: extension ----
 
 function listExtensions() {
   var url = "/extensions";
@@ -785,12 +483,59 @@ function listExtensions() {
   });
 }
 
-// ---- Entity: fields ----
+function updateExtension(name) {
+  var url = "/extensions/" + name;
+  var description = "Update extension " + name;
+  var body = {
+    "meta": {
+      "enabled": enabled,
+    },
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
 
-function addField(collection) {
+function verifyExtensionExists(name) {
+  return listExtensions();
+}
+
+function verifyExtensionDoesNotExist(name) {
+  return listExtensions();
+}
+
+// ---- Entity: extension bundle ----
+
+function updateExtensionBundle(bundle, name) {
+  var url = "/extensions/" + bundle + "/" + name;
+  var description = "Update extension " + name + " in bundle " + bundle;
+  var body = {
+    "meta": {
+      "enabled": enabled,
+    },
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: field ----
+
+function createField(collection, field) {
   var url = "/fields/" + collection;
-  var description = "Create a Field in collection " + collection;
-  var body = undefined;
+  var description = "Create field " + field + " in collection " + collection;
+  var body = {
+    "field": field,
+    "datatype": datatype,
+    "type": type,
+    "length": length,
+  };
   return svc.request({
     method: "POST",
     url: url,
@@ -801,7 +546,7 @@ function addField(collection) {
 
 function deleteField(collection, id) {
   var url = "/fields/" + collection + "/" + id;
-  var description = "Delete a Field " + id + " in collection " + collection;
+  var description = "Delete field " + id + " in collection " + collection;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -811,9 +556,26 @@ function deleteField(collection, id) {
   });
 }
 
+function updateField(collection, id) {
+  var url = "/fields/" + collection + "/" + id;
+  var description = "Update field " + id + " in collection " + collection;
+  var body = {
+    "field": field,
+    "type": type,
+    "schema": schema,
+    "meta": meta,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
 function getField(collection, id) {
   var url = "/fields/" + collection + "/" + id;
-  var description = "Retrieve a Field " + id + " in collection " + collection;
+  var description = "Get field " + id + " in collection " + collection;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -823,9 +585,231 @@ function getField(collection, id) {
   });
 }
 
-function updateField(collection, id) {
-  var url = "/fields/" + collection + "/" + id;
-  var description = "Update a Field " + id + " in collection " + collection;
+function tryToAddExistingField(collection, field, id) {
+  return createField(collection, field);
+}
+
+function verifyFieldExists(collection, field, id) {
+  return getField(collection, id);
+}
+
+function verifyFieldDoesNotExist(collection, field, id) {
+  return getField(collection, id);
+}
+
+function tryToDeleteANonExistingField(collection, field, id) {
+  return deleteField(collection, id);
+}
+
+// ---- Entity: permission ----
+
+function createPermission(collection, role) {
+  var url = "/permissions";
+  var description = "Create a permission for collection " + collection + " and role " + role;
+  var body = {
+    "collection": collection,
+    "comment": comment,
+    "create": create,
+    "delete": delete,
+    "explain": explain,
+    "read": read,
+    "role": role,
+    "read_field_blacklist": read_field_blacklist,
+    "status": status,
+    "status_blacklist": status_blacklist,
+    "update": update,
+    "write_field_blacklist": write_field_blacklist,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deletePermission(id) {
+  var url = "/permissions/" + id;
+  var description = "Delete permission " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updatePermission(id) {
+  var url = "/permissions/" + id;
+  var description = "Update permission " + id;
+  var body = {
+    "collection": collection,
+    "comment": comment,
+    "create": create,
+    "delete": delete,
+    "explain": explain,
+    "read": read,
+    "role": role,
+    "read_field_blacklist": read_field_blacklist,
+    "status": status,
+    "status_blacklist": status_blacklist,
+    "update": update,
+    "write_field_blacklist": write_field_blacklist,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getPermission(id) {
+  var url = "/permissions/" + id;
+  var description = "Retrieve permission " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingPermission(collection, role, id) {
+  return createPermission(collection, role);
+}
+
+function verifyPermissionExists(collection, role, id) {
+  return getPermission(id);
+}
+
+function verifyPermissionDoesNotExist(collection, role, id) {
+  return getPermission(id);
+}
+
+function tryToDeleteANonExistingPermission(collection, role, id) {
+  return deletePermission(id);
+}
+
+// ---- Entity: schema ----
+
+function getSchemaSnapshot() {
+  var url = "/schema/snapshot";
+  var description = "Retrieve schema snapshot";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function applySchemaDifference() {
+  var url = "/schema/apply";
+  var description = "Apply schema difference";
+  var body = {
+    "data": data,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function retrieveSchemaDifference(force) {
+  var url = "/schema/diff";
+  var description = "Retrieve schema difference";
+  var body = {
+    "data": data,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSchema(force) {
+  return applySchemaDifference();
+}
+
+function verifySchemaExists(force) {
+  return getSchemaSnapshot();
+}
+
+function verifySchemaDoesNotExist(force) {
+  return getSchemaSnapshot();
+}
+
+// ---- Entity: activity ----
+
+function getActivity(id) {
+  var url = "/activity/" + id;
+  var description = "Retrieve an Activity Action " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getActivities() {
+  var url = "/activity";
+  var description = "List Activity Actions";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyActivityExists(id) {
+  return getActivity(id);
+}
+
+function verifyActivityDoesNotExist(id) {
+  return getActivity(id);
+}
+
+// ---- Entity: item ----
+
+function createItem(collection) {
+  var url = "/items/" + collection;
+  var description = "Create an item in " + collection;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteItem(collection, id) {
+  var url = "/items/" + collection + "/" + id;
+  var description = "Delete item " + id + " from " + collection;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateItem(collection, id) {
+  var url = "/items/" + collection + "/" + id;
+  var description = "Update item " + id + " in " + collection;
   var body = undefined;
   return svc.request({
     method: "PATCH",
@@ -835,9 +819,9 @@ function updateField(collection, id) {
   });
 }
 
-function listFields() {
-  var url = "/fields";
-  var description = "List All Fields";
+function getItem(collection, id) {
+  var url = "/items/" + collection + "/" + id;
+  var description = "Retrieve item " + id + " from " + collection;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -847,9 +831,82 @@ function listFields() {
   });
 }
 
-function listCollectionFields(collection) {
-  var url = "/fields/" + collection;
-  var description = "List Fields in collection " + collection;
+function tryToAddExistingItem(collection, id) {
+  return createItem(collection);
+}
+
+function verifyItemExists(collection, id) {
+  return getItem(collection, id);
+}
+
+function verifyItemDoesNotExist(collection, id) {
+  return getItem(collection, id);
+}
+
+function tryToDeleteANonExistingItem(collection, id) {
+  return deleteItem(collection, id);
+}
+
+// ---- Entity: preset ----
+
+function createPreset(collection) {
+  var url = "/presets";
+  var description = "Create a Preset for collection " + collection;
+  var body = {
+    "collection": collection,
+    "title": title,
+    "role": role,
+    "search": search,
+    "filters": filters,
+    "layout": layout,
+    "layout_query": layout_query,
+    "layout_options": layout_options,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deletePreset(id) {
+  var url = "/presets/" + id;
+  var description = "Delete preset " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updatePreset(id, collection) {
+  var url = "/presets/" + id;
+  var description = "Update preset " + id + " for collection " + collection;
+  var body = {
+    "collection": collection,
+    "title": title,
+    "role": role,
+    "search_query": search_query,
+    "filters": filters,
+    "view_type": view_type,
+    "view_query": view_query,
+    "view_options": view_options,
+    "translation": translation,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getPreset(id) {
+  var url = "/presets/" + id;
+  var description = "Retrieve preset " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -859,66 +916,306 @@ function listCollectionFields(collection) {
   });
 }
 
-function tryToAddExistingFields(collection) {
-  return addField(collection);
-}
-
-function verifyFieldsExists(collection, id) {
-  return getField(collection, id);
-}
-
-function verifyFieldsDoesNotExist(collection, id) {
-  return getField(collection, id);
-}
-
-function tryToDeleteANonExistingFields(collection, id) {
-  return deleteField(collection, id);
-}
-
-function matchAddedFields(collection) {
-  return bp.EventSet("matchAddedFields", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(collection);
+function updatePresets() {
+  var url = "/presets";
+  var description = "Update multiple presets";
+  var body = {
+    "keys": keys,
+    "data": {
+      "collection": collection,
+      "title": title,
+      "role": role,
+      "search": search,
+      "filters": filters,
+      "layout": layout,
+      "layout_query": layout_query,
+      "layout_options": layout_options,
+    },
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
   });
 }
 
-function waitForAnyFieldsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Field in collection (.+)/)});
-  var m = ev.data.parameters.description.match(/Create a Field in collection (.+)/);
-  var captures = m.slice(1);
-  var names = ["collection"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedFields(collection) {
-  return bp.EventSet("matchDeletedFields", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(collection);
+function deletePresets() {
+  var url = "/presets";
+  var description = "Delete multiple presets";
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
   });
 }
 
-function waitForAnyFieldsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a Field (.+) in collection (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a Field (.+) in collection (.+)/);
-  var captures = m.slice(1);
-  var names = ["collection"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function getPresets() {
+  var url = "/presets";
+  var description = "List presets";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-// ---- Entity: files ----
+function tryToAddExistingPreset(collection, id) {
+  return createPreset(collection);
+}
 
-function addFile() {
+function verifyPresetExists(collection, id) {
+  return getPreset(id);
+}
+
+function verifyPresetDoesNotExist(collection, id) {
+  return getPreset(id);
+}
+
+function tryToDeleteANonExistingPreset(collection, id) {
+  return deletePreset(id);
+}
+
+// ---- Entity: collection ----
+
+function createCollection(collection) {
+  var url = "/collections";
+  var description = "Create a collection " + collection;
+  var body = {
+    "collection": collection,
+    "fields": fields,
+    "icon": icon,
+    "note": note,
+    "display_template": display_template,
+    "hidden": hidden,
+    "singleton": singleton,
+    "translation": translation,
+    "versioning": versioning,
+    "archive_field": archive_field,
+    "archive_app_filter": archive_app_filter,
+    "archive_value": archive_value,
+    "unarchive_value": unarchive_value,
+    "sort_field": sort_field,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getCollection(id) {
+  var url = "/collections/" + id;
+  var description = "Retrieve collection " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateCollection(id) {
+  var url = "/collections/" + id;
+  var description = "Update collection " + id;
+  var body = {
+    "meta": {
+      "icon": icon,
+      "color": color,
+      "note": note,
+      "display_template": display_template,
+      "hidden": hidden,
+      "singleton": singleton,
+      "translation": translation,
+      "versioning": versioning,
+      "archive_field": archive_field,
+      "archive_app_filter": archive_app_filter,
+      "archive_value": archive_value,
+      "unarchive_value": unarchive_value,
+      "sort_field": sort_field,
+    },
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteCollection(id) {
+  var url = "/collections/" + id;
+  var description = "Delete collection " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCollection(collection, id) {
+  return createCollection(collection);
+}
+
+function verifyCollectionExists(collection, id) {
+  return getCollection(id);
+}
+
+function verifyCollectionDoesNotExist(collection, id) {
+  return getCollection(id);
+}
+
+function tryToDeleteANonExistingCollection(collection, id) {
+  return deleteCollection(id);
+}
+
+// ---- Entity: comment ----
+
+function createComment(collection, item, comment) {
+  var url = "/comments";
+  var description = "Create a comment for collection " + collection + " item " + item;
+  var body = {
+    "collection": collection,
+    "item": item,
+    "comment": comment,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteComment(id) {
+  var url = "/comments/" + id;
+  var description = "Delete comment " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateComment(id, collection, item, comment) {
+  var url = "/comments/" + id;
+  var description = "Update comment " + id + " for collection " + collection;
+  var body = {
+    "collection": collection,
+    "item": item,
+    "comment": comment,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getComment(id) {
+  var url = "/comments/" + id;
+  var description = "Retrieve comment " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingComment(collection, item, comment, id) {
+  return createComment(collection, item, comment);
+}
+
+function verifyCommentExists(collection, item, comment, id) {
+  return getComment(id);
+}
+
+function verifyCommentDoesNotExist(collection, item, comment, id) {
+  return getComment(id);
+}
+
+function tryToDeleteANonExistingComment(collection, item, comment, id) {
+  return deleteComment(id);
+}
+
+// ---- Entity: comments ----
+
+function getComments() {
+  var url = "/comments";
+  var description = "List comments";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateComments(collection, keys, item, comment) {
+  var url = "/comments";
+  var description = "Update multiple comments for collection " + collection;
+  var body = {
+    "keys": keys,
+    "data": {
+      "collection": collection,
+      "item": item,
+      "comment": comment,
+    },
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteComments() {
+  var url = "/comments";
+  var description = "Delete multiple comments";
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCommentsBulkExists(collection, keys, item, comment) {
+  return getComments();
+}
+
+function verifyCommentsBulkDoesNotExist(collection, keys, item, comment) {
+  return getComments();
+}
+
+function tryToDeleteANonExistingCommentsBulk(collection, keys, item, comment) {
+  return deleteComments();
+}
+
+// ---- Entity: file ----
+
+function createFile() {
   var url = "/files";
-  var description = "Create a File";
-  var body = undefined;
+  var description = "Create a file";
+  var body = {
+    "data": data,
+  };
   return svc.request({
     method: "POST",
     url: url,
@@ -929,7 +1226,7 @@ function addFile() {
 
 function deleteFile(id) {
   var url = "/files/" + id;
-  var description = "Delete a File " + id;
+  var description = "Delete file " + id;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -939,9 +1236,27 @@ function deleteFile(id) {
   });
 }
 
+function updateFile(id) {
+  var url = "/files/" + id;
+  var description = "Update file " + id;
+  var body = {
+    "title": title,
+    "filename_download": filename_download,
+    "description": description,
+    "folder": folder,
+    "tags": tags,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
 function getFile(id) {
   var url = "/files/" + id;
-  var description = "Retrieve a File " + id;
+  var description = "Retrieve file " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -951,12 +1266,30 @@ function getFile(id) {
   });
 }
 
-function updateFile(id) {
-  var url = "/files/" + id;
-  var description = "Update a File " + id;
+function tryToAddExistingFile(id) {
+  return createFile();
+}
+
+function verifyFileExists(id) {
+  return getFile(id);
+}
+
+function verifyFileDoesNotExist(id) {
+  return getFile(id);
+}
+
+function tryToDeleteANonExistingFile(id) {
+  return deleteFile(id);
+}
+
+// ---- Entity: files ----
+
+function getFiles() {
+  var url = "/files";
+  var description = "List files";
   var body = undefined;
   return svc.request({
-    method: "PATCH",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -965,8 +1298,13 @@ function updateFile(id) {
 
 function updateFiles() {
   var url = "/files";
-  var description = "Update Multiple Files";
-  var body = undefined;
+  var description = "Update multiple files";
+  var body = {
+    "data": {
+      "data": data,
+    },
+    "keys": keys,
+  };
   return svc.request({
     method: "PATCH",
     url: url,
@@ -977,7 +1315,7 @@ function updateFiles() {
 
 function deleteFiles() {
   var url = "/files";
-  var description = "Delete Multiple Files";
+  var description = "Delete multiple files";
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -987,78 +1325,26 @@ function deleteFiles() {
   });
 }
 
-function listFiles() {
-  var url = "/files";
-  var description = "List Files";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyFilesExists() {
+  return getFiles();
 }
 
-function tryToAddExistingFiles() {
-  return addFile();
+function verifyFilesDoesNotExist() {
+  return getFiles();
 }
 
-function verifyFilesExists(id) {
-  return getFile(id);
+function tryToDeleteANonExistingFiles() {
+  return deleteFiles();
 }
 
-function verifyFilesDoesNotExist(id) {
-  return getFile(id);
-}
+// ---- Entity: flow ----
 
-function tryToDeleteANonExistingFiles(id) {
-  return deleteFile(id);
-}
-
-function matchAddedFiles(id) {
-  return bp.EventSet("matchAddedFiles", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyFilesAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a File/)});
-  var m = ev.data.parameters.description.match(/Create a File/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedFiles(id) {
-  return bp.EventSet("matchDeletedFiles", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyFilesDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a File (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a File (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: flows ----
-
-function addFlow() {
+function createFlow() {
   var url = "/flows";
   var description = "Create a Flow";
-  var body = undefined;
+  var body = {
+    "data": flowData,
+  };
   return svc.request({
     method: "POST",
     url: url,
@@ -1079,6 +1365,20 @@ function deleteFlow(id) {
   });
 }
 
+function updateFlow(id) {
+  var url = "/flows/" + id;
+  var description = "Update a Flow " + id;
+  var body = {
+    "data": flowData,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
 function getFlow(id) {
   var url = "/flows/" + id;
   var description = "Retrieve a Flow " + id;
@@ -1091,29 +1391,23 @@ function getFlow(id) {
   });
 }
 
-function updateFlow(id) {
-  var url = "/flows/" + id;
-  var description = "Update a Flow " + id;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingFlow(id) {
+  return createFlow();
 }
 
-function updateFlows() {
-  var url = "/flows";
-  var description = "Update Multiple Flows";
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyFlowExists(id) {
+  return getFlow(id);
 }
+
+function verifyFlowDoesNotExist(id) {
+  return getFlow(id);
+}
+
+function tryToDeleteANonExistingFlow(id) {
+  return deleteFlow(id);
+}
+
+// ---- Entity: flows ----
 
 function deleteFlows() {
   var url = "/flows";
@@ -1127,7 +1421,22 @@ function deleteFlows() {
   });
 }
 
-function listFlows() {
+function updateFlows() {
+  var url = "/flows";
+  var description = "Update Multiple Flows";
+  var body = {
+    "data": flowsData,
+    "keys": keys,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getFlows() {
   var url = "/flows";
   var description = "List Flows";
   var body = undefined;
@@ -1139,66 +1448,27 @@ function listFlows() {
   });
 }
 
-function tryToAddExistingFlows() {
-  return addFlow();
+function verifyFlowsBulkExists() {
+  return getFlows();
 }
 
-function verifyFlowsExists(id) {
-  return getFlow(id);
+function verifyFlowsBulkDoesNotExist() {
+  return getFlows();
 }
 
-function verifyFlowsDoesNotExist(id) {
-  return getFlow(id);
+function tryToDeleteANonExistingFlowsBulk() {
+  return deleteFlows();
 }
 
-function tryToDeleteANonExistingFlows(id) {
-  return deleteFlow(id);
-}
+// ---- Entity: folder ----
 
-function matchAddedFlows(id) {
-  return bp.EventSet("matchAddedFlows", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyFlowsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Flow/)});
-  var m = ev.data.parameters.description.match(/Create a Flow/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedFlows(id) {
-  return bp.EventSet("matchDeletedFlows", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyFlowsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a Flow (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a Flow (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: folders ----
-
-function addFolder() {
+function createFolder(name, parent) {
   var url = "/folders";
-  var description = "Create a Folder";
-  var body = undefined;
+  var description = "Create a folder " + name;
+  var body = {
+    "name": name,
+    "parent": parent,
+  };
   return svc.request({
     method: "POST",
     url: url,
@@ -1209,10 +1479,25 @@ function addFolder() {
 
 function deleteFolder(id) {
   var url = "/folders/" + id;
-  var description = "Delete a Folder " + id;
+  var description = "Delete folder " + id;
   var body = undefined;
   return svc.request({
     method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateFolder(id, name, parent) {
+  var url = "/folders/" + id;
+  var description = "Update folder " + id;
+  var body = {
+    "name": name,
+    "parent": parent,
+  };
+  return svc.request({
+    method: "PATCH",
     url: url,
     parameters: { description: description },
     body: body
@@ -1221,7 +1506,7 @@ function deleteFolder(id) {
 
 function getFolder(id) {
   var url = "/folders/" + id;
-  var description = "Retrieve a Folder " + id;
+  var description = "Retrieve folder " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1231,111 +1516,25 @@ function getFolder(id) {
   });
 }
 
-function updateFolder(id) {
-  var url = "/folders/" + id;
-  var description = "Update a Folder " + id;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingFolder(name, parent, id) {
+  return createFolder(name, parent);
 }
 
-function updateFolders() {
-  var url = "/folders";
-  var description = "Update Multiple Folders";
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteFolders() {
-  var url = "/folders";
-  var description = "Delete Multiple Folders";
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listFolders() {
-  var url = "/folders";
-  var description = "List Folders";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingFolders() {
-  return addFolder();
-}
-
-function verifyFoldersExists(id) {
+function verifyFolderExists(name, parent, id) {
   return getFolder(id);
 }
 
-function verifyFoldersDoesNotExist(id) {
+function verifyFolderDoesNotExist(name, parent, id) {
   return getFolder(id);
 }
 
-function tryToDeleteANonExistingFolders(id) {
+function tryToDeleteANonExistingFolder(name, parent, id) {
   return deleteFolder(id);
 }
 
-function matchAddedFolders(id) {
-  return bp.EventSet("matchAddedFolders", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
+// ---- Entity: operation ----
 
-function waitForAnyFoldersAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Folder/)});
-  var m = ev.data.parameters.description.match(/Create a Folder/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedFolders(id) {
-  return bp.EventSet("matchDeletedFolders", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyFoldersDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete a Folder (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete a Folder (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: operations ----
-
-function addOperation() {
+function createOperation() {
   var url = "/operations";
   var description = "Create an Operation";
   var body = undefined;
@@ -1359,18 +1558,6 @@ function deleteOperation(id) {
   });
 }
 
-function getOperation(id) {
-  var url = "/operations/" + id;
-  var description = "Retrieve an Operation " + id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function updateOperation(id) {
   var url = "/operations/" + id;
   var description = "Update an Operation " + id;
@@ -1383,33 +1570,9 @@ function updateOperation(id) {
   });
 }
 
-function updateOperations() {
-  var url = "/operations";
-  var description = "Update Multiple Operations";
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteOperations() {
-  var url = "/operations";
-  var description = "Delete Multiple Operations";
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listOperations() {
-  var url = "/operations";
-  var description = "List Operations";
+function getOperation(id) {
+  var url = "/operations/" + id;
+  var description = "Retrieve an Operation " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1419,66 +1582,34 @@ function listOperations() {
   });
 }
 
-function tryToAddExistingOperations() {
-  return addOperation();
+function tryToAddExistingOperation(id) {
+  return createOperation();
 }
 
-function verifyOperationsExists(id) {
+function verifyOperationExists(id) {
   return getOperation(id);
 }
 
-function verifyOperationsDoesNotExist(id) {
+function verifyOperationDoesNotExist(id) {
   return getOperation(id);
 }
 
-function tryToDeleteANonExistingOperations(id) {
+function tryToDeleteANonExistingOperation(id) {
   return deleteOperation(id);
 }
 
-function matchAddedOperations(id) {
-  return bp.EventSet("matchAddedOperations", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
+// ---- Entity: relation ----
 
-function waitForAnyOperationsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create an Operation/)});
-  var m = ev.data.parameters.description.match(/Create an Operation/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedOperations(id) {
-  return bp.EventSet("matchDeletedOperations", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyOperationsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete an Operation (.+)/)});
-  var m = ev.data.parameters.description.match(/Delete an Operation (.+)/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: permissions ----
-
-function addPermission() {
-  var url = "/permissions";
-  var description = "Create a Permission";
-  var body = undefined;
+function createRelation(collection_many, collection_one, field_many, field_one, junction_field) {
+  var url = "/relations";
+  var description = "Create a relation from " + collection_many + " to " + collection_one;
+  var body = {
+    "collection_many": collection_many,
+    "collection_one": collection_one,
+    "field_many": field_many,
+    "field_one": field_one,
+    "junction_field": junction_field,
+  };
   return svc.request({
     method: "POST",
     url: url,
@@ -1487,9 +1618,39 @@ function addPermission() {
   });
 }
 
-function deletePermissions() {
-  var url = "/permissions";
-  var description = "Delete Multiple Permissions";
+function getRelation(id) {
+  var url = "/relations/" + id;
+  var description = "Retrieve relation " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateRelation(id, collection_many, collection_one, field_many, field_one, junction_field) {
+  var url = "/relations/" + id;
+  var description = "Update relation " + id;
+  var body = {
+    "collection_many": collection_many,
+    "collection_one": collection_one,
+    "field_many": field_many,
+    "field_one": field_one,
+    "junction_field": junction_field,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteRelation(id) {
+  var url = "/relations/" + id;
+  var description = "Delete relation " + id;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -1499,9 +1660,27 @@ function deletePermissions() {
   });
 }
 
-function getPermission(id) {
-  var url = "/permissions/" + id;
-  var description = "Retrieve a Permission " + id;
+function tryToAddExistingRelation(collection_many, collection_one, field_many, field_one, junction_field, id) {
+  return createRelation(collection_many, collection_one, field_many, field_one, junction_field);
+}
+
+function verifyRelationExists(collection_many, collection_one, field_many, field_one, junction_field, id) {
+  return getRelation(id);
+}
+
+function verifyRelationDoesNotExist(collection_many, collection_one, field_many, field_one, junction_field, id) {
+  return getRelation(id);
+}
+
+function tryToDeleteANonExistingRelation(collection_many, collection_one, field_many, field_one, junction_field, id) {
+  return deleteRelation(id);
+}
+
+// ---- Entity: revision ----
+
+function getRevision(id) {
+  var url = "/revisions/" + id;
+  var description = "Retrieve revision " + id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1511,9 +1690,217 @@ function getPermission(id) {
   });
 }
 
-function updatePermissions() {
-  var url = "/permissions";
-  var description = "Update Multiple Permissions";
+function listRevisions() {
+  var url = "/revisions";
+  var description = "List revisions";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyRevisionExists(id) {
+  return getRevision(id);
+}
+
+function verifyRevisionDoesNotExist(id) {
+  return getRevision(id);
+}
+
+// ---- Entity: role ----
+
+function createRole(name) {
+  var url = "/roles";
+  var description = "Create a role " + name;
+  var body = {
+    "name": name,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteRole(id) {
+  var url = "/roles/" + id;
+  var description = "Delete role " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateRole(id) {
+  var url = "/roles/" + id;
+  var description = "Update role " + id;
+  var body = {
+    "name": name,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getRole(id) {
+  var url = "/roles/" + id;
+  var description = "Retrieve role " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingRole(name, id) {
+  return createRole(name);
+}
+
+function verifyRoleExists(name, id) {
+  return getRole(id);
+}
+
+function verifyRoleDoesNotExist(name, id) {
+  return getRole(id);
+}
+
+function tryToDeleteANonExistingRole(name, id) {
+  return deleteRole(id);
+}
+
+// ---- Entity: webhook ----
+
+function createWebhook(name) {
+  var url = "/webhooks";
+  var description = "Create a webhook " + name;
+  var body = {
+    "name": name,
+    "method": method,
+    "url": url,
+    "status": status,
+    "data": data,
+    "actions": actions,
+    "system-collections": system-collections,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteWebhook(id) {
+  var url = "/webhooks/" + id;
+  var description = "Delete webhook " + id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateWebhook(id) {
+  var url = "/webhooks/" + id;
+  var description = "Update webhook " + id;
+  var body = {
+    "name": name,
+    "method": method,
+    "url": url,
+    "status": status,
+    "data": data,
+    "actions": actions,
+    "system-collections": system-collections,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getWebhook(id) {
+  var url = "/webhooks/" + id;
+  var description = "Retrieve webhook " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingWebhook(name, id) {
+  return createWebhook(name);
+}
+
+function verifyWebhookExists(name, id) {
+  return getWebhook(id);
+}
+
+function verifyWebhookDoesNotExist(name, id) {
+  return getWebhook(id);
+}
+
+function tryToDeleteANonExistingWebhook(name, id) {
+  return deleteWebhook(id);
+}
+
+// ---- Entity: asset ----
+
+function getAsset(id) {
+  var url = "/assets/" + id;
+  var description = "Get an Asset " + id;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyAssetExists(id) {
+  return getAsset(id);
+}
+
+function verifyAssetDoesNotExist(id) {
+  return getAsset(id);
+}
+
+// ---- Entity: setting ----
+
+function getSettings() {
+  var url = "/settings";
+  var description = "Retrieve Settings";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateSetting() {
+  var url = "/settings";
+  var description = "Update Settings";
   var body = undefined;
   return svc.request({
     method: "PATCH",
@@ -1523,136 +1910,10 @@ function updatePermissions() {
   });
 }
 
-function listPermissions() {
-  var url = "/permissions";
-  var description = "List Permissions";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifySettingExists() {
+  return getSettings();
 }
 
-function listMyPermissions() {
-  var url = "/permissions/me";
-  var description = "List My Permissions";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingPermissions() {
-  return addPermission();
-}
-
-function verifyPermissionsExists(id) {
-  return getPermission(id);
-}
-
-function verifyPermissionsDoesNotExist(id) {
-  return getPermission(id);
-}
-
-function tryToDeleteANonExistingPermissions() {
-  return deletePermissions();
-}
-
-function matchAddedPermissions(id) {
-  return bp.EventSet("matchAddedPermissions", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyPermissionsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Create a Permission/)});
-  var m = ev.data.parameters.description.match(/Create a Permission/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function matchDeletedPermissions(id) {
-  return bp.EventSet("matchDeletedPermissions", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(id);
-  });
-}
-
-function waitForAnyPermissionsDeleted() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Delete Multiple Permissions/)});
-  var m = ev.data.parameters.description.match(/Delete Multiple Permissions/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: roles ----
-
-function listRoles() {
-  var url = "/roles";
-  var description = "List Roles";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: settings ----
-
-function listSettings() {
-  var url = "/settings";
-  var description = "Settings control the way the platform works and acts.";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: users ----
-
-function listUsers() {
-  var url = "/users";
-  var description = "List Users";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: webhooks ----
-
-function listWebhooks() {
-  var url = "/webhooks";
-  var description = "Webhooks.";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifySettingDoesNotExist() {
+  return getSettings();
 }

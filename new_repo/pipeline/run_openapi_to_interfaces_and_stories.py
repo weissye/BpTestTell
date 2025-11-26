@@ -2,6 +2,7 @@
 """
 OpenAPI -> unified CRUD spec (JSON).
 Strategy: Batch processing by OpenAPI 'Tags' to handle massive files like GitHub.
+Includes robustness fixes for 'parameters' lists and malformed paths.
 """
 
 import argparse
@@ -67,11 +68,28 @@ def get_paths_by_tag(openapi_data):
     tagged_groups = defaultdict(dict)
     
     paths = openapi_data.get("paths", {})
-    for path_str, methods in paths.items():
-        for method, details in methods.items():
+    for path_str, path_item in paths.items():
+        # Robustness Check: Ensure path_item is a dictionary
+        if not isinstance(path_item, dict):
+            continue
+
+        for method, details in path_item.items():
+            # Robustness Check: Skip 'parameters', 'summary', '$ref' keys at path level
+            if method in ["parameters", "summary", "description", "$ref", "servers"]:
+                continue
+            
+            # Robustness Check: Ensure 'details' is actually a dict (the method definition)
+            if not isinstance(details, dict):
+                continue
+
             # Use the first tag as the grouping key, or "General" if none
             tags = details.get("tags", [])
-            group = tags[0] if tags else "General"
+            
+            # Handle case where tags might not be a list (malformed spec)
+            if tags and isinstance(tags, list):
+                group = tags[0]
+            else:
+                group = "General"
             
             if path_str not in tagged_groups[group]:
                 tagged_groups[group][path_str] = {}
@@ -105,8 +123,12 @@ def main():
         raise SystemExit(f"[ERR] File not found: {openapi_path}")
 
     print(f"[INFO] Loading OpenAPI for {args.sut}...")
-    openapi_data = load_openapi(openapi_path)
-    
+    try:
+        openapi_data = load_openapi(openapi_path)
+    except Exception as e:
+        print(f"[ERR] Failed to parse OpenAPI file: {e}")
+        return
+
     # 1. Group by Tags
     grouped_paths = get_paths_by_tag(openapi_data)
     print(f"[INFO] Found {len(grouped_paths)} tag groups. Processing batches...")
@@ -120,9 +142,9 @@ def main():
     }
 
     # 2. Iterate and Process
-    # We process the top 35 largest groups to ensure we capture Repos, Issues, etc.
     sorted_groups = sorted(grouped_paths.items(), key=lambda x: len(x[1]), reverse=True)
     
+    # Process up to 35 groups
     for i, (tag, paths) in enumerate(sorted_groups[:35]):
         print(f"   > Processing Batch {i+1}/35: '{tag}' ({len(paths)} paths)...")
         
@@ -139,11 +161,9 @@ def main():
             # Merge into master
             if "entities" in partial_spec:
                 for e_name, e_data in partial_spec["entities"].items():
-                    # Basic de-duplication
                     if e_name not in master_spec["entities"]:
                         master_spec["entities"][e_name] = e_data
                     else:
-                        # Merge operations if split across tags
                         master_spec["entities"][e_name]["operations"].update(e_data.get("operations", {}))
                         
         except Exception as e:

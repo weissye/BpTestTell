@@ -1,321 +1,287 @@
 {
-  "base_url": "http://192.168.225.53:5014",
+  "sut": "pharmacy",
+  "base_url": "http://localhost:8080",
   "entities": {
     "Drug": {
       "displayName": "drug",
+      "params": [
+        "id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add drug {id}",
+          "name": "createDrug",
           "method": "POST",
-          "name": "addDrug",
+          "path": "/drugs",
+          "descriptionTemplate": "Create drug {name}",
           "params": [
-            "id"
+            "name"
           ],
-          "path": "/drugs"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete drug {id}",
-          "method": "DELETE",
-          "name": "deleteDrug",
-          "params": [
-            "id"
-          ],
-          "path": "/drugs/{id}"
+          "bodyTemplate": {
+            "name": "{name}"
+          }
         },
         "get": {
-          "descriptionTemplate": "Get drug {id}",
-          "method": "GET",
           "name": "getDrug",
+          "method": "GET",
+          "path": "/drugs/{id}",
+          "descriptionTemplate": "Get drug {id}",
           "params": [
             "id"
-          ],
-          "path": "/drugs/{id}"
+          ]
         },
         "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update drug {id}",
-          "method": "PUT",
           "name": "updateDrug",
+          "method": "PUT",
+          "path": "/drugs/{id}",
+          "descriptionTemplate": "Update drug {id}",
           "params": [
             "id"
           ],
-          "path": "/drugs/{id}"
-        },
-        "verifyExists": {
-          "name": "verifyDrugExists"
-        }
-      },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add drug (.+)",
-          "name": "waitForAnyDrugAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete drug (.+)",
-          "name": "waitForAnyDrugDeleted"
-        }
-      }
-    },
-    "Inventory": {
-      "displayName": "inventory",
-      "operations": {
-        "add": {
           "bodyTemplate": {
-            "ndc": "{ndc}"
-          },
-          "descriptionTemplate": "Add inventory {ndc}",
-          "method": "POST",
-          "name": "addInventory",
-          "params": [
-            "ndc"
-          ],
-          "path": "/inventory"
+            "name": "{name}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete inventory {ndc}",
+          "name": "deleteDrug",
           "method": "DELETE",
-          "name": "deleteInventory",
+          "path": "/drugs/{id}",
+          "descriptionTemplate": "Delete drug {id}",
           "params": [
-            "ndc"
-          ],
-          "path": "/inventory/{ndc}"
-        },
-        "get": {
-          "descriptionTemplate": "Get inventory {ndc}",
-          "method": "GET",
-          "name": "getInventory",
-          "params": [
-            "ndc"
-          ],
-          "path": "/inventory/{ndc}"
-        },
-        "update": {
-          "bodyTemplate": {
-            "ndc": "{ndc}"
-          },
-          "descriptionTemplate": "Update inventory {ndc}",
-          "method": "PUT",
-          "name": "updateInventory",
-          "params": [
-            "ndc"
-          ],
-          "path": "/inventory/{ndc}"
-        },
-        "verifyExists": {
-          "name": "verifyInventoryExists"
+            "id"
+          ]
         }
       },
-      "params": [
-        "ndc"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add inventory (.+)",
-          "name": "waitForAnyInventoryAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete inventory (.+)",
-          "name": "waitForAnyInventoryDeleted"
-        }
-      }
-    },
-    "Order": {
-      "displayName": "order",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add order {id}",
-          "method": "POST",
-          "name": "addOrder",
-          "params": [
-            "id"
-          ],
-          "path": "/orders"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete order {id}",
-          "method": "DELETE",
-          "name": "deleteOrder",
-          "params": [
-            "id"
-          ],
-          "path": "/orders/{id}"
-        },
-        "get": {
-          "descriptionTemplate": "Get order {id}",
-          "method": "GET",
-          "name": "getOrder",
-          "params": [
-            "id"
-          ],
-          "path": "/orders/{id}"
-        },
-        "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update order {id}",
-          "method": "PUT",
-          "name": "updateOrder",
-          "params": [
-            "id"
-          ],
-          "path": "/orders/{id}"
-        },
-        "verifyExists": {
-          "name": "verifyOrderExists"
-        }
-      },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add order (.+)",
-          "name": "waitForAnyOrderAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete order (.+)",
-          "name": "waitForAnyOrderDeleted"
-        }
+        "add": "Create drug \\{name\\}",
+        "get": "Get drug \\{id\\}",
+        "update": "Update drug \\{id\\}",
+        "delete": "Delete drug \\{id\\}"
       }
     },
     "Patient": {
       "displayName": "patient",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add patient {id}",
-          "method": "POST",
-          "name": "addPatient",
-          "params": [
-            "id"
-          ],
-          "path": "/patients"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete patient {id}",
-          "method": "DELETE",
-          "name": "deletePatient",
-          "params": [
-            "id"
-          ],
-          "path": "/patients/{id}"
-        },
-        "get": {
-          "descriptionTemplate": "Get patient {id}",
-          "method": "GET",
-          "name": "getPatient",
-          "params": [
-            "id"
-          ],
-          "path": "/patients/{id}"
-        },
-        "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update patient {id}",
-          "method": "PUT",
-          "name": "updatePatient",
-          "params": [
-            "id"
-          ],
-          "path": "/patients/{id}"
-        },
-        "verifyExists": {
-          "name": "verifyPatientExists"
-        }
-      },
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add patient (.+)",
-          "name": "waitForAnyPatientAdded"
+      "operations": {
+        "add": {
+          "name": "createPatient",
+          "method": "POST",
+          "path": "/patients",
+          "descriptionTemplate": "Create patient {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete patient (.+)",
-          "name": "waitForAnyPatientDeleted"
+        "get": {
+          "name": "getPatient",
+          "method": "GET",
+          "path": "/patients/{id}",
+          "descriptionTemplate": "Get patient {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updatePatient",
+          "method": "PUT",
+          "path": "/patients/{id}",
+          "descriptionTemplate": "Update patient {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deletePatient",
+          "method": "DELETE",
+          "path": "/patients/{id}",
+          "descriptionTemplate": "Delete patient {id}",
+          "params": [
+            "id"
+          ]
         }
+      },
+      "waitForPatterns": {
+        "add": "Create patient \\{name\\}",
+        "get": "Get patient \\{id\\}",
+        "update": "Update patient \\{id\\}",
+        "delete": "Delete patient \\{id\\}"
+      }
+    },
+    "Order": {
+      "displayName": "order",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createOrder",
+          "method": "POST",
+          "path": "/orders",
+          "descriptionTemplate": "Create order {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getOrder",
+          "method": "GET",
+          "path": "/orders/{id}",
+          "descriptionTemplate": "Get order {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateOrder",
+          "method": "PUT",
+          "path": "/orders/{id}",
+          "descriptionTemplate": "Update order {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteOrder",
+          "method": "DELETE",
+          "path": "/orders/{id}",
+          "descriptionTemplate": "Delete order {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create order \\{name\\}",
+        "get": "Get order \\{id\\}",
+        "update": "Update order \\{id\\}",
+        "delete": "Delete order \\{id\\}"
       }
     },
     "Prescription": {
       "displayName": "prescription",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add prescription {id}",
-          "method": "POST",
-          "name": "addPrescription",
-          "params": [
-            "id"
-          ],
-          "path": "/prescriptions"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete prescription {id}",
-          "method": "DELETE",
-          "name": "deletePrescription",
-          "params": [
-            "id"
-          ],
-          "path": "/prescriptions/{id}"
-        },
-        "get": {
-          "descriptionTemplate": "Get prescription {id}",
-          "method": "GET",
-          "name": "getPrescription",
-          "params": [
-            "id"
-          ],
-          "path": "/prescriptions/{id}"
-        },
-        "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update prescription {id}",
-          "method": "PUT",
-          "name": "updatePrescription",
-          "params": [
-            "id"
-          ],
-          "path": "/prescriptions/{id}"
-        },
-        "verifyExists": {
-          "name": "verifyPrescriptionExists"
-        }
-      },
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add prescription (.+)",
-          "name": "waitForAnyPrescriptionAdded"
+      "operations": {
+        "add": {
+          "name": "createPrescription",
+          "method": "POST",
+          "path": "/prescriptions",
+          "descriptionTemplate": "Create prescription {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete prescription (.+)",
-          "name": "waitForAnyPrescriptionDeleted"
+        "get": {
+          "name": "getPrescription",
+          "method": "GET",
+          "path": "/prescriptions/{id}",
+          "descriptionTemplate": "Get prescription {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updatePrescription",
+          "method": "PUT",
+          "path": "/prescriptions/{id}",
+          "descriptionTemplate": "Update prescription {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deletePrescription",
+          "method": "DELETE",
+          "path": "/prescriptions/{id}",
+          "descriptionTemplate": "Delete prescription {id}",
+          "params": [
+            "id"
+          ]
         }
+      },
+      "waitForPatterns": {
+        "add": "Create prescription \\{name\\}",
+        "get": "Get prescription \\{id\\}",
+        "update": "Update prescription \\{id\\}",
+        "delete": "Delete prescription \\{id\\}"
+      }
+    },
+    "Inventory": {
+      "displayName": "inventory",
+      "params": [
+        "ndc"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInventory",
+          "method": "POST",
+          "path": "/inventory",
+          "descriptionTemplate": "Create inventory {ndc}",
+          "params": [
+            "ndc"
+          ],
+          "bodyTemplate": {
+            "ndc": "{ndc}"
+          }
+        },
+        "get": {
+          "name": "getInventory",
+          "method": "GET",
+          "path": "/inventory/{ndc}",
+          "descriptionTemplate": "Get inventory {ndc}",
+          "params": [
+            "ndc"
+          ]
+        },
+        "update": {
+          "name": "updateInventory",
+          "method": "PUT",
+          "path": "/inventory/{ndc}",
+          "descriptionTemplate": "Update inventory {ndc}",
+          "params": [
+            "ndc"
+          ],
+          "bodyTemplate": {
+            "ndc": "{ndc}"
+          }
+        },
+        "delete": {
+          "name": "deleteInventory",
+          "method": "DELETE",
+          "path": "/inventory/{ndc}",
+          "descriptionTemplate": "Delete inventory {ndc}",
+          "params": [
+            "ndc"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create inventory \\{ndc\\}",
+        "get": "Get inventory \\{ndc\\}",
+        "update": "Update inventory \\{ndc\\}",
+        "delete": "Delete inventory \\{ndc\\}"
       }
     }
   },
-  "sut": "pharmacy"
+  "stories": []
 }

@@ -6,27 +6,23 @@ const bthread = bp.registerBThread;
 // Story: crud:Machine:read_only
 bthread("crud:Machine:read_only", function () {
 
-  // Read-only check for Machine
-  verifyMachineExists(id);
+  verifyMachineExists();
 });
 
 // Story: crud:Workorder:read_only
 bthread("crud:Workorder:read_only", function () {
 
-  // Read-only check for Workorder
-  verifyWorkorderExists(id);
+  verifyWorkorderExists();
 });
 
 // Story: crud:MaintenanceTicket:read_only
 bthread("crud:MaintenanceTicket:read_only", function () {
 
-  // Read-only check for MaintenanceTicket
-  verifyMaintenanceTicketExists(id);
+  verifyMaintenanceTicketExists();
 });
 
 // Story: crud:SensorReading:read_only
 bthread("crud:SensorReading:read_only", function () {
 
-  // Read-only check for SensorReading
-  verifySensorReadingExists(id);
+  verifySensorReadingExists();
 });

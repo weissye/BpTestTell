@@ -4,7 +4,7 @@
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 
-const svc = new RESTSession("", "provengo-client", {
+const svc = new RESTSession("http://localhost:8080", "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
@@ -15,11 +15,11 @@ function matchesDescriptionRegex(re) {
   });
 }
 
-// ---- Entity: customers ----
+// ---- Entity: customer ----
 
-function addCustomers() {
+function createCustomer() {
   var url = "/customers";
-  var description = "Add customers";
+  var description = "Create customer";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -29,34 +29,15 @@ function addCustomers() {
   });
 }
 
-function tryToAddExistingCustomers() {
-  return addCustomers();
+function tryToAddExistingCustomer() {
+  return createCustomer();
 }
 
-function matchAddedCustomers() {
-  return bp.EventSet("matchAddedCustomers", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: account ----
 
-function waitForAnyCustomersAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add customers/)});
-  var m = ev.data.parameters.description.match(/Add customers/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: accounts ----
-
-function addAccounts() {
+function createAccount() {
   var url = "/accounts";
-  var description = "Add accounts";
+  var description = "Create account";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -78,38 +59,19 @@ function getAccounts() {
   });
 }
 
-function tryToAddExistingAccounts() {
-  return addAccounts();
+function tryToAddExistingAccount(accountId) {
+  return createAccount();
 }
 
-function verifyAccountsExists() {
+function verifyAccountExists(accountId) {
   return getAccounts();
 }
 
-function verifyAccountsDoesNotExist() {
+function verifyAccountDoesNotExist(accountId) {
   return getAccounts();
 }
 
-function matchAddedAccounts() {
-  return bp.EventSet("matchAddedAccounts", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
-
-function waitForAnyAccountsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add accounts/)});
-  var m = ev.data.parameters.description.match(/Add accounts/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: transactions ----
+// ---- Entity: transaction ----
 
 function getTransactions(accountId) {
   var url = "/accounts/" + accountId + "/transactions";
@@ -123,19 +85,19 @@ function getTransactions(accountId) {
   });
 }
 
-function verifyTransactionsExists(accountId) {
+function verifyTransactionExists(accountId) {
   return getTransactions(accountId);
 }
 
-function verifyTransactionsDoesNotExist(accountId) {
+function verifyTransactionDoesNotExist(accountId) {
   return getTransactions(accountId);
 }
 
-// ---- Entity: transfers ----
+// ---- Entity: transfer ----
 
-function addTransfers() {
+function createTransfer() {
   var url = "/transfers";
-  var description = "Add transfers";
+  var description = "Create transfer";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -145,34 +107,15 @@ function addTransfers() {
   });
 }
 
-function tryToAddExistingTransfers() {
-  return addTransfers();
+function tryToAddExistingTransfer() {
+  return createTransfer();
 }
 
-function matchAddedTransfers() {
-  return bp.EventSet("matchAddedTransfers", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: card ----
 
-function waitForAnyTransfersAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add transfers/)});
-  var m = ev.data.parameters.description.match(/Add transfers/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: cards ----
-
-function addCards() {
+function createCard() {
   var url = "/cards";
-  var description = "Add cards";
+  var description = "Create card";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -182,34 +125,15 @@ function addCards() {
   });
 }
 
-function tryToAddExistingCards() {
-  return addCards();
+function tryToAddExistingCard() {
+  return createCard();
 }
 
-function matchAddedCards() {
-  return bp.EventSet("matchAddedCards", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: loan ----
 
-function waitForAnyCardsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add cards/)});
-  var m = ev.data.parameters.description.match(/Add cards/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: loans ----
-
-function addLoans() {
+function createLoan() {
   var url = "/loans";
-  var description = "Add loans";
+  var description = "Create loan";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -231,33 +155,14 @@ function getLoans() {
   });
 }
 
-function tryToAddExistingLoans() {
-  return addLoans();
+function tryToAddExistingLoan() {
+  return createLoan();
 }
 
-function verifyLoansExists() {
+function verifyLoanExists() {
   return getLoans();
 }
 
-function verifyLoansDoesNotExist() {
+function verifyLoanDoesNotExist() {
   return getLoans();
-}
-
-function matchAddedLoans() {
-  return bp.EventSet("matchAddedLoans", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
-
-function waitForAnyLoansAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add loans/)});
-  var m = ev.data.parameters.description.match(/Add loans/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
 }

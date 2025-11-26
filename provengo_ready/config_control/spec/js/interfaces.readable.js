@@ -4,7 +4,7 @@
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 
-const svc = new RESTSession("", "provengo-client", {
+const svc = new RESTSession("http://localhost:8080", "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
@@ -17,12 +17,10 @@ function matchesDescriptionRegex(re) {
 
 // ---- Entity: app ----
 
-function addApp(appId) {
+function createApp() {
   var url = "/apps";
-  var description = "Add app " + appId;
-  var body = {
-    "id": appId,
-  };
+  var description = "Create app";
+  var body = undefined;
   return svc.request({
     method: "POST",
     url: url,
@@ -31,9 +29,9 @@ function addApp(appId) {
   });
 }
 
-function getApp(appId) {
+function getApps() {
   var url = "/apps";
-  var description = "Get app " + appId;
+  var description = "Get apps";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -43,45 +41,24 @@ function getApp(appId) {
   });
 }
 
-function tryToAddExistingApp(appId) {
-  return addApp(appId);
+function tryToAddExistingApp() {
+  return createApp();
 }
 
-function verifyAppExists(appId) {
-  return getApp(appId);
+function verifyAppExists() {
+  return getApps();
 }
 
-function verifyAppDoesNotExist(appId) {
-  return getApp(appId);
-}
-
-function matchAddedApp(appId) {
-  return bp.EventSet("matchAddedApp", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(appId);
-  });
-}
-
-function waitForAnyAppAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add app (.+)/)});
-  var m = ev.data.parameters.description.match(/Add app (.+)/);
-  var captures = m.slice(1);
-  var names = ["appId"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function verifyAppDoesNotExist() {
+  return getApps();
 }
 
 // ---- Entity: env ----
 
-function addEnv(envId) {
+function createEnv() {
   var url = "/envs";
-  var description = "Add env " + envId;
-  var body = {
-    "id": envId,
-  };
+  var description = "Create env";
+  var body = undefined;
   return svc.request({
     method: "POST",
     url: url,
@@ -90,9 +67,9 @@ function addEnv(envId) {
   });
 }
 
-function getEnv(envId) {
+function getEnvs() {
   var url = "/envs";
-  var description = "Get env " + envId;
+  var description = "Get envs";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -102,45 +79,24 @@ function getEnv(envId) {
   });
 }
 
-function tryToAddExistingEnv(envId) {
-  return addEnv(envId);
+function tryToAddExistingEnv() {
+  return createEnv();
 }
 
-function verifyEnvExists(envId) {
-  return getEnv(envId);
+function verifyEnvExists() {
+  return getEnvs();
 }
 
-function verifyEnvDoesNotExist(envId) {
-  return getEnv(envId);
-}
-
-function matchAddedEnv(envId) {
-  return bp.EventSet("matchAddedEnv", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(envId);
-  });
-}
-
-function waitForAnyEnvAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add env (.+)/)});
-  var m = ev.data.parameters.description.match(/Add env (.+)/);
-  var captures = m.slice(1);
-  var names = ["envId"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function verifyEnvDoesNotExist() {
+  return getEnvs();
 }
 
 // ---- Entity: config ----
 
-function addConfig(configId) {
+function createConfig() {
   var url = "/configs";
-  var description = "Add config " + configId;
-  var body = {
-    "id": configId,
-  };
+  var description = "Create config";
+  var body = undefined;
   return svc.request({
     method: "POST",
     url: url,
@@ -149,9 +105,9 @@ function addConfig(configId) {
   });
 }
 
-function getConfig(configId) {
+function getConfigs() {
   var url = "/configs";
-  var description = "Get config " + configId;
+  var description = "Get configs";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -161,45 +117,24 @@ function getConfig(configId) {
   });
 }
 
-function tryToAddExistingConfig(configId) {
-  return addConfig(configId);
+function tryToAddExistingConfig() {
+  return createConfig();
 }
 
-function verifyConfigExists(configId) {
-  return getConfig(configId);
+function verifyConfigExists() {
+  return getConfigs();
 }
 
-function verifyConfigDoesNotExist(configId) {
-  return getConfig(configId);
-}
-
-function matchAddedConfig(configId) {
-  return bp.EventSet("matchAddedConfig", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(configId);
-  });
-}
-
-function waitForAnyConfigAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add config (.+)/)});
-  var m = ev.data.parameters.description.match(/Add config (.+)/);
-  var captures = m.slice(1);
-  var names = ["configId"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function verifyConfigDoesNotExist() {
+  return getConfigs();
 }
 
 // ---- Entity: release ----
 
-function addRelease(releaseId) {
+function createRelease() {
   var url = "/releases";
-  var description = "Add release " + releaseId;
-  var body = {
-    "id": releaseId,
-  };
+  var description = "Create release";
+  var body = undefined;
   return svc.request({
     method: "POST",
     url: url,
@@ -208,9 +143,9 @@ function addRelease(releaseId) {
   });
 }
 
-function getRelease(releaseId) {
+function getReleases() {
   var url = "/releases";
-  var description = "Get release " + releaseId;
+  var description = "Get releases";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -220,45 +155,24 @@ function getRelease(releaseId) {
   });
 }
 
-function tryToAddExistingRelease(releaseId) {
-  return addRelease(releaseId);
+function tryToAddExistingRelease() {
+  return createRelease();
 }
 
-function verifyReleaseExists(releaseId) {
-  return getRelease(releaseId);
+function verifyReleaseExists() {
+  return getReleases();
 }
 
-function verifyReleaseDoesNotExist(releaseId) {
-  return getRelease(releaseId);
-}
-
-function matchAddedRelease(releaseId) {
-  return bp.EventSet("matchAddedRelease", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(releaseId);
-  });
-}
-
-function waitForAnyReleaseAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add release (.+)/)});
-  var m = ev.data.parameters.description.match(/Add release (.+)/);
-  var captures = m.slice(1);
-  var names = ["releaseId"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function verifyReleaseDoesNotExist() {
+  return getReleases();
 }
 
 // ---- Entity: policy ----
 
-function addPolicy(policyId) {
+function createPolicy() {
   var url = "/policies";
-  var description = "Add policy " + policyId;
-  var body = {
-    "id": policyId,
-  };
+  var description = "Create policy";
+  var body = undefined;
   return svc.request({
     method: "POST",
     url: url,
@@ -267,9 +181,9 @@ function addPolicy(policyId) {
   });
 }
 
-function getPolicy(policyId) {
+function getPolicies() {
   var url = "/policies";
-  var description = "Get policy " + policyId;
+  var description = "Get policies";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -279,33 +193,14 @@ function getPolicy(policyId) {
   });
 }
 
-function tryToAddExistingPolicy(policyId) {
-  return addPolicy(policyId);
+function tryToAddExistingPolicy() {
+  return createPolicy();
 }
 
-function verifyPolicyExists(policyId) {
-  return getPolicy(policyId);
+function verifyPolicyExists() {
+  return getPolicies();
 }
 
-function verifyPolicyDoesNotExist(policyId) {
-  return getPolicy(policyId);
-}
-
-function matchAddedPolicy(policyId) {
-  return bp.EventSet("matchAddedPolicy", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes(policyId);
-  });
-}
-
-function waitForAnyPolicyAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add policy (.+)/)});
-  var m = ev.data.parameters.description.match(/Add policy (.+)/);
-  var captures = m.slice(1);
-  var names = ["policyId"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function verifyPolicyDoesNotExist() {
+  return getPolicies();
 }

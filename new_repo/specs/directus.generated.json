@@ -1,984 +1,1580 @@
 {
-  "base_url": "",
+  "sut": "directus",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "Activity": {
-      "displayName": "activity",
-      "operations": {
-        "get": {
-          "descriptionTemplate": "Retrieve an Activity Action {id}",
-          "method": "GET",
-          "name": "getActivity",
-          "params": [
-            "id"
-          ],
-          "path": "/activity/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Activity Actions",
-          "method": "GET",
-          "name": "listActivities",
-          "params": [],
-          "path": "/activity"
-        }
-      },
+    "User": {
+      "displayName": "user",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add activity (.+)",
-          "name": "waitForAnyActivityAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete activity (.+)",
-          "name": "waitForAnyActivityDeleted"
-        }
-      }
-    },
-    "Assets": {
-      "displayName": "assets",
-      "operations": {
-        "get": {
-          "descriptionTemplate": "Get an Asset {id}",
-          "method": "GET",
-          "name": "getAsset",
-          "params": [
-            "id"
-          ],
-          "path": "/assets/{id}"
-        }
-      },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {}
-    },
-    "Authentication": {
-      "displayName": "authentication",
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "email": "{email}",
-            "mode": "{mode}",
-            "otp": "{otp}",
-            "password": "{password}"
-          },
-          "descriptionTemplate": "Retrieve a Temporary Access Token",
+          "name": "createUser",
           "method": "POST",
+          "path": "/users",
+          "descriptionTemplate": "Create a user",
+          "params": [],
+          "bodyTemplate": {
+            "user": "{user}"
+          }
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "descriptionTemplate": "Delete user {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateUser",
+          "method": "PATCH",
+          "path": "/users/{id}",
+          "descriptionTemplate": "Update user {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "user": "{user}"
+          }
+        },
+        "get": {
+          "name": "getUser",
+          "method": "GET",
+          "path": "/users/{id}",
+          "descriptionTemplate": "Retrieve user {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a user",
+        "delete": "Delete user \\{id\\}",
+        "update": "Update user \\{id\\}",
+        "get": "Retrieve user \\{id\\}"
+      }
+    },
+    "Auth": {
+      "displayName": "auth",
+      "params": [],
+      "operations": {
+        "add": {
           "name": "login",
+          "method": "POST",
+          "path": "/auth/login",
+          "descriptionTemplate": "Retrieve a Temporary Access Token for {email}",
           "params": [
             "email",
             "password",
             "mode",
             "otp"
           ],
-          "path": "/auth/login"
-        },
-        "addLogout": {
           "bodyTemplate": {
+            "email": "{email}",
+            "password": "{password}",
             "mode": "{mode}",
-            "refresh_token": "{refresh_token}"
-          },
-          "descriptionTemplate": "Log Out",
+            "otp": "{otp}"
+          }
+        },
+        "update": {
+          "name": "refresh",
           "method": "POST",
-          "name": "logout",
+          "path": "/auth/refresh",
+          "descriptionTemplate": "Refresh Token",
           "params": [
             "refresh_token",
             "mode"
           ],
-          "path": "/auth/logout"
-        },
-        "addPasswordRequest": {
           "bodyTemplate": {
-            "email": "{email}"
-          },
-          "descriptionTemplate": "Request a Password Reset {email}",
+            "refresh_token": "{refresh_token}",
+            "mode": "{mode}"
+          }
+        },
+        "delete": {
+          "name": "logout",
           "method": "POST",
+          "path": "/auth/logout",
+          "descriptionTemplate": "Log Out",
+          "params": [
+            "refresh_token",
+            "mode"
+          ],
+          "bodyTemplate": {
+            "refresh_token": "{refresh_token}",
+            "mode": "{mode}"
+          }
+        },
+        "add_password_request": {
           "name": "passwordRequest",
+          "method": "POST",
+          "path": "/auth/password/request",
+          "descriptionTemplate": "Request a Password Reset for {email}",
           "params": [
             "email"
           ],
-          "path": "/auth/password/request"
-        },
-        "addPasswordReset": {
           "bodyTemplate": {
-            "password": "{password}",
-            "token": "{token}"
-          },
-          "descriptionTemplate": "Reset a Password {token}",
-          "method": "POST",
+            "email": "{email}"
+          }
+        },
+        "update_password_reset": {
           "name": "passwordReset",
+          "method": "POST",
+          "path": "/auth/password/reset",
+          "descriptionTemplate": "Reset a Password using token {token}",
           "params": [
             "token",
             "password"
           ],
-          "path": "/auth/password/reset"
-        },
-        "addRefresh": {
           "bodyTemplate": {
-            "mode": "{mode}",
-            "refresh_token": "{refresh_token}"
-          },
-          "descriptionTemplate": "Refresh a Temporary Access Token",
-          "method": "POST",
-          "name": "refresh",
-          "params": [
-            "refresh_token",
-            "mode"
-          ],
-          "path": "/auth/refresh"
+            "token": "{token}",
+            "password": "{password}"
+          }
         },
-        "get": {
-          "descriptionTemplate": "List OAuth Providers",
-          "method": "GET",
+        "get_oauth_providers": {
           "name": "oauth",
-          "params": [],
-          "path": "/auth/oauth"
-        },
-        "getProvider": {
-          "descriptionTemplate": "Authenticated using an OAuth provider {provider}",
           "method": "GET",
+          "path": "/auth/oauth",
+          "descriptionTemplate": "List OAuth Providers",
+          "params": []
+        },
+        "get_oauth_provider": {
           "name": "oauthProvider",
+          "method": "GET",
+          "path": "/auth/oauth/{provider}",
+          "descriptionTemplate": "Authenticated using OAuth provider {provider}",
           "params": [
             "provider",
             "redirect"
-          ],
-          "path": "/auth/oauth/{provider}"
+          ]
         }
       },
+      "waitForPatterns": {
+        "login": "Retrieve a Temporary Access Token for .+",
+        "refresh": "Refresh Token",
+        "logout": "Log Out",
+        "passwordRequest": "Request a Password Reset for .+",
+        "passwordReset": "Reset a Password using token .+",
+        "oauth": "List OAuth Providers",
+        "oauthProvider": "Authenticated using OAuth provider .+"
+      }
+    },
+    "Hash": {
+      "displayName": "hash",
       "params": [],
-      "waitForPatterns": {}
-    },
-    "Collections": {
-      "displayName": "collections",
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a Collection",
+          "name": "generateHash",
           "method": "POST",
-          "name": "addCollection",
-          "params": [],
-          "path": "/collections"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete a Collection {id}",
-          "method": "DELETE",
-          "name": "deleteCollection",
+          "path": "/utils/hash/generate",
+          "descriptionTemplate": "Hash a string",
           "params": [
-            "id"
+            "string"
           ],
-          "path": "/collections/{id}"
+          "bodyTemplate": {
+            "string": "{string}"
+          }
         },
         "get": {
-          "descriptionTemplate": "Retrieve a Collection {id}",
-          "method": "GET",
-          "name": "getCollection",
+          "name": "verifyHash",
+          "method": "POST",
+          "path": "/utils/hash/verify",
+          "descriptionTemplate": "Verify hash for string",
           "params": [
-            "id"
+            "string",
+            "hash"
           ],
-          "path": "/collections/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Collections",
-          "method": "GET",
-          "name": "listCollections",
-          "params": [],
-          "path": "/collections"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a Collection {id}",
-          "method": "PATCH",
-          "name": "updateCollection",
-          "params": [
-            "id"
-          ],
-          "path": "/collections/{id}"
+          "bodyTemplate": {
+            "string": "{string}",
+            "hash": "{hash}"
+          }
         }
       },
+      "waitForPatterns": {
+        "add": "Hash a string",
+        "get": "Verify hash for string"
+      }
+    },
+    "CollectionItems": {
+      "displayName": "collection item",
+      "params": [
+        "collection"
+      ],
+      "operations": {
+        "update": {
+          "name": "sortItems",
+          "method": "POST",
+          "path": "/utils/sort/{collection}",
+          "descriptionTemplate": "Sort items in collection {collection}",
+          "params": [
+            "collection",
+            "item",
+            "to"
+          ],
+          "bodyTemplate": {
+            "item": "{item}",
+            "to": "{to}"
+          }
+        },
+        "add": {
+          "name": "importItems",
+          "method": "POST",
+          "path": "/utils/import/{collection}",
+          "descriptionTemplate": "Import items into collection {collection}",
+          "params": [
+            "collection"
+          ],
+          "bodyTemplate": {
+            "file": "{file}"
+          }
+        },
+        "get": {
+          "name": "exportItems",
+          "method": "POST",
+          "path": "/utils/export/{collection}",
+          "descriptionTemplate": "Export items from collection {collection} in format {format}",
+          "params": [
+            "collection",
+            "format",
+            "query",
+            "file"
+          ],
+          "bodyTemplate": {
+            "format": "{format}",
+            "query": "{query}",
+            "file": "{file}"
+          }
+        }
+      },
+      "waitForPatterns": {
+        "update": "Sort items in collection .*",
+        "add": "Import items into collection .*",
+        "get": "Export items from collection .* in format .*"
+      }
+    },
+    "Cache": {
+      "displayName": "cache",
+      "params": [],
+      "operations": {
+        "delete": {
+          "name": "clearCache",
+          "method": "POST",
+          "path": "/utils/cache/clear",
+          "descriptionTemplate": "Clear Cache",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "delete": "Clear Cache"
+      }
+    },
+    "RandomString": {
+      "displayName": "random string",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getRandomString",
+          "method": "GET",
+          "path": "/utils/random/string",
+          "descriptionTemplate": "Get a Random String of length {length}",
+          "params": [
+            "length"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "get": "Get a Random String of length .*"
+      }
+    },
+    "ContentVersion": {
+      "displayName": "content version",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Collection",
-          "name": "waitForAnyCollectionAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete a Collection (.+)",
-          "name": "waitForAnyCollectionDeleted"
-        }
-      }
-    },
-    "Comments": {
-      "displayName": "comments",
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a Comment",
+          "name": "createContentVersion",
           "method": "POST",
-          "name": "addComment",
+          "path": "/versions",
+          "descriptionTemplate": "Create content version",
           "params": [],
-          "path": "/comments"
+          "bodyTemplate": {}
         },
         "delete": {
-          "descriptionTemplate": "Delete a Comment {id}",
+          "name": "deleteContentVersion",
           "method": "DELETE",
-          "name": "deleteComment",
+          "path": "/versions/{id}",
+          "descriptionTemplate": "Delete content version {id}",
           "params": [
             "id"
-          ],
-          "path": "/comments/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Comments",
-          "method": "DELETE",
-          "name": "deleteComments",
-          "params": [],
-          "path": "/comments"
-        },
-        "get": {
-          "descriptionTemplate": "Retrieve a Comment {id}",
-          "method": "GET",
-          "name": "getComment",
-          "params": [
-            "id"
-          ],
-          "path": "/comments/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Comments",
-          "method": "GET",
-          "name": "listComments",
-          "params": [],
-          "path": "/comments"
+          ]
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a Comment {id}",
+          "name": "updateContentVersion",
           "method": "PATCH",
-          "name": "updateComment",
+          "path": "/versions/{id}",
+          "descriptionTemplate": "Update content version {id}",
           "params": [
             "id"
           ],
-          "path": "/comments/{id}"
+          "bodyTemplate": {}
         },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Comments",
-          "method": "PATCH",
-          "name": "updateComments",
-          "params": [],
-          "path": "/comments"
+        "get": {
+          "name": "getContentVersion",
+          "method": "GET",
+          "path": "/versions/{id}",
+          "descriptionTemplate": "Retrieve content version {id}",
+          "params": [
+            "id"
+          ]
         }
       },
-      "params": [
-        "id"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Comment",
-          "name": "waitForAnyCommentAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete a Comment (.+)",
-          "name": "waitForAnyCommentDeleted"
-        }
+        "add": "^Create content version$",
+        "delete": "^Delete content version \\{id\\}$",
+        "update": "^Update content version \\{id\\}$",
+        "get": "^Retrieve content version \\{id\\}$"
       }
     },
-    "Extensions": {
-      "displayName": "extensions",
+    "ContentVersionsBulk": {
+      "displayName": "content versions",
+      "params": [],
       "operations": {
-        "list": {
-          "descriptionTemplate": "List Extensions",
+        "add": {
+          "name": "createContentVersion",
+          "method": "POST",
+          "path": "/versions",
+          "descriptionTemplate": "Create multiple content versions",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteContentVersions",
+          "method": "DELETE",
+          "path": "/versions",
+          "descriptionTemplate": "Delete multiple content versions",
+          "params": []
+        },
+        "update": {
+          "name": "updateContentVersions",
+          "method": "PATCH",
+          "path": "/versions",
+          "descriptionTemplate": "Update multiple content versions",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContentVersions",
           "method": "GET",
+          "path": "/versions",
+          "descriptionTemplate": "List content versions",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "add": "^Create multiple content versions$",
+        "delete": "^Delete multiple content versions$",
+        "update": "^Update multiple content versions$",
+        "get": "^List content versions$"
+      }
+    },
+    "Extension": {
+      "displayName": "extension",
+      "params": [
+        "name"
+      ],
+      "operations": {
+        "get": {
           "name": "listExtensions",
-          "params": [],
-          "path": "/extensions"
+          "method": "GET",
+          "path": "/extensions",
+          "descriptionTemplate": "List Extensions",
+          "params": []
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update an Extension {name}",
-          "method": "PATCH",
           "name": "updateExtension",
+          "method": "PATCH",
+          "path": "/extensions/{name}",
+          "descriptionTemplate": "Update extension {name}",
           "params": [
             "name"
           ],
-          "path": "/extensions/{name}"
-        },
-        "updateBundle": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update an Extension {name} in bundle {bundle}",
-          "method": "PATCH",
+          "bodyTemplate": {
+            "meta": {
+              "enabled": "{enabled}"
+            }
+          }
+        }
+      },
+      "waitForPatterns": {
+        "get": "^List Extensions$",
+        "update": "^Update extension .+$"
+      }
+    },
+    "ExtensionBundle": {
+      "displayName": "extension bundle",
+      "params": [
+        "bundle",
+        "name"
+      ],
+      "operations": {
+        "update": {
           "name": "updateExtensionBundle",
+          "method": "PATCH",
+          "path": "/extensions/{bundle}/{name}",
+          "descriptionTemplate": "Update extension {name} in bundle {bundle}",
           "params": [
             "bundle",
             "name"
           ],
-          "path": "/extensions/{bundle}/{name}"
+          "bodyTemplate": {
+            "meta": {
+              "enabled": "{enabled}"
+            }
+          }
         }
       },
-      "params": [
-        "name",
-        "bundle"
-      ],
-      "waitForPatterns": {}
+      "waitForPatterns": {
+        "update": "^Update extension .+ in bundle .+$"
+      }
     },
-    "Fields": {
-      "displayName": "fields",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a Field in collection {collection}",
-          "method": "POST",
-          "name": "addField",
-          "params": [
-            "collection"
-          ],
-          "path": "/fields/{collection}"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete a Field {id} in collection {collection}",
-          "method": "DELETE",
-          "name": "deleteField",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "path": "/fields/{collection}/{id}"
-        },
-        "get": {
-          "descriptionTemplate": "Retrieve a Field {id} in collection {collection}",
-          "method": "GET",
-          "name": "getField",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "path": "/fields/{collection}/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List All Fields",
-          "method": "GET",
-          "name": "listFields",
-          "params": [],
-          "path": "/fields"
-        },
-        "listCollectionFields": {
-          "descriptionTemplate": "List Fields in collection {collection}",
-          "method": "GET",
-          "name": "listCollectionFields",
-          "params": [
-            "collection"
-          ],
-          "path": "/fields/{collection}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a Field {id} in collection {collection}",
-          "method": "PATCH",
-          "name": "updateField",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "path": "/fields/{collection}/{id}"
-        }
-      },
+    "Field": {
+      "displayName": "field",
       "params": [
         "collection",
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Field in collection (.+)",
-          "name": "waitForAnyFieldAdded"
+      "operations": {
+        "add": {
+          "name": "createField",
+          "method": "POST",
+          "path": "/fields/{collection}",
+          "descriptionTemplate": "Create field {field} in collection {collection}",
+          "params": [
+            "collection",
+            "field"
+          ],
+          "bodyTemplate": {
+            "field": "{field}",
+            "datatype": "{datatype}",
+            "type": "{type}",
+            "length": "{length}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete a Field (.+) in collection (.+)",
-          "name": "waitForAnyFieldDeleted"
+        "delete": {
+          "name": "deleteField",
+          "method": "DELETE",
+          "path": "/fields/{collection}/{id}",
+          "descriptionTemplate": "Delete field {id} in collection {collection}",
+          "params": [
+            "collection",
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateField",
+          "method": "PATCH",
+          "path": "/fields/{collection}/{id}",
+          "descriptionTemplate": "Update field {id} in collection {collection}",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "bodyTemplate": {
+            "field": "{field}",
+            "type": "{type}",
+            "schema": "{schema}",
+            "meta": "{meta}"
+          }
+        },
+        "get": {
+          "name": "getField",
+          "method": "GET",
+          "path": "/fields/{collection}/{id}",
+          "descriptionTemplate": "Get field {id} in collection {collection}",
+          "params": [
+            "collection",
+            "id"
+          ]
         }
+      },
+      "waitForPatterns": {
+        "add": "Create field \\{field\\} in collection \\{collection\\}",
+        "delete": "Delete field \\{id\\} in collection \\{collection\\}",
+        "update": "Update field \\{id\\} in collection \\{collection\\}",
+        "get": "Get field \\{id\\} in collection \\{collection\\}"
+      }
+    },
+    "Permission": {
+      "displayName": "permission",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPermission",
+          "method": "POST",
+          "path": "/permissions",
+          "descriptionTemplate": "Create a permission for collection {collection} and role {role}",
+          "params": [
+            "collection",
+            "role"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "create": "{create}",
+            "delete": "{delete}",
+            "explain": "{explain}",
+            "read": "{read}",
+            "role": "{role}",
+            "read_field_blacklist": "{read_field_blacklist}",
+            "status": "{status}",
+            "status_blacklist": "{status_blacklist}",
+            "update": "{update}",
+            "write_field_blacklist": "{write_field_blacklist}"
+          }
+        },
+        "delete": {
+          "name": "deletePermission",
+          "method": "DELETE",
+          "path": "/permissions/{id}",
+          "descriptionTemplate": "Delete permission {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updatePermission",
+          "method": "PATCH",
+          "path": "/permissions/{id}",
+          "descriptionTemplate": "Update permission {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "create": "{create}",
+            "delete": "{delete}",
+            "explain": "{explain}",
+            "read": "{read}",
+            "role": "{role}",
+            "read_field_blacklist": "{read_field_blacklist}",
+            "status": "{status}",
+            "status_blacklist": "{status_blacklist}",
+            "update": "{update}",
+            "write_field_blacklist": "{write_field_blacklist}"
+          }
+        },
+        "get": {
+          "name": "getPermission",
+          "method": "GET",
+          "path": "/permissions/{id}",
+          "descriptionTemplate": "Retrieve permission {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a permission for collection .+ and role \\d+",
+        "delete": "Delete permission \\w+",
+        "update": "Update permission \\w+",
+        "get": "Retrieve permission \\w+"
+      }
+    },
+    "Schema": {
+      "displayName": "schema",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getSchemaSnapshot",
+          "method": "GET",
+          "path": "/schema/snapshot",
+          "descriptionTemplate": "Retrieve schema snapshot"
+        },
+        "add": {
+          "name": "applySchemaDifference",
+          "method": "POST",
+          "path": "/schema/apply",
+          "descriptionTemplate": "Apply schema difference",
+          "bodyTemplate": {
+            "data": "{data}"
+          }
+        },
+        "update": {
+          "name": "retrieveSchemaDifference",
+          "method": "POST",
+          "path": "/schema/diff",
+          "descriptionTemplate": "Retrieve schema difference",
+          "params": [
+            "force"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          }
+        }
+      },
+      "waitForPatterns": {
+        "get": "Retrieve Schema Snapshot",
+        "add": "Apply Schema Difference",
+        "update": "Retrieve Schema Difference"
+      }
+    },
+    "Activity": {
+      "displayName": "activity",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getActivity",
+          "method": "GET",
+          "path": "/activity/{id}",
+          "descriptionTemplate": "Retrieve an Activity Action {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "list": {
+          "name": "getActivities",
+          "method": "GET",
+          "path": "/activity",
+          "descriptionTemplate": "List Activity Actions",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "get": "Retrieve an Activity Action \\{id\\}",
+        "list": "List Activity Actions"
+      }
+    },
+    "Item": {
+      "displayName": "item",
+      "params": [
+        "collection",
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createItem",
+          "method": "POST",
+          "path": "/items/{collection}",
+          "descriptionTemplate": "Create an item in {collection}",
+          "params": [
+            "collection"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteItem",
+          "method": "DELETE",
+          "path": "/items/{collection}/{id}",
+          "descriptionTemplate": "Delete item {id} from {collection}",
+          "params": [
+            "collection",
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateItem",
+          "method": "PATCH",
+          "path": "/items/{collection}/{id}",
+          "descriptionTemplate": "Update item {id} in {collection}",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getItem",
+          "method": "GET",
+          "path": "/items/{collection}/{id}",
+          "descriptionTemplate": "Retrieve item {id} from {collection}",
+          "params": [
+            "collection",
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create an item in \\{collection\\}",
+        "delete": "Delete item \\{id\\} from \\{collection\\}",
+        "update": "Update item \\{id\\} in \\{collection\\}",
+        "get": "Retrieve item \\{id\\} from \\{collection\\}"
+      }
+    },
+    "Preset": {
+      "displayName": "preset",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPreset",
+          "method": "POST",
+          "path": "/presets",
+          "descriptionTemplate": "Create a Preset for collection {collection}",
+          "params": [
+            "collection"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "title": "{title}",
+            "role": "{role}",
+            "search": "{search}",
+            "filters": "{filters}",
+            "layout": "{layout}",
+            "layout_query": "{layout_query}",
+            "layout_options": "{layout_options}"
+          }
+        },
+        "delete": {
+          "name": "deletePreset",
+          "method": "DELETE",
+          "path": "/presets/{id}",
+          "descriptionTemplate": "Delete preset {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updatePreset",
+          "method": "PATCH",
+          "path": "/presets/{id}",
+          "descriptionTemplate": "Update preset {id} for collection {collection}",
+          "params": [
+            "id",
+            "collection"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "title": "{title}",
+            "role": "{role}",
+            "search_query": "{search_query}",
+            "filters": "{filters}",
+            "view_type": "{view_type}",
+            "view_query": "{view_query}",
+            "view_options": "{view_options}",
+            "translation": "{translation}"
+          }
+        },
+        "get": {
+          "name": "getPreset",
+          "method": "GET",
+          "path": "/presets/{id}",
+          "descriptionTemplate": "Retrieve preset {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "updateMultiple": {
+          "name": "updatePresets",
+          "method": "PATCH",
+          "path": "/presets",
+          "descriptionTemplate": "Update multiple presets",
+          "params": [],
+          "bodyTemplate": {
+            "keys": "{keys}",
+            "data": {
+              "collection": "{collection}",
+              "title": "{title}",
+              "role": "{role}",
+              "search": "{search}",
+              "filters": "{filters}",
+              "layout": "{layout}",
+              "layout_query": "{layout_query}",
+              "layout_options": "{layout_options}"
+            }
+          }
+        },
+        "deleteMultiple": {
+          "name": "deletePresets",
+          "method": "DELETE",
+          "path": "/presets",
+          "descriptionTemplate": "Delete multiple presets",
+          "params": []
+        },
+        "list": {
+          "name": "getPresets",
+          "method": "GET",
+          "path": "/presets",
+          "descriptionTemplate": "List presets",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a Preset for collection .+",
+        "delete": "Delete preset .+",
+        "update": "Update preset .+ for collection .+",
+        "get": "Retrieve preset .+",
+        "updateMultiple": "Update multiple presets",
+        "deleteMultiple": "Delete multiple presets",
+        "list": "List presets"
+      }
+    },
+    "Collection": {
+      "displayName": "collection",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCollection",
+          "method": "POST",
+          "path": "/collections",
+          "descriptionTemplate": "Create a collection {collection}",
+          "params": [
+            "collection"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "fields": "{fields}",
+            "icon": "{icon}",
+            "note": "{note}",
+            "display_template": "{display_template}",
+            "hidden": "{hidden}",
+            "singleton": "{singleton}",
+            "translation": "{translation}",
+            "versioning": "{versioning}",
+            "archive_field": "{archive_field}",
+            "archive_app_filter": "{archive_app_filter}",
+            "archive_value": "{archive_value}",
+            "unarchive_value": "{unarchive_value}",
+            "sort_field": "{sort_field}"
+          }
+        },
+        "get": {
+          "name": "getCollection",
+          "method": "GET",
+          "path": "/collections/{id}",
+          "descriptionTemplate": "Retrieve collection {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateCollection",
+          "method": "PATCH",
+          "path": "/collections/{id}",
+          "descriptionTemplate": "Update collection {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "meta": {
+              "icon": "{icon}",
+              "color": "{color}",
+              "note": "{note}",
+              "display_template": "{display_template}",
+              "hidden": "{hidden}",
+              "singleton": "{singleton}",
+              "translation": "{translation}",
+              "versioning": "{versioning}",
+              "archive_field": "{archive_field}",
+              "archive_app_filter": "{archive_app_filter}",
+              "archive_value": "{archive_value}",
+              "unarchive_value": "{unarchive_value}",
+              "sort_field": "{sort_field}"
+            }
+          }
+        },
+        "delete": {
+          "name": "deleteCollection",
+          "method": "DELETE",
+          "path": "/collections/{id}",
+          "descriptionTemplate": "Delete collection {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "^Create a collection .+$",
+        "get": "^Retrieve collection .+$",
+        "update": "^Update collection .+$",
+        "delete": "^Delete collection .+$"
+      }
+    },
+    "Comment": {
+      "displayName": "comment",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createComment",
+          "method": "POST",
+          "path": "/comments",
+          "descriptionTemplate": "Create a comment for collection {collection} item {item}",
+          "params": [
+            "collection",
+            "item",
+            "comment"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "item": "{item}",
+            "comment": "{comment}"
+          }
+        },
+        "delete": {
+          "name": "deleteComment",
+          "method": "DELETE",
+          "path": "/comments/{id}",
+          "descriptionTemplate": "Delete comment {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateComment",
+          "method": "PATCH",
+          "path": "/comments/{id}",
+          "descriptionTemplate": "Update comment {id} for collection {collection}",
+          "params": [
+            "id",
+            "collection",
+            "item",
+            "comment"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "item": "{item}",
+            "comment": "{comment}"
+          }
+        },
+        "get": {
+          "name": "getComment",
+          "method": "GET",
+          "path": "/comments/{id}",
+          "descriptionTemplate": "Retrieve comment {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a comment for collection .+ item .+",
+        "delete": "Delete comment .+",
+        "update": "Update comment .+ for collection .+",
+        "get": "Retrieve comment .+"
+      }
+    },
+    "CommentsBulk": {
+      "displayName": "comments",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getComments",
+          "method": "GET",
+          "path": "/comments",
+          "descriptionTemplate": "List comments",
+          "params": []
+        },
+        "update": {
+          "name": "updateComments",
+          "method": "PATCH",
+          "path": "/comments",
+          "descriptionTemplate": "Update multiple comments for collection {collection}",
+          "params": [
+            "collection",
+            "keys",
+            "item",
+            "comment"
+          ],
+          "bodyTemplate": {
+            "keys": "{keys}",
+            "data": {
+              "collection": "{collection}",
+              "item": "{item}",
+              "comment": "{comment}"
+            }
+          }
+        },
+        "delete": {
+          "name": "deleteComments",
+          "method": "DELETE",
+          "path": "/comments",
+          "descriptionTemplate": "Delete multiple comments",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "get": "List comments",
+        "update": "Update multiple comments for collection .+",
+        "delete": "Delete multiple comments"
+      }
+    },
+    "File": {
+      "displayName": "file",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createFile",
+          "method": "POST",
+          "path": "/files",
+          "descriptionTemplate": "Create a file",
+          "params": [],
+          "bodyTemplate": {
+            "data": "{data}"
+          }
+        },
+        "delete": {
+          "name": "deleteFile",
+          "method": "DELETE",
+          "path": "/files/{id}",
+          "descriptionTemplate": "Delete file {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateFile",
+          "method": "PATCH",
+          "path": "/files/{id}",
+          "descriptionTemplate": "Update file {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "title": "{title}",
+            "filename_download": "{filename_download}",
+            "description": "{description}",
+            "folder": "{folder}",
+            "tags": "{tags}"
+          }
+        },
+        "get": {
+          "name": "getFile",
+          "method": "GET",
+          "path": "/files/{id}",
+          "descriptionTemplate": "Retrieve file {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a file",
+        "delete": "Delete file \\{id\\}",
+        "update": "Update file \\{id\\}",
+        "get": "Retrieve file \\{id\\}"
       }
     },
     "Files": {
       "displayName": "files",
+      "params": [],
       "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a File",
-          "method": "POST",
-          "name": "addFile",
-          "params": [],
-          "path": "/files"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete a File {id}",
-          "method": "DELETE",
-          "name": "deleteFile",
-          "params": [
-            "id"
-          ],
-          "path": "/files/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Files",
-          "method": "DELETE",
-          "name": "deleteFiles",
-          "params": [],
-          "path": "/files"
-        },
         "get": {
-          "descriptionTemplate": "Retrieve a File {id}",
+          "name": "getFiles",
           "method": "GET",
-          "name": "getFile",
-          "params": [
-            "id"
-          ],
-          "path": "/files/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Files",
-          "method": "GET",
-          "name": "listFiles",
-          "params": [],
-          "path": "/files"
+          "path": "/files",
+          "descriptionTemplate": "List files",
+          "params": []
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a File {id}",
-          "method": "PATCH",
-          "name": "updateFile",
-          "params": [
-            "id"
-          ],
-          "path": "/files/{id}"
-        },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Files",
-          "method": "PATCH",
           "name": "updateFiles",
+          "method": "PATCH",
+          "path": "/files",
+          "descriptionTemplate": "Update multiple files",
           "params": [],
-          "path": "/files"
+          "bodyTemplate": {
+            "data": {
+              "data": "{data}"
+            },
+            "keys": "{keys}"
+          }
+        },
+        "delete": {
+          "name": "deleteFiles",
+          "method": "DELETE",
+          "path": "/files",
+          "descriptionTemplate": "Delete multiple files",
+          "params": []
         }
       },
+      "waitForPatterns": {
+        "get": "List files",
+        "update": "Update multiple files",
+        "delete": "Delete multiple files"
+      }
+    },
+    "Flow": {
+      "displayName": "flow",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a File",
-          "name": "waitForAnyFileAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete a File (.+)",
-          "name": "waitForAnyFileDeleted"
-        }
-      }
-    },
-    "Flows": {
-      "displayName": "flows",
       "operations": {
         "add": {
-          "bodyTemplate": {},
+          "name": "createFlow",
+          "method": "POST",
+          "path": "/flows",
           "descriptionTemplate": "Create a Flow",
-          "method": "POST",
-          "name": "addFlow",
           "params": [],
-          "path": "/flows"
+          "bodyTemplate": {
+            "data": "{flowData}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete a Flow {id}",
-          "method": "DELETE",
           "name": "deleteFlow",
-          "params": [
-            "id"
-          ],
-          "path": "/flows/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Flows",
           "method": "DELETE",
-          "name": "deleteFlows",
-          "params": [],
-          "path": "/flows"
-        },
-        "get": {
-          "descriptionTemplate": "Retrieve a Flow {id}",
-          "method": "GET",
-          "name": "getFlow",
+          "path": "/flows/{id}",
+          "descriptionTemplate": "Delete a Flow {id}",
           "params": [
             "id"
-          ],
-          "path": "/flows/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Flows",
-          "method": "GET",
-          "name": "listFlows",
-          "params": [],
-          "path": "/flows"
+          ]
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a Flow {id}",
-          "method": "PATCH",
           "name": "updateFlow",
+          "method": "PATCH",
+          "path": "/flows/{id}",
+          "descriptionTemplate": "Update a Flow {id}",
           "params": [
             "id"
           ],
-          "path": "/flows/{id}"
+          "bodyTemplate": {
+            "data": "{flowData}"
+          }
         },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Flows",
-          "method": "PATCH",
+        "get": {
+          "name": "getFlow",
+          "method": "GET",
+          "path": "/flows/{id}",
+          "descriptionTemplate": "Retrieve a Flow {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "^Create a Flow$",
+        "delete": "^Delete a Flow \\w+$",
+        "update": "^Update a Flow \\w+$",
+        "get": "^Retrieve a Flow \\w+$"
+      }
+    },
+    "FlowsBulk": {
+      "displayName": "flows",
+      "params": [],
+      "operations": {
+        "delete": {
+          "name": "deleteFlows",
+          "method": "DELETE",
+          "path": "/flows",
+          "descriptionTemplate": "Delete Multiple Flows",
+          "params": []
+        },
+        "update": {
           "name": "updateFlows",
+          "method": "PATCH",
+          "path": "/flows",
+          "descriptionTemplate": "Update Multiple Flows",
           "params": [],
-          "path": "/flows"
+          "bodyTemplate": {
+            "data": "{flowsData}",
+            "keys": "{keys}"
+          }
+        },
+        "get": {
+          "name": "getFlows",
+          "method": "GET",
+          "path": "/flows",
+          "descriptionTemplate": "List Flows",
+          "params": []
         }
       },
+      "waitForPatterns": {
+        "delete": "^Delete Multiple Flows$",
+        "update": "^Update Multiple Flows$",
+        "get": "^List Flows$"
+      }
+    },
+    "Folder": {
+      "displayName": "folder",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Flow",
-          "name": "waitForAnyFlowAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete a Flow (.+)",
-          "name": "waitForAnyFlowDeleted"
-        }
-      }
-    },
-    "Folders": {
-      "displayName": "folders",
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a Folder",
+          "name": "createFolder",
           "method": "POST",
-          "name": "addFolder",
-          "params": [],
-          "path": "/folders"
+          "path": "/folders",
+          "descriptionTemplate": "Create a folder {name}",
+          "params": [
+            "name",
+            "parent"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "parent": "{parent}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete a Folder {id}",
-          "method": "DELETE",
           "name": "deleteFolder",
-          "params": [
-            "id"
-          ],
-          "path": "/folders/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Folders",
           "method": "DELETE",
-          "name": "deleteFolders",
-          "params": [],
-          "path": "/folders"
-        },
-        "get": {
-          "descriptionTemplate": "Retrieve a Folder {id}",
-          "method": "GET",
-          "name": "getFolder",
+          "path": "/folders/{id}",
+          "descriptionTemplate": "Delete folder {id}",
           "params": [
             "id"
-          ],
-          "path": "/folders/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Folders",
-          "method": "GET",
-          "name": "listFolders",
-          "params": [],
-          "path": "/folders"
+          ]
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a Folder {id}",
-          "method": "PATCH",
           "name": "updateFolder",
-          "params": [
-            "id"
-          ],
-          "path": "/folders/{id}"
-        },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Folders",
           "method": "PATCH",
-          "name": "updateFolders",
-          "params": [],
-          "path": "/folders"
-        }
-      },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Folder",
-          "name": "waitForAnyFolderAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete a Folder (.+)",
-          "name": "waitForAnyFolderDeleted"
-        }
-      }
-    },
-    "Items": {
-      "displayName": "items",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create an Item in collection {collection}",
-          "method": "POST",
-          "name": "addItem",
+          "path": "/folders/{id}",
+          "descriptionTemplate": "Update folder {id}",
           "params": [
-            "collection"
+            "id",
+            "name",
+            "parent"
           ],
-          "path": "/items/{collection}"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete an Item {id} in collection {collection}",
-          "method": "DELETE",
-          "name": "deleteItem",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "path": "/items/{collection}/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Items in collection {collection}",
-          "method": "DELETE",
-          "name": "deleteItems",
-          "params": [
-            "collection"
-          ],
-          "path": "/items/{collection}"
+          "bodyTemplate": {
+            "name": "{name}",
+            "parent": "{parent}"
+          }
         },
         "get": {
-          "descriptionTemplate": "Retrieve an Item {id} in collection {collection}",
+          "name": "getFolder",
           "method": "GET",
-          "name": "getItem",
+          "path": "/folders/{id}",
+          "descriptionTemplate": "Retrieve folder {id}",
           "params": [
-            "collection",
             "id"
-          ],
-          "path": "/items/{collection}/{id}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update an Item {id} in collection {collection}",
-          "method": "PATCH",
-          "name": "updateItem",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "path": "/items/{collection}/{id}"
-        },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Items in collection {collection}",
-          "method": "PATCH",
-          "name": "updateItems",
-          "params": [
-            "collection"
-          ],
-          "path": "/items/{collection}"
+          ]
         }
       },
-      "params": [
-        "collection",
-        "id"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create an Item in collection (.+)",
-          "name": "waitForAnyItemAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete an Item (.+) in collection (.+)",
-          "name": "waitForAnyItemDeleted"
-        }
+        "add": "Create a folder \\{name\\}",
+        "delete": "Delete folder \\{id\\}",
+        "update": "Update folder \\{id\\}",
+        "get": "Retrieve folder \\{id\\}"
       }
     },
-    "Operations": {
-      "displayName": "operations",
+    "Operation": {
+      "displayName": "operation",
+      "params": [
+        "id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {},
+          "name": "createOperation",
+          "method": "POST",
+          "path": "/operations",
           "descriptionTemplate": "Create an Operation",
-          "method": "POST",
-          "name": "addOperation",
           "params": [],
-          "path": "/operations"
+          "bodyTemplate": {}
         },
         "delete": {
-          "descriptionTemplate": "Delete an Operation {id}",
-          "method": "DELETE",
           "name": "deleteOperation",
-          "params": [
-            "id"
-          ],
-          "path": "/operations/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Operations",
           "method": "DELETE",
-          "name": "deleteOperations",
-          "params": [],
-          "path": "/operations"
-        },
-        "get": {
-          "descriptionTemplate": "Retrieve an Operation {id}",
-          "method": "GET",
-          "name": "getOperation",
+          "path": "/operations/{id}",
+          "descriptionTemplate": "Delete an Operation {id}",
           "params": [
             "id"
-          ],
-          "path": "/operations/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Operations",
-          "method": "GET",
-          "name": "listOperations",
-          "params": [],
-          "path": "/operations"
+          ]
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update an Operation {id}",
-          "method": "PATCH",
           "name": "updateOperation",
+          "method": "PATCH",
+          "path": "/operations/{id}",
+          "descriptionTemplate": "Update an Operation {id}",
           "params": [
             "id"
           ],
-          "path": "/operations/{id}"
-        },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Operations",
-          "method": "PATCH",
-          "name": "updateOperations",
-          "params": [],
-          "path": "/operations"
-        }
-      },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create an Operation",
-          "name": "waitForAnyOperationAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete an Operation (.+)",
-          "name": "waitForAnyOperationDeleted"
-        }
-      }
-    },
-    "Permissions": {
-      "displayName": "permissions",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a Permission",
-          "method": "POST",
-          "name": "addPermission",
-          "params": [],
-          "path": "/permissions"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete Multiple Permissions",
-          "method": "DELETE",
-          "name": "deletePermissions",
-          "params": [],
-          "path": "/permissions"
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Retrieve a Permission {id}",
+          "name": "getOperation",
           "method": "GET",
-          "name": "getPermission",
+          "path": "/operations/{id}",
+          "descriptionTemplate": "Retrieve an Operation {id}",
           "params": [
             "id"
-          ],
-          "path": "/permissions/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Permissions",
-          "method": "GET",
-          "name": "listPermissions",
-          "params": [],
-          "path": "/permissions"
-        },
-        "listMyPermissions": {
-          "descriptionTemplate": "List My Permissions",
-          "method": "GET",
-          "name": "listMyPermissions",
-          "params": [],
-          "path": "/permissions/me"
-        },
-        "update": {
-          "descriptionTemplate": "Update Multiple Permissions",
-          "method": "PATCH",
-          "name": "updatePermissions",
-          "params": [],
-          "path": "/permissions"
+          ]
         }
       },
+      "waitForPatterns": {
+        "add": "Create an Operation",
+        "delete": "Delete an Operation \\{id\\}",
+        "update": "Update an Operation \\{id\\}",
+        "get": "Retrieve an Operation \\{id\\}"
+      }
+    },
+    "Relation": {
+      "displayName": "relation",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Permission",
-          "name": "waitForAnyPermissionAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete Multiple Permissions",
-          "name": "waitForAnyPermissionDeleted"
-        }
-      }
-    },
-    "Presets": {
-      "displayName": "presets",
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Create a Preset",
+          "name": "createRelation",
           "method": "POST",
-          "name": "addPreset",
-          "params": [],
-          "path": "/presets"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete a Preset {id}",
-          "method": "DELETE",
-          "name": "deletePreset",
+          "path": "/relations",
+          "descriptionTemplate": "Create a relation from {collection_many} to {collection_one}",
           "params": [
-            "id"
+            "collection_many",
+            "collection_one",
+            "field_many",
+            "field_one",
+            "junction_field"
           ],
-          "path": "/presets/{id}"
-        },
-        "deleteMultiple": {
-          "descriptionTemplate": "Delete Multiple Presets",
-          "method": "DELETE",
-          "name": "deletePresets",
-          "params": [],
-          "path": "/presets"
+          "bodyTemplate": {
+            "collection_many": "{collection_many}",
+            "collection_one": "{collection_one}",
+            "field_many": "{field_many}",
+            "field_one": "{field_one}",
+            "junction_field": "{junction_field}"
+          }
         },
         "get": {
-          "descriptionTemplate": "Retrieve a Preset {id}",
+          "name": "getRelation",
           "method": "GET",
-          "name": "getPreset",
+          "path": "/relations/{id}",
+          "descriptionTemplate": "Retrieve relation {id}",
           "params": [
             "id"
-          ],
-          "path": "/presets/{id}"
-        },
-        "list": {
-          "descriptionTemplate": "List Presets",
-          "method": "GET",
-          "name": "listPresets",
-          "params": [],
-          "path": "/presets"
+          ]
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update a Preset {id}",
+          "name": "updateRelation",
           "method": "PATCH",
-          "name": "updatePreset",
+          "path": "/relations/{id}",
+          "descriptionTemplate": "Update relation {id}",
+          "params": [
+            "id",
+            "collection_many",
+            "collection_one",
+            "field_many",
+            "field_one",
+            "junction_field"
+          ],
+          "bodyTemplate": {
+            "collection_many": "{collection_many}",
+            "collection_one": "{collection_one}",
+            "field_many": "{field_many}",
+            "field_one": "{field_one}",
+            "junction_field": "{junction_field}"
+          }
+        },
+        "delete": {
+          "name": "deleteRelation",
+          "method": "DELETE",
+          "path": "/relations/{id}",
+          "descriptionTemplate": "Delete relation {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a relation from .+ to .+",
+        "get": "Retrieve relation \\d+",
+        "update": "Update relation \\d+",
+        "delete": "Delete relation \\d+"
+      }
+    },
+    "Revision": {
+      "displayName": "revision",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getRevision",
+          "method": "GET",
+          "path": "/revisions/{id}",
+          "descriptionTemplate": "Retrieve revision {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "list": {
+          "name": "listRevisions",
+          "method": "GET",
+          "path": "/revisions",
+          "descriptionTemplate": "List revisions"
+        }
+      },
+      "waitForPatterns": {
+        "get": "^Retrieve revision \\{id\\}$",
+        "list": "^List revisions$"
+      }
+    },
+    "Role": {
+      "displayName": "role",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRole",
+          "method": "POST",
+          "path": "/roles",
+          "descriptionTemplate": "Create a role {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteRole",
+          "method": "DELETE",
+          "path": "/roles/{id}",
+          "descriptionTemplate": "Delete role {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateRole",
+          "method": "PATCH",
+          "path": "/roles/{id}",
+          "descriptionTemplate": "Update role {id}",
           "params": [
             "id"
           ],
-          "path": "/presets/{id}"
+          "bodyTemplate": {
+            "name": "{name}"
+          }
         },
-        "updateMultiple": {
-          "descriptionTemplate": "Update Multiple Presets",
-          "method": "PATCH",
-          "name": "updatePresets",
-          "params": [],
-          "path": "/presets"
+        "get": {
+          "name": "getRole",
+          "method": "GET",
+          "path": "/roles/{id}",
+          "descriptionTemplate": "Retrieve role {id}",
+          "params": [
+            "id"
+          ]
         }
       },
-      "params": [
-        "id"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Create a Preset",
-          "name": "waitForAnyPresetAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete a Preset (.+)",
-          "name": "waitForAnyPresetDeleted"
-        }
+        "add": "Create a role .+",
+        "delete": "Delete role .+",
+        "update": "Update role .+",
+        "get": "Retrieve role .+"
       }
     },
-    "Roles": {
-      "displayName": "roles",
-      "operations": {
-        "list": {
-          "descriptionTemplate": "List Roles",
-          "method": "GET",
-          "name": "listRoles",
-          "params": [],
-          "path": "/roles"
-        }
-      },
+    "Webhook": {
+      "displayName": "webhook",
       "params": [
         "id"
       ],
-      "waitForPatterns": {}
+      "operations": {
+        "add": {
+          "name": "createWebhook",
+          "method": "POST",
+          "path": "/webhooks",
+          "descriptionTemplate": "Create a webhook {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "method": "{method}",
+            "url": "{url}",
+            "status": "{status}",
+            "data": "{data}",
+            "actions": "{actions}",
+            "system-collections": "{system-collections}"
+          }
+        },
+        "delete": {
+          "name": "deleteWebhook",
+          "method": "DELETE",
+          "path": "/webhooks/{id}",
+          "descriptionTemplate": "Delete webhook {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateWebhook",
+          "method": "PATCH",
+          "path": "/webhooks/{id}",
+          "descriptionTemplate": "Update webhook {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "method": "{method}",
+            "url": "{url}",
+            "status": "{status}",
+            "data": "{data}",
+            "actions": "{actions}",
+            "system-collections": "{system-collections}"
+          }
+        },
+        "get": {
+          "name": "getWebhook",
+          "method": "GET",
+          "path": "/webhooks/{id}",
+          "descriptionTemplate": "Retrieve webhook {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create a webhook \\{.+\\}",
+        "delete": "Delete webhook \\{.+\\}",
+        "update": "Update webhook \\{.+\\}",
+        "get": "Retrieve webhook \\{.+\\}"
+      }
     },
-    "Settings": {
-      "displayName": "settings",
-      "operations": {
-        "list": {
-          "descriptionTemplate": "Settings control the way the platform works and acts.",
-          "method": "GET",
-          "name": "listSettings",
-          "params": [],
-          "path": "/settings"
-        }
-      },
+    "Asset": {
+      "displayName": "asset",
       "params": [
         "id"
       ],
-      "waitForPatterns": {}
+      "operations": {
+        "get": {
+          "name": "getAsset",
+          "method": "GET",
+          "path": "/assets/{id}",
+          "descriptionTemplate": "Get an Asset {id}",
+          "params": [
+            "id"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "get": "Get an Asset \\{id\\}"
+      }
     },
-    "Users": {
-      "displayName": "users",
+    "Setting": {
+      "displayName": "setting",
+      "params": [],
       "operations": {
-        "list": {
-          "descriptionTemplate": "List Users",
+        "get": {
+          "name": "getSettings",
           "method": "GET",
-          "name": "listUsers",
+          "path": "/settings",
+          "descriptionTemplate": "Retrieve Settings",
+          "params": []
+        },
+        "update": {
+          "name": "updateSetting",
+          "method": "PATCH",
+          "path": "/settings",
+          "descriptionTemplate": "Update Settings",
           "params": [],
-          "path": "/users"
+          "bodyTemplate": {}
         }
       },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {}
-    },
-    "Webhooks": {
-      "displayName": "webhooks",
-      "operations": {
-        "list": {
-          "descriptionTemplate": "Webhooks.",
-          "method": "GET",
-          "name": "listWebhooks",
-          "params": [],
-          "path": "/webhooks"
-        }
-      },
-      "params": [
-        "id"
-      ],
-      "waitForPatterns": {}
+      "waitForPatterns": {
+        "get": "^Retrieve Settings$",
+        "update": "^Update Settings$"
+      }
     }
   },
-  "sut": "directus"
+  "stories": []
 }

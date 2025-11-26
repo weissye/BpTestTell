@@ -4,7 +4,7 @@
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 
-const svc = new RESTSession("", "provengo-client", {
+const svc = new RESTSession("http://localhost:8080", "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
@@ -15,11 +15,11 @@ function matchesDescriptionRegex(re) {
   });
 }
 
-// ---- Entity: patients ----
+// ---- Entity: patient ----
 
-function addPatients() {
+function createPatient() {
   var url = "/patients";
-  var description = "Add patients";
+  var description = "Create patient";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -29,46 +29,15 @@ function addPatients() {
   });
 }
 
-function tryToAddExistingpatients() {
-  return addPatients();
+function tryToAddExistingPatient() {
+  return createPatient();
 }
 
-function matchAddedpatients() {
-  return bp.EventSet("matchAddedpatients", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: drug ----
 
-function waitForAnypatientsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add patients/)});
-  var m = ev.data.parameters.description.match(/Add patients/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: drugs ----
-
-function addDrugs() {
+function listDrugs() {
   var url = "/drugs";
-  var description = "Add drugs";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getDrugs() {
-  var url = "/drugs";
-  var description = "Get drugs";
+  var description = "List drugs";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -78,42 +47,35 @@ function getDrugs() {
   });
 }
 
-function tryToAddExistingdrugs() {
-  return addDrugs();
-}
-
-function verifydrugsExists() {
-  return getDrugs();
-}
-
-function verifydrugsDoesNotExist() {
-  return getDrugs();
-}
-
-function matchAddeddrugs() {
-  return bp.EventSet("matchAddeddrugs", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
+function createDrug() {
+  var url = "/drugs";
+  var description = "Create drug";
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
   });
 }
 
-function waitForAnydrugsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add drugs/)});
-  var m = ev.data.parameters.description.match(/Add drugs/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function tryToAddExistingDrug() {
+  return createDrug();
 }
 
-// ---- Entity: prescriptions ----
+function verifyDrugExists() {
+  return listDrugs();
+}
 
-function addPrescriptions() {
+function verifyDrugDoesNotExist() {
+  return listDrugs();
+}
+
+// ---- Entity: prescription ----
+
+function createPrescription() {
   var url = "/prescriptions";
-  var description = "Add prescriptions";
+  var description = "Create prescription";
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -123,46 +85,15 @@ function addPrescriptions() {
   });
 }
 
-function tryToAddExistingprescriptions() {
-  return addPrescriptions();
+function tryToAddExistingPrescription() {
+  return createPrescription();
 }
 
-function matchAddedprescriptions() {
-  return bp.EventSet("matchAddedprescriptions", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
-  });
-}
+// ---- Entity: order ----
 
-function waitForAnyprescriptionsAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add prescriptions/)});
-  var m = ev.data.parameters.description.match(/Add prescriptions/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: orders ----
-
-function addOrders() {
+function listOrders() {
   var url = "/orders";
-  var description = "Add orders";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getOrders() {
-  var url = "/orders";
-  var description = "Get orders";
+  var description = "List orders";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -172,42 +103,35 @@ function getOrders() {
   });
 }
 
-function tryToAddExistingorders() {
-  return addOrders();
-}
-
-function verifyordersExists() {
-  return getOrders();
-}
-
-function verifyordersDoesNotExist() {
-  return getOrders();
-}
-
-function matchAddedorders() {
-  return bp.EventSet("matchAddedorders", function(e) {
-      if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-      return e.data.parameters.description.includes("");
+function createOrder() {
+  var url = "/orders";
+  var description = "Create order";
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
   });
 }
 
-function waitForAnyordersAdded() {
-  var ev = bp.sync({waitFor: matchesDescriptionRegex(/Add orders/)});
-  var m = ev.data.parameters.description.match(/Add orders/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+function tryToAddExistingOrder() {
+  return createOrder();
+}
+
+function verifyOrderExists() {
+  return listOrders();
+}
+
+function verifyOrderDoesNotExist() {
+  return listOrders();
 }
 
 // ---- Entity: inventory ----
 
 function getInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Get inventory " + ndc;
+  var description = "Get inventory for " + ndc;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -217,10 +141,10 @@ function getInventory(ndc) {
   });
 }
 
-function verifyinventoryExists(ndc) {
+function verifyInventoryExists(ndc) {
   return getInventory(ndc);
 }
 
-function verifyinventoryDoesNotExist(ndc) {
+function verifyInventoryDoesNotExist(ndc) {
   return getInventory(ndc);
 }

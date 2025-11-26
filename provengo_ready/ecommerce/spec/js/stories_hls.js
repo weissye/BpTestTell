@@ -3,23 +3,20 @@
 
 const bthread = bp.registerBThread;
 
-// Story: crud:drugs:read_only
-bthread("crud:drugs:read_only", function () {
+// Story: crud:Drug:read_only
+bthread("crud:Drug:read_only", function () {
 
-  // Read-only check for drugs
-  verifydrugsExists(id);
+  verifyDrugExists();
 });
 
-// Story: crud:orders:read_only
-bthread("crud:orders:read_only", function () {
+// Story: crud:Order:read_only
+bthread("crud:Order:read_only", function () {
 
-  // Read-only check for orders
-  verifyordersExists(id);
+  verifyOrderExists();
 });
 
-// Story: crud:inventory:read_only
-bthread("crud:inventory:read_only", function () {
+// Story: crud:Inventory:read_only
+bthread("crud:Inventory:read_only", function () {
   let ndc = "ndc_240";
-  // Read-only check for inventory
-  verifyinventoryExists(ndc);
+  verifyInventoryExists("ndc_240");
 });

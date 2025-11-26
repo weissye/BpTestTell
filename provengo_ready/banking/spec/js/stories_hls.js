@@ -3,23 +3,20 @@
 
 const bthread = bp.registerBThread;
 
-// Story: crud:Accounts:read_only
-bthread("crud:Accounts:read_only", function () {
-
-  // Read-only check for Accounts
-  verifyAccountsExists(id);
+// Story: crud:Account:read_only
+bthread("crud:Account:read_only", function () {
+  let accountId = 210;
+  verifyAccountExists(210);
 });
 
-// Story: crud:Transactions:read_only
-bthread("crud:Transactions:read_only", function () {
+// Story: crud:Transaction:read_only
+bthread("crud:Transaction:read_only", function () {
   let accountId = 220;
-  // Read-only check for Transactions
-  verifyTransactionsExists(accountId);
+  verifyTransactionExists(220);
 });
 
-// Story: crud:Loans:read_only
-bthread("crud:Loans:read_only", function () {
+// Story: crud:Loan:read_only
+bthread("crud:Loan:read_only", function () {
 
-  // Read-only check for Loans
-  verifyLoansExists(id);
+  verifyLoanExists();
 });

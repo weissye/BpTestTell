@@ -1,161 +1,130 @@
 {
-  "base_url": "",
+  "sut": "banking",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "Accounts": {
-      "displayName": "accounts",
+    "Customer": {
+      "displayName": "customer",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add accounts",
+          "name": "createCustomer",
           "method": "POST",
-          "name": "addAccounts",
+          "path": "/customers",
+          "descriptionTemplate": "Create customer",
           "params": [],
-          "path": "/accounts"
-        },
-        "get": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Get accounts",
-          "method": "GET",
-          "name": "getAccounts",
-          "params": [],
-          "path": "/accounts"
-        },
-        "verifyExists": {
-          "name": "verifyAccountsExists"
+          "bodyTemplate": {}
         }
       },
+      "waitForPatterns": {
+        "add": "^Create customer$"
+      }
+    },
+    "Account": {
+      "displayName": "account",
       "params": [
         "accountId"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add accounts",
-          "name": "waitForAnyAccountsAdded"
-        }
-      }
-    },
-    "Cards": {
-      "displayName": "cards",
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add cards",
+          "name": "createAccount",
           "method": "POST",
-          "name": "addCards",
+          "path": "/accounts",
+          "descriptionTemplate": "Create account",
           "params": [],
-          "path": "/cards"
-        },
-        "verifyExists": {
-          "name": "verifyCardsExists"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add cards",
-          "name": "waitForAnyCardsAdded"
-        }
-      }
-    },
-    "Customers": {
-      "displayName": "customers",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add customers",
-          "method": "POST",
-          "name": "addCustomers",
-          "params": [],
-          "path": "/customers"
-        },
-        "verifyExists": {
-          "name": "verifyCustomersExists"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add customers",
-          "name": "waitForAnyCustomersAdded"
-        }
-      }
-    },
-    "Loans": {
-      "displayName": "loans",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add loans",
-          "method": "POST",
-          "name": "addLoans",
-          "params": [],
-          "path": "/loans"
+          "bodyTemplate": {}
         },
         "get": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Get loans",
+          "name": "getAccounts",
           "method": "GET",
-          "name": "getLoans",
-          "params": [],
-          "path": "/loans"
-        },
-        "verifyExists": {
-          "name": "verifyLoansExists"
+          "path": "/accounts",
+          "descriptionTemplate": "Get accounts",
+          "params": []
         }
       },
-      "params": [],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add loans",
-          "name": "waitForAnyLoansAdded"
-        }
+        "add": "^Create account$",
+        "get": "^Get accounts$"
       }
     },
-    "Transactions": {
-      "displayName": "transactions",
+    "Transaction": {
+      "displayName": "transaction",
+      "params": [
+        "accountId"
+      ],
       "operations": {
         "get": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Get transactions for account {accountId}",
-          "method": "GET",
           "name": "getTransactions",
+          "method": "GET",
+          "path": "/accounts/{accountId}/transactions",
+          "descriptionTemplate": "Get transactions for account {accountId}",
           "params": [
             "accountId"
-          ],
-          "path": "/accounts/{accountId}/transactions"
-        },
-        "verifyExists": {
-          "name": "verifyTransactionsExists"
+          ]
         }
       },
-      "params": [
-        "accountId"
-      ],
-      "waitForPatterns": {}
+      "waitForPatterns": {
+        "get": "^Get transactions for account \\{accountId\\}$"
+      }
     },
-    "Transfers": {
-      "displayName": "transfers",
+    "Transfer": {
+      "displayName": "transfer",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add transfers",
+          "name": "createTransfer",
           "method": "POST",
-          "name": "addTransfers",
+          "path": "/transfers",
+          "descriptionTemplate": "Create transfer",
           "params": [],
-          "path": "/transfers"
-        },
-        "verifyExists": {
-          "name": "verifyTransfersExists"
+          "bodyTemplate": {}
         }
       },
-      "params": [],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add transfers",
-          "name": "waitForAnyTransfersAdded"
+        "add": "^Create transfer$"
+      }
+    },
+    "Card": {
+      "displayName": "card",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createCard",
+          "method": "POST",
+          "path": "/cards",
+          "descriptionTemplate": "Create card",
+          "params": [],
+          "bodyTemplate": {}
         }
+      },
+      "waitForPatterns": {
+        "add": "^Create card$"
+      }
+    },
+    "Loan": {
+      "displayName": "loan",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createLoan",
+          "method": "POST",
+          "path": "/loans",
+          "descriptionTemplate": "Create loan",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getLoans",
+          "method": "GET",
+          "path": "/loans",
+          "descriptionTemplate": "Get loans",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "add": "^Create loan$",
+        "get": "^Get loans$"
       }
     }
   },
-  "sut": "banking"
+  "stories": []
 }

@@ -1,114 +1,103 @@
 {
-  "base_url": "",
+  "sut": "factory",
+  "base_url": "http://localhost:8080",
   "entities": {
     "Machine": {
       "displayName": "machine",
+      "params": [],
       "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add machine",
-          "method": "POST",
-          "name": "addMachine",
-          "params": [],
-          "path": "/machines"
-        },
         "get": {
-          "descriptionTemplate": "Get machines",
+          "name": "listMachines",
           "method": "GET",
-          "name": "getMachines",
-          "params": [],
-          "path": "/machines"
+          "path": "/machines",
+          "descriptionTemplate": "List machines",
+          "params": []
+        },
+        "add": {
+          "name": "createMachine",
+          "method": "POST",
+          "path": "/machines",
+          "descriptionTemplate": "Create machine",
+          "params": []
         }
       },
-      "params": [],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add machine",
-          "name": "waitForAnyMachineAdded"
-        }
-      }
-    },
-    "MaintenanceTicket": {
-      "displayName": "maintenanceticket",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add maintenanceticket",
-          "method": "POST",
-          "name": "addMaintenanceTicket",
-          "params": [],
-          "path": "/maintenance-tickets"
-        },
-        "get": {
-          "descriptionTemplate": "Get maintenancetickets",
-          "method": "GET",
-          "name": "getMaintenanceTickets",
-          "params": [],
-          "path": "/maintenance-tickets"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add maintenanceticket",
-          "name": "waitForAnyMaintenanceTicketAdded"
-        }
-      }
-    },
-    "SensorReading": {
-      "displayName": "sensorreading",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add sensorreading",
-          "method": "POST",
-          "name": "addSensorReading",
-          "params": [],
-          "path": "/sensor-readings"
-        },
-        "get": {
-          "descriptionTemplate": "Get sensorreadings",
-          "method": "GET",
-          "name": "getSensorReadings",
-          "params": [],
-          "path": "/sensor-readings"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add sensorreading",
-          "name": "waitForAnySensorReadingAdded"
-        }
+        "get": "^List machines$",
+        "add": "^Create machine$"
       }
     },
     "Workorder": {
       "displayName": "workorder",
+      "params": [],
       "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add workorder",
-          "method": "POST",
-          "name": "addWorkorder",
-          "params": [],
-          "path": "/workorders"
-        },
         "get": {
-          "descriptionTemplate": "Get workorders",
+          "name": "listWorkorders",
           "method": "GET",
-          "name": "getWorkorders",
-          "params": [],
-          "path": "/workorders"
+          "path": "/workorders",
+          "descriptionTemplate": "List workorders",
+          "params": []
+        },
+        "add": {
+          "name": "createWorkorder",
+          "method": "POST",
+          "path": "/workorders",
+          "descriptionTemplate": "Create workorder",
+          "params": []
         }
       },
-      "params": [],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add workorder",
-          "name": "waitForAnyWorkorderAdded"
+        "get": "^List workorders$",
+        "add": "^Create workorder$"
+      }
+    },
+    "MaintenanceTicket": {
+      "displayName": "maintenance ticket",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "listMaintenanceTickets",
+          "method": "GET",
+          "path": "/maintenance-tickets",
+          "descriptionTemplate": "List maintenance tickets",
+          "params": []
+        },
+        "add": {
+          "name": "createMaintenanceTicket",
+          "method": "POST",
+          "path": "/maintenance-tickets",
+          "descriptionTemplate": "Create maintenance ticket",
+          "params": []
         }
+      },
+      "waitForPatterns": {
+        "get": "^List maintenance tickets$",
+        "add": "^Create maintenance ticket$"
+      }
+    },
+    "SensorReading": {
+      "displayName": "sensor reading",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "listSensorReadings",
+          "method": "GET",
+          "path": "/sensor-readings",
+          "descriptionTemplate": "List sensor readings",
+          "params": []
+        },
+        "add": {
+          "name": "createSensorReading",
+          "method": "POST",
+          "path": "/sensor-readings",
+          "descriptionTemplate": "Create sensor reading",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "get": "^List sensor readings$",
+        "add": "^Create sensor reading$"
       }
     }
   },
-  "sut": "factory"
+  "stories": []
 }

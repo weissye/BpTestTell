@@ -1,133 +1,107 @@
 {
-  "base_url": "",
+  "sut": "ecommerce",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "drugs": {
-      "displayName": "drugs",
+    "Patient": {
+      "displayName": "patient",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add drugs",
+          "name": "createPatient",
           "method": "POST",
-          "name": "addDrugs",
-          "params": [],
-          "path": "/drugs"
-        },
-        "get": {
-          "descriptionTemplate": "Get drugs",
-          "method": "GET",
-          "name": "getDrugs",
-          "params": [],
-          "path": "/drugs"
-        },
-        "verifyExists": {
-          "name": "verifyDrugsExists"
+          "path": "/patients",
+          "descriptionTemplate": "Create patient",
+          "params": []
         }
       },
-      "params": [],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add drugs",
-          "name": "waitForAnyDrugsAdded"
-        }
+        "add": "Create patient"
       }
     },
-    "inventory": {
-      "displayName": "inventory",
+    "Drug": {
+      "displayName": "drug",
+      "params": [],
       "operations": {
         "get": {
-          "descriptionTemplate": "Get inventory {ndc}",
+          "name": "listDrugs",
           "method": "GET",
-          "name": "getInventory",
-          "params": [
-            "ndc"
-          ],
-          "path": "/inventory/{ndc}"
+          "path": "/drugs",
+          "descriptionTemplate": "List drugs",
+          "params": []
         },
-        "verifyExists": {
-          "name": "verifyInventoryExists"
+        "add": {
+          "name": "createDrug",
+          "method": "POST",
+          "path": "/drugs",
+          "descriptionTemplate": "Create drug",
+          "params": []
         }
       },
+      "waitForPatterns": {
+        "get": "List drugs",
+        "add": "Create drug"
+      }
+    },
+    "Prescription": {
+      "displayName": "prescription",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createPrescription",
+          "method": "POST",
+          "path": "/prescriptions",
+          "descriptionTemplate": "Create prescription",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create prescription"
+      }
+    },
+    "Order": {
+      "displayName": "order",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "listOrders",
+          "method": "GET",
+          "path": "/orders",
+          "descriptionTemplate": "List orders",
+          "params": []
+        },
+        "add": {
+          "name": "createOrder",
+          "method": "POST",
+          "path": "/orders",
+          "descriptionTemplate": "Create order",
+          "params": []
+        }
+      },
+      "waitForPatterns": {
+        "get": "List orders",
+        "add": "Create order"
+      }
+    },
+    "Inventory": {
+      "displayName": "inventory",
       "params": [
         "ndc"
       ],
-      "waitForPatterns": {}
-    },
-    "orders": {
-      "displayName": "orders",
       "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add orders",
-          "method": "POST",
-          "name": "addOrders",
-          "params": [],
-          "path": "/orders"
-        },
         "get": {
-          "descriptionTemplate": "Get orders",
+          "name": "getInventory",
           "method": "GET",
-          "name": "getOrders",
-          "params": [],
-          "path": "/orders"
-        },
-        "verifyExists": {
-          "name": "verifyOrdersExists"
+          "path": "/inventory/{ndc}",
+          "descriptionTemplate": "Get inventory for {ndc}",
+          "params": [
+            "ndc"
+          ]
         }
       },
-      "params": [],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add orders",
-          "name": "waitForAnyOrdersAdded"
-        }
-      }
-    },
-    "patients": {
-      "displayName": "patients",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add patients",
-          "method": "POST",
-          "name": "addPatients",
-          "params": [],
-          "path": "/patients"
-        },
-        "verifyExists": {
-          "name": "verifyPatientsExists"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add patients",
-          "name": "waitForAnyPatientsAdded"
-        }
-      }
-    },
-    "prescriptions": {
-      "displayName": "prescriptions",
-      "operations": {
-        "add": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Add prescriptions",
-          "method": "POST",
-          "name": "addPrescriptions",
-          "params": [],
-          "path": "/prescriptions"
-        },
-        "verifyExists": {
-          "name": "verifyPrescriptionsExists"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add prescriptions",
-          "name": "waitForAnyPrescriptionsAdded"
-        }
+        "get": "Get inventory for .*"
       }
     }
   },
-  "sut": "ecommerce"
+  "stories": []
 }

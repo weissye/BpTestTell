@@ -1,372 +1,375 @@
 {
-  "base_url": "http://localhost:5000",
+  "sut": "garage",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "Car": {
-      "displayName": "car",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "vin": "{vin}"
-          },
-          "descriptionTemplate": "Add car {vin}",
-          "method": "POST",
-          "name": "addCar",
-          "params": [
-            "vin"
-          ],
-          "path": "/cars"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete car {vin}",
-          "method": "DELETE",
-          "name": "deleteCar",
-          "params": [
-            "vin"
-          ],
-          "path": "/cars/{vin}"
-        },
-        "get": {
-          "descriptionTemplate": "Get car {vin}",
-          "method": "GET",
-          "name": "getCar",
-          "params": [
-            "vin"
-          ],
-          "path": "/cars/{vin}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update car {vin}",
-          "method": "PUT",
-          "name": "updateCar",
-          "params": [
-            "vin"
-          ],
-          "path": "/cars/{vin}"
-        },
-        "verifyExists": {
-          "name": "verifyCarExists"
-        }
-      },
-      "params": [
-        "vin"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add car (.+)",
-          "name": "waitForAnyCarAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete car (.+)",
-          "name": "waitForAnyCarDeleted"
-        }
-      }
-    },
     "Chain": {
       "displayName": "chain",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "chainId": "{chainId}"
-          },
-          "descriptionTemplate": "Add chain {chainId}",
-          "method": "POST",
-          "name": "addChain",
-          "params": [
-            "chainId"
-          ],
-          "path": "/chains"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete chain {chainId}",
-          "method": "DELETE",
-          "name": "deleteChain",
-          "params": [
-            "chainId"
-          ],
-          "path": "/chains/{chainId}"
-        },
-        "get": {
-          "descriptionTemplate": "Get chain {chainId}",
-          "method": "GET",
-          "name": "getChain",
-          "params": [
-            "chainId"
-          ],
-          "path": "/chains/{chainId}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update chain {chainId}",
-          "method": "PUT",
-          "name": "updateChain",
-          "params": [
-            "chainId"
-          ],
-          "path": "/chains/{chainId}"
-        },
-        "verifyExists": {
-          "name": "verifyChainExists"
-        }
-      },
       "params": [
         "chainId"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add chain (.+)",
-          "name": "waitForAnyChainAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete chain (.+)",
-          "name": "waitForAnyChainDeleted"
-        }
-      }
-    },
-    "Customer": {
-      "displayName": "customer",
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "customerId": "{customerId}"
-          },
-          "descriptionTemplate": "Add customer {customerId}",
+          "name": "createChain",
           "method": "POST",
-          "name": "addCustomer",
-          "params": [
-            "customerId"
-          ],
-          "path": "/customers"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete customer {customerId}",
-          "method": "DELETE",
-          "name": "deleteCustomer",
-          "params": [
-            "customerId"
-          ],
-          "path": "/customers/{customerId}"
+          "path": "/chains",
+          "descriptionTemplate": "Create chain",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
-          "descriptionTemplate": "Get customer {customerId}",
+          "name": "listChains",
           "method": "GET",
-          "name": "getCustomer",
-          "params": [
-            "customerId"
-          ],
-          "path": "/customers/{customerId}"
+          "path": "/chains",
+          "descriptionTemplate": "List chains",
+          "params": []
         },
         "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update customer {customerId}",
+          "name": "updateChain",
           "method": "PUT",
-          "name": "updateCustomer",
+          "path": "/chains/{chainId}",
+          "descriptionTemplate": "Update chain {chainId}",
           "params": [
-            "customerId"
+            "chainId"
           ],
-          "path": "/customers/{customerId}"
+          "bodyTemplate": {}
         },
-        "verifyExists": {
-          "name": "verifyCustomerExists"
+        "delete": {
+          "name": "deleteChain",
+          "method": "DELETE",
+          "path": "/chains/{chainId}",
+          "descriptionTemplate": "Delete chain {chainId}",
+          "params": [
+            "chainId"
+          ]
+        },
+        "getOne": {
+          "name": "getChain",
+          "method": "GET",
+          "path": "/chains/{chainId}",
+          "descriptionTemplate": "Read chain {chainId}",
+          "params": [
+            "chainId"
+          ]
         }
       },
-      "params": [
-        "customerId"
-      ],
       "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add customer (.+)",
-          "name": "waitForAnyCustomerAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete customer (.+)",
-          "name": "waitForAnyCustomerDeleted"
-        }
+        "add": "Create chain",
+        "get": "List chains",
+        "update": "Update chain \\{chainId\\}",
+        "delete": "Delete chain \\{chainId\\}",
+        "getOne": "Read chain \\{chainId\\}"
       }
     },
     "Garage": {
       "displayName": "garage",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "garageId": "{garageId}"
-          },
-          "descriptionTemplate": "Add garage {garageId}",
-          "method": "POST",
-          "name": "addGarage",
-          "params": [
-            "garageId"
-          ],
-          "path": "/garages"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete garage {garageId}",
-          "method": "DELETE",
-          "name": "deleteGarage",
-          "params": [
-            "garageId"
-          ],
-          "path": "/garages/{garageId}"
-        },
-        "get": {
-          "descriptionTemplate": "Get garage {garageId}",
-          "method": "GET",
-          "name": "getGarage",
-          "params": [
-            "garageId"
-          ],
-          "path": "/garages/{garageId}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update garage {garageId}",
-          "method": "PUT",
-          "name": "updateGarage",
-          "params": [
-            "garageId"
-          ],
-          "path": "/garages/{garageId}"
-        },
-        "verifyExists": {
-          "name": "verifyGarageExists"
-        }
-      },
       "params": [
         "garageId"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add garage (.+)",
-          "name": "waitForAnyGarageAdded"
+      "operations": {
+        "add": {
+          "name": "createGarage",
+          "method": "POST",
+          "path": "/garages",
+          "descriptionTemplate": "Create garage",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete garage (.+)",
-          "name": "waitForAnyGarageDeleted"
+        "get": {
+          "name": "listGarages",
+          "method": "GET",
+          "path": "/garages",
+          "descriptionTemplate": "List garages",
+          "params": []
+        },
+        "update": {
+          "name": "updateGarage",
+          "method": "PUT",
+          "path": "/garages/{garageId}",
+          "descriptionTemplate": "Update garage {garageId}",
+          "params": [
+            "garageId"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteGarage",
+          "method": "DELETE",
+          "path": "/garages/{garageId}",
+          "descriptionTemplate": "Delete garage {garageId}",
+          "params": [
+            "garageId"
+          ]
+        },
+        "getOne": {
+          "name": "getGarage",
+          "method": "GET",
+          "path": "/garages/{garageId}",
+          "descriptionTemplate": "Read garage {garageId}",
+          "params": [
+            "garageId"
+          ]
         }
+      },
+      "waitForPatterns": {
+        "add": "Create garage",
+        "get": "List garages",
+        "update": "Update garage \\{garageId\\}",
+        "delete": "Delete garage \\{garageId\\}",
+        "getOne": "Read garage \\{garageId\\}"
+      }
+    },
+    "Customer": {
+      "displayName": "customer",
+      "params": [
+        "customerId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomer",
+          "method": "POST",
+          "path": "/customers",
+          "descriptionTemplate": "Create customer",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "listCustomers",
+          "method": "GET",
+          "path": "/customers",
+          "descriptionTemplate": "List customers",
+          "params": []
+        },
+        "update": {
+          "name": "updateCustomer",
+          "method": "PUT",
+          "path": "/customers/{customerId}",
+          "descriptionTemplate": "Update customer {customerId}",
+          "params": [
+            "customerId"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCustomer",
+          "method": "DELETE",
+          "path": "/customers/{customerId}",
+          "descriptionTemplate": "Delete customer {customerId}",
+          "params": [
+            "customerId"
+          ]
+        },
+        "getOne": {
+          "name": "getCustomer",
+          "method": "GET",
+          "path": "/customers/{customerId}",
+          "descriptionTemplate": "Read customer {customerId}",
+          "params": [
+            "customerId"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create customer",
+        "get": "List customers",
+        "update": "Update customer \\{customerId\\}",
+        "delete": "Delete customer \\{customerId\\}",
+        "getOne": "Read customer \\{customerId\\}"
+      }
+    },
+    "Car": {
+      "displayName": "car",
+      "params": [
+        "vin"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCar",
+          "method": "POST",
+          "path": "/cars",
+          "descriptionTemplate": "Create car",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "listCars",
+          "method": "GET",
+          "path": "/cars",
+          "descriptionTemplate": "List cars",
+          "params": []
+        },
+        "update": {
+          "name": "updateCar",
+          "method": "PUT",
+          "path": "/cars/{vin}",
+          "descriptionTemplate": "Update car {vin}",
+          "params": [
+            "vin"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCar",
+          "method": "DELETE",
+          "path": "/cars/{vin}",
+          "descriptionTemplate": "Delete car {vin}",
+          "params": [
+            "vin"
+          ]
+        },
+        "getOne": {
+          "name": "getCar",
+          "method": "GET",
+          "path": "/cars/{vin}",
+          "descriptionTemplate": "Read car {vin}",
+          "params": [
+            "vin"
+          ]
+        }
+      },
+      "waitForPatterns": {
+        "add": "Create car",
+        "get": "List cars",
+        "update": "Update car \\{vin\\}",
+        "delete": "Delete car \\{vin\\}",
+        "getOne": "Read car \\{vin\\}"
       }
     },
     "PeriodicMaintenance": {
-      "displayName": "periodicmaintenance",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "pmId": "{pmId}"
-          },
-          "descriptionTemplate": "Add periodicmaintenance {pmId}",
-          "method": "POST",
-          "name": "addPeriodicMaintenance",
-          "params": [
-            "pmId"
-          ],
-          "path": "/periodic-maintenance"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete periodicmaintenance {pmId}",
-          "method": "DELETE",
-          "name": "deletePeriodicMaintenance",
-          "params": [
-            "pmId"
-          ],
-          "path": "/periodic-maintenance/{pmId}"
-        },
-        "get": {
-          "descriptionTemplate": "Get periodicmaintenance {pmId}",
-          "method": "GET",
-          "name": "getPeriodicMaintenance",
-          "params": [
-            "pmId"
-          ],
-          "path": "/periodic-maintenance/{pmId}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update periodicmaintenance {pmId}",
-          "method": "PUT",
-          "name": "updatePeriodicMaintenance",
-          "params": [
-            "pmId"
-          ],
-          "path": "/periodic-maintenance/{pmId}"
-        },
-        "verifyExists": {
-          "name": "verifyPeriodicMaintenanceExists"
-        }
-      },
+      "displayName": "periodic maintenance plan",
       "params": [
         "pmId"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add periodicmaintenance (.+)",
-          "name": "waitForAnyPeriodicMaintenanceAdded"
+      "operations": {
+        "add": {
+          "name": "createPM",
+          "method": "POST",
+          "path": "/periodic-maintenance",
+          "descriptionTemplate": "Create PM plan",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete periodicmaintenance (.+)",
-          "name": "waitForAnyPeriodicMaintenanceDeleted"
+        "get": {
+          "name": "listPMs",
+          "method": "GET",
+          "path": "/periodic-maintenance",
+          "descriptionTemplate": "List PM plans",
+          "params": []
+        },
+        "update": {
+          "name": "updatePM",
+          "method": "PUT",
+          "path": "/periodic-maintenance/{pmId}",
+          "descriptionTemplate": "Update PM plan {pmId}",
+          "params": [
+            "pmId"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deletePM",
+          "method": "DELETE",
+          "path": "/periodic-maintenance/{pmId}",
+          "descriptionTemplate": "Delete PM plan {pmId}",
+          "params": [
+            "pmId"
+          ]
+        },
+        "getOne": {
+          "name": "getPM",
+          "method": "GET",
+          "path": "/periodic-maintenance/{pmId}",
+          "descriptionTemplate": "Read PM plan {pmId}",
+          "params": [
+            "pmId"
+          ]
         }
+      },
+      "waitForPatterns": {
+        "add": "Create PM plan",
+        "get": "List PM plans",
+        "update": "Update PM plan \\{pmId\\}",
+        "delete": "Delete PM plan \\{pmId\\}",
+        "getOne": "Read PM plan \\{pmId\\}"
       }
     },
     "RepairOrder": {
-      "displayName": "repairorder",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "roId": "{roId}"
-          },
-          "descriptionTemplate": "Add repairorder {roId}",
-          "method": "POST",
-          "name": "addRepairOrder",
-          "params": [
-            "roId"
-          ],
-          "path": "/repair-orders"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete repairorder {roId}",
-          "method": "DELETE",
-          "name": "deleteRepairOrder",
-          "params": [
-            "roId"
-          ],
-          "path": "/repair-orders/{roId}"
-        },
-        "get": {
-          "descriptionTemplate": "Get repairorder {roId}",
-          "method": "GET",
-          "name": "getRepairOrder",
-          "params": [
-            "roId"
-          ],
-          "path": "/repair-orders/{roId}"
-        },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update repairorder {roId}",
-          "method": "PUT",
-          "name": "updateRepairOrder",
-          "params": [
-            "roId"
-          ],
-          "path": "/repair-orders/{roId}"
-        },
-        "verifyExists": {
-          "name": "verifyRepairOrderExists"
-        }
-      },
+      "displayName": "repair order",
       "params": [
         "roId"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add repairorder (.+)",
-          "name": "waitForAnyRepairOrderAdded"
+      "operations": {
+        "add": {
+          "name": "createRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders",
+          "descriptionTemplate": "Create repair order",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete repairorder (.+)",
-          "name": "waitForAnyRepairOrderDeleted"
+        "get": {
+          "name": "listRepairOrders",
+          "method": "GET",
+          "path": "/repair-orders",
+          "descriptionTemplate": "List repair orders",
+          "params": []
+        },
+        "update": {
+          "name": "updateRepairOrder",
+          "method": "PUT",
+          "path": "/repair-orders/{roId}",
+          "descriptionTemplate": "Update repair order {roId}",
+          "params": [
+            "roId"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRepairOrder",
+          "method": "DELETE",
+          "path": "/repair-orders/{roId}",
+          "descriptionTemplate": "Delete repair order {roId}",
+          "params": [
+            "roId"
+          ]
+        },
+        "getOne": {
+          "name": "getRepairOrder",
+          "method": "GET",
+          "path": "/repair-orders/{roId}",
+          "descriptionTemplate": "Read repair order {roId}",
+          "params": [
+            "roId"
+          ]
+        },
+        "approve": {
+          "name": "approveRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders/{roId}/approve",
+          "descriptionTemplate": "Approve repair order {roId}",
+          "params": [
+            "roId"
+          ]
+        },
+        "close": {
+          "name": "closeRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders/{roId}/close",
+          "descriptionTemplate": "Close repair order {roId}",
+          "params": [
+            "roId"
+          ]
         }
+      },
+      "waitForPatterns": {
+        "add": "Create repair order",
+        "get": "List repair orders",
+        "update": "Update repair order \\{roId\\}",
+        "delete": "Delete repair order \\{roId\\}",
+        "getOne": "Read repair order \\{roId\\}",
+        "approve": "Approve repair order \\{roId\\}",
+        "close": "Close repair order \\{roId\\}"
       }
     }
   },
-  "sut": "garage"
+  "stories": []
 }
