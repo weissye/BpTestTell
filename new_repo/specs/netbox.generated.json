@@ -1,195 +1,4607 @@
 {
-  "base_url": "/api",
+  "sut": "netbox",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "CircuitGroup": {
-      "displayName": "circuitgroup",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add circuit group {id}",
-          "method": "POST",
-          "name": "addCircuitGroup",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-groups/"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete circuit group {id}",
-          "method": "DELETE",
-          "name": "deleteCircuitGroup",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-groups/{id}/"
-        },
-        "get": {
-          "descriptionTemplate": "Get circuit group {id}",
-          "method": "GET",
-          "name": "getCircuitGroup",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-groups/{id}/"
-        },
-        "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update circuit group {id}",
-          "method": "PUT",
-          "name": "updateCircuitGroup",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-groups/{id}/"
-        },
-        "verifyExists": {
-          "name": "verifyCircuitGroupExists"
-        }
-      },
+    "Bookmark": {
+      "displayName": "bookmark",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add circuit group (.+)",
-          "name": "waitForAnyCircuitGroupAdded"
+      "operations": {
+        "add": {
+          "name": "createBookmark",
+          "method": "POST",
+          "path": "/api/extras/bookmarks/",
+          "descriptionTemplate": "Create bookmark with id {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete circuit group (.+)",
-          "name": "waitForAnyCircuitGroupDeleted"
+        "delete": {
+          "name": "deleteBookmark",
+          "method": "DELETE",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Delete bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateBookmark",
+          "method": "PUT",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Update bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateBookmark",
+          "method": "PATCH",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Partially update bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getBookmark",
+          "method": "GET",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Get bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConfigContextProfile": {
+      "displayName": "config context profile",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createConfigContextProfile",
+          "method": "POST",
+          "path": "/api/extras/config-context-profiles/",
+          "descriptionTemplate": "Create config context profile {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteConfigContextProfile",
+          "method": "DELETE",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Delete config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConfigContextProfile",
+          "method": "PUT",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Update config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateConfigContextProfile",
+          "method": "PATCH",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Partially update config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getConfigContextProfile",
+          "method": "GET",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Get config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConfigContext": {
+      "displayName": "config context",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createConfigContext",
+          "method": "POST",
+          "path": "/api/extras/config-contexts/",
+          "descriptionTemplate": "Create config context {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteConfigContext",
+          "method": "DELETE",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Delete config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConfigContext",
+          "method": "PUT",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Update config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateConfigContext",
+          "method": "PATCH",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Partially update config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getConfigContext",
+          "method": "GET",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Get config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConfigTemplate": {
+      "displayName": "config template",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createConfigTemplate",
+          "method": "POST",
+          "path": "/api/extras/config-templates/",
+          "descriptionTemplate": "Create config template {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteConfigTemplate",
+          "method": "DELETE",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Delete config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConfigTemplate",
+          "method": "PUT",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Update config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateConfigTemplate",
+          "method": "PATCH",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Partially update config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getConfigTemplate",
+          "method": "GET",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Get config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldChoiceSet": {
+      "displayName": "custom field choice set",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomFieldChoiceSet",
+          "method": "POST",
+          "path": "/api/extras/custom-field-choice-sets/",
+          "descriptionTemplate": "Create custom field choice set with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCustomFieldChoiceSet",
+          "method": "DELETE",
+          "path": "/api/extras/custom-field-choice-sets/{id}/",
+          "descriptionTemplate": "Delete custom field choice set with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCustomFieldChoiceSet",
+          "method": "PUT",
+          "path": "/api/extras/custom-field-choice-sets/{id}/",
+          "descriptionTemplate": "Update custom field choice set with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateCustomFieldChoiceSet",
+          "method": "PATCH",
+          "path": "/api/extras/custom-field-choice-sets/{id}/",
+          "descriptionTemplate": "Partially update custom field choice set with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCustomFieldChoiceSet",
+          "method": "GET",
+          "path": "/api/extras/custom-field-choice-sets/{id}/",
+          "descriptionTemplate": "Get custom field choice set with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomField": {
+      "displayName": "custom field",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomField",
+          "method": "POST",
+          "path": "/api/extras/custom-fields/",
+          "descriptionTemplate": "Create custom field {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCustomField",
+          "method": "DELETE",
+          "path": "/api/extras/custom-fields/{id}/",
+          "descriptionTemplate": "Delete custom field with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCustomField",
+          "method": "PUT",
+          "path": "/api/extras/custom-fields/{id}/",
+          "descriptionTemplate": "Update custom field with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateCustomField",
+          "method": "PATCH",
+          "path": "/api/extras/custom-fields/{id}/",
+          "descriptionTemplate": "Partially update custom field with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCustomField",
+          "method": "GET",
+          "path": "/api/extras/custom-fields/{id}/",
+          "descriptionTemplate": "Get custom field with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomLink": {
+      "displayName": "custom link",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomLink",
+          "method": "POST",
+          "path": "/api/extras/custom-links/",
+          "descriptionTemplate": "Create custom link {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCustomLink",
+          "method": "DELETE",
+          "path": "/api/extras/custom-links/{id}/",
+          "descriptionTemplate": "Delete custom link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCustomLink",
+          "method": "PUT",
+          "path": "/api/extras/custom-links/{id}/",
+          "descriptionTemplate": "Update custom link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateCustomLink",
+          "method": "PATCH",
+          "path": "/api/extras/custom-links/{id}/",
+          "descriptionTemplate": "Partially update custom link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCustomLink",
+          "method": "GET",
+          "path": "/api/extras/custom-links/{id}/",
+          "descriptionTemplate": "Get custom link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Dashboard": {
+      "displayName": "dashboard",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updateDashboard",
+          "method": "PUT",
+          "path": "/api/extras/dashboard/",
+          "descriptionTemplate": "Update dashboard",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateDashboard",
+          "method": "PATCH",
+          "path": "/api/extras/dashboard/",
+          "descriptionTemplate": "Partially update dashboard",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteDashboard",
+          "method": "DELETE",
+          "path": "/api/extras/dashboard/",
+          "descriptionTemplate": "Delete dashboard",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getDashboard",
+          "method": "GET",
+          "path": "/api/extras/dashboard/",
+          "descriptionTemplate": "Get dashboard",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "EventRule": {
+      "displayName": "event rule",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createEventRule",
+          "method": "POST",
+          "path": "/api/extras/event-rules/",
+          "descriptionTemplate": "Create event rule with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteEventRule",
+          "method": "DELETE",
+          "path": "/api/extras/event-rules/{id}/",
+          "descriptionTemplate": "Delete event rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateEventRule",
+          "method": "PUT",
+          "path": "/api/extras/event-rules/{id}/",
+          "descriptionTemplate": "Update event rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateEventRule",
+          "method": "PATCH",
+          "path": "/api/extras/event-rules/{id}/",
+          "descriptionTemplate": "Partially update event rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getEventRule",
+          "method": "GET",
+          "path": "/api/extras/event-rules/{id}/",
+          "descriptionTemplate": "Get event rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ExportTemplate": {
+      "displayName": "export template",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createExportTemplate",
+          "method": "POST",
+          "path": "/api/extras/export-templates/",
+          "descriptionTemplate": "Create export template {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteExportTemplate",
+          "method": "DELETE",
+          "path": "/api/extras/export-templates/{id}/",
+          "descriptionTemplate": "Delete export template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateExportTemplate",
+          "method": "PUT",
+          "path": "/api/extras/export-templates/{id}/",
+          "descriptionTemplate": "Update export template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateExportTemplate",
+          "method": "PATCH",
+          "path": "/api/extras/export-templates/{id}/",
+          "descriptionTemplate": "Partially update export template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getExportTemplate",
+          "method": "GET",
+          "path": "/api/extras/export-templates/{id}/",
+          "descriptionTemplate": "Get export template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ImageAttachment": {
+      "displayName": "image attachment",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createImageAttachment",
+          "method": "POST",
+          "path": "/api/extras/image-attachments/",
+          "descriptionTemplate": "Create image attachment with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteImageAttachment",
+          "method": "DELETE",
+          "path": "/api/extras/image-attachments/{id}/",
+          "descriptionTemplate": "Delete image attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateImageAttachment",
+          "method": "PUT",
+          "path": "/api/extras/image-attachments/{id}/",
+          "descriptionTemplate": "Update image attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateImageAttachment",
+          "method": "PATCH",
+          "path": "/api/extras/image-attachments/{id}/",
+          "descriptionTemplate": "Partially update image attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getImageAttachment",
+          "method": "GET",
+          "path": "/api/extras/image-attachments/{id}/",
+          "descriptionTemplate": "Get image attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "JournalEntry": {
+      "displayName": "journal entry",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createJournalEntry",
+          "method": "POST",
+          "path": "/api/extras/journal-entries/",
+          "descriptionTemplate": "Create journal entry with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteJournalEntry",
+          "method": "DELETE",
+          "path": "/api/extras/journal-entries/{id}/",
+          "descriptionTemplate": "Delete journal entry with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateJournalEntry",
+          "method": "PUT",
+          "path": "/api/extras/journal-entries/{id}/",
+          "descriptionTemplate": "Update journal entry with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateJournalEntry",
+          "method": "PATCH",
+          "path": "/api/extras/journal-entries/{id}/",
+          "descriptionTemplate": "Partially update journal entry with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getJournalEntry",
+          "method": "GET",
+          "path": "/api/extras/journal-entries/{id}/",
+          "descriptionTemplate": "Get journal entry with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationGroup": {
+      "displayName": "notification group",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createNotificationGroup",
+          "method": "POST",
+          "path": "/api/extras/notification-groups/",
+          "descriptionTemplate": "Create notification group with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteNotificationGroup",
+          "method": "DELETE",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Delete notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateNotificationGroup",
+          "method": "PUT",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Update notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateNotificationGroup",
+          "method": "PATCH",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Partially update notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getNotificationGroup",
+          "method": "GET",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Get notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Notification": {
+      "displayName": "notification",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createNotification",
+          "method": "POST",
+          "path": "/api/extras/notifications/",
+          "descriptionTemplate": "Create notification with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteNotification",
+          "method": "DELETE",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Delete notification with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateNotification",
+          "method": "PUT",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Update notification with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateNotification",
+          "method": "PATCH",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Partially update notification with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getNotification",
+          "method": "GET",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Get notification with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TaggedObject": {
+      "displayName": "tagged object",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTaggedObject",
+          "method": "GET",
+          "path": "/api/extras/tagged-objects/{id}/",
+          "descriptionTemplate": "Get tagged object with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Tag": {
+      "displayName": "tag",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTag",
+          "method": "POST",
+          "path": "/api/extras/tags/",
+          "descriptionTemplate": "Create tag {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteTag",
+          "method": "DELETE",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Delete tag with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTag",
+          "method": "PUT",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Update tag with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateTag",
+          "method": "PATCH",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Partially update tag with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getTag",
+          "method": "GET",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Get tag with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "webhook",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createWebhook",
+          "method": "POST",
+          "path": "/api/extras/webhooks/",
+          "descriptionTemplate": "Create webhook with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteWebhook",
+          "method": "DELETE",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Delete webhook with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWebhook",
+          "method": "PUT",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Update webhook with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateWebhook",
+          "method": "PATCH",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Partially update webhook with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWebhook",
+          "method": "GET",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Get webhook with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Script": {
+      "displayName": "script",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createScript",
+          "method": "POST",
+          "path": "/api/extras/scripts/",
+          "descriptionTemplate": "Create script with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteScript",
+          "method": "DELETE",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Delete script with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateScript",
+          "method": "PUT",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Update script with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateScript",
+          "method": "PATCH",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Partially update script with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getScript",
+          "method": "GET",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Get script with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Subscription": {
+      "displayName": "subscription",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createSubscription",
+          "method": "POST",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "Create subscription with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteSubscription",
+          "method": "DELETE",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Delete subscription with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSubscription",
+          "method": "PUT",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Update subscription with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateSubscription",
+          "method": "PATCH",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Partially update subscription with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getSubscription",
+          "method": "GET",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Get subscription with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TableConfig": {
+      "displayName": "table config",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTableConfig",
+          "method": "POST",
+          "path": "/api/extras/table-configs/",
+          "descriptionTemplate": "Create table config with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteTableConfig",
+          "method": "DELETE",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Delete table config with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTableConfig",
+          "method": "PUT",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Update table config with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateTableConfig",
+          "method": "PATCH",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Partially update table config with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getTableConfig",
+          "method": "GET",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Get table config with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SavedFilter": {
+      "displayName": "saved filter",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createSavedFilter",
+          "method": "POST",
+          "path": "/api/extras/saved-filters/",
+          "descriptionTemplate": "Create saved filter {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteSavedFilter",
+          "method": "DELETE",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Delete saved filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSavedFilter",
+          "method": "PUT",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Update saved filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateSavedFilter",
+          "method": "PATCH",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Partially update saved filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getSavedFilter",
+          "method": "GET",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Get saved filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ObjectType": {
+      "displayName": "object type",
+      "params": [
+        "id",
+        "app_label",
+        "model"
+      ],
+      "operations": {
+        "get": {
+          "name": "getObjectType",
+          "method": "GET",
+          "path": "/api/core/object-types/{id}/",
+          "descriptionTemplate": "Get object type {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listObjectTypes",
+          "method": "GET",
+          "path": "/api/core/object-types/",
+          "descriptionTemplate": "List object types",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Aggregate": {
+      "displayName": "aggregate",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createAggregate",
+          "method": "POST",
+          "path": "/api/ipam/aggregates/",
+          "descriptionTemplate": "Create aggregate with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteAggregate",
+          "method": "DELETE",
+          "path": "/api/ipam/aggregates/{id}/",
+          "descriptionTemplate": "Delete aggregate with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateAggregate",
+          "method": "PUT",
+          "path": "/api/ipam/aggregates/{id}/",
+          "descriptionTemplate": "Update aggregate with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getAggregate",
+          "method": "GET",
+          "path": "/api/ipam/aggregates/{id}/",
+          "descriptionTemplate": "Get aggregate with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ASNRange": {
+      "displayName": "asnRange",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createASNRange",
+          "method": "POST",
+          "path": "/api/ipam/asn-ranges/",
+          "descriptionTemplate": "Create ASN range with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteASNRange",
+          "method": "DELETE",
+          "path": "/api/ipam/asn-ranges/{id}/",
+          "descriptionTemplate": "Delete ASN range with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateASNRange",
+          "method": "PUT",
+          "path": "/api/ipam/asn-ranges/{id}/",
+          "descriptionTemplate": "Update ASN range with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getASNRange",
+          "method": "GET",
+          "path": "/api/ipam/asn-ranges/{id}/",
+          "descriptionTemplate": "Get ASN range with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ASN": {
+      "displayName": "asn",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createASN",
+          "method": "POST",
+          "path": "/api/ipam/asns/",
+          "descriptionTemplate": "Create ASN with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteASN",
+          "method": "DELETE",
+          "path": "/api/ipam/asns/{id}/",
+          "descriptionTemplate": "Delete ASN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateASN",
+          "method": "PUT",
+          "path": "/api/ipam/asns/{id}/",
+          "descriptionTemplate": "Update ASN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getASN",
+          "method": "GET",
+          "path": "/api/ipam/asns/{id}/",
+          "descriptionTemplate": "Get ASN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FHRPGroupAssignment": {
+      "displayName": "fhrpGroupAssignment",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createFHRPGroupAssignment",
+          "method": "POST",
+          "path": "/api/ipam/fhrp-group-assignments/",
+          "descriptionTemplate": "Create FHRP group assignment with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteFHRPGroupAssignment",
+          "method": "DELETE",
+          "path": "/api/ipam/fhrp-group-assignments/{id}/",
+          "descriptionTemplate": "Delete FHRP group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFHRPGroupAssignment",
+          "method": "PUT",
+          "path": "/api/ipam/fhrp-group-assignments/{id}/",
+          "descriptionTemplate": "Update FHRP group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getFHRPGroupAssignment",
+          "method": "GET",
+          "path": "/api/ipam/fhrp-group-assignments/{id}/",
+          "descriptionTemplate": "Get FHRP group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FHRPGroup": {
+      "displayName": "fhrpGroup",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createFHRPGroup",
+          "method": "POST",
+          "path": "/api/ipam/fhrp-groups/",
+          "descriptionTemplate": "Create FHRP group with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteFHRPGroup",
+          "method": "DELETE",
+          "path": "/api/ipam/fhrp-groups/{id}/",
+          "descriptionTemplate": "Delete FHRP group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFHRPGroup",
+          "method": "PUT",
+          "path": "/api/ipam/fhrp-groups/{id}/",
+          "descriptionTemplate": "Update FHRP group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getFHRPGroup",
+          "method": "GET",
+          "path": "/api/ipam/fhrp-groups/{id}/",
+          "descriptionTemplate": "Get FHRP group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPAddress": {
+      "displayName": "ipAddress",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPAddress",
+          "method": "POST",
+          "path": "/api/ipam/ip-addresses/",
+          "descriptionTemplate": "Create IP address with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIPAddress",
+          "method": "DELETE",
+          "path": "/api/ipam/ip-addresses/{id}/",
+          "descriptionTemplate": "Delete IP address with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPAddress",
+          "method": "PUT",
+          "path": "/api/ipam/ip-addresses/{id}/",
+          "descriptionTemplate": "Update IP address with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIPAddress",
+          "method": "GET",
+          "path": "/api/ipam/ip-addresses/{id}/",
+          "descriptionTemplate": "Get IP address with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPRange": {
+      "displayName": "ipRange",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPRange",
+          "method": "POST",
+          "path": "/api/ipam/ip-ranges/",
+          "descriptionTemplate": "Create IP range with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIPRange",
+          "method": "DELETE",
+          "path": "/api/ipam/ip-ranges/{id}/",
+          "descriptionTemplate": "Delete IP range with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPRange",
+          "method": "PUT",
+          "path": "/api/ipam/ip-ranges/{id}/",
+          "descriptionTemplate": "Update IP range with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIPRange",
+          "method": "GET",
+          "path": "/api/ipam/ip-ranges/{id}/",
+          "descriptionTemplate": "Get IP range with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Prefix": {
+      "displayName": "prefix",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPrefix",
+          "method": "POST",
+          "path": "/api/ipam/prefixes/",
+          "descriptionTemplate": "Create prefix with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deletePrefix",
+          "method": "DELETE",
+          "path": "/api/ipam/prefixes/{id}/",
+          "descriptionTemplate": "Delete prefix with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updatePrefix",
+          "method": "PUT",
+          "path": "/api/ipam/prefixes/{id}/",
+          "descriptionTemplate": "Update prefix with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getPrefix",
+          "method": "GET",
+          "path": "/api/ipam/prefixes/{id}/",
+          "descriptionTemplate": "Get prefix with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RIR": {
+      "displayName": "rir",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRIR",
+          "method": "POST",
+          "path": "/api/ipam/rirs/",
+          "descriptionTemplate": "Create RIR with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRIR",
+          "method": "DELETE",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Delete RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRIR",
+          "method": "PUT",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Update RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getRIR",
+          "method": "GET",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Get RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Role": {
+      "displayName": "role",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRole",
+          "method": "POST",
+          "path": "/api/ipam/roles/",
+          "descriptionTemplate": "Create role with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRole",
+          "method": "DELETE",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Delete role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRole",
+          "method": "PUT",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Update role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getRole",
+          "method": "GET",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Get role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RouteTarget": {
+      "displayName": "routeTarget",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRouteTarget",
+          "method": "POST",
+          "path": "/api/ipam/route-targets/",
+          "descriptionTemplate": "Create route target with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRouteTarget",
+          "method": "DELETE",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Delete route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRouteTarget",
+          "method": "PUT",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Update route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getRouteTarget",
+          "method": "GET",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Get route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ServiceTemplate": {
+      "displayName": "serviceTemplate",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createServiceTemplate",
+          "method": "POST",
+          "path": "/api/ipam/service-templates/",
+          "descriptionTemplate": "Create service template with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteServiceTemplate",
+          "method": "DELETE",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Delete service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateServiceTemplate",
+          "method": "PUT",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Update service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getServiceTemplate",
+          "method": "GET",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Get service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Service": {
+      "displayName": "service",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createService",
+          "method": "POST",
+          "path": "/api/ipam/services/",
+          "descriptionTemplate": "Create service with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteService",
+          "method": "DELETE",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Delete service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateService",
+          "method": "PUT",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Update service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getService",
+          "method": "GET",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Get service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLANGroup": {
+      "displayName": "vlanGroup",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLANGroup",
+          "method": "POST",
+          "path": "/api/ipam/vlan-groups/",
+          "descriptionTemplate": "Create VLAN group with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVLANGroup",
+          "method": "DELETE",
+          "path": "/api/ipam/vlan-groups/{id}/",
+          "descriptionTemplate": "Delete VLAN group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLANGroup",
+          "method": "PUT",
+          "path": "/api/ipam/vlan-groups/{id}/",
+          "descriptionTemplate": "Update VLAN group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVLANGroup",
+          "method": "GET",
+          "path": "/api/ipam/vlan-groups/{id}/",
+          "descriptionTemplate": "Get VLAN group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLANTranslationPolicy": {
+      "displayName": "vlanTranslationPolicy",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLANTranslationPolicy",
+          "method": "POST",
+          "path": "/api/ipam/vlan-translation-policies/",
+          "descriptionTemplate": "Create VLAN translation policy with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVLANTranslationPolicy",
+          "method": "DELETE",
+          "path": "/api/ipam/vlan-translation-policies/{id}/",
+          "descriptionTemplate": "Delete VLAN translation policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLANTranslationPolicy",
+          "method": "PUT",
+          "path": "/api/ipam/vlan-translation-policies/{id}/",
+          "descriptionTemplate": "Update VLAN translation policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVLANTranslationPolicy",
+          "method": "GET",
+          "path": "/api/ipam/vlan-translation-policies/{id}/",
+          "descriptionTemplate": "Get VLAN translation policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLANTranslationRule": {
+      "displayName": "vlanTranslationRule",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLANTranslationRule",
+          "method": "POST",
+          "path": "/api/ipam/vlan-translation-rules/",
+          "descriptionTemplate": "Create VLAN translation rule with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVLANTranslationRule",
+          "method": "DELETE",
+          "path": "/api/ipam/vlan-translation-rules/{id}/",
+          "descriptionTemplate": "Delete VLAN translation rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLANTranslationRule",
+          "method": "PUT",
+          "path": "/api/ipam/vlan-translation-rules/{id}/",
+          "descriptionTemplate": "Update VLAN translation rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVLANTranslationRule",
+          "method": "GET",
+          "path": "/api/ipam/vlan-translation-rules/{id}/",
+          "descriptionTemplate": "Get VLAN translation rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLAN": {
+      "displayName": "vlan",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLAN",
+          "method": "POST",
+          "path": "/api/ipam/vlans/",
+          "descriptionTemplate": "Create VLAN with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVLAN",
+          "method": "DELETE",
+          "path": "/api/ipam/vlans/{id}/",
+          "descriptionTemplate": "Delete VLAN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLAN",
+          "method": "PUT",
+          "path": "/api/ipam/vlans/{id}/",
+          "descriptionTemplate": "Update VLAN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVLAN",
+          "method": "GET",
+          "path": "/api/ipam/vlans/{id}/",
+          "descriptionTemplate": "Get VLAN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VRF": {
+      "displayName": "vrf",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVRF",
+          "method": "POST",
+          "path": "/api/ipam/vrfs/",
+          "descriptionTemplate": "Create VRF with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVRF",
+          "method": "DELETE",
+          "path": "/api/ipam/vrfs/{id}/",
+          "descriptionTemplate": "Delete VRF with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVRF",
+          "method": "PUT",
+          "path": "/api/ipam/vrfs/{id}/",
+          "descriptionTemplate": "Update VRF with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVRF",
+          "method": "GET",
+          "path": "/api/ipam/vrfs/{id}/",
+          "descriptionTemplate": "Get VRF with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "CircuitGroupAssignment": {
-      "displayName": "circuitgroupassignment",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add circuit group assignment {id}",
-          "method": "POST",
-          "name": "addCircuitGroupAssignment",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-group-assignments/"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete circuit group assignment {id}",
-          "method": "DELETE",
-          "name": "deleteCircuitGroupAssignment",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-group-assignments/{id}/"
-        },
-        "get": {
-          "descriptionTemplate": "Get circuit group assignment {id}",
-          "method": "GET",
-          "name": "getCircuitGroupAssignment",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-group-assignments/{id}/"
-        },
-        "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update circuit group assignment {id}",
-          "method": "PUT",
-          "name": "updateCircuitGroupAssignment",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-group-assignments/{id}/"
-        },
-        "verifyExists": {
-          "name": "verifyCircuitGroupAssignmentExists"
-        }
-      },
+      "displayName": "circuit group assignment",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add circuit group assignment (.+)",
-          "name": "waitForAnyCircuitGroupAssignmentAdded"
+      "operations": {
+        "add": {
+          "name": "createCircuitGroupAssignment",
+          "method": "POST",
+          "path": "/api/circuits/circuit-group-assignments/",
+          "descriptionTemplate": "Create circuit group assignment with id {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete circuit group assignment (.+)",
-          "name": "waitForAnyCircuitGroupAssignmentDeleted"
+        "delete": {
+          "name": "deleteCircuitGroupAssignment",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-group-assignments/{id}/",
+          "descriptionTemplate": "Delete circuit group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitGroupAssignment",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-group-assignments/{id}/",
+          "descriptionTemplate": "Update circuit group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuitGroupAssignment",
+          "method": "GET",
+          "path": "/api/circuits/circuit-group-assignments/{id}/",
+          "descriptionTemplate": "Get circuit group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CircuitGroup": {
+      "displayName": "circuit group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuitGroup",
+          "method": "POST",
+          "path": "/api/circuits/circuit-groups/",
+          "descriptionTemplate": "Create circuit group {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteCircuitGroup",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-groups/{id}/",
+          "descriptionTemplate": "Delete circuit group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitGroup",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-groups/{id}/",
+          "descriptionTemplate": "Update circuit group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getCircuitGroup",
+          "method": "GET",
+          "path": "/api/circuits/circuit-groups/{id}/",
+          "descriptionTemplate": "Get circuit group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "CircuitTermination": {
-      "displayName": "circuittermination",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Add circuit termination {id}",
-          "method": "POST",
-          "name": "addCircuitTermination",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-terminations/"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete circuit termination {id}",
-          "method": "DELETE",
-          "name": "deleteCircuitTermination",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-terminations/{id}/"
-        },
-        "get": {
-          "descriptionTemplate": "Get circuit termination {id}",
-          "method": "GET",
-          "name": "getCircuitTermination",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-terminations/{id}/"
-        },
-        "update": {
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "descriptionTemplate": "Update circuit termination {id}",
-          "method": "PUT",
-          "name": "updateCircuitTermination",
-          "params": [
-            "id"
-          ],
-          "path": "/circuits/circuit-terminations/{id}/"
-        },
-        "verifyExists": {
-          "name": "verifyCircuitTerminationExists"
-        }
-      },
+      "displayName": "circuit termination",
       "params": [
         "id"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add circuit termination (.+)",
-          "name": "waitForAnyCircuitTerminationAdded"
+      "operations": {
+        "add": {
+          "name": "createCircuitTermination",
+          "method": "POST",
+          "path": "/api/circuits/circuit-terminations/",
+          "descriptionTemplate": "Create circuit termination with id {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete circuit termination (.+)",
-          "name": "waitForAnyCircuitTerminationDeleted"
+        "delete": {
+          "name": "deleteCircuitTermination",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-terminations/{id}/",
+          "descriptionTemplate": "Delete circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitTermination",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-terminations/{id}/",
+          "descriptionTemplate": "Update circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuitTermination",
+          "method": "GET",
+          "path": "/api/circuits/circuit-terminations/{id}/",
+          "descriptionTemplate": "Get circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CircuitType": {
+      "displayName": "circuit type",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuitType",
+          "method": "POST",
+          "path": "/api/circuits/circuit-types/",
+          "descriptionTemplate": "Create circuit type {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteCircuitType",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-types/{id}/",
+          "descriptionTemplate": "Delete circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitType",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-types/{id}/",
+          "descriptionTemplate": "Update circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getCircuitType",
+          "method": "GET",
+          "path": "/api/circuits/circuit-types/{id}/",
+          "descriptionTemplate": "Get circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Circuit": {
+      "displayName": "circuit",
+      "params": [
+        "id",
+        "cid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuit",
+          "method": "POST",
+          "path": "/api/circuits/circuits/",
+          "descriptionTemplate": "Create circuit {cid} with id {id}",
+          "params": [
+            "cid"
+          ],
+          "bodyTemplate": {
+            "cid": "{cid}"
+          }
+        },
+        "delete": {
+          "name": "deleteCircuit",
+          "method": "DELETE",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Delete circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuit",
+          "method": "PUT",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Update circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "cid": "{cid}"
+          }
+        },
+        "get": {
+          "name": "getCircuit",
+          "method": "GET",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Get circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ProviderAccount": {
+      "displayName": "provider account",
+      "params": [
+        "id",
+        "account"
+      ],
+      "operations": {
+        "add": {
+          "name": "createProviderAccount",
+          "method": "POST",
+          "path": "/api/circuits/provider-accounts/",
+          "descriptionTemplate": "Create provider account {account} with id {id}",
+          "params": [
+            "account"
+          ],
+          "bodyTemplate": {
+            "account": "{account}"
+          }
+        },
+        "delete": {
+          "name": "deleteProviderAccount",
+          "method": "DELETE",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Delete provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProviderAccount",
+          "method": "PUT",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Update provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "account": "{account}"
+          }
+        },
+        "get": {
+          "name": "getProviderAccount",
+          "method": "GET",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Get provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ProviderNetwork": {
+      "displayName": "provider network",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createProviderNetwork",
+          "method": "POST",
+          "path": "/api/circuits/provider-networks/",
+          "descriptionTemplate": "Create provider network {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteProviderNetwork",
+          "method": "DELETE",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Delete provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProviderNetwork",
+          "method": "PUT",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Update provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getProviderNetwork",
+          "method": "GET",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Get provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Provider": {
+      "displayName": "provider",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createProvider",
+          "method": "POST",
+          "path": "/api/circuits/providers/",
+          "descriptionTemplate": "Create provider {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteProvider",
+          "method": "DELETE",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Delete provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProvider",
+          "method": "PUT",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Update provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getProvider",
+          "method": "GET",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Get provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VirtualCircuitTermination": {
+      "displayName": "virtual circuit termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVirtualCircuitTermination",
+          "method": "POST",
+          "path": "/api/circuits/virtual-circuit-terminations/",
+          "descriptionTemplate": "Create virtual circuit termination with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVirtualCircuitTermination",
+          "method": "DELETE",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Delete virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVirtualCircuitTermination",
+          "method": "PUT",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Update virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVirtualCircuitTermination",
+          "method": "GET",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Get virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VirtualCircuitType": {
+      "displayName": "virtual circuit type",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVirtualCircuitType",
+          "method": "POST",
+          "path": "/api/circuits/virtual-circuit-types/",
+          "descriptionTemplate": "Create virtual circuit type {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteVirtualCircuitType",
+          "method": "DELETE",
+          "path": "/api/circuits/virtual-circuit-types/{id}/",
+          "descriptionTemplate": "Delete virtual circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVirtualCircuitType",
+          "method": "PUT",
+          "path": "/api/circuits/virtual-circuit-types/{id}/",
+          "descriptionTemplate": "Update virtual circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getVirtualCircuitType",
+          "method": "GET",
+          "path": "/api/circuits/virtual-circuit-types/{id}/",
+          "descriptionTemplate": "Get virtual circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VirtualCircuit": {
+      "displayName": "virtual circuit",
+      "params": [
+        "id",
+        "cid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVirtualCircuit",
+          "method": "POST",
+          "path": "/api/circuits/virtual-circuits/",
+          "descriptionTemplate": "Create virtual circuit {cid} with id {id}",
+          "params": [
+            "cid"
+          ],
+          "bodyTemplate": {
+            "cid": "{cid}"
+          }
+        },
+        "delete": {
+          "name": "deleteVirtualCircuit",
+          "method": "DELETE",
+          "path": "/api/circuits/virtual-circuits/{id}/",
+          "descriptionTemplate": "Delete virtual circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVirtualCircuit",
+          "method": "PUT",
+          "path": "/api/circuits/virtual-circuits/{id}/",
+          "descriptionTemplate": "Update virtual circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "cid": "{cid}"
+          }
+        },
+        "get": {
+          "name": "getVirtualCircuit",
+          "method": "GET",
+          "path": "/api/circuits/virtual-circuits/{id}/",
+          "descriptionTemplate": "Get virtual circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BackgroundQueue": {
+      "displayName": "background queue",
+      "params": [
+        "name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBackgroundQueue",
+          "method": "GET",
+          "path": "/api/core/background-queues/{name}/",
+          "descriptionTemplate": "Get background queue {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listBackgroundQueues",
+          "method": "GET",
+          "path": "/api/core/background-queues/",
+          "descriptionTemplate": "List background queues",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BackgroundTask": {
+      "displayName": "background task",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBackgroundTask",
+          "method": "GET",
+          "path": "/api/core/background-tasks/{id}/",
+          "descriptionTemplate": "Get background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listBackgroundTasks",
+          "method": "GET",
+          "path": "/api/core/background-tasks/",
+          "descriptionTemplate": "List background tasks",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/delete/",
+          "descriptionTemplate": "Delete background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "enqueue": {
+          "name": "enqueueBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/enqueue/",
+          "descriptionTemplate": "Enqueue background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "requeue": {
+          "name": "requeueBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/requeue/",
+          "descriptionTemplate": "Requeue background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "stop": {
+          "name": "stopBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/stop/",
+          "descriptionTemplate": "Stop background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BackgroundWorker": {
+      "displayName": "background worker",
+      "params": [
+        "name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBackgroundWorker",
+          "method": "GET",
+          "path": "/api/core/background-workers/{name}/",
+          "descriptionTemplate": "Get background worker {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listBackgroundWorkers",
+          "method": "GET",
+          "path": "/api/core/background-workers/",
+          "descriptionTemplate": "List background workers",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DataFile": {
+      "displayName": "data file",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getDataFile",
+          "method": "GET",
+          "path": "/api/core/data-files/{id}/",
+          "descriptionTemplate": "Get data file {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listDataFiles",
+          "method": "GET",
+          "path": "/api/core/data-files/",
+          "descriptionTemplate": "List data files",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DataSource": {
+      "displayName": "data source",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createDataSource",
+          "method": "POST",
+          "path": "/api/core/data-sources/",
+          "descriptionTemplate": "Create data source",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getDataSource",
+          "method": "GET",
+          "path": "/api/core/data-sources/{id}/",
+          "descriptionTemplate": "Get data source {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateDataSource",
+          "method": "PUT",
+          "path": "/api/core/data-sources/{id}/",
+          "descriptionTemplate": "Update data source {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateDataSource",
+          "method": "PATCH",
+          "path": "/api/core/data-sources/{id}/",
+          "descriptionTemplate": "Partial update data source {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteDataSource",
+          "method": "DELETE",
+          "path": "/api/core/data-sources/{id}/",
+          "descriptionTemplate": "Delete data source {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateDataSources",
+          "method": "PUT",
+          "path": "/api/core/data-sources/",
+          "descriptionTemplate": "Bulk update data sources",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateDataSources",
+          "method": "PATCH",
+          "path": "/api/core/data-sources/",
+          "descriptionTemplate": "Bulk partial update data sources",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteDataSources",
+          "method": "DELETE",
+          "path": "/api/core/data-sources/",
+          "descriptionTemplate": "Bulk delete data sources",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "sync": {
+          "name": "syncDataSource",
+          "method": "POST",
+          "path": "/api/core/data-sources/{id}/sync/",
+          "descriptionTemplate": "Sync data source {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Job": {
+      "displayName": "job",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getJob",
+          "method": "GET",
+          "path": "/api/core/jobs/{id}/",
+          "descriptionTemplate": "Get job {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listJobs",
+          "method": "GET",
+          "path": "/api/core/jobs/",
+          "descriptionTemplate": "List jobs",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ObjectChange": {
+      "displayName": "object change",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getObjectChange",
+          "method": "GET",
+          "path": "/api/core/object-changes/{id}/",
+          "descriptionTemplate": "Get object change {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listObjectChanges",
+          "method": "GET",
+          "path": "/api/core/object-changes/",
+          "descriptionTemplate": "List object changes",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IKEPolicy": {
+      "displayName": "ike policy",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIKEPolicy",
+          "method": "POST",
+          "path": "/api/vpn/ike-policies/",
+          "descriptionTemplate": "Create IKE policy {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteIKEPolicy",
+          "method": "DELETE",
+          "path": "/api/vpn/ike-policies/{id}/",
+          "descriptionTemplate": "Delete IKE policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIKEPolicy",
+          "method": "PUT",
+          "path": "/api/vpn/ike-policies/{id}/",
+          "descriptionTemplate": "Update IKE policy {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getIKEPolicy",
+          "method": "GET",
+          "path": "/api/vpn/ike-policies/{id}/",
+          "descriptionTemplate": "Get IKE policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IKEProposal": {
+      "displayName": "ike proposal",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIKEProposal",
+          "method": "POST",
+          "path": "/api/vpn/ike-proposals/",
+          "descriptionTemplate": "Create IKE proposal {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteIKEProposal",
+          "method": "DELETE",
+          "path": "/api/vpn/ike-proposals/{id}/",
+          "descriptionTemplate": "Delete IKE proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIKEProposal",
+          "method": "PUT",
+          "path": "/api/vpn/ike-proposals/{id}/",
+          "descriptionTemplate": "Update IKE proposal {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getIKEProposal",
+          "method": "GET",
+          "path": "/api/vpn/ike-proposals/{id}/",
+          "descriptionTemplate": "Get IKE proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPSecPolicy": {
+      "displayName": "ipsec policy",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPSecPolicy",
+          "method": "POST",
+          "path": "/api/vpn/ipsec-policies/",
+          "descriptionTemplate": "Create IPSec policy {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteIPSecPolicy",
+          "method": "DELETE",
+          "path": "/api/vpn/ipsec-policies/{id}/",
+          "descriptionTemplate": "Delete IPSec policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPSecPolicy",
+          "method": "PUT",
+          "path": "/api/vpn/ipsec-policies/{id}/",
+          "descriptionTemplate": "Update IPSec policy {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getIPSecPolicy",
+          "method": "GET",
+          "path": "/api/vpn/ipsec-policies/{id}/",
+          "descriptionTemplate": "Get IPSec policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPSecProfile": {
+      "displayName": "ipsec profile",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPSecProfile",
+          "method": "POST",
+          "path": "/api/vpn/ipsec-profiles/",
+          "descriptionTemplate": "Create IPSec profile {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteIPSecProfile",
+          "method": "DELETE",
+          "path": "/api/vpn/ipsec-profiles/{id}/",
+          "descriptionTemplate": "Delete IPSec profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPSecProfile",
+          "method": "PUT",
+          "path": "/api/vpn/ipsec-profiles/{id}/",
+          "descriptionTemplate": "Update IPSec profile {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getIPSecProfile",
+          "method": "GET",
+          "path": "/api/vpn/ipsec-profiles/{id}/",
+          "descriptionTemplate": "Get IPSec profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPSecProposal": {
+      "displayName": "ipsec proposal",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPSecProposal",
+          "method": "POST",
+          "path": "/api/vpn/ipsec-proposals/",
+          "descriptionTemplate": "Create IPSec proposal {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteIPSecProposal",
+          "method": "DELETE",
+          "path": "/api/vpn/ipsec-proposals/{id}/",
+          "descriptionTemplate": "Delete IPSec proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPSecProposal",
+          "method": "PUT",
+          "path": "/api/vpn/ipsec-proposals/{id}/",
+          "descriptionTemplate": "Update IPSec proposal {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getIPSecProposal",
+          "method": "GET",
+          "path": "/api/vpn/ipsec-proposals/{id}/",
+          "descriptionTemplate": "Get IPSec proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "L2VPNTermination": {
+      "displayName": "l2vpn termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createL2VPNTermination",
+          "method": "POST",
+          "path": "/api/vpn/l2vpn-terminations/",
+          "descriptionTemplate": "Create L2VPN termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteL2VPNTermination",
+          "method": "DELETE",
+          "path": "/api/vpn/l2vpn-terminations/{id}/",
+          "descriptionTemplate": "Delete L2VPN termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateL2VPNTermination",
+          "method": "PUT",
+          "path": "/api/vpn/l2vpn-terminations/{id}/",
+          "descriptionTemplate": "Update L2VPN termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "get": {
+          "name": "getL2VPNTermination",
+          "method": "GET",
+          "path": "/api/vpn/l2vpn-terminations/{id}/",
+          "descriptionTemplate": "Get L2VPN termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "L2VPN": {
+      "displayName": "l2vpn",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createL2VPN",
+          "method": "POST",
+          "path": "/api/vpn/l2vpns/",
+          "descriptionTemplate": "Create L2VPN {name} with id {id} and slug {slug}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteL2VPN",
+          "method": "DELETE",
+          "path": "/api/vpn/l2vpns/{id}/",
+          "descriptionTemplate": "Delete L2VPN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateL2VPN",
+          "method": "PUT",
+          "path": "/api/vpn/l2vpns/{id}/",
+          "descriptionTemplate": "Update L2VPN {name} with id {id} and slug {slug}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getL2VPN",
+          "method": "GET",
+          "path": "/api/vpn/l2vpns/{id}/",
+          "descriptionTemplate": "Get L2VPN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TunnelGroup": {
+      "displayName": "tunnel group",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTunnelGroup",
+          "method": "POST",
+          "path": "/api/vpn/tunnel-groups/",
+          "descriptionTemplate": "Create tunnel group {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteTunnelGroup",
+          "method": "DELETE",
+          "path": "/api/vpn/tunnel-groups/{id}/",
+          "descriptionTemplate": "Delete tunnel group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTunnelGroup",
+          "method": "PUT",
+          "path": "/api/vpn/tunnel-groups/{id}/",
+          "descriptionTemplate": "Update tunnel group {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getTunnelGroup",
+          "method": "GET",
+          "path": "/api/vpn/tunnel-groups/{id}/",
+          "descriptionTemplate": "Get tunnel group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TunnelTermination": {
+      "displayName": "tunnel termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTunnelTermination",
+          "method": "POST",
+          "path": "/api/vpn/tunnel-terminations/",
+          "descriptionTemplate": "Create tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteTunnelTermination",
+          "method": "DELETE",
+          "path": "/api/vpn/tunnel-terminations/{id}/",
+          "descriptionTemplate": "Delete tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTunnelTermination",
+          "method": "PUT",
+          "path": "/api/vpn/tunnel-terminations/{id}/",
+          "descriptionTemplate": "Update tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "get": {
+          "name": "getTunnelTermination",
+          "method": "GET",
+          "path": "/api/vpn/tunnel-terminations/{id}/",
+          "descriptionTemplate": "Get tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Tunnel": {
+      "displayName": "tunnel",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTunnel",
+          "method": "POST",
+          "path": "/api/vpn/tunnels/",
+          "descriptionTemplate": "Create tunnel {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteTunnel",
+          "method": "DELETE",
+          "path": "/api/vpn/tunnels/{id}/",
+          "descriptionTemplate": "Delete tunnel with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTunnel",
+          "method": "PUT",
+          "path": "/api/vpn/tunnels/{id}/",
+          "descriptionTemplate": "Update tunnel {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getTunnel",
+          "method": "GET",
+          "path": "/api/vpn/tunnels/{id}/",
+          "descriptionTemplate": "Get tunnel with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ClusterGroup": {
+      "displayName": "cluster group",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createClusterGroup",
+          "method": "POST",
+          "path": "/api/virtualization/cluster-groups/",
+          "descriptionTemplate": "Create cluster group with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteClusterGroup",
+          "method": "DELETE",
+          "path": "/api/virtualization/cluster-groups/{id}/",
+          "descriptionTemplate": "Delete cluster group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateClusterGroup",
+          "method": "PUT",
+          "path": "/api/virtualization/cluster-groups/{id}/",
+          "descriptionTemplate": "Update cluster group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getClusterGroup",
+          "method": "GET",
+          "path": "/api/virtualization/cluster-groups/{id}/",
+          "descriptionTemplate": "Get cluster group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ClusterType": {
+      "displayName": "cluster type",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createClusterType",
+          "method": "POST",
+          "path": "/api/virtualization/cluster-types/",
+          "descriptionTemplate": "Create cluster type with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteClusterType",
+          "method": "DELETE",
+          "path": "/api/virtualization/cluster-types/{id}/",
+          "descriptionTemplate": "Delete cluster type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateClusterType",
+          "method": "PUT",
+          "path": "/api/virtualization/cluster-types/{id}/",
+          "descriptionTemplate": "Update cluster type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getClusterType",
+          "method": "GET",
+          "path": "/api/virtualization/cluster-types/{id}/",
+          "descriptionTemplate": "Get cluster type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Cluster": {
+      "displayName": "cluster",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCluster",
+          "method": "POST",
+          "path": "/api/virtualization/clusters/",
+          "descriptionTemplate": "Create cluster with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCluster",
+          "method": "DELETE",
+          "path": "/api/virtualization/clusters/{id}/",
+          "descriptionTemplate": "Delete cluster with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCluster",
+          "method": "PUT",
+          "path": "/api/virtualization/clusters/{id}/",
+          "descriptionTemplate": "Update cluster with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCluster",
+          "method": "GET",
+          "path": "/api/virtualization/clusters/{id}/",
+          "descriptionTemplate": "Get cluster with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Interface": {
+      "displayName": "interface",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInterface",
+          "method": "POST",
+          "path": "/api/virtualization/interfaces/",
+          "descriptionTemplate": "Create interface with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteInterface",
+          "method": "DELETE",
+          "path": "/api/virtualization/interfaces/{id}/",
+          "descriptionTemplate": "Delete interface with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateInterface",
+          "method": "PUT",
+          "path": "/api/virtualization/interfaces/{id}/",
+          "descriptionTemplate": "Update interface with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getInterface",
+          "method": "GET",
+          "path": "/api/virtualization/interfaces/{id}/",
+          "descriptionTemplate": "Get interface with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VirtualDisk": {
+      "displayName": "virtual disk",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVirtualDisk",
+          "method": "POST",
+          "path": "/api/virtualization/virtual-disks/",
+          "descriptionTemplate": "Create virtual disk with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVirtualDisk",
+          "method": "DELETE",
+          "path": "/api/virtualization/virtual-disks/{id}/",
+          "descriptionTemplate": "Delete virtual disk with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVirtualDisk",
+          "method": "PUT",
+          "path": "/api/virtualization/virtual-disks/{id}/",
+          "descriptionTemplate": "Update virtual disk with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVirtualDisk",
+          "method": "GET",
+          "path": "/api/virtualization/virtual-disks/{id}/",
+          "descriptionTemplate": "Get virtual disk with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VirtualMachine": {
+      "displayName": "virtual machine",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVirtualMachine",
+          "method": "POST",
+          "path": "/api/virtualization/virtual-machines/",
+          "descriptionTemplate": "Create virtual machine with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteVirtualMachine",
+          "method": "DELETE",
+          "path": "/api/virtualization/virtual-machines/{id}/",
+          "descriptionTemplate": "Delete virtual machine with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVirtualMachine",
+          "method": "PUT",
+          "path": "/api/virtualization/virtual-machines/{id}/",
+          "descriptionTemplate": "Update virtual machine with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getVirtualMachine",
+          "method": "GET",
+          "path": "/api/virtualization/virtual-machines/{id}/",
+          "descriptionTemplate": "Get virtual machine with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ContactAssignment": {
+      "displayName": "contact assignment",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContactAssignment",
+          "method": "POST",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "Create contact assignment with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteContactAssignment",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Delete contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContactAssignment",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Update contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContactAssignment",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Partially update contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateContactAssignments",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "Bulk update contact assignments",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateContactAssignments",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "Bulk partial update contact assignments",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteContactAssignments",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "Bulk delete contact assignments",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactAssignment",
+          "method": "GET",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Get contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContactAssignments",
+          "method": "GET",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "List contact assignments",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ContactGroup": {
+      "displayName": "contact group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContactGroup",
+          "method": "POST",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "Create contact group {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteContactGroup",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Delete contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContactGroup",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Update contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContactGroup",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Partially update contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateContactGroups",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "Bulk update contact groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateContactGroups",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "Bulk partial update contact groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteContactGroups",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "Bulk delete contact groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactGroup",
+          "method": "GET",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Get contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContactGroups",
+          "method": "GET",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "List contact groups",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ContactRole": {
+      "displayName": "contact role",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContactRole",
+          "method": "POST",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "Create contact role {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteContactRole",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Delete contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContactRole",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Update contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContactRole",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Partially update contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateContactRoles",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "Bulk update contact roles",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateContactRoles",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "Bulk partial update contact roles",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteContactRoles",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "Bulk delete contact roles",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactRole",
+          "method": "GET",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Get contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContactRoles",
+          "method": "GET",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "List contact roles",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Contact": {
+      "displayName": "contact",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContact",
+          "method": "POST",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "Create contact {name} with id {id}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteContact",
+          "method": "DELETE",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Delete contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContact",
+          "method": "PUT",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Update contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContact",
+          "method": "PATCH",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Partially update contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateContacts",
+          "method": "PUT",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "Bulk update contacts",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateContacts",
+          "method": "PATCH",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "Bulk partial update contacts",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteContacts",
+          "method": "DELETE",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "Bulk delete contacts",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContact",
+          "method": "GET",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Get contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContacts",
+          "method": "GET",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "List contacts",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TenantGroup": {
+      "displayName": "tenant group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTenantGroup",
+          "method": "POST",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "Create tenant group {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteTenantGroup",
+          "method": "DELETE",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Delete tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTenantGroup",
+          "method": "PUT",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Update tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateTenantGroup",
+          "method": "PATCH",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Partially update tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateTenantGroups",
+          "method": "PUT",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "Bulk update tenant groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateTenantGroups",
+          "method": "PATCH",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "Bulk partial update tenant groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteTenantGroups",
+          "method": "DELETE",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "Bulk delete tenant groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getTenantGroup",
+          "method": "GET",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Get tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listTenantGroups",
+          "method": "GET",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "List tenant groups",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Tenant": {
+      "displayName": "tenant",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTenant",
+          "method": "POST",
+          "path": "/api/tenancy/tenants/",
+          "descriptionTemplate": "Create tenant {name} with id {id}",
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteTenant",
+          "method": "DELETE",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Delete tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTenant",
+          "method": "PUT",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Update tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateTenant",
+          "method": "PATCH",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Partially update tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateTenants",
+          "method": "PUT",
+          "path": "/api/tenancy/tenants/",
+          "descriptionTemplate": "Bulk update tenants",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateTenants",
+          "method": "PATCH",
+          "path": "/api/tenancy/tenants/",
+          "descriptionTemplate": "Bulk partial update tenants",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteTenants",
+          "method": "DELETE",
+          "path": "/api/tenancy/tenants/",
+          "descriptionTemplate": "Bulk delete tenants",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getTenant",
+          "method": "GET",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Get tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listTenants",
+          "method": "GET",
+          "path": "/api/tenancy/tenants/",
+          "descriptionTemplate": "List tenants",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Group": {
+      "displayName": "group",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createGroup",
+          "method": "POST",
+          "path": "/api/users/groups/",
+          "descriptionTemplate": "Create group with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteGroup",
+          "method": "DELETE",
+          "path": "/api/users/groups/{id}/",
+          "descriptionTemplate": "Delete group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateGroup",
+          "method": "PUT",
+          "path": "/api/users/groups/{id}/",
+          "descriptionTemplate": "Update group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getGroup",
+          "method": "GET",
+          "path": "/api/users/groups/{id}/",
+          "descriptionTemplate": "Get group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Permission": {
+      "displayName": "permission",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPermission",
+          "method": "POST",
+          "path": "/api/users/permissions/",
+          "descriptionTemplate": "Create permission with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deletePermission",
+          "method": "DELETE",
+          "path": "/api/users/permissions/{id}/",
+          "descriptionTemplate": "Delete permission with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updatePermission",
+          "method": "PUT",
+          "path": "/api/users/permissions/{id}/",
+          "descriptionTemplate": "Update permission with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getPermission",
+          "method": "GET",
+          "path": "/api/users/permissions/{id}/",
+          "descriptionTemplate": "Get permission with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Token": {
+      "displayName": "token",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createToken",
+          "method": "POST",
+          "path": "/api/users/tokens/",
+          "descriptionTemplate": "Create token with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteToken",
+          "method": "DELETE",
+          "path": "/api/users/tokens/{id}/",
+          "descriptionTemplate": "Delete token with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateToken",
+          "method": "PUT",
+          "path": "/api/users/tokens/{id}/",
+          "descriptionTemplate": "Update token with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getToken",
+          "method": "GET",
+          "path": "/api/users/tokens/{id}/",
+          "descriptionTemplate": "Get token with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "User": {
+      "displayName": "user",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createUser",
+          "method": "POST",
+          "path": "/api/users/users/",
+          "descriptionTemplate": "Create user with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/api/users/users/{id}/",
+          "descriptionTemplate": "Delete user with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateUser",
+          "method": "PUT",
+          "path": "/api/users/users/{id}/",
+          "descriptionTemplate": "Update user with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getUser",
+          "method": "GET",
+          "path": "/api/users/users/{id}/",
+          "descriptionTemplate": "Get user with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WirelessLANGroup": {
+      "displayName": "wireless LAN group",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createWirelessLANGroup",
+          "method": "POST",
+          "path": "/api/wireless/wireless-lan-groups/",
+          "descriptionTemplate": "Create wireless LAN group with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteWirelessLANGroup",
+          "method": "DELETE",
+          "path": "/api/wireless/wireless-lan-groups/{id}/",
+          "descriptionTemplate": "Delete wireless LAN group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWirelessLANGroup",
+          "method": "PUT",
+          "path": "/api/wireless/wireless-lan-groups/{id}/",
+          "descriptionTemplate": "Update wireless LAN group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWirelessLANGroup",
+          "method": "GET",
+          "path": "/api/wireless/wireless-lan-groups/{id}/",
+          "descriptionTemplate": "Get wireless LAN group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WirelessLAN": {
+      "displayName": "wireless LAN",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createWirelessLAN",
+          "method": "POST",
+          "path": "/api/wireless/wireless-lans/",
+          "descriptionTemplate": "Create wireless LAN with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteWirelessLAN",
+          "method": "DELETE",
+          "path": "/api/wireless/wireless-lans/{id}/",
+          "descriptionTemplate": "Delete wireless LAN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWirelessLAN",
+          "method": "PUT",
+          "path": "/api/wireless/wireless-lans/{id}/",
+          "descriptionTemplate": "Update wireless LAN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWirelessLAN",
+          "method": "GET",
+          "path": "/api/wireless/wireless-lans/{id}/",
+          "descriptionTemplate": "Get wireless LAN with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WirelessLink": {
+      "displayName": "wireless link",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createWirelessLink",
+          "method": "POST",
+          "path": "/api/wireless/wireless-links/",
+          "descriptionTemplate": "Create wireless link with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteWirelessLink",
+          "method": "DELETE",
+          "path": "/api/wireless/wireless-links/{id}/",
+          "descriptionTemplate": "Delete wireless link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWirelessLink",
+          "method": "PUT",
+          "path": "/api/wireless/wireless-links/{id}/",
+          "descriptionTemplate": "Update wireless link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWirelessLink",
+          "method": "GET",
+          "path": "/api/wireless/wireless-links/{id}/",
+          "descriptionTemplate": "Get wireless link with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     }
   },
-  "sut": "netbox"
+  "stories": []
 }

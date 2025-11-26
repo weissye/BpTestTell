@@ -3,8 +3,11 @@
 
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
+var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
-const svc = new RESTSession("http://localhost:8080", "provengo-client", {
+var baseURL = protocol + "://" + host + ":" + port;
+bp.log.info("[INIT] RESTSession BaseURL: " + baseURL);
+const svc = new RESTSession(baseURL, "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
@@ -17,17 +20,20 @@ function matchesDescriptionRegex(re) {
 
 // ---- Entity: drug ----
 
-function createDrug(name) {
+function createDrug(id) {
   var url = "/drugs";
-  var description = "Create drug " + name;
+  var description = "Create drug " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] createDrug");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.post(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -35,11 +41,10 @@ function getDrug(id) {
   var url = "/drugs/" + id;
   var description = "Get drug " + id;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] getDrug");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
@@ -47,13 +52,16 @@ function updateDrug(id) {
   var url = "/drugs/" + id;
   var description = "Update drug " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] updateDrug");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.put(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -61,43 +69,45 @@ function deleteDrug(id) {
   var url = "/drugs/" + id;
   var description = "Delete drug " + id;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] deleteDrug");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingDrug(name, id) {
-  return createDrug(name);
+function tryToAddExistingDrug(id) {
+  createDrug(id);
 }
 
-function verifyDrugExists(name, id) {
-  return getDrug(id);
+function verifyDrugExists(id) {
+  getDrug(id);
 }
 
-function verifyDrugDoesNotExist(name, id) {
-  return getDrug(id);
+function verifyDrugDoesNotExist(id) {
+  getDrug(id);
 }
 
-function tryToDeleteANonExistingDrug(name, id) {
-  return deleteDrug(id);
+function tryToDeleteANonExistingDrug(id) {
+  deleteDrug(id);
 }
 
 // ---- Entity: patient ----
 
-function createPatient(name) {
+function createPatient(id) {
   var url = "/patients";
-  var description = "Create patient " + name;
+  var description = "Create patient " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] createPatient");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.post(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -105,11 +115,10 @@ function getPatient(id) {
   var url = "/patients/" + id;
   var description = "Get patient " + id;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] getPatient");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
@@ -117,13 +126,16 @@ function updatePatient(id) {
   var url = "/patients/" + id;
   var description = "Update patient " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] updatePatient");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.put(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -131,43 +143,45 @@ function deletePatient(id) {
   var url = "/patients/" + id;
   var description = "Delete patient " + id;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] deletePatient");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingPatient(name, id) {
-  return createPatient(name);
+function tryToAddExistingPatient(id) {
+  createPatient(id);
 }
 
-function verifyPatientExists(name, id) {
-  return getPatient(id);
+function verifyPatientExists(id) {
+  getPatient(id);
 }
 
-function verifyPatientDoesNotExist(name, id) {
-  return getPatient(id);
+function verifyPatientDoesNotExist(id) {
+  getPatient(id);
 }
 
-function tryToDeleteANonExistingPatient(name, id) {
-  return deletePatient(id);
+function tryToDeleteANonExistingPatient(id) {
+  deletePatient(id);
 }
 
 // ---- Entity: order ----
 
-function createOrder(name) {
+function createOrder(id) {
   var url = "/orders";
-  var description = "Create order " + name;
+  var description = "Create order " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] createOrder");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.post(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -175,11 +189,10 @@ function getOrder(id) {
   var url = "/orders/" + id;
   var description = "Get order " + id;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] getOrder");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
@@ -187,13 +200,16 @@ function updateOrder(id) {
   var url = "/orders/" + id;
   var description = "Update order " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] updateOrder");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.put(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -201,43 +217,45 @@ function deleteOrder(id) {
   var url = "/orders/" + id;
   var description = "Delete order " + id;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] deleteOrder");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingOrder(name, id) {
-  return createOrder(name);
+function tryToAddExistingOrder(id) {
+  createOrder(id);
 }
 
-function verifyOrderExists(name, id) {
-  return getOrder(id);
+function verifyOrderExists(id) {
+  getOrder(id);
 }
 
-function verifyOrderDoesNotExist(name, id) {
-  return getOrder(id);
+function verifyOrderDoesNotExist(id) {
+  getOrder(id);
 }
 
-function tryToDeleteANonExistingOrder(name, id) {
-  return deleteOrder(id);
+function tryToDeleteANonExistingOrder(id) {
+  deleteOrder(id);
 }
 
 // ---- Entity: prescription ----
 
-function createPrescription(name) {
+function createPrescription(id) {
   var url = "/prescriptions";
-  var description = "Create prescription " + name;
+  var description = "Create prescription " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] createPrescription");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.post(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -245,11 +263,10 @@ function getPrescription(id) {
   var url = "/prescriptions/" + id;
   var description = "Get prescription " + id;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] getPrescription");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
@@ -257,13 +274,16 @@ function updatePrescription(id) {
   var url = "/prescriptions/" + id;
   var description = "Update prescription " + id;
   var body = {
-    "name": name,
+    "id": String(id),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] updatePrescription");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.put(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -271,28 +291,27 @@ function deletePrescription(id) {
   var url = "/prescriptions/" + id;
   var description = "Delete prescription " + id;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] deletePrescription");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingPrescription(name, id) {
-  return createPrescription(name);
+function tryToAddExistingPrescription(id) {
+  createPrescription(id);
 }
 
-function verifyPrescriptionExists(name, id) {
-  return getPrescription(id);
+function verifyPrescriptionExists(id) {
+  getPrescription(id);
 }
 
-function verifyPrescriptionDoesNotExist(name, id) {
-  return getPrescription(id);
+function verifyPrescriptionDoesNotExist(id) {
+  getPrescription(id);
 }
 
-function tryToDeleteANonExistingPrescription(name, id) {
-  return deletePrescription(id);
+function tryToDeleteANonExistingPrescription(id) {
+  deletePrescription(id);
 }
 
 // ---- Entity: inventory ----
@@ -301,13 +320,16 @@ function createInventory(ndc) {
   var url = "/inventory";
   var description = "Create inventory " + ndc;
   var body = {
-    "ndc": ndc,
+    "ndc": String(ndc),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] createInventory");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.post(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -315,11 +337,10 @@ function getInventory(ndc) {
   var url = "/inventory/" + ndc;
   var description = "Get inventory " + ndc;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] getInventory");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
@@ -327,13 +348,16 @@ function updateInventory(ndc) {
   var url = "/inventory/" + ndc;
   var description = "Update inventory " + ndc;
   var body = {
-    "ndc": ndc,
+    "ndc": String(ndc),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] updateInventory");
+  if (body === undefined) { body = {}; }
+  var bodyStr = JSON.stringify(body);
+  bp.log.info("  URL: " + baseURL + url);
+  bp.log.info("  BODY: " + bodyStr);
+  svc.put(url, {
+    body: bodyStr,
+    parameters: { description: description }
   });
 }
 
@@ -341,26 +365,25 @@ function deleteInventory(ndc) {
   var url = "/inventory/" + ndc;
   var description = "Delete inventory " + ndc;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  bp.log.info("[CALL] deleteInventory");
+  bp.log.info("  URL: " + baseURL + url);
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
 function tryToAddExistingInventory(ndc) {
-  return createInventory(ndc);
+  createInventory(ndc);
 }
 
 function verifyInventoryExists(ndc) {
-  return getInventory(ndc);
+  getInventory(ndc);
 }
 
 function verifyInventoryDoesNotExist(ndc) {
-  return getInventory(ndc);
+  getInventory(ndc);
 }
 
 function tryToDeleteANonExistingInventory(ndc) {
-  return deleteInventory(ndc);
+  deleteInventory(ndc);
 }

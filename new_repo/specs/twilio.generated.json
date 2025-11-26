@@ -1,473 +1,2981 @@
 {
-  "base_url": "https://api.twilio.com",
+  "sut": "twilio",
+  "base_url": "http://localhost:8080",
   "entities": {
     "Account": {
       "displayName": "account",
+      "params": [
+        "Sid"
+      ],
       "operations": {
         "get": {
-          "descriptionTemplate": "Get account {accountSid}",
+          "name": "fetchAccount",
           "method": "GET",
-          "name": "getAccount",
+          "path": "/2010-04-01/Accounts/{Sid}.json",
+          "descriptionTemplate": "Fetch account with Sid {Sid}",
           "params": [
-            "accountSid"
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}.json"
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listAccounts",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts.json",
+          "descriptionTemplate": "List accounts filtered by FriendlyName {FriendlyName} and Status {Status}",
+          "params": [
+            "FriendlyName",
+            "Status",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createAccount",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts.json",
+          "descriptionTemplate": "Create account with FriendlyName {FriendlyName}",
+          "params": [
+            "FriendlyName"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}"
+          }
         },
         "update": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Update account {accountSid}",
-          "method": "POST",
           "name": "updateAccount",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{Sid}.json",
+          "descriptionTemplate": "Update account {Sid} with FriendlyName {FriendlyName} and Status {Status}",
           "params": [
-            "accountSid"
+            "Sid",
+            "FriendlyName",
+            "Status"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}.json"
-        }
-      },
-      "params": [
-        "accountSid"
-      ],
-      "waitForPatterns": {
-        "updated": {
-          "descriptionRegex": "Update account (.+)",
-          "name": "waitForAnyAccountUpdated"
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}",
+            "Status": "{Status}"
+          }
         }
       }
     },
     "Address": {
       "displayName": "address",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
       "operations": {
-        "add": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Add address {friendlyName}",
-          "method": "POST",
-          "name": "addAddress",
+        "get": {
+          "name": "fetchAddress",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+          "descriptionTemplate": "Fetch address {Sid} for account {AccountSid}",
           "params": [
-            "accountSid",
-            "friendlyName"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Addresses.json"
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listAddresses",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+          "descriptionTemplate": "List addresses for account {AccountSid} filtered by customer name {CustomerName} and friendly name {FriendlyName}",
+          "params": [
+            "AccountSid",
+            "CustomerName",
+            "FriendlyName",
+            "EmergencyEnabled",
+            "IsoCountry",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createAddress",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+          "descriptionTemplate": "Create address for account {AccountSid} with customer name {CustomerName}",
+          "params": [
+            "AccountSid",
+            "CustomerName",
+            "Street",
+            "City",
+            "Region",
+            "PostalCode",
+            "IsoCountry"
+          ],
+          "bodyTemplate": {
+            "CustomerName": "{CustomerName}",
+            "Street": "{Street}",
+            "City": "{City}",
+            "Region": "{Region}",
+            "PostalCode": "{PostalCode}",
+            "IsoCountry": "{IsoCountry}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete address {addressSid}",
-          "method": "DELETE",
           "name": "deleteAddress",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+          "descriptionTemplate": "Delete address {Sid} for account {AccountSid}",
           "params": [
-            "accountSid",
-            "addressSid"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Addresses/{addressSid}.json"
-        },
-        "get": {
-          "descriptionTemplate": "Get address {addressSid}",
-          "method": "GET",
-          "name": "getAddress",
-          "params": [
-            "accountSid",
-            "addressSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Addresses/{addressSid}.json"
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Update address {addressSid}",
-          "method": "POST",
           "name": "updateAddress",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+          "descriptionTemplate": "Update address {Sid} for account {AccountSid} with customer name {CustomerName}",
           "params": [
-            "accountSid",
-            "addressSid"
+            "AccountSid",
+            "Sid",
+            "CustomerName",
+            "Street",
+            "City",
+            "Region",
+            "PostalCode",
+            "FriendlyName",
+            "EmergencyEnabled",
+            "AutoCorrectAddress",
+            "StreetSecondary"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Addresses/{addressSid}.json"
-        }
-      },
-      "params": [
-        "accountSid",
-        "addressSid"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add address (.+)",
-          "name": "waitForAnyAddressAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete address (.+)",
-          "name": "waitForAnyAddressDeleted"
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}",
+            "CustomerName": "{CustomerName}",
+            "Street": "{Street}",
+            "City": "{City}",
+            "Region": "{Region}",
+            "PostalCode": "{PostalCode}",
+            "EmergencyEnabled": "{EmergencyEnabled}",
+            "AutoCorrectAddress": "{AutoCorrectAddress}",
+            "StreetSecondary": "{StreetSecondary}"
+          }
         }
       }
     },
     "Application": {
       "displayName": "application",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
       "operations": {
-        "add": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Add application {friendlyName}",
-          "method": "POST",
-          "name": "addApplication",
+        "get": {
+          "name": "fetchApplication",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+          "descriptionTemplate": "Fetch application with AccountSid {AccountSid} and Sid {Sid}",
           "params": [
-            "accountSid",
-            "friendlyName"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Applications.json"
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listApplications",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+          "descriptionTemplate": "List applications for AccountSid {AccountSid} filtered by FriendlyName {FriendlyName}",
+          "params": [
+            "AccountSid",
+            "FriendlyName"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createApplication",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+          "descriptionTemplate": "Create application with AccountSid {AccountSid} and FriendlyName {FriendlyName}",
+          "params": [
+            "AccountSid",
+            "FriendlyName"
+          ],
+          "bodyTemplate": {
+            "ApiVersion": "{ApiVersion}",
+            "VoiceUrl": "{VoiceUrl}",
+            "VoiceMethod": "{VoiceMethod}",
+            "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+            "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+            "StatusCallback": "{StatusCallback}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+            "SmsUrl": "{SmsUrl}",
+            "SmsMethod": "{SmsMethod}",
+            "SmsFallbackUrl": "{SmsFallbackUrl}",
+            "SmsFallbackMethod": "{SmsFallbackMethod}",
+            "SmsStatusCallback": "{SmsStatusCallback}",
+            "MessageStatusCallback": "{MessageStatusCallback}",
+            "FriendlyName": "{FriendlyName}",
+            "PublicApplicationConnectEnabled": "{PublicApplicationConnectEnabled}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete application {applicationSid}",
-          "method": "DELETE",
           "name": "deleteApplication",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+          "descriptionTemplate": "Delete application with AccountSid {AccountSid} and Sid {Sid}",
           "params": [
-            "accountSid",
-            "applicationSid"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Applications/{applicationSid}.json"
-        },
-        "get": {
-          "descriptionTemplate": "Get application {applicationSid}",
-          "method": "GET",
-          "name": "getApplication",
-          "params": [
-            "accountSid",
-            "applicationSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Applications/{applicationSid}.json"
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Update application {applicationSid}",
-          "method": "POST",
           "name": "updateApplication",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+          "descriptionTemplate": "Update application with AccountSid {AccountSid} and Sid {Sid}",
           "params": [
-            "accountSid",
-            "applicationSid"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Applications/{applicationSid}.json"
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}",
+            "ApiVersion": "{ApiVersion}",
+            "VoiceUrl": "{VoiceUrl}",
+            "VoiceMethod": "{VoiceMethod}",
+            "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+            "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+            "StatusCallback": "{StatusCallback}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+            "SmsUrl": "{SmsUrl}",
+            "SmsMethod": "{SmsMethod}",
+            "SmsFallbackUrl": "{SmsFallbackUrl}",
+            "SmsFallbackMethod": "{SmsFallbackMethod}",
+            "SmsStatusCallback": "{SmsStatusCallback}",
+            "MessageStatusCallback": "{MessageStatusCallback}",
+            "PublicApplicationConnectEnabled": "{PublicApplicationConnectEnabled}"
+          }
         }
-      },
+      }
+    },
+    "AuthorizedConnectApp": {
+      "displayName": "authorizedConnectApp",
       "params": [
-        "accountSid",
-        "applicationSid"
+        "AccountSid",
+        "ConnectAppSid"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add application (.+)",
-          "name": "waitForAnyApplicationAdded"
+      "operations": {
+        "get": {
+          "name": "fetchAuthorizedConnectApp",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+          "descriptionTemplate": "Fetch an instance of authorized-connect-app {ConnectAppSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConnectAppSid"
+          ]
         },
-        "deleted": {
-          "descriptionRegex": "Delete application (.+)",
-          "name": "waitForAnyApplicationDeleted"
+        "list": {
+          "name": "listAuthorizedConnectApps",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
+          "descriptionTemplate": "List authorized-connect-apps for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        }
+      }
+    },
+    "AvailablePhoneNumber": {
+      "displayName": "availablePhoneNumber",
+      "params": [
+        "AccountSid",
+        "CountryCode"
+      ],
+      "operations": {
+        "list": {
+          "name": "listAvailablePhoneNumbers",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+          "descriptionTemplate": "List available phone numbers for country {CountryCode} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CountryCode"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Balance": {
+      "displayName": "balance",
+      "params": [
+        "AccountSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBalance",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+          "descriptionTemplate": "Get balance for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Call": {
       "displayName": "call",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
       "operations": {
-        "add": {
-          "bodyTemplate": {
-            "From": "{from}",
-            "To": "{to}"
-          },
-          "descriptionTemplate": "Add call to {to}",
-          "method": "POST",
-          "name": "addCall",
+        "get": {
+          "name": "fetchCall",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+          "descriptionTemplate": "Fetch call {Sid} in account {AccountSid}",
           "params": [
-            "accountSid",
-            "to",
-            "from"
+            "AccountSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listCalls",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+          "descriptionTemplate": "List calls in account {AccountSid} filtered by To={To} From={From} Status={Status}",
+          "params": [
+            "AccountSid",
+            "To",
+            "From",
+            "ParentCallSid",
+            "Status",
+            "StartTime",
+            "StartTime<",
+            "StartTime>",
+            "EndTime",
+            "EndTime<",
+            "EndTime>",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        },
+        "add": {
+          "name": "createCall",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+          "descriptionTemplate": "Create call from {From} to {To} in account {AccountSid}",
+          "params": [
+            "AccountSid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Calls.json"
+          "bodyTemplate": {
+            "To": "{To}",
+            "From": "{From}",
+            "Method": "{Method}",
+            "FallbackUrl": "{FallbackUrl}",
+            "FallbackMethod": "{FallbackMethod}",
+            "StatusCallback": "{StatusCallback}",
+            "StatusCallbackEvent": "{StatusCallbackEvent}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "SendDigits": "{SendDigits}",
+            "Timeout": "{Timeout}",
+            "Record": "{Record}",
+            "RecordingChannels": "{RecordingChannels}",
+            "RecordingStatusCallback": "{RecordingStatusCallback}",
+            "RecordingStatusCallbackMethod": "{RecordingStatusCallbackMethod}",
+            "SipAuthUsername": "{SipAuthUsername}",
+            "SipAuthPassword": "{SipAuthPassword}",
+            "MachineDetection": "{MachineDetection}",
+            "MachineDetectionTimeout": "{MachineDetectionTimeout}",
+            "RecordingStatusCallbackEvent": "{RecordingStatusCallbackEvent}",
+            "Trim": "{Trim}",
+            "CallerId": "{CallerId}",
+            "MachineDetectionSpeechThreshold": "{MachineDetectionSpeechThreshold}",
+            "MachineDetectionSpeechEndThreshold": "{MachineDetectionSpeechEndThreshold}",
+            "MachineDetectionSilenceTimeout": "{MachineDetectionSilenceTimeout}",
+            "AsyncAmd": "{AsyncAmd}",
+            "AsyncAmdStatusCallback": "{AsyncAmdStatusCallback}",
+            "AsyncAmdStatusCallbackMethod": "{AsyncAmdStatusCallbackMethod}",
+            "Byoc": "{Byoc}",
+            "CallReason": "{CallReason}",
+            "CallToken": "{CallToken}",
+            "RecordingTrack": "{RecordingTrack}",
+            "TimeLimit": "{TimeLimit}",
+            "Url": "{Url}",
+            "Twiml": "{Twiml}",
+            "ApplicationSid": "{ApplicationSid}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete call {callSid}",
-          "method": "DELETE",
           "name": "deleteCall",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+          "descriptionTemplate": "Delete call {Sid} in account {AccountSid}",
           "params": [
-            "accountSid",
-            "callSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Calls/{callSid}.json"
-        },
-        "get": {
-          "descriptionTemplate": "Get call {callSid}",
-          "method": "GET",
-          "name": "getCall",
-          "params": [
-            "accountSid",
-            "callSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Calls/{callSid}.json"
+            "AccountSid",
+            "Sid"
+          ]
         },
         "update": {
-          "bodyTemplate": {
-            "Status": "{status}"
-          },
-          "descriptionTemplate": "Update call {callSid}",
-          "method": "POST",
           "name": "updateCall",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+          "descriptionTemplate": "Update call {Sid} in account {AccountSid}",
           "params": [
-            "accountSid",
-            "callSid",
-            "status"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Calls/{callSid}.json"
+          "bodyTemplate": {
+            "Url": "{Url}",
+            "Method": "{Method}",
+            "Status": "{Status}",
+            "FallbackUrl": "{FallbackUrl}",
+            "FallbackMethod": "{FallbackMethod}",
+            "StatusCallback": "{StatusCallback}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "Twiml": "{Twiml}",
+            "TimeLimit": "{TimeLimit}"
+          }
         }
-      },
+      }
+    },
+    "CallEvent": {
+      "displayName": "callEvent",
       "params": [
-        "accountSid",
-        "callSid"
+        "AccountSid",
+        "CallSid"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add call to (.+)",
-          "name": "waitForAnyCallAdded"
+      "operations": {
+        "list": {
+          "name": "listCallEvents",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+          "descriptionTemplate": "List events for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CallNotification": {
+      "displayName": "callNotification",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchCallNotification",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json",
+          "descriptionTemplate": "Fetch call notification {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete call (.+)",
-          "name": "waitForAnyCallDeleted"
+        "list": {
+          "name": "listCallNotifications",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
+          "descriptionTemplate": "List call notifications for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CallRecording": {
+      "displayName": "callRecording",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchCallRecording",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Fetch call recording {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listCallRecordings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+          "descriptionTemplate": "List call recordings for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "DateCreated",
+            "DateCreated<",
+            "DateCreated>",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        },
+        "add": {
+          "name": "createCallRecording",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+          "descriptionTemplate": "Create call recording for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {
+            "RecordingStatusCallbackEvent": "{RecordingStatusCallbackEvent}",
+            "RecordingStatusCallback": "{RecordingStatusCallback}",
+            "RecordingStatusCallbackMethod": "{RecordingStatusCallbackMethod}",
+            "Trim": "{Trim}",
+            "RecordingChannels": "{RecordingChannels}",
+            "RecordingTrack": "{RecordingTrack}"
+          }
+        },
+        "update": {
+          "name": "updateCallRecording",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Update call recording {Sid} for call {CallSid} in account {AccountSid} with status {Status}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {
+            "Status": "{Status}",
+            "PauseBehavior": "{PauseBehavior}"
+          }
+        },
+        "delete": {
+          "name": "deleteCallRecording",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Delete call recording {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ]
         }
       }
     },
     "Conference": {
       "displayName": "conference",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
       "operations": {
         "get": {
-          "descriptionTemplate": "Get conference {conferenceSid}",
+          "name": "fetchConference",
           "method": "GET",
-          "name": "getConference",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+          "descriptionTemplate": "Fetch conference {Sid} for account {AccountSid}",
           "params": [
-            "accountSid",
-            "conferenceSid"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Conferences/{conferenceSid}.json"
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listConference",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+          "descriptionTemplate": "List conferences for account {AccountSid} filtered by FriendlyName {FriendlyName} and Status {Status}",
+          "params": [
+            "AccountSid",
+            "FriendlyName",
+            "Status",
+            "DateCreated",
+            "DateCreated<",
+            "DateCreated>",
+            "DateUpdated",
+            "DateUpdated<",
+            "DateUpdated>",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "Status": "{status}"
-          },
-          "descriptionTemplate": "Update conference {conferenceSid}",
-          "method": "POST",
           "name": "updateConference",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+          "descriptionTemplate": "Update conference {Sid} for account {AccountSid} with status {Status} announceUrl {AnnounceUrl} announceMethod {AnnounceMethod}",
           "params": [
-            "accountSid",
-            "conferenceSid",
-            "status"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Conferences/{conferenceSid}.json"
+          "bodyTemplate": {
+            "Status": "{Status}",
+            "AnnounceUrl": "{AnnounceUrl}",
+            "AnnounceMethod": "{AnnounceMethod}"
+          }
         }
-      },
+      }
+    },
+    "ConferenceRecording": {
+      "displayName": "conferenceRecording",
       "params": [
-        "accountSid",
-        "conferenceSid"
+        "AccountSid",
+        "ConferenceSid",
+        "Sid"
       ],
-      "waitForPatterns": {
-        "updated": {
-          "descriptionRegex": "Update conference (.+)",
-          "name": "waitForAnyConferenceUpdated"
+      "operations": {
+        "get": {
+          "name": "fetchConferenceRecording",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Fetch conference recording {Sid} for conference {ConferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listConferenceRecordings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+          "descriptionTemplate": "List recordings for conference {ConferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "listConferenceRecordings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+          "descriptionTemplate": "List conference recordings for conference {ConferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConferenceRecording",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Update conference recording {Sid} for conference {ConferenceSid} in account {AccountSid} with status {Status}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "Sid",
+            "Status",
+            "PauseBehavior"
+          ],
+          "bodyTemplate": {
+            "Status": "{Status}",
+            "PauseBehavior": "{PauseBehavior}"
+          }
+        },
+        "delete": {
+          "name": "deleteConferenceRecording",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Delete conference recording {Sid} for conference {ConferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConnectApp": {
+      "displayName": "connectApp",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchConnectApp",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+          "descriptionTemplate": "Fetch connect-app {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listConnectApps",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+          "descriptionTemplate": "List connect-apps for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConnectApp",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+          "descriptionTemplate": "Update connect-app {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {
+            "AuthorizeRedirectUrl": "{AuthorizeRedirectUrl}",
+            "CompanyName": "{CompanyName}",
+            "DeauthorizeCallbackMethod": "{DeauthorizeCallbackMethod}",
+            "DeauthorizeCallbackUrl": "{DeauthorizeCallbackUrl}",
+            "Description": "{Description}",
+            "FriendlyName": "{FriendlyName}",
+            "HomepageUrl": "{HomepageUrl}",
+            "Permissions": "{Permissions}"
+          }
+        },
+        "delete": {
+          "name": "deleteConnectApp",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+          "descriptionTemplate": "Delete connect-app {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DependentPhoneNumber": {
+      "displayName": "dependentPhoneNumber",
+      "params": [
+        "AccountSid",
+        "AddressSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listDependentPhoneNumbers",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json",
+          "descriptionTemplate": "List dependent phone numbers for address {AddressSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "AddressSid"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "IncomingPhoneNumber": {
-      "displayName": "incomingphonenumber",
+      "displayName": "incomingPhoneNumber",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
       "operations": {
-        "add": {
-          "bodyTemplate": {
-            "PhoneNumber": "{phoneNumber}"
-          },
-          "descriptionTemplate": "Add incoming phone number {phoneNumber}",
-          "method": "POST",
-          "name": "addIncomingPhoneNumber",
+        "get": {
+          "name": "fetchIncomingPhoneNumber",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+          "descriptionTemplate": "Fetch incoming phone number {Sid} for account {AccountSid}",
           "params": [
-            "accountSid",
-            "phoneNumber"
+            "AccountSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listIncomingPhoneNumbers",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+          "descriptionTemplate": "List incoming phone numbers for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Beta",
+            "FriendlyName",
+            "PhoneNumber",
+            "Origin",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        },
+        "add": {
+          "name": "createIncomingPhoneNumber",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+          "descriptionTemplate": "Create incoming phone number {PhoneNumber} for account {AccountSid}",
+          "params": [
+            "AccountSid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers.json"
+          "bodyTemplate": {
+            "ApiVersion": "{ApiVersion}",
+            "FriendlyName": "{FriendlyName}",
+            "SmsApplicationSid": "{SmsApplicationSid}",
+            "SmsFallbackMethod": "{SmsFallbackMethod}",
+            "SmsFallbackUrl": "{SmsFallbackUrl}",
+            "SmsMethod": "{SmsMethod}",
+            "SmsUrl": "{SmsUrl}",
+            "StatusCallback": "{StatusCallback}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "VoiceApplicationSid": "{VoiceApplicationSid}",
+            "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+            "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+            "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+            "VoiceMethod": "{VoiceMethod}",
+            "VoiceUrl": "{VoiceUrl}",
+            "EmergencyStatus": "{EmergencyStatus}",
+            "EmergencyAddressSid": "{EmergencyAddressSid}",
+            "TrunkSid": "{TrunkSid}",
+            "IdentitySid": "{IdentitySid}",
+            "AddressSid": "{AddressSid}",
+            "VoiceReceiveMode": "{VoiceReceiveMode}",
+            "BundleSid": "{BundleSid}",
+            "PhoneNumber": "{PhoneNumber}",
+            "AreaCode": "{AreaCode}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete incoming phone number {phoneNumberSid}",
-          "method": "DELETE",
           "name": "deleteIncomingPhoneNumber",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+          "descriptionTemplate": "Delete incoming phone number {Sid} for account {AccountSid}",
           "params": [
-            "accountSid",
-            "phoneNumberSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers/{phoneNumberSid}.json"
-        },
-        "get": {
-          "descriptionTemplate": "Get incoming phone number {phoneNumberSid}",
-          "method": "GET",
-          "name": "getIncomingPhoneNumber",
-          "params": [
-            "accountSid",
-            "phoneNumberSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers/{phoneNumberSid}.json"
+            "AccountSid",
+            "Sid"
+          ]
         },
         "update": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Update incoming phone number {phoneNumberSid}",
-          "method": "POST",
           "name": "updateIncomingPhoneNumber",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+          "descriptionTemplate": "Update incoming phone number {Sid} for account {AccountSid}",
           "params": [
-            "accountSid",
-            "phoneNumberSid"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers/{phoneNumberSid}.json"
-        }
-      },
-      "params": [
-        "accountSid",
-        "phoneNumberSid"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add incoming phone number (.+)",
-          "name": "waitForAnyIncomingPhoneNumberAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete incoming phone number (.+)",
-          "name": "waitForAnyIncomingPhoneNumberDeleted"
+          "bodyTemplate": {
+            "AccountSid": "{AccountSid}",
+            "ApiVersion": "{ApiVersion}",
+            "FriendlyName": "{FriendlyName}",
+            "SmsApplicationSid": "{SmsApplicationSid}",
+            "SmsFallbackMethod": "{SmsFallbackMethod}",
+            "SmsFallbackUrl": "{SmsFallbackUrl}",
+            "SmsMethod": "{SmsMethod}",
+            "SmsUrl": "{SmsUrl}",
+            "StatusCallback": "{StatusCallback}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "VoiceApplicationSid": "{VoiceApplicationSid}",
+            "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+            "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+            "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+            "VoiceMethod": "{VoiceMethod}",
+            "VoiceUrl": "{VoiceUrl}",
+            "EmergencyStatus": "{EmergencyStatus}",
+            "EmergencyAddressSid": "{EmergencyAddressSid}",
+            "TrunkSid": "{TrunkSid}",
+            "VoiceReceiveMode": "{VoiceReceiveMode}",
+            "IdentitySid": "{IdentitySid}",
+            "AddressSid": "{AddressSid}",
+            "BundleSid": "{BundleSid}"
+          }
         }
       }
     },
-    "User": {
-      "displayName": "user",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "Identity": "{identity}"
-          },
-          "descriptionTemplate": "Add user {identity}",
-          "method": "POST",
-          "name": "addUser",
-          "params": [
-            "accountSid",
-            "identity"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Users.json"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete user {userSid}",
-          "method": "DELETE",
-          "name": "deleteUser",
-          "params": [
-            "accountSid",
-            "userSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Users/{userSid}.json"
-        },
-        "get": {
-          "descriptionTemplate": "Get user {userSid}",
-          "method": "GET",
-          "name": "getUser",
-          "params": [
-            "accountSid",
-            "userSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Users/{userSid}.json"
-        },
-        "update": {
-          "bodyTemplate": {
-            "FriendlyName": "{friendlyName}"
-          },
-          "descriptionTemplate": "Update user {userSid}",
-          "method": "POST",
-          "name": "updateUser",
-          "params": [
-            "accountSid",
-            "userSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Users/{userSid}.json"
-        }
-      },
+    "AssignedAddOn": {
+      "displayName": "assignedAddOn",
       "params": [
-        "accountSid",
-        "userSid"
+        "AccountSid",
+        "ResourceSid",
+        "Sid"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add user (.+)",
-          "name": "waitForAnyUserAdded"
+      "operations": {
+        "get": {
+          "name": "getAssignedAddOn",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+          "descriptionTemplate": "Get assigned add-on {Sid} for resource {ResourceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
         },
-        "deleted": {
-          "descriptionRegex": "Delete user (.+)",
-          "name": "waitForAnyUserDeleted"
+        "list": {
+          "name": "listAssignedAddOns",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+          "descriptionTemplate": "List assigned add-ons for resource {ResourceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "Webhook": {
-      "displayName": "webhook",
+    "Extension": {
+      "displayName": "extension",
+      "params": [
+        "AccountSid",
+        "ResourceSid",
+        "AssignedAddOnSid",
+        "Sid"
+      ],
       "operations": {
-        "add": {
-          "bodyTemplate": {
-            "Url": "{url}"
-          },
-          "descriptionTemplate": "Add webhook {url}",
-          "method": "POST",
-          "name": "addWebhook",
-          "params": [
-            "accountSid",
-            "url"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks.json"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete webhook {webhookSid}",
-          "method": "DELETE",
-          "name": "deleteWebhook",
-          "params": [
-            "accountSid",
-            "webhookSid"
-          ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks/{webhookSid}.json"
-        },
         "get": {
-          "descriptionTemplate": "Get webhook {webhookSid}",
+          "name": "getExtension",
           "method": "GET",
-          "name": "getWebhook",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+          "descriptionTemplate": "Get extension {Sid} for assigned add-on {AssignedAddOnSid} and resource {ResourceSid} in account {AccountSid}",
           "params": [
-            "accountSid",
-            "webhookSid"
+            "AccountSid",
+            "ResourceSid",
+            "AssignedAddOnSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks/{webhookSid}.json"
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listExtensions",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+          "descriptionTemplate": "List extensions for assigned add-on {AssignedAddOnSid} and resource {ResourceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "AssignedAddOnSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Key": {
+      "displayName": "key",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchKey",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+          "descriptionTemplate": "Fetch key {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listKeys",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+          "descriptionTemplate": "List keys for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "Url": "{url}"
-          },
-          "descriptionTemplate": "Update webhook {webhookSid}",
+          "name": "updateKey",
           "method": "POST",
-          "name": "updateWebhook",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+          "descriptionTemplate": "Update key {Sid} for account {AccountSid} with FriendlyName {FriendlyName}",
           "params": [
-            "accountSid",
-            "webhookSid"
+            "AccountSid",
+            "Sid"
           ],
-          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks/{webhookSid}.json"
-        }
-      },
-      "params": [
-        "accountSid",
-        "webhookSid"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add webhook (.+)",
-          "name": "waitForAnyWebhookAdded"
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete webhook (.+)",
-          "name": "waitForAnyWebhookDeleted"
+        "delete": {
+          "name": "deleteKey",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+          "descriptionTemplate": "Delete key {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MessageMedia": {
+      "displayName": "messageMedia",
+      "params": [
+        "AccountSid",
+        "MessageSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMessageMedia",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+          "descriptionTemplate": "Get media {Sid} for message {MessageSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "MessageSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listMessageMedia",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json",
+          "descriptionTemplate": "List media for message {MessageSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "MessageSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "QueueMember": {
+      "displayName": "queueMember",
+      "params": [
+        "AccountSid",
+        "QueueSid",
+        "CallSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getQueueMember",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+          "descriptionTemplate": "Get member {CallSid} of queue {QueueSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "QueueSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listQueueMembers",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+          "descriptionTemplate": "List members of queue {QueueSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "QueueSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Message": {
+      "displayName": "message",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchMessage",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+          "descriptionTemplate": "Fetch message {Sid} from account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listMessages",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+          "descriptionTemplate": "List messages for account {AccountSid} filtered by To {To} and From {From}",
+          "params": [
+            "AccountSid",
+            "To",
+            "From",
+            "DateSent",
+            "DateSent<",
+            "DateSent>",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createMessage",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+          "descriptionTemplate": "Send a message to {To} from {From} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "To",
+            "From"
+          ],
+          "bodyTemplate": {
+            "To": "{To}",
+            "StatusCallback": "{StatusCallback}",
+            "ApplicationSid": "{ApplicationSid}",
+            "MaxPrice": "{MaxPrice}",
+            "ProvideFeedback": "{ProvideFeedback}",
+            "Attempt": "{Attempt}",
+            "ValidityPeriod": "{ValidityPeriod}",
+            "ForceDelivery": "{ForceDelivery}",
+            "ContentRetention": "{ContentRetention}",
+            "AddressRetention": "{AddressRetention}",
+            "SmartEncoded": "{SmartEncoded}",
+            "PersistentAction": "{PersistentAction}",
+            "TrafficType": "{TrafficType}",
+            "ShortenUrls": "{ShortenUrls}",
+            "ScheduleType": "{ScheduleType}",
+            "SendAt": "{SendAt}",
+            "SendAsMms": "{SendAsMms}",
+            "ContentVariables": "{ContentVariables}",
+            "RiskCheck": "{RiskCheck}",
+            "From": "{From}",
+            "MessagingServiceSid": "{MessagingServiceSid}",
+            "Body": "{Body}",
+            "MediaUrl": "{MediaUrl}",
+            "ContentSid": "{ContentSid}"
+          }
+        },
+        "delete": {
+          "name": "deleteMessage",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+          "descriptionTemplate": "Delete message {Sid} from account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateMessage",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+          "descriptionTemplate": "Update message {Sid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {
+            "Body": "{Body}",
+            "Status": "{Status}"
+          }
+        }
+      }
+    },
+    "MessageFeedback": {
+      "displayName": "messageFeedback",
+      "params": [
+        "AccountSid",
+        "MessageSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listMessageFeedback",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+          "descriptionTemplate": "List feedback for message {MessageSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "MessageSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SigningKey": {
+      "displayName": "signingKey",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchSigningKey",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+          "descriptionTemplate": "Fetch signing key {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listSigningKeys",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+          "descriptionTemplate": "List signing keys for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSigningKey",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+          "descriptionTemplate": "Update signing key {Sid} for account {AccountSid} with FriendlyName {FriendlyName}",
+          "params": [
+            "AccountSid",
+            "Sid",
+            "FriendlyName"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}"
+          }
+        },
+        "delete": {
+          "name": "deleteSigningKey",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+          "descriptionTemplate": "Delete signing key {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ]
+        }
+      }
+    },
+    "Notification": {
+      "displayName": "notification",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchNotification",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+          "descriptionTemplate": "Fetch notification {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listNotifications",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+          "descriptionTemplate": "List notifications for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Log",
+            "MessageDate",
+            "MessageDate<",
+            "MessageDate>",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OutgoingCallerId": {
+      "displayName": "outgoingCallerId",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchOutgoingCallerId",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+          "descriptionTemplate": "Fetch outgoing-caller-id with Sid {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listOutgoingCallerIds",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+          "descriptionTemplate": "List outgoing caller IDs for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateOutgoingCallerId",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+          "descriptionTemplate": "Update outgoing-caller-id with Sid {Sid} for account {AccountSid} setting FriendlyName {FriendlyName}",
+          "params": [
+            "AccountSid",
+            "Sid",
+            "FriendlyName"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}"
+          }
+        },
+        "delete": {
+          "name": "deleteOutgoingCallerId",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+          "descriptionTemplate": "Delete outgoing-caller-id with Sid {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConferenceParticipant": {
+      "displayName": "conferenceParticipant",
+      "params": [
+        "AccountSid",
+        "ConferenceSid",
+        "CallSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getConferenceParticipant",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+          "descriptionTemplate": "Get participant {CallSid} in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listConferenceParticipants",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+          "descriptionTemplate": "List participants in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CallPayment": {
+      "displayName": "callPayment",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCallPayment",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+          "descriptionTemplate": "Get payment {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listCallPayments",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+          "descriptionTemplate": "List payments for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Queue": {
+      "displayName": "queue",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchQueue",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+          "descriptionTemplate": "Fetch queue {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listQueues",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+          "descriptionTemplate": "List queues for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createQueue",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+          "descriptionTemplate": "Create queue {FriendlyName} for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}",
+            "MaxSize": "{MaxSize}"
+          }
+        },
+        "update": {
+          "name": "updateQueue",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+          "descriptionTemplate": "Update queue {Sid} for account {AccountSid} with FriendlyName {FriendlyName} and MaxSize {MaxSize}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}",
+            "MaxSize": "{MaxSize}"
+          }
+        },
+        "delete": {
+          "name": "deleteQueue",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+          "descriptionTemplate": "Delete queue {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CallTranscription": {
+      "displayName": "callTranscription",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCallTranscription",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+          "descriptionTemplate": "Get transcription {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listCallTranscriptions",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+          "descriptionTemplate": "List transcriptions for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Recording": {
+      "displayName": "recording",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchRecording",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Fetch recording {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listRecordings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+          "descriptionTemplate": "List recordings for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRecording",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+          "descriptionTemplate": "Delete recording {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AddOnResult": {
+      "displayName": "addOnResult",
+      "params": [
+        "AccountSid",
+        "ReferenceSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getAddOnResult",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+          "descriptionTemplate": "Get add-on result {Sid} for recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listAddOnResults",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+          "descriptionTemplate": "List add-on results for recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Payload": {
+      "displayName": "payload",
+      "params": [
+        "AccountSid",
+        "ReferenceSid",
+        "AddOnResultSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getPayload",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+          "descriptionTemplate": "Get payload {Sid} for add-on result {AddOnResultSid} and recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "AddOnResultSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listPayloads",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json",
+          "descriptionTemplate": "List payloads for add-on result {AddOnResultSid} and recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "AddOnResultSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PayloadData": {
+      "displayName": "payloadData",
+      "params": [
+        "AccountSid",
+        "ReferenceSid",
+        "AddOnResultSid",
+        "PayloadSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getPayloadData",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json",
+          "descriptionTemplate": "Get data for payload {PayloadSid} of add-on result {AddOnResultSid} and recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "AddOnResultSid",
+            "PayloadSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RecordingTranscription": {
+      "displayName": "recordingTranscription",
+      "params": [
+        "AccountSid",
+        "RecordingSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchRecordingTranscription",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+          "descriptionTemplate": "Fetch recording transcription {Sid} for recording {RecordingSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "RecordingSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listRecordingTranscriptions",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+          "descriptionTemplate": "List recording transcriptions for recording {RecordingSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "RecordingSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRecordingTranscription",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+          "descriptionTemplate": "Delete recording transcription {Sid} for recording {RecordingSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "RecordingSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ShortCode": {
+      "displayName": "shortCode",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchShortCode",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+          "descriptionTemplate": "Fetch an instance of a short code with AccountSid {AccountSid} and Sid {Sid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listShortCode",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+          "descriptionTemplate": "Retrieve a list of short-codes belonging to the account with AccountSid {AccountSid}",
+          "params": [
+            "AccountSid",
+            "FriendlyName",
+            "ShortCode",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateShortCode",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+          "descriptionTemplate": "Update short code with AccountSid {AccountSid} and Sid {Sid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}",
+            "ApiVersion": "{ApiVersion}",
+            "SmsUrl": "{SmsUrl}",
+            "SmsMethod": "{SmsMethod}",
+            "SmsFallbackUrl": "{SmsFallbackUrl}",
+            "SmsFallbackMethod": "{SmsFallbackMethod}"
+          }
+        }
+      }
+    },
+    "SIP": {
+      "displayName": "sip",
+      "params": [
+        "AccountSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getSIP",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP.json",
+          "descriptionTemplate": "Get SIP settings for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SIPDomainAuth": {
+      "displayName": "sipDomainAuth",
+      "params": [
+        "AccountSid",
+        "DomainSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getSIPDomainAuth",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth.json",
+          "descriptionTemplate": "Get auth for SIP domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SIPDomainAuthCall": {
+      "displayName": "sipDomainAuthCall",
+      "params": [
+        "AccountSid",
+        "DomainSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listSIPDomainAuthCalls",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls.json",
+          "descriptionTemplate": "List auth calls for SIP domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CredentialListMapping": {
+      "displayName": "credentialListMapping",
+      "params": [
+        "AccountSid",
+        "DomainSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchCredentialListMapping",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+          "descriptionTemplate": "Fetch credential list mapping {Sid} in domain {DomainSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listCredentialListMappings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+          "descriptionTemplate": "List credential list mappings in domain {DomainSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        },
+        "add": {
+          "name": "createCredentialListMapping",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+          "descriptionTemplate": "Create credential list mapping with CredentialListSid {CredentialListSid} in domain {DomainSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid"
+          ],
+          "bodyTemplate": {
+            "CredentialListSid": "{CredentialListSid}"
+          }
+        },
+        "delete": {
+          "name": "deleteCredentialListMapping",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+          "descriptionTemplate": "Delete credential list mapping {Sid} in domain {DomainSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "Sid"
+          ]
+        }
+      }
+    },
+    "IpAccessControlListMapping": {
+      "displayName": "ipAccessControlListMapping",
+      "params": [
+        "AccountSid",
+        "DomainSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchIpAccessControlListMapping",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+          "descriptionTemplate": "Fetch IP Access Control List mapping {Sid} for domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listIpAccessControlListMappings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+          "descriptionTemplate": "List IP Access Control List mappings for domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        },
+        "add": {
+          "name": "createIpAccessControlListMapping",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+          "descriptionTemplate": "Create IP Access Control List mapping with IpAccessControlListSid {IpAccessControlListSid} for domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid"
+          ],
+          "bodyTemplate": {
+            "IpAccessControlListSid": "{IpAccessControlListSid}"
+          }
+        },
+        "delete": {
+          "name": "deleteIpAccessControlListMapping",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+          "descriptionTemplate": "Delete IP Access Control List mapping {Sid} for domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "Sid"
+          ]
+        }
+      }
+    },
+    "Registration": {
+      "displayName": "registration",
+      "params": [
+        "AccountSid",
+        "DomainSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listRegistrations",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations.json",
+          "descriptionTemplate": "List registrations for SIP domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CredentialList": {
+      "displayName": "credentialList",
+      "params": [
+        "AccountSid",
+        "CredentialListSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchCredentialList",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+          "descriptionTemplate": "Get credential list {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listCredentialLists",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+          "descriptionTemplate": "List all credential lists for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createCredentialList",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+          "descriptionTemplate": "Create credential list {FriendlyName} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "FriendlyName"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}"
+          }
+        },
+        "delete": {
+          "name": "deleteCredentialList",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+          "descriptionTemplate": "Delete credential list {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCredentialList",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+          "descriptionTemplate": "Update credential list {Sid} with name {FriendlyName} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid",
+            "FriendlyName"
+          ],
+          "bodyTemplate": {
+            "FriendlyName": "{FriendlyName}"
+          }
+        }
+      }
+    },
+    "CredentialListEntity": {
+      "displayName": "credentialListEntity",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCredentialList",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+          "descriptionTemplate": "Get credential list {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listCredentialLists",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+          "descriptionTemplate": "List credential lists for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DomainCredentialListMapping": {
+      "displayName": "domainCredentialListMapping",
+      "params": [
+        "AccountSid",
+        "DomainSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getDomainCredentialListMapping",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+          "descriptionTemplate": "Get credential list mapping {Sid} for SIP domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listDomainCredentialListMappings",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+          "descriptionTemplate": "List credential list mappings for SIP domain {DomainSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "DomainSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SIPDomain": {
+      "displayName": "sipDomain",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getSIPDomain",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+          "descriptionTemplate": "Get SIP domain {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listSIPDomains",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+          "descriptionTemplate": "List SIP domains for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IpAccessControlList": {
+      "displayName": "ipAccessControlList",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIpAccessControlList",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+          "descriptionTemplate": "Get IP access control list {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listIpAccessControlLists",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+          "descriptionTemplate": "List IP access control lists for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IpAddress": {
+      "displayName": "ipAddress",
+      "params": [
+        "AccountSid",
+        "IpAccessControlListSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIpAddress",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+          "descriptionTemplate": "Get IP address {Sid} for IP access control list {IpAccessControlListSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "IpAccessControlListSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listIpAddresses",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+          "descriptionTemplate": "List IP addresses for IP access control list {IpAccessControlListSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "IpAccessControlListSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CallSiprec": {
+      "displayName": "callSiprec",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCallSiprec",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json",
+          "descriptionTemplate": "Get SIPREC {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listCallSiprecs",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+          "descriptionTemplate": "List SIPREC for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CallStream": {
+      "displayName": "callStream",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCallStream",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
+          "descriptionTemplate": "Get stream {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listCallStreams",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json",
+          "descriptionTemplate": "List streams for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Token": {
+      "displayName": "token",
+      "params": [
+        "AccountSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listTokens",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Tokens.json",
+          "descriptionTemplate": "List tokens for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Transcription": {
+      "displayName": "transcription",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTranscription",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+          "descriptionTemplate": "Get transcription {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listTranscriptions",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+          "descriptionTemplate": "List transcriptions for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createTranscription",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+          "descriptionTemplate": "Create transcription for call {CallSid} in account {AccountSid} with name {Name}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {
+            "Name": "{Name}",
+            "Track": "{Track}",
+            "StatusCallbackUrl": "{StatusCallbackUrl}",
+            "StatusCallbackMethod": "{StatusCallbackMethod}",
+            "InboundTrackLabel": "{InboundTrackLabel}",
+            "OutboundTrackLabel": "{OutboundTrackLabel}",
+            "PartialResults": "{PartialResults}",
+            "LanguageCode": "{LanguageCode}",
+            "TranscriptionEngine": "{TranscriptionEngine}",
+            "ProfanityFilter": "{ProfanityFilter}",
+            "SpeechModel": "{SpeechModel}",
+            "Hints": "{Hints}",
+            "EnableAutomaticPunctuation": "{EnableAutomaticPunctuation}",
+            "IntelligenceService": "{IntelligenceService}"
+          }
+        },
+        "update": {
+          "name": "updateTranscription",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+          "descriptionTemplate": "Update transcription {Sid} for call {CallSid} in account {AccountSid} with status {Status}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid",
+            "Status"
+          ],
+          "bodyTemplate": {
+            "Status": "{Status}"
+          }
+        }
+      }
+    },
+    "Usage": {
+      "displayName": "usage",
+      "params": [
+        "AccountSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUsage",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Usage.json",
+          "descriptionTemplate": "Get usage for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UsageRecord": {
+      "displayName": "usageRecord",
+      "params": [
+        "AccountSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listUsageRecords",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+          "descriptionTemplate": "List usage records for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UsageTrigger": {
+      "displayName": "usageTrigger",
+      "params": [
+        "AccountSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUsageTrigger",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+          "descriptionTemplate": "Get usage trigger {Sid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listUsageTriggers",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+          "descriptionTemplate": "List usage triggers for account {AccountSid}",
+          "params": [
+            "AccountSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UserDefinedMessage": {
+      "displayName": "userDefinedMessage",
+      "params": [
+        "AccountSid",
+        "CallSid"
+      ],
+      "operations": {
+        "list": {
+          "name": "listUserDefinedMessages",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json",
+          "descriptionTemplate": "List user defined messages for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UserDefinedMessageSubscription": {
+      "displayName": "userDefinedMessageSubscription",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserDefinedMessageSubscription",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+          "descriptionTemplate": "Get user defined message subscription {Sid} for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listUserDefinedMessageSubscriptions",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+          "descriptionTemplate": "List user defined message subscriptions for call {CallSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AvailablePhoneNumberCountry": {
+      "displayName": "availablePhoneNumberCountry",
+      "params": [
+        "AccountSid",
+        "CountryCode"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchAvailablePhoneNumberCountry",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+          "descriptionTemplate": "Fetch available phone number country {CountryCode} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CountryCode"
+          ]
+        },
+        "list": {
+          "name": "listAvailablePhoneNumberCountry",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+          "descriptionTemplate": "List available phone number countries for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        }
+      }
+    },
+    "IncomingPhoneNumberAssignedAddOn": {
+      "displayName": "incomingPhoneNumberAssignedAddOn",
+      "params": [
+        "AccountSid",
+        "ResourceSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchIncomingPhoneNumberAssignedAddOn",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+          "descriptionTemplate": "Fetch an instance of an Add-on installation currently assigned to this Number with Sid {Sid} for Account {AccountSid} and Phone Number {ResourceSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIncomingPhoneNumberAssignedAddOn",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+          "descriptionTemplate": "Remove the assignment of an Add-on installation with Sid {Sid} from the Number {ResourceSid} for Account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listIncomingPhoneNumberAssignedAddOns",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+          "descriptionTemplate": "Retrieve a list of Add-on installations currently assigned to Number {ResourceSid} for Account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createIncomingPhoneNumberAssignedAddOn",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+          "descriptionTemplate": "Assign an Add-on installation with InstalledAddOnSid {InstalledAddOnSid} to Number {ResourceSid} for Account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "InstalledAddOnSid"
+          ],
+          "bodyTemplate": {
+            "InstalledAddOnSid": "{InstalledAddOnSid}"
+          }
+        }
+      }
+    },
+    "AssignedAddOnExtension": {
+      "displayName": "assigned add-on extension",
+      "params": [
+        "AccountSid",
+        "ResourceSid",
+        "AssignedAddOnSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchAssignedAddOnExtension",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+          "descriptionTemplate": "Fetch an instance of an Extension for the Assigned Add-on with Sid {Sid} under AssignedAddOnSid {AssignedAddOnSid} for PhoneNumber {ResourceSid} in Account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "AssignedAddOnSid",
+            "Sid"
+          ]
+        },
+        "list": {
+          "name": "listAssignedAddOnExtensions",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+          "descriptionTemplate": "Retrieve a list of Extensions for the Assigned Add-on with AssignedAddOnSid {AssignedAddOnSid} for PhoneNumber {ResourceSid} in Account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ResourceSid",
+            "AssignedAddOnSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        }
+      }
+    },
+    "Member": {
+      "displayName": "member",
+      "params": [
+        "AccountSid",
+        "QueueSid",
+        "CallSid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchMember",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+          "descriptionTemplate": "Fetch member with CallSid {CallSid} in queue {QueueSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "QueueSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateMember",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+          "descriptionTemplate": "Update member with CallSid {CallSid} in queue {QueueSid} for account {AccountSid} with Url {Url} and Method {Method}",
+          "params": [
+            "AccountSid",
+            "QueueSid",
+            "CallSid",
+            "Url",
+            "Method"
+          ],
+          "bodyTemplate": {
+            "Url": "{Url}",
+            "Method": "{Method}"
+          }
+        },
+        "list": {
+          "name": "listMembers",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+          "descriptionTemplate": "List members in queue {QueueSid} for account {AccountSid} with PageSize {PageSize}, Page {Page}, PageToken {PageToken}",
+          "params": [
+            "AccountSid",
+            "QueueSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SigningKeyList": {
+      "displayName": "signing key list",
+      "params": [
+        "AccountSid",
+        "PageSize",
+        "Page",
+        "PageToken"
+      ],
+      "operations": {
+        "get": {
+          "name": "listSigningKeys",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+          "descriptionTemplate": "List signing keys for account {AccountSid} with page size {PageSize}, page {Page}, and page token {PageToken}",
+          "params": [
+            "AccountSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ]
+        }
+      }
+    },
+    "Participant": {
+      "displayName": "participant",
+      "params": [
+        "AccountSid",
+        "ConferenceSid",
+        "CallSid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createParticipant",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+          "descriptionTemplate": "Create participant from {From} to {To} in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid"
+          ],
+          "bodyTemplate": {
+            "From": "{From}",
+            "To": "{To}"
+          }
+        },
+        "get": {
+          "name": "fetchParticipant",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+          "descriptionTemplate": "Fetch participant {CallSid} in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "CallSid"
+          ]
+        },
+        "update": {
+          "name": "updateParticipant",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+          "descriptionTemplate": "Update participant {CallSid} in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "CallSid"
+          ],
+          "bodyTemplate": {
+            "Muted": "{Muted}",
+            "Hold": "{Hold}",
+            "HoldUrl": "{HoldUrl}",
+            "HoldMethod": "{HoldMethod}",
+            "AnnounceUrl": "{AnnounceUrl}",
+            "AnnounceMethod": "{AnnounceMethod}",
+            "WaitUrl": "{WaitUrl}",
+            "WaitMethod": "{WaitMethod}",
+            "BeepOnExit": "{BeepOnExit}",
+            "EndConferenceOnExit": "{EndConferenceOnExit}",
+            "Coaching": "{Coaching}",
+            "CallSidToCoach": "{CallSidToCoach}"
+          }
+        },
+        "delete": {
+          "name": "deleteParticipant",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+          "descriptionTemplate": "Delete participant {CallSid} in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid",
+            "CallSid"
+          ]
+        },
+        "list": {
+          "name": "listParticipants",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+          "descriptionTemplate": "List participants in conference {ConferenceSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ConferenceSid"
+          ]
+        }
+      }
+    },
+    "Payments": {
+      "displayName": "payments",
+      "params": [
+        "AccountSid",
+        "CallSid",
+        "Sid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPayments",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+          "descriptionTemplate": "Create payments session for call {CallSid} in account {AccountSid} with IdempotencyKey {IdempotencyKey} and StatusCallback {StatusCallback}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "IdempotencyKey",
+            "StatusCallback"
+          ],
+          "bodyTemplate": {
+            "IdempotencyKey": "{IdempotencyKey}",
+            "StatusCallback": "{StatusCallback}",
+            "BankAccountType": "{BankAccountType}",
+            "ChargeAmount": "{ChargeAmount}",
+            "Currency": "{Currency}",
+            "Description": "{Description}",
+            "Input": "{Input}",
+            "MinPostalCodeLength": "{MinPostalCodeLength}",
+            "Parameter": "{Parameter}",
+            "PaymentConnector": "{PaymentConnector}",
+            "PaymentMethod": "{PaymentMethod}",
+            "PostalCode": "{PostalCode}",
+            "SecurityCode": "{SecurityCode}",
+            "Timeout": "{Timeout}",
+            "TokenType": "{TokenType}",
+            "ValidCardTypes": "{ValidCardTypes}"
+          }
+        },
+        "update": {
+          "name": "updatePayments",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+          "descriptionTemplate": "Update payments session {Sid} for call {CallSid} in account {AccountSid} with IdempotencyKey {IdempotencyKey} and StatusCallback {StatusCallback}",
+          "params": [
+            "AccountSid",
+            "CallSid",
+            "Sid",
+            "IdempotencyKey",
+            "StatusCallback"
+          ],
+          "bodyTemplate": {
+            "IdempotencyKey": "{IdempotencyKey}",
+            "StatusCallback": "{StatusCallback}",
+            "Capture": "{Capture}",
+            "Status": "{Status}"
+          }
+        }
+      }
+    },
+    "RecordingAddOnResult": {
+      "displayName": "recording add-on result",
+      "params": [
+        "AccountSid",
+        "ReferenceSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchRecordingAddOnResult",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+          "descriptionTemplate": "Fetch an instance of an AddOnResult with Sid {Sid} for recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRecordingAddOnResult",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+          "descriptionTemplate": "Delete AddOnResult with Sid {Sid} for recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listRecordingAddOnResults",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+          "descriptionTemplate": "List AddOnResults for recording {ReferenceSid} in account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RecordingAddOnResultPayload": {
+      "displayName": "recordingAddOnResultPayload",
+      "params": [
+        "AccountSid",
+        "ReferenceSid",
+        "AddOnResultSid",
+        "Sid"
+      ],
+      "operations": {
+        "get": {
+          "name": "fetchRecordingAddOnResultPayload",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+          "descriptionTemplate": "Fetch recording add-on result payload {Sid} for AddOnResult {AddOnResultSid} in recording {ReferenceSid} of account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "AddOnResultSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRecordingAddOnResultPayload",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+          "descriptionTemplate": "Delete recording add-on result payload {Sid} for AddOnResult {AddOnResultSid} in recording {ReferenceSid} of account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "AddOnResultSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RecordingAddOnResultPayloadList": {
+      "displayName": "recordingAddOnResultPayloadList",
+      "params": [
+        "AccountSid",
+        "ReferenceSid",
+        "AddOnResultSid",
+        "PageSize",
+        "Page",
+        "PageToken"
+      ],
+      "operations": {
+        "get": {
+          "name": "listRecordingAddOnResultPayload",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json",
+          "descriptionTemplate": "List recording add-on result payloads for AddOnResult {AddOnResultSid} in recording {ReferenceSid} of account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "ReferenceSid",
+            "AddOnResultSid",
+            "PageSize",
+            "Page",
+            "PageToken"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SipCredential": {
+      "displayName": "sip credential",
+      "params": [
+        "AccountSid",
+        "CredentialListSid",
+        "Sid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createSipCredential",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+          "descriptionTemplate": "Create sip credential {Username} in credential list {CredentialListSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CredentialListSid"
+          ],
+          "bodyTemplate": {
+            "Username": "{Username}",
+            "Password": "{Password}"
+          }
+        },
+        "delete": {
+          "name": "deleteSipCredential",
+          "method": "DELETE",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+          "descriptionTemplate": "Delete sip credential {Sid} from credential list {CredentialListSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CredentialListSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSipCredential",
+          "method": "POST",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+          "descriptionTemplate": "Update sip credential {Sid} in credential list {CredentialListSid} for account {AccountSid} with new password",
+          "params": [
+            "AccountSid",
+            "CredentialListSid",
+            "Sid"
+          ],
+          "bodyTemplate": {
+            "Password": "{Password}"
+          }
+        },
+        "get": {
+          "name": "fetchSipCredential",
+          "method": "GET",
+          "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+          "descriptionTemplate": "Fetch sip credential {Sid} from credential list {CredentialListSid} for account {AccountSid}",
+          "params": [
+            "AccountSid",
+            "CredentialListSid",
+            "Sid"
+          ],
+          "bodyTemplate": {}
         }
       }
     }
   },
-  "sut": "twilio"
+  "stories": []
 }

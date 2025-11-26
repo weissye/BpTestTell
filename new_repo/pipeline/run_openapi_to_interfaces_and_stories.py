@@ -24,34 +24,27 @@ CRITICAL RULES:
 1. **Identify Entities**: Group paths into logical entities (e.g., 'Repository', 'Issue').
 2. **Operations**: Find 'add' (POST), 'delete' (DELETE), 'update' (PATCH/PUT), 'get' (GET).
 3. **Parameter Normalization**: 
-   - If the path is `/repos/{owner}/{repo}` and body has `name`, mapped them carefully.
-   - **IMPORTANT**: The 'params' list MUST include ALL path parameters (e.g., 'owner', 'repo') needed to identify the resource.
+   - **MANDATORY**: You MUST examine the Schema for the request body.
+   - **IF** a field (like 'id', 'ndc', 'key', 'slug') is listed in `required` AND is NOT marked `readOnly`, you **MUST** include it in `params` and `bodyTemplate`.
+   - **IF** a field is `readOnly` or missing from `required` (standard auto-increment IDs), do **NOT** include it in the `add` body.
 4. **Regex**: Generate 'waitForPatterns' with regex matching the 'descriptionTemplate'.
 
 OUTPUT JSON FORMAT (Return ONLY this object):
 {
   "entities": {
-    "Repository": {
-      "displayName": "repository",
-      "params": ["owner", "repo"],
+    "Drug": {
+      "displayName": "drug",
+      "params": ["id", "name"], 
       "operations": {
         "add": { 
-            "name": "createRepo", 
+            "name": "createDrug", 
             "method": "POST", 
-            "path": "/user/repos", 
-            "descriptionTemplate": "Create repo {name}",
-            "params": ["name"],
-            "bodyTemplate": {"name": "{name}"} 
-        },
-        "delete": { 
-            "name": "deleteRepo", 
-            "method": "DELETE", 
-            "path": "/repos/{owner}/{repo}", 
-            "descriptionTemplate": "Delete repo {repo} of {owner}",
-            "params": ["owner", "repo"]
+            "path": "/drugs", 
+            "descriptionTemplate": "Create drug {name} with id {id}",
+            "params": ["id", "name"],
+            "bodyTemplate": {"id": "{id}", "name": "{name}"}
         }
-      },
-      "waitForPatterns": { ... }
+      }
     }
   }
 }

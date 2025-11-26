@@ -46,7 +46,9 @@ function deleteRepo(owner, repo) {
 function updateRepo(owner, repo) {
   var url = "/repos/" + owner + "/" + repo;
   var description = "Update repo " + repo + " of " + owner;
-  var body = undefined;
+  var body = {
+    "name": name,
+  };
   return svc.request({
     method: "PATCH",
     url: url,
@@ -131,12 +133,12 @@ function createRepoRuleset(owner, repo, name) {
   });
 }
 
-function getRepoRuleset(owner, repo, ruleset_id) {
+function deleteRepoRuleset(owner, repo, ruleset_id) {
   var url = "/repos/" + owner + "/" + repo + "/rulesets/" + ruleset_id;
-  var description = "Get ruleset " + ruleset_id + " in repo " + repo + " of " + owner;
+  var description = "Delete ruleset " + ruleset_id + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "DELETE",
     url: url,
     parameters: { description: description },
     body: body
@@ -155,31 +157,43 @@ function updateRepoRuleset(owner, repo, ruleset_id) {
   });
 }
 
-function deleteRepoRuleset(owner, repo, ruleset_id) {
+function getRepoRuleset(owner, repo, ruleset_id) {
   var url = "/repos/" + owner + "/" + repo + "/rulesets/" + ruleset_id;
-  var description = "Delete ruleset " + ruleset_id + " in repo " + repo + " of " + owner;
+  var description = "Get ruleset " + ruleset_id + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
-    method: "DELETE",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function tryToAddExistingRepositoryRuleset(owner, repo, name, ruleset_id) {
+function listRepoRulesets(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/rulesets";
+  var description = "List rulesets in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingRuleset(owner, repo, name, ruleset_id) {
   return createRepoRuleset(owner, repo, name);
 }
 
-function verifyRepositoryRulesetExists(owner, repo, name, ruleset_id) {
+function verifyRulesetExists(owner, repo, name, ruleset_id) {
   return getRepoRuleset(owner, repo, ruleset_id);
 }
 
-function verifyRepositoryRulesetDoesNotExist(owner, repo, name, ruleset_id) {
+function verifyRulesetDoesNotExist(owner, repo, name, ruleset_id) {
   return getRepoRuleset(owner, repo, ruleset_id);
 }
 
-function tryToDeleteANonExistingRepositoryRuleset(owner, repo, name, ruleset_id) {
+function tryToDeleteANonExistingRuleset(owner, repo, name, ruleset_id) {
   return deleteRepoRuleset(owner, repo, ruleset_id);
 }
 
@@ -199,12 +213,12 @@ function createOrgRuleset(org, name) {
   });
 }
 
-function getOrgRuleset(org, ruleset_id) {
+function deleteOrgRuleset(org, ruleset_id) {
   var url = "/orgs/" + org + "/rulesets/" + ruleset_id;
-  var description = "Get ruleset " + ruleset_id + " in org " + org;
+  var description = "Delete ruleset " + ruleset_id + " in org " + org;
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "DELETE",
     url: url,
     parameters: { description: description },
     body: body
@@ -223,12 +237,24 @@ function updateOrgRuleset(org, ruleset_id) {
   });
 }
 
-function deleteOrgRuleset(org, ruleset_id) {
+function getOrgRuleset(org, ruleset_id) {
   var url = "/orgs/" + org + "/rulesets/" + ruleset_id;
-  var description = "Delete ruleset " + ruleset_id + " in org " + org;
+  var description = "Get ruleset " + ruleset_id + " in org " + org;
   var body = undefined;
   return svc.request({
-    method: "DELETE",
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listOrgRulesets(org) {
+  var url = "/orgs/" + org + "/rulesets";
+  var description = "List rulesets in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -251,571 +277,23 @@ function tryToDeleteANonExistingOrgRuleset(org, name, ruleset_id) {
   return deleteOrgRuleset(org, ruleset_id);
 }
 
-// ---- Entity: branch protection ----
-
-function getBranchProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection";
-  var description = "Get branch protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBranchProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection";
-  var description = "Update branch protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteBranchProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection";
-  var description = "Delete branch protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyBranchProtectionExists(owner, repo, branch) {
-  return getBranchProtection(owner, repo, branch);
-}
-
-function verifyBranchProtectionDoesNotExist(owner, repo, branch) {
-  return getBranchProtection(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingBranchProtection(owner, repo, branch) {
-  return deleteBranchProtection(owner, repo, branch);
-}
-
-// ---- Entity: admin branch protection ----
-
-function getAdminBranchProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/enforce_admins";
-  var description = "Get admin branch protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setAdminBranchProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/enforce_admins";
-  var description = "Set admin branch protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteAdminBranchProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/enforce_admins";
-  var description = "Delete admin branch protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBranchProtectionAdmin(owner, repo, branch) {
-  return setAdminBranchProtection(owner, repo, branch);
-}
-
-function verifyBranchProtectionAdminExists(owner, repo, branch) {
-  return getAdminBranchProtection(owner, repo, branch);
-}
-
-function verifyBranchProtectionAdminDoesNotExist(owner, repo, branch) {
-  return getAdminBranchProtection(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingBranchProtectionAdmin(owner, repo, branch) {
-  return deleteAdminBranchProtection(owner, repo, branch);
-}
-
-// ---- Entity: pull request review protection ----
-
-function getPullRequestReviewProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_pull_request_reviews";
-  var description = "Get pull request review protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updatePullRequestReviewProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_pull_request_reviews";
-  var description = "Update pull request review protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deletePullRequestReviewProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_pull_request_reviews";
-  var description = "Delete pull request review protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPullRequestReviewProtectionExists(owner, repo, branch) {
-  return getPullRequestReviewProtection(owner, repo, branch);
-}
-
-function verifyPullRequestReviewProtectionDoesNotExist(owner, repo, branch) {
-  return getPullRequestReviewProtection(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingPullRequestReviewProtection(owner, repo, branch) {
-  return deletePullRequestReviewProtection(owner, repo, branch);
-}
-
-// ---- Entity: commit signature protection ----
-
-function getCommitSignatureProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_signatures";
-  var description = "Get commit signature protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function createCommitSignatureProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_signatures";
-  var description = "Create commit signature protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteCommitSignatureProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_signatures";
-  var description = "Delete commit signature protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCommitSignatureProtection(owner, repo, branch) {
-  return createCommitSignatureProtection(owner, repo, branch);
-}
-
-function verifyCommitSignatureProtectionExists(owner, repo, branch) {
-  return getCommitSignatureProtection(owner, repo, branch);
-}
-
-function verifyCommitSignatureProtectionDoesNotExist(owner, repo, branch) {
-  return getCommitSignatureProtection(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingCommitSignatureProtection(owner, repo, branch) {
-  return deleteCommitSignatureProtection(owner, repo, branch);
-}
-
-// ---- Entity: status check protection ----
-
-function getStatusCheckProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks";
-  var description = "Get status check protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateStatusCheckProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks";
-  var description = "Update status check protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function removeStatusCheckProtection(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks";
-  var description = "Remove status check protection for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyStatusCheckProtectionExists(owner, repo, branch) {
-  return getStatusCheckProtection(owner, repo, branch);
-}
-
-function verifyStatusCheckProtectionDoesNotExist(owner, repo, branch) {
-  return getStatusCheckProtection(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingStatusCheckProtection(owner, repo, branch) {
-  return removeStatusCheckProtection(owner, repo, branch);
-}
-
-// ---- Entity: status check contexts ----
-
-function getAllStatusCheckContexts(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
-  var description = "Get all status check contexts for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addStatusCheckContexts(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
-  var description = "Add status check contexts for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setStatusCheckContexts(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
-  var description = "Set status check contexts for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function removeStatusCheckContexts(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
-  var description = "Remove status check contexts for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingStatusCheckContexts(owner, repo, branch) {
-  return addStatusCheckContexts(owner, repo, branch);
-}
-
-function verifyStatusCheckContextsExists(owner, repo, branch) {
-  return getAllStatusCheckContexts(owner, repo, branch);
-}
-
-function verifyStatusCheckContextsDoesNotExist(owner, repo, branch) {
-  return getAllStatusCheckContexts(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingStatusCheckContexts(owner, repo, branch) {
-  return removeStatusCheckContexts(owner, repo, branch);
-}
-
-// ---- Entity: branch protection restrictions ----
-
-function getAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions";
-  var description = "Get access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions";
-  var description = "Delete access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyBranchProtectionRestrictionsExists(owner, repo, branch) {
-  return getAccessRestrictions(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsDoesNotExist(owner, repo, branch) {
-  return getAccessRestrictions(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingBranchProtectionRestrictions(owner, repo, branch) {
-  return deleteAccessRestrictions(owner, repo, branch);
-}
-
-// ---- Entity: branch protection restrictions apps ----
-
-function getAppsWithAccessToProtectedBranch(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
-  var description = "Get apps with access to protected branch " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addAppAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
-  var description = "Add app access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setAppAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
-  var description = "Set app access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function removeAppAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
-  var description = "Remove app access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBranchProtectionRestrictionsApps(owner, repo, branch) {
-  return addAppAccessRestrictions(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsAppsExists(owner, repo, branch) {
-  return getAppsWithAccessToProtectedBranch(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsAppsDoesNotExist(owner, repo, branch) {
-  return getAppsWithAccessToProtectedBranch(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingBranchProtectionRestrictionsApps(owner, repo, branch) {
-  return removeAppAccessRestrictions(owner, repo, branch);
-}
-
-// ---- Entity: branch protection restrictions teams ----
-
-function getTeamsWithAccessToProtectedBranch(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
-  var description = "Get teams with access to protected branch " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addTeamAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
-  var description = "Add team access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setTeamAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
-  var description = "Set team access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function removeTeamAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
-  var description = "Remove team access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBranchProtectionRestrictionsTeams(owner, repo, branch) {
-  return addTeamAccessRestrictions(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsTeamsExists(owner, repo, branch) {
-  return getTeamsWithAccessToProtectedBranch(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsTeamsDoesNotExist(owner, repo, branch) {
-  return getTeamsWithAccessToProtectedBranch(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingBranchProtectionRestrictionsTeams(owner, repo, branch) {
-  return removeTeamAccessRestrictions(owner, repo, branch);
-}
-
-// ---- Entity: branch protection restrictions users ----
-
-function getUsersWithAccessToProtectedBranch(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
-  var description = "Get users with access to protected branch " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addUserAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
-  var description = "Add user access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setUserAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
-  var description = "Set user access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function removeUserAccessRestrictions(owner, repo, branch) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
-  var description = "Remove user access restrictions for " + branch + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBranchProtectionRestrictionsUsers(owner, repo, branch) {
-  return addUserAccessRestrictions(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsUsersExists(owner, repo, branch) {
-  return getUsersWithAccessToProtectedBranch(owner, repo, branch);
-}
-
-function verifyBranchProtectionRestrictionsUsersDoesNotExist(owner, repo, branch) {
-  return getUsersWithAccessToProtectedBranch(owner, repo, branch);
-}
-
-function tryToDeleteANonExistingBranchProtectionRestrictionsUsers(owner, repo, branch) {
-  return removeUserAccessRestrictions(owner, repo, branch);
-}
-
 // ---- Entity: branch ----
 
 function getBranch(owner, repo, branch) {
   var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
   var description = "Get branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listBranches(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/branches";
+  var description = "List branches in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -847,35 +325,11 @@ function verifyBranchDoesNotExist(owner, repo, branch, new_name) {
   return getBranch(owner, repo, branch);
 }
 
-// ---- Entity: repository collaborator ----
+// ---- Entity: branch protection ----
 
-function addCollaborator(owner, repo, username) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username;
-  var description = "Add collaborator " + username + " to repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function removeCollaborator(owner, repo, username) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username;
-  var description = "Remove collaborator " + username + " from repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function checkCollaborator(owner, repo, username) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username;
-  var description = "Check if " + username + " is collaborator on repo " + repo + " of " + owner;
+function getBranchProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection";
+  var description = "Get branch protection for branch " + branch + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -885,20 +339,550 @@ function checkCollaborator(owner, repo, username) {
   });
 }
 
-function tryToAddExistingCollaborator(owner, repo, username) {
-  return addCollaborator(owner, repo, username);
+function updateBranchProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection";
+  var description = "Update branch protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyCollaboratorExists(owner, repo, username) {
-  return checkCollaborator(owner, repo, username);
+function deleteBranchProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection";
+  var description = "Delete branch protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyCollaboratorDoesNotExist(owner, repo, username) {
-  return checkCollaborator(owner, repo, username);
+function verifyBranchProtectionExists(owner, repo, branch) {
+  return getBranchProtection(owner, repo, branch);
 }
 
-function tryToDeleteANonExistingCollaborator(owner, repo, username) {
-  return removeCollaborator(owner, repo, username);
+function verifyBranchProtectionDoesNotExist(owner, repo, branch) {
+  return getBranchProtection(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingBranchProtection(owner, repo, branch) {
+  return deleteBranchProtection(owner, repo, branch);
+}
+
+// ---- Entity: admin branch protection ----
+
+function getAdminBranchProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/enforce_admins";
+  var description = "Get admin branch protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setAdminBranchProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/enforce_admins";
+  var description = "Set admin branch protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteAdminBranchProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/enforce_admins";
+  var description = "Delete admin branch protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingBranchProtectionAdmin(owner, repo, branch) {
+  return setAdminBranchProtection(owner, repo, branch);
+}
+
+function verifyBranchProtectionAdminExists(owner, repo, branch) {
+  return getAdminBranchProtection(owner, repo, branch);
+}
+
+function verifyBranchProtectionAdminDoesNotExist(owner, repo, branch) {
+  return getAdminBranchProtection(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingBranchProtectionAdmin(owner, repo, branch) {
+  return deleteAdminBranchProtection(owner, repo, branch);
+}
+
+// ---- Entity: pull request review protection ----
+
+function getPullRequestReviewProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_pull_request_reviews";
+  var description = "Get pull request review protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updatePullRequestReviewProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_pull_request_reviews";
+  var description = "Update pull request review protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deletePullRequestReviewProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_pull_request_reviews";
+  var description = "Delete pull request review protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyPullRequestReviewProtectionExists(owner, repo, branch) {
+  return getPullRequestReviewProtection(owner, repo, branch);
+}
+
+function verifyPullRequestReviewProtectionDoesNotExist(owner, repo, branch) {
+  return getPullRequestReviewProtection(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingPullRequestReviewProtection(owner, repo, branch) {
+  return deletePullRequestReviewProtection(owner, repo, branch);
+}
+
+// ---- Entity: commit signature protection ----
+
+function getCommitSignatureProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_signatures";
+  var description = "Get commit signature protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createCommitSignatureProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_signatures";
+  var description = "Create commit signature protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteCommitSignatureProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_signatures";
+  var description = "Delete commit signature protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCommitSignatureProtection(owner, repo, branch) {
+  return createCommitSignatureProtection(owner, repo, branch);
+}
+
+function verifyCommitSignatureProtectionExists(owner, repo, branch) {
+  return getCommitSignatureProtection(owner, repo, branch);
+}
+
+function verifyCommitSignatureProtectionDoesNotExist(owner, repo, branch) {
+  return getCommitSignatureProtection(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingCommitSignatureProtection(owner, repo, branch) {
+  return deleteCommitSignatureProtection(owner, repo, branch);
+}
+
+// ---- Entity: status check protection ----
+
+function getStatusCheckProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks";
+  var description = "Get status check protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateStatusCheckProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks";
+  var description = "Update status check protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeStatusCheckProtection(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks";
+  var description = "Remove status check protection for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyStatusCheckProtectionExists(owner, repo, branch) {
+  return getStatusCheckProtection(owner, repo, branch);
+}
+
+function verifyStatusCheckProtectionDoesNotExist(owner, repo, branch) {
+  return getStatusCheckProtection(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingStatusCheckProtection(owner, repo, branch) {
+  return removeStatusCheckProtection(owner, repo, branch);
+}
+
+// ---- Entity: status check contexts ----
+
+function getAllStatusCheckContexts(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
+  var description = "Get all status check contexts for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function addStatusCheckContexts(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
+  var description = "Add status check contexts for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setStatusCheckContexts(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
+  var description = "Set status check contexts for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeStatusCheckContexts(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/required_status_checks/contexts";
+  var description = "Remove status check contexts for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingStatusCheckContexts(owner, repo, branch) {
+  return addStatusCheckContexts(owner, repo, branch);
+}
+
+function verifyStatusCheckContextsExists(owner, repo, branch) {
+  return getAllStatusCheckContexts(owner, repo, branch);
+}
+
+function verifyStatusCheckContextsDoesNotExist(owner, repo, branch) {
+  return getAllStatusCheckContexts(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingStatusCheckContexts(owner, repo, branch) {
+  return removeStatusCheckContexts(owner, repo, branch);
+}
+
+// ---- Entity: access restrictions ----
+
+function getAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions";
+  var description = "Get access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions";
+  var description = "Delete access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyAccessRestrictionsExists(owner, repo, branch) {
+  return getAccessRestrictions(owner, repo, branch);
+}
+
+function verifyAccessRestrictionsDoesNotExist(owner, repo, branch) {
+  return getAccessRestrictions(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingAccessRestrictions(owner, repo, branch) {
+  return deleteAccessRestrictions(owner, repo, branch);
+}
+
+// ---- Entity: app access restrictions ----
+
+function getAppsWithAccessToProtectedBranch(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
+  var description = "Get apps with access to protected branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function addAppAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
+  var description = "Add app access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setAppAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
+  var description = "Set app access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeAppAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/apps";
+  var description = "Remove app access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingAppAccessRestrictions(owner, repo, branch) {
+  return addAppAccessRestrictions(owner, repo, branch);
+}
+
+function verifyAppAccessRestrictionsExists(owner, repo, branch) {
+  return getAppsWithAccessToProtectedBranch(owner, repo, branch);
+}
+
+function verifyAppAccessRestrictionsDoesNotExist(owner, repo, branch) {
+  return getAppsWithAccessToProtectedBranch(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingAppAccessRestrictions(owner, repo, branch) {
+  return removeAppAccessRestrictions(owner, repo, branch);
+}
+
+// ---- Entity: team access restrictions ----
+
+function getTeamsWithAccessToProtectedBranch(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
+  var description = "Get teams with access to protected branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function addTeamAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
+  var description = "Add team access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setTeamAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
+  var description = "Set team access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeTeamAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/teams";
+  var description = "Remove team access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingTeamAccessRestrictions(owner, repo, branch) {
+  return addTeamAccessRestrictions(owner, repo, branch);
+}
+
+function verifyTeamAccessRestrictionsExists(owner, repo, branch) {
+  return getTeamsWithAccessToProtectedBranch(owner, repo, branch);
+}
+
+function verifyTeamAccessRestrictionsDoesNotExist(owner, repo, branch) {
+  return getTeamsWithAccessToProtectedBranch(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingTeamAccessRestrictions(owner, repo, branch) {
+  return removeTeamAccessRestrictions(owner, repo, branch);
+}
+
+// ---- Entity: user access restrictions ----
+
+function getUsersWithAccessToProtectedBranch(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
+  var description = "Get users with access to protected branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function addUserAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
+  var description = "Add user access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setUserAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
+  var description = "Set user access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeUserAccessRestrictions(owner, repo, branch) {
+  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch + "/protection/restrictions/users";
+  var description = "Remove user access restrictions for branch " + branch + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingUserAccessRestrictions(owner, repo, branch) {
+  return addUserAccessRestrictions(owner, repo, branch);
+}
+
+function verifyUserAccessRestrictionsExists(owner, repo, branch) {
+  return getUsersWithAccessToProtectedBranch(owner, repo, branch);
+}
+
+function verifyUserAccessRestrictionsDoesNotExist(owner, repo, branch) {
+  return getUsersWithAccessToProtectedBranch(owner, repo, branch);
+}
+
+function tryToDeleteANonExistingUserAccessRestrictions(owner, repo, branch) {
+  return removeUserAccessRestrictions(owner, repo, branch);
 }
 
 // ---- Entity: commit comment ----
@@ -918,7 +902,9 @@ function getCommitComment(owner, repo, comment_id) {
 function updateCommitComment(owner, repo, comment_id) {
   var url = "/repos/" + owner + "/" + repo + "/comments/" + comment_id;
   var description = "Update commit comment " + comment_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
+  var body = {
+    "body": body,
+  };
   return svc.request({
     method: "PATCH",
     url: url,
@@ -951,6 +937,186 @@ function tryToDeleteANonExistingCommitComment(owner, repo, comment_id) {
   return deleteCommitComment(owner, repo, comment_id);
 }
 
+// ---- Entity: commit comment for commit ----
+
+function listCommitCommentsForCommit(owner, repo, commit_sha) {
+  var url = "/repos/" + owner + "/" + repo + "/commits/" + commit_sha + "/comments";
+  var description = "List commit comments for commit " + commit_sha + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createCommitComment(owner, repo, commit_sha) {
+  var url = "/repos/" + owner + "/" + repo + "/commits/" + commit_sha + "/comments";
+  var description = "Create commit comment for commit " + commit_sha + " in repo " + repo + " of " + owner;
+  var body = {
+    "body": body,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCommitCommentForCommit(owner, repo, commit_sha) {
+  return createCommitComment(owner, repo, commit_sha);
+}
+
+// ---- Entity: commit status ----
+
+function createCommitStatus(owner, repo, sha) {
+  var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
+  var description = "Create commit status for SHA " + sha + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCommitStatus(owner, repo, sha) {
+  return createCommitStatus(owner, repo, sha);
+}
+
+// ---- Entity: deploy key ----
+
+function createDeployKey(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/keys";
+  var description = "Create deploy key in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteDeployKey(owner, repo, key_id) {
+  var url = "/repos/" + owner + "/" + repo + "/keys/" + key_id;
+  var description = "Delete deploy key " + key_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getDeployKey(owner, repo, key_id) {
+  var url = "/repos/" + owner + "/" + repo + "/keys/" + key_id;
+  var description = "Get deploy key " + key_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingDeployKey(owner, repo, key_id) {
+  return createDeployKey(owner, repo);
+}
+
+function verifyDeployKeyExists(owner, repo, key_id) {
+  return getDeployKey(owner, repo, key_id);
+}
+
+function verifyDeployKeyDoesNotExist(owner, repo, key_id) {
+  return getDeployKey(owner, repo, key_id);
+}
+
+function tryToDeleteANonExistingDeployKey(owner, repo, key_id) {
+  return deleteDeployKey(owner, repo, key_id);
+}
+
+// ---- Entity: repository collaborator ----
+
+function addCollaborator(owner, repo, username) {
+  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username;
+  var description = "Add collaborator " + username + " to repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeCollaborator(owner, repo, username) {
+  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username;
+  var description = "Remove collaborator " + username + " from repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function checkCollaborator(owner, repo, username) {
+  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username;
+  var description = "Check collaborator " + username + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCollaborator(owner, repo, username) {
+  return addCollaborator(owner, repo, username);
+}
+
+function verifyCollaboratorExists(owner, repo, username) {
+  return checkCollaborator(owner, repo, username);
+}
+
+function verifyCollaboratorDoesNotExist(owner, repo, username) {
+  return checkCollaborator(owner, repo, username);
+}
+
+function tryToDeleteANonExistingCollaborator(owner, repo, username) {
+  return removeCollaborator(owner, repo, username);
+}
+
+// ---- Entity: repository collaborator permission ----
+
+function getCollaboratorPermissionLevel(owner, repo, username) {
+  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + username + "/permission";
+  var description = "Get collaborator permission for " + username + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCollaboratorPermissionExists(owner, repo, username) {
+  return getCollaboratorPermissionLevel(owner, repo, username);
+}
+
+function verifyCollaboratorPermissionDoesNotExist(owner, repo, username) {
+  return getCollaboratorPermissionLevel(owner, repo, username);
+}
+
 // ---- Entity: deployment ----
 
 function createDeployment(owner, repo) {
@@ -959,6 +1125,18 @@ function createDeployment(owner, repo) {
   var body = undefined;
   return svc.request({
     method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteDeployment(owner, repo, deployment_id) {
+  var url = "/repos/" + owner + "/" + repo + "/deployments/" + deployment_id;
+  var description = "Delete deployment " + deployment_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
     url: url,
     parameters: { description: description },
     body: body
@@ -977,12 +1155,12 @@ function getDeployment(owner, repo, deployment_id) {
   });
 }
 
-function deleteDeployment(owner, repo, deployment_id) {
-  var url = "/repos/" + owner + "/" + repo + "/deployments/" + deployment_id;
-  var description = "Delete deployment " + deployment_id + " in repo " + repo + " of " + owner;
+function listDeployments(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/deployments";
+  var description = "List deployments in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
-    method: "DELETE",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -1055,243 +1233,7 @@ function verifyDeploymentStatusDoesNotExist(owner, repo, deployment_id, status_i
   return getDeploymentStatus(owner, repo, deployment_id, status_id);
 }
 
-// ---- Entity: release ----
-
-function createRelease(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases";
-  var description = "Create release in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getRelease(owner, repo, release_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id;
-  var description = "Get release " + release_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateRelease(owner, repo, release_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id;
-  var description = "Update release " + release_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteRelease(owner, repo, release_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id;
-  var description = "Delete release " + release_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingRelease(owner, repo, release_id) {
-  return createRelease(owner, repo);
-}
-
-function verifyReleaseExists(owner, repo, release_id) {
-  return getRelease(owner, repo, release_id);
-}
-
-function verifyReleaseDoesNotExist(owner, repo, release_id) {
-  return getRelease(owner, repo, release_id);
-}
-
-function tryToDeleteANonExistingRelease(owner, repo, release_id) {
-  return deleteRelease(owner, repo, release_id);
-}
-
-// ---- Entity: release asset ----
-
-function getReleaseAsset(owner, repo, asset_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/assets/" + asset_id;
-  var description = "Get release asset " + asset_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateReleaseAsset(owner, repo, asset_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/assets/" + asset_id;
-  var description = "Update release asset " + asset_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteReleaseAsset(owner, repo, asset_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/assets/" + asset_id;
-  var description = "Delete release asset " + asset_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyReleaseAssetExists(owner, repo, asset_id) {
-  return getReleaseAsset(owner, repo, asset_id);
-}
-
-function verifyReleaseAssetDoesNotExist(owner, repo, asset_id) {
-  return getReleaseAsset(owner, repo, asset_id);
-}
-
-function tryToDeleteANonExistingReleaseAsset(owner, repo, asset_id) {
-  return deleteReleaseAsset(owner, repo, asset_id);
-}
-
-// ---- Entity: autolink reference ----
-
-function createAutolink(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/autolinks";
-  var description = "Create autolink reference in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getAutolink(owner, repo, autolink_id) {
-  var url = "/repos/" + owner + "/" + repo + "/autolinks/" + autolink_id;
-  var description = "Get autolink reference " + autolink_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteAutolink(owner, repo, autolink_id) {
-  var url = "/repos/" + owner + "/" + repo + "/autolinks/" + autolink_id;
-  var description = "Delete autolink reference " + autolink_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingAutolink(owner, repo, autolink_id) {
-  return createAutolink(owner, repo);
-}
-
-function verifyAutolinkExists(owner, repo, autolink_id) {
-  return getAutolink(owner, repo, autolink_id);
-}
-
-function verifyAutolinkDoesNotExist(owner, repo, autolink_id) {
-  return getAutolink(owner, repo, autolink_id);
-}
-
-function tryToDeleteANonExistingAutolink(owner, repo, autolink_id) {
-  return deleteAutolink(owner, repo, autolink_id);
-}
-
-// ---- Entity: deploy key ----
-
-function createDeployKey(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys";
-  var description = "Create deploy key in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getDeployKey(owner, repo, key_id) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + key_id;
-  var description = "Get deploy key " + key_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteDeployKey(owner, repo, key_id) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + key_id;
-  var description = "Delete deploy key " + key_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingDeployKey(owner, repo, key_id) {
-  return createDeployKey(owner, repo);
-}
-
-function verifyDeployKeyExists(owner, repo, key_id) {
-  return getDeployKey(owner, repo, key_id);
-}
-
-function verifyDeployKeyDoesNotExist(owner, repo, key_id) {
-  return getDeployKey(owner, repo, key_id);
-}
-
-function tryToDeleteANonExistingDeployKey(owner, repo, key_id) {
-  return deleteDeployKey(owner, repo, key_id);
-}
-
 // ---- Entity: environment ----
-
-function createOrUpdateEnvironment(owner, repo, environment_name) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name;
-  var description = "Create or update environment " + environment_name + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
 
 function getEnvironment(owner, repo, environment_name) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name;
@@ -1305,12 +1247,36 @@ function getEnvironment(owner, repo, environment_name) {
   });
 }
 
+function createOrUpdateEnvironment(owner, repo, environment_name) {
+  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name;
+  var description = "Create or update environment " + environment_name + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
 function deleteEnvironment(owner, repo, environment_name) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name;
   var description = "Delete environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listEnvironments(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/environments";
+  var description = "List environments in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -1337,7 +1303,7 @@ function tryToDeleteANonExistingEnvironment(owner, repo, environment_name) {
 
 function createDeploymentBranchPolicy(owner, repo, environment_name) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment-branch-policies";
-  var description = "Create deployment branch policy in environment " + environment_name + " of repo " + repo + " of " + owner;
+  var description = "Create deployment branch policy in environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -1347,21 +1313,9 @@ function createDeploymentBranchPolicy(owner, repo, environment_name) {
   });
 }
 
-function getDeploymentBranchPolicy(owner, repo, environment_name, branch_policy_id) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment-branch-policies/" + branch_policy_id;
-  var description = "Get deployment branch policy " + branch_policy_id + " in environment " + environment_name + " of repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function updateDeploymentBranchPolicy(owner, repo, environment_name, branch_policy_id) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment-branch-policies/" + branch_policy_id;
-  var description = "Update deployment branch policy " + branch_policy_id + " in environment " + environment_name + " of repo " + repo + " of " + owner;
+  var description = "Update deployment branch policy " + branch_policy_id + " in environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -1373,10 +1327,34 @@ function updateDeploymentBranchPolicy(owner, repo, environment_name, branch_poli
 
 function deleteDeploymentBranchPolicy(owner, repo, environment_name, branch_policy_id) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment-branch-policies/" + branch_policy_id;
-  var description = "Delete deployment branch policy " + branch_policy_id + " in environment " + environment_name + " of repo " + repo + " of " + owner;
+  var description = "Delete deployment branch policy " + branch_policy_id + " in environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getDeploymentBranchPolicy(owner, repo, environment_name, branch_policy_id) {
+  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment-branch-policies/" + branch_policy_id;
+  var description = "Get deployment branch policy " + branch_policy_id + " in environment " + environment_name + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listDeploymentBranchPolicies(owner, repo, environment_name) {
+  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment-branch-policies";
+  var description = "List deployment branch policies in environment " + environment_name + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -1403,7 +1381,7 @@ function tryToDeleteANonExistingDeploymentBranchPolicy(owner, repo, environment_
 
 function createDeploymentProtectionRule(owner, repo, environment_name) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment_protection_rules";
-  var description = "Create deployment protection rule in environment " + environment_name + " of repo " + repo + " of " + owner;
+  var description = "Create deployment protection rule in environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -1413,9 +1391,21 @@ function createDeploymentProtectionRule(owner, repo, environment_name) {
   });
 }
 
+function disableDeploymentProtectionRule(owner, repo, environment_name, protection_rule_id) {
+  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment_protection_rules/" + protection_rule_id;
+  var description = "Disable deployment protection rule " + protection_rule_id + " in environment " + environment_name + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
 function getDeploymentProtectionRule(owner, repo, environment_name, protection_rule_id) {
   var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment_protection_rules/" + protection_rule_id;
-  var description = "Get deployment protection rule " + protection_rule_id + " in environment " + environment_name + " of repo " + repo + " of " + owner;
+  var description = "Get deployment protection rule " + protection_rule_id + " in environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1425,12 +1415,12 @@ function getDeploymentProtectionRule(owner, repo, environment_name, protection_r
   });
 }
 
-function disableDeploymentProtectionRule(owner, repo, environment_name, protection_rule_id) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment_protection_rules/" + protection_rule_id;
-  var description = "Disable deployment protection rule " + protection_rule_id + " in environment " + environment_name + " of repo " + repo + " of " + owner;
+function getAllDeploymentProtectionRules(owner, repo, environment_name) {
+  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/deployment_protection_rules";
+  var description = "Get all deployment protection rules in environment " + environment_name + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
-    method: "DELETE",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -1502,22 +1492,15 @@ function createWebhook(org) {
   });
 }
 
-function getWebhook(owner, repo, hook_id) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + hook_id;
-  var description = "Get webhook " + hook_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateWebhook(owner, repo, hook_id) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + hook_id;
-  var description = "Update webhook " + hook_id + " in repo " + repo + " of " + owner;
-  var body = undefined;
+function updateWebhook(org, hook_id) {
+  var url = "/orgs/" + org + "/hooks/" + hook_id;
+  var description = "Update webhook " + hook_id + " in organization " + org;
+  var body = {
+    "config": config,
+    "events": events,
+    "active": active,
+    "name": name,
+  };
   return svc.request({
     method: "PATCH",
     url: url,
@@ -1526,9 +1509,9 @@ function updateWebhook(owner, repo, hook_id) {
   });
 }
 
-function deleteWebhook(owner, repo, hook_id) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + hook_id;
-  var description = "Delete webhook " + hook_id + " in repo " + repo + " of " + owner;
+function deleteWebhook(org, hook_id) {
+  var url = "/orgs/" + org + "/hooks/" + hook_id;
+  var description = "Delete webhook " + hook_id + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -1538,9 +1521,9 @@ function deleteWebhook(owner, repo, hook_id) {
   });
 }
 
-function listWebhooks(org) {
-  var url = "/orgs/" + org + "/hooks";
-  var description = "List webhooks for organization " + org;
+function getWebhook(org, hook_id) {
+  var url = "/orgs/" + org + "/hooks/" + hook_id;
+  var description = "Get webhook " + hook_id + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1550,20 +1533,20 @@ function listWebhooks(org) {
   });
 }
 
-function tryToAddExistingWebhook(org, owner, repo, hook_id) {
+function tryToAddExistingWebhook(org, hook_id) {
   return createWebhook(org);
 }
 
-function verifyWebhookExists(org, owner, repo, hook_id) {
-  return getWebhook(owner, repo, hook_id);
+function verifyWebhookExists(org, hook_id) {
+  return getWebhook(org, hook_id);
 }
 
-function verifyWebhookDoesNotExist(org, owner, repo, hook_id) {
-  return getWebhook(owner, repo, hook_id);
+function verifyWebhookDoesNotExist(org, hook_id) {
+  return getWebhook(org, hook_id);
 }
 
-function tryToDeleteANonExistingWebhook(org, owner, repo, hook_id) {
-  return deleteWebhook(owner, repo, hook_id);
+function tryToDeleteANonExistingWebhook(org, hook_id) {
+  return deleteWebhook(org, hook_id);
 }
 
 // ---- Entity: webhook configuration ----
@@ -1631,9 +1614,9 @@ function listWebhookDeliveries(owner, repo, hook_id) {
   });
 }
 
-function redeliverWebhookDelivery(owner, repo, hook_id, delivery_id) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + hook_id + "/deliveries/" + delivery_id + "/attempts";
-  var description = "Redeliver webhook delivery " + delivery_id + " for webhook " + hook_id + " in repo " + repo + " of " + owner;
+function redeliverWebhookDelivery(org, hook_id, delivery_id) {
+  var url = "/orgs/" + org + "/hooks/" + hook_id + "/deliveries/" + delivery_id + "/attempts";
+  var description = "Redeliver webhook delivery " + delivery_id + " for webhook " + hook_id + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -1651,11 +1634,11 @@ function verifyWebhookDeliveryDoesNotExist(org, hook_id, delivery_id, owner, rep
   return getWebhookDelivery(org, hook_id, delivery_id);
 }
 
-// ---- Entity: commit status ----
+// ---- Entity: webhook ping ----
 
-function createCommitStatus(owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
-  var description = "Create commit status for SHA " + sha + " in repo " + repo + " of " + owner;
+function pingWebhook(org, hook_id) {
+  var url = "/orgs/" + org + "/hooks/" + hook_id + "/pings";
+  var description = "Ping webhook " + hook_id + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -1665,15 +1648,69 @@ function createCommitStatus(owner, repo, sha) {
   });
 }
 
-function tryToAddExistingCommitStatus(owner, repo, sha) {
-  return createCommitStatus(owner, repo, sha);
+function tryToAddExistingWebhookPing(org, hook_id) {
+  return pingWebhook(org, hook_id);
 }
 
-// ---- Entity: file content ----
+// ---- Entity: webhook test ----
 
-function getContent(owner, repo, path) {
-  var url = "/repos/" + owner + "/" + repo + "/contents/" + path;
-  var description = "Get content at path " + path + " in repo " + repo + " of " + owner;
+function testPushWebhook(owner, repo, hook_id) {
+  var url = "/repos/" + owner + "/" + repo + "/hooks/" + hook_id + "/tests";
+  var description = "Test push webhook " + hook_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingWebhookTest(owner, repo, hook_id) {
+  return testPushWebhook(owner, repo, hook_id);
+}
+
+// ---- Entity: release ----
+
+function createRelease(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/releases";
+  var description = "Create release in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteRelease(owner, repo, release_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id;
+  var description = "Delete release " + release_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateRelease(owner, repo, release_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id;
+  var description = "Update release " + release_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getRelease(owner, repo, release_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id;
+  var description = "Get release " + release_id + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1683,9 +1720,117 @@ function getContent(owner, repo, path) {
   });
 }
 
+function listReleases(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/releases";
+  var description = "List releases in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingRelease(owner, repo, release_id) {
+  return createRelease(owner, repo);
+}
+
+function verifyReleaseExists(owner, repo, release_id) {
+  return getRelease(owner, repo, release_id);
+}
+
+function verifyReleaseDoesNotExist(owner, repo, release_id) {
+  return getRelease(owner, repo, release_id);
+}
+
+function tryToDeleteANonExistingRelease(owner, repo, release_id) {
+  return deleteRelease(owner, repo, release_id);
+}
+
+// ---- Entity: release asset ----
+
+function uploadReleaseAsset(owner, repo, release_id, name) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id + "/assets";
+  var description = "Upload release asset to release " + release_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteReleaseAsset(owner, repo, asset_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/assets/" + asset_id;
+  var description = "Delete release asset " + asset_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateReleaseAsset(owner, repo, asset_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/assets/" + asset_id;
+  var description = "Update release asset " + asset_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getReleaseAsset(owner, repo, asset_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/assets/" + asset_id;
+  var description = "Get release asset " + asset_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listReleaseAssets(owner, repo, release_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id + "/assets";
+  var description = "List release assets for release " + release_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingReleaseAsset(owner, repo, release_id, name, asset_id) {
+  return uploadReleaseAsset(owner, repo, release_id, name);
+}
+
+function verifyReleaseAssetExists(owner, repo, release_id, name, asset_id) {
+  return getReleaseAsset(owner, repo, asset_id);
+}
+
+function verifyReleaseAssetDoesNotExist(owner, repo, release_id, name, asset_id) {
+  return getReleaseAsset(owner, repo, asset_id);
+}
+
+function tryToDeleteANonExistingReleaseAsset(owner, repo, release_id, name, asset_id) {
+  return deleteReleaseAsset(owner, repo, asset_id);
+}
+
+// ---- Entity: file content ----
+
 function createOrUpdateFileContents(owner, repo, path) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + path;
-  var description = "Create or update file at path " + path + " in repo " + repo + " of " + owner;
+  var description = "Create or update file at " + path + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -1697,7 +1842,7 @@ function createOrUpdateFileContents(owner, repo, path) {
 
 function deleteFile(owner, repo, path) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + path;
-  var description = "Delete file at path " + path + " in repo " + repo + " of " + owner;
+  var description = "Delete file at " + path + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -1705,6 +1850,22 @@ function deleteFile(owner, repo, path) {
     parameters: { description: description },
     body: body
   });
+}
+
+function getContent(owner, repo, path) {
+  var url = "/repos/" + owner + "/" + repo + "/contents/" + path;
+  var description = "Get content at " + path + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingFileContent(owner, repo, path) {
+  return createOrUpdateFileContents(owner, repo, path);
 }
 
 function verifyFileContentExists(owner, repo, path) {
@@ -1717,6 +1878,114 @@ function verifyFileContentDoesNotExist(owner, repo, path) {
 
 function tryToDeleteANonExistingFileContent(owner, repo, path) {
   return deleteFile(owner, repo, path);
+}
+
+// ---- Entity: attestation ----
+
+function createAttestation(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/attestations";
+  var description = "Create attestation in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listAttestations(org, subject_digest) {
+  var url = "/orgs/" + org + "/attestations/" + subject_digest;
+  var description = "List attestations for subject digest " + subject_digest + " in " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteAttestationsBySubjectDigest(org, subject_digest) {
+  var url = "/orgs/" + org + "/attestations/digest/" + subject_digest;
+  var description = "Delete attestations by subject digest " + subject_digest + " in " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingAttestation(owner, repo, org, subject_digest) {
+  return createAttestation(owner, repo);
+}
+
+// ---- Entity: autolink reference ----
+
+function createAutolink(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/autolinks";
+  var description = "Create autolink in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteAutolink(owner, repo, autolink_id) {
+  var url = "/repos/" + owner + "/" + repo + "/autolinks/" + autolink_id;
+  var description = "Delete autolink " + autolink_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getAutolink(owner, repo, autolink_id) {
+  var url = "/repos/" + owner + "/" + repo + "/autolinks/" + autolink_id;
+  var description = "Get autolink " + autolink_id + " in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listAutolinks(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/autolinks";
+  var description = "List autolinks in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingAutolink(owner, repo, autolink_id) {
+  return createAutolink(owner, repo);
+}
+
+function verifyAutolinkExists(owner, repo, autolink_id) {
+  return getAutolink(owner, repo, autolink_id);
+}
+
+function verifyAutolinkDoesNotExist(owner, repo, autolink_id) {
+  return getAutolink(owner, repo, autolink_id);
+}
+
+function tryToDeleteANonExistingAutolink(owner, repo, autolink_id) {
+  return deleteAutolink(owner, repo, autolink_id);
 }
 
 // ---- Entity: repository invitation ----
@@ -1745,9 +2014,9 @@ function cancelInvitation(org, invitation_id) {
   });
 }
 
-function listPendingInvitations(org) {
-  var url = "/orgs/" + org + "/invitations";
-  var description = "List pending invitations for organization " + org;
+function listInvitations(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/invitations";
+  var description = "List invitations in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1782,35 +2051,23 @@ function tryToDeleteANonExistingInvitation(owner, repo, invitation_id, org) {
   return cancelInvitation(org, invitation_id);
 }
 
-// ---- Entity: attestation ----
+// ---- Entity: user repository invitation ----
 
-function createAttestation(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/attestations";
-  var description = "Create attestation in repo " + repo + " of " + owner;
+function acceptInvitationForAuthenticatedUser(invitation_id) {
+  var url = "/user/repository_invitations/" + invitation_id;
+  var description = "Accept invitation " + invitation_id + " for authenticated user";
   var body = undefined;
   return svc.request({
-    method: "POST",
+    method: "PATCH",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function listAttestations(org, subject_digest) {
-  var url = "/orgs/" + org + "/attestations/" + subject_digest;
-  var description = "List attestations for " + subject_digest + " in " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteAttestationsBySubjectDigest(username, subject_digest) {
-  var url = "/users/" + username + "/attestations/digest/" + subject_digest;
-  var description = "Delete attestations by subject digest " + subject_digest + " for user " + username;
+function declineInvitationForAuthenticatedUser(invitation_id) {
+  var url = "/user/repository_invitations/" + invitation_id;
+  var description = "Decline invitation " + invitation_id + " for authenticated user";
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -1820,51 +2077,9 @@ function deleteAttestationsBySubjectDigest(username, subject_digest) {
   });
 }
 
-function listAttestationsBulk(username) {
-  var url = "/users/" + username + "/attestations/bulk-list";
-  var description = "List attestations by bulk subject digests for user " + username;
-  var body = {
-    "subject_digests": subject_digests,
-    "predicate_type": predicate_type,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteAttestationsBulk(username) {
-  var url = "/users/" + username + "/attestations/delete-request";
-  var description = "Delete attestations in bulk for user " + username;
-  var body = {
-    "subject_digests": subject_digests,
-    "attestation_ids": attestation_ids,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteAttestationsById(username, attestation_id) {
-  var url = "/users/" + username + "/attestations/" + attestation_id;
-  var description = "Delete attestation " + attestation_id + " for user " + username;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listAttestations(username, subject_digest) {
-  var url = "/users/" + username + "/attestations/" + subject_digest;
-  var description = "List attestations for user " + username + " with subject digest " + subject_digest;
+function listInvitationsForAuthenticatedUser() {
+  var url = "/user/repository_invitations";
+  var description = "List invitations for authenticated user";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -1872,40 +2087,6 @@ function listAttestations(username, subject_digest) {
     parameters: { description: description },
     body: body
   });
-}
-
-function tryToAddExistingAttestation(owner, repo, org, subject_digest, username, attestation_id) {
-  return createAttestation(owner, repo);
-}
-
-function verifyAttestationExists(owner, repo, org, subject_digest, username, attestation_id) {
-  return listAttestations(org, subject_digest);
-}
-
-function verifyAttestationDoesNotExist(owner, repo, org, subject_digest, username, attestation_id) {
-  return listAttestations(org, subject_digest);
-}
-
-// ---- Entity: attestation list ----
-
-function listAttestations(owner, repo, subject_digest) {
-  var url = "/repos/" + owner + "/" + repo + "/attestations/" + subject_digest;
-  var description = "List attestations for subject digest " + subject_digest + " in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyAttestationListExists(owner, repo, subject_digest) {
-  return listAttestations(owner, repo, subject_digest);
-}
-
-function verifyAttestationListDoesNotExist(owner, repo, subject_digest) {
-  return listAttestations(owner, repo, subject_digest);
 }
 
 // ---- Entity: GitHub Pages site ----
@@ -1916,18 +2097,6 @@ function createPagesSite(owner, repo) {
   var body = undefined;
   return svc.request({
     method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getPagesSite(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pages";
-  var description = "Get GitHub Pages site in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -1952,6 +2121,18 @@ function deletePagesSite(owner, repo) {
   var body = undefined;
   return svc.request({
     method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getPagesSite(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pages";
+  var description = "Get GitHub Pages site in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -2107,12 +2288,12 @@ function createHostedRunner(org, name, image, size, runner_group_id, maximum_run
   });
 }
 
-function deleteHostedRunner(org, hosted_runner_id) {
+function getHostedRunner(org, hosted_runner_id) {
   var url = "/orgs/" + org + "/actions/hosted-runners/" + hosted_runner_id;
-  var description = "Delete hosted runner " + hosted_runner_id + " in org " + org;
+  var description = "Get hosted runner " + hosted_runner_id + " in org " + org;
   var body = undefined;
   return svc.request({
-    method: "DELETE",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -2136,12 +2317,12 @@ function updateHostedRunner(org, hosted_runner_id, name, runner_group_id, maximu
   });
 }
 
-function getHostedRunner(org, hosted_runner_id) {
+function deleteHostedRunner(org, hosted_runner_id) {
   var url = "/orgs/" + org + "/actions/hosted-runners/" + hosted_runner_id;
-  var description = "Get hosted runner " + hosted_runner_id + " in org " + org;
+  var description = "Delete hosted runner " + hosted_runner_id + " in org " + org;
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "DELETE",
     url: url,
     parameters: { description: description },
     body: body
@@ -2187,12 +2368,12 @@ function createRunnerGroup(org, name, visibility, selected_repository_ids, runne
   });
 }
 
-function deleteRunnerGroup(org, runner_group_id) {
+function getRunnerGroup(org, runner_group_id) {
   var url = "/orgs/" + org + "/actions/runner-groups/" + runner_group_id;
-  var description = "Delete runner group " + runner_group_id + " in org " + org;
+  var description = "Get runner group " + runner_group_id + " in org " + org;
   var body = undefined;
   return svc.request({
-    method: "DELETE",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
@@ -2218,12 +2399,12 @@ function updateRunnerGroup(org, runner_group_id, name, visibility, allows_public
   });
 }
 
-function getRunnerGroup(org, runner_group_id) {
+function deleteRunnerGroup(org, runner_group_id) {
   var url = "/orgs/" + org + "/actions/runner-groups/" + runner_group_id;
-  var description = "Get runner group " + runner_group_id + " in org " + org;
+  var description = "Delete runner group " + runner_group_id + " in org " + org;
   var body = undefined;
   return svc.request({
-    method: "GET",
+    method: "DELETE",
     url: url,
     parameters: { description: description },
     body: body
@@ -2284,7 +2465,7 @@ function tryToDeleteANonExistingRunnerGroupRepositoryAccess(org, runner_group_id
 
 function setRepoAccessToRunnerGroup(org, runner_group_id, selected_repository_ids) {
   var url = "/orgs/" + org + "/actions/runner-groups/" + runner_group_id + "/repositories";
-  var description = "Set repository access list for runner group " + runner_group_id + " in org " + org;
+  var description = "Set repository access for runner group " + runner_group_id + " in org " + org;
   var body = {
     "selected_repository_ids": selected_repository_ids,
   };
@@ -2296,7 +2477,7 @@ function setRepoAccessToRunnerGroup(org, runner_group_id, selected_repository_id
   });
 }
 
-// ---- Entity: runner group runners ----
+// ---- Entity: runner group runner ----
 
 function addRunnerToRunnerGroup(org, runner_group_id, runner_id) {
   var url = "/orgs/" + org + "/actions/runner-groups/" + runner_group_id + "/runners/" + runner_id;
@@ -2322,15 +2503,15 @@ function removeRunnerFromRunnerGroup(org, runner_group_id, runner_id) {
   });
 }
 
-function tryToAddExistingRunnerGroupRunners(org, runner_group_id, runner_id) {
+function tryToAddExistingRunnerGroupRunner(org, runner_group_id, runner_id) {
   return addRunnerToRunnerGroup(org, runner_group_id, runner_id);
 }
 
-function tryToDeleteANonExistingRunnerGroupRunners(org, runner_group_id, runner_id) {
+function tryToDeleteANonExistingRunnerGroupRunner(org, runner_group_id, runner_id) {
   return removeRunnerFromRunnerGroup(org, runner_group_id, runner_id);
 }
 
-// ---- Entity: runner group runners list ----
+// ---- Entity: runner group runners ----
 
 function setRunnersInRunnerGroup(org, runner_group_id, runners) {
   var url = "/orgs/" + org + "/actions/runner-groups/" + runner_group_id + "/runners";
@@ -2348,24 +2529,24 @@ function setRunnersInRunnerGroup(org, runner_group_id, runners) {
 
 // ---- Entity: self-hosted runner ----
 
-function deleteSelfHostedRunner(org, runner_id) {
-  var url = "/orgs/" + org + "/actions/runners/" + runner_id;
-  var description = "Delete self-hosted runner " + runner_id + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function getSelfHostedRunner(org, runner_id) {
   var url = "/orgs/" + org + "/actions/runners/" + runner_id;
   var description = "Get self-hosted runner " + runner_id + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteSelfHostedRunner(org, runner_id) {
+  var url = "/orgs/" + org + "/actions/runners/" + runner_id;
+  var description = "Delete self-hosted runner " + runner_id + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
     url: url,
     parameters: { description: description },
     body: body
@@ -2386,20 +2567,6 @@ function tryToDeleteANonExistingSelfHostedRunner(org, runner_id) {
 
 // ---- Entity: self-hosted runner label ----
 
-function addCustomLabelsToSelfHostedRunner(org, runner_id, labels) {
-  var url = "/orgs/" + org + "/actions/runners/" + runner_id + "/labels";
-  var description = "Add custom labels to self-hosted runner " + runner_id + " in org " + org;
-  var body = {
-    "labels": labels,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function removeCustomLabelFromSelfHostedRunner(org, runner_id, name) {
   var url = "/orgs/" + org + "/actions/runners/" + runner_id + "/labels/" + name;
   var description = "Remove custom label " + name + " from self-hosted runner " + runner_id + " in org " + org;
@@ -2412,12 +2579,20 @@ function removeCustomLabelFromSelfHostedRunner(org, runner_id, name) {
   });
 }
 
-function removeAllCustomLabelsFromSelfHostedRunner(org, runner_id) {
+function tryToDeleteANonExistingSelfHostedRunnerLabel(org, runner_id, name) {
+  return removeCustomLabelFromSelfHostedRunner(org, runner_id, name);
+}
+
+// ---- Entity: self-hosted runner labels ----
+
+function addCustomLabelsToSelfHostedRunner(org, runner_id, labels) {
   var url = "/orgs/" + org + "/actions/runners/" + runner_id + "/labels";
-  var description = "Remove all custom labels from self-hosted runner " + runner_id + " in org " + org;
-  var body = undefined;
+  var description = "Add custom labels to self-hosted runner " + runner_id + " in org " + org;
+  var body = {
+    "labels": labels,
+  };
   return svc.request({
-    method: "DELETE",
+    method: "POST",
     url: url,
     parameters: { description: description },
     body: body
@@ -2450,20 +2625,54 @@ function setCustomLabelsForSelfHostedRunner(org, runner_id, labels) {
   });
 }
 
-function tryToAddExistingSelfHostedRunnerLabel(org, runner_id, labels, name) {
+function removeAllCustomLabelsFromSelfHostedRunner(org, runner_id) {
+  var url = "/orgs/" + org + "/actions/runners/" + runner_id + "/labels";
+  var description = "Remove all custom labels from self-hosted runner " + runner_id + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSelfHostedRunnerLabels(org, runner_id, labels) {
   return addCustomLabelsToSelfHostedRunner(org, runner_id, labels);
 }
 
-function verifySelfHostedRunnerLabelExists(org, runner_id, labels, name) {
+function verifySelfHostedRunnerLabelsExists(org, runner_id, labels) {
   return listLabelsForSelfHostedRunner(org, runner_id);
 }
 
-function verifySelfHostedRunnerLabelDoesNotExist(org, runner_id, labels, name) {
+function verifySelfHostedRunnerLabelsDoesNotExist(org, runner_id, labels) {
   return listLabelsForSelfHostedRunner(org, runner_id);
 }
 
-function tryToDeleteANonExistingSelfHostedRunnerLabel(org, runner_id, labels, name) {
-  return removeCustomLabelFromSelfHostedRunner(org, runner_id, name);
+function tryToDeleteANonExistingSelfHostedRunnerLabels(org, runner_id, labels) {
+  return removeAllCustomLabelsFromSelfHostedRunner(org, runner_id);
+}
+
+// ---- Entity: self-hosted runner ----
+
+function listSelfHostedRunners(org, name, per-page, page) {
+  var url = "/orgs/" + org + "/actions/runners";
+  var description = "List self-hosted runners in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifySelfHostedRunnerListExists(org, name, per-page, page) {
+  return listSelfHostedRunners(org, name, per-page, page);
+}
+
+function verifySelfHostedRunnerListDoesNotExist(org, name, per-page, page) {
+  return listSelfHostedRunners(org, name, per-page, page);
 }
 
 // ---- Entity: self-hosted runner registration token ----
@@ -2502,16 +2711,51 @@ function tryToAddExistingSelfHostedRunnerRemoveToken(org) {
   return createRemoveToken(org);
 }
 
-// ---- Entity: self-hosted runner jit config ----
+// ---- Entity: self-hosted runner ----
 
-function generateRunnerJITConfig(org, name, runner_group_id, labels, work_folder) {
-  var url = "/orgs/" + org + "/actions/runners/generate-jitconfig";
-  var description = "Generate JIT config for runner " + name + " in org " + org;
+function getSelfHostedRunnerForRepo(owner, repo, runner_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id;
+  var description = "Get self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteSelfHostedRunnerFromRepo(owner, repo, runner_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id;
+  var description = "Delete self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifySelfHostedRunnerRepoExists(owner, repo, runner_id) {
+  return getSelfHostedRunnerForRepo(owner, repo, runner_id);
+}
+
+function verifySelfHostedRunnerRepoDoesNotExist(owner, repo, runner_id) {
+  return getSelfHostedRunnerForRepo(owner, repo, runner_id);
+}
+
+function tryToDeleteANonExistingSelfHostedRunnerRepo(owner, repo, runner_id) {
+  return deleteSelfHostedRunnerFromRepo(owner, repo, runner_id);
+}
+
+// ---- Entity: self-hosted runner labels ----
+
+function addCustomLabelsToSelfHostedRunnerForRepo(owner, repo, runner_id, labels) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id + "/labels";
+  var description = "Add custom labels to self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
   var body = {
-    "name": name,
-    "runner_group_id": runner_group_id,
     "labels": labels,
-    "work_folder": work_folder,
   };
   return svc.request({
     method: "POST",
@@ -2521,15 +2765,153 @@ function generateRunnerJITConfig(org, name, runner_group_id, labels, work_folder
   });
 }
 
-function tryToAddExistingSelfHostedRunnerJITConfig(org, name, runner_group_id, labels, work_folder) {
-  return generateRunnerJITConfig(org, name, runner_group_id, labels, work_folder);
+function listLabelsForSelfHostedRunnerForRepo(owner, repo, runner_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id + "/labels";
+  var description = "List labels for self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setCustomLabelsForSelfHostedRunnerForRepo(owner, repo, runner_id, labels) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id + "/labels";
+  var description = "Set custom labels for self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
+  var body = {
+    "labels": labels,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function removeAllCustomLabelsFromSelfHostedRunnerForRepo(owner, repo, runner_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id + "/labels";
+  var description = "Remove all custom labels from self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSelfHostedRunnerLabelsRepo(owner, repo, runner_id, labels) {
+  return addCustomLabelsToSelfHostedRunnerForRepo(owner, repo, runner_id, labels);
+}
+
+function verifySelfHostedRunnerLabelsRepoExists(owner, repo, runner_id, labels) {
+  return listLabelsForSelfHostedRunnerForRepo(owner, repo, runner_id);
+}
+
+function verifySelfHostedRunnerLabelsRepoDoesNotExist(owner, repo, runner_id, labels) {
+  return listLabelsForSelfHostedRunnerForRepo(owner, repo, runner_id);
+}
+
+function tryToDeleteANonExistingSelfHostedRunnerLabelsRepo(owner, repo, runner_id, labels) {
+  return removeAllCustomLabelsFromSelfHostedRunnerForRepo(owner, repo, runner_id);
+}
+
+// ---- Entity: self-hosted runner label ----
+
+function removeCustomLabelFromSelfHostedRunnerForRepo(owner, repo, runner_id, name) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/" + runner_id + "/labels/" + name;
+  var description = "Remove custom label " + name + " from self-hosted runner " + runner_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToDeleteANonExistingSelfHostedRunnerLabelRepo(owner, repo, runner_id, name) {
+  return removeCustomLabelFromSelfHostedRunnerForRepo(owner, repo, runner_id, name);
+}
+
+// ---- Entity: self-hosted runner ----
+
+function listSelfHostedRunnersForRepo(owner, repo, name, per-page, page) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners";
+  var description = "List self-hosted runners in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifySelfHostedRunnerListRepoExists(owner, repo, name, per-page, page) {
+  return listSelfHostedRunnersForRepo(owner, repo, name, per-page, page);
+}
+
+function verifySelfHostedRunnerListRepoDoesNotExist(owner, repo, name, per-page, page) {
+  return listSelfHostedRunnersForRepo(owner, repo, name, per-page, page);
+}
+
+// ---- Entity: self-hosted runner registration token ----
+
+function createRegistrationTokenForRepo(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/registration-token";
+  var description = "Create registration token for repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSelfHostedRunnerRegistrationTokenRepo(owner, repo) {
+  return createRegistrationTokenForRepo(owner, repo);
+}
+
+// ---- Entity: self-hosted runner remove token ----
+
+function createRemoveTokenForRepo(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runners/remove-token";
+  var description = "Create remove token for repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSelfHostedRunnerRemoveTokenRepo(owner, repo) {
+  return createRemoveTokenForRepo(owner, repo);
 }
 
 // ---- Entity: organization secret ----
 
+function getOrgSecret(org, secret_name) {
+  var url = "/orgs/" + org + "/actions/secrets/" + secret_name;
+  var description = "Get organization secret " + secret_name + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
 function createOrUpdateOrgSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
   var url = "/orgs/" + org + "/actions/secrets/" + secret_name;
-  var description = "Create or update org secret " + secret_name + " in org " + org;
+  var description = "Create or update organization secret " + secret_name + " in org " + org;
   var body = {
     "encrypted_value": encrypted_value,
     "key_id": key_id,
@@ -2546,7 +2928,7 @@ function createOrUpdateOrgSecret(org, secret_name, encrypted_value, key_id, visi
 
 function deleteOrgSecret(org, secret_name) {
   var url = "/orgs/" + org + "/actions/secrets/" + secret_name;
-  var description = "Delete org secret " + secret_name + " in org " + org;
+  var description = "Delete organization secret " + secret_name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -2556,31 +2938,19 @@ function deleteOrgSecret(org, secret_name) {
   });
 }
 
-function getOrgSecret(org, secret_name) {
-  var url = "/orgs/" + org + "/actions/secrets/" + secret_name;
-  var description = "Get org secret " + secret_name + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingOrgSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
+function tryToAddExistingSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
   return createOrUpdateOrgSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids);
 }
 
-function verifyOrgSecretExists(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
+function verifySecretExists(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
   return getOrgSecret(org, secret_name);
 }
 
-function verifyOrgSecretDoesNotExist(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
+function verifySecretDoesNotExist(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
   return getOrgSecret(org, secret_name);
 }
 
-function tryToDeleteANonExistingOrgSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
+function tryToDeleteANonExistingSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
   return deleteOrgSecret(org, secret_name);
 }
 
@@ -2588,7 +2958,7 @@ function tryToDeleteANonExistingOrgSecret(org, secret_name, encrypted_value, key
 
 function addSelectedRepoToOrgSecret(org, secret_name, repository_id) {
   var url = "/orgs/" + org + "/actions/secrets/" + secret_name + "/repositories/" + repository_id;
-  var description = "Add selected repository " + repository_id + " to org secret " + secret_name + " in org " + org;
+  var description = "Add selected repository " + repository_id + " to organization secret " + secret_name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -2600,7 +2970,7 @@ function addSelectedRepoToOrgSecret(org, secret_name, repository_id) {
 
 function removeSelectedRepoFromOrgSecret(org, secret_name, repository_id) {
   var url = "/orgs/" + org + "/actions/secrets/" + secret_name + "/repositories/" + repository_id;
-  var description = "Remove selected repository " + repository_id + " from org secret " + secret_name + " in org " + org;
+  var description = "Remove selected repository " + repository_id + " from organization secret " + secret_name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -2610,11 +2980,11 @@ function removeSelectedRepoFromOrgSecret(org, secret_name, repository_id) {
   });
 }
 
-function tryToAddExistingOrgSecretSelectedRepos(org, secret_name, repository_id) {
+function tryToAddExistingSecretSelectedRepos(org, secret_name, repository_id) {
   return addSelectedRepoToOrgSecret(org, secret_name, repository_id);
 }
 
-function tryToDeleteANonExistingOrgSecretSelectedRepos(org, secret_name, repository_id) {
+function tryToDeleteANonExistingSecretSelectedRepos(org, secret_name, repository_id) {
   return removeSelectedRepoFromOrgSecret(org, secret_name, repository_id);
 }
 
@@ -2622,7 +2992,7 @@ function tryToDeleteANonExistingOrgSecretSelectedRepos(org, secret_name, reposit
 
 function setSelectedReposForOrgSecret(org, secret_name, selected_repository_ids) {
   var url = "/orgs/" + org + "/actions/secrets/" + secret_name + "/repositories";
-  var description = "Set selected repositories for org secret " + secret_name + " in org " + org;
+  var description = "Set selected repositories for organization secret " + secret_name + " in org " + org;
   var body = {
     "selected_repository_ids": selected_repository_ids,
   };
@@ -2634,11 +3004,43 @@ function setSelectedReposForOrgSecret(org, secret_name, selected_repository_ids)
   });
 }
 
+function listSelectedReposForOrgSecret(org, secret_name, page, per-page) {
+  var url = "/orgs/" + org + "/actions/secrets/" + secret_name + "/repositories";
+  var description = "List selected repositories for organization secret " + secret_name + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifySecretSelectedReposListExists(org, secret_name, selected_repository_ids, page, per-page) {
+  return listSelectedReposForOrgSecret(org, secret_name, page, per-page);
+}
+
+function verifySecretSelectedReposListDoesNotExist(org, secret_name, selected_repository_ids, page, per-page) {
+  return listSelectedReposForOrgSecret(org, secret_name, page, per-page);
+}
+
 // ---- Entity: organization variable ----
+
+function getOrgVariable(org, name) {
+  var url = "/orgs/" + org + "/actions/variables/" + name;
+  var description = "Get organization variable " + name + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
 
 function createOrgVariable(org, name, value, visibility, selected_repository_ids) {
   var url = "/orgs/" + org + "/actions/variables";
-  var description = "Create org variable " + name + " in org " + org;
+  var description = "Create organization variable " + name + " in org " + org;
   var body = {
     "name": name,
     "value": value,
@@ -2653,33 +3055,9 @@ function createOrgVariable(org, name, value, visibility, selected_repository_ids
   });
 }
 
-function deleteOrgVariable(org, name) {
-  var url = "/orgs/" + org + "/actions/variables/" + name;
-  var description = "Delete org variable " + name + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getOrgVariable(org, name) {
-  var url = "/orgs/" + org + "/actions/variables/" + name;
-  var description = "Get org variable " + name + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function updateOrgVariable(org, name, value, visibility, selected_repository_ids) {
   var url = "/orgs/" + org + "/actions/variables/" + name;
-  var description = "Update org variable " + name + " in org " + org;
+  var description = "Update organization variable " + name + " in org " + org;
   var body = {
     "name": name,
     "value": value,
@@ -2694,19 +3072,31 @@ function updateOrgVariable(org, name, value, visibility, selected_repository_ids
   });
 }
 
-function tryToAddExistingOrgVariable(org, name, value, visibility, selected_repository_ids) {
+function deleteOrgVariable(org, name) {
+  var url = "/orgs/" + org + "/actions/variables/" + name;
+  var description = "Delete organization variable " + name + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingVariable(org, name, value, visibility, selected_repository_ids) {
   return createOrgVariable(org, name, value, visibility, selected_repository_ids);
 }
 
-function verifyOrgVariableExists(org, name, value, visibility, selected_repository_ids) {
+function verifyVariableExists(org, name, value, visibility, selected_repository_ids) {
   return getOrgVariable(org, name);
 }
 
-function verifyOrgVariableDoesNotExist(org, name, value, visibility, selected_repository_ids) {
+function verifyVariableDoesNotExist(org, name, value, visibility, selected_repository_ids) {
   return getOrgVariable(org, name);
 }
 
-function tryToDeleteANonExistingOrgVariable(org, name, value, visibility, selected_repository_ids) {
+function tryToDeleteANonExistingVariable(org, name, value, visibility, selected_repository_ids) {
   return deleteOrgVariable(org, name);
 }
 
@@ -2714,7 +3104,7 @@ function tryToDeleteANonExistingOrgVariable(org, name, value, visibility, select
 
 function addSelectedRepoToOrgVariable(org, name, repository_id) {
   var url = "/orgs/" + org + "/actions/variables/" + name + "/repositories/" + repository_id;
-  var description = "Add selected repository " + repository_id + " to org variable " + name + " in org " + org;
+  var description = "Add selected repository " + repository_id + " to organization variable " + name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -2726,7 +3116,7 @@ function addSelectedRepoToOrgVariable(org, name, repository_id) {
 
 function removeSelectedRepoFromOrgVariable(org, name, repository_id) {
   var url = "/orgs/" + org + "/actions/variables/" + name + "/repositories/" + repository_id;
-  var description = "Remove selected repository " + repository_id + " from org variable " + name + " in org " + org;
+  var description = "Remove selected repository " + repository_id + " from organization variable " + name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -2736,11 +3126,11 @@ function removeSelectedRepoFromOrgVariable(org, name, repository_id) {
   });
 }
 
-function tryToAddExistingOrgVariableSelectedRepos(org, name, repository_id) {
+function tryToAddExistingVariableSelectedRepos(org, name, repository_id) {
   return addSelectedRepoToOrgVariable(org, name, repository_id);
 }
 
-function tryToDeleteANonExistingOrgVariableSelectedRepos(org, name, repository_id) {
+function tryToDeleteANonExistingVariableSelectedRepos(org, name, repository_id) {
   return removeSelectedRepoFromOrgVariable(org, name, repository_id);
 }
 
@@ -2748,7 +3138,7 @@ function tryToDeleteANonExistingOrgVariableSelectedRepos(org, name, repository_i
 
 function setSelectedReposForOrgVariable(org, name, selected_repository_ids) {
   var url = "/orgs/" + org + "/actions/variables/" + name + "/repositories";
-  var description = "Set selected repositories for org variable " + name + " in org " + org;
+  var description = "Set selected repositories for organization variable " + name + " in org " + org;
   var body = {
     "selected_repository_ids": selected_repository_ids,
   };
@@ -2760,11 +3150,9 @@ function setSelectedReposForOrgVariable(org, name, selected_repository_ids) {
   });
 }
 
-// ---- Entity: self-hosted runners permission ----
-
-function getSelfHostedRunnersPermissions(org) {
-  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners";
-  var description = "Get self-hosted runners permissions for org " + org;
+function listSelectedReposForOrgVariable(org, name, page, per-page) {
+  var url = "/orgs/" + org + "/actions/variables/" + name + "/repositories";
+  var description = "List selected repositories for organization variable " + name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -2774,415 +3162,34 @@ function getSelfHostedRunnersPermissions(org) {
   });
 }
 
-function setSelfHostedRunnersPermissions(org, enabled_repositories) {
-  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners";
-  var description = "Set self-hosted runners permissions for org " + org;
+function verifyVariableSelectedReposListExists(org, name, selected_repository_ids, page, per-page) {
+  return listSelectedReposForOrgVariable(org, name, page, per-page);
+}
+
+function verifyVariableSelectedReposListDoesNotExist(org, name, selected_repository_ids, page, per-page) {
+  return listSelectedReposForOrgVariable(org, name, page, per-page);
+}
+
+// ---- Entity: repository variable ----
+
+function getRepoVariable(owner, repo, name) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name;
+  var description = "Get repository variable " + name + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createRepoVariable(owner, repo, name, value) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/variables";
+  var description = "Create repository variable " + name + " in repo " + owner + "/" + repo;
   var body = {
-    "enabled_repositories": enabled_repositories,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifySelfHostedRunnerPermissionExists(org, enabled_repositories) {
-  return getSelfHostedRunnersPermissions(org);
-}
-
-function verifySelfHostedRunnerPermissionDoesNotExist(org, enabled_repositories) {
-  return getSelfHostedRunnersPermissions(org);
-}
-
-// ---- Entity: self-hosted runners permission selected repositories ----
-
-function enableSelectedRepositorySelfHostedRunners(org, repository_id) {
-  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories/" + repository_id;
-  var description = "Enable selected repository " + repository_id + " for self-hosted runners in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function disableSelectedRepositorySelfHostedRunners(org, repository_id) {
-  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories/" + repository_id;
-  var description = "Disable selected repository " + repository_id + " for self-hosted runners in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingSelfHostedRunnerPermissionSelectedRepos(org, repository_id) {
-  return enableSelectedRepositorySelfHostedRunners(org, repository_id);
-}
-
-function tryToDeleteANonExistingSelfHostedRunnerPermissionSelectedRepos(org, repository_id) {
-  return disableSelectedRepositorySelfHostedRunners(org, repository_id);
-}
-
-// ---- Entity: self-hosted runners permission selected repositories list ----
-
-function setSelectedRepositoriesSelfHostedRunners(org, selected_repository_ids) {
-  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories";
-  var description = "Set selected repositories for self-hosted runners in org " + org;
-  var body = {
-    "selected_repository_ids": selected_repository_ids,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: selected repository permission ----
-
-function enableSelectedRepository(org, repository_id) {
-  var url = "/orgs/" + org + "/actions/permissions/repositories/" + repository_id;
-  var description = "Enable selected repository " + repository_id + " for GitHub Actions in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function disableSelectedRepository(org, repository_id) {
-  var url = "/orgs/" + org + "/actions/permissions/repositories/" + repository_id;
-  var description = "Disable selected repository " + repository_id + " for GitHub Actions in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingSelectedRepositoryPermission(org, repository_id) {
-  return enableSelectedRepository(org, repository_id);
-}
-
-function tryToDeleteANonExistingSelectedRepositoryPermission(org, repository_id) {
-  return disableSelectedRepository(org, repository_id);
-}
-
-// ---- Entity: selected repository permission list ----
-
-function setSelectedRepositories(org, selected_repository_ids) {
-  var url = "/orgs/" + org + "/actions/permissions/repositories";
-  var description = "Set selected repositories enabled for GitHub Actions in org " + org;
-  var body = {
-    "selected_repository_ids": selected_repository_ids,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: actions permission ----
-
-function getActionsPermissions(org) {
-  var url = "/orgs/" + org + "/actions/permissions";
-  var description = "Get GitHub Actions permissions for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setActionsPermissions(org, enabled_repositories, allowed_actions, sha_pinning_required) {
-  var url = "/orgs/" + org + "/actions/permissions";
-  var description = "Set GitHub Actions permissions for org " + org;
-  var body = {
-    "enabled_repositories": enabled_repositories,
-    "allowed_actions": allowed_actions,
-    "sha_pinning_required": sha_pinning_required,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPermissionExists(org, enabled_repositories, allowed_actions, sha_pinning_required) {
-  return getActionsPermissions(org);
-}
-
-function verifyPermissionDoesNotExist(org, enabled_repositories, allowed_actions, sha_pinning_required) {
-  return getActionsPermissions(org);
-}
-
-// ---- Entity: artifact and log retention permission ----
-
-function getArtifactAndLogRetentionSettings(org) {
-  var url = "/orgs/" + org + "/actions/permissions/artifact-and-log-retention";
-  var description = "Get artifact and log retention settings for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setArtifactAndLogRetentionSettings(org, days) {
-  var url = "/orgs/" + org + "/actions/permissions/artifact-and-log-retention";
-  var description = "Set artifact and log retention settings for org " + org;
-  var body = {
-    "days": days,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPermissionArtifactAndLogRetentionExists(org, days) {
-  return getArtifactAndLogRetentionSettings(org);
-}
-
-function verifyPermissionArtifactAndLogRetentionDoesNotExist(org, days) {
-  return getArtifactAndLogRetentionSettings(org);
-}
-
-// ---- Entity: fork PR contributor approval permission ----
-
-function getForkPRContributorApprovalPermissions(org) {
-  var url = "/orgs/" + org + "/actions/permissions/fork-pr-contributor-approval";
-  var description = "Get fork PR contributor approval permissions for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setForkPRContributorApprovalPermissions(org, approval_policy) {
-  var url = "/orgs/" + org + "/actions/permissions/fork-pr-contributor-approval";
-  var description = "Set fork PR contributor approval permissions for org " + org;
-  var body = {
-    "approval_policy": approval_policy,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPermissionForkPRContributorApprovalExists(org, approval_policy) {
-  return getForkPRContributorApprovalPermissions(org);
-}
-
-function verifyPermissionForkPRContributorApprovalDoesNotExist(org, approval_policy) {
-  return getForkPRContributorApprovalPermissions(org);
-}
-
-// ---- Entity: fork PR workflows private repos permission ----
-
-function getPrivateRepoForkPRWorkflowsSettings(org) {
-  var url = "/orgs/" + org + "/actions/permissions/fork-pr-workflows-private-repos";
-  var description = "Get private repo fork PR workflow settings for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setPrivateRepoForkPRWorkflowsSettings(org) {
-  var url = "/orgs/" + org + "/actions/permissions/fork-pr-workflows-private-repos";
-  var description = "Set private repo fork PR workflow settings for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPermissionForkPRWorkflowsPrivateReposExists(org) {
-  return getPrivateRepoForkPRWorkflowsSettings(org);
-}
-
-function verifyPermissionForkPRWorkflowsPrivateReposDoesNotExist(org) {
-  return getPrivateRepoForkPRWorkflowsSettings(org);
-}
-
-// ---- Entity: selected actions permission ----
-
-function getAllowedActions(org) {
-  var url = "/orgs/" + org + "/actions/permissions/selected-actions";
-  var description = "Get allowed actions and reusable workflows for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setAllowedActions(org) {
-  var url = "/orgs/" + org + "/actions/permissions/selected-actions";
-  var description = "Set allowed actions and reusable workflows for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPermissionSelectedActionsExists(org) {
-  return getAllowedActions(org);
-}
-
-function verifyPermissionSelectedActionsDoesNotExist(org) {
-  return getAllowedActions(org);
-}
-
-// ---- Entity: workflow permission ----
-
-function getDefaultWorkflowPermissions(org) {
-  var url = "/orgs/" + org + "/actions/permissions/workflow";
-  var description = "Get default workflow permissions for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function setDefaultWorkflowPermissions(org) {
-  var url = "/orgs/" + org + "/actions/permissions/workflow";
-  var description = "Set default workflow permissions for org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPermissionWorkflowExists(org) {
-  return getDefaultWorkflowPermissions(org);
-}
-
-function verifyPermissionWorkflowDoesNotExist(org) {
-  return getDefaultWorkflowPermissions(org);
-}
-
-// ---- Entity: artifact ----
-
-function getArtifact(owner, repo, artifact_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/artifacts/" + artifact_id;
-  var description = "Get artifact " + artifact_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteArtifact(owner, repo, artifact_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/artifacts/" + artifact_id;
-  var description = "Delete artifact " + artifact_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyArtifactExists(owner, repo, artifact_id) {
-  return getArtifact(owner, repo, artifact_id);
-}
-
-function verifyArtifactDoesNotExist(owner, repo, artifact_id) {
-  return getArtifact(owner, repo, artifact_id);
-}
-
-function tryToDeleteANonExistingArtifact(owner, repo, artifact_id) {
-  return deleteArtifact(owner, repo, artifact_id);
-}
-
-// ---- Entity: cache ----
-
-function deleteCacheById(owner, repo, cache_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/caches/" + cache_id;
-  var description = "Delete cache " + cache_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingCache(owner, repo, cache_id) {
-  return deleteCacheById(owner, repo, cache_id);
-}
-
-// ---- Entity: job ----
-
-function getJob(owner, repo, job_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/jobs/" + job_id;
-  var description = "Get job " + job_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function rerunJob(owner, repo, job_id, enable_debug_logging) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/jobs/" + job_id + "/rerun";
-  var description = "Re-run job " + job_id + " in repo " + repo + " owned by " + owner;
-  var body = {
-    "enable_debug_logging": enable_debug_logging,
+    "name": name,
+    "value": value,
   };
   return svc.request({
     method: "POST",
@@ -3192,19 +3199,111 @@ function rerunJob(owner, repo, job_id, enable_debug_logging) {
   });
 }
 
-function verifyJobExists(owner, repo, job_id, enable_debug_logging) {
-  return getJob(owner, repo, job_id);
+function updateRepoVariable(owner, repo, name, value) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name;
+  var description = "Update repository variable " + name + " in repo " + owner + "/" + repo;
+  var body = {
+    "name": name,
+    "value": value,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyJobDoesNotExist(owner, repo, job_id, enable_debug_logging) {
-  return getJob(owner, repo, job_id);
+function deleteRepoVariable(owner, repo, name) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name;
+  var description = "Delete repository variable " + name + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingVariableRepo(owner, repo, name, value) {
+  return createRepoVariable(owner, repo, name, value);
+}
+
+function verifyVariableRepoExists(owner, repo, name, value) {
+  return getRepoVariable(owner, repo, name);
+}
+
+function verifyVariableRepoDoesNotExist(owner, repo, name, value) {
+  return getRepoVariable(owner, repo, name);
+}
+
+function tryToDeleteANonExistingVariableRepo(owner, repo, name, value) {
+  return deleteRepoVariable(owner, repo, name);
+}
+
+// ---- Entity: repository secret ----
+
+function getRepoSecret(owner, repo, secret_name) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secret_name;
+  var description = "Get repository secret " + secret_name + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secret_name;
+  var description = "Create or update repository secret " + secret_name + " in repo " + owner + "/" + repo;
+  var body = {
+    "encrypted_value": encrypted_value,
+    "key_id": key_id,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteRepoSecret(owner, repo, secret_name) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secret_name;
+  var description = "Delete repository secret " + secret_name + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSecretRepo(owner, repo, secret_name, encrypted_value, key_id) {
+  return createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key_id);
+}
+
+function verifySecretRepoExists(owner, repo, secret_name, encrypted_value, key_id) {
+  return getRepoSecret(owner, repo, secret_name);
+}
+
+function verifySecretRepoDoesNotExist(owner, repo, secret_name, encrypted_value, key_id) {
+  return getRepoSecret(owner, repo, secret_name);
+}
+
+function tryToDeleteANonExistingSecretRepo(owner, repo, secret_name, encrypted_value, key_id) {
+  return deleteRepoSecret(owner, repo, secret_name);
 }
 
 // ---- Entity: workflow ----
 
 function getWorkflow(owner, repo, workflow_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/workflows/" + workflow_id;
-  var description = "Get workflow " + workflow_id + " in repo " + repo + " owned by " + owner;
+  var description = "Get workflow " + workflow_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3216,7 +3315,7 @@ function getWorkflow(owner, repo, workflow_id) {
 
 function enableWorkflow(owner, repo, workflow_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/workflows/" + workflow_id + "/enable";
-  var description = "Enable workflow " + workflow_id + " in repo " + repo + " owned by " + owner;
+  var description = "Enable workflow " + workflow_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -3228,7 +3327,7 @@ function enableWorkflow(owner, repo, workflow_id) {
 
 function disableWorkflow(owner, repo, workflow_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/workflows/" + workflow_id + "/disable";
-  var description = "Disable workflow " + workflow_id + " in repo " + repo + " owned by " + owner;
+  var description = "Disable workflow " + workflow_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -3240,7 +3339,7 @@ function disableWorkflow(owner, repo, workflow_id) {
 
 function createWorkflowDispatch(owner, repo, workflow_id, ref, inputs) {
   var url = "/repos/" + owner + "/" + repo + "/actions/workflows/" + workflow_id + "/dispatches";
-  var description = "Create workflow dispatch for workflow " + workflow_id + " in repo " + repo + " owned by " + owner;
+  var description = "Create workflow dispatch for workflow " + workflow_id + " in repo " + owner + "/" + repo;
   var body = {
     "ref": ref,
     "inputs": inputs,
@@ -3263,9 +3362,9 @@ function verifyWorkflowDoesNotExist(owner, repo, workflow_id, ref, inputs) {
 
 // ---- Entity: workflow run ----
 
-function getWorkflowRun(owner, repo, run_id) {
+function getWorkflowRun(owner, repo, run_id, exclude_pull_requests) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id;
-  var description = "Get workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Get workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3277,7 +3376,7 @@ function getWorkflowRun(owner, repo, run_id) {
 
 function deleteWorkflowRun(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id;
-  var description = "Delete workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Delete workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -3289,7 +3388,7 @@ function deleteWorkflowRun(owner, repo, run_id) {
 
 function approveWorkflowRun(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/approve";
-  var description = "Approve workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Approve workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -3301,7 +3400,7 @@ function approveWorkflowRun(owner, repo, run_id) {
 
 function cancelWorkflowRun(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/cancel";
-  var description = "Cancel workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Cancel workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -3313,7 +3412,7 @@ function cancelWorkflowRun(owner, repo, run_id) {
 
 function forceCancelWorkflowRun(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/force-cancel";
-  var description = "Force cancel workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Force cancel workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "POST",
@@ -3325,7 +3424,7 @@ function forceCancelWorkflowRun(owner, repo, run_id) {
 
 function rerunWorkflow(owner, repo, run_id, enable_debug_logging) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/rerun";
-  var description = "Re-run workflow " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Re-run workflow " + run_id + " in repo " + owner + "/" + repo;
   var body = {
     "enable_debug_logging": enable_debug_logging,
   };
@@ -3339,7 +3438,7 @@ function rerunWorkflow(owner, repo, run_id, enable_debug_logging) {
 
 function rerunWorkflowFailedJobs(owner, repo, run_id, enable_debug_logging) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/rerun-failed-jobs";
-  var description = "Re-run failed jobs for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Re-run failed jobs for workflow " + run_id + " in repo " + owner + "/" + repo;
   var body = {
     "enable_debug_logging": enable_debug_logging,
   };
@@ -3351,23 +3450,23 @@ function rerunWorkflowFailedJobs(owner, repo, run_id, enable_debug_logging) {
   });
 }
 
-function verifyWorkflowRunExists(owner, repo, run_id, enable_debug_logging) {
-  return getWorkflowRun(owner, repo, run_id);
+function verifyWorkflowRunExists(owner, repo, run_id, exclude_pull_requests, enable_debug_logging) {
+  return getWorkflowRun(owner, repo, run_id, exclude_pull_requests);
 }
 
-function verifyWorkflowRunDoesNotExist(owner, repo, run_id, enable_debug_logging) {
-  return getWorkflowRun(owner, repo, run_id);
+function verifyWorkflowRunDoesNotExist(owner, repo, run_id, exclude_pull_requests, enable_debug_logging) {
+  return getWorkflowRun(owner, repo, run_id, exclude_pull_requests);
 }
 
-function tryToDeleteANonExistingWorkflowRun(owner, repo, run_id, enable_debug_logging) {
+function tryToDeleteANonExistingWorkflowRun(owner, repo, run_id, exclude_pull_requests, enable_debug_logging) {
   return deleteWorkflowRun(owner, repo, run_id);
 }
 
 // ---- Entity: workflow run attempt ----
 
-function getWorkflowRunAttempt(owner, repo, run_id, attempt_number) {
+function getWorkflowRunAttempt(owner, repo, run_id, attempt_number, exclude_pull_requests) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/attempts/" + attempt_number;
-  var description = "Get workflow run attempt " + attempt_number + " for run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Get workflow run attempt " + attempt_number + " for run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3377,19 +3476,19 @@ function getWorkflowRunAttempt(owner, repo, run_id, attempt_number) {
   });
 }
 
-function verifyWorkflowRunAttemptExists(owner, repo, run_id, attempt_number) {
-  return getWorkflowRunAttempt(owner, repo, run_id, attempt_number);
+function verifyWorkflowRunAttemptExists(owner, repo, run_id, attempt_number, exclude_pull_requests) {
+  return getWorkflowRunAttempt(owner, repo, run_id, attempt_number, exclude_pull_requests);
 }
 
-function verifyWorkflowRunAttemptDoesNotExist(owner, repo, run_id, attempt_number) {
-  return getWorkflowRunAttempt(owner, repo, run_id, attempt_number);
+function verifyWorkflowRunAttemptDoesNotExist(owner, repo, run_id, attempt_number, exclude_pull_requests) {
+  return getWorkflowRunAttempt(owner, repo, run_id, attempt_number, exclude_pull_requests);
 }
 
-// ---- Entity: workflow run attempt job ----
+// ---- Entity: workflow run attempt jobs ----
 
-function listJobsForWorkflowRunAttempt(owner, repo, run_id, attempt_number) {
+function listJobsForWorkflowRunAttempt(owner, repo, run_id, attempt_number, per-page, page) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/attempts/" + attempt_number + "/jobs";
-  var description = "List jobs for workflow run attempt " + attempt_number + " for run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "List jobs for workflow run attempt " + attempt_number + " for run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3397,13 +3496,21 @@ function listJobsForWorkflowRunAttempt(owner, repo, run_id, attempt_number) {
     parameters: { description: description },
     body: body
   });
+}
+
+function verifyWorkflowRunAttemptJobsExists(owner, repo, run_id, attempt_number, per-page, page) {
+  return listJobsForWorkflowRunAttempt(owner, repo, run_id, attempt_number, per-page, page);
+}
+
+function verifyWorkflowRunAttemptJobsDoesNotExist(owner, repo, run_id, attempt_number, per-page, page) {
+  return listJobsForWorkflowRunAttempt(owner, repo, run_id, attempt_number, per-page, page);
 }
 
 // ---- Entity: workflow run attempt logs ----
 
 function downloadWorkflowRunAttemptLogs(owner, repo, run_id, attempt_number) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/attempts/" + attempt_number + "/logs";
-  var description = "Download logs for workflow run attempt " + attempt_number + " for run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Download logs for workflow run attempt " + attempt_number + " for run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3421,11 +3528,33 @@ function verifyWorkflowRunAttemptLogsDoesNotExist(owner, repo, run_id, attempt_n
   return downloadWorkflowRunAttemptLogs(owner, repo, run_id, attempt_number);
 }
 
+// ---- Entity: workflow run jobs ----
+
+function listJobsForWorkflowRun(owner, repo, run_id, filter, per-page, page) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/jobs";
+  var description = "List jobs for workflow run " + run_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyWorkflowRunJobsExists(owner, repo, run_id, filter, per-page, page) {
+  return listJobsForWorkflowRun(owner, repo, run_id, filter, per-page, page);
+}
+
+function verifyWorkflowRunJobsDoesNotExist(owner, repo, run_id, filter, per-page, page) {
+  return listJobsForWorkflowRun(owner, repo, run_id, filter, per-page, page);
+}
+
 // ---- Entity: workflow run logs ----
 
 function downloadWorkflowRunLogs(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/logs";
-  var description = "Download logs for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Download logs for workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3437,7 +3566,7 @@ function downloadWorkflowRunLogs(owner, repo, run_id) {
 
 function deleteWorkflowRunLogs(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/logs";
-  var description = "Delete logs for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Delete logs for workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -3459,11 +3588,11 @@ function tryToDeleteANonExistingWorkflowRunLogs(owner, repo, run_id) {
   return deleteWorkflowRunLogs(owner, repo, run_id);
 }
 
-// ---- Entity: workflow run artifact ----
+// ---- Entity: workflow run artifacts ----
 
-function listWorkflowRunArtifacts(owner, repo, run_id, artifact_name) {
+function listWorkflowRunArtifacts(owner, repo, run_id, per-page, page, artifact-name) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/artifacts";
-  var description = "List artifacts for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "List artifacts for workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3473,11 +3602,19 @@ function listWorkflowRunArtifacts(owner, repo, run_id, artifact_name) {
   });
 }
 
-// ---- Entity: workflow run approval ----
+function verifyWorkflowRunArtifactsExists(owner, repo, run_id, per-page, page, artifact-name) {
+  return listWorkflowRunArtifacts(owner, repo, run_id, per-page, page, artifact-name);
+}
+
+function verifyWorkflowRunArtifactsDoesNotExist(owner, repo, run_id, per-page, page, artifact-name) {
+  return listWorkflowRunArtifacts(owner, repo, run_id, per-page, page, artifact-name);
+}
+
+// ---- Entity: workflow run approvals ----
 
 function getReviewsForRun(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/approvals";
-  var description = "Get review history for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Get review history for workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3487,19 +3624,19 @@ function getReviewsForRun(owner, repo, run_id) {
   });
 }
 
-function verifyWorkflowRunApprovalExists(owner, repo, run_id) {
+function verifyWorkflowRunApprovalsExists(owner, repo, run_id) {
   return getReviewsForRun(owner, repo, run_id);
 }
 
-function verifyWorkflowRunApprovalDoesNotExist(owner, repo, run_id) {
+function verifyWorkflowRunApprovalsDoesNotExist(owner, repo, run_id) {
   return getReviewsForRun(owner, repo, run_id);
 }
 
-// ---- Entity: workflow run pending deployment ----
+// ---- Entity: workflow run pending deployments ----
 
 function getPendingDeploymentsForRun(owner, repo, run_id) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/pending_deployments";
-  var description = "Get pending deployments for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Get pending deployments for workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3511,7 +3648,7 @@ function getPendingDeploymentsForRun(owner, repo, run_id) {
 
 function reviewPendingDeploymentsForRun(owner, repo, run_id, environment_ids, state, comment) {
   var url = "/repos/" + owner + "/" + repo + "/actions/runs/" + run_id + "/pending_deployments";
-  var description = "Review pending deployments for workflow run " + run_id + " in repo " + repo + " owned by " + owner;
+  var description = "Review pending deployments for workflow run " + run_id + " in repo " + owner + "/" + repo;
   var body = {
     "environment_ids": environment_ids,
     "state": state,
@@ -3525,46 +3662,19 @@ function reviewPendingDeploymentsForRun(owner, repo, run_id, environment_ids, st
   });
 }
 
-function verifyWorkflowRunPendingDeploymentExists(owner, repo, run_id, environment_ids, state, comment) {
+function verifyWorkflowRunPendingDeploymentsExists(owner, repo, run_id, environment_ids, state, comment) {
   return getPendingDeploymentsForRun(owner, repo, run_id);
 }
 
-function verifyWorkflowRunPendingDeploymentDoesNotExist(owner, repo, run_id, environment_ids, state, comment) {
+function verifyWorkflowRunPendingDeploymentsDoesNotExist(owner, repo, run_id, environment_ids, state, comment) {
   return getPendingDeploymentsForRun(owner, repo, run_id);
 }
 
-// ---- Entity: repository secret ----
+// ---- Entity: job ----
 
-function createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secret_name;
-  var description = "Create or update repo secret " + secret_name + " in repo " + repo + " owned by " + owner;
-  var body = {
-    "encrypted_value": encrypted_value,
-    "key_id": key_id,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteRepoSecret(owner, repo, secret_name) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secret_name;
-  var description = "Delete repo secret " + secret_name + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getRepoSecret(owner, repo, secret_name) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secret_name;
-  var description = "Get repo secret " + secret_name + " in repo " + repo + " owned by " + owner;
+function getJob(owner, repo, job_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/jobs/" + job_id;
+  var description = "Get job " + job_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3574,30 +3684,11 @@ function getRepoSecret(owner, repo, secret_name) {
   });
 }
 
-function tryToAddExistingRepositorySecret(owner, repo, secret_name, encrypted_value, key_id) {
-  return createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key_id);
-}
-
-function verifyRepositorySecretExists(owner, repo, secret_name, encrypted_value, key_id) {
-  return getRepoSecret(owner, repo, secret_name);
-}
-
-function verifyRepositorySecretDoesNotExist(owner, repo, secret_name, encrypted_value, key_id) {
-  return getRepoSecret(owner, repo, secret_name);
-}
-
-function tryToDeleteANonExistingRepositorySecret(owner, repo, secret_name, encrypted_value, key_id) {
-  return deleteRepoSecret(owner, repo, secret_name);
-}
-
-// ---- Entity: repository variable ----
-
-function createRepoVariable(owner, repo, name, value) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables";
-  var description = "Create repo variable " + name + " in repo " + repo + " owned by " + owner;
+function rerunJob(owner, repo, job_id, enable_debug_logging) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/jobs/" + job_id + "/rerun";
+  var description = "Re-run job " + job_id + " in repo " + owner + "/" + repo;
   var body = {
-    "name": name,
-    "value": value,
+    "enable_debug_logging": enable_debug_logging,
   };
   return svc.request({
     method: "POST",
@@ -3607,21 +3698,19 @@ function createRepoVariable(owner, repo, name, value) {
   });
 }
 
-function deleteRepoVariable(owner, repo, name) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name;
-  var description = "Delete repo variable " + name + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyJobExists(owner, repo, job_id, enable_debug_logging) {
+  return getJob(owner, repo, job_id);
 }
 
-function getRepoVariable(owner, repo, name) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name;
-  var description = "Get repo variable " + name + " in repo " + repo + " owned by " + owner;
+function verifyJobDoesNotExist(owner, repo, job_id, enable_debug_logging) {
+  return getJob(owner, repo, job_id);
+}
+
+// ---- Entity: job logs ----
+
+function downloadJobLogs(owner, repo, job_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/jobs/" + job_id + "/logs";
+  var description = "Download logs for job " + job_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3631,54 +3720,31 @@ function getRepoVariable(owner, repo, name) {
   });
 }
 
-function updateRepoVariable(owner, repo, name, value) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name;
-  var description = "Update repo variable " + name + " in repo " + repo + " owned by " + owner;
-  var body = {
-    "name": name,
-    "value": value,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyJobLogsExists(owner, repo, job_id) {
+  return downloadJobLogs(owner, repo, job_id);
 }
 
-function tryToAddExistingRepositoryVariable(owner, repo, name, value) {
-  return createRepoVariable(owner, repo, name, value);
+function verifyJobLogsDoesNotExist(owner, repo, job_id) {
+  return downloadJobLogs(owner, repo, job_id);
 }
 
-function verifyRepositoryVariableExists(owner, repo, name, value) {
-  return getRepoVariable(owner, repo, name);
-}
+// ---- Entity: artifact ----
 
-function verifyRepositoryVariableDoesNotExist(owner, repo, name, value) {
-  return getRepoVariable(owner, repo, name);
-}
-
-function tryToDeleteANonExistingRepositoryVariable(owner, repo, name, value) {
-  return deleteRepoVariable(owner, repo, name);
-}
-
-// ---- Entity: repository variable selected repositories ----
-
-function addSelectedRepoToRepoVariable(owner, repo, name, repository_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name + "/repositories/" + repository_id;
-  var description = "Add selected repository " + repository_id + " to repo variable " + name + " in repo " + repo + " owned by " + owner;
+function getArtifact(owner, repo, artifact_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/artifacts/" + artifact_id;
+  var description = "Get artifact " + artifact_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
-    method: "PUT",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function removeSelectedRepoFromRepoVariable(owner, repo, name, repository_id) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name + "/repositories/" + repository_id;
-  var description = "Remove selected repository " + repository_id + " from repo variable " + name + " in repo " + repo + " owned by " + owner;
+function deleteArtifact(owner, repo, artifact_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/artifacts/" + artifact_id;
+  var description = "Delete artifact " + artifact_id + " in repo " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -3688,19 +3754,257 @@ function removeSelectedRepoFromRepoVariable(owner, repo, name, repository_id) {
   });
 }
 
-function tryToAddExistingRepositoryVariableSelectedRepos(owner, repo, name, repository_id) {
-  return addSelectedRepoToRepoVariable(owner, repo, name, repository_id);
+function verifyArtifactExists(owner, repo, artifact_id) {
+  return getArtifact(owner, repo, artifact_id);
 }
 
-function tryToDeleteANonExistingRepositoryVariableSelectedRepos(owner, repo, name, repository_id) {
-  return removeSelectedRepoFromRepoVariable(owner, repo, name, repository_id);
+function verifyArtifactDoesNotExist(owner, repo, artifact_id) {
+  return getArtifact(owner, repo, artifact_id);
 }
 
-// ---- Entity: repository variable selected repositories list ----
+function tryToDeleteANonExistingArtifact(owner, repo, artifact_id) {
+  return deleteArtifact(owner, repo, artifact_id);
+}
 
-function setSelectedReposForRepoVariable(owner, repo, name, selected_repository_ids) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + name + "/repositories";
-  var description = "Set selected repositories for repo variable " + name + " in repo " + repo + " owned by " + owner;
+// ---- Entity: artifact download ----
+
+function downloadArtifact(owner, repo, artifact_id, archive_format) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/artifacts/" + artifact_id + "/" + archive_format;
+  var description = "Download artifact " + artifact_id + " with format " + archive_format + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyArtifactDownloadExists(owner, repo, artifact_id, archive_format) {
+  return downloadArtifact(owner, repo, artifact_id, archive_format);
+}
+
+function verifyArtifactDownloadDoesNotExist(owner, repo, artifact_id, archive_format) {
+  return downloadArtifact(owner, repo, artifact_id, archive_format);
+}
+
+// ---- Entity: cache ----
+
+function deleteCacheById(owner, repo, cache_id) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/caches/" + cache_id;
+  var description = "Delete cache " + cache_id + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToDeleteANonExistingCache(owner, repo, cache_id) {
+  return deleteCacheById(owner, repo, cache_id);
+}
+
+// ---- Entity: cache by key ----
+
+function deleteCacheByKey(owner, repo, actions_cache_key, actions_cache_git_ref_full) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/caches";
+  var description = "Delete cache by key " + actions_cache_key + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToDeleteANonExistingCacheByKey(owner, repo, actions_cache_key, actions_cache_git_ref_full) {
+  return deleteCacheByKey(owner, repo, actions_cache_key, actions_cache_git_ref_full);
+}
+
+// ---- Entity: cache list ----
+
+function listCaches(owner, repo, per-page, page, actions_cache_git_ref_full, actions_cache_key, actions_cache_list_sort, direction) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/caches";
+  var description = "List caches in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCacheListExists(owner, repo, per-page, page, actions_cache_git_ref_full, actions_cache_key, actions_cache_list_sort, direction) {
+  return listCaches(owner, repo, per-page, page, actions_cache_git_ref_full, actions_cache_key, actions_cache_list_sort, direction);
+}
+
+function verifyCacheListDoesNotExist(owner, repo, per-page, page, actions_cache_git_ref_full, actions_cache_key, actions_cache_list_sort, direction) {
+  return listCaches(owner, repo, per-page, page, actions_cache_git_ref_full, actions_cache_key, actions_cache_list_sort, direction);
+}
+
+// ---- Entity: cache usage ----
+
+function getCacheUsage(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/cache/usage";
+  var description = "Get cache usage in repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCacheUsageExists(owner, repo) {
+  return getCacheUsage(owner, repo);
+}
+
+function verifyCacheUsageDoesNotExist(owner, repo) {
+  return getCacheUsage(owner, repo);
+}
+
+// ---- Entity: cache usage org ----
+
+function getCacheUsageForOrg(org) {
+  var url = "/orgs/" + org + "/actions/cache/usage";
+  var description = "Get cache usage for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCacheUsageOrgExists(org) {
+  return getCacheUsageForOrg(org);
+}
+
+function verifyCacheUsageOrgDoesNotExist(org) {
+  return getCacheUsageForOrg(org);
+}
+
+// ---- Entity: cache usage by repository org ----
+
+function getCacheUsageByRepoForOrg(org, per-page, page) {
+  var url = "/orgs/" + org + "/actions/cache/usage-by-repository";
+  var description = "List repositories with cache usage for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCacheUsageByRepoOrgExists(org, per-page, page) {
+  return getCacheUsageByRepoForOrg(org, per-page, page);
+}
+
+function verifyCacheUsageByRepoOrgDoesNotExist(org, per-page, page) {
+  return getCacheUsageByRepoForOrg(org, per-page, page);
+}
+
+// ---- Entity: organization permission ----
+
+function getOrgPermissions(org) {
+  var url = "/orgs/" + org + "/actions/permissions";
+  var description = "Get GitHub Actions permissions for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setOrgPermissions(org, enabled_repositories, allowed_actions, sha_pinning_required) {
+  var url = "/orgs/" + org + "/actions/permissions";
+  var description = "Set GitHub Actions permissions for org " + org;
+  var body = {
+    "enabled_repositories": enabled_repositories,
+    "allowed_actions": allowed_actions,
+    "sha_pinning_required": sha_pinning_required,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyPermissionOrgExists(org, enabled_repositories, allowed_actions, sha_pinning_required) {
+  return getOrgPermissions(org);
+}
+
+function verifyPermissionOrgDoesNotExist(org, enabled_repositories, allowed_actions, sha_pinning_required) {
+  return getOrgPermissions(org);
+}
+
+// ---- Entity: repository permission ----
+
+function getRepoPermissions(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/permissions";
+  var description = "Get GitHub Actions permissions for repo " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setRepoPermissions(owner, repo, enabled, allowed_actions, sha_pinning_required) {
+  var url = "/repos/" + owner + "/" + repo + "/actions/permissions";
+  var description = "Set GitHub Actions permissions for repo " + owner + "/" + repo;
+  var body = {
+    "enabled": enabled,
+    "allowed_actions": allowed_actions,
+    "sha_pinning_required": sha_pinning_required,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyPermissionRepoExists(owner, repo, enabled, allowed_actions, sha_pinning_required) {
+  return getRepoPermissions(owner, repo);
+}
+
+function verifyPermissionRepoDoesNotExist(owner, repo, enabled, allowed_actions, sha_pinning_required) {
+  return getRepoPermissions(owner, repo);
+}
+
+// ---- Entity: organization selected repository permission ----
+
+function listSelectedRepositoriesEnabledForOrg(org, per-page, page) {
+  var url = "/orgs/" + org + "/actions/permissions/repositories";
+  var description = "List selected repositories enabled for GitHub Actions in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setSelectedRepositoriesEnabledForOrg(org, selected_repository_ids) {
+  var url = "/orgs/" + org + "/actions/permissions/repositories";
+  var description = "Set selected repositories enabled for GitHub Actions in org " + org;
   var body = {
     "selected_repository_ids": selected_repository_ids,
   };
@@ -3712,14 +4016,67 @@ function setSelectedReposForRepoVariable(owner, repo, name, selected_repository_
   });
 }
 
-// ---- Entity: environment secret ----
+function verifyPermissionSelectedRepositoriesExists(org, per-page, page, selected_repository_ids) {
+  return listSelectedRepositoriesEnabledForOrg(org, per-page, page);
+}
 
-function createOrUpdateEnvironmentSecret(owner, repo, environment_name, secret_name, encrypted_value, key_id) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/secrets/" + secret_name;
-  var description = "Create or update environment secret " + secret_name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
+function verifyPermissionSelectedRepositoriesDoesNotExist(org, per-page, page, selected_repository_ids) {
+  return listSelectedRepositoriesEnabledForOrg(org, per-page, page);
+}
+
+// ---- Entity: organization selected repository permission ----
+
+function enableSelectedRepositoryForOrg(org, repository_id) {
+  var url = "/orgs/" + org + "/actions/permissions/repositories/" + repository_id;
+  var description = "Enable selected repository " + repository_id + " for GitHub Actions in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function disableSelectedRepositoryForOrg(org, repository_id) {
+  var url = "/orgs/" + org + "/actions/permissions/repositories/" + repository_id;
+  var description = "Disable selected repository " + repository_id + " for GitHub Actions in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingPermissionSelectedRepository(org, repository_id) {
+  return enableSelectedRepositoryForOrg(org, repository_id);
+}
+
+function tryToDeleteANonExistingPermissionSelectedRepository(org, repository_id) {
+  return disableSelectedRepositoryForOrg(org, repository_id);
+}
+
+// ---- Entity: organization self-hosted runners permission ----
+
+function getSelfHostedRunnersPermissionsForOrg(org) {
+  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners";
+  var description = "Get self-hosted runners permissions for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setSelfHostedRunnersPermissionsForOrg(org, enabled_repositories) {
+  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners";
+  var description = "Set self-hosted runners permissions for org " + org;
   var body = {
-    "encrypted_value": encrypted_value,
-    "key_id": key_id,
+    "enabled_repositories": enabled_repositories,
   };
   return svc.request({
     method: "PUT",
@@ -3729,78 +4086,19 @@ function createOrUpdateEnvironmentSecret(owner, repo, environment_name, secret_n
   });
 }
 
-function deleteEnvironmentSecret(owner, repo, environment_name, secret_name) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/secrets/" + secret_name;
-  var description = "Delete environment secret " + secret_name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyPermissionSelfHostedRunnersExists(org, enabled_repositories) {
+  return getSelfHostedRunnersPermissionsForOrg(org);
 }
 
-function getEnvironmentSecret(owner, repo, environment_name, secret_name) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/secrets/" + secret_name;
-  var description = "Get environment secret " + secret_name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyPermissionSelfHostedRunnersDoesNotExist(org, enabled_repositories) {
+  return getSelfHostedRunnersPermissionsForOrg(org);
 }
 
-function tryToAddExistingEnvironmentSecret(owner, repo, environment_name, secret_name, encrypted_value, key_id) {
-  return createOrUpdateEnvironmentSecret(owner, repo, environment_name, secret_name, encrypted_value, key_id);
-}
+// ---- Entity: organization self-hosted runners repositories ----
 
-function verifyEnvironmentSecretExists(owner, repo, environment_name, secret_name, encrypted_value, key_id) {
-  return getEnvironmentSecret(owner, repo, environment_name, secret_name);
-}
-
-function verifyEnvironmentSecretDoesNotExist(owner, repo, environment_name, secret_name, encrypted_value, key_id) {
-  return getEnvironmentSecret(owner, repo, environment_name, secret_name);
-}
-
-function tryToDeleteANonExistingEnvironmentSecret(owner, repo, environment_name, secret_name, encrypted_value, key_id) {
-  return deleteEnvironmentSecret(owner, repo, environment_name, secret_name);
-}
-
-// ---- Entity: environment variable ----
-
-function createEnvironmentVariable(owner, repo, environment_name, name, value) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/variables";
-  var description = "Create environment variable " + name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
-  var body = {
-    "name": name,
-    "value": value,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteEnvironmentVariable(owner, repo, environment_name, name) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/variables/" + name;
-  var description = "Delete environment variable " + name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getEnvironmentVariable(owner, repo, environment_name, name) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/variables/" + name;
-  var description = "Get environment variable " + name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
+function listSelectedRepositoriesSelfHostedRunnersForOrg(org, per-page, page) {
+  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories";
+  var description = "List repositories allowed to use self-hosted runners in org " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3810,35 +4108,60 @@ function getEnvironmentVariable(owner, repo, environment_name, name) {
   });
 }
 
-function updateEnvironmentVariable(owner, repo, environment_name, name, value) {
-  var url = "/repos/" + owner + "/" + repo + "/environments/" + environment_name + "/variables/" + name;
-  var description = "Update environment variable " + name + " in environment " + environment_name + " of repo " + repo + " owned by " + owner;
+function setSelectedRepositoriesSelfHostedRunnersForOrg(org, selected_repository_ids) {
+  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories";
+  var description = "Set repositories allowed to use self-hosted runners in org " + org;
   var body = {
-    "name": name,
-    "value": value,
+    "selected_repository_ids": selected_repository_ids,
   };
   return svc.request({
-    method: "PATCH",
+    method: "PUT",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function tryToAddExistingEnvironmentVariable(owner, repo, environment_name, name, value) {
-  return createEnvironmentVariable(owner, repo, environment_name, name, value);
+function verifyPermissionSelfHostedRunnersRepositoriesExists(org, per-page, page, selected_repository_ids) {
+  return listSelectedRepositoriesSelfHostedRunnersForOrg(org, per-page, page);
 }
 
-function verifyEnvironmentVariableExists(owner, repo, environment_name, name, value) {
-  return getEnvironmentVariable(owner, repo, environment_name, name);
+function verifyPermissionSelfHostedRunnersRepositoriesDoesNotExist(org, per-page, page, selected_repository_ids) {
+  return listSelectedRepositoriesSelfHostedRunnersForOrg(org, per-page, page);
 }
 
-function verifyEnvironmentVariableDoesNotExist(owner, repo, environment_name, name, value) {
-  return getEnvironmentVariable(owner, repo, environment_name, name);
+// ---- Entity: organization self-hosted runners repository ----
+
+function enableSelectedRepositorySelfHostedRunnersForOrg(org, repository_id) {
+  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories/" + repository_id;
+  var description = "Add repository " + repository_id + " to allowed self-hosted runners in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function tryToDeleteANonExistingEnvironmentVariable(owner, repo, environment_name, name, value) {
-  return deleteEnvironmentVariable(owner, repo, environment_name, name);
+function disableSelectedRepositorySelfHostedRunnersForOrg(org, repository_id) {
+  var url = "/orgs/" + org + "/actions/permissions/self-hosted-runners/repositories/" + repository_id;
+  var description = "Remove repository " + repository_id + " from allowed self-hosted runners in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingPermissionSelfHostedRunnersRepository(org, repository_id) {
+  return enableSelectedRepositorySelfHostedRunnersForOrg(org, repository_id);
+}
+
+function tryToDeleteANonExistingPermissionSelfHostedRunnersRepository(org, repository_id) {
+  return disableSelectedRepositorySelfHostedRunnersForOrg(org, repository_id);
 }
 
 // ---- Entity: organization ----
@@ -3952,7 +4275,7 @@ function tryToAddExistingArtifactStorageRecord(org, name) {
 
 function listArtifactStorageRecords(org, subject_digest) {
   var url = "/orgs/" + org + "/artifacts/" + subject_digest + "/metadata/storage-records";
-  var description = "List artifact storage records for " + subject_digest + " in " + org;
+  var description = "List artifact storage records for subject digest " + subject_digest + " in " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -3992,7 +4315,7 @@ function tryToDeleteANonExistingAttestationById(org, attestation_id) {
 
 function listAttestationsBulk(org) {
   var url = "/orgs/" + org + "/attestations/bulk-list";
-  var description = "List attestations in bulk in " + org;
+  var description = "List attestations by bulk subject digests in " + org;
   var body = {
     "subject_digests": subject_digests,
     "predicate_type": predicate_type,
@@ -4074,7 +4397,7 @@ function tryToDeleteANonExistingBlockedUser(org, username) {
   return unblockUser(org, username);
 }
 
-// ---- Entity: organization invitation teams ----
+// ---- Entity: invitation teams ----
 
 function listInvitationTeams(org, invitation_id) {
   var url = "/orgs/" + org + "/invitations/" + invitation_id + "/teams";
@@ -4098,18 +4421,6 @@ function verifyInvitationTeamsDoesNotExist(org, invitation_id) {
 
 // ---- Entity: issue type ----
 
-function listIssueTypes(org) {
-  var url = "/orgs/" + org + "/issue-types";
-  var description = "List issue types for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function createIssueType(org) {
   var url = "/orgs/" + org + "/issue-types";
   var description = "Create issue type in organization " + org;
@@ -4126,12 +4437,6 @@ function createIssueType(org) {
     body: body
   });
 }
-
-function tryToAddExistingIssueType(org) {
-  return createIssueType(org);
-}
-
-// ---- Entity: issue type ----
 
 function updateIssueType(org, issue_type_id) {
   var url = "/orgs/" + org + "/issue-types/" + issue_type_id;
@@ -4162,25 +4467,15 @@ function deleteIssueType(org, issue_type_id) {
   });
 }
 
-function tryToDeleteANonExistingIssueTypeById(org, issue_type_id) {
+function tryToAddExistingIssueType(org, issue_type_id) {
+  return createIssueType(org);
+}
+
+function tryToDeleteANonExistingIssueType(org, issue_type_id) {
   return deleteIssueType(org, issue_type_id);
 }
 
-// ---- Entity: organization member ----
-
-function listMembers(org) {
-  var url = "/orgs/" + org + "/members";
-  var description = "List members for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization member ----
+// ---- Entity: member ----
 
 function checkMembershipForUser(org, username) {
   var url = "/orgs/" + org + "/members/" + username;
@@ -4206,19 +4501,19 @@ function removeMember(org, username) {
   });
 }
 
-function verifyMemberByUsernameExists(org, username) {
+function verifyMemberExists(org, username) {
   return checkMembershipForUser(org, username);
 }
 
-function verifyMemberByUsernameDoesNotExist(org, username) {
+function verifyMemberDoesNotExist(org, username) {
   return checkMembershipForUser(org, username);
 }
 
-function tryToDeleteANonExistingMemberByUsername(org, username) {
+function tryToDeleteANonExistingMember(org, username) {
   return removeMember(org, username);
 }
 
-// ---- Entity: organization membership ----
+// ---- Entity: membership ----
 
 function getMembershipForUser(org, username) {
   var url = "/orgs/" + org + "/memberships/" + username;
@@ -4248,7 +4543,7 @@ function setMembershipForUser(org, username) {
 
 function removeMembershipForUser(org, username) {
   var url = "/orgs/" + org + "/memberships/" + username;
-  var description = "Remove membership for user " + username + " in organization " + org;
+  var description = "Remove membership for user " + username + " from organization " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4256,6 +4551,10 @@ function removeMembershipForUser(org, username) {
     parameters: { description: description },
     body: body
   });
+}
+
+function tryToAddExistingMembership(org, username) {
+  return setMembershipForUser(org, username);
 }
 
 function verifyMembershipExists(org, username) {
@@ -4274,7 +4573,7 @@ function tryToDeleteANonExistingMembership(org, username) {
 
 function getOrganizationRole(org, role_id) {
   var url = "/orgs/" + org + "/organization-roles/" + role_id;
-  var description = "Get organization role " + role_id + " in organization " + org;
+  var description = "Get organization role " + role_id + " in " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -4292,39 +4591,11 @@ function verifyOrganizationRoleDoesNotExist(org, role_id) {
   return getOrganizationRole(org, role_id);
 }
 
-// ---- Entity: organization role teams ----
-
-function listOrganizationRoleTeams(org, role_id) {
-  var url = "/orgs/" + org + "/organization-roles/" + role_id + "/teams";
-  var description = "List teams assigned to organization role " + role_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization role users ----
-
-function listOrganizationRoleUsers(org, role_id) {
-  var url = "/orgs/" + org + "/organization-roles/" + role_id + "/users";
-  var description = "List users assigned to organization role " + role_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization role team assignment ----
+// ---- Entity: organization role team ----
 
 function assignTeamToOrganizationRole(org, team_slug, role_id) {
   var url = "/orgs/" + org + "/organization-roles/teams/" + team_slug + "/" + role_id;
-  var description = "Assign organization role " + role_id + " to team " + team_slug + " in organization " + org;
+  var description = "Assign team " + team_slug + " to organization role " + role_id + " in " + org;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -4334,9 +4605,9 @@ function assignTeamToOrganizationRole(org, team_slug, role_id) {
   });
 }
 
-function removeOrganizationRoleFromTeam(org, team_slug, role_id) {
+function removeTeamFromOrganizationRole(org, team_slug, role_id) {
   var url = "/orgs/" + org + "/organization-roles/teams/" + team_slug + "/" + role_id;
-  var description = "Remove organization role " + role_id + " from team " + team_slug + " in organization " + org;
+  var description = "Remove team " + team_slug + " from organization role " + role_id + " in " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4351,14 +4622,14 @@ function tryToAddExistingOrganizationRoleTeam(org, team_slug, role_id) {
 }
 
 function tryToDeleteANonExistingOrganizationRoleTeam(org, team_slug, role_id) {
-  return removeOrganizationRoleFromTeam(org, team_slug, role_id);
+  return removeTeamFromOrganizationRole(org, team_slug, role_id);
 }
 
-// ---- Entity: organization role team assignments ----
+// ---- Entity: organization role team ----
 
-function removeAllOrganizationRolesFromTeam(org, team_slug) {
+function removeAllOrganizationRolesForTeam(org, team_slug) {
   var url = "/orgs/" + org + "/organization-roles/teams/" + team_slug;
-  var description = "Remove all organization roles from team " + team_slug + " in organization " + org;
+  var description = "Remove all organization roles for team " + team_slug + " in " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4369,14 +4640,14 @@ function removeAllOrganizationRolesFromTeam(org, team_slug) {
 }
 
 function tryToDeleteANonExistingOrganizationRoleTeamAll(org, team_slug) {
-  return removeAllOrganizationRolesFromTeam(org, team_slug);
+  return removeAllOrganizationRolesForTeam(org, team_slug);
 }
 
-// ---- Entity: organization role user assignment ----
+// ---- Entity: organization role user ----
 
 function assignUserToOrganizationRole(org, username, role_id) {
   var url = "/orgs/" + org + "/organization-roles/users/" + username + "/" + role_id;
-  var description = "Assign organization role " + role_id + " to user " + username + " in organization " + org;
+  var description = "Assign user " + username + " to organization role " + role_id + " in " + org;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -4386,9 +4657,9 @@ function assignUserToOrganizationRole(org, username, role_id) {
   });
 }
 
-function removeOrganizationRoleFromUser(org, username, role_id) {
+function removeUserFromOrganizationRole(org, username, role_id) {
   var url = "/orgs/" + org + "/organization-roles/users/" + username + "/" + role_id;
-  var description = "Remove organization role " + role_id + " from user " + username + " in organization " + org;
+  var description = "Remove user " + username + " from organization role " + role_id + " in " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4403,14 +4674,14 @@ function tryToAddExistingOrganizationRoleUser(org, username, role_id) {
 }
 
 function tryToDeleteANonExistingOrganizationRoleUser(org, username, role_id) {
-  return removeOrganizationRoleFromUser(org, username, role_id);
+  return removeUserFromOrganizationRole(org, username, role_id);
 }
 
-// ---- Entity: organization role user assignments ----
+// ---- Entity: organization role user ----
 
-function removeAllOrganizationRolesFromUser(org, username) {
+function removeAllOrganizationRolesForUser(org, username) {
   var url = "/orgs/" + org + "/organization-roles/users/" + username;
-  var description = "Remove all organization roles from user " + username + " in organization " + org;
+  var description = "Remove all organization roles for user " + username + " in " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4421,14 +4692,58 @@ function removeAllOrganizationRolesFromUser(org, username) {
 }
 
 function tryToDeleteANonExistingOrganizationRoleUserAll(org, username) {
-  return removeAllOrganizationRolesFromUser(org, username);
+  return removeAllOrganizationRolesForUser(org, username);
+}
+
+// ---- Entity: organization role teams ----
+
+function listOrganizationRoleTeams(org, role_id) {
+  var url = "/orgs/" + org + "/organization-roles/" + role_id + "/teams";
+  var description = "List teams assigned to organization role " + role_id + " in " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyOrganizationRoleTeamsListExists(org, role_id) {
+  return listOrganizationRoleTeams(org, role_id);
+}
+
+function verifyOrganizationRoleTeamsListDoesNotExist(org, role_id) {
+  return listOrganizationRoleTeams(org, role_id);
+}
+
+// ---- Entity: organization role users ----
+
+function listOrganizationRoleUsers(org, role_id) {
+  var url = "/orgs/" + org + "/organization-roles/" + role_id + "/users";
+  var description = "List users assigned to organization role " + role_id + " in " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyOrganizationRoleUsersListExists(org, role_id) {
+  return listOrganizationRoleUsers(org, role_id);
+}
+
+function verifyOrganizationRoleUsersListDoesNotExist(org, role_id) {
+  return listOrganizationRoleUsers(org, role_id);
 }
 
 // ---- Entity: outside collaborator ----
 
 function convertMemberToOutsideCollaborator(org, username) {
   var url = "/orgs/" + org + "/outside_collaborators/" + username;
-  var description = "Convert member " + username + " to outside collaborator in organization " + org;
+  var description = "Convert member " + username + " to outside collaborator in " + org;
   var body = {
     "async": async,
   };
@@ -4442,7 +4757,7 @@ function convertMemberToOutsideCollaborator(org, username) {
 
 function removeOutsideCollaborator(org, username) {
   var url = "/orgs/" + org + "/outside_collaborators/" + username;
-  var description = "Remove outside collaborator " + username + " from organization " + org;
+  var description = "Remove outside collaborator " + username + " from " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4460,11 +4775,11 @@ function tryToDeleteANonExistingOutsideCollaborator(org, username) {
   return removeOutsideCollaborator(org, username);
 }
 
-// ---- Entity: organization webhook ----
+// ---- Entity: webhook deliveries ----
 
-function getWebhook(org, hook_id) {
-  var url = "/orgs/" + org + "/hooks/" + hook_id;
-  var description = "Get webhook " + hook_id + " in organization " + org;
+function listWebhookDeliveries(org, hook_id) {
+  var url = "/orgs/" + org + "/hooks/" + hook_id + "/deliveries";
+  var description = "List webhook deliveries for webhook " + hook_id + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -4474,236 +4789,19 @@ function getWebhook(org, hook_id) {
   });
 }
 
-function updateWebhook(org, hook_id) {
-  var url = "/orgs/" + org + "/hooks/" + hook_id;
-  var description = "Update webhook " + hook_id + " in organization " + org;
-  var body = {
-    "config": config,
-    "events": events,
-    "active": active,
-    "name": name,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyWebhookDeliveriesExists(org, hook_id) {
+  return listWebhookDeliveries(org, hook_id);
 }
 
-function deleteWebhook(org, hook_id) {
-  var url = "/orgs/" + org + "/hooks/" + hook_id;
-  var description = "Delete webhook " + hook_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyWebhookByIdExists(org, hook_id) {
-  return getWebhook(org, hook_id);
-}
-
-function verifyWebhookByIdDoesNotExist(org, hook_id) {
-  return getWebhook(org, hook_id);
-}
-
-function tryToDeleteANonExistingWebhookById(org, hook_id) {
-  return deleteWebhook(org, hook_id);
-}
-
-// ---- Entity: webhook delivery redelivery ----
-
-function redeliverWebhookDelivery(org, hook_id, delivery_id) {
-  var url = "/orgs/" + org + "/hooks/" + hook_id + "/deliveries/" + delivery_id + "/attempts";
-  var description = "Redeliver webhook delivery " + delivery_id + " for webhook " + hook_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingWebhookDeliveryRedeliver(org, hook_id, delivery_id) {
-  return redeliverWebhookDelivery(org, hook_id, delivery_id);
-}
-
-// ---- Entity: webhook ping ----
-
-function pingWebhook(org, hook_id) {
-  var url = "/orgs/" + org + "/hooks/" + hook_id + "/pings";
-  var description = "Ping webhook " + hook_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingWebhookPing(org, hook_id) {
-  return pingWebhook(org, hook_id);
-}
-
-// ---- Entity: personal access token request ----
-
-function listPersonalAccessTokenRequests(org) {
-  var url = "/orgs/" + org + "/personal-access-token-requests";
-  var description = "List personal access token requests for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function reviewPersonalAccessTokenRequestsBulk(org) {
-  var url = "/orgs/" + org + "/personal-access-token-requests";
-  var description = "Review personal access token requests in bulk for organization " + org;
-  var body = {
-    "pat_request_ids": pat_request_ids,
-    "action": action,
-    "reason": reason,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: personal access token request ----
-
-function reviewPersonalAccessTokenRequest(org, pat_request_id) {
-  var url = "/orgs/" + org + "/personal-access-token-requests/" + pat_request_id;
-  var description = "Review personal access token request " + pat_request_id + " for organization " + org;
-  var body = {
-    "action": action,
-    "reason": reason,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: personal access token request repositories ----
-
-function listPersonalAccessTokenRequestRepositories(org, pat_request_id) {
-  var url = "/orgs/" + org + "/personal-access-token-requests/" + pat_request_id + "/repositories";
-  var description = "List repositories for personal access token request " + pat_request_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: personal access token ----
-
-function listPersonalAccessTokens(org) {
-  var url = "/orgs/" + org + "/personal-access-tokens";
-  var description = "List personal access tokens for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updatePersonalAccessTokenAccesses(org) {
-  var url = "/orgs/" + org + "/personal-access-tokens";
-  var description = "Update personal access token accesses for organization " + org;
-  var body = {
-    "action": action,
-    "pat_ids": pat_ids,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: personal access token ----
-
-function updatePersonalAccessTokenAccess(org, pat_id) {
-  var url = "/orgs/" + org + "/personal-access-tokens/" + pat_id;
-  var description = "Update personal access token " + pat_id + " access for organization " + org;
-  var body = {
-    "action": action,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: personal access token repositories ----
-
-function listPersonalAccessTokenRepositories(org, pat_id) {
-  var url = "/orgs/" + org + "/personal-access-tokens/" + pat_id + "/repositories";
-  var description = "List repositories for personal access token " + pat_id + " in organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: custom property ----
-
-function listCustomProperties(org) {
-  var url = "/orgs/" + org + "/properties/schema";
-  var description = "List custom properties for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function createOrUpdateCustomProperties(org) {
-  var url = "/orgs/" + org + "/properties/schema";
-  var description = "Create or update custom properties for organization " + org;
-  var body = {
-    "properties": properties,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyWebhookDeliveriesDoesNotExist(org, hook_id) {
+  return listWebhookDeliveries(org, hook_id);
 }
 
 // ---- Entity: custom property ----
 
 function getCustomProperty(org, custom_property_name) {
   var url = "/orgs/" + org + "/properties/schema/" + custom_property_name;
-  var description = "Get custom property " + custom_property_name + " for organization " + org;
+  var description = "Get custom property " + custom_property_name + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -4715,7 +4813,7 @@ function getCustomProperty(org, custom_property_name) {
 
 function createOrUpdateCustomProperty(org, custom_property_name) {
   var url = "/orgs/" + org + "/properties/schema/" + custom_property_name;
-  var description = "Create or update custom property " + custom_property_name + " for organization " + org;
+  var description = "Create or update custom property " + custom_property_name + " in organization " + org;
   var body = {
     "value_type": value_type,
     "required": required,
@@ -4733,7 +4831,7 @@ function createOrUpdateCustomProperty(org, custom_property_name) {
 
 function deleteCustomProperty(org, custom_property_name) {
   var url = "/orgs/" + org + "/properties/schema/" + custom_property_name;
-  var description = "Delete custom property " + custom_property_name + " for organization " + org;
+  var description = "Delete custom property " + custom_property_name + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4743,16 +4841,56 @@ function deleteCustomProperty(org, custom_property_name) {
   });
 }
 
-function verifyCustomPropertyByNameExists(org, custom_property_name) {
+function tryToAddExistingCustomProperty(org, custom_property_name) {
+  return createOrUpdateCustomProperty(org, custom_property_name);
+}
+
+function verifyCustomPropertyExists(org, custom_property_name) {
   return getCustomProperty(org, custom_property_name);
 }
 
-function verifyCustomPropertyByNameDoesNotExist(org, custom_property_name) {
+function verifyCustomPropertyDoesNotExist(org, custom_property_name) {
   return getCustomProperty(org, custom_property_name);
 }
 
-function tryToDeleteANonExistingCustomPropertyByName(org, custom_property_name) {
+function tryToDeleteANonExistingCustomProperty(org, custom_property_name) {
   return deleteCustomProperty(org, custom_property_name);
+}
+
+// ---- Entity: custom property schema ----
+
+function listCustomProperties(org) {
+  var url = "/orgs/" + org + "/properties/schema";
+  var description = "List custom properties in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createOrUpdateCustomProperties(org) {
+  var url = "/orgs/" + org + "/properties/schema";
+  var description = "Create or update custom properties in organization " + org;
+  var body = {
+    "properties": properties,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCustomPropertySchemaExists(org) {
+  return listCustomProperties(org);
+}
+
+function verifyCustomPropertySchemaDoesNotExist(org) {
+  return listCustomProperties(org);
 }
 
 // ---- Entity: custom property value ----
@@ -4784,7 +4922,15 @@ function createOrUpdateCustomPropertyValues(org) {
   });
 }
 
-// ---- Entity: public organization member ----
+function verifyCustomPropertyValueExists(org) {
+  return listCustomPropertyValues(org);
+}
+
+function verifyCustomPropertyValueDoesNotExist(org) {
+  return listCustomPropertyValues(org);
+}
+
+// ---- Entity: public member ----
 
 function checkPublicMembershipForUser(org, username) {
   var url = "/orgs/" + org + "/public_members/" + username;
@@ -4838,36 +4984,23 @@ function tryToDeleteANonExistingPublicMember(org, username) {
   return removePublicMembershipForUser(org, username);
 }
 
-// ---- Entity: codespace ----
+// ---- Entity: security manager team ----
 
-function createCodespaceForUser(repository_id, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
-  var url = "/user/codespaces";
-  var description = "Create codespace for authenticated user";
-  var body = {
-    "repository_id": repository_id,
-    "ref": ref,
-    "location": location,
-    "geo": geo,
-    "client_ip": client_ip,
-    "machine": machine,
-    "devcontainer_path": devcontainer_path,
-    "multi_repo_permissions_opt_out": multi_repo_permissions_opt_out,
-    "working_directory": working_directory,
-    "idle_timeout_minutes": idle_timeout_minutes,
-    "display_name": display_name,
-    "retention_period_minutes": retention_period_minutes,
-  };
+function addSecurityManagerTeam(org, team_slug) {
+  var url = "/orgs/" + org + "/security-managers/teams/" + team_slug;
+  var description = "Add security manager team " + team_slug + " in organization " + org;
+  var body = undefined;
   return svc.request({
-    method: "POST",
+    method: "PUT",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function deleteCodespaceForUser(codespace_name) {
-  var url = "/user/codespaces/" + codespace_name;
-  var description = "Delete codespace " + codespace_name + " for authenticated user";
+function removeSecurityManagerTeam(org, team_slug) {
+  var url = "/orgs/" + org + "/security-managers/teams/" + team_slug;
+  var description = "Remove security manager team " + team_slug + " in organization " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -4877,9 +5010,256 @@ function deleteCodespaceForUser(codespace_name) {
   });
 }
 
-function updateCodespaceForUser(codespace_name) {
+function tryToAddExistingSecurityManagerTeam(org, team_slug) {
+  return addSecurityManagerTeam(org, team_slug);
+}
+
+function tryToDeleteANonExistingSecurityManagerTeam(org, team_slug) {
+  return removeSecurityManagerTeam(org, team_slug);
+}
+
+// ---- Entity: immutable releases setting ----
+
+function getImmutableReleasesSettings(org) {
+  var url = "/orgs/" + org + "/settings/immutable-releases";
+  var description = "Get immutable releases settings for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setImmutableReleasesSettings(org) {
+  var url = "/orgs/" + org + "/settings/immutable-releases";
+  var description = "Set immutable releases settings for organization " + org;
+  var body = {
+    "enforced_repositories": enforced_repositories,
+    "selected_repository_ids": selected_repository_ids,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyImmutableReleaseSettingExists(org) {
+  return getImmutableReleasesSettings(org);
+}
+
+function verifyImmutableReleaseSettingDoesNotExist(org) {
+  return getImmutableReleasesSettings(org);
+}
+
+// ---- Entity: immutable releases repository ----
+
+function enableSelectedRepositoryImmutableReleases(org, repository_id) {
+  var url = "/orgs/" + org + "/settings/immutable-releases/repositories/" + repository_id;
+  var description = "Enable immutable releases for repository " + repository_id + " in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function disableSelectedRepositoryImmutableReleases(org, repository_id) {
+  var url = "/orgs/" + org + "/settings/immutable-releases/repositories/" + repository_id;
+  var description = "Disable immutable releases for repository " + repository_id + " in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingImmutableReleaseRepository(org, repository_id) {
+  return enableSelectedRepositoryImmutableReleases(org, repository_id);
+}
+
+function tryToDeleteANonExistingImmutableReleaseRepository(org, repository_id) {
+  return disableSelectedRepositoryImmutableReleases(org, repository_id);
+}
+
+// ---- Entity: immutable releases repositories ----
+
+function listImmutableReleasesSettingsRepositories(org) {
+  var url = "/orgs/" + org + "/settings/immutable-releases/repositories";
+  var description = "List selected repositories for immutable releases enforcement in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function setImmutableReleasesSettingsRepositories(org) {
+  var url = "/orgs/" + org + "/settings/immutable-releases/repositories";
+  var description = "Set selected repositories for immutable releases enforcement in organization " + org;
+  var body = {
+    "selected_repository_ids": selected_repository_ids,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyImmutableReleaseRepositoriesExists(org) {
+  return listImmutableReleasesSettingsRepositories(org);
+}
+
+function verifyImmutableReleaseRepositoriesDoesNotExist(org) {
+  return listImmutableReleasesSettingsRepositories(org);
+}
+
+// ---- Entity: personal access token request ----
+
+function reviewPatGrantRequest(org, pat_request_id) {
+  var url = "/orgs/" + org + "/personal-access-token-requests/" + pat_request_id;
+  var description = "Review personal access token request " + pat_request_id + " in organization " + org;
+  var body = {
+    "action": action,
+    "reason": reason,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: personal access token requests ----
+
+function listPatGrantRequests(org) {
+  var url = "/orgs/" + org + "/personal-access-token-requests";
+  var description = "List personal access token requests in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function reviewPatGrantRequestsInBulk(org) {
+  var url = "/orgs/" + org + "/personal-access-token-requests";
+  var description = "Review personal access token requests in bulk in organization " + org;
+  var body = {
+    "pat_request_ids": pat_request_ids,
+    "action": action,
+    "reason": reason,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: personal access token request repositories ----
+
+function listPatGrantRequestRepositories(org, pat_request_id) {
+  var url = "/orgs/" + org + "/personal-access-token-requests/" + pat_request_id + "/repositories";
+  var description = "List repositories requested by personal access token request " + pat_request_id + " in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: personal access token ----
+
+function listPatGrants(org) {
+  var url = "/orgs/" + org + "/personal-access-tokens";
+  var description = "List personal access tokens in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updatePatAccesses(org) {
+  var url = "/orgs/" + org + "/personal-access-tokens";
+  var description = "Update personal access token accesses in organization " + org;
+  var body = {
+    "action": action,
+    "pat_ids": pat_ids,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updatePatAccess(org, pat_id) {
+  var url = "/orgs/" + org + "/personal-access-tokens/" + pat_id;
+  var description = "Update personal access token " + pat_id + " access in organization " + org;
+  var body = {
+    "action": action,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: personal access token repositories ----
+
+function listPatGrantRepositories(org, pat_id) {
+  var url = "/orgs/" + org + "/personal-access-tokens/" + pat_id + "/repositories";
+  var description = "List repositories for personal access token " + pat_id + " in organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: codespace ----
+
+function getCodespace(codespace_name) {
   var url = "/user/codespaces/" + codespace_name;
-  var description = "Update codespace " + codespace_name + " for authenticated user";
+  var description = "Get codespace " + codespace_name;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateCodespace(codespace_name) {
+  var url = "/user/codespaces/" + codespace_name;
+  var description = "Update codespace " + codespace_name;
   var body = {
     "machine": machine,
     "display_name": display_name,
@@ -4893,9 +5273,57 @@ function updateCodespaceForUser(codespace_name) {
   });
 }
 
-function getCodespaceForUser(codespace_name) {
+function deleteCodespace(codespace_name) {
   var url = "/user/codespaces/" + codespace_name;
-  var description = "Get codespace " + codespace_name + " for authenticated user";
+  var description = "Delete codespace " + codespace_name;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function startCodespace(codespace_name) {
+  var url = "/user/codespaces/" + codespace_name + "/start";
+  var description = "Start codespace " + codespace_name;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function stopCodespace(codespace_name) {
+  var url = "/user/codespaces/" + codespace_name + "/stop";
+  var description = "Stop codespace " + codespace_name;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function exportCodespace(codespace_name) {
+  var url = "/user/codespaces/" + codespace_name + "/exports";
+  var description = "Export codespace " + codespace_name;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getCodespaceExportDetails(codespace_name, export_id) {
+  var url = "/user/codespaces/" + codespace_name + "/exports/" + export_id;
+  var description = "Get export " + export_id + " details for codespace " + codespace_name;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -4905,25 +5333,102 @@ function getCodespaceForUser(codespace_name) {
   });
 }
 
-function tryToAddExistingCodespace(repository_id, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes, codespace_name) {
-  return createCodespaceForUser(repository_id, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes);
+function listCodespaceMachines(codespace_name) {
+  var url = "/user/codespaces/" + codespace_name + "/machines";
+  var description = "List machines for codespace " + codespace_name;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyCodespaceExists(repository_id, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes, codespace_name) {
-  return getCodespaceForUser(codespace_name);
+function publishCodespace(codespace_name) {
+  var url = "/user/codespaces/" + codespace_name + "/publish";
+  var description = "Publish codespace " + codespace_name;
+  var body = {
+    "name": name,
+    "private": private,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyCodespaceDoesNotExist(repository_id, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes, codespace_name) {
-  return getCodespaceForUser(codespace_name);
+function verifyCodespaceExists(codespace_name, export_id) {
+  return getCodespace(codespace_name);
 }
 
-function tryToDeleteANonExistingCodespace(repository_id, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes, codespace_name) {
-  return deleteCodespaceForUser(codespace_name);
+function verifyCodespaceDoesNotExist(codespace_name, export_id) {
+  return getCodespace(codespace_name);
 }
 
-// ---- Entity: codespace ----
+function tryToDeleteANonExistingCodespace(codespace_name, export_id) {
+  return deleteCodespace(codespace_name);
+}
 
-function createCodespaceInRepo(owner, repo, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
+// ---- Entity: codespace in organization ----
+
+function listCodespacesForUserInOrg(org, username) {
+  var url = "/orgs/" + org + "/members/" + username + "/codespaces";
+  var description = "List codespaces for user " + username + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteCodespaceInOrg(org, username, codespace_name) {
+  var url = "/orgs/" + org + "/members/" + username + "/codespaces/" + codespace_name;
+  var description = "Delete codespace " + codespace_name + " for user " + username + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function stopCodespaceInOrg(org, username, codespace_name) {
+  var url = "/orgs/" + org + "/members/" + username + "/codespaces/" + codespace_name + "/stop";
+  var description = "Stop codespace " + codespace_name + " for user " + username + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToDeleteANonExistingCodespaceInOrg(org, username, codespace_name) {
+  return deleteCodespaceInOrg(org, username, codespace_name);
+}
+
+// ---- Entity: codespace in repository ----
+
+function listCodespacesInRepo(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/codespaces";
+  var description = "List codespaces in repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createCodespaceInRepo(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/codespaces";
   var description = "Create codespace in repo " + repo + " of " + owner;
   var body = {
@@ -4947,33 +5452,9 @@ function createCodespaceInRepo(owner, repo, ref, location, geo, client_ip, machi
   });
 }
 
-function listCodespacesInRepo(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/codespaces";
-  var description = "List codespaces in repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
+// ---- Entity: codespace in pull request ----
 
-function tryToAddExistingCodespaceInRepo(owner, repo, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
-  return createCodespaceInRepo(owner, repo, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes);
-}
-
-function verifyCodespaceInRepoExists(owner, repo, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
-  return listCodespacesInRepo(owner, repo);
-}
-
-function verifyCodespaceInRepoDoesNotExist(owner, repo, ref, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
-  return listCodespacesInRepo(owner, repo);
-}
-
-// ---- Entity: codespace ----
-
-function createCodespaceFromPullRequest(owner, repo, pull_number, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
+function createCodespaceFromPullRequest(owner, repo, pull_number) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/codespaces";
   var description = "Create codespace from pull request " + pull_number + " in repo " + repo + " of " + owner;
   var body = {
@@ -4996,43 +5477,9 @@ function createCodespaceFromPullRequest(owner, repo, pull_number, location, geo,
   });
 }
 
-function tryToAddExistingCodespaceInPullRequest(owner, repo, pull_number, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes) {
-  return createCodespaceFromPullRequest(owner, repo, pull_number, location, geo, client_ip, machine, devcontainer_path, multi_repo_permissions_opt_out, working_directory, idle_timeout_minutes, display_name, retention_period_minutes);
-}
-
-// ---- Entity: codespace ----
-
-function deleteCodespaceInOrgUser(org, username, codespace_name) {
-  var url = "/orgs/" + org + "/members/" + username + "/codespaces/" + codespace_name;
-  var description = "Delete codespace " + codespace_name + " for user " + username + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function stopCodespaceInOrgUser(org, username, codespace_name) {
-  var url = "/orgs/" + org + "/members/" + username + "/codespaces/" + codespace_name + "/stop";
-  var description = "Stop codespace " + codespace_name + " for user " + username + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingCodespaceInOrgUser(org, username, codespace_name) {
-  return deleteCodespaceInOrgUser(org, username, codespace_name);
-}
-
 // ---- Entity: codespaces access ----
 
-function manageCodespacesAccessForOrg(org, visibility, selected_usernames) {
+function updateCodespacesAccess(org) {
   var url = "/orgs/" + org + "/codespaces/access";
   var description = "Manage access control for codespaces in org " + org;
   var body = {
@@ -5047,11 +5494,9 @@ function manageCodespacesAccessForOrg(org, visibility, selected_usernames) {
   });
 }
 
-// ---- Entity: codespaces access users ----
-
-function addUsersToCodespacesAccessForOrg(org, selected_usernames) {
+function addUsersToCodespacesAccess(org) {
   var url = "/orgs/" + org + "/codespaces/access/selected_users";
-  var description = "Add users to codespaces access for org " + org;
+  var description = "Add users to codespaces access in org " + org;
   var body = {
     "selected_usernames": selected_usernames,
   };
@@ -5063,9 +5508,9 @@ function addUsersToCodespacesAccessForOrg(org, selected_usernames) {
   });
 }
 
-function removeUsersFromCodespacesAccessForOrg(org, selected_usernames) {
+function removeUsersFromCodespacesAccess(org) {
   var url = "/orgs/" + org + "/codespaces/access/selected_users";
-  var description = "Remove users from codespaces access for org " + org;
+  var description = "Remove users from codespaces access in org " + org;
   var body = {
     "selected_usernames": selected_usernames,
   };
@@ -5077,19 +5522,47 @@ function removeUsersFromCodespacesAccessForOrg(org, selected_usernames) {
   });
 }
 
-function tryToAddExistingCodespacesAccessUsers(org, selected_usernames) {
-  return addUsersToCodespacesAccessForOrg(org, selected_usernames);
+// ---- Entity: organization codespace secret ----
+
+function listOrgSecrets(org) {
+  var url = "/orgs/" + org + "/codespaces/secrets";
+  var description = "List secrets for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function tryToDeleteANonExistingCodespacesAccessUsers(org, selected_usernames) {
-  return removeUsersFromCodespacesAccessForOrg(org, selected_usernames);
+function getOrgPublicKey(org) {
+  var url = "/orgs/" + org + "/codespaces/secrets/public-key";
+  var description = "Get public key for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-// ---- Entity: organization secret ----
-
-function createOrUpdateOrgSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
+function getOrgSecret(org, secret_name) {
   var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name;
-  var description = "Create or update organization secret " + secret_name + " in org " + org;
+  var description = "Get secret " + secret_name + " for org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createOrUpdateOrgSecret(org, secret_name) {
+  var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name;
+  var description = "Create or update secret " + secret_name + " for org " + org;
   var body = {
     "encrypted_value": encrypted_value,
     "key_id": key_id,
@@ -5106,7 +5579,7 @@ function createOrUpdateOrgSecret(org, secret_name, encrypted_value, key_id, visi
 
 function deleteOrgSecret(org, secret_name) {
   var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name;
-  var description = "Delete organization secret " + secret_name + " in org " + org;
+  var description = "Delete secret " + secret_name + " for org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -5116,9 +5589,9 @@ function deleteOrgSecret(org, secret_name) {
   });
 }
 
-function getOrgSecret(org, secret_name) {
-  var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name;
-  var description = "Get organization secret " + secret_name + " in org " + org;
+function listSelectedReposForOrgSecret(org, secret_name) {
+  var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name + "/repositories";
+  var description = "List selected repositories for secret " + secret_name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -5128,27 +5601,9 @@ function getOrgSecret(org, secret_name) {
   });
 }
 
-function tryToAddExistingCodespaceSecretOrg(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
-  return createOrUpdateOrgSecret(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids);
-}
-
-function verifyCodespaceSecretOrgExists(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
-  return getOrgSecret(org, secret_name);
-}
-
-function verifyCodespaceSecretOrgDoesNotExist(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
-  return getOrgSecret(org, secret_name);
-}
-
-function tryToDeleteANonExistingCodespaceSecretOrg(org, secret_name, encrypted_value, key_id, visibility, selected_repository_ids) {
-  return deleteOrgSecret(org, secret_name);
-}
-
-// ---- Entity: organization secret selected repository ----
-
-function setSelectedReposForOrgSecret(org, secret_name, selected_repository_ids) {
+function setSelectedReposForOrgSecret(org, secret_name) {
   var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name + "/repositories";
-  var description = "Set selected repositories for organization secret " + secret_name + " in org " + org;
+  var description = "Set selected repositories for secret " + secret_name + " in org " + org;
   var body = {
     "selected_repository_ids": selected_repository_ids,
   };
@@ -5160,31 +5615,9 @@ function setSelectedReposForOrgSecret(org, secret_name, selected_repository_ids)
   });
 }
 
-function listSelectedReposForOrgSecret(org, secret_name) {
-  var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name + "/repositories";
-  var description = "List selected repositories for organization secret " + secret_name + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCodespaceSecretOrgSelectedReposExists(org, secret_name, selected_repository_ids) {
-  return listSelectedReposForOrgSecret(org, secret_name);
-}
-
-function verifyCodespaceSecretOrgSelectedReposDoesNotExist(org, secret_name, selected_repository_ids) {
-  return listSelectedReposForOrgSecret(org, secret_name);
-}
-
-// ---- Entity: organization secret selected repository ----
-
 function addSelectedRepoToOrgSecret(org, secret_name, repository_id) {
   var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name + "/repositories/" + repository_id;
-  var description = "Add selected repository " + repository_id + " to organization secret " + secret_name + " in org " + org;
+  var description = "Add selected repository " + repository_id + " to secret " + secret_name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -5196,7 +5629,7 @@ function addSelectedRepoToOrgSecret(org, secret_name, repository_id) {
 
 function removeSelectedRepoFromOrgSecret(org, secret_name, repository_id) {
   var url = "/orgs/" + org + "/codespaces/secrets/" + secret_name + "/repositories/" + repository_id;
-  var description = "Remove selected repository " + repository_id + " from organization secret " + secret_name + " in org " + org;
+  var description = "Remove selected repository " + repository_id + " from secret " + secret_name + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -5206,19 +5639,59 @@ function removeSelectedRepoFromOrgSecret(org, secret_name, repository_id) {
   });
 }
 
-function tryToAddExistingCodespaceSecretOrgSelectedRepo(org, secret_name, repository_id) {
-  return addSelectedRepoToOrgSecret(org, secret_name, repository_id);
+function verifyCodespaceSecretOrgExists(org, secret_name, repository_id) {
+  return getOrgSecret(org, secret_name);
 }
 
-function tryToDeleteANonExistingCodespaceSecretOrgSelectedRepo(org, secret_name, repository_id) {
-  return removeSelectedRepoFromOrgSecret(org, secret_name, repository_id);
+function verifyCodespaceSecretOrgDoesNotExist(org, secret_name, repository_id) {
+  return getOrgSecret(org, secret_name);
 }
 
-// ---- Entity: repository secret ----
+function tryToDeleteANonExistingCodespaceSecretOrg(org, secret_name, repository_id) {
+  return deleteOrgSecret(org, secret_name);
+}
 
-function createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key_id) {
+// ---- Entity: repository codespace secret ----
+
+function listRepoSecrets(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/codespaces/secrets";
+  var description = "List secrets for repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getRepoPublicKey(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/codespaces/secrets/public-key";
+  var description = "Get public key for repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getRepoSecret(owner, repo, secret_name) {
   var url = "/repos/" + owner + "/" + repo + "/codespaces/secrets/" + secret_name;
-  var description = "Create or update repository secret " + secret_name + " in repo " + repo + " of " + owner;
+  var description = "Get secret " + secret_name + " for repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createOrUpdateRepoSecret(owner, repo, secret_name) {
+  var url = "/repos/" + owner + "/" + repo + "/codespaces/secrets/" + secret_name;
+  var description = "Create or update secret " + secret_name + " for repo " + repo + " of " + owner;
   var body = {
     "encrypted_value": encrypted_value,
     "key_id": key_id,
@@ -5233,7 +5706,7 @@ function createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key
 
 function deleteRepoSecret(owner, repo, secret_name) {
   var url = "/repos/" + owner + "/" + repo + "/codespaces/secrets/" + secret_name;
-  var description = "Delete repository secret " + secret_name + " in repo " + repo + " of " + owner;
+  var description = "Delete secret " + secret_name + " for repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -5243,9 +5716,23 @@ function deleteRepoSecret(owner, repo, secret_name) {
   });
 }
 
-function getRepoSecret(owner, repo, secret_name) {
-  var url = "/repos/" + owner + "/" + repo + "/codespaces/secrets/" + secret_name;
-  var description = "Get repository secret " + secret_name + " in repo " + repo + " of " + owner;
+function verifyCodespaceSecretRepoExists(owner, repo, secret_name) {
+  return getRepoSecret(owner, repo, secret_name);
+}
+
+function verifyCodespaceSecretRepoDoesNotExist(owner, repo, secret_name) {
+  return getRepoSecret(owner, repo, secret_name);
+}
+
+function tryToDeleteANonExistingCodespaceSecretRepo(owner, repo, secret_name) {
+  return deleteRepoSecret(owner, repo, secret_name);
+}
+
+// ---- Entity: user codespace secret ----
+
+function listUserSecrets() {
+  var url = "/user/codespaces/secrets";
+  var description = "List secrets for authenticated user";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -5255,25 +5742,31 @@ function getRepoSecret(owner, repo, secret_name) {
   });
 }
 
-function tryToAddExistingCodespaceSecretRepo(owner, repo, secret_name, encrypted_value, key_id) {
-  return createOrUpdateRepoSecret(owner, repo, secret_name, encrypted_value, key_id);
+function getUserPublicKey() {
+  var url = "/user/codespaces/secrets/public-key";
+  var description = "Get public key for authenticated user";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyCodespaceSecretRepoExists(owner, repo, secret_name, encrypted_value, key_id) {
-  return getRepoSecret(owner, repo, secret_name);
+function getUserSecret(secret_name) {
+  var url = "/user/codespaces/secrets/" + secret_name;
+  var description = "Get secret " + secret_name + " for authenticated user";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyCodespaceSecretRepoDoesNotExist(owner, repo, secret_name, encrypted_value, key_id) {
-  return getRepoSecret(owner, repo, secret_name);
-}
-
-function tryToDeleteANonExistingCodespaceSecretRepo(owner, repo, secret_name, encrypted_value, key_id) {
-  return deleteRepoSecret(owner, repo, secret_name);
-}
-
-// ---- Entity: user secret ----
-
-function createOrUpdateUserSecret(secret_name, encrypted_value, key_id, selected_repository_ids) {
+function createOrUpdateUserSecret(secret_name) {
   var url = "/user/codespaces/secrets/" + secret_name;
   var description = "Create or update secret " + secret_name + " for authenticated user";
   var body = {
@@ -5301,9 +5794,9 @@ function deleteUserSecret(secret_name) {
   });
 }
 
-function getUserSecret(secret_name) {
-  var url = "/user/codespaces/secrets/" + secret_name;
-  var description = "Get secret " + secret_name + " for authenticated user";
+function listSelectedReposForUserSecret(secret_name) {
+  var url = "/user/codespaces/secrets/" + secret_name + "/repositories";
+  var description = "List selected repositories for secret " + secret_name + " for authenticated user";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -5313,27 +5806,9 @@ function getUserSecret(secret_name) {
   });
 }
 
-function tryToAddExistingCodespaceSecretUser(secret_name, encrypted_value, key_id, selected_repository_ids) {
-  return createOrUpdateUserSecret(secret_name, encrypted_value, key_id, selected_repository_ids);
-}
-
-function verifyCodespaceSecretUserExists(secret_name, encrypted_value, key_id, selected_repository_ids) {
-  return getUserSecret(secret_name);
-}
-
-function verifyCodespaceSecretUserDoesNotExist(secret_name, encrypted_value, key_id, selected_repository_ids) {
-  return getUserSecret(secret_name);
-}
-
-function tryToDeleteANonExistingCodespaceSecretUser(secret_name, encrypted_value, key_id, selected_repository_ids) {
-  return deleteUserSecret(secret_name);
-}
-
-// ---- Entity: user secret selected repository ----
-
-function setSelectedReposForUserSecret(secret_name, selected_repository_ids) {
+function setSelectedReposForUserSecret(secret_name) {
   var url = "/user/codespaces/secrets/" + secret_name + "/repositories";
-  var description = "Set selected repositories for user secret " + secret_name;
+  var description = "Set selected repositories for secret " + secret_name + " for authenticated user";
   var body = {
     "selected_repository_ids": selected_repository_ids,
   };
@@ -5345,31 +5820,9 @@ function setSelectedReposForUserSecret(secret_name, selected_repository_ids) {
   });
 }
 
-function listSelectedReposForUserSecret(secret_name) {
-  var url = "/user/codespaces/secrets/" + secret_name + "/repositories";
-  var description = "List selected repositories for user secret " + secret_name;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCodespaceSecretUserSelectedReposExists(secret_name, selected_repository_ids) {
-  return listSelectedReposForUserSecret(secret_name);
-}
-
-function verifyCodespaceSecretUserSelectedReposDoesNotExist(secret_name, selected_repository_ids) {
-  return listSelectedReposForUserSecret(secret_name);
-}
-
-// ---- Entity: user secret selected repository ----
-
 function addSelectedRepoToUserSecret(secret_name, repository_id) {
   var url = "/user/codespaces/secrets/" + secret_name + "/repositories/" + repository_id;
-  var description = "Add selected repository " + repository_id + " to user secret " + secret_name;
+  var description = "Add selected repository " + repository_id + " to secret " + secret_name + " for authenticated user";
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -5381,7 +5834,7 @@ function addSelectedRepoToUserSecret(secret_name, repository_id) {
 
 function removeSelectedRepoFromUserSecret(secret_name, repository_id) {
   var url = "/user/codespaces/secrets/" + secret_name + "/repositories/" + repository_id;
-  var description = "Remove selected repository " + repository_id + " from user secret " + secret_name;
+  var description = "Remove selected repository " + repository_id + " from secret " + secret_name + " for authenticated user";
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -5391,12 +5844,56 @@ function removeSelectedRepoFromUserSecret(secret_name, repository_id) {
   });
 }
 
-function tryToAddExistingCodespaceSecretUserSelectedRepo(secret_name, repository_id) {
-  return addSelectedRepoToUserSecret(secret_name, repository_id);
+function verifyCodespaceSecretUserExists(secret_name, repository_id) {
+  return getUserSecret(secret_name);
 }
 
-function tryToDeleteANonExistingCodespaceSecretUserSelectedRepo(secret_name, repository_id) {
-  return removeSelectedRepoFromUserSecret(secret_name, repository_id);
+function verifyCodespaceSecretUserDoesNotExist(secret_name, repository_id) {
+  return getUserSecret(secret_name);
+}
+
+function tryToDeleteANonExistingCodespaceSecretUser(secret_name, repository_id) {
+  return deleteUserSecret(secret_name);
+}
+
+// ---- Entity: codespace for authenticated user ----
+
+function listCodespacesForAuthenticatedUser() {
+  var url = "/user/codespaces";
+  var description = "List codespaces for authenticated user";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createCodespaceForAuthenticatedUser() {
+  var url = "/user/codespaces";
+  var description = "Create codespace for authenticated user";
+  var body = {
+    "repository_id": repository_id,
+    "ref": ref,
+    "location": location,
+    "geo": geo,
+    "client_ip": client_ip,
+    "machine": machine,
+    "devcontainer_path": devcontainer_path,
+    "multi_repo_permissions_opt_out": multi_repo_permissions_opt_out,
+    "working_directory": working_directory,
+    "idle_timeout_minutes": idle_timeout_minutes,
+    "display_name": display_name,
+    "retention_period_minutes": retention_period_minutes,
+    "pull_request": pull_request,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
 // ---- Entity: user ----
@@ -5464,7 +5961,7 @@ function verifyAuthenticatedUserDoesNotExist() {
   return getAuthenticatedUser();
 }
 
-// ---- Entity: block ----
+// ---- Entity: user block ----
 
 function checkBlockedUser(username) {
   var url = "/user/blocks/" + username;
@@ -5502,23 +5999,23 @@ function unblockUser(username) {
   });
 }
 
-function tryToAddExistingBlock(username) {
+function tryToAddExistingUserBlock(username) {
   return blockUser(username);
 }
 
-function verifyBlockExists(username) {
+function verifyUserBlockExists(username) {
   return checkBlockedUser(username);
 }
 
-function verifyBlockDoesNotExist(username) {
+function verifyUserBlockDoesNotExist(username) {
   return checkBlockedUser(username);
 }
 
-function tryToDeleteANonExistingBlock(username) {
+function tryToDeleteANonExistingUserBlock(username) {
   return unblockUser(username);
 }
 
-// ---- Entity: email ----
+// ---- Entity: user email ----
 
 function listEmails() {
   var url = "/user/emails";
@@ -5532,9 +6029,9 @@ function listEmails() {
   });
 }
 
-function addEmail() {
+function addEmails() {
   var url = "/user/emails";
-  var description = "Add email address(es) for the authenticated user";
+  var description = "Add email addresses for the authenticated user";
   var body = {
     "emails": emails,
   };
@@ -5546,9 +6043,9 @@ function addEmail() {
   });
 }
 
-function deleteEmail() {
+function deleteEmails() {
   var url = "/user/emails";
-  var description = "Delete email address(es) for the authenticated user";
+  var description = "Delete email addresses for the authenticated user";
   var body = {
     "emails": emails,
   };
@@ -5560,15 +6057,15 @@ function deleteEmail() {
   });
 }
 
-function tryToAddExistingEmail() {
-  return addEmail();
+function tryToAddExistingUserEmail() {
+  return addEmails();
 }
 
-function tryToDeleteANonExistingEmail() {
-  return deleteEmail();
+function tryToDeleteANonExistingUserEmail() {
+  return deleteEmails();
 }
 
-// ---- Entity: email visibility ----
+// ---- Entity: user email visibility ----
 
 function setPrimaryEmailVisibility() {
   var url = "/user/email/visibility";
@@ -5584,19 +6081,7 @@ function setPrimaryEmailVisibility() {
   });
 }
 
-// ---- Entity: follower ----
-
-function listFollowersForAuthenticatedUser() {
-  var url = "/user/followers";
-  var description = "List followers of the authenticated user";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
+// ---- Entity: user follower ----
 
 function listFollowersForUser(username) {
   var url = "/users/" + username + "/followers";
@@ -5610,11 +6095,9 @@ function listFollowersForUser(username) {
   });
 }
 
-// ---- Entity: following ----
-
-function listFollowingForAuthenticatedUser() {
-  var url = "/user/following";
-  var description = "List the people the authenticated user follows";
+function listFollowersForAuthenticatedUser() {
+  var url = "/user/followers";
+  var description = "List followers of the authenticated user";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -5623,6 +6106,8 @@ function listFollowingForAuthenticatedUser() {
     body: body
   });
 }
+
+// ---- Entity: user following ----
 
 function listFollowingForUser(username) {
   var url = "/users/" + username + "/following";
@@ -5636,9 +6121,21 @@ function listFollowingForUser(username) {
   });
 }
 
-function checkPersonIsFollowedByAuthenticatedUser(username) {
-  var url = "/user/following/" + username;
-  var description = "Check if person " + username + " is followed by the authenticated user";
+function listFollowingForAuthenticatedUser() {
+  var url = "/user/following";
+  var description = "List the people the authenticated user follows";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function checkFollowingForUser(username, target_user) {
+  var url = "/users/" + username + "/following/" + target_user;
+  var description = "Check if user " + username + " follows " + target_user;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -5672,19 +6169,15 @@ function unfollowUser(username) {
   });
 }
 
-function checkUserFollowsUser(username, target_user) {
-  var url = "/users/" + username + "/following/" + target_user;
-  var description = "Check if user " + username + " follows user " + target_user;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingUserFollowing(username, target_user) {
+  return followUser(username);
 }
 
-// ---- Entity: GPG key ----
+function tryToDeleteANonExistingUserFollowing(username, target_user) {
+  return unfollowUser(username);
+}
+
+// ---- Entity: user GPG key ----
 
 function listGpgKeysForAuthenticatedUser() {
   var url = "/user/gpg_keys";
@@ -5737,19 +6230,19 @@ function deleteGpgKeyForAuthenticatedUser(gpg_key_id) {
   });
 }
 
-function verifyGpgKeyExists(gpg_key_id) {
-  return getGpgKeyForAuthenticatedUser(gpg_key_id);
+function listGpgKeysForUser(username) {
+  var url = "/users/" + username + "/gpg_keys";
+  var description = "List GPG keys for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyGpgKeyDoesNotExist(gpg_key_id) {
-  return getGpgKeyForAuthenticatedUser(gpg_key_id);
-}
-
-function tryToDeleteANonExistingGpgKey(gpg_key_id) {
-  return deleteGpgKeyForAuthenticatedUser(gpg_key_id);
-}
-
-// ---- Entity: public SSH key ----
+// ---- Entity: user public SSH key ----
 
 function listPublicSshKeysForAuthenticatedUser() {
   var url = "/user/keys";
@@ -5802,19 +6295,19 @@ function deletePublicSshKeyForAuthenticatedUser(key_id) {
   });
 }
 
-function verifyPublicSshKeyExists(key_id) {
-  return getPublicSshKeyForAuthenticatedUser(key_id);
+function listPublicKeysForUser(username) {
+  var url = "/users/" + username + "/keys";
+  var description = "List public keys for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyPublicSshKeyDoesNotExist(key_id) {
-  return getPublicSshKeyForAuthenticatedUser(key_id);
-}
-
-function tryToDeleteANonExistingPublicSshKey(key_id) {
-  return deletePublicSshKeyForAuthenticatedUser(key_id);
-}
-
-// ---- Entity: public email ----
+// ---- Entity: user public email ----
 
 function listPublicEmailsForAuthenticatedUser() {
   var url = "/user/public_emails";
@@ -5828,7 +6321,7 @@ function listPublicEmailsForAuthenticatedUser() {
   });
 }
 
-// ---- Entity: social account ----
+// ---- Entity: user social account ----
 
 function listSocialAccountsForAuthenticatedUser() {
   var url = "/user/social_accounts";
@@ -5870,15 +6363,19 @@ function deleteSocialAccountForAuthenticatedUser() {
   });
 }
 
-function tryToAddExistingSocialAccount() {
-  return addSocialAccountForAuthenticatedUser();
+function listSocialAccountsForUser(username) {
+  var url = "/users/" + username + "/social_accounts";
+  var description = "List social accounts for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function tryToDeleteANonExistingSocialAccount() {
-  return deleteSocialAccountForAuthenticatedUser();
-}
-
-// ---- Entity: SSH signing key ----
+// ---- Entity: user SSH signing key ----
 
 function listSshSigningKeysForAuthenticatedUser() {
   var url = "/user/ssh_signing_keys";
@@ -5931,98 +6428,6 @@ function deleteSshSigningKeyForAuthenticatedUser(ssh_signing_key_id) {
   });
 }
 
-function verifySshSigningKeyExists(ssh_signing_key_id) {
-  return getSshSigningKeyForAuthenticatedUser(ssh_signing_key_id);
-}
-
-function verifySshSigningKeyDoesNotExist(ssh_signing_key_id) {
-  return getSshSigningKeyForAuthenticatedUser(ssh_signing_key_id);
-}
-
-function tryToDeleteANonExistingSshSigningKey(ssh_signing_key_id) {
-  return deleteSshSigningKeyForAuthenticatedUser(ssh_signing_key_id);
-}
-
-// ---- Entity: user by id ----
-
-function getUserById(account_id) {
-  var url = "/user/" + account_id;
-  var description = "Get user by ID " + account_id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyUserByIdExists(account_id) {
-  return getUserById(account_id);
-}
-
-function verifyUserByIdDoesNotExist(account_id) {
-  return getUserById(account_id);
-}
-
-// ---- Entity: user list ----
-
-function listUsers() {
-  var url = "/users";
-  var description = "List users";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: GPG key ----
-
-function listGpgKeysForUser(username) {
-  var url = "/users/" + username + "/gpg_keys";
-  var description = "List GPG keys for user " + username;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: public key ----
-
-function listPublicKeysForUser(username) {
-  var url = "/users/" + username + "/keys";
-  var description = "List public keys for user " + username;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: social account ----
-
-function listSocialAccountsForUser(username) {
-  var url = "/users/" + username + "/social_accounts";
-  var description = "List social accounts for user " + username;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: SSH signing key ----
-
 function listSshSigningKeysForUser(username) {
   var url = "/users/" + username + "/ssh_signing_keys";
   var description = "List SSH signing keys for user " + username;
@@ -6035,11 +6440,11 @@ function listSshSigningKeysForUser(username) {
   });
 }
 
-// ---- Entity: hovercard ----
+// ---- Entity: user attestation ----
 
-function getHovercardForUser(username) {
-  var url = "/users/" + username + "/hovercard";
-  var description = "Get contextual information for user " + username;
+function listAttestations(username, subject_digest) {
+  var url = "/users/" + username + "/attestations/" + subject_digest;
+  var description = "List attestations for user " + username + " and subject digest " + subject_digest;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -6049,12 +6454,58 @@ function getHovercardForUser(username) {
   });
 }
 
-function verifyUserHovercardExists(username) {
-  return getHovercardForUser(username);
+function listAttestationsBulk(username) {
+  var url = "/users/" + username + "/attestations/bulk-list";
+  var description = "List attestations in bulk for user " + username;
+  var body = {
+    "subject_digests": subject_digests,
+    "predicate_type": predicate_type,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
-function verifyUserHovercardDoesNotExist(username) {
-  return getHovercardForUser(username);
+function deleteAttestationsBulk(username) {
+  var url = "/users/" + username + "/attestations/delete-request";
+  var description = "Delete attestations in bulk for user " + username;
+  var body = {
+    "subject_digests": subject_digests,
+    "attestation_ids": attestation_ids,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteAttestationsBySubjectDigest(username, subject_digest) {
+  var url = "/users/" + username + "/attestations/digest/" + subject_digest;
+  var description = "Delete attestations by subject digest " + subject_digest + " for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteAttestationsById(username, attestation_id) {
+  var url = "/users/" + username + "/attestations/" + attestation_id;
+  var description = "Delete attestation " + attestation_id + " for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
 // ---- Entity: app ----
@@ -6196,7 +6647,7 @@ function verifyAppWebhookDeliveriesDoesNotExist() {
   return listWebhookDeliveries();
 }
 
-// ---- Entity: app installation request ----
+// ---- Entity: installation request ----
 
 function listInstallationRequestsForAuthenticatedApp() {
   var url = "/app/installation-requests";
@@ -6210,15 +6661,15 @@ function listInstallationRequestsForAuthenticatedApp() {
   });
 }
 
-function verifyAppInstallationRequestExists() {
+function verifyInstallationRequestExists() {
   return listInstallationRequestsForAuthenticatedApp();
 }
 
-function verifyAppInstallationRequestDoesNotExist() {
+function verifyInstallationRequestDoesNotExist() {
   return listInstallationRequestsForAuthenticatedApp();
 }
 
-// ---- Entity: app installation ----
+// ---- Entity: installation ----
 
 function getInstallation(installation_id) {
   var url = "/app/installations/" + installation_id;
@@ -6246,7 +6697,7 @@ function deleteInstallation(installation_id) {
 
 function createInstallationAccessToken(installation_id) {
   var url = "/app/installations/" + installation_id + "/access_tokens";
-  var description = "Create an installation access token for app installation " + installation_id;
+  var description = "Create an installation access token for installation " + installation_id;
   var body = {
     "repositories": repositories,
     "repository_ids": repository_ids,
@@ -6284,19 +6735,19 @@ function unsuspendInstallation(installation_id) {
   });
 }
 
-function tryToAddExistingAppInstallation(installation_id) {
+function tryToAddExistingInstallation(installation_id) {
   return createInstallationAccessToken(installation_id);
 }
 
-function verifyAppInstallationExists(installation_id) {
+function verifyInstallationExists(installation_id) {
   return getInstallation(installation_id);
 }
 
-function verifyAppInstallationDoesNotExist(installation_id) {
+function verifyInstallationDoesNotExist(installation_id) {
   return getInstallation(installation_id);
 }
 
-function tryToDeleteANonExistingAppInstallation(installation_id) {
+function tryToDeleteANonExistingInstallation(installation_id) {
   return deleteInstallation(installation_id);
 }
 
@@ -6324,7 +6775,7 @@ function tryToDeleteANonExistingAppAuthorization(client_id) {
 
 function checkToken(client_id) {
   var url = "/applications/" + client_id + "/token";
-  var description = "Check a token for app " + client_id;
+  var description = "Check a token for client " + client_id;
   var body = {
     "access_token": access_token,
   };
@@ -6338,7 +6789,7 @@ function checkToken(client_id) {
 
 function resetToken(client_id) {
   var url = "/applications/" + client_id + "/token";
-  var description = "Reset a token for app " + client_id;
+  var description = "Reset a token for client " + client_id;
   var body = {
     "access_token": access_token,
   };
@@ -6352,7 +6803,7 @@ function resetToken(client_id) {
 
 function deleteToken(client_id) {
   var url = "/applications/" + client_id + "/token";
-  var description = "Delete an app token " + client_id;
+  var description = "Delete an app token for client " + client_id;
   var body = {
     "access_token": access_token,
   };
@@ -6364,9 +6815,19 @@ function deleteToken(client_id) {
   });
 }
 
+function tryToAddExistingAppToken(client_id) {
+  return checkToken(client_id);
+}
+
+function tryToDeleteANonExistingAppToken(client_id) {
+  return deleteToken(client_id);
+}
+
+// ---- Entity: scoped app token ----
+
 function createScopedAccessToken(client_id) {
   var url = "/applications/" + client_id + "/token/scoped";
-  var description = "Create a scoped access token for app " + client_id;
+  var description = "Create a scoped access token for client " + client_id;
   var body = {
     "access_token": access_token,
     "target": target,
@@ -6383,12 +6844,8 @@ function createScopedAccessToken(client_id) {
   });
 }
 
-function tryToAddExistingAppToken(client_id) {
-  return checkToken(client_id);
-}
-
-function tryToDeleteANonExistingAppToken(client_id) {
-  return deleteToken(client_id);
+function tryToAddExistingScopedAppToken(client_id) {
+  return createScopedAccessToken(client_id);
 }
 
 // ---- Entity: app ----
@@ -6405,11 +6862,11 @@ function getAppBySlug(app_slug) {
   });
 }
 
-function verifyAppBySlugExists(app_slug) {
+function verifyAppSlugExists(app_slug) {
   return getAppBySlug(app_slug);
 }
 
-function verifyAppBySlugDoesNotExist(app_slug) {
+function verifyAppSlugDoesNotExist(app_slug) {
   return getAppBySlug(app_slug);
 }
 
@@ -6439,11 +6896,11 @@ function removeRepoFromInstallationForAuthenticatedUser(installation_id, reposit
   });
 }
 
-function tryToAddExistingInstallationRepository(installation_id, repository_id) {
+function tryToAddExistingInstallationRepo(installation_id, repository_id) {
   return addRepoToInstallationForAuthenticatedUser(installation_id, repository_id);
 }
 
-function tryToDeleteANonExistingInstallationRepository(installation_id, repository_id) {
+function tryToDeleteANonExistingInstallationRepo(installation_id, repository_id) {
   return removeRepoFromInstallationForAuthenticatedUser(installation_id, repository_id);
 }
 
@@ -6537,7 +6994,7 @@ function createIssue(owner, repo, title, body, assignee, milestone, labels, assi
 
 function getIssue(owner, repo, issue_number) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number;
-  var description = "Get issue " + issue_number + " in " + repo + " of " + owner;
+  var description = "Get issue " + issue_number + " of " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -6549,7 +7006,7 @@ function getIssue(owner, repo, issue_number) {
 
 function updateIssue(owner, repo, issue_number, title, body, assignee, state, state_reason, milestone, labels, assignees, type) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number;
-  var description = "Update issue " + issue_number + " in " + repo + " of " + owner;
+  var description = "Update issue " + issue_number + " of " + owner + "/" + repo;
   var body = {
     "title": title,
     "body": body,
@@ -6599,7 +7056,7 @@ function createIssueComment(owner, repo, issue_number, body) {
 
 function getIssueComment(owner, repo, comment_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id;
-  var description = "Get comment " + comment_id + " in " + repo + " of " + owner;
+  var description = "Get comment " + comment_id + " on " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -6611,7 +7068,7 @@ function getIssueComment(owner, repo, comment_id) {
 
 function updateIssueComment(owner, repo, comment_id, body) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id;
-  var description = "Update comment " + comment_id + " in " + repo + " of " + owner;
+  var description = "Update comment " + comment_id + " on " + owner + "/" + repo;
   var body = {
     "body": body,
   };
@@ -6625,7 +7082,7 @@ function updateIssueComment(owner, repo, comment_id, body) {
 
 function deleteIssueComment(owner, repo, comment_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id;
-  var description = "Delete comment " + comment_id + " in " + repo + " of " + owner;
+  var description = "Delete comment " + comment_id + " on " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -6655,7 +7112,7 @@ function tryToDeleteANonExistingIssueComment(owner, repo, issue_number, body, co
 
 function checkUserCanBeAssigned(owner, repo, assignee) {
   var url = "/repos/" + owner + "/" + repo + "/assignees/" + assignee;
-  var description = "Check if user " + assignee + " can be assigned in " + repo + " of " + owner;
+  var description = "Check if user " + assignee + " can be assigned in " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -6673,7 +7130,7 @@ function verifyAssigneeDoesNotExist(owner, repo, assignee) {
   return checkUserCanBeAssigned(owner, repo, assignee);
 }
 
-// ---- Entity: issue assignees ----
+// ---- Entity: issue assignee ----
 
 function addAssigneesToIssue(owner, repo, issue_number, assignees) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/assignees";
@@ -6703,15 +7160,15 @@ function removeAssigneesFromIssue(owner, repo, issue_number, assignees) {
   });
 }
 
-function tryToAddExistingIssueAssignees(owner, repo, issue_number, assignees) {
+function tryToAddExistingIssueAssignee(owner, repo, issue_number, assignees) {
   return addAssigneesToIssue(owner, repo, issue_number, assignees);
 }
 
-function tryToDeleteANonExistingIssueAssignees(owner, repo, issue_number, assignees) {
+function tryToDeleteANonExistingIssueAssignee(owner, repo, issue_number, assignees) {
   return removeAssigneesFromIssue(owner, repo, issue_number, assignees);
 }
 
-// ---- Entity: issue assignee ----
+// ---- Entity: issue assignee check ----
 
 function checkUserCanBeAssignedToIssue(owner, repo, issue_number, assignee) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/assignees/" + assignee;
@@ -6725,33 +7182,15 @@ function checkUserCanBeAssignedToIssue(owner, repo, issue_number, assignee) {
   });
 }
 
-function verifyIssueAssigneeExists(owner, repo, issue_number, assignee) {
+function verifyIssueAssigneeCheckExists(owner, repo, issue_number, assignee) {
   return checkUserCanBeAssignedToIssue(owner, repo, issue_number, assignee);
 }
 
-function verifyIssueAssigneeDoesNotExist(owner, repo, issue_number, assignee) {
+function verifyIssueAssigneeCheckDoesNotExist(owner, repo, issue_number, assignee) {
   return checkUserCanBeAssignedToIssue(owner, repo, issue_number, assignee);
 }
 
 // ---- Entity: issue label ----
-
-function removeLabelFromIssue(owner, repo, issue_number, name) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/labels/" + name;
-  var description = "Remove label " + name + " from issue " + issue_number;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingIssueLabel(owner, repo, issue_number, name) {
-  return removeLabelFromIssue(owner, repo, issue_number, name);
-}
-
-// ---- Entity: issue labels ----
 
 function addLabelsToIssue(owner, repo, issue_number, labels) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/labels";
@@ -6781,18 +7220,6 @@ function setLabelsForIssue(owner, repo, issue_number, labels) {
   });
 }
 
-function listLabelsOnIssue(owner, repo, issue_number) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/labels";
-  var description = "List labels on issue " + issue_number;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function removeAllLabelsFromIssue(owner, repo, issue_number) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/labels";
   var description = "Remove all labels from issue " + issue_number;
@@ -6805,41 +7232,9 @@ function removeAllLabelsFromIssue(owner, repo, issue_number) {
   });
 }
 
-function tryToAddExistingIssueLabels(owner, repo, issue_number, labels) {
-  return addLabelsToIssue(owner, repo, issue_number, labels);
-}
-
-function verifyIssueLabelsExists(owner, repo, issue_number, labels) {
-  return listLabelsOnIssue(owner, repo, issue_number);
-}
-
-function verifyIssueLabelsDoesNotExist(owner, repo, issue_number, labels) {
-  return listLabelsOnIssue(owner, repo, issue_number);
-}
-
-function tryToDeleteANonExistingIssueLabels(owner, repo, issue_number, labels) {
-  return removeAllLabelsFromIssue(owner, repo, issue_number);
-}
-
-// ---- Entity: issue lock ----
-
-function lockIssue(owner, repo, issue_number, lock_reason) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/lock";
-  var description = "Lock issue " + issue_number;
-  var body = {
-    "lock_reason": lock_reason,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function unlockIssue(owner, repo, issue_number) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/lock";
-  var description = "Unlock issue " + issue_number;
+function removeLabelFromIssue(owner, repo, issue_number, name) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/labels/" + name;
+  var description = "Remove label " + name + " from issue " + issue_number;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -6849,15 +7244,169 @@ function unlockIssue(owner, repo, issue_number) {
   });
 }
 
-function tryToDeleteANonExistingIssueLock(owner, repo, issue_number, lock_reason) {
-  return unlockIssue(owner, repo, issue_number);
+function tryToAddExistingIssueLabel(owner, repo, issue_number, labels, name) {
+  return addLabelsToIssue(owner, repo, issue_number, labels);
 }
 
-// ---- Entity: issue dependency blocked_by ----
+function tryToDeleteANonExistingIssueLabel(owner, repo, issue_number, labels, name) {
+  return removeAllLabelsFromIssue(owner, repo, issue_number);
+}
+
+// ---- Entity: label ----
+
+function createLabel(owner, repo, name, color, description) {
+  var url = "/repos/" + owner + "/" + repo + "/labels";
+  var description = "Create label " + name;
+  var body = {
+    "name": name,
+    "color": color,
+    "description": description,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getLabel(owner, repo, name) {
+  var url = "/repos/" + owner + "/" + repo + "/labels/" + name;
+  var description = "Get label " + name + " in " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateLabel(owner, repo, name, new_name, color, description) {
+  var url = "/repos/" + owner + "/" + repo + "/labels/" + name;
+  var description = "Update label " + name + " in " + owner + "/" + repo;
+  var body = {
+    "new_name": new_name,
+    "color": color,
+    "description": description,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteLabel(owner, repo, name) {
+  var url = "/repos/" + owner + "/" + repo + "/labels/" + name;
+  var description = "Delete label " + name + " in " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingLabel(owner, repo, name, color, description, new_name) {
+  return createLabel(owner, repo, name, color, description);
+}
+
+function verifyLabelExists(owner, repo, name, color, description, new_name) {
+  return getLabel(owner, repo, name);
+}
+
+function verifyLabelDoesNotExist(owner, repo, name, color, description, new_name) {
+  return getLabel(owner, repo, name);
+}
+
+function tryToDeleteANonExistingLabel(owner, repo, name, color, description, new_name) {
+  return deleteLabel(owner, repo, name);
+}
+
+// ---- Entity: milestone ----
+
+function createMilestone(owner, repo, title, state, description, due_on) {
+  var url = "/repos/" + owner + "/" + repo + "/milestones";
+  var description = "Create milestone " + title;
+  var body = {
+    "title": title,
+    "state": state,
+    "description": description,
+    "due_on": due_on,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getMilestone(owner, repo, milestone_number) {
+  var url = "/repos/" + owner + "/" + repo + "/milestones/" + milestone_number;
+  var description = "Get milestone " + milestone_number + " in " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateMilestone(owner, repo, milestone_number, title, state, description, due_on) {
+  var url = "/repos/" + owner + "/" + repo + "/milestones/" + milestone_number;
+  var description = "Update milestone " + milestone_number + " in " + owner + "/" + repo;
+  var body = {
+    "title": title,
+    "state": state,
+    "description": description,
+    "due_on": due_on,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteMilestone(owner, repo, milestone_number) {
+  var url = "/repos/" + owner + "/" + repo + "/milestones/" + milestone_number;
+  var description = "Delete milestone " + milestone_number + " in " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingMilestone(owner, repo, title, state, description, due_on, milestone_number) {
+  return createMilestone(owner, repo, title, state, description, due_on);
+}
+
+function verifyMilestoneExists(owner, repo, title, state, description, due_on, milestone_number) {
+  return getMilestone(owner, repo, milestone_number);
+}
+
+function verifyMilestoneDoesNotExist(owner, repo, title, state, description, due_on, milestone_number) {
+  return getMilestone(owner, repo, milestone_number);
+}
+
+function tryToDeleteANonExistingMilestone(owner, repo, title, state, description, due_on, milestone_number) {
+  return deleteMilestone(owner, repo, milestone_number);
+}
+
+// ---- Entity: issue dependency blocked by ----
 
 function addBlockedByDependency(owner, repo, issue_number, issue_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/dependencies/blocked_by";
-  var description = "Add blocked_by dependency to issue " + issue_number;
+  var description = "Add blocked-by dependency to issue " + issue_number;
   var body = {
     "issue_id": issue_id,
   };
@@ -6871,7 +7420,7 @@ function addBlockedByDependency(owner, repo, issue_number, issue_id) {
 
 function listBlockedByDependencies(owner, repo, issue_number) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/dependencies/blocked_by";
-  var description = "List blocked_by dependencies for issue " + issue_number;
+  var description = "List blocked-by dependencies for issue " + issue_number;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -6883,7 +7432,7 @@ function listBlockedByDependencies(owner, repo, issue_number) {
 
 function removeBlockedByDependency(owner, repo, issue_number, issue_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/dependencies/blocked_by/" + issue_id;
-  var description = "Remove blocked_by dependency " + issue_id + " from issue " + issue_number;
+  var description = "Remove blocked-by dependency " + issue_id + " from issue " + issue_number;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -6931,27 +7480,7 @@ function verifyIssueDependencyBlockingDoesNotExist(owner, repo, issue_number) {
   return listBlockingDependencies(owner, repo, issue_number);
 }
 
-// ---- Entity: issue sub-issue ----
-
-function removeSubIssue(owner, repo, issue_number, sub_issue_id) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/sub_issue";
-  var description = "Remove sub-issue " + sub_issue_id + " from issue " + issue_number;
-  var body = {
-    "sub_issue_id": sub_issue_id,
-  };
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingIssueSubIssue(owner, repo, issue_number, sub_issue_id) {
-  return removeSubIssue(owner, repo, issue_number, sub_issue_id);
-}
-
-// ---- Entity: issue sub-issues ----
+// ---- Entity: sub-issue ----
 
 function addSubIssue(owner, repo, issue_number, sub_issue_id, replace_parent) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/sub_issues";
@@ -6980,19 +7509,19 @@ function listSubIssues(owner, repo, issue_number) {
   });
 }
 
-function tryToAddExistingIssueSubIssues(owner, repo, issue_number, sub_issue_id, replace_parent) {
-  return addSubIssue(owner, repo, issue_number, sub_issue_id, replace_parent);
+function removeSubIssue(owner, repo, issue_number, sub_issue_id) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/sub_issue";
+  var description = "Remove sub-issue from issue " + issue_number;
+  var body = {
+    "sub_issue_id": sub_issue_id,
+  };
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
-
-function verifyIssueSubIssuesExists(owner, repo, issue_number, sub_issue_id, replace_parent) {
-  return listSubIssues(owner, repo, issue_number);
-}
-
-function verifyIssueSubIssuesDoesNotExist(owner, repo, issue_number, sub_issue_id, replace_parent) {
-  return listSubIssues(owner, repo, issue_number);
-}
-
-// ---- Entity: issue sub-issue priority ----
 
 function reprioritizeSubIssue(owner, repo, issue_number, sub_issue_id, after_id, before_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/sub_issues/priority";
@@ -7010,55 +7539,41 @@ function reprioritizeSubIssue(owner, repo, issue_number, sub_issue_id, after_id,
   });
 }
 
-// ---- Entity: label ----
+function tryToAddExistingSubIssue(owner, repo, issue_number, sub_issue_id, replace_parent, after_id, before_id) {
+  return addSubIssue(owner, repo, issue_number, sub_issue_id, replace_parent);
+}
 
-function createLabel(owner, repo, name, color, description) {
-  var url = "/repos/" + owner + "/" + repo + "/labels";
-  var description = "Create label " + name;
+function verifySubIssueExists(owner, repo, issue_number, sub_issue_id, replace_parent, after_id, before_id) {
+  return listSubIssues(owner, repo, issue_number);
+}
+
+function verifySubIssueDoesNotExist(owner, repo, issue_number, sub_issue_id, replace_parent, after_id, before_id) {
+  return listSubIssues(owner, repo, issue_number);
+}
+
+function tryToDeleteANonExistingSubIssue(owner, repo, issue_number, sub_issue_id, replace_parent, after_id, before_id) {
+  return removeSubIssue(owner, repo, issue_number, sub_issue_id);
+}
+
+// ---- Entity: issue lock ----
+
+function lockIssue(owner, repo, issue_number, lock_reason) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/lock";
+  var description = "Lock issue " + issue_number;
   var body = {
-    "name": name,
-    "color": color,
-    "description": description,
+    "lock_reason": lock_reason,
   };
   return svc.request({
-    method: "POST",
+    method: "PUT",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function getLabel(owner, repo, name) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + name;
-  var description = "Get label " + name + " in " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateLabel(owner, repo, name, new_name, color, description) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + name;
-  var description = "Update label " + name + " in " + repo + " of " + owner;
-  var body = {
-    "new_name": new_name,
-    "color": color,
-    "description": description,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteLabel(owner, repo, name) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + name;
-  var description = "Delete label " + name + " in " + repo + " of " + owner;
+function unlockIssue(owner, repo, issue_number) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/lock";
+  var description = "Unlock issue " + issue_number;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7068,103 +7583,15 @@ function deleteLabel(owner, repo, name) {
   });
 }
 
-function tryToAddExistingLabel(owner, repo, name, color, description, new_name) {
-  return createLabel(owner, repo, name, color, description);
-}
-
-function verifyLabelExists(owner, repo, name, color, description, new_name) {
-  return getLabel(owner, repo, name);
-}
-
-function verifyLabelDoesNotExist(owner, repo, name, color, description, new_name) {
-  return getLabel(owner, repo, name);
-}
-
-function tryToDeleteANonExistingLabel(owner, repo, name, color, description, new_name) {
-  return deleteLabel(owner, repo, name);
-}
-
-// ---- Entity: milestone ----
-
-function createMilestone(owner, repo, title, state, description, due_on) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones";
-  var description = "Create milestone " + title;
-  var body = {
-    "title": title,
-    "state": state,
-    "description": description,
-    "due_on": due_on,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getMilestone(owner, repo, milestone_number) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + milestone_number;
-  var description = "Get milestone " + milestone_number + " in " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateMilestone(owner, repo, milestone_number, title, state, description, due_on) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + milestone_number;
-  var description = "Update milestone " + milestone_number + " in " + repo + " of " + owner;
-  var body = {
-    "title": title,
-    "state": state,
-    "description": description,
-    "due_on": due_on,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteMilestone(owner, repo, milestone_number) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + milestone_number;
-  var description = "Delete milestone " + milestone_number + " in " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMilestone(owner, repo, title, state, description, due_on, milestone_number) {
-  return createMilestone(owner, repo, title, state, description, due_on);
-}
-
-function verifyMilestoneExists(owner, repo, title, state, description, due_on, milestone_number) {
-  return getMilestone(owner, repo, milestone_number);
-}
-
-function verifyMilestoneDoesNotExist(owner, repo, title, state, description, due_on, milestone_number) {
-  return getMilestone(owner, repo, milestone_number);
-}
-
-function tryToDeleteANonExistingMilestone(owner, repo, title, state, description, due_on, milestone_number) {
-  return deleteMilestone(owner, repo, milestone_number);
+function tryToDeleteANonExistingIssueLock(owner, repo, issue_number, lock_reason) {
+  return unlockIssue(owner, repo, issue_number);
 }
 
 // ---- Entity: team ----
 
 function createTeam(org, name) {
   var url = "/orgs/" + org + "/teams";
-  var description = "Create team " + name + " in org " + org;
+  var description = "Create team " + name + " in " + org;
   var body = {
     "name": name,
     "description": description,
@@ -7185,7 +7612,7 @@ function createTeam(org, name) {
 
 function deleteTeam(org, team_slug) {
   var url = "/orgs/" + org + "/teams/" + team_slug;
-  var description = "Delete team " + team_slug + " in org " + org;
+  var description = "Delete team " + team_slug + " in " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7197,7 +7624,7 @@ function deleteTeam(org, team_slug) {
 
 function updateTeam(org, team_slug) {
   var url = "/orgs/" + org + "/teams/" + team_slug;
-  var description = "Update team " + team_slug + " in org " + org;
+  var description = "Update team " + team_slug + " in " + org;
   var body = {
     "name": name,
     "description": description,
@@ -7216,7 +7643,7 @@ function updateTeam(org, team_slug) {
 
 function getTeam(org, team_slug) {
   var url = "/orgs/" + org + "/teams/" + team_slug;
-  var description = "Get team " + team_slug + " in org " + org;
+  var description = "Get team " + team_slug + " in " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7244,9 +7671,9 @@ function tryToDeleteANonExistingTeam(org, name, team_slug) {
 
 // ---- Entity: team discussion ----
 
-function createDiscussion(org, team_slug, title) {
+function createDiscussion(org, team_slug, title, body, private) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions";
-  var description = "Create discussion " + title + " in team " + team_slug + " of org " + org;
+  var description = "Create discussion " + title + " in team " + team_slug + " of " + org;
   var body = {
     "title": title,
     "body": body,
@@ -7262,7 +7689,7 @@ function createDiscussion(org, team_slug, title) {
 
 function deleteDiscussion(org, team_slug, discussion_number) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number;
-  var description = "Delete discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Delete discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7272,9 +7699,9 @@ function deleteDiscussion(org, team_slug, discussion_number) {
   });
 }
 
-function updateDiscussion(org, team_slug, discussion_number) {
+function updateDiscussion(org, team_slug, discussion_number, title, body) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number;
-  var description = "Update discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Update discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = {
     "title": title,
     "body": body,
@@ -7289,7 +7716,7 @@ function updateDiscussion(org, team_slug, discussion_number) {
 
 function getDiscussion(org, team_slug, discussion_number) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number;
-  var description = "Get discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Get discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7299,19 +7726,19 @@ function getDiscussion(org, team_slug, discussion_number) {
   });
 }
 
-function tryToAddExistingTeamDiscussion(org, team_slug, title, discussion_number) {
-  return createDiscussion(org, team_slug, title);
+function tryToAddExistingTeamDiscussion(org, team_slug, title, body, private, discussion_number) {
+  return createDiscussion(org, team_slug, title, body, private);
 }
 
-function verifyTeamDiscussionExists(org, team_slug, title, discussion_number) {
+function verifyTeamDiscussionExists(org, team_slug, title, body, private, discussion_number) {
   return getDiscussion(org, team_slug, discussion_number);
 }
 
-function verifyTeamDiscussionDoesNotExist(org, team_slug, title, discussion_number) {
+function verifyTeamDiscussionDoesNotExist(org, team_slug, title, body, private, discussion_number) {
   return getDiscussion(org, team_slug, discussion_number);
 }
 
-function tryToDeleteANonExistingTeamDiscussion(org, team_slug, title, discussion_number) {
+function tryToDeleteANonExistingTeamDiscussion(org, team_slug, title, body, private, discussion_number) {
   return deleteDiscussion(org, team_slug, discussion_number);
 }
 
@@ -7319,7 +7746,7 @@ function tryToDeleteANonExistingTeamDiscussion(org, team_slug, title, discussion
 
 function createDiscussionComment(org, team_slug, discussion_number, body) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments";
-  var description = "Create comment in discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Create comment in discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = {
     "body": body,
   };
@@ -7333,7 +7760,7 @@ function createDiscussionComment(org, team_slug, discussion_number, body) {
 
 function deleteDiscussionComment(org, team_slug, discussion_number, comment_number) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number;
-  var description = "Delete comment " + comment_number + " in discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Delete comment " + comment_number + " in discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7345,7 +7772,7 @@ function deleteDiscussionComment(org, team_slug, discussion_number, comment_numb
 
 function updateDiscussionComment(org, team_slug, discussion_number, comment_number, body) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number;
-  var description = "Update comment " + comment_number + " in discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Update comment " + comment_number + " in discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = {
     "body": body,
   };
@@ -7359,7 +7786,7 @@ function updateDiscussionComment(org, team_slug, discussion_number, comment_numb
 
 function getDiscussionComment(org, team_slug, discussion_number, comment_number) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number;
-  var description = "Get comment " + comment_number + " in discussion " + discussion_number + " in team " + team_slug + " of org " + org;
+  var description = "Get comment " + comment_number + " in discussion " + discussion_number + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7389,7 +7816,7 @@ function tryToDeleteANonExistingTeamDiscussionComment(org, team_slug, discussion
 
 function addOrUpdateMembership(org, team_slug, username, role) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/memberships/" + username;
-  var description = "Add or update membership for user " + username + " in team " + team_slug + " of org " + org;
+  var description = "Add or update membership for user " + username + " in team " + team_slug + " of " + org;
   var body = {
     "role": role,
   };
@@ -7403,7 +7830,7 @@ function addOrUpdateMembership(org, team_slug, username, role) {
 
 function removeMembership(org, team_slug, username) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/memberships/" + username;
-  var description = "Remove membership for user " + username + " in team " + team_slug + " of org " + org;
+  var description = "Remove membership for user " + username + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7415,7 +7842,7 @@ function removeMembership(org, team_slug, username) {
 
 function getMembership(org, team_slug, username) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/memberships/" + username;
-  var description = "Get membership for user " + username + " in team " + team_slug + " of org " + org;
+  var description = "Get membership for user " + username + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7445,7 +7872,7 @@ function tryToDeleteANonExistingTeamMembership(org, team_slug, username, role) {
 
 function addOrUpdateProjectPermissions(org, team_slug, project_id, permission) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/projects/" + project_id;
-  var description = "Add or update project " + project_id + " permissions in team " + team_slug + " of org " + org;
+  var description = "Add or update project permissions for project " + project_id + " in team " + team_slug + " of " + org;
   var body = {
     "permission": permission,
   };
@@ -7459,7 +7886,7 @@ function addOrUpdateProjectPermissions(org, team_slug, project_id, permission) {
 
 function removeProject(org, team_slug, project_id) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/projects/" + project_id;
-  var description = "Remove project " + project_id + " from team " + team_slug + " of org " + org;
+  var description = "Remove project " + project_id + " from team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7471,7 +7898,7 @@ function removeProject(org, team_slug, project_id) {
 
 function checkProjectPermissions(org, team_slug, project_id) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/projects/" + project_id;
-  var description = "Check project " + project_id + " permissions in team " + team_slug + " of org " + org;
+  var description = "Check project permissions for project " + project_id + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7501,7 +7928,7 @@ function tryToDeleteANonExistingTeamProject(org, team_slug, project_id, permissi
 
 function addOrUpdateRepoPermissions(org, team_slug, owner, repo, permission) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/repos/" + owner + "/" + repo;
-  var description = "Add or update repo " + repo + " permissions for owner " + owner + " in team " + team_slug + " of org " + org;
+  var description = "Add or update repository permissions for repo " + repo + " owned by " + owner + " in team " + team_slug + " of " + org;
   var body = {
     "permission": permission,
   };
@@ -7515,7 +7942,7 @@ function addOrUpdateRepoPermissions(org, team_slug, owner, repo, permission) {
 
 function removeRepo(org, team_slug, owner, repo) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/repos/" + owner + "/" + repo;
-  var description = "Remove repo " + repo + " for owner " + owner + " from team " + team_slug + " of org " + org;
+  var description = "Remove repository " + repo + " owned by " + owner + " from team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7527,7 +7954,7 @@ function removeRepo(org, team_slug, owner, repo) {
 
 function checkRepoPermissions(org, team_slug, owner, repo) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/repos/" + owner + "/" + repo;
-  var description = "Check repo " + repo + " permissions for owner " + owner + " in team " + team_slug + " of org " + org;
+  var description = "Check repository permissions for repo " + repo + " owned by " + owner + " in team " + team_slug + " of " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7555,7 +7982,7 @@ function tryToDeleteANonExistingTeamRepository(org, team_slug, owner, repo, perm
 
 // ---- Entity: notification ----
 
-function listNotificationsForAuthenticatedUser(all, participating, since, before, page, per_page) {
+function listNotifications(all, participating, since, before, page, per_page) {
   var url = "/notifications";
   var description = "List notifications for the authenticated user";
   var body = undefined;
@@ -7583,11 +8010,11 @@ function markNotificationsAsRead() {
 }
 
 function verifyNotificationExists(all, participating, since, before, page, per_page) {
-  return listNotificationsForAuthenticatedUser(all, participating, since, before, page, per_page);
+  return listNotifications(all, participating, since, before, page, per_page);
 }
 
 function verifyNotificationDoesNotExist(all, participating, since, before, page, per_page) {
-  return listNotificationsForAuthenticatedUser(all, participating, since, before, page, per_page);
+  return listNotifications(all, participating, since, before, page, per_page);
 }
 
 // ---- Entity: notification thread ----
@@ -7640,9 +8067,9 @@ function tryToDeleteANonExistingNotificationThread(thread_id) {
   return markThreadAsDone(thread_id);
 }
 
-// ---- Entity: notification thread subscription ----
+// ---- Entity: thread subscription ----
 
-function getThreadSubscriptionForAuthenticatedUser(thread_id) {
+function getThreadSubscription(thread_id) {
   var url = "/notifications/threads/" + thread_id + "/subscription";
   var description = "Get a thread subscription for the authenticated user for thread " + thread_id;
   var body = undefined;
@@ -7680,25 +8107,25 @@ function deleteThreadSubscription(thread_id) {
   });
 }
 
-function tryToAddExistingNotificationThreadSubscription(thread_id) {
+function tryToAddExistingThreadSubscription(thread_id) {
   return setThreadSubscription(thread_id);
 }
 
-function verifyNotificationThreadSubscriptionExists(thread_id) {
-  return getThreadSubscriptionForAuthenticatedUser(thread_id);
+function verifyThreadSubscriptionExists(thread_id) {
+  return getThreadSubscription(thread_id);
 }
 
-function verifyNotificationThreadSubscriptionDoesNotExist(thread_id) {
-  return getThreadSubscriptionForAuthenticatedUser(thread_id);
+function verifyThreadSubscriptionDoesNotExist(thread_id) {
+  return getThreadSubscription(thread_id);
 }
 
-function tryToDeleteANonExistingNotificationThreadSubscription(thread_id) {
+function tryToDeleteANonExistingThreadSubscription(thread_id) {
   return deleteThreadSubscription(thread_id);
 }
 
 // ---- Entity: repository notification ----
 
-function listRepoNotificationsForAuthenticatedUser(owner, repo, all, participating, since, before, per_page, page) {
+function listRepoNotifications(owner, repo, all, participating, since, before, per_page, page) {
   var url = "/repos/" + owner + "/" + repo + "/notifications";
   var description = "List repository notifications for the authenticated user for repo " + repo + " of " + owner;
   var body = undefined;
@@ -7725,11 +8152,11 @@ function markRepoNotificationsAsRead(owner, repo) {
 }
 
 function verifyRepoNotificationExists(owner, repo, all, participating, since, before, per_page, page) {
-  return listRepoNotificationsForAuthenticatedUser(owner, repo, all, participating, since, before, per_page, page);
+  return listRepoNotifications(owner, repo, all, participating, since, before, per_page, page);
 }
 
 function verifyRepoNotificationDoesNotExist(owner, repo, all, participating, since, before, per_page, page) {
-  return listRepoNotificationsForAuthenticatedUser(owner, repo, all, participating, since, before, per_page, page);
+  return listRepoNotifications(owner, repo, all, participating, since, before, per_page, page);
 }
 
 // ---- Entity: repository subscription ----
@@ -7789,11 +8216,11 @@ function tryToDeleteANonExistingRepoSubscription(owner, repo) {
   return deleteRepoSubscription(owner, repo);
 }
 
-// ---- Entity: repository star ----
+// ---- Entity: star ----
 
-function checkRepoIsStarredByAuthenticatedUser(owner, repo) {
+function checkRepoIsStarred(owner, repo) {
   var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Check if repository " + repo + " of " + owner + " is starred by the authenticated user";
+  var description = "Check if repo " + repo + " of " + owner + " is starred by the authenticated user";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7803,9 +8230,9 @@ function checkRepoIsStarredByAuthenticatedUser(owner, repo) {
   });
 }
 
-function starRepoForAuthenticatedUser(owner, repo) {
+function starRepo(owner, repo) {
   var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Star repository " + repo + " of " + owner + " for the authenticated user";
+  var description = "Star repo " + repo + " of " + owner + " for the authenticated user";
   var body = undefined;
   return svc.request({
     method: "PUT",
@@ -7815,9 +8242,9 @@ function starRepoForAuthenticatedUser(owner, repo) {
   });
 }
 
-function unstarRepoForAuthenticatedUser(owner, repo) {
+function unstarRepo(owner, repo) {
   var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Unstar repository " + repo + " of " + owner + " for the authenticated user";
+  var description = "Unstar repo " + repo + " of " + owner + " for the authenticated user";
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7827,23 +8254,23 @@ function unstarRepoForAuthenticatedUser(owner, repo) {
   });
 }
 
-function tryToAddExistingRepoStar(owner, repo) {
-  return starRepoForAuthenticatedUser(owner, repo);
+function tryToAddExistingStar(owner, repo) {
+  return starRepo(owner, repo);
 }
 
-function verifyRepoStarExists(owner, repo) {
-  return checkRepoIsStarredByAuthenticatedUser(owner, repo);
+function verifyStarExists(owner, repo) {
+  return checkRepoIsStarred(owner, repo);
 }
 
-function verifyRepoStarDoesNotExist(owner, repo) {
-  return checkRepoIsStarredByAuthenticatedUser(owner, repo);
+function verifyStarDoesNotExist(owner, repo) {
+  return checkRepoIsStarred(owner, repo);
 }
 
-function tryToDeleteANonExistingRepoStar(owner, repo) {
-  return unstarRepoForAuthenticatedUser(owner, repo);
+function tryToDeleteANonExistingStar(owner, repo) {
+  return unstarRepo(owner, repo);
 }
 
-// ---- Entity: package ----
+// ---- Entity: organization package ----
 
 function getOrgPackage(org, package_type, package_name) {
   var url = "/orgs/" + org + "/packages/" + package_type + "/" + package_name;
@@ -7869,23 +8296,41 @@ function deleteOrgPackage(org, package_type, package_name) {
   });
 }
 
-function verifyPackageExists(org, package_type, package_name) {
+function verifyOrgPackageExists(org, package_type, package_name) {
   return getOrgPackage(org, package_type, package_name);
 }
 
-function verifyPackageDoesNotExist(org, package_type, package_name) {
+function verifyOrgPackageDoesNotExist(org, package_type, package_name) {
   return getOrgPackage(org, package_type, package_name);
 }
 
-function tryToDeleteANonExistingPackage(org, package_type, package_name) {
+function tryToDeleteANonExistingOrgPackage(org, package_type, package_name) {
   return deleteOrgPackage(org, package_type, package_name);
 }
 
-// ---- Entity: package version ----
+// ---- Entity: organization package restore ----
+
+function restoreOrgPackage(org, package_type, package_name, token) {
+  var url = "/orgs/" + org + "/packages/" + package_type + "/" + package_name + "/restore";
+  var description = "Restore package " + package_name + " of type " + package_type + " for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingOrgPackageRestore(org, package_type, package_name, token) {
+  return restoreOrgPackage(org, package_type, package_name, token);
+}
+
+// ---- Entity: organization package version ----
 
 function getOrgPackageVersion(org, package_type, package_name, package_version_id) {
   var url = "/orgs/" + org + "/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id;
-  var description = "Get package version " + package_version_id + " of package " + package_name + " type " + package_type + " for organization " + org;
+  var description = "Get package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7897,7 +8342,7 @@ function getOrgPackageVersion(org, package_type, package_name, package_version_i
 
 function deleteOrgPackageVersion(org, package_type, package_name, package_version_id) {
   var url = "/orgs/" + org + "/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id;
-  var description = "Delete package version " + package_version_id + " of package " + package_name + " type " + package_type + " for organization " + org;
+  var description = "Delete package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for organization " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7907,16 +8352,34 @@ function deleteOrgPackageVersion(org, package_type, package_name, package_versio
   });
 }
 
-function verifyPackageVersionExists(org, package_type, package_name, package_version_id) {
+function verifyOrgPackageVersionExists(org, package_type, package_name, package_version_id) {
   return getOrgPackageVersion(org, package_type, package_name, package_version_id);
 }
 
-function verifyPackageVersionDoesNotExist(org, package_type, package_name, package_version_id) {
+function verifyOrgPackageVersionDoesNotExist(org, package_type, package_name, package_version_id) {
   return getOrgPackageVersion(org, package_type, package_name, package_version_id);
 }
 
-function tryToDeleteANonExistingPackageVersion(org, package_type, package_name, package_version_id) {
+function tryToDeleteANonExistingOrgPackageVersion(org, package_type, package_name, package_version_id) {
   return deleteOrgPackageVersion(org, package_type, package_name, package_version_id);
+}
+
+// ---- Entity: organization package version restore ----
+
+function restoreOrgPackageVersion(org, package_type, package_name, package_version_id) {
+  var url = "/orgs/" + org + "/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id + "/restore";
+  var description = "Restore package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingOrgPackageVersionRestore(org, package_type, package_name, package_version_id) {
+  return restoreOrgPackageVersion(org, package_type, package_name, package_version_id);
 }
 
 // ---- Entity: user package ----
@@ -7957,11 +8420,29 @@ function tryToDeleteANonExistingUserPackage(username, package_type, package_name
   return deleteUserPackage(username, package_type, package_name);
 }
 
+// ---- Entity: user package restore ----
+
+function restoreUserPackage(username, package_type, package_name, token) {
+  var url = "/users/" + username + "/packages/" + package_type + "/" + package_name + "/restore";
+  var description = "Restore package " + package_name + " of type " + package_type + " for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingUserPackageRestore(username, package_type, package_name, token) {
+  return restoreUserPackage(username, package_type, package_name, token);
+}
+
 // ---- Entity: user package version ----
 
 function getUserPackageVersion(username, package_type, package_name, package_version_id) {
   var url = "/users/" + username + "/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id;
-  var description = "Get package version " + package_version_id + " of package " + package_name + " type " + package_type + " for user " + username;
+  var description = "Get package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for user " + username;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -7973,7 +8454,7 @@ function getUserPackageVersion(username, package_type, package_name, package_ver
 
 function deleteUserPackageVersion(username, package_type, package_name, package_version_id) {
   var url = "/users/" + username + "/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id;
-  var description = "Delete package version " + package_version_id + " of package " + package_name + " type " + package_type + " for user " + username;
+  var description = "Delete package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for user " + username;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -7995,9 +8476,27 @@ function tryToDeleteANonExistingUserPackageVersion(username, package_type, packa
   return deleteUserPackageVersion(username, package_type, package_name, package_version_id);
 }
 
+// ---- Entity: user package version restore ----
+
+function restoreUserPackageVersion(username, package_type, package_name, package_version_id) {
+  var url = "/users/" + username + "/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id + "/restore";
+  var description = "Restore package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for user " + username;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingUserPackageVersionRestore(username, package_type, package_name, package_version_id) {
+  return restoreUserPackageVersion(username, package_type, package_name, package_version_id);
+}
+
 // ---- Entity: authenticated user package ----
 
-function getAuthenticatedUserPackage(package_type, package_name) {
+function getUserSelfPackage(package_type, package_name) {
   var url = "/user/packages/" + package_type + "/" + package_name;
   var description = "Get package " + package_name + " of type " + package_type + " for authenticated user";
   var body = undefined;
@@ -8009,7 +8508,7 @@ function getAuthenticatedUserPackage(package_type, package_name) {
   });
 }
 
-function deleteAuthenticatedUserPackage(package_type, package_name) {
+function deleteUserSelfPackage(package_type, package_name) {
   var url = "/user/packages/" + package_type + "/" + package_name;
   var description = "Delete package " + package_name + " of type " + package_type + " for authenticated user";
   var body = undefined;
@@ -8021,23 +8520,41 @@ function deleteAuthenticatedUserPackage(package_type, package_name) {
   });
 }
 
-function verifyUserPackageAuthenticatedExists(package_type, package_name) {
-  return getAuthenticatedUserPackage(package_type, package_name);
+function verifyUserPackageSelfExists(package_type, package_name) {
+  return getUserSelfPackage(package_type, package_name);
 }
 
-function verifyUserPackageAuthenticatedDoesNotExist(package_type, package_name) {
-  return getAuthenticatedUserPackage(package_type, package_name);
+function verifyUserPackageSelfDoesNotExist(package_type, package_name) {
+  return getUserSelfPackage(package_type, package_name);
 }
 
-function tryToDeleteANonExistingUserPackageAuthenticated(package_type, package_name) {
-  return deleteAuthenticatedUserPackage(package_type, package_name);
+function tryToDeleteANonExistingUserPackageSelf(package_type, package_name) {
+  return deleteUserSelfPackage(package_type, package_name);
+}
+
+// ---- Entity: authenticated user package restore ----
+
+function restoreUserSelfPackage(package_type, package_name, token) {
+  var url = "/user/packages/" + package_type + "/" + package_name + "/restore";
+  var description = "Restore package " + package_name + " of type " + package_type + " for authenticated user";
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingUserPackageSelfRestore(package_type, package_name, token) {
+  return restoreUserSelfPackage(package_type, package_name, token);
 }
 
 // ---- Entity: authenticated user package version ----
 
-function getAuthenticatedUserPackageVersion(package_type, package_name, package_version_id) {
+function getUserSelfPackageVersion(package_type, package_name, package_version_id) {
   var url = "/user/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id;
-  var description = "Get package version " + package_version_id + " of package " + package_name + " type " + package_type + " for authenticated user";
+  var description = "Get package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for authenticated user";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -8047,9 +8564,9 @@ function getAuthenticatedUserPackageVersion(package_type, package_name, package_
   });
 }
 
-function deleteAuthenticatedUserPackageVersion(package_type, package_name, package_version_id) {
+function deleteUserSelfPackageVersion(package_type, package_name, package_version_id) {
   var url = "/user/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id;
-  var description = "Delete package version " + package_version_id + " of package " + package_name + " type " + package_type + " for authenticated user";
+  var description = "Delete package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for authenticated user";
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -8059,16 +8576,34 @@ function deleteAuthenticatedUserPackageVersion(package_type, package_name, packa
   });
 }
 
-function verifyUserPackageVersionAuthenticatedExists(package_type, package_name, package_version_id) {
-  return getAuthenticatedUserPackageVersion(package_type, package_name, package_version_id);
+function verifyUserPackageVersionSelfExists(package_type, package_name, package_version_id) {
+  return getUserSelfPackageVersion(package_type, package_name, package_version_id);
 }
 
-function verifyUserPackageVersionAuthenticatedDoesNotExist(package_type, package_name, package_version_id) {
-  return getAuthenticatedUserPackageVersion(package_type, package_name, package_version_id);
+function verifyUserPackageVersionSelfDoesNotExist(package_type, package_name, package_version_id) {
+  return getUserSelfPackageVersion(package_type, package_name, package_version_id);
 }
 
-function tryToDeleteANonExistingUserPackageVersionAuthenticated(package_type, package_name, package_version_id) {
-  return deleteAuthenticatedUserPackageVersion(package_type, package_name, package_version_id);
+function tryToDeleteANonExistingUserPackageVersionSelf(package_type, package_name, package_version_id) {
+  return deleteUserSelfPackageVersion(package_type, package_name, package_version_id);
+}
+
+// ---- Entity: authenticated user package version restore ----
+
+function restoreUserSelfPackageVersion(package_type, package_name, package_version_id) {
+  var url = "/user/packages/" + package_type + "/" + package_name + "/versions/" + package_version_id + "/restore";
+  var description = "Restore package version " + package_version_id + " of package " + package_name + " of type " + package_type + " for authenticated user";
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingUserPackageVersionSelfRestore(package_type, package_name, package_version_id) {
+  return restoreUserSelfPackageVersion(package_type, package_name, package_version_id);
 }
 
 // ---- Entity: code scanning alert ----
@@ -8153,7 +8688,9 @@ function verifyCodeScanningAlertAutofixDoesNotExist(owner, repo, alert_number) {
 function commitAutofix(owner, repo, alert_number) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/alerts/" + alert_number + "/autofix/commits";
   var description = "Commit autofix for alert " + alert_number + " in " + repo + " of " + owner;
-  var body = code-scanning-autofix-commits;
+  var body = {
+    "commits": commits,
+  };
   return svc.request({
     method: "POST",
     url: url,
@@ -8186,50 +8723,6 @@ function verifyCodeScanningAlertInstanceExists(owner, repo, alert_number) {
 
 function verifyCodeScanningAlertInstanceDoesNotExist(owner, repo, alert_number) {
   return listAlertInstances(owner, repo, alert_number);
-}
-
-// ---- Entity: code scanning alert list for organization ----
-
-function listAlertsForOrg(org) {
-  var url = "/orgs/" + org + "/code-scanning/alerts";
-  var description = "List code scanning alerts for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCodeScanningAlertListOrgExists(org) {
-  return listAlertsForOrg(org);
-}
-
-function verifyCodeScanningAlertListOrgDoesNotExist(org) {
-  return listAlertsForOrg(org);
-}
-
-// ---- Entity: code scanning alert list for repository ----
-
-function listAlertsForRepo(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/code-scanning/alerts";
-  var description = "List code scanning alerts for repository " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCodeScanningAlertListRepoExists(owner, repo) {
-  return listAlertsForRepo(owner, repo);
-}
-
-function verifyCodeScanningAlertListRepoDoesNotExist(owner, repo) {
-  return listAlertsForRepo(owner, repo);
 }
 
 // ---- Entity: code scanning analysis ----
@@ -8274,7 +8767,7 @@ function tryToDeleteANonExistingCodeScanningAnalysis(owner, repo, analysis_id) {
 
 function listRecentAnalyses(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/analyses";
-  var description = "List code scanning analyses for repository " + repo + " of " + owner;
+  var description = "List code scanning analyses in " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -8334,7 +8827,7 @@ function tryToDeleteANonExistingCodeQLDatabase(owner, repo, language) {
 
 function listCodeqlDatabases(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/codeql/databases";
-  var description = "List CodeQL databases for repository " + repo + " of " + owner;
+  var description = "List CodeQL databases in " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -8354,28 +8847,6 @@ function verifyCodeQLDatabaseListDoesNotExist(owner, repo) {
 
 // ---- Entity: CodeQL variant analysis ----
 
-function getVariantAnalysis(owner, repo, codeql_variant_analysis_id) {
-  var url = "/repos/" + owner + "/" + repo + "/code-scanning/codeql/variant-analyses/" + codeql_variant_analysis_id;
-  var description = "Get CodeQL variant analysis " + codeql_variant_analysis_id + " in " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCodeQLVariantAnalysisExists(owner, repo, codeql_variant_analysis_id) {
-  return getVariantAnalysis(owner, repo, codeql_variant_analysis_id);
-}
-
-function verifyCodeQLVariantAnalysisDoesNotExist(owner, repo, codeql_variant_analysis_id) {
-  return getVariantAnalysis(owner, repo, codeql_variant_analysis_id);
-}
-
-// ---- Entity: CodeQL variant analysis list ----
-
 function createVariantAnalysis(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/codeql/variant-analyses";
   var description = "Create CodeQL variant analysis in " + repo + " of " + owner;
@@ -8394,15 +8865,35 @@ function createVariantAnalysis(owner, repo) {
   });
 }
 
-function tryToAddExistingCodeQLVariantAnalysisList(owner, repo) {
+function getVariantAnalysis(owner, repo, codeql_variant_analysis_id) {
+  var url = "/repos/" + owner + "/" + repo + "/code-scanning/codeql/variant-analyses/" + codeql_variant_analysis_id;
+  var description = "Get CodeQL variant analysis " + codeql_variant_analysis_id + " in " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCodeQLVariantAnalysis(owner, repo, codeql_variant_analysis_id) {
   return createVariantAnalysis(owner, repo);
+}
+
+function verifyCodeQLVariantAnalysisExists(owner, repo, codeql_variant_analysis_id) {
+  return getVariantAnalysis(owner, repo, codeql_variant_analysis_id);
+}
+
+function verifyCodeQLVariantAnalysisDoesNotExist(owner, repo, codeql_variant_analysis_id) {
+  return getVariantAnalysis(owner, repo, codeql_variant_analysis_id);
 }
 
 // ---- Entity: CodeQL variant analysis repository task ----
 
 function getVariantAnalysisRepoTask(owner, repo, codeql_variant_analysis_id, repo_owner, repo_name) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/codeql/variant-analyses/" + codeql_variant_analysis_id + "/repos/" + repo_owner + "/" + repo_name;
-  var description = "Get variant analysis repo task for repo " + repo_name + " owned by " + repo_owner + " in variant analysis " + codeql_variant_analysis_id + " in " + repo + " of " + owner;
+  var description = "Get variant analysis " + codeql_variant_analysis_id + " repo task for " + repo_owner + "/" + repo_name + " in " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -8437,7 +8928,9 @@ function getDefaultSetup(owner, repo) {
 function updateDefaultSetup(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/default-setup";
   var description = "Update code scanning default setup in " + repo + " of " + owner;
-  var body = code-scanning-default-setup-update;
+  var body = {
+    "default_setup_update": default_setup_update,
+  };
   return svc.request({
     method: "PATCH",
     url: url,
@@ -8455,28 +8948,6 @@ function verifyCodeScanningDefaultSetupDoesNotExist(owner, repo) {
 }
 
 // ---- Entity: SARIF upload ----
-
-function getSarif(owner, repo, sarif_id) {
-  var url = "/repos/" + owner + "/" + repo + "/code-scanning/sarifs/" + sarif_id;
-  var description = "Get SARIF upload " + sarif_id + " in " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifySarifUploadExists(owner, repo, sarif_id) {
-  return getSarif(owner, repo, sarif_id);
-}
-
-function verifySarifUploadDoesNotExist(owner, repo, sarif_id) {
-  return getSarif(owner, repo, sarif_id);
-}
-
-// ---- Entity: SARIF upload create ----
 
 function uploadSarif(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/code-scanning/sarifs";
@@ -8498,15 +8969,91 @@ function uploadSarif(owner, repo) {
   });
 }
 
-function tryToAddExistingSarifUploadCreate(owner, repo) {
+function getSarif(owner, repo, sarif_id) {
+  var url = "/repos/" + owner + "/" + repo + "/code-scanning/sarifs/" + sarif_id;
+  var description = "Get SARIF upload " + sarif_id + " in " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingSarifUpload(owner, repo, sarif_id) {
   return uploadSarif(owner, repo);
+}
+
+function verifySarifUploadExists(owner, repo, sarif_id) {
+  return getSarif(owner, repo, sarif_id);
+}
+
+function verifySarifUploadDoesNotExist(owner, repo, sarif_id) {
+  return getSarif(owner, repo, sarif_id);
+}
+
+// ---- Entity: code scanning alert list for organization ----
+
+function listAlertsForOrg(org) {
+  var url = "/orgs/" + org + "/code-scanning/alerts";
+  var description = "List code scanning alerts for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCodeScanningAlertListOrgExists(org) {
+  return listAlertsForOrg(org);
+}
+
+function verifyCodeScanningAlertListOrgDoesNotExist(org) {
+  return listAlertsForOrg(org);
+}
+
+// ---- Entity: code scanning alert list for repository ----
+
+function listAlertsForRepo(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/code-scanning/alerts";
+  var description = "List code scanning alerts for repository " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCodeScanningAlertListRepoExists(owner, repo) {
+  return listAlertsForRepo(owner, repo);
+}
+
+function verifyCodeScanningAlertListRepoDoesNotExist(owner, repo) {
+  return listAlertsForRepo(owner, repo);
 }
 
 // ---- Entity: team discussion comment reaction ----
 
-function createTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, content) {
+function listReactionsForTeamDiscussionComment(org, team_slug, discussion_number, comment_number) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number + "/reactions";
-  var description = "Create reaction " + content + " for comment " + comment_number + " in discussion " + discussion_number + " of team " + team_slug + " in org " + org;
+  var description = "List reactions for team discussion comment " + comment_number + " in discussion " + discussion_number + " of team " + team_slug + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForTeamDiscussionComment(org, team_slug, discussion_number, comment_number, content) {
+  var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number + "/reactions";
+  var description = "Create reaction " + content + " for team discussion comment " + comment_number + " in discussion " + discussion_number + " of team " + team_slug + " in org " + org;
   var body = {
     "content": content,
   };
@@ -8518,21 +9065,23 @@ function createTeamDiscussionCommentReaction(org, team_slug, discussion_number, 
   });
 }
 
-function listTeamDiscussionCommentReactions(org, team_slug, discussion_number, comment_number) {
-  var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number + "/reactions";
-  var description = "List reactions for comment " + comment_number + " in discussion " + discussion_number + " of team " + team_slug + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, content) {
+  return createReactionForTeamDiscussionComment(org, team_slug, discussion_number, comment_number, content);
 }
+
+function verifyTeamDiscussionCommentReactionExists(org, team_slug, discussion_number, comment_number, content) {
+  return listReactionsForTeamDiscussionComment(org, team_slug, discussion_number, comment_number);
+}
+
+function verifyTeamDiscussionCommentReactionDoesNotExist(org, team_slug, discussion_number, comment_number, content) {
+  return listReactionsForTeamDiscussionComment(org, team_slug, discussion_number, comment_number);
+}
+
+// ---- Entity: team discussion comment reaction instance ----
 
 function deleteTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, reaction_id) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/comments/" + comment_number + "/reactions/" + reaction_id;
-  var description = "Delete reaction " + reaction_id + " for comment " + comment_number + " in discussion " + discussion_number + " of team " + team_slug + " in org " + org;
+  var description = "Delete reaction " + reaction_id + " for team discussion comment " + comment_number + " in discussion " + discussion_number + " of team " + team_slug + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -8542,27 +9091,27 @@ function deleteTeamDiscussionCommentReaction(org, team_slug, discussion_number, 
   });
 }
 
-function tryToAddExistingTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, content, reaction_id) {
-  return createTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, content);
-}
-
-function verifyTeamDiscussionCommentReactionExists(org, team_slug, discussion_number, comment_number, content, reaction_id) {
-  return listTeamDiscussionCommentReactions(org, team_slug, discussion_number, comment_number);
-}
-
-function verifyTeamDiscussionCommentReactionDoesNotExist(org, team_slug, discussion_number, comment_number, content, reaction_id) {
-  return listTeamDiscussionCommentReactions(org, team_slug, discussion_number, comment_number);
-}
-
-function tryToDeleteANonExistingTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, content, reaction_id) {
+function tryToDeleteANonExistingTeamDiscussionCommentReactionInstance(org, team_slug, discussion_number, comment_number, reaction_id) {
   return deleteTeamDiscussionCommentReaction(org, team_slug, discussion_number, comment_number, reaction_id);
 }
 
 // ---- Entity: team discussion reaction ----
 
-function createTeamDiscussionReaction(org, team_slug, discussion_number, content) {
+function listReactionsForTeamDiscussion(org, team_slug, discussion_number) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/reactions";
-  var description = "Create reaction " + content + " for discussion " + discussion_number + " of team " + team_slug + " in org " + org;
+  var description = "List reactions for team discussion " + discussion_number + " of team " + team_slug + " in org " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForTeamDiscussion(org, team_slug, discussion_number, content) {
+  var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/reactions";
+  var description = "Create reaction " + content + " for team discussion " + discussion_number + " of team " + team_slug + " in org " + org;
   var body = {
     "content": content,
   };
@@ -8574,21 +9123,23 @@ function createTeamDiscussionReaction(org, team_slug, discussion_number, content
   });
 }
 
-function listTeamDiscussionReactions(org, team_slug, discussion_number) {
-  var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/reactions";
-  var description = "List reactions for discussion " + discussion_number + " of team " + team_slug + " in org " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingTeamDiscussionReaction(org, team_slug, discussion_number, content) {
+  return createReactionForTeamDiscussion(org, team_slug, discussion_number, content);
 }
+
+function verifyTeamDiscussionReactionExists(org, team_slug, discussion_number, content) {
+  return listReactionsForTeamDiscussion(org, team_slug, discussion_number);
+}
+
+function verifyTeamDiscussionReactionDoesNotExist(org, team_slug, discussion_number, content) {
+  return listReactionsForTeamDiscussion(org, team_slug, discussion_number);
+}
+
+// ---- Entity: team discussion reaction instance ----
 
 function deleteTeamDiscussionReaction(org, team_slug, discussion_number, reaction_id) {
   var url = "/orgs/" + org + "/teams/" + team_slug + "/discussions/" + discussion_number + "/reactions/" + reaction_id;
-  var description = "Delete reaction " + reaction_id + " for discussion " + discussion_number + " of team " + team_slug + " in org " + org;
+  var description = "Delete reaction " + reaction_id + " for team discussion " + discussion_number + " of team " + team_slug + " in org " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -8598,25 +9149,25 @@ function deleteTeamDiscussionReaction(org, team_slug, discussion_number, reactio
   });
 }
 
-function tryToAddExistingTeamDiscussionReaction(org, team_slug, discussion_number, content, reaction_id) {
-  return createTeamDiscussionReaction(org, team_slug, discussion_number, content);
-}
-
-function verifyTeamDiscussionReactionExists(org, team_slug, discussion_number, content, reaction_id) {
-  return listTeamDiscussionReactions(org, team_slug, discussion_number);
-}
-
-function verifyTeamDiscussionReactionDoesNotExist(org, team_slug, discussion_number, content, reaction_id) {
-  return listTeamDiscussionReactions(org, team_slug, discussion_number);
-}
-
-function tryToDeleteANonExistingTeamDiscussionReaction(org, team_slug, discussion_number, content, reaction_id) {
+function tryToDeleteANonExistingTeamDiscussionReactionInstance(org, team_slug, discussion_number, reaction_id) {
   return deleteTeamDiscussionReaction(org, team_slug, discussion_number, reaction_id);
 }
 
 // ---- Entity: commit comment reaction ----
 
-function createCommitCommentReaction(owner, repo, comment_id, content) {
+function listReactionsForCommitComment(owner, repo, comment_id) {
+  var url = "/repos/" + owner + "/" + repo + "/comments/" + comment_id + "/reactions";
+  var description = "List reactions for commit comment " + comment_id + " in repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForCommitComment(owner, repo, comment_id, content) {
   var url = "/repos/" + owner + "/" + repo + "/comments/" + comment_id + "/reactions";
   var description = "Create reaction " + content + " for commit comment " + comment_id + " in repo " + repo + " owned by " + owner;
   var body = {
@@ -8630,17 +9181,19 @@ function createCommitCommentReaction(owner, repo, comment_id, content) {
   });
 }
 
-function listCommitCommentReactions(owner, repo, comment_id) {
-  var url = "/repos/" + owner + "/" + repo + "/comments/" + comment_id + "/reactions";
-  var description = "List reactions for commit comment " + comment_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingCommitCommentReaction(owner, repo, comment_id, content) {
+  return createReactionForCommitComment(owner, repo, comment_id, content);
 }
+
+function verifyCommitCommentReactionExists(owner, repo, comment_id, content) {
+  return listReactionsForCommitComment(owner, repo, comment_id);
+}
+
+function verifyCommitCommentReactionDoesNotExist(owner, repo, comment_id, content) {
+  return listReactionsForCommitComment(owner, repo, comment_id);
+}
+
+// ---- Entity: commit comment reaction instance ----
 
 function deleteCommitCommentReaction(owner, repo, comment_id, reaction_id) {
   var url = "/repos/" + owner + "/" + repo + "/comments/" + comment_id + "/reactions/" + reaction_id;
@@ -8654,25 +9207,25 @@ function deleteCommitCommentReaction(owner, repo, comment_id, reaction_id) {
   });
 }
 
-function tryToAddExistingCommitCommentReaction(owner, repo, comment_id, content, reaction_id) {
-  return createCommitCommentReaction(owner, repo, comment_id, content);
-}
-
-function verifyCommitCommentReactionExists(owner, repo, comment_id, content, reaction_id) {
-  return listCommitCommentReactions(owner, repo, comment_id);
-}
-
-function verifyCommitCommentReactionDoesNotExist(owner, repo, comment_id, content, reaction_id) {
-  return listCommitCommentReactions(owner, repo, comment_id);
-}
-
-function tryToDeleteANonExistingCommitCommentReaction(owner, repo, comment_id, content, reaction_id) {
+function tryToDeleteANonExistingCommitCommentReactionInstance(owner, repo, comment_id, reaction_id) {
   return deleteCommitCommentReaction(owner, repo, comment_id, reaction_id);
 }
 
 // ---- Entity: issue comment reaction ----
 
-function createIssueCommentReaction(owner, repo, comment_id, content) {
+function listReactionsForIssueComment(owner, repo, comment_id) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id + "/reactions";
+  var description = "List reactions for issue comment " + comment_id + " in repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForIssueComment(owner, repo, comment_id, content) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id + "/reactions";
   var description = "Create reaction " + content + " for issue comment " + comment_id + " in repo " + repo + " owned by " + owner;
   var body = {
@@ -8686,17 +9239,19 @@ function createIssueCommentReaction(owner, repo, comment_id, content) {
   });
 }
 
-function listIssueCommentReactions(owner, repo, comment_id) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id + "/reactions";
-  var description = "List reactions for issue comment " + comment_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingIssueCommentReaction(owner, repo, comment_id, content) {
+  return createReactionForIssueComment(owner, repo, comment_id, content);
 }
+
+function verifyIssueCommentReactionExists(owner, repo, comment_id, content) {
+  return listReactionsForIssueComment(owner, repo, comment_id);
+}
+
+function verifyIssueCommentReactionDoesNotExist(owner, repo, comment_id, content) {
+  return listReactionsForIssueComment(owner, repo, comment_id);
+}
+
+// ---- Entity: issue comment reaction instance ----
 
 function deleteIssueCommentReaction(owner, repo, comment_id, reaction_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + comment_id + "/reactions/" + reaction_id;
@@ -8710,25 +9265,25 @@ function deleteIssueCommentReaction(owner, repo, comment_id, reaction_id) {
   });
 }
 
-function tryToAddExistingIssueCommentReaction(owner, repo, comment_id, content, reaction_id) {
-  return createIssueCommentReaction(owner, repo, comment_id, content);
-}
-
-function verifyIssueCommentReactionExists(owner, repo, comment_id, content, reaction_id) {
-  return listIssueCommentReactions(owner, repo, comment_id);
-}
-
-function verifyIssueCommentReactionDoesNotExist(owner, repo, comment_id, content, reaction_id) {
-  return listIssueCommentReactions(owner, repo, comment_id);
-}
-
-function tryToDeleteANonExistingIssueCommentReaction(owner, repo, comment_id, content, reaction_id) {
+function tryToDeleteANonExistingIssueCommentReactionInstance(owner, repo, comment_id, reaction_id) {
   return deleteIssueCommentReaction(owner, repo, comment_id, reaction_id);
 }
 
 // ---- Entity: issue reaction ----
 
-function createIssueReaction(owner, repo, issue_number, content) {
+function listReactionsForIssue(owner, repo, issue_number) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/reactions";
+  var description = "List reactions for issue " + issue_number + " in repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForIssue(owner, repo, issue_number, content) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/reactions";
   var description = "Create reaction " + content + " for issue " + issue_number + " in repo " + repo + " owned by " + owner;
   var body = {
@@ -8742,17 +9297,19 @@ function createIssueReaction(owner, repo, issue_number, content) {
   });
 }
 
-function listIssueReactions(owner, repo, issue_number) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/reactions";
-  var description = "List reactions for issue " + issue_number + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingIssueReaction(owner, repo, issue_number, content) {
+  return createReactionForIssue(owner, repo, issue_number, content);
 }
+
+function verifyIssueReactionExists(owner, repo, issue_number, content) {
+  return listReactionsForIssue(owner, repo, issue_number);
+}
+
+function verifyIssueReactionDoesNotExist(owner, repo, issue_number, content) {
+  return listReactionsForIssue(owner, repo, issue_number);
+}
+
+// ---- Entity: issue reaction instance ----
 
 function deleteIssueReaction(owner, repo, issue_number, reaction_id) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + issue_number + "/reactions/" + reaction_id;
@@ -8766,25 +9323,25 @@ function deleteIssueReaction(owner, repo, issue_number, reaction_id) {
   });
 }
 
-function tryToAddExistingIssueReaction(owner, repo, issue_number, content, reaction_id) {
-  return createIssueReaction(owner, repo, issue_number, content);
-}
-
-function verifyIssueReactionExists(owner, repo, issue_number, content, reaction_id) {
-  return listIssueReactions(owner, repo, issue_number);
-}
-
-function verifyIssueReactionDoesNotExist(owner, repo, issue_number, content, reaction_id) {
-  return listIssueReactions(owner, repo, issue_number);
-}
-
-function tryToDeleteANonExistingIssueReaction(owner, repo, issue_number, content, reaction_id) {
+function tryToDeleteANonExistingIssueReactionInstance(owner, repo, issue_number, reaction_id) {
   return deleteIssueReaction(owner, repo, issue_number, reaction_id);
 }
 
 // ---- Entity: pull request review comment reaction ----
 
-function createPullRequestReviewCommentReaction(owner, repo, comment_id, content) {
+function listReactionsForPullRequestReviewComment(owner, repo, comment_id) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/comments/" + comment_id + "/reactions";
+  var description = "List reactions for pull request review comment " + comment_id + " in repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForPullRequestReviewComment(owner, repo, comment_id, content) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/comments/" + comment_id + "/reactions";
   var description = "Create reaction " + content + " for pull request review comment " + comment_id + " in repo " + repo + " owned by " + owner;
   var body = {
@@ -8798,17 +9355,19 @@ function createPullRequestReviewCommentReaction(owner, repo, comment_id, content
   });
 }
 
-function listPullRequestReviewCommentReactions(owner, repo, comment_id) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/comments/" + comment_id + "/reactions";
-  var description = "List reactions for pull request review comment " + comment_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingPullRequestReviewCommentReaction(owner, repo, comment_id, content) {
+  return createReactionForPullRequestReviewComment(owner, repo, comment_id, content);
 }
+
+function verifyPullRequestReviewCommentReactionExists(owner, repo, comment_id, content) {
+  return listReactionsForPullRequestReviewComment(owner, repo, comment_id);
+}
+
+function verifyPullRequestReviewCommentReactionDoesNotExist(owner, repo, comment_id, content) {
+  return listReactionsForPullRequestReviewComment(owner, repo, comment_id);
+}
+
+// ---- Entity: pull request review comment reaction instance ----
 
 function deletePullRequestReviewCommentReaction(owner, repo, comment_id, reaction_id) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/comments/" + comment_id + "/reactions/" + reaction_id;
@@ -8822,25 +9381,25 @@ function deletePullRequestReviewCommentReaction(owner, repo, comment_id, reactio
   });
 }
 
-function tryToAddExistingPullRequestReviewCommentReaction(owner, repo, comment_id, content, reaction_id) {
-  return createPullRequestReviewCommentReaction(owner, repo, comment_id, content);
-}
-
-function verifyPullRequestReviewCommentReactionExists(owner, repo, comment_id, content, reaction_id) {
-  return listPullRequestReviewCommentReactions(owner, repo, comment_id);
-}
-
-function verifyPullRequestReviewCommentReactionDoesNotExist(owner, repo, comment_id, content, reaction_id) {
-  return listPullRequestReviewCommentReactions(owner, repo, comment_id);
-}
-
-function tryToDeleteANonExistingPullRequestReviewCommentReaction(owner, repo, comment_id, content, reaction_id) {
+function tryToDeleteANonExistingPullRequestReviewCommentReactionInstance(owner, repo, comment_id, reaction_id) {
   return deletePullRequestReviewCommentReaction(owner, repo, comment_id, reaction_id);
 }
 
 // ---- Entity: release reaction ----
 
-function createReleaseReaction(owner, repo, release_id, content) {
+function listReactionsForRelease(owner, repo, release_id) {
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id + "/reactions";
+  var description = "List reactions for release " + release_id + " in repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForRelease(owner, repo, release_id, content) {
   var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id + "/reactions";
   var description = "Create reaction " + content + " for release " + release_id + " in repo " + repo + " owned by " + owner;
   var body = {
@@ -8854,17 +9413,19 @@ function createReleaseReaction(owner, repo, release_id, content) {
   });
 }
 
-function listReleaseReactions(owner, repo, release_id) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id + "/reactions";
-  var description = "List reactions for release " + release_id + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingReleaseReaction(owner, repo, release_id, content) {
+  return createReactionForRelease(owner, repo, release_id, content);
 }
+
+function verifyReleaseReactionExists(owner, repo, release_id, content) {
+  return listReactionsForRelease(owner, repo, release_id);
+}
+
+function verifyReleaseReactionDoesNotExist(owner, repo, release_id, content) {
+  return listReactionsForRelease(owner, repo, release_id);
+}
+
+// ---- Entity: release reaction instance ----
 
 function deleteReleaseReaction(owner, repo, release_id, reaction_id) {
   var url = "/repos/" + owner + "/" + repo + "/releases/" + release_id + "/reactions/" + reaction_id;
@@ -8878,44 +9439,32 @@ function deleteReleaseReaction(owner, repo, release_id, reaction_id) {
   });
 }
 
-function tryToAddExistingReleaseReaction(owner, repo, release_id, content, reaction_id) {
-  return createReleaseReaction(owner, repo, release_id, content);
-}
-
-function verifyReleaseReactionExists(owner, repo, release_id, content, reaction_id) {
-  return listReleaseReactions(owner, repo, release_id);
-}
-
-function verifyReleaseReactionDoesNotExist(owner, repo, release_id, content, reaction_id) {
-  return listReleaseReactions(owner, repo, release_id);
-}
-
-function tryToDeleteANonExistingReleaseReaction(owner, repo, release_id, content, reaction_id) {
+function tryToDeleteANonExistingReleaseReactionInstance(owner, repo, release_id, reaction_id) {
   return deleteReleaseReaction(owner, repo, release_id, reaction_id);
 }
 
 // ---- Entity: team discussion comment reaction (legacy) ----
 
-function createTeamDiscussionCommentReactionLegacy(team_id, discussion_number, comment_number, content) {
+function listReactionsForTeamDiscussionCommentLegacy(team_id, discussion_number, comment_number) {
   var url = "/teams/" + team_id + "/discussions/" + discussion_number + "/comments/" + comment_number + "/reactions";
-  var description = "Create reaction " + content + " for comment " + comment_number + " in discussion " + discussion_number + " of team " + team_id + " (Legacy)";
-  var body = {
-    "content": content,
-  };
+  var description = "List reactions for team discussion comment " + comment_number + " in discussion " + discussion_number + " of team " + team_id + " (Legacy)";
+  var body = undefined;
   return svc.request({
-    method: "POST",
+    method: "GET",
     url: url,
     parameters: { description: description },
     body: body
   });
 }
 
-function listTeamDiscussionCommentReactionsLegacy(team_id, discussion_number, comment_number) {
+function createReactionForTeamDiscussionCommentLegacy(team_id, discussion_number, comment_number, content) {
   var url = "/teams/" + team_id + "/discussions/" + discussion_number + "/comments/" + comment_number + "/reactions";
-  var description = "List reactions for comment " + comment_number + " in discussion " + discussion_number + " of team " + team_id + " (Legacy)";
-  var body = undefined;
+  var description = "Create reaction " + content + " for team discussion comment " + comment_number + " in discussion " + discussion_number + " of team " + team_id + " (Legacy)";
+  var body = {
+    "content": content,
+  };
   return svc.request({
-    method: "GET",
+    method: "POST",
     url: url,
     parameters: { description: description },
     body: body
@@ -8923,22 +9472,34 @@ function listTeamDiscussionCommentReactionsLegacy(team_id, discussion_number, co
 }
 
 function tryToAddExistingTeamDiscussionCommentReactionLegacy(team_id, discussion_number, comment_number, content) {
-  return createTeamDiscussionCommentReactionLegacy(team_id, discussion_number, comment_number, content);
+  return createReactionForTeamDiscussionCommentLegacy(team_id, discussion_number, comment_number, content);
 }
 
 function verifyTeamDiscussionCommentReactionLegacyExists(team_id, discussion_number, comment_number, content) {
-  return listTeamDiscussionCommentReactionsLegacy(team_id, discussion_number, comment_number);
+  return listReactionsForTeamDiscussionCommentLegacy(team_id, discussion_number, comment_number);
 }
 
 function verifyTeamDiscussionCommentReactionLegacyDoesNotExist(team_id, discussion_number, comment_number, content) {
-  return listTeamDiscussionCommentReactionsLegacy(team_id, discussion_number, comment_number);
+  return listReactionsForTeamDiscussionCommentLegacy(team_id, discussion_number, comment_number);
 }
 
 // ---- Entity: team discussion reaction (legacy) ----
 
-function createTeamDiscussionReactionLegacy(team_id, discussion_number, content) {
+function listReactionsForTeamDiscussionLegacy(team_id, discussion_number) {
   var url = "/teams/" + team_id + "/discussions/" + discussion_number + "/reactions";
-  var description = "Create reaction " + content + " for discussion " + discussion_number + " of team " + team_id + " (Legacy)";
+  var description = "List reactions for team discussion " + discussion_number + " of team " + team_id + " (Legacy)";
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function createReactionForTeamDiscussionLegacy(team_id, discussion_number, content) {
+  var url = "/teams/" + team_id + "/discussions/" + discussion_number + "/reactions";
+  var description = "Create reaction " + content + " for team discussion " + discussion_number + " of team " + team_id + " (Legacy)";
   var body = {
     "content": content,
   };
@@ -8950,33 +9511,21 @@ function createTeamDiscussionReactionLegacy(team_id, discussion_number, content)
   });
 }
 
-function listTeamDiscussionReactionsLegacy(team_id, discussion_number) {
-  var url = "/teams/" + team_id + "/discussions/" + discussion_number + "/reactions";
-  var description = "List reactions for discussion " + discussion_number + " of team " + team_id + " (Legacy)";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
 function tryToAddExistingTeamDiscussionReactionLegacy(team_id, discussion_number, content) {
-  return createTeamDiscussionReactionLegacy(team_id, discussion_number, content);
+  return createReactionForTeamDiscussionLegacy(team_id, discussion_number, content);
 }
 
 function verifyTeamDiscussionReactionLegacyExists(team_id, discussion_number, content) {
-  return listTeamDiscussionReactionsLegacy(team_id, discussion_number);
+  return listReactionsForTeamDiscussionLegacy(team_id, discussion_number);
 }
 
 function verifyTeamDiscussionReactionLegacyDoesNotExist(team_id, discussion_number, content) {
-  return listTeamDiscussionReactionsLegacy(team_id, discussion_number);
+  return listReactionsForTeamDiscussionLegacy(team_id, discussion_number);
 }
 
 // ---- Entity: pull request ----
 
-function createPullRequest(title, head, base) {
+function createPullRequest(title, head, base, body, maintainer_can_modify, draft, issue, head_repo) {
   var url = "/repos/{owner}/{repo}/pulls";
   var description = "Create pull request " + title;
   var body = {
@@ -8987,6 +9536,7 @@ function createPullRequest(title, head, base) {
     "maintainer_can_modify": maintainer_can_modify,
     "draft": draft,
     "issue": issue,
+    "head_repo": head_repo,
   };
   return svc.request({
     method: "POST",
@@ -9008,7 +9558,7 @@ function getPullRequest(owner, repo, pull_number) {
   });
 }
 
-function updatePullRequest(owner, repo, pull_number) {
+function updatePullRequest(owner, repo, pull_number, title, body, state, base, maintainer_can_modify) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number;
   var description = "Update pull request " + pull_number + " of " + owner + "/" + repo;
   var body = {
@@ -9026,15 +9576,15 @@ function updatePullRequest(owner, repo, pull_number) {
   });
 }
 
-function tryToAddExistingPullRequest(title, head, base, owner, repo, pull_number) {
-  return createPullRequest(title, head, base);
+function tryToAddExistingPullRequest(title, head, base, body, maintainer_can_modify, draft, issue, head_repo, owner, repo, pull_number, state) {
+  return createPullRequest(title, head, base, body, maintainer_can_modify, draft, issue, head_repo);
 }
 
-function verifyPullRequestExists(title, head, base, owner, repo, pull_number) {
+function verifyPullRequestExists(title, head, base, body, maintainer_can_modify, draft, issue, head_repo, owner, repo, pull_number, state) {
   return getPullRequest(owner, repo, pull_number);
 }
 
-function verifyPullRequestDoesNotExist(title, head, base, owner, repo, pull_number) {
+function verifyPullRequestDoesNotExist(title, head, base, body, maintainer_can_modify, draft, issue, head_repo, owner, repo, pull_number, state) {
   return getPullRequest(owner, repo, pull_number);
 }
 
@@ -9052,7 +9602,7 @@ function getReviewComment(owner, repo, comment_id) {
   });
 }
 
-function updateReviewComment(owner, repo, comment_id) {
+function updateReviewComment(owner, repo, comment_id, body) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/comments/" + comment_id;
   var description = "Update review comment " + comment_id + " of " + owner + "/" + repo;
   var body = {
@@ -9078,15 +9628,15 @@ function deleteReviewComment(owner, repo, comment_id) {
   });
 }
 
-function verifyPullRequestCommentExists(owner, repo, comment_id) {
+function verifyPullRequestCommentExists(owner, repo, comment_id, body) {
   return getReviewComment(owner, repo, comment_id);
 }
 
-function verifyPullRequestCommentDoesNotExist(owner, repo, comment_id) {
+function verifyPullRequestCommentDoesNotExist(owner, repo, comment_id, body) {
   return getReviewComment(owner, repo, comment_id);
 }
 
-function tryToDeleteANonExistingPullRequestComment(owner, repo, comment_id) {
+function tryToDeleteANonExistingPullRequestComment(owner, repo, comment_id, body) {
   return deleteReviewComment(owner, repo, comment_id);
 }
 
@@ -9094,7 +9644,7 @@ function tryToDeleteANonExistingPullRequestComment(owner, repo, comment_id) {
 
 function getReview(owner, repo, pull_number, review_id) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/reviews/" + review_id;
-  var description = "Get review " + review_id + " for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Get review " + review_id + " of pull request " + pull_number + " in " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -9104,9 +9654,9 @@ function getReview(owner, repo, pull_number, review_id) {
   });
 }
 
-function updateReview(owner, repo, pull_number, review_id) {
+function updateReview(owner, repo, pull_number, review_id, body) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/reviews/" + review_id;
-  var description = "Update review " + review_id + " for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Update review " + review_id + " of pull request " + pull_number + " in " + owner + "/" + repo;
   var body = {
     "body": body,
   };
@@ -9120,7 +9670,7 @@ function updateReview(owner, repo, pull_number, review_id) {
 
 function deletePendingReview(owner, repo, pull_number, review_id) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/reviews/" + review_id;
-  var description = "Delete pending review " + review_id + " for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Delete pending review " + review_id + " of pull request " + pull_number + " in " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -9130,9 +9680,9 @@ function deletePendingReview(owner, repo, pull_number, review_id) {
   });
 }
 
-function dismissReview(owner, repo, pull_number, review_id) {
+function dismissReview(owner, repo, pull_number, review_id, message, event) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/reviews/" + review_id + "/dismissals";
-  var description = "Dismiss review " + review_id + " for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Dismiss review " + review_id + " of pull request " + pull_number + " in " + owner + "/" + repo;
   var body = {
     "message": message,
     "event": event,
@@ -9145,9 +9695,9 @@ function dismissReview(owner, repo, pull_number, review_id) {
   });
 }
 
-function submitReview(owner, repo, pull_number, review_id) {
+function submitReview(owner, repo, pull_number, review_id, body, event) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/reviews/" + review_id + "/events";
-  var description = "Submit review " + review_id + " for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Submit review " + review_id + " of pull request " + pull_number + " in " + owner + "/" + repo;
   var body = {
     "body": body,
     "event": event,
@@ -9160,15 +9710,15 @@ function submitReview(owner, repo, pull_number, review_id) {
   });
 }
 
-function verifyPullRequestReviewExists(owner, repo, pull_number, review_id) {
+function verifyPullRequestReviewExists(owner, repo, pull_number, review_id, body, message, event) {
   return getReview(owner, repo, pull_number, review_id);
 }
 
-function verifyPullRequestReviewDoesNotExist(owner, repo, pull_number, review_id) {
+function verifyPullRequestReviewDoesNotExist(owner, repo, pull_number, review_id, body, message, event) {
   return getReview(owner, repo, pull_number, review_id);
 }
 
-function tryToDeleteANonExistingPullRequestReview(owner, repo, pull_number, review_id) {
+function tryToDeleteANonExistingPullRequestReview(owner, repo, pull_number, review_id, body, message, event) {
   return deletePendingReview(owner, repo, pull_number, review_id);
 }
 
@@ -9176,7 +9726,7 @@ function tryToDeleteANonExistingPullRequestReview(owner, repo, pull_number, revi
 
 function listCommentsForReview(owner, repo, pull_number, review_id) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/reviews/" + review_id + "/comments";
-  var description = "List comments for review " + review_id + " on pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "List comments for review " + review_id + " of pull request " + pull_number + " in " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -9190,7 +9740,7 @@ function listCommentsForReview(owner, repo, pull_number, review_id) {
 
 function listRequestedReviewers(owner, repo, pull_number) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/requested_reviewers";
-  var description = "Get requested reviewers for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Get all requested reviewers for pull request " + pull_number + " in " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -9200,9 +9750,9 @@ function listRequestedReviewers(owner, repo, pull_number) {
   });
 }
 
-function requestReviewers(owner, repo, pull_number) {
+function requestReviewers(owner, repo, pull_number, reviewers, team_reviewers) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/requested_reviewers";
-  var description = "Request reviewers for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Request reviewers for pull request " + pull_number + " in " + owner + "/" + repo;
   var body = {
     "reviewers": reviewers,
     "team_reviewers": team_reviewers,
@@ -9215,9 +9765,9 @@ function requestReviewers(owner, repo, pull_number) {
   });
 }
 
-function removeRequestedReviewers(owner, repo, pull_number) {
+function removeRequestedReviewers(owner, repo, pull_number, reviewers, team_reviewers) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/requested_reviewers";
-  var description = "Remove requested reviewers for pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Remove requested reviewers from pull request " + pull_number + " in " + owner + "/" + repo;
   var body = {
     "reviewers": reviewers,
     "team_reviewers": team_reviewers,
@@ -9230,27 +9780,27 @@ function removeRequestedReviewers(owner, repo, pull_number) {
   });
 }
 
-function tryToAddExistingPullRequestReviewers(owner, repo, pull_number) {
-  return requestReviewers(owner, repo, pull_number);
+function tryToAddExistingPullRequestReviewers(owner, repo, pull_number, reviewers, team_reviewers) {
+  return requestReviewers(owner, repo, pull_number, reviewers, team_reviewers);
 }
 
-function verifyPullRequestReviewersExists(owner, repo, pull_number) {
+function verifyPullRequestReviewersExists(owner, repo, pull_number, reviewers, team_reviewers) {
   return listRequestedReviewers(owner, repo, pull_number);
 }
 
-function verifyPullRequestReviewersDoesNotExist(owner, repo, pull_number) {
+function verifyPullRequestReviewersDoesNotExist(owner, repo, pull_number, reviewers, team_reviewers) {
   return listRequestedReviewers(owner, repo, pull_number);
 }
 
-function tryToDeleteANonExistingPullRequestReviewers(owner, repo, pull_number) {
-  return removeRequestedReviewers(owner, repo, pull_number);
+function tryToDeleteANonExistingPullRequestReviewers(owner, repo, pull_number, reviewers, team_reviewers) {
+  return removeRequestedReviewers(owner, repo, pull_number, reviewers, team_reviewers);
 }
 
 // ---- Entity: pull request review comment reply ----
 
-function createReplyForReviewComment(owner, repo, pull_number, comment_id) {
+function createReplyForReviewComment(owner, repo, pull_number, comment_id, body) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + pull_number + "/comments/" + comment_id + "/replies";
-  var description = "Create reply for review comment " + comment_id + " on pull request " + pull_number + " of " + owner + "/" + repo;
+  var description = "Create reply for review comment " + comment_id + " on pull request " + pull_number + " in " + owner + "/" + repo;
   var body = {
     "body": body,
   };
@@ -9262,15 +9812,15 @@ function createReplyForReviewComment(owner, repo, pull_number, comment_id) {
   });
 }
 
-function tryToAddExistingPullRequestReviewCommentReply(owner, repo, pull_number, comment_id) {
-  return createReplyForReviewComment(owner, repo, pull_number, comment_id);
+function tryToAddExistingPullRequestReviewCommentReply(owner, repo, pull_number, comment_id, body) {
+  return createReplyForReviewComment(owner, repo, pull_number, comment_id, body);
 }
 
 // ---- Entity: organization migration ----
 
 function startOrgMigration(org, repositories, lock_repositories, exclude_metadata, exclude_git_data, exclude_attachments, exclude_releases, exclude_owner_projects, org_metadata_only, exclude) {
   var url = "/orgs/" + org + "/migrations";
-  var description = "Start organization migration for " + org;
+  var description = "Start an organization migration for " + org;
   var body = {
     "repositories": repositories,
     "lock_repositories": lock_repositories,
@@ -9388,7 +9938,7 @@ function tryToDeleteANonExistingOrgMigrationRepoLock(org, migration_id, repo_nam
 
 // ---- Entity: organization migration repositories ----
 
-function listOrgMigrationRepos(org, migration_id, per-page, page) {
+function listOrgMigrationRepos(org, migration_id) {
   var url = "/orgs/" + org + "/migrations/" + migration_id + "/repositories";
   var description = "List repositories in migration " + migration_id + " for organization " + org;
   var body = undefined;
@@ -9400,173 +9950,19 @@ function listOrgMigrationRepos(org, migration_id, per-page, page) {
   });
 }
 
-function verifyOrgMigrationRepositoriesExists(org, migration_id, per-page, page) {
-  return listOrgMigrationRepos(org, migration_id, per-page, page);
+function verifyOrgMigrationRepositoriesExists(org, migration_id) {
+  return listOrgMigrationRepos(org, migration_id);
 }
 
-function verifyOrgMigrationRepositoriesDoesNotExist(org, migration_id, per-page, page) {
-  return listOrgMigrationRepos(org, migration_id, per-page, page);
-}
-
-// ---- Entity: import ----
-
-function startImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
-  var url = "/repos/" + owner + "/" + repo + "/import";
-  var description = "Start import for repository " + repo + " owned by " + owner;
-  var body = {
-    "vcs_url": vcs_url,
-    "vcs": vcs,
-    "vcs_username": vcs_username,
-    "vcs_password": vcs_password,
-    "tfvc_project": tfvc_project,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getImportStatus(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/import";
-  var description = "Get import status for repository " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateImport(owner, repo, vcs_username, vcs_password, vcs, tfvc_project) {
-  var url = "/repos/" + owner + "/" + repo + "/import";
-  var description = "Update import for repository " + repo + " owned by " + owner;
-  var body = {
-    "vcs_username": vcs_username,
-    "vcs_password": vcs_password,
-    "vcs": vcs,
-    "tfvc_project": tfvc_project,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function cancelImport(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/import";
-  var description = "Cancel import for repository " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
-  return startImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project);
-}
-
-function verifyImportExists(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
-  return getImportStatus(owner, repo);
-}
-
-function verifyImportDoesNotExist(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
-  return getImportStatus(owner, repo);
-}
-
-function tryToDeleteANonExistingImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
-  return cancelImport(owner, repo);
-}
-
-// ---- Entity: import commit author ----
-
-function mapCommitAuthor(owner, repo, author_id, email, name) {
-  var url = "/repos/" + owner + "/" + repo + "/import/authors/" + author_id;
-  var description = "Map commit author " + author_id + " for repository " + repo + " owned by " + owner;
-  var body = {
-    "email": email,
-    "name": name,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: import commit authors ----
-
-function getCommitAuthors(owner, repo, since-user) {
-  var url = "/repos/" + owner + "/" + repo + "/import/authors";
-  var description = "Get commit authors for repository " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyImportAuthorsExists(owner, repo, since-user) {
-  return getCommitAuthors(owner, repo, since-user);
-}
-
-function verifyImportAuthorsDoesNotExist(owner, repo, since-user) {
-  return getCommitAuthors(owner, repo, since-user);
-}
-
-// ---- Entity: import large files ----
-
-function getLargeFiles(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/import/large_files";
-  var description = "Get large files for repository " + repo + " owned by " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyImportLargeFilesExists(owner, repo) {
-  return getLargeFiles(owner, repo);
-}
-
-function verifyImportLargeFilesDoesNotExist(owner, repo) {
-  return getLargeFiles(owner, repo);
-}
-
-// ---- Entity: import Git LFS preference ----
-
-function setLfsPreference(owner, repo, use_lfs) {
-  var url = "/repos/" + owner + "/" + repo + "/import/lfs";
-  var description = "Update Git LFS preference for repository " + repo + " owned by " + owner;
-  var body = {
-    "use_lfs": use_lfs,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifyOrgMigrationRepositoriesDoesNotExist(org, migration_id) {
+  return listOrgMigrationRepos(org, migration_id);
 }
 
 // ---- Entity: user migration ----
 
 function startUserMigration(repositories, lock_repositories, exclude_metadata, exclude_git_data, exclude_attachments, exclude_releases, exclude_owner_projects, org_metadata_only, exclude) {
   var url = "/user/migrations";
-  var description = "Start user migration";
+  var description = "Start a user migration";
   var body = {
     "repositories": repositories,
     "lock_repositories": lock_repositories,
@@ -9684,9 +10080,9 @@ function tryToDeleteANonExistingUserMigrationRepoLock(migration_id, repo_name) {
 
 // ---- Entity: user migration repositories ----
 
-function listUserMigrationRepos(migration_id, per-page, page) {
+function listUserMigrationRepos(migration_id) {
   var url = "/user/migrations/" + migration_id + "/repositories";
-  var description = "List repositories for user migration " + migration_id;
+  var description = "List repositories in user migration " + migration_id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -9696,12 +10092,166 @@ function listUserMigrationRepos(migration_id, per-page, page) {
   });
 }
 
-function verifyUserMigrationRepositoriesExists(migration_id, per-page, page) {
-  return listUserMigrationRepos(migration_id, per-page, page);
+function verifyUserMigrationRepositoriesExists(migration_id) {
+  return listUserMigrationRepos(migration_id);
 }
 
-function verifyUserMigrationRepositoriesDoesNotExist(migration_id, per-page, page) {
-  return listUserMigrationRepos(migration_id, per-page, page);
+function verifyUserMigrationRepositoriesDoesNotExist(migration_id) {
+  return listUserMigrationRepos(migration_id);
+}
+
+// ---- Entity: import ----
+
+function startImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
+  var url = "/repos/" + owner + "/" + repo + "/import";
+  var description = "Start import for repo " + repo + " owned by " + owner;
+  var body = {
+    "vcs_url": vcs_url,
+    "vcs": vcs,
+    "vcs_username": vcs_username,
+    "vcs_password": vcs_password,
+    "tfvc_project": tfvc_project,
+  };
+  return svc.request({
+    method: "PUT",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function getImportStatus(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/import";
+  var description = "Get import status for repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function updateImport(owner, repo, vcs_username, vcs_password, vcs, tfvc_project) {
+  var url = "/repos/" + owner + "/" + repo + "/import";
+  var description = "Update import for repo " + repo + " owned by " + owner;
+  var body = {
+    "vcs_username": vcs_username,
+    "vcs_password": vcs_password,
+    "vcs": vcs,
+    "tfvc_project": tfvc_project,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function cancelImport(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/import";
+  var description = "Cancel import for repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
+  return startImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project);
+}
+
+function verifyImportExists(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
+  return getImportStatus(owner, repo);
+}
+
+function verifyImportDoesNotExist(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
+  return getImportStatus(owner, repo);
+}
+
+function tryToDeleteANonExistingImport(owner, repo, vcs_url, vcs, vcs_username, vcs_password, tfvc_project) {
+  return cancelImport(owner, repo);
+}
+
+// ---- Entity: import commit author ----
+
+function mapCommitAuthor(owner, repo, author_id, email, name) {
+  var url = "/repos/" + owner + "/" + repo + "/import/authors/" + author_id;
+  var description = "Map commit author " + author_id + " for repo " + repo + " owned by " + owner;
+  var body = {
+    "email": email,
+    "name": name,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+// ---- Entity: import commit authors ----
+
+function getCommitAuthors(owner, repo, since_user) {
+  var url = "/repos/" + owner + "/" + repo + "/import/authors";
+  var description = "Get commit authors for repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyImportAuthorsExists(owner, repo, since_user) {
+  return getCommitAuthors(owner, repo, since_user);
+}
+
+function verifyImportAuthorsDoesNotExist(owner, repo, since_user) {
+  return getCommitAuthors(owner, repo, since_user);
+}
+
+// ---- Entity: import large files ----
+
+function getLargeFiles(owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/import/large_files";
+  var description = "Get large files for repo " + repo + " owned by " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyImportLargeFilesExists(owner, repo) {
+  return getLargeFiles(owner, repo);
+}
+
+function verifyImportLargeFilesDoesNotExist(owner, repo) {
+  return getLargeFiles(owner, repo);
+}
+
+// ---- Entity: import Git LFS preference ----
+
+function setLfsPreference(owner, repo, use_lfs) {
+  var url = "/repos/" + owner + "/" + repo + "/import/lfs";
+  var description = "Update Git LFS preference for repo " + repo + " owned by " + owner;
+  var body = {
+    "use_lfs": use_lfs,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
 }
 
 // ---- Entity: enterprise code security configuration ----
@@ -9711,6 +10261,27 @@ function createEnterpriseConfiguration(enterprise, name) {
   var description = "Create code security configuration " + name + " for enterprise " + enterprise;
   var body = {
     "name": name,
+    "description": description,
+    "advanced_security": advanced_security,
+    "code_security": code_security,
+    "dependency_graph": dependency_graph,
+    "dependency_graph_autosubmit_action": dependency_graph_autosubmit_action,
+    "dependency_graph_autosubmit_action_options": dependency_graph_autosubmit_action_options,
+    "dependabot_alerts": dependabot_alerts,
+    "dependabot_security_updates": dependabot_security_updates,
+    "code_scanning_options": code_scanning_options,
+    "code_scanning_default_setup": code_scanning_default_setup,
+    "code_scanning_default_setup_options": code_scanning_default_setup_options,
+    "code_scanning_delegated_alert_dismissal": code_scanning_delegated_alert_dismissal,
+    "secret_protection": secret_protection,
+    "secret_scanning": secret_scanning,
+    "secret_scanning_push_protection": secret_scanning_push_protection,
+    "secret_scanning_validity_checks": secret_scanning_validity_checks,
+    "secret_scanning_non_provider_patterns": secret_scanning_non_provider_patterns,
+    "secret_scanning_generic_secrets": secret_scanning_generic_secrets,
+    "secret_scanning_delegated_alert_dismissal": secret_scanning_delegated_alert_dismissal,
+    "private_vulnerability_reporting": private_vulnerability_reporting,
+    "enforcement": enforcement,
   };
   return svc.request({
     method: "POST",
@@ -9737,6 +10308,26 @@ function updateEnterpriseConfiguration(enterprise, configuration_id, name) {
   var description = "Update code security configuration " + configuration_id + " for enterprise " + enterprise;
   var body = {
     "name": name,
+    "description": description,
+    "advanced_security": advanced_security,
+    "code_security": code_security,
+    "dependency_graph": dependency_graph,
+    "dependency_graph_autosubmit_action": dependency_graph_autosubmit_action,
+    "dependency_graph_autosubmit_action_options": dependency_graph_autosubmit_action_options,
+    "dependabot_alerts": dependabot_alerts,
+    "dependabot_security_updates": dependabot_security_updates,
+    "code_scanning_default_setup": code_scanning_default_setup,
+    "code_scanning_default_setup_options": code_scanning_default_setup_options,
+    "code_scanning_delegated_alert_dismissal": code_scanning_delegated_alert_dismissal,
+    "secret_protection": secret_protection,
+    "secret_scanning": secret_scanning,
+    "secret_scanning_push_protection": secret_scanning_push_protection,
+    "secret_scanning_validity_checks": secret_scanning_validity_checks,
+    "secret_scanning_non_provider_patterns": secret_scanning_non_provider_patterns,
+    "secret_scanning_generic_secrets": secret_scanning_generic_secrets,
+    "secret_scanning_delegated_alert_dismissal": secret_scanning_delegated_alert_dismissal,
+    "private_vulnerability_reporting": private_vulnerability_reporting,
+    "enforcement": enforcement,
   };
   return svc.request({
     method: "PATCH",
@@ -9839,6 +10430,29 @@ function createOrgConfiguration(org, name) {
   var description = "Create code security configuration " + name + " for organization " + org;
   var body = {
     "name": name,
+    "description": description,
+    "advanced_security": advanced_security,
+    "code_security": code_security,
+    "dependency_graph": dependency_graph,
+    "dependency_graph_autosubmit_action": dependency_graph_autosubmit_action,
+    "dependency_graph_autosubmit_action_options": dependency_graph_autosubmit_action_options,
+    "dependabot_alerts": dependabot_alerts,
+    "dependabot_security_updates": dependabot_security_updates,
+    "code_scanning_options": code_scanning_options,
+    "code_scanning_default_setup": code_scanning_default_setup,
+    "code_scanning_default_setup_options": code_scanning_default_setup_options,
+    "code_scanning_delegated_alert_dismissal": code_scanning_delegated_alert_dismissal,
+    "secret_protection": secret_protection,
+    "secret_scanning": secret_scanning,
+    "secret_scanning_push_protection": secret_scanning_push_protection,
+    "secret_scanning_delegated_bypass": secret_scanning_delegated_bypass,
+    "secret_scanning_delegated_bypass_options": secret_scanning_delegated_bypass_options,
+    "secret_scanning_validity_checks": secret_scanning_validity_checks,
+    "secret_scanning_non_provider_patterns": secret_scanning_non_provider_patterns,
+    "secret_scanning_generic_secrets": secret_scanning_generic_secrets,
+    "secret_scanning_delegated_alert_dismissal": secret_scanning_delegated_alert_dismissal,
+    "private_vulnerability_reporting": private_vulnerability_reporting,
+    "enforcement": enforcement,
   };
   return svc.request({
     method: "POST",
@@ -9865,6 +10479,28 @@ function updateOrgConfiguration(org, configuration_id, name) {
   var description = "Update code security configuration " + configuration_id + " for organization " + org;
   var body = {
     "name": name,
+    "description": description,
+    "advanced_security": advanced_security,
+    "code_security": code_security,
+    "dependency_graph": dependency_graph,
+    "dependency_graph_autosubmit_action": dependency_graph_autosubmit_action,
+    "dependency_graph_autosubmit_action_options": dependency_graph_autosubmit_action_options,
+    "dependabot_alerts": dependabot_alerts,
+    "dependabot_security_updates": dependabot_security_updates,
+    "code_scanning_default_setup": code_scanning_default_setup,
+    "code_scanning_default_setup_options": code_scanning_default_setup_options,
+    "code_scanning_delegated_alert_dismissal": code_scanning_delegated_alert_dismissal,
+    "secret_protection": secret_protection,
+    "secret_scanning": secret_scanning,
+    "secret_scanning_push_protection": secret_scanning_push_protection,
+    "secret_scanning_delegated_bypass": secret_scanning_delegated_bypass,
+    "secret_scanning_delegated_bypass_options": secret_scanning_delegated_bypass_options,
+    "secret_scanning_validity_checks": secret_scanning_validity_checks,
+    "secret_scanning_non_provider_patterns": secret_scanning_non_provider_patterns,
+    "secret_scanning_generic_secrets": secret_scanning_generic_secrets,
+    "secret_scanning_delegated_alert_dismissal": secret_scanning_delegated_alert_dismissal,
+    "private_vulnerability_reporting": private_vulnerability_reporting,
+    "enforcement": enforcement,
   };
   return svc.request({
     method: "PATCH",
@@ -9904,11 +10540,12 @@ function tryToDeleteANonExistingOrgCodeSecurityConfiguration(org, name, configur
 
 // ---- Entity: organization code security configuration attachment ----
 
-function attachOrgConfiguration(org, configuration_id, scope) {
+function attachOrgConfiguration(org, configuration_id, scope, selected_repository_ids) {
   var url = "/orgs/" + org + "/code-security/configurations/" + configuration_id + "/attach";
   var description = "Attach configuration " + configuration_id + " for organization " + org + " to repositories";
   var body = {
     "scope": scope,
+    "selected_repository_ids": selected_repository_ids,
   };
   return svc.request({
     method: "POST",
@@ -9918,8 +10555,8 @@ function attachOrgConfiguration(org, configuration_id, scope) {
   });
 }
 
-function tryToAddExistingOrgCodeSecurityConfigurationAttachment(org, configuration_id, scope) {
-  return attachOrgConfiguration(org, configuration_id, scope);
+function tryToAddExistingOrgCodeSecurityConfigurationAttachment(org, configuration_id, scope, selected_repository_ids) {
+  return attachOrgConfiguration(org, configuration_id, scope, selected_repository_ids);
 }
 
 // ---- Entity: organization code security configuration default ----
@@ -9978,6 +10615,50 @@ function detachOrgConfiguration(org, selected_repository_ids) {
 
 function tryToDeleteANonExistingOrgCodeSecurityConfigurationDetach(org, selected_repository_ids) {
   return detachOrgConfiguration(org, selected_repository_ids);
+}
+
+// ---- Entity: enterprise code security configuration defaults ----
+
+function getEnterpriseDefaultConfigurations(enterprise) {
+  var url = "/enterprises/" + enterprise + "/code-security/configurations/defaults";
+  var description = "Get default code security configurations for enterprise " + enterprise;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyEnterpriseCodeSecurityConfigurationDefaultsExists(enterprise) {
+  return getEnterpriseDefaultConfigurations(enterprise);
+}
+
+function verifyEnterpriseCodeSecurityConfigurationDefaultsDoesNotExist(enterprise) {
+  return getEnterpriseDefaultConfigurations(enterprise);
+}
+
+// ---- Entity: organization code security configuration defaults ----
+
+function getOrgDefaultConfigurations(org) {
+  var url = "/orgs/" + org + "/code-security/configurations/defaults";
+  var description = "Get default code security configurations for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyOrgCodeSecurityConfigurationDefaultsExists(org) {
+  return getOrgDefaultConfigurations(org);
+}
+
+function verifyOrgCodeSecurityConfigurationDefaultsDoesNotExist(org) {
+  return getOrgDefaultConfigurations(org);
 }
 
 // ---- Entity: repository code security configuration ----
@@ -10100,7 +10781,7 @@ function verifyDependabotAlertRepositoryDoesNotExist(owner, repo, alert_number) 
 
 function listRepositoryAccessForOrg(org) {
   var url = "/organizations/" + org + "/dependabot/repository-access";
-  var description = "List repositories Dependabot can access for organization " + org;
+  var description = "List repositories Dependabot can access in organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10423,11 +11104,11 @@ function verifyDependabotRepoPublicKeyDoesNotExist(owner, repo) {
   return getRepoPublicKey(owner, repo);
 }
 
-// ---- Entity: organization project ----
+// ---- Entity: project ----
 
-function listOrgProjects(org) {
-  var url = "/orgs/" + org + "/projects";
-  var description = "List projects for organization " + org;
+function getProject(project_id) {
+  var url = "/projects/" + project_id;
+  var description = "Get project " + project_id;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10437,24 +11118,78 @@ function listOrgProjects(org) {
   });
 }
 
-function listOrgProjects(org) {
-  var url = "/orgs/" + org + "/projectsV2";
-  var description = "List projects for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function createOrgProject(org, name) {
-  var url = "/orgs/" + org + "/projects";
-  var description = "Create organization project " + name;
+function updateProject(project_id, name, body, state, organization_permission, private) {
+  var url = "/projects/" + project_id;
+  var description = "Update project " + project_id + " with name " + name;
   var body = {
     "name": name,
     "body": body,
+    "state": state,
+    "organization_permission": organization_permission,
+    "private": private,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteProject(project_id) {
+  var url = "/projects/" + project_id;
+  var description = "Delete project " + project_id;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyProjectExists(project_id, name, body, state, organization_permission, private) {
+  return getProject(project_id);
+}
+
+function verifyProjectDoesNotExist(project_id, name, body, state, organization_permission, private) {
+  return getProject(project_id);
+}
+
+function tryToDeleteANonExistingProject(project_id, name, body, state, organization_permission, private) {
+  return deleteProject(project_id);
+}
+
+// ---- Entity: project field ----
+
+function getOrgProjectField(org, project_number, field_id) {
+  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/fields/" + field_id;
+  var description = "Get project field " + field_id + " of project " + project_number + " for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyProjectFieldExists(org, project_number, field_id) {
+  return getOrgProjectField(org, project_number, field_id);
+}
+
+function verifyProjectFieldDoesNotExist(org, project_number, field_id) {
+  return getOrgProjectField(org, project_number, field_id);
+}
+
+// ---- Entity: project item ----
+
+function addOrgProjectItem(org, project_number) {
+  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items";
+  var description = "Add item {type} with id {id} to project " + project_number + " of organization " + org;
+  var body = {
+    "type": type,
+    "id": id,
   };
   return svc.request({
     method: "POST",
@@ -10464,23 +11199,9 @@ function createOrgProject(org, name) {
   });
 }
 
-function tryToAddExistingOrganizationProject(org, name) {
-  return createOrgProject(org, name);
-}
-
-function verifyOrganizationProjectExists(org, name) {
-  return listOrgProjects(org);
-}
-
-function verifyOrganizationProjectDoesNotExist(org, name) {
-  return listOrgProjects(org);
-}
-
-// ---- Entity: user project ----
-
-function getUserProject(username, project_number) {
-  var url = "/users/" + username + "/projectsV2/" + project_number;
-  var description = "Get project " + project_number + " for user " + username;
+function getOrgProjectItem(org, project_number, item_id) {
+  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items/" + item_id;
+  var description = "Get item " + item_id + " of project " + project_number + " for organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10490,9 +11211,53 @@ function getUserProject(username, project_number) {
   });
 }
 
-function listUserProjects(username) {
-  var url = "/users/" + username + "/projectsV2";
-  var description = "List projects for user " + username;
+function updateOrgProjectItem(org, project_number, item_id) {
+  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items/" + item_id;
+  var description = "Update item " + item_id + " of project " + project_number + " for organization " + org;
+  var body = {
+    "fields": fields,
+  };
+  return svc.request({
+    method: "PATCH",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function deleteOrgProjectItem(org, project_number, item_id) {
+  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items/" + item_id;
+  var description = "Delete item " + item_id + " of project " + project_number + " for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "DELETE",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingProjectItem(org, project_number, item_id) {
+  return addOrgProjectItem(org, project_number);
+}
+
+function verifyProjectItemExists(org, project_number, item_id) {
+  return getOrgProjectItem(org, project_number, item_id);
+}
+
+function verifyProjectItemDoesNotExist(org, project_number, item_id) {
+  return getOrgProjectItem(org, project_number, item_id);
+}
+
+function tryToDeleteANonExistingProjectItem(org, project_number, item_id) {
+  return deleteOrgProjectItem(org, project_number, item_id);
+}
+
+// ---- Entity: project ----
+
+function getUserProject(username, project_number) {
+  var url = "/users/" + username + "/projectsV2/" + project_number;
+  var description = "Get project " + project_number + " of user " + username;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10529,57 +11294,11 @@ function verifyUserProjectDoesNotExist(username, project_number, name) {
   return getUserProject(username, project_number);
 }
 
-// ---- Entity: organization project field ----
-
-function getOrgProjectField(org, project_number, field_id) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/fields/" + field_id;
-  var description = "Get project field " + field_id + " for organization project " + project_number + " of " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listOrgProjectFields(org, project_number) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/fields";
-  var description = "List project fields for organization project " + project_number + " of " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationProjectFieldExists(org, project_number, field_id) {
-  return getOrgProjectField(org, project_number, field_id);
-}
-
-function verifyOrganizationProjectFieldDoesNotExist(org, project_number, field_id) {
-  return getOrgProjectField(org, project_number, field_id);
-}
-
-// ---- Entity: user project field ----
+// ---- Entity: project field ----
 
 function getUserProjectField(username, project_number, field_id) {
   var url = "/users/" + username + "/projectsV2/" + project_number + "/fields/" + field_id;
-  var description = "Get project field " + field_id + " for user project " + project_number + " of " + username;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listUserProjectFields(username, project_number) {
-  var url = "/users/" + username + "/projectsV2/" + project_number + "/fields";
-  var description = "List project fields for user project " + project_number + " of " + username;
+  var description = "Get project field " + field_id + " of project " + project_number + " for user " + username;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10597,94 +11316,11 @@ function verifyUserProjectFieldDoesNotExist(username, project_number, field_id) 
   return getUserProjectField(username, project_number, field_id);
 }
 
-// ---- Entity: organization project item ----
+// ---- Entity: project item ----
 
-function addOrgProjectItem(org, project_number, type, id) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items";
-  var description = "Add item " + id + " of type " + type + " to organization project " + project_number + " of " + org;
-  var body = {
-    "type": type,
-    "id": id,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getOrgProjectItem(org, project_number, item_id) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items/" + item_id;
-  var description = "Get item " + item_id + " for organization project " + project_number + " of " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateOrgProjectItem(org, project_number, item_id) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items/" + item_id;
-  var description = "Update project item " + item_id + " for organization project " + project_number + " of " + org;
-  var body = {
-    "fields": fields,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteOrgProjectItem(org, project_number, item_id) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items/" + item_id;
-  var description = "Delete project item " + item_id + " for organization project " + project_number + " of " + org;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listOrgProjectItems(org, project_number) {
-  var url = "/orgs/" + org + "/projectsV2/" + project_number + "/items";
-  var description = "List items for organization project " + project_number + " of " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingOrganizationProjectItem(org, project_number, type, id, item_id) {
-  return addOrgProjectItem(org, project_number, type, id);
-}
-
-function verifyOrganizationProjectItemExists(org, project_number, type, id, item_id) {
-  return getOrgProjectItem(org, project_number, item_id);
-}
-
-function verifyOrganizationProjectItemDoesNotExist(org, project_number, type, id, item_id) {
-  return getOrgProjectItem(org, project_number, item_id);
-}
-
-function tryToDeleteANonExistingOrganizationProjectItem(org, project_number, type, id, item_id) {
-  return deleteOrgProjectItem(org, project_number, item_id);
-}
-
-// ---- Entity: user project item ----
-
-function addUserProjectItem(username, project_number, type, id) {
+function addUserProjectItem(username, project_number) {
   var url = "/users/" + username + "/projectsV2/" + project_number + "/items";
-  var description = "Add item " + id + " of type " + type + " to user project " + project_number + " of " + username;
+  var description = "Add item {type} with id {id} to project " + project_number + " of user " + username;
   var body = {
     "type": type,
     "id": id,
@@ -10699,7 +11335,7 @@ function addUserProjectItem(username, project_number, type, id) {
 
 function getUserProjectItem(username, project_number, item_id) {
   var url = "/users/" + username + "/projectsV2/" + project_number + "/items/" + item_id;
-  var description = "Get item " + item_id + " for user project " + project_number + " of " + username;
+  var description = "Get item " + item_id + " of project " + project_number + " for user " + username;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10711,7 +11347,7 @@ function getUserProjectItem(username, project_number, item_id) {
 
 function updateUserProjectItem(username, project_number, item_id) {
   var url = "/users/" + username + "/projectsV2/" + project_number + "/items/" + item_id;
-  var description = "Update project item " + item_id + " for user project " + project_number + " of " + username;
+  var description = "Update item " + item_id + " of project " + project_number + " for user " + username;
   var body = {
     "fields": fields,
   };
@@ -10725,7 +11361,7 @@ function updateUserProjectItem(username, project_number, item_id) {
 
 function deleteUserProjectItem(username, project_number, item_id) {
   var url = "/users/" + username + "/projectsV2/" + project_number + "/items/" + item_id;
-  var description = "Delete project item " + item_id + " for user project " + project_number + " of " + username;
+  var description = "Delete item " + item_id + " of project " + project_number + " for user " + username;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -10735,31 +11371,19 @@ function deleteUserProjectItem(username, project_number, item_id) {
   });
 }
 
-function listUserProjectItems(username, project_number) {
-  var url = "/users/" + username + "/projectsV2/" + project_number + "/items";
-  var description = "List items for user project " + project_number + " of " + username;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function tryToAddExistingUserProjectItem(username, project_number, item_id) {
+  return addUserProjectItem(username, project_number);
 }
 
-function tryToAddExistingUserProjectItem(username, project_number, type, id, item_id) {
-  return addUserProjectItem(username, project_number, type, id);
-}
-
-function verifyUserProjectItemExists(username, project_number, type, id, item_id) {
+function verifyUserProjectItemExists(username, project_number, item_id) {
   return getUserProjectItem(username, project_number, item_id);
 }
 
-function verifyUserProjectItemDoesNotExist(username, project_number, type, id, item_id) {
+function verifyUserProjectItemDoesNotExist(username, project_number, item_id) {
   return getUserProjectItem(username, project_number, item_id);
 }
 
-function tryToDeleteANonExistingUserProjectItem(username, project_number, type, id, item_id) {
+function tryToDeleteANonExistingUserProjectItem(username, project_number, item_id) {
   return deleteUserProjectItem(username, project_number, item_id);
 }
 
@@ -10782,7 +11406,7 @@ function createBlob(owner, repo, content, encoding) {
 
 function getBlob(owner, repo, file_sha) {
   var url = "/repos/" + owner + "/" + repo + "/git/blobs/" + file_sha;
-  var description = "Get blob " + file_sha + " of " + repo + " of " + owner;
+  var description = "Get blob " + file_sha;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10827,7 +11451,7 @@ function createCommit(owner, repo, message, tree, parents, author, committer, si
 
 function getCommit(owner, repo, commit_sha) {
   var url = "/repos/" + owner + "/" + repo + "/git/commits/" + commit_sha;
-  var description = "Get commit " + commit_sha + " of " + repo + " of " + owner;
+  var description = "Get commit " + commit_sha;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10868,7 +11492,7 @@ function createRef(owner, repo, ref, sha) {
 
 function getRef(owner, repo, ref) {
   var url = "/repos/" + owner + "/" + repo + "/git/ref/" + ref;
-  var description = "Get reference " + ref + " of " + repo + " of " + owner;
+  var description = "Get reference " + ref;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10895,7 +11519,7 @@ function updateRef(owner, repo, ref, sha, force) {
 
 function deleteRef(owner, repo, ref) {
   var url = "/repos/" + owner + "/" + repo + "/git/refs/" + ref;
-  var description = "Delete reference " + ref + " of " + repo + " of " + owner;
+  var description = "Delete reference " + ref;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -10943,7 +11567,7 @@ function createTag(owner, repo, tag, message, object, type, tagger) {
 
 function getTag(owner, repo, tag_sha) {
   var url = "/repos/" + owner + "/" + repo + "/git/tags/" + tag_sha;
-  var description = "Get tag " + tag_sha + " of " + repo + " of " + owner;
+  var description = "Get tag " + tag_sha;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -10984,7 +11608,7 @@ function createTree(owner, repo, tree, base_tree) {
 
 function getTree(owner, repo, tree_sha, recursive) {
   var url = "/repos/" + owner + "/" + repo + "/git/trees/" + tree_sha;
-  var description = "Get tree " + tree_sha + " of " + repo + " of " + owner;
+  var description = "Get tree " + tree_sha;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -11010,7 +11634,7 @@ function verifyTreeDoesNotExist(owner, repo, tree, base_tree, tree_sha, recursiv
 
 function createGist(description) {
   var url = "/gists";
-  var description = "Create gist " + description;
+  var description = "Create a gist " + description;
   var body = {
     "description": description,
     "files": files,
@@ -11083,7 +11707,7 @@ function tryToDeleteANonExistingGist(description, gist_id) {
 
 function createGistComment(gist_id, body) {
   var url = "/gists/" + gist_id + "/comments";
-  var description = "Create comment on gist " + gist_id + " with body " + body;
+  var description = "Create a comment on gist " + gist_id + " with body " + body;
   var body = {
     "body": body,
   };
@@ -11149,9 +11773,50 @@ function tryToDeleteANonExistingGistComment(gist_id, body, comment_id) {
   return deleteGistComment(gist_id, comment_id);
 }
 
+// ---- Entity: organization project ----
+
+function createOrgProject(org, name) {
+  var url = "/orgs/" + org + "/projects";
+  var description = "Create organization project " + name;
+  var body = {
+    "name": name,
+    "body": body,
+  };
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listOrgProjects(org) {
+  var url = "/orgs/" + org + "/projects";
+  var description = "List projects for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingOrganizationProject(org, name) {
+  return createOrgProject(org, name);
+}
+
+function verifyOrganizationProjectExists(org, name) {
+  return listOrgProjects(org);
+}
+
+function verifyOrganizationProjectDoesNotExist(org, name) {
+  return listOrgProjects(org);
+}
+
 // ---- Entity: project column ----
 
-function getColumn(column_id) {
+function getProjectColumn(column_id) {
   var url = "/projects/columns/" + column_id;
   var description = "Get project column " + column_id;
   var body = undefined;
@@ -11163,9 +11828,9 @@ function getColumn(column_id) {
   });
 }
 
-function updateColumn(column_id, name) {
+function updateProjectColumn(column_id, name) {
   var url = "/projects/columns/" + column_id;
-  var description = "Update project column " + column_id + " to " + name;
+  var description = "Update project column " + column_id + " with name " + name;
   var body = {
     "name": name,
   };
@@ -11177,7 +11842,7 @@ function updateColumn(column_id, name) {
   });
 }
 
-function deleteColumn(column_id) {
+function deleteProjectColumn(column_id) {
   var url = "/projects/columns/" + column_id;
   var description = "Delete project column " + column_id;
   var body = undefined;
@@ -11189,7 +11854,7 @@ function deleteColumn(column_id) {
   });
 }
 
-function moveColumn(column_id, position) {
+function moveProjectColumn(column_id, position) {
   var url = "/projects/columns/" + column_id + "/moves";
   var description = "Move project column " + column_id + " to position " + position;
   var body = {
@@ -11204,76 +11869,20 @@ function moveColumn(column_id, position) {
 }
 
 function verifyProjectColumnExists(column_id, name, position) {
-  return getColumn(column_id);
+  return getProjectColumn(column_id);
 }
 
 function verifyProjectColumnDoesNotExist(column_id, name, position) {
-  return getColumn(column_id);
+  return getProjectColumn(column_id);
 }
 
 function tryToDeleteANonExistingProjectColumn(column_id, name, position) {
-  return deleteColumn(column_id);
-}
-
-// ---- Entity: project ----
-
-function getProject(project_id) {
-  var url = "/projects/" + project_id;
-  var description = "Get project " + project_id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateProject(project_id, name) {
-  var url = "/projects/" + project_id;
-  var description = "Update project " + project_id + " with name " + name;
-  var body = {
-    "name": name,
-    "body": body,
-    "state": state,
-    "organization_permission": organization_permission,
-    "private": private,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteProject(project_id) {
-  var url = "/projects/" + project_id;
-  var description = "Delete project " + project_id;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyProjectExists(project_id, name) {
-  return getProject(project_id);
-}
-
-function verifyProjectDoesNotExist(project_id, name) {
-  return getProject(project_id);
-}
-
-function tryToDeleteANonExistingProject(project_id, name) {
-  return deleteProject(project_id);
+  return deleteProjectColumn(column_id);
 }
 
 // ---- Entity: project collaborator ----
 
-function addCollaborator(project_id, username, permission) {
+function addProjectCollaborator(project_id, username, permission) {
   var url = "/projects/" + project_id + "/collaborators/" + username;
   var description = "Add collaborator " + username + " to project " + project_id + " with permission " + permission;
   var body = {
@@ -11287,7 +11896,7 @@ function addCollaborator(project_id, username, permission) {
   });
 }
 
-function removeCollaborator(project_id, username) {
+function removeProjectCollaborator(project_id, username) {
   var url = "/projects/" + project_id + "/collaborators/" + username;
   var description = "Remove collaborator " + username + " from project " + project_id;
   var body = undefined;
@@ -11299,7 +11908,7 @@ function removeCollaborator(project_id, username) {
   });
 }
 
-function getCollaboratorPermission(project_id, username) {
+function getProjectCollaboratorPermission(project_id, username) {
   var url = "/projects/" + project_id + "/collaborators/" + username + "/permission";
   var description = "Get permission for collaborator " + username + " on project " + project_id;
   var body = undefined;
@@ -11312,46 +11921,16 @@ function getCollaboratorPermission(project_id, username) {
 }
 
 function tryToAddExistingProjectCollaborator(project_id, username, permission) {
-  return addCollaborator(project_id, username, permission);
-}
-
-function verifyProjectCollaboratorExists(project_id, username, permission) {
-  return getCollaboratorPermission(project_id, username);
-}
-
-function verifyProjectCollaboratorDoesNotExist(project_id, username, permission) {
-  return getCollaboratorPermission(project_id, username);
+  return addProjectCollaborator(project_id, username, permission);
 }
 
 function tryToDeleteANonExistingProjectCollaborator(project_id, username, permission) {
-  return removeCollaborator(project_id, username);
+  return removeProjectCollaborator(project_id, username);
 }
 
-// ---- Entity: project collaborators list ----
+// ---- Entity: project column collection ----
 
-function listCollaborators(project_id) {
-  var url = "/projects/" + project_id + "/collaborators";
-  var description = "List collaborators for project " + project_id;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyProjectCollaboratorsListExists(project_id) {
-  return listCollaborators(project_id);
-}
-
-function verifyProjectCollaboratorsListDoesNotExist(project_id) {
-  return listCollaborators(project_id);
-}
-
-// ---- Entity: project column list ----
-
-function listColumns(project_id) {
+function listProjectColumns(project_id) {
   var url = "/projects/" + project_id + "/columns";
   var description = "List columns for project " + project_id;
   var body = undefined;
@@ -11363,9 +11942,9 @@ function listColumns(project_id) {
   });
 }
 
-function createColumn(project_id, name) {
+function createProjectColumn(project_id, name) {
   var url = "/projects/" + project_id + "/columns";
-  var description = "Create column " + name + " in project " + project_id;
+  var description = "Create project column " + name + " in project " + project_id;
   var body = {
     "name": name,
   };
@@ -11377,16 +11956,16 @@ function createColumn(project_id, name) {
   });
 }
 
-function tryToAddExistingProjectColumnList(project_id, name) {
-  return createColumn(project_id, name);
+function tryToAddExistingProjectColumnCollection(project_id, name) {
+  return createProjectColumn(project_id, name);
 }
 
-function verifyProjectColumnListExists(project_id, name) {
-  return listColumns(project_id);
+function verifyProjectColumnCollectionExists(project_id, name) {
+  return listProjectColumns(project_id);
 }
 
-function verifyProjectColumnListDoesNotExist(project_id, name) {
-  return listColumns(project_id);
+function verifyProjectColumnCollectionDoesNotExist(project_id, name) {
+  return listProjectColumns(project_id);
 }
 
 // ---- Entity: repository project ----
@@ -11430,7 +12009,7 @@ function verifyRepositoryProjectDoesNotExist(owner, repo, name) {
   return listRepoProjects(owner, repo);
 }
 
-// ---- Entity: user projects list ----
+// ---- Entity: user projects ----
 
 function listUserProjects(username) {
   var url = "/users/" + username + "/projects";
@@ -11444,11 +12023,11 @@ function listUserProjects(username) {
   });
 }
 
-function verifyUserProjectsListExists(username) {
+function verifyUserProjectsExists(username) {
   return listUserProjects(username);
 }
 
-function verifyUserProjectsListDoesNotExist(username) {
+function verifyUserProjectsDoesNotExist(username) {
   return listUserProjects(username);
 }
 
@@ -11511,6 +12090,20 @@ function updateCheckRun(owner, repo, check_run_id, name) {
   });
 }
 
+function tryToAddExistingCheckRun(owner, repo, name, head_sha, check_run_id) {
+  return createCheckRun(owner, repo, name, head_sha);
+}
+
+function verifyCheckRunExists(owner, repo, name, head_sha, check_run_id) {
+  return getCheckRun(owner, repo, check_run_id);
+}
+
+function verifyCheckRunDoesNotExist(owner, repo, name, head_sha, check_run_id) {
+  return getCheckRun(owner, repo, check_run_id);
+}
+
+// ---- Entity: check run annotation ----
+
 function listCheckRunAnnotations(owner, repo, check_run_id) {
   var url = "/repos/" + owner + "/" + repo + "/check-runs/" + check_run_id + "/annotations";
   var description = "List annotations for check run " + check_run_id + " on repo " + repo + " of " + owner;
@@ -11522,6 +12115,16 @@ function listCheckRunAnnotations(owner, repo, check_run_id) {
     body: body
   });
 }
+
+function verifyCheckRunAnnotationExists(owner, repo, check_run_id) {
+  return listCheckRunAnnotations(owner, repo, check_run_id);
+}
+
+function verifyCheckRunAnnotationDoesNotExist(owner, repo, check_run_id) {
+  return listCheckRunAnnotations(owner, repo, check_run_id);
+}
+
+// ---- Entity: check run rerequest ----
 
 function rerequestCheckRun(owner, repo, check_run_id) {
   var url = "/repos/" + owner + "/" + repo + "/check-runs/" + check_run_id + "/rerequest";
@@ -11535,23 +12138,15 @@ function rerequestCheckRun(owner, repo, check_run_id) {
   });
 }
 
-function tryToAddExistingCheckRun(owner, repo, name, head_sha, check_run_id) {
-  return createCheckRun(owner, repo, name, head_sha);
-}
-
-function verifyCheckRunExists(owner, repo, name, head_sha, check_run_id) {
-  return getCheckRun(owner, repo, check_run_id);
-}
-
-function verifyCheckRunDoesNotExist(owner, repo, name, head_sha, check_run_id) {
-  return getCheckRun(owner, repo, check_run_id);
+function tryToAddExistingCheckRunRerequest(owner, repo, check_run_id) {
+  return rerequestCheckRun(owner, repo, check_run_id);
 }
 
 // ---- Entity: check suite ----
 
 function createCheckSuite(owner, repo, head_sha) {
   var url = "/repos/" + owner + "/" + repo + "/check-suites";
-  var description = "Create check suite on repo " + repo + " of " + owner + " with head_sha " + head_sha;
+  var description = "Create check suite on repo " + repo + " of " + owner;
   var body = {
     "head_sha": head_sha,
   };
@@ -11575,38 +12170,14 @@ function getCheckSuite(owner, repo, check_suite_id) {
   });
 }
 
-function updateCheckSuitesPreferences(owner, repo) {
+function updateCheckSuitePreferences(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/check-suites/preferences";
-  var description = "Update check suites preferences on repo " + repo + " of " + owner;
+  var description = "Update check suite preferences on repo " + repo + " of " + owner;
   var body = {
     "auto_trigger_checks": auto_trigger_checks,
   };
   return svc.request({
     method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function listCheckRunsForSuite(owner, repo, check_suite_id) {
-  var url = "/repos/" + owner + "/" + repo + "/check-suites/" + check_suite_id + "/check-runs";
-  var description = "List check runs for check suite " + check_suite_id + " on repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function rerequestCheckSuite(owner, repo, check_suite_id) {
-  var url = "/repos/" + owner + "/" + repo + "/check-suites/" + check_suite_id + "/rerequest";
-  var description = "Rerequest check suite " + check_suite_id + " on repo " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
     url: url,
     parameters: { description: description },
     body: body
@@ -11623,6 +12194,46 @@ function verifyCheckSuiteExists(owner, repo, head_sha, check_suite_id) {
 
 function verifyCheckSuiteDoesNotExist(owner, repo, head_sha, check_suite_id) {
   return getCheckSuite(owner, repo, check_suite_id);
+}
+
+// ---- Entity: check suite check runs ----
+
+function listCheckRunsForSuite(owner, repo, check_suite_id) {
+  var url = "/repos/" + owner + "/" + repo + "/check-suites/" + check_suite_id + "/check-runs";
+  var description = "List check runs for check suite " + check_suite_id + " on repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyCheckSuiteCheckRunsExists(owner, repo, check_suite_id) {
+  return listCheckRunsForSuite(owner, repo, check_suite_id);
+}
+
+function verifyCheckSuiteCheckRunsDoesNotExist(owner, repo, check_suite_id) {
+  return listCheckRunsForSuite(owner, repo, check_suite_id);
+}
+
+// ---- Entity: check suite rerequest ----
+
+function rerequestCheckSuite(owner, repo, check_suite_id) {
+  var url = "/repos/" + owner + "/" + repo + "/check-suites/" + check_suite_id + "/rerequest";
+  var description = "Rerequest check suite " + check_suite_id + " on repo " + repo + " of " + owner;
+  var body = undefined;
+  return svc.request({
+    method: "POST",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function tryToAddExistingCheckSuiteRerequest(owner, repo, check_suite_id) {
+  return rerequestCheckSuite(owner, repo, check_suite_id);
 }
 
 // ---- Entity: organization billing ----
@@ -11845,7 +12456,7 @@ function verifyUserBillingUsageDoesNotExist(username, year, month, day, hour) {
   return getUserBillingUsage(username, year, month, day, hour);
 }
 
-// ---- Entity: global security advisory ----
+// ---- Entity: security advisory ----
 
 function getGlobalAdvisory(ghsa_id) {
   var url = "/advisories/" + ghsa_id;
@@ -11871,11 +12482,11 @@ function listGlobalAdvisories() {
   });
 }
 
-function verifyGlobalSecurityAdvisoryExists(ghsa_id) {
+function verifySecurityAdvisoryExists(ghsa_id) {
   return getGlobalAdvisory(ghsa_id);
 }
 
-function verifyGlobalSecurityAdvisoryDoesNotExist(ghsa_id) {
+function verifySecurityAdvisoryDoesNotExist(ghsa_id) {
   return getGlobalAdvisory(ghsa_id);
 }
 
@@ -11907,9 +12518,9 @@ function listRepositoryAdvisories(owner, repo) {
   });
 }
 
-function createRepositoryAdvisory(owner, repo) {
+function createRepositoryAdvisory(owner, repo, summary) {
   var url = "/repos/" + owner + "/" + repo + "/security-advisories";
-  var description = "Create repository security advisory in " + owner + "/" + repo;
+  var description = "Create repository security advisory in " + owner + "/" + repo + " with summary " + summary;
   var body = {
     "summary": summary,
     "description": description,
@@ -11957,23 +12568,23 @@ function updateRepositoryAdvisory(owner, repo, ghsa_id) {
   });
 }
 
-function tryToAddExistingRepositorySecurityAdvisory(owner, repo, ghsa_id) {
-  return createRepositoryAdvisory(owner, repo);
+function tryToAddExistingRepositorySecurityAdvisory(owner, repo, summary, ghsa_id) {
+  return createRepositoryAdvisory(owner, repo, summary);
 }
 
-function verifyRepositorySecurityAdvisoryExists(owner, repo, ghsa_id) {
+function verifyRepositorySecurityAdvisoryExists(owner, repo, summary, ghsa_id) {
   return getRepositoryAdvisory(owner, repo, ghsa_id);
 }
 
-function verifyRepositorySecurityAdvisoryDoesNotExist(owner, repo, ghsa_id) {
+function verifyRepositorySecurityAdvisoryDoesNotExist(owner, repo, summary, ghsa_id) {
   return getRepositoryAdvisory(owner, repo, ghsa_id);
 }
 
 // ---- Entity: private vulnerability report ----
 
-function createPrivateVulnerabilityReport(owner, repo) {
+function createPrivateVulnerabilityReport(owner, repo, summary) {
   var url = "/repos/" + owner + "/" + repo + "/security-advisories/reports";
-  var description = "Privately report a security vulnerability in " + owner + "/" + repo;
+  var description = "Privately report a security vulnerability in " + owner + "/" + repo + " with summary " + summary;
   var body = {
     "summary": summary,
     "description": description,
@@ -11989,11 +12600,11 @@ function createPrivateVulnerabilityReport(owner, repo) {
   });
 }
 
-function tryToAddExistingPrivateVulnerabilityReport(owner, repo) {
-  return createPrivateVulnerabilityReport(owner, repo);
+function tryToAddExistingPrivateVulnerabilityReport(owner, repo, summary) {
+  return createPrivateVulnerabilityReport(owner, repo, summary);
 }
 
-// ---- Entity: repository security advisory CVE request ----
+// ---- Entity: repository advisory CVE request ----
 
 function createRepositoryAdvisoryCVERequest(owner, repo, ghsa_id) {
   var url = "/repos/" + owner + "/" + repo + "/security-advisories/" + ghsa_id + "/cve";
@@ -12007,11 +12618,11 @@ function createRepositoryAdvisoryCVERequest(owner, repo, ghsa_id) {
   });
 }
 
-function tryToAddExistingRepositorySecurityAdvisoryCVERequest(owner, repo, ghsa_id) {
+function tryToAddExistingRepositoryAdvisoryCVERequest(owner, repo, ghsa_id) {
   return createRepositoryAdvisoryCVERequest(owner, repo, ghsa_id);
 }
 
-// ---- Entity: repository security advisory fork ----
+// ---- Entity: repository advisory fork ----
 
 function createFork(owner, repo, ghsa_id) {
   var url = "/repos/" + owner + "/" + repo + "/security-advisories/" + ghsa_id + "/forks";
@@ -12025,7 +12636,7 @@ function createFork(owner, repo, ghsa_id) {
   });
 }
 
-function tryToAddExistingRepositorySecurityAdvisoryFork(owner, repo, ghsa_id) {
+function tryToAddExistingRepositoryAdvisoryFork(owner, repo, ghsa_id) {
   return createFork(owner, repo, ghsa_id);
 }
 
@@ -12033,7 +12644,7 @@ function tryToAddExistingRepositorySecurityAdvisoryFork(owner, repo, ghsa_id) {
 
 function getAlert(owner, repo, alert_number) {
   var url = "/repos/" + owner + "/" + repo + "/secret-scanning/alerts/" + alert_number;
-  var description = "Get secret scanning alert " + alert_number + " for " + repo + " of " + owner;
+  var description = "Get secret scanning alert " + alert_number + " for " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -12045,7 +12656,7 @@ function getAlert(owner, repo, alert_number) {
 
 function updateAlert(owner, repo, alert_number) {
   var url = "/repos/" + owner + "/" + repo + "/secret-scanning/alerts/" + alert_number;
-  var description = "Update secret scanning alert " + alert_number + " for " + repo + " of " + owner;
+  var description = "Update secret scanning alert " + alert_number + " for " + owner + "/" + repo;
   var body = {
     "state": state,
     "resolution": resolution,
@@ -12067,11 +12678,11 @@ function verifySecretScanningAlertDoesNotExist(owner, repo, alert_number) {
   return getAlert(owner, repo, alert_number);
 }
 
-// ---- Entity: secret scanning alert list ----
+// ---- Entity: secret scanning alerts ----
 
 function listAlertsForRepo(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/secret-scanning/alerts";
-  var description = "List secret scanning alerts for " + repo + " of " + owner;
+  var description = "List secret scanning alerts for " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -12081,21 +12692,15 @@ function listAlertsForRepo(owner, repo) {
   });
 }
 
-// ---- Entity: secret scanning alert list ----
-
-function listAlertsForOrg(org) {
-  var url = "/orgs/" + org + "/secret-scanning/alerts";
-  var description = "List secret scanning alerts for organization " + org;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function verifySecretScanningAlertsExists(owner, repo) {
+  return listAlertsForRepo(owner, repo);
 }
 
-// ---- Entity: secret scanning alert list ----
+function verifySecretScanningAlertsDoesNotExist(owner, repo) {
+  return listAlertsForRepo(owner, repo);
+}
+
+// ---- Entity: enterprise secret scanning alerts ----
 
 function listAlertsForEnterprise(enterprise) {
   var url = "/enterprises/" + enterprise + "/secret-scanning/alerts";
@@ -12109,7 +12714,37 @@ function listAlertsForEnterprise(enterprise) {
   });
 }
 
-// ---- Entity: secret scanning pattern configuration ----
+function verifyEnterpriseSecretScanningAlertsExists(enterprise) {
+  return listAlertsForEnterprise(enterprise);
+}
+
+function verifyEnterpriseSecretScanningAlertsDoesNotExist(enterprise) {
+  return listAlertsForEnterprise(enterprise);
+}
+
+// ---- Entity: organization secret scanning alerts ----
+
+function listAlertsForOrg(org) {
+  var url = "/orgs/" + org + "/secret-scanning/alerts";
+  var description = "List secret scanning alerts for organization " + org;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifyOrgSecretScanningAlertsExists(org) {
+  return listAlertsForOrg(org);
+}
+
+function verifyOrgSecretScanningAlertsDoesNotExist(org) {
+  return listAlertsForOrg(org);
+}
+
+// ---- Entity: organization pattern configurations ----
 
 function listOrgPatternConfigs(org) {
   var url = "/orgs/" + org + "/secret-scanning/pattern-configurations";
@@ -12139,11 +12774,41 @@ function updateOrgPatternConfigs(org) {
   });
 }
 
+function verifyOrgPatternConfigurationsExists(org) {
+  return listOrgPatternConfigs(org);
+}
+
+function verifyOrgPatternConfigurationsDoesNotExist(org) {
+  return listOrgPatternConfigs(org);
+}
+
+// ---- Entity: secret scanning alert locations ----
+
+function listLocationsForAlert(owner, repo, alert_number) {
+  var url = "/repos/" + owner + "/" + repo + "/secret-scanning/alerts/" + alert_number + "/locations";
+  var description = "List locations for secret scanning alert " + alert_number + " in " + owner + "/" + repo;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function verifySecretScanningAlertLocationsExists(owner, repo, alert_number) {
+  return listLocationsForAlert(owner, repo, alert_number);
+}
+
+function verifySecretScanningAlertLocationsDoesNotExist(owner, repo, alert_number) {
+  return listLocationsForAlert(owner, repo, alert_number);
+}
+
 // ---- Entity: push protection bypass ----
 
 function createPushProtectionBypass(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/secret-scanning/push-protection-bypasses";
-  var description = "Create push protection bypass for " + repo + " of " + owner;
+  var description = "Create push protection bypass for " + owner + "/" + repo;
   var body = {
     "reason": reason,
     "placeholder_id": placeholder_id,
@@ -12164,7 +12829,7 @@ function tryToAddExistingPushProtectionBypass(owner, repo) {
 
 function getScanHistory(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/secret-scanning/scan-history";
-  var description = "Get secret scanning scan history for " + repo + " of " + owner;
+  var description = "Get secret scanning scan history for " + owner + "/" + repo;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -12180,20 +12845,6 @@ function verifySecretScanningScanHistoryExists(owner, repo) {
 
 function verifySecretScanningScanHistoryDoesNotExist(owner, repo) {
   return getScanHistory(owner, repo);
-}
-
-// ---- Entity: secret scanning alert location list ----
-
-function listLocationsForAlert(owner, repo, alert_number) {
-  var url = "/repos/" + owner + "/" + repo + "/secret-scanning/alerts/" + alert_number + "/locations";
-  var description = "List locations for secret scanning alert " + alert_number + " for " + repo + " of " + owner;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
 }
 
 // ---- Entity: copilot billing ----
@@ -12218,7 +12869,7 @@ function verifyCopilotBillingDoesNotExist(org) {
   return getCopilotBilling(org);
 }
 
-// ---- Entity: copilot seat ----
+// ---- Entity: copilot seat assignments ----
 
 function listCopilotSeats(org) {
   var url = "/orgs/" + org + "/copilot/billing/seats";
@@ -12240,11 +12891,11 @@ function verifyCopilotSeatsDoesNotExist(org) {
   return listCopilotSeats(org);
 }
 
-// ---- Entity: copilot selected team ----
+// ---- Entity: copilot selected teams ----
 
 function addCopilotSeatsForTeams(org, selected_teams) {
   var url = "/orgs/" + org + "/copilot/billing/selected_teams";
-  var description = "Add teams to the Copilot subscription for organization " + org;
+  var description = "Add teams to Copilot subscription for organization " + org;
   var body = {
     "selected_teams": selected_teams,
   };
@@ -12258,7 +12909,7 @@ function addCopilotSeatsForTeams(org, selected_teams) {
 
 function removeCopilotSeatsForTeams(org, selected_teams) {
   var url = "/orgs/" + org + "/copilot/billing/selected_teams";
-  var description = "Remove teams from the Copilot subscription for organization " + org;
+  var description = "Remove teams from Copilot subscription for organization " + org;
   var body = {
     "selected_teams": selected_teams,
   };
@@ -12278,11 +12929,11 @@ function tryToDeleteANonExistingCopilotSelectedTeams(org, selected_teams) {
   return removeCopilotSeatsForTeams(org, selected_teams);
 }
 
-// ---- Entity: copilot selected user ----
+// ---- Entity: copilot selected users ----
 
 function addCopilotSeatsForUsers(org, selected_usernames) {
   var url = "/orgs/" + org + "/copilot/billing/selected_users";
-  var description = "Add users to the Copilot subscription for organization " + org;
+  var description = "Add users to Copilot subscription for organization " + org;
   var body = {
     "selected_usernames": selected_usernames,
   };
@@ -12296,7 +12947,7 @@ function addCopilotSeatsForUsers(org, selected_usernames) {
 
 function removeCopilotSeatsForUsers(org, selected_usernames) {
   var url = "/orgs/" + org + "/copilot/billing/selected_users";
-  var description = "Remove users from the Copilot subscription for organization " + org;
+  var description = "Remove users from Copilot subscription for organization " + org;
   var body = {
     "selected_usernames": selected_usernames,
   };
@@ -12316,7 +12967,7 @@ function tryToDeleteANonExistingCopilotSelectedUsers(org, selected_usernames) {
   return removeCopilotSeatsForUsers(org, selected_usernames);
 }
 
-// ---- Entity: copilot metrics ----
+// ---- Entity: copilot metrics organization ----
 
 function getCopilotMetricsForOrganization(org, since, until, page, per_page) {
   var url = "/orgs/" + org + "/copilot/metrics";
@@ -12384,7 +13035,7 @@ function verifyCopilotMetricsTeamDoesNotExist(org, team_slug, since, until, page
 
 // ---- Entity: code search ----
 
-function searchCode(q, sort, order, per-page, page) {
+function searchCode(q) {
   var url = "/search/code";
   var description = "Search code with query " + q;
   var body = undefined;
@@ -12396,17 +13047,17 @@ function searchCode(q, sort, order, per-page, page) {
   });
 }
 
-function verifyCodeSearchExists(q, sort, order, per-page, page) {
-  return searchCode(q, sort, order, per-page, page);
+function verifyCodeSearchExists(q) {
+  return searchCode(q);
 }
 
-function verifyCodeSearchDoesNotExist(q, sort, order, per-page, page) {
-  return searchCode(q, sort, order, per-page, page);
+function verifyCodeSearchDoesNotExist(q) {
+  return searchCode(q);
 }
 
 // ---- Entity: commit search ----
 
-function searchCommits(q, sort, order, per-page, page) {
+function searchCommits(q) {
   var url = "/search/commits";
   var description = "Search commits with query " + q;
   var body = undefined;
@@ -12418,17 +13069,17 @@ function searchCommits(q, sort, order, per-page, page) {
   });
 }
 
-function verifyCommitSearchExists(q, sort, order, per-page, page) {
-  return searchCommits(q, sort, order, per-page, page);
+function verifyCommitSearchExists(q) {
+  return searchCommits(q);
 }
 
-function verifyCommitSearchDoesNotExist(q, sort, order, per-page, page) {
-  return searchCommits(q, sort, order, per-page, page);
+function verifyCommitSearchDoesNotExist(q) {
+  return searchCommits(q);
 }
 
 // ---- Entity: issue search ----
 
-function searchIssues(q, sort, order, per-page, page) {
+function searchIssues(q) {
   var url = "/search/issues";
   var description = "Search issues and pull requests with query " + q;
   var body = undefined;
@@ -12440,17 +13091,17 @@ function searchIssues(q, sort, order, per-page, page) {
   });
 }
 
-function verifyIssueSearchExists(q, sort, order, per-page, page) {
-  return searchIssues(q, sort, order, per-page, page);
+function verifyIssueSearchExists(q) {
+  return searchIssues(q);
 }
 
-function verifyIssueSearchDoesNotExist(q, sort, order, per-page, page) {
-  return searchIssues(q, sort, order, per-page, page);
+function verifyIssueSearchDoesNotExist(q) {
+  return searchIssues(q);
 }
 
 // ---- Entity: label search ----
 
-function searchLabels(repository_id, q, sort, order, per-page, page) {
+function searchLabels(repository_id, q) {
   var url = "/search/labels";
   var description = "Search labels in repository " + repository_id + " with query " + q;
   var body = undefined;
@@ -12462,17 +13113,17 @@ function searchLabels(repository_id, q, sort, order, per-page, page) {
   });
 }
 
-function verifyLabelSearchExists(repository_id, q, sort, order, per-page, page) {
-  return searchLabels(repository_id, q, sort, order, per-page, page);
+function verifyLabelSearchExists(repository_id, q) {
+  return searchLabels(repository_id, q);
 }
 
-function verifyLabelSearchDoesNotExist(repository_id, q, sort, order, per-page, page) {
-  return searchLabels(repository_id, q, sort, order, per-page, page);
+function verifyLabelSearchDoesNotExist(repository_id, q) {
+  return searchLabels(repository_id, q);
 }
 
 // ---- Entity: repository search ----
 
-function searchRepositories(q, sort, order, per-page, page) {
+function searchRepositories(q) {
   var url = "/search/repositories";
   var description = "Search repositories with query " + q;
   var body = undefined;
@@ -12484,17 +13135,17 @@ function searchRepositories(q, sort, order, per-page, page) {
   });
 }
 
-function verifyRepositorySearchExists(q, sort, order, per-page, page) {
-  return searchRepositories(q, sort, order, per-page, page);
+function verifyRepositorySearchExists(q) {
+  return searchRepositories(q);
 }
 
-function verifyRepositorySearchDoesNotExist(q, sort, order, per-page, page) {
-  return searchRepositories(q, sort, order, per-page, page);
+function verifyRepositorySearchDoesNotExist(q) {
+  return searchRepositories(q);
 }
 
 // ---- Entity: topic search ----
 
-function searchTopics(q, per-page, page) {
+function searchTopics(q) {
   var url = "/search/topics";
   var description = "Search topics with query " + q;
   var body = undefined;
@@ -12506,17 +13157,17 @@ function searchTopics(q, per-page, page) {
   });
 }
 
-function verifyTopicSearchExists(q, per-page, page) {
-  return searchTopics(q, per-page, page);
+function verifyTopicSearchExists(q) {
+  return searchTopics(q);
 }
 
-function verifyTopicSearchDoesNotExist(q, per-page, page) {
-  return searchTopics(q, per-page, page);
+function verifyTopicSearchDoesNotExist(q) {
+  return searchTopics(q);
 }
 
 // ---- Entity: user search ----
 
-function searchUsers(q, sort, order, per-page, page) {
+function searchUsers(q) {
   var url = "/search/users";
   var description = "Search users with query " + q;
   var body = undefined;
@@ -12528,12 +13179,12 @@ function searchUsers(q, sort, order, per-page, page) {
   });
 }
 
-function verifyUserSearchExists(q, sort, order, per-page, page) {
-  return searchUsers(q, sort, order, per-page, page);
+function verifyUserSearchExists(q) {
+  return searchUsers(q);
 }
 
-function verifyUserSearchDoesNotExist(q, sort, order, per-page, page) {
-  return searchUsers(q, sort, order, per-page, page);
+function verifyUserSearchDoesNotExist(q) {
+  return searchUsers(q);
 }
 
 // ---- Entity: assignment ----
@@ -12616,6 +13267,16 @@ function getClassroom(classroom_id) {
   });
 }
 
+function verifyClassroomExists(classroom_id) {
+  return getClassroom(classroom_id);
+}
+
+function verifyClassroomDoesNotExist(classroom_id) {
+  return getClassroom(classroom_id);
+}
+
+// ---- Entity: classroom list ----
+
 function listClassrooms() {
   var url = "/classrooms";
   var description = "List classrooms";
@@ -12628,15 +13289,15 @@ function listClassrooms() {
   });
 }
 
-function verifyClassroomExists(classroom_id) {
-  return getClassroom(classroom_id);
+function verifyClassroomListExists() {
+  return listClassrooms();
 }
 
-function verifyClassroomDoesNotExist(classroom_id) {
-  return getClassroom(classroom_id);
+function verifyClassroomListDoesNotExist() {
+  return listClassrooms();
 }
 
-// ---- Entity: classroom assignment ----
+// ---- Entity: classroom assignments ----
 
 function listAssignmentsForClassroom(classroom_id) {
   var url = "/classrooms/" + classroom_id + "/assignments";
@@ -12648,6 +13309,14 @@ function listAssignmentsForClassroom(classroom_id) {
     parameters: { description: description },
     body: body
   });
+}
+
+function verifyClassroomAssignmentsExists(classroom_id) {
+  return listAssignmentsForClassroom(classroom_id);
+}
+
+function verifyClassroomAssignmentsDoesNotExist(classroom_id) {
+  return listAssignmentsForClassroom(classroom_id);
 }
 
 // ---- Entity: enterprise team membership ----
@@ -12744,7 +13413,7 @@ function tryToDeleteANonExistingEnterpriseTeamMembershipBulk(enterprise, enterpr
 
 // ---- Entity: enterprise team membership list ----
 
-function listTeamMembers(enterprise, enterprise-team) {
+function listTeamMembers(enterprise, enterprise-team, per-page, page) {
   var url = "/enterprises/" + enterprise + "/teams/" + enterprise-team + "/memberships";
   var description = "List members in team " + enterprise-team + " of enterprise " + enterprise;
   var body = undefined;
@@ -12756,12 +13425,12 @@ function listTeamMembers(enterprise, enterprise-team) {
   });
 }
 
-function verifyEnterpriseTeamMembershipListExists(enterprise, enterprise-team) {
-  return listTeamMembers(enterprise, enterprise-team);
+function verifyEnterpriseTeamMembershipListExists(enterprise, enterprise-team, per-page, page) {
+  return listTeamMembers(enterprise, enterprise-team, per-page, page);
 }
 
-function verifyEnterpriseTeamMembershipListDoesNotExist(enterprise, enterprise-team) {
-  return listTeamMembers(enterprise, enterprise-team);
+function verifyEnterpriseTeamMembershipListDoesNotExist(enterprise, enterprise-team, per-page, page) {
+  return listTeamMembers(enterprise, enterprise-team, per-page, page);
 }
 
 // ---- Entity: license ----
@@ -12769,6 +13438,18 @@ function verifyEnterpriseTeamMembershipListDoesNotExist(enterprise, enterprise-t
 function getLicense(license) {
   var url = "/licenses/" + license;
   var description = "Get license " + license;
+  var body = undefined;
+  return svc.request({
+    method: "GET",
+    url: url,
+    parameters: { description: description },
+    body: body
+  });
+}
+
+function listLicenses() {
+  var url = "/licenses";
+  var description = "Get all commonly used licenses";
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -12786,33 +13467,11 @@ function verifyLicenseDoesNotExist(license) {
   return getLicense(license);
 }
 
-// ---- Entity: licenses ----
-
-function getAllCommonlyUsedLicenses(featured, per-page, page) {
-  var url = "/licenses";
-  var description = "Get all commonly used licenses";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyLicensesExists(featured, per-page, page) {
-  return getAllCommonlyUsedLicenses(featured, per-page, page);
-}
-
-function verifyLicensesDoesNotExist(featured, per-page, page) {
-  return getAllCommonlyUsedLicenses(featured, per-page, page);
-}
-
 // ---- Entity: repository license ----
 
-function getLicenseForRepo(owner, repo, git-ref) {
+function getRepoLicense(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/license";
-  var description = "Get the license for repository " + owner + "/" + repo;
+  var description = "Get the license for repository " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -12822,12 +13481,12 @@ function getLicenseForRepo(owner, repo, git-ref) {
   });
 }
 
-function verifyRepositoryLicenseExists(owner, repo, git-ref) {
-  return getLicenseForRepo(owner, repo, git-ref);
+function verifyRepositoryLicenseExists(owner, repo) {
+  return getRepoLicense(owner, repo);
 }
 
-function verifyRepositoryLicenseDoesNotExist(owner, repo, git-ref) {
-  return getLicenseForRepo(owner, repo, git-ref);
+function verifyRepositoryLicenseDoesNotExist(owner, repo) {
+  return getRepoLicense(owner, repo);
 }
 
 // ---- Entity: organization interaction limit ----
@@ -12991,9 +13650,9 @@ function tryToDeleteANonExistingUserInteractionLimit() {
 
 // ---- Entity: private registry ----
 
-function createOrgPrivateRegistry(org, url, registry_type, encrypted_value, key_id, visibility, username, selected_repository_ids) {
+function createOrgPrivateRegistry(org, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids) {
   var url = "/orgs/" + org + "/private-registries";
-  var description = "Create private registry " + url + " for org " + org;
+  var description = "Create private registry " + url + " for organization " + org;
   var body = {
     "registry_type": registry_type,
     "url": url,
@@ -13013,7 +13672,7 @@ function createOrgPrivateRegistry(org, url, registry_type, encrypted_value, key_
 
 function getOrgPrivateRegistry(org, secret_name) {
   var url = "/orgs/" + org + "/private-registries/" + secret_name;
-  var description = "Get private registry " + secret_name + " for org " + org;
+  var description = "Get private registry " + secret_name + " for organization " + org;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -13025,7 +13684,7 @@ function getOrgPrivateRegistry(org, secret_name) {
 
 function updateOrgPrivateRegistry(org, secret_name, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids) {
   var url = "/orgs/" + org + "/private-registries/" + secret_name;
-  var description = "Update private registry " + secret_name + " for org " + org;
+  var description = "Update private registry " + secret_name + " for organization " + org;
   var body = {
     "registry_type": registry_type,
     "url": url,
@@ -13045,7 +13704,7 @@ function updateOrgPrivateRegistry(org, secret_name, registry_type, url, username
 
 function deleteOrgPrivateRegistry(org, secret_name) {
   var url = "/orgs/" + org + "/private-registries/" + secret_name;
-  var description = "Delete private registry " + secret_name + " for org " + org;
+  var description = "Delete private registry " + secret_name + " for organization " + org;
   var body = undefined;
   return svc.request({
     method: "DELETE",
@@ -13055,19 +13714,19 @@ function deleteOrgPrivateRegistry(org, secret_name) {
   });
 }
 
-function tryToAddExistingPrivateRegistry(org, url, registry_type, encrypted_value, key_id, visibility, username, selected_repository_ids, secret_name) {
-  return createOrgPrivateRegistry(org, url, registry_type, encrypted_value, key_id, visibility, username, selected_repository_ids);
+function tryToAddExistingPrivateRegistry(org, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids, secret_name) {
+  return createOrgPrivateRegistry(org, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids);
 }
 
-function verifyPrivateRegistryExists(org, url, registry_type, encrypted_value, key_id, visibility, username, selected_repository_ids, secret_name) {
+function verifyPrivateRegistryExists(org, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids, secret_name) {
   return getOrgPrivateRegistry(org, secret_name);
 }
 
-function verifyPrivateRegistryDoesNotExist(org, url, registry_type, encrypted_value, key_id, visibility, username, selected_repository_ids, secret_name) {
+function verifyPrivateRegistryDoesNotExist(org, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids, secret_name) {
   return getOrgPrivateRegistry(org, secret_name);
 }
 
-function tryToDeleteANonExistingPrivateRegistry(org, url, registry_type, encrypted_value, key_id, visibility, username, selected_repository_ids, secret_name) {
+function tryToDeleteANonExistingPrivateRegistry(org, registry_type, url, username, encrypted_value, key_id, visibility, selected_repository_ids, secret_name) {
   return deleteOrgPrivateRegistry(org, secret_name);
 }
 
@@ -13187,11 +13846,11 @@ function tryToAddExistingDependencyGraphSnapshot(owner, repo) {
   return createDependencyGraphSnapshot(owner, repo);
 }
 
-// ---- Entity: dependency graph diff ----
+// ---- Entity: dependency graph comparison ----
 
-function getDependencyGraphDiff(owner, repo, basehead) {
+function getDependencyGraphDiffRange(owner, repo, basehead) {
   var url = "/repos/" + owner + "/" + repo + "/dependency-graph/compare/" + basehead;
-  var description = "Get a diff of the dependencies between commits " + basehead + " for repo " + repo + " of " + owner;
+  var description = "Get a diff of the dependencies between commits " + basehead + " in repo " + repo + " of " + owner;
   var body = undefined;
   return svc.request({
     method: "GET",
@@ -13201,12 +13860,12 @@ function getDependencyGraphDiff(owner, repo, basehead) {
   });
 }
 
-function verifyDependencyGraphDiffExists(owner, repo, basehead) {
-  return getDependencyGraphDiff(owner, repo, basehead);
+function verifyDependencyGraphComparisonExists(owner, repo, basehead) {
+  return getDependencyGraphDiffRange(owner, repo, basehead);
 }
 
-function verifyDependencyGraphDiffDoesNotExist(owner, repo, basehead) {
-  return getDependencyGraphDiff(owner, repo, basehead);
+function verifyDependencyGraphComparisonDoesNotExist(owner, repo, basehead) {
+  return getDependencyGraphDiffRange(owner, repo, basehead);
 }
 
 // ---- Entity: dependency graph sbom ----

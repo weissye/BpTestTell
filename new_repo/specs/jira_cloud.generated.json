@@ -1,273 +1,4325 @@
 {
-  "base_url": "https://api.atlassian.com/ex/jira/{cloudid}/rest/api/3",
+  "sut": "jira_cloud",
+  "base_url": "http://localhost:8080",
   "entities": {
     "Issue": {
       "displayName": "issue",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "key": "{issueIdOrKey}"
-          },
-          "descriptionTemplate": "Add issue {issueIdOrKey}",
-          "method": "POST",
-          "name": "addIssue",
-          "params": [
-            "issueIdOrKey"
-          ],
-          "path": "/issue"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete issue {issueIdOrKey}",
-          "method": "DELETE",
-          "name": "deleteIssue",
-          "params": [
-            "issueIdOrKey"
-          ],
-          "path": "/issue/{issueIdOrKey}"
-        },
-        "get": {
-          "descriptionTemplate": "Get issue {issueIdOrKey}",
-          "method": "GET",
-          "name": "getIssue",
-          "params": [
-            "issueIdOrKey"
-          ],
-          "path": "/issue/{issueIdOrKey}"
-        },
-        "update": {
-          "bodyTemplate": {
-            "key": "{issueIdOrKey}"
-          },
-          "descriptionTemplate": "Update issue {issueIdOrKey}",
-          "method": "PUT",
-          "name": "updateIssue",
-          "params": [
-            "issueIdOrKey"
-          ],
-          "path": "/issue/{issueIdOrKey}"
-        }
-      },
       "params": [
         "issueIdOrKey"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add issue (.+)",
-          "name": "waitForAnyIssueAdded"
+      "operations": {
+        "add": {
+          "name": "createIssue",
+          "method": "POST",
+          "path": "/rest/api/3/issue",
+          "descriptionTemplate": "Create issue with summary {summary} in project {project.id}",
+          "params": [
+            "updateHistory"
+          ],
+          "bodyTemplate": {
+            "fields": {
+              "assignee": {
+                "id": "{assignee.id}"
+              },
+              "components": [
+                {
+                  "id": "{components.id}"
+                }
+              ],
+              "customfield_10000": "{customfield_10000}",
+              "customfield_20000": "{customfield_20000}",
+              "customfield_30000": "{customfield_30000}",
+              "customfield_40000": "{customfield_40000}",
+              "customfield_50000": "{customfield_50000}",
+              "customfield_60000": "{customfield_60000}",
+              "customfield_70000": "{customfield_70000}",
+              "customfield_80000": "{customfield_80000}",
+              "description": "{description}",
+              "duedate": "{duedate}",
+              "environment": "{environment}",
+              "fixVersions": [
+                {
+                  "id": "{fixVersions.id}"
+                }
+              ],
+              "issuetype": {
+                "id": "{issuetype.id}"
+              },
+              "labels": "{labels}",
+              "parent": {
+                "key": "{parent.key}"
+              },
+              "priority": {
+                "id": "{priority.id}"
+              },
+              "project": {
+                "id": "{project.id}"
+              },
+              "reporter": {
+                "id": "{reporter.id}"
+              },
+              "security": {
+                "id": "{security.id}"
+              },
+              "summary": "{summary}",
+              "timetracking": {
+                "originalEstimate": "{timetracking.originalEstimate}",
+                "remainingEstimate": "{timetracking.remainingEstimate}"
+              },
+              "versions": [
+                {
+                  "id": "{versions.id}"
+                }
+              ]
+            },
+            "update": {}
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete issue (.+)",
-          "name": "waitForAnyIssueDeleted"
+        "addBulk": {
+          "name": "createIssues",
+          "method": "POST",
+          "path": "/rest/api/3/issue/bulk",
+          "descriptionTemplate": "Bulk create issues",
+          "params": [],
+          "bodyTemplate": {
+            "issueUpdates": [
+              {
+                "fields": {
+                  "assignee": {
+                    "id": "{assignee.id}"
+                  },
+                  "components": [
+                    {
+                      "id": "{components.id}"
+                    }
+                  ],
+                  "customfield_10000": "{customfield_10000}",
+                  "customfield_20000": "{customfield_20000}",
+                  "customfield_30000": "{customfield_30000}",
+                  "customfield_40000": "{customfield_40000}",
+                  "customfield_50000": "{customfield_50000}",
+                  "customfield_60000": "{customfield_60000}",
+                  "customfield_70000": "{customfield_70000}",
+                  "customfield_80000": "{customfield_80000}",
+                  "description": "{description}",
+                  "duedate": "{duedate}",
+                  "environment": "{environment}",
+                  "fixVersions": [
+                    {
+                      "id": "{fixVersions.id}"
+                    }
+                  ],
+                  "issuetype": {
+                    "id": "{issuetype.id}"
+                  },
+                  "labels": "{labels}",
+                  "priority": {
+                    "id": "{priority.id}"
+                  },
+                  "project": {
+                    "id": "{project.id}"
+                  },
+                  "reporter": {
+                    "id": "{reporter.id}"
+                  },
+                  "security": {
+                    "id": "{security.id}"
+                  },
+                  "summary": "{summary}",
+                  "timetracking": {
+                    "originalEstimate": "{timetracking.originalEstimate}",
+                    "remainingEstimate": "{timetracking.remainingEstimate}"
+                  },
+                  "versions": [
+                    {
+                      "id": "{versions.id}"
+                    }
+                  ]
+                },
+                "update": {}
+              }
+            ]
+          }
+        },
+        "get": {
+          "name": "getIssue",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}",
+          "descriptionTemplate": "Get issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "fields",
+            "fieldsByKeys",
+            "expand",
+            "properties",
+            "updateHistory",
+            "failFast"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "editIssue",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/{issueIdOrKey}",
+          "descriptionTemplate": "Edit issue {issueIdOrKey} with summary {fields.summary}",
+          "params": [
+            "issueIdOrKey",
+            "notifyUsers",
+            "overrideScreenSecurity",
+            "overrideEditableFlag",
+            "returnIssue",
+            "expand"
+          ],
+          "bodyTemplate": {
+            "fields": "{fields}",
+            "historyMetadata": "{historyMetadata}",
+            "properties": "{properties}",
+            "update": "{update}"
+          }
+        },
+        "delete": {
+          "name": "deleteIssue",
+          "method": "DELETE",
+          "path": "/rest/api/3/issue/{issueIdOrKey}",
+          "descriptionTemplate": "Delete issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "deleteSubtasks"
+          ],
+          "bodyTemplate": {}
+        },
+        "assign": {
+          "name": "assignIssue",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+          "descriptionTemplate": "Assign issue {issueIdOrKey} to accountId {accountId}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "accountId": "{accountId}"
+          }
+        },
+        "getChangelogs": {
+          "name": "getChangeLogs",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
+          "descriptionTemplate": "Get changelogs for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "getChangelogsByIds": {
+          "name": "getChangeLogsByIds",
+          "method": "POST",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+          "descriptionTemplate": "Get changelogs by IDs for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "changelogIds": "{changelogIds}"
+          }
+        },
+        "getEditMeta": {
+          "name": "getEditIssueMeta",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+          "descriptionTemplate": "Get edit metadata for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "overrideScreenSecurity",
+            "overrideEditableFlag"
+          ],
+          "bodyTemplate": {}
+        },
+        "notify": {
+          "name": "notify",
+          "method": "POST",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+          "descriptionTemplate": "Send notification for issue {issueIdOrKey} with subject {subject}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "htmlBody": "{htmlBody}",
+            "restrict": "{restrict}",
+            "subject": "{subject}",
+            "textBody": "{textBody}",
+            "to": "{to}"
+          }
+        },
+        "getTransitions": {
+          "name": "getTransitions",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+          "descriptionTemplate": "Get transitions for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "expand",
+            "transitionId",
+            "skipRemoteOnlyCondition",
+            "includeUnavailableTransitions",
+            "sortByOpsBarAndStatus"
+          ],
+          "bodyTemplate": {}
+        },
+        "doTransition": {
+          "name": "doTransition",
+          "method": "POST",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+          "descriptionTemplate": "Transition issue {issueIdOrKey} with transition id {transition.id}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "fields": "{fields}",
+            "historyMetadata": "{historyMetadata}",
+            "transition": {
+              "id": "{transition.id}"
+            },
+            "update": "{update}"
+          }
+        },
+        "archiveAsync": {
+          "name": "archiveIssuesAsync",
+          "method": "POST",
+          "path": "/rest/api/3/issue/archive",
+          "descriptionTemplate": "Archive issues by JQL {jql}",
+          "params": [],
+          "bodyTemplate": {
+            "jql": "{jql}"
+          }
+        },
+        "archiveSync": {
+          "name": "archiveIssues",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/archive",
+          "descriptionTemplate": "Archive issues by IDs or keys {issueIdsOrKeys}",
+          "params": [],
+          "bodyTemplate": {
+            "issueIdsOrKeys": "{issueIdsOrKeys}"
+          }
+        },
+        "unarchive": {
+          "name": "unarchiveIssues",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/unarchive",
+          "descriptionTemplate": "Unarchive issues by IDs or keys {issueIdsOrKeys}",
+          "params": [],
+          "bodyTemplate": {
+            "issueIdsOrKeys": "{issueIdsOrKeys}"
+          }
+        }
+      }
+    },
+    "Workflow": {
+      "displayName": "workflow",
+      "params": [
+        "entityId",
+        "name",
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createWorkflow",
+          "method": "POST",
+          "path": "/rest/api/3/workflow",
+          "descriptionTemplate": "Create workflow {name} with id {id}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "statuses": "{statuses}",
+            "transitions": "{transitions}"
+          }
+        },
+        "delete": {
+          "name": "deleteInactiveWorkflow",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflow/{entityId}",
+          "descriptionTemplate": "Delete inactive workflow with id {entityId}",
+          "params": [
+            "entityId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWorkflows",
+          "method": "POST",
+          "path": "/rest/api/3/workflows/update",
+          "descriptionTemplate": "Bulk update workflows with ids {id}",
+          "params": [],
+          "bodyTemplate": {
+            "workflows": "{workflows}",
+            "statuses": "{statuses}"
+          }
+        },
+        "get": {
+          "name": "getAllWorkflows",
+          "method": "GET",
+          "path": "/rest/api/3/workflow",
+          "descriptionTemplate": "Get all workflows filtered by name {workflowName}",
+          "params": [
+            "workflowName"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueSecurityScheme": {
+      "displayName": "issue security scheme",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIssueSecurityScheme",
+          "method": "POST",
+          "path": "/rest/api/3/issuesecurityschemes",
+          "descriptionTemplate": "Create issue security scheme {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "levels": "{levels}"
+          }
+        },
+        "get": {
+          "name": "getIssueSecurityScheme",
+          "method": "GET",
+          "path": "/rest/api/3/issuesecurityschemes/{id}",
+          "descriptionTemplate": "Get issue security scheme with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateIssueSecurityScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuesecurityschemes/{id}",
+          "descriptionTemplate": "Update issue security scheme {id} with name {name}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "delete": {
+          "name": "deleteSecurityScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuesecurityschemes/{schemeId}",
+          "descriptionTemplate": "Delete issue security scheme with id {schemeId}",
+          "params": [
+            "schemeId"
+          ]
+        }
+      }
+    },
+    "IssueSecurityLevel": {
+      "displayName": "issue security level",
+      "params": [
+        "schemeId",
+        "levelId",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addSecurityLevel",
+          "method": "PUT",
+          "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level",
+          "descriptionTemplate": "Add issue security levels to scheme {schemeId}",
+          "params": [
+            "schemeId"
+          ],
+          "bodyTemplate": {
+            "levels": "{levels}"
+          }
+        },
+        "get": {
+          "name": "getSecurityLevels",
+          "method": "GET",
+          "path": "/rest/api/3/issuesecurityschemes/level",
+          "descriptionTemplate": "Get issue security levels"
+        },
+        "update": {
+          "name": "updateSecurityLevel",
+          "method": "PUT",
+          "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+          "descriptionTemplate": "Update issue security level {levelId} in scheme {schemeId} with name {name}",
+          "params": [
+            "schemeId",
+            "levelId",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "delete": {
+          "name": "removeLevel",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+          "descriptionTemplate": "Remove issue security level {levelId} from scheme {schemeId}",
+          "params": [
+            "schemeId",
+            "levelId"
+          ]
+        }
+      }
+    },
+    "IssueSecurityLevelMember": {
+      "displayName": "issue security level member",
+      "params": [
+        "schemeId",
+        "levelId",
+        "memberId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addSecurityLevelMembers",
+          "method": "PUT",
+          "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member",
+          "descriptionTemplate": "Add members to issue security level {levelId} in scheme {schemeId}",
+          "params": [
+            "schemeId",
+            "levelId"
+          ],
+          "bodyTemplate": {
+            "members": "{members}"
+          }
+        },
+        "get": {
+          "name": "getSecurityLevelMembers",
+          "method": "GET",
+          "path": "/rest/api/3/issuesecurityschemes/level/member",
+          "descriptionTemplate": "Get issue security level members"
+        },
+        "delete": {
+          "name": "removeMemberFromSecurityLevel",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member/{memberId}",
+          "descriptionTemplate": "Remove member {memberId} from issue security level {levelId} in scheme {schemeId}",
+          "params": [
+            "schemeId",
+            "levelId",
+            "memberId"
+          ]
+        }
+      }
+    },
+    "IssueSecuritySchemeProjectAssociation": {
+      "displayName": "issue security scheme project association",
+      "params": [
+        "projectId",
+        "schemeId"
+      ],
+      "operations": {
+        "get": {
+          "name": "searchProjectsUsingSecuritySchemes",
+          "method": "GET",
+          "path": "/rest/api/3/issuesecurityschemes/project",
+          "descriptionTemplate": "Get projects using issue security schemes"
+        },
+        "update": {
+          "name": "associateSchemesToProjects",
+          "method": "PUT",
+          "path": "/rest/api/3/issuesecurityschemes/project",
+          "descriptionTemplate": "Associate security scheme {schemeId} to project {projectId}",
+          "params": [
+            "projectId",
+            "schemeId"
+          ],
+          "bodyTemplate": {
+            "projectId": "{projectId}",
+            "schemeId": "{schemeId}",
+            "oldToNewSecurityLevelMappings": "{oldToNewSecurityLevelMappings}"
+          }
+        }
+      }
+    },
+    "IssueSecurityLevelDefault": {
+      "displayName": "issue security level default",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "setDefaultLevels",
+          "method": "PUT",
+          "path": "/rest/api/3/issuesecurityschemes/level/default",
+          "descriptionTemplate": "Set default issue security levels",
+          "bodyTemplate": {
+            "defaultValues": "{defaultValues}"
+          }
+        }
+      }
+    },
+    "Version": {
+      "displayName": "version",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVersion",
+          "method": "POST",
+          "path": "/rest/api/3/version",
+          "descriptionTemplate": "Create version {name} with projectId {projectId}",
+          "params": [],
+          "bodyTemplate": {
+            "archived": "{archived}",
+            "description": "{description}",
+            "name": "{name}",
+            "projectId": "{projectId}",
+            "releaseDate": "{releaseDate}",
+            "released": "{released}"
+          }
+        },
+        "delete": {
+          "name": "deleteVersion",
+          "method": "DELETE",
+          "path": "/rest/api/3/version/{id}",
+          "descriptionTemplate": "Delete version with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVersion",
+          "method": "PUT",
+          "path": "/rest/api/3/version/{id}",
+          "descriptionTemplate": "Update version {name} with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "archived": "{archived}",
+            "description": "{description}",
+            "id": "{id}",
+            "name": "{name}",
+            "overdue": "{overdue}",
+            "projectId": "{projectId}",
+            "releaseDate": "{releaseDate}",
+            "released": "{released}",
+            "self": "{self}",
+            "userReleaseDate": "{userReleaseDate}"
+          }
+        },
+        "get": {
+          "name": "getVersion",
+          "method": "GET",
+          "path": "/rest/api/3/version/{id}",
+          "descriptionTemplate": "Get version with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VersionRelatedWork": {
+      "displayName": "version related work",
+      "params": [
+        "id",
+        "relatedWorkId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRelatedWork",
+          "method": "POST",
+          "path": "/rest/api/3/version/{id}/relatedwork",
+          "descriptionTemplate": "Create related work {title} for version {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "category": "{category}",
+            "title": "{title}",
+            "url": "{url}"
+          }
+        },
+        "delete": {
+          "name": "deleteRelatedWork",
+          "method": "DELETE",
+          "path": "/rest/api/3/version/{versionId}/relatedwork/{relatedWorkId}",
+          "descriptionTemplate": "Delete related work {relatedWorkId} from version {versionId}",
+          "params": [
+            "versionId",
+            "relatedWorkId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRelatedWork",
+          "method": "PUT",
+          "path": "/rest/api/3/version/{id}/relatedwork",
+          "descriptionTemplate": "Update related work {relatedWorkId} for version {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "category": "{category}",
+            "relatedWorkId": "{relatedWorkId}",
+            "title": "{title}",
+            "url": "{url}"
+          }
+        },
+        "get": {
+          "name": "getRelatedWork",
+          "method": "GET",
+          "path": "/rest/api/3/version/{id}/relatedwork",
+          "descriptionTemplate": "Get related work for version {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Dashboard": {
+      "displayName": "dashboard",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createDashboard",
+          "method": "POST",
+          "path": "/rest/api/3/dashboard",
+          "descriptionTemplate": "Create dashboard {name}",
+          "params": [
+            "extendAdminPermissions"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "editPermissions": "{editPermissions}",
+            "name": "{name}",
+            "sharePermissions": "{sharePermissions}"
+          }
+        },
+        "delete": {
+          "name": "deleteDashboard",
+          "method": "DELETE",
+          "path": "/rest/api/3/dashboard/{id}",
+          "descriptionTemplate": "Delete dashboard {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateDashboard",
+          "method": "PUT",
+          "path": "/rest/api/3/dashboard/{id}",
+          "descriptionTemplate": "Update dashboard {id} with name {name}",
+          "params": [
+            "id",
+            "extendAdminPermissions"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "editPermissions": "{editPermissions}",
+            "name": "{name}",
+            "sharePermissions": "{sharePermissions}"
+          }
+        },
+        "get": {
+          "name": "getDashboard",
+          "method": "GET",
+          "path": "/rest/api/3/dashboard/{id}",
+          "descriptionTemplate": "Get dashboard {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DashboardGadget": {
+      "displayName": "dashboard gadget",
+      "params": [
+        "dashboardId",
+        "gadgetId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addGadget",
+          "method": "POST",
+          "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+          "descriptionTemplate": "Add gadget {title} to dashboard {dashboardId}",
+          "params": [
+            "dashboardId"
+          ],
+          "bodyTemplate": {
+            "color": "{color}",
+            "ignoreUriAndModuleKeyValidation": "{ignoreUriAndModuleKeyValidation}",
+            "moduleKey": "{moduleKey}",
+            "position": "{position}",
+            "title": "{title}"
+          }
+        },
+        "delete": {
+          "name": "removeGadget",
+          "method": "DELETE",
+          "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+          "descriptionTemplate": "Remove gadget {gadgetId} from dashboard {dashboardId}",
+          "params": [
+            "dashboardId",
+            "gadgetId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateGadget",
+          "method": "PUT",
+          "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+          "descriptionTemplate": "Update gadget {gadgetId} on dashboard {dashboardId} with title {title}",
+          "params": [
+            "dashboardId",
+            "gadgetId"
+          ],
+          "bodyTemplate": {
+            "color": "{color}",
+            "position": "{position}",
+            "title": "{title}"
+          }
+        },
+        "get": {
+          "name": "getAllGadgets",
+          "method": "GET",
+          "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+          "descriptionTemplate": "Get gadgets for dashboard {dashboardId}",
+          "params": [
+            "dashboardId",
+            "moduleKey",
+            "uri",
+            "gadgetId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DashboardItemProperty": {
+      "displayName": "dashboard item property",
+      "params": [
+        "dashboardId",
+        "itemId",
+        "propertyKey"
+      ],
+      "operations": {
+        "get": {
+          "name": "getDashboardItemProperty",
+          "method": "GET",
+          "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+          "descriptionTemplate": "Get property {propertyKey} of dashboard item {itemId} in dashboard {dashboardId}",
+          "params": [
+            "dashboardId",
+            "itemId",
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteDashboardItemProperty",
+          "method": "DELETE",
+          "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+          "descriptionTemplate": "Delete property {propertyKey} of dashboard item {itemId} in dashboard {dashboardId}",
+          "params": [
+            "dashboardId",
+            "itemId",
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "setDashboardItemProperty",
+          "method": "PUT",
+          "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+          "descriptionTemplate": "Set property {propertyKey} of dashboard item {itemId} in dashboard {dashboardId}",
+          "params": [
+            "dashboardId",
+            "itemId",
+            "propertyKey"
+          ],
+          "bodyTemplate": {
+            "value": "{value}"
+          }
+        }
+      }
+    },
+    "CustomFieldContext": {
+      "displayName": "custom field context",
+      "params": [
+        "fieldId",
+        "contextId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomFieldContext",
+          "method": "POST",
+          "path": "/rest/api/3/field/{fieldId}/context",
+          "descriptionTemplate": "Create custom field context {name} for field {fieldId}",
+          "params": [
+            "fieldId"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "issueTypeIds": "{issueTypeIds}",
+            "name": "{name}",
+            "projectIds": "{projectIds}"
+          }
+        },
+        "delete": {
+          "name": "deleteCustomFieldContext",
+          "method": "DELETE",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}",
+          "descriptionTemplate": "Delete custom field context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCustomFieldContext",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}",
+          "descriptionTemplate": "Update custom field context {contextId} for field {fieldId} with name {name}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getContextsForField",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldId}/context",
+          "descriptionTemplate": "Get custom field contexts for field {fieldId}",
+          "params": [
+            "fieldId",
+            "isAnyIssueType",
+            "isGlobalContext",
+            "contextId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldContextDefaultValue": {
+      "displayName": "custom field context default value",
+      "params": [
+        "fieldId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getDefaultValues",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldId}/context/defaultValue",
+          "descriptionTemplate": "Get default values for custom field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "setDefaultValues",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}/context/defaultValue",
+          "descriptionTemplate": "Set default values for custom field {fieldId}",
+          "params": [
+            "fieldId"
+          ],
+          "bodyTemplate": {
+            "defaultValues": "{defaultValues}"
+          }
+        }
+      }
+    },
+    "CustomFieldContextIssueTypeMapping": {
+      "displayName": "custom field context issue type mapping",
+      "params": [
+        "fieldId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIssueTypeMappingsForContexts",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldId}/context/issuetypemapping",
+          "descriptionTemplate": "Get issue type mappings for custom field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldContextProjectIssueTypeMapping": {
+      "displayName": "custom field context project issue type mapping",
+      "params": [
+        "fieldId"
+      ],
+      "operations": {
+        "add": {
+          "name": "getCustomFieldContextsForProjectsAndIssueTypes",
+          "method": "POST",
+          "path": "/rest/api/3/field/{fieldId}/context/mapping",
+          "descriptionTemplate": "Get custom field contexts for projects and issue types for field {fieldId}",
+          "params": [
+            "fieldId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {
+            "mappings": "{mappings}"
+          }
+        }
+      }
+    },
+    "CustomFieldContextProjectMapping": {
+      "displayName": "custom field context project mapping",
+      "params": [
+        "fieldId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getProjectContextMapping",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldId}/context/projectmapping",
+          "descriptionTemplate": "Get project mappings for custom field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldContextIssueType": {
+      "displayName": "custom field context issue type",
+      "params": [
+        "fieldId",
+        "contextId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addIssueTypesToContext",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/issuetype",
+          "descriptionTemplate": "Add issue types to context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "issueTypeIds": "{issueTypeIds}"
+          }
+        },
+        "delete": {
+          "name": "removeIssueTypesFromContext",
+          "method": "POST",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/issuetype/remove",
+          "descriptionTemplate": "Remove issue types from context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "issueTypeIds": "{issueTypeIds}"
+          }
+        }
+      }
+    },
+    "CustomFieldContextProject": {
+      "displayName": "custom field context project",
+      "params": [
+        "fieldId",
+        "contextId"
+      ],
+      "operations": {
+        "add": {
+          "name": "assignProjectsToCustomFieldContext",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project",
+          "descriptionTemplate": "Assign projects to custom field context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "projectIds": "{projectIds}"
+          }
+        },
+        "delete": {
+          "name": "removeCustomFieldContextFromProjects",
+          "method": "POST",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project/remove",
+          "descriptionTemplate": "Remove projects from custom field context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "projectIds": "{projectIds}"
+          }
         }
       }
     },
     "Project": {
       "displayName": "project",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "key": "{projectIdOrKey}"
-          },
-          "descriptionTemplate": "Add project {projectIdOrKey}",
-          "method": "POST",
-          "name": "addProject",
-          "params": [
-            "projectIdOrKey"
-          ],
-          "path": "/project"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete project {projectIdOrKey}",
-          "method": "DELETE",
-          "name": "deleteProject",
-          "params": [
-            "projectIdOrKey"
-          ],
-          "path": "/project/{projectIdOrKey}"
-        },
-        "get": {
-          "descriptionTemplate": "Get project {projectIdOrKey}",
-          "method": "GET",
-          "name": "getProject",
-          "params": [
-            "projectIdOrKey"
-          ],
-          "path": "/project/{projectIdOrKey}"
-        },
-        "update": {
-          "bodyTemplate": {
-            "key": "{projectIdOrKey}"
-          },
-          "descriptionTemplate": "Update project {projectIdOrKey}",
-          "method": "PUT",
-          "name": "updateProject",
-          "params": [
-            "projectIdOrKey"
-          ],
-          "path": "/project/{projectIdOrKey}"
-        }
-      },
       "params": [
         "projectIdOrKey"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add project (.+)",
-          "name": "waitForAnyProjectAdded"
+      "operations": {
+        "add": {
+          "name": "createProject",
+          "method": "POST",
+          "path": "/rest/api/3/project",
+          "descriptionTemplate": "Create project {key} with name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "assigneeType": "{assigneeType}",
+            "avatarId": "{avatarId}",
+            "categoryId": "{categoryId}",
+            "description": "{description}",
+            "issueSecurityScheme": "{issueSecurityScheme}",
+            "key": "{key}",
+            "leadAccountId": "{leadAccountId}",
+            "name": "{name}",
+            "notificationScheme": "{notificationScheme}",
+            "permissionScheme": "{permissionScheme}",
+            "projectTemplateKey": "{projectTemplateKey}",
+            "projectTypeKey": "{projectTypeKey}",
+            "url": "{url}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete project (.+)",
-          "name": "waitForAnyProjectDeleted"
+        "delete": {
+          "name": "deleteProject",
+          "method": "DELETE",
+          "path": "/rest/api/3/project/{projectIdOrKey}",
+          "descriptionTemplate": "Delete project {projectIdOrKey}",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProject",
+          "method": "PUT",
+          "path": "/rest/api/3/project/{projectIdOrKey}",
+          "descriptionTemplate": "Update project {projectIdOrKey} with name {name}",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "bodyTemplate": {
+            "assigneeType": "{assigneeType}",
+            "avatarId": "{avatarId}",
+            "categoryId": "{categoryId}",
+            "description": "{description}",
+            "issueSecurityScheme": "{issueSecurityScheme}",
+            "key": "{key}",
+            "leadAccountId": "{leadAccountId}",
+            "name": "{name}",
+            "notificationScheme": "{notificationScheme}",
+            "permissionScheme": "{permissionScheme}",
+            "url": "{url}"
+          }
+        },
+        "get": {
+          "name": "getProject",
+          "method": "GET",
+          "path": "/rest/api/3/project/{projectIdOrKey}",
+          "descriptionTemplate": "Get project {projectIdOrKey}",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FieldConfiguration": {
+      "displayName": "field configuration",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createFieldConfiguration",
+          "method": "POST",
+          "path": "/rest/api/3/fieldconfiguration",
+          "descriptionTemplate": "Create field configuration {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "delete": {
+          "name": "deleteFieldConfiguration",
+          "method": "DELETE",
+          "path": "/rest/api/3/fieldconfiguration/{id}",
+          "descriptionTemplate": "Delete field configuration {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFieldConfiguration",
+          "method": "PUT",
+          "path": "/rest/api/3/fieldconfiguration/{id}",
+          "descriptionTemplate": "Update field configuration {id} with name {name}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getAllFieldConfigurations",
+          "method": "GET",
+          "path": "/rest/api/3/fieldconfiguration",
+          "descriptionTemplate": "Get all field configurations",
+          "params": [
+            "id",
+            "isDefault",
+            "query",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FieldConfigurationItems": {
+      "displayName": "field configuration items",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFieldConfigurationItems",
+          "method": "GET",
+          "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+          "descriptionTemplate": "Get field configuration items for field configuration {id}",
+          "params": [
+            "id",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFieldConfigurationItems",
+          "method": "PUT",
+          "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+          "descriptionTemplate": "Update field configuration items for field configuration {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "fieldConfigurationItems": "{fieldConfigurationItems}"
+          }
+        }
+      }
+    },
+    "FieldConfigurationScheme": {
+      "displayName": "field configuration scheme",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createFieldConfigurationScheme",
+          "method": "POST",
+          "path": "/rest/api/3/fieldconfigurationscheme",
+          "descriptionTemplate": "Create field configuration scheme {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "delete": {
+          "name": "deleteFieldConfigurationScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+          "descriptionTemplate": "Delete field configuration scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFieldConfigurationScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+          "descriptionTemplate": "Update field configuration scheme {id} with name {name}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getAllFieldConfigurationSchemes",
+          "method": "GET",
+          "path": "/rest/api/3/fieldconfigurationscheme",
+          "descriptionTemplate": "Get all field configuration schemes",
+          "params": [
+            "id",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FieldConfigurationSchemeMapping": {
+      "displayName": "field configuration scheme mapping",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "update": {
+          "name": "setFieldConfigurationSchemeMapping",
+          "method": "PUT",
+          "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping",
+          "descriptionTemplate": "Assign issue types to field configuration scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "mappings": "{mappings}"
+          }
+        },
+        "delete": {
+          "name": "removeIssueTypesFromGlobalFieldConfigurationScheme",
+          "method": "POST",
+          "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete",
+          "descriptionTemplate": "Remove issue types from field configuration scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "issueTypeIds": "{issueTypeIds}"
+          }
+        },
+        "get": {
+          "name": "getFieldConfigurationSchemeMappings",
+          "method": "GET",
+          "path": "/rest/api/3/fieldconfigurationscheme/mapping",
+          "descriptionTemplate": "Get field configuration issue type items",
+          "params": [
+            "fieldConfigurationSchemeId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FieldConfigurationSchemeProjectAssociation": {
+      "displayName": "field configuration scheme project association",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getFieldConfigurationSchemeProjectMapping",
+          "method": "GET",
+          "path": "/rest/api/3/fieldconfigurationscheme/project",
+          "descriptionTemplate": "Get field configuration schemes for projects",
+          "params": [
+            "projectId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "assignFieldConfigurationSchemeToProject",
+          "method": "PUT",
+          "path": "/rest/api/3/fieldconfigurationscheme/project",
+          "descriptionTemplate": "Assign field configuration scheme {fieldConfigurationSchemeId} to project {projectId}",
+          "params": [],
+          "bodyTemplate": {
+            "fieldConfigurationSchemeId": "{fieldConfigurationSchemeId}",
+            "projectId": "{projectId}"
+          }
         }
       }
     },
     "User": {
       "displayName": "user",
-      "operations": {
-        "get": {
-          "descriptionTemplate": "Get user {accountId}",
-          "method": "GET",
-          "name": "getUser",
-          "params": [
-            "accountId"
-          ],
-          "path": "/user?accountId={accountId}"
-        }
-      },
       "params": [
         "accountId"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add user (.+)",
-          "name": "waitForAnyUserAdded"
+      "operations": {
+        "add": {
+          "name": "createUser",
+          "method": "POST",
+          "path": "/rest/api/3/user",
+          "descriptionTemplate": "Create user with emailAddress {emailAddress}",
+          "params": [],
+          "bodyTemplate": {
+            "emailAddress": "{emailAddress}",
+            "products": "{products}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete user (.+)",
-          "name": "waitForAnyUserDeleted"
+        "delete": {
+          "name": "removeUser",
+          "method": "DELETE",
+          "path": "/rest/api/3/user",
+          "descriptionTemplate": "Delete user with accountId {accountId}",
+          "params": [
+            "accountId"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "findUsers",
+          "method": "GET",
+          "path": "/rest/api/3/user/search",
+          "descriptionTemplate": "Find users matching query {query} or accountId {accountId}",
+          "params": [
+            "query",
+            "accountId",
+            "property",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "setUserColumns",
+          "method": "PUT",
+          "path": "/rest/api/3/user/columns",
+          "descriptionTemplate": "Set user default columns for accountId {accountId}",
+          "params": [
+            "accountId"
+          ],
+          "bodyTemplate": "{UserColumnRequestBody}"
+        },
+        "findBulkAssignableUsers": {
+          "name": "findBulkAssignableUsers",
+          "method": "GET",
+          "path": "/rest/api/3/user/assignable/multiProjectSearch",
+          "descriptionTemplate": "Find users assignable to projects {projectKeys} matching query {query} or accountId {accountId}",
+          "params": [
+            "query",
+            "accountId",
+            "projectKeys",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "findAssignableUsers": {
+          "name": "findAssignableUsers",
+          "method": "GET",
+          "path": "/rest/api/3/user/assignable/search",
+          "descriptionTemplate": "Find users assignable to issues in project {project} or issueKey {issueKey} or issueId {issueId} matching query {query} or accountId {accountId}",
+          "params": [
+            "query",
+            "accountId",
+            "project",
+            "issueKey",
+            "issueId",
+            "startAt",
+            "maxResults",
+            "actionDescriptorId",
+            "recommend"
+          ],
+          "bodyTemplate": {}
+        },
+        "findUsersWithAllPermissions": {
+          "name": "findUsersWithAllPermissions",
+          "method": "GET",
+          "path": "/rest/api/3/user/permission/search",
+          "descriptionTemplate": "Find users with permissions {permissions} matching query {query} or accountId {accountId}",
+          "params": [
+            "query",
+            "accountId",
+            "permissions",
+            "issueKey",
+            "projectKey",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "findUsersForPicker": {
+          "name": "findUsersForPicker",
+          "method": "GET",
+          "path": "/rest/api/3/user/picker",
+          "descriptionTemplate": "Find users for picker matching query {query}",
+          "params": [
+            "query",
+            "maxResults",
+            "showAvatar",
+            "exclude",
+            "excludeAccountIds",
+            "avatarSize",
+            "excludeConnectUsers"
+          ],
+          "bodyTemplate": {}
+        },
+        "findUsersByQuery": {
+          "name": "findUsersByQuery",
+          "method": "GET",
+          "path": "/rest/api/3/user/search/query",
+          "descriptionTemplate": "Find users by query {query}",
+          "params": [
+            "query",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "findUserKeysByQuery": {
+          "name": "findUserKeysByQuery",
+          "method": "GET",
+          "path": "/rest/api/3/user/search/query/key",
+          "descriptionTemplate": "Find user keys by query {query}",
+          "params": [
+            "query",
+            "startAt",
+            "maxResult"
+          ],
+          "bodyTemplate": {}
+        },
+        "findUsersWithBrowsePermission": {
+          "name": "findUsersWithBrowsePermission",
+          "method": "GET",
+          "path": "/rest/api/3/user/viewissue/search",
+          "descriptionTemplate": "Find users with browse permission matching query {query} or accountId {accountId} for issueKey {issueKey} or projectKey {projectKey}",
+          "params": [
+            "query",
+            "accountId",
+            "issueKey",
+            "projectKey",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "Webhook": {
-      "displayName": "webhook",
+    "WorkflowScheme": {
+      "displayName": "workflow scheme",
+      "params": [
+        "id"
+      ],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "webhookId": "{webhookId}"
-          },
-          "descriptionTemplate": "Add webhook {webhookId}",
+          "name": "createWorkflowScheme",
           "method": "POST",
-          "name": "addWebhook",
-          "params": [
-            "webhookId"
-          ],
-          "path": "/webhook"
+          "path": "/rest/api/3/workflowscheme",
+          "descriptionTemplate": "Create workflow scheme {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "defaultWorkflow": "{defaultWorkflow}",
+            "description": "{description}",
+            "issueTypeMappings": "{issueTypeMappings}",
+            "name": "{name}"
+          }
         },
         "delete": {
-          "descriptionTemplate": "Delete webhook {webhookId}",
+          "name": "deleteWorkflowScheme",
           "method": "DELETE",
-          "name": "deleteWebhook",
+          "path": "/rest/api/3/workflowscheme/{id}",
+          "descriptionTemplate": "Delete workflow scheme with id {id}",
           "params": [
-            "webhookId"
+            "id"
           ],
-          "path": "/webhook/{webhookId}"
-        },
-        "get": {
-          "descriptionTemplate": "Get webhook {webhookId}",
-          "method": "GET",
-          "name": "getWebhook",
-          "params": [
-            "webhookId"
-          ],
-          "path": "/webhook/{webhookId}"
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "webhookId": "{webhookId}"
-          },
-          "descriptionTemplate": "Update webhook {webhookId}",
+          "name": "updateWorkflowScheme",
           "method": "PUT",
-          "name": "updateWebhook",
+          "path": "/rest/api/3/workflowscheme/{id}",
+          "descriptionTemplate": "Update workflow scheme {name} with id {id}",
           "params": [
-            "webhookId"
+            "id"
           ],
-          "path": "/webhook/{webhookId}"
-        }
-      },
-      "params": [
-        "webhookId"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add webhook (.+)",
-          "name": "waitForAnyWebhookAdded"
+          "bodyTemplate": {
+            "defaultWorkflow": "{defaultWorkflow}",
+            "description": "{description}",
+            "issueTypeMappings": "{issueTypeMappings}",
+            "name": "{name}",
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete webhook (.+)",
-          "name": "waitForAnyWebhookDeleted"
+        "get": {
+          "name": "getWorkflowScheme",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}",
+          "descriptionTemplate": "Get workflow scheme with id {id}",
+          "params": [
+            "id",
+            "returnDraftIfExists"
+          ],
+          "bodyTemplate": {}
+        },
+        "getAll": {
+          "name": "getAllWorkflowSchemes",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme",
+          "descriptionTemplate": "Get all workflow schemes starting at {startAt} with max results {maxResults}",
+          "params": [
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "WebhookRegistration": {
-      "displayName": "webhookregistration",
+    "DefaultWorkflow": {
+      "displayName": "default workflow",
+      "params": [
+        "id"
+      ],
       "operations": {
-        "add": {
-          "bodyTemplate": {
-            "webhookId": "{webhookId}"
-          },
-          "descriptionTemplate": "Add webhookregistration {webhookId}",
-          "method": "POST",
-          "name": "addWebhookRegistration",
-          "params": [
-            "webhookId"
-          ],
-          "path": "/webhook"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete webhookregistration {webhookId}",
-          "method": "DELETE",
-          "name": "deleteWebhookRegistration",
-          "params": [
-            "webhookId"
-          ],
-          "path": "/webhook/{webhookId}"
-        },
         "get": {
-          "descriptionTemplate": "Get webhookregistration {webhookId}",
+          "name": "getDefaultWorkflow",
           "method": "GET",
-          "name": "getWebhookRegistration",
+          "path": "/rest/api/3/workflowscheme/{id}/default",
+          "descriptionTemplate": "Get default workflow for workflow scheme with id {id}",
           "params": [
-            "webhookId"
+            "id",
+            "returnDraftIfExists"
           ],
-          "path": "/webhook/{webhookId}"
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "webhookId": "{webhookId}"
-          },
-          "descriptionTemplate": "Update webhookregistration {webhookId}",
+          "name": "updateDefaultWorkflow",
           "method": "PUT",
-          "name": "updateWebhookRegistration",
+          "path": "/rest/api/3/workflowscheme/{id}/default",
+          "descriptionTemplate": "Update default workflow for workflow scheme with id {id}",
           "params": [
-            "webhookId"
+            "id"
           ],
-          "path": "/webhook/{webhookId}"
-        }
-      },
-      "params": [
-        "webhookId"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add webhookregistration (.+)",
-          "name": "waitForAnyWebhookRegistrationAdded"
+          "bodyTemplate": {
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}",
+            "workflow": "{workflow}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete webhookregistration (.+)",
-          "name": "waitForAnyWebhookRegistrationDeleted"
+        "delete": {
+          "name": "deleteDefaultWorkflow",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/default",
+          "descriptionTemplate": "Delete default workflow for workflow scheme with id {id}",
+          "params": [
+            "id",
+            "updateDraftIfNeeded"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WorkflowSchemeIssueType": {
+      "displayName": "workflow scheme issue type",
+      "params": [
+        "id",
+        "issueType"
+      ],
+      "operations": {
+        "get": {
+          "name": "getWorkflowSchemeIssueType",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+          "descriptionTemplate": "Get workflow for issue type {issueType} in workflow scheme with id {id}",
+          "params": [
+            "id",
+            "issueType",
+            "returnDraftIfExists"
+          ],
+          "bodyTemplate": {}
+        },
+        "set": {
+          "name": "setWorkflowSchemeIssueType",
+          "method": "PUT",
+          "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+          "descriptionTemplate": "Set workflow for issue type {issueType} in workflow scheme with id {id}",
+          "params": [
+            "id",
+            "issueType"
+          ],
+          "bodyTemplate": {
+            "issueType": "{issueType}",
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}",
+            "workflow": "{workflow}"
+          }
+        },
+        "delete": {
+          "name": "deleteWorkflowSchemeIssueType",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+          "descriptionTemplate": "Delete workflow for issue type {issueType} in workflow scheme with id {id}",
+          "params": [
+            "id",
+            "issueType",
+            "updateDraftIfNeeded"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WorkflowMapping": {
+      "displayName": "workflow mapping",
+      "params": [
+        "id",
+        "workflowName"
+      ],
+      "operations": {
+        "get": {
+          "name": "getWorkflow",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}/workflow",
+          "descriptionTemplate": "Get issue types for workflow {workflowName} in workflow scheme with id {id}",
+          "params": [
+            "id",
+            "workflowName",
+            "returnDraftIfExists"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWorkflowMapping",
+          "method": "PUT",
+          "path": "/rest/api/3/workflowscheme/{id}/workflow",
+          "descriptionTemplate": "Set issue types for workflow {workflowName} in workflow scheme with id {id}",
+          "params": [
+            "id",
+            "workflowName"
+          ],
+          "bodyTemplate": {
+            "issueTypes": "{issueTypes}",
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}",
+            "workflow": "{workflow}"
+          }
+        },
+        "delete": {
+          "name": "deleteWorkflowMapping",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/workflow",
+          "descriptionTemplate": "Delete issue types for workflow {workflowName} in workflow scheme with id {id}",
+          "params": [
+            "id",
+            "workflowName",
+            "updateDraftIfNeeded"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomField": {
+      "displayName": "custom field",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomField",
+          "method": "POST",
+          "path": "/rest/api/3/field",
+          "descriptionTemplate": "Create custom field {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "description": "{description}",
+            "name": "{name}",
+            "searcherKey": "{searcherKey}",
+            "type": "{type}"
+          }
+        },
+        "delete": {
+          "name": "deleteCustomField",
+          "method": "DELETE",
+          "path": "/rest/api/3/field/{id}",
+          "descriptionTemplate": "Delete custom field with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCustomField",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}",
+          "descriptionTemplate": "Update custom field {fieldId} with name {name}",
+          "params": [
+            "fieldId"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "name": "{name}",
+            "searcherKey": "{searcherKey}"
+          }
+        },
+        "get": {
+          "name": "getFields",
+          "method": "GET",
+          "path": "/rest/api/3/field",
+          "descriptionTemplate": "Get all fields",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "restore": {
+          "name": "restoreCustomField",
+          "method": "POST",
+          "path": "/rest/api/3/field/{id}/restore",
+          "descriptionTemplate": "Restore custom field with id {id} from trash",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "trash": {
+          "name": "trashCustomField",
+          "method": "POST",
+          "path": "/rest/api/3/field/{id}/trash",
+          "descriptionTemplate": "Move custom field with id {id} to trash",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Filter": {
+      "displayName": "filter",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createFilter",
+          "method": "POST",
+          "path": "/rest/api/3/filter",
+          "descriptionTemplate": "Create filter {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "description": "{description}",
+            "jql": "{jql}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteFilter",
+          "method": "DELETE",
+          "path": "/rest/api/3/filter/{id}",
+          "descriptionTemplate": "Delete filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFilter",
+          "method": "PUT",
+          "path": "/rest/api/3/filter/{id}",
+          "descriptionTemplate": "Update filter {name} with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "jql": "{jql}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getFilter",
+          "method": "GET",
+          "path": "/rest/api/3/filter/{id}",
+          "descriptionTemplate": "Get filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FilterColumns": {
+      "displayName": "filter columns",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getColumns",
+          "method": "GET",
+          "path": "/rest/api/3/filter/{id}/columns",
+          "descriptionTemplate": "Get columns for filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "setColumns",
+          "method": "PUT",
+          "path": "/rest/api/3/filter/{id}/columns",
+          "descriptionTemplate": "Set columns for filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "columns": "{columns}"
+          }
+        },
+        "delete": {
+          "name": "resetColumns",
+          "method": "DELETE",
+          "path": "/rest/api/3/filter/{id}/columns",
+          "descriptionTemplate": "Reset columns for filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FilterFavourite": {
+      "displayName": "filter favourite",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "setFavouriteForFilter",
+          "method": "PUT",
+          "path": "/rest/api/3/filter/{id}/favourite",
+          "descriptionTemplate": "Add filter with id {id} as favorite",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteFavouriteForFilter",
+          "method": "DELETE",
+          "path": "/rest/api/3/filter/{id}/favourite",
+          "descriptionTemplate": "Remove filter with id {id} as favorite",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FilterOwner": {
+      "displayName": "filter owner",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "update": {
+          "name": "changeFilterOwner",
+          "method": "PUT",
+          "path": "/rest/api/3/filter/{id}/owner",
+          "descriptionTemplate": "Change owner of filter with id {id} to accountId {accountId}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "accountId": "{accountId}"
+          }
+        }
+      }
+    },
+    "IssueTypeScreenScheme": {
+      "displayName": "issue type screen scheme",
+      "params": [
+        "issueTypeScreenSchemeId",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIssueTypeScreenScheme",
+          "method": "POST",
+          "path": "/rest/api/3/issuetypescreenscheme",
+          "descriptionTemplate": "Create issue type screen scheme {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "issueTypeMappings": "{issueTypeMappings}"
+          }
+        },
+        "delete": {
+          "name": "deleteIssueTypeScreenScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+          "descriptionTemplate": "Delete issue type screen scheme {issueTypeScreenSchemeId}",
+          "params": [
+            "issueTypeScreenSchemeId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIssueTypeScreenScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+          "descriptionTemplate": "Update issue type screen scheme {issueTypeScreenSchemeId} with name {name}",
+          "params": [
+            "issueTypeScreenSchemeId",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getIssueTypeScreenSchemes",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescreenscheme",
+          "descriptionTemplate": "Get issue type screen schemes",
+          "params": [
+            "id",
+            "queryString",
+            "orderBy",
+            "expand",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueTypeScreenSchemeMapping": {
+      "displayName": "issue type screen scheme mapping",
+      "params": [
+        "issueTypeScreenSchemeId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIssueTypeScreenSchemeMappings",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescreenscheme/mapping",
+          "descriptionTemplate": "Get issue type screen scheme mappings",
+          "params": [
+            "issueTypeScreenSchemeId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "appendMappingsForIssueTypeScreenScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping",
+          "descriptionTemplate": "Append mappings to issue type screen scheme {issueTypeScreenSchemeId}",
+          "params": [
+            "issueTypeScreenSchemeId"
+          ],
+          "bodyTemplate": {
+            "issueTypeMappings": "{issueTypeMappings}"
+          }
+        },
+        "updateDefault": {
+          "name": "updateDefaultScreenScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default",
+          "descriptionTemplate": "Update issue type screen scheme {issueTypeScreenSchemeId} default screen scheme with screenSchemeId {screenSchemeId}",
+          "params": [
+            "issueTypeScreenSchemeId",
+            "screenSchemeId"
+          ],
+          "bodyTemplate": {
+            "screenSchemeId": "{screenSchemeId}"
+          }
+        },
+        "remove": {
+          "name": "removeMappingsFromIssueTypeScreenScheme",
+          "method": "POST",
+          "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/remove",
+          "descriptionTemplate": "Remove mappings from issue type screen scheme {issueTypeScreenSchemeId} for issueTypeIds {issueTypeIds}",
+          "params": [
+            "issueTypeScreenSchemeId",
+            "issueTypeIds"
+          ],
+          "bodyTemplate": {
+            "issueTypeIds": "{issueTypeIds}"
+          }
+        }
+      }
+    },
+    "IssueTypeScreenSchemeProjectAssociation": {
+      "displayName": "issue type screen scheme project association",
+      "params": [
+        "projectId",
+        "issueTypeScreenSchemeId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIssueTypeScreenSchemeProjectAssociations",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescreenscheme/project",
+          "descriptionTemplate": "Get issue type screen schemes for projects {projectId}",
+          "params": [
+            "projectId",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        },
+        "assign": {
+          "name": "assignIssueTypeScreenSchemeToProject",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescreenscheme/project",
+          "descriptionTemplate": "Assign issue type screen scheme {issueTypeScreenSchemeId} to project {projectId}",
+          "params": [
+            "issueTypeScreenSchemeId",
+            "projectId"
+          ],
+          "bodyTemplate": {
+            "issueTypeScreenSchemeId": "{issueTypeScreenSchemeId}",
+            "projectId": "{projectId}"
+          }
+        }
+      }
+    },
+    "IssueTypeScreenSchemeProject": {
+      "displayName": "issue type screen scheme project",
+      "params": [
+        "issueTypeScreenSchemeId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getProjectsForIssueTypeScreenScheme",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project",
+          "descriptionTemplate": "Get projects for issue type screen scheme {issueTypeScreenSchemeId}",
+          "params": [
+            "issueTypeScreenSchemeId",
+            "startAt",
+            "maxResults",
+            "query"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Attachment": {
+      "displayName": "attachment",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getAttachment",
+          "method": "GET",
+          "path": "/rest/api/3/attachment/{id}",
+          "descriptionTemplate": "Get attachment metadata with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "removeAttachment",
+          "method": "DELETE",
+          "path": "/rest/api/3/attachment/{id}",
+          "descriptionTemplate": "Delete attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AttachmentContent": {
+      "displayName": "attachment content",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getAttachmentContent",
+          "method": "GET",
+          "path": "/rest/api/3/attachment/content/{id}",
+          "descriptionTemplate": "Get attachment content with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AttachmentThumbnail": {
+      "displayName": "attachment thumbnail",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getAttachmentThumbnail",
+          "method": "GET",
+          "path": "/rest/api/3/attachment/thumbnail/{id}",
+          "descriptionTemplate": "Get attachment thumbnail with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AttachmentExpandedHuman": {
+      "displayName": "expanded attachment human",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "expandAttachmentForHumans",
+          "method": "GET",
+          "path": "/rest/api/3/attachment/{id}/expand/human",
+          "descriptionTemplate": "Get all metadata for expanded attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AttachmentExpandedRaw": {
+      "displayName": "expanded attachment raw",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "expandAttachmentForMachines",
+          "method": "GET",
+          "path": "/rest/api/3/attachment/{id}/expand/raw",
+          "descriptionTemplate": "Get contents metadata for expanded attachment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AttachmentMeta": {
+      "displayName": "attachment meta",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getAttachmentMeta",
+          "method": "GET",
+          "path": "/rest/api/3/attachment/meta",
+          "descriptionTemplate": "Get Jira attachment settings",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueAttachment": {
+      "displayName": "issue attachment",
+      "params": [
+        "issueIdOrKey"
+      ],
+      "operations": {
+        "add": {
+          "name": "addAttachment",
+          "method": "POST",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+          "descriptionTemplate": "Add attachment to issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "files": "[multipart/form-data array]"
+          }
+        }
+      }
+    },
+    "IssueBulk": {
+      "displayName": "issue bulk operation",
+      "params": [
+        "taskId",
+        "issueIdsOrKeys",
+        "selectedIssueIdsOrKeys",
+        "transitionId"
+      ],
+      "operations": {
+        "delete": {
+          "name": "submitBulkDelete",
+          "method": "POST",
+          "path": "/rest/api/3/bulk/issues/delete",
+          "descriptionTemplate": "Bulk delete issues with ids or keys {selectedIssueIdsOrKeys}",
+          "params": [
+            "selectedIssueIdsOrKeys"
+          ],
+          "bodyTemplate": {
+            "selectedIssueIdsOrKeys": "{selectedIssueIdsOrKeys}",
+            "sendBulkNotification": false
+          }
+        },
+        "get": {
+          "name": "getBulkEditableFields",
+          "method": "GET",
+          "path": "/rest/api/3/bulk/issues/fields",
+          "descriptionTemplate": "Get bulk editable fields for issues {issueIdsOrKeys}",
+          "params": [
+            "issueIdsOrKeys",
+            "searchText",
+            "endingBefore",
+            "startingAfter"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "submitBulkEdit",
+          "method": "POST",
+          "path": "/rest/api/3/bulk/issues/fields",
+          "descriptionTemplate": "Bulk edit issues with ids or keys {selectedIssueIdsOrKeys}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "move": {
+          "name": "submitBulkMove",
+          "method": "POST",
+          "path": "/rest/api/3/bulk/issues/move",
+          "descriptionTemplate": "Bulk move issues with mapping {targetToSourcesMapping}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "getTransitions": {
+          "name": "getAvailableTransitions",
+          "method": "GET",
+          "path": "/rest/api/3/bulk/issues/transition",
+          "descriptionTemplate": "Get available transitions for issues {issueIdsOrKeys}",
+          "params": [
+            "issueIdsOrKeys",
+            "endingBefore",
+            "startingAfter"
+          ],
+          "bodyTemplate": {}
+        },
+        "transition": {
+          "name": "submitBulkTransition",
+          "method": "POST",
+          "path": "/rest/api/3/bulk/issues/transition",
+          "descriptionTemplate": "Bulk transition issues {selectedIssueIdsOrKeys} to transition {transitionId}",
+          "params": [
+            "selectedIssueIdsOrKeys",
+            "transitionId"
+          ],
+          "bodyTemplate": {
+            "bulkTransitionInputs": [
+              {
+                "selectedIssueIdsOrKeys": "{selectedIssueIdsOrKeys}",
+                "transitionId": "{transitionId}"
+              }
+            ],
+            "sendBulkNotification": false
+          }
+        },
+        "unwatch": {
+          "name": "submitBulkUnwatch",
+          "method": "POST",
+          "path": "/rest/api/3/bulk/issues/unwatch",
+          "descriptionTemplate": "Bulk unwatch issues with ids or keys {selectedIssueIdsOrKeys}",
+          "params": [
+            "selectedIssueIdsOrKeys"
+          ],
+          "bodyTemplate": {
+            "selectedIssueIdsOrKeys": "{selectedIssueIdsOrKeys}"
+          }
+        },
+        "watch": {
+          "name": "submitBulkWatch",
+          "method": "POST",
+          "path": "/rest/api/3/bulk/issues/watch",
+          "descriptionTemplate": "Bulk watch issues with ids or keys {selectedIssueIdsOrKeys}",
+          "params": [
+            "selectedIssueIdsOrKeys"
+          ],
+          "bodyTemplate": {
+            "selectedIssueIdsOrKeys": "{selectedIssueIdsOrKeys}"
+          }
+        },
+        "getProgress": {
+          "name": "getBulkOperationProgress",
+          "method": "GET",
+          "path": "/rest/api/3/bulk/queue/{taskId}",
+          "descriptionTemplate": "Get bulk issue operation progress for task {taskId}",
+          "params": [
+            "taskId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueTypeScheme": {
+      "displayName": "issue type scheme",
+      "params": [
+        "issueTypeSchemeId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIssueTypeScheme",
+          "method": "POST",
+          "path": "/rest/api/3/issuetypescheme",
+          "descriptionTemplate": "Create issue type scheme {name} with defaultIssueTypeId {defaultIssueTypeId}",
+          "params": [],
+          "bodyTemplate": {
+            "defaultIssueTypeId": "{defaultIssueTypeId}",
+            "description": "{description}",
+            "issueTypeIds": "{issueTypeIds}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteIssueTypeScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+          "descriptionTemplate": "Delete issue type scheme with id {issueTypeSchemeId}",
+          "params": [
+            "issueTypeSchemeId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIssueTypeScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+          "descriptionTemplate": "Update issue type scheme {name} with id {issueTypeSchemeId}",
+          "params": [
+            "issueTypeSchemeId"
+          ],
+          "bodyTemplate": {
+            "defaultIssueTypeId": "{defaultIssueTypeId}",
+            "description": "{description}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getAllIssueTypeSchemes",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescheme",
+          "descriptionTemplate": "Get all issue type schemes",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueTypeSchemeProjectAssociation": {
+      "displayName": "issue type scheme project association",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "assignIssueTypeSchemeToProject",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescheme/project",
+          "descriptionTemplate": "Assign issue type scheme {issueTypeSchemeId} to project {projectId}",
+          "params": [],
+          "bodyTemplate": {
+            "issueTypeSchemeId": "{issueTypeSchemeId}",
+            "projectId": "{projectId}"
+          }
+        },
+        "get": {
+          "name": "getIssueTypeSchemeForProjects",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescheme/project",
+          "descriptionTemplate": "Get issue type schemes for projects with projectId {projectId}",
+          "params": [
+            "projectId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueTypeSchemeMapping": {
+      "displayName": "issue type scheme mapping",
+      "params": [
+        "issueTypeSchemeId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIssueTypeSchemesMapping",
+          "method": "GET",
+          "path": "/rest/api/3/issuetypescheme/mapping",
+          "descriptionTemplate": "Get issue type scheme items for issueTypeSchemeId {issueTypeSchemeId}",
+          "params": [
+            "issueTypeSchemeId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueTypeInScheme": {
+      "displayName": "issue type in issue type scheme",
+      "params": [
+        "issueTypeSchemeId",
+        "issueTypeId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addIssueTypesToIssueTypeScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype",
+          "descriptionTemplate": "Add issue types {issueTypeIds} to issue type scheme {issueTypeSchemeId}",
+          "params": [
+            "issueTypeSchemeId"
+          ],
+          "bodyTemplate": {
+            "issueTypeIds": "{issueTypeIds}"
+          }
+        },
+        "update": {
+          "name": "reorderIssueTypesInIssueTypeScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/move",
+          "descriptionTemplate": "Change order of issue types in issue type scheme {issueTypeSchemeId} after {after}",
+          "params": [
+            "issueTypeSchemeId"
+          ],
+          "bodyTemplate": {
+            "after": "{after}",
+            "issueTypeIds": "{issueTypeIds}"
+          }
+        },
+        "delete": {
+          "name": "removeIssueTypeFromIssueTypeScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/{issueTypeId}",
+          "descriptionTemplate": "Remove issue type {issueTypeId} from issue type scheme {issueTypeSchemeId}",
+          "params": [
+            "issueTypeSchemeId",
+            "issueTypeId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Avatar": {
+      "displayName": "avatar",
+      "params": [
+        "type",
+        "entityId",
+        "owningObjectId",
+        "id",
+        "size",
+        "format",
+        "x",
+        "y"
+      ],
+      "operations": {
+        "get": {
+          "name": "getAvatar",
+          "method": "GET",
+          "paths": [
+            "/rest/api/3/avatar/{type}/system",
+            "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}",
+            "/rest/api/3/universal_avatar/view/type/{type}",
+            "/rest/api/3/universal_avatar/view/type/{type}/avatar/{id}",
+            "/rest/api/3/universal_avatar/view/type/{type}/owner/{entityId}"
+          ],
+          "descriptionTemplate": "Get avatar of type {type} with entityId {entityId} and id {id}",
+          "params": [
+            "type",
+            "entityId",
+            "id",
+            "size",
+            "format"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "storeAvatar",
+          "method": "POST",
+          "path": "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}",
+          "descriptionTemplate": "Load avatar of type {type} for entity {entityId} with crop size {size} at coordinates ({x},{y})",
+          "params": [
+            "type",
+            "entityId",
+            "size",
+            "x",
+            "y"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteAvatar",
+          "method": "DELETE",
+          "path": "/rest/api/3/universal_avatar/type/{type}/owner/{owningObjectId}/avatar/{id}",
+          "descriptionTemplate": "Delete avatar with id {id} of type {type} owned by {owningObjectId}",
+          "params": [
+            "type",
+            "owningObjectId",
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Worklog": {
+      "displayName": "worklog",
+      "params": [
+        "issueIdOrKey",
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addWorklog",
+          "method": "POST",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+          "descriptionTemplate": "Add worklog to issue {issueIdOrKey} with started {started} and timeSpentSeconds {timeSpentSeconds}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "comment": "{comment}",
+            "started": "{started}",
+            "timeSpentSeconds": "{timeSpentSeconds}",
+            "visibility": "{visibility}"
+          }
+        },
+        "delete": {
+          "name": "deleteWorklog",
+          "method": "DELETE",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}",
+          "descriptionTemplate": "Delete worklog {id} from issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWorklog",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}",
+          "descriptionTemplate": "Update worklog {id} on issue {issueIdOrKey} with started {started} and timeSpentSeconds {timeSpentSeconds}",
+          "params": [
+            "issueIdOrKey",
+            "id"
+          ],
+          "bodyTemplate": {
+            "comment": "{comment}",
+            "started": "{started}",
+            "timeSpentSeconds": "{timeSpentSeconds}",
+            "visibility": "{visibility}"
+          }
+        },
+        "get": {
+          "name": "getWorklog",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}",
+          "descriptionTemplate": "Get worklog {id} from issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteWorklogs",
+          "method": "DELETE",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+          "descriptionTemplate": "Bulk delete worklogs {ids} from issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "ids": "{ids}"
+          }
+        },
+        "bulkMove": {
+          "name": "bulkMoveWorklogs",
+          "method": "POST",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/move",
+          "descriptionTemplate": "Bulk move worklogs {ids} from issue {issueIdOrKey} to issue {issueIdOrKeyDest}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {
+            "ids": "{ids}",
+            "issueIdOrKey": "{issueIdOrKeyDest}"
+          }
+        },
+        "listByIds": {
+          "name": "getWorklogsForIds",
+          "method": "POST",
+          "path": "/rest/api/3/worklog/list",
+          "descriptionTemplate": "Get worklogs for IDs {ids}",
+          "params": [],
+          "bodyTemplate": {
+            "ids": "{ids}"
+          }
+        },
+        "getDeletedIds": {
+          "name": "getIdsOfWorklogsDeletedSince",
+          "method": "GET",
+          "path": "/rest/api/3/worklog/deleted",
+          "descriptionTemplate": "Get IDs of worklogs deleted since {since}",
+          "params": [
+            "since"
+          ],
+          "bodyTemplate": {}
+        },
+        "getUpdatedIds": {
+          "name": "getIdsOfWorklogsModifiedSince",
+          "method": "GET",
+          "path": "/rest/api/3/worklog/updated",
+          "descriptionTemplate": "Get IDs of worklogs updated since {since}",
+          "params": [
+            "since"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationScheme": {
+      "displayName": "notification scheme",
+      "params": [
+        "id",
+        "notificationSchemeId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createNotificationScheme",
+          "method": "POST",
+          "path": "/rest/api/3/notificationscheme",
+          "descriptionTemplate": "Create notification scheme {name}",
+          "params": [],
+          "bodyTemplate": {
+            "description": "{description}",
+            "name": "{name}",
+            "notificationSchemeEvents": "{notificationSchemeEvents}"
+          }
+        },
+        "delete": {
+          "name": "deleteNotificationScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/notificationscheme/{notificationSchemeId}",
+          "descriptionTemplate": "Delete notification scheme {notificationSchemeId}",
+          "params": [
+            "notificationSchemeId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateNotificationScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/notificationscheme/{id}",
+          "descriptionTemplate": "Update notification scheme {id} with name {name}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getNotificationScheme",
+          "method": "GET",
+          "path": "/rest/api/3/notificationscheme/{id}",
+          "descriptionTemplate": "Get notification scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Notification": {
+      "displayName": "notification",
+      "params": [
+        "notificationSchemeId",
+        "notificationId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addNotifications",
+          "method": "PUT",
+          "path": "/rest/api/3/notificationscheme/{id}/notification",
+          "descriptionTemplate": "Add notifications to notification scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "notificationSchemeEvents": "{notificationSchemeEvents}"
+          }
+        },
+        "delete": {
+          "name": "removeNotificationFromNotificationScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
+          "descriptionTemplate": "Remove notification {notificationId} from notification scheme {notificationSchemeId}",
+          "params": [
+            "notificationSchemeId",
+            "notificationId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PriorityScheme": {
+      "displayName": "priority scheme",
+      "params": [
+        "schemeId",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPriorityScheme",
+          "method": "POST",
+          "path": "/rest/api/3/priorityscheme",
+          "descriptionTemplate": "Create priority scheme {name} with id {schemeId}",
+          "params": [
+            "name",
+            "defaultPriorityId",
+            "description",
+            "priorityIds",
+            "projectIds",
+            "mappings"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "defaultPriorityId": "{defaultPriorityId}",
+            "description": "{description}",
+            "priorityIds": "{priorityIds}",
+            "projectIds": "{projectIds}",
+            "mappings": "{mappings}"
+          }
+        },
+        "delete": {
+          "name": "deletePriorityScheme",
+          "method": "DELETE",
+          "path": "/rest/api/3/priorityscheme/{schemeId}",
+          "descriptionTemplate": "Delete priority scheme with id {schemeId}",
+          "params": [
+            "schemeId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updatePriorityScheme",
+          "method": "PUT",
+          "path": "/rest/api/3/priorityscheme/{schemeId}",
+          "descriptionTemplate": "Update priority scheme {name} with id {schemeId}",
+          "params": [
+            "schemeId",
+            "name",
+            "defaultPriorityId",
+            "description",
+            "mappings",
+            "priorities",
+            "projects"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "defaultPriorityId": "{defaultPriorityId}",
+            "description": "{description}",
+            "mappings": "{mappings}",
+            "priorities": "{priorities}",
+            "projects": "{projects}"
+          }
+        },
+        "get": {
+          "name": "getPrioritySchemes",
+          "method": "GET",
+          "path": "/rest/api/3/priorityscheme",
+          "descriptionTemplate": "Get priority schemes",
+          "params": [
+            "startAt",
+            "maxResults",
+            "priorityId",
+            "schemeId",
+            "schemeName",
+            "onlyDefault",
+            "orderBy",
+            "expand"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Status": {
+      "displayName": "status",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createStatuses",
+          "method": "POST",
+          "path": "/rest/api/3/statuses",
+          "descriptionTemplate": "Create statuses with names {name}",
+          "params": [],
+          "bodyTemplate": {
+            "statuses": [
+              {
+                "description": "{description}",
+                "name": "{name}",
+                "statusCategory": "{statusCategory}"
+              }
+            ],
+            "scope": {
+              "project": {
+                "id": "{projectId}"
+              },
+              "type": "{type}"
+            }
+          }
+        },
+        "delete": {
+          "name": "deleteStatusesById",
+          "method": "DELETE",
+          "path": "/rest/api/3/statuses",
+          "descriptionTemplate": "Bulk delete statuses with ids {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateStatuses",
+          "method": "PUT",
+          "path": "/rest/api/3/statuses",
+          "descriptionTemplate": "Bulk update statuses with ids {id} and names {name}",
+          "params": [],
+          "bodyTemplate": {
+            "statuses": [
+              {
+                "id": "{id}",
+                "description": "{description}",
+                "name": "{name}",
+                "statusCategory": "{statusCategory}"
+              }
+            ]
+          }
+        },
+        "get": {
+          "name": "getStatusesById",
+          "method": "GET",
+          "path": "/rest/api/3/statuses",
+          "descriptionTemplate": "Bulk get statuses with ids {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WorkflowSchemeDraft": {
+      "displayName": "workflow scheme draft",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createWorkflowSchemeDraftFromParent",
+          "method": "POST",
+          "path": "/rest/api/3/workflowscheme/{id}/createdraft",
+          "descriptionTemplate": "Create draft workflow scheme from workflow scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteWorkflowSchemeDraft",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/draft",
+          "descriptionTemplate": "Delete draft workflow scheme from workflow scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWorkflowSchemeDraft",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}/draft",
+          "descriptionTemplate": "Get draft workflow scheme from workflow scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWorkflowSchemeDraft",
+          "method": "PUT",
+          "path": "/rest/api/3/workflowscheme/{id}/draft",
+          "descriptionTemplate": "Update draft workflow scheme {id} with name {name}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "defaultWorkflow": "{defaultWorkflow}",
+            "description": "{description}",
+            "issueTypeMappings": "{issueTypeMappings}",
+            "name": "{name}",
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}"
+          }
+        }
+      }
+    },
+    "DraftDefaultWorkflow": {
+      "displayName": "draft default workflow",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "delete": {
+          "name": "deleteDraftDefaultWorkflow",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/default",
+          "descriptionTemplate": "Delete draft default workflow from workflow scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getDraftDefaultWorkflow",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/default",
+          "descriptionTemplate": "Get draft default workflow from workflow scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateDraftDefaultWorkflow",
+          "method": "PUT",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/default",
+          "descriptionTemplate": "Update draft default workflow {workflow} in workflow scheme {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}",
+            "workflow": "{workflow}"
+          }
+        }
+      }
+    },
+    "WorkflowSchemeDraftIssueType": {
+      "displayName": "workflow scheme draft issue type",
+      "params": [
+        "id",
+        "issueType"
+      ],
+      "operations": {
+        "delete": {
+          "name": "deleteWorkflowSchemeDraftIssueType",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}",
+          "descriptionTemplate": "Delete workflow for issue type {issueType} in draft workflow scheme {id}",
+          "params": [
+            "id",
+            "issueType"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWorkflowSchemeDraftIssueType",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}",
+          "descriptionTemplate": "Get workflow for issue type {issueType} in draft workflow scheme {id}",
+          "params": [
+            "id",
+            "issueType"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "setWorkflowSchemeDraftIssueType",
+          "method": "PUT",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}",
+          "descriptionTemplate": "Set workflow {workflow} for issue type {issueType} in draft workflow scheme {id}",
+          "params": [
+            "id",
+            "issueType"
+          ],
+          "bodyTemplate": {
+            "issueType": "{issueType}",
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}",
+            "workflow": "{workflow}"
+          }
+        }
+      }
+    },
+    "PublishDraftWorkflowScheme": {
+      "displayName": "publish draft workflow scheme",
+      "params": [
+        "id",
+        "validateOnly"
+      ],
+      "operations": {
+        "add": {
+          "name": "publishDraftWorkflowScheme",
+          "method": "POST",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/publish",
+          "descriptionTemplate": "Publish draft workflow scheme {id} with validateOnly {validateOnly}",
+          "params": [
+            "id",
+            "validateOnly"
+          ],
+          "bodyTemplate": {
+            "statusMappings": "{statusMappings}"
+          }
+        }
+      }
+    },
+    "DraftWorkflowMapping": {
+      "displayName": "draft workflow mapping",
+      "params": [
+        "id",
+        "workflowName"
+      ],
+      "operations": {
+        "delete": {
+          "name": "deleteDraftWorkflowMapping",
+          "method": "DELETE",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/workflow",
+          "descriptionTemplate": "Delete issue types for workflow {workflowName} in draft workflow scheme {id}",
+          "params": [
+            "id",
+            "workflowName"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getDraftWorkflow",
+          "method": "GET",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/workflow",
+          "descriptionTemplate": "Get issue types for workflow {workflowName} in draft workflow scheme {id}",
+          "params": [
+            "id",
+            "workflowName"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateDraftWorkflowMapping",
+          "method": "PUT",
+          "path": "/rest/api/3/workflowscheme/{id}/draft/workflow",
+          "descriptionTemplate": "Set issue types for workflow {workflow} in draft workflow scheme {id}",
+          "params": [
+            "id",
+            "workflowName"
+          ],
+          "bodyTemplate": {
+            "issueTypes": "{issueTypes}",
+            "updateDraftIfNeeded": "{updateDraftIfNeeded}",
+            "workflow": "{workflow}"
+          }
+        }
+      }
+    },
+    "Component": {
+      "displayName": "component",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createComponent",
+          "method": "POST",
+          "path": "/rest/api/3/component",
+          "descriptionTemplate": "Create component {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "assigneeType": "{assigneeType}",
+            "description": "{description}",
+            "isAssigneeTypeValid": "{isAssigneeTypeValid}",
+            "leadAccountId": "{leadAccountId}",
+            "name": "{name}",
+            "project": "{project}"
+          }
+        },
+        "delete": {
+          "name": "deleteComponent",
+          "method": "DELETE",
+          "path": "/rest/api/3/component/{id}",
+          "descriptionTemplate": "Delete component with id {id}",
+          "params": [
+            "id",
+            "moveIssuesTo"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateComponent",
+          "method": "PUT",
+          "path": "/rest/api/3/component/{id}",
+          "descriptionTemplate": "Update component {name} with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "assigneeType": "{assigneeType}",
+            "description": "{description}",
+            "isAssigneeTypeValid": "{isAssigneeTypeValid}",
+            "leadAccountId": "{leadAccountId}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getComponent",
+          "method": "GET",
+          "path": "/rest/api/3/component/{id}",
+          "descriptionTemplate": "Get component with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldOption": {
+      "displayName": "custom field option",
+      "params": [
+        "fieldId",
+        "contextId",
+        "optionId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCustomFieldOption",
+          "method": "POST",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option",
+          "descriptionTemplate": "Create custom field options in context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "options": "[{\"disabled\": false, \"value\": \"{value}\"}]"
+          }
+        },
+        "delete": {
+          "name": "deleteCustomFieldOption",
+          "method": "DELETE",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option/{optionId}",
+          "descriptionTemplate": "Delete custom field option {optionId} in context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId",
+            "optionId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCustomFieldOption",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option",
+          "descriptionTemplate": "Update custom field options in context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "options": "[{\"id\": \"{id}\", \"disabled\": false, \"value\": \"{value}\"}]"
+          }
+        },
+        "get": {
+          "name": "getOptionsForContext",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option",
+          "descriptionTemplate": "Get custom field options in context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldOptionSingle": {
+      "displayName": "custom field option",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCustomFieldOption",
+          "method": "GET",
+          "path": "/rest/api/3/customFieldOption/{id}",
+          "descriptionTemplate": "Get custom field option {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomFieldOptionReorder": {
+      "displayName": "custom field option reorder",
+      "params": [
+        "fieldId",
+        "contextId"
+      ],
+      "operations": {
+        "update": {
+          "name": "reorderCustomFieldOptions",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option/move",
+          "descriptionTemplate": "Reorder custom field options in context {contextId} for field {fieldId}",
+          "params": [
+            "fieldId",
+            "contextId"
+          ],
+          "bodyTemplate": {
+            "customFieldOptionIds": "[\"{customFieldOptionIds}\"]",
+            "position": "{position}"
+          }
+        }
+      }
+    },
+    "CustomFieldOptionReplace": {
+      "displayName": "custom field option replace",
+      "params": [
+        "fieldId",
+        "contextId",
+        "optionId",
+        "replaceWith",
+        "jql"
+      ],
+      "operations": {
+        "delete": {
+          "name": "replaceCustomFieldOption",
+          "method": "DELETE",
+          "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option/{optionId}/issue",
+          "descriptionTemplate": "Replace custom field option {optionId} with {replaceWith} in context {contextId} for field {fieldId} using JQL {jql}",
+          "params": [
+            "fieldId",
+            "contextId",
+            "optionId",
+            "replaceWith",
+            "jql"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Screen": {
+      "displayName": "screen",
+      "params": [
+        "screenId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createScreen",
+          "method": "POST",
+          "path": "/rest/api/3/screens",
+          "descriptionTemplate": "Create screen {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "delete": {
+          "name": "deleteScreen",
+          "method": "DELETE",
+          "path": "/rest/api/3/screens/{screenId}",
+          "descriptionTemplate": "Delete screen {screenId}",
+          "params": [
+            "screenId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateScreen",
+          "method": "PUT",
+          "path": "/rest/api/3/screens/{screenId}",
+          "descriptionTemplate": "Update screen {screenId} with name {name}",
+          "params": [
+            "screenId"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getScreens",
+          "method": "GET",
+          "path": "/rest/api/3/screens",
+          "descriptionTemplate": "Get screens",
+          "params": [
+            "startAt",
+            "maxResults",
+            "id",
+            "queryString",
+            "scope",
+            "orderBy"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FieldScreens": {
+      "displayName": "fieldScreens",
+      "params": [
+        "fieldId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getScreensForField",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldId}/screens",
+          "descriptionTemplate": "Get screens for field {fieldId}",
+          "params": [
+            "fieldId",
+            "startAt",
+            "maxResults",
+            "expand"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FieldDefaultScreen": {
+      "displayName": "fieldDefaultScreen",
+      "params": [
+        "fieldId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addFieldToDefaultScreen",
+          "method": "POST",
+          "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+          "descriptionTemplate": "Add field {fieldId} to default screen",
+          "params": [
+            "fieldId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ScreenAvailableFields": {
+      "displayName": "screenAvailableFields",
+      "params": [
+        "screenId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getAvailableScreenFields",
+          "method": "GET",
+          "path": "/rest/api/3/screens/{screenId}/availableFields",
+          "descriptionTemplate": "Get available fields for screen {screenId}",
+          "params": [
+            "screenId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueFieldOption": {
+      "displayName": "issue field option",
+      "params": [
+        "fieldKey",
+        "optionId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIssueFieldOption",
+          "method": "POST",
+          "path": "/rest/api/3/field/{fieldKey}/option",
+          "descriptionTemplate": "Create issue field option with value {value} for field {fieldKey}",
+          "params": [
+            "fieldKey"
+          ],
+          "bodyTemplate": {
+            "config": "{config}",
+            "properties": "{properties}",
+            "value": "{value}"
+          }
+        },
+        "delete": {
+          "name": "deleteIssueFieldOption",
+          "method": "DELETE",
+          "path": "/rest/api/3/field/{fieldKey}/option/{optionId}",
+          "descriptionTemplate": "Delete issue field option {optionId} for field {fieldKey}",
+          "params": [
+            "fieldKey",
+            "optionId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIssueFieldOption",
+          "method": "PUT",
+          "path": "/rest/api/3/field/{fieldKey}/option/{optionId}",
+          "descriptionTemplate": "Update issue field option {optionId} with value {value} for field {fieldKey}",
+          "params": [
+            "fieldKey",
+            "optionId"
+          ],
+          "bodyTemplate": {
+            "config": "{config}",
+            "id": "{optionId}",
+            "properties": "{properties}",
+            "value": "{value}"
+          }
+        },
+        "get": {
+          "name": "getIssueFieldOption",
+          "method": "GET",
+          "path": "/rest/api/3/field/{fieldKey}/option/{optionId}",
+          "descriptionTemplate": "Get issue field option {optionId} for field {fieldKey}",
+          "params": [
+            "fieldKey",
+            "optionId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Group": {
+      "displayName": "group",
+      "params": [
+        "groupId",
+        "groupname"
+      ],
+      "operations": {
+        "add": {
+          "name": "createGroup",
+          "method": "POST",
+          "path": "/rest/api/3/group",
+          "descriptionTemplate": "Create group {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "removeGroup",
+          "method": "DELETE",
+          "path": "/rest/api/3/group",
+          "descriptionTemplate": "Remove group {groupname} with id {groupId}",
+          "params": [
+            "groupname",
+            "groupId",
+            "swapGroup",
+            "swapGroupId"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getGroup",
+          "method": "GET",
+          "path": "/rest/api/3/group",
+          "descriptionTemplate": "Get group {groupname} with id {groupId}",
+          "params": [
+            "groupname",
+            "groupId",
+            "expand"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "GroupMember": {
+      "displayName": "group member",
+      "params": [
+        "groupId",
+        "groupname"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUsersFromGroup",
+          "method": "GET",
+          "path": "/rest/api/3/group/member",
+          "descriptionTemplate": "Get users from group {groupname} with id {groupId}",
+          "params": [
+            "groupname",
+            "groupId",
+            "includeInactiveUsers",
+            "startAt",
+            "maxResults"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "GroupUser": {
+      "displayName": "group user",
+      "params": [
+        "groupId",
+        "groupname",
+        "accountId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addUserToGroup",
+          "method": "POST",
+          "path": "/rest/api/3/group/user",
+          "descriptionTemplate": "Add user {accountId} to group {groupname} with id {groupId}",
+          "params": [
+            "groupname",
+            "groupId"
+          ],
+          "bodyTemplate": {
+            "accountId": "{accountId}"
+          }
+        },
+        "delete": {
+          "name": "removeUserFromGroup",
+          "method": "DELETE",
+          "path": "/rest/api/3/group/user",
+          "descriptionTemplate": "Remove user {accountId} from group {groupname} with id {groupId}",
+          "params": [
+            "groupname",
+            "groupId",
+            "accountId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueSearch": {
+      "displayName": "issue search",
+      "params": [
+        "query",
+        "currentJQL",
+        "currentIssueKey",
+        "currentProjectId",
+        "showSubTasks",
+        "showSubTaskParent",
+        "jql",
+        "startAt",
+        "maxResults",
+        "validateQuery",
+        "fields",
+        "expand",
+        "properties",
+        "fieldsByKeys",
+        "failFast",
+        "nextPageToken",
+        "reconcileIssues"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIssuePickerResource",
+          "method": "GET",
+          "path": "/rest/api/3/issue/picker",
+          "descriptionTemplate": "Get issue picker suggestions with query {query}",
+          "params": [
+            "query",
+            "currentJQL",
+            "currentIssueKey",
+            "currentProjectId",
+            "showSubTasks",
+            "showSubTaskParent"
+          ],
+          "bodyTemplate": {}
+        },
+        "postMatch": {
+          "name": "matchIssues",
+          "method": "POST",
+          "path": "/rest/api/3/jql/match",
+          "descriptionTemplate": "Match issues with JQL queries",
+          "params": [],
+          "bodyTemplate": {
+            "issueIds": "{issueIds}",
+            "jqls": "{jqls}"
+          }
+        },
+        "getSearch": {
+          "name": "searchForIssuesUsingJql",
+          "method": "GET",
+          "path": "/rest/api/3/search",
+          "descriptionTemplate": "Search for issues using JQL {jql}",
+          "params": [
+            "jql",
+            "startAt",
+            "maxResults",
+            "validateQuery",
+            "fields",
+            "expand",
+            "properties",
+            "fieldsByKeys",
+            "failFast"
+          ],
+          "bodyTemplate": {}
+        },
+        "postSearch": {
+          "name": "searchForIssuesUsingJqlPost",
+          "method": "POST",
+          "path": "/rest/api/3/search",
+          "descriptionTemplate": "Search for issues using JQL POST",
+          "params": [],
+          "bodyTemplate": {
+            "expand": "{expand}",
+            "fields": "{fields}",
+            "fieldsByKeys": "{fieldsByKeys}",
+            "jql": "{jql}",
+            "maxResults": "{maxResults}",
+            "startAt": "{startAt}"
+          }
+        },
+        "postCount": {
+          "name": "countIssues",
+          "method": "POST",
+          "path": "/rest/api/3/search/approximate-count",
+          "descriptionTemplate": "Count issues using JQL {jql}",
+          "params": [],
+          "bodyTemplate": {
+            "jql": "{jql}"
+          }
+        },
+        "getSearchJql": {
+          "name": "searchAndReconsileIssuesUsingJql",
+          "method": "GET",
+          "path": "/rest/api/3/search/jql",
+          "descriptionTemplate": "Search for issues using JQL enhanced search {jql}",
+          "params": [
+            "jql",
+            "nextPageToken",
+            "maxResults",
+            "fields",
+            "expand",
+            "properties",
+            "fieldsByKeys",
+            "failFast",
+            "reconcileIssues"
+          ],
+          "bodyTemplate": {}
+        },
+        "postSearchJql": {
+          "name": "searchAndReconsileIssuesUsingJqlPost",
+          "method": "POST",
+          "path": "/rest/api/3/search/jql",
+          "descriptionTemplate": "Search for issues using JQL enhanced search POST",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueProperty": {
+      "displayName": "issue property",
+      "params": [
+        "issueIdOrKey",
+        "propertyKey"
+      ],
+      "operations": {
+        "add": {
+          "name": "setIssueProperty",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+          "descriptionTemplate": "Set issue property {propertyKey} for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIssueProperty",
+          "method": "DELETE",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+          "descriptionTemplate": "Delete issue property {propertyKey} for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIssueProperty",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+          "descriptionTemplate": "Get issue property {propertyKey} for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey",
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssuePropertiesBulk": {
+      "displayName": "issue properties bulk",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "bulkSetIssuesPropertiesList",
+          "method": "POST",
+          "path": "/rest/api/3/issue/properties",
+          "descriptionTemplate": "Bulk set issues properties by list",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssuePropertiesBulkByIssue": {
+      "displayName": "issue properties bulk by issue",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "bulkSetIssuePropertiesByIssue",
+          "method": "POST",
+          "path": "/rest/api/3/issue/properties/multi",
+          "descriptionTemplate": "Bulk set issue properties by issue",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssuePropertyBulk": {
+      "displayName": "issue property bulk",
+      "params": [
+        "propertyKey"
+      ],
+      "operations": {
+        "add": {
+          "name": "bulkSetIssueProperty",
+          "method": "PUT",
+          "path": "/rest/api/3/issue/properties/{propertyKey}",
+          "descriptionTemplate": "Bulk set issue property {propertyKey}",
+          "params": [
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "bulkDeleteIssueProperty",
+          "method": "DELETE",
+          "path": "/rest/api/3/issue/properties/{propertyKey}",
+          "descriptionTemplate": "Bulk delete issue property {propertyKey}",
+          "params": [
+            "propertyKey"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssuePropertyKeys": {
+      "displayName": "issue property keys",
+      "params": [
+        "issueIdOrKey"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIssuePropertyKeys",
+          "method": "GET",
+          "path": "/rest/api/3/issue/{issueIdOrKey}/properties",
+          "descriptionTemplate": "Get issue property keys for issue {issueIdOrKey}",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IssueType": {
+      "displayName": "issue type",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIssueType",
+          "method": "POST",
+          "path": "/rest/api/3/issuetype",
+          "descriptionTemplate": "Create issue type {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "description": "{description}",
+            "name": "{name}",
+            "type": "{type}"
+          }
+        },
+        "delete": {
+          "name": "deleteIssueType",
+          "method": "DELETE",
+          "path": "/rest/api/3/issuetype/{id}",
+          "descriptionTemplate": "Delete issue type with id {id}",
+          "params": [
+            "id",
+            "alternativeIssueTypeId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIssueType",
+          "method": "PUT",
+          "path": "/rest/api/3/issuetype/{id}",
+          "descriptionTemplate": "Update issue type {name} with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "avatarId": "{avatarId}",
+            "description": "{description}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getIssueType",
+          "method": "GET",
+          "path": "/rest/api/3/issuetype/{id}",
+          "descriptionTemplate": "Get issue type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "JqlAutoCompleteData": {
+      "displayName": "jqlAutoCompleteData",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getAutoComplete",
+          "method": "GET",
+          "path": "/rest/api/3/jql/autocompletedata",
+          "descriptionTemplate": "Get field reference data",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "getAutoCompletePost",
+          "method": "POST",
+          "path": "/rest/api/3/jql/autocompletedata",
+          "descriptionTemplate": "Get field reference data with includeCollapsedFields {includeCollapsedFields} and projectIds {projectIds}",
+          "params": [],
+          "bodyTemplate": {
+            "includeCollapsedFields": "{includeCollapsedFields}",
+            "projectIds": "{projectIds}"
+          }
+        }
+      }
+    },
+    "JqlAutoCompleteSuggestions": {
+      "displayName": "jqlAutoCompleteSuggestions",
+      "params": [
+        "fieldName",
+        "fieldValue",
+        "predicateName",
+        "predicateValue"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFieldAutoCompleteForQueryString",
+          "method": "GET",
+          "path": "/rest/api/3/jql/autocompletedata/suggestions",
+          "descriptionTemplate": "Get field auto complete suggestions for fieldName {fieldName}, fieldValue {fieldValue}, predicateName {predicateName}, predicateValue {predicateValue}",
+          "params": [
+            "fieldName",
+            "fieldValue",
+            "predicateName",
+            "predicateValue"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "JqlParse": {
+      "displayName": "jqlParse",
+      "params": [
+        "validation"
+      ],
+      "operations": {
+        "add": {
+          "name": "parseJqlQueries",
+          "method": "POST",
+          "path": "/rest/api/3/jql/parse",
+          "descriptionTemplate": "Parse JQL queries with validation {validation} and queries {queries}",
+          "params": [
+            "validation"
+          ],
+          "bodyTemplate": {
+            "queries": "{queries}"
+          }
+        }
+      }
+    },
+    "JqlPdCleaner": {
+      "displayName": "jqlPdCleaner",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "migrateQueries",
+          "method": "POST",
+          "path": "/rest/api/3/jql/pdcleaner",
+          "descriptionTemplate": "Convert user identifiers to account IDs in JQL queries with queryStrings {queryStrings}",
+          "params": [],
+          "bodyTemplate": {
+            "queryStrings": "{queryStrings}"
+          }
+        }
+      }
+    },
+    "JqlSanitize": {
+      "displayName": "jqlSanitize",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "sanitiseJqlQueries",
+          "method": "POST",
+          "path": "/rest/api/3/jql/sanitize",
+          "descriptionTemplate": "Sanitize JQL queries with queries {queries}",
+          "params": [],
+          "bodyTemplate": {
+            "queries": "{queries}"
+          }
+        }
+      }
+    },
+    "Plan": {
+      "displayName": "plan",
+      "params": [
+        "planId",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPlan",
+          "method": "POST",
+          "path": "/rest/api/3/plans/plan",
+          "descriptionTemplate": "Create plan {name}",
+          "params": [],
+          "bodyTemplate": {
+            "crossProjectReleases": "[{name: \"{name}\", releaseIds: [...] }]",
+            "customFields": "[{customFieldId: ..., filter: ...}]",
+            "exclusionRules": "{...}",
+            "issueSources": "[{type: ..., value: ...}]",
+            "leadAccountId": "{leadAccountId}",
+            "name": "{name}",
+            "permissions": "[{holder: {type: ..., value: ...}, type: ...}]",
+            "scheduling": "{...}"
+          }
+        },
+        "get": {
+          "name": "getPlan",
+          "method": "GET",
+          "path": "/rest/api/3/plans/plan/{planId}",
+          "descriptionTemplate": "Get plan {planId}",
+          "params": [
+            "planId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updatePlan",
+          "method": "PUT",
+          "path": "/rest/api/3/plans/plan/{planId}",
+          "descriptionTemplate": "Update plan {planId}",
+          "params": [
+            "planId"
+          ],
+          "bodyTemplate": {}
+        },
+        "archive": {
+          "name": "archivePlan",
+          "method": "PUT",
+          "path": "/rest/api/3/plans/plan/{planId}/archive",
+          "descriptionTemplate": "Archive plan {planId}",
+          "params": [
+            "planId"
+          ],
+          "bodyTemplate": {}
+        },
+        "duplicate": {
+          "name": "duplicatePlan",
+          "method": "POST",
+          "path": "/rest/api/3/plans/plan/{planId}/duplicate",
+          "descriptionTemplate": "Duplicate plan {planId} with name {name}",
+          "params": [
+            "planId",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "trash": {
+          "name": "trashPlan",
+          "method": "PUT",
+          "path": "/rest/api/3/plans/plan/{planId}/trash",
+          "descriptionTemplate": "Trash plan {planId}",
+          "params": [
+            "planId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AtlassianTeam": {
+      "displayName": "atlassian team",
+      "params": [
+        "planId",
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addAtlassianTeam",
+          "method": "POST",
+          "path": "/rest/api/3/plans/plan/{planId}/team/atlassian",
+          "descriptionTemplate": "Add Atlassian team with id {id} to plan {planId}",
+          "params": [
+            "planId",
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "capacity": "{capacity}",
+            "issueSourceId": "{issueSourceId}",
+            "planningStyle": "{planningStyle}",
+            "sprintLength": "{sprintLength}"
+          }
+        },
+        "delete": {
+          "name": "removeAtlassianTeam",
+          "method": "DELETE",
+          "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}",
+          "descriptionTemplate": "Remove Atlassian team {atlassianTeamId} from plan {planId}",
+          "params": [
+            "planId",
+            "atlassianTeamId"
+          ]
+        },
+        "get": {
+          "name": "getAtlassianTeam",
+          "method": "GET",
+          "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}",
+          "descriptionTemplate": "Get Atlassian team {atlassianTeamId} in plan {planId}",
+          "params": [
+            "planId",
+            "atlassianTeamId"
+          ]
+        },
+        "update": {
+          "name": "updateAtlassianTeam",
+          "method": "PUT",
+          "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}",
+          "descriptionTemplate": "Update Atlassian team {atlassianTeamId} in plan {planId}",
+          "params": [
+            "planId",
+            "atlassianTeamId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PlanOnlyTeam": {
+      "displayName": "plan-only team",
+      "params": [
+        "planId",
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPlanOnlyTeam",
+          "method": "POST",
+          "path": "/rest/api/3/plans/plan/{planId}/team/planonly",
+          "descriptionTemplate": "Create plan-only team {name} in plan {planId}",
+          "params": [
+            "planId",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "capacity": "{capacity}",
+            "issueSourceId": "{issueSourceId}",
+            "memberAccountIds": "{memberAccountIds}",
+            "planningStyle": "{planningStyle}",
+            "sprintLength": "{sprintLength}"
+          }
+        },
+        "delete": {
+          "name": "deletePlanOnlyTeam",
+          "method": "DELETE",
+          "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}",
+          "descriptionTemplate": "Delete plan-only team {planOnlyTeamId} from plan {planId}",
+          "params": [
+            "planId",
+            "planOnlyTeamId"
+          ]
+        },
+        "get": {
+          "name": "getPlanOnlyTeam",
+          "method": "GET",
+          "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}",
+          "descriptionTemplate": "Get plan-only team {planOnlyTeamId} in plan {planId}",
+          "params": [
+            "planId",
+            "planOnlyTeamId"
+          ]
+        },
+        "update": {
+          "name": "updatePlanOnlyTeam",
+          "method": "PUT",
+          "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}",
+          "descriptionTemplate": "Update plan-only team {planOnlyTeamId} in plan {planId}",
+          "params": [
+            "planId",
+            "planOnlyTeamId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Team": {
+      "displayName": "team",
+      "params": [
+        "planId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTeams",
+          "method": "GET",
+          "path": "/rest/api/3/plans/plan/{planId}/team",
+          "descriptionTemplate": "Get teams in plan {planId} paginated",
+          "params": [
+            "planId",
+            "cursor",
+            "maxResults"
+          ]
+        }
+      }
+    },
+    "Priority": {
+      "displayName": "priority",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createPriority",
+          "method": "POST",
+          "path": "/rest/api/3/priority",
+          "descriptionTemplate": "Create priority {name}",
+          "params": [],
+          "bodyTemplate": {
+            "description": "{description}",
+            "iconUrl": "{iconUrl}",
+            "name": "{name}",
+            "statusColor": "{statusColor}"
+          }
+        },
+        "delete": {
+          "name": "deletePriority",
+          "method": "DELETE",
+          "path": "/rest/api/3/priority/{id}",
+          "descriptionTemplate": "Delete priority {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updatePriority",
+          "method": "PUT",
+          "path": "/rest/api/3/priority/{id}",
+          "descriptionTemplate": "Update priority {id} with name {name}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "iconUrl": "{iconUrl}",
+            "name": "{name}",
+            "statusColor": "{statusColor}"
+          }
+        },
+        "get": {
+          "name": "getPriority",
+          "method": "GET",
+          "path": "/rest/api/3/priority/{id}",
+          "descriptionTemplate": "Get priority {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "getPriorities",
+          "method": "GET",
+          "path": "/rest/api/3/priority",
+          "descriptionTemplate": "Get priorities",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "search": {
+          "name": "searchPriorities",
+          "method": "GET",
+          "path": "/rest/api/3/priority/search",
+          "descriptionTemplate": "Search priorities with filters",
+          "params": [
+            "startAt",
+            "maxResults",
+            "id",
+            "projectId",
+            "priorityName",
+            "onlyDefault",
+            "expand"
+          ],
+          "bodyTemplate": {}
+        },
+        "setDefault": {
+          "name": "setDefaultPriority",
+          "method": "PUT",
+          "path": "/rest/api/3/priority/default",
+          "descriptionTemplate": "Set default priority {id}",
+          "params": [],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "move": {
+          "name": "movePriorities",
+          "method": "PUT",
+          "path": "/rest/api/3/priority/move",
+          "descriptionTemplate": "Move priorities after {after} with ids {ids}",
+          "params": [],
+          "bodyTemplate": {
+            "after": "{after}",
+            "ids": "{ids}"
+          }
         }
       }
     }
   },
-  "sut": "jira_cloud"
+  "stories": []
 }

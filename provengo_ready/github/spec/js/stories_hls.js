@@ -64,66 +64,66 @@ bthread("monitor:Repository:add", function () {
   }
 });
 
-// Story: crud:Ruleset:nondet:1:1
-bthread("crud:Ruleset:nondet:1:1", function () {
+// Story: crud:RepositoryRuleset:nondet:1:1
+bthread("crud:RepositoryRuleset:nondet:1:1", function () {
   let owner = "owner_220";
   let repo = "repo_220";
   let name = "name_220";
   let ruleset_id = 220;
   createRepoRuleset("owner_220", "repo_220", "name_220", 220);
-  tryToAddExistingRuleset("owner_220", "repo_220", "name_220", 220);
-  verifyRulesetExists("owner_220", "repo_220", "name_220", 220);
+  tryToAddExistingRepositoryRuleset("owner_220", "repo_220", "name_220", 220);
+  verifyRepositoryRulesetExists("owner_220", "repo_220", "name_220", 220);
   updateRepoRuleset("owner_220", "repo_220", "name_220", 220);
   deleteRepoRuleset("owner_220", "repo_220", "name_220", 220);
-  tryToDeleteANonExistingRuleset("owner_220", "repo_220", "name_220", 220);
-  verifyRulesetDoesNotExist("owner_220", "repo_220", "name_220", 220);
+  tryToDeleteANonExistingRepositoryRuleset("owner_220", "repo_220", "name_220", 220);
+  verifyRepositoryRulesetDoesNotExist("owner_220", "repo_220", "name_220", 220);
 });
 
-// Story: crud:Ruleset:nondet:1:2
-bthread("crud:Ruleset:nondet:1:2", function () {
+// Story: crud:RepositoryRuleset:nondet:1:2
+bthread("crud:RepositoryRuleset:nondet:1:2", function () {
   let owner = "owner_221";
   let repo = "repo_221";
   let name = "name_221";
   let ruleset_id = 221;
   createRepoRuleset("owner_221", "repo_221", "name_221", 221);
-  tryToAddExistingRuleset("owner_221", "repo_221", "name_221", 221);
+  tryToAddExistingRepositoryRuleset("owner_221", "repo_221", "name_221", 221);
   updateRepoRuleset("owner_221", "repo_221", "name_221", 221);
-  verifyRulesetExists("owner_221", "repo_221", "name_221", 221);
+  verifyRepositoryRulesetExists("owner_221", "repo_221", "name_221", 221);
   deleteRepoRuleset("owner_221", "repo_221", "name_221", 221);
-  tryToDeleteANonExistingRuleset("owner_221", "repo_221", "name_221", 221);
-  verifyRulesetDoesNotExist("owner_221", "repo_221", "name_221", 221);
+  tryToDeleteANonExistingRepositoryRuleset("owner_221", "repo_221", "name_221", 221);
+  verifyRepositoryRulesetDoesNotExist("owner_221", "repo_221", "name_221", 221);
 });
 
-// Story: crud:Ruleset:nondet:negative:dup-add
-bthread("crud:Ruleset:nondet:negative:dup-add", function () {
+// Story: crud:RepositoryRuleset:nondet:negative:dup-add
+bthread("crud:RepositoryRuleset:nondet:negative:dup-add", function () {
   let owner = "owner_226";
   let repo = "repo_226";
   let name = "name_226";
   let ruleset_id = 226;
   createRepoRuleset("owner_226", "repo_226", "name_226", 226);
-  verifyRulesetExists("owner_226", "repo_226", "name_226", 226);
-  tryToAddExistingRuleset("owner_226", "repo_226", "name_226", 226);
-  verifyRulesetExists("owner_226", "repo_226", "name_226", 226);
+  verifyRepositoryRulesetExists("owner_226", "repo_226", "name_226", 226);
+  tryToAddExistingRepositoryRuleset("owner_226", "repo_226", "name_226", 226);
+  verifyRepositoryRulesetExists("owner_226", "repo_226", "name_226", 226);
 });
 
-// Story: crud:Ruleset:nondet:existing:update
-bthread("crud:Ruleset:nondet:existing:update", function () {
-  let ev = waitForAnyRulesetAdded();
+// Story: crud:RepositoryRuleset:nondet:existing:update
+bthread("crud:RepositoryRuleset:nondet:existing:update", function () {
+  let ev = waitForAnyRepositoryRulesetAdded();
   let args = Object.values(ev);
-  block(matchDeletedRuleset.apply(null, args), function () {
-    verifyRulesetExists.apply(null, args);
+  block(matchDeletedRepositoryRuleset.apply(null, args), function () {
+    verifyRepositoryRulesetExists.apply(null, args);
     updateRepoRuleset.apply(null, args);
-    verifyRulesetExists.apply(null, args);
+    verifyRepositoryRulesetExists.apply(null, args);
   });
 });
 
-// Story: monitor:Ruleset:add
-bthread("monitor:Ruleset:add", function () {
+// Story: monitor:RepositoryRuleset:add
+bthread("monitor:RepositoryRuleset:add", function () {
   while (true) {
-    let ev = waitForAnyRulesetAdded();
+    let ev = waitForAnyRepositoryRulesetAdded();
     let args = Object.values(ev);
-    block(matchDeletedRuleset.apply(null, args), function () {
-      verifyRulesetExists.apply(null, args);
+    block(matchDeletedRepositoryRuleset.apply(null, args), function () {
+      verifyRepositoryRulesetExists.apply(null, args);
     });
   }
 });
@@ -189,58 +189,49 @@ bthread("monitor:OrgRuleset:add", function () {
   }
 });
 
-// Story: crud:Branch:read_only
-bthread("crud:Branch:read_only", function () {
+// Story: crud:BranchProtection:read_only
+bthread("crud:BranchProtection:read_only", function () {
   let owner = "owner_240";
   let repo = "repo_240";
   let branch = "branch_240";
-  let new_name = "new_name_240";
-  verifyBranchExists("owner_240", "repo_240", "branch_240", "new_name_240");
-});
-
-// Story: crud:BranchProtection:read_only
-bthread("crud:BranchProtection:read_only", function () {
-  let owner = "owner_250";
-  let repo = "repo_250";
-  let branch = "branch_250";
-  verifyBranchProtectionExists("owner_250", "repo_250", "branch_250");
+  verifyBranchProtectionExists("owner_240", "repo_240", "branch_240");
 });
 
 // Story: crud:BranchProtectionAdmin:nondet:1:1
 bthread("crud:BranchProtectionAdmin:nondet:1:1", function () {
-  let owner = "owner_260";
-  let repo = "repo_260";
-  let branch = "branch_260";
-  setAdminBranchProtection("owner_260", "repo_260", "branch_260");
-  tryToAddExistingBranchProtectionAdmin("owner_260", "repo_260", "branch_260");
-  verifyBranchProtectionAdminExists("owner_260", "repo_260", "branch_260");
-  deleteAdminBranchProtection("owner_260", "repo_260", "branch_260");
-  tryToDeleteANonExistingBranchProtectionAdmin("owner_260", "repo_260", "branch_260");
-  verifyBranchProtectionAdminDoesNotExist("owner_260", "repo_260", "branch_260");
+  let owner = "owner_250";
+  let repo = "repo_250";
+  let branch = "branch_250";
+  setAdminBranchProtection("owner_250", "repo_250", "branch_250");
+  tryToAddExistingBranchProtectionAdmin("owner_250", "repo_250", "branch_250");
+  verifyBranchProtectionAdminExists("owner_250", "repo_250", "branch_250");
+  deleteAdminBranchProtection("owner_250", "repo_250", "branch_250");
+  tryToDeleteANonExistingBranchProtectionAdmin("owner_250", "repo_250", "branch_250");
+  verifyBranchProtectionAdminDoesNotExist("owner_250", "repo_250", "branch_250");
 });
 
 // Story: crud:BranchProtectionAdmin:nondet:1:2
 bthread("crud:BranchProtectionAdmin:nondet:1:2", function () {
-  let owner = "owner_261";
-  let repo = "repo_261";
-  let branch = "branch_261";
-  setAdminBranchProtection("owner_261", "repo_261", "branch_261");
-  tryToAddExistingBranchProtectionAdmin("owner_261", "repo_261", "branch_261");
-  verifyBranchProtectionAdminExists("owner_261", "repo_261", "branch_261");
-  deleteAdminBranchProtection("owner_261", "repo_261", "branch_261");
-  tryToDeleteANonExistingBranchProtectionAdmin("owner_261", "repo_261", "branch_261");
-  verifyBranchProtectionAdminDoesNotExist("owner_261", "repo_261", "branch_261");
+  let owner = "owner_251";
+  let repo = "repo_251";
+  let branch = "branch_251";
+  setAdminBranchProtection("owner_251", "repo_251", "branch_251");
+  tryToAddExistingBranchProtectionAdmin("owner_251", "repo_251", "branch_251");
+  verifyBranchProtectionAdminExists("owner_251", "repo_251", "branch_251");
+  deleteAdminBranchProtection("owner_251", "repo_251", "branch_251");
+  tryToDeleteANonExistingBranchProtectionAdmin("owner_251", "repo_251", "branch_251");
+  verifyBranchProtectionAdminDoesNotExist("owner_251", "repo_251", "branch_251");
 });
 
 // Story: crud:BranchProtectionAdmin:nondet:negative:dup-add
 bthread("crud:BranchProtectionAdmin:nondet:negative:dup-add", function () {
-  let owner = "owner_266";
-  let repo = "repo_266";
-  let branch = "branch_266";
-  setAdminBranchProtection("owner_266", "repo_266", "branch_266");
-  verifyBranchProtectionAdminExists("owner_266", "repo_266", "branch_266");
-  tryToAddExistingBranchProtectionAdmin("owner_266", "repo_266", "branch_266");
-  verifyBranchProtectionAdminExists("owner_266", "repo_266", "branch_266");
+  let owner = "owner_256";
+  let repo = "repo_256";
+  let branch = "branch_256";
+  setAdminBranchProtection("owner_256", "repo_256", "branch_256");
+  verifyBranchProtectionAdminExists("owner_256", "repo_256", "branch_256");
+  tryToAddExistingBranchProtectionAdmin("owner_256", "repo_256", "branch_256");
+  verifyBranchProtectionAdminExists("owner_256", "repo_256", "branch_256");
 });
 
 // Story: monitor:BranchProtectionAdmin:add
@@ -256,47 +247,47 @@ bthread("monitor:BranchProtectionAdmin:add", function () {
 
 // Story: crud:PullRequestReviewProtection:read_only
 bthread("crud:PullRequestReviewProtection:read_only", function () {
-  let owner = "owner_270";
-  let repo = "repo_270";
-  let branch = "branch_270";
-  verifyPullRequestReviewProtectionExists("owner_270", "repo_270", "branch_270");
+  let owner = "owner_260";
+  let repo = "repo_260";
+  let branch = "branch_260";
+  verifyPullRequestReviewProtectionExists("owner_260", "repo_260", "branch_260");
 });
 
 // Story: crud:CommitSignatureProtection:nondet:1:1
 bthread("crud:CommitSignatureProtection:nondet:1:1", function () {
-  let owner = "owner_280";
-  let repo = "repo_280";
-  let branch = "branch_280";
-  createCommitSignatureProtection("owner_280", "repo_280", "branch_280");
-  tryToAddExistingCommitSignatureProtection("owner_280", "repo_280", "branch_280");
-  verifyCommitSignatureProtectionExists("owner_280", "repo_280", "branch_280");
-  deleteCommitSignatureProtection("owner_280", "repo_280", "branch_280");
-  tryToDeleteANonExistingCommitSignatureProtection("owner_280", "repo_280", "branch_280");
-  verifyCommitSignatureProtectionDoesNotExist("owner_280", "repo_280", "branch_280");
+  let owner = "owner_270";
+  let repo = "repo_270";
+  let branch = "branch_270";
+  createCommitSignatureProtection("owner_270", "repo_270", "branch_270");
+  tryToAddExistingCommitSignatureProtection("owner_270", "repo_270", "branch_270");
+  verifyCommitSignatureProtectionExists("owner_270", "repo_270", "branch_270");
+  deleteCommitSignatureProtection("owner_270", "repo_270", "branch_270");
+  tryToDeleteANonExistingCommitSignatureProtection("owner_270", "repo_270", "branch_270");
+  verifyCommitSignatureProtectionDoesNotExist("owner_270", "repo_270", "branch_270");
 });
 
 // Story: crud:CommitSignatureProtection:nondet:1:2
 bthread("crud:CommitSignatureProtection:nondet:1:2", function () {
-  let owner = "owner_281";
-  let repo = "repo_281";
-  let branch = "branch_281";
-  createCommitSignatureProtection("owner_281", "repo_281", "branch_281");
-  tryToAddExistingCommitSignatureProtection("owner_281", "repo_281", "branch_281");
-  verifyCommitSignatureProtectionExists("owner_281", "repo_281", "branch_281");
-  deleteCommitSignatureProtection("owner_281", "repo_281", "branch_281");
-  tryToDeleteANonExistingCommitSignatureProtection("owner_281", "repo_281", "branch_281");
-  verifyCommitSignatureProtectionDoesNotExist("owner_281", "repo_281", "branch_281");
+  let owner = "owner_271";
+  let repo = "repo_271";
+  let branch = "branch_271";
+  createCommitSignatureProtection("owner_271", "repo_271", "branch_271");
+  tryToAddExistingCommitSignatureProtection("owner_271", "repo_271", "branch_271");
+  verifyCommitSignatureProtectionExists("owner_271", "repo_271", "branch_271");
+  deleteCommitSignatureProtection("owner_271", "repo_271", "branch_271");
+  tryToDeleteANonExistingCommitSignatureProtection("owner_271", "repo_271", "branch_271");
+  verifyCommitSignatureProtectionDoesNotExist("owner_271", "repo_271", "branch_271");
 });
 
 // Story: crud:CommitSignatureProtection:nondet:negative:dup-add
 bthread("crud:CommitSignatureProtection:nondet:negative:dup-add", function () {
-  let owner = "owner_286";
-  let repo = "repo_286";
-  let branch = "branch_286";
-  createCommitSignatureProtection("owner_286", "repo_286", "branch_286");
-  verifyCommitSignatureProtectionExists("owner_286", "repo_286", "branch_286");
-  tryToAddExistingCommitSignatureProtection("owner_286", "repo_286", "branch_286");
-  verifyCommitSignatureProtectionExists("owner_286", "repo_286", "branch_286");
+  let owner = "owner_276";
+  let repo = "repo_276";
+  let branch = "branch_276";
+  createCommitSignatureProtection("owner_276", "repo_276", "branch_276");
+  verifyCommitSignatureProtectionExists("owner_276", "repo_276", "branch_276");
+  tryToAddExistingCommitSignatureProtection("owner_276", "repo_276", "branch_276");
+  verifyCommitSignatureProtectionExists("owner_276", "repo_276", "branch_276");
 });
 
 // Story: monitor:CommitSignatureProtection:add
@@ -312,47 +303,60 @@ bthread("monitor:CommitSignatureProtection:add", function () {
 
 // Story: crud:StatusCheckProtection:read_only
 bthread("crud:StatusCheckProtection:read_only", function () {
-  let owner = "owner_290";
-  let repo = "repo_290";
-  let branch = "branch_290";
-  verifyStatusCheckProtectionExists("owner_290", "repo_290", "branch_290");
+  let owner = "owner_280";
+  let repo = "repo_280";
+  let branch = "branch_280";
+  verifyStatusCheckProtectionExists("owner_280", "repo_280", "branch_280");
 });
 
 // Story: crud:StatusCheckContexts:nondet:1:1
 bthread("crud:StatusCheckContexts:nondet:1:1", function () {
-  let owner = "owner_300";
-  let repo = "repo_300";
-  let branch = "branch_300";
-  addStatusCheckContexts("owner_300", "repo_300", "branch_300");
-  tryToAddExistingStatusCheckContexts("owner_300", "repo_300", "branch_300");
-  verifyStatusCheckContextsExists("owner_300", "repo_300", "branch_300");
-  removeStatusCheckContexts("owner_300", "repo_300", "branch_300");
-  tryToDeleteANonExistingStatusCheckContexts("owner_300", "repo_300", "branch_300");
-  verifyStatusCheckContextsDoesNotExist("owner_300", "repo_300", "branch_300");
+  let owner = "owner_290";
+  let repo = "repo_290";
+  let branch = "branch_290";
+  addStatusCheckContexts("owner_290", "repo_290", "branch_290");
+  tryToAddExistingStatusCheckContexts("owner_290", "repo_290", "branch_290");
+  verifyStatusCheckContextsExists("owner_290", "repo_290", "branch_290");
+  setStatusCheckContexts("owner_290", "repo_290", "branch_290");
+  removeStatusCheckContexts("owner_290", "repo_290", "branch_290");
+  tryToDeleteANonExistingStatusCheckContexts("owner_290", "repo_290", "branch_290");
+  verifyStatusCheckContextsDoesNotExist("owner_290", "repo_290", "branch_290");
 });
 
 // Story: crud:StatusCheckContexts:nondet:1:2
 bthread("crud:StatusCheckContexts:nondet:1:2", function () {
-  let owner = "owner_301";
-  let repo = "repo_301";
-  let branch = "branch_301";
-  addStatusCheckContexts("owner_301", "repo_301", "branch_301");
-  tryToAddExistingStatusCheckContexts("owner_301", "repo_301", "branch_301");
-  verifyStatusCheckContextsExists("owner_301", "repo_301", "branch_301");
-  removeStatusCheckContexts("owner_301", "repo_301", "branch_301");
-  tryToDeleteANonExistingStatusCheckContexts("owner_301", "repo_301", "branch_301");
-  verifyStatusCheckContextsDoesNotExist("owner_301", "repo_301", "branch_301");
+  let owner = "owner_291";
+  let repo = "repo_291";
+  let branch = "branch_291";
+  addStatusCheckContexts("owner_291", "repo_291", "branch_291");
+  tryToAddExistingStatusCheckContexts("owner_291", "repo_291", "branch_291");
+  setStatusCheckContexts("owner_291", "repo_291", "branch_291");
+  verifyStatusCheckContextsExists("owner_291", "repo_291", "branch_291");
+  removeStatusCheckContexts("owner_291", "repo_291", "branch_291");
+  tryToDeleteANonExistingStatusCheckContexts("owner_291", "repo_291", "branch_291");
+  verifyStatusCheckContextsDoesNotExist("owner_291", "repo_291", "branch_291");
 });
 
 // Story: crud:StatusCheckContexts:nondet:negative:dup-add
 bthread("crud:StatusCheckContexts:nondet:negative:dup-add", function () {
-  let owner = "owner_306";
-  let repo = "repo_306";
-  let branch = "branch_306";
-  addStatusCheckContexts("owner_306", "repo_306", "branch_306");
-  verifyStatusCheckContextsExists("owner_306", "repo_306", "branch_306");
-  tryToAddExistingStatusCheckContexts("owner_306", "repo_306", "branch_306");
-  verifyStatusCheckContextsExists("owner_306", "repo_306", "branch_306");
+  let owner = "owner_296";
+  let repo = "repo_296";
+  let branch = "branch_296";
+  addStatusCheckContexts("owner_296", "repo_296", "branch_296");
+  verifyStatusCheckContextsExists("owner_296", "repo_296", "branch_296");
+  tryToAddExistingStatusCheckContexts("owner_296", "repo_296", "branch_296");
+  verifyStatusCheckContextsExists("owner_296", "repo_296", "branch_296");
+});
+
+// Story: crud:StatusCheckContexts:nondet:existing:update
+bthread("crud:StatusCheckContexts:nondet:existing:update", function () {
+  let ev = waitForAnyStatusCheckContextsAdded();
+  let args = Object.values(ev);
+  block(matchDeletedStatusCheckContexts.apply(null, args), function () {
+    verifyStatusCheckContextsExists.apply(null, args);
+    setStatusCheckContexts.apply(null, args);
+    verifyStatusCheckContextsExists.apply(null, args);
+  });
 });
 
 // Story: monitor:StatusCheckContexts:add
@@ -366,249 +370,241 @@ bthread("monitor:StatusCheckContexts:add", function () {
   }
 });
 
-// Story: crud:AccessRestrictions:read_only
-bthread("crud:AccessRestrictions:read_only", function () {
+// Story: crud:BranchProtectionRestrictions:read_only
+bthread("crud:BranchProtectionRestrictions:read_only", function () {
+  let owner = "owner_300";
+  let repo = "repo_300";
+  let branch = "branch_300";
+  verifyBranchProtectionRestrictionsExists("owner_300", "repo_300", "branch_300");
+});
+
+// Story: crud:BranchProtectionRestrictionsApps:nondet:1:1
+bthread("crud:BranchProtectionRestrictionsApps:nondet:1:1", function () {
   let owner = "owner_310";
   let repo = "repo_310";
   let branch = "branch_310";
-  verifyAccessRestrictionsExists("owner_310", "repo_310", "branch_310");
+  addAppAccessRestrictions("owner_310", "repo_310", "branch_310");
+  tryToAddExistingBranchProtectionRestrictionsApps("owner_310", "repo_310", "branch_310");
+  verifyBranchProtectionRestrictionsAppsExists("owner_310", "repo_310", "branch_310");
+  setAppAccessRestrictions("owner_310", "repo_310", "branch_310");
+  removeAppAccessRestrictions("owner_310", "repo_310", "branch_310");
+  tryToDeleteANonExistingBranchProtectionRestrictionsApps("owner_310", "repo_310", "branch_310");
+  verifyBranchProtectionRestrictionsAppsDoesNotExist("owner_310", "repo_310", "branch_310");
 });
 
-// Story: crud:AppAccessRestrictions:nondet:1:1
-bthread("crud:AppAccessRestrictions:nondet:1:1", function () {
+// Story: crud:BranchProtectionRestrictionsApps:nondet:1:2
+bthread("crud:BranchProtectionRestrictionsApps:nondet:1:2", function () {
+  let owner = "owner_311";
+  let repo = "repo_311";
+  let branch = "branch_311";
+  addAppAccessRestrictions("owner_311", "repo_311", "branch_311");
+  tryToAddExistingBranchProtectionRestrictionsApps("owner_311", "repo_311", "branch_311");
+  setAppAccessRestrictions("owner_311", "repo_311", "branch_311");
+  verifyBranchProtectionRestrictionsAppsExists("owner_311", "repo_311", "branch_311");
+  removeAppAccessRestrictions("owner_311", "repo_311", "branch_311");
+  tryToDeleteANonExistingBranchProtectionRestrictionsApps("owner_311", "repo_311", "branch_311");
+  verifyBranchProtectionRestrictionsAppsDoesNotExist("owner_311", "repo_311", "branch_311");
+});
+
+// Story: crud:BranchProtectionRestrictionsApps:nondet:negative:dup-add
+bthread("crud:BranchProtectionRestrictionsApps:nondet:negative:dup-add", function () {
+  let owner = "owner_316";
+  let repo = "repo_316";
+  let branch = "branch_316";
+  addAppAccessRestrictions("owner_316", "repo_316", "branch_316");
+  verifyBranchProtectionRestrictionsAppsExists("owner_316", "repo_316", "branch_316");
+  tryToAddExistingBranchProtectionRestrictionsApps("owner_316", "repo_316", "branch_316");
+  verifyBranchProtectionRestrictionsAppsExists("owner_316", "repo_316", "branch_316");
+});
+
+// Story: crud:BranchProtectionRestrictionsApps:nondet:existing:update
+bthread("crud:BranchProtectionRestrictionsApps:nondet:existing:update", function () {
+  let ev = waitForAnyBranchProtectionRestrictionsAppsAdded();
+  let args = Object.values(ev);
+  block(matchDeletedBranchProtectionRestrictionsApps.apply(null, args), function () {
+    verifyBranchProtectionRestrictionsAppsExists.apply(null, args);
+    setAppAccessRestrictions.apply(null, args);
+    verifyBranchProtectionRestrictionsAppsExists.apply(null, args);
+  });
+});
+
+// Story: monitor:BranchProtectionRestrictionsApps:add
+bthread("monitor:BranchProtectionRestrictionsApps:add", function () {
+  while (true) {
+    let ev = waitForAnyBranchProtectionRestrictionsAppsAdded();
+    let args = Object.values(ev);
+    block(matchDeletedBranchProtectionRestrictionsApps.apply(null, args), function () {
+      verifyBranchProtectionRestrictionsAppsExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:BranchProtectionRestrictionsTeams:nondet:1:1
+bthread("crud:BranchProtectionRestrictionsTeams:nondet:1:1", function () {
   let owner = "owner_320";
   let repo = "repo_320";
   let branch = "branch_320";
-  addAppAccessRestrictions("owner_320", "repo_320", "branch_320");
-  tryToAddExistingAppAccessRestrictions("owner_320", "repo_320", "branch_320");
-  verifyAppAccessRestrictionsExists("owner_320", "repo_320", "branch_320");
-  removeAppAccessRestrictions("owner_320", "repo_320", "branch_320");
-  tryToDeleteANonExistingAppAccessRestrictions("owner_320", "repo_320", "branch_320");
-  verifyAppAccessRestrictionsDoesNotExist("owner_320", "repo_320", "branch_320");
+  addTeamAccessRestrictions("owner_320", "repo_320", "branch_320");
+  tryToAddExistingBranchProtectionRestrictionsTeams("owner_320", "repo_320", "branch_320");
+  verifyBranchProtectionRestrictionsTeamsExists("owner_320", "repo_320", "branch_320");
+  setTeamAccessRestrictions("owner_320", "repo_320", "branch_320");
+  removeTeamAccessRestrictions("owner_320", "repo_320", "branch_320");
+  tryToDeleteANonExistingBranchProtectionRestrictionsTeams("owner_320", "repo_320", "branch_320");
+  verifyBranchProtectionRestrictionsTeamsDoesNotExist("owner_320", "repo_320", "branch_320");
 });
 
-// Story: crud:AppAccessRestrictions:nondet:1:2
-bthread("crud:AppAccessRestrictions:nondet:1:2", function () {
+// Story: crud:BranchProtectionRestrictionsTeams:nondet:1:2
+bthread("crud:BranchProtectionRestrictionsTeams:nondet:1:2", function () {
   let owner = "owner_321";
   let repo = "repo_321";
   let branch = "branch_321";
-  addAppAccessRestrictions("owner_321", "repo_321", "branch_321");
-  tryToAddExistingAppAccessRestrictions("owner_321", "repo_321", "branch_321");
-  verifyAppAccessRestrictionsExists("owner_321", "repo_321", "branch_321");
-  removeAppAccessRestrictions("owner_321", "repo_321", "branch_321");
-  tryToDeleteANonExistingAppAccessRestrictions("owner_321", "repo_321", "branch_321");
-  verifyAppAccessRestrictionsDoesNotExist("owner_321", "repo_321", "branch_321");
+  addTeamAccessRestrictions("owner_321", "repo_321", "branch_321");
+  tryToAddExistingBranchProtectionRestrictionsTeams("owner_321", "repo_321", "branch_321");
+  setTeamAccessRestrictions("owner_321", "repo_321", "branch_321");
+  verifyBranchProtectionRestrictionsTeamsExists("owner_321", "repo_321", "branch_321");
+  removeTeamAccessRestrictions("owner_321", "repo_321", "branch_321");
+  tryToDeleteANonExistingBranchProtectionRestrictionsTeams("owner_321", "repo_321", "branch_321");
+  verifyBranchProtectionRestrictionsTeamsDoesNotExist("owner_321", "repo_321", "branch_321");
 });
 
-// Story: crud:AppAccessRestrictions:nondet:negative:dup-add
-bthread("crud:AppAccessRestrictions:nondet:negative:dup-add", function () {
+// Story: crud:BranchProtectionRestrictionsTeams:nondet:negative:dup-add
+bthread("crud:BranchProtectionRestrictionsTeams:nondet:negative:dup-add", function () {
   let owner = "owner_326";
   let repo = "repo_326";
   let branch = "branch_326";
-  addAppAccessRestrictions("owner_326", "repo_326", "branch_326");
-  verifyAppAccessRestrictionsExists("owner_326", "repo_326", "branch_326");
-  tryToAddExistingAppAccessRestrictions("owner_326", "repo_326", "branch_326");
-  verifyAppAccessRestrictionsExists("owner_326", "repo_326", "branch_326");
+  addTeamAccessRestrictions("owner_326", "repo_326", "branch_326");
+  verifyBranchProtectionRestrictionsTeamsExists("owner_326", "repo_326", "branch_326");
+  tryToAddExistingBranchProtectionRestrictionsTeams("owner_326", "repo_326", "branch_326");
+  verifyBranchProtectionRestrictionsTeamsExists("owner_326", "repo_326", "branch_326");
 });
 
-// Story: monitor:AppAccessRestrictions:add
-bthread("monitor:AppAccessRestrictions:add", function () {
+// Story: crud:BranchProtectionRestrictionsTeams:nondet:existing:update
+bthread("crud:BranchProtectionRestrictionsTeams:nondet:existing:update", function () {
+  let ev = waitForAnyBranchProtectionRestrictionsTeamsAdded();
+  let args = Object.values(ev);
+  block(matchDeletedBranchProtectionRestrictionsTeams.apply(null, args), function () {
+    verifyBranchProtectionRestrictionsTeamsExists.apply(null, args);
+    setTeamAccessRestrictions.apply(null, args);
+    verifyBranchProtectionRestrictionsTeamsExists.apply(null, args);
+  });
+});
+
+// Story: monitor:BranchProtectionRestrictionsTeams:add
+bthread("monitor:BranchProtectionRestrictionsTeams:add", function () {
   while (true) {
-    let ev = waitForAnyAppAccessRestrictionsAdded();
+    let ev = waitForAnyBranchProtectionRestrictionsTeamsAdded();
     let args = Object.values(ev);
-    block(matchDeletedAppAccessRestrictions.apply(null, args), function () {
-      verifyAppAccessRestrictionsExists.apply(null, args);
+    block(matchDeletedBranchProtectionRestrictionsTeams.apply(null, args), function () {
+      verifyBranchProtectionRestrictionsTeamsExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:TeamAccessRestrictions:nondet:1:1
-bthread("crud:TeamAccessRestrictions:nondet:1:1", function () {
+// Story: crud:BranchProtectionRestrictionsUsers:nondet:1:1
+bthread("crud:BranchProtectionRestrictionsUsers:nondet:1:1", function () {
   let owner = "owner_330";
   let repo = "repo_330";
   let branch = "branch_330";
-  addTeamAccessRestrictions("owner_330", "repo_330", "branch_330");
-  tryToAddExistingTeamAccessRestrictions("owner_330", "repo_330", "branch_330");
-  verifyTeamAccessRestrictionsExists("owner_330", "repo_330", "branch_330");
-  removeTeamAccessRestrictions("owner_330", "repo_330", "branch_330");
-  tryToDeleteANonExistingTeamAccessRestrictions("owner_330", "repo_330", "branch_330");
-  verifyTeamAccessRestrictionsDoesNotExist("owner_330", "repo_330", "branch_330");
+  addUserAccessRestrictions("owner_330", "repo_330", "branch_330");
+  tryToAddExistingBranchProtectionRestrictionsUsers("owner_330", "repo_330", "branch_330");
+  verifyBranchProtectionRestrictionsUsersExists("owner_330", "repo_330", "branch_330");
+  setUserAccessRestrictions("owner_330", "repo_330", "branch_330");
+  removeUserAccessRestrictions("owner_330", "repo_330", "branch_330");
+  tryToDeleteANonExistingBranchProtectionRestrictionsUsers("owner_330", "repo_330", "branch_330");
+  verifyBranchProtectionRestrictionsUsersDoesNotExist("owner_330", "repo_330", "branch_330");
 });
 
-// Story: crud:TeamAccessRestrictions:nondet:1:2
-bthread("crud:TeamAccessRestrictions:nondet:1:2", function () {
+// Story: crud:BranchProtectionRestrictionsUsers:nondet:1:2
+bthread("crud:BranchProtectionRestrictionsUsers:nondet:1:2", function () {
   let owner = "owner_331";
   let repo = "repo_331";
   let branch = "branch_331";
-  addTeamAccessRestrictions("owner_331", "repo_331", "branch_331");
-  tryToAddExistingTeamAccessRestrictions("owner_331", "repo_331", "branch_331");
-  verifyTeamAccessRestrictionsExists("owner_331", "repo_331", "branch_331");
-  removeTeamAccessRestrictions("owner_331", "repo_331", "branch_331");
-  tryToDeleteANonExistingTeamAccessRestrictions("owner_331", "repo_331", "branch_331");
-  verifyTeamAccessRestrictionsDoesNotExist("owner_331", "repo_331", "branch_331");
+  addUserAccessRestrictions("owner_331", "repo_331", "branch_331");
+  tryToAddExistingBranchProtectionRestrictionsUsers("owner_331", "repo_331", "branch_331");
+  setUserAccessRestrictions("owner_331", "repo_331", "branch_331");
+  verifyBranchProtectionRestrictionsUsersExists("owner_331", "repo_331", "branch_331");
+  removeUserAccessRestrictions("owner_331", "repo_331", "branch_331");
+  tryToDeleteANonExistingBranchProtectionRestrictionsUsers("owner_331", "repo_331", "branch_331");
+  verifyBranchProtectionRestrictionsUsersDoesNotExist("owner_331", "repo_331", "branch_331");
 });
 
-// Story: crud:TeamAccessRestrictions:nondet:negative:dup-add
-bthread("crud:TeamAccessRestrictions:nondet:negative:dup-add", function () {
+// Story: crud:BranchProtectionRestrictionsUsers:nondet:negative:dup-add
+bthread("crud:BranchProtectionRestrictionsUsers:nondet:negative:dup-add", function () {
   let owner = "owner_336";
   let repo = "repo_336";
   let branch = "branch_336";
-  addTeamAccessRestrictions("owner_336", "repo_336", "branch_336");
-  verifyTeamAccessRestrictionsExists("owner_336", "repo_336", "branch_336");
-  tryToAddExistingTeamAccessRestrictions("owner_336", "repo_336", "branch_336");
-  verifyTeamAccessRestrictionsExists("owner_336", "repo_336", "branch_336");
+  addUserAccessRestrictions("owner_336", "repo_336", "branch_336");
+  verifyBranchProtectionRestrictionsUsersExists("owner_336", "repo_336", "branch_336");
+  tryToAddExistingBranchProtectionRestrictionsUsers("owner_336", "repo_336", "branch_336");
+  verifyBranchProtectionRestrictionsUsersExists("owner_336", "repo_336", "branch_336");
 });
 
-// Story: monitor:TeamAccessRestrictions:add
-bthread("monitor:TeamAccessRestrictions:add", function () {
+// Story: crud:BranchProtectionRestrictionsUsers:nondet:existing:update
+bthread("crud:BranchProtectionRestrictionsUsers:nondet:existing:update", function () {
+  let ev = waitForAnyBranchProtectionRestrictionsUsersAdded();
+  let args = Object.values(ev);
+  block(matchDeletedBranchProtectionRestrictionsUsers.apply(null, args), function () {
+    verifyBranchProtectionRestrictionsUsersExists.apply(null, args);
+    setUserAccessRestrictions.apply(null, args);
+    verifyBranchProtectionRestrictionsUsersExists.apply(null, args);
+  });
+});
+
+// Story: monitor:BranchProtectionRestrictionsUsers:add
+bthread("monitor:BranchProtectionRestrictionsUsers:add", function () {
   while (true) {
-    let ev = waitForAnyTeamAccessRestrictionsAdded();
+    let ev = waitForAnyBranchProtectionRestrictionsUsersAdded();
     let args = Object.values(ev);
-    block(matchDeletedTeamAccessRestrictions.apply(null, args), function () {
-      verifyTeamAccessRestrictionsExists.apply(null, args);
+    block(matchDeletedBranchProtectionRestrictionsUsers.apply(null, args), function () {
+      verifyBranchProtectionRestrictionsUsersExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:UserAccessRestrictions:nondet:1:1
-bthread("crud:UserAccessRestrictions:nondet:1:1", function () {
+// Story: crud:Branch:read_only
+bthread("crud:Branch:read_only", function () {
   let owner = "owner_340";
   let repo = "repo_340";
   let branch = "branch_340";
-  addUserAccessRestrictions("owner_340", "repo_340", "branch_340");
-  tryToAddExistingUserAccessRestrictions("owner_340", "repo_340", "branch_340");
-  verifyUserAccessRestrictionsExists("owner_340", "repo_340", "branch_340");
-  removeUserAccessRestrictions("owner_340", "repo_340", "branch_340");
-  tryToDeleteANonExistingUserAccessRestrictions("owner_340", "repo_340", "branch_340");
-  verifyUserAccessRestrictionsDoesNotExist("owner_340", "repo_340", "branch_340");
-});
-
-// Story: crud:UserAccessRestrictions:nondet:1:2
-bthread("crud:UserAccessRestrictions:nondet:1:2", function () {
-  let owner = "owner_341";
-  let repo = "repo_341";
-  let branch = "branch_341";
-  addUserAccessRestrictions("owner_341", "repo_341", "branch_341");
-  tryToAddExistingUserAccessRestrictions("owner_341", "repo_341", "branch_341");
-  verifyUserAccessRestrictionsExists("owner_341", "repo_341", "branch_341");
-  removeUserAccessRestrictions("owner_341", "repo_341", "branch_341");
-  tryToDeleteANonExistingUserAccessRestrictions("owner_341", "repo_341", "branch_341");
-  verifyUserAccessRestrictionsDoesNotExist("owner_341", "repo_341", "branch_341");
-});
-
-// Story: crud:UserAccessRestrictions:nondet:negative:dup-add
-bthread("crud:UserAccessRestrictions:nondet:negative:dup-add", function () {
-  let owner = "owner_346";
-  let repo = "repo_346";
-  let branch = "branch_346";
-  addUserAccessRestrictions("owner_346", "repo_346", "branch_346");
-  verifyUserAccessRestrictionsExists("owner_346", "repo_346", "branch_346");
-  tryToAddExistingUserAccessRestrictions("owner_346", "repo_346", "branch_346");
-  verifyUserAccessRestrictionsExists("owner_346", "repo_346", "branch_346");
-});
-
-// Story: monitor:UserAccessRestrictions:add
-bthread("monitor:UserAccessRestrictions:add", function () {
-  while (true) {
-    let ev = waitForAnyUserAccessRestrictionsAdded();
-    let args = Object.values(ev);
-    block(matchDeletedUserAccessRestrictions.apply(null, args), function () {
-      verifyUserAccessRestrictionsExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:CommitComment:read_only
-bthread("crud:CommitComment:read_only", function () {
-  let owner = "owner_350";
-  let repo = "repo_350";
-  let comment_id = 350;
-  verifyCommitCommentExists("owner_350", "repo_350", 350);
-});
-
-// Story: crud:DeployKey:nondet:1:1
-bthread("crud:DeployKey:nondet:1:1", function () {
-  let owner = "owner_380";
-  let repo = "repo_380";
-  let key_id = 380;
-  createDeployKey("owner_380", "repo_380", 380);
-  tryToAddExistingDeployKey("owner_380", "repo_380", 380);
-  verifyDeployKeyExists("owner_380", "repo_380", 380);
-  deleteDeployKey("owner_380", "repo_380", 380);
-  tryToDeleteANonExistingDeployKey("owner_380", "repo_380", 380);
-  verifyDeployKeyDoesNotExist("owner_380", "repo_380", 380);
-});
-
-// Story: crud:DeployKey:nondet:1:2
-bthread("crud:DeployKey:nondet:1:2", function () {
-  let owner = "owner_381";
-  let repo = "repo_381";
-  let key_id = 381;
-  createDeployKey("owner_381", "repo_381", 381);
-  tryToAddExistingDeployKey("owner_381", "repo_381", 381);
-  verifyDeployKeyExists("owner_381", "repo_381", 381);
-  deleteDeployKey("owner_381", "repo_381", 381);
-  tryToDeleteANonExistingDeployKey("owner_381", "repo_381", 381);
-  verifyDeployKeyDoesNotExist("owner_381", "repo_381", 381);
-});
-
-// Story: crud:DeployKey:nondet:negative:dup-add
-bthread("crud:DeployKey:nondet:negative:dup-add", function () {
-  let owner = "owner_386";
-  let repo = "repo_386";
-  let key_id = 386;
-  createDeployKey("owner_386", "repo_386", 386);
-  verifyDeployKeyExists("owner_386", "repo_386", 386);
-  tryToAddExistingDeployKey("owner_386", "repo_386", 386);
-  verifyDeployKeyExists("owner_386", "repo_386", 386);
-});
-
-// Story: monitor:DeployKey:add
-bthread("monitor:DeployKey:add", function () {
-  while (true) {
-    let ev = waitForAnyDeployKeyAdded();
-    let args = Object.values(ev);
-    block(matchDeletedDeployKey.apply(null, args), function () {
-      verifyDeployKeyExists.apply(null, args);
-    });
-  }
+  let new_name = "new_name_340";
+  verifyBranchExists("owner_340", "repo_340", "branch_340", "new_name_340");
 });
 
 // Story: crud:Collaborator:nondet:1:1
 bthread("crud:Collaborator:nondet:1:1", function () {
-  let owner = "owner_390";
-  let repo = "repo_390";
-  let username = "username_390";
-  addCollaborator("owner_390", "repo_390", "username_390");
-  tryToAddExistingCollaborator("owner_390", "repo_390", "username_390");
-  verifyCollaboratorExists("owner_390", "repo_390", "username_390");
-  removeCollaborator("owner_390", "repo_390", "username_390");
-  tryToDeleteANonExistingCollaborator("owner_390", "repo_390", "username_390");
-  verifyCollaboratorDoesNotExist("owner_390", "repo_390", "username_390");
+  let owner = "owner_350";
+  let repo = "repo_350";
+  let username = "username_350";
+  addCollaborator("owner_350", "repo_350", "username_350");
+  tryToAddExistingCollaborator("owner_350", "repo_350", "username_350");
+  verifyCollaboratorExists("owner_350", "repo_350", "username_350");
+  removeCollaborator("owner_350", "repo_350", "username_350");
+  tryToDeleteANonExistingCollaborator("owner_350", "repo_350", "username_350");
+  verifyCollaboratorDoesNotExist("owner_350", "repo_350", "username_350");
 });
 
 // Story: crud:Collaborator:nondet:1:2
 bthread("crud:Collaborator:nondet:1:2", function () {
-  let owner = "owner_391";
-  let repo = "repo_391";
-  let username = "username_391";
-  addCollaborator("owner_391", "repo_391", "username_391");
-  tryToAddExistingCollaborator("owner_391", "repo_391", "username_391");
-  verifyCollaboratorExists("owner_391", "repo_391", "username_391");
-  removeCollaborator("owner_391", "repo_391", "username_391");
-  tryToDeleteANonExistingCollaborator("owner_391", "repo_391", "username_391");
-  verifyCollaboratorDoesNotExist("owner_391", "repo_391", "username_391");
+  let owner = "owner_351";
+  let repo = "repo_351";
+  let username = "username_351";
+  addCollaborator("owner_351", "repo_351", "username_351");
+  tryToAddExistingCollaborator("owner_351", "repo_351", "username_351");
+  verifyCollaboratorExists("owner_351", "repo_351", "username_351");
+  removeCollaborator("owner_351", "repo_351", "username_351");
+  tryToDeleteANonExistingCollaborator("owner_351", "repo_351", "username_351");
+  verifyCollaboratorDoesNotExist("owner_351", "repo_351", "username_351");
 });
 
 // Story: crud:Collaborator:nondet:negative:dup-add
 bthread("crud:Collaborator:nondet:negative:dup-add", function () {
-  let owner = "owner_396";
-  let repo = "repo_396";
-  let username = "username_396";
-  addCollaborator("owner_396", "repo_396", "username_396");
-  verifyCollaboratorExists("owner_396", "repo_396", "username_396");
-  tryToAddExistingCollaborator("owner_396", "repo_396", "username_396");
-  verifyCollaboratorExists("owner_396", "repo_396", "username_396");
+  let owner = "owner_356";
+  let repo = "repo_356";
+  let username = "username_356";
+  addCollaborator("owner_356", "repo_356", "username_356");
+  verifyCollaboratorExists("owner_356", "repo_356", "username_356");
+  tryToAddExistingCollaborator("owner_356", "repo_356", "username_356");
+  verifyCollaboratorExists("owner_356", "repo_356", "username_356");
 });
 
 // Story: monitor:Collaborator:add
@@ -622,49 +618,49 @@ bthread("monitor:Collaborator:add", function () {
   }
 });
 
-// Story: crud:CollaboratorPermission:read_only
-bthread("crud:CollaboratorPermission:read_only", function () {
-  let owner = "owner_400";
-  let repo = "repo_400";
-  let username = "username_400";
-  verifyCollaboratorPermissionExists("owner_400", "repo_400", "username_400");
+// Story: crud:CommitComment:read_only
+bthread("crud:CommitComment:read_only", function () {
+  let owner = "owner_360";
+  let repo = "repo_360";
+  let comment_id = 360;
+  verifyCommitCommentExists("owner_360", "repo_360", 360);
 });
 
 // Story: crud:Deployment:nondet:1:1
 bthread("crud:Deployment:nondet:1:1", function () {
-  let owner = "owner_410";
-  let repo = "repo_410";
-  let deployment_id = 410;
-  createDeployment("owner_410", "repo_410", 410);
-  tryToAddExistingDeployment("owner_410", "repo_410", 410);
-  verifyDeploymentExists("owner_410", "repo_410", 410);
-  deleteDeployment("owner_410", "repo_410", 410);
-  tryToDeleteANonExistingDeployment("owner_410", "repo_410", 410);
-  verifyDeploymentDoesNotExist("owner_410", "repo_410", 410);
+  let owner = "owner_370";
+  let repo = "repo_370";
+  let deployment_id = 370;
+  createDeployment("owner_370", "repo_370", 370);
+  tryToAddExistingDeployment("owner_370", "repo_370", 370);
+  verifyDeploymentExists("owner_370", "repo_370", 370);
+  deleteDeployment("owner_370", "repo_370", 370);
+  tryToDeleteANonExistingDeployment("owner_370", "repo_370", 370);
+  verifyDeploymentDoesNotExist("owner_370", "repo_370", 370);
 });
 
 // Story: crud:Deployment:nondet:1:2
 bthread("crud:Deployment:nondet:1:2", function () {
-  let owner = "owner_411";
-  let repo = "repo_411";
-  let deployment_id = 411;
-  createDeployment("owner_411", "repo_411", 411);
-  tryToAddExistingDeployment("owner_411", "repo_411", 411);
-  verifyDeploymentExists("owner_411", "repo_411", 411);
-  deleteDeployment("owner_411", "repo_411", 411);
-  tryToDeleteANonExistingDeployment("owner_411", "repo_411", 411);
-  verifyDeploymentDoesNotExist("owner_411", "repo_411", 411);
+  let owner = "owner_371";
+  let repo = "repo_371";
+  let deployment_id = 371;
+  createDeployment("owner_371", "repo_371", 371);
+  tryToAddExistingDeployment("owner_371", "repo_371", 371);
+  verifyDeploymentExists("owner_371", "repo_371", 371);
+  deleteDeployment("owner_371", "repo_371", 371);
+  tryToDeleteANonExistingDeployment("owner_371", "repo_371", 371);
+  verifyDeploymentDoesNotExist("owner_371", "repo_371", 371);
 });
 
 // Story: crud:Deployment:nondet:negative:dup-add
 bthread("crud:Deployment:nondet:negative:dup-add", function () {
-  let owner = "owner_416";
-  let repo = "repo_416";
-  let deployment_id = 416;
-  createDeployment("owner_416", "repo_416", 416);
-  verifyDeploymentExists("owner_416", "repo_416", 416);
-  tryToAddExistingDeployment("owner_416", "repo_416", 416);
-  verifyDeploymentExists("owner_416", "repo_416", 416);
+  let owner = "owner_376";
+  let repo = "repo_376";
+  let deployment_id = 376;
+  createDeployment("owner_376", "repo_376", 376);
+  verifyDeploymentExists("owner_376", "repo_376", 376);
+  tryToAddExistingDeployment("owner_376", "repo_376", 376);
+  verifyDeploymentExists("owner_376", "repo_376", 376);
 });
 
 // Story: monitor:Deployment:add
@@ -680,11 +676,176 @@ bthread("monitor:Deployment:add", function () {
 
 // Story: crud:DeploymentStatus:read_only
 bthread("crud:DeploymentStatus:read_only", function () {
+  let owner = "owner_380";
+  let repo = "repo_380";
+  let deployment_id = 380;
+  let status_id = 380;
+  verifyDeploymentStatusExists("owner_380", "repo_380", 380, 380);
+});
+
+// Story: crud:Release:nondet:1:1
+bthread("crud:Release:nondet:1:1", function () {
+  let owner = "owner_390";
+  let repo = "repo_390";
+  let release_id = 390;
+  createRelease("owner_390", "repo_390", 390);
+  tryToAddExistingRelease("owner_390", "repo_390", 390);
+  verifyReleaseExists("owner_390", "repo_390", 390);
+  updateRelease("owner_390", "repo_390", 390);
+  deleteRelease("owner_390", "repo_390", 390);
+  tryToDeleteANonExistingRelease("owner_390", "repo_390", 390);
+  verifyReleaseDoesNotExist("owner_390", "repo_390", 390);
+});
+
+// Story: crud:Release:nondet:1:2
+bthread("crud:Release:nondet:1:2", function () {
+  let owner = "owner_391";
+  let repo = "repo_391";
+  let release_id = 391;
+  createRelease("owner_391", "repo_391", 391);
+  tryToAddExistingRelease("owner_391", "repo_391", 391);
+  updateRelease("owner_391", "repo_391", 391);
+  verifyReleaseExists("owner_391", "repo_391", 391);
+  deleteRelease("owner_391", "repo_391", 391);
+  tryToDeleteANonExistingRelease("owner_391", "repo_391", 391);
+  verifyReleaseDoesNotExist("owner_391", "repo_391", 391);
+});
+
+// Story: crud:Release:nondet:negative:dup-add
+bthread("crud:Release:nondet:negative:dup-add", function () {
+  let owner = "owner_396";
+  let repo = "repo_396";
+  let release_id = 396;
+  createRelease("owner_396", "repo_396", 396);
+  verifyReleaseExists("owner_396", "repo_396", 396);
+  tryToAddExistingRelease("owner_396", "repo_396", 396);
+  verifyReleaseExists("owner_396", "repo_396", 396);
+});
+
+// Story: crud:Release:nondet:existing:update
+bthread("crud:Release:nondet:existing:update", function () {
+  let ev = waitForAnyReleaseAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRelease.apply(null, args), function () {
+    verifyReleaseExists.apply(null, args);
+    updateRelease.apply(null, args);
+    verifyReleaseExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Release:add
+bthread("monitor:Release:add", function () {
+  while (true) {
+    let ev = waitForAnyReleaseAdded();
+    let args = Object.values(ev);
+    block(matchDeletedRelease.apply(null, args), function () {
+      verifyReleaseExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:ReleaseAsset:read_only
+bthread("crud:ReleaseAsset:read_only", function () {
+  let owner = "owner_400";
+  let repo = "repo_400";
+  let asset_id = 400;
+  verifyReleaseAssetExists("owner_400", "repo_400", 400);
+});
+
+// Story: crud:Autolink:nondet:1:1
+bthread("crud:Autolink:nondet:1:1", function () {
+  let owner = "owner_410";
+  let repo = "repo_410";
+  let autolink_id = 410;
+  createAutolink("owner_410", "repo_410", 410);
+  tryToAddExistingAutolink("owner_410", "repo_410", 410);
+  verifyAutolinkExists("owner_410", "repo_410", 410);
+  deleteAutolink("owner_410", "repo_410", 410);
+  tryToDeleteANonExistingAutolink("owner_410", "repo_410", 410);
+  verifyAutolinkDoesNotExist("owner_410", "repo_410", 410);
+});
+
+// Story: crud:Autolink:nondet:1:2
+bthread("crud:Autolink:nondet:1:2", function () {
+  let owner = "owner_411";
+  let repo = "repo_411";
+  let autolink_id = 411;
+  createAutolink("owner_411", "repo_411", 411);
+  tryToAddExistingAutolink("owner_411", "repo_411", 411);
+  verifyAutolinkExists("owner_411", "repo_411", 411);
+  deleteAutolink("owner_411", "repo_411", 411);
+  tryToDeleteANonExistingAutolink("owner_411", "repo_411", 411);
+  verifyAutolinkDoesNotExist("owner_411", "repo_411", 411);
+});
+
+// Story: crud:Autolink:nondet:negative:dup-add
+bthread("crud:Autolink:nondet:negative:dup-add", function () {
+  let owner = "owner_416";
+  let repo = "repo_416";
+  let autolink_id = 416;
+  createAutolink("owner_416", "repo_416", 416);
+  verifyAutolinkExists("owner_416", "repo_416", 416);
+  tryToAddExistingAutolink("owner_416", "repo_416", 416);
+  verifyAutolinkExists("owner_416", "repo_416", 416);
+});
+
+// Story: monitor:Autolink:add
+bthread("monitor:Autolink:add", function () {
+  while (true) {
+    let ev = waitForAnyAutolinkAdded();
+    let args = Object.values(ev);
+    block(matchDeletedAutolink.apply(null, args), function () {
+      verifyAutolinkExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:DeployKey:nondet:1:1
+bthread("crud:DeployKey:nondet:1:1", function () {
   let owner = "owner_420";
   let repo = "repo_420";
-  let deployment_id = 420;
-  let status_id = 420;
-  verifyDeploymentStatusExists("owner_420", "repo_420", 420, 420);
+  let key_id = 420;
+  createDeployKey("owner_420", "repo_420", 420);
+  tryToAddExistingDeployKey("owner_420", "repo_420", 420);
+  verifyDeployKeyExists("owner_420", "repo_420", 420);
+  deleteDeployKey("owner_420", "repo_420", 420);
+  tryToDeleteANonExistingDeployKey("owner_420", "repo_420", 420);
+  verifyDeployKeyDoesNotExist("owner_420", "repo_420", 420);
+});
+
+// Story: crud:DeployKey:nondet:1:2
+bthread("crud:DeployKey:nondet:1:2", function () {
+  let owner = "owner_421";
+  let repo = "repo_421";
+  let key_id = 421;
+  createDeployKey("owner_421", "repo_421", 421);
+  tryToAddExistingDeployKey("owner_421", "repo_421", 421);
+  verifyDeployKeyExists("owner_421", "repo_421", 421);
+  deleteDeployKey("owner_421", "repo_421", 421);
+  tryToDeleteANonExistingDeployKey("owner_421", "repo_421", 421);
+  verifyDeployKeyDoesNotExist("owner_421", "repo_421", 421);
+});
+
+// Story: crud:DeployKey:nondet:negative:dup-add
+bthread("crud:DeployKey:nondet:negative:dup-add", function () {
+  let owner = "owner_426";
+  let repo = "repo_426";
+  let key_id = 426;
+  createDeployKey("owner_426", "repo_426", 426);
+  verifyDeployKeyExists("owner_426", "repo_426", 426);
+  tryToAddExistingDeployKey("owner_426", "repo_426", 426);
+  verifyDeployKeyExists("owner_426", "repo_426", 426);
+});
+
+// Story: monitor:DeployKey:add
+bthread("monitor:DeployKey:add", function () {
+  while (true) {
+    let ev = waitForAnyDeployKeyAdded();
+    let args = Object.values(ev);
+    block(matchDeletedDeployKey.apply(null, args), function () {
+      verifyDeployKeyExists.apply(null, args);
+    });
+  }
 });
 
 // Story: crud:Environment:nondet:1:1
@@ -853,37 +1014,43 @@ bthread("monitor:DeploymentProtectionRule:add", function () {
 // Story: crud:Webhook:nondet:1:1
 bthread("crud:Webhook:nondet:1:1", function () {
   let org = "org_470";
+  let owner = "owner_470";
+  let repo = "repo_470";
   let hook_id = 470;
-  createWebhook("org_470", 470);
-  tryToAddExistingWebhook("org_470", 470);
-  verifyWebhookExists("org_470", 470);
-  updateWebhook("org_470", 470);
-  deleteWebhook("org_470", 470);
-  tryToDeleteANonExistingWebhook("org_470", 470);
-  verifyWebhookDoesNotExist("org_470", 470);
+  createWebhook("org_470", "owner_470", "repo_470", 470);
+  tryToAddExistingWebhook("org_470", "owner_470", "repo_470", 470);
+  verifyWebhookExists("org_470", "owner_470", "repo_470", 470);
+  updateWebhook("org_470", "owner_470", "repo_470", 470);
+  deleteWebhook("org_470", "owner_470", "repo_470", 470);
+  tryToDeleteANonExistingWebhook("org_470", "owner_470", "repo_470", 470);
+  verifyWebhookDoesNotExist("org_470", "owner_470", "repo_470", 470);
 });
 
 // Story: crud:Webhook:nondet:1:2
 bthread("crud:Webhook:nondet:1:2", function () {
   let org = "org_471";
+  let owner = "owner_471";
+  let repo = "repo_471";
   let hook_id = 471;
-  createWebhook("org_471", 471);
-  tryToAddExistingWebhook("org_471", 471);
-  updateWebhook("org_471", 471);
-  verifyWebhookExists("org_471", 471);
-  deleteWebhook("org_471", 471);
-  tryToDeleteANonExistingWebhook("org_471", 471);
-  verifyWebhookDoesNotExist("org_471", 471);
+  createWebhook("org_471", "owner_471", "repo_471", 471);
+  tryToAddExistingWebhook("org_471", "owner_471", "repo_471", 471);
+  updateWebhook("org_471", "owner_471", "repo_471", 471);
+  verifyWebhookExists("org_471", "owner_471", "repo_471", 471);
+  deleteWebhook("org_471", "owner_471", "repo_471", 471);
+  tryToDeleteANonExistingWebhook("org_471", "owner_471", "repo_471", 471);
+  verifyWebhookDoesNotExist("org_471", "owner_471", "repo_471", 471);
 });
 
 // Story: crud:Webhook:nondet:negative:dup-add
 bthread("crud:Webhook:nondet:negative:dup-add", function () {
   let org = "org_476";
+  let owner = "owner_476";
+  let repo = "repo_476";
   let hook_id = 476;
-  createWebhook("org_476", 476);
-  verifyWebhookExists("org_476", 476);
-  tryToAddExistingWebhook("org_476", 476);
-  verifyWebhookExists("org_476", 476);
+  createWebhook("org_476", "owner_476", "repo_476", 476);
+  verifyWebhookExists("org_476", "owner_476", "repo_476", 476);
+  tryToAddExistingWebhook("org_476", "owner_476", "repo_476", 476);
+  verifyWebhookExists("org_476", "owner_476", "repo_476", 476);
 });
 
 // Story: crud:Webhook:nondet:existing:update
@@ -925,270 +1092,54 @@ bthread("crud:WebhookDelivery:read_only", function () {
   verifyWebhookDeliveryExists("org_490", 490, 490, "owner_490", "repo_490");
 });
 
-// Story: crud:Release:nondet:1:1
-bthread("crud:Release:nondet:1:1", function () {
-  let owner = "owner_520";
-  let repo = "repo_520";
-  let release_id = 520;
-  createRelease("owner_520", "repo_520", 520);
-  tryToAddExistingRelease("owner_520", "repo_520", 520);
-  verifyReleaseExists("owner_520", "repo_520", 520);
-  updateRelease("owner_520", "repo_520", 520);
-  deleteRelease("owner_520", "repo_520", 520);
-  tryToDeleteANonExistingRelease("owner_520", "repo_520", 520);
-  verifyReleaseDoesNotExist("owner_520", "repo_520", 520);
-});
-
-// Story: crud:Release:nondet:1:2
-bthread("crud:Release:nondet:1:2", function () {
-  let owner = "owner_521";
-  let repo = "repo_521";
-  let release_id = 521;
-  createRelease("owner_521", "repo_521", 521);
-  tryToAddExistingRelease("owner_521", "repo_521", 521);
-  updateRelease("owner_521", "repo_521", 521);
-  verifyReleaseExists("owner_521", "repo_521", 521);
-  deleteRelease("owner_521", "repo_521", 521);
-  tryToDeleteANonExistingRelease("owner_521", "repo_521", 521);
-  verifyReleaseDoesNotExist("owner_521", "repo_521", 521);
-});
-
-// Story: crud:Release:nondet:negative:dup-add
-bthread("crud:Release:nondet:negative:dup-add", function () {
-  let owner = "owner_526";
-  let repo = "repo_526";
-  let release_id = 526;
-  createRelease("owner_526", "repo_526", 526);
-  verifyReleaseExists("owner_526", "repo_526", 526);
-  tryToAddExistingRelease("owner_526", "repo_526", 526);
-  verifyReleaseExists("owner_526", "repo_526", 526);
-});
-
-// Story: crud:Release:nondet:existing:update
-bthread("crud:Release:nondet:existing:update", function () {
-  let ev = waitForAnyReleaseAdded();
-  let args = Object.values(ev);
-  block(matchDeletedRelease.apply(null, args), function () {
-    verifyReleaseExists.apply(null, args);
-    updateRelease.apply(null, args);
-    verifyReleaseExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Release:add
-bthread("monitor:Release:add", function () {
-  while (true) {
-    let ev = waitForAnyReleaseAdded();
-    let args = Object.values(ev);
-    block(matchDeletedRelease.apply(null, args), function () {
-      verifyReleaseExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:ReleaseAsset:nondet:1:1
-bthread("crud:ReleaseAsset:nondet:1:1", function () {
-  let owner = "owner_530";
-  let repo = "repo_530";
-  let release_id = 530;
-  let name = "name_530";
-  let asset_id = 530;
-  uploadReleaseAsset("owner_530", "repo_530", 530, "name_530", 530);
-  tryToAddExistingReleaseAsset("owner_530", "repo_530", 530, "name_530", 530);
-  verifyReleaseAssetExists("owner_530", "repo_530", 530, "name_530", 530);
-  updateReleaseAsset("owner_530", "repo_530", 530, "name_530", 530);
-  deleteReleaseAsset("owner_530", "repo_530", 530, "name_530", 530);
-  tryToDeleteANonExistingReleaseAsset("owner_530", "repo_530", 530, "name_530", 530);
-  verifyReleaseAssetDoesNotExist("owner_530", "repo_530", 530, "name_530", 530);
-});
-
-// Story: crud:ReleaseAsset:nondet:1:2
-bthread("crud:ReleaseAsset:nondet:1:2", function () {
-  let owner = "owner_531";
-  let repo = "repo_531";
-  let release_id = 531;
-  let name = "name_531";
-  let asset_id = 531;
-  uploadReleaseAsset("owner_531", "repo_531", 531, "name_531", 531);
-  tryToAddExistingReleaseAsset("owner_531", "repo_531", 531, "name_531", 531);
-  updateReleaseAsset("owner_531", "repo_531", 531, "name_531", 531);
-  verifyReleaseAssetExists("owner_531", "repo_531", 531, "name_531", 531);
-  deleteReleaseAsset("owner_531", "repo_531", 531, "name_531", 531);
-  tryToDeleteANonExistingReleaseAsset("owner_531", "repo_531", 531, "name_531", 531);
-  verifyReleaseAssetDoesNotExist("owner_531", "repo_531", 531, "name_531", 531);
-});
-
-// Story: crud:ReleaseAsset:nondet:negative:dup-add
-bthread("crud:ReleaseAsset:nondet:negative:dup-add", function () {
-  let owner = "owner_536";
-  let repo = "repo_536";
-  let release_id = 536;
-  let name = "name_536";
-  let asset_id = 536;
-  uploadReleaseAsset("owner_536", "repo_536", 536, "name_536", 536);
-  verifyReleaseAssetExists("owner_536", "repo_536", 536, "name_536", 536);
-  tryToAddExistingReleaseAsset("owner_536", "repo_536", 536, "name_536", 536);
-  verifyReleaseAssetExists("owner_536", "repo_536", 536, "name_536", 536);
-});
-
-// Story: crud:ReleaseAsset:nondet:existing:update
-bthread("crud:ReleaseAsset:nondet:existing:update", function () {
-  let ev = waitForAnyReleaseAssetAdded();
-  let args = Object.values(ev);
-  block(matchDeletedReleaseAsset.apply(null, args), function () {
-    verifyReleaseAssetExists.apply(null, args);
-    updateReleaseAsset.apply(null, args);
-    verifyReleaseAssetExists.apply(null, args);
-  });
-});
-
-// Story: monitor:ReleaseAsset:add
-bthread("monitor:ReleaseAsset:add", function () {
-  while (true) {
-    let ev = waitForAnyReleaseAssetAdded();
-    let args = Object.values(ev);
-    block(matchDeletedReleaseAsset.apply(null, args), function () {
-      verifyReleaseAssetExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:FileContent:nondet:1:1
-bthread("crud:FileContent:nondet:1:1", function () {
-  let owner = "owner_540";
-  let repo = "repo_540";
-  let path = "path_540";
-  createOrUpdateFileContents("owner_540", "repo_540", "path_540");
-  tryToAddExistingFileContent("owner_540", "repo_540", "path_540");
-  verifyFileContentExists("owner_540", "repo_540", "path_540");
-  deleteFile("owner_540", "repo_540", "path_540");
-  tryToDeleteANonExistingFileContent("owner_540", "repo_540", "path_540");
-  verifyFileContentDoesNotExist("owner_540", "repo_540", "path_540");
-});
-
-// Story: crud:FileContent:nondet:1:2
-bthread("crud:FileContent:nondet:1:2", function () {
-  let owner = "owner_541";
-  let repo = "repo_541";
-  let path = "path_541";
-  createOrUpdateFileContents("owner_541", "repo_541", "path_541");
-  tryToAddExistingFileContent("owner_541", "repo_541", "path_541");
-  verifyFileContentExists("owner_541", "repo_541", "path_541");
-  deleteFile("owner_541", "repo_541", "path_541");
-  tryToDeleteANonExistingFileContent("owner_541", "repo_541", "path_541");
-  verifyFileContentDoesNotExist("owner_541", "repo_541", "path_541");
-});
-
-// Story: crud:FileContent:nondet:negative:dup-add
-bthread("crud:FileContent:nondet:negative:dup-add", function () {
-  let owner = "owner_546";
-  let repo = "repo_546";
-  let path = "path_546";
-  createOrUpdateFileContents("owner_546", "repo_546", "path_546");
-  verifyFileContentExists("owner_546", "repo_546", "path_546");
-  tryToAddExistingFileContent("owner_546", "repo_546", "path_546");
-  verifyFileContentExists("owner_546", "repo_546", "path_546");
-});
-
-// Story: monitor:FileContent:add
-bthread("monitor:FileContent:add", function () {
-  while (true) {
-    let ev = waitForAnyFileContentAdded();
-    let args = Object.values(ev);
-    block(matchDeletedFileContent.apply(null, args), function () {
-      verifyFileContentExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:Autolink:nondet:1:1
-bthread("crud:Autolink:nondet:1:1", function () {
-  let owner = "owner_560";
-  let repo = "repo_560";
-  let autolink_id = 560;
-  createAutolink("owner_560", "repo_560", 560);
-  tryToAddExistingAutolink("owner_560", "repo_560", 560);
-  verifyAutolinkExists("owner_560", "repo_560", 560);
-  deleteAutolink("owner_560", "repo_560", 560);
-  tryToDeleteANonExistingAutolink("owner_560", "repo_560", 560);
-  verifyAutolinkDoesNotExist("owner_560", "repo_560", 560);
-});
-
-// Story: crud:Autolink:nondet:1:2
-bthread("crud:Autolink:nondet:1:2", function () {
-  let owner = "owner_561";
-  let repo = "repo_561";
-  let autolink_id = 561;
-  createAutolink("owner_561", "repo_561", 561);
-  tryToAddExistingAutolink("owner_561", "repo_561", 561);
-  verifyAutolinkExists("owner_561", "repo_561", 561);
-  deleteAutolink("owner_561", "repo_561", 561);
-  tryToDeleteANonExistingAutolink("owner_561", "repo_561", 561);
-  verifyAutolinkDoesNotExist("owner_561", "repo_561", 561);
-});
-
-// Story: crud:Autolink:nondet:negative:dup-add
-bthread("crud:Autolink:nondet:negative:dup-add", function () {
-  let owner = "owner_566";
-  let repo = "repo_566";
-  let autolink_id = 566;
-  createAutolink("owner_566", "repo_566", 566);
-  verifyAutolinkExists("owner_566", "repo_566", 566);
-  tryToAddExistingAutolink("owner_566", "repo_566", 566);
-  verifyAutolinkExists("owner_566", "repo_566", 566);
-});
-
-// Story: monitor:Autolink:add
-bthread("monitor:Autolink:add", function () {
-  while (true) {
-    let ev = waitForAnyAutolinkAdded();
-    let args = Object.values(ev);
-    block(matchDeletedAutolink.apply(null, args), function () {
-      verifyAutolinkExists.apply(null, args);
-    });
-  }
+// Story: crud:FileContent:read_only
+bthread("crud:FileContent:read_only", function () {
+  let owner = "owner_510";
+  let repo = "repo_510";
+  let path = "path_510";
+  verifyFileContentExists("owner_510", "repo_510", "path_510");
 });
 
 // Story: crud:Invitation:nondet:1:1
 bthread("crud:Invitation:nondet:1:1", function () {
-  let owner = "owner_570";
-  let repo = "repo_570";
-  let invitation_id = 570;
-  let org = "org_570";
-  createInvitation("owner_570", "repo_570", 570, "org_570");
-  tryToAddExistingInvitation("owner_570", "repo_570", 570, "org_570");
-  verifyInvitationExists("owner_570", "repo_570", 570, "org_570");
-  updateInvitation("owner_570", "repo_570", 570, "org_570");
-  cancelInvitation("owner_570", "repo_570", 570, "org_570");
-  tryToDeleteANonExistingInvitation("owner_570", "repo_570", 570, "org_570");
-  verifyInvitationDoesNotExist("owner_570", "repo_570", 570, "org_570");
+  let owner = "owner_520";
+  let repo = "repo_520";
+  let invitation_id = 520;
+  let org = "org_520";
+  createInvitation("owner_520", "repo_520", 520, "org_520");
+  tryToAddExistingInvitation("owner_520", "repo_520", 520, "org_520");
+  verifyInvitationExists("owner_520", "repo_520", 520, "org_520");
+  updateInvitation("owner_520", "repo_520", 520, "org_520");
+  cancelInvitation("owner_520", "repo_520", 520, "org_520");
+  tryToDeleteANonExistingInvitation("owner_520", "repo_520", 520, "org_520");
+  verifyInvitationDoesNotExist("owner_520", "repo_520", 520, "org_520");
 });
 
 // Story: crud:Invitation:nondet:1:2
 bthread("crud:Invitation:nondet:1:2", function () {
-  let owner = "owner_571";
-  let repo = "repo_571";
-  let invitation_id = 571;
-  let org = "org_571";
-  createInvitation("owner_571", "repo_571", 571, "org_571");
-  tryToAddExistingInvitation("owner_571", "repo_571", 571, "org_571");
-  updateInvitation("owner_571", "repo_571", 571, "org_571");
-  verifyInvitationExists("owner_571", "repo_571", 571, "org_571");
-  cancelInvitation("owner_571", "repo_571", 571, "org_571");
-  tryToDeleteANonExistingInvitation("owner_571", "repo_571", 571, "org_571");
-  verifyInvitationDoesNotExist("owner_571", "repo_571", 571, "org_571");
+  let owner = "owner_521";
+  let repo = "repo_521";
+  let invitation_id = 521;
+  let org = "org_521";
+  createInvitation("owner_521", "repo_521", 521, "org_521");
+  tryToAddExistingInvitation("owner_521", "repo_521", 521, "org_521");
+  updateInvitation("owner_521", "repo_521", 521, "org_521");
+  verifyInvitationExists("owner_521", "repo_521", 521, "org_521");
+  cancelInvitation("owner_521", "repo_521", 521, "org_521");
+  tryToDeleteANonExistingInvitation("owner_521", "repo_521", 521, "org_521");
+  verifyInvitationDoesNotExist("owner_521", "repo_521", 521, "org_521");
 });
 
 // Story: crud:Invitation:nondet:negative:dup-add
 bthread("crud:Invitation:nondet:negative:dup-add", function () {
-  let owner = "owner_576";
-  let repo = "repo_576";
-  let invitation_id = 576;
-  let org = "org_576";
-  createInvitation("owner_576", "repo_576", 576, "org_576");
-  verifyInvitationExists("owner_576", "repo_576", 576, "org_576");
-  tryToAddExistingInvitation("owner_576", "repo_576", 576, "org_576");
-  verifyInvitationExists("owner_576", "repo_576", 576, "org_576");
+  let owner = "owner_526";
+  let repo = "repo_526";
+  let invitation_id = 526;
+  let org = "org_526";
+  createInvitation("owner_526", "repo_526", 526, "org_526");
+  verifyInvitationExists("owner_526", "repo_526", 526, "org_526");
+  tryToAddExistingInvitation("owner_526", "repo_526", 526, "org_526");
+  verifyInvitationExists("owner_526", "repo_526", 526, "org_526");
 });
 
 // Story: crud:Invitation:nondet:existing:update
@@ -1213,40 +1164,59 @@ bthread("monitor:Invitation:add", function () {
   }
 });
 
+// Story: crud:Attestation:read_only
+bthread("crud:Attestation:read_only", function () {
+  let owner = "owner_530";
+  let repo = "repo_530";
+  let org = "org_530";
+  let subject_digest = "subject_digest_530";
+  let username = "username_530";
+  let attestation_id = 530;
+  verifyAttestationExists("owner_530", "repo_530", "org_530", "subject_digest_530", "username_530", 530);
+});
+
+// Story: crud:AttestationList:read_only
+bthread("crud:AttestationList:read_only", function () {
+  let owner = "owner_540";
+  let repo = "repo_540";
+  let subject_digest = "subject_digest_540";
+  verifyAttestationListExists("owner_540", "repo_540", "subject_digest_540");
+});
+
 // Story: crud:PagesSite:nondet:1:1
 bthread("crud:PagesSite:nondet:1:1", function () {
-  let owner = "owner_590";
-  let repo = "repo_590";
-  createPagesSite("owner_590", "repo_590");
-  tryToAddExistingPagesSite("owner_590", "repo_590");
-  verifyPagesSiteExists("owner_590", "repo_590");
-  updatePagesSite("owner_590", "repo_590");
-  deletePagesSite("owner_590", "repo_590");
-  tryToDeleteANonExistingPagesSite("owner_590", "repo_590");
-  verifyPagesSiteDoesNotExist("owner_590", "repo_590");
+  let owner = "owner_550";
+  let repo = "repo_550";
+  createPagesSite("owner_550", "repo_550");
+  tryToAddExistingPagesSite("owner_550", "repo_550");
+  verifyPagesSiteExists("owner_550", "repo_550");
+  updatePagesSite("owner_550", "repo_550");
+  deletePagesSite("owner_550", "repo_550");
+  tryToDeleteANonExistingPagesSite("owner_550", "repo_550");
+  verifyPagesSiteDoesNotExist("owner_550", "repo_550");
 });
 
 // Story: crud:PagesSite:nondet:1:2
 bthread("crud:PagesSite:nondet:1:2", function () {
-  let owner = "owner_591";
-  let repo = "repo_591";
-  createPagesSite("owner_591", "repo_591");
-  tryToAddExistingPagesSite("owner_591", "repo_591");
-  updatePagesSite("owner_591", "repo_591");
-  verifyPagesSiteExists("owner_591", "repo_591");
-  deletePagesSite("owner_591", "repo_591");
-  tryToDeleteANonExistingPagesSite("owner_591", "repo_591");
-  verifyPagesSiteDoesNotExist("owner_591", "repo_591");
+  let owner = "owner_551";
+  let repo = "repo_551";
+  createPagesSite("owner_551", "repo_551");
+  tryToAddExistingPagesSite("owner_551", "repo_551");
+  updatePagesSite("owner_551", "repo_551");
+  verifyPagesSiteExists("owner_551", "repo_551");
+  deletePagesSite("owner_551", "repo_551");
+  tryToDeleteANonExistingPagesSite("owner_551", "repo_551");
+  verifyPagesSiteDoesNotExist("owner_551", "repo_551");
 });
 
 // Story: crud:PagesSite:nondet:negative:dup-add
 bthread("crud:PagesSite:nondet:negative:dup-add", function () {
-  let owner = "owner_596";
-  let repo = "repo_596";
-  createPagesSite("owner_596", "repo_596");
-  verifyPagesSiteExists("owner_596", "repo_596");
-  tryToAddExistingPagesSite("owner_596", "repo_596");
-  verifyPagesSiteExists("owner_596", "repo_596");
+  let owner = "owner_556";
+  let repo = "repo_556";
+  createPagesSite("owner_556", "repo_556");
+  verifyPagesSiteExists("owner_556", "repo_556");
+  tryToAddExistingPagesSite("owner_556", "repo_556");
+  verifyPagesSiteExists("owner_556", "repo_556");
 });
 
 // Story: crud:PagesSite:nondet:existing:update
@@ -1273,72 +1243,72 @@ bthread("monitor:PagesSite:add", function () {
 
 // Story: crud:PagesBuild:read_only
 bthread("crud:PagesBuild:read_only", function () {
-  let owner = "owner_600";
-  let repo = "repo_600";
-  let build_id = 600;
-  verifyPagesBuildExists("owner_600", "repo_600", 600);
+  let owner = "owner_560";
+  let repo = "repo_560";
+  let build_id = 560;
+  verifyPagesBuildExists("owner_560", "repo_560", 560);
 });
 
 // Story: crud:PagesDeployment:read_only
 bthread("crud:PagesDeployment:read_only", function () {
-  let owner = "owner_610";
-  let repo = "repo_610";
-  let pages_deployment_id = 610;
-  verifyPagesDeploymentExists("owner_610", "repo_610", 610);
+  let owner = "owner_570";
+  let repo = "repo_570";
+  let pages_deployment_id = 570;
+  verifyPagesDeploymentExists("owner_570", "repo_570", 570);
 });
 
 // Story: crud:HostedRunner:nondet:1:1
 bthread("crud:HostedRunner:nondet:1:1", function () {
-  let org = "org_620";
-  let name = "name_620";
-  let image = "image_620";
-  let size = "size_620";
-  let runner_group_id = 620;
-  let maximum_runners = "maximum_runners_620";
-  let enable_static_ip = "enable_static_ip_620";
-  let hosted_runner_id = 620;
-  createHostedRunner("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
-  tryToAddExistingHostedRunner("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
-  verifyHostedRunnerExists("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
-  updateHostedRunner("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
-  deleteHostedRunner("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
-  tryToDeleteANonExistingHostedRunner("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
-  verifyHostedRunnerDoesNotExist("org_620", "name_620", "image_620", "size_620", 620, "maximum_runners_620", "enable_static_ip_620", 620);
+  let org = "org_580";
+  let name = "name_580";
+  let image = "image_580";
+  let size = "size_580";
+  let runner_group_id = 580;
+  let maximum_runners = "maximum_runners_580";
+  let enable_static_ip = "enable_static_ip_580";
+  let hosted_runner_id = 580;
+  createHostedRunner("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
+  tryToAddExistingHostedRunner("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
+  verifyHostedRunnerExists("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
+  updateHostedRunner("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
+  deleteHostedRunner("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
+  tryToDeleteANonExistingHostedRunner("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
+  verifyHostedRunnerDoesNotExist("org_580", "name_580", "image_580", "size_580", 580, "maximum_runners_580", "enable_static_ip_580", 580);
 });
 
 // Story: crud:HostedRunner:nondet:1:2
 bthread("crud:HostedRunner:nondet:1:2", function () {
-  let org = "org_621";
-  let name = "name_621";
-  let image = "image_621";
-  let size = "size_621";
-  let runner_group_id = 621;
-  let maximum_runners = "maximum_runners_621";
-  let enable_static_ip = "enable_static_ip_621";
-  let hosted_runner_id = 621;
-  createHostedRunner("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
-  tryToAddExistingHostedRunner("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
-  updateHostedRunner("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
-  verifyHostedRunnerExists("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
-  deleteHostedRunner("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
-  tryToDeleteANonExistingHostedRunner("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
-  verifyHostedRunnerDoesNotExist("org_621", "name_621", "image_621", "size_621", 621, "maximum_runners_621", "enable_static_ip_621", 621);
+  let org = "org_581";
+  let name = "name_581";
+  let image = "image_581";
+  let size = "size_581";
+  let runner_group_id = 581;
+  let maximum_runners = "maximum_runners_581";
+  let enable_static_ip = "enable_static_ip_581";
+  let hosted_runner_id = 581;
+  createHostedRunner("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
+  tryToAddExistingHostedRunner("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
+  updateHostedRunner("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
+  verifyHostedRunnerExists("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
+  deleteHostedRunner("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
+  tryToDeleteANonExistingHostedRunner("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
+  verifyHostedRunnerDoesNotExist("org_581", "name_581", "image_581", "size_581", 581, "maximum_runners_581", "enable_static_ip_581", 581);
 });
 
 // Story: crud:HostedRunner:nondet:negative:dup-add
 bthread("crud:HostedRunner:nondet:negative:dup-add", function () {
-  let org = "org_626";
-  let name = "name_626";
-  let image = "image_626";
-  let size = "size_626";
-  let runner_group_id = 626;
-  let maximum_runners = "maximum_runners_626";
-  let enable_static_ip = "enable_static_ip_626";
-  let hosted_runner_id = 626;
-  createHostedRunner("org_626", "name_626", "image_626", "size_626", 626, "maximum_runners_626", "enable_static_ip_626", 626);
-  verifyHostedRunnerExists("org_626", "name_626", "image_626", "size_626", 626, "maximum_runners_626", "enable_static_ip_626", 626);
-  tryToAddExistingHostedRunner("org_626", "name_626", "image_626", "size_626", 626, "maximum_runners_626", "enable_static_ip_626", 626);
-  verifyHostedRunnerExists("org_626", "name_626", "image_626", "size_626", 626, "maximum_runners_626", "enable_static_ip_626", 626);
+  let org = "org_586";
+  let name = "name_586";
+  let image = "image_586";
+  let size = "size_586";
+  let runner_group_id = 586;
+  let maximum_runners = "maximum_runners_586";
+  let enable_static_ip = "enable_static_ip_586";
+  let hosted_runner_id = 586;
+  createHostedRunner("org_586", "name_586", "image_586", "size_586", 586, "maximum_runners_586", "enable_static_ip_586", 586);
+  verifyHostedRunnerExists("org_586", "name_586", "image_586", "size_586", 586, "maximum_runners_586", "enable_static_ip_586", 586);
+  tryToAddExistingHostedRunner("org_586", "name_586", "image_586", "size_586", 586, "maximum_runners_586", "enable_static_ip_586", 586);
+  verifyHostedRunnerExists("org_586", "name_586", "image_586", "size_586", 586, "maximum_runners_586", "enable_static_ip_586", 586);
 });
 
 // Story: crud:HostedRunner:nondet:existing:update
@@ -1365,62 +1335,62 @@ bthread("monitor:HostedRunner:add", function () {
 
 // Story: crud:RunnerGroup:nondet:1:1
 bthread("crud:RunnerGroup:nondet:1:1", function () {
-  let org = "org_630";
-  let name = "name_630";
-  let visibility = "visibility_630";
-  let selected_repository_ids = 630;
-  let runners = "runners_630";
-  let allows_public_repositories = "allows_public_repositories_630";
-  let restricted_to_workflows = "restricted_to_workflows_630";
-  let selected_workflows = "selected_workflows_630";
-  let network_configuration_id = 630;
-  let runner_group_id = 630;
-  createRunnerGroup("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
-  tryToAddExistingRunnerGroup("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
-  verifyRunnerGroupExists("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
-  updateRunnerGroup("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
-  deleteRunnerGroup("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
-  tryToDeleteANonExistingRunnerGroup("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
-  verifyRunnerGroupDoesNotExist("org_630", "name_630", "visibility_630", 630, "runners_630", "allows_public_repositories_630", "restricted_to_workflows_630", "selected_workflows_630", 630, 630);
+  let org = "org_590";
+  let name = "name_590";
+  let visibility = "visibility_590";
+  let selected_repository_ids = 590;
+  let runners = "runners_590";
+  let allows_public_repositories = "allows_public_repositories_590";
+  let restricted_to_workflows = "restricted_to_workflows_590";
+  let selected_workflows = "selected_workflows_590";
+  let network_configuration_id = 590;
+  let runner_group_id = 590;
+  createRunnerGroup("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
+  tryToAddExistingRunnerGroup("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
+  verifyRunnerGroupExists("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
+  updateRunnerGroup("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
+  deleteRunnerGroup("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
+  tryToDeleteANonExistingRunnerGroup("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
+  verifyRunnerGroupDoesNotExist("org_590", "name_590", "visibility_590", 590, "runners_590", "allows_public_repositories_590", "restricted_to_workflows_590", "selected_workflows_590", 590, 590);
 });
 
 // Story: crud:RunnerGroup:nondet:1:2
 bthread("crud:RunnerGroup:nondet:1:2", function () {
-  let org = "org_631";
-  let name = "name_631";
-  let visibility = "visibility_631";
-  let selected_repository_ids = 631;
-  let runners = "runners_631";
-  let allows_public_repositories = "allows_public_repositories_631";
-  let restricted_to_workflows = "restricted_to_workflows_631";
-  let selected_workflows = "selected_workflows_631";
-  let network_configuration_id = 631;
-  let runner_group_id = 631;
-  createRunnerGroup("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
-  tryToAddExistingRunnerGroup("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
-  updateRunnerGroup("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
-  verifyRunnerGroupExists("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
-  deleteRunnerGroup("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
-  tryToDeleteANonExistingRunnerGroup("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
-  verifyRunnerGroupDoesNotExist("org_631", "name_631", "visibility_631", 631, "runners_631", "allows_public_repositories_631", "restricted_to_workflows_631", "selected_workflows_631", 631, 631);
+  let org = "org_591";
+  let name = "name_591";
+  let visibility = "visibility_591";
+  let selected_repository_ids = 591;
+  let runners = "runners_591";
+  let allows_public_repositories = "allows_public_repositories_591";
+  let restricted_to_workflows = "restricted_to_workflows_591";
+  let selected_workflows = "selected_workflows_591";
+  let network_configuration_id = 591;
+  let runner_group_id = 591;
+  createRunnerGroup("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
+  tryToAddExistingRunnerGroup("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
+  updateRunnerGroup("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
+  verifyRunnerGroupExists("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
+  deleteRunnerGroup("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
+  tryToDeleteANonExistingRunnerGroup("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
+  verifyRunnerGroupDoesNotExist("org_591", "name_591", "visibility_591", 591, "runners_591", "allows_public_repositories_591", "restricted_to_workflows_591", "selected_workflows_591", 591, 591);
 });
 
 // Story: crud:RunnerGroup:nondet:negative:dup-add
 bthread("crud:RunnerGroup:nondet:negative:dup-add", function () {
-  let org = "org_636";
-  let name = "name_636";
-  let visibility = "visibility_636";
-  let selected_repository_ids = 636;
-  let runners = "runners_636";
-  let allows_public_repositories = "allows_public_repositories_636";
-  let restricted_to_workflows = "restricted_to_workflows_636";
-  let selected_workflows = "selected_workflows_636";
-  let network_configuration_id = 636;
-  let runner_group_id = 636;
-  createRunnerGroup("org_636", "name_636", "visibility_636", 636, "runners_636", "allows_public_repositories_636", "restricted_to_workflows_636", "selected_workflows_636", 636, 636);
-  verifyRunnerGroupExists("org_636", "name_636", "visibility_636", 636, "runners_636", "allows_public_repositories_636", "restricted_to_workflows_636", "selected_workflows_636", 636, 636);
-  tryToAddExistingRunnerGroup("org_636", "name_636", "visibility_636", 636, "runners_636", "allows_public_repositories_636", "restricted_to_workflows_636", "selected_workflows_636", 636, 636);
-  verifyRunnerGroupExists("org_636", "name_636", "visibility_636", 636, "runners_636", "allows_public_repositories_636", "restricted_to_workflows_636", "selected_workflows_636", 636, 636);
+  let org = "org_596";
+  let name = "name_596";
+  let visibility = "visibility_596";
+  let selected_repository_ids = 596;
+  let runners = "runners_596";
+  let allows_public_repositories = "allows_public_repositories_596";
+  let restricted_to_workflows = "restricted_to_workflows_596";
+  let selected_workflows = "selected_workflows_596";
+  let network_configuration_id = 596;
+  let runner_group_id = 596;
+  createRunnerGroup("org_596", "name_596", "visibility_596", 596, "runners_596", "allows_public_repositories_596", "restricted_to_workflows_596", "selected_workflows_596", 596, 596);
+  verifyRunnerGroupExists("org_596", "name_596", "visibility_596", 596, "runners_596", "allows_public_repositories_596", "restricted_to_workflows_596", "selected_workflows_596", 596, 596);
+  tryToAddExistingRunnerGroup("org_596", "name_596", "visibility_596", 596, "runners_596", "allows_public_repositories_596", "restricted_to_workflows_596", "selected_workflows_596", 596, 596);
+  verifyRunnerGroupExists("org_596", "name_596", "visibility_596", 596, "runners_596", "allows_public_repositories_596", "restricted_to_workflows_596", "selected_workflows_596", 596, 596);
 });
 
 // Story: crud:RunnerGroup:nondet:existing:update
@@ -1447,39 +1417,39 @@ bthread("monitor:RunnerGroup:add", function () {
 
 // Story: crud:RunnerGroupRepositoryAccess:nondet:1:1
 bthread("crud:RunnerGroupRepositoryAccess:nondet:1:1", function () {
-  let org = "org_640";
-  let runner_group_id = 640;
-  let repository_id = 640;
-  addRepoAccessToRunnerGroup("org_640", 640, 640);
-  tryToAddExistingRunnerGroupRepositoryAccess("org_640", 640, 640);
-  verifyRunnerGroupRepositoryAccessExists("org_640", 640, 640);
-  removeRepoAccessFromRunnerGroup("org_640", 640, 640);
-  tryToDeleteANonExistingRunnerGroupRepositoryAccess("org_640", 640, 640);
-  verifyRunnerGroupRepositoryAccessDoesNotExist("org_640", 640, 640);
+  let org = "org_600";
+  let runner_group_id = 600;
+  let repository_id = 600;
+  addRepoAccessToRunnerGroup("org_600", 600, 600);
+  tryToAddExistingRunnerGroupRepositoryAccess("org_600", 600, 600);
+  verifyRunnerGroupRepositoryAccessExists("org_600", 600, 600);
+  removeRepoAccessFromRunnerGroup("org_600", 600, 600);
+  tryToDeleteANonExistingRunnerGroupRepositoryAccess("org_600", 600, 600);
+  verifyRunnerGroupRepositoryAccessDoesNotExist("org_600", 600, 600);
 });
 
 // Story: crud:RunnerGroupRepositoryAccess:nondet:1:2
 bthread("crud:RunnerGroupRepositoryAccess:nondet:1:2", function () {
-  let org = "org_641";
-  let runner_group_id = 641;
-  let repository_id = 641;
-  addRepoAccessToRunnerGroup("org_641", 641, 641);
-  tryToAddExistingRunnerGroupRepositoryAccess("org_641", 641, 641);
-  verifyRunnerGroupRepositoryAccessExists("org_641", 641, 641);
-  removeRepoAccessFromRunnerGroup("org_641", 641, 641);
-  tryToDeleteANonExistingRunnerGroupRepositoryAccess("org_641", 641, 641);
-  verifyRunnerGroupRepositoryAccessDoesNotExist("org_641", 641, 641);
+  let org = "org_601";
+  let runner_group_id = 601;
+  let repository_id = 601;
+  addRepoAccessToRunnerGroup("org_601", 601, 601);
+  tryToAddExistingRunnerGroupRepositoryAccess("org_601", 601, 601);
+  verifyRunnerGroupRepositoryAccessExists("org_601", 601, 601);
+  removeRepoAccessFromRunnerGroup("org_601", 601, 601);
+  tryToDeleteANonExistingRunnerGroupRepositoryAccess("org_601", 601, 601);
+  verifyRunnerGroupRepositoryAccessDoesNotExist("org_601", 601, 601);
 });
 
 // Story: crud:RunnerGroupRepositoryAccess:nondet:negative:dup-add
 bthread("crud:RunnerGroupRepositoryAccess:nondet:negative:dup-add", function () {
-  let org = "org_646";
-  let runner_group_id = 646;
-  let repository_id = 646;
-  addRepoAccessToRunnerGroup("org_646", 646, 646);
-  verifyRunnerGroupRepositoryAccessExists("org_646", 646, 646);
-  tryToAddExistingRunnerGroupRepositoryAccess("org_646", 646, 646);
-  verifyRunnerGroupRepositoryAccessExists("org_646", 646, 646);
+  let org = "org_606";
+  let runner_group_id = 606;
+  let repository_id = 606;
+  addRepoAccessToRunnerGroup("org_606", 606, 606);
+  verifyRunnerGroupRepositoryAccessExists("org_606", 606, 606);
+  tryToAddExistingRunnerGroupRepositoryAccess("org_606", 606, 606);
+  verifyRunnerGroupRepositoryAccessExists("org_606", 606, 606);
 });
 
 // Story: monitor:RunnerGroupRepositoryAccess:add
@@ -1493,630 +1463,522 @@ bthread("monitor:RunnerGroupRepositoryAccess:add", function () {
   }
 });
 
-// Story: crud:RunnerGroupRunner:nondet:1:1
-bthread("crud:RunnerGroupRunner:nondet:1:1", function () {
-  let org = "org_660";
-  let runner_group_id = 660;
-  let runner_id = 660;
-  addRunnerToRunnerGroup("org_660", 660, 660);
-  tryToAddExistingRunnerGroupRunner("org_660", 660, 660);
-  verifyRunnerGroupRunnerExists("org_660", 660, 660);
-  removeRunnerFromRunnerGroup("org_660", 660, 660);
-  tryToDeleteANonExistingRunnerGroupRunner("org_660", 660, 660);
-  verifyRunnerGroupRunnerDoesNotExist("org_660", 660, 660);
+// Story: crud:RunnerGroupRunners:nondet:1:1
+bthread("crud:RunnerGroupRunners:nondet:1:1", function () {
+  let org = "org_620";
+  let runner_group_id = 620;
+  let runner_id = 620;
+  addRunnerToRunnerGroup("org_620", 620, 620);
+  tryToAddExistingRunnerGroupRunners("org_620", 620, 620);
+  verifyRunnerGroupRunnersExists("org_620", 620, 620);
+  removeRunnerFromRunnerGroup("org_620", 620, 620);
+  tryToDeleteANonExistingRunnerGroupRunners("org_620", 620, 620);
+  verifyRunnerGroupRunnersDoesNotExist("org_620", 620, 620);
 });
 
-// Story: crud:RunnerGroupRunner:nondet:1:2
-bthread("crud:RunnerGroupRunner:nondet:1:2", function () {
-  let org = "org_661";
-  let runner_group_id = 661;
-  let runner_id = 661;
-  addRunnerToRunnerGroup("org_661", 661, 661);
-  tryToAddExistingRunnerGroupRunner("org_661", 661, 661);
-  verifyRunnerGroupRunnerExists("org_661", 661, 661);
-  removeRunnerFromRunnerGroup("org_661", 661, 661);
-  tryToDeleteANonExistingRunnerGroupRunner("org_661", 661, 661);
-  verifyRunnerGroupRunnerDoesNotExist("org_661", 661, 661);
+// Story: crud:RunnerGroupRunners:nondet:1:2
+bthread("crud:RunnerGroupRunners:nondet:1:2", function () {
+  let org = "org_621";
+  let runner_group_id = 621;
+  let runner_id = 621;
+  addRunnerToRunnerGroup("org_621", 621, 621);
+  tryToAddExistingRunnerGroupRunners("org_621", 621, 621);
+  verifyRunnerGroupRunnersExists("org_621", 621, 621);
+  removeRunnerFromRunnerGroup("org_621", 621, 621);
+  tryToDeleteANonExistingRunnerGroupRunners("org_621", 621, 621);
+  verifyRunnerGroupRunnersDoesNotExist("org_621", 621, 621);
 });
 
-// Story: crud:RunnerGroupRunner:nondet:negative:dup-add
-bthread("crud:RunnerGroupRunner:nondet:negative:dup-add", function () {
-  let org = "org_666";
-  let runner_group_id = 666;
-  let runner_id = 666;
-  addRunnerToRunnerGroup("org_666", 666, 666);
-  verifyRunnerGroupRunnerExists("org_666", 666, 666);
-  tryToAddExistingRunnerGroupRunner("org_666", 666, 666);
-  verifyRunnerGroupRunnerExists("org_666", 666, 666);
+// Story: crud:RunnerGroupRunners:nondet:negative:dup-add
+bthread("crud:RunnerGroupRunners:nondet:negative:dup-add", function () {
+  let org = "org_626";
+  let runner_group_id = 626;
+  let runner_id = 626;
+  addRunnerToRunnerGroup("org_626", 626, 626);
+  verifyRunnerGroupRunnersExists("org_626", 626, 626);
+  tryToAddExistingRunnerGroupRunners("org_626", 626, 626);
+  verifyRunnerGroupRunnersExists("org_626", 626, 626);
 });
 
-// Story: monitor:RunnerGroupRunner:add
-bthread("monitor:RunnerGroupRunner:add", function () {
+// Story: monitor:RunnerGroupRunners:add
+bthread("monitor:RunnerGroupRunners:add", function () {
   while (true) {
-    let ev = waitForAnyRunnerGroupRunnerAdded();
+    let ev = waitForAnyRunnerGroupRunnersAdded();
     let args = Object.values(ev);
-    block(matchDeletedRunnerGroupRunner.apply(null, args), function () {
-      verifyRunnerGroupRunnerExists.apply(null, args);
+    block(matchDeletedRunnerGroupRunners.apply(null, args), function () {
+      verifyRunnerGroupRunnersExists.apply(null, args);
     });
   }
 });
 
 // Story: crud:SelfHostedRunner:read_only
 bthread("crud:SelfHostedRunner:read_only", function () {
-  let org = "org_680";
-  let runner_id = 680;
-  verifySelfHostedRunnerExists("org_680", 680);
+  let org = "org_640";
+  let runner_id = 640;
+  verifySelfHostedRunnerExists("org_640", 640);
 });
 
-// Story: crud:SelfHostedRunnerLabels:nondet:1:1
-bthread("crud:SelfHostedRunnerLabels:nondet:1:1", function () {
+// Story: crud:SelfHostedRunnerLabel:nondet:1:1
+bthread("crud:SelfHostedRunnerLabel:nondet:1:1", function () {
+  let org = "org_650";
+  let runner_id = 650;
+  let labels = "labels_650";
+  let name = "name_650";
+  addCustomLabelsToSelfHostedRunner("org_650", 650, "labels_650", "name_650");
+  tryToAddExistingSelfHostedRunnerLabel("org_650", 650, "labels_650", "name_650");
+  verifySelfHostedRunnerLabelExists("org_650", 650, "labels_650", "name_650");
+  removeCustomLabelFromSelfHostedRunner("org_650", 650, "labels_650", "name_650");
+  tryToDeleteANonExistingSelfHostedRunnerLabel("org_650", 650, "labels_650", "name_650");
+  verifySelfHostedRunnerLabelDoesNotExist("org_650", 650, "labels_650", "name_650");
+});
+
+// Story: crud:SelfHostedRunnerLabel:nondet:1:2
+bthread("crud:SelfHostedRunnerLabel:nondet:1:2", function () {
+  let org = "org_651";
+  let runner_id = 651;
+  let labels = "labels_651";
+  let name = "name_651";
+  addCustomLabelsToSelfHostedRunner("org_651", 651, "labels_651", "name_651");
+  tryToAddExistingSelfHostedRunnerLabel("org_651", 651, "labels_651", "name_651");
+  verifySelfHostedRunnerLabelExists("org_651", 651, "labels_651", "name_651");
+  removeCustomLabelFromSelfHostedRunner("org_651", 651, "labels_651", "name_651");
+  tryToDeleteANonExistingSelfHostedRunnerLabel("org_651", 651, "labels_651", "name_651");
+  verifySelfHostedRunnerLabelDoesNotExist("org_651", 651, "labels_651", "name_651");
+});
+
+// Story: crud:SelfHostedRunnerLabel:nondet:negative:dup-add
+bthread("crud:SelfHostedRunnerLabel:nondet:negative:dup-add", function () {
+  let org = "org_656";
+  let runner_id = 656;
+  let labels = "labels_656";
+  let name = "name_656";
+  addCustomLabelsToSelfHostedRunner("org_656", 656, "labels_656", "name_656");
+  verifySelfHostedRunnerLabelExists("org_656", 656, "labels_656", "name_656");
+  tryToAddExistingSelfHostedRunnerLabel("org_656", 656, "labels_656", "name_656");
+  verifySelfHostedRunnerLabelExists("org_656", 656, "labels_656", "name_656");
+});
+
+// Story: monitor:SelfHostedRunnerLabel:add
+bthread("monitor:SelfHostedRunnerLabel:add", function () {
+  while (true) {
+    let ev = waitForAnySelfHostedRunnerLabelAdded();
+    let args = Object.values(ev);
+    block(matchDeletedSelfHostedRunnerLabel.apply(null, args), function () {
+      verifySelfHostedRunnerLabelExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:OrgSecret:nondet:1:1
+bthread("crud:OrgSecret:nondet:1:1", function () {
+  let org = "org_690";
+  let secret_name = "secret_name_690";
+  let encrypted_value = "encrypted_value_690";
+  let key_id = 690;
+  let visibility = "visibility_690";
+  let selected_repository_ids = 690;
+  createOrUpdateOrgSecret("org_690", "secret_name_690", "encrypted_value_690", 690, "visibility_690", 690);
+  tryToAddExistingOrgSecret("org_690", "secret_name_690", "encrypted_value_690", 690, "visibility_690", 690);
+  verifyOrgSecretExists("org_690", "secret_name_690", "encrypted_value_690", 690, "visibility_690", 690);
+  deleteOrgSecret("org_690", "secret_name_690", "encrypted_value_690", 690, "visibility_690", 690);
+  tryToDeleteANonExistingOrgSecret("org_690", "secret_name_690", "encrypted_value_690", 690, "visibility_690", 690);
+  verifyOrgSecretDoesNotExist("org_690", "secret_name_690", "encrypted_value_690", 690, "visibility_690", 690);
+});
+
+// Story: crud:OrgSecret:nondet:1:2
+bthread("crud:OrgSecret:nondet:1:2", function () {
+  let org = "org_691";
+  let secret_name = "secret_name_691";
+  let encrypted_value = "encrypted_value_691";
+  let key_id = 691;
+  let visibility = "visibility_691";
+  let selected_repository_ids = 691;
+  createOrUpdateOrgSecret("org_691", "secret_name_691", "encrypted_value_691", 691, "visibility_691", 691);
+  tryToAddExistingOrgSecret("org_691", "secret_name_691", "encrypted_value_691", 691, "visibility_691", 691);
+  verifyOrgSecretExists("org_691", "secret_name_691", "encrypted_value_691", 691, "visibility_691", 691);
+  deleteOrgSecret("org_691", "secret_name_691", "encrypted_value_691", 691, "visibility_691", 691);
+  tryToDeleteANonExistingOrgSecret("org_691", "secret_name_691", "encrypted_value_691", 691, "visibility_691", 691);
+  verifyOrgSecretDoesNotExist("org_691", "secret_name_691", "encrypted_value_691", 691, "visibility_691", 691);
+});
+
+// Story: crud:OrgSecret:nondet:negative:dup-add
+bthread("crud:OrgSecret:nondet:negative:dup-add", function () {
+  let org = "org_696";
+  let secret_name = "secret_name_696";
+  let encrypted_value = "encrypted_value_696";
+  let key_id = 696;
+  let visibility = "visibility_696";
+  let selected_repository_ids = 696;
+  createOrUpdateOrgSecret("org_696", "secret_name_696", "encrypted_value_696", 696, "visibility_696", 696);
+  verifyOrgSecretExists("org_696", "secret_name_696", "encrypted_value_696", 696, "visibility_696", 696);
+  tryToAddExistingOrgSecret("org_696", "secret_name_696", "encrypted_value_696", 696, "visibility_696", 696);
+  verifyOrgSecretExists("org_696", "secret_name_696", "encrypted_value_696", 696, "visibility_696", 696);
+});
+
+// Story: monitor:OrgSecret:add
+bthread("monitor:OrgSecret:add", function () {
+  while (true) {
+    let ev = waitForAnyOrgSecretAdded();
+    let args = Object.values(ev);
+    block(matchDeletedOrgSecret.apply(null, args), function () {
+      verifyOrgSecretExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:OrgSecretSelectedRepos:nondet:1:1
+bthread("crud:OrgSecretSelectedRepos:nondet:1:1", function () {
   let org = "org_700";
-  let runner_id = 700;
-  let labels = "labels_700";
-  addCustomLabelsToSelfHostedRunner("org_700", 700, "labels_700");
-  tryToAddExistingSelfHostedRunnerLabels("org_700", 700, "labels_700");
-  verifySelfHostedRunnerLabelsExists("org_700", 700, "labels_700");
-  setCustomLabelsForSelfHostedRunner("org_700", 700, "labels_700");
-  removeAllCustomLabelsFromSelfHostedRunner("org_700", 700, "labels_700");
-  tryToDeleteANonExistingSelfHostedRunnerLabels("org_700", 700, "labels_700");
-  verifySelfHostedRunnerLabelsDoesNotExist("org_700", 700, "labels_700");
+  let secret_name = "secret_name_700";
+  let repository_id = 700;
+  addSelectedRepoToOrgSecret("org_700", "secret_name_700", 700);
+  tryToAddExistingOrgSecretSelectedRepos("org_700", "secret_name_700", 700);
+  verifyOrgSecretSelectedReposExists("org_700", "secret_name_700", 700);
+  removeSelectedRepoFromOrgSecret("org_700", "secret_name_700", 700);
+  tryToDeleteANonExistingOrgSecretSelectedRepos("org_700", "secret_name_700", 700);
+  verifyOrgSecretSelectedReposDoesNotExist("org_700", "secret_name_700", 700);
 });
 
-// Story: crud:SelfHostedRunnerLabels:nondet:1:2
-bthread("crud:SelfHostedRunnerLabels:nondet:1:2", function () {
+// Story: crud:OrgSecretSelectedRepos:nondet:1:2
+bthread("crud:OrgSecretSelectedRepos:nondet:1:2", function () {
   let org = "org_701";
-  let runner_id = 701;
-  let labels = "labels_701";
-  addCustomLabelsToSelfHostedRunner("org_701", 701, "labels_701");
-  tryToAddExistingSelfHostedRunnerLabels("org_701", 701, "labels_701");
-  setCustomLabelsForSelfHostedRunner("org_701", 701, "labels_701");
-  verifySelfHostedRunnerLabelsExists("org_701", 701, "labels_701");
-  removeAllCustomLabelsFromSelfHostedRunner("org_701", 701, "labels_701");
-  tryToDeleteANonExistingSelfHostedRunnerLabels("org_701", 701, "labels_701");
-  verifySelfHostedRunnerLabelsDoesNotExist("org_701", 701, "labels_701");
+  let secret_name = "secret_name_701";
+  let repository_id = 701;
+  addSelectedRepoToOrgSecret("org_701", "secret_name_701", 701);
+  tryToAddExistingOrgSecretSelectedRepos("org_701", "secret_name_701", 701);
+  verifyOrgSecretSelectedReposExists("org_701", "secret_name_701", 701);
+  removeSelectedRepoFromOrgSecret("org_701", "secret_name_701", 701);
+  tryToDeleteANonExistingOrgSecretSelectedRepos("org_701", "secret_name_701", 701);
+  verifyOrgSecretSelectedReposDoesNotExist("org_701", "secret_name_701", 701);
 });
 
-// Story: crud:SelfHostedRunnerLabels:nondet:negative:dup-add
-bthread("crud:SelfHostedRunnerLabels:nondet:negative:dup-add", function () {
+// Story: crud:OrgSecretSelectedRepos:nondet:negative:dup-add
+bthread("crud:OrgSecretSelectedRepos:nondet:negative:dup-add", function () {
   let org = "org_706";
-  let runner_id = 706;
-  let labels = "labels_706";
-  addCustomLabelsToSelfHostedRunner("org_706", 706, "labels_706");
-  verifySelfHostedRunnerLabelsExists("org_706", 706, "labels_706");
-  tryToAddExistingSelfHostedRunnerLabels("org_706", 706, "labels_706");
-  verifySelfHostedRunnerLabelsExists("org_706", 706, "labels_706");
+  let secret_name = "secret_name_706";
+  let repository_id = 706;
+  addSelectedRepoToOrgSecret("org_706", "secret_name_706", 706);
+  verifyOrgSecretSelectedReposExists("org_706", "secret_name_706", 706);
+  tryToAddExistingOrgSecretSelectedRepos("org_706", "secret_name_706", 706);
+  verifyOrgSecretSelectedReposExists("org_706", "secret_name_706", 706);
 });
 
-// Story: crud:SelfHostedRunnerLabels:nondet:existing:update
-bthread("crud:SelfHostedRunnerLabels:nondet:existing:update", function () {
-  let ev = waitForAnySelfHostedRunnerLabelsAdded();
+// Story: monitor:OrgSecretSelectedRepos:add
+bthread("monitor:OrgSecretSelectedRepos:add", function () {
+  while (true) {
+    let ev = waitForAnyOrgSecretSelectedReposAdded();
+    let args = Object.values(ev);
+    block(matchDeletedOrgSecretSelectedRepos.apply(null, args), function () {
+      verifyOrgSecretSelectedReposExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:OrgVariable:nondet:1:1
+bthread("crud:OrgVariable:nondet:1:1", function () {
+  let org = "org_720";
+  let name = "name_720";
+  let value = "value_720";
+  let visibility = "visibility_720";
+  let selected_repository_ids = 720;
+  createOrgVariable("org_720", "name_720", "value_720", "visibility_720", 720);
+  tryToAddExistingOrgVariable("org_720", "name_720", "value_720", "visibility_720", 720);
+  verifyOrgVariableExists("org_720", "name_720", "value_720", "visibility_720", 720);
+  updateOrgVariable("org_720", "name_720", "value_720", "visibility_720", 720);
+  deleteOrgVariable("org_720", "name_720", "value_720", "visibility_720", 720);
+  tryToDeleteANonExistingOrgVariable("org_720", "name_720", "value_720", "visibility_720", 720);
+  verifyOrgVariableDoesNotExist("org_720", "name_720", "value_720", "visibility_720", 720);
+});
+
+// Story: crud:OrgVariable:nondet:1:2
+bthread("crud:OrgVariable:nondet:1:2", function () {
+  let org = "org_721";
+  let name = "name_721";
+  let value = "value_721";
+  let visibility = "visibility_721";
+  let selected_repository_ids = 721;
+  createOrgVariable("org_721", "name_721", "value_721", "visibility_721", 721);
+  tryToAddExistingOrgVariable("org_721", "name_721", "value_721", "visibility_721", 721);
+  updateOrgVariable("org_721", "name_721", "value_721", "visibility_721", 721);
+  verifyOrgVariableExists("org_721", "name_721", "value_721", "visibility_721", 721);
+  deleteOrgVariable("org_721", "name_721", "value_721", "visibility_721", 721);
+  tryToDeleteANonExistingOrgVariable("org_721", "name_721", "value_721", "visibility_721", 721);
+  verifyOrgVariableDoesNotExist("org_721", "name_721", "value_721", "visibility_721", 721);
+});
+
+// Story: crud:OrgVariable:nondet:negative:dup-add
+bthread("crud:OrgVariable:nondet:negative:dup-add", function () {
+  let org = "org_726";
+  let name = "name_726";
+  let value = "value_726";
+  let visibility = "visibility_726";
+  let selected_repository_ids = 726;
+  createOrgVariable("org_726", "name_726", "value_726", "visibility_726", 726);
+  verifyOrgVariableExists("org_726", "name_726", "value_726", "visibility_726", 726);
+  tryToAddExistingOrgVariable("org_726", "name_726", "value_726", "visibility_726", 726);
+  verifyOrgVariableExists("org_726", "name_726", "value_726", "visibility_726", 726);
+});
+
+// Story: crud:OrgVariable:nondet:existing:update
+bthread("crud:OrgVariable:nondet:existing:update", function () {
+  let ev = waitForAnyOrgVariableAdded();
   let args = Object.values(ev);
-  block(matchDeletedSelfHostedRunnerLabels.apply(null, args), function () {
-    verifySelfHostedRunnerLabelsExists.apply(null, args);
-    setCustomLabelsForSelfHostedRunner.apply(null, args);
-    verifySelfHostedRunnerLabelsExists.apply(null, args);
-  });
-});
-
-// Story: monitor:SelfHostedRunnerLabels:add
-bthread("monitor:SelfHostedRunnerLabels:add", function () {
-  while (true) {
-    let ev = waitForAnySelfHostedRunnerLabelsAdded();
-    let args = Object.values(ev);
-    block(matchDeletedSelfHostedRunnerLabels.apply(null, args), function () {
-      verifySelfHostedRunnerLabelsExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:SelfHostedRunnerList:read_only
-bthread("crud:SelfHostedRunnerList:read_only", function () {
-  let org = "org_710";
-  let name = "name_710";
-  let per-page = "per-page_710";
-  let page = "page_710";
-  verifySelfHostedRunnerListExists("org_710", "name_710", "per-page_710", "page_710");
-});
-
-// Story: crud:SelfHostedRunnerRepo:read_only
-bthread("crud:SelfHostedRunnerRepo:read_only", function () {
-  let owner = "owner_740";
-  let repo = "repo_740";
-  let runner_id = 740;
-  verifySelfHostedRunnerRepoExists("owner_740", "repo_740", 740);
-});
-
-// Story: crud:SelfHostedRunnerLabelsRepo:nondet:1:1
-bthread("crud:SelfHostedRunnerLabelsRepo:nondet:1:1", function () {
-  let owner = "owner_750";
-  let repo = "repo_750";
-  let runner_id = 750;
-  let labels = "labels_750";
-  addCustomLabelsToSelfHostedRunnerForRepo("owner_750", "repo_750", 750, "labels_750");
-  tryToAddExistingSelfHostedRunnerLabelsRepo("owner_750", "repo_750", 750, "labels_750");
-  verifySelfHostedRunnerLabelsRepoExists("owner_750", "repo_750", 750, "labels_750");
-  setCustomLabelsForSelfHostedRunnerForRepo("owner_750", "repo_750", 750, "labels_750");
-  removeAllCustomLabelsFromSelfHostedRunnerForRepo("owner_750", "repo_750", 750, "labels_750");
-  tryToDeleteANonExistingSelfHostedRunnerLabelsRepo("owner_750", "repo_750", 750, "labels_750");
-  verifySelfHostedRunnerLabelsRepoDoesNotExist("owner_750", "repo_750", 750, "labels_750");
-});
-
-// Story: crud:SelfHostedRunnerLabelsRepo:nondet:1:2
-bthread("crud:SelfHostedRunnerLabelsRepo:nondet:1:2", function () {
-  let owner = "owner_751";
-  let repo = "repo_751";
-  let runner_id = 751;
-  let labels = "labels_751";
-  addCustomLabelsToSelfHostedRunnerForRepo("owner_751", "repo_751", 751, "labels_751");
-  tryToAddExistingSelfHostedRunnerLabelsRepo("owner_751", "repo_751", 751, "labels_751");
-  setCustomLabelsForSelfHostedRunnerForRepo("owner_751", "repo_751", 751, "labels_751");
-  verifySelfHostedRunnerLabelsRepoExists("owner_751", "repo_751", 751, "labels_751");
-  removeAllCustomLabelsFromSelfHostedRunnerForRepo("owner_751", "repo_751", 751, "labels_751");
-  tryToDeleteANonExistingSelfHostedRunnerLabelsRepo("owner_751", "repo_751", 751, "labels_751");
-  verifySelfHostedRunnerLabelsRepoDoesNotExist("owner_751", "repo_751", 751, "labels_751");
-});
-
-// Story: crud:SelfHostedRunnerLabelsRepo:nondet:negative:dup-add
-bthread("crud:SelfHostedRunnerLabelsRepo:nondet:negative:dup-add", function () {
-  let owner = "owner_756";
-  let repo = "repo_756";
-  let runner_id = 756;
-  let labels = "labels_756";
-  addCustomLabelsToSelfHostedRunnerForRepo("owner_756", "repo_756", 756, "labels_756");
-  verifySelfHostedRunnerLabelsRepoExists("owner_756", "repo_756", 756, "labels_756");
-  tryToAddExistingSelfHostedRunnerLabelsRepo("owner_756", "repo_756", 756, "labels_756");
-  verifySelfHostedRunnerLabelsRepoExists("owner_756", "repo_756", 756, "labels_756");
-});
-
-// Story: crud:SelfHostedRunnerLabelsRepo:nondet:existing:update
-bthread("crud:SelfHostedRunnerLabelsRepo:nondet:existing:update", function () {
-  let ev = waitForAnySelfHostedRunnerLabelsRepoAdded();
-  let args = Object.values(ev);
-  block(matchDeletedSelfHostedRunnerLabelsRepo.apply(null, args), function () {
-    verifySelfHostedRunnerLabelsRepoExists.apply(null, args);
-    setCustomLabelsForSelfHostedRunnerForRepo.apply(null, args);
-    verifySelfHostedRunnerLabelsRepoExists.apply(null, args);
-  });
-});
-
-// Story: monitor:SelfHostedRunnerLabelsRepo:add
-bthread("monitor:SelfHostedRunnerLabelsRepo:add", function () {
-  while (true) {
-    let ev = waitForAnySelfHostedRunnerLabelsRepoAdded();
-    let args = Object.values(ev);
-    block(matchDeletedSelfHostedRunnerLabelsRepo.apply(null, args), function () {
-      verifySelfHostedRunnerLabelsRepoExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:SelfHostedRunnerListRepo:read_only
-bthread("crud:SelfHostedRunnerListRepo:read_only", function () {
-  let owner = "owner_770";
-  let repo = "repo_770";
-  let name = "name_770";
-  let per-page = "per-page_770";
-  let page = "page_770";
-  verifySelfHostedRunnerListRepoExists("owner_770", "repo_770", "name_770", "per-page_770", "page_770");
-});
-
-// Story: crud:Secret:nondet:1:1
-bthread("crud:Secret:nondet:1:1", function () {
-  let org = "org_800";
-  let secret_name = "secret_name_800";
-  let encrypted_value = "encrypted_value_800";
-  let key_id = 800;
-  let visibility = "visibility_800";
-  let selected_repository_ids = 800;
-  createOrUpdateOrgSecret("org_800", "secret_name_800", "encrypted_value_800", 800, "visibility_800", 800);
-  tryToAddExistingSecret("org_800", "secret_name_800", "encrypted_value_800", 800, "visibility_800", 800);
-  verifySecretExists("org_800", "secret_name_800", "encrypted_value_800", 800, "visibility_800", 800);
-  deleteOrgSecret("org_800", "secret_name_800", "encrypted_value_800", 800, "visibility_800", 800);
-  tryToDeleteANonExistingSecret("org_800", "secret_name_800", "encrypted_value_800", 800, "visibility_800", 800);
-  verifySecretDoesNotExist("org_800", "secret_name_800", "encrypted_value_800", 800, "visibility_800", 800);
-});
-
-// Story: crud:Secret:nondet:1:2
-bthread("crud:Secret:nondet:1:2", function () {
-  let org = "org_801";
-  let secret_name = "secret_name_801";
-  let encrypted_value = "encrypted_value_801";
-  let key_id = 801;
-  let visibility = "visibility_801";
-  let selected_repository_ids = 801;
-  createOrUpdateOrgSecret("org_801", "secret_name_801", "encrypted_value_801", 801, "visibility_801", 801);
-  tryToAddExistingSecret("org_801", "secret_name_801", "encrypted_value_801", 801, "visibility_801", 801);
-  verifySecretExists("org_801", "secret_name_801", "encrypted_value_801", 801, "visibility_801", 801);
-  deleteOrgSecret("org_801", "secret_name_801", "encrypted_value_801", 801, "visibility_801", 801);
-  tryToDeleteANonExistingSecret("org_801", "secret_name_801", "encrypted_value_801", 801, "visibility_801", 801);
-  verifySecretDoesNotExist("org_801", "secret_name_801", "encrypted_value_801", 801, "visibility_801", 801);
-});
-
-// Story: crud:Secret:nondet:negative:dup-add
-bthread("crud:Secret:nondet:negative:dup-add", function () {
-  let org = "org_806";
-  let secret_name = "secret_name_806";
-  let encrypted_value = "encrypted_value_806";
-  let key_id = 806;
-  let visibility = "visibility_806";
-  let selected_repository_ids = 806;
-  createOrUpdateOrgSecret("org_806", "secret_name_806", "encrypted_value_806", 806, "visibility_806", 806);
-  verifySecretExists("org_806", "secret_name_806", "encrypted_value_806", 806, "visibility_806", 806);
-  tryToAddExistingSecret("org_806", "secret_name_806", "encrypted_value_806", 806, "visibility_806", 806);
-  verifySecretExists("org_806", "secret_name_806", "encrypted_value_806", 806, "visibility_806", 806);
-});
-
-// Story: monitor:Secret:add
-bthread("monitor:Secret:add", function () {
-  while (true) {
-    let ev = waitForAnySecretAdded();
-    let args = Object.values(ev);
-    block(matchDeletedSecret.apply(null, args), function () {
-      verifySecretExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:SecretSelectedRepos:nondet:1:1
-bthread("crud:SecretSelectedRepos:nondet:1:1", function () {
-  let org = "org_810";
-  let secret_name = "secret_name_810";
-  let repository_id = 810;
-  addSelectedRepoToOrgSecret("org_810", "secret_name_810", 810);
-  tryToAddExistingSecretSelectedRepos("org_810", "secret_name_810", 810);
-  verifySecretSelectedReposExists("org_810", "secret_name_810", 810);
-  removeSelectedRepoFromOrgSecret("org_810", "secret_name_810", 810);
-  tryToDeleteANonExistingSecretSelectedRepos("org_810", "secret_name_810", 810);
-  verifySecretSelectedReposDoesNotExist("org_810", "secret_name_810", 810);
-});
-
-// Story: crud:SecretSelectedRepos:nondet:1:2
-bthread("crud:SecretSelectedRepos:nondet:1:2", function () {
-  let org = "org_811";
-  let secret_name = "secret_name_811";
-  let repository_id = 811;
-  addSelectedRepoToOrgSecret("org_811", "secret_name_811", 811);
-  tryToAddExistingSecretSelectedRepos("org_811", "secret_name_811", 811);
-  verifySecretSelectedReposExists("org_811", "secret_name_811", 811);
-  removeSelectedRepoFromOrgSecret("org_811", "secret_name_811", 811);
-  tryToDeleteANonExistingSecretSelectedRepos("org_811", "secret_name_811", 811);
-  verifySecretSelectedReposDoesNotExist("org_811", "secret_name_811", 811);
-});
-
-// Story: crud:SecretSelectedRepos:nondet:negative:dup-add
-bthread("crud:SecretSelectedRepos:nondet:negative:dup-add", function () {
-  let org = "org_816";
-  let secret_name = "secret_name_816";
-  let repository_id = 816;
-  addSelectedRepoToOrgSecret("org_816", "secret_name_816", 816);
-  verifySecretSelectedReposExists("org_816", "secret_name_816", 816);
-  tryToAddExistingSecretSelectedRepos("org_816", "secret_name_816", 816);
-  verifySecretSelectedReposExists("org_816", "secret_name_816", 816);
-});
-
-// Story: monitor:SecretSelectedRepos:add
-bthread("monitor:SecretSelectedRepos:add", function () {
-  while (true) {
-    let ev = waitForAnySecretSelectedReposAdded();
-    let args = Object.values(ev);
-    block(matchDeletedSecretSelectedRepos.apply(null, args), function () {
-      verifySecretSelectedReposExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:SecretSelectedReposList:read_only
-bthread("crud:SecretSelectedReposList:read_only", function () {
-  let org = "org_820";
-  let secret_name = "secret_name_820";
-  let selected_repository_ids = 820;
-  let page = "page_820";
-  let per-page = "per-page_820";
-  verifySecretSelectedReposListExists("org_820", "secret_name_820", 820, "page_820", "per-page_820");
-});
-
-// Story: crud:Variable:nondet:1:1
-bthread("crud:Variable:nondet:1:1", function () {
-  let org = "org_830";
-  let name = "name_830";
-  let value = "value_830";
-  let visibility = "visibility_830";
-  let selected_repository_ids = 830;
-  createOrgVariable("org_830", "name_830", "value_830", "visibility_830", 830);
-  tryToAddExistingVariable("org_830", "name_830", "value_830", "visibility_830", 830);
-  verifyVariableExists("org_830", "name_830", "value_830", "visibility_830", 830);
-  updateOrgVariable("org_830", "name_830", "value_830", "visibility_830", 830);
-  deleteOrgVariable("org_830", "name_830", "value_830", "visibility_830", 830);
-  tryToDeleteANonExistingVariable("org_830", "name_830", "value_830", "visibility_830", 830);
-  verifyVariableDoesNotExist("org_830", "name_830", "value_830", "visibility_830", 830);
-});
-
-// Story: crud:Variable:nondet:1:2
-bthread("crud:Variable:nondet:1:2", function () {
-  let org = "org_831";
-  let name = "name_831";
-  let value = "value_831";
-  let visibility = "visibility_831";
-  let selected_repository_ids = 831;
-  createOrgVariable("org_831", "name_831", "value_831", "visibility_831", 831);
-  tryToAddExistingVariable("org_831", "name_831", "value_831", "visibility_831", 831);
-  updateOrgVariable("org_831", "name_831", "value_831", "visibility_831", 831);
-  verifyVariableExists("org_831", "name_831", "value_831", "visibility_831", 831);
-  deleteOrgVariable("org_831", "name_831", "value_831", "visibility_831", 831);
-  tryToDeleteANonExistingVariable("org_831", "name_831", "value_831", "visibility_831", 831);
-  verifyVariableDoesNotExist("org_831", "name_831", "value_831", "visibility_831", 831);
-});
-
-// Story: crud:Variable:nondet:negative:dup-add
-bthread("crud:Variable:nondet:negative:dup-add", function () {
-  let org = "org_836";
-  let name = "name_836";
-  let value = "value_836";
-  let visibility = "visibility_836";
-  let selected_repository_ids = 836;
-  createOrgVariable("org_836", "name_836", "value_836", "visibility_836", 836);
-  verifyVariableExists("org_836", "name_836", "value_836", "visibility_836", 836);
-  tryToAddExistingVariable("org_836", "name_836", "value_836", "visibility_836", 836);
-  verifyVariableExists("org_836", "name_836", "value_836", "visibility_836", 836);
-});
-
-// Story: crud:Variable:nondet:existing:update
-bthread("crud:Variable:nondet:existing:update", function () {
-  let ev = waitForAnyVariableAdded();
-  let args = Object.values(ev);
-  block(matchDeletedVariable.apply(null, args), function () {
-    verifyVariableExists.apply(null, args);
+  block(matchDeletedOrgVariable.apply(null, args), function () {
+    verifyOrgVariableExists.apply(null, args);
     updateOrgVariable.apply(null, args);
-    verifyVariableExists.apply(null, args);
+    verifyOrgVariableExists.apply(null, args);
   });
 });
 
-// Story: monitor:Variable:add
-bthread("monitor:Variable:add", function () {
+// Story: monitor:OrgVariable:add
+bthread("monitor:OrgVariable:add", function () {
   while (true) {
-    let ev = waitForAnyVariableAdded();
+    let ev = waitForAnyOrgVariableAdded();
     let args = Object.values(ev);
-    block(matchDeletedVariable.apply(null, args), function () {
-      verifyVariableExists.apply(null, args);
+    block(matchDeletedOrgVariable.apply(null, args), function () {
+      verifyOrgVariableExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:VariableSelectedRepos:nondet:1:1
-bthread("crud:VariableSelectedRepos:nondet:1:1", function () {
+// Story: crud:OrgVariableSelectedRepos:nondet:1:1
+bthread("crud:OrgVariableSelectedRepos:nondet:1:1", function () {
+  let org = "org_730";
+  let name = "name_730";
+  let repository_id = 730;
+  addSelectedRepoToOrgVariable("org_730", "name_730", 730);
+  tryToAddExistingOrgVariableSelectedRepos("org_730", "name_730", 730);
+  verifyOrgVariableSelectedReposExists("org_730", "name_730", 730);
+  removeSelectedRepoFromOrgVariable("org_730", "name_730", 730);
+  tryToDeleteANonExistingOrgVariableSelectedRepos("org_730", "name_730", 730);
+  verifyOrgVariableSelectedReposDoesNotExist("org_730", "name_730", 730);
+});
+
+// Story: crud:OrgVariableSelectedRepos:nondet:1:2
+bthread("crud:OrgVariableSelectedRepos:nondet:1:2", function () {
+  let org = "org_731";
+  let name = "name_731";
+  let repository_id = 731;
+  addSelectedRepoToOrgVariable("org_731", "name_731", 731);
+  tryToAddExistingOrgVariableSelectedRepos("org_731", "name_731", 731);
+  verifyOrgVariableSelectedReposExists("org_731", "name_731", 731);
+  removeSelectedRepoFromOrgVariable("org_731", "name_731", 731);
+  tryToDeleteANonExistingOrgVariableSelectedRepos("org_731", "name_731", 731);
+  verifyOrgVariableSelectedReposDoesNotExist("org_731", "name_731", 731);
+});
+
+// Story: crud:OrgVariableSelectedRepos:nondet:negative:dup-add
+bthread("crud:OrgVariableSelectedRepos:nondet:negative:dup-add", function () {
+  let org = "org_736";
+  let name = "name_736";
+  let repository_id = 736;
+  addSelectedRepoToOrgVariable("org_736", "name_736", 736);
+  verifyOrgVariableSelectedReposExists("org_736", "name_736", 736);
+  tryToAddExistingOrgVariableSelectedRepos("org_736", "name_736", 736);
+  verifyOrgVariableSelectedReposExists("org_736", "name_736", 736);
+});
+
+// Story: monitor:OrgVariableSelectedRepos:add
+bthread("monitor:OrgVariableSelectedRepos:add", function () {
+  while (true) {
+    let ev = waitForAnyOrgVariableSelectedReposAdded();
+    let args = Object.values(ev);
+    block(matchDeletedOrgVariableSelectedRepos.apply(null, args), function () {
+      verifyOrgVariableSelectedReposExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:SelfHostedRunnerPermission:read_only
+bthread("crud:SelfHostedRunnerPermission:read_only", function () {
+  let org = "org_750";
+  let enabled_repositories = "enabled_repositories_750";
+  verifySelfHostedRunnerPermissionExists("org_750", "enabled_repositories_750");
+});
+
+// Story: crud:SelfHostedRunnerPermissionSelectedRepos:nondet:1:1
+bthread("crud:SelfHostedRunnerPermissionSelectedRepos:nondet:1:1", function () {
+  let org = "org_760";
+  let repository_id = 760;
+  enableSelectedRepositorySelfHostedRunners("org_760", 760);
+  tryToAddExistingSelfHostedRunnerPermissionSelectedRepos("org_760", 760);
+  verifySelfHostedRunnerPermissionSelectedReposExists("org_760", 760);
+  disableSelectedRepositorySelfHostedRunners("org_760", 760);
+  tryToDeleteANonExistingSelfHostedRunnerPermissionSelectedRepos("org_760", 760);
+  verifySelfHostedRunnerPermissionSelectedReposDoesNotExist("org_760", 760);
+});
+
+// Story: crud:SelfHostedRunnerPermissionSelectedRepos:nondet:1:2
+bthread("crud:SelfHostedRunnerPermissionSelectedRepos:nondet:1:2", function () {
+  let org = "org_761";
+  let repository_id = 761;
+  enableSelectedRepositorySelfHostedRunners("org_761", 761);
+  tryToAddExistingSelfHostedRunnerPermissionSelectedRepos("org_761", 761);
+  verifySelfHostedRunnerPermissionSelectedReposExists("org_761", 761);
+  disableSelectedRepositorySelfHostedRunners("org_761", 761);
+  tryToDeleteANonExistingSelfHostedRunnerPermissionSelectedRepos("org_761", 761);
+  verifySelfHostedRunnerPermissionSelectedReposDoesNotExist("org_761", 761);
+});
+
+// Story: crud:SelfHostedRunnerPermissionSelectedRepos:nondet:negative:dup-add
+bthread("crud:SelfHostedRunnerPermissionSelectedRepos:nondet:negative:dup-add", function () {
+  let org = "org_766";
+  let repository_id = 766;
+  enableSelectedRepositorySelfHostedRunners("org_766", 766);
+  verifySelfHostedRunnerPermissionSelectedReposExists("org_766", 766);
+  tryToAddExistingSelfHostedRunnerPermissionSelectedRepos("org_766", 766);
+  verifySelfHostedRunnerPermissionSelectedReposExists("org_766", 766);
+});
+
+// Story: monitor:SelfHostedRunnerPermissionSelectedRepos:add
+bthread("monitor:SelfHostedRunnerPermissionSelectedRepos:add", function () {
+  while (true) {
+    let ev = waitForAnySelfHostedRunnerPermissionSelectedReposAdded();
+    let args = Object.values(ev);
+    block(matchDeletedSelfHostedRunnerPermissionSelectedRepos.apply(null, args), function () {
+      verifySelfHostedRunnerPermissionSelectedReposExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:SelectedRepositoryPermission:nondet:1:1
+bthread("crud:SelectedRepositoryPermission:nondet:1:1", function () {
+  let org = "org_780";
+  let repository_id = 780;
+  enableSelectedRepository("org_780", 780);
+  tryToAddExistingSelectedRepositoryPermission("org_780", 780);
+  verifySelectedRepositoryPermissionExists("org_780", 780);
+  disableSelectedRepository("org_780", 780);
+  tryToDeleteANonExistingSelectedRepositoryPermission("org_780", 780);
+  verifySelectedRepositoryPermissionDoesNotExist("org_780", 780);
+});
+
+// Story: crud:SelectedRepositoryPermission:nondet:1:2
+bthread("crud:SelectedRepositoryPermission:nondet:1:2", function () {
+  let org = "org_781";
+  let repository_id = 781;
+  enableSelectedRepository("org_781", 781);
+  tryToAddExistingSelectedRepositoryPermission("org_781", 781);
+  verifySelectedRepositoryPermissionExists("org_781", 781);
+  disableSelectedRepository("org_781", 781);
+  tryToDeleteANonExistingSelectedRepositoryPermission("org_781", 781);
+  verifySelectedRepositoryPermissionDoesNotExist("org_781", 781);
+});
+
+// Story: crud:SelectedRepositoryPermission:nondet:negative:dup-add
+bthread("crud:SelectedRepositoryPermission:nondet:negative:dup-add", function () {
+  let org = "org_786";
+  let repository_id = 786;
+  enableSelectedRepository("org_786", 786);
+  verifySelectedRepositoryPermissionExists("org_786", 786);
+  tryToAddExistingSelectedRepositoryPermission("org_786", 786);
+  verifySelectedRepositoryPermissionExists("org_786", 786);
+});
+
+// Story: monitor:SelectedRepositoryPermission:add
+bthread("monitor:SelectedRepositoryPermission:add", function () {
+  while (true) {
+    let ev = waitForAnySelectedRepositoryPermissionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedSelectedRepositoryPermission.apply(null, args), function () {
+      verifySelectedRepositoryPermissionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:Permission:read_only
+bthread("crud:Permission:read_only", function () {
+  let org = "org_800";
+  let enabled_repositories = "enabled_repositories_800";
+  let allowed_actions = "allowed_actions_800";
+  let sha_pinning_required = "sha_pinning_required_800";
+  verifyPermissionExists("org_800", "enabled_repositories_800", "allowed_actions_800", "sha_pinning_required_800");
+});
+
+// Story: crud:PermissionArtifactAndLogRetention:read_only
+bthread("crud:PermissionArtifactAndLogRetention:read_only", function () {
+  let org = "org_810";
+  let days = "days_810";
+  verifyPermissionArtifactAndLogRetentionExists("org_810", "days_810");
+});
+
+// Story: crud:PermissionForkPRContributorApproval:read_only
+bthread("crud:PermissionForkPRContributorApproval:read_only", function () {
+  let org = "org_820";
+  let approval_policy = "approval_policy_820";
+  verifyPermissionForkPRContributorApprovalExists("org_820", "approval_policy_820");
+});
+
+// Story: crud:PermissionForkPRWorkflowsPrivateRepos:read_only
+bthread("crud:PermissionForkPRWorkflowsPrivateRepos:read_only", function () {
+  let org = "org_830";
+  verifyPermissionForkPRWorkflowsPrivateReposExists("org_830");
+});
+
+// Story: crud:PermissionSelectedActions:read_only
+bthread("crud:PermissionSelectedActions:read_only", function () {
   let org = "org_840";
-  let name = "name_840";
-  let repository_id = 840;
-  addSelectedRepoToOrgVariable("org_840", "name_840", 840);
-  tryToAddExistingVariableSelectedRepos("org_840", "name_840", 840);
-  verifyVariableSelectedReposExists("org_840", "name_840", 840);
-  removeSelectedRepoFromOrgVariable("org_840", "name_840", 840);
-  tryToDeleteANonExistingVariableSelectedRepos("org_840", "name_840", 840);
-  verifyVariableSelectedReposDoesNotExist("org_840", "name_840", 840);
+  verifyPermissionSelectedActionsExists("org_840");
 });
 
-// Story: crud:VariableSelectedRepos:nondet:1:2
-bthread("crud:VariableSelectedRepos:nondet:1:2", function () {
-  let org = "org_841";
-  let name = "name_841";
-  let repository_id = 841;
-  addSelectedRepoToOrgVariable("org_841", "name_841", 841);
-  tryToAddExistingVariableSelectedRepos("org_841", "name_841", 841);
-  verifyVariableSelectedReposExists("org_841", "name_841", 841);
-  removeSelectedRepoFromOrgVariable("org_841", "name_841", 841);
-  tryToDeleteANonExistingVariableSelectedRepos("org_841", "name_841", 841);
-  verifyVariableSelectedReposDoesNotExist("org_841", "name_841", 841);
-});
-
-// Story: crud:VariableSelectedRepos:nondet:negative:dup-add
-bthread("crud:VariableSelectedRepos:nondet:negative:dup-add", function () {
-  let org = "org_846";
-  let name = "name_846";
-  let repository_id = 846;
-  addSelectedRepoToOrgVariable("org_846", "name_846", 846);
-  verifyVariableSelectedReposExists("org_846", "name_846", 846);
-  tryToAddExistingVariableSelectedRepos("org_846", "name_846", 846);
-  verifyVariableSelectedReposExists("org_846", "name_846", 846);
-});
-
-// Story: monitor:VariableSelectedRepos:add
-bthread("monitor:VariableSelectedRepos:add", function () {
-  while (true) {
-    let ev = waitForAnyVariableSelectedReposAdded();
-    let args = Object.values(ev);
-    block(matchDeletedVariableSelectedRepos.apply(null, args), function () {
-      verifyVariableSelectedReposExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:VariableSelectedReposList:read_only
-bthread("crud:VariableSelectedReposList:read_only", function () {
+// Story: crud:PermissionWorkflow:read_only
+bthread("crud:PermissionWorkflow:read_only", function () {
   let org = "org_850";
-  let name = "name_850";
-  let selected_repository_ids = 850;
-  let page = "page_850";
-  let per-page = "per-page_850";
-  verifyVariableSelectedReposListExists("org_850", "name_850", 850, "page_850", "per-page_850");
+  verifyPermissionWorkflowExists("org_850");
 });
 
-// Story: crud:VariableRepo:nondet:1:1
-bthread("crud:VariableRepo:nondet:1:1", function () {
+// Story: crud:Artifact:read_only
+bthread("crud:Artifact:read_only", function () {
   let owner = "owner_860";
   let repo = "repo_860";
-  let name = "name_860";
-  let value = "value_860";
-  createRepoVariable("owner_860", "repo_860", "name_860", "value_860");
-  tryToAddExistingVariableRepo("owner_860", "repo_860", "name_860", "value_860");
-  verifyVariableRepoExists("owner_860", "repo_860", "name_860", "value_860");
-  updateRepoVariable("owner_860", "repo_860", "name_860", "value_860");
-  deleteRepoVariable("owner_860", "repo_860", "name_860", "value_860");
-  tryToDeleteANonExistingVariableRepo("owner_860", "repo_860", "name_860", "value_860");
-  verifyVariableRepoDoesNotExist("owner_860", "repo_860", "name_860", "value_860");
+  let artifact_id = 860;
+  verifyArtifactExists("owner_860", "repo_860", 860);
 });
 
-// Story: crud:VariableRepo:nondet:1:2
-bthread("crud:VariableRepo:nondet:1:2", function () {
-  let owner = "owner_861";
-  let repo = "repo_861";
-  let name = "name_861";
-  let value = "value_861";
-  createRepoVariable("owner_861", "repo_861", "name_861", "value_861");
-  tryToAddExistingVariableRepo("owner_861", "repo_861", "name_861", "value_861");
-  updateRepoVariable("owner_861", "repo_861", "name_861", "value_861");
-  verifyVariableRepoExists("owner_861", "repo_861", "name_861", "value_861");
-  deleteRepoVariable("owner_861", "repo_861", "name_861", "value_861");
-  tryToDeleteANonExistingVariableRepo("owner_861", "repo_861", "name_861", "value_861");
-  verifyVariableRepoDoesNotExist("owner_861", "repo_861", "name_861", "value_861");
-});
-
-// Story: crud:VariableRepo:nondet:negative:dup-add
-bthread("crud:VariableRepo:nondet:negative:dup-add", function () {
-  let owner = "owner_866";
-  let repo = "repo_866";
-  let name = "name_866";
-  let value = "value_866";
-  createRepoVariable("owner_866", "repo_866", "name_866", "value_866");
-  verifyVariableRepoExists("owner_866", "repo_866", "name_866", "value_866");
-  tryToAddExistingVariableRepo("owner_866", "repo_866", "name_866", "value_866");
-  verifyVariableRepoExists("owner_866", "repo_866", "name_866", "value_866");
-});
-
-// Story: crud:VariableRepo:nondet:existing:update
-bthread("crud:VariableRepo:nondet:existing:update", function () {
-  let ev = waitForAnyVariableRepoAdded();
-  let args = Object.values(ev);
-  block(matchDeletedVariableRepo.apply(null, args), function () {
-    verifyVariableRepoExists.apply(null, args);
-    updateRepoVariable.apply(null, args);
-    verifyVariableRepoExists.apply(null, args);
-  });
-});
-
-// Story: monitor:VariableRepo:add
-bthread("monitor:VariableRepo:add", function () {
-  while (true) {
-    let ev = waitForAnyVariableRepoAdded();
-    let args = Object.values(ev);
-    block(matchDeletedVariableRepo.apply(null, args), function () {
-      verifyVariableRepoExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:SecretRepo:nondet:1:1
-bthread("crud:SecretRepo:nondet:1:1", function () {
-  let owner = "owner_870";
-  let repo = "repo_870";
-  let secret_name = "secret_name_870";
-  let encrypted_value = "encrypted_value_870";
-  let key_id = 870;
-  createOrUpdateRepoSecret("owner_870", "repo_870", "secret_name_870", "encrypted_value_870", 870);
-  tryToAddExistingSecretRepo("owner_870", "repo_870", "secret_name_870", "encrypted_value_870", 870);
-  verifySecretRepoExists("owner_870", "repo_870", "secret_name_870", "encrypted_value_870", 870);
-  deleteRepoSecret("owner_870", "repo_870", "secret_name_870", "encrypted_value_870", 870);
-  tryToDeleteANonExistingSecretRepo("owner_870", "repo_870", "secret_name_870", "encrypted_value_870", 870);
-  verifySecretRepoDoesNotExist("owner_870", "repo_870", "secret_name_870", "encrypted_value_870", 870);
-});
-
-// Story: crud:SecretRepo:nondet:1:2
-bthread("crud:SecretRepo:nondet:1:2", function () {
-  let owner = "owner_871";
-  let repo = "repo_871";
-  let secret_name = "secret_name_871";
-  let encrypted_value = "encrypted_value_871";
-  let key_id = 871;
-  createOrUpdateRepoSecret("owner_871", "repo_871", "secret_name_871", "encrypted_value_871", 871);
-  tryToAddExistingSecretRepo("owner_871", "repo_871", "secret_name_871", "encrypted_value_871", 871);
-  verifySecretRepoExists("owner_871", "repo_871", "secret_name_871", "encrypted_value_871", 871);
-  deleteRepoSecret("owner_871", "repo_871", "secret_name_871", "encrypted_value_871", 871);
-  tryToDeleteANonExistingSecretRepo("owner_871", "repo_871", "secret_name_871", "encrypted_value_871", 871);
-  verifySecretRepoDoesNotExist("owner_871", "repo_871", "secret_name_871", "encrypted_value_871", 871);
-});
-
-// Story: crud:SecretRepo:nondet:negative:dup-add
-bthread("crud:SecretRepo:nondet:negative:dup-add", function () {
-  let owner = "owner_876";
-  let repo = "repo_876";
-  let secret_name = "secret_name_876";
-  let encrypted_value = "encrypted_value_876";
-  let key_id = 876;
-  createOrUpdateRepoSecret("owner_876", "repo_876", "secret_name_876", "encrypted_value_876", 876);
-  verifySecretRepoExists("owner_876", "repo_876", "secret_name_876", "encrypted_value_876", 876);
-  tryToAddExistingSecretRepo("owner_876", "repo_876", "secret_name_876", "encrypted_value_876", 876);
-  verifySecretRepoExists("owner_876", "repo_876", "secret_name_876", "encrypted_value_876", 876);
-});
-
-// Story: monitor:SecretRepo:add
-bthread("monitor:SecretRepo:add", function () {
-  while (true) {
-    let ev = waitForAnySecretRepoAdded();
-    let args = Object.values(ev);
-    block(matchDeletedSecretRepo.apply(null, args), function () {
-      verifySecretRepoExists.apply(null, args);
-    });
-  }
+// Story: crud:Job:read_only
+bthread("crud:Job:read_only", function () {
+  let owner = "owner_880";
+  let repo = "repo_880";
+  let job_id = 880;
+  let enable_debug_logging = "enable_debug_logging_880";
+  verifyJobExists("owner_880", "repo_880", 880, "enable_debug_logging_880");
 });
 
 // Story: crud:Workflow:read_only
 bthread("crud:Workflow:read_only", function () {
-  let owner = "owner_880";
-  let repo = "repo_880";
-  let workflow_id = 880;
-  let ref = "ref_880";
-  let inputs = "inputs_880";
-  verifyWorkflowExists("owner_880", "repo_880", 880, "ref_880", "inputs_880");
+  let owner = "owner_890";
+  let repo = "repo_890";
+  let workflow_id = 890;
+  let ref = "ref_890";
+  let inputs = "inputs_890";
+  verifyWorkflowExists("owner_890", "repo_890", 890, "ref_890", "inputs_890");
 });
 
 // Story: crud:WorkflowRun:read_only
 bthread("crud:WorkflowRun:read_only", function () {
-  let owner = "owner_890";
-  let repo = "repo_890";
-  let run_id = 890;
-  let exclude_pull_requests = "exclude_pull_requests_890";
-  let enable_debug_logging = "enable_debug_logging_890";
-  verifyWorkflowRunExists("owner_890", "repo_890", 890, "exclude_pull_requests_890", "enable_debug_logging_890");
+  let owner = "owner_900";
+  let repo = "repo_900";
+  let run_id = 900;
+  let enable_debug_logging = "enable_debug_logging_900";
+  verifyWorkflowRunExists("owner_900", "repo_900", 900, "enable_debug_logging_900");
 });
 
 // Story: crud:WorkflowRunAttempt:read_only
 bthread("crud:WorkflowRunAttempt:read_only", function () {
-  let owner = "owner_900";
-  let repo = "repo_900";
-  let run_id = 900;
-  let attempt_number = "attempt_number_900";
-  let exclude_pull_requests = "exclude_pull_requests_900";
-  verifyWorkflowRunAttemptExists("owner_900", "repo_900", 900, "attempt_number_900", "exclude_pull_requests_900");
-});
-
-// Story: crud:WorkflowRunAttemptJobs:read_only
-bthread("crud:WorkflowRunAttemptJobs:read_only", function () {
   let owner = "owner_910";
   let repo = "repo_910";
   let run_id = 910;
   let attempt_number = "attempt_number_910";
-  let per-page = "per-page_910";
-  let page = "page_910";
-  verifyWorkflowRunAttemptJobsExists("owner_910", "repo_910", 910, "attempt_number_910", "per-page_910", "page_910");
+  verifyWorkflowRunAttemptExists("owner_910", "repo_910", 910, "attempt_number_910");
 });
 
 // Story: crud:WorkflowRunAttemptLogs:read_only
 bthread("crud:WorkflowRunAttemptLogs:read_only", function () {
-  let owner = "owner_920";
-  let repo = "repo_920";
-  let run_id = 920;
-  let attempt_number = "attempt_number_920";
-  verifyWorkflowRunAttemptLogsExists("owner_920", "repo_920", 920, "attempt_number_920");
-});
-
-// Story: crud:WorkflowRunJobs:read_only
-bthread("crud:WorkflowRunJobs:read_only", function () {
   let owner = "owner_930";
   let repo = "repo_930";
   let run_id = 930;
-  let filter = "filter_930";
-  let per-page = "per-page_930";
-  let page = "page_930";
-  verifyWorkflowRunJobsExists("owner_930", "repo_930", 930, "filter_930", "per-page_930", "page_930");
+  let attempt_number = "attempt_number_930";
+  verifyWorkflowRunAttemptLogsExists("owner_930", "repo_930", 930, "attempt_number_930");
 });
 
 // Story: crud:WorkflowRunLogs:read_only
@@ -2127,283 +1989,363 @@ bthread("crud:WorkflowRunLogs:read_only", function () {
   verifyWorkflowRunLogsExists("owner_940", "repo_940", 940);
 });
 
-// Story: crud:WorkflowRunArtifacts:read_only
-bthread("crud:WorkflowRunArtifacts:read_only", function () {
-  let owner = "owner_950";
-  let repo = "repo_950";
-  let run_id = 950;
-  let per-page = "per-page_950";
-  let page = "page_950";
-  let artifact-name = "artifact-name_950";
-  verifyWorkflowRunArtifactsExists("owner_950", "repo_950", 950, "per-page_950", "page_950", "artifact-name_950");
-});
-
-// Story: crud:WorkflowRunApprovals:read_only
-bthread("crud:WorkflowRunApprovals:read_only", function () {
+// Story: crud:WorkflowRunApproval:read_only
+bthread("crud:WorkflowRunApproval:read_only", function () {
   let owner = "owner_960";
   let repo = "repo_960";
   let run_id = 960;
-  verifyWorkflowRunApprovalsExists("owner_960", "repo_960", 960);
+  verifyWorkflowRunApprovalExists("owner_960", "repo_960", 960);
 });
 
-// Story: crud:WorkflowRunPendingDeployments:read_only
-bthread("crud:WorkflowRunPendingDeployments:read_only", function () {
+// Story: crud:WorkflowRunPendingDeployment:read_only
+bthread("crud:WorkflowRunPendingDeployment:read_only", function () {
   let owner = "owner_970";
   let repo = "repo_970";
   let run_id = 970;
   let environment_ids = 970;
   let state = "state_970";
   let comment = "comment_970";
-  verifyWorkflowRunPendingDeploymentsExists("owner_970", "repo_970", 970, 970, "state_970", "comment_970");
+  verifyWorkflowRunPendingDeploymentExists("owner_970", "repo_970", 970, 970, "state_970", "comment_970");
 });
 
-// Story: crud:Job:read_only
-bthread("crud:Job:read_only", function () {
+// Story: crud:RepositorySecret:nondet:1:1
+bthread("crud:RepositorySecret:nondet:1:1", function () {
   let owner = "owner_980";
   let repo = "repo_980";
-  let job_id = 980;
-  let enable_debug_logging = "enable_debug_logging_980";
-  verifyJobExists("owner_980", "repo_980", 980, "enable_debug_logging_980");
+  let secret_name = "secret_name_980";
+  let encrypted_value = "encrypted_value_980";
+  let key_id = 980;
+  createOrUpdateRepoSecret("owner_980", "repo_980", "secret_name_980", "encrypted_value_980", 980);
+  tryToAddExistingRepositorySecret("owner_980", "repo_980", "secret_name_980", "encrypted_value_980", 980);
+  verifyRepositorySecretExists("owner_980", "repo_980", "secret_name_980", "encrypted_value_980", 980);
+  deleteRepoSecret("owner_980", "repo_980", "secret_name_980", "encrypted_value_980", 980);
+  tryToDeleteANonExistingRepositorySecret("owner_980", "repo_980", "secret_name_980", "encrypted_value_980", 980);
+  verifyRepositorySecretDoesNotExist("owner_980", "repo_980", "secret_name_980", "encrypted_value_980", 980);
 });
 
-// Story: crud:JobLogs:read_only
-bthread("crud:JobLogs:read_only", function () {
-  let owner = "owner_990";
-  let repo = "repo_990";
-  let job_id = 990;
-  verifyJobLogsExists("owner_990", "repo_990", 990);
+// Story: crud:RepositorySecret:nondet:1:2
+bthread("crud:RepositorySecret:nondet:1:2", function () {
+  let owner = "owner_981";
+  let repo = "repo_981";
+  let secret_name = "secret_name_981";
+  let encrypted_value = "encrypted_value_981";
+  let key_id = 981;
+  createOrUpdateRepoSecret("owner_981", "repo_981", "secret_name_981", "encrypted_value_981", 981);
+  tryToAddExistingRepositorySecret("owner_981", "repo_981", "secret_name_981", "encrypted_value_981", 981);
+  verifyRepositorySecretExists("owner_981", "repo_981", "secret_name_981", "encrypted_value_981", 981);
+  deleteRepoSecret("owner_981", "repo_981", "secret_name_981", "encrypted_value_981", 981);
+  tryToDeleteANonExistingRepositorySecret("owner_981", "repo_981", "secret_name_981", "encrypted_value_981", 981);
+  verifyRepositorySecretDoesNotExist("owner_981", "repo_981", "secret_name_981", "encrypted_value_981", 981);
 });
 
-// Story: crud:Artifact:read_only
-bthread("crud:Artifact:read_only", function () {
-  let owner = "owner_1000";
-  let repo = "repo_1000";
-  let artifact_id = 1000;
-  verifyArtifactExists("owner_1000", "repo_1000", 1000);
+// Story: crud:RepositorySecret:nondet:negative:dup-add
+bthread("crud:RepositorySecret:nondet:negative:dup-add", function () {
+  let owner = "owner_986";
+  let repo = "repo_986";
+  let secret_name = "secret_name_986";
+  let encrypted_value = "encrypted_value_986";
+  let key_id = 986;
+  createOrUpdateRepoSecret("owner_986", "repo_986", "secret_name_986", "encrypted_value_986", 986);
+  verifyRepositorySecretExists("owner_986", "repo_986", "secret_name_986", "encrypted_value_986", 986);
+  tryToAddExistingRepositorySecret("owner_986", "repo_986", "secret_name_986", "encrypted_value_986", 986);
+  verifyRepositorySecretExists("owner_986", "repo_986", "secret_name_986", "encrypted_value_986", 986);
 });
 
-// Story: crud:ArtifactDownload:read_only
-bthread("crud:ArtifactDownload:read_only", function () {
-  let owner = "owner_1010";
-  let repo = "repo_1010";
-  let artifact_id = 1010;
-  let archive_format = "archive_format_1010";
-  verifyArtifactDownloadExists("owner_1010", "repo_1010", 1010, "archive_format_1010");
-});
-
-// Story: crud:CacheList:read_only
-bthread("crud:CacheList:read_only", function () {
-  let owner = "owner_1040";
-  let repo = "repo_1040";
-  let per-page = "per-page_1040";
-  let page = "page_1040";
-  let actions_cache_git_ref_full = "actions_cache_git_ref_full_1040";
-  let actions_cache_key = "actions_cache_key_1040";
-  let actions_cache_list_sort = "actions_cache_list_sort_1040";
-  let direction = "direction_1040";
-  verifyCacheListExists("owner_1040", "repo_1040", "per-page_1040", "page_1040", "actions_cache_git_ref_full_1040", "actions_cache_key_1040", "actions_cache_list_sort_1040", "direction_1040");
-});
-
-// Story: crud:CacheUsage:read_only
-bthread("crud:CacheUsage:read_only", function () {
-  let owner = "owner_1050";
-  let repo = "repo_1050";
-  verifyCacheUsageExists("owner_1050", "repo_1050");
-});
-
-// Story: crud:CacheUsageOrg:read_only
-bthread("crud:CacheUsageOrg:read_only", function () {
-  let org = "org_1060";
-  verifyCacheUsageOrgExists("org_1060");
-});
-
-// Story: crud:CacheUsageByRepoOrg:read_only
-bthread("crud:CacheUsageByRepoOrg:read_only", function () {
-  let org = "org_1070";
-  let per-page = "per-page_1070";
-  let page = "page_1070";
-  verifyCacheUsageByRepoOrgExists("org_1070", "per-page_1070", "page_1070");
-});
-
-// Story: crud:PermissionOrg:read_only
-bthread("crud:PermissionOrg:read_only", function () {
-  let org = "org_1080";
-  let enabled_repositories = "enabled_repositories_1080";
-  let allowed_actions = "allowed_actions_1080";
-  let sha_pinning_required = "sha_pinning_required_1080";
-  verifyPermissionOrgExists("org_1080", "enabled_repositories_1080", "allowed_actions_1080", "sha_pinning_required_1080");
-});
-
-// Story: crud:PermissionRepo:read_only
-bthread("crud:PermissionRepo:read_only", function () {
-  let owner = "owner_1090";
-  let repo = "repo_1090";
-  let enabled = "enabled_1090";
-  let allowed_actions = "allowed_actions_1090";
-  let sha_pinning_required = "sha_pinning_required_1090";
-  verifyPermissionRepoExists("owner_1090", "repo_1090", "enabled_1090", "allowed_actions_1090", "sha_pinning_required_1090");
-});
-
-// Story: crud:PermissionSelectedRepositories:read_only
-bthread("crud:PermissionSelectedRepositories:read_only", function () {
-  let org = "org_1100";
-  let per-page = "per-page_1100";
-  let page = "page_1100";
-  let selected_repository_ids = 1100;
-  verifyPermissionSelectedRepositoriesExists("org_1100", "per-page_1100", "page_1100", 1100);
-});
-
-// Story: crud:PermissionSelectedRepository:nondet:1:1
-bthread("crud:PermissionSelectedRepository:nondet:1:1", function () {
-  let org = "org_1110";
-  let repository_id = 1110;
-  enableSelectedRepositoryForOrg("org_1110", 1110);
-  tryToAddExistingPermissionSelectedRepository("org_1110", 1110);
-  verifyPermissionSelectedRepositoryExists("org_1110", 1110);
-  disableSelectedRepositoryForOrg("org_1110", 1110);
-  tryToDeleteANonExistingPermissionSelectedRepository("org_1110", 1110);
-  verifyPermissionSelectedRepositoryDoesNotExist("org_1110", 1110);
-});
-
-// Story: crud:PermissionSelectedRepository:nondet:1:2
-bthread("crud:PermissionSelectedRepository:nondet:1:2", function () {
-  let org = "org_1111";
-  let repository_id = 1111;
-  enableSelectedRepositoryForOrg("org_1111", 1111);
-  tryToAddExistingPermissionSelectedRepository("org_1111", 1111);
-  verifyPermissionSelectedRepositoryExists("org_1111", 1111);
-  disableSelectedRepositoryForOrg("org_1111", 1111);
-  tryToDeleteANonExistingPermissionSelectedRepository("org_1111", 1111);
-  verifyPermissionSelectedRepositoryDoesNotExist("org_1111", 1111);
-});
-
-// Story: crud:PermissionSelectedRepository:nondet:negative:dup-add
-bthread("crud:PermissionSelectedRepository:nondet:negative:dup-add", function () {
-  let org = "org_1116";
-  let repository_id = 1116;
-  enableSelectedRepositoryForOrg("org_1116", 1116);
-  verifyPermissionSelectedRepositoryExists("org_1116", 1116);
-  tryToAddExistingPermissionSelectedRepository("org_1116", 1116);
-  verifyPermissionSelectedRepositoryExists("org_1116", 1116);
-});
-
-// Story: monitor:PermissionSelectedRepository:add
-bthread("monitor:PermissionSelectedRepository:add", function () {
+// Story: monitor:RepositorySecret:add
+bthread("monitor:RepositorySecret:add", function () {
   while (true) {
-    let ev = waitForAnyPermissionSelectedRepositoryAdded();
+    let ev = waitForAnyRepositorySecretAdded();
     let args = Object.values(ev);
-    block(matchDeletedPermissionSelectedRepository.apply(null, args), function () {
-      verifyPermissionSelectedRepositoryExists.apply(null, args);
+    block(matchDeletedRepositorySecret.apply(null, args), function () {
+      verifyRepositorySecretExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:PermissionSelfHostedRunners:read_only
-bthread("crud:PermissionSelfHostedRunners:read_only", function () {
-  let org = "org_1120";
-  let enabled_repositories = "enabled_repositories_1120";
-  verifyPermissionSelfHostedRunnersExists("org_1120", "enabled_repositories_1120");
+// Story: crud:RepositoryVariable:nondet:1:1
+bthread("crud:RepositoryVariable:nondet:1:1", function () {
+  let owner = "owner_990";
+  let repo = "repo_990";
+  let name = "name_990";
+  let value = "value_990";
+  createRepoVariable("owner_990", "repo_990", "name_990", "value_990");
+  tryToAddExistingRepositoryVariable("owner_990", "repo_990", "name_990", "value_990");
+  verifyRepositoryVariableExists("owner_990", "repo_990", "name_990", "value_990");
+  updateRepoVariable("owner_990", "repo_990", "name_990", "value_990");
+  deleteRepoVariable("owner_990", "repo_990", "name_990", "value_990");
+  tryToDeleteANonExistingRepositoryVariable("owner_990", "repo_990", "name_990", "value_990");
+  verifyRepositoryVariableDoesNotExist("owner_990", "repo_990", "name_990", "value_990");
 });
 
-// Story: crud:PermissionSelfHostedRunnersRepositories:read_only
-bthread("crud:PermissionSelfHostedRunnersRepositories:read_only", function () {
-  let org = "org_1130";
-  let per-page = "per-page_1130";
-  let page = "page_1130";
-  let selected_repository_ids = 1130;
-  verifyPermissionSelfHostedRunnersRepositoriesExists("org_1130", "per-page_1130", "page_1130", 1130);
+// Story: crud:RepositoryVariable:nondet:1:2
+bthread("crud:RepositoryVariable:nondet:1:2", function () {
+  let owner = "owner_991";
+  let repo = "repo_991";
+  let name = "name_991";
+  let value = "value_991";
+  createRepoVariable("owner_991", "repo_991", "name_991", "value_991");
+  tryToAddExistingRepositoryVariable("owner_991", "repo_991", "name_991", "value_991");
+  updateRepoVariable("owner_991", "repo_991", "name_991", "value_991");
+  verifyRepositoryVariableExists("owner_991", "repo_991", "name_991", "value_991");
+  deleteRepoVariable("owner_991", "repo_991", "name_991", "value_991");
+  tryToDeleteANonExistingRepositoryVariable("owner_991", "repo_991", "name_991", "value_991");
+  verifyRepositoryVariableDoesNotExist("owner_991", "repo_991", "name_991", "value_991");
 });
 
-// Story: crud:PermissionSelfHostedRunnersRepository:nondet:1:1
-bthread("crud:PermissionSelfHostedRunnersRepository:nondet:1:1", function () {
-  let org = "org_1140";
-  let repository_id = 1140;
-  enableSelectedRepositorySelfHostedRunnersForOrg("org_1140", 1140);
-  tryToAddExistingPermissionSelfHostedRunnersRepository("org_1140", 1140);
-  verifyPermissionSelfHostedRunnersRepositoryExists("org_1140", 1140);
-  disableSelectedRepositorySelfHostedRunnersForOrg("org_1140", 1140);
-  tryToDeleteANonExistingPermissionSelfHostedRunnersRepository("org_1140", 1140);
-  verifyPermissionSelfHostedRunnersRepositoryDoesNotExist("org_1140", 1140);
+// Story: crud:RepositoryVariable:nondet:negative:dup-add
+bthread("crud:RepositoryVariable:nondet:negative:dup-add", function () {
+  let owner = "owner_996";
+  let repo = "repo_996";
+  let name = "name_996";
+  let value = "value_996";
+  createRepoVariable("owner_996", "repo_996", "name_996", "value_996");
+  verifyRepositoryVariableExists("owner_996", "repo_996", "name_996", "value_996");
+  tryToAddExistingRepositoryVariable("owner_996", "repo_996", "name_996", "value_996");
+  verifyRepositoryVariableExists("owner_996", "repo_996", "name_996", "value_996");
 });
 
-// Story: crud:PermissionSelfHostedRunnersRepository:nondet:1:2
-bthread("crud:PermissionSelfHostedRunnersRepository:nondet:1:2", function () {
-  let org = "org_1141";
-  let repository_id = 1141;
-  enableSelectedRepositorySelfHostedRunnersForOrg("org_1141", 1141);
-  tryToAddExistingPermissionSelfHostedRunnersRepository("org_1141", 1141);
-  verifyPermissionSelfHostedRunnersRepositoryExists("org_1141", 1141);
-  disableSelectedRepositorySelfHostedRunnersForOrg("org_1141", 1141);
-  tryToDeleteANonExistingPermissionSelfHostedRunnersRepository("org_1141", 1141);
-  verifyPermissionSelfHostedRunnersRepositoryDoesNotExist("org_1141", 1141);
+// Story: crud:RepositoryVariable:nondet:existing:update
+bthread("crud:RepositoryVariable:nondet:existing:update", function () {
+  let ev = waitForAnyRepositoryVariableAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRepositoryVariable.apply(null, args), function () {
+    verifyRepositoryVariableExists.apply(null, args);
+    updateRepoVariable.apply(null, args);
+    verifyRepositoryVariableExists.apply(null, args);
+  });
 });
 
-// Story: crud:PermissionSelfHostedRunnersRepository:nondet:negative:dup-add
-bthread("crud:PermissionSelfHostedRunnersRepository:nondet:negative:dup-add", function () {
-  let org = "org_1146";
-  let repository_id = 1146;
-  enableSelectedRepositorySelfHostedRunnersForOrg("org_1146", 1146);
-  verifyPermissionSelfHostedRunnersRepositoryExists("org_1146", 1146);
-  tryToAddExistingPermissionSelfHostedRunnersRepository("org_1146", 1146);
-  verifyPermissionSelfHostedRunnersRepositoryExists("org_1146", 1146);
-});
-
-// Story: monitor:PermissionSelfHostedRunnersRepository:add
-bthread("monitor:PermissionSelfHostedRunnersRepository:add", function () {
+// Story: monitor:RepositoryVariable:add
+bthread("monitor:RepositoryVariable:add", function () {
   while (true) {
-    let ev = waitForAnyPermissionSelfHostedRunnersRepositoryAdded();
+    let ev = waitForAnyRepositoryVariableAdded();
     let args = Object.values(ev);
-    block(matchDeletedPermissionSelfHostedRunnersRepository.apply(null, args), function () {
-      verifyPermissionSelfHostedRunnersRepositoryExists.apply(null, args);
+    block(matchDeletedRepositoryVariable.apply(null, args), function () {
+      verifyRepositoryVariableExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:RepositoryVariableSelectedRepos:nondet:1:1
+bthread("crud:RepositoryVariableSelectedRepos:nondet:1:1", function () {
+  let owner = "owner_1000";
+  let repo = "repo_1000";
+  let name = "name_1000";
+  let repository_id = 1000;
+  addSelectedRepoToRepoVariable("owner_1000", "repo_1000", "name_1000", 1000);
+  tryToAddExistingRepositoryVariableSelectedRepos("owner_1000", "repo_1000", "name_1000", 1000);
+  verifyRepositoryVariableSelectedReposExists("owner_1000", "repo_1000", "name_1000", 1000);
+  removeSelectedRepoFromRepoVariable("owner_1000", "repo_1000", "name_1000", 1000);
+  tryToDeleteANonExistingRepositoryVariableSelectedRepos("owner_1000", "repo_1000", "name_1000", 1000);
+  verifyRepositoryVariableSelectedReposDoesNotExist("owner_1000", "repo_1000", "name_1000", 1000);
+});
+
+// Story: crud:RepositoryVariableSelectedRepos:nondet:1:2
+bthread("crud:RepositoryVariableSelectedRepos:nondet:1:2", function () {
+  let owner = "owner_1001";
+  let repo = "repo_1001";
+  let name = "name_1001";
+  let repository_id = 1001;
+  addSelectedRepoToRepoVariable("owner_1001", "repo_1001", "name_1001", 1001);
+  tryToAddExistingRepositoryVariableSelectedRepos("owner_1001", "repo_1001", "name_1001", 1001);
+  verifyRepositoryVariableSelectedReposExists("owner_1001", "repo_1001", "name_1001", 1001);
+  removeSelectedRepoFromRepoVariable("owner_1001", "repo_1001", "name_1001", 1001);
+  tryToDeleteANonExistingRepositoryVariableSelectedRepos("owner_1001", "repo_1001", "name_1001", 1001);
+  verifyRepositoryVariableSelectedReposDoesNotExist("owner_1001", "repo_1001", "name_1001", 1001);
+});
+
+// Story: crud:RepositoryVariableSelectedRepos:nondet:negative:dup-add
+bthread("crud:RepositoryVariableSelectedRepos:nondet:negative:dup-add", function () {
+  let owner = "owner_1006";
+  let repo = "repo_1006";
+  let name = "name_1006";
+  let repository_id = 1006;
+  addSelectedRepoToRepoVariable("owner_1006", "repo_1006", "name_1006", 1006);
+  verifyRepositoryVariableSelectedReposExists("owner_1006", "repo_1006", "name_1006", 1006);
+  tryToAddExistingRepositoryVariableSelectedRepos("owner_1006", "repo_1006", "name_1006", 1006);
+  verifyRepositoryVariableSelectedReposExists("owner_1006", "repo_1006", "name_1006", 1006);
+});
+
+// Story: monitor:RepositoryVariableSelectedRepos:add
+bthread("monitor:RepositoryVariableSelectedRepos:add", function () {
+  while (true) {
+    let ev = waitForAnyRepositoryVariableSelectedReposAdded();
+    let args = Object.values(ev);
+    block(matchDeletedRepositoryVariableSelectedRepos.apply(null, args), function () {
+      verifyRepositoryVariableSelectedReposExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:EnvironmentSecret:nondet:1:1
+bthread("crud:EnvironmentSecret:nondet:1:1", function () {
+  let owner = "owner_1020";
+  let repo = "repo_1020";
+  let environment_name = "environment_name_1020";
+  let secret_name = "secret_name_1020";
+  let encrypted_value = "encrypted_value_1020";
+  let key_id = 1020;
+  createOrUpdateEnvironmentSecret("owner_1020", "repo_1020", "environment_name_1020", "secret_name_1020", "encrypted_value_1020", 1020);
+  tryToAddExistingEnvironmentSecret("owner_1020", "repo_1020", "environment_name_1020", "secret_name_1020", "encrypted_value_1020", 1020);
+  verifyEnvironmentSecretExists("owner_1020", "repo_1020", "environment_name_1020", "secret_name_1020", "encrypted_value_1020", 1020);
+  deleteEnvironmentSecret("owner_1020", "repo_1020", "environment_name_1020", "secret_name_1020", "encrypted_value_1020", 1020);
+  tryToDeleteANonExistingEnvironmentSecret("owner_1020", "repo_1020", "environment_name_1020", "secret_name_1020", "encrypted_value_1020", 1020);
+  verifyEnvironmentSecretDoesNotExist("owner_1020", "repo_1020", "environment_name_1020", "secret_name_1020", "encrypted_value_1020", 1020);
+});
+
+// Story: crud:EnvironmentSecret:nondet:1:2
+bthread("crud:EnvironmentSecret:nondet:1:2", function () {
+  let owner = "owner_1021";
+  let repo = "repo_1021";
+  let environment_name = "environment_name_1021";
+  let secret_name = "secret_name_1021";
+  let encrypted_value = "encrypted_value_1021";
+  let key_id = 1021;
+  createOrUpdateEnvironmentSecret("owner_1021", "repo_1021", "environment_name_1021", "secret_name_1021", "encrypted_value_1021", 1021);
+  tryToAddExistingEnvironmentSecret("owner_1021", "repo_1021", "environment_name_1021", "secret_name_1021", "encrypted_value_1021", 1021);
+  verifyEnvironmentSecretExists("owner_1021", "repo_1021", "environment_name_1021", "secret_name_1021", "encrypted_value_1021", 1021);
+  deleteEnvironmentSecret("owner_1021", "repo_1021", "environment_name_1021", "secret_name_1021", "encrypted_value_1021", 1021);
+  tryToDeleteANonExistingEnvironmentSecret("owner_1021", "repo_1021", "environment_name_1021", "secret_name_1021", "encrypted_value_1021", 1021);
+  verifyEnvironmentSecretDoesNotExist("owner_1021", "repo_1021", "environment_name_1021", "secret_name_1021", "encrypted_value_1021", 1021);
+});
+
+// Story: crud:EnvironmentSecret:nondet:negative:dup-add
+bthread("crud:EnvironmentSecret:nondet:negative:dup-add", function () {
+  let owner = "owner_1026";
+  let repo = "repo_1026";
+  let environment_name = "environment_name_1026";
+  let secret_name = "secret_name_1026";
+  let encrypted_value = "encrypted_value_1026";
+  let key_id = 1026;
+  createOrUpdateEnvironmentSecret("owner_1026", "repo_1026", "environment_name_1026", "secret_name_1026", "encrypted_value_1026", 1026);
+  verifyEnvironmentSecretExists("owner_1026", "repo_1026", "environment_name_1026", "secret_name_1026", "encrypted_value_1026", 1026);
+  tryToAddExistingEnvironmentSecret("owner_1026", "repo_1026", "environment_name_1026", "secret_name_1026", "encrypted_value_1026", 1026);
+  verifyEnvironmentSecretExists("owner_1026", "repo_1026", "environment_name_1026", "secret_name_1026", "encrypted_value_1026", 1026);
+});
+
+// Story: monitor:EnvironmentSecret:add
+bthread("monitor:EnvironmentSecret:add", function () {
+  while (true) {
+    let ev = waitForAnyEnvironmentSecretAdded();
+    let args = Object.values(ev);
+    block(matchDeletedEnvironmentSecret.apply(null, args), function () {
+      verifyEnvironmentSecretExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:EnvironmentVariable:nondet:1:1
+bthread("crud:EnvironmentVariable:nondet:1:1", function () {
+  let owner = "owner_1030";
+  let repo = "repo_1030";
+  let environment_name = "environment_name_1030";
+  let name = "name_1030";
+  let value = "value_1030";
+  createEnvironmentVariable("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+  tryToAddExistingEnvironmentVariable("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+  verifyEnvironmentVariableExists("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+  updateEnvironmentVariable("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+  deleteEnvironmentVariable("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+  tryToDeleteANonExistingEnvironmentVariable("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+  verifyEnvironmentVariableDoesNotExist("owner_1030", "repo_1030", "environment_name_1030", "name_1030", "value_1030");
+});
+
+// Story: crud:EnvironmentVariable:nondet:1:2
+bthread("crud:EnvironmentVariable:nondet:1:2", function () {
+  let owner = "owner_1031";
+  let repo = "repo_1031";
+  let environment_name = "environment_name_1031";
+  let name = "name_1031";
+  let value = "value_1031";
+  createEnvironmentVariable("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+  tryToAddExistingEnvironmentVariable("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+  updateEnvironmentVariable("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+  verifyEnvironmentVariableExists("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+  deleteEnvironmentVariable("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+  tryToDeleteANonExistingEnvironmentVariable("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+  verifyEnvironmentVariableDoesNotExist("owner_1031", "repo_1031", "environment_name_1031", "name_1031", "value_1031");
+});
+
+// Story: crud:EnvironmentVariable:nondet:negative:dup-add
+bthread("crud:EnvironmentVariable:nondet:negative:dup-add", function () {
+  let owner = "owner_1036";
+  let repo = "repo_1036";
+  let environment_name = "environment_name_1036";
+  let name = "name_1036";
+  let value = "value_1036";
+  createEnvironmentVariable("owner_1036", "repo_1036", "environment_name_1036", "name_1036", "value_1036");
+  verifyEnvironmentVariableExists("owner_1036", "repo_1036", "environment_name_1036", "name_1036", "value_1036");
+  tryToAddExistingEnvironmentVariable("owner_1036", "repo_1036", "environment_name_1036", "name_1036", "value_1036");
+  verifyEnvironmentVariableExists("owner_1036", "repo_1036", "environment_name_1036", "name_1036", "value_1036");
+});
+
+// Story: crud:EnvironmentVariable:nondet:existing:update
+bthread("crud:EnvironmentVariable:nondet:existing:update", function () {
+  let ev = waitForAnyEnvironmentVariableAdded();
+  let args = Object.values(ev);
+  block(matchDeletedEnvironmentVariable.apply(null, args), function () {
+    verifyEnvironmentVariableExists.apply(null, args);
+    updateEnvironmentVariable.apply(null, args);
+    verifyEnvironmentVariableExists.apply(null, args);
+  });
+});
+
+// Story: monitor:EnvironmentVariable:add
+bthread("monitor:EnvironmentVariable:add", function () {
+  while (true) {
+    let ev = waitForAnyEnvironmentVariableAdded();
+    let args = Object.values(ev);
+    block(matchDeletedEnvironmentVariable.apply(null, args), function () {
+      verifyEnvironmentVariableExists.apply(null, args);
     });
   }
 });
 
 // Story: crud:Organization:read_only
 bthread("crud:Organization:read_only", function () {
-  let org = "org_1150";
-  verifyOrganizationExists("org_1150");
+  let org = "org_1040";
+  verifyOrganizationExists("org_1040");
 });
 
 // Story: crud:ArtifactStorageRecords:read_only
 bthread("crud:ArtifactStorageRecords:read_only", function () {
-  let org = "org_1170";
-  let subject_digest = "subject_digest_1170";
-  verifyArtifactStorageRecordsExists("org_1170", "subject_digest_1170");
+  let org = "org_1060";
+  let subject_digest = "subject_digest_1060";
+  verifyArtifactStorageRecordsExists("org_1060", "subject_digest_1060");
 });
 
 // Story: crud:BlockedUser:nondet:1:1
 bthread("crud:BlockedUser:nondet:1:1", function () {
-  let org = "org_1200";
-  let username = "username_1200";
-  blockUser("org_1200", "username_1200");
-  tryToAddExistingBlockedUser("org_1200", "username_1200");
-  verifyBlockedUserExists("org_1200", "username_1200");
-  unblockUser("org_1200", "username_1200");
-  tryToDeleteANonExistingBlockedUser("org_1200", "username_1200");
-  verifyBlockedUserDoesNotExist("org_1200", "username_1200");
+  let org = "org_1090";
+  let username = "username_1090";
+  blockUser("org_1090", "username_1090");
+  tryToAddExistingBlockedUser("org_1090", "username_1090");
+  verifyBlockedUserExists("org_1090", "username_1090");
+  unblockUser("org_1090", "username_1090");
+  tryToDeleteANonExistingBlockedUser("org_1090", "username_1090");
+  verifyBlockedUserDoesNotExist("org_1090", "username_1090");
 });
 
 // Story: crud:BlockedUser:nondet:1:2
 bthread("crud:BlockedUser:nondet:1:2", function () {
-  let org = "org_1201";
-  let username = "username_1201";
-  blockUser("org_1201", "username_1201");
-  tryToAddExistingBlockedUser("org_1201", "username_1201");
-  verifyBlockedUserExists("org_1201", "username_1201");
-  unblockUser("org_1201", "username_1201");
-  tryToDeleteANonExistingBlockedUser("org_1201", "username_1201");
-  verifyBlockedUserDoesNotExist("org_1201", "username_1201");
+  let org = "org_1091";
+  let username = "username_1091";
+  blockUser("org_1091", "username_1091");
+  tryToAddExistingBlockedUser("org_1091", "username_1091");
+  verifyBlockedUserExists("org_1091", "username_1091");
+  unblockUser("org_1091", "username_1091");
+  tryToDeleteANonExistingBlockedUser("org_1091", "username_1091");
+  verifyBlockedUserDoesNotExist("org_1091", "username_1091");
 });
 
 // Story: crud:BlockedUser:nondet:negative:dup-add
 bthread("crud:BlockedUser:nondet:negative:dup-add", function () {
-  let org = "org_1206";
-  let username = "username_1206";
-  blockUser("org_1206", "username_1206");
-  verifyBlockedUserExists("org_1206", "username_1206");
-  tryToAddExistingBlockedUser("org_1206", "username_1206");
-  verifyBlockedUserExists("org_1206", "username_1206");
+  let org = "org_1096";
+  let username = "username_1096";
+  blockUser("org_1096", "username_1096");
+  verifyBlockedUserExists("org_1096", "username_1096");
+  tryToAddExistingBlockedUser("org_1096", "username_1096");
+  verifyBlockedUserExists("org_1096", "username_1096");
 });
 
 // Story: monitor:BlockedUser:add
@@ -2419,163 +2361,67 @@ bthread("monitor:BlockedUser:add", function () {
 
 // Story: crud:InvitationTeams:read_only
 bthread("crud:InvitationTeams:read_only", function () {
-  let org = "org_1210";
-  let invitation_id = 1210;
-  verifyInvitationTeamsExists("org_1210", 1210);
+  let org = "org_1100";
+  let invitation_id = 1100;
+  verifyInvitationTeamsExists("org_1100", 1100);
 });
 
-// Story: crud:IssueType:nondet:1:1
-bthread("crud:IssueType:nondet:1:1", function () {
-  let org = "org_1220";
-  let issue_type_id = 1220;
-  createIssueType("org_1220", 1220);
-  tryToAddExistingIssueType("org_1220", 1220);
-  verifyIssueTypeExists("org_1220", 1220);
-  updateIssueType("org_1220", 1220);
-  deleteIssueType("org_1220", 1220);
-  tryToDeleteANonExistingIssueType("org_1220", 1220);
-  verifyIssueTypeDoesNotExist("org_1220", 1220);
+// Story: crud:MemberByUsername:read_only
+bthread("crud:MemberByUsername:read_only", function () {
+  let org = "org_1140";
+  let username = "username_1140";
+  verifyMemberByUsernameExists("org_1140", "username_1140");
 });
 
-// Story: crud:IssueType:nondet:1:2
-bthread("crud:IssueType:nondet:1:2", function () {
-  let org = "org_1221";
-  let issue_type_id = 1221;
-  createIssueType("org_1221", 1221);
-  tryToAddExistingIssueType("org_1221", 1221);
-  updateIssueType("org_1221", 1221);
-  verifyIssueTypeExists("org_1221", 1221);
-  deleteIssueType("org_1221", 1221);
-  tryToDeleteANonExistingIssueType("org_1221", 1221);
-  verifyIssueTypeDoesNotExist("org_1221", 1221);
-});
-
-// Story: crud:IssueType:nondet:negative:dup-add
-bthread("crud:IssueType:nondet:negative:dup-add", function () {
-  let org = "org_1226";
-  let issue_type_id = 1226;
-  createIssueType("org_1226", 1226);
-  verifyIssueTypeExists("org_1226", 1226);
-  tryToAddExistingIssueType("org_1226", 1226);
-  verifyIssueTypeExists("org_1226", 1226);
-});
-
-// Story: crud:IssueType:nondet:existing:update
-bthread("crud:IssueType:nondet:existing:update", function () {
-  let ev = waitForAnyIssueTypeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueType.apply(null, args), function () {
-    verifyIssueTypeExists.apply(null, args);
-    updateIssueType.apply(null, args);
-    verifyIssueTypeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueType:add
-bthread("monitor:IssueType:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueTypeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueType.apply(null, args), function () {
-      verifyIssueTypeExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:Member:read_only
-bthread("crud:Member:read_only", function () {
-  let org = "org_1230";
-  let username = "username_1230";
-  verifyMemberExists("org_1230", "username_1230");
-});
-
-// Story: crud:Membership:nondet:1:1
-bthread("crud:Membership:nondet:1:1", function () {
-  let org = "org_1240";
-  let username = "username_1240";
-  setMembershipForUser("org_1240", "username_1240");
-  tryToAddExistingMembership("org_1240", "username_1240");
-  verifyMembershipExists("org_1240", "username_1240");
-  removeMembershipForUser("org_1240", "username_1240");
-  tryToDeleteANonExistingMembership("org_1240", "username_1240");
-  verifyMembershipDoesNotExist("org_1240", "username_1240");
-});
-
-// Story: crud:Membership:nondet:1:2
-bthread("crud:Membership:nondet:1:2", function () {
-  let org = "org_1241";
-  let username = "username_1241";
-  setMembershipForUser("org_1241", "username_1241");
-  tryToAddExistingMembership("org_1241", "username_1241");
-  verifyMembershipExists("org_1241", "username_1241");
-  removeMembershipForUser("org_1241", "username_1241");
-  tryToDeleteANonExistingMembership("org_1241", "username_1241");
-  verifyMembershipDoesNotExist("org_1241", "username_1241");
-});
-
-// Story: crud:Membership:nondet:negative:dup-add
-bthread("crud:Membership:nondet:negative:dup-add", function () {
-  let org = "org_1246";
-  let username = "username_1246";
-  setMembershipForUser("org_1246", "username_1246");
-  verifyMembershipExists("org_1246", "username_1246");
-  tryToAddExistingMembership("org_1246", "username_1246");
-  verifyMembershipExists("org_1246", "username_1246");
-});
-
-// Story: monitor:Membership:add
-bthread("monitor:Membership:add", function () {
-  while (true) {
-    let ev = waitForAnyMembershipAdded();
-    let args = Object.values(ev);
-    block(matchDeletedMembership.apply(null, args), function () {
-      verifyMembershipExists.apply(null, args);
-    });
-  }
+// Story: crud:Membership:read_only
+bthread("crud:Membership:read_only", function () {
+  let org = "org_1150";
+  let username = "username_1150";
+  verifyMembershipExists("org_1150", "username_1150");
 });
 
 // Story: crud:OrganizationRole:read_only
 bthread("crud:OrganizationRole:read_only", function () {
-  let org = "org_1250";
-  let role_id = 1250;
-  verifyOrganizationRoleExists("org_1250", 1250);
+  let org = "org_1160";
+  let role_id = 1160;
+  verifyOrganizationRoleExists("org_1160", 1160);
 });
 
 // Story: crud:OrganizationRoleTeam:nondet:1:1
 bthread("crud:OrganizationRoleTeam:nondet:1:1", function () {
-  let org = "org_1260";
-  let team_slug = "team_slug_1260";
-  let role_id = 1260;
-  assignTeamToOrganizationRole("org_1260", "team_slug_1260", 1260);
-  tryToAddExistingOrganizationRoleTeam("org_1260", "team_slug_1260", 1260);
-  verifyOrganizationRoleTeamExists("org_1260", "team_slug_1260", 1260);
-  removeTeamFromOrganizationRole("org_1260", "team_slug_1260", 1260);
-  tryToDeleteANonExistingOrganizationRoleTeam("org_1260", "team_slug_1260", 1260);
-  verifyOrganizationRoleTeamDoesNotExist("org_1260", "team_slug_1260", 1260);
+  let org = "org_1190";
+  let team_slug = "team_slug_1190";
+  let role_id = 1190;
+  assignTeamToOrganizationRole("org_1190", "team_slug_1190", 1190);
+  tryToAddExistingOrganizationRoleTeam("org_1190", "team_slug_1190", 1190);
+  verifyOrganizationRoleTeamExists("org_1190", "team_slug_1190", 1190);
+  removeOrganizationRoleFromTeam("org_1190", "team_slug_1190", 1190);
+  tryToDeleteANonExistingOrganizationRoleTeam("org_1190", "team_slug_1190", 1190);
+  verifyOrganizationRoleTeamDoesNotExist("org_1190", "team_slug_1190", 1190);
 });
 
 // Story: crud:OrganizationRoleTeam:nondet:1:2
 bthread("crud:OrganizationRoleTeam:nondet:1:2", function () {
-  let org = "org_1261";
-  let team_slug = "team_slug_1261";
-  let role_id = 1261;
-  assignTeamToOrganizationRole("org_1261", "team_slug_1261", 1261);
-  tryToAddExistingOrganizationRoleTeam("org_1261", "team_slug_1261", 1261);
-  verifyOrganizationRoleTeamExists("org_1261", "team_slug_1261", 1261);
-  removeTeamFromOrganizationRole("org_1261", "team_slug_1261", 1261);
-  tryToDeleteANonExistingOrganizationRoleTeam("org_1261", "team_slug_1261", 1261);
-  verifyOrganizationRoleTeamDoesNotExist("org_1261", "team_slug_1261", 1261);
+  let org = "org_1191";
+  let team_slug = "team_slug_1191";
+  let role_id = 1191;
+  assignTeamToOrganizationRole("org_1191", "team_slug_1191", 1191);
+  tryToAddExistingOrganizationRoleTeam("org_1191", "team_slug_1191", 1191);
+  verifyOrganizationRoleTeamExists("org_1191", "team_slug_1191", 1191);
+  removeOrganizationRoleFromTeam("org_1191", "team_slug_1191", 1191);
+  tryToDeleteANonExistingOrganizationRoleTeam("org_1191", "team_slug_1191", 1191);
+  verifyOrganizationRoleTeamDoesNotExist("org_1191", "team_slug_1191", 1191);
 });
 
 // Story: crud:OrganizationRoleTeam:nondet:negative:dup-add
 bthread("crud:OrganizationRoleTeam:nondet:negative:dup-add", function () {
-  let org = "org_1266";
-  let team_slug = "team_slug_1266";
-  let role_id = 1266;
-  assignTeamToOrganizationRole("org_1266", "team_slug_1266", 1266);
-  verifyOrganizationRoleTeamExists("org_1266", "team_slug_1266", 1266);
-  tryToAddExistingOrganizationRoleTeam("org_1266", "team_slug_1266", 1266);
-  verifyOrganizationRoleTeamExists("org_1266", "team_slug_1266", 1266);
+  let org = "org_1196";
+  let team_slug = "team_slug_1196";
+  let role_id = 1196;
+  assignTeamToOrganizationRole("org_1196", "team_slug_1196", 1196);
+  verifyOrganizationRoleTeamExists("org_1196", "team_slug_1196", 1196);
+  tryToAddExistingOrganizationRoleTeam("org_1196", "team_slug_1196", 1196);
+  verifyOrganizationRoleTeamExists("org_1196", "team_slug_1196", 1196);
 });
 
 // Story: monitor:OrganizationRoleTeam:add
@@ -2591,39 +2437,39 @@ bthread("monitor:OrganizationRoleTeam:add", function () {
 
 // Story: crud:OrganizationRoleUser:nondet:1:1
 bthread("crud:OrganizationRoleUser:nondet:1:1", function () {
-  let org = "org_1280";
-  let username = "username_1280";
-  let role_id = 1280;
-  assignUserToOrganizationRole("org_1280", "username_1280", 1280);
-  tryToAddExistingOrganizationRoleUser("org_1280", "username_1280", 1280);
-  verifyOrganizationRoleUserExists("org_1280", "username_1280", 1280);
-  removeUserFromOrganizationRole("org_1280", "username_1280", 1280);
-  tryToDeleteANonExistingOrganizationRoleUser("org_1280", "username_1280", 1280);
-  verifyOrganizationRoleUserDoesNotExist("org_1280", "username_1280", 1280);
+  let org = "org_1210";
+  let username = "username_1210";
+  let role_id = 1210;
+  assignUserToOrganizationRole("org_1210", "username_1210", 1210);
+  tryToAddExistingOrganizationRoleUser("org_1210", "username_1210", 1210);
+  verifyOrganizationRoleUserExists("org_1210", "username_1210", 1210);
+  removeOrganizationRoleFromUser("org_1210", "username_1210", 1210);
+  tryToDeleteANonExistingOrganizationRoleUser("org_1210", "username_1210", 1210);
+  verifyOrganizationRoleUserDoesNotExist("org_1210", "username_1210", 1210);
 });
 
 // Story: crud:OrganizationRoleUser:nondet:1:2
 bthread("crud:OrganizationRoleUser:nondet:1:2", function () {
-  let org = "org_1281";
-  let username = "username_1281";
-  let role_id = 1281;
-  assignUserToOrganizationRole("org_1281", "username_1281", 1281);
-  tryToAddExistingOrganizationRoleUser("org_1281", "username_1281", 1281);
-  verifyOrganizationRoleUserExists("org_1281", "username_1281", 1281);
-  removeUserFromOrganizationRole("org_1281", "username_1281", 1281);
-  tryToDeleteANonExistingOrganizationRoleUser("org_1281", "username_1281", 1281);
-  verifyOrganizationRoleUserDoesNotExist("org_1281", "username_1281", 1281);
+  let org = "org_1211";
+  let username = "username_1211";
+  let role_id = 1211;
+  assignUserToOrganizationRole("org_1211", "username_1211", 1211);
+  tryToAddExistingOrganizationRoleUser("org_1211", "username_1211", 1211);
+  verifyOrganizationRoleUserExists("org_1211", "username_1211", 1211);
+  removeOrganizationRoleFromUser("org_1211", "username_1211", 1211);
+  tryToDeleteANonExistingOrganizationRoleUser("org_1211", "username_1211", 1211);
+  verifyOrganizationRoleUserDoesNotExist("org_1211", "username_1211", 1211);
 });
 
 // Story: crud:OrganizationRoleUser:nondet:negative:dup-add
 bthread("crud:OrganizationRoleUser:nondet:negative:dup-add", function () {
-  let org = "org_1286";
-  let username = "username_1286";
-  let role_id = 1286;
-  assignUserToOrganizationRole("org_1286", "username_1286", 1286);
-  verifyOrganizationRoleUserExists("org_1286", "username_1286", 1286);
-  tryToAddExistingOrganizationRoleUser("org_1286", "username_1286", 1286);
-  verifyOrganizationRoleUserExists("org_1286", "username_1286", 1286);
+  let org = "org_1216";
+  let username = "username_1216";
+  let role_id = 1216;
+  assignUserToOrganizationRole("org_1216", "username_1216", 1216);
+  verifyOrganizationRoleUserExists("org_1216", "username_1216", 1216);
+  tryToAddExistingOrganizationRoleUser("org_1216", "username_1216", 1216);
+  verifyOrganizationRoleUserExists("org_1216", "username_1216", 1216);
 });
 
 // Story: monitor:OrganizationRoleUser:add
@@ -2637,52 +2483,38 @@ bthread("monitor:OrganizationRoleUser:add", function () {
   }
 });
 
-// Story: crud:OrganizationRoleTeamsList:read_only
-bthread("crud:OrganizationRoleTeamsList:read_only", function () {
-  let org = "org_1300";
-  let role_id = 1300;
-  verifyOrganizationRoleTeamsListExists("org_1300", 1300);
-});
-
-// Story: crud:OrganizationRoleUsersList:read_only
-bthread("crud:OrganizationRoleUsersList:read_only", function () {
-  let org = "org_1310";
-  let role_id = 1310;
-  verifyOrganizationRoleUsersListExists("org_1310", 1310);
-});
-
 // Story: crud:OutsideCollaborator:nondet:1:1
 bthread("crud:OutsideCollaborator:nondet:1:1", function () {
-  let org = "org_1320";
-  let username = "username_1320";
-  convertMemberToOutsideCollaborator("org_1320", "username_1320");
-  tryToAddExistingOutsideCollaborator("org_1320", "username_1320");
-  verifyOutsideCollaboratorExists("org_1320", "username_1320");
-  removeOutsideCollaborator("org_1320", "username_1320");
-  tryToDeleteANonExistingOutsideCollaborator("org_1320", "username_1320");
-  verifyOutsideCollaboratorDoesNotExist("org_1320", "username_1320");
+  let org = "org_1230";
+  let username = "username_1230";
+  convertMemberToOutsideCollaborator("org_1230", "username_1230");
+  tryToAddExistingOutsideCollaborator("org_1230", "username_1230");
+  verifyOutsideCollaboratorExists("org_1230", "username_1230");
+  removeOutsideCollaborator("org_1230", "username_1230");
+  tryToDeleteANonExistingOutsideCollaborator("org_1230", "username_1230");
+  verifyOutsideCollaboratorDoesNotExist("org_1230", "username_1230");
 });
 
 // Story: crud:OutsideCollaborator:nondet:1:2
 bthread("crud:OutsideCollaborator:nondet:1:2", function () {
-  let org = "org_1321";
-  let username = "username_1321";
-  convertMemberToOutsideCollaborator("org_1321", "username_1321");
-  tryToAddExistingOutsideCollaborator("org_1321", "username_1321");
-  verifyOutsideCollaboratorExists("org_1321", "username_1321");
-  removeOutsideCollaborator("org_1321", "username_1321");
-  tryToDeleteANonExistingOutsideCollaborator("org_1321", "username_1321");
-  verifyOutsideCollaboratorDoesNotExist("org_1321", "username_1321");
+  let org = "org_1231";
+  let username = "username_1231";
+  convertMemberToOutsideCollaborator("org_1231", "username_1231");
+  tryToAddExistingOutsideCollaborator("org_1231", "username_1231");
+  verifyOutsideCollaboratorExists("org_1231", "username_1231");
+  removeOutsideCollaborator("org_1231", "username_1231");
+  tryToDeleteANonExistingOutsideCollaborator("org_1231", "username_1231");
+  verifyOutsideCollaboratorDoesNotExist("org_1231", "username_1231");
 });
 
 // Story: crud:OutsideCollaborator:nondet:negative:dup-add
 bthread("crud:OutsideCollaborator:nondet:negative:dup-add", function () {
-  let org = "org_1326";
-  let username = "username_1326";
-  convertMemberToOutsideCollaborator("org_1326", "username_1326");
-  verifyOutsideCollaboratorExists("org_1326", "username_1326");
-  tryToAddExistingOutsideCollaborator("org_1326", "username_1326");
-  verifyOutsideCollaboratorExists("org_1326", "username_1326");
+  let org = "org_1236";
+  let username = "username_1236";
+  convertMemberToOutsideCollaborator("org_1236", "username_1236");
+  verifyOutsideCollaboratorExists("org_1236", "username_1236");
+  tryToAddExistingOutsideCollaborator("org_1236", "username_1236");
+  verifyOutsideCollaboratorExists("org_1236", "username_1236");
 });
 
 // Story: monitor:OutsideCollaborator:add
@@ -2696,102 +2528,52 @@ bthread("monitor:OutsideCollaborator:add", function () {
   }
 });
 
-// Story: crud:WebhookDeliveries:read_only
-bthread("crud:WebhookDeliveries:read_only", function () {
-  let org = "org_1330";
-  let hook_id = 1330;
-  verifyWebhookDeliveriesExists("org_1330", 1330);
+// Story: crud:WebhookById:read_only
+bthread("crud:WebhookById:read_only", function () {
+  let org = "org_1240";
+  let hook_id = 1240;
+  verifyWebhookByIdExists("org_1240", 1240);
 });
 
-// Story: crud:CustomProperty:nondet:1:1
-bthread("crud:CustomProperty:nondet:1:1", function () {
+// Story: crud:CustomPropertyByName:read_only
+bthread("crud:CustomPropertyByName:read_only", function () {
   let org = "org_1340";
   let custom_property_name = "custom_property_name_1340";
-  createOrUpdateCustomProperty("org_1340", "custom_property_name_1340");
-  tryToAddExistingCustomProperty("org_1340", "custom_property_name_1340");
-  verifyCustomPropertyExists("org_1340", "custom_property_name_1340");
-  deleteCustomProperty("org_1340", "custom_property_name_1340");
-  tryToDeleteANonExistingCustomProperty("org_1340", "custom_property_name_1340");
-  verifyCustomPropertyDoesNotExist("org_1340", "custom_property_name_1340");
-});
-
-// Story: crud:CustomProperty:nondet:1:2
-bthread("crud:CustomProperty:nondet:1:2", function () {
-  let org = "org_1341";
-  let custom_property_name = "custom_property_name_1341";
-  createOrUpdateCustomProperty("org_1341", "custom_property_name_1341");
-  tryToAddExistingCustomProperty("org_1341", "custom_property_name_1341");
-  verifyCustomPropertyExists("org_1341", "custom_property_name_1341");
-  deleteCustomProperty("org_1341", "custom_property_name_1341");
-  tryToDeleteANonExistingCustomProperty("org_1341", "custom_property_name_1341");
-  verifyCustomPropertyDoesNotExist("org_1341", "custom_property_name_1341");
-});
-
-// Story: crud:CustomProperty:nondet:negative:dup-add
-bthread("crud:CustomProperty:nondet:negative:dup-add", function () {
-  let org = "org_1346";
-  let custom_property_name = "custom_property_name_1346";
-  createOrUpdateCustomProperty("org_1346", "custom_property_name_1346");
-  verifyCustomPropertyExists("org_1346", "custom_property_name_1346");
-  tryToAddExistingCustomProperty("org_1346", "custom_property_name_1346");
-  verifyCustomPropertyExists("org_1346", "custom_property_name_1346");
-});
-
-// Story: monitor:CustomProperty:add
-bthread("monitor:CustomProperty:add", function () {
-  while (true) {
-    let ev = waitForAnyCustomPropertyAdded();
-    let args = Object.values(ev);
-    block(matchDeletedCustomProperty.apply(null, args), function () {
-      verifyCustomPropertyExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:CustomPropertySchema:read_only
-bthread("crud:CustomPropertySchema:read_only", function () {
-  let org = "org_1350";
-  verifyCustomPropertySchemaExists("org_1350");
-});
-
-// Story: crud:CustomPropertyValue:read_only
-bthread("crud:CustomPropertyValue:read_only", function () {
-  let org = "org_1360";
-  verifyCustomPropertyValueExists("org_1360");
+  verifyCustomPropertyByNameExists("org_1340", "custom_property_name_1340");
 });
 
 // Story: crud:PublicMember:nondet:1:1
 bthread("crud:PublicMember:nondet:1:1", function () {
-  let org = "org_1370";
-  let username = "username_1370";
-  setPublicMembershipForUser("org_1370", "username_1370");
-  tryToAddExistingPublicMember("org_1370", "username_1370");
-  verifyPublicMemberExists("org_1370", "username_1370");
-  removePublicMembershipForUser("org_1370", "username_1370");
-  tryToDeleteANonExistingPublicMember("org_1370", "username_1370");
-  verifyPublicMemberDoesNotExist("org_1370", "username_1370");
+  let org = "org_1360";
+  let username = "username_1360";
+  setPublicMembershipForUser("org_1360", "username_1360");
+  tryToAddExistingPublicMember("org_1360", "username_1360");
+  verifyPublicMemberExists("org_1360", "username_1360");
+  removePublicMembershipForUser("org_1360", "username_1360");
+  tryToDeleteANonExistingPublicMember("org_1360", "username_1360");
+  verifyPublicMemberDoesNotExist("org_1360", "username_1360");
 });
 
 // Story: crud:PublicMember:nondet:1:2
 bthread("crud:PublicMember:nondet:1:2", function () {
-  let org = "org_1371";
-  let username = "username_1371";
-  setPublicMembershipForUser("org_1371", "username_1371");
-  tryToAddExistingPublicMember("org_1371", "username_1371");
-  verifyPublicMemberExists("org_1371", "username_1371");
-  removePublicMembershipForUser("org_1371", "username_1371");
-  tryToDeleteANonExistingPublicMember("org_1371", "username_1371");
-  verifyPublicMemberDoesNotExist("org_1371", "username_1371");
+  let org = "org_1361";
+  let username = "username_1361";
+  setPublicMembershipForUser("org_1361", "username_1361");
+  tryToAddExistingPublicMember("org_1361", "username_1361");
+  verifyPublicMemberExists("org_1361", "username_1361");
+  removePublicMembershipForUser("org_1361", "username_1361");
+  tryToDeleteANonExistingPublicMember("org_1361", "username_1361");
+  verifyPublicMemberDoesNotExist("org_1361", "username_1361");
 });
 
 // Story: crud:PublicMember:nondet:negative:dup-add
 bthread("crud:PublicMember:nondet:negative:dup-add", function () {
-  let org = "org_1376";
-  let username = "username_1376";
-  setPublicMembershipForUser("org_1376", "username_1376");
-  verifyPublicMemberExists("org_1376", "username_1376");
-  tryToAddExistingPublicMember("org_1376", "username_1376");
-  verifyPublicMemberExists("org_1376", "username_1376");
+  let org = "org_1366";
+  let username = "username_1366";
+  setPublicMembershipForUser("org_1366", "username_1366");
+  verifyPublicMemberExists("org_1366", "username_1366");
+  tryToAddExistingPublicMember("org_1366", "username_1366");
+  verifyPublicMemberExists("org_1366", "username_1366");
 });
 
 // Story: monitor:PublicMember:add
@@ -2805,142 +2587,434 @@ bthread("monitor:PublicMember:add", function () {
   }
 });
 
-// Story: crud:SecurityManagerTeam:nondet:1:1
-bthread("crud:SecurityManagerTeam:nondet:1:1", function () {
-  let org = "org_1380";
-  let team_slug = "team_slug_1380";
-  addSecurityManagerTeam("org_1380", "team_slug_1380");
-  tryToAddExistingSecurityManagerTeam("org_1380", "team_slug_1380");
-  verifySecurityManagerTeamExists("org_1380", "team_slug_1380");
-  removeSecurityManagerTeam("org_1380", "team_slug_1380");
-  tryToDeleteANonExistingSecurityManagerTeam("org_1380", "team_slug_1380");
-  verifySecurityManagerTeamDoesNotExist("org_1380", "team_slug_1380");
+// Story: crud:Codespace:nondet:1:1
+bthread("crud:Codespace:nondet:1:1", function () {
+  let repository_id = 1370;
+  let ref = "ref_1370";
+  let location = "location_1370";
+  let geo = "geo_1370";
+  let client_ip = "client_ip_1370";
+  let machine = "machine_1370";
+  let devcontainer_path = "devcontainer_path_1370";
+  let multi_repo_permissions_opt_out = "multi_repo_permissions_opt_out_1370";
+  let working_directory = "working_directory_1370";
+  let idle_timeout_minutes = 1370;
+  let display_name = "display_name_1370";
+  let retention_period_minutes = "retention_period_minutes_1370";
+  let codespace_name = "codespace_name_1370";
+  createCodespaceForUser(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
+  tryToAddExistingCodespace(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
+  verifyCodespaceExists(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
+  updateCodespaceForUser(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
+  deleteCodespaceForUser(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
+  tryToDeleteANonExistingCodespace(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
+  verifyCodespaceDoesNotExist(1370, "ref_1370", "location_1370", "geo_1370", "client_ip_1370", "machine_1370", "devcontainer_path_1370", "multi_repo_permissions_opt_out_1370", "working_directory_1370", 1370, "display_name_1370", "retention_period_minutes_1370", "codespace_name_1370");
 });
 
-// Story: crud:SecurityManagerTeam:nondet:1:2
-bthread("crud:SecurityManagerTeam:nondet:1:2", function () {
-  let org = "org_1381";
-  let team_slug = "team_slug_1381";
-  addSecurityManagerTeam("org_1381", "team_slug_1381");
-  tryToAddExistingSecurityManagerTeam("org_1381", "team_slug_1381");
-  verifySecurityManagerTeamExists("org_1381", "team_slug_1381");
-  removeSecurityManagerTeam("org_1381", "team_slug_1381");
-  tryToDeleteANonExistingSecurityManagerTeam("org_1381", "team_slug_1381");
-  verifySecurityManagerTeamDoesNotExist("org_1381", "team_slug_1381");
+// Story: crud:Codespace:nondet:1:2
+bthread("crud:Codespace:nondet:1:2", function () {
+  let repository_id = 1371;
+  let ref = "ref_1371";
+  let location = "location_1371";
+  let geo = "geo_1371";
+  let client_ip = "client_ip_1371";
+  let machine = "machine_1371";
+  let devcontainer_path = "devcontainer_path_1371";
+  let multi_repo_permissions_opt_out = "multi_repo_permissions_opt_out_1371";
+  let working_directory = "working_directory_1371";
+  let idle_timeout_minutes = 1371;
+  let display_name = "display_name_1371";
+  let retention_period_minutes = "retention_period_minutes_1371";
+  let codespace_name = "codespace_name_1371";
+  createCodespaceForUser(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
+  tryToAddExistingCodespace(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
+  updateCodespaceForUser(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
+  verifyCodespaceExists(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
+  deleteCodespaceForUser(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
+  tryToDeleteANonExistingCodespace(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
+  verifyCodespaceDoesNotExist(1371, "ref_1371", "location_1371", "geo_1371", "client_ip_1371", "machine_1371", "devcontainer_path_1371", "multi_repo_permissions_opt_out_1371", "working_directory_1371", 1371, "display_name_1371", "retention_period_minutes_1371", "codespace_name_1371");
 });
 
-// Story: crud:SecurityManagerTeam:nondet:negative:dup-add
-bthread("crud:SecurityManagerTeam:nondet:negative:dup-add", function () {
-  let org = "org_1386";
-  let team_slug = "team_slug_1386";
-  addSecurityManagerTeam("org_1386", "team_slug_1386");
-  verifySecurityManagerTeamExists("org_1386", "team_slug_1386");
-  tryToAddExistingSecurityManagerTeam("org_1386", "team_slug_1386");
-  verifySecurityManagerTeamExists("org_1386", "team_slug_1386");
+// Story: crud:Codespace:nondet:negative:dup-add
+bthread("crud:Codespace:nondet:negative:dup-add", function () {
+  let repository_id = 1376;
+  let ref = "ref_1376";
+  let location = "location_1376";
+  let geo = "geo_1376";
+  let client_ip = "client_ip_1376";
+  let machine = "machine_1376";
+  let devcontainer_path = "devcontainer_path_1376";
+  let multi_repo_permissions_opt_out = "multi_repo_permissions_opt_out_1376";
+  let working_directory = "working_directory_1376";
+  let idle_timeout_minutes = 1376;
+  let display_name = "display_name_1376";
+  let retention_period_minutes = "retention_period_minutes_1376";
+  let codespace_name = "codespace_name_1376";
+  createCodespaceForUser(1376, "ref_1376", "location_1376", "geo_1376", "client_ip_1376", "machine_1376", "devcontainer_path_1376", "multi_repo_permissions_opt_out_1376", "working_directory_1376", 1376, "display_name_1376", "retention_period_minutes_1376", "codespace_name_1376");
+  verifyCodespaceExists(1376, "ref_1376", "location_1376", "geo_1376", "client_ip_1376", "machine_1376", "devcontainer_path_1376", "multi_repo_permissions_opt_out_1376", "working_directory_1376", 1376, "display_name_1376", "retention_period_minutes_1376", "codespace_name_1376");
+  tryToAddExistingCodespace(1376, "ref_1376", "location_1376", "geo_1376", "client_ip_1376", "machine_1376", "devcontainer_path_1376", "multi_repo_permissions_opt_out_1376", "working_directory_1376", 1376, "display_name_1376", "retention_period_minutes_1376", "codespace_name_1376");
+  verifyCodespaceExists(1376, "ref_1376", "location_1376", "geo_1376", "client_ip_1376", "machine_1376", "devcontainer_path_1376", "multi_repo_permissions_opt_out_1376", "working_directory_1376", 1376, "display_name_1376", "retention_period_minutes_1376", "codespace_name_1376");
 });
 
-// Story: monitor:SecurityManagerTeam:add
-bthread("monitor:SecurityManagerTeam:add", function () {
+// Story: crud:Codespace:nondet:existing:update
+bthread("crud:Codespace:nondet:existing:update", function () {
+  let ev = waitForAnyCodespaceAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCodespace.apply(null, args), function () {
+    verifyCodespaceExists.apply(null, args);
+    updateCodespaceForUser.apply(null, args);
+    verifyCodespaceExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Codespace:add
+bthread("monitor:Codespace:add", function () {
   while (true) {
-    let ev = waitForAnySecurityManagerTeamAdded();
+    let ev = waitForAnyCodespaceAdded();
     let args = Object.values(ev);
-    block(matchDeletedSecurityManagerTeam.apply(null, args), function () {
-      verifySecurityManagerTeamExists.apply(null, args);
+    block(matchDeletedCodespace.apply(null, args), function () {
+      verifyCodespaceExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:ImmutableReleaseSetting:read_only
-bthread("crud:ImmutableReleaseSetting:read_only", function () {
-  let org = "org_1390";
-  verifyImmutableReleaseSettingExists("org_1390");
+// Story: crud:CodespaceInRepo:read_only
+bthread("crud:CodespaceInRepo:read_only", function () {
+  let owner = "owner_1380";
+  let repo = "repo_1380";
+  let ref = "ref_1380";
+  let location = "location_1380";
+  let geo = "geo_1380";
+  let client_ip = "client_ip_1380";
+  let machine = "machine_1380";
+  let devcontainer_path = "devcontainer_path_1380";
+  let multi_repo_permissions_opt_out = "multi_repo_permissions_opt_out_1380";
+  let working_directory = "working_directory_1380";
+  let idle_timeout_minutes = 1380;
+  let display_name = "display_name_1380";
+  let retention_period_minutes = "retention_period_minutes_1380";
+  verifyCodespaceInRepoExists("owner_1380", "repo_1380", "ref_1380", "location_1380", "geo_1380", "client_ip_1380", "machine_1380", "devcontainer_path_1380", "multi_repo_permissions_opt_out_1380", "working_directory_1380", 1380, "display_name_1380", "retention_period_minutes_1380");
 });
 
-// Story: crud:ImmutableReleaseRepository:nondet:1:1
-bthread("crud:ImmutableReleaseRepository:nondet:1:1", function () {
-  let org = "org_1400";
-  let repository_id = 1400;
-  enableSelectedRepositoryImmutableReleases("org_1400", 1400);
-  tryToAddExistingImmutableReleaseRepository("org_1400", 1400);
-  verifyImmutableReleaseRepositoryExists("org_1400", 1400);
-  disableSelectedRepositoryImmutableReleases("org_1400", 1400);
-  tryToDeleteANonExistingImmutableReleaseRepository("org_1400", 1400);
-  verifyImmutableReleaseRepositoryDoesNotExist("org_1400", 1400);
+// Story: crud:CodespacesAccessUsers:nondet:1:1
+bthread("crud:CodespacesAccessUsers:nondet:1:1", function () {
+  let org = "org_1420";
+  let selected_usernames = "selected_usernames_1420";
+  addUsersToCodespacesAccessForOrg("org_1420", "selected_usernames_1420");
+  tryToAddExistingCodespacesAccessUsers("org_1420", "selected_usernames_1420");
+  verifyCodespacesAccessUsersExists("org_1420", "selected_usernames_1420");
+  removeUsersFromCodespacesAccessForOrg("org_1420", "selected_usernames_1420");
+  tryToDeleteANonExistingCodespacesAccessUsers("org_1420", "selected_usernames_1420");
+  verifyCodespacesAccessUsersDoesNotExist("org_1420", "selected_usernames_1420");
 });
 
-// Story: crud:ImmutableReleaseRepository:nondet:1:2
-bthread("crud:ImmutableReleaseRepository:nondet:1:2", function () {
-  let org = "org_1401";
-  let repository_id = 1401;
-  enableSelectedRepositoryImmutableReleases("org_1401", 1401);
-  tryToAddExistingImmutableReleaseRepository("org_1401", 1401);
-  verifyImmutableReleaseRepositoryExists("org_1401", 1401);
-  disableSelectedRepositoryImmutableReleases("org_1401", 1401);
-  tryToDeleteANonExistingImmutableReleaseRepository("org_1401", 1401);
-  verifyImmutableReleaseRepositoryDoesNotExist("org_1401", 1401);
+// Story: crud:CodespacesAccessUsers:nondet:1:2
+bthread("crud:CodespacesAccessUsers:nondet:1:2", function () {
+  let org = "org_1421";
+  let selected_usernames = "selected_usernames_1421";
+  addUsersToCodespacesAccessForOrg("org_1421", "selected_usernames_1421");
+  tryToAddExistingCodespacesAccessUsers("org_1421", "selected_usernames_1421");
+  verifyCodespacesAccessUsersExists("org_1421", "selected_usernames_1421");
+  removeUsersFromCodespacesAccessForOrg("org_1421", "selected_usernames_1421");
+  tryToDeleteANonExistingCodespacesAccessUsers("org_1421", "selected_usernames_1421");
+  verifyCodespacesAccessUsersDoesNotExist("org_1421", "selected_usernames_1421");
 });
 
-// Story: crud:ImmutableReleaseRepository:nondet:negative:dup-add
-bthread("crud:ImmutableReleaseRepository:nondet:negative:dup-add", function () {
-  let org = "org_1406";
-  let repository_id = 1406;
-  enableSelectedRepositoryImmutableReleases("org_1406", 1406);
-  verifyImmutableReleaseRepositoryExists("org_1406", 1406);
-  tryToAddExistingImmutableReleaseRepository("org_1406", 1406);
-  verifyImmutableReleaseRepositoryExists("org_1406", 1406);
+// Story: crud:CodespacesAccessUsers:nondet:negative:dup-add
+bthread("crud:CodespacesAccessUsers:nondet:negative:dup-add", function () {
+  let org = "org_1426";
+  let selected_usernames = "selected_usernames_1426";
+  addUsersToCodespacesAccessForOrg("org_1426", "selected_usernames_1426");
+  verifyCodespacesAccessUsersExists("org_1426", "selected_usernames_1426");
+  tryToAddExistingCodespacesAccessUsers("org_1426", "selected_usernames_1426");
+  verifyCodespacesAccessUsersExists("org_1426", "selected_usernames_1426");
 });
 
-// Story: monitor:ImmutableReleaseRepository:add
-bthread("monitor:ImmutableReleaseRepository:add", function () {
+// Story: monitor:CodespacesAccessUsers:add
+bthread("monitor:CodespacesAccessUsers:add", function () {
   while (true) {
-    let ev = waitForAnyImmutableReleaseRepositoryAdded();
+    let ev = waitForAnyCodespacesAccessUsersAdded();
     let args = Object.values(ev);
-    block(matchDeletedImmutableReleaseRepository.apply(null, args), function () {
-      verifyImmutableReleaseRepositoryExists.apply(null, args);
+    block(matchDeletedCodespacesAccessUsers.apply(null, args), function () {
+      verifyCodespacesAccessUsersExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:ImmutableReleaseRepositories:read_only
-bthread("crud:ImmutableReleaseRepositories:read_only", function () {
-  let org = "org_1410";
-  verifyImmutableReleaseRepositoriesExists("org_1410");
+// Story: crud:CodespaceSecretOrg:nondet:1:1
+bthread("crud:CodespaceSecretOrg:nondet:1:1", function () {
+  let org = "org_1430";
+  let secret_name = "secret_name_1430";
+  let encrypted_value = "encrypted_value_1430";
+  let key_id = 1430;
+  let visibility = "visibility_1430";
+  let selected_repository_ids = 1430;
+  createOrUpdateOrgSecret("org_1430", "secret_name_1430", "encrypted_value_1430", 1430, "visibility_1430", 1430);
+  tryToAddExistingCodespaceSecretOrg("org_1430", "secret_name_1430", "encrypted_value_1430", 1430, "visibility_1430", 1430);
+  verifyCodespaceSecretOrgExists("org_1430", "secret_name_1430", "encrypted_value_1430", 1430, "visibility_1430", 1430);
+  deleteOrgSecret("org_1430", "secret_name_1430", "encrypted_value_1430", 1430, "visibility_1430", 1430);
+  tryToDeleteANonExistingCodespaceSecretOrg("org_1430", "secret_name_1430", "encrypted_value_1430", 1430, "visibility_1430", 1430);
+  verifyCodespaceSecretOrgDoesNotExist("org_1430", "secret_name_1430", "encrypted_value_1430", 1430, "visibility_1430", 1430);
 });
 
-// Story: crud:Codespace:read_only
-bthread("crud:Codespace:read_only", function () {
-  let codespace_name = "codespace_name_1470";
-  let export_id = 1470;
-  verifyCodespaceExists("codespace_name_1470", 1470);
+// Story: crud:CodespaceSecretOrg:nondet:1:2
+bthread("crud:CodespaceSecretOrg:nondet:1:2", function () {
+  let org = "org_1431";
+  let secret_name = "secret_name_1431";
+  let encrypted_value = "encrypted_value_1431";
+  let key_id = 1431;
+  let visibility = "visibility_1431";
+  let selected_repository_ids = 1431;
+  createOrUpdateOrgSecret("org_1431", "secret_name_1431", "encrypted_value_1431", 1431, "visibility_1431", 1431);
+  tryToAddExistingCodespaceSecretOrg("org_1431", "secret_name_1431", "encrypted_value_1431", 1431, "visibility_1431", 1431);
+  verifyCodespaceSecretOrgExists("org_1431", "secret_name_1431", "encrypted_value_1431", 1431, "visibility_1431", 1431);
+  deleteOrgSecret("org_1431", "secret_name_1431", "encrypted_value_1431", 1431, "visibility_1431", 1431);
+  tryToDeleteANonExistingCodespaceSecretOrg("org_1431", "secret_name_1431", "encrypted_value_1431", 1431, "visibility_1431", 1431);
+  verifyCodespaceSecretOrgDoesNotExist("org_1431", "secret_name_1431", "encrypted_value_1431", 1431, "visibility_1431", 1431);
 });
 
-// Story: crud:CodespaceSecretOrg:read_only
-bthread("crud:CodespaceSecretOrg:read_only", function () {
-  let org = "org_1520";
-  let secret_name = "secret_name_1520";
-  let repository_id = 1520;
-  verifyCodespaceSecretOrgExists("org_1520", "secret_name_1520", 1520);
+// Story: crud:CodespaceSecretOrg:nondet:negative:dup-add
+bthread("crud:CodespaceSecretOrg:nondet:negative:dup-add", function () {
+  let org = "org_1436";
+  let secret_name = "secret_name_1436";
+  let encrypted_value = "encrypted_value_1436";
+  let key_id = 1436;
+  let visibility = "visibility_1436";
+  let selected_repository_ids = 1436;
+  createOrUpdateOrgSecret("org_1436", "secret_name_1436", "encrypted_value_1436", 1436, "visibility_1436", 1436);
+  verifyCodespaceSecretOrgExists("org_1436", "secret_name_1436", "encrypted_value_1436", 1436, "visibility_1436", 1436);
+  tryToAddExistingCodespaceSecretOrg("org_1436", "secret_name_1436", "encrypted_value_1436", 1436, "visibility_1436", 1436);
+  verifyCodespaceSecretOrgExists("org_1436", "secret_name_1436", "encrypted_value_1436", 1436, "visibility_1436", 1436);
 });
 
-// Story: crud:CodespaceSecretRepo:read_only
-bthread("crud:CodespaceSecretRepo:read_only", function () {
-  let owner = "owner_1530";
-  let repo = "repo_1530";
-  let secret_name = "secret_name_1530";
-  verifyCodespaceSecretRepoExists("owner_1530", "repo_1530", "secret_name_1530");
+// Story: monitor:CodespaceSecretOrg:add
+bthread("monitor:CodespaceSecretOrg:add", function () {
+  while (true) {
+    let ev = waitForAnyCodespaceSecretOrgAdded();
+    let args = Object.values(ev);
+    block(matchDeletedCodespaceSecretOrg.apply(null, args), function () {
+      verifyCodespaceSecretOrgExists.apply(null, args);
+    });
+  }
 });
 
-// Story: crud:CodespaceSecretUser:read_only
-bthread("crud:CodespaceSecretUser:read_only", function () {
-  let secret_name = "secret_name_1540";
-  let repository_id = 1540;
-  verifyCodespaceSecretUserExists("secret_name_1540", 1540);
+// Story: crud:CodespaceSecretOrgSelectedRepos:read_only
+bthread("crud:CodespaceSecretOrgSelectedRepos:read_only", function () {
+  let org = "org_1440";
+  let secret_name = "secret_name_1440";
+  let selected_repository_ids = 1440;
+  verifyCodespaceSecretOrgSelectedReposExists("org_1440", "secret_name_1440", 1440);
+});
+
+// Story: crud:CodespaceSecretOrgSelectedRepo:nondet:1:1
+bthread("crud:CodespaceSecretOrgSelectedRepo:nondet:1:1", function () {
+  let org = "org_1450";
+  let secret_name = "secret_name_1450";
+  let repository_id = 1450;
+  addSelectedRepoToOrgSecret("org_1450", "secret_name_1450", 1450);
+  tryToAddExistingCodespaceSecretOrgSelectedRepo("org_1450", "secret_name_1450", 1450);
+  verifyCodespaceSecretOrgSelectedRepoExists("org_1450", "secret_name_1450", 1450);
+  removeSelectedRepoFromOrgSecret("org_1450", "secret_name_1450", 1450);
+  tryToDeleteANonExistingCodespaceSecretOrgSelectedRepo("org_1450", "secret_name_1450", 1450);
+  verifyCodespaceSecretOrgSelectedRepoDoesNotExist("org_1450", "secret_name_1450", 1450);
+});
+
+// Story: crud:CodespaceSecretOrgSelectedRepo:nondet:1:2
+bthread("crud:CodespaceSecretOrgSelectedRepo:nondet:1:2", function () {
+  let org = "org_1451";
+  let secret_name = "secret_name_1451";
+  let repository_id = 1451;
+  addSelectedRepoToOrgSecret("org_1451", "secret_name_1451", 1451);
+  tryToAddExistingCodespaceSecretOrgSelectedRepo("org_1451", "secret_name_1451", 1451);
+  verifyCodespaceSecretOrgSelectedRepoExists("org_1451", "secret_name_1451", 1451);
+  removeSelectedRepoFromOrgSecret("org_1451", "secret_name_1451", 1451);
+  tryToDeleteANonExistingCodespaceSecretOrgSelectedRepo("org_1451", "secret_name_1451", 1451);
+  verifyCodespaceSecretOrgSelectedRepoDoesNotExist("org_1451", "secret_name_1451", 1451);
+});
+
+// Story: crud:CodespaceSecretOrgSelectedRepo:nondet:negative:dup-add
+bthread("crud:CodespaceSecretOrgSelectedRepo:nondet:negative:dup-add", function () {
+  let org = "org_1456";
+  let secret_name = "secret_name_1456";
+  let repository_id = 1456;
+  addSelectedRepoToOrgSecret("org_1456", "secret_name_1456", 1456);
+  verifyCodespaceSecretOrgSelectedRepoExists("org_1456", "secret_name_1456", 1456);
+  tryToAddExistingCodespaceSecretOrgSelectedRepo("org_1456", "secret_name_1456", 1456);
+  verifyCodespaceSecretOrgSelectedRepoExists("org_1456", "secret_name_1456", 1456);
+});
+
+// Story: monitor:CodespaceSecretOrgSelectedRepo:add
+bthread("monitor:CodespaceSecretOrgSelectedRepo:add", function () {
+  while (true) {
+    let ev = waitForAnyCodespaceSecretOrgSelectedRepoAdded();
+    let args = Object.values(ev);
+    block(matchDeletedCodespaceSecretOrgSelectedRepo.apply(null, args), function () {
+      verifyCodespaceSecretOrgSelectedRepoExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:CodespaceSecretRepo:nondet:1:1
+bthread("crud:CodespaceSecretRepo:nondet:1:1", function () {
+  let owner = "owner_1460";
+  let repo = "repo_1460";
+  let secret_name = "secret_name_1460";
+  let encrypted_value = "encrypted_value_1460";
+  let key_id = 1460;
+  createOrUpdateRepoSecret("owner_1460", "repo_1460", "secret_name_1460", "encrypted_value_1460", 1460);
+  tryToAddExistingCodespaceSecretRepo("owner_1460", "repo_1460", "secret_name_1460", "encrypted_value_1460", 1460);
+  verifyCodespaceSecretRepoExists("owner_1460", "repo_1460", "secret_name_1460", "encrypted_value_1460", 1460);
+  deleteRepoSecret("owner_1460", "repo_1460", "secret_name_1460", "encrypted_value_1460", 1460);
+  tryToDeleteANonExistingCodespaceSecretRepo("owner_1460", "repo_1460", "secret_name_1460", "encrypted_value_1460", 1460);
+  verifyCodespaceSecretRepoDoesNotExist("owner_1460", "repo_1460", "secret_name_1460", "encrypted_value_1460", 1460);
+});
+
+// Story: crud:CodespaceSecretRepo:nondet:1:2
+bthread("crud:CodespaceSecretRepo:nondet:1:2", function () {
+  let owner = "owner_1461";
+  let repo = "repo_1461";
+  let secret_name = "secret_name_1461";
+  let encrypted_value = "encrypted_value_1461";
+  let key_id = 1461;
+  createOrUpdateRepoSecret("owner_1461", "repo_1461", "secret_name_1461", "encrypted_value_1461", 1461);
+  tryToAddExistingCodespaceSecretRepo("owner_1461", "repo_1461", "secret_name_1461", "encrypted_value_1461", 1461);
+  verifyCodespaceSecretRepoExists("owner_1461", "repo_1461", "secret_name_1461", "encrypted_value_1461", 1461);
+  deleteRepoSecret("owner_1461", "repo_1461", "secret_name_1461", "encrypted_value_1461", 1461);
+  tryToDeleteANonExistingCodespaceSecretRepo("owner_1461", "repo_1461", "secret_name_1461", "encrypted_value_1461", 1461);
+  verifyCodespaceSecretRepoDoesNotExist("owner_1461", "repo_1461", "secret_name_1461", "encrypted_value_1461", 1461);
+});
+
+// Story: crud:CodespaceSecretRepo:nondet:negative:dup-add
+bthread("crud:CodespaceSecretRepo:nondet:negative:dup-add", function () {
+  let owner = "owner_1466";
+  let repo = "repo_1466";
+  let secret_name = "secret_name_1466";
+  let encrypted_value = "encrypted_value_1466";
+  let key_id = 1466;
+  createOrUpdateRepoSecret("owner_1466", "repo_1466", "secret_name_1466", "encrypted_value_1466", 1466);
+  verifyCodespaceSecretRepoExists("owner_1466", "repo_1466", "secret_name_1466", "encrypted_value_1466", 1466);
+  tryToAddExistingCodespaceSecretRepo("owner_1466", "repo_1466", "secret_name_1466", "encrypted_value_1466", 1466);
+  verifyCodespaceSecretRepoExists("owner_1466", "repo_1466", "secret_name_1466", "encrypted_value_1466", 1466);
+});
+
+// Story: monitor:CodespaceSecretRepo:add
+bthread("monitor:CodespaceSecretRepo:add", function () {
+  while (true) {
+    let ev = waitForAnyCodespaceSecretRepoAdded();
+    let args = Object.values(ev);
+    block(matchDeletedCodespaceSecretRepo.apply(null, args), function () {
+      verifyCodespaceSecretRepoExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:CodespaceSecretUser:nondet:1:1
+bthread("crud:CodespaceSecretUser:nondet:1:1", function () {
+  let secret_name = "secret_name_1470";
+  let encrypted_value = "encrypted_value_1470";
+  let key_id = 1470;
+  let selected_repository_ids = 1470;
+  createOrUpdateUserSecret("secret_name_1470", "encrypted_value_1470", 1470, 1470);
+  tryToAddExistingCodespaceSecretUser("secret_name_1470", "encrypted_value_1470", 1470, 1470);
+  verifyCodespaceSecretUserExists("secret_name_1470", "encrypted_value_1470", 1470, 1470);
+  deleteUserSecret("secret_name_1470", "encrypted_value_1470", 1470, 1470);
+  tryToDeleteANonExistingCodespaceSecretUser("secret_name_1470", "encrypted_value_1470", 1470, 1470);
+  verifyCodespaceSecretUserDoesNotExist("secret_name_1470", "encrypted_value_1470", 1470, 1470);
+});
+
+// Story: crud:CodespaceSecretUser:nondet:1:2
+bthread("crud:CodespaceSecretUser:nondet:1:2", function () {
+  let secret_name = "secret_name_1471";
+  let encrypted_value = "encrypted_value_1471";
+  let key_id = 1471;
+  let selected_repository_ids = 1471;
+  createOrUpdateUserSecret("secret_name_1471", "encrypted_value_1471", 1471, 1471);
+  tryToAddExistingCodespaceSecretUser("secret_name_1471", "encrypted_value_1471", 1471, 1471);
+  verifyCodespaceSecretUserExists("secret_name_1471", "encrypted_value_1471", 1471, 1471);
+  deleteUserSecret("secret_name_1471", "encrypted_value_1471", 1471, 1471);
+  tryToDeleteANonExistingCodespaceSecretUser("secret_name_1471", "encrypted_value_1471", 1471, 1471);
+  verifyCodespaceSecretUserDoesNotExist("secret_name_1471", "encrypted_value_1471", 1471, 1471);
+});
+
+// Story: crud:CodespaceSecretUser:nondet:negative:dup-add
+bthread("crud:CodespaceSecretUser:nondet:negative:dup-add", function () {
+  let secret_name = "secret_name_1476";
+  let encrypted_value = "encrypted_value_1476";
+  let key_id = 1476;
+  let selected_repository_ids = 1476;
+  createOrUpdateUserSecret("secret_name_1476", "encrypted_value_1476", 1476, 1476);
+  verifyCodespaceSecretUserExists("secret_name_1476", "encrypted_value_1476", 1476, 1476);
+  tryToAddExistingCodespaceSecretUser("secret_name_1476", "encrypted_value_1476", 1476, 1476);
+  verifyCodespaceSecretUserExists("secret_name_1476", "encrypted_value_1476", 1476, 1476);
+});
+
+// Story: monitor:CodespaceSecretUser:add
+bthread("monitor:CodespaceSecretUser:add", function () {
+  while (true) {
+    let ev = waitForAnyCodespaceSecretUserAdded();
+    let args = Object.values(ev);
+    block(matchDeletedCodespaceSecretUser.apply(null, args), function () {
+      verifyCodespaceSecretUserExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:CodespaceSecretUserSelectedRepos:read_only
+bthread("crud:CodespaceSecretUserSelectedRepos:read_only", function () {
+  let secret_name = "secret_name_1480";
+  let selected_repository_ids = 1480;
+  verifyCodespaceSecretUserSelectedReposExists("secret_name_1480", 1480);
+});
+
+// Story: crud:CodespaceSecretUserSelectedRepo:nondet:1:1
+bthread("crud:CodespaceSecretUserSelectedRepo:nondet:1:1", function () {
+  let secret_name = "secret_name_1490";
+  let repository_id = 1490;
+  addSelectedRepoToUserSecret("secret_name_1490", 1490);
+  tryToAddExistingCodespaceSecretUserSelectedRepo("secret_name_1490", 1490);
+  verifyCodespaceSecretUserSelectedRepoExists("secret_name_1490", 1490);
+  removeSelectedRepoFromUserSecret("secret_name_1490", 1490);
+  tryToDeleteANonExistingCodespaceSecretUserSelectedRepo("secret_name_1490", 1490);
+  verifyCodespaceSecretUserSelectedRepoDoesNotExist("secret_name_1490", 1490);
+});
+
+// Story: crud:CodespaceSecretUserSelectedRepo:nondet:1:2
+bthread("crud:CodespaceSecretUserSelectedRepo:nondet:1:2", function () {
+  let secret_name = "secret_name_1491";
+  let repository_id = 1491;
+  addSelectedRepoToUserSecret("secret_name_1491", 1491);
+  tryToAddExistingCodespaceSecretUserSelectedRepo("secret_name_1491", 1491);
+  verifyCodespaceSecretUserSelectedRepoExists("secret_name_1491", 1491);
+  removeSelectedRepoFromUserSecret("secret_name_1491", 1491);
+  tryToDeleteANonExistingCodespaceSecretUserSelectedRepo("secret_name_1491", 1491);
+  verifyCodespaceSecretUserSelectedRepoDoesNotExist("secret_name_1491", 1491);
+});
+
+// Story: crud:CodespaceSecretUserSelectedRepo:nondet:negative:dup-add
+bthread("crud:CodespaceSecretUserSelectedRepo:nondet:negative:dup-add", function () {
+  let secret_name = "secret_name_1496";
+  let repository_id = 1496;
+  addSelectedRepoToUserSecret("secret_name_1496", 1496);
+  verifyCodespaceSecretUserSelectedRepoExists("secret_name_1496", 1496);
+  tryToAddExistingCodespaceSecretUserSelectedRepo("secret_name_1496", 1496);
+  verifyCodespaceSecretUserSelectedRepoExists("secret_name_1496", 1496);
+});
+
+// Story: monitor:CodespaceSecretUserSelectedRepo:add
+bthread("monitor:CodespaceSecretUserSelectedRepo:add", function () {
+  while (true) {
+    let ev = waitForAnyCodespaceSecretUserSelectedRepoAdded();
+    let args = Object.values(ev);
+    block(matchDeletedCodespaceSecretUserSelectedRepo.apply(null, args), function () {
+      verifyCodespaceSecretUserSelectedRepoExists.apply(null, args);
+    });
+  }
 });
 
 // Story: crud:User:read_only
 bthread("crud:User:read_only", function () {
-  let username = "username_1560";
-  verifyUserExists("username_1560");
+  let username = "username_1500";
+  verifyUserExists("username_1500");
 });
 
 // Story: crud:AuthenticatedUser:read_only
@@ -2949,133 +3023,160 @@ bthread("crud:AuthenticatedUser:read_only", function () {
   verifyAuthenticatedUserExists();
 });
 
-// Story: crud:UserBlock:nondet:1:1
-bthread("crud:UserBlock:nondet:1:1", function () {
-  let username = "username_1580";
-  blockUser("username_1580");
-  tryToAddExistingUserBlock("username_1580");
-  verifyUserBlockExists("username_1580");
-  unblockUser("username_1580");
-  tryToDeleteANonExistingUserBlock("username_1580");
-  verifyUserBlockDoesNotExist("username_1580");
+// Story: crud:Block:nondet:1:1
+bthread("crud:Block:nondet:1:1", function () {
+  let username = "username_1520";
+  blockUser("username_1520");
+  tryToAddExistingBlock("username_1520");
+  verifyBlockExists("username_1520");
+  unblockUser("username_1520");
+  tryToDeleteANonExistingBlock("username_1520");
+  verifyBlockDoesNotExist("username_1520");
 });
 
-// Story: crud:UserBlock:nondet:1:2
-bthread("crud:UserBlock:nondet:1:2", function () {
-  let username = "username_1581";
-  blockUser("username_1581");
-  tryToAddExistingUserBlock("username_1581");
-  verifyUserBlockExists("username_1581");
-  unblockUser("username_1581");
-  tryToDeleteANonExistingUserBlock("username_1581");
-  verifyUserBlockDoesNotExist("username_1581");
+// Story: crud:Block:nondet:1:2
+bthread("crud:Block:nondet:1:2", function () {
+  let username = "username_1521";
+  blockUser("username_1521");
+  tryToAddExistingBlock("username_1521");
+  verifyBlockExists("username_1521");
+  unblockUser("username_1521");
+  tryToDeleteANonExistingBlock("username_1521");
+  verifyBlockDoesNotExist("username_1521");
 });
 
-// Story: crud:UserBlock:nondet:negative:dup-add
-bthread("crud:UserBlock:nondet:negative:dup-add", function () {
-  let username = "username_1586";
-  blockUser("username_1586");
-  verifyUserBlockExists("username_1586");
-  tryToAddExistingUserBlock("username_1586");
-  verifyUserBlockExists("username_1586");
+// Story: crud:Block:nondet:negative:dup-add
+bthread("crud:Block:nondet:negative:dup-add", function () {
+  let username = "username_1526";
+  blockUser("username_1526");
+  verifyBlockExists("username_1526");
+  tryToAddExistingBlock("username_1526");
+  verifyBlockExists("username_1526");
 });
 
-// Story: monitor:UserBlock:add
-bthread("monitor:UserBlock:add", function () {
+// Story: monitor:Block:add
+bthread("monitor:Block:add", function () {
   while (true) {
-    let ev = waitForAnyUserBlockAdded();
+    let ev = waitForAnyBlockAdded();
     let args = Object.values(ev);
-    block(matchDeletedUserBlock.apply(null, args), function () {
-      verifyUserBlockExists.apply(null, args);
+    block(matchDeletedBlock.apply(null, args), function () {
+      verifyBlockExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:UserEmail:nondet:1:1
-bthread("crud:UserEmail:nondet:1:1", function () {
+// Story: crud:Email:nondet:1:1
+bthread("crud:Email:nondet:1:1", function () {
 
-  addEmails();
-  tryToAddExistingUserEmail();
-  verifyUserEmailExists();
-  deleteEmails();
-  tryToDeleteANonExistingUserEmail();
-  verifyUserEmailDoesNotExist();
+  addEmail();
+  tryToAddExistingEmail();
+  verifyEmailExists();
+  deleteEmail();
+  tryToDeleteANonExistingEmail();
+  verifyEmailDoesNotExist();
 });
 
-// Story: crud:UserEmail:nondet:1:2
-bthread("crud:UserEmail:nondet:1:2", function () {
+// Story: crud:Email:nondet:1:2
+bthread("crud:Email:nondet:1:2", function () {
 
-  addEmails();
-  tryToAddExistingUserEmail();
-  verifyUserEmailExists();
-  deleteEmails();
-  tryToDeleteANonExistingUserEmail();
-  verifyUserEmailDoesNotExist();
+  addEmail();
+  tryToAddExistingEmail();
+  verifyEmailExists();
+  deleteEmail();
+  tryToDeleteANonExistingEmail();
+  verifyEmailDoesNotExist();
 });
 
-// Story: crud:UserEmail:nondet:negative:dup-add
-bthread("crud:UserEmail:nondet:negative:dup-add", function () {
+// Story: crud:Email:nondet:negative:dup-add
+bthread("crud:Email:nondet:negative:dup-add", function () {
 
-  addEmails();
-  verifyUserEmailExists();
-  tryToAddExistingUserEmail();
-  verifyUserEmailExists();
+  addEmail();
+  verifyEmailExists();
+  tryToAddExistingEmail();
+  verifyEmailExists();
 });
 
-// Story: monitor:UserEmail:add
-bthread("monitor:UserEmail:add", function () {
+// Story: monitor:Email:add
+bthread("monitor:Email:add", function () {
   while (true) {
-    let ev = waitForAnyUserEmailAdded();
+    let ev = waitForAnyEmailAdded();
     let args = Object.values(ev);
-    block(matchDeletedUserEmail.apply(null, args), function () {
-      verifyUserEmailExists.apply(null, args);
+    block(matchDeletedEmail.apply(null, args), function () {
+      verifyEmailExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:UserFollowing:nondet:1:1
-bthread("crud:UserFollowing:nondet:1:1", function () {
-  let username = "username_1620";
-  let target_user = "target_user_1620";
-  followUser("username_1620", "target_user_1620");
-  tryToAddExistingUserFollowing("username_1620", "target_user_1620");
-  verifyUserFollowingExists("username_1620", "target_user_1620");
-  unfollowUser("username_1620", "target_user_1620");
-  tryToDeleteANonExistingUserFollowing("username_1620", "target_user_1620");
-  verifyUserFollowingDoesNotExist("username_1620", "target_user_1620");
+// Story: crud:GpgKey:read_only
+bthread("crud:GpgKey:read_only", function () {
+  let gpg_key_id = 1570;
+  verifyGpgKeyExists(1570);
 });
 
-// Story: crud:UserFollowing:nondet:1:2
-bthread("crud:UserFollowing:nondet:1:2", function () {
-  let username = "username_1621";
-  let target_user = "target_user_1621";
-  followUser("username_1621", "target_user_1621");
-  tryToAddExistingUserFollowing("username_1621", "target_user_1621");
-  verifyUserFollowingExists("username_1621", "target_user_1621");
-  unfollowUser("username_1621", "target_user_1621");
-  tryToDeleteANonExistingUserFollowing("username_1621", "target_user_1621");
-  verifyUserFollowingDoesNotExist("username_1621", "target_user_1621");
+// Story: crud:PublicSshKey:read_only
+bthread("crud:PublicSshKey:read_only", function () {
+  let key_id = 1580;
+  verifyPublicSshKeyExists(1580);
 });
 
-// Story: crud:UserFollowing:nondet:negative:dup-add
-bthread("crud:UserFollowing:nondet:negative:dup-add", function () {
-  let username = "username_1626";
-  let target_user = "target_user_1626";
-  followUser("username_1626", "target_user_1626");
-  verifyUserFollowingExists("username_1626", "target_user_1626");
-  tryToAddExistingUserFollowing("username_1626", "target_user_1626");
-  verifyUserFollowingExists("username_1626", "target_user_1626");
+// Story: crud:SocialAccount:nondet:1:1
+bthread("crud:SocialAccount:nondet:1:1", function () {
+
+  addSocialAccountForAuthenticatedUser();
+  tryToAddExistingSocialAccount();
+  verifySocialAccountExists();
+  deleteSocialAccountForAuthenticatedUser();
+  tryToDeleteANonExistingSocialAccount();
+  verifySocialAccountDoesNotExist();
 });
 
-// Story: monitor:UserFollowing:add
-bthread("monitor:UserFollowing:add", function () {
+// Story: crud:SocialAccount:nondet:1:2
+bthread("crud:SocialAccount:nondet:1:2", function () {
+
+  addSocialAccountForAuthenticatedUser();
+  tryToAddExistingSocialAccount();
+  verifySocialAccountExists();
+  deleteSocialAccountForAuthenticatedUser();
+  tryToDeleteANonExistingSocialAccount();
+  verifySocialAccountDoesNotExist();
+});
+
+// Story: crud:SocialAccount:nondet:negative:dup-add
+bthread("crud:SocialAccount:nondet:negative:dup-add", function () {
+
+  addSocialAccountForAuthenticatedUser();
+  verifySocialAccountExists();
+  tryToAddExistingSocialAccount();
+  verifySocialAccountExists();
+});
+
+// Story: monitor:SocialAccount:add
+bthread("monitor:SocialAccount:add", function () {
   while (true) {
-    let ev = waitForAnyUserFollowingAdded();
+    let ev = waitForAnySocialAccountAdded();
     let args = Object.values(ev);
-    block(matchDeletedUserFollowing.apply(null, args), function () {
-      verifyUserFollowingExists.apply(null, args);
+    block(matchDeletedSocialAccount.apply(null, args), function () {
+      verifySocialAccountExists.apply(null, args);
     });
   }
+});
+
+// Story: crud:SshSigningKey:read_only
+bthread("crud:SshSigningKey:read_only", function () {
+  let ssh_signing_key_id = 1610;
+  verifySshSigningKeyExists(1610);
+});
+
+// Story: crud:UserById:read_only
+bthread("crud:UserById:read_only", function () {
+  let account_id = 1620;
+  verifyUserByIdExists(1620);
+});
+
+// Story: crud:UserHovercard:read_only
+bthread("crud:UserHovercard:read_only", function () {
+  let username = "username_1680";
+  verifyUserHovercardExists("username_1680");
 });
 
 // Story: crud:App:read_only
@@ -3102,63 +3203,63 @@ bthread("crud:AppWebhookDeliveries:read_only", function () {
   verifyAppWebhookDeliveriesExists();
 });
 
-// Story: crud:InstallationRequest:read_only
-bthread("crud:InstallationRequest:read_only", function () {
+// Story: crud:AppInstallationRequest:read_only
+bthread("crud:AppInstallationRequest:read_only", function () {
 
-  verifyInstallationRequestExists();
+  verifyAppInstallationRequestExists();
 });
 
-// Story: crud:Installation:nondet:1:1
-bthread("crud:Installation:nondet:1:1", function () {
+// Story: crud:AppInstallation:nondet:1:1
+bthread("crud:AppInstallation:nondet:1:1", function () {
   let installation_id = 1750;
   createInstallationAccessToken(1750);
-  tryToAddExistingInstallation(1750);
-  verifyInstallationExists(1750);
+  tryToAddExistingAppInstallation(1750);
+  verifyAppInstallationExists(1750);
   suspendInstallation(1750);
   deleteInstallation(1750);
-  tryToDeleteANonExistingInstallation(1750);
-  verifyInstallationDoesNotExist(1750);
+  tryToDeleteANonExistingAppInstallation(1750);
+  verifyAppInstallationDoesNotExist(1750);
 });
 
-// Story: crud:Installation:nondet:1:2
-bthread("crud:Installation:nondet:1:2", function () {
+// Story: crud:AppInstallation:nondet:1:2
+bthread("crud:AppInstallation:nondet:1:2", function () {
   let installation_id = 1751;
   createInstallationAccessToken(1751);
-  tryToAddExistingInstallation(1751);
+  tryToAddExistingAppInstallation(1751);
   suspendInstallation(1751);
-  verifyInstallationExists(1751);
+  verifyAppInstallationExists(1751);
   deleteInstallation(1751);
-  tryToDeleteANonExistingInstallation(1751);
-  verifyInstallationDoesNotExist(1751);
+  tryToDeleteANonExistingAppInstallation(1751);
+  verifyAppInstallationDoesNotExist(1751);
 });
 
-// Story: crud:Installation:nondet:negative:dup-add
-bthread("crud:Installation:nondet:negative:dup-add", function () {
+// Story: crud:AppInstallation:nondet:negative:dup-add
+bthread("crud:AppInstallation:nondet:negative:dup-add", function () {
   let installation_id = 1756;
   createInstallationAccessToken(1756);
-  verifyInstallationExists(1756);
-  tryToAddExistingInstallation(1756);
-  verifyInstallationExists(1756);
+  verifyAppInstallationExists(1756);
+  tryToAddExistingAppInstallation(1756);
+  verifyAppInstallationExists(1756);
 });
 
-// Story: crud:Installation:nondet:existing:update
-bthread("crud:Installation:nondet:existing:update", function () {
-  let ev = waitForAnyInstallationAdded();
+// Story: crud:AppInstallation:nondet:existing:update
+bthread("crud:AppInstallation:nondet:existing:update", function () {
+  let ev = waitForAnyAppInstallationAdded();
   let args = Object.values(ev);
-  block(matchDeletedInstallation.apply(null, args), function () {
-    verifyInstallationExists.apply(null, args);
+  block(matchDeletedAppInstallation.apply(null, args), function () {
+    verifyAppInstallationExists.apply(null, args);
     suspendInstallation.apply(null, args);
-    verifyInstallationExists.apply(null, args);
+    verifyAppInstallationExists.apply(null, args);
   });
 });
 
-// Story: monitor:Installation:add
-bthread("monitor:Installation:add", function () {
+// Story: monitor:AppInstallation:add
+bthread("monitor:AppInstallation:add", function () {
   while (true) {
-    let ev = waitForAnyInstallationAdded();
+    let ev = waitForAnyAppInstallationAdded();
     let args = Object.values(ev);
-    block(matchDeletedInstallation.apply(null, args), function () {
-      verifyInstallationExists.apply(null, args);
+    block(matchDeletedAppInstallation.apply(null, args), function () {
+      verifyAppInstallationExists.apply(null, args);
     });
   }
 });
@@ -3218,136 +3319,136 @@ bthread("monitor:AppToken:add", function () {
   }
 });
 
-// Story: crud:AppSlug:read_only
-bthread("crud:AppSlug:read_only", function () {
-  let app_slug = "app_slug_1790";
-  verifyAppSlugExists("app_slug_1790");
+// Story: crud:AppBySlug:read_only
+bthread("crud:AppBySlug:read_only", function () {
+  let app_slug = "app_slug_1780";
+  verifyAppBySlugExists("app_slug_1780");
 });
 
-// Story: crud:InstallationRepo:nondet:1:1
-bthread("crud:InstallationRepo:nondet:1:1", function () {
-  let installation_id = 1800;
-  let repository_id = 1800;
-  addRepoToInstallationForAuthenticatedUser(1800, 1800);
-  tryToAddExistingInstallationRepo(1800, 1800);
-  verifyInstallationRepoExists(1800, 1800);
-  removeRepoFromInstallationForAuthenticatedUser(1800, 1800);
-  tryToDeleteANonExistingInstallationRepo(1800, 1800);
-  verifyInstallationRepoDoesNotExist(1800, 1800);
+// Story: crud:InstallationRepository:nondet:1:1
+bthread("crud:InstallationRepository:nondet:1:1", function () {
+  let installation_id = 1790;
+  let repository_id = 1790;
+  addRepoToInstallationForAuthenticatedUser(1790, 1790);
+  tryToAddExistingInstallationRepository(1790, 1790);
+  verifyInstallationRepositoryExists(1790, 1790);
+  removeRepoFromInstallationForAuthenticatedUser(1790, 1790);
+  tryToDeleteANonExistingInstallationRepository(1790, 1790);
+  verifyInstallationRepositoryDoesNotExist(1790, 1790);
 });
 
-// Story: crud:InstallationRepo:nondet:1:2
-bthread("crud:InstallationRepo:nondet:1:2", function () {
-  let installation_id = 1801;
-  let repository_id = 1801;
-  addRepoToInstallationForAuthenticatedUser(1801, 1801);
-  tryToAddExistingInstallationRepo(1801, 1801);
-  verifyInstallationRepoExists(1801, 1801);
-  removeRepoFromInstallationForAuthenticatedUser(1801, 1801);
-  tryToDeleteANonExistingInstallationRepo(1801, 1801);
-  verifyInstallationRepoDoesNotExist(1801, 1801);
+// Story: crud:InstallationRepository:nondet:1:2
+bthread("crud:InstallationRepository:nondet:1:2", function () {
+  let installation_id = 1791;
+  let repository_id = 1791;
+  addRepoToInstallationForAuthenticatedUser(1791, 1791);
+  tryToAddExistingInstallationRepository(1791, 1791);
+  verifyInstallationRepositoryExists(1791, 1791);
+  removeRepoFromInstallationForAuthenticatedUser(1791, 1791);
+  tryToDeleteANonExistingInstallationRepository(1791, 1791);
+  verifyInstallationRepositoryDoesNotExist(1791, 1791);
 });
 
-// Story: crud:InstallationRepo:nondet:negative:dup-add
-bthread("crud:InstallationRepo:nondet:negative:dup-add", function () {
-  let installation_id = 1806;
-  let repository_id = 1806;
-  addRepoToInstallationForAuthenticatedUser(1806, 1806);
-  verifyInstallationRepoExists(1806, 1806);
-  tryToAddExistingInstallationRepo(1806, 1806);
-  verifyInstallationRepoExists(1806, 1806);
+// Story: crud:InstallationRepository:nondet:negative:dup-add
+bthread("crud:InstallationRepository:nondet:negative:dup-add", function () {
+  let installation_id = 1796;
+  let repository_id = 1796;
+  addRepoToInstallationForAuthenticatedUser(1796, 1796);
+  verifyInstallationRepositoryExists(1796, 1796);
+  tryToAddExistingInstallationRepository(1796, 1796);
+  verifyInstallationRepositoryExists(1796, 1796);
 });
 
-// Story: monitor:InstallationRepo:add
-bthread("monitor:InstallationRepo:add", function () {
+// Story: monitor:InstallationRepository:add
+bthread("monitor:InstallationRepository:add", function () {
   while (true) {
-    let ev = waitForAnyInstallationRepoAdded();
+    let ev = waitForAnyInstallationRepositoryAdded();
     let args = Object.values(ev);
-    block(matchDeletedInstallationRepo.apply(null, args), function () {
-      verifyInstallationRepoExists.apply(null, args);
+    block(matchDeletedInstallationRepository.apply(null, args), function () {
+      verifyInstallationRepositoryExists.apply(null, args);
     });
   }
 });
 
 // Story: crud:OrgInstallation:read_only
 bthread("crud:OrgInstallation:read_only", function () {
-  let org = "org_1810";
-  verifyOrgInstallationExists("org_1810");
+  let org = "org_1800";
+  verifyOrgInstallationExists("org_1800");
 });
 
 // Story: crud:RepoInstallation:read_only
 bthread("crud:RepoInstallation:read_only", function () {
-  let owner = "owner_1820";
-  let repo = "repo_1820";
-  verifyRepoInstallationExists("owner_1820", "repo_1820");
+  let owner = "owner_1810";
+  let repo = "repo_1810";
+  verifyRepoInstallationExists("owner_1810", "repo_1810");
 });
 
 // Story: crud:UserInstallation:read_only
 bthread("crud:UserInstallation:read_only", function () {
-  let username = "username_1830";
-  verifyUserInstallationExists("username_1830");
+  let username = "username_1820";
+  verifyUserInstallationExists("username_1820");
 });
 
 // Story: crud:Issue:read_only
 bthread("crud:Issue:read_only", function () {
-  let owner = "owner_1840";
-  let repo = "repo_1840";
-  let title = "title_1840";
-  let body = "body_1840";
-  let assignee = "assignee_1840";
-  let milestone = "milestone_1840";
-  let labels = "labels_1840";
-  let assignees = "assignees_1840";
-  let type = "type_1840";
-  let issue_number = "issue_number_1840";
-  let state = "state_1840";
-  let state_reason = "state_reason_1840";
-  verifyIssueExists("owner_1840", "repo_1840", "title_1840", "body_1840", "assignee_1840", "milestone_1840", "labels_1840", "assignees_1840", "type_1840", "issue_number_1840", "state_1840", "state_reason_1840");
+  let owner = "owner_1830";
+  let repo = "repo_1830";
+  let title = "title_1830";
+  let body = "body_1830";
+  let assignee = "assignee_1830";
+  let milestone = "milestone_1830";
+  let labels = "labels_1830";
+  let assignees = "assignees_1830";
+  let type = "type_1830";
+  let issue_number = "issue_number_1830";
+  let state = "state_1830";
+  let state_reason = "state_reason_1830";
+  verifyIssueExists("owner_1830", "repo_1830", "title_1830", "body_1830", "assignee_1830", "milestone_1830", "labels_1830", "assignees_1830", "type_1830", "issue_number_1830", "state_1830", "state_reason_1830");
 });
 
 // Story: crud:IssueComment:nondet:1:1
 bthread("crud:IssueComment:nondet:1:1", function () {
-  let owner = "owner_1850";
-  let repo = "repo_1850";
-  let issue_number = "issue_number_1850";
-  let body = "body_1850";
-  let comment_id = 1850;
-  createIssueComment("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
-  tryToAddExistingIssueComment("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
-  verifyIssueCommentExists("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
-  updateIssueComment("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
-  deleteIssueComment("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
-  tryToDeleteANonExistingIssueComment("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
-  verifyIssueCommentDoesNotExist("owner_1850", "repo_1850", "issue_number_1850", "body_1850", 1850);
+  let owner = "owner_1840";
+  let repo = "repo_1840";
+  let issue_number = "issue_number_1840";
+  let body = "body_1840";
+  let comment_id = 1840;
+  createIssueComment("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
+  tryToAddExistingIssueComment("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
+  verifyIssueCommentExists("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
+  updateIssueComment("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
+  deleteIssueComment("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
+  tryToDeleteANonExistingIssueComment("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
+  verifyIssueCommentDoesNotExist("owner_1840", "repo_1840", "issue_number_1840", "body_1840", 1840);
 });
 
 // Story: crud:IssueComment:nondet:1:2
 bthread("crud:IssueComment:nondet:1:2", function () {
-  let owner = "owner_1851";
-  let repo = "repo_1851";
-  let issue_number = "issue_number_1851";
-  let body = "body_1851";
-  let comment_id = 1851;
-  createIssueComment("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
-  tryToAddExistingIssueComment("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
-  updateIssueComment("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
-  verifyIssueCommentExists("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
-  deleteIssueComment("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
-  tryToDeleteANonExistingIssueComment("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
-  verifyIssueCommentDoesNotExist("owner_1851", "repo_1851", "issue_number_1851", "body_1851", 1851);
+  let owner = "owner_1841";
+  let repo = "repo_1841";
+  let issue_number = "issue_number_1841";
+  let body = "body_1841";
+  let comment_id = 1841;
+  createIssueComment("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
+  tryToAddExistingIssueComment("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
+  updateIssueComment("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
+  verifyIssueCommentExists("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
+  deleteIssueComment("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
+  tryToDeleteANonExistingIssueComment("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
+  verifyIssueCommentDoesNotExist("owner_1841", "repo_1841", "issue_number_1841", "body_1841", 1841);
 });
 
 // Story: crud:IssueComment:nondet:negative:dup-add
 bthread("crud:IssueComment:nondet:negative:dup-add", function () {
-  let owner = "owner_1856";
-  let repo = "repo_1856";
-  let issue_number = "issue_number_1856";
-  let body = "body_1856";
-  let comment_id = 1856;
-  createIssueComment("owner_1856", "repo_1856", "issue_number_1856", "body_1856", 1856);
-  verifyIssueCommentExists("owner_1856", "repo_1856", "issue_number_1856", "body_1856", 1856);
-  tryToAddExistingIssueComment("owner_1856", "repo_1856", "issue_number_1856", "body_1856", 1856);
-  verifyIssueCommentExists("owner_1856", "repo_1856", "issue_number_1856", "body_1856", 1856);
+  let owner = "owner_1846";
+  let repo = "repo_1846";
+  let issue_number = "issue_number_1846";
+  let body = "body_1846";
+  let comment_id = 1846;
+  createIssueComment("owner_1846", "repo_1846", "issue_number_1846", "body_1846", 1846);
+  verifyIssueCommentExists("owner_1846", "repo_1846", "issue_number_1846", "body_1846", 1846);
+  tryToAddExistingIssueComment("owner_1846", "repo_1846", "issue_number_1846", "body_1846", 1846);
+  verifyIssueCommentExists("owner_1846", "repo_1846", "issue_number_1846", "body_1846", 1846);
 });
 
 // Story: crud:IssueComment:nondet:existing:update
@@ -3374,185 +3475,251 @@ bthread("monitor:IssueComment:add", function () {
 
 // Story: crud:Assignee:read_only
 bthread("crud:Assignee:read_only", function () {
+  let owner = "owner_1850";
+  let repo = "repo_1850";
+  let assignee = "assignee_1850";
+  verifyAssigneeExists("owner_1850", "repo_1850", "assignee_1850");
+});
+
+// Story: crud:IssueAssignees:nondet:1:1
+bthread("crud:IssueAssignees:nondet:1:1", function () {
   let owner = "owner_1860";
   let repo = "repo_1860";
-  let assignee = "assignee_1860";
-  verifyAssigneeExists("owner_1860", "repo_1860", "assignee_1860");
+  let issue_number = "issue_number_1860";
+  let assignees = "assignees_1860";
+  addAssigneesToIssue("owner_1860", "repo_1860", "issue_number_1860", "assignees_1860");
+  tryToAddExistingIssueAssignees("owner_1860", "repo_1860", "issue_number_1860", "assignees_1860");
+  verifyIssueAssigneesExists("owner_1860", "repo_1860", "issue_number_1860", "assignees_1860");
+  removeAssigneesFromIssue("owner_1860", "repo_1860", "issue_number_1860", "assignees_1860");
+  tryToDeleteANonExistingIssueAssignees("owner_1860", "repo_1860", "issue_number_1860", "assignees_1860");
+  verifyIssueAssigneesDoesNotExist("owner_1860", "repo_1860", "issue_number_1860", "assignees_1860");
 });
 
-// Story: crud:IssueAssignee:nondet:1:1
-bthread("crud:IssueAssignee:nondet:1:1", function () {
-  let owner = "owner_1870";
-  let repo = "repo_1870";
-  let issue_number = "issue_number_1870";
-  let assignees = "assignees_1870";
-  addAssigneesToIssue("owner_1870", "repo_1870", "issue_number_1870", "assignees_1870");
-  tryToAddExistingIssueAssignee("owner_1870", "repo_1870", "issue_number_1870", "assignees_1870");
-  verifyIssueAssigneeExists("owner_1870", "repo_1870", "issue_number_1870", "assignees_1870");
-  removeAssigneesFromIssue("owner_1870", "repo_1870", "issue_number_1870", "assignees_1870");
-  tryToDeleteANonExistingIssueAssignee("owner_1870", "repo_1870", "issue_number_1870", "assignees_1870");
-  verifyIssueAssigneeDoesNotExist("owner_1870", "repo_1870", "issue_number_1870", "assignees_1870");
+// Story: crud:IssueAssignees:nondet:1:2
+bthread("crud:IssueAssignees:nondet:1:2", function () {
+  let owner = "owner_1861";
+  let repo = "repo_1861";
+  let issue_number = "issue_number_1861";
+  let assignees = "assignees_1861";
+  addAssigneesToIssue("owner_1861", "repo_1861", "issue_number_1861", "assignees_1861");
+  tryToAddExistingIssueAssignees("owner_1861", "repo_1861", "issue_number_1861", "assignees_1861");
+  verifyIssueAssigneesExists("owner_1861", "repo_1861", "issue_number_1861", "assignees_1861");
+  removeAssigneesFromIssue("owner_1861", "repo_1861", "issue_number_1861", "assignees_1861");
+  tryToDeleteANonExistingIssueAssignees("owner_1861", "repo_1861", "issue_number_1861", "assignees_1861");
+  verifyIssueAssigneesDoesNotExist("owner_1861", "repo_1861", "issue_number_1861", "assignees_1861");
 });
 
-// Story: crud:IssueAssignee:nondet:1:2
-bthread("crud:IssueAssignee:nondet:1:2", function () {
-  let owner = "owner_1871";
-  let repo = "repo_1871";
-  let issue_number = "issue_number_1871";
-  let assignees = "assignees_1871";
-  addAssigneesToIssue("owner_1871", "repo_1871", "issue_number_1871", "assignees_1871");
-  tryToAddExistingIssueAssignee("owner_1871", "repo_1871", "issue_number_1871", "assignees_1871");
-  verifyIssueAssigneeExists("owner_1871", "repo_1871", "issue_number_1871", "assignees_1871");
-  removeAssigneesFromIssue("owner_1871", "repo_1871", "issue_number_1871", "assignees_1871");
-  tryToDeleteANonExistingIssueAssignee("owner_1871", "repo_1871", "issue_number_1871", "assignees_1871");
-  verifyIssueAssigneeDoesNotExist("owner_1871", "repo_1871", "issue_number_1871", "assignees_1871");
+// Story: crud:IssueAssignees:nondet:negative:dup-add
+bthread("crud:IssueAssignees:nondet:negative:dup-add", function () {
+  let owner = "owner_1866";
+  let repo = "repo_1866";
+  let issue_number = "issue_number_1866";
+  let assignees = "assignees_1866";
+  addAssigneesToIssue("owner_1866", "repo_1866", "issue_number_1866", "assignees_1866");
+  verifyIssueAssigneesExists("owner_1866", "repo_1866", "issue_number_1866", "assignees_1866");
+  tryToAddExistingIssueAssignees("owner_1866", "repo_1866", "issue_number_1866", "assignees_1866");
+  verifyIssueAssigneesExists("owner_1866", "repo_1866", "issue_number_1866", "assignees_1866");
 });
 
-// Story: crud:IssueAssignee:nondet:negative:dup-add
-bthread("crud:IssueAssignee:nondet:negative:dup-add", function () {
-  let owner = "owner_1876";
-  let repo = "repo_1876";
-  let issue_number = "issue_number_1876";
-  let assignees = "assignees_1876";
-  addAssigneesToIssue("owner_1876", "repo_1876", "issue_number_1876", "assignees_1876");
-  verifyIssueAssigneeExists("owner_1876", "repo_1876", "issue_number_1876", "assignees_1876");
-  tryToAddExistingIssueAssignee("owner_1876", "repo_1876", "issue_number_1876", "assignees_1876");
-  verifyIssueAssigneeExists("owner_1876", "repo_1876", "issue_number_1876", "assignees_1876");
-});
-
-// Story: monitor:IssueAssignee:add
-bthread("monitor:IssueAssignee:add", function () {
+// Story: monitor:IssueAssignees:add
+bthread("monitor:IssueAssignees:add", function () {
   while (true) {
-    let ev = waitForAnyIssueAssigneeAdded();
+    let ev = waitForAnyIssueAssigneesAdded();
     let args = Object.values(ev);
-    block(matchDeletedIssueAssignee.apply(null, args), function () {
-      verifyIssueAssigneeExists.apply(null, args);
+    block(matchDeletedIssueAssignees.apply(null, args), function () {
+      verifyIssueAssigneesExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:IssueAssigneeCheck:read_only
-bthread("crud:IssueAssigneeCheck:read_only", function () {
-  let owner = "owner_1880";
-  let repo = "repo_1880";
-  let issue_number = "issue_number_1880";
-  let assignee = "assignee_1880";
-  verifyIssueAssigneeCheckExists("owner_1880", "repo_1880", "issue_number_1880", "assignee_1880");
+// Story: crud:IssueAssignee:read_only
+bthread("crud:IssueAssignee:read_only", function () {
+  let owner = "owner_1870";
+  let repo = "repo_1870";
+  let issue_number = "issue_number_1870";
+  let assignee = "assignee_1870";
+  verifyIssueAssigneeExists("owner_1870", "repo_1870", "issue_number_1870", "assignee_1870");
 });
 
-// Story: crud:IssueLabel:nondet:1:1
-bthread("crud:IssueLabel:nondet:1:1", function () {
+// Story: crud:IssueLabels:nondet:1:1
+bthread("crud:IssueLabels:nondet:1:1", function () {
   let owner = "owner_1890";
   let repo = "repo_1890";
   let issue_number = "issue_number_1890";
   let labels = "labels_1890";
-  let name = "name_1890";
-  addLabelsToIssue("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
-  tryToAddExistingIssueLabel("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
-  verifyIssueLabelExists("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
-  setLabelsForIssue("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
-  removeAllLabelsFromIssue("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
-  tryToDeleteANonExistingIssueLabel("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
-  verifyIssueLabelDoesNotExist("owner_1890", "repo_1890", "issue_number_1890", "labels_1890", "name_1890");
+  addLabelsToIssue("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
+  tryToAddExistingIssueLabels("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
+  verifyIssueLabelsExists("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
+  setLabelsForIssue("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
+  removeAllLabelsFromIssue("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
+  tryToDeleteANonExistingIssueLabels("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
+  verifyIssueLabelsDoesNotExist("owner_1890", "repo_1890", "issue_number_1890", "labels_1890");
 });
 
-// Story: crud:IssueLabel:nondet:1:2
-bthread("crud:IssueLabel:nondet:1:2", function () {
+// Story: crud:IssueLabels:nondet:1:2
+bthread("crud:IssueLabels:nondet:1:2", function () {
   let owner = "owner_1891";
   let repo = "repo_1891";
   let issue_number = "issue_number_1891";
   let labels = "labels_1891";
-  let name = "name_1891";
-  addLabelsToIssue("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
-  tryToAddExistingIssueLabel("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
-  setLabelsForIssue("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
-  verifyIssueLabelExists("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
-  removeAllLabelsFromIssue("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
-  tryToDeleteANonExistingIssueLabel("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
-  verifyIssueLabelDoesNotExist("owner_1891", "repo_1891", "issue_number_1891", "labels_1891", "name_1891");
+  addLabelsToIssue("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
+  tryToAddExistingIssueLabels("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
+  setLabelsForIssue("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
+  verifyIssueLabelsExists("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
+  removeAllLabelsFromIssue("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
+  tryToDeleteANonExistingIssueLabels("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
+  verifyIssueLabelsDoesNotExist("owner_1891", "repo_1891", "issue_number_1891", "labels_1891");
 });
 
-// Story: crud:IssueLabel:nondet:negative:dup-add
-bthread("crud:IssueLabel:nondet:negative:dup-add", function () {
+// Story: crud:IssueLabels:nondet:negative:dup-add
+bthread("crud:IssueLabels:nondet:negative:dup-add", function () {
   let owner = "owner_1896";
   let repo = "repo_1896";
   let issue_number = "issue_number_1896";
   let labels = "labels_1896";
-  let name = "name_1896";
-  addLabelsToIssue("owner_1896", "repo_1896", "issue_number_1896", "labels_1896", "name_1896");
-  verifyIssueLabelExists("owner_1896", "repo_1896", "issue_number_1896", "labels_1896", "name_1896");
-  tryToAddExistingIssueLabel("owner_1896", "repo_1896", "issue_number_1896", "labels_1896", "name_1896");
-  verifyIssueLabelExists("owner_1896", "repo_1896", "issue_number_1896", "labels_1896", "name_1896");
+  addLabelsToIssue("owner_1896", "repo_1896", "issue_number_1896", "labels_1896");
+  verifyIssueLabelsExists("owner_1896", "repo_1896", "issue_number_1896", "labels_1896");
+  tryToAddExistingIssueLabels("owner_1896", "repo_1896", "issue_number_1896", "labels_1896");
+  verifyIssueLabelsExists("owner_1896", "repo_1896", "issue_number_1896", "labels_1896");
 });
 
-// Story: crud:IssueLabel:nondet:existing:update
-bthread("crud:IssueLabel:nondet:existing:update", function () {
-  let ev = waitForAnyIssueLabelAdded();
+// Story: crud:IssueLabels:nondet:existing:update
+bthread("crud:IssueLabels:nondet:existing:update", function () {
+  let ev = waitForAnyIssueLabelsAdded();
   let args = Object.values(ev);
-  block(matchDeletedIssueLabel.apply(null, args), function () {
-    verifyIssueLabelExists.apply(null, args);
+  block(matchDeletedIssueLabels.apply(null, args), function () {
+    verifyIssueLabelsExists.apply(null, args);
     setLabelsForIssue.apply(null, args);
-    verifyIssueLabelExists.apply(null, args);
+    verifyIssueLabelsExists.apply(null, args);
   });
 });
 
-// Story: monitor:IssueLabel:add
-bthread("monitor:IssueLabel:add", function () {
+// Story: monitor:IssueLabels:add
+bthread("monitor:IssueLabels:add", function () {
   while (true) {
-    let ev = waitForAnyIssueLabelAdded();
+    let ev = waitForAnyIssueLabelsAdded();
     let args = Object.values(ev);
-    block(matchDeletedIssueLabel.apply(null, args), function () {
-      verifyIssueLabelExists.apply(null, args);
+    block(matchDeletedIssueLabels.apply(null, args), function () {
+      verifyIssueLabelsExists.apply(null, args);
     });
   }
 });
 
+// Story: crud:IssueDependencyBlockedBy:nondet:1:1
+bthread("crud:IssueDependencyBlockedBy:nondet:1:1", function () {
+  let owner = "owner_1910";
+  let repo = "repo_1910";
+  let issue_number = "issue_number_1910";
+  let issue_id = 1910;
+  addBlockedByDependency("owner_1910", "repo_1910", "issue_number_1910", 1910);
+  tryToAddExistingIssueDependencyBlockedBy("owner_1910", "repo_1910", "issue_number_1910", 1910);
+  verifyIssueDependencyBlockedByExists("owner_1910", "repo_1910", "issue_number_1910", 1910);
+  removeBlockedByDependency("owner_1910", "repo_1910", "issue_number_1910", 1910);
+  tryToDeleteANonExistingIssueDependencyBlockedBy("owner_1910", "repo_1910", "issue_number_1910", 1910);
+  verifyIssueDependencyBlockedByDoesNotExist("owner_1910", "repo_1910", "issue_number_1910", 1910);
+});
+
+// Story: crud:IssueDependencyBlockedBy:nondet:1:2
+bthread("crud:IssueDependencyBlockedBy:nondet:1:2", function () {
+  let owner = "owner_1911";
+  let repo = "repo_1911";
+  let issue_number = "issue_number_1911";
+  let issue_id = 1911;
+  addBlockedByDependency("owner_1911", "repo_1911", "issue_number_1911", 1911);
+  tryToAddExistingIssueDependencyBlockedBy("owner_1911", "repo_1911", "issue_number_1911", 1911);
+  verifyIssueDependencyBlockedByExists("owner_1911", "repo_1911", "issue_number_1911", 1911);
+  removeBlockedByDependency("owner_1911", "repo_1911", "issue_number_1911", 1911);
+  tryToDeleteANonExistingIssueDependencyBlockedBy("owner_1911", "repo_1911", "issue_number_1911", 1911);
+  verifyIssueDependencyBlockedByDoesNotExist("owner_1911", "repo_1911", "issue_number_1911", 1911);
+});
+
+// Story: crud:IssueDependencyBlockedBy:nondet:negative:dup-add
+bthread("crud:IssueDependencyBlockedBy:nondet:negative:dup-add", function () {
+  let owner = "owner_1916";
+  let repo = "repo_1916";
+  let issue_number = "issue_number_1916";
+  let issue_id = 1916;
+  addBlockedByDependency("owner_1916", "repo_1916", "issue_number_1916", 1916);
+  verifyIssueDependencyBlockedByExists("owner_1916", "repo_1916", "issue_number_1916", 1916);
+  tryToAddExistingIssueDependencyBlockedBy("owner_1916", "repo_1916", "issue_number_1916", 1916);
+  verifyIssueDependencyBlockedByExists("owner_1916", "repo_1916", "issue_number_1916", 1916);
+});
+
+// Story: monitor:IssueDependencyBlockedBy:add
+bthread("monitor:IssueDependencyBlockedBy:add", function () {
+  while (true) {
+    let ev = waitForAnyIssueDependencyBlockedByAdded();
+    let args = Object.values(ev);
+    block(matchDeletedIssueDependencyBlockedBy.apply(null, args), function () {
+      verifyIssueDependencyBlockedByExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:IssueDependencyBlocking:read_only
+bthread("crud:IssueDependencyBlocking:read_only", function () {
+  let owner = "owner_1920";
+  let repo = "repo_1920";
+  let issue_number = "issue_number_1920";
+  verifyIssueDependencyBlockingExists("owner_1920", "repo_1920", "issue_number_1920");
+});
+
+// Story: crud:IssueSubIssues:read_only
+bthread("crud:IssueSubIssues:read_only", function () {
+  let owner = "owner_1940";
+  let repo = "repo_1940";
+  let issue_number = "issue_number_1940";
+  let sub_issue_id = 1940;
+  let replace_parent = "replace_parent_1940";
+  verifyIssueSubIssuesExists("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940");
+});
+
 // Story: crud:Label:nondet:1:1
 bthread("crud:Label:nondet:1:1", function () {
-  let owner = "owner_1900";
-  let repo = "repo_1900";
-  let name = "name_1900";
-  let color = "color_1900";
-  let description = "description_1900";
-  let new_name = "new_name_1900";
-  createLabel("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
-  tryToAddExistingLabel("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
-  verifyLabelExists("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
-  updateLabel("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
-  deleteLabel("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
-  tryToDeleteANonExistingLabel("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
-  verifyLabelDoesNotExist("owner_1900", "repo_1900", "name_1900", "color_1900", "description_1900", "new_name_1900");
+  let owner = "owner_1960";
+  let repo = "repo_1960";
+  let name = "name_1960";
+  let color = "color_1960";
+  let description = "description_1960";
+  let new_name = "new_name_1960";
+  createLabel("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
+  tryToAddExistingLabel("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
+  verifyLabelExists("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
+  updateLabel("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
+  deleteLabel("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
+  tryToDeleteANonExistingLabel("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
+  verifyLabelDoesNotExist("owner_1960", "repo_1960", "name_1960", "color_1960", "description_1960", "new_name_1960");
 });
 
 // Story: crud:Label:nondet:1:2
 bthread("crud:Label:nondet:1:2", function () {
-  let owner = "owner_1901";
-  let repo = "repo_1901";
-  let name = "name_1901";
-  let color = "color_1901";
-  let description = "description_1901";
-  let new_name = "new_name_1901";
-  createLabel("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
-  tryToAddExistingLabel("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
-  updateLabel("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
-  verifyLabelExists("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
-  deleteLabel("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
-  tryToDeleteANonExistingLabel("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
-  verifyLabelDoesNotExist("owner_1901", "repo_1901", "name_1901", "color_1901", "description_1901", "new_name_1901");
+  let owner = "owner_1961";
+  let repo = "repo_1961";
+  let name = "name_1961";
+  let color = "color_1961";
+  let description = "description_1961";
+  let new_name = "new_name_1961";
+  createLabel("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
+  tryToAddExistingLabel("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
+  updateLabel("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
+  verifyLabelExists("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
+  deleteLabel("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
+  tryToDeleteANonExistingLabel("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
+  verifyLabelDoesNotExist("owner_1961", "repo_1961", "name_1961", "color_1961", "description_1961", "new_name_1961");
 });
 
 // Story: crud:Label:nondet:negative:dup-add
 bthread("crud:Label:nondet:negative:dup-add", function () {
-  let owner = "owner_1906";
-  let repo = "repo_1906";
-  let name = "name_1906";
-  let color = "color_1906";
-  let description = "description_1906";
-  let new_name = "new_name_1906";
-  createLabel("owner_1906", "repo_1906", "name_1906", "color_1906", "description_1906", "new_name_1906");
-  verifyLabelExists("owner_1906", "repo_1906", "name_1906", "color_1906", "description_1906", "new_name_1906");
-  tryToAddExistingLabel("owner_1906", "repo_1906", "name_1906", "color_1906", "description_1906", "new_name_1906");
-  verifyLabelExists("owner_1906", "repo_1906", "name_1906", "color_1906", "description_1906", "new_name_1906");
+  let owner = "owner_1966";
+  let repo = "repo_1966";
+  let name = "name_1966";
+  let color = "color_1966";
+  let description = "description_1966";
+  let new_name = "new_name_1966";
+  createLabel("owner_1966", "repo_1966", "name_1966", "color_1966", "description_1966", "new_name_1966");
+  verifyLabelExists("owner_1966", "repo_1966", "name_1966", "color_1966", "description_1966", "new_name_1966");
+  tryToAddExistingLabel("owner_1966", "repo_1966", "name_1966", "color_1966", "description_1966", "new_name_1966");
+  verifyLabelExists("owner_1966", "repo_1966", "name_1966", "color_1966", "description_1966", "new_name_1966");
 });
 
 // Story: crud:Label:nondet:existing:update
@@ -3579,53 +3746,53 @@ bthread("monitor:Label:add", function () {
 
 // Story: crud:Milestone:nondet:1:1
 bthread("crud:Milestone:nondet:1:1", function () {
-  let owner = "owner_1910";
-  let repo = "repo_1910";
-  let title = "title_1910";
-  let state = "state_1910";
-  let description = "description_1910";
-  let due_on = "due_on_1910";
-  let milestone_number = "milestone_number_1910";
-  createMilestone("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
-  tryToAddExistingMilestone("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
-  verifyMilestoneExists("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
-  updateMilestone("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
-  deleteMilestone("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
-  tryToDeleteANonExistingMilestone("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
-  verifyMilestoneDoesNotExist("owner_1910", "repo_1910", "title_1910", "state_1910", "description_1910", "due_on_1910", "milestone_number_1910");
+  let owner = "owner_1970";
+  let repo = "repo_1970";
+  let title = "title_1970";
+  let state = "state_1970";
+  let description = "description_1970";
+  let due_on = "due_on_1970";
+  let milestone_number = "milestone_number_1970";
+  createMilestone("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
+  tryToAddExistingMilestone("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
+  verifyMilestoneExists("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
+  updateMilestone("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
+  deleteMilestone("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
+  tryToDeleteANonExistingMilestone("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
+  verifyMilestoneDoesNotExist("owner_1970", "repo_1970", "title_1970", "state_1970", "description_1970", "due_on_1970", "milestone_number_1970");
 });
 
 // Story: crud:Milestone:nondet:1:2
 bthread("crud:Milestone:nondet:1:2", function () {
-  let owner = "owner_1911";
-  let repo = "repo_1911";
-  let title = "title_1911";
-  let state = "state_1911";
-  let description = "description_1911";
-  let due_on = "due_on_1911";
-  let milestone_number = "milestone_number_1911";
-  createMilestone("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
-  tryToAddExistingMilestone("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
-  updateMilestone("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
-  verifyMilestoneExists("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
-  deleteMilestone("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
-  tryToDeleteANonExistingMilestone("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
-  verifyMilestoneDoesNotExist("owner_1911", "repo_1911", "title_1911", "state_1911", "description_1911", "due_on_1911", "milestone_number_1911");
+  let owner = "owner_1971";
+  let repo = "repo_1971";
+  let title = "title_1971";
+  let state = "state_1971";
+  let description = "description_1971";
+  let due_on = "due_on_1971";
+  let milestone_number = "milestone_number_1971";
+  createMilestone("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
+  tryToAddExistingMilestone("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
+  updateMilestone("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
+  verifyMilestoneExists("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
+  deleteMilestone("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
+  tryToDeleteANonExistingMilestone("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
+  verifyMilestoneDoesNotExist("owner_1971", "repo_1971", "title_1971", "state_1971", "description_1971", "due_on_1971", "milestone_number_1971");
 });
 
 // Story: crud:Milestone:nondet:negative:dup-add
 bthread("crud:Milestone:nondet:negative:dup-add", function () {
-  let owner = "owner_1916";
-  let repo = "repo_1916";
-  let title = "title_1916";
-  let state = "state_1916";
-  let description = "description_1916";
-  let due_on = "due_on_1916";
-  let milestone_number = "milestone_number_1916";
-  createMilestone("owner_1916", "repo_1916", "title_1916", "state_1916", "description_1916", "due_on_1916", "milestone_number_1916");
-  verifyMilestoneExists("owner_1916", "repo_1916", "title_1916", "state_1916", "description_1916", "due_on_1916", "milestone_number_1916");
-  tryToAddExistingMilestone("owner_1916", "repo_1916", "title_1916", "state_1916", "description_1916", "due_on_1916", "milestone_number_1916");
-  verifyMilestoneExists("owner_1916", "repo_1916", "title_1916", "state_1916", "description_1916", "due_on_1916", "milestone_number_1916");
+  let owner = "owner_1976";
+  let repo = "repo_1976";
+  let title = "title_1976";
+  let state = "state_1976";
+  let description = "description_1976";
+  let due_on = "due_on_1976";
+  let milestone_number = "milestone_number_1976";
+  createMilestone("owner_1976", "repo_1976", "title_1976", "state_1976", "description_1976", "due_on_1976", "milestone_number_1976");
+  verifyMilestoneExists("owner_1976", "repo_1976", "title_1976", "state_1976", "description_1976", "due_on_1976", "milestone_number_1976");
+  tryToAddExistingMilestone("owner_1976", "repo_1976", "title_1976", "state_1976", "description_1976", "due_on_1976", "milestone_number_1976");
+  verifyMilestoneExists("owner_1976", "repo_1976", "title_1976", "state_1976", "description_1976", "due_on_1976", "milestone_number_1976");
 });
 
 // Story: crud:Milestone:nondet:existing:update
@@ -3650,175 +3817,43 @@ bthread("monitor:Milestone:add", function () {
   }
 });
 
-// Story: crud:IssueDependencyBlockedBy:nondet:1:1
-bthread("crud:IssueDependencyBlockedBy:nondet:1:1", function () {
-  let owner = "owner_1920";
-  let repo = "repo_1920";
-  let issue_number = "issue_number_1920";
-  let issue_id = 1920;
-  addBlockedByDependency("owner_1920", "repo_1920", "issue_number_1920", 1920);
-  tryToAddExistingIssueDependencyBlockedBy("owner_1920", "repo_1920", "issue_number_1920", 1920);
-  verifyIssueDependencyBlockedByExists("owner_1920", "repo_1920", "issue_number_1920", 1920);
-  removeBlockedByDependency("owner_1920", "repo_1920", "issue_number_1920", 1920);
-  tryToDeleteANonExistingIssueDependencyBlockedBy("owner_1920", "repo_1920", "issue_number_1920", 1920);
-  verifyIssueDependencyBlockedByDoesNotExist("owner_1920", "repo_1920", "issue_number_1920", 1920);
-});
-
-// Story: crud:IssueDependencyBlockedBy:nondet:1:2
-bthread("crud:IssueDependencyBlockedBy:nondet:1:2", function () {
-  let owner = "owner_1921";
-  let repo = "repo_1921";
-  let issue_number = "issue_number_1921";
-  let issue_id = 1921;
-  addBlockedByDependency("owner_1921", "repo_1921", "issue_number_1921", 1921);
-  tryToAddExistingIssueDependencyBlockedBy("owner_1921", "repo_1921", "issue_number_1921", 1921);
-  verifyIssueDependencyBlockedByExists("owner_1921", "repo_1921", "issue_number_1921", 1921);
-  removeBlockedByDependency("owner_1921", "repo_1921", "issue_number_1921", 1921);
-  tryToDeleteANonExistingIssueDependencyBlockedBy("owner_1921", "repo_1921", "issue_number_1921", 1921);
-  verifyIssueDependencyBlockedByDoesNotExist("owner_1921", "repo_1921", "issue_number_1921", 1921);
-});
-
-// Story: crud:IssueDependencyBlockedBy:nondet:negative:dup-add
-bthread("crud:IssueDependencyBlockedBy:nondet:negative:dup-add", function () {
-  let owner = "owner_1926";
-  let repo = "repo_1926";
-  let issue_number = "issue_number_1926";
-  let issue_id = 1926;
-  addBlockedByDependency("owner_1926", "repo_1926", "issue_number_1926", 1926);
-  verifyIssueDependencyBlockedByExists("owner_1926", "repo_1926", "issue_number_1926", 1926);
-  tryToAddExistingIssueDependencyBlockedBy("owner_1926", "repo_1926", "issue_number_1926", 1926);
-  verifyIssueDependencyBlockedByExists("owner_1926", "repo_1926", "issue_number_1926", 1926);
-});
-
-// Story: monitor:IssueDependencyBlockedBy:add
-bthread("monitor:IssueDependencyBlockedBy:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueDependencyBlockedByAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueDependencyBlockedBy.apply(null, args), function () {
-      verifyIssueDependencyBlockedByExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:IssueDependencyBlocking:read_only
-bthread("crud:IssueDependencyBlocking:read_only", function () {
-  let owner = "owner_1930";
-  let repo = "repo_1930";
-  let issue_number = "issue_number_1930";
-  verifyIssueDependencyBlockingExists("owner_1930", "repo_1930", "issue_number_1930");
-});
-
-// Story: crud:SubIssue:nondet:1:1
-bthread("crud:SubIssue:nondet:1:1", function () {
-  let owner = "owner_1940";
-  let repo = "repo_1940";
-  let issue_number = "issue_number_1940";
-  let sub_issue_id = 1940;
-  let replace_parent = "replace_parent_1940";
-  let after_id = 1940;
-  let before_id = 1940;
-  addSubIssue("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-  tryToAddExistingSubIssue("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-  verifySubIssueExists("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-  reprioritizeSubIssue("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-  removeSubIssue("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-  tryToDeleteANonExistingSubIssue("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-  verifySubIssueDoesNotExist("owner_1940", "repo_1940", "issue_number_1940", 1940, "replace_parent_1940", 1940, 1940);
-});
-
-// Story: crud:SubIssue:nondet:1:2
-bthread("crud:SubIssue:nondet:1:2", function () {
-  let owner = "owner_1941";
-  let repo = "repo_1941";
-  let issue_number = "issue_number_1941";
-  let sub_issue_id = 1941;
-  let replace_parent = "replace_parent_1941";
-  let after_id = 1941;
-  let before_id = 1941;
-  addSubIssue("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-  tryToAddExistingSubIssue("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-  reprioritizeSubIssue("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-  verifySubIssueExists("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-  removeSubIssue("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-  tryToDeleteANonExistingSubIssue("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-  verifySubIssueDoesNotExist("owner_1941", "repo_1941", "issue_number_1941", 1941, "replace_parent_1941", 1941, 1941);
-});
-
-// Story: crud:SubIssue:nondet:negative:dup-add
-bthread("crud:SubIssue:nondet:negative:dup-add", function () {
-  let owner = "owner_1946";
-  let repo = "repo_1946";
-  let issue_number = "issue_number_1946";
-  let sub_issue_id = 1946;
-  let replace_parent = "replace_parent_1946";
-  let after_id = 1946;
-  let before_id = 1946;
-  addSubIssue("owner_1946", "repo_1946", "issue_number_1946", 1946, "replace_parent_1946", 1946, 1946);
-  verifySubIssueExists("owner_1946", "repo_1946", "issue_number_1946", 1946, "replace_parent_1946", 1946, 1946);
-  tryToAddExistingSubIssue("owner_1946", "repo_1946", "issue_number_1946", 1946, "replace_parent_1946", 1946, 1946);
-  verifySubIssueExists("owner_1946", "repo_1946", "issue_number_1946", 1946, "replace_parent_1946", 1946, 1946);
-});
-
-// Story: crud:SubIssue:nondet:existing:update
-bthread("crud:SubIssue:nondet:existing:update", function () {
-  let ev = waitForAnySubIssueAdded();
-  let args = Object.values(ev);
-  block(matchDeletedSubIssue.apply(null, args), function () {
-    verifySubIssueExists.apply(null, args);
-    reprioritizeSubIssue.apply(null, args);
-    verifySubIssueExists.apply(null, args);
-  });
-});
-
-// Story: monitor:SubIssue:add
-bthread("monitor:SubIssue:add", function () {
-  while (true) {
-    let ev = waitForAnySubIssueAdded();
-    let args = Object.values(ev);
-    block(matchDeletedSubIssue.apply(null, args), function () {
-      verifySubIssueExists.apply(null, args);
-    });
-  }
-});
-
 // Story: crud:Team:nondet:1:1
 bthread("crud:Team:nondet:1:1", function () {
-  let org = "org_1960";
-  let name = "name_1960";
-  let team_slug = "team_slug_1960";
-  createTeam("org_1960", "name_1960", "team_slug_1960");
-  tryToAddExistingTeam("org_1960", "name_1960", "team_slug_1960");
-  verifyTeamExists("org_1960", "name_1960", "team_slug_1960");
-  updateTeam("org_1960", "name_1960", "team_slug_1960");
-  deleteTeam("org_1960", "name_1960", "team_slug_1960");
-  tryToDeleteANonExistingTeam("org_1960", "name_1960", "team_slug_1960");
-  verifyTeamDoesNotExist("org_1960", "name_1960", "team_slug_1960");
+  let org = "org_1980";
+  let name = "name_1980";
+  let team_slug = "team_slug_1980";
+  createTeam("org_1980", "name_1980", "team_slug_1980");
+  tryToAddExistingTeam("org_1980", "name_1980", "team_slug_1980");
+  verifyTeamExists("org_1980", "name_1980", "team_slug_1980");
+  updateTeam("org_1980", "name_1980", "team_slug_1980");
+  deleteTeam("org_1980", "name_1980", "team_slug_1980");
+  tryToDeleteANonExistingTeam("org_1980", "name_1980", "team_slug_1980");
+  verifyTeamDoesNotExist("org_1980", "name_1980", "team_slug_1980");
 });
 
 // Story: crud:Team:nondet:1:2
 bthread("crud:Team:nondet:1:2", function () {
-  let org = "org_1961";
-  let name = "name_1961";
-  let team_slug = "team_slug_1961";
-  createTeam("org_1961", "name_1961", "team_slug_1961");
-  tryToAddExistingTeam("org_1961", "name_1961", "team_slug_1961");
-  updateTeam("org_1961", "name_1961", "team_slug_1961");
-  verifyTeamExists("org_1961", "name_1961", "team_slug_1961");
-  deleteTeam("org_1961", "name_1961", "team_slug_1961");
-  tryToDeleteANonExistingTeam("org_1961", "name_1961", "team_slug_1961");
-  verifyTeamDoesNotExist("org_1961", "name_1961", "team_slug_1961");
+  let org = "org_1981";
+  let name = "name_1981";
+  let team_slug = "team_slug_1981";
+  createTeam("org_1981", "name_1981", "team_slug_1981");
+  tryToAddExistingTeam("org_1981", "name_1981", "team_slug_1981");
+  updateTeam("org_1981", "name_1981", "team_slug_1981");
+  verifyTeamExists("org_1981", "name_1981", "team_slug_1981");
+  deleteTeam("org_1981", "name_1981", "team_slug_1981");
+  tryToDeleteANonExistingTeam("org_1981", "name_1981", "team_slug_1981");
+  verifyTeamDoesNotExist("org_1981", "name_1981", "team_slug_1981");
 });
 
 // Story: crud:Team:nondet:negative:dup-add
 bthread("crud:Team:nondet:negative:dup-add", function () {
-  let org = "org_1966";
-  let name = "name_1966";
-  let team_slug = "team_slug_1966";
-  createTeam("org_1966", "name_1966", "team_slug_1966");
-  verifyTeamExists("org_1966", "name_1966", "team_slug_1966");
-  tryToAddExistingTeam("org_1966", "name_1966", "team_slug_1966");
-  verifyTeamExists("org_1966", "name_1966", "team_slug_1966");
+  let org = "org_1986";
+  let name = "name_1986";
+  let team_slug = "team_slug_1986";
+  createTeam("org_1986", "name_1986", "team_slug_1986");
+  verifyTeamExists("org_1986", "name_1986", "team_slug_1986");
+  tryToAddExistingTeam("org_1986", "name_1986", "team_slug_1986");
+  verifyTeamExists("org_1986", "name_1986", "team_slug_1986");
 });
 
 // Story: crud:Team:nondet:existing:update
@@ -3845,50 +3880,44 @@ bthread("monitor:Team:add", function () {
 
 // Story: crud:TeamDiscussion:nondet:1:1
 bthread("crud:TeamDiscussion:nondet:1:1", function () {
-  let org = "org_1970";
-  let team_slug = "team_slug_1970";
-  let title = "title_1970";
-  let body = "body_1970";
-  let private = "private_1970";
-  let discussion_number = "discussion_number_1970";
-  createDiscussion("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
-  tryToAddExistingTeamDiscussion("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
-  verifyTeamDiscussionExists("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
-  updateDiscussion("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
-  deleteDiscussion("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
-  tryToDeleteANonExistingTeamDiscussion("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
-  verifyTeamDiscussionDoesNotExist("org_1970", "team_slug_1970", "title_1970", "body_1970", "private_1970", "discussion_number_1970");
+  let org = "org_1990";
+  let team_slug = "team_slug_1990";
+  let title = "title_1990";
+  let discussion_number = "discussion_number_1990";
+  createDiscussion("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
+  tryToAddExistingTeamDiscussion("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
+  verifyTeamDiscussionExists("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
+  updateDiscussion("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
+  deleteDiscussion("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
+  tryToDeleteANonExistingTeamDiscussion("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
+  verifyTeamDiscussionDoesNotExist("org_1990", "team_slug_1990", "title_1990", "discussion_number_1990");
 });
 
 // Story: crud:TeamDiscussion:nondet:1:2
 bthread("crud:TeamDiscussion:nondet:1:2", function () {
-  let org = "org_1971";
-  let team_slug = "team_slug_1971";
-  let title = "title_1971";
-  let body = "body_1971";
-  let private = "private_1971";
-  let discussion_number = "discussion_number_1971";
-  createDiscussion("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
-  tryToAddExistingTeamDiscussion("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
-  updateDiscussion("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
-  verifyTeamDiscussionExists("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
-  deleteDiscussion("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
-  tryToDeleteANonExistingTeamDiscussion("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
-  verifyTeamDiscussionDoesNotExist("org_1971", "team_slug_1971", "title_1971", "body_1971", "private_1971", "discussion_number_1971");
+  let org = "org_1991";
+  let team_slug = "team_slug_1991";
+  let title = "title_1991";
+  let discussion_number = "discussion_number_1991";
+  createDiscussion("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
+  tryToAddExistingTeamDiscussion("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
+  updateDiscussion("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
+  verifyTeamDiscussionExists("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
+  deleteDiscussion("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
+  tryToDeleteANonExistingTeamDiscussion("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
+  verifyTeamDiscussionDoesNotExist("org_1991", "team_slug_1991", "title_1991", "discussion_number_1991");
 });
 
 // Story: crud:TeamDiscussion:nondet:negative:dup-add
 bthread("crud:TeamDiscussion:nondet:negative:dup-add", function () {
-  let org = "org_1976";
-  let team_slug = "team_slug_1976";
-  let title = "title_1976";
-  let body = "body_1976";
-  let private = "private_1976";
-  let discussion_number = "discussion_number_1976";
-  createDiscussion("org_1976", "team_slug_1976", "title_1976", "body_1976", "private_1976", "discussion_number_1976");
-  verifyTeamDiscussionExists("org_1976", "team_slug_1976", "title_1976", "body_1976", "private_1976", "discussion_number_1976");
-  tryToAddExistingTeamDiscussion("org_1976", "team_slug_1976", "title_1976", "body_1976", "private_1976", "discussion_number_1976");
-  verifyTeamDiscussionExists("org_1976", "team_slug_1976", "title_1976", "body_1976", "private_1976", "discussion_number_1976");
+  let org = "org_1996";
+  let team_slug = "team_slug_1996";
+  let title = "title_1996";
+  let discussion_number = "discussion_number_1996";
+  createDiscussion("org_1996", "team_slug_1996", "title_1996", "discussion_number_1996");
+  verifyTeamDiscussionExists("org_1996", "team_slug_1996", "title_1996", "discussion_number_1996");
+  tryToAddExistingTeamDiscussion("org_1996", "team_slug_1996", "title_1996", "discussion_number_1996");
+  verifyTeamDiscussionExists("org_1996", "team_slug_1996", "title_1996", "discussion_number_1996");
 });
 
 // Story: crud:TeamDiscussion:nondet:existing:update
@@ -3915,47 +3944,47 @@ bthread("monitor:TeamDiscussion:add", function () {
 
 // Story: crud:TeamDiscussionComment:nondet:1:1
 bthread("crud:TeamDiscussionComment:nondet:1:1", function () {
-  let org = "org_1980";
-  let team_slug = "team_slug_1980";
-  let discussion_number = "discussion_number_1980";
-  let body = "body_1980";
-  let comment_number = "comment_number_1980";
-  createDiscussionComment("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
-  tryToAddExistingTeamDiscussionComment("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
-  verifyTeamDiscussionCommentExists("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
-  updateDiscussionComment("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
-  deleteDiscussionComment("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
-  tryToDeleteANonExistingTeamDiscussionComment("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
-  verifyTeamDiscussionCommentDoesNotExist("org_1980", "team_slug_1980", "discussion_number_1980", "body_1980", "comment_number_1980");
+  let org = "org_2000";
+  let team_slug = "team_slug_2000";
+  let discussion_number = "discussion_number_2000";
+  let body = "body_2000";
+  let comment_number = "comment_number_2000";
+  createDiscussionComment("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
+  tryToAddExistingTeamDiscussionComment("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
+  verifyTeamDiscussionCommentExists("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
+  updateDiscussionComment("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
+  deleteDiscussionComment("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
+  tryToDeleteANonExistingTeamDiscussionComment("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
+  verifyTeamDiscussionCommentDoesNotExist("org_2000", "team_slug_2000", "discussion_number_2000", "body_2000", "comment_number_2000");
 });
 
 // Story: crud:TeamDiscussionComment:nondet:1:2
 bthread("crud:TeamDiscussionComment:nondet:1:2", function () {
-  let org = "org_1981";
-  let team_slug = "team_slug_1981";
-  let discussion_number = "discussion_number_1981";
-  let body = "body_1981";
-  let comment_number = "comment_number_1981";
-  createDiscussionComment("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
-  tryToAddExistingTeamDiscussionComment("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
-  updateDiscussionComment("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
-  verifyTeamDiscussionCommentExists("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
-  deleteDiscussionComment("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
-  tryToDeleteANonExistingTeamDiscussionComment("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
-  verifyTeamDiscussionCommentDoesNotExist("org_1981", "team_slug_1981", "discussion_number_1981", "body_1981", "comment_number_1981");
+  let org = "org_2001";
+  let team_slug = "team_slug_2001";
+  let discussion_number = "discussion_number_2001";
+  let body = "body_2001";
+  let comment_number = "comment_number_2001";
+  createDiscussionComment("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
+  tryToAddExistingTeamDiscussionComment("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
+  updateDiscussionComment("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
+  verifyTeamDiscussionCommentExists("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
+  deleteDiscussionComment("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
+  tryToDeleteANonExistingTeamDiscussionComment("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
+  verifyTeamDiscussionCommentDoesNotExist("org_2001", "team_slug_2001", "discussion_number_2001", "body_2001", "comment_number_2001");
 });
 
 // Story: crud:TeamDiscussionComment:nondet:negative:dup-add
 bthread("crud:TeamDiscussionComment:nondet:negative:dup-add", function () {
-  let org = "org_1986";
-  let team_slug = "team_slug_1986";
-  let discussion_number = "discussion_number_1986";
-  let body = "body_1986";
-  let comment_number = "comment_number_1986";
-  createDiscussionComment("org_1986", "team_slug_1986", "discussion_number_1986", "body_1986", "comment_number_1986");
-  verifyTeamDiscussionCommentExists("org_1986", "team_slug_1986", "discussion_number_1986", "body_1986", "comment_number_1986");
-  tryToAddExistingTeamDiscussionComment("org_1986", "team_slug_1986", "discussion_number_1986", "body_1986", "comment_number_1986");
-  verifyTeamDiscussionCommentExists("org_1986", "team_slug_1986", "discussion_number_1986", "body_1986", "comment_number_1986");
+  let org = "org_2006";
+  let team_slug = "team_slug_2006";
+  let discussion_number = "discussion_number_2006";
+  let body = "body_2006";
+  let comment_number = "comment_number_2006";
+  createDiscussionComment("org_2006", "team_slug_2006", "discussion_number_2006", "body_2006", "comment_number_2006");
+  verifyTeamDiscussionCommentExists("org_2006", "team_slug_2006", "discussion_number_2006", "body_2006", "comment_number_2006");
+  tryToAddExistingTeamDiscussionComment("org_2006", "team_slug_2006", "discussion_number_2006", "body_2006", "comment_number_2006");
+  verifyTeamDiscussionCommentExists("org_2006", "team_slug_2006", "discussion_number_2006", "body_2006", "comment_number_2006");
 });
 
 // Story: crud:TeamDiscussionComment:nondet:existing:update
@@ -3982,42 +4011,42 @@ bthread("monitor:TeamDiscussionComment:add", function () {
 
 // Story: crud:TeamMembership:nondet:1:1
 bthread("crud:TeamMembership:nondet:1:1", function () {
-  let org = "org_1990";
-  let team_slug = "team_slug_1990";
-  let username = "username_1990";
-  let role = "role_1990";
-  addOrUpdateMembership("org_1990", "team_slug_1990", "username_1990", "role_1990");
-  tryToAddExistingTeamMembership("org_1990", "team_slug_1990", "username_1990", "role_1990");
-  verifyTeamMembershipExists("org_1990", "team_slug_1990", "username_1990", "role_1990");
-  removeMembership("org_1990", "team_slug_1990", "username_1990", "role_1990");
-  tryToDeleteANonExistingTeamMembership("org_1990", "team_slug_1990", "username_1990", "role_1990");
-  verifyTeamMembershipDoesNotExist("org_1990", "team_slug_1990", "username_1990", "role_1990");
+  let org = "org_2010";
+  let team_slug = "team_slug_2010";
+  let username = "username_2010";
+  let role = "role_2010";
+  addOrUpdateMembership("org_2010", "team_slug_2010", "username_2010", "role_2010");
+  tryToAddExistingTeamMembership("org_2010", "team_slug_2010", "username_2010", "role_2010");
+  verifyTeamMembershipExists("org_2010", "team_slug_2010", "username_2010", "role_2010");
+  removeMembership("org_2010", "team_slug_2010", "username_2010", "role_2010");
+  tryToDeleteANonExistingTeamMembership("org_2010", "team_slug_2010", "username_2010", "role_2010");
+  verifyTeamMembershipDoesNotExist("org_2010", "team_slug_2010", "username_2010", "role_2010");
 });
 
 // Story: crud:TeamMembership:nondet:1:2
 bthread("crud:TeamMembership:nondet:1:2", function () {
-  let org = "org_1991";
-  let team_slug = "team_slug_1991";
-  let username = "username_1991";
-  let role = "role_1991";
-  addOrUpdateMembership("org_1991", "team_slug_1991", "username_1991", "role_1991");
-  tryToAddExistingTeamMembership("org_1991", "team_slug_1991", "username_1991", "role_1991");
-  verifyTeamMembershipExists("org_1991", "team_slug_1991", "username_1991", "role_1991");
-  removeMembership("org_1991", "team_slug_1991", "username_1991", "role_1991");
-  tryToDeleteANonExistingTeamMembership("org_1991", "team_slug_1991", "username_1991", "role_1991");
-  verifyTeamMembershipDoesNotExist("org_1991", "team_slug_1991", "username_1991", "role_1991");
+  let org = "org_2011";
+  let team_slug = "team_slug_2011";
+  let username = "username_2011";
+  let role = "role_2011";
+  addOrUpdateMembership("org_2011", "team_slug_2011", "username_2011", "role_2011");
+  tryToAddExistingTeamMembership("org_2011", "team_slug_2011", "username_2011", "role_2011");
+  verifyTeamMembershipExists("org_2011", "team_slug_2011", "username_2011", "role_2011");
+  removeMembership("org_2011", "team_slug_2011", "username_2011", "role_2011");
+  tryToDeleteANonExistingTeamMembership("org_2011", "team_slug_2011", "username_2011", "role_2011");
+  verifyTeamMembershipDoesNotExist("org_2011", "team_slug_2011", "username_2011", "role_2011");
 });
 
 // Story: crud:TeamMembership:nondet:negative:dup-add
 bthread("crud:TeamMembership:nondet:negative:dup-add", function () {
-  let org = "org_1996";
-  let team_slug = "team_slug_1996";
-  let username = "username_1996";
-  let role = "role_1996";
-  addOrUpdateMembership("org_1996", "team_slug_1996", "username_1996", "role_1996");
-  verifyTeamMembershipExists("org_1996", "team_slug_1996", "username_1996", "role_1996");
-  tryToAddExistingTeamMembership("org_1996", "team_slug_1996", "username_1996", "role_1996");
-  verifyTeamMembershipExists("org_1996", "team_slug_1996", "username_1996", "role_1996");
+  let org = "org_2016";
+  let team_slug = "team_slug_2016";
+  let username = "username_2016";
+  let role = "role_2016";
+  addOrUpdateMembership("org_2016", "team_slug_2016", "username_2016", "role_2016");
+  verifyTeamMembershipExists("org_2016", "team_slug_2016", "username_2016", "role_2016");
+  tryToAddExistingTeamMembership("org_2016", "team_slug_2016", "username_2016", "role_2016");
+  verifyTeamMembershipExists("org_2016", "team_slug_2016", "username_2016", "role_2016");
 });
 
 // Story: monitor:TeamMembership:add
@@ -4033,42 +4062,42 @@ bthread("monitor:TeamMembership:add", function () {
 
 // Story: crud:TeamProject:nondet:1:1
 bthread("crud:TeamProject:nondet:1:1", function () {
-  let org = "org_2000";
-  let team_slug = "team_slug_2000";
-  let project_id = 2000;
-  let permission = "permission_2000";
-  addOrUpdateProjectPermissions("org_2000", "team_slug_2000", 2000, "permission_2000");
-  tryToAddExistingTeamProject("org_2000", "team_slug_2000", 2000, "permission_2000");
-  verifyTeamProjectExists("org_2000", "team_slug_2000", 2000, "permission_2000");
-  removeProject("org_2000", "team_slug_2000", 2000, "permission_2000");
-  tryToDeleteANonExistingTeamProject("org_2000", "team_slug_2000", 2000, "permission_2000");
-  verifyTeamProjectDoesNotExist("org_2000", "team_slug_2000", 2000, "permission_2000");
+  let org = "org_2020";
+  let team_slug = "team_slug_2020";
+  let project_id = 2020;
+  let permission = "permission_2020";
+  addOrUpdateProjectPermissions("org_2020", "team_slug_2020", 2020, "permission_2020");
+  tryToAddExistingTeamProject("org_2020", "team_slug_2020", 2020, "permission_2020");
+  verifyTeamProjectExists("org_2020", "team_slug_2020", 2020, "permission_2020");
+  removeProject("org_2020", "team_slug_2020", 2020, "permission_2020");
+  tryToDeleteANonExistingTeamProject("org_2020", "team_slug_2020", 2020, "permission_2020");
+  verifyTeamProjectDoesNotExist("org_2020", "team_slug_2020", 2020, "permission_2020");
 });
 
 // Story: crud:TeamProject:nondet:1:2
 bthread("crud:TeamProject:nondet:1:2", function () {
-  let org = "org_2001";
-  let team_slug = "team_slug_2001";
-  let project_id = 2001;
-  let permission = "permission_2001";
-  addOrUpdateProjectPermissions("org_2001", "team_slug_2001", 2001, "permission_2001");
-  tryToAddExistingTeamProject("org_2001", "team_slug_2001", 2001, "permission_2001");
-  verifyTeamProjectExists("org_2001", "team_slug_2001", 2001, "permission_2001");
-  removeProject("org_2001", "team_slug_2001", 2001, "permission_2001");
-  tryToDeleteANonExistingTeamProject("org_2001", "team_slug_2001", 2001, "permission_2001");
-  verifyTeamProjectDoesNotExist("org_2001", "team_slug_2001", 2001, "permission_2001");
+  let org = "org_2021";
+  let team_slug = "team_slug_2021";
+  let project_id = 2021;
+  let permission = "permission_2021";
+  addOrUpdateProjectPermissions("org_2021", "team_slug_2021", 2021, "permission_2021");
+  tryToAddExistingTeamProject("org_2021", "team_slug_2021", 2021, "permission_2021");
+  verifyTeamProjectExists("org_2021", "team_slug_2021", 2021, "permission_2021");
+  removeProject("org_2021", "team_slug_2021", 2021, "permission_2021");
+  tryToDeleteANonExistingTeamProject("org_2021", "team_slug_2021", 2021, "permission_2021");
+  verifyTeamProjectDoesNotExist("org_2021", "team_slug_2021", 2021, "permission_2021");
 });
 
 // Story: crud:TeamProject:nondet:negative:dup-add
 bthread("crud:TeamProject:nondet:negative:dup-add", function () {
-  let org = "org_2006";
-  let team_slug = "team_slug_2006";
-  let project_id = 2006;
-  let permission = "permission_2006";
-  addOrUpdateProjectPermissions("org_2006", "team_slug_2006", 2006, "permission_2006");
-  verifyTeamProjectExists("org_2006", "team_slug_2006", 2006, "permission_2006");
-  tryToAddExistingTeamProject("org_2006", "team_slug_2006", 2006, "permission_2006");
-  verifyTeamProjectExists("org_2006", "team_slug_2006", 2006, "permission_2006");
+  let org = "org_2026";
+  let team_slug = "team_slug_2026";
+  let project_id = 2026;
+  let permission = "permission_2026";
+  addOrUpdateProjectPermissions("org_2026", "team_slug_2026", 2026, "permission_2026");
+  verifyTeamProjectExists("org_2026", "team_slug_2026", 2026, "permission_2026");
+  tryToAddExistingTeamProject("org_2026", "team_slug_2026", 2026, "permission_2026");
+  verifyTeamProjectExists("org_2026", "team_slug_2026", 2026, "permission_2026");
 });
 
 // Story: monitor:TeamProject:add
@@ -4084,45 +4113,45 @@ bthread("monitor:TeamProject:add", function () {
 
 // Story: crud:TeamRepository:nondet:1:1
 bthread("crud:TeamRepository:nondet:1:1", function () {
-  let org = "org_2010";
-  let team_slug = "team_slug_2010";
-  let owner = "owner_2010";
-  let repo = "repo_2010";
-  let permission = "permission_2010";
-  addOrUpdateRepoPermissions("org_2010", "team_slug_2010", "owner_2010", "repo_2010", "permission_2010");
-  tryToAddExistingTeamRepository("org_2010", "team_slug_2010", "owner_2010", "repo_2010", "permission_2010");
-  verifyTeamRepositoryExists("org_2010", "team_slug_2010", "owner_2010", "repo_2010", "permission_2010");
-  removeRepo("org_2010", "team_slug_2010", "owner_2010", "repo_2010", "permission_2010");
-  tryToDeleteANonExistingTeamRepository("org_2010", "team_slug_2010", "owner_2010", "repo_2010", "permission_2010");
-  verifyTeamRepositoryDoesNotExist("org_2010", "team_slug_2010", "owner_2010", "repo_2010", "permission_2010");
+  let org = "org_2030";
+  let team_slug = "team_slug_2030";
+  let owner = "owner_2030";
+  let repo = "repo_2030";
+  let permission = "permission_2030";
+  addOrUpdateRepoPermissions("org_2030", "team_slug_2030", "owner_2030", "repo_2030", "permission_2030");
+  tryToAddExistingTeamRepository("org_2030", "team_slug_2030", "owner_2030", "repo_2030", "permission_2030");
+  verifyTeamRepositoryExists("org_2030", "team_slug_2030", "owner_2030", "repo_2030", "permission_2030");
+  removeRepo("org_2030", "team_slug_2030", "owner_2030", "repo_2030", "permission_2030");
+  tryToDeleteANonExistingTeamRepository("org_2030", "team_slug_2030", "owner_2030", "repo_2030", "permission_2030");
+  verifyTeamRepositoryDoesNotExist("org_2030", "team_slug_2030", "owner_2030", "repo_2030", "permission_2030");
 });
 
 // Story: crud:TeamRepository:nondet:1:2
 bthread("crud:TeamRepository:nondet:1:2", function () {
-  let org = "org_2011";
-  let team_slug = "team_slug_2011";
-  let owner = "owner_2011";
-  let repo = "repo_2011";
-  let permission = "permission_2011";
-  addOrUpdateRepoPermissions("org_2011", "team_slug_2011", "owner_2011", "repo_2011", "permission_2011");
-  tryToAddExistingTeamRepository("org_2011", "team_slug_2011", "owner_2011", "repo_2011", "permission_2011");
-  verifyTeamRepositoryExists("org_2011", "team_slug_2011", "owner_2011", "repo_2011", "permission_2011");
-  removeRepo("org_2011", "team_slug_2011", "owner_2011", "repo_2011", "permission_2011");
-  tryToDeleteANonExistingTeamRepository("org_2011", "team_slug_2011", "owner_2011", "repo_2011", "permission_2011");
-  verifyTeamRepositoryDoesNotExist("org_2011", "team_slug_2011", "owner_2011", "repo_2011", "permission_2011");
+  let org = "org_2031";
+  let team_slug = "team_slug_2031";
+  let owner = "owner_2031";
+  let repo = "repo_2031";
+  let permission = "permission_2031";
+  addOrUpdateRepoPermissions("org_2031", "team_slug_2031", "owner_2031", "repo_2031", "permission_2031");
+  tryToAddExistingTeamRepository("org_2031", "team_slug_2031", "owner_2031", "repo_2031", "permission_2031");
+  verifyTeamRepositoryExists("org_2031", "team_slug_2031", "owner_2031", "repo_2031", "permission_2031");
+  removeRepo("org_2031", "team_slug_2031", "owner_2031", "repo_2031", "permission_2031");
+  tryToDeleteANonExistingTeamRepository("org_2031", "team_slug_2031", "owner_2031", "repo_2031", "permission_2031");
+  verifyTeamRepositoryDoesNotExist("org_2031", "team_slug_2031", "owner_2031", "repo_2031", "permission_2031");
 });
 
 // Story: crud:TeamRepository:nondet:negative:dup-add
 bthread("crud:TeamRepository:nondet:negative:dup-add", function () {
-  let org = "org_2016";
-  let team_slug = "team_slug_2016";
-  let owner = "owner_2016";
-  let repo = "repo_2016";
-  let permission = "permission_2016";
-  addOrUpdateRepoPermissions("org_2016", "team_slug_2016", "owner_2016", "repo_2016", "permission_2016");
-  verifyTeamRepositoryExists("org_2016", "team_slug_2016", "owner_2016", "repo_2016", "permission_2016");
-  tryToAddExistingTeamRepository("org_2016", "team_slug_2016", "owner_2016", "repo_2016", "permission_2016");
-  verifyTeamRepositoryExists("org_2016", "team_slug_2016", "owner_2016", "repo_2016", "permission_2016");
+  let org = "org_2036";
+  let team_slug = "team_slug_2036";
+  let owner = "owner_2036";
+  let repo = "repo_2036";
+  let permission = "permission_2036";
+  addOrUpdateRepoPermissions("org_2036", "team_slug_2036", "owner_2036", "repo_2036", "permission_2036");
+  verifyTeamRepositoryExists("org_2036", "team_slug_2036", "owner_2036", "repo_2036", "permission_2036");
+  tryToAddExistingTeamRepository("org_2036", "team_slug_2036", "owner_2036", "repo_2036", "permission_2036");
+  verifyTeamRepositoryExists("org_2036", "team_slug_2036", "owner_2036", "repo_2036", "permission_2036");
 });
 
 // Story: monitor:TeamRepository:add
@@ -4138,108 +4167,108 @@ bthread("monitor:TeamRepository:add", function () {
 
 // Story: crud:Notification:read_only
 bthread("crud:Notification:read_only", function () {
-  let all = "all_2020";
-  let participating = "participating_2020";
-  let since = "since_2020";
-  let before = "before_2020";
-  let page = "page_2020";
-  let per_page = "per_page_2020";
-  verifyNotificationExists("all_2020", "participating_2020", "since_2020", "before_2020", "page_2020", "per_page_2020");
+  let all = "all_2040";
+  let participating = "participating_2040";
+  let since = "since_2040";
+  let before = "before_2040";
+  let page = "page_2040";
+  let per_page = "per_page_2040";
+  verifyNotificationExists("all_2040", "participating_2040", "since_2040", "before_2040", "page_2040", "per_page_2040");
 });
 
 // Story: crud:NotificationThread:read_only
 bthread("crud:NotificationThread:read_only", function () {
-  let thread_id = 2030;
-  verifyNotificationThreadExists(2030);
+  let thread_id = 2050;
+  verifyNotificationThreadExists(2050);
 });
 
-// Story: crud:ThreadSubscription:nondet:1:1
-bthread("crud:ThreadSubscription:nondet:1:1", function () {
-  let thread_id = 2040;
-  setThreadSubscription(2040);
-  tryToAddExistingThreadSubscription(2040);
-  verifyThreadSubscriptionExists(2040);
-  deleteThreadSubscription(2040);
-  tryToDeleteANonExistingThreadSubscription(2040);
-  verifyThreadSubscriptionDoesNotExist(2040);
+// Story: crud:NotificationThreadSubscription:nondet:1:1
+bthread("crud:NotificationThreadSubscription:nondet:1:1", function () {
+  let thread_id = 2060;
+  setThreadSubscription(2060);
+  tryToAddExistingNotificationThreadSubscription(2060);
+  verifyNotificationThreadSubscriptionExists(2060);
+  deleteThreadSubscription(2060);
+  tryToDeleteANonExistingNotificationThreadSubscription(2060);
+  verifyNotificationThreadSubscriptionDoesNotExist(2060);
 });
 
-// Story: crud:ThreadSubscription:nondet:1:2
-bthread("crud:ThreadSubscription:nondet:1:2", function () {
-  let thread_id = 2041;
-  setThreadSubscription(2041);
-  tryToAddExistingThreadSubscription(2041);
-  verifyThreadSubscriptionExists(2041);
-  deleteThreadSubscription(2041);
-  tryToDeleteANonExistingThreadSubscription(2041);
-  verifyThreadSubscriptionDoesNotExist(2041);
+// Story: crud:NotificationThreadSubscription:nondet:1:2
+bthread("crud:NotificationThreadSubscription:nondet:1:2", function () {
+  let thread_id = 2061;
+  setThreadSubscription(2061);
+  tryToAddExistingNotificationThreadSubscription(2061);
+  verifyNotificationThreadSubscriptionExists(2061);
+  deleteThreadSubscription(2061);
+  tryToDeleteANonExistingNotificationThreadSubscription(2061);
+  verifyNotificationThreadSubscriptionDoesNotExist(2061);
 });
 
-// Story: crud:ThreadSubscription:nondet:negative:dup-add
-bthread("crud:ThreadSubscription:nondet:negative:dup-add", function () {
-  let thread_id = 2046;
-  setThreadSubscription(2046);
-  verifyThreadSubscriptionExists(2046);
-  tryToAddExistingThreadSubscription(2046);
-  verifyThreadSubscriptionExists(2046);
+// Story: crud:NotificationThreadSubscription:nondet:negative:dup-add
+bthread("crud:NotificationThreadSubscription:nondet:negative:dup-add", function () {
+  let thread_id = 2066;
+  setThreadSubscription(2066);
+  verifyNotificationThreadSubscriptionExists(2066);
+  tryToAddExistingNotificationThreadSubscription(2066);
+  verifyNotificationThreadSubscriptionExists(2066);
 });
 
-// Story: monitor:ThreadSubscription:add
-bthread("monitor:ThreadSubscription:add", function () {
+// Story: monitor:NotificationThreadSubscription:add
+bthread("monitor:NotificationThreadSubscription:add", function () {
   while (true) {
-    let ev = waitForAnyThreadSubscriptionAdded();
+    let ev = waitForAnyNotificationThreadSubscriptionAdded();
     let args = Object.values(ev);
-    block(matchDeletedThreadSubscription.apply(null, args), function () {
-      verifyThreadSubscriptionExists.apply(null, args);
+    block(matchDeletedNotificationThreadSubscription.apply(null, args), function () {
+      verifyNotificationThreadSubscriptionExists.apply(null, args);
     });
   }
 });
 
 // Story: crud:RepoNotification:read_only
 bthread("crud:RepoNotification:read_only", function () {
-  let owner = "owner_2050";
-  let repo = "repo_2050";
-  let all = "all_2050";
-  let participating = "participating_2050";
-  let since = "since_2050";
-  let before = "before_2050";
-  let per_page = "per_page_2050";
-  let page = "page_2050";
-  verifyRepoNotificationExists("owner_2050", "repo_2050", "all_2050", "participating_2050", "since_2050", "before_2050", "per_page_2050", "page_2050");
+  let owner = "owner_2070";
+  let repo = "repo_2070";
+  let all = "all_2070";
+  let participating = "participating_2070";
+  let since = "since_2070";
+  let before = "before_2070";
+  let per_page = "per_page_2070";
+  let page = "page_2070";
+  verifyRepoNotificationExists("owner_2070", "repo_2070", "all_2070", "participating_2070", "since_2070", "before_2070", "per_page_2070", "page_2070");
 });
 
 // Story: crud:RepoSubscription:nondet:1:1
 bthread("crud:RepoSubscription:nondet:1:1", function () {
-  let owner = "owner_2060";
-  let repo = "repo_2060";
-  setRepoSubscription("owner_2060", "repo_2060");
-  tryToAddExistingRepoSubscription("owner_2060", "repo_2060");
-  verifyRepoSubscriptionExists("owner_2060", "repo_2060");
-  deleteRepoSubscription("owner_2060", "repo_2060");
-  tryToDeleteANonExistingRepoSubscription("owner_2060", "repo_2060");
-  verifyRepoSubscriptionDoesNotExist("owner_2060", "repo_2060");
+  let owner = "owner_2080";
+  let repo = "repo_2080";
+  setRepoSubscription("owner_2080", "repo_2080");
+  tryToAddExistingRepoSubscription("owner_2080", "repo_2080");
+  verifyRepoSubscriptionExists("owner_2080", "repo_2080");
+  deleteRepoSubscription("owner_2080", "repo_2080");
+  tryToDeleteANonExistingRepoSubscription("owner_2080", "repo_2080");
+  verifyRepoSubscriptionDoesNotExist("owner_2080", "repo_2080");
 });
 
 // Story: crud:RepoSubscription:nondet:1:2
 bthread("crud:RepoSubscription:nondet:1:2", function () {
-  let owner = "owner_2061";
-  let repo = "repo_2061";
-  setRepoSubscription("owner_2061", "repo_2061");
-  tryToAddExistingRepoSubscription("owner_2061", "repo_2061");
-  verifyRepoSubscriptionExists("owner_2061", "repo_2061");
-  deleteRepoSubscription("owner_2061", "repo_2061");
-  tryToDeleteANonExistingRepoSubscription("owner_2061", "repo_2061");
-  verifyRepoSubscriptionDoesNotExist("owner_2061", "repo_2061");
+  let owner = "owner_2081";
+  let repo = "repo_2081";
+  setRepoSubscription("owner_2081", "repo_2081");
+  tryToAddExistingRepoSubscription("owner_2081", "repo_2081");
+  verifyRepoSubscriptionExists("owner_2081", "repo_2081");
+  deleteRepoSubscription("owner_2081", "repo_2081");
+  tryToDeleteANonExistingRepoSubscription("owner_2081", "repo_2081");
+  verifyRepoSubscriptionDoesNotExist("owner_2081", "repo_2081");
 });
 
 // Story: crud:RepoSubscription:nondet:negative:dup-add
 bthread("crud:RepoSubscription:nondet:negative:dup-add", function () {
-  let owner = "owner_2066";
-  let repo = "repo_2066";
-  setRepoSubscription("owner_2066", "repo_2066");
-  verifyRepoSubscriptionExists("owner_2066", "repo_2066");
-  tryToAddExistingRepoSubscription("owner_2066", "repo_2066");
-  verifyRepoSubscriptionExists("owner_2066", "repo_2066");
+  let owner = "owner_2086";
+  let repo = "repo_2086";
+  setRepoSubscription("owner_2086", "repo_2086");
+  verifyRepoSubscriptionExists("owner_2086", "repo_2086");
+  tryToAddExistingRepoSubscription("owner_2086", "repo_2086");
+  verifyRepoSubscriptionExists("owner_2086", "repo_2086");
 });
 
 // Story: monitor:RepoSubscription:add
@@ -4253,66 +4282,66 @@ bthread("monitor:RepoSubscription:add", function () {
   }
 });
 
-// Story: crud:Star:nondet:1:1
-bthread("crud:Star:nondet:1:1", function () {
-  let owner = "owner_2070";
-  let repo = "repo_2070";
-  starRepo("owner_2070", "repo_2070");
-  tryToAddExistingStar("owner_2070", "repo_2070");
-  verifyStarExists("owner_2070", "repo_2070");
-  unstarRepo("owner_2070", "repo_2070");
-  tryToDeleteANonExistingStar("owner_2070", "repo_2070");
-  verifyStarDoesNotExist("owner_2070", "repo_2070");
+// Story: crud:RepoStar:nondet:1:1
+bthread("crud:RepoStar:nondet:1:1", function () {
+  let owner = "owner_2090";
+  let repo = "repo_2090";
+  starRepoForAuthenticatedUser("owner_2090", "repo_2090");
+  tryToAddExistingRepoStar("owner_2090", "repo_2090");
+  verifyRepoStarExists("owner_2090", "repo_2090");
+  unstarRepoForAuthenticatedUser("owner_2090", "repo_2090");
+  tryToDeleteANonExistingRepoStar("owner_2090", "repo_2090");
+  verifyRepoStarDoesNotExist("owner_2090", "repo_2090");
 });
 
-// Story: crud:Star:nondet:1:2
-bthread("crud:Star:nondet:1:2", function () {
-  let owner = "owner_2071";
-  let repo = "repo_2071";
-  starRepo("owner_2071", "repo_2071");
-  tryToAddExistingStar("owner_2071", "repo_2071");
-  verifyStarExists("owner_2071", "repo_2071");
-  unstarRepo("owner_2071", "repo_2071");
-  tryToDeleteANonExistingStar("owner_2071", "repo_2071");
-  verifyStarDoesNotExist("owner_2071", "repo_2071");
+// Story: crud:RepoStar:nondet:1:2
+bthread("crud:RepoStar:nondet:1:2", function () {
+  let owner = "owner_2091";
+  let repo = "repo_2091";
+  starRepoForAuthenticatedUser("owner_2091", "repo_2091");
+  tryToAddExistingRepoStar("owner_2091", "repo_2091");
+  verifyRepoStarExists("owner_2091", "repo_2091");
+  unstarRepoForAuthenticatedUser("owner_2091", "repo_2091");
+  tryToDeleteANonExistingRepoStar("owner_2091", "repo_2091");
+  verifyRepoStarDoesNotExist("owner_2091", "repo_2091");
 });
 
-// Story: crud:Star:nondet:negative:dup-add
-bthread("crud:Star:nondet:negative:dup-add", function () {
-  let owner = "owner_2076";
-  let repo = "repo_2076";
-  starRepo("owner_2076", "repo_2076");
-  verifyStarExists("owner_2076", "repo_2076");
-  tryToAddExistingStar("owner_2076", "repo_2076");
-  verifyStarExists("owner_2076", "repo_2076");
+// Story: crud:RepoStar:nondet:negative:dup-add
+bthread("crud:RepoStar:nondet:negative:dup-add", function () {
+  let owner = "owner_2096";
+  let repo = "repo_2096";
+  starRepoForAuthenticatedUser("owner_2096", "repo_2096");
+  verifyRepoStarExists("owner_2096", "repo_2096");
+  tryToAddExistingRepoStar("owner_2096", "repo_2096");
+  verifyRepoStarExists("owner_2096", "repo_2096");
 });
 
-// Story: monitor:Star:add
-bthread("monitor:Star:add", function () {
+// Story: monitor:RepoStar:add
+bthread("monitor:RepoStar:add", function () {
   while (true) {
-    let ev = waitForAnyStarAdded();
+    let ev = waitForAnyRepoStarAdded();
     let args = Object.values(ev);
-    block(matchDeletedStar.apply(null, args), function () {
-      verifyStarExists.apply(null, args);
+    block(matchDeletedRepoStar.apply(null, args), function () {
+      verifyRepoStarExists.apply(null, args);
     });
   }
 });
 
-// Story: crud:OrgPackage:read_only
-bthread("crud:OrgPackage:read_only", function () {
-  let org = "org_2080";
-  let package_type = "package_type_2080";
-  let package_name = "package_name_2080";
-  verifyOrgPackageExists("org_2080", "package_type_2080", "package_name_2080");
-});
-
-// Story: crud:OrgPackageVersion:read_only
-bthread("crud:OrgPackageVersion:read_only", function () {
+// Story: crud:Package:read_only
+bthread("crud:Package:read_only", function () {
   let org = "org_2100";
   let package_type = "package_type_2100";
   let package_name = "package_name_2100";
-  let package_version_id = 2100;
-  verifyOrgPackageVersionExists("org_2100", "package_type_2100", "package_name_2100", 2100);
+  verifyPackageExists("org_2100", "package_type_2100", "package_name_2100");
+});
+
+// Story: crud:PackageVersion:read_only
+bthread("crud:PackageVersion:read_only", function () {
+  let org = "org_2110";
+  let package_type = "package_type_2110";
+  let package_name = "package_name_2110";
+  let package_version_id = 2110;
+  verifyPackageVersionExists("org_2110", "package_type_2110", "package_name_2110", 2110);
 });
 
 // Story: crud:UserPackage:read_only
@@ -4325,288 +4354,589 @@ bthread("crud:UserPackage:read_only", function () {
 
 // Story: crud:UserPackageVersion:read_only
 bthread("crud:UserPackageVersion:read_only", function () {
-  let username = "username_2140";
+  let username = "username_2130";
+  let package_type = "package_type_2130";
+  let package_name = "package_name_2130";
+  let package_version_id = 2130;
+  verifyUserPackageVersionExists("username_2130", "package_type_2130", "package_name_2130", 2130);
+});
+
+// Story: crud:UserPackageAuthenticated:read_only
+bthread("crud:UserPackageAuthenticated:read_only", function () {
   let package_type = "package_type_2140";
   let package_name = "package_name_2140";
-  let package_version_id = 2140;
-  verifyUserPackageVersionExists("username_2140", "package_type_2140", "package_name_2140", 2140);
+  verifyUserPackageAuthenticatedExists("package_type_2140", "package_name_2140");
 });
 
-// Story: crud:UserPackageSelf:read_only
-bthread("crud:UserPackageSelf:read_only", function () {
-  let package_type = "package_type_2160";
-  let package_name = "package_name_2160";
-  verifyUserPackageSelfExists("package_type_2160", "package_name_2160");
-});
-
-// Story: crud:UserPackageVersionSelf:read_only
-bthread("crud:UserPackageVersionSelf:read_only", function () {
-  let package_type = "package_type_2180";
-  let package_name = "package_name_2180";
-  let package_version_id = 2180;
-  verifyUserPackageVersionSelfExists("package_type_2180", "package_name_2180", 2180);
+// Story: crud:UserPackageVersionAuthenticated:read_only
+bthread("crud:UserPackageVersionAuthenticated:read_only", function () {
+  let package_type = "package_type_2150";
+  let package_name = "package_name_2150";
+  let package_version_id = 2150;
+  verifyUserPackageVersionAuthenticatedExists("package_type_2150", "package_name_2150", 2150);
 });
 
 // Story: crud:CodeScanningAlert:read_only
 bthread("crud:CodeScanningAlert:read_only", function () {
-  let owner = "owner_2200";
-  let repo = "repo_2200";
-  let alert_number = "alert_number_2200";
-  verifyCodeScanningAlertExists("owner_2200", "repo_2200", "alert_number_2200");
+  let owner = "owner_2160";
+  let repo = "repo_2160";
+  let alert_number = "alert_number_2160";
+  verifyCodeScanningAlertExists("owner_2160", "repo_2160", "alert_number_2160");
 });
 
 // Story: crud:CodeScanningAlertAutofix:read_only
 bthread("crud:CodeScanningAlertAutofix:read_only", function () {
-  let owner = "owner_2210";
-  let repo = "repo_2210";
-  let alert_number = "alert_number_2210";
-  verifyCodeScanningAlertAutofixExists("owner_2210", "repo_2210", "alert_number_2210");
+  let owner = "owner_2170";
+  let repo = "repo_2170";
+  let alert_number = "alert_number_2170";
+  verifyCodeScanningAlertAutofixExists("owner_2170", "repo_2170", "alert_number_2170");
 });
 
 // Story: crud:CodeScanningAlertInstance:read_only
 bthread("crud:CodeScanningAlertInstance:read_only", function () {
-  let owner = "owner_2230";
-  let repo = "repo_2230";
-  let alert_number = "alert_number_2230";
-  verifyCodeScanningAlertInstanceExists("owner_2230", "repo_2230", "alert_number_2230");
-});
-
-// Story: crud:CodeScanningAnalysis:read_only
-bthread("crud:CodeScanningAnalysis:read_only", function () {
-  let owner = "owner_2240";
-  let repo = "repo_2240";
-  let analysis_id = 2240;
-  verifyCodeScanningAnalysisExists("owner_2240", "repo_2240", 2240);
-});
-
-// Story: crud:CodeScanningAnalysisList:read_only
-bthread("crud:CodeScanningAnalysisList:read_only", function () {
-  let owner = "owner_2250";
-  let repo = "repo_2250";
-  verifyCodeScanningAnalysisListExists("owner_2250", "repo_2250");
-});
-
-// Story: crud:CodeQLDatabase:read_only
-bthread("crud:CodeQLDatabase:read_only", function () {
-  let owner = "owner_2260";
-  let repo = "repo_2260";
-  let language = "language_2260";
-  verifyCodeQLDatabaseExists("owner_2260", "repo_2260", "language_2260");
-});
-
-// Story: crud:CodeQLDatabaseList:read_only
-bthread("crud:CodeQLDatabaseList:read_only", function () {
-  let owner = "owner_2270";
-  let repo = "repo_2270";
-  verifyCodeQLDatabaseListExists("owner_2270", "repo_2270");
-});
-
-// Story: crud:CodeQLVariantAnalysis:read_only
-bthread("crud:CodeQLVariantAnalysis:read_only", function () {
-  let owner = "owner_2280";
-  let repo = "repo_2280";
-  let codeql_variant_analysis_id = 2280;
-  verifyCodeQLVariantAnalysisExists("owner_2280", "repo_2280", 2280);
-});
-
-// Story: crud:CodeQLVariantAnalysisRepoTask:read_only
-bthread("crud:CodeQLVariantAnalysisRepoTask:read_only", function () {
-  let owner = "owner_2290";
-  let repo = "repo_2290";
-  let codeql_variant_analysis_id = 2290;
-  let repo_owner = "repo_owner_2290";
-  let repo_name = "repo_name_2290";
-  verifyCodeQLVariantAnalysisRepoTaskExists("owner_2290", "repo_2290", 2290, "repo_owner_2290", "repo_name_2290");
-});
-
-// Story: crud:CodeScanningDefaultSetup:read_only
-bthread("crud:CodeScanningDefaultSetup:read_only", function () {
-  let owner = "owner_2300";
-  let repo = "repo_2300";
-  verifyCodeScanningDefaultSetupExists("owner_2300", "repo_2300");
-});
-
-// Story: crud:SarifUpload:read_only
-bthread("crud:SarifUpload:read_only", function () {
-  let owner = "owner_2310";
-  let repo = "repo_2310";
-  let sarif_id = 2310;
-  verifySarifUploadExists("owner_2310", "repo_2310", 2310);
+  let owner = "owner_2190";
+  let repo = "repo_2190";
+  let alert_number = "alert_number_2190";
+  verifyCodeScanningAlertInstanceExists("owner_2190", "repo_2190", "alert_number_2190");
 });
 
 // Story: crud:CodeScanningAlertListOrg:read_only
 bthread("crud:CodeScanningAlertListOrg:read_only", function () {
-  let org = "org_2320";
-  verifyCodeScanningAlertListOrgExists("org_2320");
+  let org = "org_2200";
+  verifyCodeScanningAlertListOrgExists("org_2200");
 });
 
 // Story: crud:CodeScanningAlertListRepo:read_only
 bthread("crud:CodeScanningAlertListRepo:read_only", function () {
-  let owner = "owner_2330";
-  let repo = "repo_2330";
-  verifyCodeScanningAlertListRepoExists("owner_2330", "repo_2330");
+  let owner = "owner_2210";
+  let repo = "repo_2210";
+  verifyCodeScanningAlertListRepoExists("owner_2210", "repo_2210");
 });
 
-// Story: crud:TeamDiscussionCommentReaction:read_only
-bthread("crud:TeamDiscussionCommentReaction:read_only", function () {
-  let org = "org_2340";
-  let team_slug = "team_slug_2340";
-  let discussion_number = "discussion_number_2340";
-  let comment_number = "comment_number_2340";
+// Story: crud:CodeScanningAnalysis:read_only
+bthread("crud:CodeScanningAnalysis:read_only", function () {
+  let owner = "owner_2220";
+  let repo = "repo_2220";
+  let analysis_id = 2220;
+  verifyCodeScanningAnalysisExists("owner_2220", "repo_2220", 2220);
+});
+
+// Story: crud:CodeScanningAnalysisList:read_only
+bthread("crud:CodeScanningAnalysisList:read_only", function () {
+  let owner = "owner_2230";
+  let repo = "repo_2230";
+  verifyCodeScanningAnalysisListExists("owner_2230", "repo_2230");
+});
+
+// Story: crud:CodeQLDatabase:read_only
+bthread("crud:CodeQLDatabase:read_only", function () {
+  let owner = "owner_2240";
+  let repo = "repo_2240";
+  let language = "language_2240";
+  verifyCodeQLDatabaseExists("owner_2240", "repo_2240", "language_2240");
+});
+
+// Story: crud:CodeQLDatabaseList:read_only
+bthread("crud:CodeQLDatabaseList:read_only", function () {
+  let owner = "owner_2250";
+  let repo = "repo_2250";
+  verifyCodeQLDatabaseListExists("owner_2250", "repo_2250");
+});
+
+// Story: crud:CodeQLVariantAnalysis:read_only
+bthread("crud:CodeQLVariantAnalysis:read_only", function () {
+  let owner = "owner_2260";
+  let repo = "repo_2260";
+  let codeql_variant_analysis_id = 2260;
+  verifyCodeQLVariantAnalysisExists("owner_2260", "repo_2260", 2260);
+});
+
+// Story: crud:CodeQLVariantAnalysisRepoTask:read_only
+bthread("crud:CodeQLVariantAnalysisRepoTask:read_only", function () {
+  let owner = "owner_2280";
+  let repo = "repo_2280";
+  let codeql_variant_analysis_id = 2280;
+  let repo_owner = "repo_owner_2280";
+  let repo_name = "repo_name_2280";
+  verifyCodeQLVariantAnalysisRepoTaskExists("owner_2280", "repo_2280", 2280, "repo_owner_2280", "repo_name_2280");
+});
+
+// Story: crud:CodeScanningDefaultSetup:read_only
+bthread("crud:CodeScanningDefaultSetup:read_only", function () {
+  let owner = "owner_2290";
+  let repo = "repo_2290";
+  verifyCodeScanningDefaultSetupExists("owner_2290", "repo_2290");
+});
+
+// Story: crud:SarifUpload:read_only
+bthread("crud:SarifUpload:read_only", function () {
+  let owner = "owner_2300";
+  let repo = "repo_2300";
+  let sarif_id = 2300;
+  verifySarifUploadExists("owner_2300", "repo_2300", 2300);
+});
+
+// Story: crud:TeamDiscussionCommentReaction:nondet:1:1
+bthread("crud:TeamDiscussionCommentReaction:nondet:1:1", function () {
+  let org = "org_2320";
+  let team_slug = "team_slug_2320";
+  let discussion_number = "discussion_number_2320";
+  let comment_number = "comment_number_2320";
+  let content = "content_2320";
+  let reaction_id = 2320;
+  createTeamDiscussionCommentReaction("org_2320", "team_slug_2320", "discussion_number_2320", "comment_number_2320", "content_2320", 2320);
+  tryToAddExistingTeamDiscussionCommentReaction("org_2320", "team_slug_2320", "discussion_number_2320", "comment_number_2320", "content_2320", 2320);
+  verifyTeamDiscussionCommentReactionExists("org_2320", "team_slug_2320", "discussion_number_2320", "comment_number_2320", "content_2320", 2320);
+  deleteTeamDiscussionCommentReaction("org_2320", "team_slug_2320", "discussion_number_2320", "comment_number_2320", "content_2320", 2320);
+  tryToDeleteANonExistingTeamDiscussionCommentReaction("org_2320", "team_slug_2320", "discussion_number_2320", "comment_number_2320", "content_2320", 2320);
+  verifyTeamDiscussionCommentReactionDoesNotExist("org_2320", "team_slug_2320", "discussion_number_2320", "comment_number_2320", "content_2320", 2320);
+});
+
+// Story: crud:TeamDiscussionCommentReaction:nondet:1:2
+bthread("crud:TeamDiscussionCommentReaction:nondet:1:2", function () {
+  let org = "org_2321";
+  let team_slug = "team_slug_2321";
+  let discussion_number = "discussion_number_2321";
+  let comment_number = "comment_number_2321";
+  let content = "content_2321";
+  let reaction_id = 2321;
+  createTeamDiscussionCommentReaction("org_2321", "team_slug_2321", "discussion_number_2321", "comment_number_2321", "content_2321", 2321);
+  tryToAddExistingTeamDiscussionCommentReaction("org_2321", "team_slug_2321", "discussion_number_2321", "comment_number_2321", "content_2321", 2321);
+  verifyTeamDiscussionCommentReactionExists("org_2321", "team_slug_2321", "discussion_number_2321", "comment_number_2321", "content_2321", 2321);
+  deleteTeamDiscussionCommentReaction("org_2321", "team_slug_2321", "discussion_number_2321", "comment_number_2321", "content_2321", 2321);
+  tryToDeleteANonExistingTeamDiscussionCommentReaction("org_2321", "team_slug_2321", "discussion_number_2321", "comment_number_2321", "content_2321", 2321);
+  verifyTeamDiscussionCommentReactionDoesNotExist("org_2321", "team_slug_2321", "discussion_number_2321", "comment_number_2321", "content_2321", 2321);
+});
+
+// Story: crud:TeamDiscussionCommentReaction:nondet:negative:dup-add
+bthread("crud:TeamDiscussionCommentReaction:nondet:negative:dup-add", function () {
+  let org = "org_2326";
+  let team_slug = "team_slug_2326";
+  let discussion_number = "discussion_number_2326";
+  let comment_number = "comment_number_2326";
+  let content = "content_2326";
+  let reaction_id = 2326;
+  createTeamDiscussionCommentReaction("org_2326", "team_slug_2326", "discussion_number_2326", "comment_number_2326", "content_2326", 2326);
+  verifyTeamDiscussionCommentReactionExists("org_2326", "team_slug_2326", "discussion_number_2326", "comment_number_2326", "content_2326", 2326);
+  tryToAddExistingTeamDiscussionCommentReaction("org_2326", "team_slug_2326", "discussion_number_2326", "comment_number_2326", "content_2326", 2326);
+  verifyTeamDiscussionCommentReactionExists("org_2326", "team_slug_2326", "discussion_number_2326", "comment_number_2326", "content_2326", 2326);
+});
+
+// Story: monitor:TeamDiscussionCommentReaction:add
+bthread("monitor:TeamDiscussionCommentReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyTeamDiscussionCommentReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedTeamDiscussionCommentReaction.apply(null, args), function () {
+      verifyTeamDiscussionCommentReactionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:TeamDiscussionReaction:nondet:1:1
+bthread("crud:TeamDiscussionReaction:nondet:1:1", function () {
+  let org = "org_2330";
+  let team_slug = "team_slug_2330";
+  let discussion_number = "discussion_number_2330";
+  let content = "content_2330";
+  let reaction_id = 2330;
+  createTeamDiscussionReaction("org_2330", "team_slug_2330", "discussion_number_2330", "content_2330", 2330);
+  tryToAddExistingTeamDiscussionReaction("org_2330", "team_slug_2330", "discussion_number_2330", "content_2330", 2330);
+  verifyTeamDiscussionReactionExists("org_2330", "team_slug_2330", "discussion_number_2330", "content_2330", 2330);
+  deleteTeamDiscussionReaction("org_2330", "team_slug_2330", "discussion_number_2330", "content_2330", 2330);
+  tryToDeleteANonExistingTeamDiscussionReaction("org_2330", "team_slug_2330", "discussion_number_2330", "content_2330", 2330);
+  verifyTeamDiscussionReactionDoesNotExist("org_2330", "team_slug_2330", "discussion_number_2330", "content_2330", 2330);
+});
+
+// Story: crud:TeamDiscussionReaction:nondet:1:2
+bthread("crud:TeamDiscussionReaction:nondet:1:2", function () {
+  let org = "org_2331";
+  let team_slug = "team_slug_2331";
+  let discussion_number = "discussion_number_2331";
+  let content = "content_2331";
+  let reaction_id = 2331;
+  createTeamDiscussionReaction("org_2331", "team_slug_2331", "discussion_number_2331", "content_2331", 2331);
+  tryToAddExistingTeamDiscussionReaction("org_2331", "team_slug_2331", "discussion_number_2331", "content_2331", 2331);
+  verifyTeamDiscussionReactionExists("org_2331", "team_slug_2331", "discussion_number_2331", "content_2331", 2331);
+  deleteTeamDiscussionReaction("org_2331", "team_slug_2331", "discussion_number_2331", "content_2331", 2331);
+  tryToDeleteANonExistingTeamDiscussionReaction("org_2331", "team_slug_2331", "discussion_number_2331", "content_2331", 2331);
+  verifyTeamDiscussionReactionDoesNotExist("org_2331", "team_slug_2331", "discussion_number_2331", "content_2331", 2331);
+});
+
+// Story: crud:TeamDiscussionReaction:nondet:negative:dup-add
+bthread("crud:TeamDiscussionReaction:nondet:negative:dup-add", function () {
+  let org = "org_2336";
+  let team_slug = "team_slug_2336";
+  let discussion_number = "discussion_number_2336";
+  let content = "content_2336";
+  let reaction_id = 2336;
+  createTeamDiscussionReaction("org_2336", "team_slug_2336", "discussion_number_2336", "content_2336", 2336);
+  verifyTeamDiscussionReactionExists("org_2336", "team_slug_2336", "discussion_number_2336", "content_2336", 2336);
+  tryToAddExistingTeamDiscussionReaction("org_2336", "team_slug_2336", "discussion_number_2336", "content_2336", 2336);
+  verifyTeamDiscussionReactionExists("org_2336", "team_slug_2336", "discussion_number_2336", "content_2336", 2336);
+});
+
+// Story: monitor:TeamDiscussionReaction:add
+bthread("monitor:TeamDiscussionReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyTeamDiscussionReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedTeamDiscussionReaction.apply(null, args), function () {
+      verifyTeamDiscussionReactionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:CommitCommentReaction:nondet:1:1
+bthread("crud:CommitCommentReaction:nondet:1:1", function () {
+  let owner = "owner_2340";
+  let repo = "repo_2340";
+  let comment_id = 2340;
   let content = "content_2340";
-  verifyTeamDiscussionCommentReactionExists("org_2340", "team_slug_2340", "discussion_number_2340", "comment_number_2340", "content_2340");
+  let reaction_id = 2340;
+  createCommitCommentReaction("owner_2340", "repo_2340", 2340, "content_2340", 2340);
+  tryToAddExistingCommitCommentReaction("owner_2340", "repo_2340", 2340, "content_2340", 2340);
+  verifyCommitCommentReactionExists("owner_2340", "repo_2340", 2340, "content_2340", 2340);
+  deleteCommitCommentReaction("owner_2340", "repo_2340", 2340, "content_2340", 2340);
+  tryToDeleteANonExistingCommitCommentReaction("owner_2340", "repo_2340", 2340, "content_2340", 2340);
+  verifyCommitCommentReactionDoesNotExist("owner_2340", "repo_2340", 2340, "content_2340", 2340);
 });
 
-// Story: crud:TeamDiscussionReaction:read_only
-bthread("crud:TeamDiscussionReaction:read_only", function () {
-  let org = "org_2360";
-  let team_slug = "team_slug_2360";
-  let discussion_number = "discussion_number_2360";
+// Story: crud:CommitCommentReaction:nondet:1:2
+bthread("crud:CommitCommentReaction:nondet:1:2", function () {
+  let owner = "owner_2341";
+  let repo = "repo_2341";
+  let comment_id = 2341;
+  let content = "content_2341";
+  let reaction_id = 2341;
+  createCommitCommentReaction("owner_2341", "repo_2341", 2341, "content_2341", 2341);
+  tryToAddExistingCommitCommentReaction("owner_2341", "repo_2341", 2341, "content_2341", 2341);
+  verifyCommitCommentReactionExists("owner_2341", "repo_2341", 2341, "content_2341", 2341);
+  deleteCommitCommentReaction("owner_2341", "repo_2341", 2341, "content_2341", 2341);
+  tryToDeleteANonExistingCommitCommentReaction("owner_2341", "repo_2341", 2341, "content_2341", 2341);
+  verifyCommitCommentReactionDoesNotExist("owner_2341", "repo_2341", 2341, "content_2341", 2341);
+});
+
+// Story: crud:CommitCommentReaction:nondet:negative:dup-add
+bthread("crud:CommitCommentReaction:nondet:negative:dup-add", function () {
+  let owner = "owner_2346";
+  let repo = "repo_2346";
+  let comment_id = 2346;
+  let content = "content_2346";
+  let reaction_id = 2346;
+  createCommitCommentReaction("owner_2346", "repo_2346", 2346, "content_2346", 2346);
+  verifyCommitCommentReactionExists("owner_2346", "repo_2346", 2346, "content_2346", 2346);
+  tryToAddExistingCommitCommentReaction("owner_2346", "repo_2346", 2346, "content_2346", 2346);
+  verifyCommitCommentReactionExists("owner_2346", "repo_2346", 2346, "content_2346", 2346);
+});
+
+// Story: monitor:CommitCommentReaction:add
+bthread("monitor:CommitCommentReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyCommitCommentReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedCommitCommentReaction.apply(null, args), function () {
+      verifyCommitCommentReactionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:IssueCommentReaction:nondet:1:1
+bthread("crud:IssueCommentReaction:nondet:1:1", function () {
+  let owner = "owner_2350";
+  let repo = "repo_2350";
+  let comment_id = 2350;
+  let content = "content_2350";
+  let reaction_id = 2350;
+  createIssueCommentReaction("owner_2350", "repo_2350", 2350, "content_2350", 2350);
+  tryToAddExistingIssueCommentReaction("owner_2350", "repo_2350", 2350, "content_2350", 2350);
+  verifyIssueCommentReactionExists("owner_2350", "repo_2350", 2350, "content_2350", 2350);
+  deleteIssueCommentReaction("owner_2350", "repo_2350", 2350, "content_2350", 2350);
+  tryToDeleteANonExistingIssueCommentReaction("owner_2350", "repo_2350", 2350, "content_2350", 2350);
+  verifyIssueCommentReactionDoesNotExist("owner_2350", "repo_2350", 2350, "content_2350", 2350);
+});
+
+// Story: crud:IssueCommentReaction:nondet:1:2
+bthread("crud:IssueCommentReaction:nondet:1:2", function () {
+  let owner = "owner_2351";
+  let repo = "repo_2351";
+  let comment_id = 2351;
+  let content = "content_2351";
+  let reaction_id = 2351;
+  createIssueCommentReaction("owner_2351", "repo_2351", 2351, "content_2351", 2351);
+  tryToAddExistingIssueCommentReaction("owner_2351", "repo_2351", 2351, "content_2351", 2351);
+  verifyIssueCommentReactionExists("owner_2351", "repo_2351", 2351, "content_2351", 2351);
+  deleteIssueCommentReaction("owner_2351", "repo_2351", 2351, "content_2351", 2351);
+  tryToDeleteANonExistingIssueCommentReaction("owner_2351", "repo_2351", 2351, "content_2351", 2351);
+  verifyIssueCommentReactionDoesNotExist("owner_2351", "repo_2351", 2351, "content_2351", 2351);
+});
+
+// Story: crud:IssueCommentReaction:nondet:negative:dup-add
+bthread("crud:IssueCommentReaction:nondet:negative:dup-add", function () {
+  let owner = "owner_2356";
+  let repo = "repo_2356";
+  let comment_id = 2356;
+  let content = "content_2356";
+  let reaction_id = 2356;
+  createIssueCommentReaction("owner_2356", "repo_2356", 2356, "content_2356", 2356);
+  verifyIssueCommentReactionExists("owner_2356", "repo_2356", 2356, "content_2356", 2356);
+  tryToAddExistingIssueCommentReaction("owner_2356", "repo_2356", 2356, "content_2356", 2356);
+  verifyIssueCommentReactionExists("owner_2356", "repo_2356", 2356, "content_2356", 2356);
+});
+
+// Story: monitor:IssueCommentReaction:add
+bthread("monitor:IssueCommentReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyIssueCommentReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedIssueCommentReaction.apply(null, args), function () {
+      verifyIssueCommentReactionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:IssueReaction:nondet:1:1
+bthread("crud:IssueReaction:nondet:1:1", function () {
+  let owner = "owner_2360";
+  let repo = "repo_2360";
+  let issue_number = "issue_number_2360";
   let content = "content_2360";
-  verifyTeamDiscussionReactionExists("org_2360", "team_slug_2360", "discussion_number_2360", "content_2360");
+  let reaction_id = 2360;
+  createIssueReaction("owner_2360", "repo_2360", "issue_number_2360", "content_2360", 2360);
+  tryToAddExistingIssueReaction("owner_2360", "repo_2360", "issue_number_2360", "content_2360", 2360);
+  verifyIssueReactionExists("owner_2360", "repo_2360", "issue_number_2360", "content_2360", 2360);
+  deleteIssueReaction("owner_2360", "repo_2360", "issue_number_2360", "content_2360", 2360);
+  tryToDeleteANonExistingIssueReaction("owner_2360", "repo_2360", "issue_number_2360", "content_2360", 2360);
+  verifyIssueReactionDoesNotExist("owner_2360", "repo_2360", "issue_number_2360", "content_2360", 2360);
 });
 
-// Story: crud:CommitCommentReaction:read_only
-bthread("crud:CommitCommentReaction:read_only", function () {
+// Story: crud:IssueReaction:nondet:1:2
+bthread("crud:IssueReaction:nondet:1:2", function () {
+  let owner = "owner_2361";
+  let repo = "repo_2361";
+  let issue_number = "issue_number_2361";
+  let content = "content_2361";
+  let reaction_id = 2361;
+  createIssueReaction("owner_2361", "repo_2361", "issue_number_2361", "content_2361", 2361);
+  tryToAddExistingIssueReaction("owner_2361", "repo_2361", "issue_number_2361", "content_2361", 2361);
+  verifyIssueReactionExists("owner_2361", "repo_2361", "issue_number_2361", "content_2361", 2361);
+  deleteIssueReaction("owner_2361", "repo_2361", "issue_number_2361", "content_2361", 2361);
+  tryToDeleteANonExistingIssueReaction("owner_2361", "repo_2361", "issue_number_2361", "content_2361", 2361);
+  verifyIssueReactionDoesNotExist("owner_2361", "repo_2361", "issue_number_2361", "content_2361", 2361);
+});
+
+// Story: crud:IssueReaction:nondet:negative:dup-add
+bthread("crud:IssueReaction:nondet:negative:dup-add", function () {
+  let owner = "owner_2366";
+  let repo = "repo_2366";
+  let issue_number = "issue_number_2366";
+  let content = "content_2366";
+  let reaction_id = 2366;
+  createIssueReaction("owner_2366", "repo_2366", "issue_number_2366", "content_2366", 2366);
+  verifyIssueReactionExists("owner_2366", "repo_2366", "issue_number_2366", "content_2366", 2366);
+  tryToAddExistingIssueReaction("owner_2366", "repo_2366", "issue_number_2366", "content_2366", 2366);
+  verifyIssueReactionExists("owner_2366", "repo_2366", "issue_number_2366", "content_2366", 2366);
+});
+
+// Story: monitor:IssueReaction:add
+bthread("monitor:IssueReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyIssueReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedIssueReaction.apply(null, args), function () {
+      verifyIssueReactionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:PullRequestReviewCommentReaction:nondet:1:1
+bthread("crud:PullRequestReviewCommentReaction:nondet:1:1", function () {
+  let owner = "owner_2370";
+  let repo = "repo_2370";
+  let comment_id = 2370;
+  let content = "content_2370";
+  let reaction_id = 2370;
+  createPullRequestReviewCommentReaction("owner_2370", "repo_2370", 2370, "content_2370", 2370);
+  tryToAddExistingPullRequestReviewCommentReaction("owner_2370", "repo_2370", 2370, "content_2370", 2370);
+  verifyPullRequestReviewCommentReactionExists("owner_2370", "repo_2370", 2370, "content_2370", 2370);
+  deletePullRequestReviewCommentReaction("owner_2370", "repo_2370", 2370, "content_2370", 2370);
+  tryToDeleteANonExistingPullRequestReviewCommentReaction("owner_2370", "repo_2370", 2370, "content_2370", 2370);
+  verifyPullRequestReviewCommentReactionDoesNotExist("owner_2370", "repo_2370", 2370, "content_2370", 2370);
+});
+
+// Story: crud:PullRequestReviewCommentReaction:nondet:1:2
+bthread("crud:PullRequestReviewCommentReaction:nondet:1:2", function () {
+  let owner = "owner_2371";
+  let repo = "repo_2371";
+  let comment_id = 2371;
+  let content = "content_2371";
+  let reaction_id = 2371;
+  createPullRequestReviewCommentReaction("owner_2371", "repo_2371", 2371, "content_2371", 2371);
+  tryToAddExistingPullRequestReviewCommentReaction("owner_2371", "repo_2371", 2371, "content_2371", 2371);
+  verifyPullRequestReviewCommentReactionExists("owner_2371", "repo_2371", 2371, "content_2371", 2371);
+  deletePullRequestReviewCommentReaction("owner_2371", "repo_2371", 2371, "content_2371", 2371);
+  tryToDeleteANonExistingPullRequestReviewCommentReaction("owner_2371", "repo_2371", 2371, "content_2371", 2371);
+  verifyPullRequestReviewCommentReactionDoesNotExist("owner_2371", "repo_2371", 2371, "content_2371", 2371);
+});
+
+// Story: crud:PullRequestReviewCommentReaction:nondet:negative:dup-add
+bthread("crud:PullRequestReviewCommentReaction:nondet:negative:dup-add", function () {
+  let owner = "owner_2376";
+  let repo = "repo_2376";
+  let comment_id = 2376;
+  let content = "content_2376";
+  let reaction_id = 2376;
+  createPullRequestReviewCommentReaction("owner_2376", "repo_2376", 2376, "content_2376", 2376);
+  verifyPullRequestReviewCommentReactionExists("owner_2376", "repo_2376", 2376, "content_2376", 2376);
+  tryToAddExistingPullRequestReviewCommentReaction("owner_2376", "repo_2376", 2376, "content_2376", 2376);
+  verifyPullRequestReviewCommentReactionExists("owner_2376", "repo_2376", 2376, "content_2376", 2376);
+});
+
+// Story: monitor:PullRequestReviewCommentReaction:add
+bthread("monitor:PullRequestReviewCommentReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyPullRequestReviewCommentReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedPullRequestReviewCommentReaction.apply(null, args), function () {
+      verifyPullRequestReviewCommentReactionExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:ReleaseReaction:nondet:1:1
+bthread("crud:ReleaseReaction:nondet:1:1", function () {
   let owner = "owner_2380";
   let repo = "repo_2380";
-  let comment_id = 2380;
+  let release_id = 2380;
   let content = "content_2380";
-  verifyCommitCommentReactionExists("owner_2380", "repo_2380", 2380, "content_2380");
+  let reaction_id = 2380;
+  createReleaseReaction("owner_2380", "repo_2380", 2380, "content_2380", 2380);
+  tryToAddExistingReleaseReaction("owner_2380", "repo_2380", 2380, "content_2380", 2380);
+  verifyReleaseReactionExists("owner_2380", "repo_2380", 2380, "content_2380", 2380);
+  deleteReleaseReaction("owner_2380", "repo_2380", 2380, "content_2380", 2380);
+  tryToDeleteANonExistingReleaseReaction("owner_2380", "repo_2380", 2380, "content_2380", 2380);
+  verifyReleaseReactionDoesNotExist("owner_2380", "repo_2380", 2380, "content_2380", 2380);
 });
 
-// Story: crud:IssueCommentReaction:read_only
-bthread("crud:IssueCommentReaction:read_only", function () {
-  let owner = "owner_2400";
-  let repo = "repo_2400";
-  let comment_id = 2400;
-  let content = "content_2400";
-  verifyIssueCommentReactionExists("owner_2400", "repo_2400", 2400, "content_2400");
+// Story: crud:ReleaseReaction:nondet:1:2
+bthread("crud:ReleaseReaction:nondet:1:2", function () {
+  let owner = "owner_2381";
+  let repo = "repo_2381";
+  let release_id = 2381;
+  let content = "content_2381";
+  let reaction_id = 2381;
+  createReleaseReaction("owner_2381", "repo_2381", 2381, "content_2381", 2381);
+  tryToAddExistingReleaseReaction("owner_2381", "repo_2381", 2381, "content_2381", 2381);
+  verifyReleaseReactionExists("owner_2381", "repo_2381", 2381, "content_2381", 2381);
+  deleteReleaseReaction("owner_2381", "repo_2381", 2381, "content_2381", 2381);
+  tryToDeleteANonExistingReleaseReaction("owner_2381", "repo_2381", 2381, "content_2381", 2381);
+  verifyReleaseReactionDoesNotExist("owner_2381", "repo_2381", 2381, "content_2381", 2381);
 });
 
-// Story: crud:IssueReaction:read_only
-bthread("crud:IssueReaction:read_only", function () {
-  let owner = "owner_2420";
-  let repo = "repo_2420";
-  let issue_number = "issue_number_2420";
-  let content = "content_2420";
-  verifyIssueReactionExists("owner_2420", "repo_2420", "issue_number_2420", "content_2420");
+// Story: crud:ReleaseReaction:nondet:negative:dup-add
+bthread("crud:ReleaseReaction:nondet:negative:dup-add", function () {
+  let owner = "owner_2386";
+  let repo = "repo_2386";
+  let release_id = 2386;
+  let content = "content_2386";
+  let reaction_id = 2386;
+  createReleaseReaction("owner_2386", "repo_2386", 2386, "content_2386", 2386);
+  verifyReleaseReactionExists("owner_2386", "repo_2386", 2386, "content_2386", 2386);
+  tryToAddExistingReleaseReaction("owner_2386", "repo_2386", 2386, "content_2386", 2386);
+  verifyReleaseReactionExists("owner_2386", "repo_2386", 2386, "content_2386", 2386);
 });
 
-// Story: crud:PullRequestReviewCommentReaction:read_only
-bthread("crud:PullRequestReviewCommentReaction:read_only", function () {
-  let owner = "owner_2440";
-  let repo = "repo_2440";
-  let comment_id = 2440;
-  let content = "content_2440";
-  verifyPullRequestReviewCommentReactionExists("owner_2440", "repo_2440", 2440, "content_2440");
-});
-
-// Story: crud:ReleaseReaction:read_only
-bthread("crud:ReleaseReaction:read_only", function () {
-  let owner = "owner_2460";
-  let repo = "repo_2460";
-  let release_id = 2460;
-  let content = "content_2460";
-  verifyReleaseReactionExists("owner_2460", "repo_2460", 2460, "content_2460");
+// Story: monitor:ReleaseReaction:add
+bthread("monitor:ReleaseReaction:add", function () {
+  while (true) {
+    let ev = waitForAnyReleaseReactionAdded();
+    let args = Object.values(ev);
+    block(matchDeletedReleaseReaction.apply(null, args), function () {
+      verifyReleaseReactionExists.apply(null, args);
+    });
+  }
 });
 
 // Story: crud:TeamDiscussionCommentReactionLegacy:read_only
 bthread("crud:TeamDiscussionCommentReactionLegacy:read_only", function () {
-  let team_id = 2480;
-  let discussion_number = "discussion_number_2480";
-  let comment_number = "comment_number_2480";
-  let content = "content_2480";
-  verifyTeamDiscussionCommentReactionLegacyExists(2480, "discussion_number_2480", "comment_number_2480", "content_2480");
+  let team_id = 2390;
+  let discussion_number = "discussion_number_2390";
+  let comment_number = "comment_number_2390";
+  let content = "content_2390";
+  verifyTeamDiscussionCommentReactionLegacyExists(2390, "discussion_number_2390", "comment_number_2390", "content_2390");
 });
 
 // Story: crud:TeamDiscussionReactionLegacy:read_only
 bthread("crud:TeamDiscussionReactionLegacy:read_only", function () {
-  let team_id = 2490;
-  let discussion_number = "discussion_number_2490";
-  let content = "content_2490";
-  verifyTeamDiscussionReactionLegacyExists(2490, "discussion_number_2490", "content_2490");
+  let team_id = 2400;
+  let discussion_number = "discussion_number_2400";
+  let content = "content_2400";
+  verifyTeamDiscussionReactionLegacyExists(2400, "discussion_number_2400", "content_2400");
 });
 
 // Story: crud:PullRequest:read_only
 bthread("crud:PullRequest:read_only", function () {
-  let title = "title_2500";
-  let head = "head_2500";
-  let base = "base_2500";
-  let body = "body_2500";
-  let maintainer_can_modify = "maintainer_can_modify_2500";
-  let draft = "draft_2500";
-  let issue = "issue_2500";
-  let head_repo = "head_repo_2500";
-  let owner = "owner_2500";
-  let repo = "repo_2500";
-  let pull_number = "pull_number_2500";
-  let state = "state_2500";
-  verifyPullRequestExists("title_2500", "head_2500", "base_2500", "body_2500", "maintainer_can_modify_2500", "draft_2500", "issue_2500", "head_repo_2500", "owner_2500", "repo_2500", "pull_number_2500", "state_2500");
+  let title = "title_2410";
+  let head = "head_2410";
+  let base = "base_2410";
+  let owner = "owner_2410";
+  let repo = "repo_2410";
+  let pull_number = "pull_number_2410";
+  verifyPullRequestExists("title_2410", "head_2410", "base_2410", "owner_2410", "repo_2410", "pull_number_2410");
 });
 
 // Story: crud:PullRequestComment:read_only
 bthread("crud:PullRequestComment:read_only", function () {
-  let owner = "owner_2510";
-  let repo = "repo_2510";
-  let comment_id = 2510;
-  let body = "body_2510";
-  verifyPullRequestCommentExists("owner_2510", "repo_2510", 2510, "body_2510");
+  let owner = "owner_2420";
+  let repo = "repo_2420";
+  let comment_id = 2420;
+  verifyPullRequestCommentExists("owner_2420", "repo_2420", 2420);
 });
 
 // Story: crud:PullRequestReview:read_only
 bthread("crud:PullRequestReview:read_only", function () {
-  let owner = "owner_2520";
-  let repo = "repo_2520";
-  let pull_number = "pull_number_2520";
-  let review_id = 2520;
-  let body = "body_2520";
-  let message = "message_2520";
-  let event = "event_2520";
-  verifyPullRequestReviewExists("owner_2520", "repo_2520", "pull_number_2520", 2520, "body_2520", "message_2520", "event_2520");
+  let owner = "owner_2430";
+  let repo = "repo_2430";
+  let pull_number = "pull_number_2430";
+  let review_id = 2430;
+  verifyPullRequestReviewExists("owner_2430", "repo_2430", "pull_number_2430", 2430);
 });
 
 // Story: crud:PullRequestReviewers:nondet:1:1
 bthread("crud:PullRequestReviewers:nondet:1:1", function () {
-  let owner = "owner_2540";
-  let repo = "repo_2540";
-  let pull_number = "pull_number_2540";
-  let reviewers = "reviewers_2540";
-  let team_reviewers = "team_reviewers_2540";
-  requestReviewers("owner_2540", "repo_2540", "pull_number_2540", "reviewers_2540", "team_reviewers_2540");
-  tryToAddExistingPullRequestReviewers("owner_2540", "repo_2540", "pull_number_2540", "reviewers_2540", "team_reviewers_2540");
-  verifyPullRequestReviewersExists("owner_2540", "repo_2540", "pull_number_2540", "reviewers_2540", "team_reviewers_2540");
-  removeRequestedReviewers("owner_2540", "repo_2540", "pull_number_2540", "reviewers_2540", "team_reviewers_2540");
-  tryToDeleteANonExistingPullRequestReviewers("owner_2540", "repo_2540", "pull_number_2540", "reviewers_2540", "team_reviewers_2540");
-  verifyPullRequestReviewersDoesNotExist("owner_2540", "repo_2540", "pull_number_2540", "reviewers_2540", "team_reviewers_2540");
+  let owner = "owner_2450";
+  let repo = "repo_2450";
+  let pull_number = "pull_number_2450";
+  requestReviewers("owner_2450", "repo_2450", "pull_number_2450");
+  tryToAddExistingPullRequestReviewers("owner_2450", "repo_2450", "pull_number_2450");
+  verifyPullRequestReviewersExists("owner_2450", "repo_2450", "pull_number_2450");
+  removeRequestedReviewers("owner_2450", "repo_2450", "pull_number_2450");
+  tryToDeleteANonExistingPullRequestReviewers("owner_2450", "repo_2450", "pull_number_2450");
+  verifyPullRequestReviewersDoesNotExist("owner_2450", "repo_2450", "pull_number_2450");
 });
 
 // Story: crud:PullRequestReviewers:nondet:1:2
 bthread("crud:PullRequestReviewers:nondet:1:2", function () {
-  let owner = "owner_2541";
-  let repo = "repo_2541";
-  let pull_number = "pull_number_2541";
-  let reviewers = "reviewers_2541";
-  let team_reviewers = "team_reviewers_2541";
-  requestReviewers("owner_2541", "repo_2541", "pull_number_2541", "reviewers_2541", "team_reviewers_2541");
-  tryToAddExistingPullRequestReviewers("owner_2541", "repo_2541", "pull_number_2541", "reviewers_2541", "team_reviewers_2541");
-  verifyPullRequestReviewersExists("owner_2541", "repo_2541", "pull_number_2541", "reviewers_2541", "team_reviewers_2541");
-  removeRequestedReviewers("owner_2541", "repo_2541", "pull_number_2541", "reviewers_2541", "team_reviewers_2541");
-  tryToDeleteANonExistingPullRequestReviewers("owner_2541", "repo_2541", "pull_number_2541", "reviewers_2541", "team_reviewers_2541");
-  verifyPullRequestReviewersDoesNotExist("owner_2541", "repo_2541", "pull_number_2541", "reviewers_2541", "team_reviewers_2541");
+  let owner = "owner_2451";
+  let repo = "repo_2451";
+  let pull_number = "pull_number_2451";
+  requestReviewers("owner_2451", "repo_2451", "pull_number_2451");
+  tryToAddExistingPullRequestReviewers("owner_2451", "repo_2451", "pull_number_2451");
+  verifyPullRequestReviewersExists("owner_2451", "repo_2451", "pull_number_2451");
+  removeRequestedReviewers("owner_2451", "repo_2451", "pull_number_2451");
+  tryToDeleteANonExistingPullRequestReviewers("owner_2451", "repo_2451", "pull_number_2451");
+  verifyPullRequestReviewersDoesNotExist("owner_2451", "repo_2451", "pull_number_2451");
 });
 
 // Story: crud:PullRequestReviewers:nondet:negative:dup-add
 bthread("crud:PullRequestReviewers:nondet:negative:dup-add", function () {
-  let owner = "owner_2546";
-  let repo = "repo_2546";
-  let pull_number = "pull_number_2546";
-  let reviewers = "reviewers_2546";
-  let team_reviewers = "team_reviewers_2546";
-  requestReviewers("owner_2546", "repo_2546", "pull_number_2546", "reviewers_2546", "team_reviewers_2546");
-  verifyPullRequestReviewersExists("owner_2546", "repo_2546", "pull_number_2546", "reviewers_2546", "team_reviewers_2546");
-  tryToAddExistingPullRequestReviewers("owner_2546", "repo_2546", "pull_number_2546", "reviewers_2546", "team_reviewers_2546");
-  verifyPullRequestReviewersExists("owner_2546", "repo_2546", "pull_number_2546", "reviewers_2546", "team_reviewers_2546");
+  let owner = "owner_2456";
+  let repo = "repo_2456";
+  let pull_number = "pull_number_2456";
+  requestReviewers("owner_2456", "repo_2456", "pull_number_2456");
+  verifyPullRequestReviewersExists("owner_2456", "repo_2456", "pull_number_2456");
+  tryToAddExistingPullRequestReviewers("owner_2456", "repo_2456", "pull_number_2456");
+  verifyPullRequestReviewersExists("owner_2456", "repo_2456", "pull_number_2456");
 });
 
 // Story: monitor:PullRequestReviewers:add
@@ -4622,63 +4952,63 @@ bthread("monitor:PullRequestReviewers:add", function () {
 
 // Story: crud:OrgMigration:nondet:1:1
 bthread("crud:OrgMigration:nondet:1:1", function () {
-  let org = "org_2560";
-  let repositories = "repositories_2560";
-  let lock_repositories = "lock_repositories_2560";
-  let exclude_metadata = "exclude_metadata_2560";
-  let exclude_git_data = "exclude_git_data_2560";
-  let exclude_attachments = "exclude_attachments_2560";
-  let exclude_releases = "exclude_releases_2560";
-  let exclude_owner_projects = "exclude_owner_projects_2560";
-  let org_metadata_only = "org_metadata_only_2560";
-  let exclude = "exclude_2560";
-  let migration_id = 2560;
-  startOrgMigration("org_2560", "repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
-  tryToAddExistingOrgMigration("org_2560", "repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
-  verifyOrgMigrationExists("org_2560", "repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
-  deleteOrgMigrationArchive("org_2560", "repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
-  tryToDeleteANonExistingOrgMigration("org_2560", "repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
-  verifyOrgMigrationDoesNotExist("org_2560", "repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+  let org = "org_2470";
+  let repositories = "repositories_2470";
+  let lock_repositories = "lock_repositories_2470";
+  let exclude_metadata = "exclude_metadata_2470";
+  let exclude_git_data = "exclude_git_data_2470";
+  let exclude_attachments = "exclude_attachments_2470";
+  let exclude_releases = "exclude_releases_2470";
+  let exclude_owner_projects = "exclude_owner_projects_2470";
+  let org_metadata_only = "org_metadata_only_2470";
+  let exclude = "exclude_2470";
+  let migration_id = 2470;
+  startOrgMigration("org_2470", "repositories_2470", "lock_repositories_2470", "exclude_metadata_2470", "exclude_git_data_2470", "exclude_attachments_2470", "exclude_releases_2470", "exclude_owner_projects_2470", "org_metadata_only_2470", "exclude_2470", 2470);
+  tryToAddExistingOrgMigration("org_2470", "repositories_2470", "lock_repositories_2470", "exclude_metadata_2470", "exclude_git_data_2470", "exclude_attachments_2470", "exclude_releases_2470", "exclude_owner_projects_2470", "org_metadata_only_2470", "exclude_2470", 2470);
+  verifyOrgMigrationExists("org_2470", "repositories_2470", "lock_repositories_2470", "exclude_metadata_2470", "exclude_git_data_2470", "exclude_attachments_2470", "exclude_releases_2470", "exclude_owner_projects_2470", "org_metadata_only_2470", "exclude_2470", 2470);
+  deleteOrgMigrationArchive("org_2470", "repositories_2470", "lock_repositories_2470", "exclude_metadata_2470", "exclude_git_data_2470", "exclude_attachments_2470", "exclude_releases_2470", "exclude_owner_projects_2470", "org_metadata_only_2470", "exclude_2470", 2470);
+  tryToDeleteANonExistingOrgMigration("org_2470", "repositories_2470", "lock_repositories_2470", "exclude_metadata_2470", "exclude_git_data_2470", "exclude_attachments_2470", "exclude_releases_2470", "exclude_owner_projects_2470", "org_metadata_only_2470", "exclude_2470", 2470);
+  verifyOrgMigrationDoesNotExist("org_2470", "repositories_2470", "lock_repositories_2470", "exclude_metadata_2470", "exclude_git_data_2470", "exclude_attachments_2470", "exclude_releases_2470", "exclude_owner_projects_2470", "org_metadata_only_2470", "exclude_2470", 2470);
 });
 
 // Story: crud:OrgMigration:nondet:1:2
 bthread("crud:OrgMigration:nondet:1:2", function () {
-  let org = "org_2561";
-  let repositories = "repositories_2561";
-  let lock_repositories = "lock_repositories_2561";
-  let exclude_metadata = "exclude_metadata_2561";
-  let exclude_git_data = "exclude_git_data_2561";
-  let exclude_attachments = "exclude_attachments_2561";
-  let exclude_releases = "exclude_releases_2561";
-  let exclude_owner_projects = "exclude_owner_projects_2561";
-  let org_metadata_only = "org_metadata_only_2561";
-  let exclude = "exclude_2561";
-  let migration_id = 2561;
-  startOrgMigration("org_2561", "repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
-  tryToAddExistingOrgMigration("org_2561", "repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
-  verifyOrgMigrationExists("org_2561", "repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
-  deleteOrgMigrationArchive("org_2561", "repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
-  tryToDeleteANonExistingOrgMigration("org_2561", "repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
-  verifyOrgMigrationDoesNotExist("org_2561", "repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+  let org = "org_2471";
+  let repositories = "repositories_2471";
+  let lock_repositories = "lock_repositories_2471";
+  let exclude_metadata = "exclude_metadata_2471";
+  let exclude_git_data = "exclude_git_data_2471";
+  let exclude_attachments = "exclude_attachments_2471";
+  let exclude_releases = "exclude_releases_2471";
+  let exclude_owner_projects = "exclude_owner_projects_2471";
+  let org_metadata_only = "org_metadata_only_2471";
+  let exclude = "exclude_2471";
+  let migration_id = 2471;
+  startOrgMigration("org_2471", "repositories_2471", "lock_repositories_2471", "exclude_metadata_2471", "exclude_git_data_2471", "exclude_attachments_2471", "exclude_releases_2471", "exclude_owner_projects_2471", "org_metadata_only_2471", "exclude_2471", 2471);
+  tryToAddExistingOrgMigration("org_2471", "repositories_2471", "lock_repositories_2471", "exclude_metadata_2471", "exclude_git_data_2471", "exclude_attachments_2471", "exclude_releases_2471", "exclude_owner_projects_2471", "org_metadata_only_2471", "exclude_2471", 2471);
+  verifyOrgMigrationExists("org_2471", "repositories_2471", "lock_repositories_2471", "exclude_metadata_2471", "exclude_git_data_2471", "exclude_attachments_2471", "exclude_releases_2471", "exclude_owner_projects_2471", "org_metadata_only_2471", "exclude_2471", 2471);
+  deleteOrgMigrationArchive("org_2471", "repositories_2471", "lock_repositories_2471", "exclude_metadata_2471", "exclude_git_data_2471", "exclude_attachments_2471", "exclude_releases_2471", "exclude_owner_projects_2471", "org_metadata_only_2471", "exclude_2471", 2471);
+  tryToDeleteANonExistingOrgMigration("org_2471", "repositories_2471", "lock_repositories_2471", "exclude_metadata_2471", "exclude_git_data_2471", "exclude_attachments_2471", "exclude_releases_2471", "exclude_owner_projects_2471", "org_metadata_only_2471", "exclude_2471", 2471);
+  verifyOrgMigrationDoesNotExist("org_2471", "repositories_2471", "lock_repositories_2471", "exclude_metadata_2471", "exclude_git_data_2471", "exclude_attachments_2471", "exclude_releases_2471", "exclude_owner_projects_2471", "org_metadata_only_2471", "exclude_2471", 2471);
 });
 
 // Story: crud:OrgMigration:nondet:negative:dup-add
 bthread("crud:OrgMigration:nondet:negative:dup-add", function () {
-  let org = "org_2566";
-  let repositories = "repositories_2566";
-  let lock_repositories = "lock_repositories_2566";
-  let exclude_metadata = "exclude_metadata_2566";
-  let exclude_git_data = "exclude_git_data_2566";
-  let exclude_attachments = "exclude_attachments_2566";
-  let exclude_releases = "exclude_releases_2566";
-  let exclude_owner_projects = "exclude_owner_projects_2566";
-  let org_metadata_only = "org_metadata_only_2566";
-  let exclude = "exclude_2566";
-  let migration_id = 2566;
-  startOrgMigration("org_2566", "repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
-  verifyOrgMigrationExists("org_2566", "repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
-  tryToAddExistingOrgMigration("org_2566", "repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
-  verifyOrgMigrationExists("org_2566", "repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
+  let org = "org_2476";
+  let repositories = "repositories_2476";
+  let lock_repositories = "lock_repositories_2476";
+  let exclude_metadata = "exclude_metadata_2476";
+  let exclude_git_data = "exclude_git_data_2476";
+  let exclude_attachments = "exclude_attachments_2476";
+  let exclude_releases = "exclude_releases_2476";
+  let exclude_owner_projects = "exclude_owner_projects_2476";
+  let org_metadata_only = "org_metadata_only_2476";
+  let exclude = "exclude_2476";
+  let migration_id = 2476;
+  startOrgMigration("org_2476", "repositories_2476", "lock_repositories_2476", "exclude_metadata_2476", "exclude_git_data_2476", "exclude_attachments_2476", "exclude_releases_2476", "exclude_owner_projects_2476", "org_metadata_only_2476", "exclude_2476", 2476);
+  verifyOrgMigrationExists("org_2476", "repositories_2476", "lock_repositories_2476", "exclude_metadata_2476", "exclude_git_data_2476", "exclude_attachments_2476", "exclude_releases_2476", "exclude_owner_projects_2476", "org_metadata_only_2476", "exclude_2476", 2476);
+  tryToAddExistingOrgMigration("org_2476", "repositories_2476", "lock_repositories_2476", "exclude_metadata_2476", "exclude_git_data_2476", "exclude_attachments_2476", "exclude_releases_2476", "exclude_owner_projects_2476", "org_metadata_only_2476", "exclude_2476", 2476);
+  verifyOrgMigrationExists("org_2476", "repositories_2476", "lock_repositories_2476", "exclude_metadata_2476", "exclude_git_data_2476", "exclude_attachments_2476", "exclude_releases_2476", "exclude_owner_projects_2476", "org_metadata_only_2476", "exclude_2476", 2476);
 });
 
 // Story: monitor:OrgMigration:add
@@ -4694,148 +5024,69 @@ bthread("monitor:OrgMigration:add", function () {
 
 // Story: crud:OrgMigrationArchive:read_only
 bthread("crud:OrgMigrationArchive:read_only", function () {
-  let org = "org_2570";
-  let migration_id = 2570;
-  verifyOrgMigrationArchiveExists("org_2570", 2570);
+  let org = "org_2480";
+  let migration_id = 2480;
+  verifyOrgMigrationArchiveExists("org_2480", 2480);
 });
 
 // Story: crud:OrgMigrationRepositories:read_only
 bthread("crud:OrgMigrationRepositories:read_only", function () {
-  let org = "org_2590";
-  let migration_id = 2590;
-  verifyOrgMigrationRepositoriesExists("org_2590", 2590);
-});
-
-// Story: crud:UserMigration:nondet:1:1
-bthread("crud:UserMigration:nondet:1:1", function () {
-  let repositories = "repositories_2600";
-  let lock_repositories = "lock_repositories_2600";
-  let exclude_metadata = "exclude_metadata_2600";
-  let exclude_git_data = "exclude_git_data_2600";
-  let exclude_attachments = "exclude_attachments_2600";
-  let exclude_releases = "exclude_releases_2600";
-  let exclude_owner_projects = "exclude_owner_projects_2600";
-  let org_metadata_only = "org_metadata_only_2600";
-  let exclude = "exclude_2600";
-  let migration_id = 2600;
-  startUserMigration("repositories_2600", "lock_repositories_2600", "exclude_metadata_2600", "exclude_git_data_2600", "exclude_attachments_2600", "exclude_releases_2600", "exclude_owner_projects_2600", "org_metadata_only_2600", "exclude_2600", 2600);
-  tryToAddExistingUserMigration("repositories_2600", "lock_repositories_2600", "exclude_metadata_2600", "exclude_git_data_2600", "exclude_attachments_2600", "exclude_releases_2600", "exclude_owner_projects_2600", "org_metadata_only_2600", "exclude_2600", 2600);
-  verifyUserMigrationExists("repositories_2600", "lock_repositories_2600", "exclude_metadata_2600", "exclude_git_data_2600", "exclude_attachments_2600", "exclude_releases_2600", "exclude_owner_projects_2600", "org_metadata_only_2600", "exclude_2600", 2600);
-  deleteUserMigrationArchive("repositories_2600", "lock_repositories_2600", "exclude_metadata_2600", "exclude_git_data_2600", "exclude_attachments_2600", "exclude_releases_2600", "exclude_owner_projects_2600", "org_metadata_only_2600", "exclude_2600", 2600);
-  tryToDeleteANonExistingUserMigration("repositories_2600", "lock_repositories_2600", "exclude_metadata_2600", "exclude_git_data_2600", "exclude_attachments_2600", "exclude_releases_2600", "exclude_owner_projects_2600", "org_metadata_only_2600", "exclude_2600", 2600);
-  verifyUserMigrationDoesNotExist("repositories_2600", "lock_repositories_2600", "exclude_metadata_2600", "exclude_git_data_2600", "exclude_attachments_2600", "exclude_releases_2600", "exclude_owner_projects_2600", "org_metadata_only_2600", "exclude_2600", 2600);
-});
-
-// Story: crud:UserMigration:nondet:1:2
-bthread("crud:UserMigration:nondet:1:2", function () {
-  let repositories = "repositories_2601";
-  let lock_repositories = "lock_repositories_2601";
-  let exclude_metadata = "exclude_metadata_2601";
-  let exclude_git_data = "exclude_git_data_2601";
-  let exclude_attachments = "exclude_attachments_2601";
-  let exclude_releases = "exclude_releases_2601";
-  let exclude_owner_projects = "exclude_owner_projects_2601";
-  let org_metadata_only = "org_metadata_only_2601";
-  let exclude = "exclude_2601";
-  let migration_id = 2601;
-  startUserMigration("repositories_2601", "lock_repositories_2601", "exclude_metadata_2601", "exclude_git_data_2601", "exclude_attachments_2601", "exclude_releases_2601", "exclude_owner_projects_2601", "org_metadata_only_2601", "exclude_2601", 2601);
-  tryToAddExistingUserMigration("repositories_2601", "lock_repositories_2601", "exclude_metadata_2601", "exclude_git_data_2601", "exclude_attachments_2601", "exclude_releases_2601", "exclude_owner_projects_2601", "org_metadata_only_2601", "exclude_2601", 2601);
-  verifyUserMigrationExists("repositories_2601", "lock_repositories_2601", "exclude_metadata_2601", "exclude_git_data_2601", "exclude_attachments_2601", "exclude_releases_2601", "exclude_owner_projects_2601", "org_metadata_only_2601", "exclude_2601", 2601);
-  deleteUserMigrationArchive("repositories_2601", "lock_repositories_2601", "exclude_metadata_2601", "exclude_git_data_2601", "exclude_attachments_2601", "exclude_releases_2601", "exclude_owner_projects_2601", "org_metadata_only_2601", "exclude_2601", 2601);
-  tryToDeleteANonExistingUserMigration("repositories_2601", "lock_repositories_2601", "exclude_metadata_2601", "exclude_git_data_2601", "exclude_attachments_2601", "exclude_releases_2601", "exclude_owner_projects_2601", "org_metadata_only_2601", "exclude_2601", 2601);
-  verifyUserMigrationDoesNotExist("repositories_2601", "lock_repositories_2601", "exclude_metadata_2601", "exclude_git_data_2601", "exclude_attachments_2601", "exclude_releases_2601", "exclude_owner_projects_2601", "org_metadata_only_2601", "exclude_2601", 2601);
-});
-
-// Story: crud:UserMigration:nondet:negative:dup-add
-bthread("crud:UserMigration:nondet:negative:dup-add", function () {
-  let repositories = "repositories_2606";
-  let lock_repositories = "lock_repositories_2606";
-  let exclude_metadata = "exclude_metadata_2606";
-  let exclude_git_data = "exclude_git_data_2606";
-  let exclude_attachments = "exclude_attachments_2606";
-  let exclude_releases = "exclude_releases_2606";
-  let exclude_owner_projects = "exclude_owner_projects_2606";
-  let org_metadata_only = "org_metadata_only_2606";
-  let exclude = "exclude_2606";
-  let migration_id = 2606;
-  startUserMigration("repositories_2606", "lock_repositories_2606", "exclude_metadata_2606", "exclude_git_data_2606", "exclude_attachments_2606", "exclude_releases_2606", "exclude_owner_projects_2606", "org_metadata_only_2606", "exclude_2606", 2606);
-  verifyUserMigrationExists("repositories_2606", "lock_repositories_2606", "exclude_metadata_2606", "exclude_git_data_2606", "exclude_attachments_2606", "exclude_releases_2606", "exclude_owner_projects_2606", "org_metadata_only_2606", "exclude_2606", 2606);
-  tryToAddExistingUserMigration("repositories_2606", "lock_repositories_2606", "exclude_metadata_2606", "exclude_git_data_2606", "exclude_attachments_2606", "exclude_releases_2606", "exclude_owner_projects_2606", "org_metadata_only_2606", "exclude_2606", 2606);
-  verifyUserMigrationExists("repositories_2606", "lock_repositories_2606", "exclude_metadata_2606", "exclude_git_data_2606", "exclude_attachments_2606", "exclude_releases_2606", "exclude_owner_projects_2606", "org_metadata_only_2606", "exclude_2606", 2606);
-});
-
-// Story: monitor:UserMigration:add
-bthread("monitor:UserMigration:add", function () {
-  while (true) {
-    let ev = waitForAnyUserMigrationAdded();
-    let args = Object.values(ev);
-    block(matchDeletedUserMigration.apply(null, args), function () {
-      verifyUserMigrationExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:UserMigrationArchive:read_only
-bthread("crud:UserMigrationArchive:read_only", function () {
-  let migration_id = 2610;
-  verifyUserMigrationArchiveExists(2610);
-});
-
-// Story: crud:UserMigrationRepositories:read_only
-bthread("crud:UserMigrationRepositories:read_only", function () {
-  let migration_id = 2630;
-  verifyUserMigrationRepositoriesExists(2630);
+  let org = "org_2500";
+  let migration_id = 2500;
+  let per-page = "per-page_2500";
+  let page = "page_2500";
+  verifyOrgMigrationRepositoriesExists("org_2500", 2500, "per-page_2500", "page_2500");
 });
 
 // Story: crud:Import:nondet:1:1
 bthread("crud:Import:nondet:1:1", function () {
-  let owner = "owner_2640";
-  let repo = "repo_2640";
-  let vcs_url = "vcs_url_2640";
-  let vcs = "vcs_2640";
-  let vcs_username = "vcs_username_2640";
-  let vcs_password = "vcs_password_2640";
-  let tfvc_project = "tfvc_project_2640";
-  startImport("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
-  tryToAddExistingImport("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
-  verifyImportExists("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
-  updateImport("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
-  cancelImport("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
-  tryToDeleteANonExistingImport("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
-  verifyImportDoesNotExist("owner_2640", "repo_2640", "vcs_url_2640", "vcs_2640", "vcs_username_2640", "vcs_password_2640", "tfvc_project_2640");
+  let owner = "owner_2510";
+  let repo = "repo_2510";
+  let vcs_url = "vcs_url_2510";
+  let vcs = "vcs_2510";
+  let vcs_username = "vcs_username_2510";
+  let vcs_password = "vcs_password_2510";
+  let tfvc_project = "tfvc_project_2510";
+  startImport("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
+  tryToAddExistingImport("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
+  verifyImportExists("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
+  updateImport("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
+  cancelImport("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
+  tryToDeleteANonExistingImport("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
+  verifyImportDoesNotExist("owner_2510", "repo_2510", "vcs_url_2510", "vcs_2510", "vcs_username_2510", "vcs_password_2510", "tfvc_project_2510");
 });
 
 // Story: crud:Import:nondet:1:2
 bthread("crud:Import:nondet:1:2", function () {
-  let owner = "owner_2641";
-  let repo = "repo_2641";
-  let vcs_url = "vcs_url_2641";
-  let vcs = "vcs_2641";
-  let vcs_username = "vcs_username_2641";
-  let vcs_password = "vcs_password_2641";
-  let tfvc_project = "tfvc_project_2641";
-  startImport("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
-  tryToAddExistingImport("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
-  updateImport("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
-  verifyImportExists("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
-  cancelImport("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
-  tryToDeleteANonExistingImport("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
-  verifyImportDoesNotExist("owner_2641", "repo_2641", "vcs_url_2641", "vcs_2641", "vcs_username_2641", "vcs_password_2641", "tfvc_project_2641");
+  let owner = "owner_2511";
+  let repo = "repo_2511";
+  let vcs_url = "vcs_url_2511";
+  let vcs = "vcs_2511";
+  let vcs_username = "vcs_username_2511";
+  let vcs_password = "vcs_password_2511";
+  let tfvc_project = "tfvc_project_2511";
+  startImport("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
+  tryToAddExistingImport("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
+  updateImport("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
+  verifyImportExists("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
+  cancelImport("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
+  tryToDeleteANonExistingImport("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
+  verifyImportDoesNotExist("owner_2511", "repo_2511", "vcs_url_2511", "vcs_2511", "vcs_username_2511", "vcs_password_2511", "tfvc_project_2511");
 });
 
 // Story: crud:Import:nondet:negative:dup-add
 bthread("crud:Import:nondet:negative:dup-add", function () {
-  let owner = "owner_2646";
-  let repo = "repo_2646";
-  let vcs_url = "vcs_url_2646";
-  let vcs = "vcs_2646";
-  let vcs_username = "vcs_username_2646";
-  let vcs_password = "vcs_password_2646";
-  let tfvc_project = "tfvc_project_2646";
-  startImport("owner_2646", "repo_2646", "vcs_url_2646", "vcs_2646", "vcs_username_2646", "vcs_password_2646", "tfvc_project_2646");
-  verifyImportExists("owner_2646", "repo_2646", "vcs_url_2646", "vcs_2646", "vcs_username_2646", "vcs_password_2646", "tfvc_project_2646");
-  tryToAddExistingImport("owner_2646", "repo_2646", "vcs_url_2646", "vcs_2646", "vcs_username_2646", "vcs_password_2646", "tfvc_project_2646");
-  verifyImportExists("owner_2646", "repo_2646", "vcs_url_2646", "vcs_2646", "vcs_username_2646", "vcs_password_2646", "tfvc_project_2646");
+  let owner = "owner_2516";
+  let repo = "repo_2516";
+  let vcs_url = "vcs_url_2516";
+  let vcs = "vcs_2516";
+  let vcs_username = "vcs_username_2516";
+  let vcs_password = "vcs_password_2516";
+  let tfvc_project = "tfvc_project_2516";
+  startImport("owner_2516", "repo_2516", "vcs_url_2516", "vcs_2516", "vcs_username_2516", "vcs_password_2516", "tfvc_project_2516");
+  verifyImportExists("owner_2516", "repo_2516", "vcs_url_2516", "vcs_2516", "vcs_username_2516", "vcs_password_2516", "tfvc_project_2516");
+  tryToAddExistingImport("owner_2516", "repo_2516", "vcs_url_2516", "vcs_2516", "vcs_username_2516", "vcs_password_2516", "tfvc_project_2516");
+  verifyImportExists("owner_2516", "repo_2516", "vcs_url_2516", "vcs_2516", "vcs_username_2516", "vcs_password_2516", "tfvc_project_2516");
 });
 
 // Story: crud:Import:nondet:existing:update
@@ -4862,56 +5113,139 @@ bthread("monitor:Import:add", function () {
 
 // Story: crud:ImportAuthors:read_only
 bthread("crud:ImportAuthors:read_only", function () {
-  let owner = "owner_2660";
-  let repo = "repo_2660";
-  let since_user = "since_user_2660";
-  verifyImportAuthorsExists("owner_2660", "repo_2660", "since_user_2660");
+  let owner = "owner_2530";
+  let repo = "repo_2530";
+  let since-user = "since-user_2530";
+  verifyImportAuthorsExists("owner_2530", "repo_2530", "since-user_2530");
 });
 
 // Story: crud:ImportLargeFiles:read_only
 bthread("crud:ImportLargeFiles:read_only", function () {
-  let owner = "owner_2670";
-  let repo = "repo_2670";
-  verifyImportLargeFilesExists("owner_2670", "repo_2670");
+  let owner = "owner_2540";
+  let repo = "repo_2540";
+  verifyImportLargeFilesExists("owner_2540", "repo_2540");
+});
+
+// Story: crud:UserMigration:nondet:1:1
+bthread("crud:UserMigration:nondet:1:1", function () {
+  let repositories = "repositories_2560";
+  let lock_repositories = "lock_repositories_2560";
+  let exclude_metadata = "exclude_metadata_2560";
+  let exclude_git_data = "exclude_git_data_2560";
+  let exclude_attachments = "exclude_attachments_2560";
+  let exclude_releases = "exclude_releases_2560";
+  let exclude_owner_projects = "exclude_owner_projects_2560";
+  let org_metadata_only = "org_metadata_only_2560";
+  let exclude = "exclude_2560";
+  let migration_id = 2560;
+  startUserMigration("repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+  tryToAddExistingUserMigration("repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+  verifyUserMigrationExists("repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+  deleteUserMigrationArchive("repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+  tryToDeleteANonExistingUserMigration("repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+  verifyUserMigrationDoesNotExist("repositories_2560", "lock_repositories_2560", "exclude_metadata_2560", "exclude_git_data_2560", "exclude_attachments_2560", "exclude_releases_2560", "exclude_owner_projects_2560", "org_metadata_only_2560", "exclude_2560", 2560);
+});
+
+// Story: crud:UserMigration:nondet:1:2
+bthread("crud:UserMigration:nondet:1:2", function () {
+  let repositories = "repositories_2561";
+  let lock_repositories = "lock_repositories_2561";
+  let exclude_metadata = "exclude_metadata_2561";
+  let exclude_git_data = "exclude_git_data_2561";
+  let exclude_attachments = "exclude_attachments_2561";
+  let exclude_releases = "exclude_releases_2561";
+  let exclude_owner_projects = "exclude_owner_projects_2561";
+  let org_metadata_only = "org_metadata_only_2561";
+  let exclude = "exclude_2561";
+  let migration_id = 2561;
+  startUserMigration("repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+  tryToAddExistingUserMigration("repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+  verifyUserMigrationExists("repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+  deleteUserMigrationArchive("repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+  tryToDeleteANonExistingUserMigration("repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+  verifyUserMigrationDoesNotExist("repositories_2561", "lock_repositories_2561", "exclude_metadata_2561", "exclude_git_data_2561", "exclude_attachments_2561", "exclude_releases_2561", "exclude_owner_projects_2561", "org_metadata_only_2561", "exclude_2561", 2561);
+});
+
+// Story: crud:UserMigration:nondet:negative:dup-add
+bthread("crud:UserMigration:nondet:negative:dup-add", function () {
+  let repositories = "repositories_2566";
+  let lock_repositories = "lock_repositories_2566";
+  let exclude_metadata = "exclude_metadata_2566";
+  let exclude_git_data = "exclude_git_data_2566";
+  let exclude_attachments = "exclude_attachments_2566";
+  let exclude_releases = "exclude_releases_2566";
+  let exclude_owner_projects = "exclude_owner_projects_2566";
+  let org_metadata_only = "org_metadata_only_2566";
+  let exclude = "exclude_2566";
+  let migration_id = 2566;
+  startUserMigration("repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
+  verifyUserMigrationExists("repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
+  tryToAddExistingUserMigration("repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
+  verifyUserMigrationExists("repositories_2566", "lock_repositories_2566", "exclude_metadata_2566", "exclude_git_data_2566", "exclude_attachments_2566", "exclude_releases_2566", "exclude_owner_projects_2566", "org_metadata_only_2566", "exclude_2566", 2566);
+});
+
+// Story: monitor:UserMigration:add
+bthread("monitor:UserMigration:add", function () {
+  while (true) {
+    let ev = waitForAnyUserMigrationAdded();
+    let args = Object.values(ev);
+    block(matchDeletedUserMigration.apply(null, args), function () {
+      verifyUserMigrationExists.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:UserMigrationArchive:read_only
+bthread("crud:UserMigrationArchive:read_only", function () {
+  let migration_id = 2570;
+  verifyUserMigrationArchiveExists(2570);
+});
+
+// Story: crud:UserMigrationRepositories:read_only
+bthread("crud:UserMigrationRepositories:read_only", function () {
+  let migration_id = 2590;
+  let per-page = "per-page_2590";
+  let page = "page_2590";
+  verifyUserMigrationRepositoriesExists(2590, "per-page_2590", "page_2590");
 });
 
 // Story: crud:EnterpriseCodeSecurityConfiguration:nondet:1:1
 bthread("crud:EnterpriseCodeSecurityConfiguration:nondet:1:1", function () {
-  let enterprise = "enterprise_2690";
-  let name = "name_2690";
-  let configuration_id = 2690;
-  createEnterpriseConfiguration("enterprise_2690", "name_2690", 2690);
-  tryToAddExistingEnterpriseCodeSecurityConfiguration("enterprise_2690", "name_2690", 2690);
-  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2690", "name_2690", 2690);
-  updateEnterpriseConfiguration("enterprise_2690", "name_2690", 2690);
-  deleteEnterpriseConfiguration("enterprise_2690", "name_2690", 2690);
-  tryToDeleteANonExistingEnterpriseCodeSecurityConfiguration("enterprise_2690", "name_2690", 2690);
-  verifyEnterpriseCodeSecurityConfigurationDoesNotExist("enterprise_2690", "name_2690", 2690);
+  let enterprise = "enterprise_2600";
+  let name = "name_2600";
+  let configuration_id = 2600;
+  createEnterpriseConfiguration("enterprise_2600", "name_2600", 2600);
+  tryToAddExistingEnterpriseCodeSecurityConfiguration("enterprise_2600", "name_2600", 2600);
+  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2600", "name_2600", 2600);
+  updateEnterpriseConfiguration("enterprise_2600", "name_2600", 2600);
+  deleteEnterpriseConfiguration("enterprise_2600", "name_2600", 2600);
+  tryToDeleteANonExistingEnterpriseCodeSecurityConfiguration("enterprise_2600", "name_2600", 2600);
+  verifyEnterpriseCodeSecurityConfigurationDoesNotExist("enterprise_2600", "name_2600", 2600);
 });
 
 // Story: crud:EnterpriseCodeSecurityConfiguration:nondet:1:2
 bthread("crud:EnterpriseCodeSecurityConfiguration:nondet:1:2", function () {
-  let enterprise = "enterprise_2691";
-  let name = "name_2691";
-  let configuration_id = 2691;
-  createEnterpriseConfiguration("enterprise_2691", "name_2691", 2691);
-  tryToAddExistingEnterpriseCodeSecurityConfiguration("enterprise_2691", "name_2691", 2691);
-  updateEnterpriseConfiguration("enterprise_2691", "name_2691", 2691);
-  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2691", "name_2691", 2691);
-  deleteEnterpriseConfiguration("enterprise_2691", "name_2691", 2691);
-  tryToDeleteANonExistingEnterpriseCodeSecurityConfiguration("enterprise_2691", "name_2691", 2691);
-  verifyEnterpriseCodeSecurityConfigurationDoesNotExist("enterprise_2691", "name_2691", 2691);
+  let enterprise = "enterprise_2601";
+  let name = "name_2601";
+  let configuration_id = 2601;
+  createEnterpriseConfiguration("enterprise_2601", "name_2601", 2601);
+  tryToAddExistingEnterpriseCodeSecurityConfiguration("enterprise_2601", "name_2601", 2601);
+  updateEnterpriseConfiguration("enterprise_2601", "name_2601", 2601);
+  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2601", "name_2601", 2601);
+  deleteEnterpriseConfiguration("enterprise_2601", "name_2601", 2601);
+  tryToDeleteANonExistingEnterpriseCodeSecurityConfiguration("enterprise_2601", "name_2601", 2601);
+  verifyEnterpriseCodeSecurityConfigurationDoesNotExist("enterprise_2601", "name_2601", 2601);
 });
 
 // Story: crud:EnterpriseCodeSecurityConfiguration:nondet:negative:dup-add
 bthread("crud:EnterpriseCodeSecurityConfiguration:nondet:negative:dup-add", function () {
-  let enterprise = "enterprise_2696";
-  let name = "name_2696";
-  let configuration_id = 2696;
-  createEnterpriseConfiguration("enterprise_2696", "name_2696", 2696);
-  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2696", "name_2696", 2696);
-  tryToAddExistingEnterpriseCodeSecurityConfiguration("enterprise_2696", "name_2696", 2696);
-  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2696", "name_2696", 2696);
+  let enterprise = "enterprise_2606";
+  let name = "name_2606";
+  let configuration_id = 2606;
+  createEnterpriseConfiguration("enterprise_2606", "name_2606", 2606);
+  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2606", "name_2606", 2606);
+  tryToAddExistingEnterpriseCodeSecurityConfiguration("enterprise_2606", "name_2606", 2606);
+  verifyEnterpriseCodeSecurityConfigurationExists("enterprise_2606", "name_2606", 2606);
 });
 
 // Story: crud:EnterpriseCodeSecurityConfiguration:nondet:existing:update
@@ -4938,48 +5272,48 @@ bthread("monitor:EnterpriseCodeSecurityConfiguration:add", function () {
 
 // Story: crud:EnterpriseCodeSecurityConfigurationRepositories:read_only
 bthread("crud:EnterpriseCodeSecurityConfigurationRepositories:read_only", function () {
-  let enterprise = "enterprise_2720";
-  let configuration_id = 2720;
-  verifyEnterpriseCodeSecurityConfigurationRepositoriesExists("enterprise_2720", 2720);
+  let enterprise = "enterprise_2630";
+  let configuration_id = 2630;
+  verifyEnterpriseCodeSecurityConfigurationRepositoriesExists("enterprise_2630", 2630);
 });
 
 // Story: crud:OrgCodeSecurityConfiguration:nondet:1:1
 bthread("crud:OrgCodeSecurityConfiguration:nondet:1:1", function () {
-  let org = "org_2730";
-  let name = "name_2730";
-  let configuration_id = 2730;
-  createOrgConfiguration("org_2730", "name_2730", 2730);
-  tryToAddExistingOrgCodeSecurityConfiguration("org_2730", "name_2730", 2730);
-  verifyOrgCodeSecurityConfigurationExists("org_2730", "name_2730", 2730);
-  updateOrgConfiguration("org_2730", "name_2730", 2730);
-  deleteOrgConfiguration("org_2730", "name_2730", 2730);
-  tryToDeleteANonExistingOrgCodeSecurityConfiguration("org_2730", "name_2730", 2730);
-  verifyOrgCodeSecurityConfigurationDoesNotExist("org_2730", "name_2730", 2730);
+  let org = "org_2640";
+  let name = "name_2640";
+  let configuration_id = 2640;
+  createOrgConfiguration("org_2640", "name_2640", 2640);
+  tryToAddExistingOrgCodeSecurityConfiguration("org_2640", "name_2640", 2640);
+  verifyOrgCodeSecurityConfigurationExists("org_2640", "name_2640", 2640);
+  updateOrgConfiguration("org_2640", "name_2640", 2640);
+  deleteOrgConfiguration("org_2640", "name_2640", 2640);
+  tryToDeleteANonExistingOrgCodeSecurityConfiguration("org_2640", "name_2640", 2640);
+  verifyOrgCodeSecurityConfigurationDoesNotExist("org_2640", "name_2640", 2640);
 });
 
 // Story: crud:OrgCodeSecurityConfiguration:nondet:1:2
 bthread("crud:OrgCodeSecurityConfiguration:nondet:1:2", function () {
-  let org = "org_2731";
-  let name = "name_2731";
-  let configuration_id = 2731;
-  createOrgConfiguration("org_2731", "name_2731", 2731);
-  tryToAddExistingOrgCodeSecurityConfiguration("org_2731", "name_2731", 2731);
-  updateOrgConfiguration("org_2731", "name_2731", 2731);
-  verifyOrgCodeSecurityConfigurationExists("org_2731", "name_2731", 2731);
-  deleteOrgConfiguration("org_2731", "name_2731", 2731);
-  tryToDeleteANonExistingOrgCodeSecurityConfiguration("org_2731", "name_2731", 2731);
-  verifyOrgCodeSecurityConfigurationDoesNotExist("org_2731", "name_2731", 2731);
+  let org = "org_2641";
+  let name = "name_2641";
+  let configuration_id = 2641;
+  createOrgConfiguration("org_2641", "name_2641", 2641);
+  tryToAddExistingOrgCodeSecurityConfiguration("org_2641", "name_2641", 2641);
+  updateOrgConfiguration("org_2641", "name_2641", 2641);
+  verifyOrgCodeSecurityConfigurationExists("org_2641", "name_2641", 2641);
+  deleteOrgConfiguration("org_2641", "name_2641", 2641);
+  tryToDeleteANonExistingOrgCodeSecurityConfiguration("org_2641", "name_2641", 2641);
+  verifyOrgCodeSecurityConfigurationDoesNotExist("org_2641", "name_2641", 2641);
 });
 
 // Story: crud:OrgCodeSecurityConfiguration:nondet:negative:dup-add
 bthread("crud:OrgCodeSecurityConfiguration:nondet:negative:dup-add", function () {
-  let org = "org_2736";
-  let name = "name_2736";
-  let configuration_id = 2736;
-  createOrgConfiguration("org_2736", "name_2736", 2736);
-  verifyOrgCodeSecurityConfigurationExists("org_2736", "name_2736", 2736);
-  tryToAddExistingOrgCodeSecurityConfiguration("org_2736", "name_2736", 2736);
-  verifyOrgCodeSecurityConfigurationExists("org_2736", "name_2736", 2736);
+  let org = "org_2646";
+  let name = "name_2646";
+  let configuration_id = 2646;
+  createOrgConfiguration("org_2646", "name_2646", 2646);
+  verifyOrgCodeSecurityConfigurationExists("org_2646", "name_2646", 2646);
+  tryToAddExistingOrgCodeSecurityConfiguration("org_2646", "name_2646", 2646);
+  verifyOrgCodeSecurityConfigurationExists("org_2646", "name_2646", 2646);
 });
 
 // Story: crud:OrgCodeSecurityConfiguration:nondet:existing:update
@@ -5006,88 +5340,76 @@ bthread("monitor:OrgCodeSecurityConfiguration:add", function () {
 
 // Story: crud:OrgCodeSecurityConfigurationRepositories:read_only
 bthread("crud:OrgCodeSecurityConfigurationRepositories:read_only", function () {
-  let org = "org_2760";
-  let configuration_id = 2760;
-  verifyOrgCodeSecurityConfigurationRepositoriesExists("org_2760", 2760);
-});
-
-// Story: crud:EnterpriseCodeSecurityConfigurationDefaults:read_only
-bthread("crud:EnterpriseCodeSecurityConfigurationDefaults:read_only", function () {
-  let enterprise = "enterprise_2780";
-  verifyEnterpriseCodeSecurityConfigurationDefaultsExists("enterprise_2780");
-});
-
-// Story: crud:OrgCodeSecurityConfigurationDefaults:read_only
-bthread("crud:OrgCodeSecurityConfigurationDefaults:read_only", function () {
-  let org = "org_2790";
-  verifyOrgCodeSecurityConfigurationDefaultsExists("org_2790");
+  let org = "org_2670";
+  let configuration_id = 2670;
+  verifyOrgCodeSecurityConfigurationRepositoriesExists("org_2670", 2670);
 });
 
 // Story: crud:RepositoryCodeSecurityConfiguration:read_only
 bthread("crud:RepositoryCodeSecurityConfiguration:read_only", function () {
-  let owner = "owner_2800";
-  let repo = "repo_2800";
-  verifyRepositoryCodeSecurityConfigurationExists("owner_2800", "repo_2800");
+  let owner = "owner_2690";
+  let repo = "repo_2690";
+  verifyRepositoryCodeSecurityConfigurationExists("owner_2690", "repo_2690");
 });
 
 // Story: crud:DependabotAlertEnterprise:read_only
 bthread("crud:DependabotAlertEnterprise:read_only", function () {
-  let enterprise = "enterprise_2810";
-  verifyDependabotAlertEnterpriseExists("enterprise_2810");
+  let enterprise = "enterprise_2700";
+  verifyDependabotAlertEnterpriseExists("enterprise_2700");
 });
 
 // Story: crud:DependabotAlertOrganization:read_only
 bthread("crud:DependabotAlertOrganization:read_only", function () {
-  let org = "org_2820";
-  verifyDependabotAlertOrganizationExists("org_2820");
+  let org = "org_2710";
+  verifyDependabotAlertOrganizationExists("org_2710");
 });
 
 // Story: crud:DependabotAlertRepository:read_only
 bthread("crud:DependabotAlertRepository:read_only", function () {
-  let owner = "owner_2830";
-  let repo = "repo_2830";
-  let alert_number = "alert_number_2830";
-  verifyDependabotAlertRepositoryExists("owner_2830", "repo_2830", "alert_number_2830");
+  let owner = "owner_2720";
+  let repo = "repo_2720";
+  let alert_number = "alert_number_2720";
+  verifyDependabotAlertRepositoryExists("owner_2720", "repo_2720", "alert_number_2720");
 });
 
 // Story: crud:DependabotRepositoryAccess:read_only
 bthread("crud:DependabotRepositoryAccess:read_only", function () {
-  let org = "org_2840";
-  verifyDependabotRepositoryAccessExists("org_2840");
+  let org = "org_2730";
+  verifyDependabotRepositoryAccessExists("org_2730");
 });
 
 // Story: crud:DependabotOrgSecret:nondet:1:1
 bthread("crud:DependabotOrgSecret:nondet:1:1", function () {
-  let org = "org_2860";
-  let secret_name = "secret_name_2860";
-  createOrUpdateOrgSecret("org_2860", "secret_name_2860");
-  tryToAddExistingDependabotOrgSecret("org_2860", "secret_name_2860");
-  verifyDependabotOrgSecretExists("org_2860", "secret_name_2860");
-  deleteOrgSecret("org_2860", "secret_name_2860");
-  tryToDeleteANonExistingDependabotOrgSecret("org_2860", "secret_name_2860");
-  verifyDependabotOrgSecretDoesNotExist("org_2860", "secret_name_2860");
+  let org = "org_2750";
+  let secret_name = "secret_name_2750";
+  createOrUpdateOrgSecret("org_2750", "secret_name_2750");
+  tryToAddExistingDependabotOrgSecret("org_2750", "secret_name_2750");
+  verifyDependabotOrgSecretExists("org_2750", "secret_name_2750");
+  deleteOrgSecret("org_2750", "secret_name_2750");
+  tryToDeleteANonExistingDependabotOrgSecret("org_2750", "secret_name_2750");
+  verifyDependabotOrgSecretDoesNotExist("org_2750", "secret_name_2750");
 });
 
 // Story: crud:DependabotOrgSecret:nondet:1:2
 bthread("crud:DependabotOrgSecret:nondet:1:2", function () {
-  let org = "org_2861";
-  let secret_name = "secret_name_2861";
-  createOrUpdateOrgSecret("org_2861", "secret_name_2861");
-  tryToAddExistingDependabotOrgSecret("org_2861", "secret_name_2861");
-  verifyDependabotOrgSecretExists("org_2861", "secret_name_2861");
-  deleteOrgSecret("org_2861", "secret_name_2861");
-  tryToDeleteANonExistingDependabotOrgSecret("org_2861", "secret_name_2861");
-  verifyDependabotOrgSecretDoesNotExist("org_2861", "secret_name_2861");
+  let org = "org_2751";
+  let secret_name = "secret_name_2751";
+  createOrUpdateOrgSecret("org_2751", "secret_name_2751");
+  tryToAddExistingDependabotOrgSecret("org_2751", "secret_name_2751");
+  verifyDependabotOrgSecretExists("org_2751", "secret_name_2751");
+  deleteOrgSecret("org_2751", "secret_name_2751");
+  tryToDeleteANonExistingDependabotOrgSecret("org_2751", "secret_name_2751");
+  verifyDependabotOrgSecretDoesNotExist("org_2751", "secret_name_2751");
 });
 
 // Story: crud:DependabotOrgSecret:nondet:negative:dup-add
 bthread("crud:DependabotOrgSecret:nondet:negative:dup-add", function () {
-  let org = "org_2866";
-  let secret_name = "secret_name_2866";
-  createOrUpdateOrgSecret("org_2866", "secret_name_2866");
-  verifyDependabotOrgSecretExists("org_2866", "secret_name_2866");
-  tryToAddExistingDependabotOrgSecret("org_2866", "secret_name_2866");
-  verifyDependabotOrgSecretExists("org_2866", "secret_name_2866");
+  let org = "org_2756";
+  let secret_name = "secret_name_2756";
+  createOrUpdateOrgSecret("org_2756", "secret_name_2756");
+  verifyDependabotOrgSecretExists("org_2756", "secret_name_2756");
+  tryToAddExistingDependabotOrgSecret("org_2756", "secret_name_2756");
+  verifyDependabotOrgSecretExists("org_2756", "secret_name_2756");
 });
 
 // Story: monitor:DependabotOrgSecret:add
@@ -5103,39 +5425,39 @@ bthread("monitor:DependabotOrgSecret:add", function () {
 
 // Story: crud:DependabotOrgSecretSelectedRepository:nondet:1:1
 bthread("crud:DependabotOrgSecretSelectedRepository:nondet:1:1", function () {
-  let org = "org_2870";
-  let secret_name = "secret_name_2870";
-  let repository_id = 2870;
-  addSelectedRepoToOrgSecret("org_2870", "secret_name_2870", 2870);
-  tryToAddExistingDependabotOrgSecretSelectedRepository("org_2870", "secret_name_2870", 2870);
-  verifyDependabotOrgSecretSelectedRepositoryExists("org_2870", "secret_name_2870", 2870);
-  removeSelectedRepoFromOrgSecret("org_2870", "secret_name_2870", 2870);
-  tryToDeleteANonExistingDependabotOrgSecretSelectedRepository("org_2870", "secret_name_2870", 2870);
-  verifyDependabotOrgSecretSelectedRepositoryDoesNotExist("org_2870", "secret_name_2870", 2870);
+  let org = "org_2760";
+  let secret_name = "secret_name_2760";
+  let repository_id = 2760;
+  addSelectedRepoToOrgSecret("org_2760", "secret_name_2760", 2760);
+  tryToAddExistingDependabotOrgSecretSelectedRepository("org_2760", "secret_name_2760", 2760);
+  verifyDependabotOrgSecretSelectedRepositoryExists("org_2760", "secret_name_2760", 2760);
+  removeSelectedRepoFromOrgSecret("org_2760", "secret_name_2760", 2760);
+  tryToDeleteANonExistingDependabotOrgSecretSelectedRepository("org_2760", "secret_name_2760", 2760);
+  verifyDependabotOrgSecretSelectedRepositoryDoesNotExist("org_2760", "secret_name_2760", 2760);
 });
 
 // Story: crud:DependabotOrgSecretSelectedRepository:nondet:1:2
 bthread("crud:DependabotOrgSecretSelectedRepository:nondet:1:2", function () {
-  let org = "org_2871";
-  let secret_name = "secret_name_2871";
-  let repository_id = 2871;
-  addSelectedRepoToOrgSecret("org_2871", "secret_name_2871", 2871);
-  tryToAddExistingDependabotOrgSecretSelectedRepository("org_2871", "secret_name_2871", 2871);
-  verifyDependabotOrgSecretSelectedRepositoryExists("org_2871", "secret_name_2871", 2871);
-  removeSelectedRepoFromOrgSecret("org_2871", "secret_name_2871", 2871);
-  tryToDeleteANonExistingDependabotOrgSecretSelectedRepository("org_2871", "secret_name_2871", 2871);
-  verifyDependabotOrgSecretSelectedRepositoryDoesNotExist("org_2871", "secret_name_2871", 2871);
+  let org = "org_2761";
+  let secret_name = "secret_name_2761";
+  let repository_id = 2761;
+  addSelectedRepoToOrgSecret("org_2761", "secret_name_2761", 2761);
+  tryToAddExistingDependabotOrgSecretSelectedRepository("org_2761", "secret_name_2761", 2761);
+  verifyDependabotOrgSecretSelectedRepositoryExists("org_2761", "secret_name_2761", 2761);
+  removeSelectedRepoFromOrgSecret("org_2761", "secret_name_2761", 2761);
+  tryToDeleteANonExistingDependabotOrgSecretSelectedRepository("org_2761", "secret_name_2761", 2761);
+  verifyDependabotOrgSecretSelectedRepositoryDoesNotExist("org_2761", "secret_name_2761", 2761);
 });
 
 // Story: crud:DependabotOrgSecretSelectedRepository:nondet:negative:dup-add
 bthread("crud:DependabotOrgSecretSelectedRepository:nondet:negative:dup-add", function () {
-  let org = "org_2876";
-  let secret_name = "secret_name_2876";
-  let repository_id = 2876;
-  addSelectedRepoToOrgSecret("org_2876", "secret_name_2876", 2876);
-  verifyDependabotOrgSecretSelectedRepositoryExists("org_2876", "secret_name_2876", 2876);
-  tryToAddExistingDependabotOrgSecretSelectedRepository("org_2876", "secret_name_2876", 2876);
-  verifyDependabotOrgSecretSelectedRepositoryExists("org_2876", "secret_name_2876", 2876);
+  let org = "org_2766";
+  let secret_name = "secret_name_2766";
+  let repository_id = 2766;
+  addSelectedRepoToOrgSecret("org_2766", "secret_name_2766", 2766);
+  verifyDependabotOrgSecretSelectedRepositoryExists("org_2766", "secret_name_2766", 2766);
+  tryToAddExistingDependabotOrgSecretSelectedRepository("org_2766", "secret_name_2766", 2766);
+  verifyDependabotOrgSecretSelectedRepositoryExists("org_2766", "secret_name_2766", 2766);
 });
 
 // Story: monitor:DependabotOrgSecretSelectedRepository:add
@@ -5151,58 +5473,58 @@ bthread("monitor:DependabotOrgSecretSelectedRepository:add", function () {
 
 // Story: crud:DependabotOrgSecretSelectedRepositories:read_only
 bthread("crud:DependabotOrgSecretSelectedRepositories:read_only", function () {
-  let org = "org_2880";
-  let secret_name = "secret_name_2880";
-  verifyDependabotOrgSecretSelectedRepositoriesExists("org_2880", "secret_name_2880");
+  let org = "org_2770";
+  let secret_name = "secret_name_2770";
+  verifyDependabotOrgSecretSelectedRepositoriesExists("org_2770", "secret_name_2770");
 });
 
 // Story: crud:DependabotOrgSecrets:read_only
 bthread("crud:DependabotOrgSecrets:read_only", function () {
-  let org = "org_2890";
-  verifyDependabotOrgSecretsExists("org_2890");
+  let org = "org_2780";
+  verifyDependabotOrgSecretsExists("org_2780");
 });
 
 // Story: crud:DependabotOrgPublicKey:read_only
 bthread("crud:DependabotOrgPublicKey:read_only", function () {
-  let org = "org_2900";
-  verifyDependabotOrgPublicKeyExists("org_2900");
+  let org = "org_2790";
+  verifyDependabotOrgPublicKeyExists("org_2790");
 });
 
 // Story: crud:DependabotRepoSecret:nondet:1:1
 bthread("crud:DependabotRepoSecret:nondet:1:1", function () {
-  let owner = "owner_2910";
-  let repo = "repo_2910";
-  let secret_name = "secret_name_2910";
-  createOrUpdateRepoSecret("owner_2910", "repo_2910", "secret_name_2910");
-  tryToAddExistingDependabotRepoSecret("owner_2910", "repo_2910", "secret_name_2910");
-  verifyDependabotRepoSecretExists("owner_2910", "repo_2910", "secret_name_2910");
-  deleteRepoSecret("owner_2910", "repo_2910", "secret_name_2910");
-  tryToDeleteANonExistingDependabotRepoSecret("owner_2910", "repo_2910", "secret_name_2910");
-  verifyDependabotRepoSecretDoesNotExist("owner_2910", "repo_2910", "secret_name_2910");
+  let owner = "owner_2800";
+  let repo = "repo_2800";
+  let secret_name = "secret_name_2800";
+  createOrUpdateRepoSecret("owner_2800", "repo_2800", "secret_name_2800");
+  tryToAddExistingDependabotRepoSecret("owner_2800", "repo_2800", "secret_name_2800");
+  verifyDependabotRepoSecretExists("owner_2800", "repo_2800", "secret_name_2800");
+  deleteRepoSecret("owner_2800", "repo_2800", "secret_name_2800");
+  tryToDeleteANonExistingDependabotRepoSecret("owner_2800", "repo_2800", "secret_name_2800");
+  verifyDependabotRepoSecretDoesNotExist("owner_2800", "repo_2800", "secret_name_2800");
 });
 
 // Story: crud:DependabotRepoSecret:nondet:1:2
 bthread("crud:DependabotRepoSecret:nondet:1:2", function () {
-  let owner = "owner_2911";
-  let repo = "repo_2911";
-  let secret_name = "secret_name_2911";
-  createOrUpdateRepoSecret("owner_2911", "repo_2911", "secret_name_2911");
-  tryToAddExistingDependabotRepoSecret("owner_2911", "repo_2911", "secret_name_2911");
-  verifyDependabotRepoSecretExists("owner_2911", "repo_2911", "secret_name_2911");
-  deleteRepoSecret("owner_2911", "repo_2911", "secret_name_2911");
-  tryToDeleteANonExistingDependabotRepoSecret("owner_2911", "repo_2911", "secret_name_2911");
-  verifyDependabotRepoSecretDoesNotExist("owner_2911", "repo_2911", "secret_name_2911");
+  let owner = "owner_2801";
+  let repo = "repo_2801";
+  let secret_name = "secret_name_2801";
+  createOrUpdateRepoSecret("owner_2801", "repo_2801", "secret_name_2801");
+  tryToAddExistingDependabotRepoSecret("owner_2801", "repo_2801", "secret_name_2801");
+  verifyDependabotRepoSecretExists("owner_2801", "repo_2801", "secret_name_2801");
+  deleteRepoSecret("owner_2801", "repo_2801", "secret_name_2801");
+  tryToDeleteANonExistingDependabotRepoSecret("owner_2801", "repo_2801", "secret_name_2801");
+  verifyDependabotRepoSecretDoesNotExist("owner_2801", "repo_2801", "secret_name_2801");
 });
 
 // Story: crud:DependabotRepoSecret:nondet:negative:dup-add
 bthread("crud:DependabotRepoSecret:nondet:negative:dup-add", function () {
-  let owner = "owner_2916";
-  let repo = "repo_2916";
-  let secret_name = "secret_name_2916";
-  createOrUpdateRepoSecret("owner_2916", "repo_2916", "secret_name_2916");
-  verifyDependabotRepoSecretExists("owner_2916", "repo_2916", "secret_name_2916");
-  tryToAddExistingDependabotRepoSecret("owner_2916", "repo_2916", "secret_name_2916");
-  verifyDependabotRepoSecretExists("owner_2916", "repo_2916", "secret_name_2916");
+  let owner = "owner_2806";
+  let repo = "repo_2806";
+  let secret_name = "secret_name_2806";
+  createOrUpdateRepoSecret("owner_2806", "repo_2806", "secret_name_2806");
+  verifyDependabotRepoSecretExists("owner_2806", "repo_2806", "secret_name_2806");
+  tryToAddExistingDependabotRepoSecret("owner_2806", "repo_2806", "secret_name_2806");
+  verifyDependabotRepoSecretExists("owner_2806", "repo_2806", "secret_name_2806");
 });
 
 // Story: monitor:DependabotRepoSecret:add
@@ -5218,151 +5540,159 @@ bthread("monitor:DependabotRepoSecret:add", function () {
 
 // Story: crud:DependabotRepoSecrets:read_only
 bthread("crud:DependabotRepoSecrets:read_only", function () {
-  let owner = "owner_2920";
-  let repo = "repo_2920";
-  verifyDependabotRepoSecretsExists("owner_2920", "repo_2920");
+  let owner = "owner_2810";
+  let repo = "repo_2810";
+  verifyDependabotRepoSecretsExists("owner_2810", "repo_2810");
 });
 
 // Story: crud:DependabotRepoPublicKey:read_only
 bthread("crud:DependabotRepoPublicKey:read_only", function () {
-  let owner = "owner_2930";
-  let repo = "repo_2930";
-  verifyDependabotRepoPublicKeyExists("owner_2930", "repo_2930");
+  let owner = "owner_2820";
+  let repo = "repo_2820";
+  verifyDependabotRepoPublicKeyExists("owner_2820", "repo_2820");
 });
 
-// Story: crud:Project:read_only
-bthread("crud:Project:read_only", function () {
-  let project_id = 2940;
-  let name = "name_2940";
-  let body = "body_2940";
-  let state = "state_2940";
-  let organization_permission = "organization_permission_2940";
-  let private = "private_2940";
-  verifyProjectExists(2940, "name_2940", "body_2940", "state_2940", "organization_permission_2940", "private_2940");
-});
-
-// Story: crud:ProjectField:read_only
-bthread("crud:ProjectField:read_only", function () {
-  let org = "org_2950";
-  let project_number = "project_number_2950";
-  let field_id = 2950;
-  verifyProjectFieldExists("org_2950", "project_number_2950", 2950);
-});
-
-// Story: crud:ProjectItem:nondet:1:1
-bthread("crud:ProjectItem:nondet:1:1", function () {
-  let org = "org_2960";
-  let project_number = "project_number_2960";
-  let item_id = 2960;
-  addOrgProjectItem("org_2960", "project_number_2960", 2960);
-  tryToAddExistingProjectItem("org_2960", "project_number_2960", 2960);
-  verifyProjectItemExists("org_2960", "project_number_2960", 2960);
-  updateOrgProjectItem("org_2960", "project_number_2960", 2960);
-  deleteOrgProjectItem("org_2960", "project_number_2960", 2960);
-  tryToDeleteANonExistingProjectItem("org_2960", "project_number_2960", 2960);
-  verifyProjectItemDoesNotExist("org_2960", "project_number_2960", 2960);
-});
-
-// Story: crud:ProjectItem:nondet:1:2
-bthread("crud:ProjectItem:nondet:1:2", function () {
-  let org = "org_2961";
-  let project_number = "project_number_2961";
-  let item_id = 2961;
-  addOrgProjectItem("org_2961", "project_number_2961", 2961);
-  tryToAddExistingProjectItem("org_2961", "project_number_2961", 2961);
-  updateOrgProjectItem("org_2961", "project_number_2961", 2961);
-  verifyProjectItemExists("org_2961", "project_number_2961", 2961);
-  deleteOrgProjectItem("org_2961", "project_number_2961", 2961);
-  tryToDeleteANonExistingProjectItem("org_2961", "project_number_2961", 2961);
-  verifyProjectItemDoesNotExist("org_2961", "project_number_2961", 2961);
-});
-
-// Story: crud:ProjectItem:nondet:negative:dup-add
-bthread("crud:ProjectItem:nondet:negative:dup-add", function () {
-  let org = "org_2966";
-  let project_number = "project_number_2966";
-  let item_id = 2966;
-  addOrgProjectItem("org_2966", "project_number_2966", 2966);
-  verifyProjectItemExists("org_2966", "project_number_2966", 2966);
-  tryToAddExistingProjectItem("org_2966", "project_number_2966", 2966);
-  verifyProjectItemExists("org_2966", "project_number_2966", 2966);
-});
-
-// Story: crud:ProjectItem:nondet:existing:update
-bthread("crud:ProjectItem:nondet:existing:update", function () {
-  let ev = waitForAnyProjectItemAdded();
-  let args = Object.values(ev);
-  block(matchDeletedProjectItem.apply(null, args), function () {
-    verifyProjectItemExists.apply(null, args);
-    updateOrgProjectItem.apply(null, args);
-    verifyProjectItemExists.apply(null, args);
-  });
-});
-
-// Story: monitor:ProjectItem:add
-bthread("monitor:ProjectItem:add", function () {
-  while (true) {
-    let ev = waitForAnyProjectItemAdded();
-    let args = Object.values(ev);
-    block(matchDeletedProjectItem.apply(null, args), function () {
-      verifyProjectItemExists.apply(null, args);
-    });
-  }
+// Story: crud:OrganizationProject:read_only
+bthread("crud:OrganizationProject:read_only", function () {
+  let org = "org_2830";
+  let name = "name_2830";
+  verifyOrganizationProjectExists("org_2830", "name_2830");
 });
 
 // Story: crud:UserProject:read_only
 bthread("crud:UserProject:read_only", function () {
-  let username = "username_2970";
-  let project_number = "project_number_2970";
-  let name = "name_2970";
-  verifyUserProjectExists("username_2970", "project_number_2970", "name_2970");
+  let username = "username_2840";
+  let project_number = "project_number_2840";
+  let name = "name_2840";
+  verifyUserProjectExists("username_2840", "project_number_2840", "name_2840");
+});
+
+// Story: crud:OrganizationProjectField:read_only
+bthread("crud:OrganizationProjectField:read_only", function () {
+  let org = "org_2850";
+  let project_number = "project_number_2850";
+  let field_id = 2850;
+  verifyOrganizationProjectFieldExists("org_2850", "project_number_2850", 2850);
 });
 
 // Story: crud:UserProjectField:read_only
 bthread("crud:UserProjectField:read_only", function () {
-  let username = "username_2980";
-  let project_number = "project_number_2980";
-  let field_id = 2980;
-  verifyUserProjectFieldExists("username_2980", "project_number_2980", 2980);
+  let username = "username_2860";
+  let project_number = "project_number_2860";
+  let field_id = 2860;
+  verifyUserProjectFieldExists("username_2860", "project_number_2860", 2860);
+});
+
+// Story: crud:OrganizationProjectItem:nondet:1:1
+bthread("crud:OrganizationProjectItem:nondet:1:1", function () {
+  let org = "org_2870";
+  let project_number = "project_number_2870";
+  let type = "type_2870";
+  let id = 2870;
+  let item_id = 2870;
+  addOrgProjectItem("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+  tryToAddExistingOrganizationProjectItem("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+  verifyOrganizationProjectItemExists("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+  updateOrgProjectItem("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+  deleteOrgProjectItem("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+  tryToDeleteANonExistingOrganizationProjectItem("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+  verifyOrganizationProjectItemDoesNotExist("org_2870", "project_number_2870", "type_2870", 2870, 2870);
+});
+
+// Story: crud:OrganizationProjectItem:nondet:1:2
+bthread("crud:OrganizationProjectItem:nondet:1:2", function () {
+  let org = "org_2871";
+  let project_number = "project_number_2871";
+  let type = "type_2871";
+  let id = 2871;
+  let item_id = 2871;
+  addOrgProjectItem("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+  tryToAddExistingOrganizationProjectItem("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+  updateOrgProjectItem("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+  verifyOrganizationProjectItemExists("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+  deleteOrgProjectItem("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+  tryToDeleteANonExistingOrganizationProjectItem("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+  verifyOrganizationProjectItemDoesNotExist("org_2871", "project_number_2871", "type_2871", 2871, 2871);
+});
+
+// Story: crud:OrganizationProjectItem:nondet:negative:dup-add
+bthread("crud:OrganizationProjectItem:nondet:negative:dup-add", function () {
+  let org = "org_2876";
+  let project_number = "project_number_2876";
+  let type = "type_2876";
+  let id = 2876;
+  let item_id = 2876;
+  addOrgProjectItem("org_2876", "project_number_2876", "type_2876", 2876, 2876);
+  verifyOrganizationProjectItemExists("org_2876", "project_number_2876", "type_2876", 2876, 2876);
+  tryToAddExistingOrganizationProjectItem("org_2876", "project_number_2876", "type_2876", 2876, 2876);
+  verifyOrganizationProjectItemExists("org_2876", "project_number_2876", "type_2876", 2876, 2876);
+});
+
+// Story: crud:OrganizationProjectItem:nondet:existing:update
+bthread("crud:OrganizationProjectItem:nondet:existing:update", function () {
+  let ev = waitForAnyOrganizationProjectItemAdded();
+  let args = Object.values(ev);
+  block(matchDeletedOrganizationProjectItem.apply(null, args), function () {
+    verifyOrganizationProjectItemExists.apply(null, args);
+    updateOrgProjectItem.apply(null, args);
+    verifyOrganizationProjectItemExists.apply(null, args);
+  });
+});
+
+// Story: monitor:OrganizationProjectItem:add
+bthread("monitor:OrganizationProjectItem:add", function () {
+  while (true) {
+    let ev = waitForAnyOrganizationProjectItemAdded();
+    let args = Object.values(ev);
+    block(matchDeletedOrganizationProjectItem.apply(null, args), function () {
+      verifyOrganizationProjectItemExists.apply(null, args);
+    });
+  }
 });
 
 // Story: crud:UserProjectItem:nondet:1:1
 bthread("crud:UserProjectItem:nondet:1:1", function () {
-  let username = "username_2990";
-  let project_number = "project_number_2990";
-  let item_id = 2990;
-  addUserProjectItem("username_2990", "project_number_2990", 2990);
-  tryToAddExistingUserProjectItem("username_2990", "project_number_2990", 2990);
-  verifyUserProjectItemExists("username_2990", "project_number_2990", 2990);
-  updateUserProjectItem("username_2990", "project_number_2990", 2990);
-  deleteUserProjectItem("username_2990", "project_number_2990", 2990);
-  tryToDeleteANonExistingUserProjectItem("username_2990", "project_number_2990", 2990);
-  verifyUserProjectItemDoesNotExist("username_2990", "project_number_2990", 2990);
+  let username = "username_2880";
+  let project_number = "project_number_2880";
+  let type = "type_2880";
+  let id = 2880;
+  let item_id = 2880;
+  addUserProjectItem("username_2880", "project_number_2880", "type_2880", 2880, 2880);
+  tryToAddExistingUserProjectItem("username_2880", "project_number_2880", "type_2880", 2880, 2880);
+  verifyUserProjectItemExists("username_2880", "project_number_2880", "type_2880", 2880, 2880);
+  updateUserProjectItem("username_2880", "project_number_2880", "type_2880", 2880, 2880);
+  deleteUserProjectItem("username_2880", "project_number_2880", "type_2880", 2880, 2880);
+  tryToDeleteANonExistingUserProjectItem("username_2880", "project_number_2880", "type_2880", 2880, 2880);
+  verifyUserProjectItemDoesNotExist("username_2880", "project_number_2880", "type_2880", 2880, 2880);
 });
 
 // Story: crud:UserProjectItem:nondet:1:2
 bthread("crud:UserProjectItem:nondet:1:2", function () {
-  let username = "username_2991";
-  let project_number = "project_number_2991";
-  let item_id = 2991;
-  addUserProjectItem("username_2991", "project_number_2991", 2991);
-  tryToAddExistingUserProjectItem("username_2991", "project_number_2991", 2991);
-  updateUserProjectItem("username_2991", "project_number_2991", 2991);
-  verifyUserProjectItemExists("username_2991", "project_number_2991", 2991);
-  deleteUserProjectItem("username_2991", "project_number_2991", 2991);
-  tryToDeleteANonExistingUserProjectItem("username_2991", "project_number_2991", 2991);
-  verifyUserProjectItemDoesNotExist("username_2991", "project_number_2991", 2991);
+  let username = "username_2881";
+  let project_number = "project_number_2881";
+  let type = "type_2881";
+  let id = 2881;
+  let item_id = 2881;
+  addUserProjectItem("username_2881", "project_number_2881", "type_2881", 2881, 2881);
+  tryToAddExistingUserProjectItem("username_2881", "project_number_2881", "type_2881", 2881, 2881);
+  updateUserProjectItem("username_2881", "project_number_2881", "type_2881", 2881, 2881);
+  verifyUserProjectItemExists("username_2881", "project_number_2881", "type_2881", 2881, 2881);
+  deleteUserProjectItem("username_2881", "project_number_2881", "type_2881", 2881, 2881);
+  tryToDeleteANonExistingUserProjectItem("username_2881", "project_number_2881", "type_2881", 2881, 2881);
+  verifyUserProjectItemDoesNotExist("username_2881", "project_number_2881", "type_2881", 2881, 2881);
 });
 
 // Story: crud:UserProjectItem:nondet:negative:dup-add
 bthread("crud:UserProjectItem:nondet:negative:dup-add", function () {
-  let username = "username_2996";
-  let project_number = "project_number_2996";
-  let item_id = 2996;
-  addUserProjectItem("username_2996", "project_number_2996", 2996);
-  verifyUserProjectItemExists("username_2996", "project_number_2996", 2996);
-  tryToAddExistingUserProjectItem("username_2996", "project_number_2996", 2996);
-  verifyUserProjectItemExists("username_2996", "project_number_2996", 2996);
+  let username = "username_2886";
+  let project_number = "project_number_2886";
+  let type = "type_2886";
+  let id = 2886;
+  let item_id = 2886;
+  addUserProjectItem("username_2886", "project_number_2886", "type_2886", 2886, 2886);
+  verifyUserProjectItemExists("username_2886", "project_number_2886", "type_2886", 2886, 2886);
+  tryToAddExistingUserProjectItem("username_2886", "project_number_2886", "type_2886", 2886, 2886);
+  verifyUserProjectItemExists("username_2886", "project_number_2886", "type_2886", 2886, 2886);
 });
 
 // Story: crud:UserProjectItem:nondet:existing:update
@@ -5389,71 +5719,71 @@ bthread("monitor:UserProjectItem:add", function () {
 
 // Story: crud:Blob:read_only
 bthread("crud:Blob:read_only", function () {
-  let owner = "owner_3000";
-  let repo = "repo_3000";
-  let content = "content_3000";
-  let encoding = "encoding_3000";
-  let file_sha = "file_sha_3000";
-  verifyBlobExists("owner_3000", "repo_3000", "content_3000", "encoding_3000", "file_sha_3000");
+  let owner = "owner_2890";
+  let repo = "repo_2890";
+  let content = "content_2890";
+  let encoding = "encoding_2890";
+  let file_sha = "file_sha_2890";
+  verifyBlobExists("owner_2890", "repo_2890", "content_2890", "encoding_2890", "file_sha_2890");
 });
 
 // Story: crud:Commit:read_only
 bthread("crud:Commit:read_only", function () {
-  let owner = "owner_3010";
-  let repo = "repo_3010";
-  let message = "message_3010";
-  let tree = "tree_3010";
-  let parents = "parents_3010";
-  let author = "author_3010";
-  let committer = "committer_3010";
-  let signature = "signature_3010";
-  let commit_sha = "commit_sha_3010";
-  verifyCommitExists("owner_3010", "repo_3010", "message_3010", "tree_3010", "parents_3010", "author_3010", "committer_3010", "signature_3010", "commit_sha_3010");
+  let owner = "owner_2900";
+  let repo = "repo_2900";
+  let message = "message_2900";
+  let tree = "tree_2900";
+  let parents = "parents_2900";
+  let author = "author_2900";
+  let committer = "committer_2900";
+  let signature = "signature_2900";
+  let commit_sha = "commit_sha_2900";
+  verifyCommitExists("owner_2900", "repo_2900", "message_2900", "tree_2900", "parents_2900", "author_2900", "committer_2900", "signature_2900", "commit_sha_2900");
 });
 
 // Story: crud:Reference:nondet:1:1
 bthread("crud:Reference:nondet:1:1", function () {
-  let owner = "owner_3020";
-  let repo = "repo_3020";
-  let ref = "ref_3020";
-  let sha = "sha_3020";
-  let force = "force_3020";
-  createRef("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
-  tryToAddExistingReference("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
-  verifyReferenceExists("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
-  updateRef("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
-  deleteRef("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
-  tryToDeleteANonExistingReference("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
-  verifyReferenceDoesNotExist("owner_3020", "repo_3020", "ref_3020", "sha_3020", "force_3020");
+  let owner = "owner_2910";
+  let repo = "repo_2910";
+  let ref = "ref_2910";
+  let sha = "sha_2910";
+  let force = "force_2910";
+  createRef("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
+  tryToAddExistingReference("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
+  verifyReferenceExists("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
+  updateRef("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
+  deleteRef("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
+  tryToDeleteANonExistingReference("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
+  verifyReferenceDoesNotExist("owner_2910", "repo_2910", "ref_2910", "sha_2910", "force_2910");
 });
 
 // Story: crud:Reference:nondet:1:2
 bthread("crud:Reference:nondet:1:2", function () {
-  let owner = "owner_3021";
-  let repo = "repo_3021";
-  let ref = "ref_3021";
-  let sha = "sha_3021";
-  let force = "force_3021";
-  createRef("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
-  tryToAddExistingReference("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
-  updateRef("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
-  verifyReferenceExists("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
-  deleteRef("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
-  tryToDeleteANonExistingReference("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
-  verifyReferenceDoesNotExist("owner_3021", "repo_3021", "ref_3021", "sha_3021", "force_3021");
+  let owner = "owner_2911";
+  let repo = "repo_2911";
+  let ref = "ref_2911";
+  let sha = "sha_2911";
+  let force = "force_2911";
+  createRef("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
+  tryToAddExistingReference("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
+  updateRef("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
+  verifyReferenceExists("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
+  deleteRef("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
+  tryToDeleteANonExistingReference("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
+  verifyReferenceDoesNotExist("owner_2911", "repo_2911", "ref_2911", "sha_2911", "force_2911");
 });
 
 // Story: crud:Reference:nondet:negative:dup-add
 bthread("crud:Reference:nondet:negative:dup-add", function () {
-  let owner = "owner_3026";
-  let repo = "repo_3026";
-  let ref = "ref_3026";
-  let sha = "sha_3026";
-  let force = "force_3026";
-  createRef("owner_3026", "repo_3026", "ref_3026", "sha_3026", "force_3026");
-  verifyReferenceExists("owner_3026", "repo_3026", "ref_3026", "sha_3026", "force_3026");
-  tryToAddExistingReference("owner_3026", "repo_3026", "ref_3026", "sha_3026", "force_3026");
-  verifyReferenceExists("owner_3026", "repo_3026", "ref_3026", "sha_3026", "force_3026");
+  let owner = "owner_2916";
+  let repo = "repo_2916";
+  let ref = "ref_2916";
+  let sha = "sha_2916";
+  let force = "force_2916";
+  createRef("owner_2916", "repo_2916", "ref_2916", "sha_2916", "force_2916");
+  verifyReferenceExists("owner_2916", "repo_2916", "ref_2916", "sha_2916", "force_2916");
+  tryToAddExistingReference("owner_2916", "repo_2916", "ref_2916", "sha_2916", "force_2916");
+  verifyReferenceExists("owner_2916", "repo_2916", "ref_2916", "sha_2916", "force_2916");
 });
 
 // Story: crud:Reference:nondet:existing:update
@@ -5480,62 +5810,62 @@ bthread("monitor:Reference:add", function () {
 
 // Story: crud:Tag:read_only
 bthread("crud:Tag:read_only", function () {
-  let owner = "owner_3030";
-  let repo = "repo_3030";
-  let tag = "tag_3030";
-  let message = "message_3030";
-  let object = "object_3030";
-  let type = "type_3030";
-  let tagger = "tagger_3030";
-  let tag_sha = "tag_sha_3030";
-  verifyTagExists("owner_3030", "repo_3030", "tag_3030", "message_3030", "object_3030", "type_3030", "tagger_3030", "tag_sha_3030");
+  let owner = "owner_2920";
+  let repo = "repo_2920";
+  let tag = "tag_2920";
+  let message = "message_2920";
+  let object = "object_2920";
+  let type = "type_2920";
+  let tagger = "tagger_2920";
+  let tag_sha = "tag_sha_2920";
+  verifyTagExists("owner_2920", "repo_2920", "tag_2920", "message_2920", "object_2920", "type_2920", "tagger_2920", "tag_sha_2920");
 });
 
 // Story: crud:Tree:read_only
 bthread("crud:Tree:read_only", function () {
-  let owner = "owner_3040";
-  let repo = "repo_3040";
-  let tree = "tree_3040";
-  let base_tree = "base_tree_3040";
-  let tree_sha = "tree_sha_3040";
-  let recursive = "recursive_3040";
-  verifyTreeExists("owner_3040", "repo_3040", "tree_3040", "base_tree_3040", "tree_sha_3040", "recursive_3040");
+  let owner = "owner_2930";
+  let repo = "repo_2930";
+  let tree = "tree_2930";
+  let base_tree = "base_tree_2930";
+  let tree_sha = "tree_sha_2930";
+  let recursive = "recursive_2930";
+  verifyTreeExists("owner_2930", "repo_2930", "tree_2930", "base_tree_2930", "tree_sha_2930", "recursive_2930");
 });
 
 // Story: crud:Gist:nondet:1:1
 bthread("crud:Gist:nondet:1:1", function () {
-  let description = "description_3050";
-  let gist_id = 3050;
-  createGist("description_3050", 3050);
-  tryToAddExistingGist("description_3050", 3050);
-  verifyGistExists("description_3050", 3050);
-  updateGist("description_3050", 3050);
-  deleteGist("description_3050", 3050);
-  tryToDeleteANonExistingGist("description_3050", 3050);
-  verifyGistDoesNotExist("description_3050", 3050);
+  let description = "description_2940";
+  let gist_id = 2940;
+  createGist("description_2940", 2940);
+  tryToAddExistingGist("description_2940", 2940);
+  verifyGistExists("description_2940", 2940);
+  updateGist("description_2940", 2940);
+  deleteGist("description_2940", 2940);
+  tryToDeleteANonExistingGist("description_2940", 2940);
+  verifyGistDoesNotExist("description_2940", 2940);
 });
 
 // Story: crud:Gist:nondet:1:2
 bthread("crud:Gist:nondet:1:2", function () {
-  let description = "description_3051";
-  let gist_id = 3051;
-  createGist("description_3051", 3051);
-  tryToAddExistingGist("description_3051", 3051);
-  updateGist("description_3051", 3051);
-  verifyGistExists("description_3051", 3051);
-  deleteGist("description_3051", 3051);
-  tryToDeleteANonExistingGist("description_3051", 3051);
-  verifyGistDoesNotExist("description_3051", 3051);
+  let description = "description_2941";
+  let gist_id = 2941;
+  createGist("description_2941", 2941);
+  tryToAddExistingGist("description_2941", 2941);
+  updateGist("description_2941", 2941);
+  verifyGistExists("description_2941", 2941);
+  deleteGist("description_2941", 2941);
+  tryToDeleteANonExistingGist("description_2941", 2941);
+  verifyGistDoesNotExist("description_2941", 2941);
 });
 
 // Story: crud:Gist:nondet:negative:dup-add
 bthread("crud:Gist:nondet:negative:dup-add", function () {
-  let description = "description_3056";
-  let gist_id = 3056;
-  createGist("description_3056", 3056);
-  verifyGistExists("description_3056", 3056);
-  tryToAddExistingGist("description_3056", 3056);
-  verifyGistExists("description_3056", 3056);
+  let description = "description_2946";
+  let gist_id = 2946;
+  createGist("description_2946", 2946);
+  verifyGistExists("description_2946", 2946);
+  tryToAddExistingGist("description_2946", 2946);
+  verifyGistExists("description_2946", 2946);
 });
 
 // Story: crud:Gist:nondet:existing:update
@@ -5562,41 +5892,41 @@ bthread("monitor:Gist:add", function () {
 
 // Story: crud:GistComment:nondet:1:1
 bthread("crud:GistComment:nondet:1:1", function () {
-  let gist_id = 3060;
-  let body = "body_3060";
-  let comment_id = 3060;
-  createGistComment(3060, "body_3060", 3060);
-  tryToAddExistingGistComment(3060, "body_3060", 3060);
-  verifyGistCommentExists(3060, "body_3060", 3060);
-  updateGistComment(3060, "body_3060", 3060);
-  deleteGistComment(3060, "body_3060", 3060);
-  tryToDeleteANonExistingGistComment(3060, "body_3060", 3060);
-  verifyGistCommentDoesNotExist(3060, "body_3060", 3060);
+  let gist_id = 2950;
+  let body = "body_2950";
+  let comment_id = 2950;
+  createGistComment(2950, "body_2950", 2950);
+  tryToAddExistingGistComment(2950, "body_2950", 2950);
+  verifyGistCommentExists(2950, "body_2950", 2950);
+  updateGistComment(2950, "body_2950", 2950);
+  deleteGistComment(2950, "body_2950", 2950);
+  tryToDeleteANonExistingGistComment(2950, "body_2950", 2950);
+  verifyGistCommentDoesNotExist(2950, "body_2950", 2950);
 });
 
 // Story: crud:GistComment:nondet:1:2
 bthread("crud:GistComment:nondet:1:2", function () {
-  let gist_id = 3061;
-  let body = "body_3061";
-  let comment_id = 3061;
-  createGistComment(3061, "body_3061", 3061);
-  tryToAddExistingGistComment(3061, "body_3061", 3061);
-  updateGistComment(3061, "body_3061", 3061);
-  verifyGistCommentExists(3061, "body_3061", 3061);
-  deleteGistComment(3061, "body_3061", 3061);
-  tryToDeleteANonExistingGistComment(3061, "body_3061", 3061);
-  verifyGistCommentDoesNotExist(3061, "body_3061", 3061);
+  let gist_id = 2951;
+  let body = "body_2951";
+  let comment_id = 2951;
+  createGistComment(2951, "body_2951", 2951);
+  tryToAddExistingGistComment(2951, "body_2951", 2951);
+  updateGistComment(2951, "body_2951", 2951);
+  verifyGistCommentExists(2951, "body_2951", 2951);
+  deleteGistComment(2951, "body_2951", 2951);
+  tryToDeleteANonExistingGistComment(2951, "body_2951", 2951);
+  verifyGistCommentDoesNotExist(2951, "body_2951", 2951);
 });
 
 // Story: crud:GistComment:nondet:negative:dup-add
 bthread("crud:GistComment:nondet:negative:dup-add", function () {
-  let gist_id = 3066;
-  let body = "body_3066";
-  let comment_id = 3066;
-  createGistComment(3066, "body_3066", 3066);
-  verifyGistCommentExists(3066, "body_3066", 3066);
-  tryToAddExistingGistComment(3066, "body_3066", 3066);
-  verifyGistCommentExists(3066, "body_3066", 3066);
+  let gist_id = 2956;
+  let body = "body_2956";
+  let comment_id = 2956;
+  createGistComment(2956, "body_2956", 2956);
+  verifyGistCommentExists(2956, "body_2956", 2956);
+  tryToAddExistingGistComment(2956, "body_2956", 2956);
+  verifyGistCommentExists(2956, "body_2956", 2956);
 });
 
 // Story: crud:GistComment:nondet:existing:update
@@ -5621,56 +5951,56 @@ bthread("monitor:GistComment:add", function () {
   }
 });
 
-// Story: crud:OrganizationProject:read_only
-bthread("crud:OrganizationProject:read_only", function () {
-  let org = "org_3070";
-  let name = "name_3070";
-  verifyOrganizationProjectExists("org_3070", "name_3070");
-});
-
 // Story: crud:ProjectColumn:read_only
 bthread("crud:ProjectColumn:read_only", function () {
-  let column_id = 3080;
-  let name = "name_3080";
-  let position = "position_3080";
-  verifyProjectColumnExists(3080, "name_3080", "position_3080");
+  let column_id = 2960;
+  let name = "name_2960";
+  let position = "position_2960";
+  verifyProjectColumnExists(2960, "name_2960", "position_2960");
+});
+
+// Story: crud:Project:read_only
+bthread("crud:Project:read_only", function () {
+  let project_id = 2970;
+  let name = "name_2970";
+  verifyProjectExists(2970, "name_2970");
 });
 
 // Story: crud:ProjectCollaborator:nondet:1:1
 bthread("crud:ProjectCollaborator:nondet:1:1", function () {
-  let project_id = 3090;
-  let username = "username_3090";
-  let permission = "permission_3090";
-  addProjectCollaborator(3090, "username_3090", "permission_3090");
-  tryToAddExistingProjectCollaborator(3090, "username_3090", "permission_3090");
-  verifyProjectCollaboratorExists(3090, "username_3090", "permission_3090");
-  removeProjectCollaborator(3090, "username_3090", "permission_3090");
-  tryToDeleteANonExistingProjectCollaborator(3090, "username_3090", "permission_3090");
-  verifyProjectCollaboratorDoesNotExist(3090, "username_3090", "permission_3090");
+  let project_id = 2980;
+  let username = "username_2980";
+  let permission = "permission_2980";
+  addCollaborator(2980, "username_2980", "permission_2980");
+  tryToAddExistingProjectCollaborator(2980, "username_2980", "permission_2980");
+  verifyProjectCollaboratorExists(2980, "username_2980", "permission_2980");
+  removeCollaborator(2980, "username_2980", "permission_2980");
+  tryToDeleteANonExistingProjectCollaborator(2980, "username_2980", "permission_2980");
+  verifyProjectCollaboratorDoesNotExist(2980, "username_2980", "permission_2980");
 });
 
 // Story: crud:ProjectCollaborator:nondet:1:2
 bthread("crud:ProjectCollaborator:nondet:1:2", function () {
-  let project_id = 3091;
-  let username = "username_3091";
-  let permission = "permission_3091";
-  addProjectCollaborator(3091, "username_3091", "permission_3091");
-  tryToAddExistingProjectCollaborator(3091, "username_3091", "permission_3091");
-  verifyProjectCollaboratorExists(3091, "username_3091", "permission_3091");
-  removeProjectCollaborator(3091, "username_3091", "permission_3091");
-  tryToDeleteANonExistingProjectCollaborator(3091, "username_3091", "permission_3091");
-  verifyProjectCollaboratorDoesNotExist(3091, "username_3091", "permission_3091");
+  let project_id = 2981;
+  let username = "username_2981";
+  let permission = "permission_2981";
+  addCollaborator(2981, "username_2981", "permission_2981");
+  tryToAddExistingProjectCollaborator(2981, "username_2981", "permission_2981");
+  verifyProjectCollaboratorExists(2981, "username_2981", "permission_2981");
+  removeCollaborator(2981, "username_2981", "permission_2981");
+  tryToDeleteANonExistingProjectCollaborator(2981, "username_2981", "permission_2981");
+  verifyProjectCollaboratorDoesNotExist(2981, "username_2981", "permission_2981");
 });
 
 // Story: crud:ProjectCollaborator:nondet:negative:dup-add
 bthread("crud:ProjectCollaborator:nondet:negative:dup-add", function () {
-  let project_id = 3096;
-  let username = "username_3096";
-  let permission = "permission_3096";
-  addProjectCollaborator(3096, "username_3096", "permission_3096");
-  verifyProjectCollaboratorExists(3096, "username_3096", "permission_3096");
-  tryToAddExistingProjectCollaborator(3096, "username_3096", "permission_3096");
-  verifyProjectCollaboratorExists(3096, "username_3096", "permission_3096");
+  let project_id = 2986;
+  let username = "username_2986";
+  let permission = "permission_2986";
+  addCollaborator(2986, "username_2986", "permission_2986");
+  verifyProjectCollaboratorExists(2986, "username_2986", "permission_2986");
+  tryToAddExistingProjectCollaborator(2986, "username_2986", "permission_2986");
+  verifyProjectCollaboratorExists(2986, "username_2986", "permission_2986");
 });
 
 // Story: monitor:ProjectCollaborator:add
@@ -5684,248 +6014,204 @@ bthread("monitor:ProjectCollaborator:add", function () {
   }
 });
 
-// Story: crud:ProjectColumnCollection:read_only
-bthread("crud:ProjectColumnCollection:read_only", function () {
-  let project_id = 3100;
-  let name = "name_3100";
-  verifyProjectColumnCollectionExists(3100, "name_3100");
+// Story: crud:ProjectCollaboratorsList:read_only
+bthread("crud:ProjectCollaboratorsList:read_only", function () {
+  let project_id = 2990;
+  verifyProjectCollaboratorsListExists(2990);
+});
+
+// Story: crud:ProjectColumnList:read_only
+bthread("crud:ProjectColumnList:read_only", function () {
+  let project_id = 3000;
+  let name = "name_3000";
+  verifyProjectColumnListExists(3000, "name_3000");
 });
 
 // Story: crud:RepositoryProject:read_only
 bthread("crud:RepositoryProject:read_only", function () {
-  let owner = "owner_3110";
-  let repo = "repo_3110";
-  let name = "name_3110";
-  verifyRepositoryProjectExists("owner_3110", "repo_3110", "name_3110");
+  let owner = "owner_3010";
+  let repo = "repo_3010";
+  let name = "name_3010";
+  verifyRepositoryProjectExists("owner_3010", "repo_3010", "name_3010");
 });
 
-// Story: crud:UserProjects:read_only
-bthread("crud:UserProjects:read_only", function () {
-  let username = "username_3120";
-  verifyUserProjectsExists("username_3120");
+// Story: crud:UserProjectsList:read_only
+bthread("crud:UserProjectsList:read_only", function () {
+  let username = "username_3020";
+  verifyUserProjectsListExists("username_3020");
 });
 
 // Story: crud:CheckRun:read_only
 bthread("crud:CheckRun:read_only", function () {
-  let owner = "owner_3130";
-  let repo = "repo_3130";
-  let name = "name_3130";
-  let head_sha = "head_sha_3130";
-  let check_run_id = 3130;
-  verifyCheckRunExists("owner_3130", "repo_3130", "name_3130", "head_sha_3130", 3130);
-});
-
-// Story: crud:CheckRunAnnotation:read_only
-bthread("crud:CheckRunAnnotation:read_only", function () {
-  let owner = "owner_3140";
-  let repo = "repo_3140";
-  let check_run_id = 3140;
-  verifyCheckRunAnnotationExists("owner_3140", "repo_3140", 3140);
+  let owner = "owner_3030";
+  let repo = "repo_3030";
+  let name = "name_3030";
+  let head_sha = "head_sha_3030";
+  let check_run_id = 3030;
+  verifyCheckRunExists("owner_3030", "repo_3030", "name_3030", "head_sha_3030", 3030);
 });
 
 // Story: crud:CheckSuite:read_only
 bthread("crud:CheckSuite:read_only", function () {
-  let owner = "owner_3160";
-  let repo = "repo_3160";
-  let head_sha = "head_sha_3160";
-  let check_suite_id = 3160;
-  verifyCheckSuiteExists("owner_3160", "repo_3160", "head_sha_3160", 3160);
-});
-
-// Story: crud:CheckSuiteCheckRuns:read_only
-bthread("crud:CheckSuiteCheckRuns:read_only", function () {
-  let owner = "owner_3170";
-  let repo = "repo_3170";
-  let check_suite_id = 3170;
-  verifyCheckSuiteCheckRunsExists("owner_3170", "repo_3170", 3170);
+  let owner = "owner_3040";
+  let repo = "repo_3040";
+  let head_sha = "head_sha_3040";
+  let check_suite_id = 3040;
+  verifyCheckSuiteExists("owner_3040", "repo_3040", "head_sha_3040", 3040);
 });
 
 // Story: crud:OrganizationBilling:read_only
 bthread("crud:OrganizationBilling:read_only", function () {
-  let org = "org_3190";
-  let year = "year_3190";
-  let month = "month_3190";
-  let day = "day_3190";
-  let hour = "hour_3190";
-  verifyOrganizationBillingExists("org_3190", "year_3190", "month_3190", "day_3190", "hour_3190");
+  let org = "org_3050";
+  let year = "year_3050";
+  let month = "month_3050";
+  let day = "day_3050";
+  let hour = "hour_3050";
+  verifyOrganizationBillingExists("org_3050", "year_3050", "month_3050", "day_3050", "hour_3050");
 });
 
 // Story: crud:OrganizationBillingPremiumRequestUsage:read_only
 bthread("crud:OrganizationBillingPremiumRequestUsage:read_only", function () {
-  let org = "org_3200";
-  let year = "year_3200";
-  let month = "month_3200";
-  let day = "day_3200";
-  let user = "user_3200";
-  let model = "model_3200";
-  let product = "product_3200";
-  verifyOrganizationBillingPremiumRequestUsageExists("org_3200", "year_3200", "month_3200", "day_3200", "user_3200", "model_3200", "product_3200");
+  let org = "org_3060";
+  let year = "year_3060";
+  let month = "month_3060";
+  let day = "day_3060";
+  let user = "user_3060";
+  let model = "model_3060";
+  let product = "product_3060";
+  verifyOrganizationBillingPremiumRequestUsageExists("org_3060", "year_3060", "month_3060", "day_3060", "user_3060", "model_3060", "product_3060");
 });
 
 // Story: crud:OrganizationBillingActions:read_only
 bthread("crud:OrganizationBillingActions:read_only", function () {
-  let org = "org_3210";
-  verifyOrganizationBillingActionsExists("org_3210");
+  let org = "org_3070";
+  verifyOrganizationBillingActionsExists("org_3070");
 });
 
 // Story: crud:OrganizationBillingPackages:read_only
 bthread("crud:OrganizationBillingPackages:read_only", function () {
-  let org = "org_3220";
-  verifyOrganizationBillingPackagesExists("org_3220");
+  let org = "org_3080";
+  verifyOrganizationBillingPackagesExists("org_3080");
 });
 
 // Story: crud:OrganizationBillingSharedStorage:read_only
 bthread("crud:OrganizationBillingSharedStorage:read_only", function () {
-  let org = "org_3230";
-  verifyOrganizationBillingSharedStorageExists("org_3230");
+  let org = "org_3090";
+  verifyOrganizationBillingSharedStorageExists("org_3090");
 });
 
 // Story: crud:UserBillingActions:read_only
 bthread("crud:UserBillingActions:read_only", function () {
-  let username = "username_3240";
-  verifyUserBillingActionsExists("username_3240");
+  let username = "username_3100";
+  verifyUserBillingActionsExists("username_3100");
 });
 
 // Story: crud:UserBillingPackages:read_only
 bthread("crud:UserBillingPackages:read_only", function () {
-  let username = "username_3250";
-  verifyUserBillingPackagesExists("username_3250");
+  let username = "username_3110";
+  verifyUserBillingPackagesExists("username_3110");
 });
 
 // Story: crud:UserBillingPremiumRequestUsage:read_only
 bthread("crud:UserBillingPremiumRequestUsage:read_only", function () {
-  let username = "username_3260";
-  let year = "year_3260";
-  let month = "month_3260";
-  let day = "day_3260";
-  let model = "model_3260";
-  let product = "product_3260";
-  verifyUserBillingPremiumRequestUsageExists("username_3260", "year_3260", "month_3260", "day_3260", "model_3260", "product_3260");
+  let username = "username_3120";
+  let year = "year_3120";
+  let month = "month_3120";
+  let day = "day_3120";
+  let model = "model_3120";
+  let product = "product_3120";
+  verifyUserBillingPremiumRequestUsageExists("username_3120", "year_3120", "month_3120", "day_3120", "model_3120", "product_3120");
 });
 
 // Story: crud:UserBillingSharedStorage:read_only
 bthread("crud:UserBillingSharedStorage:read_only", function () {
-  let username = "username_3270";
-  verifyUserBillingSharedStorageExists("username_3270");
+  let username = "username_3130";
+  verifyUserBillingSharedStorageExists("username_3130");
 });
 
 // Story: crud:UserBillingUsage:read_only
 bthread("crud:UserBillingUsage:read_only", function () {
-  let username = "username_3280";
-  let year = "year_3280";
-  let month = "month_3280";
-  let day = "day_3280";
-  let hour = "hour_3280";
-  verifyUserBillingUsageExists("username_3280", "year_3280", "month_3280", "day_3280", "hour_3280");
+  let username = "username_3140";
+  let year = "year_3140";
+  let month = "month_3140";
+  let day = "day_3140";
+  let hour = "hour_3140";
+  verifyUserBillingUsageExists("username_3140", "year_3140", "month_3140", "day_3140", "hour_3140");
 });
 
-// Story: crud:SecurityAdvisory:read_only
-bthread("crud:SecurityAdvisory:read_only", function () {
-  let ghsa_id = 3290;
-  verifySecurityAdvisoryExists(3290);
+// Story: crud:GlobalSecurityAdvisory:read_only
+bthread("crud:GlobalSecurityAdvisory:read_only", function () {
+  let ghsa_id = 3150;
+  verifyGlobalSecurityAdvisoryExists(3150);
 });
 
 // Story: crud:RepositorySecurityAdvisory:read_only
 bthread("crud:RepositorySecurityAdvisory:read_only", function () {
-  let owner = "owner_3310";
-  let repo = "repo_3310";
-  let summary = "summary_3310";
-  let ghsa_id = 3310;
-  verifyRepositorySecurityAdvisoryExists("owner_3310", "repo_3310", "summary_3310", 3310);
+  let owner = "owner_3170";
+  let repo = "repo_3170";
+  let ghsa_id = 3170;
+  verifyRepositorySecurityAdvisoryExists("owner_3170", "repo_3170", 3170);
 });
 
 // Story: crud:SecretScanningAlert:read_only
 bthread("crud:SecretScanningAlert:read_only", function () {
-  let owner = "owner_3350";
-  let repo = "repo_3350";
-  let alert_number = "alert_number_3350";
-  verifySecretScanningAlertExists("owner_3350", "repo_3350", "alert_number_3350");
-});
-
-// Story: crud:SecretScanningAlerts:read_only
-bthread("crud:SecretScanningAlerts:read_only", function () {
-  let owner = "owner_3360";
-  let repo = "repo_3360";
-  verifySecretScanningAlertsExists("owner_3360", "repo_3360");
-});
-
-// Story: crud:EnterpriseSecretScanningAlerts:read_only
-bthread("crud:EnterpriseSecretScanningAlerts:read_only", function () {
-  let enterprise = "enterprise_3370";
-  verifyEnterpriseSecretScanningAlertsExists("enterprise_3370");
-});
-
-// Story: crud:OrgSecretScanningAlerts:read_only
-bthread("crud:OrgSecretScanningAlerts:read_only", function () {
-  let org = "org_3380";
-  verifyOrgSecretScanningAlertsExists("org_3380");
-});
-
-// Story: crud:OrgPatternConfigurations:read_only
-bthread("crud:OrgPatternConfigurations:read_only", function () {
-  let org = "org_3390";
-  verifyOrgPatternConfigurationsExists("org_3390");
-});
-
-// Story: crud:SecretScanningAlertLocations:read_only
-bthread("crud:SecretScanningAlertLocations:read_only", function () {
-  let owner = "owner_3400";
-  let repo = "repo_3400";
-  let alert_number = "alert_number_3400";
-  verifySecretScanningAlertLocationsExists("owner_3400", "repo_3400", "alert_number_3400");
+  let owner = "owner_3210";
+  let repo = "repo_3210";
+  let alert_number = "alert_number_3210";
+  verifySecretScanningAlertExists("owner_3210", "repo_3210", "alert_number_3210");
 });
 
 // Story: crud:SecretScanningScanHistory:read_only
 bthread("crud:SecretScanningScanHistory:read_only", function () {
-  let owner = "owner_3420";
-  let repo = "repo_3420";
-  verifySecretScanningScanHistoryExists("owner_3420", "repo_3420");
+  let owner = "owner_3270";
+  let repo = "repo_3270";
+  verifySecretScanningScanHistoryExists("owner_3270", "repo_3270");
 });
 
 // Story: crud:CopilotBilling:read_only
 bthread("crud:CopilotBilling:read_only", function () {
-  let org = "org_3430";
-  verifyCopilotBillingExists("org_3430");
+  let org = "org_3290";
+  verifyCopilotBillingExists("org_3290");
 });
 
 // Story: crud:CopilotSeats:read_only
 bthread("crud:CopilotSeats:read_only", function () {
-  let org = "org_3440";
-  verifyCopilotSeatsExists("org_3440");
+  let org = "org_3300";
+  verifyCopilotSeatsExists("org_3300");
 });
 
 // Story: crud:CopilotSelectedTeams:nondet:1:1
 bthread("crud:CopilotSelectedTeams:nondet:1:1", function () {
-  let org = "org_3450";
-  let selected_teams = "selected_teams_3450";
-  addCopilotSeatsForTeams("org_3450", "selected_teams_3450");
-  tryToAddExistingCopilotSelectedTeams("org_3450", "selected_teams_3450");
-  verifyCopilotSelectedTeamsExists("org_3450", "selected_teams_3450");
-  removeCopilotSeatsForTeams("org_3450", "selected_teams_3450");
-  tryToDeleteANonExistingCopilotSelectedTeams("org_3450", "selected_teams_3450");
-  verifyCopilotSelectedTeamsDoesNotExist("org_3450", "selected_teams_3450");
+  let org = "org_3310";
+  let selected_teams = "selected_teams_3310";
+  addCopilotSeatsForTeams("org_3310", "selected_teams_3310");
+  tryToAddExistingCopilotSelectedTeams("org_3310", "selected_teams_3310");
+  verifyCopilotSelectedTeamsExists("org_3310", "selected_teams_3310");
+  removeCopilotSeatsForTeams("org_3310", "selected_teams_3310");
+  tryToDeleteANonExistingCopilotSelectedTeams("org_3310", "selected_teams_3310");
+  verifyCopilotSelectedTeamsDoesNotExist("org_3310", "selected_teams_3310");
 });
 
 // Story: crud:CopilotSelectedTeams:nondet:1:2
 bthread("crud:CopilotSelectedTeams:nondet:1:2", function () {
-  let org = "org_3451";
-  let selected_teams = "selected_teams_3451";
-  addCopilotSeatsForTeams("org_3451", "selected_teams_3451");
-  tryToAddExistingCopilotSelectedTeams("org_3451", "selected_teams_3451");
-  verifyCopilotSelectedTeamsExists("org_3451", "selected_teams_3451");
-  removeCopilotSeatsForTeams("org_3451", "selected_teams_3451");
-  tryToDeleteANonExistingCopilotSelectedTeams("org_3451", "selected_teams_3451");
-  verifyCopilotSelectedTeamsDoesNotExist("org_3451", "selected_teams_3451");
+  let org = "org_3311";
+  let selected_teams = "selected_teams_3311";
+  addCopilotSeatsForTeams("org_3311", "selected_teams_3311");
+  tryToAddExistingCopilotSelectedTeams("org_3311", "selected_teams_3311");
+  verifyCopilotSelectedTeamsExists("org_3311", "selected_teams_3311");
+  removeCopilotSeatsForTeams("org_3311", "selected_teams_3311");
+  tryToDeleteANonExistingCopilotSelectedTeams("org_3311", "selected_teams_3311");
+  verifyCopilotSelectedTeamsDoesNotExist("org_3311", "selected_teams_3311");
 });
 
 // Story: crud:CopilotSelectedTeams:nondet:negative:dup-add
 bthread("crud:CopilotSelectedTeams:nondet:negative:dup-add", function () {
-  let org = "org_3456";
-  let selected_teams = "selected_teams_3456";
-  addCopilotSeatsForTeams("org_3456", "selected_teams_3456");
-  verifyCopilotSelectedTeamsExists("org_3456", "selected_teams_3456");
-  tryToAddExistingCopilotSelectedTeams("org_3456", "selected_teams_3456");
-  verifyCopilotSelectedTeamsExists("org_3456", "selected_teams_3456");
+  let org = "org_3316";
+  let selected_teams = "selected_teams_3316";
+  addCopilotSeatsForTeams("org_3316", "selected_teams_3316");
+  verifyCopilotSelectedTeamsExists("org_3316", "selected_teams_3316");
+  tryToAddExistingCopilotSelectedTeams("org_3316", "selected_teams_3316");
+  verifyCopilotSelectedTeamsExists("org_3316", "selected_teams_3316");
 });
 
 // Story: monitor:CopilotSelectedTeams:add
@@ -5941,36 +6227,36 @@ bthread("monitor:CopilotSelectedTeams:add", function () {
 
 // Story: crud:CopilotSelectedUsers:nondet:1:1
 bthread("crud:CopilotSelectedUsers:nondet:1:1", function () {
-  let org = "org_3460";
-  let selected_usernames = "selected_usernames_3460";
-  addCopilotSeatsForUsers("org_3460", "selected_usernames_3460");
-  tryToAddExistingCopilotSelectedUsers("org_3460", "selected_usernames_3460");
-  verifyCopilotSelectedUsersExists("org_3460", "selected_usernames_3460");
-  removeCopilotSeatsForUsers("org_3460", "selected_usernames_3460");
-  tryToDeleteANonExistingCopilotSelectedUsers("org_3460", "selected_usernames_3460");
-  verifyCopilotSelectedUsersDoesNotExist("org_3460", "selected_usernames_3460");
+  let org = "org_3320";
+  let selected_usernames = "selected_usernames_3320";
+  addCopilotSeatsForUsers("org_3320", "selected_usernames_3320");
+  tryToAddExistingCopilotSelectedUsers("org_3320", "selected_usernames_3320");
+  verifyCopilotSelectedUsersExists("org_3320", "selected_usernames_3320");
+  removeCopilotSeatsForUsers("org_3320", "selected_usernames_3320");
+  tryToDeleteANonExistingCopilotSelectedUsers("org_3320", "selected_usernames_3320");
+  verifyCopilotSelectedUsersDoesNotExist("org_3320", "selected_usernames_3320");
 });
 
 // Story: crud:CopilotSelectedUsers:nondet:1:2
 bthread("crud:CopilotSelectedUsers:nondet:1:2", function () {
-  let org = "org_3461";
-  let selected_usernames = "selected_usernames_3461";
-  addCopilotSeatsForUsers("org_3461", "selected_usernames_3461");
-  tryToAddExistingCopilotSelectedUsers("org_3461", "selected_usernames_3461");
-  verifyCopilotSelectedUsersExists("org_3461", "selected_usernames_3461");
-  removeCopilotSeatsForUsers("org_3461", "selected_usernames_3461");
-  tryToDeleteANonExistingCopilotSelectedUsers("org_3461", "selected_usernames_3461");
-  verifyCopilotSelectedUsersDoesNotExist("org_3461", "selected_usernames_3461");
+  let org = "org_3321";
+  let selected_usernames = "selected_usernames_3321";
+  addCopilotSeatsForUsers("org_3321", "selected_usernames_3321");
+  tryToAddExistingCopilotSelectedUsers("org_3321", "selected_usernames_3321");
+  verifyCopilotSelectedUsersExists("org_3321", "selected_usernames_3321");
+  removeCopilotSeatsForUsers("org_3321", "selected_usernames_3321");
+  tryToDeleteANonExistingCopilotSelectedUsers("org_3321", "selected_usernames_3321");
+  verifyCopilotSelectedUsersDoesNotExist("org_3321", "selected_usernames_3321");
 });
 
 // Story: crud:CopilotSelectedUsers:nondet:negative:dup-add
 bthread("crud:CopilotSelectedUsers:nondet:negative:dup-add", function () {
-  let org = "org_3466";
-  let selected_usernames = "selected_usernames_3466";
-  addCopilotSeatsForUsers("org_3466", "selected_usernames_3466");
-  verifyCopilotSelectedUsersExists("org_3466", "selected_usernames_3466");
-  tryToAddExistingCopilotSelectedUsers("org_3466", "selected_usernames_3466");
-  verifyCopilotSelectedUsersExists("org_3466", "selected_usernames_3466");
+  let org = "org_3326";
+  let selected_usernames = "selected_usernames_3326";
+  addCopilotSeatsForUsers("org_3326", "selected_usernames_3326");
+  verifyCopilotSelectedUsersExists("org_3326", "selected_usernames_3326");
+  tryToAddExistingCopilotSelectedUsers("org_3326", "selected_usernames_3326");
+  verifyCopilotSelectedUsersExists("org_3326", "selected_usernames_3326");
 });
 
 // Story: monitor:CopilotSelectedUsers:add
@@ -5986,146 +6272,160 @@ bthread("monitor:CopilotSelectedUsers:add", function () {
 
 // Story: crud:CopilotMetricsOrganization:read_only
 bthread("crud:CopilotMetricsOrganization:read_only", function () {
-  let org = "org_3470";
-  let since = "since_3470";
-  let until = "until_3470";
-  let page = "page_3470";
-  let per_page = "per_page_3470";
-  verifyCopilotMetricsOrganizationExists("org_3470", "since_3470", "until_3470", "page_3470", "per_page_3470");
+  let org = "org_3330";
+  let since = "since_3330";
+  let until = "until_3330";
+  let page = "page_3330";
+  let per_page = "per_page_3330";
+  verifyCopilotMetricsOrganizationExists("org_3330", "since_3330", "until_3330", "page_3330", "per_page_3330");
 });
 
 // Story: crud:CopilotSeatAssignmentUser:read_only
 bthread("crud:CopilotSeatAssignmentUser:read_only", function () {
-  let org = "org_3480";
-  let username = "username_3480";
-  verifyCopilotSeatAssignmentUserExists("org_3480", "username_3480");
+  let org = "org_3340";
+  let username = "username_3340";
+  verifyCopilotSeatAssignmentUserExists("org_3340", "username_3340");
 });
 
 // Story: crud:CopilotMetricsTeam:read_only
 bthread("crud:CopilotMetricsTeam:read_only", function () {
-  let org = "org_3490";
-  let team_slug = "team_slug_3490";
-  let since = "since_3490";
-  let until = "until_3490";
-  let page = "page_3490";
-  let per_page = "per_page_3490";
-  verifyCopilotMetricsTeamExists("org_3490", "team_slug_3490", "since_3490", "until_3490", "page_3490", "per_page_3490");
+  let org = "org_3350";
+  let team_slug = "team_slug_3350";
+  let since = "since_3350";
+  let until = "until_3350";
+  let page = "page_3350";
+  let per_page = "per_page_3350";
+  verifyCopilotMetricsTeamExists("org_3350", "team_slug_3350", "since_3350", "until_3350", "page_3350", "per_page_3350");
 });
 
 // Story: crud:CodeSearch:read_only
 bthread("crud:CodeSearch:read_only", function () {
-  let q = "q_3500";
-  verifyCodeSearchExists("q_3500");
+  let q = "q_3360";
+  let sort = "sort_3360";
+  let order = "order_3360";
+  let per-page = "per-page_3360";
+  let page = "page_3360";
+  verifyCodeSearchExists("q_3360", "sort_3360", "order_3360", "per-page_3360", "page_3360");
 });
 
 // Story: crud:CommitSearch:read_only
 bthread("crud:CommitSearch:read_only", function () {
-  let q = "q_3510";
-  verifyCommitSearchExists("q_3510");
+  let q = "q_3370";
+  let sort = "sort_3370";
+  let order = "order_3370";
+  let per-page = "per-page_3370";
+  let page = "page_3370";
+  verifyCommitSearchExists("q_3370", "sort_3370", "order_3370", "per-page_3370", "page_3370");
 });
 
 // Story: crud:IssueSearch:read_only
 bthread("crud:IssueSearch:read_only", function () {
-  let q = "q_3520";
-  verifyIssueSearchExists("q_3520");
+  let q = "q_3380";
+  let sort = "sort_3380";
+  let order = "order_3380";
+  let per-page = "per-page_3380";
+  let page = "page_3380";
+  verifyIssueSearchExists("q_3380", "sort_3380", "order_3380", "per-page_3380", "page_3380");
 });
 
 // Story: crud:LabelSearch:read_only
 bthread("crud:LabelSearch:read_only", function () {
-  let repository_id = 3530;
-  let q = "q_3530";
-  verifyLabelSearchExists(3530, "q_3530");
+  let repository_id = 3390;
+  let q = "q_3390";
+  let sort = "sort_3390";
+  let order = "order_3390";
+  let per-page = "per-page_3390";
+  let page = "page_3390";
+  verifyLabelSearchExists(3390, "q_3390", "sort_3390", "order_3390", "per-page_3390", "page_3390");
 });
 
 // Story: crud:RepositorySearch:read_only
 bthread("crud:RepositorySearch:read_only", function () {
-  let q = "q_3540";
-  verifyRepositorySearchExists("q_3540");
+  let q = "q_3400";
+  let sort = "sort_3400";
+  let order = "order_3400";
+  let per-page = "per-page_3400";
+  let page = "page_3400";
+  verifyRepositorySearchExists("q_3400", "sort_3400", "order_3400", "per-page_3400", "page_3400");
 });
 
 // Story: crud:TopicSearch:read_only
 bthread("crud:TopicSearch:read_only", function () {
-  let q = "q_3550";
-  verifyTopicSearchExists("q_3550");
+  let q = "q_3410";
+  let per-page = "per-page_3410";
+  let page = "page_3410";
+  verifyTopicSearchExists("q_3410", "per-page_3410", "page_3410");
 });
 
 // Story: crud:UserSearch:read_only
 bthread("crud:UserSearch:read_only", function () {
-  let q = "q_3560";
-  verifyUserSearchExists("q_3560");
+  let q = "q_3420";
+  let sort = "sort_3420";
+  let order = "order_3420";
+  let per-page = "per-page_3420";
+  let page = "page_3420";
+  verifyUserSearchExists("q_3420", "sort_3420", "order_3420", "per-page_3420", "page_3420");
 });
 
 // Story: crud:Assignment:read_only
 bthread("crud:Assignment:read_only", function () {
-  let assignment_id = 3570;
-  verifyAssignmentExists(3570);
+  let assignment_id = 3430;
+  verifyAssignmentExists(3430);
 });
 
 // Story: crud:AcceptedAssignment:read_only
 bthread("crud:AcceptedAssignment:read_only", function () {
-  let assignment_id = 3580;
-  verifyAcceptedAssignmentExists(3580);
+  let assignment_id = 3440;
+  verifyAcceptedAssignmentExists(3440);
 });
 
 // Story: crud:AssignmentGrades:read_only
 bthread("crud:AssignmentGrades:read_only", function () {
-  let assignment_id = 3590;
-  verifyAssignmentGradesExists(3590);
+  let assignment_id = 3450;
+  verifyAssignmentGradesExists(3450);
 });
 
 // Story: crud:Classroom:read_only
 bthread("crud:Classroom:read_only", function () {
-  let classroom_id = 3600;
-  verifyClassroomExists(3600);
-});
-
-// Story: crud:ClassroomList:read_only
-bthread("crud:ClassroomList:read_only", function () {
-
-  verifyClassroomListExists();
-});
-
-// Story: crud:ClassroomAssignments:read_only
-bthread("crud:ClassroomAssignments:read_only", function () {
-  let classroom_id = 3620;
-  verifyClassroomAssignmentsExists(3620);
+  let classroom_id = 3460;
+  verifyClassroomExists(3460);
 });
 
 // Story: crud:EnterpriseTeamMembership:nondet:1:1
 bthread("crud:EnterpriseTeamMembership:nondet:1:1", function () {
-  let enterprise = "enterprise_3630";
-  let enterprise-team = "enterprise-team_3630";
-  let username = "username_3630";
-  addTeamMember("enterprise_3630", "enterprise-team_3630", "username_3630");
-  tryToAddExistingEnterpriseTeamMembership("enterprise_3630", "enterprise-team_3630", "username_3630");
-  verifyEnterpriseTeamMembershipExists("enterprise_3630", "enterprise-team_3630", "username_3630");
-  removeTeamMember("enterprise_3630", "enterprise-team_3630", "username_3630");
-  tryToDeleteANonExistingEnterpriseTeamMembership("enterprise_3630", "enterprise-team_3630", "username_3630");
-  verifyEnterpriseTeamMembershipDoesNotExist("enterprise_3630", "enterprise-team_3630", "username_3630");
+  let enterprise = "enterprise_3480";
+  let enterprise-team = "enterprise-team_3480";
+  let username = "username_3480";
+  addTeamMember("enterprise_3480", "enterprise-team_3480", "username_3480");
+  tryToAddExistingEnterpriseTeamMembership("enterprise_3480", "enterprise-team_3480", "username_3480");
+  verifyEnterpriseTeamMembershipExists("enterprise_3480", "enterprise-team_3480", "username_3480");
+  removeTeamMember("enterprise_3480", "enterprise-team_3480", "username_3480");
+  tryToDeleteANonExistingEnterpriseTeamMembership("enterprise_3480", "enterprise-team_3480", "username_3480");
+  verifyEnterpriseTeamMembershipDoesNotExist("enterprise_3480", "enterprise-team_3480", "username_3480");
 });
 
 // Story: crud:EnterpriseTeamMembership:nondet:1:2
 bthread("crud:EnterpriseTeamMembership:nondet:1:2", function () {
-  let enterprise = "enterprise_3631";
-  let enterprise-team = "enterprise-team_3631";
-  let username = "username_3631";
-  addTeamMember("enterprise_3631", "enterprise-team_3631", "username_3631");
-  tryToAddExistingEnterpriseTeamMembership("enterprise_3631", "enterprise-team_3631", "username_3631");
-  verifyEnterpriseTeamMembershipExists("enterprise_3631", "enterprise-team_3631", "username_3631");
-  removeTeamMember("enterprise_3631", "enterprise-team_3631", "username_3631");
-  tryToDeleteANonExistingEnterpriseTeamMembership("enterprise_3631", "enterprise-team_3631", "username_3631");
-  verifyEnterpriseTeamMembershipDoesNotExist("enterprise_3631", "enterprise-team_3631", "username_3631");
+  let enterprise = "enterprise_3481";
+  let enterprise-team = "enterprise-team_3481";
+  let username = "username_3481";
+  addTeamMember("enterprise_3481", "enterprise-team_3481", "username_3481");
+  tryToAddExistingEnterpriseTeamMembership("enterprise_3481", "enterprise-team_3481", "username_3481");
+  verifyEnterpriseTeamMembershipExists("enterprise_3481", "enterprise-team_3481", "username_3481");
+  removeTeamMember("enterprise_3481", "enterprise-team_3481", "username_3481");
+  tryToDeleteANonExistingEnterpriseTeamMembership("enterprise_3481", "enterprise-team_3481", "username_3481");
+  verifyEnterpriseTeamMembershipDoesNotExist("enterprise_3481", "enterprise-team_3481", "username_3481");
 });
 
 // Story: crud:EnterpriseTeamMembership:nondet:negative:dup-add
 bthread("crud:EnterpriseTeamMembership:nondet:negative:dup-add", function () {
-  let enterprise = "enterprise_3636";
-  let enterprise-team = "enterprise-team_3636";
-  let username = "username_3636";
-  addTeamMember("enterprise_3636", "enterprise-team_3636", "username_3636");
-  verifyEnterpriseTeamMembershipExists("enterprise_3636", "enterprise-team_3636", "username_3636");
-  tryToAddExistingEnterpriseTeamMembership("enterprise_3636", "enterprise-team_3636", "username_3636");
-  verifyEnterpriseTeamMembershipExists("enterprise_3636", "enterprise-team_3636", "username_3636");
+  let enterprise = "enterprise_3486";
+  let enterprise-team = "enterprise-team_3486";
+  let username = "username_3486";
+  addTeamMember("enterprise_3486", "enterprise-team_3486", "username_3486");
+  verifyEnterpriseTeamMembershipExists("enterprise_3486", "enterprise-team_3486", "username_3486");
+  tryToAddExistingEnterpriseTeamMembership("enterprise_3486", "enterprise-team_3486", "username_3486");
+  verifyEnterpriseTeamMembershipExists("enterprise_3486", "enterprise-team_3486", "username_3486");
 });
 
 // Story: monitor:EnterpriseTeamMembership:add
@@ -6141,39 +6441,39 @@ bthread("monitor:EnterpriseTeamMembership:add", function () {
 
 // Story: crud:EnterpriseTeamMembershipBulk:nondet:1:1
 bthread("crud:EnterpriseTeamMembershipBulk:nondet:1:1", function () {
-  let enterprise = "enterprise_3640";
-  let enterprise-team = "enterprise-team_3640";
-  let usernames = "usernames_3640";
-  bulkAddTeamMembers("enterprise_3640", "enterprise-team_3640", "usernames_3640");
-  tryToAddExistingEnterpriseTeamMembershipBulk("enterprise_3640", "enterprise-team_3640", "usernames_3640");
-  verifyEnterpriseTeamMembershipBulkExists("enterprise_3640", "enterprise-team_3640", "usernames_3640");
-  bulkRemoveTeamMembers("enterprise_3640", "enterprise-team_3640", "usernames_3640");
-  tryToDeleteANonExistingEnterpriseTeamMembershipBulk("enterprise_3640", "enterprise-team_3640", "usernames_3640");
-  verifyEnterpriseTeamMembershipBulkDoesNotExist("enterprise_3640", "enterprise-team_3640", "usernames_3640");
+  let enterprise = "enterprise_3490";
+  let enterprise-team = "enterprise-team_3490";
+  let usernames = "usernames_3490";
+  bulkAddTeamMembers("enterprise_3490", "enterprise-team_3490", "usernames_3490");
+  tryToAddExistingEnterpriseTeamMembershipBulk("enterprise_3490", "enterprise-team_3490", "usernames_3490");
+  verifyEnterpriseTeamMembershipBulkExists("enterprise_3490", "enterprise-team_3490", "usernames_3490");
+  bulkRemoveTeamMembers("enterprise_3490", "enterprise-team_3490", "usernames_3490");
+  tryToDeleteANonExistingEnterpriseTeamMembershipBulk("enterprise_3490", "enterprise-team_3490", "usernames_3490");
+  verifyEnterpriseTeamMembershipBulkDoesNotExist("enterprise_3490", "enterprise-team_3490", "usernames_3490");
 });
 
 // Story: crud:EnterpriseTeamMembershipBulk:nondet:1:2
 bthread("crud:EnterpriseTeamMembershipBulk:nondet:1:2", function () {
-  let enterprise = "enterprise_3641";
-  let enterprise-team = "enterprise-team_3641";
-  let usernames = "usernames_3641";
-  bulkAddTeamMembers("enterprise_3641", "enterprise-team_3641", "usernames_3641");
-  tryToAddExistingEnterpriseTeamMembershipBulk("enterprise_3641", "enterprise-team_3641", "usernames_3641");
-  verifyEnterpriseTeamMembershipBulkExists("enterprise_3641", "enterprise-team_3641", "usernames_3641");
-  bulkRemoveTeamMembers("enterprise_3641", "enterprise-team_3641", "usernames_3641");
-  tryToDeleteANonExistingEnterpriseTeamMembershipBulk("enterprise_3641", "enterprise-team_3641", "usernames_3641");
-  verifyEnterpriseTeamMembershipBulkDoesNotExist("enterprise_3641", "enterprise-team_3641", "usernames_3641");
+  let enterprise = "enterprise_3491";
+  let enterprise-team = "enterprise-team_3491";
+  let usernames = "usernames_3491";
+  bulkAddTeamMembers("enterprise_3491", "enterprise-team_3491", "usernames_3491");
+  tryToAddExistingEnterpriseTeamMembershipBulk("enterprise_3491", "enterprise-team_3491", "usernames_3491");
+  verifyEnterpriseTeamMembershipBulkExists("enterprise_3491", "enterprise-team_3491", "usernames_3491");
+  bulkRemoveTeamMembers("enterprise_3491", "enterprise-team_3491", "usernames_3491");
+  tryToDeleteANonExistingEnterpriseTeamMembershipBulk("enterprise_3491", "enterprise-team_3491", "usernames_3491");
+  verifyEnterpriseTeamMembershipBulkDoesNotExist("enterprise_3491", "enterprise-team_3491", "usernames_3491");
 });
 
 // Story: crud:EnterpriseTeamMembershipBulk:nondet:negative:dup-add
 bthread("crud:EnterpriseTeamMembershipBulk:nondet:negative:dup-add", function () {
-  let enterprise = "enterprise_3646";
-  let enterprise-team = "enterprise-team_3646";
-  let usernames = "usernames_3646";
-  bulkAddTeamMembers("enterprise_3646", "enterprise-team_3646", "usernames_3646");
-  verifyEnterpriseTeamMembershipBulkExists("enterprise_3646", "enterprise-team_3646", "usernames_3646");
-  tryToAddExistingEnterpriseTeamMembershipBulk("enterprise_3646", "enterprise-team_3646", "usernames_3646");
-  verifyEnterpriseTeamMembershipBulkExists("enterprise_3646", "enterprise-team_3646", "usernames_3646");
+  let enterprise = "enterprise_3496";
+  let enterprise-team = "enterprise-team_3496";
+  let usernames = "usernames_3496";
+  bulkAddTeamMembers("enterprise_3496", "enterprise-team_3496", "usernames_3496");
+  verifyEnterpriseTeamMembershipBulkExists("enterprise_3496", "enterprise-team_3496", "usernames_3496");
+  tryToAddExistingEnterpriseTeamMembershipBulk("enterprise_3496", "enterprise-team_3496", "usernames_3496");
+  verifyEnterpriseTeamMembershipBulkExists("enterprise_3496", "enterprise-team_3496", "usernames_3496");
 });
 
 // Story: monitor:EnterpriseTeamMembershipBulk:add
@@ -6189,37 +6489,44 @@ bthread("monitor:EnterpriseTeamMembershipBulk:add", function () {
 
 // Story: crud:EnterpriseTeamMembershipList:read_only
 bthread("crud:EnterpriseTeamMembershipList:read_only", function () {
-  let enterprise = "enterprise_3650";
-  let enterprise-team = "enterprise-team_3650";
-  let per-page = "per-page_3650";
-  let page = "page_3650";
-  verifyEnterpriseTeamMembershipListExists("enterprise_3650", "enterprise-team_3650", "per-page_3650", "page_3650");
+  let enterprise = "enterprise_3500";
+  let enterprise-team = "enterprise-team_3500";
+  verifyEnterpriseTeamMembershipListExists("enterprise_3500", "enterprise-team_3500");
 });
 
 // Story: crud:License:read_only
 bthread("crud:License:read_only", function () {
-  let license = "license_3660";
-  verifyLicenseExists("license_3660");
+  let license = "license_3510";
+  verifyLicenseExists("license_3510");
+});
+
+// Story: crud:Licenses:read_only
+bthread("crud:Licenses:read_only", function () {
+  let featured = "featured_3520";
+  let per-page = "per-page_3520";
+  let page = "page_3520";
+  verifyLicensesExists("featured_3520", "per-page_3520", "page_3520");
 });
 
 // Story: crud:RepositoryLicense:read_only
 bthread("crud:RepositoryLicense:read_only", function () {
-  let owner = "owner_3670";
-  let repo = "repo_3670";
-  verifyRepositoryLicenseExists("owner_3670", "repo_3670");
+  let owner = "owner_3530";
+  let repo = "repo_3530";
+  let git-ref = "git-ref_3530";
+  verifyRepositoryLicenseExists("owner_3530", "repo_3530", "git-ref_3530");
 });
 
 // Story: crud:OrgInteractionLimit:read_only
 bthread("crud:OrgInteractionLimit:read_only", function () {
-  let org = "org_3680";
-  verifyOrgInteractionLimitExists("org_3680");
+  let org = "org_3540";
+  verifyOrgInteractionLimitExists("org_3540");
 });
 
 // Story: crud:RepoInteractionLimit:read_only
 bthread("crud:RepoInteractionLimit:read_only", function () {
-  let owner = "owner_3690";
-  let repo = "repo_3690";
-  verifyRepoInteractionLimitExists("owner_3690", "repo_3690");
+  let owner = "owner_3550";
+  let repo = "repo_3550";
+  verifyRepoInteractionLimitExists("owner_3550", "repo_3550");
 });
 
 // Story: crud:UserInteractionLimit:read_only
@@ -6230,59 +6537,59 @@ bthread("crud:UserInteractionLimit:read_only", function () {
 
 // Story: crud:PrivateRegistry:nondet:1:1
 bthread("crud:PrivateRegistry:nondet:1:1", function () {
-  let org = "org_3710";
-  let registry_type = "registry_type_3710";
-  let url = "url_3710";
-  let username = "username_3710";
-  let encrypted_value = "encrypted_value_3710";
-  let key_id = 3710;
-  let visibility = "visibility_3710";
-  let selected_repository_ids = 3710;
-  let secret_name = "secret_name_3710";
-  createOrgPrivateRegistry("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
-  tryToAddExistingPrivateRegistry("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
-  verifyPrivateRegistryExists("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
-  updateOrgPrivateRegistry("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
-  deleteOrgPrivateRegistry("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
-  tryToDeleteANonExistingPrivateRegistry("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
-  verifyPrivateRegistryDoesNotExist("org_3710", "registry_type_3710", "url_3710", "username_3710", "encrypted_value_3710", 3710, "visibility_3710", 3710, "secret_name_3710");
+  let org = "org_3570";
+  let url = "url_3570";
+  let registry_type = "registry_type_3570";
+  let encrypted_value = "encrypted_value_3570";
+  let key_id = 3570;
+  let visibility = "visibility_3570";
+  let username = "username_3570";
+  let selected_repository_ids = 3570;
+  let secret_name = "secret_name_3570";
+  createOrgPrivateRegistry("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
+  tryToAddExistingPrivateRegistry("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
+  verifyPrivateRegistryExists("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
+  updateOrgPrivateRegistry("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
+  deleteOrgPrivateRegistry("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
+  tryToDeleteANonExistingPrivateRegistry("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
+  verifyPrivateRegistryDoesNotExist("org_3570", "url_3570", "registry_type_3570", "encrypted_value_3570", 3570, "visibility_3570", "username_3570", 3570, "secret_name_3570");
 });
 
 // Story: crud:PrivateRegistry:nondet:1:2
 bthread("crud:PrivateRegistry:nondet:1:2", function () {
-  let org = "org_3711";
-  let registry_type = "registry_type_3711";
-  let url = "url_3711";
-  let username = "username_3711";
-  let encrypted_value = "encrypted_value_3711";
-  let key_id = 3711;
-  let visibility = "visibility_3711";
-  let selected_repository_ids = 3711;
-  let secret_name = "secret_name_3711";
-  createOrgPrivateRegistry("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
-  tryToAddExistingPrivateRegistry("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
-  updateOrgPrivateRegistry("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
-  verifyPrivateRegistryExists("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
-  deleteOrgPrivateRegistry("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
-  tryToDeleteANonExistingPrivateRegistry("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
-  verifyPrivateRegistryDoesNotExist("org_3711", "registry_type_3711", "url_3711", "username_3711", "encrypted_value_3711", 3711, "visibility_3711", 3711, "secret_name_3711");
+  let org = "org_3571";
+  let url = "url_3571";
+  let registry_type = "registry_type_3571";
+  let encrypted_value = "encrypted_value_3571";
+  let key_id = 3571;
+  let visibility = "visibility_3571";
+  let username = "username_3571";
+  let selected_repository_ids = 3571;
+  let secret_name = "secret_name_3571";
+  createOrgPrivateRegistry("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
+  tryToAddExistingPrivateRegistry("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
+  updateOrgPrivateRegistry("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
+  verifyPrivateRegistryExists("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
+  deleteOrgPrivateRegistry("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
+  tryToDeleteANonExistingPrivateRegistry("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
+  verifyPrivateRegistryDoesNotExist("org_3571", "url_3571", "registry_type_3571", "encrypted_value_3571", 3571, "visibility_3571", "username_3571", 3571, "secret_name_3571");
 });
 
 // Story: crud:PrivateRegistry:nondet:negative:dup-add
 bthread("crud:PrivateRegistry:nondet:negative:dup-add", function () {
-  let org = "org_3716";
-  let registry_type = "registry_type_3716";
-  let url = "url_3716";
-  let username = "username_3716";
-  let encrypted_value = "encrypted_value_3716";
-  let key_id = 3716;
-  let visibility = "visibility_3716";
-  let selected_repository_ids = 3716;
-  let secret_name = "secret_name_3716";
-  createOrgPrivateRegistry("org_3716", "registry_type_3716", "url_3716", "username_3716", "encrypted_value_3716", 3716, "visibility_3716", 3716, "secret_name_3716");
-  verifyPrivateRegistryExists("org_3716", "registry_type_3716", "url_3716", "username_3716", "encrypted_value_3716", 3716, "visibility_3716", 3716, "secret_name_3716");
-  tryToAddExistingPrivateRegistry("org_3716", "registry_type_3716", "url_3716", "username_3716", "encrypted_value_3716", 3716, "visibility_3716", 3716, "secret_name_3716");
-  verifyPrivateRegistryExists("org_3716", "registry_type_3716", "url_3716", "username_3716", "encrypted_value_3716", 3716, "visibility_3716", 3716, "secret_name_3716");
+  let org = "org_3576";
+  let url = "url_3576";
+  let registry_type = "registry_type_3576";
+  let encrypted_value = "encrypted_value_3576";
+  let key_id = 3576;
+  let visibility = "visibility_3576";
+  let username = "username_3576";
+  let selected_repository_ids = 3576;
+  let secret_name = "secret_name_3576";
+  createOrgPrivateRegistry("org_3576", "url_3576", "registry_type_3576", "encrypted_value_3576", 3576, "visibility_3576", "username_3576", 3576, "secret_name_3576");
+  verifyPrivateRegistryExists("org_3576", "url_3576", "registry_type_3576", "encrypted_value_3576", 3576, "visibility_3576", "username_3576", 3576, "secret_name_3576");
+  tryToAddExistingPrivateRegistry("org_3576", "url_3576", "registry_type_3576", "encrypted_value_3576", 3576, "visibility_3576", "username_3576", 3576, "secret_name_3576");
+  verifyPrivateRegistryExists("org_3576", "url_3576", "registry_type_3576", "encrypted_value_3576", 3576, "visibility_3576", "username_3576", 3576, "secret_name_3576");
 });
 
 // Story: crud:PrivateRegistry:nondet:existing:update
@@ -6309,41 +6616,41 @@ bthread("monitor:PrivateRegistry:add", function () {
 
 // Story: crud:NetworkConfiguration:nondet:1:1
 bthread("crud:NetworkConfiguration:nondet:1:1", function () {
-  let org = "org_3720";
-  let name = "name_3720";
-  let network_configuration_id = 3720;
-  createNetworkConfiguration("org_3720", "name_3720", 3720);
-  tryToAddExistingNetworkConfiguration("org_3720", "name_3720", 3720);
-  verifyNetworkConfigurationExists("org_3720", "name_3720", 3720);
-  updateNetworkConfiguration("org_3720", "name_3720", 3720);
-  deleteNetworkConfiguration("org_3720", "name_3720", 3720);
-  tryToDeleteANonExistingNetworkConfiguration("org_3720", "name_3720", 3720);
-  verifyNetworkConfigurationDoesNotExist("org_3720", "name_3720", 3720);
+  let org = "org_3580";
+  let name = "name_3580";
+  let network_configuration_id = 3580;
+  createNetworkConfiguration("org_3580", "name_3580", 3580);
+  tryToAddExistingNetworkConfiguration("org_3580", "name_3580", 3580);
+  verifyNetworkConfigurationExists("org_3580", "name_3580", 3580);
+  updateNetworkConfiguration("org_3580", "name_3580", 3580);
+  deleteNetworkConfiguration("org_3580", "name_3580", 3580);
+  tryToDeleteANonExistingNetworkConfiguration("org_3580", "name_3580", 3580);
+  verifyNetworkConfigurationDoesNotExist("org_3580", "name_3580", 3580);
 });
 
 // Story: crud:NetworkConfiguration:nondet:1:2
 bthread("crud:NetworkConfiguration:nondet:1:2", function () {
-  let org = "org_3721";
-  let name = "name_3721";
-  let network_configuration_id = 3721;
-  createNetworkConfiguration("org_3721", "name_3721", 3721);
-  tryToAddExistingNetworkConfiguration("org_3721", "name_3721", 3721);
-  updateNetworkConfiguration("org_3721", "name_3721", 3721);
-  verifyNetworkConfigurationExists("org_3721", "name_3721", 3721);
-  deleteNetworkConfiguration("org_3721", "name_3721", 3721);
-  tryToDeleteANonExistingNetworkConfiguration("org_3721", "name_3721", 3721);
-  verifyNetworkConfigurationDoesNotExist("org_3721", "name_3721", 3721);
+  let org = "org_3581";
+  let name = "name_3581";
+  let network_configuration_id = 3581;
+  createNetworkConfiguration("org_3581", "name_3581", 3581);
+  tryToAddExistingNetworkConfiguration("org_3581", "name_3581", 3581);
+  updateNetworkConfiguration("org_3581", "name_3581", 3581);
+  verifyNetworkConfigurationExists("org_3581", "name_3581", 3581);
+  deleteNetworkConfiguration("org_3581", "name_3581", 3581);
+  tryToDeleteANonExistingNetworkConfiguration("org_3581", "name_3581", 3581);
+  verifyNetworkConfigurationDoesNotExist("org_3581", "name_3581", 3581);
 });
 
 // Story: crud:NetworkConfiguration:nondet:negative:dup-add
 bthread("crud:NetworkConfiguration:nondet:negative:dup-add", function () {
-  let org = "org_3726";
-  let name = "name_3726";
-  let network_configuration_id = 3726;
-  createNetworkConfiguration("org_3726", "name_3726", 3726);
-  verifyNetworkConfigurationExists("org_3726", "name_3726", 3726);
-  tryToAddExistingNetworkConfiguration("org_3726", "name_3726", 3726);
-  verifyNetworkConfigurationExists("org_3726", "name_3726", 3726);
+  let org = "org_3586";
+  let name = "name_3586";
+  let network_configuration_id = 3586;
+  createNetworkConfiguration("org_3586", "name_3586", 3586);
+  verifyNetworkConfigurationExists("org_3586", "name_3586", 3586);
+  tryToAddExistingNetworkConfiguration("org_3586", "name_3586", 3586);
+  verifyNetworkConfigurationExists("org_3586", "name_3586", 3586);
 });
 
 // Story: crud:NetworkConfiguration:nondet:existing:update
@@ -6370,28 +6677,28 @@ bthread("monitor:NetworkConfiguration:add", function () {
 
 // Story: crud:NetworkSettings:read_only
 bthread("crud:NetworkSettings:read_only", function () {
-  let org = "org_3730";
-  let network_settings_id = 3730;
-  verifyNetworkSettingsExists("org_3730", 3730);
+  let org = "org_3590";
+  let network_settings_id = 3590;
+  verifyNetworkSettingsExists("org_3590", 3590);
 });
 
-// Story: crud:DependencyGraphComparison:read_only
-bthread("crud:DependencyGraphComparison:read_only", function () {
-  let owner = "owner_3750";
-  let repo = "repo_3750";
-  let basehead = "basehead_3750";
-  verifyDependencyGraphComparisonExists("owner_3750", "repo_3750", "basehead_3750");
+// Story: crud:DependencyGraphDiff:read_only
+bthread("crud:DependencyGraphDiff:read_only", function () {
+  let owner = "owner_3610";
+  let repo = "repo_3610";
+  let basehead = "basehead_3610";
+  verifyDependencyGraphDiffExists("owner_3610", "repo_3610", "basehead_3610");
 });
 
 // Story: crud:DependencyGraphSBOM:read_only
 bthread("crud:DependencyGraphSBOM:read_only", function () {
-  let owner = "owner_3760";
-  let repo = "repo_3760";
-  verifyDependencyGraphSBOMExists("owner_3760", "repo_3760");
+  let owner = "owner_3620";
+  let repo = "repo_3620";
+  verifyDependencyGraphSBOMExists("owner_3620", "repo_3620");
 });
 
 // Story: crud:CodeOfConduct:read_only
 bthread("crud:CodeOfConduct:read_only", function () {
-  let key = "key_3770";
-  verifyCodeOfConductExists("key_3770");
+  let key = "key_3630";
+  verifyCodeOfConductExists("key_3630");
 });

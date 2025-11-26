@@ -12,12 +12,10 @@
           "name": "createDrug",
           "method": "POST",
           "path": "/drugs",
-          "descriptionTemplate": "Create drug {name}",
-          "params": [
-            "name"
-          ],
+          "descriptionTemplate": "Create drug {id}",
+          "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "get": {
@@ -27,7 +25,8 @@
           "descriptionTemplate": "Get drug {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateDrug",
@@ -38,7 +37,7 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -48,14 +47,9 @@
           "descriptionTemplate": "Delete drug {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create drug \\{name\\}",
-        "get": "Get drug \\{id\\}",
-        "update": "Update drug \\{id\\}",
-        "delete": "Delete drug \\{id\\}"
       }
     },
     "Patient": {
@@ -68,12 +62,10 @@
           "name": "createPatient",
           "method": "POST",
           "path": "/patients",
-          "descriptionTemplate": "Create patient {name}",
-          "params": [
-            "name"
-          ],
+          "descriptionTemplate": "Create patient {id}",
+          "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "get": {
@@ -83,7 +75,8 @@
           "descriptionTemplate": "Get patient {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updatePatient",
@@ -94,7 +87,7 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -104,14 +97,9 @@
           "descriptionTemplate": "Delete patient {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create patient \\{name\\}",
-        "get": "Get patient \\{id\\}",
-        "update": "Update patient \\{id\\}",
-        "delete": "Delete patient \\{id\\}"
       }
     },
     "Order": {
@@ -124,12 +112,10 @@
           "name": "createOrder",
           "method": "POST",
           "path": "/orders",
-          "descriptionTemplate": "Create order {name}",
-          "params": [
-            "name"
-          ],
+          "descriptionTemplate": "Create order {id}",
+          "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "get": {
@@ -139,7 +125,8 @@
           "descriptionTemplate": "Get order {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateOrder",
@@ -150,7 +137,7 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -160,14 +147,9 @@
           "descriptionTemplate": "Delete order {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create order \\{name\\}",
-        "get": "Get order \\{id\\}",
-        "update": "Update order \\{id\\}",
-        "delete": "Delete order \\{id\\}"
       }
     },
     "Prescription": {
@@ -180,12 +162,10 @@
           "name": "createPrescription",
           "method": "POST",
           "path": "/prescriptions",
-          "descriptionTemplate": "Create prescription {name}",
-          "params": [
-            "name"
-          ],
+          "descriptionTemplate": "Create prescription {id}",
+          "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "get": {
@@ -195,7 +175,8 @@
           "descriptionTemplate": "Get prescription {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updatePrescription",
@@ -206,7 +187,7 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -216,14 +197,9 @@
           "descriptionTemplate": "Delete prescription {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create prescription \\{name\\}",
-        "get": "Get prescription \\{id\\}",
-        "update": "Update prescription \\{id\\}",
-        "delete": "Delete prescription \\{id\\}"
       }
     },
     "Inventory": {
@@ -237,9 +213,7 @@
           "method": "POST",
           "path": "/inventory",
           "descriptionTemplate": "Create inventory {ndc}",
-          "params": [
-            "ndc"
-          ],
+          "params": [],
           "bodyTemplate": {
             "ndc": "{ndc}"
           }
@@ -251,7 +225,8 @@
           "descriptionTemplate": "Get inventory {ndc}",
           "params": [
             "ndc"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateInventory",
@@ -272,14 +247,9 @@
           "descriptionTemplate": "Delete inventory {ndc}",
           "params": [
             "ndc"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create inventory \\{ndc\\}",
-        "get": "Get inventory \\{ndc\\}",
-        "update": "Update inventory \\{ndc\\}",
-        "delete": "Delete inventory \\{ndc\\}"
       }
     }
   },

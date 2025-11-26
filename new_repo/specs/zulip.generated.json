@@ -1,218 +1,2254 @@
 {
-  "base_url": "https://{subdomain}.zulipchat.com/api/v1",
+  "sut": "zulip",
+  "base_url": "http://localhost:8080",
   "entities": {
-    "Activity": {
-      "displayName": "activity",
+    "Attachment": {
+      "displayName": "attachment",
+      "params": [
+        "attachment_id"
+      ],
       "operations": {
         "get": {
-          "descriptionTemplate": "Get activity",
+          "name": "getAttachments",
           "method": "GET",
-          "name": "getActivity",
+          "path": "/attachments",
+          "descriptionTemplate": "Get attachments",
           "params": [],
-          "path": "/activity"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {}
-    },
-    "ApiKey": {
-      "displayName": "apikey",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "password": "{password}",
-            "username": "{username}"
-          },
-          "descriptionTemplate": "Fetch an API key for user {username}",
-          "method": "POST",
-          "name": "fetchApiKey",
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "removeAttachment",
+          "method": "DELETE",
+          "path": "/attachments/{attachment_id}",
+          "descriptionTemplate": "Delete attachment with id {attachment_id}",
           "params": [
-            "username",
-            "password"
+            "attachment_id"
           ],
-          "path": "/fetch_api_key"
-        }
-      },
-      "params": [
-        "username",
-        "password"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Fetch an API key for user (.+)",
-          "name": "waitForAnyApiKeyFetched"
+          "bodyTemplate": {}
         }
       }
     },
-    "DevApiKey": {
-      "displayName": "devapikey",
-      "operations": {
-        "add": {
-          "bodyTemplate": {
-            "username": "{username}"
-          },
-          "descriptionTemplate": "Fetch a development API key for user {username}",
-          "method": "POST",
-          "name": "devFetchApiKey",
-          "params": [
-            "username"
-          ],
-          "path": "/dev_fetch_api_key"
-        }
-      },
+    "User": {
+      "displayName": "user",
       "params": [
-        "username"
+        "user_id",
+        "email",
+        "user_id_or_email"
       ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Fetch a development API key for user (.+)",
-          "name": "waitForAnyDevApiKeyFetched"
-        }
-      }
-    },
-    "Events": {
-      "displayName": "events",
       "operations": {
         "get": {
-          "descriptionTemplate": "Get events from queue {queue_id} after event {last_event_id}",
+          "name": "getUser",
           "method": "GET",
+          "path": "/users/{user_id}",
+          "descriptionTemplate": "Get user with id {user_id}",
+          "params": [
+            "user_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByEmail": {
+          "name": "getUserByEmail",
+          "method": "GET",
+          "path": "/users/{email}",
+          "descriptionTemplate": "Get user with email {email}",
+          "params": [
+            "email"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createUser",
+          "method": "POST",
+          "path": "/users",
+          "descriptionTemplate": "Create user with email {email} and full_name {full_name}",
+          "params": [],
+          "bodyTemplate": {
+            "email": "{email}",
+            "password": "{password}",
+            "full_name": "{full_name}"
+          }
+        },
+        "update": {
+          "name": "updateUser",
+          "method": "PATCH",
+          "path": "/users/{user_id}",
+          "descriptionTemplate": "Update user with id {user_id}",
+          "params": [
+            "user_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "updateByEmail": {
+          "name": "updateUserByEmail",
+          "method": "PATCH",
+          "path": "/users/{email}",
+          "descriptionTemplate": "Update user with email {email}",
+          "params": [
+            "email"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deactivateUser",
+          "method": "DELETE",
+          "path": "/users/{user_id}",
+          "descriptionTemplate": "Deactivate user with id {user_id}",
+          "params": [
+            "user_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "reactivate": {
+          "name": "reactivateUser",
+          "method": "POST",
+          "path": "/users/{user_id}/reactivate",
+          "descriptionTemplate": "Reactivate user with id {user_id}",
+          "params": [
+            "user_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UserStatus": {
+      "displayName": "user status",
+      "params": [
+        "user_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserStatus",
+          "method": "GET",
+          "path": "/users/{user_id}/status",
+          "descriptionTemplate": "Get status for user with id {user_id}",
+          "params": [
+            "user_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateStatusForUser",
+          "method": "POST",
+          "path": "/users/{user_id}/status",
+          "descriptionTemplate": "Update status for user with id {user_id}",
+          "params": [
+            "user_id",
+            "status_text",
+            "emoji_name",
+            "emoji_code",
+            "reaction_type"
+          ],
+          "bodyTemplate": {
+            "status_text": "{status_text}",
+            "emoji_name": "{emoji_name}",
+            "emoji_code": "{emoji_code}",
+            "reaction_type": "{reaction_type}"
+          }
+        }
+      }
+    },
+    "OwnUserStatus": {
+      "displayName": "own user status",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updateStatus",
+          "method": "POST",
+          "path": "/users/me/status",
+          "descriptionTemplate": "Update own user status",
+          "params": [
+            "status_text",
+            "emoji_name",
+            "emoji_code",
+            "reaction_type"
+          ],
+          "bodyTemplate": {
+            "status_text": "{status_text}",
+            "emoji_name": "{emoji_name}",
+            "emoji_code": "{emoji_code}",
+            "reaction_type": "{reaction_type}"
+          }
+        }
+      }
+    },
+    "UserPresence": {
+      "displayName": "user presence",
+      "params": [
+        "user_id_or_email"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserPresence",
+          "method": "GET",
+          "path": "/users/{user_id_or_email}/presence",
+          "descriptionTemplate": "Get presence for user {user_id_or_email}",
+          "params": [
+            "user_id_or_email"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OwnUserPresence": {
+      "displayName": "own user presence",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updatePresence",
+          "method": "POST",
+          "path": "/users/me/presence",
+          "descriptionTemplate": "Update own user presence",
+          "params": [
+            "last_update_id",
+            "history_limit_days",
+            "new_user_input",
+            "ping_only",
+            "slim_presence",
+            "status"
+          ],
+          "bodyTemplate": {
+            "last_update_id": "{last_update_id}",
+            "history_limit_days": "{history_limit_days}",
+            "new_user_input": "{new_user_input}",
+            "ping_only": "{ping_only}",
+            "slim_presence": "{slim_presence}",
+            "status": "{status}"
+          }
+        }
+      }
+    },
+    "AlertWords": {
+      "displayName": "alert words",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getAlertWords",
+          "method": "GET",
+          "path": "/users/me/alert_words",
+          "descriptionTemplate": "Get all alert words",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "addAlertWords",
+          "method": "POST",
+          "path": "/users/me/alert_words",
+          "descriptionTemplate": "Add alert words {alert_words}",
+          "params": [
+            "alert_words"
+          ],
+          "bodyTemplate": {
+            "alert_words": "{alert_words}"
+          }
+        },
+        "delete": {
+          "name": "removeAlertWords",
+          "method": "DELETE",
+          "path": "/users/me/alert_words",
+          "descriptionTemplate": "Remove alert words {alert_words}",
+          "params": [
+            "alert_words"
+          ],
+          "bodyTemplate": {
+            "alert_words": "{alert_words}"
+          }
+        }
+      }
+    },
+    "MutedUser": {
+      "displayName": "muted user",
+      "params": [
+        "muted_user_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "muteUser",
+          "method": "POST",
+          "path": "/users/me/muted_users/{muted_user_id}",
+          "descriptionTemplate": "Mute user with id {muted_user_id}",
+          "params": [
+            "muted_user_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "unmuteUser",
+          "method": "DELETE",
+          "path": "/users/me/muted_users/{muted_user_id}",
+          "descriptionTemplate": "Unmute user with id {muted_user_id}",
+          "params": [
+            "muted_user_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ApnsDeviceToken": {
+      "displayName": "APNs device token",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "addApnsToken",
+          "method": "POST",
+          "path": "/users/me/apns_device_token",
+          "descriptionTemplate": "Add APNs device token {token} for appid {appid}",
+          "params": [
+            "token",
+            "appid"
+          ],
+          "bodyTemplate": {
+            "token": "{token}",
+            "appid": "{appid}"
+          }
+        },
+        "delete": {
+          "name": "removeApnsToken",
+          "method": "DELETE",
+          "path": "/users/me/apns_device_token",
+          "descriptionTemplate": "Remove APNs device token {token}",
+          "params": [
+            "token"
+          ],
+          "bodyTemplate": {
+            "token": "{token}"
+          }
+        }
+      }
+    },
+    "FcmToken": {
+      "displayName": "FCM registration token",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "addFcmToken",
+          "method": "POST",
+          "path": "/users/me/android_gcm_reg_id",
+          "descriptionTemplate": "Add FCM registration token {token}",
+          "params": [
+            "token"
+          ],
+          "bodyTemplate": {
+            "token": "{token}"
+          }
+        },
+        "delete": {
+          "name": "removeFcmToken",
+          "method": "DELETE",
+          "path": "/users/me/android_gcm_reg_id",
+          "descriptionTemplate": "Remove FCM registration token {token}",
+          "params": [
+            "token"
+          ],
+          "bodyTemplate": {
+            "token": "{token}"
+          }
+        }
+      }
+    },
+    "TypingStatus": {
+      "displayName": "typing status",
+      "params": [],
+      "operations": {
+        "set": {
+          "name": "setTypingStatus",
+          "method": "POST",
+          "path": "/typing",
+          "descriptionTemplate": "Set typing status with op {op} and type {type}",
+          "params": [
+            "op",
+            "type",
+            "to",
+            "stream_id",
+            "topic"
+          ],
+          "bodyTemplate": {
+            "op": "{op}",
+            "type": "{type}",
+            "to": "{to}",
+            "stream_id": "{stream_id}",
+            "topic": "{topic}"
+          }
+        }
+      }
+    },
+    "MessageTypingStatus": {
+      "displayName": "message typing status",
+      "params": [
+        "message_id"
+      ],
+      "operations": {
+        "set": {
+          "name": "setTypingStatusForMessageEdit",
+          "method": "POST",
+          "path": "/messages/{message_id}/typing",
+          "descriptionTemplate": "Set typing status for message edit with message_id {message_id} and op {op}",
+          "params": [
+            "message_id",
+            "op"
+          ],
+          "bodyTemplate": {
+            "op": "{op}"
+          }
+        }
+      }
+    },
+    "UserGroup": {
+      "displayName": "user group",
+      "params": [
+        "user_group_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createUserGroup",
+          "method": "POST",
+          "path": "/user_groups/create",
+          "descriptionTemplate": "Create user group with name {name} and description {description}",
+          "params": [
+            "name",
+            "description",
+            "members",
+            "subgroups",
+            "can_add_members_group",
+            "can_join_group",
+            "can_leave_group",
+            "can_manage_group",
+            "can_mention_group",
+            "can_remove_members_group"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "members": "{members}",
+            "subgroups": "{subgroups}",
+            "can_add_members_group": "{can_add_members_group}",
+            "can_join_group": "{can_join_group}",
+            "can_leave_group": "{can_leave_group}",
+            "can_manage_group": "{can_manage_group}",
+            "can_mention_group": "{can_mention_group}",
+            "can_remove_members_group": "{can_remove_members_group}"
+          }
+        },
+        "update": {
+          "name": "updateUserGroup",
+          "method": "PATCH",
+          "path": "/user_groups/{user_group_id}",
+          "descriptionTemplate": "Update user group with id {user_group_id}",
+          "params": [
+            "user_group_id",
+            "name",
+            "description",
+            "can_add_members_group",
+            "can_join_group",
+            "can_leave_group",
+            "can_manage_group",
+            "can_mention_group",
+            "can_remove_members_group",
+            "deactivated"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "can_add_members_group": "{can_add_members_group}",
+            "can_join_group": "{can_join_group}",
+            "can_leave_group": "{can_leave_group}",
+            "can_manage_group": "{can_manage_group}",
+            "can_mention_group": "{can_mention_group}",
+            "can_remove_members_group": "{can_remove_members_group}",
+            "deactivated": "{deactivated}"
+          }
+        },
+        "delete": {
+          "name": "deactivateUserGroup",
+          "method": "POST",
+          "path": "/user_groups/{user_group_id}/deactivate",
+          "descriptionTemplate": "Deactivate user group with id {user_group_id}",
+          "params": [
+            "user_group_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getUserGroups",
+          "method": "GET",
+          "path": "/user_groups",
+          "descriptionTemplate": "Get user groups",
+          "params": [
+            "include_deactivated_groups"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UserGroupMembers": {
+      "displayName": "user group members",
+      "params": [
+        "user_group_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserGroupMembers",
+          "method": "GET",
+          "path": "/user_groups/{user_group_id}/members",
+          "descriptionTemplate": "Get members of user group with id {user_group_id}",
+          "params": [
+            "user_group_id",
+            "direct_member_only"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateUserGroupMembers",
+          "method": "POST",
+          "path": "/user_groups/{user_group_id}/members",
+          "descriptionTemplate": "Update members of user group with id {user_group_id}",
+          "params": [
+            "user_group_id",
+            "delete",
+            "add",
+            "delete_subgroups",
+            "add_subgroups"
+          ],
+          "bodyTemplate": {
+            "delete": "{delete}",
+            "add": "{add}",
+            "delete_subgroups": "{delete_subgroups}",
+            "add_subgroups": "{add_subgroups}"
+          }
+        }
+      }
+    },
+    "UserGroupSubgroups": {
+      "displayName": "user group subgroups",
+      "params": [
+        "user_group_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserGroupSubgroups",
+          "method": "GET",
+          "path": "/user_groups/{user_group_id}/subgroups",
+          "descriptionTemplate": "Get subgroups of user group with id {user_group_id}",
+          "params": [
+            "user_group_id",
+            "direct_subgroup_only"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateUserGroupSubgroups",
+          "method": "POST",
+          "path": "/user_groups/{user_group_id}/subgroups",
+          "descriptionTemplate": "Update subgroups of user group with id {user_group_id}",
+          "params": [
+            "user_group_id",
+            "delete",
+            "add"
+          ],
+          "bodyTemplate": {
+            "delete": "{delete}",
+            "add": "{add}"
+          }
+        }
+      }
+    },
+    "UserGroupMembership": {
+      "displayName": "user group membership",
+      "params": [
+        "user_group_id",
+        "user_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIsUserGroupMember",
+          "method": "GET",
+          "path": "/user_groups/{user_group_id}/members/{user_id}",
+          "descriptionTemplate": "Get membership status of user {user_id} in user group {user_group_id}",
+          "params": [
+            "user_group_id",
+            "user_id",
+            "direct_member_only"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OwnUser": {
+      "displayName": "own user",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getOwnUser",
+          "method": "GET",
+          "path": "/users/me",
+          "descriptionTemplate": "Get own user",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deactivateOwnUser",
+          "method": "DELETE",
+          "path": "/users/me",
+          "descriptionTemplate": "Deactivate own user",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Settings": {
+      "displayName": "settings",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updateSettings",
+          "method": "PATCH",
+          "path": "/settings",
+          "descriptionTemplate": "Update settings",
+          "params": [
+            "full_name",
+            "email",
+            "old_password",
+            "new_password",
+            "twenty_four_hour_time",
+            "web_mark_read_on_scroll_policy",
+            "web_channel_default_view",
+            "starred_message_counts",
+            "receives_typing_notifications",
+            "web_suggest_update_timezone",
+            "fluid_layout_width",
+            "high_contrast_mode",
+            "web_font_size_px",
+            "web_line_height_percent",
+            "color_scheme",
+            "enable_drafts_synchronization",
+            "translate_emoticons",
+            "display_emoji_reaction_users",
+            "web_escape_navigates_to_home_view",
+            "left_side_userlist",
+            "demote_inactive_streams",
+            "user_list_style",
+            "web_animate_image_previews",
+            "web_stream_unreads_count_display_policy",
+            "hide_ai_features",
+            "web_left_sidebar_show_channel_folders",
+            "web_left_sidebar_unreads_count_summary",
+            "timezone",
+            "enable_stream_desktop_notifications",
+            "enable_stream_email_notifications",
+            "enable_stream_push_notifications",
+            "enable_stream_audible_notifications",
+            "enable_desktop_notifications",
+            "enable_sounds",
+            "email_notifications_batching_period_seconds",
+            "enable_offline_email_notifications",
+            "enable_offline_push_notifications",
+            "enable_online_push_notifications",
+            "enable_followed_topic_desktop_notifications",
+            "enable_followed_topic_email_notifications",
+            "enable_followed_topic_push_notifications",
+            "enable_followed_topic_audible_notifications",
+            "enable_digest_emails",
+            "enable_marketing_emails",
+            "enable_login_emails",
+            "message_content_in_email_notifications",
+            "pm_content_in_desktop_notifications",
+            "wildcard_mentions_notify",
+            "enable_followed_topic_wildcard_mentions_notify",
+            "desktop_icon_count_display",
+            "realm_name_in_email_notifications_policy",
+            "automatically_follow_topics_policy",
+            "automatically_unmute_topics_in_muted_streams_policy",
+            "automatically_follow_topics_where_mentioned",
+            "resolved_topic_notice_auto_read_policy",
+            "presence_enabled",
+            "enter_sends",
+            "send_private_typing_notifications",
+            "send_stream_typing_notifications",
+            "send_read_receipts",
+            "allow_private_data_export",
+            "email_address_visibility",
+            "web_navigate_to_sent_message"
+          ],
+          "bodyTemplate": {
+            "full_name": "{full_name}",
+            "email": "{email}",
+            "old_password": "{old_password}",
+            "new_password": "{new_password}",
+            "twenty_four_hour_time": "{twenty_four_hour_time}",
+            "web_mark_read_on_scroll_policy": "{web_mark_read_on_scroll_policy}",
+            "web_channel_default_view": "{web_channel_default_view}",
+            "starred_message_counts": "{starred_message_counts}",
+            "receives_typing_notifications": "{receives_typing_notifications}",
+            "web_suggest_update_timezone": "{web_suggest_update_timezone}",
+            "fluid_layout_width": "{fluid_layout_width}",
+            "high_contrast_mode": "{high_contrast_mode}",
+            "web_font_size_px": "{web_font_size_px}",
+            "web_line_height_percent": "{web_line_height_percent}",
+            "color_scheme": "{color_scheme}",
+            "enable_drafts_synchronization": "{enable_drafts_synchronization}",
+            "translate_emoticons": "{translate_emoticons}",
+            "display_emoji_reaction_users": "{display_emoji_reaction_users}",
+            "web_escape_navigates_to_home_view": "{web_escape_navigates_to_home_view}",
+            "left_side_userlist": "{left_side_userlist}",
+            "demote_inactive_streams": "{demote_inactive_streams}",
+            "user_list_style": "{user_list_style}",
+            "web_animate_image_previews": "{web_animate_image_previews}",
+            "web_stream_unreads_count_display_policy": "{web_stream_unreads_count_display_policy}",
+            "hide_ai_features": "{hide_ai_features}",
+            "web_left_sidebar_show_channel_folders": "{web_left_sidebar_show_channel_folders}",
+            "web_left_sidebar_unreads_count_summary": "{web_left_sidebar_unreads_count_summary}",
+            "timezone": "{timezone}",
+            "enable_stream_desktop_notifications": "{enable_stream_desktop_notifications}",
+            "enable_stream_email_notifications": "{enable_stream_email_notifications}",
+            "enable_stream_push_notifications": "{enable_stream_push_notifications}",
+            "enable_stream_audible_notifications": "{enable_stream_audible_notifications}",
+            "enable_desktop_notifications": "{enable_desktop_notifications}",
+            "enable_sounds": "{enable_sounds}",
+            "email_notifications_batching_period_seconds": "{email_notifications_batching_period_seconds}",
+            "enable_offline_email_notifications": "{enable_offline_email_notifications}",
+            "enable_offline_push_notifications": "{enable_offline_push_notifications}",
+            "enable_online_push_notifications": "{enable_online_push_notifications}",
+            "enable_followed_topic_desktop_notifications": "{enable_followed_topic_desktop_notifications}",
+            "enable_followed_topic_email_notifications": "{enable_followed_topic_email_notifications}",
+            "enable_followed_topic_push_notifications": "{enable_followed_topic_push_notifications}",
+            "enable_followed_topic_audible_notifications": "{enable_followed_topic_audible_notifications}",
+            "enable_digest_emails": "{enable_digest_emails}",
+            "enable_marketing_emails": "{enable_marketing_emails}",
+            "enable_login_emails": "{enable_login_emails}",
+            "message_content_in_email_notifications": "{message_content_in_email_notifications}",
+            "pm_content_in_desktop_notifications": "{pm_content_in_desktop_notifications}",
+            "wildcard_mentions_notify": "{wildcard_mentions_notify}",
+            "enable_followed_topic_wildcard_mentions_notify": "{enable_followed_topic_wildcard_mentions_notify}",
+            "desktop_icon_count_display": "{desktop_icon_count_display}",
+            "realm_name_in_email_notifications_policy": "{realm_name_in_email_notifications_policy}",
+            "automatically_follow_topics_policy": "{automatically_follow_topics_policy}",
+            "automatically_unmute_topics_in_muted_streams_policy": "{automatically_unmute_topics_in_muted_streams_policy}",
+            "automatically_follow_topics_where_mentioned": "{automatically_follow_topics_where_mentioned}",
+            "resolved_topic_notice_auto_read_policy": "{resolved_topic_notice_auto_read_policy}",
+            "presence_enabled": "{presence_enabled}",
+            "enter_sends": "{enter_sends}",
+            "send_private_typing_notifications": "{send_private_typing_notifications}",
+            "send_stream_typing_notifications": "{send_stream_typing_notifications}",
+            "send_read_receipts": "{send_read_receipts}",
+            "allow_private_data_export": "{allow_private_data_export}",
+            "email_address_visibility": "{email_address_visibility}",
+            "web_navigate_to_sent_message": "{web_navigate_to_sent_message}"
+          }
+        }
+      }
+    },
+    "Channel": {
+      "displayName": "channel",
+      "params": [
+        "stream_id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createChannel",
+          "method": "POST",
+          "path": "/channels/create",
+          "descriptionTemplate": "Create channel {name} with subscribers {subscribers}",
+          "params": [
+            "name",
+            "subscribers"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "subscribers": "{subscribers}",
+            "description": "{description}",
+            "announce": "{announce}",
+            "invite_only": "{invite_only}",
+            "is_web_public": "{is_web_public}",
+            "is_default_stream": "{is_default_stream}",
+            "folder_id": "{folder_id}",
+            "topics_policy": "{topics_policy}",
+            "history_public_to_subscribers": "{history_public_to_subscribers}",
+            "message_retention_days": "{message_retention_days}",
+            "can_add_subscribers_group": "{can_add_subscribers_group}",
+            "can_delete_any_message_group": "{can_delete_any_message_group}",
+            "can_delete_own_message_group": "{can_delete_own_message_group}",
+            "can_remove_subscribers_group": "{can_remove_subscribers_group}",
+            "can_administer_channel_group": "{can_administer_channel_group}",
+            "can_move_messages_out_of_channel_group": "{can_move_messages_out_of_channel_group}",
+            "can_move_messages_within_channel_group": "{can_move_messages_within_channel_group}",
+            "can_send_message_group": "{can_send_message_group}",
+            "can_subscribe_group": "{can_subscribe_group}",
+            "can_resolve_topics_group": "{can_resolve_topics_group}"
+          }
+        },
+        "delete": {
+          "name": "archiveChannel",
+          "method": "DELETE",
+          "path": "/streams/{stream_id}",
+          "descriptionTemplate": "Archive channel with id {stream_id}",
+          "params": [
+            "stream_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateChannel",
+          "method": "PATCH",
+          "path": "/streams/{stream_id}",
+          "descriptionTemplate": "Update channel {stream_id} with new_name {new_name}",
+          "params": [
+            "stream_id"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "new_name": "{new_name}",
+            "is_private": "{is_private}",
+            "is_web_public": "{is_web_public}",
+            "history_public_to_subscribers": "{history_public_to_subscribers}",
+            "is_default_stream": "{is_default_stream}",
+            "message_retention_days": "{message_retention_days}",
+            "is_archived": "{is_archived}",
+            "folder_id": "{folder_id}",
+            "topics_policy": "{topics_policy}",
+            "can_add_subscribers_group": "{can_add_subscribers_group}",
+            "can_remove_subscribers_group": "{can_remove_subscribers_group}",
+            "can_administer_channel_group": "{can_administer_channel_group}",
+            "can_delete_any_message_group": "{can_delete_any_message_group}",
+            "can_delete_own_message_group": "{can_delete_own_message_group}",
+            "can_move_messages_out_of_channel_group": "{can_move_messages_out_of_channel_group}",
+            "can_move_messages_within_channel_group": "{can_move_messages_within_channel_group}",
+            "can_send_message_group": "{can_send_message_group}",
+            "can_subscribe_group": "{can_subscribe_group}",
+            "can_resolve_topics_group": "{can_resolve_topics_group}"
+          }
+        },
+        "get": {
+          "name": "getChannelById",
+          "method": "GET",
+          "path": "/streams/{stream_id}",
+          "descriptionTemplate": "Get channel with id {stream_id}",
+          "params": [
+            "stream_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "getChannels",
+          "method": "GET",
+          "path": "/streams",
+          "descriptionTemplate": "Get all channels",
+          "params": [
+            "include_public",
+            "include_web_public",
+            "include_subscribed",
+            "exclude_archived",
+            "include_all_active",
+            "include_all",
+            "include_default",
+            "include_owner_subscribed",
+            "include_can_access_content"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DefaultChannel": {
+      "displayName": "default channel",
+      "params": [
+        "stream_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addDefaultStream",
+          "method": "POST",
+          "path": "/default_streams",
+          "descriptionTemplate": "Add default channel with id {stream_id}",
+          "params": [
+            "stream_id"
+          ],
+          "bodyTemplate": {
+            "stream_id": "{stream_id}"
+          }
+        },
+        "delete": {
+          "name": "removeDefaultStream",
+          "method": "DELETE",
+          "path": "/default_streams",
+          "descriptionTemplate": "Remove default channel with id {stream_id}",
+          "params": [
+            "stream_id"
+          ],
+          "bodyTemplate": {
+            "stream_id": "{stream_id}"
+          }
+        }
+      }
+    },
+    "Subscription": {
+      "displayName": "subscription",
+      "params": [
+        "stream_id",
+        "user_id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "subscribe",
+          "method": "POST",
+          "path": "/users/me/subscriptions",
+          "descriptionTemplate": "Subscribe to channel {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "subscriptions": "[{\"name\": \"{name}\", \"description\": \"{description}\"}]",
+            "principals": "{principals}",
+            "authorization_errors_fatal": "{authorization_errors_fatal}",
+            "announce": "{announce}",
+            "invite_only": "{invite_only}",
+            "is_web_public": "{is_web_public}",
+            "is_default_stream": "{is_default_stream}",
+            "history_public_to_subscribers": "{history_public_to_subscribers}",
+            "message_retention_days": "{message_retention_days}",
+            "topics_policy": "{topics_policy}",
+            "can_add_subscribers_group": "{can_add_subscribers_group}",
+            "can_remove_subscribers_group": "{can_remove_subscribers_group}",
+            "can_administer_channel_group": "{can_administer_channel_group}",
+            "can_delete_any_message_group": "{can_delete_any_message_group}",
+            "can_delete_own_message_group": "{can_delete_own_message_group}",
+            "can_move_messages_out_of_channel_group": "{can_move_messages_out_of_channel_group}",
+            "can_move_messages_within_channel_group": "{can_move_messages_within_channel_group}",
+            "can_send_message_group": "{can_send_message_group}",
+            "can_subscribe_group": "{can_subscribe_group}",
+            "can_resolve_topics_group": "{can_resolve_topics_group}",
+            "folder_id": "{folder_id}",
+            "send_new_subscription_messages": "{send_new_subscription_messages}"
+          }
+        },
+        "update": {
+          "name": "updateSubscriptions",
+          "method": "PATCH",
+          "path": "/users/me/subscriptions",
+          "descriptionTemplate": "Update subscriptions by adding {add} and deleting {delete}",
+          "params": [],
+          "bodyTemplate": {
+            "add": "{add}",
+            "delete": "{delete}"
+          }
+        },
+        "delete": {
+          "name": "unsubscribe",
+          "method": "DELETE",
+          "path": "/users/me/subscriptions",
+          "descriptionTemplate": "Unsubscribe from channels {subscriptions}",
+          "params": [
+            "subscriptions"
+          ],
+          "bodyTemplate": {
+            "subscriptions": "{subscriptions}",
+            "principals": "{principals}"
+          }
+        },
+        "get": {
+          "name": "getSubscriptions",
+          "method": "GET",
+          "path": "/users/me/subscriptions",
+          "descriptionTemplate": "Get subscribed channels",
+          "params": [
+            "IncludeSubscribers"
+          ],
+          "bodyTemplate": {}
+        },
+        "getStatus": {
+          "name": "getSubscriptionStatus",
+          "method": "GET",
+          "path": "/users/{user_id}/subscriptions/{stream_id}",
+          "descriptionTemplate": "Get subscription status for user {user_id} and channel {stream_id}",
+          "params": [
+            "user_id",
+            "stream_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "updateSettings": {
+          "name": "updateSubscriptionSettings",
+          "method": "POST",
+          "path": "/users/me/subscriptions/properties",
+          "descriptionTemplate": "Update subscription settings for stream_id {stream_id} property {property} to {value}",
+          "params": [],
+          "bodyTemplate": {
+            "subscription_data": "{subscription_data}"
+          }
+        }
+      }
+    },
+    "Topic": {
+      "displayName": "topic",
+      "params": [
+        "stream_id",
+        "topic",
+        "topic_name",
+        "op"
+      ],
+      "operations": {
+        "get": {
+          "name": "getStreamTopics",
+          "method": "GET",
+          "path": "/users/me/{stream_id}/topics",
+          "descriptionTemplate": "Get topics in channel {stream_id}",
+          "params": [
+            "stream_id",
+            "allow_empty_topic_name"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteTopic",
+          "method": "POST",
+          "path": "/streams/{stream_id}/delete_topic",
+          "descriptionTemplate": "Delete topic {topic_name} in channel {stream_id}",
+          "params": [
+            "stream_id",
+            "topic_name"
+          ],
+          "bodyTemplate": {
+            "topic_name": "{topic_name}"
+          }
+        },
+        "mute": {
+          "name": "muteTopic",
+          "method": "PATCH",
+          "path": "/users/me/subscriptions/muted_topics",
+          "descriptionTemplate": "Mute topic {topic} in channel {stream_id} with operation {op}",
+          "params": [
+            "stream_id",
+            "topic",
+            "op"
+          ],
+          "bodyTemplate": {
+            "stream_id": "{stream_id}",
+            "stream": "{stream}",
+            "topic": "{topic}",
+            "op": "{op}"
+          }
+        },
+        "updatePreferences": {
+          "name": "updateUserTopic",
+          "method": "POST",
+          "path": "/user_topics",
+          "descriptionTemplate": "Update personal preferences for topic {topic} in channel {stream_id} with visibility_policy {visibility_policy}",
+          "params": [
+            "stream_id",
+            "topic",
+            "visibility_policy"
+          ],
+          "bodyTemplate": {
+            "stream_id": "{stream_id}",
+            "topic": "{topic}",
+            "visibility_policy": "{visibility_policy}"
+          }
+        }
+      }
+    },
+    "ChannelFolder": {
+      "displayName": "channel folder",
+      "params": [
+        "channel_folder_id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createChannelFolder",
+          "method": "POST",
+          "path": "/channel_folders/create",
+          "descriptionTemplate": "Create channel folder {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getChannelFolders",
+          "method": "GET",
+          "path": "/channel_folders",
+          "descriptionTemplate": "Get channel folders",
+          "params": [
+            "include_archived"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateChannelFolder",
+          "method": "PATCH",
+          "path": "/channel_folders/{channel_folder_id}",
+          "descriptionTemplate": "Update channel folder {channel_folder_id} with name {name}",
+          "params": [
+            "channel_folder_id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "is_archived": "{is_archived}"
+          }
+        },
+        "reorder": {
+          "name": "patchChannelFolders",
+          "method": "PATCH",
+          "path": "/channel_folders",
+          "descriptionTemplate": "Reorder channel folders with order {order}",
+          "params": [],
+          "bodyTemplate": {
+            "order": "{order}"
+          }
+        }
+      }
+    },
+    "Message": {
+      "displayName": "message",
+      "params": [
+        "message_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMessage",
+          "method": "GET",
+          "path": "/messages/{message_id}",
+          "descriptionTemplate": "Fetch message {message_id}",
+          "params": [
+            "message_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateMessage",
+          "method": "PATCH",
+          "path": "/messages/{message_id}",
+          "descriptionTemplate": "Edit message {message_id} with topic {topic} and content {content}",
+          "params": [
+            "message_id"
+          ],
+          "bodyTemplate": {
+            "topic": "{topic}",
+            "propagate_mode": "{propagate_mode}",
+            "send_notification_to_old_thread": "{send_notification_to_old_thread}",
+            "send_notification_to_new_thread": "{send_notification_to_new_thread}",
+            "content": "{content}",
+            "prev_content_sha256": "{prev_content_sha256}",
+            "stream_id": "{stream_id}"
+          }
+        },
+        "delete": {
+          "name": "deleteMessage",
+          "method": "DELETE",
+          "path": "/messages/{message_id}",
+          "descriptionTemplate": "Delete message {message_id}",
+          "params": [
+            "message_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MessageReaction": {
+      "displayName": "message reaction",
+      "params": [
+        "message_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addReaction",
+          "method": "POST",
+          "path": "/messages/{message_id}/reactions",
+          "descriptionTemplate": "Add reaction {emoji_name} to message {message_id}",
+          "params": [
+            "message_id",
+            "emoji_name"
+          ],
+          "bodyTemplate": {
+            "emoji_name": "{emoji_name}",
+            "emoji_code": "{emoji_code}",
+            "reaction_type": "{reaction_type}"
+          }
+        },
+        "delete": {
+          "name": "removeReaction",
+          "method": "DELETE",
+          "path": "/messages/{message_id}/reactions",
+          "descriptionTemplate": "Remove reaction {emoji_name} from message {message_id}",
+          "params": [
+            "message_id",
+            "emoji_name"
+          ],
+          "bodyTemplate": {
+            "emoji_name": "{emoji_name}",
+            "emoji_code": "{emoji_code}",
+            "reaction_type": "{reaction_type}"
+          }
+        }
+      }
+    },
+    "MessageFlag": {
+      "displayName": "message flag",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updateMessageFlags",
+          "method": "POST",
+          "path": "/messages/flags",
+          "descriptionTemplate": "Update message flags with operation {op} and flag {flag} on messages {messages}",
+          "params": [
+            "messages",
+            "op",
+            "flag"
+          ],
+          "bodyTemplate": {
+            "messages": "{messages}",
+            "op": "{op}",
+            "flag": "{flag}"
+          }
+        }
+      }
+    },
+    "MessageFlagNarrow": {
+      "displayName": "message flag narrow",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updateMessageFlagsForNarrow",
+          "method": "POST",
+          "path": "/messages/flags/narrow",
+          "descriptionTemplate": "Update message flags for narrow with operation {op} and flag {flag} anchored at {anchor}",
+          "params": [
+            "anchor",
+            "num_before",
+            "num_after",
+            "narrow",
+            "op",
+            "flag"
+          ],
+          "bodyTemplate": {
+            "anchor": "{anchor}",
+            "include_anchor": "{include_anchor}",
+            "num_before": "{num_before}",
+            "num_after": "{num_after}",
+            "narrow": "{narrow}",
+            "op": "{op}",
+            "flag": "{flag}"
+          }
+        }
+      }
+    },
+    "MessageReport": {
+      "displayName": "message report",
+      "params": [
+        "message_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "reportMessage",
+          "method": "POST",
+          "path": "/messages/{message_id}/report",
+          "descriptionTemplate": "Report message {message_id} with type {report_type}",
+          "params": [
+            "message_id",
+            "report_type"
+          ],
+          "bodyTemplate": {
+            "report_type": "{report_type}",
+            "description": "{description}"
+          }
+        }
+      }
+    },
+    "MessageHistory": {
+      "displayName": "message history",
+      "params": [
+        "message_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMessageHistory",
+          "method": "GET",
+          "path": "/messages/{message_id}/history",
+          "descriptionTemplate": "Get edit history for message {message_id}",
+          "params": [
+            "message_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MessageReadReceipt": {
+      "displayName": "message read receipt",
+      "params": [
+        "message_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getReadReceipts",
+          "method": "GET",
+          "path": "/messages/{message_id}/read_receipts",
+          "descriptionTemplate": "Get read receipts for message {message_id}",
+          "params": [
+            "message_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MessageMatchNarrow": {
+      "displayName": "message match narrow",
+      "params": [
+        "msg_ids",
+        "narrow"
+      ],
+      "operations": {
+        "get": {
+          "name": "checkMessagesMatchNarrow",
+          "method": "GET",
+          "path": "/messages/matches_narrow",
+          "descriptionTemplate": "Check if messages {msg_ids} match narrow",
+          "params": [
+            "msg_ids",
+            "narrow"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MessageSend": {
+      "displayName": "message",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "sendMessage",
+          "method": "POST",
+          "path": "/messages",
+          "descriptionTemplate": "Send message of type {type} to {to} with content",
+          "params": [
+            "type",
+            "to",
+            "content"
+          ],
+          "bodyTemplate": {
+            "type": "{type}",
+            "to": "{to}",
+            "content": "{content}",
+            "topic": "{topic}",
+            "queue_id": "{queue_id}",
+            "local_id": "{local_id}",
+            "read_by_sender": "{read_by_sender}"
+          }
+        }
+      }
+    },
+    "MarkStreamAsRead": {
+      "displayName": "mark stream as read",
+      "params": [
+        "stream_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "markStreamAsRead",
+          "method": "POST",
+          "path": "/mark_stream_as_read",
+          "descriptionTemplate": "Mark all messages in stream {stream_id} as read",
+          "params": [
+            "stream_id"
+          ],
+          "bodyTemplate": {
+            "stream_id": "{stream_id}"
+          }
+        }
+      }
+    },
+    "MarkTopicAsRead": {
+      "displayName": "mark topic as read",
+      "params": [
+        "stream_id",
+        "topic_name"
+      ],
+      "operations": {
+        "add": {
+          "name": "markTopicAsRead",
+          "method": "POST",
+          "path": "/mark_topic_as_read",
+          "descriptionTemplate": "Mark all messages in topic {topic_name} of stream {stream_id} as read",
+          "params": [
+            "stream_id",
+            "topic_name"
+          ],
+          "bodyTemplate": {
+            "stream_id": "{stream_id}",
+            "topic_name": "{topic_name}"
+          }
+        }
+      }
+    },
+    "MarkAllAsRead": {
+      "displayName": "mark all as read",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "markAllAsRead",
+          "method": "POST",
+          "path": "/mark_all_as_read",
+          "descriptionTemplate": "Mark all messages as read",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MessageRender": {
+      "displayName": "message render",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "renderMessage",
+          "method": "POST",
+          "path": "/messages/render",
+          "descriptionTemplate": "Render message content",
+          "params": [
+            "content"
+          ],
+          "bodyTemplate": {
+            "content": "{content}"
+          }
+        }
+      }
+    },
+    "UserUpload": {
+      "displayName": "user upload",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "uploadFile",
+          "method": "POST",
+          "path": "/user_uploads",
+          "descriptionTemplate": "Upload file {filename}",
+          "params": [
+            "filename"
+          ],
+          "bodyTemplate": {
+            "filename": "{filename}"
+          }
+        }
+      }
+    },
+    "UserUploadFile": {
+      "displayName": "user upload file",
+      "params": [
+        "realm_id_str",
+        "filename"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFileTemporaryUrl",
+          "method": "GET",
+          "path": "/user_uploads/{realm_id_str}/{filename}",
+          "descriptionTemplate": "Get temporary URL for uploaded file {filename} in realm {realm_id_str}",
+          "params": [
+            "realm_id_str",
+            "filename"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Emoji": {
+      "displayName": "emoji",
+      "params": [
+        "emoji_name"
+      ],
+      "operations": {
+        "add": {
+          "name": "uploadCustomEmoji",
+          "method": "POST",
+          "path": "/realm/emoji/{emoji_name}",
+          "descriptionTemplate": "Upload custom emoji {emoji_name} with filename {filename}",
+          "params": [
+            "emoji_name"
+          ],
+          "bodyTemplate": {
+            "filename": "{filename}"
+          }
+        },
+        "delete": {
+          "name": "deactivateCustomEmoji",
+          "method": "DELETE",
+          "path": "/realm/emoji/{emoji_name}",
+          "descriptionTemplate": "Deactivate custom emoji {emoji_name}",
+          "params": [
+            "emoji_name"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCustomEmoji",
+          "method": "GET",
+          "path": "/realm/emoji",
+          "descriptionTemplate": "Get all custom emoji",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CustomProfileField": {
+      "displayName": "custom profile field",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createCustomProfileField",
+          "method": "POST",
+          "path": "/realm/profile_fields",
+          "descriptionTemplate": "Create custom profile field with field_type {field_type}",
+          "params": [],
+          "bodyTemplate": {
+            "field_type": "{field_type}",
+            "name": "{name}",
+            "hint": "{hint}",
+            "field_data": "{field_data}",
+            "display_in_profile_summary": "{display_in_profile_summary}",
+            "required": "{required}",
+            "editable_by_user": "{editable_by_user}"
+          }
+        },
+        "update": {
+          "name": "reorderCustomProfileFields",
+          "method": "PATCH",
+          "path": "/realm/profile_fields",
+          "descriptionTemplate": "Reorder custom profile fields with order {order}",
+          "params": [],
+          "bodyTemplate": {
+            "order": "{order}"
+          }
+        },
+        "get": {
+          "name": "getCustomProfileFields",
+          "method": "GET",
+          "path": "/realm/profile_fields",
+          "descriptionTemplate": "Get all custom profile fields",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Linkifier": {
+      "displayName": "linkifier",
+      "params": [
+        "filter_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addLinkifier",
+          "method": "POST",
+          "path": "/realm/filters",
+          "descriptionTemplate": "Add linkifier with pattern {pattern} and url_template {url_template}",
+          "params": [],
+          "bodyTemplate": {
+            "pattern": "{pattern}",
+            "url_template": "{url_template}"
+          }
+        },
+        "delete": {
+          "name": "removeLinkifier",
+          "method": "DELETE",
+          "path": "/realm/filters/{filter_id}",
+          "descriptionTemplate": "Remove linkifier with id {filter_id}",
+          "params": [
+            "filter_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateLinkifier",
+          "method": "PATCH",
+          "path": "/realm/filters/{filter_id}",
+          "descriptionTemplate": "Update linkifier {filter_id} with pattern {pattern} and url_template {url_template}",
+          "params": [
+            "filter_id"
+          ],
+          "bodyTemplate": {
+            "pattern": "{pattern}",
+            "url_template": "{url_template}"
+          }
+        },
+        "get": {
+          "name": "getLinkifiers",
+          "method": "GET",
+          "path": "/realm/linkifiers",
+          "descriptionTemplate": "Get linkifiers",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CodePlayground": {
+      "displayName": "code playground",
+      "params": [
+        "playground_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addCodePlayground",
+          "method": "POST",
+          "path": "/realm/playgrounds",
+          "descriptionTemplate": "Add code playground {name} with language {pygments_language} and url_template {url_template}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "pygments_language": "{pygments_language}",
+            "url_template": "{url_template}"
+          }
+        },
+        "delete": {
+          "name": "removeCodePlayground",
+          "method": "DELETE",
+          "path": "/realm/playgrounds/{playground_id}",
+          "descriptionTemplate": "Remove code playground with id {playground_id}",
+          "params": [
+            "playground_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RealmUserSettingsDefaults": {
+      "displayName": "realm user settings defaults",
+      "params": [],
+      "operations": {
+        "update": {
+          "name": "updateRealmUserSettingsDefaults",
+          "method": "PATCH",
+          "path": "/realm/user_settings_defaults",
+          "descriptionTemplate": "Update realm user settings defaults",
+          "params": [],
+          "bodyTemplate": {
+            "starred_message_counts": "{starred_message_counts}",
+            "receives_typing_notifications": "{receives_typing_notifications}",
+            "web_suggest_update_timezone": "{web_suggest_update_timezone}",
+            "fluid_layout_width": "{fluid_layout_width}",
+            "high_contrast_mode": "{high_contrast_mode}",
+            "web_mark_read_on_scroll_policy": "{web_mark_read_on_scroll_policy}",
+            "web_channel_default_view": "{web_channel_default_view}",
+            "web_font_size_px": "{web_font_size_px}",
+            "web_line_height_percent": "{web_line_height_percent}",
+            "color_scheme": "{color_scheme}",
+            "enable_drafts_synchronization": "{enable_drafts_synchronization}",
+            "translate_emoticons": "{translate_emoticons}",
+            "display_emoji_reaction_users": "{display_emoji_reaction_users}",
+            "web_escape_navigates_to_home_view": "{web_escape_navigates_to_home_view}",
+            "left_side_userlist": "{left_side_userlist}",
+            "demote_inactive_streams": "{demote_inactive_streams}",
+            "user_list_style": "{user_list_style}",
+            "web_stream_unreads_count_display_policy": "{web_stream_unreads_count_display_policy}",
+            "hide_ai_features": "{hide_ai_features}",
+            "web_left_sidebar_show_channel_folders": "{web_left_sidebar_show_channel_folders}",
+            "web_left_sidebar_unreads_count_summary": "{web_left_sidebar_unreads_count_summary}",
+            "enable_stream_desktop_notifications": "{enable_stream_desktop_notifications}",
+            "enable_stream_email_notifications": "{enable_stream_email_notifications}",
+            "enable_stream_push_notifications": "{enable_stream_push_notifications}",
+            "enable_stream_audible_notifications": "{enable_stream_audible_notifications}",
+            "enable_desktop_notifications": "{enable_desktop_notifications}",
+            "enable_sounds": "{enable_sounds}",
+            "enable_followed_topic_desktop_notifications": "{enable_followed_topic_desktop_notifications}",
+            "enable_followed_topic_email_notifications": "{enable_followed_topic_email_notifications}",
+            "enable_followed_topic_push_notifications": "{enable_followed_topic_push_notifications}",
+            "enable_followed_topic_audible_notifications": "{enable_followed_topic_audible_notifications}",
+            "email_notifications_batching_period_seconds": "{email_notifications_batching_period_seconds}",
+            "enable_offline_email_notifications": "{enable_offline_email_notifications}",
+            "enable_offline_push_notifications": "{enable_offline_push_notifications}",
+            "enable_online_push_notifications": "{enable_online_push_notifications}",
+            "enable_digest_emails": "{enable_digest_emails}",
+            "message_content_in_email_notifications": "{message_content_in_email_notifications}",
+            "pm_content_in_desktop_notifications": "{pm_content_in_desktop_notifications}",
+            "wildcard_mentions_notify": "{wildcard_mentions_notify}",
+            "enable_followed_topic_wildcard_mentions_notify": "{enable_followed_topic_wildcard_mentions_notify}",
+            "desktop_icon_count_display": "{desktop_icon_count_display}",
+            "realm_name_in_email_notifications_policy": "{realm_name_in_email_notifications_policy}",
+            "automatically_follow_topics_policy": "{automatically_follow_topics_policy}",
+            "automatically_unmute_topics_in_muted_streams_policy": "{automatically_unmute_topics_in_muted_streams_policy}",
+            "automatically_follow_topics_where_mentioned": "{automatically_follow_topics_where_mentioned}",
+            "resolved_topic_notice_auto_read_policy": "{resolved_topic_notice_auto_read_policy}",
+            "presence_enabled": "{presence_enabled}",
+            "enter_sends": "{enter_sends}",
+            "twenty_four_hour_time": "{twenty_four_hour_time}",
+            "send_private_typing_notifications": "{send_private_typing_notifications}",
+            "send_stream_typing_notifications": "{send_stream_typing_notifications}",
+            "send_read_receipts": "{send_read_receipts}",
+            "email_address_visibility": "{email_address_visibility}",
+            "web_navigate_to_sent_message": "{web_navigate_to_sent_message}"
+          }
+        }
+      }
+    },
+    "RealmExport": {
+      "displayName": "realm export",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getRealmExports",
+          "method": "GET",
+          "path": "/export/realm",
+          "descriptionTemplate": "Get all data exports",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "exportRealm",
+          "method": "POST",
+          "path": "/export/realm",
+          "descriptionTemplate": "Create data export with export_type {export_type}",
+          "params": [],
+          "bodyTemplate": {
+            "export_type": "{export_type}"
+          }
+        }
+      }
+    },
+    "WelcomeBotCustomMessage": {
+      "displayName": "welcome bot custom message",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "testWelcomeBotCustomMessage",
+          "method": "POST",
+          "path": "/realm/test_welcome_bot_custom_message",
+          "descriptionTemplate": "Test welcome bot custom message with text {welcome_message_custom_text}",
+          "params": [],
+          "bodyTemplate": {
+            "welcome_message_custom_text": "{welcome_message_custom_text}"
+          }
+        }
+      }
+    },
+    "Invite": {
+      "displayName": "invite",
+      "params": [
+        "invite_id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getInvites",
+          "method": "GET",
+          "path": "/invites",
+          "descriptionTemplate": "Get all invitations",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "sendInvites",
+          "method": "POST",
+          "path": "/invites",
+          "descriptionTemplate": "Send invitations to {invitee_emails}",
+          "params": [],
+          "bodyTemplate": {
+            "invitee_emails": "{invitee_emails}",
+            "stream_ids": "{stream_ids}"
+          }
+        },
+        "delete": {
+          "name": "revokeEmailInvite",
+          "method": "DELETE",
+          "path": "/invites/{invite_id}",
+          "descriptionTemplate": "Revoke email invitation with id {invite_id}",
+          "params": [
+            "invite_id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {},
+        "other": {
+          "resend": {
+            "name": "resendEmailInvite",
+            "method": "POST",
+            "path": "/invites/{invite_id}/resend",
+            "descriptionTemplate": "Resend email invitation with id {invite_id}",
+            "params": [
+              "invite_id"
+            ],
+            "bodyTemplate": {}
+          }
+        }
+      }
+    },
+    "InviteLink": {
+      "displayName": "invite link",
+      "params": [
+        "invite_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInviteLink",
+          "method": "POST",
+          "path": "/invites/multiuse",
+          "descriptionTemplate": "Create a reusable invitation link",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "revokeInviteLink",
+          "method": "DELETE",
+          "path": "/invites/multiuse/{invite_id}",
+          "descriptionTemplate": "Revoke reusable invitation link with id {invite_id}",
+          "params": [
+            "invite_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "EventQueue": {
+      "displayName": "event queue",
+      "params": [
+        "queue_id"
+      ],
+      "operations": {
+        "get": {
           "name": "getEvents",
+          "method": "GET",
+          "path": "/events",
+          "descriptionTemplate": "Get events from event queue {queue_id} since last_event_id {last_event_id}",
           "params": [
             "queue_id",
             "last_event_id",
             "dont_block"
           ],
-          "path": "/events"
-        }
-      },
-      "params": [
-        "queue_id",
-        "last_event_id",
-        "dont_block"
-      ],
-      "waitForPatterns": {}
-    },
-    "Settings": {
-      "displayName": "settings",
-      "operations": {
-        "get": {
-          "descriptionTemplate": "Get settings",
-          "method": "GET",
-          "name": "getSettings",
-          "params": [],
-          "path": "/settings"
+          "bodyTemplate": {}
         },
-        "update": {
-          "bodyTemplate": {},
-          "descriptionTemplate": "Update settings",
-          "method": "PATCH",
-          "name": "updateSettings",
-          "params": [],
-          "path": "/settings"
-        }
-      },
-      "params": [],
-      "waitForPatterns": {}
-    },
-    "Users": {
-      "displayName": "users",
-      "operations": {
-        "get": {
-          "descriptionTemplate": "Get user {user_id}",
-          "method": "GET",
-          "name": "getUser",
+        "delete": {
+          "name": "deleteQueue",
+          "method": "DELETE",
+          "path": "/events",
+          "descriptionTemplate": "Delete event queue {queue_id}",
           "params": [
-            "user_id"
+            "queue_id"
           ],
-          "path": "/users/{user_id}"
-        },
-        "update": {
           "bodyTemplate": {
-            "user_id": "{user_id}"
-          },
-          "descriptionTemplate": "Update user {user_id}",
-          "method": "PATCH",
-          "name": "updateUser",
-          "params": [
-            "user_id"
-          ],
-          "path": "/users/{user_id}"
-        }
-      },
-      "params": [
-        "user_id"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add user (.+)",
-          "name": "waitForAnyUserAdded"
-        },
-        "deleted": {
-          "descriptionRegex": "Delete user (.+)",
-          "name": "waitForAnyUserDeleted"
+            "queue_id": "{queue_id}"
+          }
         }
       }
     },
-    "Webhooks": {
-      "displayName": "webhooks",
+    "RegisterQueue": {
+      "displayName": "register queue",
+      "params": [],
       "operations": {
         "add": {
-          "bodyTemplate": {
-            "webhook_id": "{webhook_id}"
-          },
-          "descriptionTemplate": "Add webhook {webhook_id}",
+          "name": "registerQueue",
           "method": "POST",
-          "name": "addWebhook",
-          "params": [
-            "webhook_id"
-          ],
-          "path": "/webhooks"
-        },
-        "delete": {
-          "descriptionTemplate": "Delete webhook {webhook_id}",
-          "method": "DELETE",
-          "name": "deleteWebhook",
-          "params": [
-            "webhook_id"
-          ],
-          "path": "/webhooks/{webhook_id}"
+          "path": "/register",
+          "descriptionTemplate": "Register an event queue with apply_markdown {apply_markdown}, client_gravatar {client_gravatar}, include_subscribers {include_subscribers}, slim_presence {slim_presence}, presence_history_limit_days {presence_history_limit_days}, event_types {event_types}, all_public_streams {all_public_streams}, client_capabilities {client_capabilities}, fetch_event_types {fetch_event_types}, narrow {narrow}",
+          "params": [],
+          "bodyTemplate": {
+            "apply_markdown": "{apply_markdown}",
+            "client_gravatar": "{client_gravatar}",
+            "include_subscribers": "{include_subscribers}",
+            "slim_presence": "{slim_presence}",
+            "presence_history_limit_days": "{presence_history_limit_days}",
+            "event_types": "{event_types}",
+            "all_public_streams": "{all_public_streams}",
+            "client_capabilities": "{client_capabilities}",
+            "fetch_event_types": "{fetch_event_types}",
+            "narrow": "{narrow}"
+          }
+        }
+      }
+    },
+    "RealTime": {
+      "displayName": "real time",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "postRealTime",
+          "method": "POST",
+          "path": "/real-time",
+          "descriptionTemplate": "Post real-time event subscription with event_types {event_types}, narrow {narrow}, all_public_streams {all_public_streams}",
+          "params": [],
+          "bodyTemplate": {
+            "event_types": "{event_types}",
+            "narrow": "{narrow}",
+            "all_public_streams": "{all_public_streams}"
+          }
+        }
+      }
+    },
+    "Draft": {
+      "displayName": "draft",
+      "params": [
+        "draft_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createDrafts",
+          "method": "POST",
+          "path": "/drafts",
+          "descriptionTemplate": "Create drafts",
+          "params": [],
+          "bodyTemplate": {
+            "drafts": "[{type}, {to}, {topic}, {content}, {timestamp}]"
+          }
         },
         "get": {
-          "descriptionTemplate": "Get webhook {webhook_id}",
+          "name": "getDrafts",
           "method": "GET",
-          "name": "getWebhook",
-          "params": [
-            "webhook_id"
-          ],
-          "path": "/webhooks/{webhook_id}"
+          "path": "/drafts",
+          "descriptionTemplate": "Get drafts",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
-          "bodyTemplate": {
-            "webhook_id": "{webhook_id}"
-          },
-          "descriptionTemplate": "Update webhook {webhook_id}",
+          "name": "editDraft",
           "method": "PATCH",
-          "name": "updateWebhook",
+          "path": "/drafts/{draft_id}",
+          "descriptionTemplate": "Edit draft {draft_id}",
           "params": [
-            "webhook_id"
+            "draft_id"
           ],
-          "path": "/webhooks/{webhook_id}"
-        }
-      },
-      "params": [
-        "webhook_id"
-      ],
-      "waitForPatterns": {
-        "added": {
-          "descriptionRegex": "Add webhook (.+)",
-          "name": "waitForAnyWebhookAdded"
+          "bodyTemplate": {
+            "draft": "{type, to, topic, content, timestamp}"
+          }
         },
-        "deleted": {
-          "descriptionRegex": "Delete webhook (.+)",
-          "name": "waitForAnyWebhookDeleted"
+        "delete": {
+          "name": "deleteDraft",
+          "method": "DELETE",
+          "path": "/drafts/{draft_id}",
+          "descriptionTemplate": "Delete draft {draft_id}",
+          "params": [
+            "draft_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SavedSnippet": {
+      "displayName": "saved snippet",
+      "params": [
+        "saved_snippet_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createSavedSnippet",
+          "method": "POST",
+          "path": "/saved_snippets",
+          "descriptionTemplate": "Create saved snippet {title}",
+          "params": [],
+          "bodyTemplate": {
+            "title": "{title}",
+            "content": "{content}"
+          }
+        },
+        "get": {
+          "name": "getSavedSnippets",
+          "method": "GET",
+          "path": "/saved_snippets",
+          "descriptionTemplate": "Get all saved snippets",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "editSavedSnippet",
+          "method": "PATCH",
+          "path": "/saved_snippets/{saved_snippet_id}",
+          "descriptionTemplate": "Edit saved snippet {saved_snippet_id} with title {title}",
+          "params": [
+            "saved_snippet_id"
+          ],
+          "bodyTemplate": {
+            "title": "{title}",
+            "content": "{content}"
+          }
+        },
+        "delete": {
+          "name": "deleteSavedSnippet",
+          "method": "DELETE",
+          "path": "/saved_snippets/{saved_snippet_id}",
+          "descriptionTemplate": "Delete saved snippet {saved_snippet_id}",
+          "params": [
+            "saved_snippet_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MobilePushTestNotification": {
+      "displayName": "mobile push test notification",
+      "params": [
+        "token"
+      ],
+      "operations": {
+        "add": {
+          "name": "sendTestNotification",
+          "method": "POST",
+          "path": "/mobile_push/test_notification",
+          "descriptionTemplate": "Send a test notification to mobile device with token {token}",
+          "params": [
+            "token"
+          ],
+          "bodyTemplate": {
+            "token": "{token}"
+          }
+        }
+      }
+    },
+    "MobilePushE2EETestNotification": {
+      "displayName": "mobile push e2ee test notification",
+      "params": [
+        "push_account_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "sendE2EETestNotification",
+          "method": "POST",
+          "path": "/mobile_push/e2ee/test_notification",
+          "descriptionTemplate": "Send an E2EE test notification to mobile device with push_account_id {push_account_id}",
+          "params": [
+            "push_account_id"
+          ],
+          "bodyTemplate": {
+            "push_account_id": "{push_account_id}"
+          }
+        }
+      }
+    },
+    "PushDeviceRegistration": {
+      "displayName": "push device registration",
+      "params": [
+        "token_kind",
+        "push_account_id",
+        "push_public_key",
+        "bouncer_public_key",
+        "encrypted_push_registration"
+      ],
+      "operations": {
+        "add": {
+          "name": "registerPushDevice",
+          "method": "POST",
+          "path": "/mobile_push/register",
+          "descriptionTemplate": "Register push device with push_account_id {push_account_id} and token_kind {token_kind}",
+          "params": [
+            "token_kind",
+            "push_account_id",
+            "push_public_key",
+            "bouncer_public_key",
+            "encrypted_push_registration"
+          ],
+          "bodyTemplate": {
+            "token_kind": "{token_kind}",
+            "push_account_id": "{push_account_id}",
+            "push_public_key": "{push_public_key}",
+            "bouncer_public_key": "{bouncer_public_key}",
+            "encrypted_push_registration": "{encrypted_push_registration}"
+          }
+        }
+      }
+    },
+    "RemotePushDeviceRegistration": {
+      "displayName": "remote push device registration",
+      "params": [
+        "realm_uuid",
+        "push_account_id",
+        "encrypted_push_registration",
+        "bouncer_public_key"
+      ],
+      "operations": {
+        "add": {
+          "name": "registerRemotePushDevice",
+          "method": "POST",
+          "path": "/remotes/push/e2ee/register",
+          "descriptionTemplate": "Register remote push device with push_account_id {push_account_id} in realm {realm_uuid}",
+          "params": [
+            "realm_uuid",
+            "push_account_id",
+            "encrypted_push_registration",
+            "bouncer_public_key"
+          ],
+          "bodyTemplate": {
+            "realm_uuid": "{realm_uuid}",
+            "push_account_id": "{push_account_id}",
+            "encrypted_push_registration": "{encrypted_push_registration}",
+            "bouncer_public_key": "{bouncer_public_key}"
+          }
+        }
+      }
+    },
+    "ApiKey": {
+      "displayName": "api key",
+      "params": [
+        "username",
+        "password"
+      ],
+      "operations": {
+        "add": {
+          "name": "fetchApiKey",
+          "method": "POST",
+          "path": "/fetch_api_key",
+          "descriptionTemplate": "Fetch an API key for user {username}",
+          "params": [
+            "username",
+            "password"
+          ],
+          "bodyTemplate": {
+            "username": "{username}",
+            "password": "{password}"
+          }
+        },
+        "add_dev": {
+          "name": "devFetchApiKey",
+          "method": "POST",
+          "path": "/dev_fetch_api_key",
+          "descriptionTemplate": "Fetch a development API key for user {username}",
+          "params": [
+            "username"
+          ],
+          "bodyTemplate": {
+            "username": "{username}"
+          }
+        }
+      }
+    },
+    "NavigationView": {
+      "displayName": "navigation view",
+      "params": [
+        "fragment"
+      ],
+      "operations": {
+        "add": {
+          "name": "addNavigationView",
+          "method": "POST",
+          "path": "/navigation_views",
+          "descriptionTemplate": "Add a navigation view",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getNavigationViews",
+          "method": "GET",
+          "path": "/navigation_views",
+          "descriptionTemplate": "Get all navigation views",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "editNavigationView",
+          "method": "PATCH",
+          "path": "/navigation_views/{fragment}",
+          "descriptionTemplate": "Update the navigation view {fragment}",
+          "params": [
+            "fragment"
+          ],
+          "bodyTemplate": {
+            "is_pinned": "{is_pinned}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "removeNavigationView",
+          "method": "DELETE",
+          "path": "/navigation_views/{fragment}",
+          "descriptionTemplate": "Remove the navigation view {fragment}",
+          "params": [
+            "fragment"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Reminder": {
+      "displayName": "reminder",
+      "params": [
+        "reminder_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createReminder",
+          "method": "POST",
+          "path": "/reminders",
+          "descriptionTemplate": "Create a reminder with message_id {message_id} scheduled_delivery_timestamp {scheduled_delivery_timestamp} and note {note}",
+          "params": [
+            "message_id",
+            "scheduled_delivery_timestamp",
+            "note"
+          ],
+          "bodyTemplate": {
+            "message_id": "{message_id}",
+            "scheduled_delivery_timestamp": "{scheduled_delivery_timestamp}",
+            "note": "{note}"
+          }
+        },
+        "get": {
+          "name": "getReminders",
+          "method": "GET",
+          "path": "/reminders",
+          "descriptionTemplate": "Get reminders",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteReminder",
+          "method": "DELETE",
+          "path": "/reminders/{reminder_id}",
+          "descriptionTemplate": "Delete reminder with id {reminder_id}",
+          "params": [
+            "reminder_id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ScheduledMessage": {
+      "displayName": "scheduled message",
+      "params": [
+        "scheduled_message_id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createScheduledMessage",
+          "method": "POST",
+          "path": "/scheduled_messages",
+          "descriptionTemplate": "Create scheduled message of type {type} to {to} scheduled at {scheduled_delivery_timestamp}",
+          "params": [],
+          "bodyTemplate": {
+            "type": "{type}",
+            "to": "{to}",
+            "content": "{content}",
+            "scheduled_delivery_timestamp": "{scheduled_delivery_timestamp}"
+          }
+        },
+        "get": {
+          "name": "getScheduledMessages",
+          "method": "GET",
+          "path": "/scheduled_messages",
+          "descriptionTemplate": "Get scheduled messages",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateScheduledMessage",
+          "method": "PATCH",
+          "path": "/scheduled_messages/{scheduled_message_id}",
+          "descriptionTemplate": "Update scheduled message {scheduled_message_id}",
+          "params": [
+            "scheduled_message_id"
+          ],
+          "bodyTemplate": {
+            "type": "{type}",
+            "to": "{to}",
+            "content": "{content}",
+            "topic": "{topic}",
+            "scheduled_delivery_timestamp": "{scheduled_delivery_timestamp}"
+          }
+        },
+        "delete": {
+          "name": "deleteScheduledMessage",
+          "method": "DELETE",
+          "path": "/scheduled_messages/{scheduled_message_id}",
+          "descriptionTemplate": "Delete scheduled message {scheduled_message_id}",
+          "params": [
+            "scheduled_message_id"
+          ],
+          "bodyTemplate": {}
         }
       }
     }
   },
-  "sut": "zulip"
+  "stories": []
 }

@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 import re
 from typing import Dict, Any, List
+from urllib.parse import urlparse
 
 def _ensure_dir(path: Path):
     path.mkdir(parents=True, exist_ok=True)
@@ -17,7 +18,8 @@ def _render_body_js(template: Any, indent=4) -> str:
         return "\n".join(lines)
     if isinstance(template, str):
         if template.startswith("{") and template.endswith("}"):
-            return template.strip("{}")
+            var_name = template.strip("{}")
+            return f'String({var_name})'
         return f'"{template}"'
     return str(template)
 
@@ -25,16 +27,27 @@ def _render_body_js(template: Any, indent=4) -> str:
 
 def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     base_url = spec.get("base_url", "http://localhost:8080")
+    
+    parsed = urlparse(base_url)
+    default_scheme = parsed.scheme or "http"
+    default_host = parsed.hostname or "localhost"
+    default_port = parsed.port or (80 if default_scheme == "http" else 443)
+
     entities = spec.get("entities", {})
     lines = []
     
     lines.append('//@provengo summon rest')
     lines.append('// === Auto-generated interfaces.readable.js ===')
     lines.append('')
-    lines.append("var host = (typeof host !== 'undefined') ? host : 'localhost';")
-    lines.append("var port = (typeof port !== 'undefined') ? port : 8080;")
+    
+    lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
+    lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
+    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
     lines.append('')
-    lines.append(f'const svc = new RESTSession("{base_url}", "provengo-client", {{')
+    
+    lines.append('var baseURL = protocol + "://" + host + ":" + port;')
+    lines.append('bp.log.info("[INIT] RESTSession BaseURL: " + baseURL);')
+    lines.append('const svc = new RESTSession(baseURL, "provengo-client", {')
     lines.append('  headers: { "Content-Type": "application/json" },')
     lines.append('});')
     lines.append('')
@@ -54,7 +67,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         
         ops = ent.get("operations", {})
         
-        # --- UNION PARAMS (Global for entity) ---
         global_params = []
         seen = set()
         def collect(p_list):
@@ -68,15 +80,15 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         
         global_args_str = ", ".join(global_params)
 
-        # 1. Standard CRUD Functions
         for op_type, op_data in ops.items():
             if not op_data or op_type == "verifyExists": continue
 
             fn_name = op_data.get("name", f"{op_type}{name}")
-            method = op_data.get("method", "GET")
+            method = op_data.get("method", "GET").upper()
             path_tmpl = op_data.get("path", "")
             desc_tmpl = op_data.get("descriptionTemplate", "")
-            op_params = op_data.get("params", [])
+            
+            op_params = global_params 
 
             js_url = f'"{path_tmpl}"'
             js_desc = f'"{desc_tmpl}"'
@@ -91,50 +103,59 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             if "bodyTemplate" in op_data:
                 body_js = _render_body_js(op_data["bodyTemplate"])
 
-            lines.append(f'function {fn_name}({", ".join(op_params)}) {{')
+            lines.append(f'function {fn_name}({global_args_str}) {{')
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = {js_desc};')
             lines.append(f'  var body = {body_js};')
-            lines.append('  return svc.request({')
-            lines.append(f'    method: "{method}",')
-            lines.append('    url: url,')
-            lines.append('    parameters: { description: description },')
-            lines.append('    body: body')
-            lines.append('  });')
+            
+            lines.append(f'  bp.log.info("[CALL] {fn_name}");')
+            
+            if method in ["POST", "PUT", "PATCH"]:
+                lines.append('  if (body === undefined) { body = {}; }')
+                lines.append('  var bodyStr = JSON.stringify(body);')
+                lines.append('  bp.log.info("  URL: " + baseURL + url);')
+                lines.append('  bp.log.info("  BODY: " + bodyStr);')
+                
+                # CHANGE: Removed 'return'
+                lines.append(f'  svc.{method.lower()}(url, {{')
+                lines.append('    body: bodyStr,')
+                lines.append('    parameters: { description: description }')
+                lines.append('  });')
+            else:
+                lines.append('  bp.log.info("  URL: " + baseURL + url);')
+                # CHANGE: Removed 'return'
+                lines.append(f'  svc.{method.lower()}(url, {{')
+                lines.append('    parameters: { description: description }')
+                lines.append('  });')
+                
             lines.append('}')
             lines.append('')
 
-        # 2. Wrappers using Union Params
-        # This fixes the "Missing Parameter" issue in stories by allowing stories to pass ALL vars
         if "add" in ops:
             add_fn = ops["add"].get("name")
-            add_p = ops["add"].get("params", [])
             lines.append(f'function tryToAddExisting{name}({global_args_str}) {{')
-            lines.append(f'  return {add_fn}({", ".join(add_p)});')
+            lines.append(f'  {add_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
 
         if "get" in ops:
             get_fn = ops["get"].get("name")
-            get_p = ops["get"].get("params", [])
             lines.append(f'function verify{name}Exists({global_args_str}) {{')
-            lines.append(f'  return {get_fn}({", ".join(get_p)});')
+            lines.append(f'  {get_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
             lines.append(f'function verify{name}DoesNotExist({global_args_str}) {{')
-            lines.append(f'  return {get_fn}({", ".join(get_p)});')
+            lines.append(f'  {get_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
 
         if "delete" in ops:
             del_fn = ops["delete"].get("name")
-            del_p = ops["delete"].get("params", [])
             lines.append(f'function tryToDeleteANonExisting{name}({global_args_str}) {{')
-            lines.append(f'  return {del_fn}({", ".join(del_p)});')
+            lines.append(f'  {del_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
 
-        # 3. Matchers
         wait_patterns = ent.get("waitForPatterns", {})
         def emit_wait_logic(key, regex):
             matcher_name = f"match{key.capitalize()}{name}"
@@ -177,7 +198,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('// Auto-generated HLS stories')
     lines.append('//@provengo summon rest')
     lines.append('')
-    lines.append('const bthread = bp.registerBThread;')
     lines.append('')
 
     base_id = 200 
@@ -198,7 +218,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         wait_add_fn = f"waitForAny{name}Added"
         match_del_fn = f"matchDeleted{name}"
 
-        # --- UNION PARAMS ---
         all_params = []
         seen = set()
         def collect(p_list):
@@ -210,14 +229,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         for op in ops.values(): collect(op.get("params", []))
         if not all_params: collect(ent.get("params", []))
 
-        # --- Identity Detection (Fixing Argument Shift) ---
-        # We need to find the "ID" parameter to pass as the first arg to Update/Delete/Get
-        # if those functions expect (id, ...).
-        # HOWEVER, our new interface wrappers accept (all_params).
-        # So we can simply pass (get_args(idx)) to ALL functions!
-        # This is the cleanest fix: The Interface wrapper `verifyExists(a,b,c)`
-        # will pick out `a` (if that's the ID) and pass it to the real `get(a)`.
-        
         def get_vars(idx):
             declarations = []
             for p in all_params:
@@ -238,9 +249,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
 
         # STORIES GENERATION
         if add_fn and del_fn:
-            # 1:1 Full Cycle
             lines.append(f'// Story: crud:{name}:nondet:1:1')
-            lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
+            lines.append(f'bp.registerBThread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
             lines.append(f'  {add_fn}({get_args(base_id)});')
             lines.append(f'  {try_add_fn}({get_args(base_id)});')
@@ -252,9 +262,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('});')
             lines.append('')
 
-            # 1:2 Update first
             lines.append(f'// Story: crud:{name}:nondet:1:2')
-            lines.append(f'bthread("crud:{name}:nondet:1:2", function () {{')
+            lines.append(f'bp.registerBThread("crud:{name}:nondet:1:2", function () {{')
             lines.append(get_vars(base_id + 1))
             lines.append(f'  {add_fn}({get_args(base_id + 1)});')
             lines.append(f'  {try_add_fn}({get_args(base_id + 1)});')
@@ -266,9 +275,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('});')
             lines.append('')
 
-            # Negative
             lines.append(f'// Story: crud:{name}:nondet:negative:dup-add')
-            lines.append(f'bthread("crud:{name}:nondet:negative:dup-add", function () {{')
+            lines.append(f'bp.registerBThread("crud:{name}:nondet:negative:dup-add", function () {{')
             lines.append(get_vars(base_id + 6))
             lines.append(f'  {add_fn}({get_args(base_id + 6)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
@@ -277,10 +285,9 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('});')
             lines.append('')
 
-            # Passive
             if upd_fn:
                 lines.append(f'// Story: crud:{name}:nondet:existing:update')
-                lines.append(f'bthread("crud:{name}:nondet:existing:update", function () {{')
+                lines.append(f'bp.registerBThread("crud:{name}:nondet:existing:update", function () {{')
                 lines.append(f'  let ev = {wait_add_fn}();')
                 lines.append(f'  let args = Object.values(ev);')
                 lines.append(f'  block({match_del_fn}.apply(null, args), function () {{')
@@ -291,9 +298,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                 lines.append('});')
                 lines.append('')
 
-            # Monitor
             lines.append(f'// Story: monitor:{name}:add')
-            lines.append(f'bthread("monitor:{name}:add", function () {{')
+            lines.append(f'bp.registerBThread("monitor:{name}:add", function () {{')
             lines.append('  while (true) {')
             lines.append(f'    let ev = {wait_add_fn}();')
             lines.append(f'    let args = Object.values(ev);')
@@ -306,7 +312,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
 
         elif get_fn:
             lines.append(f'// Story: crud:{name}:read_only')
-            lines.append(f'bthread("crud:{name}:read_only", function () {{')
+            lines.append(f'bp.registerBThread("crud:{name}:read_only", function () {{')
             lines.append(get_vars(base_id))
             lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
             lines.append('});')
