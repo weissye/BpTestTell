@@ -31,7 +31,6 @@ holds: List[Dict[str, Any]] = []
 
 
 # --- Database Management ---
-@app.route("/reset", methods=["POST"])
 def reset_database() -> tuple[Response, int]:
     """Reset all data stores and optionally initialize with provided data."""
     global users, books, loans, holds
@@ -341,11 +340,29 @@ def add_hold() -> tuple[Response, int]:
     """
     Create a new hold record.
 
-    Expected JSON body: {"userId": int, "bookId": int}
+    Expected JSON body: {"hold_id": str}
     Returns:
         201: Hold created successfully
+        400: Invalid request (missing hold_id)
+        409: Duplicate hold_id
     """
-    hold = request.get_json()
+    data = request.get_json(force=True) or {}
+
+    # Validate request
+    if "hold_id" not in data:
+        logger.error("Attempt to add hold without hold_id")
+        return jsonify({"error": "hold_id is required"}), 400
+
+    hold_id = str(data.get("hold_id"))
+
+    # Check for duplicate hold_id
+    if any(str(h.get("hold_id")) == hold_id for h in holds):
+        logger.error(f"Attempt to add duplicate hold: {hold_id}")
+        return jsonify({"error": f"hold {hold_id} already exists"}), 409
+
+    # Normalize and store
+    hold = dict(data)
+    hold["hold_id"] = hold_id
     holds.append(hold)
     logger.info(f"Added new hold: {hold}")
     return jsonify({"message": "Hold added", "hold": hold}), 201

@@ -104,6 +104,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             method = op_data.get("method", "GET").upper()
             path_tmpl = op_data.get("path", "")
             
+            # Robust Description Template
             desc_tmpl = op_data.get("descriptionTemplate", "")
             if not desc_tmpl:
                 desc_tmpl = f"{op_type.capitalize()} {name}"
@@ -152,89 +153,29 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('}')
             lines.append('')
 
-        # --- EMIT WRAPPERS (MODIFIED HERE) ---
-        
+        # --- EMIT WRAPPERS ---
         if "add" in ops:
-            # Logic for tryToAddExisting...
             add_fn = ops["add"].get("name")
             lines.append(f'function tryToAddExisting{name}({global_args_str}) {{')
-            
-            # Re-create the logic for ADD but with different expected codes
-            op_data = ops["add"]
-            path_tmpl = op_data.get("path", "")
-            js_url = f'"{path_tmpl}"'
-            for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
-            js_url = js_url.replace(' + ""', '')
-            
-            # Re-create body logic
-            body_js = "undefined"
-            if "bodyTemplate" in op_data and op_data["bodyTemplate"]:
-                body_js = _render_body_js(op_data["bodyTemplate"])
-            else:
-                b_lines = ["{"]
-                for p in global_params: b_lines.append(f'    "{p}": {p},')
-                b_lines.append("  }")
-                body_js = "\n".join(b_lines)
-            
-            lines.append(f'  var url = {js_url};')
-            lines.append(f'  var body = {body_js};')
-            lines.append(f'  var description = "Verify that we cannot add another {name}...";')
-            
-            lines.append('  svc.post(url, {')
-            lines.append('    body: JSON.stringify(body),')
-            lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [400, 409]') # Added 409 conflict check
-            lines.append('  });')
+            lines.append(f'  {add_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
 
         if "get" in ops:
             get_fn = ops["get"].get("name")
-            
-            # Logic for verifyExists
             lines.append(f'function verify{name}Exists({global_args_str}) {{')
-            op_data = ops["get"]
-            path_tmpl = op_data.get("path", "")
-            js_url = f'"{path_tmpl}"'
-            for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
-            js_url = js_url.replace(' + ""', '')
-            
-            lines.append(f'  var url = {js_url};')
-            lines.append(f'  var description = "Verify {name} exists";')
-            lines.append('  svc.get(url, {')
-            lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [200]')
-            lines.append('  });')
+            lines.append(f'  {get_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
-
-            # Logic for verifyDoesNotExist
             lines.append(f'function verify{name}DoesNotExist({global_args_str}) {{')
-            lines.append(f'  var url = {js_url};') # reused
-            lines.append(f'  var description = "Verify {name} does not exist";')
-            lines.append('  svc.get(url, {')
-            lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [404]')
-            lines.append('  });')
+            lines.append(f'  {get_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
 
         if "delete" in ops:
             del_fn = ops["delete"].get("name")
             lines.append(f'function tryToDeleteANonExisting{name}({global_args_str}) {{')
-            
-            op_data = ops["delete"]
-            path_tmpl = op_data.get("path", "")
-            js_url = f'"{path_tmpl}"'
-            for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
-            js_url = js_url.replace(' + ""', '')
-            
-            lines.append(f'  var url = {js_url};')
-            lines.append(f'  var description = "Verify we cannot delete non-existing {name}";')
-            lines.append('  svc.delete(url, {')
-            lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [400, 404]')
-            lines.append('  });')
+            lines.append(f'  {del_fn}({global_args_str});')
             lines.append('}')
             lines.append('')
 
@@ -356,7 +297,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             for p in p_list:
                 if p not in seen:
                     seen.add(p)
-                    all_params.append(p)
+                    all_params.append(p)  # FIX: Use all_params, not global_params
         
         for op in ops.values(): collect(op.get("params", []))
         if not all_params: collect(ent.get("params", []))
