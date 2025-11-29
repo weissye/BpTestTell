@@ -35,79 +35,40 @@ def _template_to_regex(template: str):
             regex_parts.append("(.+)")
     return "^" + "".join(regex_parts) + "$", param_names
 
-# --- Helper to resolve JSON schema $refs and allOf ---
+# --- Helper to resolve JSON schema $refs ---
 def _resolve_schema(schema, full_spec):
-    if not schema: return {}
-    
-    # Robust Component Finder
-    def get_components(obj):
-        if "components" in obj: return obj["components"]
-        if "original_spec" in obj:
-             if "components" in obj["original_spec"]: return obj["original_spec"]["components"]
+    if not schema:
         return {}
-
-    comps = get_components(full_spec)
-
     if "$ref" in schema:
         ref_path = schema["$ref"].split("/")
-        # Support #/components/schemas/Name
+        # Assume #/components/schemas/Name
         if len(ref_path) > 3 and ref_path[1] == "components" and ref_path[2] == "schemas":
             schema_name = ref_path[3]
-            resolved = comps.get("schemas", {}).get(schema_name, {})
-            if resolved:
-                # Recursive call: ensure we don't return None
-                res = _resolve_schema(resolved, full_spec)
-                return res if res is not None else {}
-
-    if "allOf" in schema:
-        merged_props = {}
-        merged_required = []
-        for sub_schema in schema["allOf"]:
-            resolved_sub = _resolve_schema(sub_schema, full_spec)
-            # Safe access in case resolved_sub is {}
-            if resolved_sub:
-                if "properties" in resolved_sub:
-                    merged_props.update(resolved_sub["properties"])
-                if "required" in resolved_sub:
-                    merged_required.extend(resolved_sub["required"])
-        
-        return {
-            "type": "object",
-            "properties": merged_props,
-            "required": list(set(merged_required))
-        }
-
+            return full_spec.get("components", {}).get("schemas", {}).get(schema_name, {})
     return schema
 
 # ======================== INTERFACES (LLE) ========================
 
 def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     base_url = spec.get("base_url", "http://localhost:8080")
+    
     parsed = urlparse(base_url)
     default_scheme = parsed.scheme or "http"
     default_host = parsed.hostname or "localhost"
     default_port = parsed.port or (80 if default_scheme == "http" else 443)
 
     entities = spec.get("entities", {})
-    
-    # 1. Collect all Primary Keys to detect Foreign Keys later
-    all_known_pks = set()
-    for name, ent in entities.items():
-        ops = ent.get("operations", {})
-        check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
-        for op in check_ops:
-            if op and '{' in op.get('path', ''):
-                matches = re.findall(r'\{([^}]+)\}', op['path'])
-                for m in matches: all_known_pks.add(m)
-
     lines = []
+    
     lines.append('//@provengo summon rest')
     lines.append('// === Auto-generated interfaces.readable.js ===')
     lines.append('')
+    
     lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
     lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
     lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
     lines.append('')
+    
     lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {')
     lines.append('  headers: { "Content-Type": "application/json" },')
     lines.append('});')
@@ -134,7 +95,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         
         ops = ent.get("operations", {})
         
-        # Detect Primary Key
+        # --- 1. Detect Primary Key from Paths ---
         primary_key = None
         check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
         for op in check_ops:
@@ -189,39 +150,51 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 body_js = _render_body_js(op_data["bodyTemplate"])
             else:
                 if method in ["POST", "PUT", "PATCH"]:
+                    # --- FILL REQUIRED FIELDS FROM SCHEMA ---
                     b_lines = ["{"]
                     
-                    # --- SCHEMA PARSING & FILLING ---
                     req_body = op_data.get("requestBody", {})
                     content = req_body.get("content", {})
                     json_media = content.get("application/json", {})
                     schema_ref = json_media.get("schema", {})
-                    schema = _resolve_schema(schema_ref, spec)
-                    props = schema.get("properties", {}) if schema else {}
-                    required_fields = schema.get("required", []) if schema else []
                     
+                    # Resolve ref if needed
+                    schema = _resolve_schema(schema_ref, spec)
+                    
+                    props = schema.get("properties", {})
+                    required_fields = schema.get("required", [])
+                    
+                    # Merge Primary Key into required fields to ensure it's always sent
                     if primary_key and primary_key not in required_fields:
                         required_fields.append(primary_key)
 
-                    fields_to_gen = required_fields if (required_fields or not props) else list(props.keys())
+                    # If we found schema props, use them. Else fallback to global_params
+                    fields_to_gen = required_fields if props else global_params
                     
                     for field in fields_to_gen:
                         val_expr = "null"
+                        
+                        # A. Is it the Primary Key? Use the passed argument.
                         if field == primary_key:
                             val_expr = f'String({primary_key})'
+                        
+                        # B. Is it a known path param? Use that.
                         elif field in global_params:
                             val_expr = f'String({field})'
-                        # Foreign Key Smart Link
-                        elif (field in all_known_pks or field.endswith("Id") or field.endswith("_id") or "vin" in field.lower()) and primary_key:
-                            val_expr = f'String({primary_key})'
+                            
+                        # C. Dummy Data Generation based on Type
                         else:
-                            # Dummy Data (Safety Wrapped)
                             f_type = props.get(field, {}).get("type", "string")
-                            if f_type in ["integer", "number"]: val_expr = "String(1)"
-                            elif f_type == "boolean": val_expr = "String(true)"
-                            elif f_type == "array": val_expr = "[]"
-                            elif f_type == "object": val_expr = "{}"
+                            if f_type == "integer" or f_type == "number":
+                                val_expr = "1"
+                            elif f_type == "boolean":
+                                val_expr = "true"
+                            elif f_type == "array":
+                                val_expr = "[]"
+                            elif f_type == "object":
+                                val_expr = "{}"
                             else:
+                                # String: make unique based on PK
                                 if primary_key:
                                     val_expr = f'"{field}_" + {primary_key}'
                                 else:
@@ -236,8 +209,10 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = {js_desc};')
             lines.append(f'  var body = {body_js};')
+            
             lines.append(f'  bp.log.info("[CALL] {fn_name}");')
             
+            # Allow Idempotent Creation (409)
             codes = "[]"
             if op_type == "add":
                 codes = "[200, 201, 204, 409]"
@@ -246,11 +221,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 lines.append(f'  svc.{method.lower()}(url, {{')
                 lines.append('    body: JSON.stringify(body),')
                 lines.append(f'    expectedResponseCodes: {codes},')
-                lines.append('    parameters: {')
-                lines.append('      description: description,')
-                if primary_key:
-                    lines.append(f'      {primary_key}: String({primary_key})')
-                lines.append('    }')
+                lines.append('    parameters: { description: description }')
                 lines.append('  });')
             else:
                 lines.append(f'  svc.{method.lower()}(url, {{')
@@ -260,41 +231,41 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('')
 
         # --- EMIT WRAPPERS ---
-        def get_wrapper_body_code(op_data, method, params, prim_key, full_spec, all_pks):
+        def get_wrapper_body_code(op_data, method, params, prim_key, full_spec):
             if "bodyTemplate" in op_data and op_data["bodyTemplate"]:
                 return _render_body_js(op_data["bodyTemplate"])
             else:
                 if method in ["POST", "PUT", "PATCH"]:
                     b_lines = ["{"]
+                    # Resolve schema for Wrapper too
                     req_body = op_data.get("requestBody", {})
                     content = req_body.get("content", {})
                     json_media = content.get("application/json", {})
                     schema_ref = json_media.get("schema", {})
                     schema = _resolve_schema(schema_ref, full_spec)
-                    props = schema.get("properties", {}) if schema else {}
-                    required_fields = schema.get("required", []) if schema else []
                     
+                    props = schema.get("properties", {})
+                    required_fields = schema.get("required", [])
                     if prim_key and prim_key not in required_fields: required_fields.append(prim_key)
                     
-                    fields_to_gen = required_fields if (required_fields or not props) else list(props.keys())
-                    for p in params:
-                        if p not in fields_to_gen: fields_to_gen.append(p)
+                    fields_to_gen = required_fields if props else params
 
                     for field in fields_to_gen:
                         val_expr = "null"
-                        if field == prim_key: val_expr = f'String({prim_key})'
-                        elif field in params: val_expr = f'String({field})'
-                        elif (field in all_pks or field.endswith("Id") or field.endswith("_id") or "vin" in field.lower()) and prim_key:
-                             val_expr = f'String({prim_key})'
+                        if field == prim_key:
+                            val_expr = f'String({prim_key})'
+                        elif field in params:
+                            val_expr = f'String({field})'
                         else:
                             f_type = props.get(field, {}).get("type", "string")
-                            if f_type in ["integer", "number"]: val_expr = "String(1)"
-                            elif f_type == "boolean": val_expr = "String(true)"
+                            if f_type == "integer" or f_type == "number": val_expr = "1"
+                            elif f_type == "boolean": val_expr = "true"
                             elif f_type == "array": val_expr = "[]"
                             elif f_type == "object": val_expr = "{}"
                             else: 
                                 if prim_key: val_expr = f'"{field}_" + {prim_key}'
                                 else: val_expr = f'"{field}_dummy"'
+                        
                         b_lines.append(f'    "{field}": {val_expr},')
                     b_lines.append("  }")
                     return "\n".join(b_lines)
@@ -306,7 +277,8 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
             
-            body_js = get_wrapper_body_code(op_data, "POST", global_params, primary_key, spec, all_known_pks)
+            # Pass full spec to resolve refs
+            body_js = get_wrapper_body_code(op_data, "POST", global_params, primary_key, spec)
 
             lines.append(f'function tryToAddExisting{name}({global_args_str}) {{')
             lines.append(f'  var url = {js_url};')
@@ -529,6 +501,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('// Auto-generated HLS stories')
     lines.append('//@provengo summon rest')
     lines.append('')
+    # bthread line removed
     lines.append('')
 
     base_id = 200 
@@ -545,12 +518,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                 for m in matches:
                     if m not in path_keys: path_keys.append(m)
         entity_pks_map[name] = path_keys
-    
-    # Map FK name to Target Entity
-    fk_to_entity = {}
-    for ent_name, keys in entity_pks_map.items():
-        if len(keys) == 1:
-             fk_to_entity[keys[0]] = ent_name
 
     for name, ent in entities.items():
         ops = ent.get("operations", {})
@@ -583,22 +550,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         if primary_key:
             seen.add(primary_key)
             all_params.append(primary_key)
-            
-        # Scan Body for params (Robust)
-        if "add" in ops:
-            req_body = ops["add"].get("requestBody", {})
-            content = req_body.get("content", {})
-            json_media = content.get("application/json", {})
-            schema_ref = json_media.get("schema", {})
-            schema = _resolve_schema(schema_ref, spec)
-            props = schema.get("properties", {}) if schema else {}
-            
-            # If schema resolution fails or returns empty, rely on global fallback logic later
-            if props:
-                for prop_name in props.keys():
-                    if prop_name not in seen:
-                        seen.add(prop_name)
-                        all_params.append(prop_name)
 
         def collect(p_list):
             for p in p_list:
@@ -619,20 +570,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             return "\n".join(declarations)
 
         def get_args(idx):
-            sig_params = []
-            sig_seen = set()
-            if primary_key:
-                sig_seen.add(primary_key)
-                sig_params.append(primary_key)
-            
-            for op in ops.values():
-                for p in op.get("params", []):
-                    if p not in sig_seen:
-                        sig_seen.add(p)
-                        sig_params.append(p)
-
             args = []
-            for p in sig_params:
+            for p in all_params:
                 if p == primary_key or p.lower() == 'id' or p.lower().endswith('id'):
                     args.append(f"{idx}")
                 else:
@@ -652,6 +591,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             barrier_code.append('  let pending = [];')
             for target_ent, var_name in deps:
                 barrier_code.append(f'  pending.push(get{target_ent}AddedEvent({var_name}));')
+            
             barrier_code.append('  while (pending.length > 0) {')
             barrier_code.append('    let e = bp.sync({waitFor: pending});')
             barrier_code.append('    pending = pending.filter(es => !es.contains(e));')
@@ -660,6 +600,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
 
         barrier_str = "\n".join(barrier_code)
 
+        # STORIES GENERATION
         if add_fn and del_fn:
             lines.append(f'// Story: crud:{name}:nondet:1:1')
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')

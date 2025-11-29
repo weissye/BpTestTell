@@ -24,7 +24,7 @@ CRITICAL RULES:
 1. **Identify Entities**: Group paths into logical entities (e.g., 'Repository', 'Issue').
 2. **Operations**: Find 'add' (POST), 'delete' (DELETE), 'update' (PATCH/PUT), 'get' (GET).
 3. **Parameter Normalization**: 
-   - **MANDATORY**: You MUST examine the Schema for the request body.
+   - **MANDATORY**: You MUST examine the provided 'Schemas' to determine the request body structure.
    - **IF** a field (like 'id', 'ndc', 'key', 'slug') is listed in `required` AND is NOT marked `readOnly`, you **MUST** include it in `params` and `bodyTemplate`.
    - **IF** a field is `readOnly` or missing from `required` (standard auto-increment IDs), do **NOT** include it in the `add` body.
 4. **Regex**: Generate 'waitForPatterns' with regex matching the 'descriptionTemplate'.
@@ -126,6 +126,12 @@ def main():
     grouped_paths = get_paths_by_tag(openapi_data)
     print(f"[INFO] Found {len(grouped_paths)} tag groups. Processing batches...")
 
+    # --- FIX: Extract Schemas to provide context to the LLM ---
+    components = openapi_data.get("components", {})
+    schemas = components.get("schemas", {})
+    # Convert to string once to avoid overhead in loop
+    schemas_context = json.dumps(schemas, indent=2)
+
     client = LLMClient()
     master_spec = {
         "sut": args.sut,
@@ -144,6 +150,8 @@ def main():
         user_prompt = (
             f"SUT: {args.sut}\n"
             f"Domain: {tag}\n"
+            f"CONTEXT (SCHEMAS): Use these definitions to resolve $ref in requestBody and identify required fields:\n"
+            f"{schemas_context}\n\n"
             f"Analyze these API paths and extract entities:\n"
             f"{simplify_spec_chunk(paths)}"
         )
