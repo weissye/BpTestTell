@@ -24,10 +24,6 @@ def _render_body_js(template: Any, indent=4) -> str:
     return str(template)
 
 def _template_to_regex(template: str):
-    """
-    Converts "Add user {id}" -> Regex "^Add user (.+)$" 
-    Returns (regex_string, list_of_param_names)
-    """
     parts = re.split(r'\{([^}]+)\}', template)
     regex_parts = []
     param_names = []
@@ -61,7 +57,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
     lines.append('')
     
-    # Create session using standard string concatenation
     lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {')
     lines.append('  headers: { "Content-Type": "application/json" },')
     lines.append('});')
@@ -69,8 +64,14 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     
     lines.append('function matchesDescriptionRegex(re) {')
     lines.append('  return bp.EventSet("Match description", function (e) {')
-    lines.append('    return e && e.data && e.data.parameters && typeof e.data.parameters.description === "string"')
-    lines.append('           && re.test(e.data.parameters.description);')
+    lines.append('    return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description));')
+    lines.append('  });')
+    lines.append('}')
+    lines.append('')
+    
+    lines.append('function matchesDescription(str) {')
+    lines.append('  return bp.EventSet("Match description", function (e) {')
+    lines.append('    return !!(e && e.data && e.data.parameters && e.data.parameters.description === str);')
     lines.append('  });')
     lines.append('}')
     lines.append('')
@@ -82,9 +83,22 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         
         ops = ent.get("operations", {})
         
-        # Calculate Union of Params
+        # --- 1. Detect Primary Key from Paths ---
+        primary_key = None
+        check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
+        for op in check_ops:
+            if op and '{' in op.get('path', ''):
+                matches = re.findall(r'\{([^}]+)\}', op['path'])
+                if matches:
+                    primary_key = matches[0]
+                    break
+
         global_params = []
         seen = set()
+        if primary_key:
+            seen.add(primary_key)
+            global_params.append(primary_key)
+
         def collect(p_list):
             for p in p_list:
                 if p not in seen:
@@ -110,7 +124,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 if global_params:
                     desc_tmpl += " with " + " ".join([f"{p} {{{p}}}" for p in global_params])
 
-            # JS string construction for URL and Description
             js_url = f'"{path_tmpl}"'
             js_desc = f'"{desc_tmpl}"'
             for p in global_params:
@@ -120,15 +133,21 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             js_url = js_url.replace(' + ""', '')
             js_desc = js_desc.replace(' + ""', '')
 
-            # Body logic
             body_js = "undefined"
             if "bodyTemplate" in op_data and op_data["bodyTemplate"]:
                 body_js = _render_body_js(op_data["bodyTemplate"])
             else:
                 if method in ["POST", "PUT", "PATCH"]:
                     b_lines = ["{"]
-                    for p in global_params:
-                        b_lines.append(f'    "{p}": {p},')
+                    # Force primary key in body
+                    params_to_include = list(global_params)
+                    if primary_key:
+                        if primary_key in params_to_include: params_to_include.remove(primary_key)
+                        params_to_include.insert(0, primary_key)
+
+                    for p in params_to_include:
+                        # Safety: use String() wrapper
+                        b_lines.append(f'    "{p}": String({p}),')
                     b_lines.append("  }")
                     body_js = "\n".join(b_lines)
 
@@ -139,107 +158,166 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             
             lines.append(f'  bp.log.info("[CALL] {fn_name}");')
             
+            # Allow Idempotent Creation (409)
+            codes = "[]"
+            if op_type == "add":
+                codes = "[200, 201, 204, 409]"
+
             if method in ["POST", "PUT", "PATCH"]:
                 lines.append(f'  svc.{method.lower()}(url, {{')
                 lines.append('    body: JSON.stringify(body),')
+                lines.append(f'    expectedResponseCodes: {codes},')
                 lines.append('    parameters: { description: description }')
                 lines.append('  });')
             else:
                 lines.append(f'  svc.{method.lower()}(url, {{')
                 lines.append('    parameters: { description: description }')
                 lines.append('  });')
-                
             lines.append('}')
             lines.append('')
 
-        # --- EMIT WRAPPERS (MODIFIED HERE) ---
-        
+        # --- EMIT WRAPPERS ---
+        def get_wrapper_body_code(op_data, method, params, prim_key=None):
+            if "bodyTemplate" in op_data and op_data["bodyTemplate"]:
+                return _render_body_js(op_data["bodyTemplate"])
+            else:
+                if method in ["POST", "PUT", "PATCH"]:
+                    b_lines = ["{"]
+                    p_list = list(params)
+                    if prim_key:
+                         if prim_key in p_list: p_list.remove(prim_key)
+                         p_list.insert(0, prim_key)
+                    for p in p_list:
+                        # Safety: use String() wrapper
+                        b_lines.append(f'    "{p}": String({p}),')
+                    b_lines.append("  }")
+                    return "\n".join(b_lines)
+            return "undefined"
+
         if "add" in ops:
-            # Logic for tryToAddExisting...
-            add_fn = ops["add"].get("name")
-            lines.append(f'function tryToAddExisting{name}({global_args_str}) {{')
-            
-            # Re-create the logic for ADD but with different expected codes
             op_data = ops["add"]
-            path_tmpl = op_data.get("path", "")
-            js_url = f'"{path_tmpl}"'
+            js_url = f'"{op_data.get("path", "")}"'
             for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
             
-            # Re-create body logic
-            body_js = "undefined"
-            if "bodyTemplate" in op_data and op_data["bodyTemplate"]:
-                body_js = _render_body_js(op_data["bodyTemplate"])
-            else:
-                b_lines = ["{"]
-                for p in global_params: b_lines.append(f'    "{p}": {p},')
-                b_lines.append("  }")
-                body_js = "\n".join(b_lines)
-            
+            body_js = get_wrapper_body_code(op_data, "POST", global_params, primary_key)
+
+            lines.append(f'function tryToAddExisting{name}({global_args_str}) {{')
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var body = {body_js};')
             lines.append(f'  var description = "Verify that we cannot add another {name}...";')
             
+            lines.append('  if (body === undefined) { body = {}; }')
             lines.append('  svc.post(url, {')
             lines.append('    body: JSON.stringify(body),')
-            lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [400, 409]') # Added 409 conflict check
+            lines.append('    expectedResponseCodes: [400, 409],')
+            lines.append('    parameters: { description: description }')
             lines.append('  });')
             lines.append('}')
             lines.append('')
 
-        if "get" in ops:
-            get_fn = ops["get"].get("name")
+        # --- VERIFY EXISTS (READ AND SCAN) ---
+        coll_url_template = ""
+        if "add" in ops:
+            coll_url_template = ops["add"].get("path", "")
+        elif "get" in ops:
+            tmp = ops["get"].get("path", "")
+            if "/{" in tmp:
+                coll_url_template = tmp.split("/{")[0]
+            else:
+                coll_url_template = tmp
+
+        if coll_url_template:
+            js_coll_url = f'"{coll_url_template}"'
+            for p in global_params: 
+                js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {p} + "')
+            js_coll_url = js_coll_url.replace(' + ""', '')
+
+            selected_key = primary_key
+            if not selected_key:
+                priority_keys = ['id', 'ndc', 'code', 'username', 'isbn', 'email']
+                for pk in priority_keys:
+                    if pk in global_params:
+                        selected_key = pk
+                        break
+            if not selected_key:
+                for p in global_params:
+                    if 'id' in p.lower():
+                        selected_key = p
+                        break
             
-            # Logic for verifyExists
+            if selected_key:
+                 condition_str = f'String(items[i].{selected_key}) === String({selected_key})'
+            else:
+                match_conds = []
+                for p in global_params:
+                    match_conds.append(f'String(items[i].{p}) === String({p})')
+                condition_str = " && ".join(match_conds) if match_conds else "true"
+
             lines.append(f'function verify{name}Exists({global_args_str}) {{')
-            op_data = ops["get"]
-            path_tmpl = op_data.get("path", "")
-            js_url = f'"{path_tmpl}"'
-            for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
-            js_url = js_url.replace(' + ""', '')
-            
-            lines.append(f'  var url = {js_url};')
+            lines.append(f'  var url = {js_coll_url};')
             lines.append(f'  var description = "Verify {name} exists";')
             lines.append('  svc.get(url, {')
+            lines.append('    expectedResponseCodes: [200],')
             lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [200]')
+            lines.append('    callback: function(response) {')
+            lines.append('      var items = JSON.parse(response.body);')
+            lines.append('      if (Array.isArray(items)) {')
+            lines.append('        for (var i = 0; i < items.length; i++) {')
+            lines.append(f'          if ({condition_str}) {{')
+            lines.append(f'            return pvg.success("{name} exists");')
+            lines.append('          }')
+            lines.append('        }')
+            lines.append('      }')
+            lines.append(f'      return pvg.fail("Expected {name} to exist but it does not");')
+            lines.append('    }')
             lines.append('  });')
             lines.append('}')
             lines.append('')
 
-            # Logic for verifyDoesNotExist
             lines.append(f'function verify{name}DoesNotExist({global_args_str}) {{')
-            lines.append(f'  var url = {js_url};') # reused
+            lines.append(f'  var url = {js_coll_url};')
             lines.append(f'  var description = "Verify {name} does not exist";')
             lines.append('  svc.get(url, {')
+            lines.append('    expectedResponseCodes: [200],')
             lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [404]')
+            lines.append('    callback: function(response) {')
+            lines.append('      var items = JSON.parse(response.body);')
+            lines.append('      if (Array.isArray(items)) {')
+            lines.append('        for (var i = 0; i < items.length; i++) {')
+            lines.append(f'          if ({condition_str}) {{')
+            lines.append(f'            return pvg.fail("Expected {name} to not exist but it does");')
+            lines.append('          }')
+            lines.append('        }')
+            lines.append('      }')
+            lines.append(f'      return pvg.success("{name} does not exist");')
+            lines.append('    }')
             lines.append('  });')
             lines.append('}')
             lines.append('')
 
+        # Delete Non Existing
         if "delete" in ops:
-            del_fn = ops["delete"].get("name")
-            lines.append(f'function tryToDeleteANonExisting{name}({global_args_str}) {{')
-            
             op_data = ops["delete"]
-            path_tmpl = op_data.get("path", "")
-            js_url = f'"{path_tmpl}"'
+            # Default to permissive codes [200, 400, 404]
+            expected_codes = op_data.get('x-negative-delete-expected-codes', [200, 400, 404])
+            expected_codes_str = json.dumps(expected_codes)
+
+            js_url = f'"{op_data.get("path", "")}"'
             for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
-            
+
+            lines.append(f'function tryToDeleteANonExisting{name}({global_args_str}) {{')
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = "Verify we cannot delete non-existing {name}";')
             lines.append('  svc.delete(url, {')
-            lines.append('    parameters: { description: description },')
-            lines.append('    expectedResponseCodes: [400, 404]')
+            lines.append(f'    expectedResponseCodes: {expected_codes_str},')
+            lines.append('    parameters: { description: description }')
             lines.append('  });')
             lines.append('}')
             lines.append('')
 
         # --- EMIT WAITERS ---
-        
         if "add" in ops:
             op = ops["add"]
             desc_tmpl = op.get("descriptionTemplate", "")
@@ -252,21 +330,19 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             
             matcher_name = f"matchAdded{name}"
             lines.append(f'function {matcher_name}({global_args_str}) {{')
-            
             js_expected_desc = f'"{desc_tmpl}"'
             for p in global_params:
                 js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {p} + "')
             js_expected_desc = js_expected_desc.replace(' + ""', '')
-
             lines.append(f'  var expectedDesc = {js_expected_desc};')
             lines.append(f'  return bp.EventSet("{matcher_name}", function(e) {{')
-            lines.append(f'      return e.data && e.data.parameters && e.data.parameters.description === expectedDesc;')
+            lines.append(f'      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);')
             lines.append(f'  }});')
             lines.append('}')
             lines.append('')
 
-            waiter_name = f"waitForAny{name}Added"
-            lines.append(f'function {waiter_name}() {{')
+            waiter_name_any = f"waitForAny{name}Added"
+            lines.append(f'function {waiter_name_any}() {{')
             lines.append(f'  var ev = bp.sync({{waitFor: matchesDescriptionRegex(/{regex}/)}});')
             lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
             lines.append('  var captures = m.slice(1);')
@@ -276,6 +352,25 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;')
             lines.append('  }')
             lines.append('  return obj;')
+            lines.append('}')
+            lines.append('')
+
+            # --- STRATEGY: GENERIC GET-EVENT-SET BY KEY ---
+            get_es_fn = f"get{name}AddedEvent"
+            lines.append(f'function {get_es_fn}(keyVal) {{')
+            lines.append(f'  return bp.EventSet("Add{name}:" + keyVal, function(e) {{')
+            lines.append(f'    if (!e.data || !e.data.parameters) return false;')
+            
+            check_key = primary_key if primary_key else "id"
+            lines.append(f'    return String(e.data.parameters.{check_key}) === String(keyVal);')
+            lines.append(f'  }});')
+            lines.append('}')
+            lines.append('')
+
+            waiter_name_specific = f"waitFor{name}Added"
+            lines.append(f'function {waiter_name_specific}({global_args_str}) {{')
+            lines.append(f'  var expectedDesc = {js_expected_desc};')
+            lines.append(f'  bp.sync({{waitFor: matchesDescription(expectedDesc)}});')
             lines.append('}')
             lines.append('')
 
@@ -298,7 +393,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
             lines.append(f'  var expectedDesc = {js_expected_desc};')
             lines.append(f'  return bp.EventSet("{matcher_name}", function(e) {{')
-            lines.append(f'      return e.data && e.data.parameters && e.data.parameters.description === expectedDesc;')
+            lines.append(f'      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);')
             lines.append(f'  }});')
             lines.append('}')
             lines.append('')
@@ -330,13 +425,26 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('// Auto-generated HLS stories')
     lines.append('//@provengo summon rest')
     lines.append('')
+    # bthread line removed as requested
     lines.append('')
 
     base_id = 200 
 
+    # Key Map helper for dependencies
+    entity_pks_map = {}
     for name, ent in entities.items():
         ops = ent.get("operations", {})
-        
+        path_keys = []
+        check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
+        for op in check_ops:
+            if op and '{' in op.get('path', ''):
+                matches = re.findall(r'\{([^}]+)\}', op['path'])
+                for m in matches:
+                    if m not in path_keys: path_keys.append(m)
+        entity_pks_map[name] = path_keys
+
+    for name, ent in entities.items():
+        ops = ent.get("operations", {})
         add_fn = ops.get("add", {}).get("name")
         del_fn = ops.get("delete", {}).get("name")
         upd_fn = ops.get("update", {}).get("name")
@@ -348,10 +456,25 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         ver_ne_fn = f"verify{name}DoesNotExist"
         
         wait_add_fn = f"waitForAny{name}Added"
+        wait_specific_fn = f"waitFor{name}Added"
         match_del_fn = f"matchDeleted{name}"
 
+        # --- Key Detection ---
+        primary_key = None
+        check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
+        for op in check_ops:
+            if op and '{' in op.get('path', ''):
+                matches = re.findall(r'\{([^}]+)\}', op['path'])
+                if matches:
+                    primary_key = matches[0]
+                    break
+        
         all_params = []
         seen = set()
+        if primary_key:
+            seen.add(primary_key)
+            all_params.append(primary_key)
+
         def collect(p_list):
             for p in p_list:
                 if p not in seen:
@@ -364,27 +487,51 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         def get_vars(idx):
             declarations = []
             for p in all_params:
-                if "id" in p.lower() and "user" not in p.lower() and "owner" not in p.lower():
-                     declarations.append(f'  let {p} = {idx};')
+                if p == primary_key or p.lower() == 'id' or p.lower().endswith('id'):
+                    declarations.append(f'  let {p} = {idx};')
                 else:
-                     declarations.append(f'  let {p} = "{p}_{idx}";')
+                    declarations.append(f'  let {p} = "{p}_{idx}";')
             return "\n".join(declarations)
 
         def get_args(idx):
             args = []
             for p in all_params:
-                if "id" in p.lower() and "user" not in p.lower() and "owner" not in p.lower():
+                if p == primary_key or p.lower() == 'id' or p.lower().endswith('id'):
                     args.append(f"{idx}")
                 else:
                     args.append(f'"{p}_{idx}"')
             return ", ".join(args)
+
+        # --- DEPENDENCY BARRIER ---
+        deps = []
+        for p in all_params:
+            for potential_ent in entities:
+                if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
+                    # Found potential dependency
+                    deps.append((potential_ent, p))
+
+        barrier_code = []
+        if deps:
+            barrier_code.append('  // Dependency Barrier')
+            barrier_code.append('  let pending = [];')
+            for target_ent, var_name in deps:
+                barrier_code.append(f'  pending.push(get{target_ent}AddedEvent({var_name}));')
+            barrier_code.append('  while (pending.length > 0) {')
+            barrier_code.append('    let e = bp.sync({waitFor: pending});')
+            barrier_code.append('    pending = pending.filter(es => !es.contains(e));')
+            barrier_code.append('  }')
+            barrier_code.append('  // End Barrier')
+
+        barrier_str = "\n".join(barrier_code)
 
         # STORIES GENERATION
         if add_fn and del_fn:
             lines.append(f'// Story: crud:{name}:nondet:1:1')
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
+            if barrier_str: lines.append(barrier_str)
             lines.append(f'  {add_fn}({get_args(base_id)});')
+            lines.append(f'  {wait_specific_fn}({get_args(base_id)});')
             lines.append(f'  {try_add_fn}({get_args(base_id)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
             if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id)});')
@@ -397,7 +544,9 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'// Story: crud:{name}:nondet:1:2')
             lines.append(f'bthread("crud:{name}:nondet:1:2", function () {{')
             lines.append(get_vars(base_id + 1))
+            if barrier_str: lines.append(barrier_str)
             lines.append(f'  {add_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {wait_specific_fn}({get_args(base_id + 1)});')
             lines.append(f'  {try_add_fn}({get_args(base_id + 1)});')
             if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id + 1)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 1)});')
@@ -410,7 +559,9 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'// Story: crud:{name}:nondet:negative:dup-add')
             lines.append(f'bthread("crud:{name}:nondet:negative:dup-add", function () {{')
             lines.append(get_vars(base_id + 6))
+            if barrier_str: lines.append(barrier_str)
             lines.append(f'  {add_fn}({get_args(base_id + 6)});')
+            lines.append(f'  {wait_specific_fn}({get_args(base_id + 6)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
             lines.append(f'  {try_add_fn}({get_args(base_id + 6)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')

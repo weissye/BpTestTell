@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Library SUT (Corrected)",
-    "version": "1.0.1"
+    "title": "Library SUT (Ground-Truth)",
+    "version": "1.0.0"
   },
   "paths": {
     "/users": {
@@ -43,7 +43,7 @@
               "type": "string"
             },
             "required": false,
-            "description": "Free-text search query"
+            "description": "Free-text search query (e.g., name or id fragment)"
           }
         ],
         "responses": {
@@ -63,14 +63,14 @@
         }
       }
     },
-    "/users/{id}": {
+    "/users/{user_id}": {
       "delete": {
         "summary": "Delete a user",
         "operationId": "deleteUser",
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "user_id",
             "required": true,
             "schema": {
               "type": "integer"
@@ -142,14 +142,14 @@
         }
       }
     },
-    "/books/{id}": {
+    "/books/{book_id}": {
       "get": {
         "summary": "Get book by id",
         "operationId": "getBook",
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "book_id",
             "required": true,
             "schema": {
               "type": "integer"
@@ -178,7 +178,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "book_id",
             "required": true,
             "schema": {
               "type": "integer"
@@ -257,14 +257,14 @@
         }
       }
     },
-    "/loans/{userId}/{bookId}": {
+    "/loans/{user_id}/{book_id}": {
       "delete": {
         "summary": "Delete a loan by composite id",
         "operationId": "deleteLoan",
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "user_id",
             "required": true,
             "schema": {
               "type": "integer"
@@ -272,7 +272,7 @@
           },
           {
             "in": "path",
-            "name": "bookId",
+            "name": "book_id",
             "required": true,
             "schema": {
               "type": "integer"
@@ -333,14 +333,14 @@
         }
       }
     },
-    "/holds/{id}": {
+    "/holds/{hold_id}": {
       "delete": {
         "summary": "Delete a hold",
         "operationId": "deleteHold",
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "hold_id",
             "required": true,
             "schema": {
               "type": "integer"
@@ -434,12 +434,12 @@
       "HoldCreate": {
         "type": "object",
         "required": [
-          "id",
+          "hold_id",
           "userId",
           "bookId"
         ],
         "properties": {
-          "id": {
+          "hold_id": {
             "type": "integer"
           },
           "userId": {
