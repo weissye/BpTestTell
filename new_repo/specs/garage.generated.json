@@ -5,18 +5,21 @@
     "Chain": {
       "displayName": "chain",
       "params": [
-        "chainId"
+        "chainId",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createChain",
           "method": "POST",
           "path": "/chains",
-          "descriptionTemplate": "Create chain {name} with id {chainId}",
+          "descriptionTemplate": "Create chain {name} with chainId {chainId}",
           "params": [
             "chainId",
             "name",
-            "hqAddress"
+            "hqAddress",
+            "supportEmail",
+            "active"
           ],
           "bodyTemplate": {
             "chainId": "{chainId}",
@@ -27,19 +30,18 @@
           }
         },
         "get": {
-          "name": "getChain",
+          "name": "listChains",
           "method": "GET",
-          "path": "/chains/{chainId}",
-          "descriptionTemplate": "Get chain with id {chainId}",
-          "params": [
-            "chainId"
-          ]
+          "path": "/chains",
+          "descriptionTemplate": "List chains",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateChain",
           "method": "PUT",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Update chain with id {chainId}",
+          "descriptionTemplate": "Update chain {chainId}",
           "params": [
             "chainId"
           ],
@@ -54,30 +56,45 @@
           "name": "deleteChain",
           "method": "DELETE",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Delete chain with id {chainId}",
+          "descriptionTemplate": "Delete chain {chainId}",
           "params": [
             "chainId"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getChain",
+          "method": "GET",
+          "path": "/chains/{chainId}",
+          "descriptionTemplate": "Get chain {chainId}",
+          "params": [
+            "chainId"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Garage": {
       "displayName": "garage",
       "params": [
-        "garageId"
+        "garageId",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createGarage",
           "method": "POST",
           "path": "/garages",
-          "descriptionTemplate": "Create garage {name} with id {garageId}",
+          "descriptionTemplate": "Create garage {name} with garageId {garageId}",
           "params": [
             "garageId",
             "chainId",
             "name",
             "address",
-            "phone"
+            "phone",
+            "bayCount",
+            "servicesOffered",
+            "active"
           ],
           "bodyTemplate": {
             "garageId": "{garageId}",
@@ -91,19 +108,18 @@
           }
         },
         "get": {
-          "name": "getGarage",
+          "name": "listGarages",
           "method": "GET",
-          "path": "/garages/{garageId}",
-          "descriptionTemplate": "Get garage with id {garageId}",
-          "params": [
-            "garageId"
-          ]
+          "path": "/garages",
+          "descriptionTemplate": "List garages",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateGarage",
           "method": "PUT",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Update garage with id {garageId}",
+          "descriptionTemplate": "Update garage {garageId}",
           "params": [
             "garageId"
           ],
@@ -121,30 +137,43 @@
           "name": "deleteGarage",
           "method": "DELETE",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Delete garage with id {garageId}",
+          "descriptionTemplate": "Delete garage {garageId}",
           "params": [
             "garageId"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getGarage",
+          "method": "GET",
+          "path": "/garages/{garageId}",
+          "descriptionTemplate": "Get garage {garageId}",
+          "params": [
+            "garageId"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Customer": {
       "displayName": "customer",
       "params": [
-        "customerId"
+        "customerId",
+        "fullName"
       ],
       "operations": {
         "add": {
           "name": "createCustomer",
           "method": "POST",
           "path": "/customers",
-          "descriptionTemplate": "Create customer {fullName} with id {customerId}",
+          "descriptionTemplate": "Create customer {fullName} with customerId {customerId}",
           "params": [
             "customerId",
             "type",
             "fullName",
             "email",
-            "phone"
+            "phone",
+            "preferredGarageId"
           ],
           "bodyTemplate": {
             "customerId": "{customerId}",
@@ -156,19 +185,18 @@
           }
         },
         "get": {
-          "name": "getCustomer",
+          "name": "listCustomers",
           "method": "GET",
-          "path": "/customers/{customerId}",
-          "descriptionTemplate": "Get customer with id {customerId}",
-          "params": [
-            "customerId"
-          ]
+          "path": "/customers",
+          "descriptionTemplate": "List customers",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateCustomer",
           "method": "PUT",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Update customer with id {customerId}",
+          "descriptionTemplate": "Update customer {customerId}",
           "params": [
             "customerId"
           ],
@@ -184,17 +212,30 @@
           "name": "deleteCustomer",
           "method": "DELETE",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Delete customer with id {customerId}",
+          "descriptionTemplate": "Delete customer {customerId}",
           "params": [
             "customerId"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getCustomer",
+          "method": "GET",
+          "path": "/customers/{customerId}",
+          "descriptionTemplate": "Get customer {customerId}",
+          "params": [
+            "customerId"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Car": {
       "displayName": "car",
       "params": [
-        "vin"
+        "vin",
+        "make",
+        "model"
       ],
       "operations": {
         "add": {
@@ -208,7 +249,8 @@
             "model",
             "year",
             "mileage",
-            "ownerCustomerId"
+            "ownerCustomerId",
+            "homeGarageId"
           ],
           "bodyTemplate": {
             "vin": "{vin}",
@@ -221,19 +263,18 @@
           }
         },
         "get": {
-          "name": "getCar",
+          "name": "listCars",
           "method": "GET",
-          "path": "/cars/{vin}",
-          "descriptionTemplate": "Get car with vin {vin}",
-          "params": [
-            "vin"
-          ]
+          "path": "/cars",
+          "descriptionTemplate": "List cars",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateCar",
           "method": "PUT",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Update car with vin {vin}",
+          "descriptionTemplate": "Update car {vin}",
           "params": [
             "vin"
           ],
@@ -250,30 +291,45 @@
           "name": "deleteCar",
           "method": "DELETE",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Delete car with vin {vin}",
+          "descriptionTemplate": "Delete car {vin}",
           "params": [
             "vin"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getCar",
+          "method": "GET",
+          "path": "/cars/{vin}",
+          "descriptionTemplate": "Get car {vin}",
+          "params": [
+            "vin"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "PeriodicMaintenance": {
       "displayName": "periodicMaintenance",
       "params": [
-        "pmId"
+        "pmId",
+        "carVin"
       ],
       "operations": {
         "add": {
           "name": "createPeriodicMaintenance",
           "method": "POST",
           "path": "/periodic-maintenance",
-          "descriptionTemplate": "Create periodic maintenance plan with id {pmId}",
+          "descriptionTemplate": "Create periodic maintenance plan {pmId} for car {carVin}",
           "params": [
             "pmId",
             "carVin",
             "garageId",
             "planType",
-            "tasks"
+            "intervalKm",
+            "intervalMonths",
+            "tasks",
+            "status"
           ],
           "bodyTemplate": {
             "pmId": "{pmId}",
@@ -287,19 +343,18 @@
           }
         },
         "get": {
-          "name": "getPeriodicMaintenance",
+          "name": "listPeriodicMaintenance",
           "method": "GET",
-          "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Get periodic maintenance plan with id {pmId}",
-          "params": [
-            "pmId"
-          ]
+          "path": "/periodic-maintenance",
+          "descriptionTemplate": "List periodic maintenance plans",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updatePeriodicMaintenance",
           "method": "PUT",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Update periodic maintenance plan with id {pmId}",
+          "descriptionTemplate": "Update periodic maintenance plan {pmId}",
           "params": [
             "pmId"
           ],
@@ -317,30 +372,44 @@
           "name": "deletePeriodicMaintenance",
           "method": "DELETE",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Delete periodic maintenance plan with id {pmId}",
+          "descriptionTemplate": "Delete periodic maintenance plan {pmId}",
           "params": [
             "pmId"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getPeriodicMaintenance",
+          "method": "GET",
+          "path": "/periodic-maintenance/{pmId}",
+          "descriptionTemplate": "Get periodic maintenance plan {pmId}",
+          "params": [
+            "pmId"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "RepairOrder": {
       "displayName": "repairOrder",
       "params": [
-        "roId"
+        "roId",
+        "carVin",
+        "customerId"
       ],
       "operations": {
         "add": {
           "name": "createRepairOrder",
           "method": "POST",
           "path": "/repair-orders",
-          "descriptionTemplate": "Create repair order with id {roId}",
+          "descriptionTemplate": "Create repair order {roId} for car {carVin} and customer {customerId}",
           "params": [
             "roId",
             "carVin",
             "customerId",
             "garageId",
-            "complaint"
+            "complaint",
+            "status"
           ],
           "bodyTemplate": {
             "roId": "{roId}",
@@ -352,19 +421,18 @@
           }
         },
         "get": {
-          "name": "getRepairOrder",
+          "name": "listRepairOrders",
           "method": "GET",
-          "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Get repair order with id {roId}",
-          "params": [
-            "roId"
-          ]
+          "path": "/repair-orders",
+          "descriptionTemplate": "List repair orders",
+          "params": [],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateRepairOrder",
           "method": "PUT",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Update repair order with id {roId}",
+          "descriptionTemplate": "Update repair order {roId}",
           "params": [
             "roId"
           ],
@@ -380,13 +448,1527 @@
           "name": "deleteRepairOrder",
           "method": "DELETE",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Delete repair order with id {roId}",
+          "descriptionTemplate": "Delete repair order {roId}",
           "params": [
             "roId"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getRepairOrder",
+          "method": "GET",
+          "path": "/repair-orders/{roId}",
+          "descriptionTemplate": "Get repair order {roId}",
+          "params": [
+            "roId"
+          ],
+          "bodyTemplate": {}
+        },
+        "approve": {
+          "name": "approveRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders/{roId}/approve",
+          "descriptionTemplate": "Approve repair order {roId}",
+          "params": [
+            "roId"
+          ],
+          "bodyTemplate": {}
+        },
+        "close": {
+          "name": "closeRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders/{roId}/close",
+          "descriptionTemplate": "Close repair order {roId}",
+          "params": [
+            "roId"
+          ],
+          "bodyTemplate": {}
         }
       }
     }
   },
-  "stories": []
+  "stories": [],
+  "original_spec": {
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Garage Chain SUT API (Demo)",
+      "version": "1.0.0",
+      "description": "In-memory demo API for a garage chain: Chains, Garages, Customers, Cars, Periodic Maintenance, and Repair Orders."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5000"
+      }
+    ],
+    "paths": {
+      "/chains": {
+        "post": {
+          "summary": "Create chain",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChainCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Chain"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List chains",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Chain"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/chains/{chainId}": {
+        "parameters": [
+          {
+            "name": "chainId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Read chain",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Chain"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update chain",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChainUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Chain"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete chain",
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/garages": {
+        "post": {
+          "summary": "Create garage",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GarageCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Garage"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List garages",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Garage"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/garages/{garageId}": {
+        "parameters": [
+          {
+            "name": "garageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Read garage",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Garage"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update garage",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GarageUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Garage"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete garage",
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/customers": {
+        "post": {
+          "summary": "Create customer",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List customers",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Customer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/customers/{customerId}": {
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Read customer",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update customer",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete customer",
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/cars": {
+        "post": {
+          "summary": "Create car",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List cars",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Car"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/{vin}": {
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Read car",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update car",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete car",
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/periodic-maintenance": {
+        "post": {
+          "summary": "Create PM plan",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PMCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PeriodicMaintenance"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List PM plans",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PeriodicMaintenance"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/periodic-maintenance/{pmId}": {
+        "parameters": [
+          {
+            "name": "pmId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Read PM plan",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PeriodicMaintenance"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update PM plan",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PMUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PeriodicMaintenance"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete PM plan",
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/repair-orders": {
+        "post": {
+          "summary": "Create repair order",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ROCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RepairOrder"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List repair orders",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/RepairOrder"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/repair-orders/{roId}": {
+        "parameters": [
+          {
+            "name": "roId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Read repair order",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RepairOrder"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update repair order",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ROUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RepairOrder"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete repair order",
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/repair-orders/{roId}/approve": {
+        "post": {
+          "summary": "Approve RO (move to in-progress if allowed)",
+          "parameters": [
+            {
+              "name": "roId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RepairOrder"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      },
+      "/repair-orders/{roId}/close": {
+        "post": {
+          "summary": "Close RO (sets status=closed)",
+          "parameters": [
+            {
+              "name": "roId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RepairOrder"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "responses": {
+        "BadRequest": {
+          "description": "Bad request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "NotFound": {
+          "description": "Not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      },
+      "schemas": {
+        "Error": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          }
+        },
+        "Chain": {
+          "type": "object",
+          "properties": {
+            "chainId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "hqAddress": {
+              "type": "object"
+            },
+            "supportEmail": {
+              "type": "string",
+              "nullable": true
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "chainId",
+            "name",
+            "hqAddress",
+            "active",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "ChainCreate": {
+          "type": "object",
+          "properties": {
+            "chainId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "hqAddress": {
+              "type": "object"
+            },
+            "supportEmail": {
+              "type": "string"
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "chainId",
+            "name",
+            "hqAddress"
+          ]
+        },
+        "ChainUpdate": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "hqAddress": {
+              "type": "object"
+            },
+            "supportEmail": {
+              "type": "string"
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        },
+        "Garage": {
+          "type": "object",
+          "properties": {
+            "garageId": {
+              "type": "string"
+            },
+            "chainId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "bayCount": {
+              "type": "integer"
+            },
+            "servicesOffered": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "garageId",
+            "chainId",
+            "name",
+            "address",
+            "phone",
+            "active",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "GarageCreate": {
+          "type": "object",
+          "properties": {
+            "garageId": {
+              "type": "string"
+            },
+            "chainId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "bayCount": {
+              "type": "integer"
+            },
+            "servicesOffered": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "garageId",
+            "chainId",
+            "name",
+            "address",
+            "phone"
+          ]
+        },
+        "GarageUpdate": {
+          "type": "object",
+          "properties": {
+            "chainId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "bayCount": {
+              "type": "integer"
+            },
+            "servicesOffered": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "customerId": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "individual",
+                "business"
+              ]
+            },
+            "fullName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "preferredGarageId": {
+              "type": "string",
+              "nullable": true
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "customerId",
+            "type",
+            "fullName",
+            "email",
+            "phone",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "CustomerCreate": {
+          "type": "object",
+          "properties": {
+            "customerId": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "fullName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "preferredGarageId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "customerId",
+            "type",
+            "fullName",
+            "email",
+            "phone"
+          ]
+        },
+        "CustomerUpdate": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "fullName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "preferredGarageId": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "Car": {
+          "type": "object",
+          "properties": {
+            "vin": {
+              "type": "string"
+            },
+            "make": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "year": {
+              "type": "integer"
+            },
+            "mileage": {
+              "type": "integer"
+            },
+            "ownerCustomerId": {
+              "type": "string"
+            },
+            "homeGarageId": {
+              "type": "string",
+              "nullable": true
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "vin",
+            "make",
+            "model",
+            "year",
+            "mileage",
+            "ownerCustomerId",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "CarCreate": {
+          "type": "object",
+          "properties": {
+            "vin": {
+              "type": "string"
+            },
+            "make": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "year": {
+              "type": "integer"
+            },
+            "mileage": {
+              "type": "integer"
+            },
+            "ownerCustomerId": {
+              "type": "string"
+            },
+            "homeGarageId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "vin",
+            "make",
+            "model",
+            "year",
+            "mileage",
+            "ownerCustomerId"
+          ]
+        },
+        "CarUpdate": {
+          "type": "object",
+          "properties": {
+            "make": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "year": {
+              "type": "integer"
+            },
+            "mileage": {
+              "type": "integer"
+            },
+            "ownerCustomerId": {
+              "type": "string"
+            },
+            "homeGarageId": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "PeriodicMaintenance": {
+          "type": "object",
+          "properties": {
+            "pmId": {
+              "type": "string"
+            },
+            "carVin": {
+              "type": "string"
+            },
+            "garageId": {
+              "type": "string"
+            },
+            "planType": {
+              "type": "string",
+              "enum": [
+                "distance",
+                "time",
+                "distance_or_time"
+              ]
+            },
+            "intervalKm": {
+              "type": "integer",
+              "nullable": true
+            },
+            "intervalMonths": {
+              "type": "integer",
+              "nullable": true
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "active",
+                "paused",
+                "completed"
+              ]
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "pmId",
+            "carVin",
+            "garageId",
+            "planType",
+            "tasks",
+            "status",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "PMCreate": {
+          "type": "object",
+          "properties": {
+            "pmId": {
+              "type": "string"
+            },
+            "carVin": {
+              "type": "string"
+            },
+            "garageId": {
+              "type": "string"
+            },
+            "planType": {
+              "type": "string"
+            },
+            "intervalKm": {
+              "type": "integer"
+            },
+            "intervalMonths": {
+              "type": "integer"
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "pmId",
+            "carVin",
+            "garageId",
+            "planType",
+            "tasks"
+          ]
+        },
+        "PMUpdate": {
+          "type": "object",
+          "properties": {
+            "carVin": {
+              "type": "string"
+            },
+            "garageId": {
+              "type": "string"
+            },
+            "planType": {
+              "type": "string"
+            },
+            "intervalKm": {
+              "type": "integer"
+            },
+            "intervalMonths": {
+              "type": "integer"
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "RepairOrder": {
+          "type": "object",
+          "properties": {
+            "roId": {
+              "type": "string"
+            },
+            "carVin": {
+              "type": "string"
+            },
+            "customerId": {
+              "type": "string"
+            },
+            "garageId": {
+              "type": "string"
+            },
+            "complaint": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "open",
+                "awaiting-approval",
+                "in-progress",
+                "ready-for-pickup",
+                "closed",
+                "canceled"
+              ]
+            },
+            "openedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "closedAt": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "roId",
+            "carVin",
+            "customerId",
+            "garageId",
+            "complaint",
+            "status",
+            "openedAt",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "ROCreate": {
+          "type": "object",
+          "properties": {
+            "roId": {
+              "type": "string"
+            },
+            "carVin": {
+              "type": "string"
+            },
+            "customerId": {
+              "type": "string"
+            },
+            "garageId": {
+              "type": "string"
+            },
+            "complaint": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "roId",
+            "carVin",
+            "customerId",
+            "garageId",
+            "complaint"
+          ]
+        },
+        "ROUpdate": {
+          "type": "object",
+          "properties": {
+            "carVin": {
+              "type": "string"
+            },
+            "customerId": {
+              "type": "string"
+            },
+            "garageId": {
+              "type": "string"
+            },
+            "complaint": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    }
+  }
 }

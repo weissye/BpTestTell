@@ -1,7 +1,6 @@
 // Auto-generated HLS stories
 //@provengo summon rest
 
-const bthread = bp.registerBThread;
 
 // Story: crud:Drug:nondet:1:1
 bthread("crud:Drug:nondet:1:1", function () {

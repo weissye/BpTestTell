@@ -126,18 +126,21 @@ def main():
     grouped_paths = get_paths_by_tag(openapi_data)
     print(f"[INFO] Found {len(grouped_paths)} tag groups. Processing batches...")
 
-    # --- FIX: Extract Schemas to provide context to the LLM ---
+    # Extract Schemas to provide context to the LLM (Optional but good for LLM accuracy)
     components = openapi_data.get("components", {})
     schemas = components.get("schemas", {})
-    # Convert to string once to avoid overhead in loop
     schemas_context = json.dumps(schemas, indent=2)
 
     client = LLMClient()
+    
+    # --- FIX: PRESERVE RAW OPENAPI DATA ---
+    # We attach the full original spec so the Emitter can resolve $refs later.
     master_spec = {
         "sut": args.sut,
         "base_url": "http://localhost:8080",
         "entities": {},
-        "stories": []
+        "stories": [],
+        "original_spec": openapi_data 
     }
 
     # 2. Iterate and Process
@@ -174,6 +177,9 @@ def main():
     specs_dir = Path("new_repo/specs")
     specs_dir.mkdir(parents=True, exist_ok=True)
     spec_path = specs_dir / f"{args.sut}.generated.json"
+    
+    # Note: We save the full master_spec including original_spec, which makes the file larger
+    # but ensures the emitter has everything it needs.
     spec_path.write_text(json.dumps(master_spec, indent=2), encoding="utf-8")
     print(f"[OK] Saved unified spec to {spec_path} ({len(master_spec['entities'])} entities found)")
 
