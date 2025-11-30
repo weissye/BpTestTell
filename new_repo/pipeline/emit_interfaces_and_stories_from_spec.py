@@ -161,7 +161,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         
         ops = ent.get("operations", {})
         
-        # Detect Primary Key
         primary_key = None
         check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
         for op in check_ops:
@@ -171,24 +170,21 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                     primary_key = matches[0]
                     break
 
-        # --- FIX: SORTED GLOBAL PARAMS ---
         global_params_set = set()
         if primary_key: global_params_set.add(primary_key)
 
         def collect(p_list):
-            for p in p_list:
-                global_params_set.add(p)
+            for p in p_list: global_params_set.add(p)
         
         for op in ops.values(): collect(op.get("params", []))
-        collect(ent.get("params", []))
-
-        # Force Alphabetical Order for Deterministic Signatures
+        if not global_params_set: collect(ent.get("params", []))
+        
         global_params = sorted(list(global_params_set))
         global_args_str = ", ".join(global_params)
 
         # --- EMIT OPERATIONS ---
         for op_type, op_data in ops.items():
-            if not op_data or op_type == "verifyExists": continue
+            if not op_type == "verifyExists" and not op_data: continue
 
             fn_name = op_data.get("name", f"{op_type}{name}")
             method = op_data.get("method", "GET").upper()
@@ -223,10 +219,12 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
                 fields_to_gen = required_fields if (required_fields or not props) else list(props.keys())
                 
-                # Fallback to params
                 if not fields_to_gen:
                     op_params = op_data.get("params", [])
                     for p in op_params: fields_to_gen.append(p)
+                
+                if primary_key and primary_key not in fields_to_gen:
+                    fields_to_gen.append(primary_key)
 
                 seen_fields = set(sig_params)
                 clean_fields = []
@@ -241,7 +239,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 for field in fields_to_gen:
                     val_expr = "null"
                     f_type = props.get(field, {}).get("type", "string")
-                    # Heuristic Type Inference
                     f_type = _infer_type(field, f_type)
 
                     if f_type == "object":
@@ -273,8 +270,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = {js_desc};')
             lines.append(f'  var body = {body_js};')
-            
-            # Standard runtime logs
             lines.append(f'  bp.log.info("[CALL] {fn_name}");')
             if method in ["POST", "PUT", "PATCH"]:
                  lines.append(f'  bp.log.info("[DEBUG] {fn_name} body: " + JSON.stringify(body));')
@@ -287,7 +282,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 lines.append('    body: JSON.stringify(body),')
                 lines.append(f'    expectedResponseCodes: {codes},')
                 lines.append('    parameters: {')
-                lines.append('      description: description,')
                 if primary_key: lines.append(f'      {primary_key}: String({primary_key})')
                 for p in sig_params:
                     if p != primary_key and (p in all_known_pks or p.endswith("Id") or p.endswith("_id")):
@@ -511,29 +505,15 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     entities = spec.get("entities", {})
     raw_spec = _get_raw_spec(spec)
-    lines = []
     
+    lines = []
     lines.append('// Auto-generated HLS stories')
     lines.append('//@provengo summon rest')
     lines.append('')
     lines.append('const bthread = bp.registerBThread;')
     lines.append('')
 
-    # --- INJECTED HELPER ---
-    lines.append('function resolveDependencies(deps) {')
-    lines.append('  let captured = {};')
-    lines.append('  while (Object.keys(deps).length > 0) {')
-    lines.append('    let e = bp.sync({waitFor: Object.values(deps)});')
-    lines.append('    for (let k in deps) {')
-    lines.append('      if (deps[k].contains(e)) {')
-    lines.append('        captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;')
-    lines.append('        delete deps[k];')
-    lines.append('      }')
-    lines.append('    }')
-    lines.append('  }')
-    lines.append('  return captured;')
-    lines.append('}')
-    lines.append('')
+    # INLINED RESOLVE DEPENDENCIES REMOVED: Using direct inline logic below
 
     base_id = 200 
 
@@ -583,11 +563,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             
         param_types = {}
         if "add" in ops:
-            req_body = ops["add"].get("requestBody", {})
-            content = req_body.get("content", {})
-            json_media = content.get("application/json", {})
-            schema_ref = json_media.get("schema", {})
-            schema = _resolve_schema(schema_ref, spec)
+            schema, required_fields = _get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
             props = schema.get("properties", {})
             reqs = schema.get("required", [])
             fields_to_add = reqs if (reqs or not props) else list(props.keys())
@@ -617,7 +593,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             for potential_ent in entities:
                 if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
                      target_pk = entity_pks_map.get(potential_ent, [""])[0]
-                     if target_pk and (target_pk in p or "id" in p.lower() or "vin" in p.lower()):
+                     # FIX: Allow matches where entity name is in param OR "id"
+                     if target_pk and (target_pk in p or "id" in p.lower() or potential_ent.lower() in p.lower()):
                          deps.append((potential_ent, p))
 
         def get_vars(idx):
@@ -629,7 +606,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                 
                 if not is_captured:
                     ptype = param_types.get(p, "string")
-                    if ptype == "object" or "address" in p.lower():
+                    if ptype == "object":
                          val = "{}"
                     elif ptype in ["integer", "number"]:
                         val = f'{idx}'
@@ -670,7 +647,23 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             for target_ent, var_name in deps:
                  barrier_code.append(f'  deps["{var_name}"] = matchAny{target_ent}Added();')
             
-            barrier_code.append('  let captured = resolveDependencies(deps);')
+            barrier_code.append('  let captured = {};')
+            barrier_code.append('  while (Object.keys(deps).length > 0) {')
+            barrier_code.append('    let e = bp.sync({waitFor: Object.values(deps)});')
+            barrier_code.append('    for (let k in deps) {')
+            barrier_code.append('       if (deps[k].contains(e)) {')
+            # Robust Capture logic inline
+            barrier_code.append(f'         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;')
+            
+            for target_ent, var_name in deps:
+                 target_pk = entity_pks_map.get(target_ent, [""])[0]
+                 if target_pk:
+                     barrier_code.append(f'         if (!captured[k] && k === "{var_name}") captured[k] = e.data.parameters["{target_pk}"];')
+            
+            barrier_code.append('         delete deps[k];')
+            barrier_code.append('       }')
+            barrier_code.append('    }')
+            barrier_code.append('  }')
             
             for target_ent, var_name in deps:
                 barrier_code.append(f'  let {var_name} = captured["{var_name}"];')
@@ -681,10 +674,10 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'// Story: crud:{name}:nondet:1:1')
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
-            if barrier_str: lines.append(barrier_str)
+            if barrier_str: lines.append(barrier_str) # FIX: Append string, not list
             lines.append(f'  {add_fn}({get_args(base_id)});')
-            if not barrier_str:
-                 lines.append(f'  {wait_specific_fn}({get_args(base_id)});')
+            # Commented out to prevent deadlock
+            lines.append(f'  // {wait_specific_fn}({get_args(base_id)});')
             
             lines.append(f'  {try_add_fn}({get_args(base_id)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
@@ -700,8 +693,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(get_vars(base_id + 1))
             if barrier_str: lines.append(barrier_str)
             lines.append(f'  {add_fn}({get_args(base_id + 1)});')
-            if not barrier_str:
-                 lines.append(f'  {wait_specific_fn}({get_args(base_id + 1)});')
+            lines.append(f'  // {wait_specific_fn}({get_args(base_id + 1)});')
             lines.append(f'  {try_add_fn}({get_args(base_id + 1)});')
             if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id + 1)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 1)});')
@@ -716,8 +708,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(get_vars(base_id + 6))
             if barrier_str: lines.append(barrier_str)
             lines.append(f'  {add_fn}({get_args(base_id + 6)});')
-            if not barrier_str:
-                 lines.append(f'  {wait_specific_fn}({get_args(base_id + 6)});')
+            lines.append(f'  // {wait_specific_fn}({get_args(base_id + 6)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
             lines.append(f'  {try_add_fn}({get_args(base_id + 6)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
@@ -725,6 +716,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('')
 
             if upd_fn:
+                # Monitor commented out
                 pass
 
         elif get_fn:

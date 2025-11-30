@@ -5,8 +5,7 @@
     "Chain": {
       "displayName": "chain",
       "params": [
-        "chainId",
-        "name"
+        "chainId"
       ],
       "operations": {
         "add": {
@@ -17,9 +16,7 @@
           "params": [
             "chainId",
             "name",
-            "hqAddress",
-            "supportEmail",
-            "active"
+            "hqAddress"
           ],
           "bodyTemplate": {
             "chainId": "{chainId}",
@@ -30,20 +27,25 @@
           }
         },
         "get": {
-          "name": "listChains",
+          "name": "getChain",
           "method": "GET",
-          "path": "/chains",
-          "descriptionTemplate": "List chains",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/chains/{chainId}",
+          "descriptionTemplate": "Get chain with chainId {chainId}",
+          "params": [
+            "chainId"
+          ]
         },
         "update": {
           "name": "updateChain",
           "method": "PUT",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Update chain {chainId}",
+          "descriptionTemplate": "Update chain with chainId {chainId}",
           "params": [
-            "chainId"
+            "chainId",
+            "name",
+            "hqAddress",
+            "supportEmail",
+            "active"
           ],
           "bodyTemplate": {
             "name": "{name}",
@@ -56,29 +58,17 @@
           "name": "deleteChain",
           "method": "DELETE",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Delete chain {chainId}",
+          "descriptionTemplate": "Delete chain with chainId {chainId}",
           "params": [
             "chainId"
-          ],
-          "bodyTemplate": {}
-        },
-        "getById": {
-          "name": "getChain",
-          "method": "GET",
-          "path": "/chains/{chainId}",
-          "descriptionTemplate": "Get chain {chainId}",
-          "params": [
-            "chainId"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "Garage": {
       "displayName": "garage",
       "params": [
-        "garageId",
-        "name"
+        "garageId"
       ],
       "operations": {
         "add": {
@@ -91,10 +81,7 @@
             "chainId",
             "name",
             "address",
-            "phone",
-            "bayCount",
-            "servicesOffered",
-            "active"
+            "phone"
           ],
           "bodyTemplate": {
             "garageId": "{garageId}",
@@ -108,20 +95,28 @@
           }
         },
         "get": {
-          "name": "listGarages",
+          "name": "getGarage",
           "method": "GET",
-          "path": "/garages",
-          "descriptionTemplate": "List garages",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/garages/{garageId}",
+          "descriptionTemplate": "Get garage with garageId {garageId}",
+          "params": [
+            "garageId"
+          ]
         },
         "update": {
           "name": "updateGarage",
           "method": "PUT",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Update garage {garageId}",
+          "descriptionTemplate": "Update garage with garageId {garageId}",
           "params": [
-            "garageId"
+            "garageId",
+            "chainId",
+            "name",
+            "address",
+            "phone",
+            "bayCount",
+            "servicesOffered",
+            "active"
           ],
           "bodyTemplate": {
             "chainId": "{chainId}",
@@ -137,29 +132,17 @@
           "name": "deleteGarage",
           "method": "DELETE",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Delete garage {garageId}",
+          "descriptionTemplate": "Delete garage with garageId {garageId}",
           "params": [
             "garageId"
-          ],
-          "bodyTemplate": {}
-        },
-        "getById": {
-          "name": "getGarage",
-          "method": "GET",
-          "path": "/garages/{garageId}",
-          "descriptionTemplate": "Get garage {garageId}",
-          "params": [
-            "garageId"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "Customer": {
       "displayName": "customer",
       "params": [
-        "customerId",
-        "fullName"
+        "customerId"
       ],
       "operations": {
         "add": {
@@ -172,8 +155,7 @@
             "type",
             "fullName",
             "email",
-            "phone",
-            "preferredGarageId"
+            "phone"
           ],
           "bodyTemplate": {
             "customerId": "{customerId}",
@@ -185,20 +167,26 @@
           }
         },
         "get": {
-          "name": "listCustomers",
+          "name": "getCustomer",
           "method": "GET",
-          "path": "/customers",
-          "descriptionTemplate": "List customers",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/customers/{customerId}",
+          "descriptionTemplate": "Get customer with customerId {customerId}",
+          "params": [
+            "customerId"
+          ]
         },
         "update": {
           "name": "updateCustomer",
           "method": "PUT",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Update customer {customerId}",
+          "descriptionTemplate": "Update customer with customerId {customerId}",
           "params": [
-            "customerId"
+            "customerId",
+            "type",
+            "fullName",
+            "email",
+            "phone",
+            "preferredGarageId"
           ],
           "bodyTemplate": {
             "type": "{type}",
@@ -212,30 +200,17 @@
           "name": "deleteCustomer",
           "method": "DELETE",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Delete customer {customerId}",
+          "descriptionTemplate": "Delete customer with customerId {customerId}",
           "params": [
             "customerId"
-          ],
-          "bodyTemplate": {}
-        },
-        "getById": {
-          "name": "getCustomer",
-          "method": "GET",
-          "path": "/customers/{customerId}",
-          "descriptionTemplate": "Get customer {customerId}",
-          "params": [
-            "customerId"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "Car": {
       "displayName": "car",
       "params": [
-        "vin",
-        "make",
-        "model"
+        "vin"
       ],
       "operations": {
         "add": {
@@ -249,8 +224,7 @@
             "model",
             "year",
             "mileage",
-            "ownerCustomerId",
-            "homeGarageId"
+            "ownerCustomerId"
           ],
           "bodyTemplate": {
             "vin": "{vin}",
@@ -263,20 +237,27 @@
           }
         },
         "get": {
-          "name": "listCars",
+          "name": "getCar",
           "method": "GET",
-          "path": "/cars",
-          "descriptionTemplate": "List cars",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/cars/{vin}",
+          "descriptionTemplate": "Get car with vin {vin}",
+          "params": [
+            "vin"
+          ]
         },
         "update": {
           "name": "updateCar",
           "method": "PUT",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Update car {vin}",
+          "descriptionTemplate": "Update car with vin {vin}",
           "params": [
-            "vin"
+            "vin",
+            "make",
+            "model",
+            "year",
+            "mileage",
+            "ownerCustomerId",
+            "homeGarageId"
           ],
           "bodyTemplate": {
             "make": "{make}",
@@ -291,45 +272,30 @@
           "name": "deleteCar",
           "method": "DELETE",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Delete car {vin}",
+          "descriptionTemplate": "Delete car with vin {vin}",
           "params": [
             "vin"
-          ],
-          "bodyTemplate": {}
-        },
-        "getById": {
-          "name": "getCar",
-          "method": "GET",
-          "path": "/cars/{vin}",
-          "descriptionTemplate": "Get car {vin}",
-          "params": [
-            "vin"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "PeriodicMaintenance": {
       "displayName": "periodicMaintenance",
       "params": [
-        "pmId",
-        "carVin"
+        "pmId"
       ],
       "operations": {
         "add": {
           "name": "createPeriodicMaintenance",
           "method": "POST",
           "path": "/periodic-maintenance",
-          "descriptionTemplate": "Create periodic maintenance plan {pmId} for car {carVin}",
+          "descriptionTemplate": "Create periodic maintenance plan with pmId {pmId}",
           "params": [
             "pmId",
             "carVin",
             "garageId",
             "planType",
-            "intervalKm",
-            "intervalMonths",
-            "tasks",
-            "status"
+            "tasks"
           ],
           "bodyTemplate": {
             "pmId": "{pmId}",
@@ -343,20 +309,28 @@
           }
         },
         "get": {
-          "name": "listPeriodicMaintenance",
+          "name": "getPeriodicMaintenance",
           "method": "GET",
-          "path": "/periodic-maintenance",
-          "descriptionTemplate": "List periodic maintenance plans",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/periodic-maintenance/{pmId}",
+          "descriptionTemplate": "Get periodic maintenance plan with pmId {pmId}",
+          "params": [
+            "pmId"
+          ]
         },
         "update": {
           "name": "updatePeriodicMaintenance",
           "method": "PUT",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Update periodic maintenance plan {pmId}",
+          "descriptionTemplate": "Update periodic maintenance plan with pmId {pmId}",
           "params": [
-            "pmId"
+            "pmId",
+            "carVin",
+            "garageId",
+            "planType",
+            "intervalKm",
+            "intervalMonths",
+            "tasks",
+            "status"
           ],
           "bodyTemplate": {
             "carVin": "{carVin}",
@@ -372,44 +346,30 @@
           "name": "deletePeriodicMaintenance",
           "method": "DELETE",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Delete periodic maintenance plan {pmId}",
+          "descriptionTemplate": "Delete periodic maintenance plan with pmId {pmId}",
           "params": [
             "pmId"
-          ],
-          "bodyTemplate": {}
-        },
-        "getById": {
-          "name": "getPeriodicMaintenance",
-          "method": "GET",
-          "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Get periodic maintenance plan {pmId}",
-          "params": [
-            "pmId"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "RepairOrder": {
       "displayName": "repairOrder",
       "params": [
-        "roId",
-        "carVin",
-        "customerId"
+        "roId"
       ],
       "operations": {
         "add": {
           "name": "createRepairOrder",
           "method": "POST",
           "path": "/repair-orders",
-          "descriptionTemplate": "Create repair order {roId} for car {carVin} and customer {customerId}",
+          "descriptionTemplate": "Create repair order with roId {roId}",
           "params": [
             "roId",
             "carVin",
             "customerId",
             "garageId",
-            "complaint",
-            "status"
+            "complaint"
           ],
           "bodyTemplate": {
             "roId": "{roId}",
@@ -421,20 +381,26 @@
           }
         },
         "get": {
-          "name": "listRepairOrders",
+          "name": "getRepairOrder",
           "method": "GET",
-          "path": "/repair-orders",
-          "descriptionTemplate": "List repair orders",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/repair-orders/{roId}",
+          "descriptionTemplate": "Get repair order with roId {roId}",
+          "params": [
+            "roId"
+          ]
         },
         "update": {
           "name": "updateRepairOrder",
           "method": "PUT",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Update repair order {roId}",
+          "descriptionTemplate": "Update repair order with roId {roId}",
           "params": [
-            "roId"
+            "roId",
+            "carVin",
+            "customerId",
+            "garageId",
+            "complaint",
+            "status"
           ],
           "bodyTemplate": {
             "carVin": "{carVin}",
@@ -448,41 +414,10 @@
           "name": "deleteRepairOrder",
           "method": "DELETE",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Delete repair order {roId}",
+          "descriptionTemplate": "Delete repair order with roId {roId}",
           "params": [
             "roId"
-          ],
-          "bodyTemplate": {}
-        },
-        "getById": {
-          "name": "getRepairOrder",
-          "method": "GET",
-          "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Get repair order {roId}",
-          "params": [
-            "roId"
-          ],
-          "bodyTemplate": {}
-        },
-        "approve": {
-          "name": "approveRepairOrder",
-          "method": "POST",
-          "path": "/repair-orders/{roId}/approve",
-          "descriptionTemplate": "Approve repair order {roId}",
-          "params": [
-            "roId"
-          ],
-          "bodyTemplate": {}
-        },
-        "close": {
-          "name": "closeRepairOrder",
-          "method": "POST",
-          "path": "/repair-orders/{roId}/close",
-          "descriptionTemplate": "Close repair order {roId}",
-          "params": [
-            "roId"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     }

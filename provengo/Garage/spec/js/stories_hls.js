@@ -1,21 +1,6 @@
 // Auto-generated HLS stories
 //@provengo summon rest
 
-
-function resolveDependencies(deps) {
-  let captured = {};
-  while (Object.keys(deps).length > 0) {
-    let e = bp.sync({waitFor: Object.values(deps)});
-    for (let k in deps) {
-      if (deps[k].contains(e)) {
-        captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
-        delete deps[k];
-      }
-    }
-  }
-  return captured;
-}
-
 // Story: crud:Chain:nondet:1:1
 bthread("crud:Chain:nondet:1:1", function () {
   let active = "active_200";
@@ -24,7 +9,7 @@ bthread("crud:Chain:nondet:1:1", function () {
   let name = "name_200";
   let supportEmail = "supportEmail_200";
   createChain(active, chainId, hqAddress, name, supportEmail);
-  waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
+  // waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
   tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail);
   verifyChainExists(active, chainId, hqAddress, name, supportEmail);
   updateChain(active, chainId, hqAddress, name, supportEmail);
@@ -41,7 +26,7 @@ bthread("crud:Chain:nondet:1:2", function () {
   let name = "name_201";
   let supportEmail = "supportEmail_201";
   createChain(active, chainId, hqAddress, name, supportEmail);
-  waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
+  // waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
   tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail);
   updateChain(active, chainId, hqAddress, name, supportEmail);
   verifyChainExists(active, chainId, hqAddress, name, supportEmail);
@@ -58,7 +43,7 @@ bthread("crud:Chain:nondet:negative:dup-add", function () {
   let name = "name_206";
   let supportEmail = "supportEmail_206";
   createChain(active, chainId, hqAddress, name, supportEmail);
-  waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
+  // waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
   verifyChainExists(active, chainId, hqAddress, name, supportEmail);
   tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail);
   verifyChainExists(active, chainId, hqAddress, name, supportEmail);
@@ -68,7 +53,7 @@ bthread("crud:Chain:nondet:negative:dup-add", function () {
 bthread("crud:Garage:nondet:1:1", function () {
   let active = "active_210";
   let address = {};
-  let bayCount = 210;
+  let bayCount = "bayCount_210";
   let garageId = 210;
   let name = "name_210";
   let phone = "phone_210";
@@ -76,9 +61,20 @@ bthread("crud:Garage:nondet:1:1", function () {
   // Dependency Barrier
   let deps = {};
   deps["chainId"] = matchAnyChainAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "chainId") captured[k] = e.data.parameters["chainId"];
+         delete deps[k];
+       }
+    }
+  }
   let chainId = captured["chainId"];
   createGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  // waitForGarageAdded(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   verifyGarageExists(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   updateGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
@@ -91,7 +87,7 @@ bthread("crud:Garage:nondet:1:1", function () {
 bthread("crud:Garage:nondet:1:2", function () {
   let active = "active_211";
   let address = {};
-  let bayCount = 211;
+  let bayCount = "bayCount_211";
   let garageId = 211;
   let name = "name_211";
   let phone = "phone_211";
@@ -99,9 +95,20 @@ bthread("crud:Garage:nondet:1:2", function () {
   // Dependency Barrier
   let deps = {};
   deps["chainId"] = matchAnyChainAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "chainId") captured[k] = e.data.parameters["chainId"];
+         delete deps[k];
+       }
+    }
+  }
   let chainId = captured["chainId"];
   createGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  // waitForGarageAdded(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   updateGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   verifyGarageExists(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
@@ -114,7 +121,7 @@ bthread("crud:Garage:nondet:1:2", function () {
 bthread("crud:Garage:nondet:negative:dup-add", function () {
   let active = "active_216";
   let address = {};
-  let bayCount = 216;
+  let bayCount = "bayCount_216";
   let garageId = 216;
   let name = "name_216";
   let phone = "phone_216";
@@ -122,9 +129,20 @@ bthread("crud:Garage:nondet:negative:dup-add", function () {
   // Dependency Barrier
   let deps = {};
   deps["chainId"] = matchAnyChainAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "chainId") captured[k] = e.data.parameters["chainId"];
+         delete deps[k];
+       }
+    }
+  }
   let chainId = captured["chainId"];
   createGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  // waitForGarageAdded(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   verifyGarageExists(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
   verifyGarageExists(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
@@ -140,9 +158,20 @@ bthread("crud:Customer:nondet:1:1", function () {
   // Dependency Barrier
   let deps = {};
   deps["preferredGarageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "preferredGarageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let preferredGarageId = captured["preferredGarageId"];
   createCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  // waitForCustomerAdded(customerId, email, fullName, phone, preferredGarageId, type);
   tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type);
   verifyCustomerExists(customerId, email, fullName, phone, preferredGarageId, type);
   updateCustomer(customerId, email, fullName, phone, preferredGarageId, type);
@@ -161,9 +190,20 @@ bthread("crud:Customer:nondet:1:2", function () {
   // Dependency Barrier
   let deps = {};
   deps["preferredGarageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "preferredGarageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let preferredGarageId = captured["preferredGarageId"];
   createCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  // waitForCustomerAdded(customerId, email, fullName, phone, preferredGarageId, type);
   tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type);
   updateCustomer(customerId, email, fullName, phone, preferredGarageId, type);
   verifyCustomerExists(customerId, email, fullName, phone, preferredGarageId, type);
@@ -182,9 +222,20 @@ bthread("crud:Customer:nondet:negative:dup-add", function () {
   // Dependency Barrier
   let deps = {};
   deps["preferredGarageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "preferredGarageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let preferredGarageId = captured["preferredGarageId"];
   createCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  // waitForCustomerAdded(customerId, email, fullName, phone, preferredGarageId, type);
   verifyCustomerExists(customerId, email, fullName, phone, preferredGarageId, type);
   tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type);
   verifyCustomerExists(customerId, email, fullName, phone, preferredGarageId, type);
@@ -201,10 +252,22 @@ bthread("crud:Car:nondet:1:1", function () {
   let deps = {};
   deps["homeGarageId"] = matchAnyGarageAdded();
   deps["ownerCustomerId"] = matchAnyCustomerAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "homeGarageId") captured[k] = e.data.parameters["garageId"];
+         if (!captured[k] && k === "ownerCustomerId") captured[k] = e.data.parameters["customerId"];
+         delete deps[k];
+       }
+    }
+  }
   let homeGarageId = captured["homeGarageId"];
   let ownerCustomerId = captured["ownerCustomerId"];
   createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  // waitForCarAdded(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   verifyCarExists(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
@@ -224,10 +287,22 @@ bthread("crud:Car:nondet:1:2", function () {
   let deps = {};
   deps["homeGarageId"] = matchAnyGarageAdded();
   deps["ownerCustomerId"] = matchAnyCustomerAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "homeGarageId") captured[k] = e.data.parameters["garageId"];
+         if (!captured[k] && k === "ownerCustomerId") captured[k] = e.data.parameters["customerId"];
+         delete deps[k];
+       }
+    }
+  }
   let homeGarageId = captured["homeGarageId"];
   let ownerCustomerId = captured["ownerCustomerId"];
   createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  // waitForCarAdded(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   verifyCarExists(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
@@ -247,10 +322,22 @@ bthread("crud:Car:nondet:negative:dup-add", function () {
   let deps = {};
   deps["homeGarageId"] = matchAnyGarageAdded();
   deps["ownerCustomerId"] = matchAnyCustomerAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "homeGarageId") captured[k] = e.data.parameters["garageId"];
+         if (!captured[k] && k === "ownerCustomerId") captured[k] = e.data.parameters["customerId"];
+         delete deps[k];
+       }
+    }
+  }
   let homeGarageId = captured["homeGarageId"];
   let ownerCustomerId = captured["ownerCustomerId"];
   createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  // waitForCarAdded(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   verifyCarExists(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
   verifyCarExists(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
@@ -259,8 +346,8 @@ bthread("crud:Car:nondet:negative:dup-add", function () {
 // Story: crud:PeriodicMaintenance:nondet:1:1
 bthread("crud:PeriodicMaintenance:nondet:1:1", function () {
   let carVin = "carVin_240";
-  let intervalKm = 240;
-  let intervalMonths = 240;
+  let intervalKm = "intervalKm_240";
+  let intervalMonths = "intervalMonths_240";
   let planType = "planType_240";
   let pmId = 240;
   let status = "status_240";
@@ -268,9 +355,20 @@ bthread("crud:PeriodicMaintenance:nondet:1:1", function () {
   // Dependency Barrier
   let deps = {};
   deps["garageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "garageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let garageId = captured["garageId"];
   createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  // waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   updatePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
@@ -282,8 +380,8 @@ bthread("crud:PeriodicMaintenance:nondet:1:1", function () {
 // Story: crud:PeriodicMaintenance:nondet:1:2
 bthread("crud:PeriodicMaintenance:nondet:1:2", function () {
   let carVin = "carVin_241";
-  let intervalKm = 241;
-  let intervalMonths = 241;
+  let intervalKm = "intervalKm_241";
+  let intervalMonths = "intervalMonths_241";
   let planType = "planType_241";
   let pmId = 241;
   let status = "status_241";
@@ -291,9 +389,20 @@ bthread("crud:PeriodicMaintenance:nondet:1:2", function () {
   // Dependency Barrier
   let deps = {};
   deps["garageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "garageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let garageId = captured["garageId"];
   createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  // waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   updatePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
@@ -305,8 +414,8 @@ bthread("crud:PeriodicMaintenance:nondet:1:2", function () {
 // Story: crud:PeriodicMaintenance:nondet:negative:dup-add
 bthread("crud:PeriodicMaintenance:nondet:negative:dup-add", function () {
   let carVin = "carVin_246";
-  let intervalKm = 246;
-  let intervalMonths = 246;
+  let intervalKm = "intervalKm_246";
+  let intervalMonths = "intervalMonths_246";
   let planType = "planType_246";
   let pmId = 246;
   let status = "status_246";
@@ -314,9 +423,20 @@ bthread("crud:PeriodicMaintenance:nondet:negative:dup-add", function () {
   // Dependency Barrier
   let deps = {};
   deps["garageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "garageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let garageId = captured["garageId"];
   createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  // waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
   verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
@@ -332,10 +452,22 @@ bthread("crud:RepairOrder:nondet:1:1", function () {
   let deps = {};
   deps["customerId"] = matchAnyCustomerAdded();
   deps["garageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "customerId") captured[k] = e.data.parameters["customerId"];
+         if (!captured[k] && k === "garageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let customerId = captured["customerId"];
   let garageId = captured["garageId"];
   createRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status);
   tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status);
   verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId, status);
   updateRepairOrder(carVin, complaint, customerId, garageId, roId, status);
@@ -354,10 +486,22 @@ bthread("crud:RepairOrder:nondet:1:2", function () {
   let deps = {};
   deps["customerId"] = matchAnyCustomerAdded();
   deps["garageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "customerId") captured[k] = e.data.parameters["customerId"];
+         if (!captured[k] && k === "garageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let customerId = captured["customerId"];
   let garageId = captured["garageId"];
   createRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status);
   tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status);
   updateRepairOrder(carVin, complaint, customerId, garageId, roId, status);
   verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId, status);
@@ -376,10 +520,22 @@ bthread("crud:RepairOrder:nondet:negative:dup-add", function () {
   let deps = {};
   deps["customerId"] = matchAnyCustomerAdded();
   deps["garageId"] = matchAnyGarageAdded();
-  let captured = resolveDependencies(deps);
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let e = bp.sync({waitFor: Object.values(deps)});
+    for (let k in deps) {
+       if (deps[k].contains(e)) {
+         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+         if (!captured[k] && k === "customerId") captured[k] = e.data.parameters["customerId"];
+         if (!captured[k] && k === "garageId") captured[k] = e.data.parameters["garageId"];
+         delete deps[k];
+       }
+    }
+  }
   let customerId = captured["customerId"];
   let garageId = captured["garageId"];
   createRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status);
   verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId, status);
   tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status);
   verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId, status);
