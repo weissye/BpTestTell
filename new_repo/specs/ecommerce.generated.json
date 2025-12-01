@@ -11,11 +11,9 @@
           "method": "POST",
           "path": "/patients",
           "descriptionTemplate": "Create patient",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create patient"
       }
     },
     "Drug": {
@@ -23,23 +21,21 @@
       "params": [],
       "operations": {
         "get": {
-          "name": "listDrugs",
+          "name": "getDrugs",
           "method": "GET",
           "path": "/drugs",
-          "descriptionTemplate": "List drugs",
-          "params": []
+          "descriptionTemplate": "Get drugs",
+          "params": [],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "createDrug",
           "method": "POST",
           "path": "/drugs",
           "descriptionTemplate": "Create drug",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "get": "List drugs",
-        "add": "Create drug"
       }
     },
     "Prescription": {
@@ -51,11 +47,9 @@
           "method": "POST",
           "path": "/prescriptions",
           "descriptionTemplate": "Create prescription",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "Create prescription"
       }
     },
     "Order": {
@@ -63,23 +57,21 @@
       "params": [],
       "operations": {
         "get": {
-          "name": "listOrders",
+          "name": "getOrders",
           "method": "GET",
           "path": "/orders",
-          "descriptionTemplate": "List orders",
-          "params": []
+          "descriptionTemplate": "Get orders",
+          "params": [],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "createOrder",
           "method": "POST",
           "path": "/orders",
           "descriptionTemplate": "Create order",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "get": "List orders",
-        "add": "Create order"
       }
     },
     "Inventory": {
@@ -92,16 +84,82 @@
           "name": "getInventory",
           "method": "GET",
           "path": "/inventory/{ndc}",
-          "descriptionTemplate": "Get inventory for {ndc}",
+          "descriptionTemplate": "Get inventory with ndc {ndc}",
           "params": [
             "ndc"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "get": "Get inventory for .*"
       }
     }
   },
-  "stories": []
+  "stories": [],
+  "original_spec": {
+    "openapi": "3.0.3",
+    "info": {
+      "title": "pharmacy SUT",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/patients": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        }
+      },
+      "/drugs": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        },
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        }
+      },
+      "/prescriptions": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        }
+      },
+      "/orders": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        },
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        }
+      },
+      "/inventory/{ndc}": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "ok"
+            }
+          }
+        }
+      }
+    }
+  }
 }

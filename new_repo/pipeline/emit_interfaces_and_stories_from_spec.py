@@ -153,6 +153,11 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     lines.append('  });')
     lines.append('}')
     lines.append('')
+    
+    lines.append('function waitFor(eventSet) {')
+    lines.append('  return bp.sync({waitFor: eventSet});')
+    lines.append('}')
+    lines.append('')
 
     for name, ent in entities.items():
         displayName = ent.get("displayName", name)
@@ -161,6 +166,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         
         ops = ent.get("operations", {})
         
+        # Detect Primary Key
         primary_key = None
         check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
         for op in check_ops:
@@ -179,6 +185,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         for op in ops.values(): collect(op.get("params", []))
         if not global_params_set: collect(ent.get("params", []))
         
+        # Deterministic sort for signature matching
         global_params = sorted(list(global_params_set))
         global_args_str = ", ".join(global_params)
 
@@ -270,9 +277,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = {js_desc};')
             lines.append(f'  var body = {body_js};')
-            lines.append(f'  bp.log.info("[CALL] {fn_name}");')
-            if method in ["POST", "PUT", "PATCH"]:
-                 lines.append(f'  bp.log.info("[DEBUG] {fn_name} body: " + JSON.stringify(body));')
+            # Debug logs removed
             
             codes = "[]"
             if op_type == "add": codes = "[200, 201, 204, 409]"
@@ -282,6 +287,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 lines.append('    body: JSON.stringify(body),')
                 lines.append(f'    expectedResponseCodes: {codes},')
                 lines.append('    parameters: {')
+                lines.append('      description: description,')
                 if primary_key: lines.append(f'      {primary_key}: String({primary_key})')
                 for p in sig_params:
                     if p != primary_key and (p in all_known_pks or p.endswith("Id") or p.endswith("_id")):
@@ -429,7 +435,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
             waiter_name_any = f"waitForAny{name}Added"
             lines.append(f'function {waiter_name_any}() {{')
-            lines.append(f'  var ev = bp.sync({{waitFor: matchesDescriptionRegex(/{regex}/)}});')
+            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
             lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
             lines.append('  var captures = m.slice(1);')
             lines.append(f'  var names = {json.dumps(regex_params)};')
@@ -451,16 +457,20 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('}')
             lines.append('')
 
+            # ROBUST ANY MATCHER (NAME + PK check)
             match_any_fn = f"matchAny{name}Added"
             lines.append(f'function {match_any_fn}() {{')
-            lines.append(f'  return matchesDescriptionRegex(/{regex}/);')
+            lines.append(f'  return bp.EventSet("matchAny{name}Added", function(e) {{')
+            # Debug log removed
+            lines.append(f'    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create {displayName}") > -1 && e.data.parameters.{primary_key} !== undefined);')
+            lines.append(f'  }});')
             lines.append('}')
             lines.append('')
 
             waiter_name_specific = f"waitFor{name}Added"
             lines.append(f'function {waiter_name_specific}({global_args_str}) {{')
             lines.append(f'  var expectedDesc = {js_expected_desc};')
-            lines.append(f'  bp.sync({{waitFor: matchesDescription(expectedDesc)}});')
+            lines.append(f'  waitFor(matchesDescription(expectedDesc));')
             lines.append('}')
             lines.append('')
 
@@ -484,7 +494,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             
             waiter_name = f"waitForAny{name}Deleted"
             lines.append(f'function {waiter_name}() {{')
-            lines.append(f'  var ev = bp.sync({{waitFor: matchesDescriptionRegex(/{regex}/)}});')
+            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
             lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
             lines.append('  var captures = m.slice(1);')
             lines.append(f'  var names = {json.dumps(params)};')
@@ -510,10 +520,25 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('// Auto-generated HLS stories')
     lines.append('//@provengo summon rest')
     lines.append('')
-    lines.append('const bthread = bp.registerBThread;')
     lines.append('')
 
-    # INLINED RESOLVE DEPENDENCIES REMOVED: Using direct inline logic below
+    # --- INJECTED HELPER: resolveDependencies ---
+    lines.append('function resolveDependencies(deps) {')
+    lines.append('  let captured = {};')
+    lines.append('  while (Object.keys(deps).length > 0) {')
+    lines.append('    let missingEventSets = Object.values(deps);')
+    # Debug logs removed
+    lines.append('    let e = bp.sync({waitFor: missingEventSets});')
+    lines.append('    for (let k in deps) {')
+    lines.append('      if (deps[k].contains(e)) {')
+    lines.append('        captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;')
+    lines.append('        delete deps[k];')
+    lines.append('      }')
+    lines.append('    }')
+    lines.append('  }')
+    lines.append('  return captured;')
+    lines.append('}')
+    lines.append('')
 
     base_id = 200 
 
@@ -521,18 +546,20 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     for name, ent in entities.items():
         ops = ent.get("operations", {})
         path_keys = []
-        check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
-        for op in check_ops:
+        for op in ops.values():
             if op and '{' in op.get('path', ''):
                 matches = re.findall(r'\{([^}]+)\}', op['path'])
                 for m in matches:
                     if m not in path_keys: path_keys.append(m)
+        if not path_keys:
+             all_ps = []
+             if "add" in ops: all_ps.extend(ops["add"].get("params", []))
+             all_ps.extend(ent.get("params", []))
+             for p in all_ps:
+                if p.lower() == "id" or p.lower() == f"{name.lower()}id":
+                    path_keys.append(p)
+                    break
         entity_pks_map[name] = path_keys
-
-    fk_to_entity = {}
-    for ent_name, keys in entity_pks_map.items():
-        if len(keys) == 1:
-             fk_to_entity[keys[0]] = ent_name
 
     for name, ent in entities.items():
         ops = ent.get("operations", {})
@@ -551,11 +578,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         match_del_fn = f"matchDeleted{name}"
 
         primary_key = None
-        check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
-        for op in check_ops:
-            if op and '{' in op.get('path', ''):
-                matches = re.findall(r'\{([^}]+)\}', op['path'])
-                if matches: primary_key = matches[0]; break
+        if name in entity_pks_map and entity_pks_map[name]:
+             primary_key = entity_pks_map[name][0]
         
         all_params_set = set()
         if primary_key:
@@ -593,7 +617,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             for potential_ent in entities:
                 if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
                      target_pk = entity_pks_map.get(potential_ent, [""])[0]
-                     # FIX: Allow matches where entity name is in param OR "id"
                      if target_pk and (target_pk in p or "id" in p.lower() or potential_ent.lower() in p.lower()):
                          deps.append((potential_ent, p))
 
@@ -647,26 +670,13 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             for target_ent, var_name in deps:
                  barrier_code.append(f'  deps["{var_name}"] = matchAny{target_ent}Added();')
             
-            barrier_code.append('  let captured = {};')
-            barrier_code.append('  while (Object.keys(deps).length > 0) {')
-            barrier_code.append('    let e = bp.sync({waitFor: Object.values(deps)});')
-            barrier_code.append('    for (let k in deps) {')
-            barrier_code.append('       if (deps[k].contains(e)) {')
-            # Robust Capture logic inline
-            barrier_code.append(f'         captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;')
+            barrier_code.append('  let captured = resolveDependencies(deps);')
             
             for target_ent, var_name in deps:
-                 target_pk = entity_pks_map.get(target_ent, [""])[0]
-                 if target_pk:
-                     barrier_code.append(f'         if (!captured[k] && k === "{var_name}") captured[k] = e.data.parameters["{target_pk}"];')
-            
-            barrier_code.append('         delete deps[k];')
-            barrier_code.append('       }')
-            barrier_code.append('    }')
-            barrier_code.append('  }')
-            
-            for target_ent, var_name in deps:
-                barrier_code.append(f'  let {var_name} = captured["{var_name}"];')
+                barrier_code.append(f'  {var_name} = captured["{var_name}"];')
+                target_pks = entity_pks_map.get(target_ent, [])
+                for tpk in target_pks:
+                     barrier_code.append(f'  if (!{var_name}) {var_name} = captured["{tpk}"];')
 
         barrier_str = "\n".join(barrier_code)
 
@@ -674,11 +684,9 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'// Story: crud:{name}:nondet:1:1')
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
-            if barrier_str: lines.append(barrier_str) # FIX: Append string, not list
+            if barrier_str: lines.append(barrier_str)
             lines.append(f'  {add_fn}({get_args(base_id)});')
-            # Commented out to prevent deadlock
             lines.append(f'  // {wait_specific_fn}({get_args(base_id)});')
-            
             lines.append(f'  {try_add_fn}({get_args(base_id)});')
             lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
             if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id)});')
@@ -716,7 +724,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('')
 
             if upd_fn:
-                # Monitor commented out
                 pass
 
         elif get_fn:

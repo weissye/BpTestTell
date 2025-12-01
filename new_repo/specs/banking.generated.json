@@ -14,9 +14,6 @@
           "params": [],
           "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create customer$"
       }
     },
     "Account": {
@@ -38,12 +35,9 @@
           "method": "GET",
           "path": "/accounts",
           "descriptionTemplate": "Get accounts",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create account$",
-        "get": "^Get accounts$"
       }
     },
     "Transaction": {
@@ -59,11 +53,9 @@
           "descriptionTemplate": "Get transactions for account {accountId}",
           "params": [
             "accountId"
-          ]
+          ],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "get": "^Get transactions for account \\{accountId\\}$"
       }
     },
     "Transfer": {
@@ -78,9 +70,6 @@
           "params": [],
           "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create transfer$"
       }
     },
     "Card": {
@@ -95,9 +84,6 @@
           "params": [],
           "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create card$"
       }
     },
     "Loan": {
@@ -117,14 +103,88 @@
           "method": "GET",
           "path": "/loans",
           "descriptionTemplate": "Get loans",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create loan$",
-        "get": "^Get loans$"
       }
     }
   },
-  "stories": []
+  "stories": [],
+  "original_spec": {
+    "openapi": "3.0.3",
+    "info": {
+      "title": "banking SUT",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/customers": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        }
+      },
+      "/accounts": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      },
+      "/accounts/{accountId}/transactions": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      },
+      "/transfers": {
+        "post": {
+          "responses": {
+            "200": {
+              "description": "ok"
+            }
+          }
+        }
+      },
+      "/cards": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        }
+      },
+      "/loans": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      }
+    }
+  }
 }

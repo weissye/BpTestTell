@@ -12,7 +12,7 @@
           "name": "createChain",
           "method": "POST",
           "path": "/chains",
-          "descriptionTemplate": "Create chain {name} with chainId {chainId}",
+          "descriptionTemplate": "Create chain {name} with id {chainId}",
           "params": [
             "chainId",
             "name",
@@ -30,7 +30,7 @@
           "name": "getChain",
           "method": "GET",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Get chain with chainId {chainId}",
+          "descriptionTemplate": "Get chain with id {chainId}",
           "params": [
             "chainId"
           ]
@@ -39,13 +39,9 @@
           "name": "updateChain",
           "method": "PUT",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Update chain with chainId {chainId}",
+          "descriptionTemplate": "Update chain with id {chainId}",
           "params": [
-            "chainId",
-            "name",
-            "hqAddress",
-            "supportEmail",
-            "active"
+            "chainId"
           ],
           "bodyTemplate": {
             "name": "{name}",
@@ -58,7 +54,7 @@
           "name": "deleteChain",
           "method": "DELETE",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Delete chain with chainId {chainId}",
+          "descriptionTemplate": "Delete chain with id {chainId}",
           "params": [
             "chainId"
           ]
@@ -75,7 +71,7 @@
           "name": "createGarage",
           "method": "POST",
           "path": "/garages",
-          "descriptionTemplate": "Create garage {name} with garageId {garageId}",
+          "descriptionTemplate": "Create garage {name} with id {garageId}",
           "params": [
             "garageId",
             "chainId",
@@ -98,7 +94,7 @@
           "name": "getGarage",
           "method": "GET",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Get garage with garageId {garageId}",
+          "descriptionTemplate": "Get garage with id {garageId}",
           "params": [
             "garageId"
           ]
@@ -107,16 +103,9 @@
           "name": "updateGarage",
           "method": "PUT",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Update garage with garageId {garageId}",
+          "descriptionTemplate": "Update garage with id {garageId}",
           "params": [
-            "garageId",
-            "chainId",
-            "name",
-            "address",
-            "phone",
-            "bayCount",
-            "servicesOffered",
-            "active"
+            "garageId"
           ],
           "bodyTemplate": {
             "chainId": "{chainId}",
@@ -132,7 +121,7 @@
           "name": "deleteGarage",
           "method": "DELETE",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Delete garage with garageId {garageId}",
+          "descriptionTemplate": "Delete garage with id {garageId}",
           "params": [
             "garageId"
           ]
@@ -149,7 +138,7 @@
           "name": "createCustomer",
           "method": "POST",
           "path": "/customers",
-          "descriptionTemplate": "Create customer {fullName} with customerId {customerId}",
+          "descriptionTemplate": "Create customer {fullName} with id {customerId}",
           "params": [
             "customerId",
             "type",
@@ -170,7 +159,7 @@
           "name": "getCustomer",
           "method": "GET",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Get customer with customerId {customerId}",
+          "descriptionTemplate": "Get customer with id {customerId}",
           "params": [
             "customerId"
           ]
@@ -179,14 +168,9 @@
           "name": "updateCustomer",
           "method": "PUT",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Update customer with customerId {customerId}",
+          "descriptionTemplate": "Update customer with id {customerId}",
           "params": [
-            "customerId",
-            "type",
-            "fullName",
-            "email",
-            "phone",
-            "preferredGarageId"
+            "customerId"
           ],
           "bodyTemplate": {
             "type": "{type}",
@@ -200,7 +184,7 @@
           "name": "deleteCustomer",
           "method": "DELETE",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Delete customer with customerId {customerId}",
+          "descriptionTemplate": "Delete customer with id {customerId}",
           "params": [
             "customerId"
           ]
@@ -251,13 +235,7 @@
           "path": "/cars/{vin}",
           "descriptionTemplate": "Update car with vin {vin}",
           "params": [
-            "vin",
-            "make",
-            "model",
-            "year",
-            "mileage",
-            "ownerCustomerId",
-            "homeGarageId"
+            "vin"
           ],
           "bodyTemplate": {
             "make": "{make}",
@@ -289,7 +267,7 @@
           "name": "createPeriodicMaintenance",
           "method": "POST",
           "path": "/periodic-maintenance",
-          "descriptionTemplate": "Create periodic maintenance plan with pmId {pmId}",
+          "descriptionTemplate": "Create periodic maintenance plan with id {pmId}",
           "params": [
             "pmId",
             "carVin",
@@ -312,7 +290,7 @@
           "name": "getPeriodicMaintenance",
           "method": "GET",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Get periodic maintenance plan with pmId {pmId}",
+          "descriptionTemplate": "Get periodic maintenance plan with id {pmId}",
           "params": [
             "pmId"
           ]
@@ -321,16 +299,9 @@
           "name": "updatePeriodicMaintenance",
           "method": "PUT",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Update periodic maintenance plan with pmId {pmId}",
+          "descriptionTemplate": "Update periodic maintenance plan with id {pmId}",
           "params": [
-            "pmId",
-            "carVin",
-            "garageId",
-            "planType",
-            "intervalKm",
-            "intervalMonths",
-            "tasks",
-            "status"
+            "pmId"
           ],
           "bodyTemplate": {
             "carVin": "{carVin}",
@@ -346,7 +317,7 @@
           "name": "deletePeriodicMaintenance",
           "method": "DELETE",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Delete periodic maintenance plan with pmId {pmId}",
+          "descriptionTemplate": "Delete periodic maintenance plan with id {pmId}",
           "params": [
             "pmId"
           ]
@@ -363,7 +334,7 @@
           "name": "createRepairOrder",
           "method": "POST",
           "path": "/repair-orders",
-          "descriptionTemplate": "Create repair order with roId {roId}",
+          "descriptionTemplate": "Create repair order with id {roId}",
           "params": [
             "roId",
             "carVin",
@@ -384,7 +355,7 @@
           "name": "getRepairOrder",
           "method": "GET",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Get repair order with roId {roId}",
+          "descriptionTemplate": "Get repair order with id {roId}",
           "params": [
             "roId"
           ]
@@ -393,14 +364,9 @@
           "name": "updateRepairOrder",
           "method": "PUT",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Update repair order with roId {roId}",
+          "descriptionTemplate": "Update repair order with id {roId}",
           "params": [
-            "roId",
-            "carVin",
-            "customerId",
-            "garageId",
-            "complaint",
-            "status"
+            "roId"
           ],
           "bodyTemplate": {
             "carVin": "{carVin}",
@@ -414,7 +380,7 @@
           "name": "deleteRepairOrder",
           "method": "DELETE",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Delete repair order with roId {roId}",
+          "descriptionTemplate": "Delete repair order with id {roId}",
           "params": [
             "roId"
           ]

@@ -21,10 +21,6 @@
           "descriptionTemplate": "Get apps",
           "params": []
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create app$",
-        "get": "^Get apps$"
       }
     },
     "Env": {
@@ -46,10 +42,6 @@
           "descriptionTemplate": "Get envs",
           "params": []
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create env$",
-        "get": "^Get envs$"
       }
     },
     "Config": {
@@ -71,10 +63,6 @@
           "descriptionTemplate": "Get configs",
           "params": []
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create config$",
-        "get": "^Get configs$"
       }
     },
     "Release": {
@@ -96,10 +84,6 @@
           "descriptionTemplate": "Get releases",
           "params": []
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create release$",
-        "get": "^Get releases$"
       }
     },
     "Policy": {
@@ -121,12 +105,97 @@
           "descriptionTemplate": "Get policies",
           "params": []
         }
-      },
-      "waitForPatterns": {
-        "add": "^Create policy$",
-        "get": "^Get policies$"
       }
     }
   },
-  "stories": []
+  "stories": [],
+  "original_spec": {
+    "openapi": "3.0.3",
+    "info": {
+      "title": "config_control SUT",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/apps": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      },
+      "/envs": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      },
+      "/configs": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      },
+      "/releases": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      },
+      "/policies": {
+        "post": {
+          "responses": {
+            "201": {
+              "description": "created"
+            }
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "list"
+            }
+          }
+        }
+      }
+    }
+  }
 }
