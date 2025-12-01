@@ -19,7 +19,7 @@ def _render_body_js(template: Any, indent=4) -> str:
     if isinstance(template, str):
         if template.startswith("{") and template.endswith("}"):
             var_name = template.strip("{}")
-            return f'String({var_name})'
+            return f'{var_name}' 
         return f'"{template}"'
     return str(template)
 
@@ -158,6 +158,13 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     lines.append('  return bp.sync({waitFor: eventSet});')
     lines.append('}')
     lines.append('')
+    
+    lines.append('function matchSuccess(desc) {')
+    lines.append('  return bp.EventSet("Success Event", function(e) {')
+    lines.append('    return e.name === "Done: " + desc;')
+    lines.append('  });')
+    lines.append('}')
+    lines.append('')
 
     for name, ent in entities.items():
         displayName = ent.get("displayName", name)
@@ -185,7 +192,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         for op in ops.values(): collect(op.get("params", []))
         if not global_params_set: collect(ent.get("params", []))
         
-        # Deterministic sort for signature matching
+        # Global Params = Path Params mostly
         global_params = sorted(list(global_params_set))
         global_args_str = ", ".join(global_params)
 
@@ -233,6 +240,11 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 if primary_key and primary_key not in fields_to_gen:
                     fields_to_gen.append(primary_key)
 
+                # Update signature
+                for f in fields_to_gen:
+                    if f not in sig_params:
+                        sig_params.append(f)
+
                 seen_fields = set(sig_params)
                 clean_fields = []
                 for f in fields_to_gen:
@@ -252,10 +264,8 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                         val_expr = f'{field}' 
                     elif field == primary_key:
                         val_expr = f'String({primary_key})'
-                    elif field in global_params:
+                    elif field in sig_params:
                         val_expr = f'String({field})'
-                    elif (field in all_known_pks or field.endswith("Id") or field.endswith("_id") or "vin" in field.lower()) and primary_key:
-                        val_expr = f'String({primary_key})'
                     else:
                         if f_type in ["integer", "number"]: val_expr = "String(1)"
                         elif f_type == "boolean": val_expr = "String(true)"
@@ -270,6 +280,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 b_lines.append("  }")
                 body_js = "\n".join(b_lines)
 
+            # Sort signature
             sig_params = sorted(list(set(sig_params)))
             sig_args_str = ", ".join(sig_params)
 
@@ -277,7 +288,9 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = {js_desc};')
             lines.append(f'  var body = {body_js};')
-            # Debug logs removed
+            lines.append(f'  bp.log.info("[CALL] {fn_name}");')
+            if method in ["POST", "PUT", "PATCH"]:
+                 lines.append(f'  bp.log.info("[DEBUG] {fn_name} body: " + JSON.stringify(body));')
             
             codes = "[]"
             if op_type == "add": codes = "[200, 201, 204, 409]"
@@ -294,6 +307,9 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                          lines.append(f'      , {p}: String({p})')
                 lines.append('    }')
                 lines.append('  });')
+                
+                lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ {primary_key}: String({primary_key}) }}) }});')
+
             else:
                 lines.append(f'  svc.{method.lower()}(url, {{')
                 lines.append('    parameters: { description: description }')
@@ -308,12 +324,17 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
             
-            b_lines = ["{"]
-            if primary_key: b_lines.append(f'    "{primary_key}": String({primary_key})')
-            b_lines.append("  }")
-            body_js = "\n".join(b_lines)
+            # Calculate exact signature for Wrapper
+            schema, required_fields = _get_operation_schema(op_data.get("path"), "POST", raw_spec)
+            props = schema.get("properties", {})
+            fields_to_gen = required_fields if (required_fields or not props) else list(props.keys())
+            if not fields_to_gen:
+                fields_to_gen = op_data.get("params", [])
+            
+            wrapper_sig = sorted(list(set(global_params + fields_to_gen)))
+            wrapper_args_str = ", ".join(wrapper_sig)
 
-            lines.append(f'function tryToAddExisting{name}({global_args_str}) {{')
+            lines.append(f'function tryToAddExisting{name}({wrapper_args_str}) {{')
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var body = {body_js};')
             lines.append(f'  var description = "Verify that we cannot add another {name}...";')
@@ -351,9 +372,17 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 for p in global_params: match_conds.append(f'String(items[i].{p}) === String({p})')
                 condition_str = " && ".join(match_conds) if match_conds else "true"
 
+            desc_parts = [f'"Verify {name} "']
+            for p in global_params:
+                 desc_parts.append(f'"with {p} " + {p}')
+                 desc_parts.append('" "')
+            desc_parts.append('"exists"')
+            js_verify_desc = " + ".join(desc_parts)
+            js_verify_not_desc = js_verify_desc.replace('"exists"', '"does not exist"')
+
             lines.append(f'function verify{name}Exists({global_args_str}) {{')
             lines.append(f'  var url = {js_coll_url};')
-            lines.append(f'  var description = "Verify {name} exists";')
+            lines.append(f'  var description = {js_verify_desc};')
             lines.append('  svc.get(url, {')
             lines.append('    expectedResponseCodes: [200],')
             lines.append('    parameters: { description: description },')
@@ -374,7 +403,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
             lines.append(f'function verify{name}DoesNotExist({global_args_str}) {{')
             lines.append(f'  var url = {js_coll_url};')
-            lines.append(f'  var description = "Verify {name} does not exist";')
+            lines.append(f'  var description = {js_verify_not_desc};')
             lines.append('  svc.get(url, {')
             lines.append('    expectedResponseCodes: [200],')
             lines.append('    parameters: { description: description },')
@@ -427,9 +456,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             for p in global_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {p} + "')
             js_expected_desc = js_expected_desc.replace(' + ""', '')
             lines.append(f'  var expectedDesc = {js_expected_desc};')
-            lines.append(f'  return bp.EventSet("{matcher_name}", function(e) {{')
-            lines.append(f'      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);')
-            lines.append(f'  }});')
+            lines.append(f'  return matchSuccess(expectedDesc);')
             lines.append('}')
             lines.append('')
 
@@ -457,12 +484,10 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('}')
             lines.append('')
 
-            # ROBUST ANY MATCHER (NAME + PK check)
             match_any_fn = f"matchAny{name}Added"
             lines.append(f'function {match_any_fn}() {{')
             lines.append(f'  return bp.EventSet("matchAny{name}Added", function(e) {{')
-            # Debug log removed
-            lines.append(f'    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create {displayName}") > -1 && e.data.parameters.{primary_key} !== undefined);')
+            lines.append(f'    return e.name.startsWith("Done: ") && e.data && e.data.{primary_key} !== undefined && e.name.indexOf("Create {displayName}") > -1;')
             lines.append(f'  }});')
             lines.append('}')
             lines.append('')
@@ -470,7 +495,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             waiter_name_specific = f"waitFor{name}Added"
             lines.append(f'function {waiter_name_specific}({global_args_str}) {{')
             lines.append(f'  var expectedDesc = {js_expected_desc};')
-            lines.append(f'  waitFor(matchesDescription(expectedDesc));')
+            lines.append(f'  waitFor(matchSuccess(expectedDesc));')
             lines.append('}')
             lines.append('')
 
@@ -527,12 +552,14 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
     lines.append('    let missingEventSets = Object.values(deps);')
-    # Debug logs removed
+    lines.append('    bp.log.info("Guard waiting for: " + Object.keys(deps).join(", "));')
     lines.append('    let e = bp.sync({waitFor: missingEventSets});')
+    lines.append('    bp.log.info("Guard received event: " + e.name);')
     lines.append('    for (let k in deps) {')
     lines.append('      if (deps[k].contains(e)) {')
-    lines.append('        captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;')
+    lines.append('        captured[k] = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));')
     lines.append('        delete deps[k];')
+    lines.append('        if (captured[k]) bp.log.info("Captured " + k + ": " + captured[k]);')
     lines.append('      }')
     lines.append('    }')
     lines.append('  }')
@@ -610,10 +637,11 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                 all_params_set.add(p)
         for op in ops.values(): collect(op.get("params", []))
 
-        all_params = sorted(list(all_params_set))
+        # Sorted global param list for signature construction
+        all_params_sorted = sorted(list(all_params_set))
 
         deps = []
-        for p in all_params:
+        for p in all_params_sorted:
             for potential_ent in entities:
                 if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
                      target_pk = entity_pks_map.get(potential_ent, [""])[0]
@@ -622,7 +650,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
 
         def get_vars(idx):
             declarations = []
-            for p in all_params:
+            for p in all_params_sorted:
                 is_captured = False
                 for _, dep_p in deps:
                     if dep_p == p: is_captured = True; break
@@ -641,27 +669,49 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                     declarations.append(f'  let {p} = {val};')
             return "\n".join(declarations)
 
-        def get_args(idx):
-            sig_params = set()
-            if primary_key: sig_params.add(primary_key)
-            for op in ops.values():
-                for p in op.get("params", []):
-                    sig_params.add(p)
+        # --- HELPER to generate correct argument string for a specific operation ---
+        def get_op_args(op_key, base_global_params):
+            # 1. Identify parameters expected by this operation (signature)
+            # Mimic _emit_interfaces logic: Path Params + Body Params
+            if op_key not in ops: return ""
+            op_data = ops[op_key]
             
-            if "add" in ops:
-                schema, required_fields = _get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
-                props = schema.get("properties", {})
-                reqs = schema.get("required", [])
-                fields = reqs if (reqs or not props) else list(props.keys())
-                if not fields: fields = ops["add"].get("params", [])
-                for p in fields:
-                    sig_params.add(p)
-
-            sorted_sig = sorted(list(sig_params))
+            # Path/Global params
+            sig = list(base_global_params)
+            
+            # Body Params
+            method = op_data.get("method", "GET").upper()
+            if method in ["POST", "PUT", "PATCH"]:
+                 schema, reqs = _get_operation_schema(op_data.get("path"), method, raw_spec)
+                 props = schema.get("properties", {})
+                 fields = list(props.keys())
+                 if not fields: fields = op_data.get("params", [])
+                 
+                 for f in fields:
+                     if f not in sig: sig.append(f)
+            
+            # Sort to match Interface
+            sig = sorted(list(set(sig)))
+            
+            # 2. Map local variables to this signature
             args = []
-            for p in sorted_sig:
+            for p in sig:
+                # We assume variable with same name exists in scope
                 args.append(p)
             return ", ".join(args)
+
+        # Determine base global path params (e.g. id)
+        global_path_params = set()
+        if primary_key: global_path_params.add(primary_key)
+        for op in ops.values(): 
+            for p in op.get("params", []): global_path_params.add(p)
+        global_path_params = sorted(list(global_path_params))
+
+        # Pre-calculate arg strings for each call type
+        args_add = get_op_args("add", global_path_params)
+        args_upd = get_op_args("update", global_path_params)
+        args_del = get_op_args("delete", global_path_params)
+        args_get = ", ".join(global_path_params) # Verify uses path params only
 
         barrier_code = []
         if deps:
@@ -677,6 +727,13 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                 target_pks = entity_pks_map.get(target_ent, [])
                 for tpk in target_pks:
                      barrier_code.append(f'  if (!{var_name}) {var_name} = captured["{tpk}"];')
+                     barrier_code.append(f'  if (!{var_name}) {{')
+                     barrier_code.append(f'      for (let key in captured) {{')
+                     barrier_code.append(f'         if (key.toLowerCase().indexOf("{target_ent.lower()}") > -1 || key.toLowerCase().indexOf("id") > -1) {{')
+                     barrier_code.append(f'             {var_name} = captured[key]; break;')
+                     barrier_code.append(f'         }}')
+                     barrier_code.append(f'      }}')
+                     barrier_code.append(f'  }}')
 
         barrier_str = "\n".join(barrier_code)
 
@@ -685,41 +742,48 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({get_args(base_id)});')
-            lines.append(f'  // {wait_specific_fn}({get_args(base_id)});')
-            lines.append(f'  {try_add_fn}({get_args(base_id)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
-            if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id)});')
-            lines.append(f'  {del_fn}({get_args(base_id)});')
-            lines.append(f'  {try_del_fn}({get_args(base_id)});')
-            lines.append(f'  {ver_ne_fn}({get_args(base_id)});')
+            
+            lines.append(f'  {add_fn}({args_add});')
+            # Linear wait commented out
+            lines.append(f'  // {wait_specific_fn}({args_add});') 
+            
+            lines.append(f'  {try_add_fn}({args_add});')
+            lines.append(f'  {ver_ex_fn}({args_get});')
+            
+            if upd_fn: lines.append(f'  {upd_fn}({args_upd});')
+            
+            lines.append(f'  {del_fn}({args_del});')
+            lines.append(f'  {try_del_fn}({args_del});')
+            lines.append(f'  {ver_ne_fn}({args_get});')
             lines.append('});')
             lines.append('')
 
+            # Repeat for 1:2
             lines.append(f'// Story: crud:{name}:nondet:1:2')
             lines.append(f'bthread("crud:{name}:nondet:1:2", function () {{')
             lines.append(get_vars(base_id + 1))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({get_args(base_id + 1)});')
-            lines.append(f'  // {wait_specific_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {try_add_fn}({get_args(base_id + 1)});')
-            if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {del_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {try_del_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {ver_ne_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {add_fn}({args_add});')
+            lines.append(f'  // {wait_specific_fn}({args_add});')
+            lines.append(f'  {try_add_fn}({args_add});')
+            if upd_fn: lines.append(f'  {upd_fn}({args_upd});')
+            lines.append(f'  {ver_ex_fn}({args_get});')
+            lines.append(f'  {del_fn}({args_del});')
+            lines.append(f'  {try_del_fn}({args_del});')
+            lines.append(f'  {ver_ne_fn}({args_get});')
             lines.append('});')
             lines.append('')
 
+            # Repeat for Negative
             lines.append(f'// Story: crud:{name}:nondet:negative:dup-add')
             lines.append(f'bthread("crud:{name}:nondet:negative:dup-add", function () {{')
             lines.append(get_vars(base_id + 6))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({get_args(base_id + 6)});')
-            lines.append(f'  // {wait_specific_fn}({get_args(base_id + 6)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
-            lines.append(f'  {try_add_fn}({get_args(base_id + 6)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
+            lines.append(f'  {add_fn}({args_add});')
+            lines.append(f'  // {wait_specific_fn}({args_add});')
+            lines.append(f'  {ver_ex_fn}({args_get});')
+            lines.append(f'  {try_add_fn}({args_add});')
+            lines.append(f'  {ver_ex_fn}({args_get});')
             lines.append('});')
             lines.append('')
 
@@ -730,7 +794,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'// Story: crud:{name}:read_only')
             lines.append(f'bthread("crud:{name}:read_only", function () {{')
             lines.append(get_vars(base_id))
-            lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
+            lines.append(f'  {ver_ex_fn}({args_get});')
             lines.append('});')
             lines.append('')
 

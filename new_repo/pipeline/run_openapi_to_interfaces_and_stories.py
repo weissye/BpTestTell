@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 OpenAPI -> unified CRUD spec (JSON).
-Strategy: Batch processing by OpenAPI 'Tags' to handle massive files like GitHub.
+Strategy: Batch processing by OpenAPI 'Tags', further chunked by size to handle massive files.
 Includes robustness fixes for 'parameters' lists and malformed paths.
 """
 
@@ -24,7 +24,7 @@ CRITICAL RULES:
 1. **Identify Entities**: Group paths into logical entities (e.g., 'Repository', 'Issue').
 2. **Operations**: Find 'add' (POST), 'delete' (DELETE), 'update' (PATCH/PUT), 'get' (GET).
 3. **Parameter Normalization**: 
-   - **MANDATORY**: You MUST examine the provided 'Schemas' to determine the request body structure.
+   - **MANDATORY**: You MUST examine the Schema for the request body.
    - **IF** a field (like 'id', 'ndc', 'key', 'slug') is listed in `required` AND is NOT marked `readOnly`, you **MUST** include it in `params` and `bodyTemplate`.
    - **IF** a field is `readOnly` or missing from `required` (standard auto-increment IDs), do **NOT** include it in the `add` body.
 4. **Regex**: Generate 'waitForPatterns' with regex matching the 'descriptionTemplate'.
@@ -104,6 +104,21 @@ def simplify_spec_chunk(chunk_paths):
             }
     return json.dumps(simplified, indent=2)
 
+def chunk_dict(data, size):
+    """Yield successive size-chunks from dictionary items."""
+    it = iter(data.items())
+    # We consume the iterator in chunks
+    for i in range(0, len(data), size):
+        # Grab 'size' items, or whatever is left
+        chunk = {}
+        for _ in range(size):
+            try:
+                k, v = next(it)
+                chunk[k] = v
+            except StopIteration:
+                break
+        yield chunk
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sut", required=True)
@@ -124,62 +139,68 @@ def main():
 
     # 1. Group by Tags
     grouped_paths = get_paths_by_tag(openapi_data)
-    print(f"[INFO] Found {len(grouped_paths)} tag groups. Processing batches...")
-
-    # Extract Schemas to provide context to the LLM (Optional but good for LLM accuracy)
-    components = openapi_data.get("components", {})
-    schemas = components.get("schemas", {})
-    schemas_context = json.dumps(schemas, indent=2)
+    print(f"[INFO] Found {len(grouped_paths)} tag groups.")
 
     client = LLMClient()
     
-    # --- FIX: PRESERVE RAW OPENAPI DATA ---
-    # We attach the full original spec so the Emitter can resolve $refs later.
+    # Pass the raw OpenAPI spec to the Emitter later so it can resolve schemas!
     master_spec = {
         "sut": args.sut,
         "base_url": "http://localhost:8080",
         "entities": {},
         "stories": [],
-        "original_spec": openapi_data 
+        "original_spec": openapi_data # Pass complete spec for reference
     }
 
     # 2. Iterate and Process
     sorted_groups = sorted(grouped_paths.items(), key=lambda x: len(x[1]), reverse=True)
     
-    # Process up to 35 groups
-    for i, (tag, paths) in enumerate(sorted_groups[:35]):
-        print(f"   > Processing Batch {i+1}/35: '{tag}' ({len(paths)} paths)...")
+    # Limit processing to top 35 tags to avoid indefinite runtimes on huge specs
+    MAX_TAGS = 35
+    # Max paths per LLM call (Safe limit for 128k context models)
+    MAX_PATHS_PER_BATCH = 10 
+    
+    for i, (tag, paths) in enumerate(sorted_groups[:MAX_TAGS]):
         
-        user_prompt = (
-            f"SUT: {args.sut}\n"
-            f"Domain: {tag}\n"
-            f"CONTEXT (SCHEMAS): Use these definitions to resolve $ref in requestBody and identify required fields:\n"
-            f"{schemas_context}\n\n"
-            f"Analyze these API paths and extract entities:\n"
-            f"{simplify_spec_chunk(paths)}"
-        )
+        # Split large tags into smaller chunks
+        path_chunks = list(chunk_dict(paths, MAX_PATHS_PER_BATCH))
         
-        try:
-            partial_spec = client.complete_json(SYSTEM_PROMPT, user_prompt, "CRUD chunk")
+        for chunk_idx, chunk_paths in enumerate(path_chunks):
+            print(f"   > Processing Batch {i+1}/{min(len(sorted_groups), MAX_TAGS)} [{chunk_idx+1}/{len(path_chunks)}]: '{tag}' ({len(chunk_paths)} paths)...")
             
-            # Merge into master
-            if "entities" in partial_spec:
-                for e_name, e_data in partial_spec["entities"].items():
-                    if e_name not in master_spec["entities"]:
-                        master_spec["entities"][e_name] = e_data
-                    else:
-                        master_spec["entities"][e_name]["operations"].update(e_data.get("operations", {}))
-                        
-        except Exception as e:
-            print(f"   [WARN] Failed batch '{tag}': {e}")
+            user_prompt = (
+                f"SUT: {args.sut}\n"
+                f"Domain: {tag} (Part {chunk_idx+1})\n"
+                f"Analyze these API paths and extract entities:\n"
+                f"{simplify_spec_chunk(chunk_paths)}"
+            )
+            
+            try:
+                partial_spec = client.complete_json(SYSTEM_PROMPT, user_prompt, "CRUD chunk")
+                
+                # Merge into master
+                if "entities" in partial_spec:
+                    for e_name, e_data in partial_spec["entities"].items():
+                        if e_name not in master_spec["entities"]:
+                            master_spec["entities"][e_name] = e_data
+                        else:
+                            # Merge operations if entity already exists (split across chunks)
+                            if "operations" in e_data:
+                                master_spec["entities"][e_name]["operations"].update(e_data["operations"])
+                            
+                            # Merge params (unify lists)
+                            if "params" in e_data:
+                                current_params = set(master_spec["entities"][e_name].get("params", []))
+                                new_params = set(e_data["params"])
+                                master_spec["entities"][e_name]["params"] = list(current_params.union(new_params))
+                            
+            except Exception as e:
+                print(f"   [WARN] Failed batch '{tag}' part {chunk_idx+1}: {e}")
 
     # 3. Save Intermediate
     specs_dir = Path("new_repo/specs")
     specs_dir.mkdir(parents=True, exist_ok=True)
     spec_path = specs_dir / f"{args.sut}.generated.json"
-    
-    # Note: We save the full master_spec including original_spec, which makes the file larger
-    # but ensures the emitter has everything it needs.
     spec_path.write_text(json.dumps(master_spec, indent=2), encoding="utf-8")
     print(f"[OK] Saved unified spec to {spec_path} ({len(master_spec['entities'])} entities found)")
 

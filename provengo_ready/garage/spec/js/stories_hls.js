@@ -6,11 +6,14 @@ function resolveDependencies(deps) {
   let captured = {};
   while (Object.keys(deps).length > 0) {
     let missingEventSets = Object.values(deps);
+    bp.log.info("Guard waiting for: " + Object.keys(deps).join(", "));
     let e = bp.sync({waitFor: missingEventSets});
+    bp.log.info("Guard received event: " + e.name);
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
+        captured[k] = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
         delete deps[k];
+        if (captured[k]) bp.log.info("Captured " + k + ": " + captured[k]);
       }
     }
   }
@@ -22,14 +25,14 @@ bthread("crud:Chain:nondet:1:1", function () {
   let chainId = 200;
   let hqAddress = {};
   let name = "name_200";
-  createChain(chainId, hqAddress, name);
-  // waitForChainAdded(chainId, hqAddress, name);
-  tryToAddExistingChain(chainId, hqAddress, name);
-  verifyChainExists(chainId, hqAddress, name);
-  updateChain(chainId, hqAddress, name);
-  deleteChain(chainId, hqAddress, name);
-  tryToDeleteANonExistingChain(chainId, hqAddress, name);
-  verifyChainDoesNotExist(chainId, hqAddress, name);
+  createChain(active, chainId, hqAddress, name, supportEmail);
+  // waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
+  tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail);
+  verifyChainExists(chainId);
+  updateChain(active, chainId, hqAddress, name, supportEmail);
+  deleteChain(chainId);
+  tryToDeleteANonExistingChain(chainId);
+  verifyChainDoesNotExist(chainId);
 });
 
 // Story: crud:Chain:nondet:1:2
@@ -37,14 +40,14 @@ bthread("crud:Chain:nondet:1:2", function () {
   let chainId = 201;
   let hqAddress = {};
   let name = "name_201";
-  createChain(chainId, hqAddress, name);
-  // waitForChainAdded(chainId, hqAddress, name);
-  tryToAddExistingChain(chainId, hqAddress, name);
-  updateChain(chainId, hqAddress, name);
-  verifyChainExists(chainId, hqAddress, name);
-  deleteChain(chainId, hqAddress, name);
-  tryToDeleteANonExistingChain(chainId, hqAddress, name);
-  verifyChainDoesNotExist(chainId, hqAddress, name);
+  createChain(active, chainId, hqAddress, name, supportEmail);
+  // waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
+  tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail);
+  updateChain(active, chainId, hqAddress, name, supportEmail);
+  verifyChainExists(chainId);
+  deleteChain(chainId);
+  tryToDeleteANonExistingChain(chainId);
+  verifyChainDoesNotExist(chainId);
 });
 
 // Story: crud:Chain:nondet:negative:dup-add
@@ -52,11 +55,11 @@ bthread("crud:Chain:nondet:negative:dup-add", function () {
   let chainId = 206;
   let hqAddress = {};
   let name = "name_206";
-  createChain(chainId, hqAddress, name);
-  // waitForChainAdded(chainId, hqAddress, name);
-  verifyChainExists(chainId, hqAddress, name);
-  tryToAddExistingChain(chainId, hqAddress, name);
-  verifyChainExists(chainId, hqAddress, name);
+  createChain(active, chainId, hqAddress, name, supportEmail);
+  // waitForChainAdded(active, chainId, hqAddress, name, supportEmail);
+  verifyChainExists(chainId);
+  tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail);
+  verifyChainExists(chainId);
 });
 
 // Story: crud:Garage:nondet:1:1
@@ -71,14 +74,21 @@ bthread("crud:Garage:nondet:1:1", function () {
   let captured = resolveDependencies(deps);
   chainId = captured["chainId"];
   if (!chainId) chainId = captured["chainId"];
-  createGarage(address, chainId, garageId, name, phone);
-  // waitForGarageAdded(address, chainId, garageId, name, phone);
-  tryToAddExistingGarage(address, chainId, garageId, name, phone);
-  verifyGarageExists(address, chainId, garageId, name, phone);
-  updateGarage(address, chainId, garageId, name, phone);
-  deleteGarage(address, chainId, garageId, name, phone);
-  tryToDeleteANonExistingGarage(address, chainId, garageId, name, phone);
-  verifyGarageDoesNotExist(address, chainId, garageId, name, phone);
+  if (!chainId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("chain") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             chainId = captured[key]; break;
+         }
+      }
+  }
+  createGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  // waitForGarageAdded(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  verifyGarageExists(garageId);
+  updateGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  deleteGarage(garageId);
+  tryToDeleteANonExistingGarage(garageId);
+  verifyGarageDoesNotExist(garageId);
 });
 
 // Story: crud:Garage:nondet:1:2
@@ -93,14 +103,21 @@ bthread("crud:Garage:nondet:1:2", function () {
   let captured = resolveDependencies(deps);
   chainId = captured["chainId"];
   if (!chainId) chainId = captured["chainId"];
-  createGarage(address, chainId, garageId, name, phone);
-  // waitForGarageAdded(address, chainId, garageId, name, phone);
-  tryToAddExistingGarage(address, chainId, garageId, name, phone);
-  updateGarage(address, chainId, garageId, name, phone);
-  verifyGarageExists(address, chainId, garageId, name, phone);
-  deleteGarage(address, chainId, garageId, name, phone);
-  tryToDeleteANonExistingGarage(address, chainId, garageId, name, phone);
-  verifyGarageDoesNotExist(address, chainId, garageId, name, phone);
+  if (!chainId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("chain") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             chainId = captured[key]; break;
+         }
+      }
+  }
+  createGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  // waitForGarageAdded(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  updateGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  verifyGarageExists(garageId);
+  deleteGarage(garageId);
+  tryToDeleteANonExistingGarage(garageId);
+  verifyGarageDoesNotExist(garageId);
 });
 
 // Story: crud:Garage:nondet:negative:dup-add
@@ -115,11 +132,18 @@ bthread("crud:Garage:nondet:negative:dup-add", function () {
   let captured = resolveDependencies(deps);
   chainId = captured["chainId"];
   if (!chainId) chainId = captured["chainId"];
-  createGarage(address, chainId, garageId, name, phone);
-  // waitForGarageAdded(address, chainId, garageId, name, phone);
-  verifyGarageExists(address, chainId, garageId, name, phone);
-  tryToAddExistingGarage(address, chainId, garageId, name, phone);
-  verifyGarageExists(address, chainId, garageId, name, phone);
+  if (!chainId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("chain") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             chainId = captured[key]; break;
+         }
+      }
+  }
+  createGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  // waitForGarageAdded(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  verifyGarageExists(garageId);
+  tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  verifyGarageExists(garageId);
 });
 
 // Story: crud:Customer:nondet:1:1
@@ -129,14 +153,14 @@ bthread("crud:Customer:nondet:1:1", function () {
   let fullName = "fullName_220";
   let phone = "phone_220";
   let type = "type_220";
-  createCustomer(customerId, email, fullName, phone, type);
-  // waitForCustomerAdded(customerId, email, fullName, phone, type);
-  tryToAddExistingCustomer(customerId, email, fullName, phone, type);
-  verifyCustomerExists(customerId, email, fullName, phone, type);
-  updateCustomer(customerId, email, fullName, phone, type);
-  deleteCustomer(customerId, email, fullName, phone, type);
-  tryToDeleteANonExistingCustomer(customerId, email, fullName, phone, type);
-  verifyCustomerDoesNotExist(customerId, email, fullName, phone, type);
+  createCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  // waitForCustomerAdded(customerId, email, fullName, phone, preferredGarageId, type);
+  tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  verifyCustomerExists(customerId);
+  updateCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  deleteCustomer(customerId);
+  tryToDeleteANonExistingCustomer(customerId);
+  verifyCustomerDoesNotExist(customerId);
 });
 
 // Story: crud:Customer:nondet:1:2
@@ -146,14 +170,14 @@ bthread("crud:Customer:nondet:1:2", function () {
   let fullName = "fullName_221";
   let phone = "phone_221";
   let type = "type_221";
-  createCustomer(customerId, email, fullName, phone, type);
-  // waitForCustomerAdded(customerId, email, fullName, phone, type);
-  tryToAddExistingCustomer(customerId, email, fullName, phone, type);
-  updateCustomer(customerId, email, fullName, phone, type);
-  verifyCustomerExists(customerId, email, fullName, phone, type);
-  deleteCustomer(customerId, email, fullName, phone, type);
-  tryToDeleteANonExistingCustomer(customerId, email, fullName, phone, type);
-  verifyCustomerDoesNotExist(customerId, email, fullName, phone, type);
+  createCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  // waitForCustomerAdded(customerId, email, fullName, phone, preferredGarageId, type);
+  tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  updateCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  verifyCustomerExists(customerId);
+  deleteCustomer(customerId);
+  tryToDeleteANonExistingCustomer(customerId);
+  verifyCustomerDoesNotExist(customerId);
 });
 
 // Story: crud:Customer:nondet:negative:dup-add
@@ -163,11 +187,11 @@ bthread("crud:Customer:nondet:negative:dup-add", function () {
   let fullName = "fullName_226";
   let phone = "phone_226";
   let type = "type_226";
-  createCustomer(customerId, email, fullName, phone, type);
-  // waitForCustomerAdded(customerId, email, fullName, phone, type);
-  verifyCustomerExists(customerId, email, fullName, phone, type);
-  tryToAddExistingCustomer(customerId, email, fullName, phone, type);
-  verifyCustomerExists(customerId, email, fullName, phone, type);
+  createCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  // waitForCustomerAdded(customerId, email, fullName, phone, preferredGarageId, type);
+  verifyCustomerExists(customerId);
+  tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  verifyCustomerExists(customerId);
 });
 
 // Story: crud:Car:nondet:1:1
@@ -183,14 +207,21 @@ bthread("crud:Car:nondet:1:1", function () {
   let captured = resolveDependencies(deps);
   ownerCustomerId = captured["ownerCustomerId"];
   if (!ownerCustomerId) ownerCustomerId = captured["customerId"];
-  createCar(make, mileage, model, ownerCustomerId, vin, year);
-  // waitForCarAdded(make, mileage, model, ownerCustomerId, vin, year);
-  tryToAddExistingCar(make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarExists(make, mileage, model, ownerCustomerId, vin, year);
-  updateCar(make, mileage, model, ownerCustomerId, vin, year);
-  deleteCar(make, mileage, model, ownerCustomerId, vin, year);
-  tryToDeleteANonExistingCar(make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarDoesNotExist(make, mileage, model, ownerCustomerId, vin, year);
+  if (!ownerCustomerId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("customer") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             ownerCustomerId = captured[key]; break;
+         }
+      }
+  }
+  createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  // waitForCarAdded(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  verifyCarExists(vin);
+  updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  deleteCar(vin);
+  tryToDeleteANonExistingCar(vin);
+  verifyCarDoesNotExist(vin);
 });
 
 // Story: crud:Car:nondet:1:2
@@ -206,14 +237,21 @@ bthread("crud:Car:nondet:1:2", function () {
   let captured = resolveDependencies(deps);
   ownerCustomerId = captured["ownerCustomerId"];
   if (!ownerCustomerId) ownerCustomerId = captured["customerId"];
-  createCar(make, mileage, model, ownerCustomerId, vin, year);
-  // waitForCarAdded(make, mileage, model, ownerCustomerId, vin, year);
-  tryToAddExistingCar(make, mileage, model, ownerCustomerId, vin, year);
-  updateCar(make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarExists(make, mileage, model, ownerCustomerId, vin, year);
-  deleteCar(make, mileage, model, ownerCustomerId, vin, year);
-  tryToDeleteANonExistingCar(make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarDoesNotExist(make, mileage, model, ownerCustomerId, vin, year);
+  if (!ownerCustomerId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("customer") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             ownerCustomerId = captured[key]; break;
+         }
+      }
+  }
+  createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  // waitForCarAdded(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  verifyCarExists(vin);
+  deleteCar(vin);
+  tryToDeleteANonExistingCar(vin);
+  verifyCarDoesNotExist(vin);
 });
 
 // Story: crud:Car:nondet:negative:dup-add
@@ -229,11 +267,18 @@ bthread("crud:Car:nondet:negative:dup-add", function () {
   let captured = resolveDependencies(deps);
   ownerCustomerId = captured["ownerCustomerId"];
   if (!ownerCustomerId) ownerCustomerId = captured["customerId"];
-  createCar(make, mileage, model, ownerCustomerId, vin, year);
-  // waitForCarAdded(make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarExists(make, mileage, model, ownerCustomerId, vin, year);
-  tryToAddExistingCar(make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarExists(make, mileage, model, ownerCustomerId, vin, year);
+  if (!ownerCustomerId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("customer") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             ownerCustomerId = captured[key]; break;
+         }
+      }
+  }
+  createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  // waitForCarAdded(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  verifyCarExists(vin);
+  tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  verifyCarExists(vin);
 });
 
 // Story: crud:PeriodicMaintenance:nondet:1:1
@@ -248,14 +293,21 @@ bthread("crud:PeriodicMaintenance:nondet:1:1", function () {
   let captured = resolveDependencies(deps);
   garageId = captured["garageId"];
   if (!garageId) garageId = captured["garageId"];
-  createPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  // waitForPeriodicMaintenanceAdded(carVin, garageId, planType, pmId, tasks);
-  tryToAddExistingPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  verifyPeriodicMaintenanceExists(carVin, garageId, planType, pmId, tasks);
-  updatePeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  deletePeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, planType, pmId, tasks);
+  if (!garageId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("garage") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             garageId = captured[key]; break;
+         }
+      }
+  }
+  createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  // waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(pmId);
+  updatePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  deletePeriodicMaintenance(pmId);
+  tryToDeleteANonExistingPeriodicMaintenance(pmId);
+  verifyPeriodicMaintenanceDoesNotExist(pmId);
 });
 
 // Story: crud:PeriodicMaintenance:nondet:1:2
@@ -270,14 +322,21 @@ bthread("crud:PeriodicMaintenance:nondet:1:2", function () {
   let captured = resolveDependencies(deps);
   garageId = captured["garageId"];
   if (!garageId) garageId = captured["garageId"];
-  createPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  // waitForPeriodicMaintenanceAdded(carVin, garageId, planType, pmId, tasks);
-  tryToAddExistingPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  updatePeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  verifyPeriodicMaintenanceExists(carVin, garageId, planType, pmId, tasks);
-  deletePeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, planType, pmId, tasks);
+  if (!garageId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("garage") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             garageId = captured[key]; break;
+         }
+      }
+  }
+  createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  // waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  updatePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(pmId);
+  deletePeriodicMaintenance(pmId);
+  tryToDeleteANonExistingPeriodicMaintenance(pmId);
+  verifyPeriodicMaintenanceDoesNotExist(pmId);
 });
 
 // Story: crud:PeriodicMaintenance:nondet:negative:dup-add
@@ -292,11 +351,18 @@ bthread("crud:PeriodicMaintenance:nondet:negative:dup-add", function () {
   let captured = resolveDependencies(deps);
   garageId = captured["garageId"];
   if (!garageId) garageId = captured["garageId"];
-  createPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  // waitForPeriodicMaintenanceAdded(carVin, garageId, planType, pmId, tasks);
-  verifyPeriodicMaintenanceExists(carVin, garageId, planType, pmId, tasks);
-  tryToAddExistingPeriodicMaintenance(carVin, garageId, planType, pmId, tasks);
-  verifyPeriodicMaintenanceExists(carVin, garageId, planType, pmId, tasks);
+  if (!garageId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("garage") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             garageId = captured[key]; break;
+         }
+      }
+  }
+  createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  // waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(pmId);
+  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(pmId);
 });
 
 // Story: crud:RepairOrder:nondet:1:1
@@ -311,16 +377,30 @@ bthread("crud:RepairOrder:nondet:1:1", function () {
   let captured = resolveDependencies(deps);
   customerId = captured["customerId"];
   if (!customerId) customerId = captured["customerId"];
+  if (!customerId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("customer") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             customerId = captured[key]; break;
+         }
+      }
+  }
   garageId = captured["garageId"];
   if (!garageId) garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customerId, garageId, roId);
-  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId);
-  tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId);
-  verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId);
-  updateRepairOrder(carVin, complaint, customerId, garageId, roId);
-  deleteRepairOrder(carVin, complaint, customerId, garageId, roId);
-  tryToDeleteANonExistingRepairOrder(carVin, complaint, customerId, garageId, roId);
-  verifyRepairOrderDoesNotExist(carVin, complaint, customerId, garageId, roId);
+  if (!garageId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("garage") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             garageId = captured[key]; break;
+         }
+      }
+  }
+  createRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status);
+  tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  verifyRepairOrderExists(roId);
+  updateRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  deleteRepairOrder(roId);
+  tryToDeleteANonExistingRepairOrder(roId);
+  verifyRepairOrderDoesNotExist(roId);
 });
 
 // Story: crud:RepairOrder:nondet:1:2
@@ -335,16 +415,30 @@ bthread("crud:RepairOrder:nondet:1:2", function () {
   let captured = resolveDependencies(deps);
   customerId = captured["customerId"];
   if (!customerId) customerId = captured["customerId"];
+  if (!customerId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("customer") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             customerId = captured[key]; break;
+         }
+      }
+  }
   garageId = captured["garageId"];
   if (!garageId) garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customerId, garageId, roId);
-  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId);
-  tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId);
-  updateRepairOrder(carVin, complaint, customerId, garageId, roId);
-  verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId);
-  deleteRepairOrder(carVin, complaint, customerId, garageId, roId);
-  tryToDeleteANonExistingRepairOrder(carVin, complaint, customerId, garageId, roId);
-  verifyRepairOrderDoesNotExist(carVin, complaint, customerId, garageId, roId);
+  if (!garageId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("garage") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             garageId = captured[key]; break;
+         }
+      }
+  }
+  createRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status);
+  tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  updateRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  verifyRepairOrderExists(roId);
+  deleteRepairOrder(roId);
+  tryToDeleteANonExistingRepairOrder(roId);
+  verifyRepairOrderDoesNotExist(roId);
 });
 
 // Story: crud:RepairOrder:nondet:negative:dup-add
@@ -359,11 +453,25 @@ bthread("crud:RepairOrder:nondet:negative:dup-add", function () {
   let captured = resolveDependencies(deps);
   customerId = captured["customerId"];
   if (!customerId) customerId = captured["customerId"];
+  if (!customerId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("customer") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             customerId = captured[key]; break;
+         }
+      }
+  }
   garageId = captured["garageId"];
   if (!garageId) garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customerId, garageId, roId);
-  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId);
-  verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId);
-  tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId);
-  verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId);
+  if (!garageId) {
+      for (let key in captured) {
+         if (key.toLowerCase().indexOf("garage") > -1 || key.toLowerCase().indexOf("id") > -1) {
+             garageId = captured[key]; break;
+         }
+      }
+  }
+  createRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  // waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status);
+  verifyRepairOrderExists(roId);
+  tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  verifyRepairOrderExists(roId);
 });

@@ -12,25 +12,15 @@
           "name": "createChain",
           "method": "POST",
           "path": "/chains",
-          "descriptionTemplate": "Create chain {name} with id {chainId}",
-          "params": [
-            "chainId",
-            "name",
-            "hqAddress"
-          ],
-          "bodyTemplate": {
-            "chainId": "{chainId}",
-            "name": "{name}",
-            "hqAddress": "{hqAddress}",
-            "supportEmail": "{supportEmail}",
-            "active": "{active}"
-          }
+          "descriptionTemplate": "Create chain {chainId}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getChain",
           "method": "GET",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Get chain with id {chainId}",
+          "descriptionTemplate": "Get chain {chainId}",
           "params": [
             "chainId"
           ]
@@ -39,22 +29,17 @@
           "name": "updateChain",
           "method": "PUT",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Update chain with id {chainId}",
+          "descriptionTemplate": "Update chain {chainId}",
           "params": [
             "chainId"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "hqAddress": "{hqAddress}",
-            "supportEmail": "{supportEmail}",
-            "active": "{active}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteChain",
           "method": "DELETE",
           "path": "/chains/{chainId}",
-          "descriptionTemplate": "Delete chain with id {chainId}",
+          "descriptionTemplate": "Delete chain {chainId}",
           "params": [
             "chainId"
           ]
@@ -71,30 +56,15 @@
           "name": "createGarage",
           "method": "POST",
           "path": "/garages",
-          "descriptionTemplate": "Create garage {name} with id {garageId}",
-          "params": [
-            "garageId",
-            "chainId",
-            "name",
-            "address",
-            "phone"
-          ],
-          "bodyTemplate": {
-            "garageId": "{garageId}",
-            "chainId": "{chainId}",
-            "name": "{name}",
-            "address": "{address}",
-            "phone": "{phone}",
-            "bayCount": "{bayCount}",
-            "servicesOffered": "{servicesOffered}",
-            "active": "{active}"
-          }
+          "descriptionTemplate": "Create garage {garageId}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getGarage",
           "method": "GET",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Get garage with id {garageId}",
+          "descriptionTemplate": "Get garage {garageId}",
           "params": [
             "garageId"
           ]
@@ -103,25 +73,17 @@
           "name": "updateGarage",
           "method": "PUT",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Update garage with id {garageId}",
+          "descriptionTemplate": "Update garage {garageId}",
           "params": [
             "garageId"
           ],
-          "bodyTemplate": {
-            "chainId": "{chainId}",
-            "name": "{name}",
-            "address": "{address}",
-            "phone": "{phone}",
-            "bayCount": "{bayCount}",
-            "servicesOffered": "{servicesOffered}",
-            "active": "{active}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteGarage",
           "method": "DELETE",
           "path": "/garages/{garageId}",
-          "descriptionTemplate": "Delete garage with id {garageId}",
+          "descriptionTemplate": "Delete garage {garageId}",
           "params": [
             "garageId"
           ]
@@ -138,28 +100,15 @@
           "name": "createCustomer",
           "method": "POST",
           "path": "/customers",
-          "descriptionTemplate": "Create customer {fullName} with id {customerId}",
-          "params": [
-            "customerId",
-            "type",
-            "fullName",
-            "email",
-            "phone"
-          ],
-          "bodyTemplate": {
-            "customerId": "{customerId}",
-            "type": "{type}",
-            "fullName": "{fullName}",
-            "email": "{email}",
-            "phone": "{phone}",
-            "preferredGarageId": "{preferredGarageId}"
-          }
+          "descriptionTemplate": "Create customer {customerId}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getCustomer",
           "method": "GET",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Get customer with id {customerId}",
+          "descriptionTemplate": "Get customer {customerId}",
           "params": [
             "customerId"
           ]
@@ -168,23 +117,17 @@
           "name": "updateCustomer",
           "method": "PUT",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Update customer with id {customerId}",
+          "descriptionTemplate": "Update customer {customerId}",
           "params": [
             "customerId"
           ],
-          "bodyTemplate": {
-            "type": "{type}",
-            "fullName": "{fullName}",
-            "email": "{email}",
-            "phone": "{phone}",
-            "preferredGarageId": "{preferredGarageId}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteCustomer",
           "method": "DELETE",
           "path": "/customers/{customerId}",
-          "descriptionTemplate": "Delete customer with id {customerId}",
+          "descriptionTemplate": "Delete customer {customerId}",
           "params": [
             "customerId"
           ]
@@ -201,30 +144,15 @@
           "name": "createCar",
           "method": "POST",
           "path": "/cars",
-          "descriptionTemplate": "Create car {make} {model} with vin {vin}",
-          "params": [
-            "vin",
-            "make",
-            "model",
-            "year",
-            "mileage",
-            "ownerCustomerId"
-          ],
-          "bodyTemplate": {
-            "vin": "{vin}",
-            "make": "{make}",
-            "model": "{model}",
-            "year": "{year}",
-            "mileage": "{mileage}",
-            "ownerCustomerId": "{ownerCustomerId}",
-            "homeGarageId": "{homeGarageId}"
-          }
+          "descriptionTemplate": "Create car {vin}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getCar",
           "method": "GET",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Get car with vin {vin}",
+          "descriptionTemplate": "Get car {vin}",
           "params": [
             "vin"
           ]
@@ -233,24 +161,17 @@
           "name": "updateCar",
           "method": "PUT",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Update car with vin {vin}",
+          "descriptionTemplate": "Update car {vin}",
           "params": [
             "vin"
           ],
-          "bodyTemplate": {
-            "make": "{make}",
-            "model": "{model}",
-            "year": "{year}",
-            "mileage": "{mileage}",
-            "ownerCustomerId": "{ownerCustomerId}",
-            "homeGarageId": "{homeGarageId}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteCar",
           "method": "DELETE",
           "path": "/cars/{vin}",
-          "descriptionTemplate": "Delete car with vin {vin}",
+          "descriptionTemplate": "Delete car {vin}",
           "params": [
             "vin"
           ]
@@ -267,30 +188,15 @@
           "name": "createPeriodicMaintenance",
           "method": "POST",
           "path": "/periodic-maintenance",
-          "descriptionTemplate": "Create periodic maintenance plan with id {pmId}",
-          "params": [
-            "pmId",
-            "carVin",
-            "garageId",
-            "planType",
-            "tasks"
-          ],
-          "bodyTemplate": {
-            "pmId": "{pmId}",
-            "carVin": "{carVin}",
-            "garageId": "{garageId}",
-            "planType": "{planType}",
-            "intervalKm": "{intervalKm}",
-            "intervalMonths": "{intervalMonths}",
-            "tasks": "{tasks}",
-            "status": "{status}"
-          }
+          "descriptionTemplate": "Create periodic maintenance plan {pmId}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getPeriodicMaintenance",
           "method": "GET",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Get periodic maintenance plan with id {pmId}",
+          "descriptionTemplate": "Get periodic maintenance plan {pmId}",
           "params": [
             "pmId"
           ]
@@ -299,25 +205,17 @@
           "name": "updatePeriodicMaintenance",
           "method": "PUT",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Update periodic maintenance plan with id {pmId}",
+          "descriptionTemplate": "Update periodic maintenance plan {pmId}",
           "params": [
             "pmId"
           ],
-          "bodyTemplate": {
-            "carVin": "{carVin}",
-            "garageId": "{garageId}",
-            "planType": "{planType}",
-            "intervalKm": "{intervalKm}",
-            "intervalMonths": "{intervalMonths}",
-            "tasks": "{tasks}",
-            "status": "{status}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deletePeriodicMaintenance",
           "method": "DELETE",
           "path": "/periodic-maintenance/{pmId}",
-          "descriptionTemplate": "Delete periodic maintenance plan with id {pmId}",
+          "descriptionTemplate": "Delete periodic maintenance plan {pmId}",
           "params": [
             "pmId"
           ]
@@ -325,7 +223,7 @@
       }
     },
     "RepairOrder": {
-      "displayName": "repairOrder",
+      "displayName": "repair order",
       "params": [
         "roId"
       ],
@@ -334,56 +232,67 @@
           "name": "createRepairOrder",
           "method": "POST",
           "path": "/repair-orders",
-          "descriptionTemplate": "Create repair order with id {roId}",
-          "params": [
-            "roId",
-            "carVin",
-            "customerId",
-            "garageId",
-            "complaint"
-          ],
-          "bodyTemplate": {
-            "roId": "{roId}",
-            "carVin": "{carVin}",
-            "customerId": "{customerId}",
-            "garageId": "{garageId}",
-            "complaint": "{complaint}",
-            "status": "{status}"
-          }
+          "descriptionTemplate": "Create repair order {roId}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
+          "name": "getRepairOrders",
+          "method": "GET",
+          "path": "/repair-orders",
+          "descriptionTemplate": "List repair orders",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "getById": {
           "name": "getRepairOrder",
           "method": "GET",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Get repair order with id {roId}",
+          "descriptionTemplate": "Read repair order {roId}",
           "params": [
             "roId"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateRepairOrder",
           "method": "PUT",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Update repair order with id {roId}",
+          "descriptionTemplate": "Update repair order {roId}",
           "params": [
             "roId"
           ],
-          "bodyTemplate": {
-            "carVin": "{carVin}",
-            "customerId": "{customerId}",
-            "garageId": "{garageId}",
-            "complaint": "{complaint}",
-            "status": "{status}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteRepairOrder",
           "method": "DELETE",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Delete repair order with id {roId}",
+          "descriptionTemplate": "Delete repair order {roId}",
           "params": [
             "roId"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "approve": {
+          "name": "approveRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders/{roId}/approve",
+          "descriptionTemplate": "Approve repair order {roId}",
+          "params": [
+            "roId"
+          ],
+          "bodyTemplate": {}
+        },
+        "close": {
+          "name": "closeRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders/{roId}/close",
+          "descriptionTemplate": "Close repair order {roId}",
+          "params": [
+            "roId"
+          ],
+          "bodyTemplate": {}
         }
       }
     }
