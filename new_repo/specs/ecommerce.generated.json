@@ -24,7 +24,7 @@
           "name": "getDrugs",
           "method": "GET",
           "path": "/drugs",
-          "descriptionTemplate": "Get drugs",
+          "descriptionTemplate": "Get list of drugs",
           "params": [],
           "bodyTemplate": {}
         },
@@ -60,7 +60,7 @@
           "name": "getOrders",
           "method": "GET",
           "path": "/orders",
-          "descriptionTemplate": "Get orders",
+          "descriptionTemplate": "Get list of orders",
           "params": [],
           "bodyTemplate": {}
         },
@@ -84,7 +84,7 @@
           "name": "getInventory",
           "method": "GET",
           "path": "/inventory/{ndc}",
-          "descriptionTemplate": "Get inventory with ndc {ndc}",
+          "descriptionTemplate": "Get inventory for ndc {ndc}",
           "params": [
             "ndc"
           ],

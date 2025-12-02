@@ -2,182 +2,646 @@
   "sut": "meilisearch",
   "base_url": "http://localhost:8080",
   "entities": {
-    "Index": {
-      "displayName": "index",
+    "Settings": {
+      "displayName": "settings",
       "params": [
         "indexUid"
       ],
       "operations": {
         "get": {
-          "name": "searchDocumentsGet",
+          "name": "getSettings",
           "method": "GET",
-          "path": "/indexes/{indexUid}/search",
-          "descriptionTemplate": "Search documents in index {indexUid}",
+          "path": "/indexes/{indexUid}/settings",
+          "descriptionTemplate": "Get settings for index {indexUid}",
           "params": [
-            "indexUid",
-            "q",
-            "attributesToRetrieve",
-            "attributesToHighlight",
-            "highlightPreTag",
-            "highlightPostTag",
-            "attributesToCrop",
-            "cropMarker",
-            "cropLength",
-            "facets",
-            "filter",
-            "offset",
-            "sort",
-            "limit",
-            "page",
-            "hitsPerPage",
-            "showMatchesPosition",
-            "matchingStrategy"
+            "indexUid"
           ],
           "bodyTemplate": {}
         },
-        "post": {
-          "name": "searchDocumentsPost",
-          "method": "POST",
-          "path": "/indexes/{indexUid}/search",
-          "descriptionTemplate": "Search documents in index {indexUid} with query {q}",
+        "update": {
+          "name": "updateSettings",
+          "method": "PATCH",
+          "path": "/indexes/{indexUid}/settings",
+          "descriptionTemplate": "Update settings for index {indexUid}",
           "params": [
-            "indexUid",
-            "q",
-            "vector",
-            "attributesToRetrieve",
-            "attributesToHighlight",
-            "highlightPreTag",
-            "highlightPostTag",
-            "attributesToCrop",
-            "cropMarker",
-            "cropLength",
-            "showMatchesPosition",
-            "showRankingScore",
-            "showRankingScoreDetails",
-            "matchingStrategy",
-            "attributesToSearchOn",
-            "filter",
-            "facets",
-            "offset",
-            "limit",
-            "page",
-            "hitsPerPage",
-            "sort"
+            "indexUid"
           ],
           "bodyTemplate": {
-            "q": "{q}",
-            "vector": "{vector}",
-            "attributesToRetrieve": "{attributesToRetrieve}",
-            "attributesToHighlight": "{attributesToHighlight}",
-            "highlightPreTag": "{highlightPreTag}",
-            "highlightPostTag": "{highlightPostTag}",
-            "attributesToCrop": "{attributesToCrop}",
-            "cropMarker": "{cropMarker}",
-            "cropLength": "{cropLength}",
-            "showMatchesPosition": "{showMatchesPosition}",
-            "showRankingScore": "{showRankingScore}",
-            "showRankingScoreDetails": "{showRankingScoreDetails}",
-            "matchingStrategy": "{matchingStrategy}",
-            "attributesToSearchOn": "{attributesToSearchOn}",
-            "filter": "{filter}",
-            "facets": "{facets}",
-            "offset": "{offset}",
-            "limit": "{limit}",
-            "page": "{page}",
-            "hitsPerPage": "{hitsPerPage}",
-            "sort": "{sort}"
+            "synonyms": "{synonyms}",
+            "stopWords": "{stopWords}",
+            "rankingRules": "{rankingRules}",
+            "distinctAttribute": "{distinctAttribute}",
+            "searchableAttributes": "{searchableAttributes}",
+            "displayedAttributes": "{displayedAttributes}",
+            "filterableAttributes": "{filterableAttributes}",
+            "sortableAttributes": "{sortableAttributes}",
+            "typoTolerance": "{typoTolerance}",
+            "pagination": "{pagination}",
+            "faceting": "{faceting}"
           }
+        },
+        "delete": {
+          "name": "resetSettings",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings",
+          "descriptionTemplate": "Reset settings for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "FacetSearch": {
-      "displayName": "facetSearch",
-      "params": [],
+    "Synonyms": {
+      "displayName": "synonyms",
+      "params": [
+        "indexUid"
+      ],
       "operations": {
-        "post": {
-          "name": "facetSearchPost",
-          "method": "POST",
-          "path": "/indexes/{indexUid}/facet-search",
-          "descriptionTemplate": "Perform facet search on index {indexUid} for facet {facetName}",
+        "get": {
+          "name": "getSynonyms",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/synonyms",
+          "descriptionTemplate": "Get synonyms for index {indexUid}",
           "params": [
-            "indexUid",
-            "facetName",
-            "facetQuery",
-            "q",
-            "matchingStrategy",
-            "filter"
+            "indexUid"
           ],
-          "bodyTemplate": {
-            "facetName": "{facetName}",
-            "facetQuery": "{facetQuery}",
-            "q": "{q}",
-            "matchingStrategy": "{matchingStrategy}",
-            "filter": "{filter}"
-          }
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSynonyms",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/synonyms",
+          "descriptionTemplate": "Update synonyms for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{synonyms}"
+        },
+        "delete": {
+          "name": "resetSynonyms",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/synonyms",
+          "descriptionTemplate": "Reset synonyms for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "MultiSearch": {
-      "displayName": "multiSearch",
+    "SortableAttributes": {
+      "displayName": "sortableAttributes",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getSortableAttributes",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/sortable-attributes",
+          "descriptionTemplate": "Get sortable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSortableAttributes",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/sortable-attributes",
+          "descriptionTemplate": "Update sortable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{sortableAttributes}"
+        },
+        "delete": {
+          "name": "resetSortableAttributes",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/sortable-attributes",
+          "descriptionTemplate": "Reset sortable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "StopWords": {
+      "displayName": "stopWords",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getStopWords",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/stop-words",
+          "descriptionTemplate": "Get stop-words for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateStopWords",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/stop-words",
+          "descriptionTemplate": "Update stop-words for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{stopWords}"
+        },
+        "delete": {
+          "name": "resetStopWords",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/stop-words",
+          "descriptionTemplate": "Reset stop-words for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RankingRules": {
+      "displayName": "rankingRules",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getRankingRules",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/ranking-rules",
+          "descriptionTemplate": "Get ranking rules for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRankingRules",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/ranking-rules",
+          "descriptionTemplate": "Update ranking rules for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{rankingRules}"
+        },
+        "delete": {
+          "name": "resetRankingRules",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/ranking-rules",
+          "descriptionTemplate": "Reset ranking rules for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TypoTolerance": {
+      "displayName": "typoTolerance",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTypoTolerance",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/typo-tolerance",
+          "descriptionTemplate": "Get typo tolerance configuration for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTypoTolerance",
+          "method": "PATCH",
+          "path": "/indexes/{indexUid}/settings/typo-tolerance",
+          "descriptionTemplate": "Update typo tolerance settings for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{typoTolerance}"
+        },
+        "delete": {
+          "name": "resetTypoTolerance",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/typo-tolerance",
+          "descriptionTemplate": "Reset typo tolerance settings to the default configuration for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Pagination": {
+      "displayName": "pagination",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getPagination",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/pagination",
+          "descriptionTemplate": "Get pagination configuration for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updatePagination",
+          "method": "PATCH",
+          "path": "/indexes/{indexUid}/settings/pagination",
+          "descriptionTemplate": "Update pagination settings for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{pagination}"
+        },
+        "delete": {
+          "name": "resetPagination",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/pagination",
+          "descriptionTemplate": "Reset pagination settings to the default configuration for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Faceting": {
+      "displayName": "faceting",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFaceting",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/faceting",
+          "descriptionTemplate": "Get faceting configuration for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFaceting",
+          "method": "PATCH",
+          "path": "/indexes/{indexUid}/settings/faceting",
+          "descriptionTemplate": "Update faceting settings for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{faceting}"
+        },
+        "delete": {
+          "name": "resetFaceting",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/faceting",
+          "descriptionTemplate": "Reset faceting settings to the default configuration for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FilterableAttributes": {
+      "displayName": "filterableAttributes",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFilterableAttributes",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/filterable-attributes",
+          "descriptionTemplate": "Get filterable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFilterableAttributes",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/filterable-attributes",
+          "descriptionTemplate": "Update filterable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{filterableAttributes}"
+        },
+        "delete": {
+          "name": "resetFilterableAttributes",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/filterable-attributes",
+          "descriptionTemplate": "Reset filterable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "DistinctAttribute": {
+      "displayName": "distinctAttribute",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getDistinctAttribute",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/distinct-attribute",
+          "descriptionTemplate": "Get distinct attribute for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateDistinctAttribute",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/distinct-attribute",
+          "descriptionTemplate": "Update distinct attribute for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": "{distinctAttribute}"
+        },
+        "delete": {
+          "name": "resetDistinctAttribute",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/distinct-attribute",
+          "descriptionTemplate": "Reset distinct attribute for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "SearchableAttributes": {
+      "displayName": "searchable attribute",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getSearchableAttributes",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/searchable-attributes",
+          "descriptionTemplate": "Get searchable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ]
+        },
+        "update": {
+          "name": "updateSearchableAttributes",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/searchable-attributes",
+          "descriptionTemplate": "Update searchable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "resetSearchableAttributes",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/searchable-attributes",
+          "descriptionTemplate": "Reset searchable attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ]
+        }
+      },
+      "waitForPatterns": [
+        "Get searchable attributes for index \\{indexUid\\}",
+        "Update searchable attributes for index \\{indexUid\\}",
+        "Reset searchable attributes for index \\{indexUid\\}"
+      ]
+    },
+    "DisplayedAttributes": {
+      "displayName": "displayed attribute",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getDisplayedAttributes",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/settings/displayed-attributes",
+          "descriptionTemplate": "Get displayed attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ]
+        },
+        "update": {
+          "name": "updateDisplayedAttributes",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/settings/displayed-attributes",
+          "descriptionTemplate": "Update displayed attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "resetDisplayedAttributes",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/settings/displayed-attributes",
+          "descriptionTemplate": "Reset displayed attributes for index {indexUid}",
+          "params": [
+            "indexUid"
+          ]
+        }
+      },
+      "waitForPatterns": [
+        "Get displayed attributes for index \\{indexUid\\}",
+        "Update displayed attributes for index \\{indexUid\\}",
+        "Reset displayed attributes for index \\{indexUid\\}"
+      ]
+    },
+    "Document": {
+      "displayName": "document",
+      "params": [
+        "indexUid",
+        "documentId"
+      ],
+      "operations": {
+        "add": {
+          "name": "createDocument",
+          "method": "POST",
+          "path": "/indexes/{indexUid}/documents",
+          "descriptionTemplate": "Add or replace documents in index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteDocument",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/documents/{documentId}",
+          "descriptionTemplate": "Delete document {documentId} from index {indexUid}",
+          "params": [
+            "indexUid",
+            "documentId"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "upsertDocument",
+          "method": "PUT",
+          "path": "/indexes/{indexUid}/documents",
+          "descriptionTemplate": "Add or update documents in index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getDocument",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/documents/{documentId}",
+          "descriptionTemplate": "Get document {documentId} from index {indexUid}",
+          "params": [
+            "indexUid",
+            "documentId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Index": {
+      "displayName": "index",
+      "params": [
+        "indexUid",
+        "primaryKey"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIndex",
+          "method": "POST",
+          "path": "/indexes",
+          "descriptionTemplate": "Create index {uid} with primaryKey {primaryKey}",
+          "params": [
+            "uid",
+            "primaryKey"
+          ],
+          "bodyTemplate": {
+            "uid": "{uid}",
+            "primaryKey": "{primaryKey}"
+          }
+        },
+        "get": {
+          "name": "getIndex",
+          "method": "GET",
+          "path": "/indexes/{indexUid}",
+          "descriptionTemplate": "Get index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIndex",
+          "method": "PATCH",
+          "path": "/indexes/{indexUid}",
+          "descriptionTemplate": "Update index {indexUid} with primaryKey {primaryKey}",
+          "params": [
+            "indexUid",
+            "primaryKey"
+          ],
+          "bodyTemplate": {
+            "primaryKey": "{primaryKey}"
+          }
+        },
+        "delete": {
+          "name": "deleteIndex",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}",
+          "descriptionTemplate": "Delete index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IndexStats": {
+      "displayName": "index stat",
+      "params": [
+        "indexUid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getIndexStat",
+          "method": "GET",
+          "path": "/indexes/{indexUid}/stats",
+          "descriptionTemplate": "Get stat of an index {indexUid}",
+          "params": [
+            "indexUid"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Stats": {
+      "displayName": "stats",
       "params": [],
       "operations": {
-        "post": {
-          "name": "multiSearchPost",
-          "method": "POST",
-          "path": "/multi-search",
-          "descriptionTemplate": "Perform multiple searches in one request",
+        "get": {
+          "name": "getAllStats",
+          "method": "GET",
+          "path": "/stats",
+          "descriptionTemplate": "Get stats of all indexes",
           "params": [],
-          "bodyTemplate": {
-            "queries": [
-              {
-                "indexUid": "{indexUid}",
-                "q": "{q}",
-                "vector": "{vector}",
-                "attributesToRetrieve": "{attributesToRetrieve}",
-                "attributesToHighlight": "{attributesToHighlight}",
-                "highlightPreTag": "{highlightPreTag}",
-                "highlightPostTag": "{highlightPostTag}",
-                "attributesToCrop": "{attributesToCrop}",
-                "cropMarker": "{cropMarker}",
-                "cropLength": "{cropLength}",
-                "showMatchesPosition": "{showMatchesPosition}",
-                "showRankingScore": "{showRankingScore}",
-                "showRankingScoreDetails": "{showRankingScoreDetails}",
-                "matchingStrategy": "{matchingStrategy}",
-                "attributesToSearchOn": "{attributesToSearchOn}",
-                "filter": "{filter}",
-                "facets": "{facets}",
-                "offset": "{offset}",
-                "limit": "{limit}",
-                "page": "{page}",
-                "hitsPerPage": "{hitsPerPage}",
-                "sort": "{sort}"
-              }
-            ]
-          }
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Metrics": {
+      "displayName": "metrics",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getMetrics",
+          "method": "GET",
+          "path": "/metrics",
+          "descriptionTemplate": "Get prometheus format metrics for observability and monitoring",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
     "Task": {
       "displayName": "task",
       "params": [
-        "uid",
-        "indexUid",
-        "status",
-        "type",
-        "canceledBy",
-        "enqueuedAt",
-        "startedAt",
-        "finishedAt"
+        "taskUid"
       ],
       "operations": {
         "get": {
           "name": "getTask",
           "method": "GET",
           "path": "/tasks/:taskUid",
-          "descriptionTemplate": "Get task with uid {uid}",
+          "descriptionTemplate": "Get task with uid {taskUid}",
           "params": [
-            "uid"
+            "taskUid"
           ],
           "bodyTemplate": {}
         },
@@ -185,19 +649,22 @@
           "name": "listTasks",
           "method": "GET",
           "path": "/tasks",
-          "descriptionTemplate": "List tasks with filters uid {uid}, indexUid {indexUid}, status {status}, type {type}, canceledBy {canceledBy}, enqueuedAt {enqueuedAt}, startedAt {startedAt}, finishedAt {finishedAt}",
+          "descriptionTemplate": "List all tasks with filters",
           "params": [
-            "uid",
-            "indexUid",
-            "status",
-            "type",
-            "canceledBy",
-            "enqueuedAt",
-            "startedAt",
-            "finishedAt",
+            "total",
             "limit",
             "from",
-            "total"
+            "taskFilterUids",
+            "taskFilterIndexUids",
+            "taskFilterStatuses",
+            "taskFilterTypes",
+            "taskFilterCanceledBy",
+            "taskFilterBeforeEnqueuedAt",
+            "taskFilterAfterEnqueuedAt",
+            "taskFilterBeforeStartedAt",
+            "taskFilterAfterStartedAt",
+            "taskFilterBeforeFinishedAt",
+            "taskFilterAfterFinishedAt"
           ],
           "bodyTemplate": {}
         },
@@ -205,16 +672,19 @@
           "name": "deleteTasks",
           "method": "DELETE",
           "path": "/tasks",
-          "descriptionTemplate": "Delete tasks with filters uid {uid}, indexUid {indexUid}, status {status}, type {type}, canceledBy {canceledBy}, enqueuedAt {enqueuedAt}, startedAt {startedAt}, finishedAt {finishedAt}",
+          "descriptionTemplate": "Delete tasks with filters",
           "params": [
-            "uid",
-            "indexUid",
-            "status",
-            "type",
-            "canceledBy",
-            "enqueuedAt",
-            "startedAt",
-            "finishedAt"
+            "taskFilterUids",
+            "taskFilterIndexUids",
+            "taskFilterStatuses",
+            "taskFilterTypes",
+            "taskFilterCanceledBy",
+            "taskFilterBeforeEnqueuedAt",
+            "taskFilterAfterEnqueuedAt",
+            "taskFilterBeforeStartedAt",
+            "taskFilterAfterStartedAt",
+            "taskFilterBeforeFinishedAt",
+            "taskFilterAfterFinishedAt"
           ],
           "bodyTemplate": {}
         },
@@ -222,18 +692,161 @@
           "name": "cancelTasks",
           "method": "POST",
           "path": "/tasks/cancel",
-          "descriptionTemplate": "Cancel tasks with filters uid {uid}, indexUid {indexUid}, status {status}, type {type}, canceledBy {canceledBy}, enqueuedAt {enqueuedAt}, startedAt {startedAt}, finishedAt {finishedAt}",
+          "descriptionTemplate": "Cancel tasks with filters",
           "params": [
-            "uid",
-            "indexUid",
-            "status",
-            "type",
-            "canceledBy",
-            "enqueuedAt",
-            "startedAt",
-            "finishedAt"
+            "taskFilterUids",
+            "taskFilterIndexUids",
+            "taskFilterStatuses",
+            "taskFilterTypes",
+            "taskFilterCanceledBy",
+            "taskFilterBeforeEnqueuedAt",
+            "taskFilterAfterEnqueuedAt",
+            "taskFilterBeforeStartedAt",
+            "taskFilterAfterStartedAt",
+            "taskFilterBeforeFinishedAt",
+            "taskFilterAfterFinishedAt"
           ],
           "bodyTemplate": {}
+        }
+      }
+    },
+    "Key": {
+      "displayName": "key",
+      "params": [
+        "uidOrKey"
+      ],
+      "operations": {
+        "add": {
+          "name": "createKey",
+          "method": "POST",
+          "path": "/keys",
+          "descriptionTemplate": "Create key {name}",
+          "params": [
+            "name",
+            "actions",
+            "indexes",
+            "expiresAt"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "actions": "{actions}",
+            "indexes": "{indexes}",
+            "expiresAt": "{expiresAt}"
+          }
+        },
+        "delete": {
+          "name": "deleteKey",
+          "method": "DELETE",
+          "path": "/keys/{uidOrKey}",
+          "descriptionTemplate": "Delete key {uidOrKey}",
+          "params": [
+            "uidOrKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateKey",
+          "method": "PATCH",
+          "path": "/keys/{uidOrKey}",
+          "descriptionTemplate": "Update key {uidOrKey} with name {name} and description {description}",
+          "params": [
+            "uidOrKey",
+            "name",
+            "description"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getKey",
+          "method": "GET",
+          "path": "/keys/{uidOrKey}",
+          "descriptionTemplate": "Get key {uidOrKey}",
+          "params": [
+            "uidOrKey"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listKeys",
+          "method": "GET",
+          "path": "/keys",
+          "descriptionTemplate": "List keys with limit {limit} and offset {offset}",
+          "params": [
+            "limit",
+            "offset"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Dump": {
+      "displayName": "dump",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createDump",
+          "method": "POST",
+          "path": "/dumps",
+          "descriptionTemplate": "Create a dump",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Snapshot": {
+      "displayName": "snapshot",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "createSnapshot",
+          "method": "POST",
+          "path": "/snapshots",
+          "descriptionTemplate": "Create snapshot",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Version": {
+      "displayName": "version",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getVersion",
+          "method": "GET",
+          "path": "/version",
+          "descriptionTemplate": "Get version of Meilisearch",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ExperimentalFeatures": {
+      "displayName": "experimental feature",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getExperimentalFeatures",
+          "method": "GET",
+          "path": "/experimental-features",
+          "descriptionTemplate": "Get the status of runtime experimental features",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateExperimentalFeatures",
+          "method": "PATCH",
+          "path": "/experimental-features",
+          "descriptionTemplate": "Set the status of runtime experimental features",
+          "params": [],
+          "bodyTemplate": {
+            "vectorStore": "{vectorStore}",
+            "metrics": "{metrics}",
+            "exportPuffinReports": "{exportPuffinReports}"
+          }
         }
       }
     }

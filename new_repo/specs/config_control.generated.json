@@ -19,7 +19,8 @@
           "method": "GET",
           "path": "/apps",
           "descriptionTemplate": "Get apps",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -40,7 +41,8 @@
           "method": "GET",
           "path": "/envs",
           "descriptionTemplate": "Get envs",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -61,7 +63,8 @@
           "method": "GET",
           "path": "/configs",
           "descriptionTemplate": "Get configs",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -82,7 +85,8 @@
           "method": "GET",
           "path": "/releases",
           "descriptionTemplate": "Get releases",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -103,7 +107,8 @@
           "method": "GET",
           "path": "/policies",
           "descriptionTemplate": "Get policies",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     }

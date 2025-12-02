@@ -940,9 +940,19 @@ function createRepairOrder(carVin, complaint, customerId, garageId, roId, status
   bp.sync({ request: bp.Event("Done: " + description, { roId: String(roId) }) });
 }
 
+function getRepairOrders(carVin, complaint, customerId, garageId, roId, status) {
+  var url = "/repair-orders";
+  var description = "List repair orders";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function getRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId;
-  var description = "Get repair order with roId " + roId;
+  var description = "Read repair order " + roId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -952,7 +962,7 @@ function getRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
 
 function updateRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId;
-  var description = "Update repair order with roId " + roId;
+  var description = "Update repair order " + roId;
   var body = {
     "carVin": String(carVin),
     "complaint": String(complaint),
@@ -976,7 +986,7 @@ function updateRepairOrder(carVin, complaint, customerId, garageId, roId, status
 
 function deleteRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId;
-  var description = "Delete repair order with roId " + roId;
+  var description = "Delete repair order " + roId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -986,7 +996,7 @@ function deleteRepairOrder(carVin, complaint, customerId, garageId, roId, status
 
 function approveRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId + "/approve";
-  var description = "Approve repair order with roId " + roId;
+  var description = "Approve repair order " + roId;
   var body = {
     "roId": String(roId),
   };
@@ -1005,7 +1015,7 @@ function approveRepairOrder(carVin, complaint, customerId, garageId, roId, statu
 
 function closeRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId + "/close";
-  var description = "Close repair order with roId " + roId;
+  var description = "Close repair order " + roId;
   var body = {
     "roId": String(roId),
   };
@@ -1111,15 +1121,15 @@ function waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, 
 }
 
 function matchDeletedRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
-  var expectedDesc = "Delete repair order with roId " + roId;
+  var expectedDesc = "Delete repair order " + roId;
   return bp.EventSet("matchDeletedRepairOrder", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRepairOrderDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ repair\ order\ with\ roId\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ repair\ order\ with\ roId\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ repair\ order\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ repair\ order\ (.+)$/);
   var captures = m.slice(1);
   var names = ["roId"];
   var obj = {};

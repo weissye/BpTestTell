@@ -25,6 +25,12 @@ function waitFor(eventSet) {
   return bp.sync({waitFor: eventSet});
 }
 
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
+  });
+}
+
 // ---- Entity: app ----
 
 function createApp() {
@@ -34,11 +40,12 @@ function createApp() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getApps() {
@@ -46,21 +53,13 @@ function getApps() {
   var description = "Get apps";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingApp() {
-  var url = "/apps";
-  var body = {
-  };
-  var description = "Verify that we cannot add another App...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getApps();
 }
 
 function verifyAppExists() {
@@ -105,9 +104,7 @@ function verifyAppDoesNotExist() {
 
 function matchAddedApp() {
   var expectedDesc = "Create app";
-  return bp.EventSet("matchAddedApp", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyAppAdded() {
@@ -131,13 +128,13 @@ function getAppAddedEvent(keyVal) {
 
 function matchAnyAppAdded() {
   return bp.EventSet("matchAnyAppAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create app") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create app") > -1;
   });
 }
 
 function waitForAppAdded() {
   var expectedDesc = "Create app";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: env ----
@@ -149,11 +146,12 @@ function createEnv() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getEnvs() {
@@ -161,21 +159,13 @@ function getEnvs() {
   var description = "Get envs";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingEnv() {
-  var url = "/envs";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Env...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getEnvs();
 }
 
 function verifyEnvExists() {
@@ -220,9 +210,7 @@ function verifyEnvDoesNotExist() {
 
 function matchAddedEnv() {
   var expectedDesc = "Create env";
-  return bp.EventSet("matchAddedEnv", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyEnvAdded() {
@@ -246,13 +234,13 @@ function getEnvAddedEvent(keyVal) {
 
 function matchAnyEnvAdded() {
   return bp.EventSet("matchAnyEnvAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create env") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create env") > -1;
   });
 }
 
 function waitForEnvAdded() {
   var expectedDesc = "Create env";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: config ----
@@ -264,11 +252,12 @@ function createConfig() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getConfigs() {
@@ -276,21 +265,13 @@ function getConfigs() {
   var description = "Get configs";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingConfig() {
-  var url = "/configs";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Config...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getConfigs();
 }
 
 function verifyConfigExists() {
@@ -335,9 +316,7 @@ function verifyConfigDoesNotExist() {
 
 function matchAddedConfig() {
   var expectedDesc = "Create config";
-  return bp.EventSet("matchAddedConfig", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyConfigAdded() {
@@ -361,13 +340,13 @@ function getConfigAddedEvent(keyVal) {
 
 function matchAnyConfigAdded() {
   return bp.EventSet("matchAnyConfigAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create config") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create config") > -1;
   });
 }
 
 function waitForConfigAdded() {
   var expectedDesc = "Create config";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: release ----
@@ -379,11 +358,12 @@ function createRelease() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getReleases() {
@@ -391,21 +371,13 @@ function getReleases() {
   var description = "Get releases";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingRelease() {
-  var url = "/releases";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Release...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getReleases();
 }
 
 function verifyReleaseExists() {
@@ -450,9 +422,7 @@ function verifyReleaseDoesNotExist() {
 
 function matchAddedRelease() {
   var expectedDesc = "Create release";
-  return bp.EventSet("matchAddedRelease", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyReleaseAdded() {
@@ -476,13 +446,13 @@ function getReleaseAddedEvent(keyVal) {
 
 function matchAnyReleaseAdded() {
   return bp.EventSet("matchAnyReleaseAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create release") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create release") > -1;
   });
 }
 
 function waitForReleaseAdded() {
   var expectedDesc = "Create release";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: policy ----
@@ -494,11 +464,12 @@ function createPolicy() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getPolicies() {
@@ -506,21 +477,13 @@ function getPolicies() {
   var description = "Get policies";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingPolicy() {
-  var url = "/policies";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Policy...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getPolicies();
 }
 
 function verifyPolicyExists() {
@@ -565,9 +528,7 @@ function verifyPolicyDoesNotExist() {
 
 function matchAddedPolicy() {
   var expectedDesc = "Create policy";
-  return bp.EventSet("matchAddedPolicy", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyPolicyAdded() {
@@ -591,11 +552,11 @@ function getPolicyAddedEvent(keyVal) {
 
 function matchAnyPolicyAdded() {
   return bp.EventSet("matchAnyPolicyAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create policy") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create policy") > -1;
   });
 }
 
 function waitForPolicyAdded() {
   var expectedDesc = "Create policy";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }

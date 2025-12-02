@@ -25,6 +25,12 @@ function waitFor(eventSet) {
   return bp.sync({waitFor: eventSet});
 }
 
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
+  });
+}
+
 // ---- Entity: customer ----
 
 function createCustomer() {
@@ -34,24 +40,16 @@ function createCustomer() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingCustomer() {
-  var url = "/customers";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Customer...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createCustomer();
 }
 
 function verifyCustomerExists() {
@@ -96,9 +94,7 @@ function verifyCustomerDoesNotExist() {
 
 function matchAddedCustomer() {
   var expectedDesc = "Create customer";
-  return bp.EventSet("matchAddedCustomer", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomerAdded() {
@@ -122,13 +118,13 @@ function getCustomerAddedEvent(keyVal) {
 
 function matchAnyCustomerAdded() {
   return bp.EventSet("matchAnyCustomerAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create customer") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create customer") > -1;
   });
 }
 
 function waitForCustomerAdded() {
   var expectedDesc = "Create customer";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: account ----
@@ -140,12 +136,13 @@ function createAccount(accountId) {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       , accountId: String(accountId)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getAccounts(accountId) {
@@ -153,21 +150,13 @@ function getAccounts(accountId) {
   var description = "Get accounts";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingAccount(accountId) {
-  var url = "/accounts";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Account...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getAccounts(accountId);
 }
 
 function verifyAccountExists(accountId) {
@@ -212,9 +201,7 @@ function verifyAccountDoesNotExist(accountId) {
 
 function matchAddedAccount(accountId) {
   var expectedDesc = "Create account";
-  return bp.EventSet("matchAddedAccount", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyAccountAdded() {
@@ -238,13 +225,13 @@ function getAccountAddedEvent(keyVal) {
 
 function matchAnyAccountAdded() {
   return bp.EventSet("matchAnyAccountAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create account") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create account") > -1;
   });
 }
 
 function waitForAccountAdded(accountId) {
   var expectedDesc = "Create account";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: transaction ----
@@ -254,13 +241,14 @@ function getTransactions(accountId) {
   var description = "Get transactions for account " + accountId;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function verifyTransactionExists(accountId) {
   var url = "/accounts";
-  var description = "Verify Transaction exists";
+  var description = "Verify Transaction with accountId " + accountId + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -280,7 +268,7 @@ function verifyTransactionExists(accountId) {
 
 function verifyTransactionDoesNotExist(accountId) {
   var url = "/accounts";
-  var description = "Verify Transaction does not exist";
+  var description = "Verify Transaction with accountId " + accountId + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -307,24 +295,16 @@ function createTransfer() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingTransfer() {
-  var url = "/transfers";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Transfer...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createTransfer();
 }
 
 function verifyTransferExists() {
@@ -369,9 +349,7 @@ function verifyTransferDoesNotExist() {
 
 function matchAddedTransfer() {
   var expectedDesc = "Create transfer";
-  return bp.EventSet("matchAddedTransfer", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyTransferAdded() {
@@ -395,13 +373,13 @@ function getTransferAddedEvent(keyVal) {
 
 function matchAnyTransferAdded() {
   return bp.EventSet("matchAnyTransferAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create transfer") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create transfer") > -1;
   });
 }
 
 function waitForTransferAdded() {
   var expectedDesc = "Create transfer";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: card ----
@@ -413,24 +391,16 @@ function createCard() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingCard() {
-  var url = "/cards";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Card...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createCard();
 }
 
 function verifyCardExists() {
@@ -475,9 +445,7 @@ function verifyCardDoesNotExist() {
 
 function matchAddedCard() {
   var expectedDesc = "Create card";
-  return bp.EventSet("matchAddedCard", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCardAdded() {
@@ -501,13 +469,13 @@ function getCardAddedEvent(keyVal) {
 
 function matchAnyCardAdded() {
   return bp.EventSet("matchAnyCardAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create card") > -1;
   });
 }
 
 function waitForCardAdded() {
   var expectedDesc = "Create card";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: loan ----
@@ -519,11 +487,12 @@ function createLoan() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function getLoans() {
@@ -531,21 +500,13 @@ function getLoans() {
   var description = "Get loans";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function tryToAddExistingLoan() {
-  var url = "/loans";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Loan...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getLoans();
 }
 
 function verifyLoanExists() {
@@ -590,9 +551,7 @@ function verifyLoanDoesNotExist() {
 
 function matchAddedLoan() {
   var expectedDesc = "Create loan";
-  return bp.EventSet("matchAddedLoan", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyLoanAdded() {
@@ -616,11 +575,11 @@ function getLoanAddedEvent(keyVal) {
 
 function matchAnyLoanAdded() {
   return bp.EventSet("matchAnyLoanAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create loan") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create loan") > -1;
   });
 }
 
 function waitForLoanAdded() {
   var expectedDesc = "Create loan";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }

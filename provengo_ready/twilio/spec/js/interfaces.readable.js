@@ -5,252 +5,685 @@ var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
-const svc = new RESTSession(`${protocol}://${host}:${port}`, "provengo-client", {
+const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
 function matchesDescriptionRegex(re) {
   return bp.EventSet("Match description", function (e) {
-    return e && e.data && e.data.parameters && typeof e.data.parameters.description === "string"
-           && re.test(e.data.parameters.description);
+    return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description));
+  });
+}
+
+function matchesDescription(str) {
+  return bp.EventSet("Match description", function (e) {
+    return !!(e && e.data && e.data.parameters && e.data.parameters.description === str);
+  });
+}
+
+function waitFor(eventSet) {
+  return bp.sync({waitFor: eventSet});
+}
+
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
   });
 }
 
 // ---- Entity: account ----
 
-function fetchAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
+function fetchAccount(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + Sid + ".json";
   var description = "Fetch account with Sid " + Sid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listAccounts(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts.json";
-  var description = "List accounts filtered by FriendlyName " + FriendlyName + " and Status " + Status;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
+function createAccount(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
   var url = "/2010-04-01/Accounts.json";
   var description = "Create account with FriendlyName " + FriendlyName;
   var body = {
-    "FriendlyName": FriendlyName,
+    "FriendlyName": String(FriendlyName),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { Sid: String(Sid) }) });
 }
 
-function updateAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
+function updateAccount(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + Sid + ".json";
-  var description = "Update account " + Sid + " with FriendlyName " + FriendlyName + " and Status " + Status;
+  var description = "Update account " + Sid + " with FriendlyName " + FriendlyName;
   var body = {
-    "FriendlyName": FriendlyName,
-    "Status": Status,
+    "FriendlyName": String(FriendlyName),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { Sid: String(Sid) }) });
 }
 
-function tryToAddExistingAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
-  return createAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken);
+function listAccounts(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var url = "/2010-04-01/Accounts.json";
+  var description = "List accounts filtered by FriendlyName " + FriendlyName + " and Status " + Status;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyAccountExists(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
-  return fetchAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken);
+function tryToAddExistingAccount(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  listAccounts(FriendlyName, Page, PageSize, PageToken, Sid, Status);
 }
 
-function verifyAccountDoesNotExist(Sid, FriendlyName, Status, PageSize, Page, PageToken) {
-  return fetchAccount(Sid, FriendlyName, Status, PageSize, Page, PageToken);
+function verifyAccountExists(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var url = "/2010-04-01/Accounts.json";
+  var description = "Verify Account with Sid " + Sid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].Sid) === String(Sid)) {
+            return pvg.success("Account exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Account to exist but it does not");
+    }
+  });
+}
+
+function verifyAccountDoesNotExist(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var url = "/2010-04-01/Accounts.json";
+  var description = "Verify Account with Sid " + Sid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].Sid) === String(Sid)) {
+            return pvg.fail("Expected Account to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Account does not exist");
+    }
+  });
+}
+
+function matchAddedAccount(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var expectedDesc = "Create account with FriendlyName " + FriendlyName;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAccountAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ account\ with\ FriendlyName\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ account\ with\ FriendlyName\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["FriendlyName"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAccountAddedEvent(keyVal) {
+  return bp.EventSet("AddAccount:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.Sid) === String(keyVal);
+  });
+}
+
+function matchAnyAccountAdded() {
+  return bp.EventSet("matchAnyAccountAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.Sid !== undefined && e.name.indexOf("Create account") > -1;
+  });
+}
+
+function waitForAccountAdded(FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var expectedDesc = "Create account with FriendlyName " + FriendlyName;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: address ----
 
-function fetchAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
+function fetchAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses/" + Sid + ".json";
-  var description = "Fetch address " + Sid + " for account " + AccountSid;
+  var description = "Fetch address with Sid " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listAddresses(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
+function createAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses.json";
-  var description = "List addresses for account " + AccountSid + " filtered by customer name " + CustomerName + " and friendly name " + FriendlyName;
-  var body = undefined;
-  return svc.get(url, { description: description });
+  var description = "Create address " + CustomerName + " at {Street}, {City}, {Region}, {PostalCode}, " + IsoCountry;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function createAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
+function deleteAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses/" + Sid + ".json";
+  var description = "Delete address with Sid " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function updateAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses/" + Sid + ".json";
+  var description = "Update address " + Sid + " for account " + AccountSid + " with FriendlyName " + FriendlyName + " and CustomerName " + CustomerName;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function listAddresses(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses.json";
-  var description = "Create address for account " + AccountSid + " with customer name " + CustomerName;
-  var body = {
-    "CustomerName": CustomerName,
-    "Street": Street,
-    "City": City,
-    "Region": Region,
-    "PostalCode": PostalCode,
-    "IsoCountry": IsoCountry,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses/" + Sid + ".json";
-  var description = "Delete address " + Sid + " for account " + AccountSid;
+  var description = "List addresses for account " + AccountSid + " filtered by CustomerName " + CustomerName + ", FriendlyName " + FriendlyName + ", EmergencyEnabled " + EmergencyEnabled + ", IsoCountry " + IsoCountry;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
+function tryToAddExistingAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  listAddresses(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid);
+}
+
+function verifyAddressExists(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses.json";
+  var description = "Verify Address with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Address exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Address to exist but it does not");
+    }
+  });
+}
+
+function verifyAddressDoesNotExist(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses.json";
+  var description = "Verify Address with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Address to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Address does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses/" + Sid + ".json";
-  var description = "Update address " + Sid + " for account " + AccountSid + " with customer name " + CustomerName;
-  var body = {
-    "FriendlyName": FriendlyName,
-    "CustomerName": CustomerName,
-    "Street": Street,
-    "City": City,
-    "Region": Region,
-    "PostalCode": PostalCode,
-    "EmergencyEnabled": EmergencyEnabled,
-    "AutoCorrectAddress": AutoCorrectAddress,
-    "StreetSecondary": StreetSecondary,
-  };
-  return svc.post(url, body, { description: description });
+  var description = "Verify we cannot delete non-existing Address";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
-  return createAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary);
+function matchAddedAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create address " + CustomerName + " at {Street}, {City}, {Region}, {PostalCode}, " + IsoCountry;
+  return matchSuccess(expectedDesc);
 }
 
-function verifyAddressExists(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
-  return fetchAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary);
+function waitForAnyAddressAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ address\ (.+)\ at\ (.+),\ (.+),\ (.+),\ (.+),\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ address\ (.+)\ at\ (.+),\ (.+),\ (.+),\ (.+),\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CustomerName", "Street", "City", "Region", "PostalCode", "IsoCountry"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
-function verifyAddressDoesNotExist(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
-  return fetchAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary);
+function getAddressAddedEvent(keyVal) {
+  return bp.EventSet("AddAddress:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
 }
 
-function tryToDeleteANonExistingAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary) {
-  return deleteAddress(AccountSid, Sid, CustomerName, FriendlyName, EmergencyEnabled, IsoCountry, PageSize, Page, PageToken, Street, City, Region, PostalCode, AutoCorrectAddress, StreetSecondary);
+function matchAnyAddressAdded() {
+  return bp.EventSet("matchAnyAddressAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create address") > -1;
+  });
+}
+
+function waitForAddressAdded(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create address " + CustomerName + " at {Street}, {City}, {Region}, {PostalCode}, " + IsoCountry;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedAddress(AccountSid, CustomerName, EmergencyEnabled, FriendlyName, IsoCountry, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete address with Sid " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedAddress", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyAddressDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ address\ with\ Sid\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ address\ with\ Sid\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: application ----
 
-function fetchApplication(AccountSid, Sid, FriendlyName) {
+function fetchApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications/" + Sid + ".json";
-  var description = "Fetch application with AccountSid " + AccountSid + " and Sid " + Sid;
+  var description = "Fetch application " + Sid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listApplications(AccountSid, Sid, FriendlyName) {
+function createApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications.json";
-  var description = "List applications for AccountSid " + AccountSid + " filtered by FriendlyName " + FriendlyName;
-  var body = undefined;
-  return svc.get(url, { description: description });
+  var description = "Create application with FriendlyName " + FriendlyName + " in account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function createApplication(AccountSid, Sid, FriendlyName) {
+function deleteApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications/" + Sid + ".json";
+  var description = "Delete application " + Sid + " in account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function updateApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications/" + Sid + ".json";
+  var description = "Update application " + Sid + " in account " + AccountSid + " with FriendlyName " + FriendlyName;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function listApplications(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications.json";
-  var description = "Create application with AccountSid " + AccountSid + " and FriendlyName " + FriendlyName;
-  var body = {
-    "ApiVersion": ApiVersion,
-    "VoiceUrl": VoiceUrl,
-    "VoiceMethod": VoiceMethod,
-    "VoiceFallbackUrl": VoiceFallbackUrl,
-    "VoiceFallbackMethod": VoiceFallbackMethod,
-    "StatusCallback": StatusCallback,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "VoiceCallerIdLookup": VoiceCallerIdLookup,
-    "SmsUrl": SmsUrl,
-    "SmsMethod": SmsMethod,
-    "SmsFallbackUrl": SmsFallbackUrl,
-    "SmsFallbackMethod": SmsFallbackMethod,
-    "SmsStatusCallback": SmsStatusCallback,
-    "MessageStatusCallback": MessageStatusCallback,
-    "FriendlyName": FriendlyName,
-    "PublicApplicationConnectEnabled": PublicApplicationConnectEnabled,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteApplication(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications/" + Sid + ".json";
-  var description = "Delete application with AccountSid " + AccountSid + " and Sid " + Sid;
+  var description = "List applications in account " + AccountSid + " filtered by FriendlyName " + FriendlyName;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateApplication(AccountSid, Sid, FriendlyName) {
+function tryToAddExistingApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  listApplications(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid);
+}
+
+function verifyApplicationExists(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications.json";
+  var description = "Verify Application with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Application exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Application to exist but it does not");
+    }
+  });
+}
+
+function verifyApplicationDoesNotExist(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications.json";
+  var description = "Verify Application with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Application to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Application does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Applications/" + Sid + ".json";
-  var description = "Update application with AccountSid " + AccountSid + " and Sid " + Sid;
-  var body = {
-    "FriendlyName": FriendlyName,
-    "ApiVersion": ApiVersion,
-    "VoiceUrl": VoiceUrl,
-    "VoiceMethod": VoiceMethod,
-    "VoiceFallbackUrl": VoiceFallbackUrl,
-    "VoiceFallbackMethod": VoiceFallbackMethod,
-    "StatusCallback": StatusCallback,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "VoiceCallerIdLookup": VoiceCallerIdLookup,
-    "SmsUrl": SmsUrl,
-    "SmsMethod": SmsMethod,
-    "SmsFallbackUrl": SmsFallbackUrl,
-    "SmsFallbackMethod": SmsFallbackMethod,
-    "SmsStatusCallback": SmsStatusCallback,
-    "MessageStatusCallback": MessageStatusCallback,
-    "PublicApplicationConnectEnabled": PublicApplicationConnectEnabled,
-  };
-  return svc.post(url, body, { description: description });
+  var description = "Verify we cannot delete non-existing Application";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingApplication(AccountSid, Sid, FriendlyName) {
-  return createApplication(AccountSid, Sid, FriendlyName);
+function matchAddedApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create application with FriendlyName " + FriendlyName + " in account " + AccountSid;
+  return matchSuccess(expectedDesc);
 }
 
-function verifyApplicationExists(AccountSid, Sid, FriendlyName) {
-  return fetchApplication(AccountSid, Sid, FriendlyName);
+function waitForAnyApplicationAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ application\ with\ FriendlyName\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ application\ with\ FriendlyName\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["FriendlyName", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
-function verifyApplicationDoesNotExist(AccountSid, Sid, FriendlyName) {
-  return fetchApplication(AccountSid, Sid, FriendlyName);
+function getApplicationAddedEvent(keyVal) {
+  return bp.EventSet("AddApplication:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
 }
 
-function tryToDeleteANonExistingApplication(AccountSid, Sid, FriendlyName) {
-  return deleteApplication(AccountSid, Sid, FriendlyName);
+function matchAnyApplicationAdded() {
+  return bp.EventSet("matchAnyApplicationAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create application") > -1;
+  });
+}
+
+function waitForApplicationAdded(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create application with FriendlyName " + FriendlyName + " in account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedApplication(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete application " + Sid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedApplication", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyApplicationDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ application\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ application\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: authorizedConnectApp ----
 
-function fetchAuthorizedConnectApp(AccountSid, ConnectAppSid, PageSize, Page, PageToken) {
+function fetchAuthorizedConnectApp(AccountSid, ConnectAppSid, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/AuthorizedConnectApps/" + ConnectAppSid + ".json";
   var description = "Fetch an instance of authorized-connect-app " + ConnectAppSid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listAuthorizedConnectApps(AccountSid, ConnectAppSid, PageSize, Page, PageToken) {
+function listAuthorizedConnectApps(AccountSid, ConnectAppSid, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/AuthorizedConnectApps.json";
-  var description = "List authorized-connect-apps for account " + AccountSid;
+  var description = "Retrieve a list of authorized-connect-apps for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyAuthorizedConnectAppExists(AccountSid, ConnectAppSid, PageSize, Page, PageToken) {
-  return fetchAuthorizedConnectApp(AccountSid, ConnectAppSid, PageSize, Page, PageToken);
+function verifyAuthorizedConnectAppExists(AccountSid, ConnectAppSid, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AuthorizedConnectApp with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("AuthorizedConnectApp exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthorizedConnectApp to exist but it does not");
+    }
+  });
 }
 
-function verifyAuthorizedConnectAppDoesNotExist(AccountSid, ConnectAppSid, PageSize, Page, PageToken) {
-  return fetchAuthorizedConnectApp(AccountSid, ConnectAppSid, PageSize, Page, PageToken);
+function verifyAuthorizedConnectAppDoesNotExist(AccountSid, ConnectAppSid, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AuthorizedConnectApp with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected AuthorizedConnectApp to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthorizedConnectApp does not exist");
+    }
+  });
 }
 
 // ---- Entity: availablePhoneNumber ----
 
-function listAvailablePhoneNumbers(AccountSid, CountryCode) {
+function getAvailablePhoneNumber(AccountSid, CountryCode) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/AvailablePhoneNumbers/" + CountryCode + ".json";
-  var description = "List available phone numbers for country " + CountryCode + " in account " + AccountSid;
+  var description = "Get available phone numbers for country " + CountryCode + " and account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyAvailablePhoneNumberExists(AccountSid, CountryCode) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AvailablePhoneNumber with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("AvailablePhoneNumber exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AvailablePhoneNumber to exist but it does not");
+    }
+  });
+}
+
+function verifyAvailablePhoneNumberDoesNotExist(AccountSid, CountryCode) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AvailablePhoneNumber with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected AvailablePhoneNumber to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AvailablePhoneNumber does not exist");
+    }
+  });
+}
+
+// ---- Entity: availablePhoneNumber ----
+
+function getAvailablePhoneNumbers(AccountSid, CountryCode, Type) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/AvailablePhoneNumbers/" + CountryCode + "/" + Type + ".json";
+  var description = "Get available phone numbers of type " + Type + " for account " + AccountSid + " in country " + CountryCode;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
+}
+
+function verifyAvailablePhoneNumbersExists(AccountSid, CountryCode, Type) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AvailablePhoneNumbers with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("AvailablePhoneNumbers exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AvailablePhoneNumbers to exist but it does not");
+    }
+  });
+}
+
+function verifyAvailablePhoneNumbersDoesNotExist(AccountSid, CountryCode, Type) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AvailablePhoneNumbers with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected AvailablePhoneNumbers to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AvailablePhoneNumbers does not exist");
+    }
+  });
 }
 
 // ---- Entity: balance ----
@@ -259,1386 +692,2506 @@ function getBalance(AccountSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Balance.json";
   var description = "Get balance for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function verifyBalanceExists(AccountSid) {
-  return getBalance(AccountSid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Balance with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Balance exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Balance to exist but it does not");
+    }
+  });
 }
 
 function verifyBalanceDoesNotExist(AccountSid) {
-  return getBalance(AccountSid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Balance with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Balance to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Balance does not exist");
+    }
+  });
 }
 
 // ---- Entity: call ----
 
-function fetchCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
-  var description = "Fetch call " + Sid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listCalls(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
+function listCalls(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls.json";
-  var description = "List calls in account " + AccountSid + " filtered by To=" + To + " From=" + From + " Status=" + Status;
+  var description = "List calls for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function createCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
+function listCalls(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls.json";
-  var description = "Create call from " + From + " to " + To + " in account " + AccountSid;
-  var body = {
-    "To": To,
-    "From": From,
-    "Method": Method,
-    "FallbackUrl": FallbackUrl,
-    "FallbackMethod": FallbackMethod,
-    "StatusCallback": StatusCallback,
-    "StatusCallbackEvent": StatusCallbackEvent,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "SendDigits": SendDigits,
-    "Timeout": Timeout,
-    "Record": Record,
-    "RecordingChannels": RecordingChannels,
-    "RecordingStatusCallback": RecordingStatusCallback,
-    "RecordingStatusCallbackMethod": RecordingStatusCallbackMethod,
-    "SipAuthUsername": SipAuthUsername,
-    "SipAuthPassword": SipAuthPassword,
-    "MachineDetection": MachineDetection,
-    "MachineDetectionTimeout": MachineDetectionTimeout,
-    "RecordingStatusCallbackEvent": RecordingStatusCallbackEvent,
-    "Trim": Trim,
-    "CallerId": CallerId,
-    "MachineDetectionSpeechThreshold": MachineDetectionSpeechThreshold,
-    "MachineDetectionSpeechEndThreshold": MachineDetectionSpeechEndThreshold,
-    "MachineDetectionSilenceTimeout": MachineDetectionSilenceTimeout,
-    "AsyncAmd": AsyncAmd,
-    "AsyncAmdStatusCallback": AsyncAmdStatusCallback,
-    "AsyncAmdStatusCallbackMethod": AsyncAmdStatusCallbackMethod,
-    "Byoc": Byoc,
-    "CallReason": CallReason,
-    "CallToken": CallToken,
-    "RecordingTrack": RecordingTrack,
-    "TimeLimit": TimeLimit,
-    "Url": Url,
-    "Twiml": Twiml,
-    "ApplicationSid": ApplicationSid,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
-  var description = "Delete call " + Sid + " in account " + AccountSid;
+  var description = "List calls for account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
-  var description = "Update call " + Sid + " in account " + AccountSid;
+function createCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls.json";
+  var description = "Create call from " + From + " to " + To;
   var body = {
-    "Url": Url,
-    "Method": Method,
-    "Status": Status,
-    "FallbackUrl": FallbackUrl,
-    "FallbackMethod": FallbackMethod,
-    "StatusCallback": StatusCallback,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "Twiml": Twiml,
-    "TimeLimit": TimeLimit,
+    "AccountSid": String(AccountSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function tryToAddExistingCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  return createCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken);
-}
-
-function verifyCallExists(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  return fetchCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken);
-}
-
-function verifyCallDoesNotExist(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  return fetchCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken);
-}
-
-function tryToDeleteANonExistingCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken) {
-  return deleteCall(AccountSid, Sid, To, From, ParentCallSid, Status, StartTime, StartTime<, StartTime>, EndTime, EndTime<, EndTime>, PageSize, Page, PageToken);
-}
-
-// ---- Entity: callEvent ----
-
-function listCallEvents(AccountSid, CallSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Events.json";
-  var description = "List events for call " + CallSid + " in account " + AccountSid;
+function deleteCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
+  var description = "Delete call " + Sid + " from account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-// ---- Entity: callNotification ----
+function fetchCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
+  var description = "Fetch call " + Sid + " from account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
+  var description = "Update call " + Sid + " from account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function tryToAddExistingCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  updateCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To);
+}
+
+function verifyCallExists(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls.json";
+  var description = "Verify Call with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Call exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Call to exist but it does not");
+    }
+  });
+}
+
+function verifyCallDoesNotExist(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls.json";
+  var description = "Verify Call with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Call to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Call does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing Call";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var expectedDesc = "Create call from " + From + " to " + To;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyCallAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ call\ from\ (.+)\ to\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ call\ from\ (.+)\ to\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["From", "To"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCallAddedEvent(keyVal) {
+  return bp.EventSet("AddCall:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyCallAdded() {
+  return bp.EventSet("matchAnyCallAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create call") > -1;
+  });
+}
+
+function waitForCallAdded(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var expectedDesc = "Create call from " + From + " to " + To;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedCall(AccountSid, EndTime, EndTime<, EndTime>, From, Page, PageSize, PageToken, ParentCallSid, Sid, StartTime, StartTime<, StartTime>, Status, To) {
+  var expectedDesc = "Delete call " + Sid + " from account " + AccountSid;
+  return bp.EventSet("matchDeletedCall", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCallDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ call\ (.+)\ from\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ call\ (.+)\ from\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: call event ----
+
+// ---- Entity: call notification ----
 
 function fetchCallNotification(AccountSid, CallSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Notifications/" + Sid + ".json";
   var description = "Fetch call notification " + Sid + " for call " + CallSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listCallNotifications(AccountSid, CallSid, Sid) {
+function listCallNotification(AccountSid, CallSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Notifications.json";
   var description = "List call notifications for call " + CallSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function verifyCallNotificationExists(AccountSid, CallSid, Sid) {
-  return fetchCallNotification(AccountSid, CallSid, Sid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify CallNotification with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("CallNotification exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CallNotification to exist but it does not");
+    }
+  });
 }
 
 function verifyCallNotificationDoesNotExist(AccountSid, CallSid, Sid) {
-  return fetchCallNotification(AccountSid, CallSid, Sid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify CallNotification with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected CallNotification to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CallNotification does not exist");
+    }
+  });
 }
 
-// ---- Entity: callRecording ----
+// ---- Entity: call recording ----
 
-function fetchCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings/" + Sid + ".json";
-  var description = "Fetch call recording " + Sid + " for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listCallRecordings(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings.json";
-  var description = "List call recordings for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
+function createCallRecording(AccountSid, CallSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings.json";
   var description = "Create call recording for call " + CallSid + " in account " + AccountSid;
   var body = {
-    "RecordingStatusCallbackEvent": RecordingStatusCallbackEvent,
-    "RecordingStatusCallback": RecordingStatusCallback,
-    "RecordingStatusCallbackMethod": RecordingStatusCallbackMethod,
-    "Trim": Trim,
-    "RecordingChannels": RecordingChannels,
-    "RecordingTrack": RecordingTrack,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function updateCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
+function fetchCallRecording(AccountSid, CallSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings/" + Sid + ".json";
+  var description = "Fetch call recording " + Sid + " for call " + CallSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listCallRecordings(AccountSid, CallSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings.json";
+  var description = "List call recordings for call " + CallSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateCallRecording(AccountSid, CallSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings/" + Sid + ".json";
   var description = "Update call recording " + Sid + " for call " + CallSid + " in account " + AccountSid + " with status {Status}";
   var body = {
-    "Status": Status,
-    "PauseBehavior": PauseBehavior,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
+function deleteCallRecording(AccountSid, CallSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings/" + Sid + ".json";
   var description = "Delete call recording " + Sid + " for call " + CallSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function tryToAddExistingCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
-  return createCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken);
+function tryToAddExistingCallRecording(AccountSid, CallSid, Sid) {
+  deleteCallRecording(AccountSid, CallSid, Sid);
 }
 
-function verifyCallRecordingExists(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
-  return fetchCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken);
+function verifyCallRecordingExists(AccountSid, CallSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings.json";
+  var description = "Verify CallRecording with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("CallRecording exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CallRecording to exist but it does not");
+    }
+  });
 }
 
-function verifyCallRecordingDoesNotExist(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
-  return fetchCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken);
+function verifyCallRecordingDoesNotExist(AccountSid, CallSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings.json";
+  var description = "Verify CallRecording with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected CallRecording to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CallRecording does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken) {
-  return deleteCallRecording(AccountSid, CallSid, Sid, DateCreated, DateCreated<, DateCreated>, PageSize, Page, PageToken);
+function tryToDeleteANonExistingCallRecording(AccountSid, CallSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Recordings/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing CallRecording";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCallRecording(AccountSid, CallSid, Sid) {
+  var expectedDesc = "Create call recording for call " + CallSid + " in account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyCallRecordingAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ call\ recording\ for\ call\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ call\ recording\ for\ call\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CallSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCallRecordingAddedEvent(keyVal) {
+  return bp.EventSet("AddCallRecording:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyCallRecordingAdded() {
+  return bp.EventSet("matchAnyCallRecordingAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create call recording") > -1;
+  });
+}
+
+function waitForCallRecordingAdded(AccountSid, CallSid, Sid) {
+  var expectedDesc = "Create call recording for call " + CallSid + " in account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedCallRecording(AccountSid, CallSid, Sid) {
+  var expectedDesc = "Delete call recording " + Sid + " for call " + CallSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedCallRecording", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCallRecordingDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ call\ recording\ (.+)\ for\ call\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ call\ recording\ (.+)\ for\ call\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "CallSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: conference ----
 
-function fetchConference(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken) {
+function fetchConference(AccountSid, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, FriendlyName, Page, PageSize, PageToken, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + Sid + ".json";
   var description = "Fetch conference " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listConference(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken) {
+function updateConference(AccountSid, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + Sid + ".json";
+  var description = "Update conference " + Sid + " for account " + AccountSid + " with status " + Status + ", announce URL {AnnounceUrl}, announce method {AnnounceMethod}";
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function listConferences(AccountSid, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, FriendlyName, Page, PageSize, PageToken, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences.json";
   var description = "List conferences for account " + AccountSid + " filtered by FriendlyName " + FriendlyName + " and Status " + Status;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateConference(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + Sid + ".json";
-  var description = "Update conference " + Sid + " for account " + AccountSid + " with status " + Status + " announceUrl {AnnounceUrl} announceMethod {AnnounceMethod}";
-  var body = {
-    "Status": Status,
-    "AnnounceUrl": AnnounceUrl,
-    "AnnounceMethod": AnnounceMethod,
-  };
-  return svc.post(url, body, { description: description });
+function verifyConferenceExists(AccountSid, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Conference with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Conference exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Conference to exist but it does not");
+    }
+  });
 }
 
-function verifyConferenceExists(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken) {
-  return fetchConference(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken);
+function verifyConferenceDoesNotExist(AccountSid, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, FriendlyName, Page, PageSize, PageToken, Sid, Status) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Conference with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Conference to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Conference does not exist");
+    }
+  });
 }
 
-function verifyConferenceDoesNotExist(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken) {
-  return fetchConference(AccountSid, Sid, FriendlyName, Status, DateCreated, DateCreated<, DateCreated>, DateUpdated, DateUpdated<, DateUpdated>, PageSize, Page, PageToken);
-}
+// ---- Entity: conference recording ----
 
-// ---- Entity: conferenceRecording ----
-
-function fetchConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
+function fetchConferenceRecording(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings/" + Sid + ".json";
   var description = "Fetch conference recording " + Sid + " for conference " + ConferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listConferenceRecordings(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings.json";
-  var description = "List recordings for conference " + ConferenceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listConferenceRecordings(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings.json";
-  var description = "List conference recordings for conference " + ConferenceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function updateConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
+function updateConferenceRecording(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings/" + Sid + ".json";
   var description = "Update conference recording " + Sid + " for conference " + ConferenceSid + " in account " + AccountSid + " with status " + Status;
   var body = {
-    "Status": Status,
-    "PauseBehavior": PauseBehavior,
+    "AccountSid": String(AccountSid),
+    "ConferenceSid": String(ConferenceSid),
+    "PauseBehavior": String(PauseBehavior),
+    "Sid": String(Sid),
+    "Status": String(Status),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , ConferenceSid: String(ConferenceSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
+function deleteConferenceRecording(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings/" + Sid + ".json";
   var description = "Delete conference recording " + Sid + " for conference " + ConferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function tryToAddExistingConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
-  return listConferenceRecordings(AccountSid, ConferenceSid, Sid, Status, PauseBehavior);
+function verifyConferenceRecordingExists(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ConferenceRecording with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("ConferenceRecording exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ConferenceRecording to exist but it does not");
+    }
+  });
 }
 
-function verifyConferenceRecordingExists(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
-  return fetchConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior);
+function verifyConferenceRecordingDoesNotExist(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ConferenceRecording with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected ConferenceRecording to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ConferenceRecording does not exist");
+    }
+  });
 }
 
-function verifyConferenceRecordingDoesNotExist(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
-  return fetchConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior);
+function tryToDeleteANonExistingConferenceRecording(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing ConferenceRecording";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-function tryToDeleteANonExistingConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior) {
-  return deleteConferenceRecording(AccountSid, ConferenceSid, Sid, Status, PauseBehavior);
+function matchDeletedConferenceRecording(AccountSid, ConferenceSid, PauseBehavior, Sid, Status) {
+  var expectedDesc = "Delete conference recording " + Sid + " for conference " + ConferenceSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedConferenceRecording", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-// ---- Entity: connectApp ----
+function waitForAnyConferenceRecordingDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ conference\ recording\ (.+)\ for\ conference\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ conference\ recording\ (.+)\ for\ conference\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "ConferenceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
 
-function fetchConnectApp(AccountSid, Sid, PageSize, Page, PageToken) {
+// ---- Entity: connect app ----
+
+function fetchConnectApp(AccountSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/ConnectApps/" + Sid + ".json";
   var description = "Fetch connect-app " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listConnectApps(AccountSid, Sid, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/ConnectApps.json";
-  var description = "List connect-apps for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function updateConnectApp(AccountSid, Sid, PageSize, Page, PageToken) {
+function updateConnectApp(AccountSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/ConnectApps/" + Sid + ".json";
   var description = "Update connect-app " + Sid + " for account " + AccountSid;
   var body = {
-    "AuthorizeRedirectUrl": AuthorizeRedirectUrl,
-    "CompanyName": CompanyName,
-    "DeauthorizeCallbackMethod": DeauthorizeCallbackMethod,
-    "DeauthorizeCallbackUrl": DeauthorizeCallbackUrl,
-    "Description": Description,
-    "FriendlyName": FriendlyName,
-    "HomepageUrl": HomepageUrl,
-    "Permissions": Permissions,
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteConnectApp(AccountSid, Sid, PageSize, Page, PageToken) {
+function deleteConnectApp(AccountSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/ConnectApps/" + Sid + ".json";
   var description = "Delete connect-app " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function verifyConnectAppExists(AccountSid, Sid, PageSize, Page, PageToken) {
-  return fetchConnectApp(AccountSid, Sid, PageSize, Page, PageToken);
-}
-
-function verifyConnectAppDoesNotExist(AccountSid, Sid, PageSize, Page, PageToken) {
-  return fetchConnectApp(AccountSid, Sid, PageSize, Page, PageToken);
-}
-
-function tryToDeleteANonExistingConnectApp(AccountSid, Sid, PageSize, Page, PageToken) {
-  return deleteConnectApp(AccountSid, Sid, PageSize, Page, PageToken);
-}
-
-// ---- Entity: dependentPhoneNumber ----
-
-function listDependentPhoneNumbers(AccountSid, AddressSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Addresses/" + AddressSid + "/DependentPhoneNumbers.json";
-  var description = "List dependent phone numbers for address " + AddressSid + " in account " + AccountSid;
+function listConnectApps(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/ConnectApps.json";
+  var description = "List connect-apps for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-// ---- Entity: incomingPhoneNumber ----
-
-function fetchIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
-  var description = "Fetch incoming phone number " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listIncomingPhoneNumbers(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers.json";
-  var description = "List incoming phone numbers for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers.json";
-  var description = "Create incoming phone number " + PhoneNumber + " for account " + AccountSid;
-  var body = {
-    "ApiVersion": ApiVersion,
-    "FriendlyName": FriendlyName,
-    "SmsApplicationSid": SmsApplicationSid,
-    "SmsFallbackMethod": SmsFallbackMethod,
-    "SmsFallbackUrl": SmsFallbackUrl,
-    "SmsMethod": SmsMethod,
-    "SmsUrl": SmsUrl,
-    "StatusCallback": StatusCallback,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "VoiceApplicationSid": VoiceApplicationSid,
-    "VoiceCallerIdLookup": VoiceCallerIdLookup,
-    "VoiceFallbackMethod": VoiceFallbackMethod,
-    "VoiceFallbackUrl": VoiceFallbackUrl,
-    "VoiceMethod": VoiceMethod,
-    "VoiceUrl": VoiceUrl,
-    "EmergencyStatus": EmergencyStatus,
-    "EmergencyAddressSid": EmergencyAddressSid,
-    "TrunkSid": TrunkSid,
-    "IdentitySid": IdentitySid,
-    "AddressSid": AddressSid,
-    "VoiceReceiveMode": VoiceReceiveMode,
-    "BundleSid": BundleSid,
-    "PhoneNumber": PhoneNumber,
-    "AreaCode": AreaCode,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
-  var description = "Delete incoming phone number " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function updateIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
-  var description = "Update incoming phone number " + Sid + " for account " + AccountSid;
-  var body = {
-    "AccountSid": AccountSid,
-    "ApiVersion": ApiVersion,
-    "FriendlyName": FriendlyName,
-    "SmsApplicationSid": SmsApplicationSid,
-    "SmsFallbackMethod": SmsFallbackMethod,
-    "SmsFallbackUrl": SmsFallbackUrl,
-    "SmsMethod": SmsMethod,
-    "SmsUrl": SmsUrl,
-    "StatusCallback": StatusCallback,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "VoiceApplicationSid": VoiceApplicationSid,
-    "VoiceCallerIdLookup": VoiceCallerIdLookup,
-    "VoiceFallbackMethod": VoiceFallbackMethod,
-    "VoiceFallbackUrl": VoiceFallbackUrl,
-    "VoiceMethod": VoiceMethod,
-    "VoiceUrl": VoiceUrl,
-    "EmergencyStatus": EmergencyStatus,
-    "EmergencyAddressSid": EmergencyAddressSid,
-    "TrunkSid": TrunkSid,
-    "VoiceReceiveMode": VoiceReceiveMode,
-    "IdentitySid": IdentitySid,
-    "AddressSid": AddressSid,
-    "BundleSid": BundleSid,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function tryToAddExistingIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  return createIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken);
-}
-
-function verifyIncomingPhoneNumberExists(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  return fetchIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken);
-}
-
-function verifyIncomingPhoneNumberDoesNotExist(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  return fetchIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken);
-}
-
-function tryToDeleteANonExistingIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken) {
-  return deleteIncomingPhoneNumber(AccountSid, Sid, Beta, FriendlyName, PhoneNumber, Origin, PageSize, Page, PageToken);
-}
-
-// ---- Entity: assignedAddOn ----
-
-function getAssignedAddOn(AccountSid, ResourceSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + Sid + ".json";
-  var description = "Get assigned add-on " + Sid + " for resource " + ResourceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listAssignedAddOns(AccountSid, ResourceSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns.json";
-  var description = "List assigned add-ons for resource " + ResourceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyAssignedAddOnExists(AccountSid, ResourceSid, Sid) {
-  return getAssignedAddOn(AccountSid, ResourceSid, Sid);
-}
-
-function verifyAssignedAddOnDoesNotExist(AccountSid, ResourceSid, Sid) {
-  return getAssignedAddOn(AccountSid, ResourceSid, Sid);
-}
-
-// ---- Entity: extension ----
-
-function getExtension(AccountSid, ResourceSid, AssignedAddOnSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + AssignedAddOnSid + "/Extensions/" + Sid + ".json";
-  var description = "Get extension " + Sid + " for assigned add-on " + AssignedAddOnSid + " and resource " + ResourceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listExtensions(AccountSid, ResourceSid, AssignedAddOnSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + AssignedAddOnSid + "/Extensions.json";
-  var description = "List extensions for assigned add-on " + AssignedAddOnSid + " and resource " + ResourceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyExtensionExists(AccountSid, ResourceSid, AssignedAddOnSid, Sid) {
-  return getExtension(AccountSid, ResourceSid, AssignedAddOnSid, Sid);
-}
-
-function verifyExtensionDoesNotExist(AccountSid, ResourceSid, AssignedAddOnSid, Sid) {
-  return getExtension(AccountSid, ResourceSid, AssignedAddOnSid, Sid);
-}
-
-// ---- Entity: key ----
-
-function fetchKey(AccountSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
-  var description = "Fetch key " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listKeys(AccountSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys.json";
-  var description = "List keys for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function updateKey(AccountSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
-  var description = "Update key " + Sid + " for account " + AccountSid + " with FriendlyName {FriendlyName}";
-  var body = {
-    "FriendlyName": FriendlyName,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteKey(AccountSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
-  var description = "Delete key " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function verifyKeyExists(AccountSid, Sid) {
-  return fetchKey(AccountSid, Sid);
-}
-
-function verifyKeyDoesNotExist(AccountSid, Sid) {
-  return fetchKey(AccountSid, Sid);
-}
-
-function tryToDeleteANonExistingKey(AccountSid, Sid) {
-  return deleteKey(AccountSid, Sid);
-}
-
-// ---- Entity: messageMedia ----
-
-function getMessageMedia(AccountSid, MessageSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + MessageSid + "/Media/" + Sid + ".json";
-  var description = "Get media " + Sid + " for message " + MessageSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listMessageMedia(AccountSid, MessageSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + MessageSid + "/Media.json";
-  var description = "List media for message " + MessageSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyMessageMediaExists(AccountSid, MessageSid, Sid) {
-  return getMessageMedia(AccountSid, MessageSid, Sid);
-}
-
-function verifyMessageMediaDoesNotExist(AccountSid, MessageSid, Sid) {
-  return getMessageMedia(AccountSid, MessageSid, Sid);
-}
-
-// ---- Entity: queueMember ----
-
-function getQueueMember(AccountSid, QueueSid, CallSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + QueueSid + "/Members/" + CallSid + ".json";
-  var description = "Get member " + CallSid + " of queue " + QueueSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listQueueMembers(AccountSid, QueueSid, CallSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + QueueSid + "/Members.json";
-  var description = "List members of queue " + QueueSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyQueueMemberExists(AccountSid, QueueSid, CallSid) {
-  return getQueueMember(AccountSid, QueueSid, CallSid);
-}
-
-function verifyQueueMemberDoesNotExist(AccountSid, QueueSid, CallSid) {
-  return getQueueMember(AccountSid, QueueSid, CallSid);
-}
-
-// ---- Entity: message ----
-
-function fetchMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
-  var description = "Fetch message " + Sid + " from account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listMessages(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages.json";
-  var description = "List messages for account " + AccountSid + " filtered by To " + To + " and From " + From;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages.json";
-  var description = "Send a message to " + To + " from " + From + " in account " + AccountSid;
-  var body = {
-    "To": To,
-    "StatusCallback": StatusCallback,
-    "ApplicationSid": ApplicationSid,
-    "MaxPrice": MaxPrice,
-    "ProvideFeedback": ProvideFeedback,
-    "Attempt": Attempt,
-    "ValidityPeriod": ValidityPeriod,
-    "ForceDelivery": ForceDelivery,
-    "ContentRetention": ContentRetention,
-    "AddressRetention": AddressRetention,
-    "SmartEncoded": SmartEncoded,
-    "PersistentAction": PersistentAction,
-    "TrafficType": TrafficType,
-    "ShortenUrls": ShortenUrls,
-    "ScheduleType": ScheduleType,
-    "SendAt": SendAt,
-    "SendAsMms": SendAsMms,
-    "ContentVariables": ContentVariables,
-    "RiskCheck": RiskCheck,
-    "From": From,
-    "MessagingServiceSid": MessagingServiceSid,
-    "Body": Body,
-    "MediaUrl": MediaUrl,
-    "ContentSid": ContentSid,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
-  var description = "Delete message " + Sid + " from account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function updateMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
-  var description = "Update message " + Sid + " in account " + AccountSid;
-  var body = {
-    "Body": Body,
-    "Status": Status,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function tryToAddExistingMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  return createMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken);
-}
-
-function verifyMessageExists(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  return fetchMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken);
-}
-
-function verifyMessageDoesNotExist(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  return fetchMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken);
-}
-
-function tryToDeleteANonExistingMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken) {
-  return deleteMessage(AccountSid, Sid, To, From, DateSent, DateSent<, DateSent>, PageSize, Page, PageToken);
-}
-
-// ---- Entity: messageFeedback ----
-
-function listMessageFeedback(AccountSid, MessageSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + MessageSid + "/Feedback.json";
-  var description = "List feedback for message " + MessageSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-// ---- Entity: signingKey ----
-
-function fetchSigningKey(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
-  var description = "Fetch signing key " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listSigningKeys(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys.json";
-  var description = "List signing keys for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function updateSigningKey(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
-  var description = "Update signing key " + Sid + " for account " + AccountSid + " with FriendlyName " + FriendlyName;
-  var body = {
-    "FriendlyName": FriendlyName,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteSigningKey(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
-  var description = "Delete signing key " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function verifySigningKeyExists(AccountSid, Sid, FriendlyName) {
-  return fetchSigningKey(AccountSid, Sid, FriendlyName);
-}
-
-function verifySigningKeyDoesNotExist(AccountSid, Sid, FriendlyName) {
-  return fetchSigningKey(AccountSid, Sid, FriendlyName);
-}
-
-function tryToDeleteANonExistingSigningKey(AccountSid, Sid, FriendlyName) {
-  return deleteSigningKey(AccountSid, Sid, FriendlyName);
-}
-
-// ---- Entity: notification ----
-
-function fetchNotification(AccountSid, Sid, Log, MessageDate, MessageDate<, MessageDate>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Notifications/" + Sid + ".json";
-  var description = "Fetch notification " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listNotifications(AccountSid, Sid, Log, MessageDate, MessageDate<, MessageDate>, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Notifications.json";
-  var description = "List notifications for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyNotificationExists(AccountSid, Sid, Log, MessageDate, MessageDate<, MessageDate>, PageSize, Page, PageToken) {
-  return fetchNotification(AccountSid, Sid, Log, MessageDate, MessageDate<, MessageDate>, PageSize, Page, PageToken);
-}
-
-function verifyNotificationDoesNotExist(AccountSid, Sid, Log, MessageDate, MessageDate<, MessageDate>, PageSize, Page, PageToken) {
-  return fetchNotification(AccountSid, Sid, Log, MessageDate, MessageDate<, MessageDate>, PageSize, Page, PageToken);
-}
-
-// ---- Entity: outgoingCallerId ----
-
-function fetchOutgoingCallerId(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
-  var description = "Fetch outgoing-caller-id with Sid " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listOutgoingCallerIds(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds.json";
-  var description = "List outgoing caller IDs for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function updateOutgoingCallerId(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
-  var description = "Update outgoing-caller-id with Sid " + Sid + " for account " + AccountSid + " setting FriendlyName " + FriendlyName;
-  var body = {
-    "FriendlyName": FriendlyName,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteOutgoingCallerId(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
-  var description = "Delete outgoing-caller-id with Sid " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function verifyOutgoingCallerIdExists(AccountSid, Sid, FriendlyName) {
-  return fetchOutgoingCallerId(AccountSid, Sid, FriendlyName);
-}
-
-function verifyOutgoingCallerIdDoesNotExist(AccountSid, Sid, FriendlyName) {
-  return fetchOutgoingCallerId(AccountSid, Sid, FriendlyName);
-}
-
-function tryToDeleteANonExistingOutgoingCallerId(AccountSid, Sid, FriendlyName) {
-  return deleteOutgoingCallerId(AccountSid, Sid, FriendlyName);
-}
-
-// ---- Entity: conferenceParticipant ----
-
-function getConferenceParticipant(AccountSid, ConferenceSid, CallSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants/" + CallSid + ".json";
-  var description = "Get participant " + CallSid + " in conference " + ConferenceSid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listConferenceParticipants(AccountSid, ConferenceSid, CallSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants.json";
-  var description = "List participants in conference " + ConferenceSid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyConferenceParticipantExists(AccountSid, ConferenceSid, CallSid) {
-  return getConferenceParticipant(AccountSid, ConferenceSid, CallSid);
-}
-
-function verifyConferenceParticipantDoesNotExist(AccountSid, ConferenceSid, CallSid) {
-  return getConferenceParticipant(AccountSid, ConferenceSid, CallSid);
-}
-
-// ---- Entity: callPayment ----
-
-function getCallPayment(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Payments/" + Sid + ".json";
-  var description = "Get payment " + Sid + " for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listCallPayments(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Payments.json";
-  var description = "List payments for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyCallPaymentExists(AccountSid, CallSid, Sid) {
-  return getCallPayment(AccountSid, CallSid, Sid);
-}
-
-function verifyCallPaymentDoesNotExist(AccountSid, CallSid, Sid) {
-  return getCallPayment(AccountSid, CallSid, Sid);
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyConnectAppExists(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ConnectApp with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("ConnectApp exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ConnectApp to exist but it does not");
+    }
+  });
+}
+
+function verifyConnectAppDoesNotExist(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ConnectApp with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected ConnectApp to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ConnectApp does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingConnectApp(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/ConnectApps/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing ConnectApp";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedConnectApp(AccountSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete connect-app " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedConnectApp", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyConnectAppDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ connect\-app\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ connect\-app\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: queue ----
 
-function fetchQueue(AccountSid, Sid) {
+function fetchQueue(AccountSid, FriendlyName, MaxSize, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + Sid + ".json";
   var description = "Fetch queue " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listQueues(AccountSid, Sid) {
+function createQueue(AccountSid, FriendlyName, MaxSize, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues.json";
-  var description = "List queues for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createQueue(AccountSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues.json";
-  var description = "Create queue {FriendlyName} for account " + AccountSid;
+  var description = "Create queue " + FriendlyName + " for account " + AccountSid;
   var body = {
-    "FriendlyName": FriendlyName,
-    "MaxSize": MaxSize,
+    "AccountSid": String(AccountSid),
+    "FriendlyName": String(FriendlyName),
+    "MaxSize": String(MaxSize),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function updateQueue(AccountSid, Sid) {
+function updateQueue(AccountSid, FriendlyName, MaxSize, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + Sid + ".json";
-  var description = "Update queue " + Sid + " for account " + AccountSid + " with FriendlyName {FriendlyName} and MaxSize {MaxSize}";
+  var description = "Update queue " + Sid + " for account " + AccountSid + " with FriendlyName " + FriendlyName + " and MaxSize " + MaxSize;
   var body = {
-    "FriendlyName": FriendlyName,
-    "MaxSize": MaxSize,
+    "AccountSid": String(AccountSid),
+    "FriendlyName": String(FriendlyName),
+    "MaxSize": String(MaxSize),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteQueue(AccountSid, Sid) {
+function deleteQueue(AccountSid, FriendlyName, MaxSize, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + Sid + ".json";
   var description = "Delete queue " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function tryToAddExistingQueue(AccountSid, Sid) {
-  return createQueue(AccountSid, Sid);
+function tryToAddExistingQueue(AccountSid, FriendlyName, MaxSize, Sid) {
+  deleteQueue(AccountSid, FriendlyName, MaxSize, Sid);
 }
 
-function verifyQueueExists(AccountSid, Sid) {
-  return fetchQueue(AccountSid, Sid);
+function verifyQueueExists(AccountSid, FriendlyName, MaxSize, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues.json";
+  var description = "Verify Queue with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Queue exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Queue to exist but it does not");
+    }
+  });
 }
 
-function verifyQueueDoesNotExist(AccountSid, Sid) {
-  return fetchQueue(AccountSid, Sid);
+function verifyQueueDoesNotExist(AccountSid, FriendlyName, MaxSize, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues.json";
+  var description = "Verify Queue with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Queue to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Queue does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingQueue(AccountSid, Sid) {
-  return deleteQueue(AccountSid, Sid);
+function tryToDeleteANonExistingQueue(AccountSid, FriendlyName, MaxSize, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing Queue";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-// ---- Entity: callTranscription ----
+function matchAddedQueue(AccountSid, FriendlyName, MaxSize, Sid) {
+  var expectedDesc = "Create queue " + FriendlyName + " for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
 
-function getCallTranscription(AccountSid, CallSid, Sid) {
+function waitForAnyQueueAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ queue\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ queue\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["FriendlyName", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getQueueAddedEvent(keyVal) {
+  return bp.EventSet("AddQueue:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyQueueAdded() {
+  return bp.EventSet("matchAnyQueueAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create queue") > -1;
+  });
+}
+
+function waitForQueueAdded(AccountSid, FriendlyName, MaxSize, Sid) {
+  var expectedDesc = "Create queue " + FriendlyName + " for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedQueue(AccountSid, FriendlyName, MaxSize, Sid) {
+  var expectedDesc = "Delete queue " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedQueue", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyQueueDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ queue\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ queue\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: transcription ----
+
+function getTranscription(AccountSid, CallSid, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions/" + Sid + ".json";
+  var description = "Get transcription " + Sid + " for recording " + RecordingSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function getTranscription(AccountSid, CallSid, RecordingSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions/" + Sid + ".json";
   var description = "Get transcription " + Sid + " for call " + CallSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
-function listCallTranscriptions(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions.json";
-  var description = "List transcriptions for call " + CallSid + " in account " + AccountSid;
+function listTranscriptions(AccountSid, CallSid, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions.json";
+  var description = "List transcriptions for recording " + RecordingSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyCallTranscriptionExists(AccountSid, CallSid, Sid) {
-  return getCallTranscription(AccountSid, CallSid, Sid);
+function createTranscription(AccountSid, CallSid, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions.json";
+  var description = "Create transcription for call " + CallSid + " in account " + AccountSid + " with name {Name}";
+  var body = {
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , RecordingSid: String(RecordingSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifyCallTranscriptionDoesNotExist(AccountSid, CallSid, Sid) {
-  return getCallTranscription(AccountSid, CallSid, Sid);
+function updateTranscription(AccountSid, CallSid, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions/" + Sid + ".json";
+  var description = "Update transcription " + Sid + " for call " + CallSid + " in account " + AccountSid + " with status {Status}";
+  var body = {
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , RecordingSid: String(RecordingSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function tryToAddExistingTranscription(AccountSid, CallSid, RecordingSid, Sid) {
+  updateTranscription(AccountSid, CallSid, RecordingSid, Sid);
+}
+
+function verifyTranscriptionExists(AccountSid, CallSid, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions.json";
+  var description = "Verify Transcription with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Transcription exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Transcription to exist but it does not");
+    }
+  });
+}
+
+function verifyTranscriptionDoesNotExist(AccountSid, CallSid, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions.json";
+  var description = "Verify Transcription with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Transcription to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Transcription does not exist");
+    }
+  });
+}
+
+function matchAddedTranscription(AccountSid, CallSid, RecordingSid, Sid) {
+  var expectedDesc = "Create transcription for call " + CallSid + " in account " + AccountSid + " with name {Name}";
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyTranscriptionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ transcription\ for\ call\ (.+)\ in\ account\ (.+)\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ transcription\ for\ call\ (.+)\ in\ account\ (.+)\ with\ name\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CallSid", "AccountSid", "Name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getTranscriptionAddedEvent(keyVal) {
+  return bp.EventSet("AddTranscription:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyTranscriptionAdded() {
+  return bp.EventSet("matchAnyTranscriptionAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create transcription") > -1;
+  });
+}
+
+function waitForTranscriptionAdded(AccountSid, CallSid, RecordingSid, Sid) {
+  var expectedDesc = "Create transcription for call " + CallSid + " in account " + AccountSid + " with name {Name}";
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: recording ----
 
-function fetchRecording(AccountSid, Sid) {
+function fetchRecording(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + Sid + ".json";
-  var description = "Fetch recording " + Sid + " for account " + AccountSid;
+  var description = "Fetch an instance of a recording with Sid " + Sid + " for Account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listRecordings(AccountSid, Sid) {
+function getRecording(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + Sid + ".json";
+  var description = "Get recording " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function deleteRecording(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + Sid + ".json";
+  var description = "Delete recording with Sid " + Sid + " from Account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function listRecordings(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings.json";
-  var description = "List recordings for account " + AccountSid;
+  var description = "List recordings for Account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function deleteRecording(AccountSid, Sid) {
+function verifyRecordingExists(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Recording with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Recording exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Recording to exist but it does not");
+    }
+  });
+}
+
+function verifyRecordingDoesNotExist(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Recording with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Recording to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Recording does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingRecording(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + Sid + ".json";
-  var description = "Delete recording " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
+  var description = "Verify we cannot delete non-existing Recording";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-function verifyRecordingExists(AccountSid, Sid) {
-  return fetchRecording(AccountSid, Sid);
+function matchDeletedRecording(AccountSid, CallSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, IncludeSoftDeleted, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var expectedDesc = "Delete recording with Sid " + Sid + " from Account " + AccountSid;
+  return bp.EventSet("matchDeletedRecording", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-function verifyRecordingDoesNotExist(AccountSid, Sid) {
-  return fetchRecording(AccountSid, Sid);
-}
-
-function tryToDeleteANonExistingRecording(AccountSid, Sid) {
-  return deleteRecording(AccountSid, Sid);
+function waitForAnyRecordingDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ recording\ with\ Sid\ (.+)\ from\ Account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ recording\ with\ Sid\ (.+)\ from\ Account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: addOnResult ----
 
-function getAddOnResult(AccountSid, ReferenceSid, Sid) {
+function getAddOnResults(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults.json";
+  var description = "Get add-on results for recording " + ReferenceSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function getAddOnResult(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + Sid + ".json";
   var description = "Get add-on result " + Sid + " for recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listAddOnResults(AccountSid, ReferenceSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults.json";
-  var description = "List add-on results for recording " + ReferenceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
+function verifyAddOnResultExists(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AddOnResult with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("AddOnResult exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AddOnResult to exist but it does not");
+    }
+  });
 }
 
-function verifyAddOnResultExists(AccountSid, ReferenceSid, Sid) {
-  return getAddOnResult(AccountSid, ReferenceSid, Sid);
-}
-
-function verifyAddOnResultDoesNotExist(AccountSid, ReferenceSid, Sid) {
-  return getAddOnResult(AccountSid, ReferenceSid, Sid);
+function verifyAddOnResultDoesNotExist(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AddOnResult with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected AddOnResult to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AddOnResult does not exist");
+    }
+  });
 }
 
 // ---- Entity: payload ----
 
-function getPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads/" + Sid + ".json";
-  var description = "Get payload " + Sid + " for add-on result " + AddOnResultSid + " and recording " + ReferenceSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listPayloads(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
+function getPayloads(AccountSid, AddOnResultSid, PayloadSid, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads.json";
-  var description = "List payloads for add-on result " + AddOnResultSid + " and recording " + ReferenceSid + " in account " + AccountSid;
+  var description = "Get payloads for add-on result " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyPayloadExists(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
-  return getPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid);
+function getPayload(AccountSid, AddOnResultSid, PayloadSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads/" + Sid + ".json";
+  var description = "Get payload " + Sid + " for add-on result " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyPayloadDoesNotExist(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
-  return getPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid);
-}
-
-// ---- Entity: payloadData ----
-
-function getPayloadData(AccountSid, ReferenceSid, AddOnResultSid, PayloadSid) {
+function getPayloadData(AccountSid, AddOnResultSid, PayloadSid, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads/" + PayloadSid + "/Data.json";
-  var description = "Get data for payload " + PayloadSid + " of add-on result " + AddOnResultSid + " and recording " + ReferenceSid + " in account " + AccountSid;
+  var description = "Get data for payload " + PayloadSid + " of add-on result " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [307]
+  });
 }
 
-function verifyPayloadDataExists(AccountSid, ReferenceSid, AddOnResultSid, PayloadSid) {
-  return getPayloadData(AccountSid, ReferenceSid, AddOnResultSid, PayloadSid);
+function verifyPayloadExists(AccountSid, AddOnResultSid, PayloadSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Payload with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Payload exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Payload to exist but it does not");
+    }
+  });
 }
 
-function verifyPayloadDataDoesNotExist(AccountSid, ReferenceSid, AddOnResultSid, PayloadSid) {
-  return getPayloadData(AccountSid, ReferenceSid, AddOnResultSid, PayloadSid);
-}
-
-// ---- Entity: recordingTranscription ----
-
-function fetchRecordingTranscription(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions/" + Sid + ".json";
-  var description = "Fetch recording transcription " + Sid + " for recording " + RecordingSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listRecordingTranscriptions(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions.json";
-  var description = "List recording transcriptions for recording " + RecordingSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function deleteRecordingTranscription(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions/" + Sid + ".json";
-  var description = "Delete recording transcription " + Sid + " for recording " + RecordingSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function verifyRecordingTranscriptionExists(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken) {
-  return fetchRecordingTranscription(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken);
-}
-
-function verifyRecordingTranscriptionDoesNotExist(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken) {
-  return fetchRecordingTranscription(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken);
-}
-
-function tryToDeleteANonExistingRecordingTranscription(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken) {
-  return deleteRecordingTranscription(AccountSid, RecordingSid, Sid, PageSize, Page, PageToken);
+function verifyPayloadDoesNotExist(AccountSid, AddOnResultSid, PayloadSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Payload with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Payload to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Payload does not exist");
+    }
+  });
 }
 
 // ---- Entity: shortCode ----
 
-function fetchShortCode(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken) {
+function fetchShortCode(AccountSid, FriendlyName, Page, PageSize, PageToken, ShortCode, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SMS/ShortCodes/" + Sid + ".json";
-  var description = "Fetch an instance of a short code with AccountSid " + AccountSid + " and Sid " + Sid;
+  var description = "Fetch an instance of short code " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listShortCode(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken) {
+function listShortCode(AccountSid, FriendlyName, Page, PageSize, PageToken, ShortCode, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SMS/ShortCodes.json";
-  var description = "Retrieve a list of short-codes belonging to the account with AccountSid " + AccountSid;
+  var description = "Retrieve list of short codes for account " + AccountSid + " filtered by FriendlyName " + FriendlyName + " and ShortCode " + ShortCode;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateShortCode(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken) {
+function updateShortCode(AccountSid, FriendlyName, Page, PageSize, PageToken, ShortCode, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SMS/ShortCodes/" + Sid + ".json";
-  var description = "Update short code with AccountSid " + AccountSid + " and Sid " + Sid;
+  var description = "Update short code " + Sid + " for account " + AccountSid + " with FriendlyName " + FriendlyName;
   var body = {
-    "FriendlyName": FriendlyName,
-    "ApiVersion": ApiVersion,
-    "SmsUrl": SmsUrl,
-    "SmsMethod": SmsMethod,
-    "SmsFallbackUrl": SmsFallbackUrl,
-    "SmsFallbackMethod": SmsFallbackMethod,
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifyShortCodeExists(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken) {
-  return fetchShortCode(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken);
+function verifyShortCodeExists(AccountSid, FriendlyName, Page, PageSize, PageToken, ShortCode, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ShortCode with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("ShortCode exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ShortCode to exist but it does not");
+    }
+  });
 }
 
-function verifyShortCodeDoesNotExist(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken) {
-  return fetchShortCode(AccountSid, Sid, FriendlyName, ShortCode, PageSize, Page, PageToken);
+function verifyShortCodeDoesNotExist(AccountSid, FriendlyName, Page, PageSize, PageToken, ShortCode, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ShortCode with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected ShortCode to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ShortCode does not exist");
+    }
+  });
+}
+
+// ---- Entity: signingKey ----
+
+function fetchSigningKey(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
+  var description = "Fetch signing key " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listSigningKeys(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys.json";
+  var description = "List signing keys for account " + AccountSid + " with PageSize " + PageSize + " Page " + Page + " PageToken " + PageToken;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateSigningKey(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
+  var description = "Update signing key " + Sid + " for account " + AccountSid + " with FriendlyName " + FriendlyName;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "FriendlyName": String(FriendlyName),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteSigningKey(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
+  var description = "Delete signing key " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function verifySigningKeyExists(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SigningKey with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("SigningKey exists");
+          }
+        }
+      }
+      return pvg.fail("Expected SigningKey to exist but it does not");
+    }
+  });
+}
+
+function verifySigningKeyDoesNotExist(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SigningKey with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected SigningKey to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("SigningKey does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingSigningKey(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing SigningKey";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedSigningKey(AccountSid, FriendlyName, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete signing key " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedSigningKey", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnySigningKeyDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ signing\ key\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ signing\ key\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: sip ----
 
 function getSIP(AccountSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP.json";
-  var description = "Get SIP settings for account " + AccountSid;
+  var description = "Get SIP configuration for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
 function verifySIPExists(AccountSid) {
-  return getSIP(AccountSid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SIP with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("SIP exists");
+          }
+        }
+      }
+      return pvg.fail("Expected SIP to exist but it does not");
+    }
+  });
 }
 
 function verifySIPDoesNotExist(AccountSid) {
-  return getSIP(AccountSid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SIP with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected SIP to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("SIP does not exist");
+    }
+  });
 }
 
 // ---- Entity: sipDomainAuth ----
 
 function getSIPDomainAuth(AccountSid, DomainSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth.json";
-  var description = "Get auth for SIP domain " + DomainSid + " in account " + AccountSid;
+  var description = "Get SIP domain auth for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
 function verifySIPDomainAuthExists(AccountSid, DomainSid) {
-  return getSIPDomainAuth(AccountSid, DomainSid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SIPDomainAuth with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("SIPDomainAuth exists");
+          }
+        }
+      }
+      return pvg.fail("Expected SIPDomainAuth to exist but it does not");
+    }
+  });
 }
 
 function verifySIPDomainAuthDoesNotExist(AccountSid, DomainSid) {
-  return getSIPDomainAuth(AccountSid, DomainSid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SIPDomainAuth with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected SIPDomainAuth to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("SIPDomainAuth does not exist");
+    }
+  });
 }
 
 // ---- Entity: sipDomainAuthCall ----
 
-function listSIPDomainAuthCalls(AccountSid, DomainSid) {
+function getSIPDomainAuthCall(AccountSid, DomainSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls.json";
-  var description = "List auth calls for SIP domain " + DomainSid + " in account " + AccountSid;
+  var description = "Get SIP domain auth calls for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
+}
+
+function verifySIPDomainAuthCallExists(AccountSid, DomainSid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SIPDomainAuthCall with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("SIPDomainAuthCall exists");
+          }
+        }
+      }
+      return pvg.fail("Expected SIPDomainAuthCall to exist but it does not");
+    }
+  });
+}
+
+function verifySIPDomainAuthCallDoesNotExist(AccountSid, DomainSid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify SIPDomainAuthCall with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected SIPDomainAuthCall to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("SIPDomainAuthCall does not exist");
+    }
+  });
 }
 
 // ---- Entity: credentialListMapping ----
 
-function fetchCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function fetchCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings/" + Sid + ".json";
-  var description = "Fetch credential list mapping " + Sid + " in domain " + DomainSid + " for account " + AccountSid;
+  var description = "Fetch credential list mapping " + Sid + " for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listCredentialListMappings(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings.json";
-  var description = "List credential list mappings in domain " + DomainSid + " for account " + AccountSid;
+function listCredentialListMappings(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/CredentialListMappings.json";
+  var description = "List credential list mappings for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function createCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function createCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings.json";
-  var description = "Create credential list mapping with CredentialListSid {CredentialListSid} in domain " + DomainSid + " for account " + AccountSid;
+  var description = "Create credential list mapping with CredentialListSid {CredentialListSid} for domain " + DomainSid + " in account " + AccountSid;
   var body = {
-    "CredentialListSid": CredentialListSid,
+    "AccountSid": String(AccountSid),
+    "DomainSid": String(DomainSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , DomainSid: String(DomainSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function deleteCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings/" + Sid + ".json";
-  var description = "Delete credential list mapping " + Sid + " in domain " + DomainSid + " for account " + AccountSid;
+  var description = "Delete credential list mapping " + Sid + " for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function tryToAddExistingCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return createCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function updateCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/CredentialListMappings/" + Sid + ".json";
+  var description = "Update credential list mapping " + Sid + " for domain " + DomainSid + " and account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "DomainSid": String(DomainSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , DomainSid: String(DomainSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifyCredentialListMappingExists(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return fetchCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function tryToAddExistingCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  updateCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid);
 }
 
-function verifyCredentialListMappingDoesNotExist(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return fetchCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function verifyCredentialListMappingExists(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings.json";
+  var description = "Verify CredentialListMapping with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("CredentialListMapping exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CredentialListMapping to exist but it does not");
+    }
+  });
 }
 
-function tryToDeleteANonExistingCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return deleteCredentialListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function verifyCredentialListMappingDoesNotExist(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings.json";
+  var description = "Verify CredentialListMapping with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected CredentialListMapping to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CredentialListMapping does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations/CredentialListMappings/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing CredentialListMapping";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create credential list mapping with CredentialListSid {CredentialListSid} for domain " + DomainSid + " in account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyCredentialListMappingAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ credential\ list\ mapping\ with\ CredentialListSid\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ credential\ list\ mapping\ with\ CredentialListSid\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CredentialListSid", "DomainSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCredentialListMappingAddedEvent(keyVal) {
+  return bp.EventSet("AddCredentialListMapping:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyCredentialListMappingAdded() {
+  return bp.EventSet("matchAnyCredentialListMappingAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create credentialListMapping") > -1;
+  });
+}
+
+function waitForCredentialListMappingAdded(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create credential list mapping with CredentialListSid {CredentialListSid} for domain " + DomainSid + " in account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedCredentialListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete credential list mapping " + Sid + " for domain " + DomainSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedCredentialListMapping", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCredentialListMappingDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ credential\ list\ mapping\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ credential\ list\ mapping\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "DomainSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: ipAccessControlListMapping ----
 
-function fetchIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function fetchIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings/" + Sid + ".json";
   var description = "Fetch IP Access Control List mapping " + Sid + " for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listIpAccessControlListMappings(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function listIpAccessControlListMappings(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings.json";
   var description = "List IP Access Control List mappings for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function createIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function createIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings.json";
   var description = "Create IP Access Control List mapping with IpAccessControlListSid {IpAccessControlListSid} for domain " + DomainSid + " in account " + AccountSid;
   var body = {
-    "IpAccessControlListSid": IpAccessControlListSid,
+    "AccountSid": String(AccountSid),
+    "DomainSid": String(DomainSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , DomainSid: String(DomainSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
+function deleteIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings/" + Sid + ".json";
   var description = "Delete IP Access Control List mapping " + Sid + " for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function tryToAddExistingIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return createIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function updateIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/IpAccessControlListMappings/" + Sid + ".json";
+  var description = "Update IP access control list mapping " + Sid + " for domain " + DomainSid + " and account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "DomainSid": String(DomainSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , DomainSid: String(DomainSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifyIpAccessControlListMappingExists(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return fetchIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function tryToAddExistingIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  updateIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid);
 }
 
-function verifyIpAccessControlListMappingDoesNotExist(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return fetchIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function verifyIpAccessControlListMappingExists(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings.json";
+  var description = "Verify IpAccessControlListMapping with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("IpAccessControlListMapping exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IpAccessControlListMapping to exist but it does not");
+    }
+  });
 }
 
-function tryToDeleteANonExistingIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken) {
-  return deleteIpAccessControlListMapping(AccountSid, DomainSid, Sid, PageSize, Page, PageToken);
+function verifyIpAccessControlListMappingDoesNotExist(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings.json";
+  var description = "Verify IpAccessControlListMapping with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected IpAccessControlListMapping to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IpAccessControlListMapping does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Calls/IpAccessControlListMappings/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing IpAccessControlListMapping";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create IP Access Control List mapping with IpAccessControlListSid {IpAccessControlListSid} for domain " + DomainSid + " in account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyIpAccessControlListMappingAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ IP\ Access\ Control\ List\ mapping\ with\ IpAccessControlListSid\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ IP\ Access\ Control\ List\ mapping\ with\ IpAccessControlListSid\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["IpAccessControlListSid", "DomainSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getIpAccessControlListMappingAddedEvent(keyVal) {
+  return bp.EventSet("AddIpAccessControlListMapping:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyIpAccessControlListMappingAdded() {
+  return bp.EventSet("matchAnyIpAccessControlListMappingAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create ipAccessControlListMapping") > -1;
+  });
+}
+
+function waitForIpAccessControlListMappingAdded(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create IP Access Control List mapping with IpAccessControlListSid {IpAccessControlListSid} for domain " + DomainSid + " in account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedIpAccessControlListMapping(AccountSid, DomainSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete IP Access Control List mapping " + Sid + " for domain " + DomainSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedIpAccessControlListMapping", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyIpAccessControlListMappingDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ IP\ Access\ Control\ List\ mapping\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ IP\ Access\ Control\ List\ mapping\ (.+)\ for\ domain\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "DomainSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: registration ----
 
 function listRegistrations(AccountSid, DomainSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/Auth/Registrations.json";
-  var description = "List registrations for SIP domain " + DomainSid + " in account " + AccountSid;
+  var description = "List Registrations for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
+}
+
+// ---- Entity: credential ----
+
+function getCredential(AccountSid, CredentialListSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials/" + Sid + ".json";
+  var description = "Get Credential " + Sid + " in Credential List " + CredentialListSid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listCredentials(AccountSid, CredentialListSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials.json";
+  var description = "List Credentials in Credential List " + CredentialListSid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyCredentialExists(AccountSid, CredentialListSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Credential with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Credential exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Credential to exist but it does not");
+    }
+  });
+}
+
+function verifyCredentialDoesNotExist(AccountSid, CredentialListSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Credential with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Credential to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Credential does not exist");
+    }
+  });
 }
 
 // ---- Entity: credentialList ----
 
-function fetchCredentialList(AccountSid, Sid, FriendlyName) {
+function fetchCredentialList(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
   var description = "Get credential list " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listCredentialLists(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
-  var description = "List all credential lists for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createCredentialList(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
-  var description = "Create credential list " + FriendlyName + " for account " + AccountSid;
-  var body = {
-    "FriendlyName": FriendlyName,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function deleteCredentialList(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
-  var description = "Delete credential list " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.delete(url, { description: description });
-}
-
-function updateCredentialList(AccountSid, Sid, FriendlyName) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
-  var description = "Update credential list " + Sid + " with name " + FriendlyName + " for account " + AccountSid;
-  var body = {
-    "FriendlyName": FriendlyName,
-  };
-  return svc.post(url, body, { description: description });
-}
-
-function tryToAddExistingCredentialList(AccountSid, Sid, FriendlyName) {
-  return createCredentialList(AccountSid, Sid, FriendlyName);
-}
-
-function verifyCredentialListExists(AccountSid, Sid, FriendlyName) {
-  return fetchCredentialList(AccountSid, Sid, FriendlyName);
-}
-
-function verifyCredentialListDoesNotExist(AccountSid, Sid, FriendlyName) {
-  return fetchCredentialList(AccountSid, Sid, FriendlyName);
-}
-
-function tryToDeleteANonExistingCredentialList(AccountSid, Sid, FriendlyName) {
-  return deleteCredentialList(AccountSid, Sid, FriendlyName);
-}
-
-// ---- Entity: credentialListEntity ----
-
-function getCredentialList(AccountSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
-  var description = "Get credential list " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function listCredentialLists(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
-  var description = "List credential lists for account " + AccountSid;
+  var description = "List Credential Lists for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyCredentialListEntityExists(AccountSid, Sid) {
-  return getCredentialList(AccountSid, Sid);
+function createCredentialList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
+  var description = "Create credential list with FriendlyName {FriendlyName} for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifyCredentialListEntityDoesNotExist(AccountSid, Sid) {
-  return getCredentialList(AccountSid, Sid);
+function updateCredentialList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
+  var description = "Update credential list " + Sid + " with FriendlyName {FriendlyName} for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-// ---- Entity: domainCredentialListMapping ----
-
-function getDomainCredentialListMapping(AccountSid, DomainSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/CredentialListMappings/" + Sid + ".json";
-  var description = "Get credential list mapping " + Sid + " for SIP domain " + DomainSid + " in account " + AccountSid;
+function deleteCredentialList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
+  var description = "Delete credential list " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function listDomainCredentialListMappings(AccountSid, DomainSid, Sid) {
+function tryToAddExistingCredentialList(AccountSid, Sid) {
+  deleteCredentialList(AccountSid, Sid);
+}
+
+function verifyCredentialListExists(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
+  var description = "Verify CredentialList with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("CredentialList exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CredentialList to exist but it does not");
+    }
+  });
+}
+
+function verifyCredentialListDoesNotExist(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
+  var description = "Verify CredentialList with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected CredentialList to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CredentialList does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCredentialList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing CredentialList";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCredentialList(AccountSid, Sid) {
+  var expectedDesc = "Create credential list with FriendlyName {FriendlyName} for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyCredentialListAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ credential\ list\ with\ FriendlyName\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ credential\ list\ with\ FriendlyName\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["FriendlyName", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCredentialListAddedEvent(keyVal) {
+  return bp.EventSet("AddCredentialList:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyCredentialListAdded() {
+  return bp.EventSet("matchAnyCredentialListAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create credentialList") > -1;
+  });
+}
+
+function waitForCredentialListAdded(AccountSid, Sid) {
+  var expectedDesc = "Create credential list with FriendlyName {FriendlyName} for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedCredentialList(AccountSid, Sid) {
+  var expectedDesc = "Delete credential list " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedCredentialList", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCredentialListDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ credential\ list\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ credential\ list\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: credentialListMappingDomain ----
+
+function listCredentialListMappingsForDomain(AccountSid, DomainSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + DomainSid + "/CredentialListMappings.json";
-  var description = "List credential list mappings for SIP domain " + DomainSid + " in account " + AccountSid;
+  var description = "List Credential List Mappings for domain " + DomainSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyDomainCredentialListMappingExists(AccountSid, DomainSid, Sid) {
-  return getDomainCredentialListMapping(AccountSid, DomainSid, Sid);
-}
+// ---- Entity: domain ----
 
-function verifyDomainCredentialListMappingDoesNotExist(AccountSid, DomainSid, Sid) {
-  return getDomainCredentialListMapping(AccountSid, DomainSid, Sid);
-}
-
-// ---- Entity: sipDomain ----
-
-function getSIPDomain(AccountSid, Sid) {
+function getDomain(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + Sid + ".json";
-  var description = "Get SIP domain " + Sid + " for account " + AccountSid;
+  var description = "Get domain " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listSIPDomains(AccountSid, Sid) {
+function createDomain(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains.json";
-  var description = "List SIP domains for account " + AccountSid;
+  var description = "Create domain for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteDomain(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + Sid + ".json";
+  var description = "Delete domain " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function verifySIPDomainExists(AccountSid, Sid) {
-  return getSIPDomain(AccountSid, Sid);
+function updateDomain(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + Sid + ".json";
+  var description = "Update domain " + Sid + " for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifySIPDomainDoesNotExist(AccountSid, Sid) {
-  return getSIPDomain(AccountSid, Sid);
+function tryToAddExistingDomain(AccountSid, Sid) {
+  updateDomain(AccountSid, Sid);
+}
+
+function verifyDomainExists(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains.json";
+  var description = "Verify Domain with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Domain exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Domain to exist but it does not");
+    }
+  });
+}
+
+function verifyDomainDoesNotExist(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains.json";
+  var description = "Verify Domain with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Domain to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Domain does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingDomain(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/Domains/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing Domain";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedDomain(AccountSid, Sid) {
+  var expectedDesc = "Create domain for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyDomainAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ domain\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ domain\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getDomainAddedEvent(keyVal) {
+  return bp.EventSet("AddDomain:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyDomainAdded() {
+  return bp.EventSet("matchAnyDomainAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create domain") > -1;
+  });
+}
+
+function waitForDomainAdded(AccountSid, Sid) {
+  var expectedDesc = "Create domain for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedDomain(AccountSid, Sid) {
+  var expectedDesc = "Delete domain " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedDomain", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyDomainDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ domain\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ domain\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: ipAccessControlList ----
@@ -1647,583 +3200,2416 @@ function getIpAccessControlList(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + Sid + ".json";
   var description = "Get IP access control list " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listIpAccessControlLists(AccountSid, Sid) {
+function createIpAccessControlList(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists.json";
-  var description = "List IP access control lists for account " + AccountSid;
+  var description = "Create IP access control list for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteIpAccessControlList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + Sid + ".json";
+  var description = "Delete IP access control list " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function updateIpAccessControlList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + Sid + ".json";
+  var description = "Update IP access control list " + Sid + " for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function tryToAddExistingIpAccessControlList(AccountSid, Sid) {
+  updateIpAccessControlList(AccountSid, Sid);
 }
 
 function verifyIpAccessControlListExists(AccountSid, Sid) {
-  return getIpAccessControlList(AccountSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists.json";
+  var description = "Verify IpAccessControlList with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("IpAccessControlList exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IpAccessControlList to exist but it does not");
+    }
+  });
 }
 
 function verifyIpAccessControlListDoesNotExist(AccountSid, Sid) {
-  return getIpAccessControlList(AccountSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists.json";
+  var description = "Verify IpAccessControlList with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected IpAccessControlList to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IpAccessControlList does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingIpAccessControlList(AccountSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing IpAccessControlList";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedIpAccessControlList(AccountSid, Sid) {
+  var expectedDesc = "Create IP access control list for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyIpAccessControlListAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ IP\ access\ control\ list\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ IP\ access\ control\ list\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getIpAccessControlListAddedEvent(keyVal) {
+  return bp.EventSet("AddIpAccessControlList:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyIpAccessControlListAdded() {
+  return bp.EventSet("matchAnyIpAccessControlListAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create ipAccessControlList") > -1;
+  });
+}
+
+function waitForIpAccessControlListAdded(AccountSid, Sid) {
+  var expectedDesc = "Create IP access control list for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedIpAccessControlList(AccountSid, Sid) {
+  var expectedDesc = "Delete IP access control list " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedIpAccessControlList", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyIpAccessControlListDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ IP\ access\ control\ list\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ IP\ access\ control\ list\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: ipAddress ----
 
 function getIpAddress(AccountSid, IpAccessControlListSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses/" + Sid + ".json";
-  var description = "Get IP address " + Sid + " for IP access control list " + IpAccessControlListSid + " in account " + AccountSid;
+  var description = "Get IP address " + Sid + " for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listIpAddresses(AccountSid, IpAccessControlListSid, Sid) {
+function createIpAddress(AccountSid, IpAccessControlListSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses.json";
-  var description = "List IP addresses for IP access control list " + IpAccessControlListSid + " in account " + AccountSid;
+  var description = "Create IP address for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "IpAccessControlListSid": String(IpAccessControlListSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , IpAccessControlListSid: String(IpAccessControlListSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteIpAddress(AccountSid, IpAccessControlListSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses/" + Sid + ".json";
+  var description = "Delete IP address " + Sid + " for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function updateIpAddress(AccountSid, IpAccessControlListSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses/" + Sid + ".json";
+  var description = "Update IP address " + Sid + " for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "IpAccessControlListSid": String(IpAccessControlListSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , IpAccessControlListSid: String(IpAccessControlListSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function tryToAddExistingIpAddress(AccountSid, IpAccessControlListSid, Sid) {
+  updateIpAddress(AccountSid, IpAccessControlListSid, Sid);
 }
 
 function verifyIpAddressExists(AccountSid, IpAccessControlListSid, Sid) {
-  return getIpAddress(AccountSid, IpAccessControlListSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses.json";
+  var description = "Verify IpAddress with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("IpAddress exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IpAddress to exist but it does not");
+    }
+  });
 }
 
 function verifyIpAddressDoesNotExist(AccountSid, IpAccessControlListSid, Sid) {
-  return getIpAddress(AccountSid, IpAccessControlListSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses.json";
+  var description = "Verify IpAddress with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected IpAddress to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IpAddress does not exist");
+    }
+  });
 }
 
-// ---- Entity: callSiprec ----
-
-function getCallSiprec(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec/" + Sid + ".json";
-  var description = "Get SIPREC " + Sid + " for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
+function tryToDeleteANonExistingIpAddress(AccountSid, IpAccessControlListSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/IpAccessControlLists/" + IpAccessControlListSid + "/IpAddresses/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing IpAddress";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-function listCallSiprecs(AccountSid, CallSid, Sid) {
+function matchAddedIpAddress(AccountSid, IpAccessControlListSid, Sid) {
+  var expectedDesc = "Create IP address for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyIpAddressAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ IP\ address\ for\ IP\ access\ control\ list\ (.+)\ and\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ IP\ address\ for\ IP\ access\ control\ list\ (.+)\ and\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["IpAccessControlListSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getIpAddressAddedEvent(keyVal) {
+  return bp.EventSet("AddIpAddress:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyIpAddressAdded() {
+  return bp.EventSet("matchAnyIpAddressAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create ipAddress") > -1;
+  });
+}
+
+function waitForIpAddressAdded(AccountSid, IpAccessControlListSid, Sid) {
+  var expectedDesc = "Create IP address for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedIpAddress(AccountSid, IpAccessControlListSid, Sid) {
+  var expectedDesc = "Delete IP address " + Sid + " for IP access control list " + IpAccessControlListSid + " and account " + AccountSid;
+  return bp.EventSet("matchDeletedIpAddress", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyIpAddressDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ IP\ address\ (.+)\ for\ IP\ access\ control\ list\ (.+)\ and\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ IP\ address\ (.+)\ for\ IP\ access\ control\ list\ (.+)\ and\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "IpAccessControlListSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: siprec ----
+
+function getSiprec(AccountSid, CallSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
-  var description = "List SIPREC for call " + CallSid + " in account " + AccountSid;
+  var description = "Get SIPREC for call " + CallSid + " and account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
-function verifyCallSiprecExists(AccountSid, CallSid, Sid) {
-  return getCallSiprec(AccountSid, CallSid, Sid);
-}
-
-function verifyCallSiprecDoesNotExist(AccountSid, CallSid, Sid) {
-  return getCallSiprec(AccountSid, CallSid, Sid);
-}
-
-// ---- Entity: callStream ----
-
-function getCallStream(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Streams/" + Sid + ".json";
-  var description = "Get stream " + Sid + " for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listCallStreams(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Streams.json";
-  var description = "List streams for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function verifyCallStreamExists(AccountSid, CallSid, Sid) {
-  return getCallStream(AccountSid, CallSid, Sid);
-}
-
-function verifyCallStreamDoesNotExist(AccountSid, CallSid, Sid) {
-  return getCallStream(AccountSid, CallSid, Sid);
-}
-
-// ---- Entity: token ----
-
-function listTokens(AccountSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Tokens.json";
-  var description = "List tokens for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-// ---- Entity: transcription ----
-
-function getTranscription(AccountSid, Sid, CallSid, Status) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Transcriptions/" + Sid + ".json";
-  var description = "Get transcription " + Sid + " for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listTranscriptions(AccountSid, Sid, CallSid, Status) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Transcriptions.json";
-  var description = "List transcriptions for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function createTranscription(AccountSid, Sid, CallSid, Status) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions.json";
-  var description = "Create transcription for call " + CallSid + " in account " + AccountSid + " with name {Name}";
+function createSiprec(AccountSid, CallSid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
+  var description = "Create SIPREC for call " + CallSid + " and account " + AccountSid;
   var body = {
-    "Name": Name,
-    "Track": Track,
-    "StatusCallbackUrl": StatusCallbackUrl,
-    "StatusCallbackMethod": StatusCallbackMethod,
-    "InboundTrackLabel": InboundTrackLabel,
-    "OutboundTrackLabel": OutboundTrackLabel,
-    "PartialResults": PartialResults,
-    "LanguageCode": LanguageCode,
-    "TranscriptionEngine": TranscriptionEngine,
-    "ProfanityFilter": ProfanityFilter,
-    "SpeechModel": SpeechModel,
-    "Hints": Hints,
-    "EnableAutomaticPunctuation": EnableAutomaticPunctuation,
-    "IntelligenceService": IntelligenceService,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function updateTranscription(AccountSid, Sid, CallSid, Status) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Transcriptions/" + Sid + ".json";
-  var description = "Update transcription " + Sid + " for call " + CallSid + " in account " + AccountSid + " with status " + Status;
+function deleteSiprec(AccountSid, CallSid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
+  var description = "Delete SIPREC for call " + CallSid + " and account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
+}
+
+function updateSiprec(AccountSid, CallSid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
+  var description = "Update SIPREC for call " + CallSid + " and account " + AccountSid;
   var body = {
-    "Status": Status,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function tryToAddExistingTranscription(AccountSid, Sid, CallSid, Status) {
-  return createTranscription(AccountSid, Sid, CallSid, Status);
+function tryToAddExistingSiprec(AccountSid, CallSid) {
+  updateSiprec(AccountSid, CallSid);
 }
 
-function verifyTranscriptionExists(AccountSid, Sid, CallSid, Status) {
-  return getTranscription(AccountSid, Sid, CallSid, Status);
+function verifySiprecExists(AccountSid, CallSid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
+  var description = "Verify Siprec with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Siprec exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Siprec to exist but it does not");
+    }
+  });
 }
 
-function verifyTranscriptionDoesNotExist(AccountSid, Sid, CallSid, Status) {
-  return getTranscription(AccountSid, Sid, CallSid, Status);
+function verifySiprecDoesNotExist(AccountSid, CallSid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
+  var description = "Verify Siprec with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Siprec to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Siprec does not exist");
+    }
+  });
 }
 
-// ---- Entity: usage ----
+function tryToDeleteANonExistingSiprec(AccountSid, CallSid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Siprec.json";
+  var description = "Verify we cannot delete non-existing Siprec";
+  svc.delete(url, {
+    expectedResponseCodes: [],
+    parameters: { description: description }
+  });
+}
 
-function getUsage(AccountSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Usage.json";
-  var description = "Get usage for account " + AccountSid;
+function matchAddedSiprec(AccountSid, CallSid) {
+  var expectedDesc = "Create SIPREC for call " + CallSid + " and account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnySiprecAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ SIPREC\ for\ call\ (.+)\ and\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ SIPREC\ for\ call\ (.+)\ and\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CallSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getSiprecAddedEvent(keyVal) {
+  return bp.EventSet("AddSiprec:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnySiprecAdded() {
+  return bp.EventSet("matchAnySiprecAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create siprec") > -1;
+  });
+}
+
+function waitForSiprecAdded(AccountSid, CallSid) {
+  var expectedDesc = "Create SIPREC for call " + CallSid + " and account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedSiprec(AccountSid, CallSid) {
+  var expectedDesc = "Delete SIPREC for call " + CallSid + " and account " + AccountSid;
+  return bp.EventSet("matchDeletedSiprec", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnySiprecDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ SIPREC\ for\ call\ (.+)\ and\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ SIPREC\ for\ call\ (.+)\ and\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CallSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: usage record ----
+
+function getUsageRecords(AccountSid, period) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Usage/Records/" + period + ".json";
+  var description = "Get usage records for account " + AccountSid + " for period " + period;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
-function verifyUsageExists(AccountSid) {
-  return getUsage(AccountSid);
+function verifyUsageRecordExists(AccountSid, period) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify UsageRecord with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("UsageRecord exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UsageRecord to exist but it does not");
+    }
+  });
 }
 
-function verifyUsageDoesNotExist(AccountSid) {
-  return getUsage(AccountSid);
+function verifyUsageRecordDoesNotExist(AccountSid, period) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify UsageRecord with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected UsageRecord to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UsageRecord does not exist");
+    }
+  });
 }
 
-// ---- Entity: usageRecord ----
-
-function listUsageRecords(AccountSid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Usage/Records.json";
-  var description = "List usage records for account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-// ---- Entity: usageTrigger ----
+// ---- Entity: usage trigger ----
 
 function getUsageTrigger(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Usage/Triggers/" + Sid + ".json";
   var description = "Get usage trigger " + Sid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function listUsageTriggers(AccountSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Usage/Triggers.json";
   var description = "List usage triggers for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function verifyUsageTriggerExists(AccountSid, Sid) {
-  return getUsageTrigger(AccountSid, Sid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify UsageTrigger with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("UsageTrigger exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UsageTrigger to exist but it does not");
+    }
+  });
 }
 
 function verifyUsageTriggerDoesNotExist(AccountSid, Sid) {
-  return getUsageTrigger(AccountSid, Sid);
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify UsageTrigger with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected UsageTrigger to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UsageTrigger does not exist");
+    }
+  });
 }
 
-// ---- Entity: userDefinedMessage ----
+// ---- Entity: user defined message ----
 
 function listUserDefinedMessages(AccountSid, CallSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/UserDefinedMessages.json";
   var description = "List user defined messages for call " + CallSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
-// ---- Entity: userDefinedMessageSubscription ----
+// ---- Entity: user defined message subscription ----
 
-function getUserDefinedMessageSubscription(AccountSid, CallSid, Sid) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/UserDefinedMessageSubscriptions/" + Sid + ".json";
-  var description = "Get user defined message subscription " + Sid + " for call " + CallSid + " in account " + AccountSid;
-  var body = undefined;
-  return svc.get(url, { description: description });
-}
-
-function listUserDefinedMessageSubscriptions(AccountSid, CallSid, Sid) {
+function listUserDefinedMessageSubscriptions(AccountSid, CallSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/UserDefinedMessageSubscriptions.json";
   var description = "List user defined message subscriptions for call " + CallSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: []
+  });
 }
 
-function verifyUserDefinedMessageSubscriptionExists(AccountSid, CallSid, Sid) {
-  return getUserDefinedMessageSubscription(AccountSid, CallSid, Sid);
-}
+// ---- Entity: available phone number country ----
 
-function verifyUserDefinedMessageSubscriptionDoesNotExist(AccountSid, CallSid, Sid) {
-  return getUserDefinedMessageSubscription(AccountSid, CallSid, Sid);
-}
-
-// ---- Entity: availablePhoneNumberCountry ----
-
-function fetchAvailablePhoneNumberCountry(AccountSid, CountryCode, PageSize, Page, PageToken) {
+function fetchAvailablePhoneNumberCountry(AccountSid, CountryCode) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/AvailablePhoneNumbers/" + CountryCode + ".json";
   var description = "Fetch available phone number country " + CountryCode + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listAvailablePhoneNumberCountry(AccountSid, CountryCode, PageSize, Page, PageToken) {
+function listAvailablePhoneNumberCountry(AccountSid, CountryCode) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/AvailablePhoneNumbers.json";
   var description = "List available phone number countries for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyAvailablePhoneNumberCountryExists(AccountSid, CountryCode, PageSize, Page, PageToken) {
-  return fetchAvailablePhoneNumberCountry(AccountSid, CountryCode, PageSize, Page, PageToken);
+function verifyAvailablePhoneNumberCountryExists(AccountSid, CountryCode) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AvailablePhoneNumberCountry with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("AvailablePhoneNumberCountry exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AvailablePhoneNumberCountry to exist but it does not");
+    }
+  });
 }
 
-function verifyAvailablePhoneNumberCountryDoesNotExist(AccountSid, CountryCode, PageSize, Page, PageToken) {
-  return fetchAvailablePhoneNumberCountry(AccountSid, CountryCode, PageSize, Page, PageToken);
+function verifyAvailablePhoneNumberCountryDoesNotExist(AccountSid, CountryCode) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify AvailablePhoneNumberCountry with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected AvailablePhoneNumberCountry to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AvailablePhoneNumberCountry does not exist");
+    }
+  });
+}
+
+// ---- Entity: conference recordings list ----
+
+function listConferenceRecordings(AccountSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Recordings.json";
+  var description = "List conference recordings for conference " + ConferenceSid + " in account " + AccountSid + " filtered by date created";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyConferenceRecordingsListExists(AccountSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ConferenceRecordingsList with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("ConferenceRecordingsList exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ConferenceRecordingsList to exist but it does not");
+    }
+  });
+}
+
+function verifyConferenceRecordingsListDoesNotExist(AccountSid, ConferenceSid, DateCreated, DateCreated<, DateCreated>, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify ConferenceRecordingsList with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected ConferenceRecordingsList to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ConferenceRecordingsList does not exist");
+    }
+  });
+}
+
+// ---- Entity: incoming-phone-number ----
+
+function createIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers.json";
+  var description = "Create incoming-phone-number with phone number " + PhoneNumber + " for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
+  var description = "Delete incoming-phone-number " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function updateIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
+  var description = "Update incoming-phone-number " + Sid + " for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function getIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
+  var description = "Get incoming-phone-number " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listIncomingPhoneNumbers(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers.json";
+  var description = "List incoming-phone-numbers for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  listIncomingPhoneNumbers(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid);
+}
+
+function verifyIncomingPhoneNumberExists(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers.json";
+  var description = "Verify IncomingPhoneNumber with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("IncomingPhoneNumber exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IncomingPhoneNumber to exist but it does not");
+    }
+  });
+}
+
+function verifyIncomingPhoneNumberDoesNotExist(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers.json";
+  var description = "Verify IncomingPhoneNumber with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected IncomingPhoneNumber to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IncomingPhoneNumber does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing IncomingPhoneNumber";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var expectedDesc = "Create incoming-phone-number with phone number " + PhoneNumber + " for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyIncomingPhoneNumberAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ incoming\-phone\-number\ with\ phone\ number\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ incoming\-phone\-number\ with\ phone\ number\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["PhoneNumber", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getIncomingPhoneNumberAddedEvent(keyVal) {
+  return bp.EventSet("AddIncomingPhoneNumber:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyIncomingPhoneNumberAdded() {
+  return bp.EventSet("matchAnyIncomingPhoneNumberAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create incoming-phone-number") > -1;
+  });
+}
+
+function waitForIncomingPhoneNumberAdded(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var expectedDesc = "Create incoming-phone-number with phone number " + PhoneNumber + " for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedIncomingPhoneNumber(AccountSid, Beta, FriendlyName, Origin, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var expectedDesc = "Delete incoming-phone-number " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedIncomingPhoneNumber", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyIncomingPhoneNumberDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ incoming\-phone\-number\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ incoming\-phone\-number\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: incomingPhoneNumberAssignedAddOn ----
 
-function fetchIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
+function fetchIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + Sid + ".json";
   var description = "Fetch an instance of an Add-on installation currently assigned to this Number with Sid " + Sid + " for Account " + AccountSid + " and Phone Number " + ResourceSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function deleteIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
+function deleteIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + Sid + ".json";
   var description = "Remove the assignment of an Add-on installation with Sid " + Sid + " from the Number " + ResourceSid + " for Account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function listIncomingPhoneNumberAssignedAddOns(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
+function listIncomingPhoneNumberAssignedAddOns(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns.json";
   var description = "Retrieve a list of Add-on installations currently assigned to Number " + ResourceSid + " for Account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function createIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
+function createIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns.json";
   var description = "Assign an Add-on installation with InstalledAddOnSid " + InstalledAddOnSid + " to Number " + ResourceSid + " for Account " + AccountSid;
   var body = {
-    "InstalledAddOnSid": InstalledAddOnSid,
+    "AccountSid": String(AccountSid),
+    "InstalledAddOnSid": String(InstalledAddOnSid),
+    "ResourceSid": String(ResourceSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , ResourceSid: String(ResourceSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function tryToAddExistingIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
-  return createIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid);
+function tryToAddExistingIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  createIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid);
 }
 
-function verifyIncomingPhoneNumberAssignedAddOnExists(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
-  return fetchIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid);
+function verifyIncomingPhoneNumberAssignedAddOnExists(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns.json";
+  var description = "Verify IncomingPhoneNumberAssignedAddOn with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("IncomingPhoneNumberAssignedAddOn exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IncomingPhoneNumberAssignedAddOn to exist but it does not");
+    }
+  });
 }
 
-function verifyIncomingPhoneNumberAssignedAddOnDoesNotExist(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
-  return fetchIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid);
+function verifyIncomingPhoneNumberAssignedAddOnDoesNotExist(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns.json";
+  var description = "Verify IncomingPhoneNumberAssignedAddOn with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected IncomingPhoneNumberAssignedAddOn to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IncomingPhoneNumberAssignedAddOn does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid) {
-  return deleteIncomingPhoneNumberAssignedAddOn(AccountSid, ResourceSid, Sid, InstalledAddOnSid);
+function tryToDeleteANonExistingIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing IncomingPhoneNumberAssignedAddOn";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
 }
 
-// ---- Entity: assigned add-on extension ----
+function matchAddedIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  var expectedDesc = "Assign an Add-on installation with InstalledAddOnSid " + InstalledAddOnSid + " to Number " + ResourceSid + " for Account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
 
-function fetchAssignedAddOnExtension(AccountSid, ResourceSid, AssignedAddOnSid, Sid, PageSize, Page, PageToken) {
+function waitForAnyIncomingPhoneNumberAssignedAddOnAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Assign\ an\ Add\-on\ installation\ with\ InstalledAddOnSid\ (.+)\ to\ Number\ (.+)\ for\ Account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Assign\ an\ Add\-on\ installation\ with\ InstalledAddOnSid\ (.+)\ to\ Number\ (.+)\ for\ Account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["InstalledAddOnSid", "ResourceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getIncomingPhoneNumberAssignedAddOnAddedEvent(keyVal) {
+  return bp.EventSet("AddIncomingPhoneNumberAssignedAddOn:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyIncomingPhoneNumberAssignedAddOnAdded() {
+  return bp.EventSet("matchAnyIncomingPhoneNumberAssignedAddOnAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create incomingPhoneNumberAssignedAddOn") > -1;
+  });
+}
+
+function waitForIncomingPhoneNumberAssignedAddOnAdded(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  var expectedDesc = "Assign an Add-on installation with InstalledAddOnSid " + InstalledAddOnSid + " to Number " + ResourceSid + " for Account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedIncomingPhoneNumberAssignedAddOn(AccountSid, InstalledAddOnSid, ResourceSid, Sid) {
+  var expectedDesc = "Remove the assignment of an Add-on installation with Sid " + Sid + " from the Number " + ResourceSid + " for Account " + AccountSid;
+  return bp.EventSet("matchDeletedIncomingPhoneNumberAssignedAddOn", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyIncomingPhoneNumberAssignedAddOnDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ the\ assignment\ of\ an\ Add\-on\ installation\ with\ Sid\ (.+)\ from\ the\ Number\ (.+)\ for\ Account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ the\ assignment\ of\ an\ Add\-on\ installation\ with\ Sid\ (.+)\ from\ the\ Number\ (.+)\ for\ Account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "ResourceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: incomingPhoneNumberAssignedAddOnExtension ----
+
+function fetchIncomingPhoneNumberAssignedAddOnExtension(AccountSid, AssignedAddOnSid, Page, PageSize, PageToken, ResourceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + AssignedAddOnSid + "/Extensions/" + Sid + ".json";
   var description = "Fetch an instance of an Extension for the Assigned Add-on with Sid " + Sid + " under AssignedAddOnSid " + AssignedAddOnSid + " for PhoneNumber " + ResourceSid + " in Account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function listAssignedAddOnExtensions(AccountSid, ResourceSid, AssignedAddOnSid, Sid, PageSize, Page, PageToken) {
+function listIncomingPhoneNumberAssignedAddOnExtensions(AccountSid, AssignedAddOnSid, Page, PageSize, PageToken, ResourceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/IncomingPhoneNumbers/" + ResourceSid + "/AssignedAddOns/" + AssignedAddOnSid + "/Extensions.json";
-  var description = "Retrieve a list of Extensions for the Assigned Add-on with AssignedAddOnSid " + AssignedAddOnSid + " for PhoneNumber " + ResourceSid + " in Account " + AccountSid;
+  var description = "Retrieve a list of Extensions for the Assigned Add-on under AssignedAddOnSid " + AssignedAddOnSid + " for PhoneNumber " + ResourceSid + " in Account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyAssignedAddOnExtensionExists(AccountSid, ResourceSid, AssignedAddOnSid, Sid, PageSize, Page, PageToken) {
-  return fetchAssignedAddOnExtension(AccountSid, ResourceSid, AssignedAddOnSid, Sid, PageSize, Page, PageToken);
+function verifyIncomingPhoneNumberAssignedAddOnExtensionExists(AccountSid, AssignedAddOnSid, Page, PageSize, PageToken, ResourceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify IncomingPhoneNumberAssignedAddOnExtension with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("IncomingPhoneNumberAssignedAddOnExtension exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IncomingPhoneNumberAssignedAddOnExtension to exist but it does not");
+    }
+  });
 }
 
-function verifyAssignedAddOnExtensionDoesNotExist(AccountSid, ResourceSid, AssignedAddOnSid, Sid, PageSize, Page, PageToken) {
-  return fetchAssignedAddOnExtension(AccountSid, ResourceSid, AssignedAddOnSid, Sid, PageSize, Page, PageToken);
+function verifyIncomingPhoneNumberAssignedAddOnExtensionDoesNotExist(AccountSid, AssignedAddOnSid, Page, PageSize, PageToken, ResourceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify IncomingPhoneNumberAssignedAddOnExtension with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected IncomingPhoneNumberAssignedAddOnExtension to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IncomingPhoneNumberAssignedAddOnExtension does not exist");
+    }
+  });
+}
+
+// ---- Entity: key ----
+
+function createKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys.json";
+  var description = "Create key for account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function fetchKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
+  var description = "Fetch key " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
+  var description = "Update key " + Sid + " for account " + AccountSid + " with FriendlyName {FriendlyName}";
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
+  var description = "Delete key " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function listKeys(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys.json";
+  var description = "List keys for account " + AccountSid + " with PageSize " + PageSize + ", Page " + Page + ", PageToken " + PageToken;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  listKeys(AccountSid, Page, PageSize, PageToken, Sid);
+}
+
+function verifyKeyExists(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys.json";
+  var description = "Verify Key with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Key exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Key to exist but it does not");
+    }
+  });
+}
+
+function verifyKeyDoesNotExist(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys.json";
+  var description = "Verify Key with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Key to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Key does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Keys/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing Key";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create key for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyKeyAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ key\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ key\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getKeyAddedEvent(keyVal) {
+  return bp.EventSet("AddKey:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyKeyAdded() {
+  return bp.EventSet("matchAnyKeyAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create key") > -1;
+  });
+}
+
+function waitForKeyAdded(AccountSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Create key for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedKey(AccountSid, Page, PageSize, PageToken, Sid) {
+  var expectedDesc = "Delete key " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedKey", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyKeyDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ key\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ key\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: member ----
 
-function fetchMember(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken) {
+function fetchMember(AccountSid, CallSid, Page, PageSize, PageToken, QueueSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + QueueSid + "/Members/" + CallSid + ".json";
-  var description = "Fetch member with CallSid " + CallSid + " in queue " + QueueSid + " for account " + AccountSid;
+  var description = "Fetch member with CallSid " + CallSid + " from queue " + QueueSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateMember(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken) {
+function updateMember(AccountSid, CallSid, Page, PageSize, PageToken, QueueSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + QueueSid + "/Members/" + CallSid + ".json";
-  var description = "Update member with CallSid " + CallSid + " in queue " + QueueSid + " for account " + AccountSid + " with Url " + Url + " and Method " + Method;
+  var description = "Update member with CallSid " + CallSid + " in queue " + QueueSid + " of account " + AccountSid + " with Url {Url} and Method {Method}";
   var body = {
-    "Url": Url,
-    "Method": Method,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+    "QueueSid": String(QueueSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , QueueSid: String(QueueSid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function listMembers(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken) {
+function listMembers(AccountSid, CallSid, Page, PageSize, PageToken, QueueSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Queues/" + QueueSid + "/Members.json";
-  var description = "List members in queue " + QueueSid + " for account " + AccountSid + " with PageSize " + PageSize + ", Page " + Page + ", PageToken " + PageToken;
+  var description = "List members in queue " + QueueSid + " of account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyMemberExists(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken) {
-  return fetchMember(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken);
+function verifyMemberExists(AccountSid, CallSid, Page, PageSize, PageToken, QueueSid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Member with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Member exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Member to exist but it does not");
+    }
+  });
 }
 
-function verifyMemberDoesNotExist(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken) {
-  return fetchMember(AccountSid, QueueSid, CallSid, Url, Method, PageSize, Page, PageToken);
+function verifyMemberDoesNotExist(AccountSid, CallSid, Page, PageSize, PageToken, QueueSid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Member with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Member to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Member does not exist");
+    }
+  });
 }
 
-// ---- Entity: signing key list ----
+// ---- Entity: message ----
 
-function listSigningKeys(AccountSid, PageSize, Page, PageToken) {
-  var url = "/2010-04-01/Accounts/" + AccountSid + "/SigningKeys.json";
-  var description = "List signing keys for account " + AccountSid + " with page size " + PageSize + ", page " + Page + ", and page token " + PageToken;
+function createMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages.json";
+  var description = "Send a message to " + To + " from " + From;
+  var body = {
+    "AccountSid": String(AccountSid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
+  var description = "Delete message " + Sid + " from account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function verifySigningKeyListExists(AccountSid, PageSize, Page, PageToken) {
-  return listSigningKeys(AccountSid, PageSize, Page, PageToken);
+function updateMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
+  var description = "Update message " + Sid + " from account " + AccountSid;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function verifySigningKeyListDoesNotExist(AccountSid, PageSize, Page, PageToken) {
-  return listSigningKeys(AccountSid, PageSize, Page, PageToken);
+function fetchMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
+  var description = "Fetch message " + Sid + " from account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listMessages(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages.json";
+  var description = "Retrieve list of messages for account " + AccountSid + " filtered by To " + To + " and From " + From;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  listMessages(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To);
+}
+
+function verifyMessageExists(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages.json";
+  var description = "Verify Message with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Message exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Message to exist but it does not");
+    }
+  });
+}
+
+function verifyMessageDoesNotExist(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages.json";
+  var description = "Verify Message with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Message to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Message does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Messages/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing Message";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var expectedDesc = "Send a message to " + To + " from " + From;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyMessageAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Send\ a\ message\ to\ (.+)\ from\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Send\ a\ message\ to\ (.+)\ from\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["To", "From"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMessageAddedEvent(keyVal) {
+  return bp.EventSet("AddMessage:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyMessageAdded() {
+  return bp.EventSet("matchAnyMessageAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create message") > -1;
+  });
+}
+
+function waitForMessageAdded(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var expectedDesc = "Send a message to " + To + " from " + From;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedMessage(AccountSid, DateSent, DateSent<, DateSent>, From, Page, PageSize, PageToken, Sid, To) {
+  var expectedDesc = "Delete message " + Sid + " from account " + AccountSid;
+  return bp.EventSet("matchDeletedMessage", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMessageDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ message\ (.+)\ from\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ message\ (.+)\ from\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: notification ----
+
+function fetchNotification(AccountSid, Log, MessageDate, MessageDate<, MessageDate>, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Notifications/" + Sid + ".json";
+  var description = "Fetch notification " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listNotifications(AccountSid, Log, MessageDate, MessageDate<, MessageDate>, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Notifications.json";
+  var description = "List notifications for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyNotificationExists(AccountSid, Log, MessageDate, MessageDate<, MessageDate>, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Notification with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Notification exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Notification to exist but it does not");
+    }
+  });
+}
+
+function verifyNotificationDoesNotExist(AccountSid, Log, MessageDate, MessageDate<, MessageDate>, Page, PageSize, PageToken, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify Notification with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Notification to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Notification does not exist");
+    }
+  });
+}
+
+// ---- Entity: outgoing-caller-id ----
+
+function fetchOutgoingCallerId(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
+  var description = "Fetch outgoing-caller-id with Sid " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateOutgoingCallerId(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
+  var description = "Update outgoing-caller-id with Sid " + Sid + " for account " + AccountSid + " setting FriendlyName " + FriendlyName;
+  var body = {
+    "AccountSid": String(AccountSid),
+    "FriendlyName": String(FriendlyName),
+    "Sid": String(Sid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
+}
+
+function deleteOutgoingCallerId(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
+  var description = "Delete outgoing-caller-id with Sid " + Sid + " for account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function listOutgoingCallerIds(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds.json";
+  var description = "List outgoing-caller-ids for account " + AccountSid + " filtered by PhoneNumber " + PhoneNumber + " and FriendlyName " + FriendlyName;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyOutgoingCallerIdExists(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify OutgoingCallerId with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("OutgoingCallerId exists");
+          }
+        }
+      }
+      return pvg.fail("Expected OutgoingCallerId to exist but it does not");
+    }
+  });
+}
+
+function verifyOutgoingCallerIdDoesNotExist(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify OutgoingCallerId with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected OutgoingCallerId to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("OutgoingCallerId does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingOutgoingCallerId(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/OutgoingCallerIds/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing OutgoingCallerId";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedOutgoingCallerId(AccountSid, FriendlyName, Page, PageSize, PageToken, PhoneNumber, Sid) {
+  var expectedDesc = "Delete outgoing-caller-id with Sid " + Sid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedOutgoingCallerId", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyOutgoingCallerIdDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ outgoing\-caller\-id\ with\ Sid\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ outgoing\-caller\-id\ with\ Sid\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: participant ----
 
-function createParticipant(AccountSid, ConferenceSid, CallSid) {
+function createParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants.json";
-  var description = "Create participant from {From} to {To} in conference " + ConferenceSid + " for account " + AccountSid;
+  var description = "Create participant from {From} to {To} in conference " + ConferenceSid + " under account " + AccountSid;
   var body = {
-    "From": From,
-    "To": To,
+    "AccountSid": String(AccountSid),
+    "ConferenceSid": String(ConferenceSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , ConferenceSid: String(ConferenceSid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function fetchParticipant(AccountSid, ConferenceSid, CallSid) {
+function fetchParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants/" + CallSid + ".json";
-  var description = "Fetch participant " + CallSid + " in conference " + ConferenceSid + " for account " + AccountSid;
+  var description = "Fetch participant " + CallSid + " in conference " + ConferenceSid + " under account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function updateParticipant(AccountSid, ConferenceSid, CallSid) {
+function updateParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants/" + CallSid + ".json";
-  var description = "Update participant " + CallSid + " in conference " + ConferenceSid + " for account " + AccountSid;
+  var description = "Update participant " + CallSid + " in conference " + ConferenceSid + " under account " + AccountSid;
   var body = {
-    "Muted": Muted,
-    "Hold": Hold,
-    "HoldUrl": HoldUrl,
-    "HoldMethod": HoldMethod,
-    "AnnounceUrl": AnnounceUrl,
-    "AnnounceMethod": AnnounceMethod,
-    "WaitUrl": WaitUrl,
-    "WaitMethod": WaitMethod,
-    "BeepOnExit": BeepOnExit,
-    "EndConferenceOnExit": EndConferenceOnExit,
-    "Coaching": Coaching,
-    "CallSidToCoach": CallSidToCoach,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+    "ConferenceSid": String(ConferenceSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , ConferenceSid: String(ConferenceSid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function deleteParticipant(AccountSid, ConferenceSid, CallSid) {
+function deleteParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants/" + CallSid + ".json";
-  var description = "Delete participant " + CallSid + " in conference " + ConferenceSid + " for account " + AccountSid;
+  var description = "Delete participant " + CallSid + " from conference " + ConferenceSid + " under account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function listParticipants(AccountSid, ConferenceSid, CallSid) {
+function listParticipants(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants.json";
-  var description = "List participants in conference " + ConferenceSid + " for account " + AccountSid;
+  var description = "List participants in conference " + ConferenceSid + " under account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function tryToAddExistingParticipant(AccountSid, ConferenceSid, CallSid) {
-  return createParticipant(AccountSid, ConferenceSid, CallSid);
+function tryToAddExistingParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  listParticipants(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken);
 }
 
-function verifyParticipantExists(AccountSid, ConferenceSid, CallSid) {
-  return fetchParticipant(AccountSid, ConferenceSid, CallSid);
+function verifyParticipantExists(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants.json";
+  var description = "Verify Participant with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Participant exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Participant to exist but it does not");
+    }
+  });
 }
 
-function verifyParticipantDoesNotExist(AccountSid, ConferenceSid, CallSid) {
-  return fetchParticipant(AccountSid, ConferenceSid, CallSid);
+function verifyParticipantDoesNotExist(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants.json";
+  var description = "Verify Participant with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Participant to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Participant does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingParticipant(AccountSid, ConferenceSid, CallSid) {
-  return deleteParticipant(AccountSid, ConferenceSid, CallSid);
+function tryToDeleteANonExistingParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Conferences/" + ConferenceSid + "/Participants/" + CallSid + ".json";
+  var description = "Verify we cannot delete non-existing Participant";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  var expectedDesc = "Create participant from {From} to {To} in conference " + ConferenceSid + " under account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyParticipantAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ participant\ from\ (.+)\ to\ (.+)\ in\ conference\ (.+)\ under\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ participant\ from\ (.+)\ to\ (.+)\ in\ conference\ (.+)\ under\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["From", "To", "ConferenceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getParticipantAddedEvent(keyVal) {
+  return bp.EventSet("AddParticipant:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyParticipantAdded() {
+  return bp.EventSet("matchAnyParticipantAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create participant") > -1;
+  });
+}
+
+function waitForParticipantAdded(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  var expectedDesc = "Create participant from {From} to {To} in conference " + ConferenceSid + " under account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedParticipant(AccountSid, CallSid, Coaching, ConferenceSid, Hold, Muted, Page, PageSize, PageToken) {
+  var expectedDesc = "Delete participant " + CallSid + " from conference " + ConferenceSid + " under account " + AccountSid;
+  return bp.EventSet("matchDeletedParticipant", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyParticipantDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ participant\ (.+)\ from\ conference\ (.+)\ under\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ participant\ (.+)\ from\ conference\ (.+)\ under\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CallSid", "ConferenceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: payments ----
 
-function createPayments(AccountSid, CallSid, IdempotencyKey, StatusCallback, Sid) {
+function createPayments(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Payments.json";
   var description = "Create payments session for call " + CallSid + " in account " + AccountSid + " with IdempotencyKey " + IdempotencyKey + " and StatusCallback " + StatusCallback;
   var body = {
-    "IdempotencyKey": IdempotencyKey,
-    "StatusCallback": StatusCallback,
-    "BankAccountType": BankAccountType,
-    "ChargeAmount": ChargeAmount,
-    "Currency": Currency,
-    "Description": Description,
-    "Input": Input,
-    "MinPostalCodeLength": MinPostalCodeLength,
-    "Parameter": Parameter,
-    "PaymentConnector": PaymentConnector,
-    "PaymentMethod": PaymentMethod,
-    "PostalCode": PostalCode,
-    "SecurityCode": SecurityCode,
-    "Timeout": Timeout,
-    "TokenType": TokenType,
-    "ValidCardTypes": ValidCardTypes,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+    "IdempotencyKey": String(IdempotencyKey),
+    "StatusCallback": String(StatusCallback),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function updatePayments(AccountSid, CallSid, IdempotencyKey, StatusCallback, Sid) {
+function updatePayments(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Payments/" + Sid + ".json";
   var description = "Update payments session " + Sid + " for call " + CallSid + " in account " + AccountSid + " with IdempotencyKey " + IdempotencyKey + " and StatusCallback " + StatusCallback;
   var body = {
-    "IdempotencyKey": IdempotencyKey,
-    "StatusCallback": StatusCallback,
-    "Capture": Capture,
-    "Status": Status,
+    "AccountSid": String(AccountSid),
+    "CallSid": String(CallSid),
+    "IdempotencyKey": String(IdempotencyKey),
+    "Sid": String(Sid),
+    "StatusCallback": String(StatusCallback),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [202],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CallSid: String(CallSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
-function tryToAddExistingPayments(AccountSid, CallSid, IdempotencyKey, StatusCallback, Sid) {
-  return createPayments(AccountSid, CallSid, IdempotencyKey, StatusCallback, Sid);
+function tryToAddExistingPayments(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
+  updatePayments(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback);
+}
+
+function verifyPaymentsExists(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Payments.json";
+  var description = "Verify Payments with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("Payments exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Payments to exist but it does not");
+    }
+  });
+}
+
+function verifyPaymentsDoesNotExist(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Calls/" + CallSid + "/Payments.json";
+  var description = "Verify Payments with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected Payments to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Payments does not exist");
+    }
+  });
+}
+
+function matchAddedPayments(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
+  var expectedDesc = "Create payments session for call " + CallSid + " in account " + AccountSid + " with IdempotencyKey " + IdempotencyKey + " and StatusCallback " + StatusCallback;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyPaymentsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ payments\ session\ for\ call\ (.+)\ in\ account\ (.+)\ with\ IdempotencyKey\ (.+)\ and\ StatusCallback\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ payments\ session\ for\ call\ (.+)\ in\ account\ (.+)\ with\ IdempotencyKey\ (.+)\ and\ StatusCallback\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["CallSid", "AccountSid", "IdempotencyKey", "StatusCallback"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getPaymentsAddedEvent(keyVal) {
+  return bp.EventSet("AddPayments:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnyPaymentsAdded() {
+  return bp.EventSet("matchAnyPaymentsAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create payments") > -1;
+  });
+}
+
+function waitForPaymentsAdded(AccountSid, CallSid, IdempotencyKey, Sid, StatusCallback) {
+  var expectedDesc = "Create payments session for call " + CallSid + " in account " + AccountSid + " with IdempotencyKey " + IdempotencyKey + " and StatusCallback " + StatusCallback;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: recording add-on result ----
 
-function fetchRecordingAddOnResult(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken) {
+function fetchRecordingAddOnResult(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + Sid + ".json";
-  var description = "Fetch an instance of an AddOnResult with Sid " + Sid + " for recording " + ReferenceSid + " in account " + AccountSid;
+  var description = "Fetch an instance of a recording add-on result with Sid " + Sid + " for recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function deleteRecordingAddOnResult(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken) {
+function deleteRecordingAddOnResult(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + Sid + ".json";
-  var description = "Delete AddOnResult with Sid " + Sid + " for recording " + ReferenceSid + " in account " + AccountSid;
+  var description = "Delete recording add-on result with Sid " + Sid + " for recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function listRecordingAddOnResults(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken) {
+function listRecordingAddOnResults(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults.json";
-  var description = "List AddOnResults for recording " + ReferenceSid + " in account " + AccountSid;
+  var description = "List recording add-on results for recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyRecordingAddOnResultExists(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken) {
-  return fetchRecordingAddOnResult(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken);
+function verifyRecordingAddOnResultExists(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingAddOnResult with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("RecordingAddOnResult exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RecordingAddOnResult to exist but it does not");
+    }
+  });
 }
 
-function verifyRecordingAddOnResultDoesNotExist(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken) {
-  return fetchRecordingAddOnResult(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken);
+function verifyRecordingAddOnResultDoesNotExist(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingAddOnResult with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected RecordingAddOnResult to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RecordingAddOnResult does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingRecordingAddOnResult(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken) {
-  return deleteRecordingAddOnResult(AccountSid, ReferenceSid, Sid, PageSize, Page, PageToken);
+function tryToDeleteANonExistingRecordingAddOnResult(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing RecordingAddOnResult";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedRecordingAddOnResult(AccountSid, Page, PageSize, PageToken, ReferenceSid, Sid) {
+  var expectedDesc = "Delete recording add-on result with Sid " + Sid + " for recording " + ReferenceSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedRecordingAddOnResult", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyRecordingAddOnResultDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ recording\ add\-on\ result\ with\ Sid\ (.+)\ for\ recording\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ recording\ add\-on\ result\ with\ Sid\ (.+)\ for\ recording\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "ReferenceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: recordingAddOnResultPayload ----
 
-function fetchRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
+function fetchRecordingAddOnResultPayload(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads/" + Sid + ".json";
-  var description = "Fetch recording add-on result payload " + Sid + " for AddOnResult " + AddOnResultSid + " in recording " + ReferenceSid + " of account " + AccountSid;
+  var description = "Fetch recording add-on result payload " + Sid + " for AddOnResult " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function deleteRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
+function deleteRecordingAddOnResultPayload(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads/" + Sid + ".json";
-  var description = "Delete recording add-on result payload " + Sid + " for AddOnResult " + AddOnResultSid + " in recording " + ReferenceSid + " of account " + AccountSid;
+  var description = "Delete recording add-on result payload " + Sid + " for AddOnResult " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
-function verifyRecordingAddOnResultPayloadExists(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
-  return fetchRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid);
+function verifyRecordingAddOnResultPayloadExists(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingAddOnResultPayload with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("RecordingAddOnResultPayload exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RecordingAddOnResultPayload to exist but it does not");
+    }
+  });
 }
 
-function verifyRecordingAddOnResultPayloadDoesNotExist(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
-  return fetchRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid);
+function verifyRecordingAddOnResultPayloadDoesNotExist(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingAddOnResultPayload with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected RecordingAddOnResultPayload to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RecordingAddOnResultPayload does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid) {
-  return deleteRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, Sid);
+function tryToDeleteANonExistingRecordingAddOnResultPayload(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing RecordingAddOnResultPayload";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedRecordingAddOnResultPayload(AccountSid, AddOnResultSid, ReferenceSid, Sid) {
+  var expectedDesc = "Delete recording add-on result payload " + Sid + " for AddOnResult " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedRecordingAddOnResultPayload", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyRecordingAddOnResultPayloadDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ recording\ add\-on\ result\ payload\ (.+)\ for\ AddOnResult\ (.+)\ of\ recording\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ recording\ add\-on\ result\ payload\ (.+)\ for\ AddOnResult\ (.+)\ of\ recording\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "AddOnResultSid", "ReferenceSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: recordingAddOnResultPayloadList ----
 
-function listRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, PageSize, Page, PageToken) {
+function listRecordingAddOnResultPayload(AccountSid, AddOnResultSid, Page, PageSize, PageToken, ReferenceSid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + ReferenceSid + "/AddOnResults/" + AddOnResultSid + "/Payloads.json";
-  var description = "List recording add-on result payloads for AddOnResult " + AddOnResultSid + " in recording " + ReferenceSid + " of account " + AccountSid;
+  var description = "List recording add-on result payloads for AddOnResult " + AddOnResultSid + " of recording " + ReferenceSid + " in account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
-function verifyRecordingAddOnResultPayloadListExists(AccountSid, ReferenceSid, AddOnResultSid, PageSize, Page, PageToken) {
-  return listRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, PageSize, Page, PageToken);
+function verifyRecordingAddOnResultPayloadListExists(AccountSid, AddOnResultSid, Page, PageSize, PageToken, ReferenceSid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingAddOnResultPayloadList with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("RecordingAddOnResultPayloadList exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RecordingAddOnResultPayloadList to exist but it does not");
+    }
+  });
 }
 
-function verifyRecordingAddOnResultPayloadListDoesNotExist(AccountSid, ReferenceSid, AddOnResultSid, PageSize, Page, PageToken) {
-  return listRecordingAddOnResultPayload(AccountSid, ReferenceSid, AddOnResultSid, PageSize, Page, PageToken);
+function verifyRecordingAddOnResultPayloadListDoesNotExist(AccountSid, AddOnResultSid, Page, PageSize, PageToken, ReferenceSid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingAddOnResultPayloadList with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected RecordingAddOnResultPayloadList to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RecordingAddOnResultPayloadList does not exist");
+    }
+  });
+}
+
+// ---- Entity: recording transcription ----
+
+function fetchRecordingTranscription(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions/" + Sid + ".json";
+  var description = "Fetch recording transcription " + Sid + " for recording " + RecordingSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function deleteRecordingTranscription(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions/" + Sid + ".json";
+  var description = "Delete recording transcription " + Sid + " for recording " + RecordingSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function listRecordingTranscriptions(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions.json";
+  var description = "List recording transcriptions for recording " + RecordingSid + " in account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyRecordingTranscriptionExists(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingTranscription with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("RecordingTranscription exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RecordingTranscription to exist but it does not");
+    }
+  });
+}
+
+function verifyRecordingTranscriptionDoesNotExist(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify RecordingTranscription with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected RecordingTranscription to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RecordingTranscription does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingRecordingTranscription(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/Recordings/" + RecordingSid + "/Transcriptions/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing RecordingTranscription";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedRecordingTranscription(AccountSid, Page, PageSize, PageToken, RecordingSid, Sid) {
+  var expectedDesc = "Delete recording transcription " + Sid + " for recording " + RecordingSid + " in account " + AccountSid;
+  return bp.EventSet("matchDeletedRecordingTranscription", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyRecordingTranscriptionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ recording\ transcription\ (.+)\ for\ recording\ (.+)\ in\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ recording\ transcription\ (.+)\ for\ recording\ (.+)\ in\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "RecordingSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: sip credential ----
@@ -2232,47 +5618,228 @@ function createSipCredential(AccountSid, CredentialListSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials.json";
   var description = "Create sip credential {Username} in credential list " + CredentialListSid + " for account " + AccountSid;
   var body = {
-    "Username": Username,
-    "Password": Password,
+    "AccountSid": String(AccountSid),
+    "CredentialListSid": String(CredentialListSid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CredentialListSid: String(CredentialListSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
 function deleteSipCredential(AccountSid, CredentialListSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials/" + Sid + ".json";
-  var description = "Delete sip credential " + Sid + " from credential list " + CredentialListSid + " for account " + AccountSid;
+  var description = "Delete sip credential " + Sid + " in credential list " + CredentialListSid + " for account " + AccountSid;
   var body = undefined;
-  return svc.delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
 function updateSipCredential(AccountSid, CredentialListSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials/" + Sid + ".json";
   var description = "Update sip credential " + Sid + " in credential list " + CredentialListSid + " for account " + AccountSid + " with new password";
   var body = {
-    "Password": Password,
+    "AccountSid": String(AccountSid),
+    "CredentialListSid": String(CredentialListSid),
+    "Sid": String(Sid),
   };
-  return svc.post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      AccountSid: String(AccountSid)
+      , CredentialListSid: String(CredentialListSid)
+      , Sid: String(Sid)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { AccountSid: String(AccountSid) }) });
 }
 
 function fetchSipCredential(AccountSid, CredentialListSid, Sid) {
   var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials/" + Sid + ".json";
-  var description = "Fetch sip credential " + Sid + " from credential list " + CredentialListSid + " for account " + AccountSid;
+  var description = "Fetch sip credential " + Sid + " in credential list " + CredentialListSid + " for account " + AccountSid;
   var body = undefined;
-  return svc.get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listSipCredentials(AccountSid, CredentialListSid, Sid) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials.json";
+  var description = "List sip credentials in credential list " + CredentialListSid + " for account " + AccountSid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function tryToAddExistingSipCredential(AccountSid, CredentialListSid, Sid) {
-  return createSipCredential(AccountSid, CredentialListSid, Sid);
+  listSipCredentials(AccountSid, CredentialListSid, Sid);
 }
 
 function verifySipCredentialExists(AccountSid, CredentialListSid, Sid) {
-  return fetchSipCredential(AccountSid, CredentialListSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials.json";
+  var description = "Verify SipCredential with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("SipCredential exists");
+          }
+        }
+      }
+      return pvg.fail("Expected SipCredential to exist but it does not");
+    }
+  });
 }
 
 function verifySipCredentialDoesNotExist(AccountSid, CredentialListSid, Sid) {
-  return fetchSipCredential(AccountSid, CredentialListSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials.json";
+  var description = "Verify SipCredential with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected SipCredential to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("SipCredential does not exist");
+    }
+  });
 }
 
 function tryToDeleteANonExistingSipCredential(AccountSid, CredentialListSid, Sid) {
-  return deleteSipCredential(AccountSid, CredentialListSid, Sid);
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists/" + CredentialListSid + "/Credentials/" + Sid + ".json";
+  var description = "Verify we cannot delete non-existing SipCredential";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedSipCredential(AccountSid, CredentialListSid, Sid) {
+  var expectedDesc = "Create sip credential {Username} in credential list " + CredentialListSid + " for account " + AccountSid;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnySipCredentialAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ sip\ credential\ (.+)\ in\ credential\ list\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ sip\ credential\ (.+)\ in\ credential\ list\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Username", "CredentialListSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getSipCredentialAddedEvent(keyVal) {
+  return bp.EventSet("AddSipCredential:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.AccountSid) === String(keyVal);
+  });
+}
+
+function matchAnySipCredentialAdded() {
+  return bp.EventSet("matchAnySipCredentialAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.AccountSid !== undefined && e.name.indexOf("Create sip credential") > -1;
+  });
+}
+
+function waitForSipCredentialAdded(AccountSid, CredentialListSid, Sid) {
+  var expectedDesc = "Create sip credential {Username} in credential list " + CredentialListSid + " for account " + AccountSid;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedSipCredential(AccountSid, CredentialListSid, Sid) {
+  var expectedDesc = "Delete sip credential " + Sid + " in credential list " + CredentialListSid + " for account " + AccountSid;
+  return bp.EventSet("matchDeletedSipCredential", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnySipCredentialDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ sip\ credential\ (.+)\ in\ credential\ list\ (.+)\ for\ account\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ sip\ credential\ (.+)\ in\ credential\ list\ (.+)\ for\ account\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["Sid", "CredentialListSid", "AccountSid"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: credential lists ----
+
+function listCredentialLists(AccountSid, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts/" + AccountSid + "/SIP/CredentialLists.json";
+  var description = "Get all credential lists for account " + AccountSid + " with page size " + PageSize + ", page " + Page + ", and page token " + PageToken;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyCredentialListsExists(AccountSid, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify CredentialLists with AccountSid " + AccountSid + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.success("CredentialLists exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CredentialLists to exist but it does not");
+    }
+  });
+}
+
+function verifyCredentialListsDoesNotExist(AccountSid, Page, PageSize, PageToken) {
+  var url = "/2010-04-01/Accounts";
+  var description = "Verify CredentialLists with AccountSid " + AccountSid + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].AccountSid) === String(AccountSid)) {
+            return pvg.fail("Expected CredentialLists to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CredentialLists does not exist");
+    }
+  });
 }

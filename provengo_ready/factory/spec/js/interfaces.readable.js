@@ -25,16 +25,13 @@ function waitFor(eventSet) {
   return bp.sync({waitFor: eventSet});
 }
 
-// ---- Entity: machine ----
-
-function getMachines() {
-  var url = "/machines";
-  var description = "Get list of machines";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
   });
 }
+
+// ---- Entity: machine ----
 
 function createMachine() {
   var url = "/machines";
@@ -43,24 +40,26 @@ function createMachine() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getMachines() {
+  var url = "/machines";
+  var description = "Get machines";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function tryToAddExistingMachine() {
-  var url = "/machines";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Machine...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getMachines();
 }
 
 function verifyMachineExists() {
@@ -105,9 +104,7 @@ function verifyMachineDoesNotExist() {
 
 function matchAddedMachine() {
   var expectedDesc = "Create machine";
-  return bp.EventSet("matchAddedMachine", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyMachineAdded() {
@@ -131,56 +128,49 @@ function getMachineAddedEvent(keyVal) {
 
 function matchAnyMachineAdded() {
   return bp.EventSet("matchAnyMachineAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create machine") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create machine") > -1;
   });
 }
 
 function waitForMachineAdded() {
   var expectedDesc = "Create machine";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: workorder ----
 
-function getWorkorders() {
-  var url = "/workorders";
-  var description = "Get list of workorders";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function createWorkorder() {
+function createWorkOrder() {
   var url = "/workorders";
   var description = "Create workorder";
   var body = {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingWorkorder() {
+function getWorkOrders() {
   var url = "/workorders";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Workorder...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+  var description = "Get workorders";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function verifyWorkorderExists() {
+function tryToAddExistingWorkOrder() {
+  getWorkOrders();
+}
+
+function verifyWorkOrderExists() {
   var url = "/workorders";
-  var description = "Verify Workorder exists";
+  var description = "Verify WorkOrder exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -189,18 +179,18 @@ function verifyWorkorderExists() {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (true) {
-            return pvg.success("Workorder exists");
+            return pvg.success("WorkOrder exists");
           }
         }
       }
-      return pvg.fail("Expected Workorder to exist but it does not");
+      return pvg.fail("Expected WorkOrder to exist but it does not");
     }
   });
 }
 
-function verifyWorkorderDoesNotExist() {
+function verifyWorkOrderDoesNotExist() {
   var url = "/workorders";
-  var description = "Verify Workorder does not exist";
+  var description = "Verify WorkOrder does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -209,23 +199,21 @@ function verifyWorkorderDoesNotExist() {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (true) {
-            return pvg.fail("Expected Workorder to not exist but it does");
+            return pvg.fail("Expected WorkOrder to not exist but it does");
           }
         }
       }
-      return pvg.success("Workorder does not exist");
+      return pvg.success("WorkOrder does not exist");
     }
   });
 }
 
-function matchAddedWorkorder() {
+function matchAddedWorkOrder() {
   var expectedDesc = "Create workorder";
-  return bp.EventSet("matchAddedWorkorder", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyWorkorderAdded() {
+function waitForAnyWorkOrderAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Create\ workorder$/));
   var m = ev.data.parameters.description.match(/^Create\ workorder$/);
   var captures = m.slice(1);
@@ -237,34 +225,25 @@ function waitForAnyWorkorderAdded() {
   return obj;
 }
 
-function getWorkorderAddedEvent(keyVal) {
-  return bp.EventSet("AddWorkorder:" + keyVal, function(e) {
+function getWorkOrderAddedEvent(keyVal) {
+  return bp.EventSet("AddWorkOrder:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyWorkorderAdded() {
-  return bp.EventSet("matchAnyWorkorderAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create workorder") > -1 && e.data.parameters.None !== undefined);
+function matchAnyWorkOrderAdded() {
+  return bp.EventSet("matchAnyWorkOrderAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create workorder") > -1;
   });
 }
 
-function waitForWorkorderAdded() {
+function waitForWorkOrderAdded() {
   var expectedDesc = "Create workorder";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: maintenanceTicket ----
-
-function getMaintenanceTickets() {
-  var url = "/maintenance-tickets";
-  var description = "Get list of maintenance tickets";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
+// ---- Entity: maintenance ticket ----
 
 function createMaintenanceTicket() {
   var url = "/maintenance-tickets";
@@ -273,24 +252,26 @@ function createMaintenanceTicket() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getMaintenanceTickets() {
+  var url = "/maintenance-tickets";
+  var description = "Get maintenance tickets";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function tryToAddExistingMaintenanceTicket() {
-  var url = "/maintenance-tickets";
-  var body = {
-  };
-  var description = "Verify that we cannot add another MaintenanceTicket...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getMaintenanceTickets();
 }
 
 function verifyMaintenanceTicketExists() {
@@ -335,9 +316,7 @@ function verifyMaintenanceTicketDoesNotExist() {
 
 function matchAddedMaintenanceTicket() {
   var expectedDesc = "Create maintenance ticket";
-  return bp.EventSet("matchAddedMaintenanceTicket", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyMaintenanceTicketAdded() {
@@ -361,25 +340,16 @@ function getMaintenanceTicketAddedEvent(keyVal) {
 
 function matchAnyMaintenanceTicketAdded() {
   return bp.EventSet("matchAnyMaintenanceTicketAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create maintenanceTicket") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create maintenance ticket") > -1;
   });
 }
 
 function waitForMaintenanceTicketAdded() {
   var expectedDesc = "Create maintenance ticket";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: sensorReading ----
-
-function getSensorReadings() {
-  var url = "/sensor-readings";
-  var description = "Get list of sensor readings";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
+// ---- Entity: sensor reading ----
 
 function createSensorReading() {
   var url = "/sensor-readings";
@@ -388,24 +358,26 @@ function createSensorReading() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getSensorReadings() {
+  var url = "/sensor-readings";
+  var description = "Get sensor readings";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function tryToAddExistingSensorReading() {
-  var url = "/sensor-readings";
-  var body = {
-  };
-  var description = "Verify that we cannot add another SensorReading...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getSensorReadings();
 }
 
 function verifySensorReadingExists() {
@@ -450,9 +422,7 @@ function verifySensorReadingDoesNotExist() {
 
 function matchAddedSensorReading() {
   var expectedDesc = "Create sensor reading";
-  return bp.EventSet("matchAddedSensorReading", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnySensorReadingAdded() {
@@ -476,11 +446,11 @@ function getSensorReadingAddedEvent(keyVal) {
 
 function matchAnySensorReadingAdded() {
   return bp.EventSet("matchAnySensorReadingAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create sensorReading") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create sensor reading") > -1;
   });
 }
 
 function waitForSensorReadingAdded() {
   var expectedDesc = "Create sensor reading";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }

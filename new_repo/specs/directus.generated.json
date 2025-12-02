@@ -6,53 +6,22 @@
       "displayName": "user",
       "params": [
         "id",
-        "first_name",
-        "last_name",
-        "email"
+        "email",
+        "password"
       ],
       "operations": {
         "add": {
           "name": "createUser",
           "method": "POST",
           "path": "/users",
-          "descriptionTemplate": "Create user {first_name} {last_name} with id {id}",
+          "descriptionTemplate": "Create user with email {email}",
           "params": [
-            "first_name",
-            "last_name",
             "email",
-            "password",
-            "location",
-            "title",
-            "description",
-            "tags",
-            "avatar",
-            "language",
-            "theme",
-            "tfa_secret",
-            "status",
-            "role",
-            "token",
-            "last_access",
-            "last_page"
+            "password"
           ],
           "bodyTemplate": {
-            "first_name": "{first_name}",
-            "last_name": "{last_name}",
             "email": "{email}",
-            "password": "{password}",
-            "location": "{location}",
-            "title": "{title}",
-            "description": "{description}",
-            "tags": "{tags}",
-            "avatar": "{avatar}",
-            "language": "{language}",
-            "theme": "{theme}",
-            "tfa_secret": "{tfa_secret}",
-            "status": "{status}",
-            "role": "{role}",
-            "token": "{token}",
-            "last_access": "{last_access}",
-            "last_page": "{last_page}"
+            "password": "{password}"
           }
         },
         "delete": {
@@ -73,23 +42,8 @@
             "id"
           ],
           "bodyTemplate": {
-            "first_name": "{first_name}",
-            "last_name": "{last_name}",
             "email": "{email}",
-            "password": "{password}",
-            "location": "{location}",
-            "title": "{title}",
-            "description": "{description}",
-            "tags": "{tags}",
-            "avatar": "{avatar}",
-            "language": "{language}",
-            "theme": "{theme}",
-            "tfa_secret": "{tfa_secret}",
-            "status": "{status}",
-            "role": "{role}",
-            "token": "{token}",
-            "last_access": "{last_access}",
-            "last_page": "{last_page}"
+            "password": "{password}"
           }
         },
         "get": {
@@ -100,148 +54,18 @@
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "getUsers",
-          "method": "GET",
-          "path": "/users",
-          "descriptionTemplate": "List users",
-          "params": []
-        },
-        "updateMultiple": {
-          "name": "updateUsers",
-          "method": "PATCH",
-          "path": "/users",
-          "descriptionTemplate": "Update multiple users",
-          "params": [],
-          "bodyTemplate": {
-            "data": "{data}",
-            "keys": "{keys}"
-          }
-        },
-        "deleteMultiple": {
-          "name": "deleteUsers",
-          "method": "DELETE",
-          "path": "/users",
-          "descriptionTemplate": "Delete multiple users",
-          "params": []
         }
       }
     },
-    "UserInvite": {
-      "displayName": "user invite",
-      "params": [
-        "email"
-      ],
-      "operations": {
-        "add": {
-          "name": "invite",
-          "method": "POST",
-          "path": "/users/invite",
-          "descriptionTemplate": "Invite user(s) with email {email}",
-          "params": [
-            "email"
-          ],
-          "bodyTemplate": {
-            "email": "{email}"
-          }
-        }
-      }
-    },
-    "UserInviteAccept": {
-      "displayName": "user invite accept",
-      "params": [
-        "token",
-        "password"
-      ],
-      "operations": {
-        "add": {
-          "name": "acceptInvite",
-          "method": "POST",
-          "path": "/users/invite/accept",
-          "descriptionTemplate": "Accept user invite with token {token}",
-          "params": [
-            "token",
-            "password"
-          ],
-          "bodyTemplate": {
-            "token": "{token}",
-            "password": "{password}"
-          }
-        }
-      }
-    },
-    "CurrentUser": {
-      "displayName": "current user",
+    "AuthLogin": {
+      "displayName": "auth login",
       "params": [],
-      "operations": {
-        "get": {
-          "name": "getMe",
-          "method": "GET",
-          "path": "/users/me",
-          "descriptionTemplate": "Retrieve current user",
-          "params": []
-        },
-        "update": {
-          "name": "updateMe",
-          "method": "PATCH",
-          "path": "/users/me",
-          "descriptionTemplate": "Update current user",
-          "params": []
-        }
-      }
-    },
-    "CurrentUserLastPage": {
-      "displayName": "current user last page",
-      "params": [
-        "last_page"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateLastUsedPageMe",
-          "method": "PATCH",
-          "path": "/users/me/track/page",
-          "descriptionTemplate": "Update last page to {last_page}",
-          "params": [
-            "last_page"
-          ],
-          "bodyTemplate": {
-            "last_page": "{last_page}"
-          }
-        }
-      }
-    },
-    "CurrentUserTFA": {
-      "displayName": "current user 2FA",
-      "params": [],
-      "operations": {
-        "add": {
-          "name": "meTfaEnable",
-          "method": "POST",
-          "path": "/users/me/tfa/enable",
-          "descriptionTemplate": "Enable 2FA for current user",
-          "params": []
-        },
-        "delete": {
-          "name": "meTfaDisable",
-          "method": "POST",
-          "path": "/users/me/tfa/disable",
-          "descriptionTemplate": "Disable 2FA for current user",
-          "params": []
-        }
-      }
-    },
-    "Auth": {
-      "displayName": "auth",
-      "params": [
-        "provider"
-      ],
       "operations": {
         "add": {
           "name": "login",
           "method": "POST",
           "path": "/auth/login",
-          "descriptionTemplate": "Create auth login session for user with email {email}",
+          "descriptionTemplate": "Retrieve a Temporary Access Token for {email}",
           "params": [
             "email",
             "password"
@@ -250,24 +74,64 @@
             "email": "{email}",
             "password": "{password}"
           }
-        },
-        "add_passwordRequest": {
+        }
+      }
+    },
+    "AuthRefresh": {
+      "displayName": "auth refresh",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "refresh",
+          "method": "POST",
+          "path": "/auth/refresh",
+          "descriptionTemplate": "Refresh Token",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AuthLogout": {
+      "displayName": "auth logout",
+      "params": [],
+      "operations": {
+        "add": {
+          "name": "logout",
+          "method": "POST",
+          "path": "/auth/logout",
+          "descriptionTemplate": "Log Out",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AuthPasswordRequest": {
+      "displayName": "auth password request",
+      "params": [],
+      "operations": {
+        "add": {
           "name": "passwordRequest",
           "method": "POST",
           "path": "/auth/password/request",
-          "descriptionTemplate": "Request password reset for user with email {email}",
+          "descriptionTemplate": "Request a Password Reset for {email}",
           "params": [
             "email"
           ],
           "bodyTemplate": {
             "email": "{email}"
           }
-        },
-        "add_passwordReset": {
+        }
+      }
+    },
+    "AuthPasswordReset": {
+      "displayName": "auth password reset",
+      "params": [],
+      "operations": {
+        "add": {
           "name": "passwordReset",
           "method": "POST",
           "path": "/auth/password/reset",
-          "descriptionTemplate": "Reset password using token {token}",
+          "descriptionTemplate": "Reset a Password with token {token}",
           "params": [
             "token",
             "password"
@@ -276,44 +140,34 @@
             "token": "{token}",
             "password": "{password}"
           }
-        },
-        "add_refresh": {
-          "name": "refresh",
-          "method": "POST",
-          "path": "/auth/refresh",
-          "descriptionTemplate": "Refresh auth token with refresh_token {refresh_token}",
-          "params": [
-            "refresh_token"
-          ],
-          "bodyTemplate": {
-            "refresh_token": "{refresh_token}"
-          }
-        },
-        "add_logout": {
-          "name": "logout",
-          "method": "POST",
-          "path": "/auth/logout",
-          "descriptionTemplate": "Logout and invalidate refresh_token {refresh_token}",
-          "params": [
-            "refresh_token"
-          ],
-          "bodyTemplate": {
-            "refresh_token": "{refresh_token}"
-          }
-        },
-        "get_oauth": {
-          "name": "listOAuthProviders",
+        }
+      }
+    },
+    "AuthOAuth": {
+      "displayName": "auth oauth",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "oauth",
           "method": "GET",
           "path": "/auth/oauth",
-          "descriptionTemplate": "List OAuth providers",
+          "descriptionTemplate": "List OAuth Providers",
           "params": [],
           "bodyTemplate": {}
-        },
-        "get_oauthProvider": {
+        }
+      }
+    },
+    "AuthOAuthProvider": {
+      "displayName": "auth oauth provider",
+      "params": [
+        "provider"
+      ],
+      "operations": {
+        "get": {
           "name": "oauthProvider",
           "method": "GET",
           "path": "/auth/oauth/{provider}",
-          "descriptionTemplate": "Authenticate using OAuth provider {provider}",
+          "descriptionTemplate": "Authenticated using OAuth provider {provider}",
           "params": [
             "provider"
           ],
@@ -321,88 +175,63 @@
         }
       }
     },
-    "Versions": {
-      "displayName": "version",
+    "ContentVersion": {
+      "displayName": "content version",
       "params": [
-        "id",
-        "key",
-        "name",
-        "collection",
-        "item"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createContentVersion",
           "method": "POST",
           "path": "/versions",
-          "descriptionTemplate": "Create version {key} with id {id}",
-          "params": [
-            "id",
-            "key",
-            "name",
-            "collection",
-            "item"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "key": "{key}",
-            "name": "{name}",
-            "collection": "{collection}",
-            "item": "{item}"
-          }
+          "descriptionTemplate": "Create content version with id {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteContentVersion",
           "method": "DELETE",
           "path": "/versions/{id}",
-          "descriptionTemplate": "Delete version with id {id}",
+          "descriptionTemplate": "Delete content version with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateContentVersion",
           "method": "PATCH",
           "path": "/versions/{id}",
-          "descriptionTemplate": "Update version with id {id}",
+          "descriptionTemplate": "Update content version with id {id}",
           "params": [
-            "id",
-            "key",
-            "name",
-            "collection",
-            "item"
+            "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "key": "{key}",
-            "name": "{name}",
-            "collection": "{collection}",
-            "item": "{item}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getContentVersion",
           "method": "GET",
           "path": "/versions/{id}",
-          "descriptionTemplate": "Get version with id {id}",
+          "descriptionTemplate": "Get content version with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Extension": {
       "displayName": "extension",
       "params": [
-        "name",
-        "bundle"
+        "name"
       ],
       "operations": {
         "get": {
           "name": "listExtensions",
           "method": "GET",
           "path": "/extensions",
-          "descriptionTemplate": "List all extensions",
+          "descriptionTemplate": "List extensions",
           "params": [],
           "bodyTemplate": {}
         },
@@ -419,12 +248,21 @@
               "enabled": "{enabled}"
             }
           }
-        },
-        "updateBundle": {
+        }
+      }
+    },
+    "ExtensionBundle": {
+      "displayName": "extension bundle",
+      "params": [
+        "bundle",
+        "name"
+      ],
+      "operations": {
+        "update": {
           "name": "updateExtensionBundle",
           "method": "PATCH",
           "path": "/extensions/{bundle}/{name}",
-          "descriptionTemplate": "Update extension {name} in bundle {bundle}",
+          "descriptionTemplate": "Update extension bundle {bundle} with name {name}",
           "params": [
             "bundle",
             "name"
@@ -448,13 +286,9 @@
           "name": "createField",
           "method": "POST",
           "path": "/fields/{collection}",
-          "descriptionTemplate": "Create field {field} in collection {collection}",
+          "descriptionTemplate": "Create field {field} of type {type} in collection {collection}",
           "params": [
-            "collection",
-            "field",
-            "datatype",
-            "type",
-            "length"
+            "collection"
           ],
           "bodyTemplate": {
             "field": "{field}",
@@ -467,7 +301,7 @@
           "name": "getCollectionField",
           "method": "GET",
           "path": "/fields/{collection}/{id}",
-          "descriptionTemplate": "Get field {id} in collection {collection}",
+          "descriptionTemplate": "Retrieve field with id {id} in collection {collection}",
           "params": [
             "collection",
             "id"
@@ -477,7 +311,7 @@
           "name": "updateField",
           "method": "PATCH",
           "path": "/fields/{collection}/{id}",
-          "descriptionTemplate": "Update field {id} in collection {collection}",
+          "descriptionTemplate": "Update field with id {id} in collection {collection}",
           "params": [
             "collection",
             "id"
@@ -485,46 +319,15 @@
           "bodyTemplate": {
             "field": "{field}",
             "type": "{type}",
-            "schema": {
-              "name": "{name}",
-              "table": "{table}",
-              "type": "{type}",
-              "default_value": "{default_value}",
-              "max_length": "{max_length}",
-              "is_nullable": "{is_nullable}",
-              "is_primary_key": "{is_primary_key}",
-              "has_auto_increment": "{has_auto_increment}",
-              "foreign_key_column": "{foreign_key_column}",
-              "foreign_key_table": "{foreign_key_table}",
-              "comment": "{comment}",
-              "schema": "{schema}",
-              "foreign_key_schema": "{foreign_key_schema}"
-            },
-            "meta": {
-              "id": "{id}",
-              "collection": "{collection}",
-              "field": "{field}",
-              "special": "{special}",
-              "system-interface": "{system-interface}",
-              "options": "{options}",
-              "display": "{display}",
-              "display_options": "{display_options}",
-              "locked": "{locked}",
-              "readonly": "{readonly}",
-              "hidden": "{hidden}",
-              "sort": "{sort}",
-              "width": "{width}",
-              "group": "{group}",
-              "translation": "{translation}",
-              "note": "{note}"
-            }
+            "schema": "{schema}",
+            "meta": "{meta}"
           }
         },
         "delete": {
           "name": "deleteField",
           "method": "DELETE",
           "path": "/fields/{collection}/{id}",
-          "descriptionTemplate": "Delete field {id} in collection {collection}",
+          "descriptionTemplate": "Delete field with id {id} in collection {collection}",
           "params": [
             "collection",
             "id"
@@ -548,13 +351,13 @@
             "collection"
           ],
           "bodyTemplate": {
-            "role": "{role}",
             "collection": "{collection}",
             "comment": "{comment}",
             "create": "{create}",
             "delete": "{delete}",
             "explain": "{explain}",
             "read": "{read}",
+            "role": "{role}",
             "read_field_blacklist": "{read_field_blacklist}",
             "status": "{status}",
             "status_blacklist": "{status_blacklist}",
@@ -602,48 +405,6 @@
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "getPermissions",
-          "method": "GET",
-          "path": "/permissions",
-          "descriptionTemplate": "List permissions"
-        }
-      }
-    },
-    "Schema": {
-      "displayName": "schema",
-      "params": [],
-      "operations": {
-        "get": {
-          "name": "schemaSnapshot",
-          "method": "GET",
-          "path": "/schema/snapshot",
-          "descriptionTemplate": "Retrieve schema snapshot",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "add": {
-          "name": "schemaApply",
-          "method": "POST",
-          "path": "/schema/apply",
-          "descriptionTemplate": "Apply schema difference with data {data}",
-          "params": [],
-          "bodyTemplate": {
-            "data": "{data}"
-          }
-        },
-        "update": {
-          "name": "schemaDiff",
-          "method": "POST",
-          "path": "/schema/diff",
-          "descriptionTemplate": "Retrieve schema difference with data {data}",
-          "params": [
-            "force"
-          ],
-          "bodyTemplate": {
-            "data": "{data}"
-          }
         }
       }
     },
@@ -657,11 +418,16 @@
           "name": "getActivity",
           "method": "GET",
           "path": "/activity/{id}",
-          "descriptionTemplate": "Retrieve activity with id {id}",
+          "descriptionTemplate": "Retrieve an Activity Action with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+        },
+        "list": {
+          "name": "getActivities",
+          "method": "GET",
+          "path": "/activity",
+          "descriptionTemplate": "List Activity Actions"
         }
       }
     },
@@ -676,7 +442,7 @@
           "name": "createItem",
           "method": "POST",
           "path": "/items/{collection}",
-          "descriptionTemplate": "Create item in collection {collection}",
+          "descriptionTemplate": "Create an item in collection {collection}",
           "params": [
             "collection"
           ],
@@ -686,7 +452,7 @@
           "name": "deleteItem",
           "method": "DELETE",
           "path": "/items/{collection}/{id}",
-          "descriptionTemplate": "Delete item with id {id} from collection {collection}",
+          "descriptionTemplate": "Delete item {id} from collection {collection}",
           "params": [
             "collection",
             "id"
@@ -697,7 +463,7 @@
           "name": "updateItem",
           "method": "PATCH",
           "path": "/items/{collection}/{id}",
-          "descriptionTemplate": "Update item with id {id} in collection {collection}",
+          "descriptionTemplate": "Update item {id} in collection {collection}",
           "params": [
             "collection",
             "id"
@@ -708,11 +474,12 @@
           "name": "getItem",
           "method": "GET",
           "path": "/items/{collection}/{id}",
-          "descriptionTemplate": "Get item with id {id} from collection {collection}",
+          "descriptionTemplate": "Retrieve item {id} from collection {collection}",
           "params": [
             "collection",
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -727,18 +494,9 @@
           "method": "POST",
           "path": "/presets",
           "descriptionTemplate": "Create preset for collection {collection}",
-          "params": [
-            "collection"
-          ],
+          "params": [],
           "bodyTemplate": {
-            "collection": "{collection}",
-            "title": "{title}",
-            "role": "{role}",
-            "search": "{search}",
-            "filters": "{filters}",
-            "layout": "{layout}",
-            "layout_query": "{layout_query}",
-            "layout_options": "{layout_options}"
+            "collection": "{collection}"
           }
         },
         "delete": {
@@ -756,41 +514,10 @@
           "path": "/presets/{id}",
           "descriptionTemplate": "Update preset with id {id} for collection {collection}",
           "params": [
-            "id",
-            "collection"
+            "id"
           ],
           "bodyTemplate": {
-            "collection": "{collection}",
-            "title": "{title}",
-            "role": "{role}",
-            "search_query": "{search_query}",
-            "filters": "{filters}",
-            "view_type": "{view_type}",
-            "view_query": "{view_query}",
-            "view_options": "{view_options}",
-            "translation": "{translation}"
-          }
-        },
-        "updateMultiple": {
-          "name": "updatePresets",
-          "method": "PATCH",
-          "path": "/presets",
-          "descriptionTemplate": "Update multiple presets for collection {collection}",
-          "params": [
-            "collection"
-          ],
-          "bodyTemplate": {
-            "keys": "{keys}",
-            "data": {
-              "collection": "{collection}",
-              "title": "{title}",
-              "role": "{role}",
-              "search": "{search}",
-              "filters": "{filters}",
-              "layout": "{layout}",
-              "layout_query": "{layout_query}",
-              "layout_options": "{layout_options}"
-            }
+            "collection": "{collection}"
           }
         },
         "get": {
@@ -801,18 +528,6 @@
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "getPresets",
-          "method": "GET",
-          "path": "/presets",
-          "descriptionTemplate": "List presets"
-        },
-        "deleteMultiple": {
-          "name": "deletePresets",
-          "method": "DELETE",
-          "path": "/presets",
-          "descriptionTemplate": "Delete multiple presets"
         }
       }
     },
@@ -827,22 +542,10 @@
           "name": "createCollection",
           "method": "POST",
           "path": "/collections",
-          "descriptionTemplate": "Create collection {collection} with id {id}",
+          "descriptionTemplate": "Create collection {collection}",
           "params": [
             "collection",
-            "fields",
-            "icon",
-            "note",
-            "display_template",
-            "hidden",
-            "singleton",
-            "translation",
-            "versioning",
-            "archive_field",
-            "archive_app_filter",
-            "archive_value",
-            "unarchive_value",
-            "sort_field"
+            "fields"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
@@ -865,7 +568,7 @@
           "name": "getCollection",
           "method": "GET",
           "path": "/collections/{id}",
-          "descriptionTemplate": "Retrieve collection with id {id}",
+          "descriptionTemplate": "Retrieve collection {id}",
           "params": [
             "id"
           ]
@@ -874,10 +577,9 @@
           "name": "updateCollection",
           "method": "PATCH",
           "path": "/collections/{id}",
-          "descriptionTemplate": "Update collection with id {id}",
+          "descriptionTemplate": "Update collection {id}",
           "params": [
-            "id",
-            "meta"
+            "id"
           ],
           "bodyTemplate": {
             "meta": {
@@ -901,7 +603,7 @@
           "name": "deleteCollection",
           "method": "DELETE",
           "path": "/collections/{id}",
-          "descriptionTemplate": "Delete collection with id {id}",
+          "descriptionTemplate": "Delete collection {id}",
           "params": [
             "id"
           ]
@@ -913,14 +615,15 @@
       "params": [
         "id",
         "collection",
-        "item"
+        "item",
+        "comment"
       ],
       "operations": {
         "add": {
           "name": "createComment",
           "method": "POST",
           "path": "/comments",
-          "descriptionTemplate": "Create comment {comment} for item {item} in collection {collection}",
+          "descriptionTemplate": "Create comment on collection {collection} for item {item} with comment {comment}",
           "params": [
             "collection",
             "item",
@@ -945,7 +648,7 @@
           "name": "updateComment",
           "method": "PATCH",
           "path": "/comments/{id}",
-          "descriptionTemplate": "Update comment with id {id} in collection {collection}",
+          "descriptionTemplate": "Update comment with id {id} on collection {collection} for item {item} with comment {comment}",
           "params": [
             "id",
             "collection",
@@ -999,7 +702,7 @@
           "name": "updateFile",
           "method": "PATCH",
           "path": "/files/{id}",
-          "descriptionTemplate": "Update file with id {id} and title {title}",
+          "descriptionTemplate": "Update file with id {id}",
           "params": [
             "id"
           ],
@@ -1023,35 +726,57 @@
         }
       }
     },
+    "Files": {
+      "displayName": "files",
+      "params": [],
+      "operations": {
+        "get": {
+          "name": "getFiles",
+          "method": "GET",
+          "path": "/files",
+          "descriptionTemplate": "List files",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateFiles",
+          "method": "PATCH",
+          "path": "/files",
+          "descriptionTemplate": "Update multiple files",
+          "params": [],
+          "bodyTemplate": {
+            "data": {
+              "data": "{data}"
+            },
+            "keys": "{keys}"
+          }
+        },
+        "delete": {
+          "name": "deleteFiles",
+          "method": "DELETE",
+          "path": "/files",
+          "descriptionTemplate": "Delete multiple files",
+          "params": [],
+          "bodyTemplate": {}
+        }
+      }
+    },
     "Flow": {
       "displayName": "flow",
       "params": [
-        "id",
-        "name"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createFlow",
           "method": "POST",
           "path": "/flows",
-          "descriptionTemplate": "Create flow {name} with id {id}",
+          "descriptionTemplate": "Create a flow with id {id}",
           "params": [
-            "id",
-            "name"
+            "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "icon": "{icon}",
-            "color": "{color}",
-            "note": "{note}",
-            "status": "{status}",
-            "trigger": "{trigger}",
-            "options": "{options}",
-            "accountability": "{accountability}",
-            "date_created": "{date_created}",
-            "user_created": "{user_created}",
-            "operation": "{operation}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -1067,31 +792,19 @@
           "name": "updateFlow",
           "method": "PATCH",
           "path": "/flows/{id}",
-          "descriptionTemplate": "Update flow {name} with id {id}",
+          "descriptionTemplate": "Update flow with id {id}",
           "params": [
-            "id",
-            "name"
+            "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "icon": "{icon}",
-            "color": "{color}",
-            "note": "{note}",
-            "status": "{status}",
-            "trigger": "{trigger}",
-            "options": "{options}",
-            "accountability": "{accountability}",
-            "date_created": "{date_created}",
-            "user_created": "{user_created}",
-            "operation": "{operation}"
+            "id": "{id}"
           }
         },
         "get": {
           "name": "getFlow",
           "method": "GET",
           "path": "/flows/{id}",
-          "descriptionTemplate": "Get flow {name} with id {id}",
+          "descriptionTemplate": "Retrieve flow with id {id}",
           "params": [
             "id"
           ]
@@ -1109,7 +822,7 @@
           "name": "createFolder",
           "method": "POST",
           "path": "/folders",
-          "descriptionTemplate": "Create folder {name} with id {id}",
+          "descriptionTemplate": "Create folder {name}",
           "params": [
             "name"
           ],
@@ -1121,7 +834,7 @@
           "name": "deleteFolder",
           "method": "DELETE",
           "path": "/folders/{id}",
-          "descriptionTemplate": "Delete folder with id {id}",
+          "descriptionTemplate": "Delete folder {id}",
           "params": [
             "id"
           ]
@@ -1130,7 +843,7 @@
           "name": "updateFolder",
           "method": "PATCH",
           "path": "/folders/{id}",
-          "descriptionTemplate": "Update folder {name} with id {id}",
+          "descriptionTemplate": "Update folder {id} with name {name}",
           "params": [
             "id",
             "name"
@@ -1143,10 +856,9 @@
           "name": "getFolder",
           "method": "GET",
           "path": "/folders/{id}",
-          "descriptionTemplate": "Get folder {name} with id {id}",
+          "descriptionTemplate": "Get folder {id}",
           "params": [
-            "id",
-            "name"
+            "id"
           ]
         }
       }
@@ -1154,59 +866,26 @@
     "Operation": {
       "displayName": "operation",
       "params": [
-        "id",
-        "name",
-        "key",
-        "type",
-        "options",
-        "position_x",
-        "position_y",
-        "date_created",
-        "user_created",
-        "resolve",
-        "reject",
-        "operation"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createOperation",
           "method": "POST",
           "path": "/operations",
-          "descriptionTemplate": "Create operation {name} with id {id}",
+          "descriptionTemplate": "Create operation with id {id}",
           "params": [
-            "id",
-            "name",
-            "key",
-            "type",
-            "options",
-            "position_x",
-            "position_y",
-            "date_created",
-            "user_created",
-            "resolve",
-            "reject",
-            "operation"
+            "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "key": "{key}",
-            "type": "{type}",
-            "options": "{options}",
-            "position_x": "{position_x}",
-            "position_y": "{position_y}",
-            "date_created": "{date_created}",
-            "user_created": "{user_created}",
-            "resolve": "{resolve}",
-            "reject": "{reject}",
-            "operation": "{operation}"
+            "id": "{id}"
           }
         },
-        "get": {
-          "name": "getOperation",
-          "method": "GET",
+        "delete": {
+          "name": "deleteOperation",
+          "method": "DELETE",
           "path": "/operations/{id}",
-          "descriptionTemplate": "Retrieve operation with id {id}",
+          "descriptionTemplate": "Delete operation with id {id}",
           "params": [
             "id"
           ]
@@ -1220,25 +899,14 @@
             "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "key": "{key}",
-            "type": "{type}",
-            "options": "{options}",
-            "position_x": "{position_x}",
-            "position_y": "{position_y}",
-            "date_created": "{date_created}",
-            "user_created": "{user_created}",
-            "resolve": "{resolve}",
-            "reject": "{reject}",
-            "operation": "{operation}"
+            "id": "{id}"
           }
         },
-        "delete": {
-          "name": "deleteOperation",
-          "method": "DELETE",
+        "get": {
+          "name": "getOperation",
+          "method": "GET",
           "path": "/operations/{id}",
-          "descriptionTemplate": "Delete operation with id {id}",
+          "descriptionTemplate": "Get operation with id {id}",
           "params": [
             "id"
           ]
@@ -1256,13 +924,7 @@
           "method": "POST",
           "path": "/relations",
           "descriptionTemplate": "Create relation with collection_many {collection_many} and collection_one {collection_one}",
-          "params": [
-            "collection_many",
-            "collection_one",
-            "field_many",
-            "field_one",
-            "junction_field"
-          ],
+          "params": [],
           "bodyTemplate": {
             "collection_many": "{collection_many}",
             "collection_one": "{collection_one}",
@@ -1275,7 +937,7 @@
           "name": "getRelation",
           "method": "GET",
           "path": "/relations/{id}",
-          "descriptionTemplate": "Get relation with id {id}",
+          "descriptionTemplate": "Retrieve relation with id {id}",
           "params": [
             "id"
           ]
@@ -1317,11 +979,16 @@
           "name": "getRevision",
           "method": "GET",
           "path": "/revisions/{id}",
-          "descriptionTemplate": "Retrieve revision with id {id}",
+          "descriptionTemplate": "Retrieve a Revision with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+        },
+        "list": {
+          "name": "getRevisions",
+          "method": "GET",
+          "path": "/revisions",
+          "descriptionTemplate": "List Revisions"
         }
       }
     },
@@ -1335,8 +1002,10 @@
           "name": "createRole",
           "method": "POST",
           "path": "/roles",
-          "descriptionTemplate": "Create role {name} with id {id}",
-          "params": [],
+          "descriptionTemplate": "Create role {name}",
+          "params": [
+            "name"
+          ],
           "bodyTemplate": {
             "description": "{description}",
             "enforce_tfa": "{enforce_tfa}",
@@ -1350,7 +1019,7 @@
           "name": "deleteRole",
           "method": "DELETE",
           "path": "/roles/{id}",
-          "descriptionTemplate": "Delete role with id {id}",
+          "descriptionTemplate": "Delete role {id}",
           "params": [
             "id"
           ]
@@ -1359,9 +1028,10 @@
           "name": "updateRole",
           "method": "PATCH",
           "path": "/roles/{id}",
-          "descriptionTemplate": "Update role {name} with id {id}",
+          "descriptionTemplate": "Update role {id} with name {name}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
             "description": "{description}",
@@ -1376,7 +1046,7 @@
           "name": "getRole",
           "method": "GET",
           "path": "/roles/{id}",
-          "descriptionTemplate": "Get role with id {id}",
+          "descriptionTemplate": "Get role {id}",
           "params": [
             "id"
           ]
@@ -1442,42 +1112,71 @@
             "id"
           ],
           "bodyTemplate": {}
+        },
+        "list": {
+          "name": "getWebhooks",
+          "method": "GET",
+          "path": "/webhooks",
+          "descriptionTemplate": "List webhooks",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "updateMultiple": {
+          "name": "updateWebhooks",
+          "method": "PATCH",
+          "path": "/webhooks",
+          "descriptionTemplate": "Update multiple webhooks",
+          "params": [],
+          "bodyTemplate": {
+            "data": {
+              "name": "{name}",
+              "method": "{method}",
+              "url": "{url}",
+              "status": "{status}",
+              "data": "{data}",
+              "actions": "{actions}",
+              "system-collections": "{system-collections}"
+            },
+            "keys": "{keys}"
+          }
+        },
+        "deleteMultiple": {
+          "name": "deleteWebhooks",
+          "method": "DELETE",
+          "path": "/webhooks",
+          "descriptionTemplate": "Delete multiple webhooks",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
     "Asset": {
       "displayName": "asset",
       "params": [
-        "id",
-        "key",
-        "transforms",
-        "download"
+        "id"
       ],
       "operations": {
         "get": {
           "name": "getAsset",
           "method": "GET",
           "path": "/assets/{id}",
-          "descriptionTemplate": "Get an Asset with id {id} and key {key}",
+          "descriptionTemplate": "Get an Asset with id {id}",
           "params": [
-            "id",
-            "key",
-            "transforms",
-            "download"
+            "id"
           ],
           "bodyTemplate": {}
         }
       }
     },
-    "Settings": {
-      "displayName": "settings",
+    "Setting": {
+      "displayName": "setting",
       "params": [],
       "operations": {
         "get": {
           "name": "getSettings",
           "method": "GET",
           "path": "/settings",
-          "descriptionTemplate": "Retrieve settings",
+          "descriptionTemplate": "Retrieve Settings",
           "params": [],
           "bodyTemplate": {}
         },
@@ -1485,7 +1184,7 @@
           "name": "updateSetting",
           "method": "PATCH",
           "path": "/settings",
-          "descriptionTemplate": "Update settings",
+          "descriptionTemplate": "Update Settings",
           "params": [],
           "bodyTemplate": {}
         }

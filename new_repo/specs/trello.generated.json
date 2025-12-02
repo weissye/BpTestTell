@@ -2,90 +2,2256 @@
   "sut": "trello",
   "base_url": "http://localhost:8080",
   "entities": {
-    "Card": {
-      "displayName": "card",
+    "Board": {
+      "displayName": "board",
       "params": [
-        "idCard"
+        "idBoard"
       ],
       "operations": {
         "add": {
-          "name": "addCards",
+          "name": "addBoards",
           "method": "POST",
-          "path": "/cards",
-          "descriptionTemplate": "Create card with idCard {idCard} and name {name}",
-          "params": [
-            "idCard",
-            "key",
-            "token"
-          ],
-          "bodyTemplate": {
-            "closed": "{closed}",
-            "desc": "{desc}",
-            "due": "{due}",
-            "fileSource": "{fileSource}",
-            "idAttachmentCover": "{idAttachmentCover}",
-            "idBoard": "{idBoard}",
-            "idCardSource": "{idCardSource}",
-            "idLabels": "{idLabels}",
-            "idList": "{idList}",
-            "idMembers": "{idMembers}",
-            "keepFromSource": "{keepFromSource}",
-            "labels": "{labels}",
-            "name": "{name}",
-            "pos": "{pos}",
-            "subscribed": "{subscribed}",
-            "urlSource": "{urlSource}"
-          }
+          "path": "/boards",
+          "descriptionTemplate": "Create board with id {idBoard}",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteCardsByIdCard",
-          "method": "DELETE",
+        "get": {
+          "name": "getBoardsByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}",
+          "descriptionTemplate": "Get board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateBoardsByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}",
+          "descriptionTemplate": "Update board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        },
+        "updateClosed": {
+          "name": "updateBoardsClosedByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/closed",
+          "descriptionTemplate": "Update closed status of board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardActions": {
+      "displayName": "board action",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsActionsByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/actions",
+          "descriptionTemplate": "Get actions for board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardStar": {
+      "displayName": "board star",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsBoardStarsByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/boardStars",
+          "descriptionTemplate": "Get board stars for board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardCalendarKey": {
+      "displayName": "board calendar key",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "add": {
+          "name": "addBoardsCalendarKeyGenerateByIdBoard",
+          "method": "POST",
+          "path": "/boards/{idBoard}/calendarKey/generate",
+          "descriptionTemplate": "Generate calendar key for board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Card": {
+      "displayName": "card",
+      "params": [
+        "idCard",
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCardsByIdCard",
+          "method": "GET",
           "path": "/cards/{idCard}",
-          "descriptionTemplate": "Delete card with idCard {idCard}",
+          "descriptionTemplate": "Get card with id {idCard}",
           "params": [
             "idCard",
             "key",
             "token"
           ]
         },
+        "add": {
+          "name": "addCards",
+          "method": "POST",
+          "path": "/cards",
+          "descriptionTemplate": "Create card with id {idCard}",
+          "params": [
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idCard": "{idCard}"
+          }
+        },
+        "delete": {
+          "name": "deleteCardsByIdCard",
+          "method": "DELETE",
+          "path": "/cards/{idCard}",
+          "descriptionTemplate": "Delete card with id {idCard}",
+          "params": [
+            "idCard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
         "update": {
           "name": "updateCardsByIdCard",
           "method": "PUT",
           "path": "/cards/{idCard}",
-          "descriptionTemplate": "Update card with idCard {idCard} and name {name}",
+          "descriptionTemplate": "Update card with id {idCard}",
           "params": [
             "idCard",
             "key",
             "token"
           ],
           "bodyTemplate": {
-            "closed": "{closed}",
-            "desc": "{desc}",
-            "due": "{due}",
-            "fileSource": "{fileSource}",
-            "idAttachmentCover": "{idAttachmentCover}",
-            "idBoard": "{idBoard}",
-            "idCardSource": "{idCardSource}",
-            "idLabels": "{idLabels}",
-            "idList": "{idList}",
-            "idMembers": "{idMembers}",
-            "keepFromSource": "{keepFromSource}",
-            "labels": "{labels}",
-            "name": "{name}",
-            "pos": "{pos}",
-            "subscribed": "{subscribed}",
-            "urlSource": "{urlSource}"
+            "idCard": "{idCard}"
+          }
+        }
+      }
+    },
+    "Cards": {
+      "displayName": "card",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsCardsByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/cards",
+          "descriptionTemplate": "Get cards for board with id {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsByFilter": {
+      "displayName": "card",
+      "params": [
+        "idBoard",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsCardsByIdBoardByFilter",
+          "method": "GET",
+          "path": "/boards/{idBoard}/cards/{filter}",
+          "descriptionTemplate": "Get cards with filter {filter} for board {idBoard}",
+          "params": [
+            "idBoard",
+            "filter"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Checklist": {
+      "displayName": "checklist",
+      "params": [
+        "idBoard",
+        "field",
+        "key",
+        "idChecklist",
+        "token"
+      ],
+      "operations": {
+        "add": {
+          "name": "addChecklists",
+          "method": "POST",
+          "path": "/checklists",
+          "descriptionTemplate": "Create checklist {idChecklist}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getChecklistsByIdChecklistByField",
+          "method": "GET",
+          "path": "/checklists/{idChecklist}/{field}",
+          "descriptionTemplate": "Get checklist {idChecklist} field {field}",
+          "params": [
+            "idChecklist",
+            "field",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteChecklistsByIdChecklist",
+          "method": "DELETE",
+          "path": "/checklists/{idChecklist}",
+          "descriptionTemplate": "Delete checklist {idChecklist}",
+          "params": [
+            "idChecklist"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateChecklistsPosByIdChecklist",
+          "method": "PUT",
+          "path": "/checklists/{idChecklist}/pos",
+          "descriptionTemplate": "Update checklists pos for checklist {idChecklist}",
+          "params": [
+            "idChecklist",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "pos": "{pos}"
+          }
+        }
+      }
+    },
+    "BoardDeltas": {
+      "displayName": "board delta",
+      "params": [
+        "idBoard",
+        "tags",
+        "ixLastUpdate",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardDeltasByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/deltas",
+          "descriptionTemplate": "Get board deltas for board {idBoard} with tags {tags} and last update index {ixLastUpdate}",
+          "params": [
+            "idBoard",
+            "tags",
+            "ixLastUpdate",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardDesc": {
+      "displayName": "board description",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardDescByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/desc",
+          "descriptionTemplate": "Update board description for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "desc": "{desc}"
+          }
+        }
+      }
+    },
+    "BoardEmailKey": {
+      "displayName": "board email key",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "add": {
+          "name": "addBoardEmailKeyGenerateByIdBoard",
+          "method": "POST",
+          "path": "/boards/{idBoard}/emailKey/generate",
+          "descriptionTemplate": "Generate email key for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardIdOrganization": {
+      "displayName": "board organization id",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardIdOrganizationByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/idOrganization",
+          "descriptionTemplate": "Update board organization id for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idOrganization": "{idOrganization}"
+          }
+        }
+      }
+    },
+    "BoardLabelNamesBlue": {
+      "displayName": "board label name blue",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardLabelNamesBlueByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/labelNames/blue",
+          "descriptionTemplate": "Update blue label name for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "blue": "{blue}"
+          }
+        }
+      }
+    },
+    "BoardLabelNamesGreen": {
+      "displayName": "board label name green",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardLabelNamesGreenByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/labelNames/green",
+          "descriptionTemplate": "Update green label name for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "green": "{green}"
+          }
+        }
+      }
+    },
+    "BoardLabelNamesOrange": {
+      "displayName": "board label name orange",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardLabelNamesOrangeByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/labelNames/orange",
+          "descriptionTemplate": "Update orange label name for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "orange": "{orange}"
+          }
+        }
+      }
+    },
+    "BoardLabelNamesPurple": {
+      "displayName": "board label name purple",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardLabelNamesPurpleByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/labelNames/purple",
+          "descriptionTemplate": "Update purple label name for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "purple": "{purple}"
+          }
+        }
+      }
+    },
+    "BoardLabelNamesRed": {
+      "displayName": "board label name red",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardLabelNamesRedByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/labelNames/red",
+          "descriptionTemplate": "Update red label name for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "red": "{red}"
+          }
+        }
+      }
+    },
+    "BoardLabelNamesYellow": {
+      "displayName": "board label name yellow",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardLabelNamesYellowByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/labelNames/yellow",
+          "descriptionTemplate": "Update yellow label name for board {idBoard}",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "yellow": "{yellow}"
+          }
+        }
+      }
+    },
+    "Label": {
+      "displayName": "label",
+      "params": [
+        "idBoard",
+        "idLabel"
+      ],
+      "operations": {
+        "add": {
+          "name": "addLabels",
+          "method": "POST",
+          "path": "/labels",
+          "descriptionTemplate": "Create label with id {idLabel}",
+          "params": [
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idLabel": "{idLabel}"
           }
         },
         "get": {
-          "name": "getCardsByIdCard",
+          "name": "getLabelsByIdLabel",
           "method": "GET",
-          "path": "/cards/{idCard}",
-          "descriptionTemplate": "Get card with idCard {idCard}",
+          "path": "/labels/{idLabel}",
+          "descriptionTemplate": "Get label with id {idLabel}",
           "params": [
-            "idCard",
+            "idLabel",
+            "key",
+            "token",
+            "fields"
+          ]
+        },
+        "getById": {
+          "name": "getBoardsLabelsByIdBoardByIdLabel",
+          "method": "GET",
+          "path": "/boards/{idBoard}/labels/{idLabel}",
+          "descriptionTemplate": "Get label {idLabel} of board {idBoard}",
+          "params": [
+            "idBoard",
+            "idLabel"
+          ]
+        },
+        "delete": {
+          "name": "deleteLabelsByIdLabel",
+          "method": "DELETE",
+          "path": "/labels/{idLabel}",
+          "descriptionTemplate": "Delete label with id {idLabel}",
+          "params": [
+            "idLabel",
             "key",
             "token"
+          ]
+        },
+        "update": {
+          "name": "updateLabelsByIdLabel",
+          "method": "PUT",
+          "path": "/labels/{idLabel}",
+          "descriptionTemplate": "Update label with id {idLabel}",
+          "params": [
+            "idLabel",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idLabel": "{idLabel}"
+          }
+        }
+      }
+    },
+    "List": {
+      "displayName": "list",
+      "params": [
+        "idBoard",
+        "filter",
+        "idList"
+      ],
+      "operations": {
+        "add": {
+          "name": "addLists",
+          "method": "POST",
+          "path": "/lists",
+          "descriptionTemplate": "Create list with id {idList} and name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "idBoard": "{idBoard}",
+            "pos": "{pos}",
+            "softLimit": "{softLimit}"
+          }
+        },
+        "get": {
+          "name": "getListsByIdList",
+          "method": "GET",
+          "path": "/lists/{idList}",
+          "descriptionTemplate": "Get list with id {idList}",
+          "params": [
+            "idList"
+          ]
+        },
+        "getByFilter": {
+          "name": "getBoardsListsByIdBoardByFilter",
+          "method": "GET",
+          "path": "/boards/{idBoard}/lists/{filter}",
+          "descriptionTemplate": "Get lists of board {idBoard} filtered by {filter}",
+          "params": [
+            "idBoard",
+            "filter"
+          ]
+        },
+        "update": {
+          "name": "updateListsByIdList",
+          "method": "PUT",
+          "path": "/lists/{idList}",
+          "descriptionTemplate": "Update list with id {idList} and name {name}",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "idBoard": "{idBoard}",
+            "pos": "{pos}",
+            "softLimit": "{softLimit}",
+            "closed": "{closed}"
+          }
+        },
+        "updateName": {
+          "name": "updateListsNameByIdList",
+          "method": "PUT",
+          "path": "/lists/{idList}/name",
+          "descriptionTemplate": "Update list {idList} name",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {}
+        },
+        "updatePos": {
+          "name": "updateListsPosByIdList",
+          "method": "PUT",
+          "path": "/lists/{idList}/pos",
+          "descriptionTemplate": "Update list {idList} position",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {}
+        },
+        "updateSubscribed": {
+          "name": "updateListsSubscribedByIdList",
+          "method": "PUT",
+          "path": "/lists/{idList}/subscribed",
+          "descriptionTemplate": "Update list {idList} subscribed status",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {}
+        },
+        "moveAllCards": {
+          "name": "addListsMoveAllCardsByIdList",
+          "method": "POST",
+          "path": "/lists/{idList}/moveAllCards",
+          "descriptionTemplate": "Move all cards in list {idList}",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByField": {
+          "name": "getListsByIdListByField",
+          "method": "GET",
+          "path": "/lists/{idList}/{field}",
+          "descriptionTemplate": "Get list {idList} field {field}",
+          "params": [
+            "idList",
+            "field"
+          ]
+        }
+      }
+    },
+    "Member": {
+      "displayName": "member",
+      "params": [
+        "idBoard",
+        "idMember",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMemberByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}",
+          "descriptionTemplate": "Get member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByFilter": {
+          "name": "getBoardsMembersByIdBoardByFilter",
+          "method": "GET",
+          "path": "/boards/{idBoard}/members/{filter}",
+          "descriptionTemplate": "Get members of board {idBoard} filtered by {filter}",
+          "params": [
+            "idBoard",
+            "filter"
+          ]
+        },
+        "update": {
+          "name": "updateMemberByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}",
+          "descriptionTemplate": "Update member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idMember": "{idMember}"
+          }
+        },
+        "deleteById": {
+          "name": "deleteBoardsMembersByIdBoardByIdMember",
+          "method": "DELETE",
+          "path": "/boards/{idBoard}/members/{idMember}",
+          "descriptionTemplate": "Delete member {idMember} from board {idBoard}",
+          "params": [
+            "idBoard",
+            "idMember"
+          ]
+        },
+        "updateById": {
+          "name": "updateBoardsMembersByIdBoardByIdMember",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/members/{idMember}",
+          "descriptionTemplate": "Update member {idMember} of board {idBoard}",
+          "params": [
+            "idBoard",
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        },
+        "getCardsById": {
+          "name": "getBoardsMembersCardsByIdBoardByIdMember",
+          "method": "GET",
+          "path": "/boards/{idBoard}/members/{idMember}/cards",
+          "descriptionTemplate": "Get cards of member {idMember} on board {idBoard}",
+          "params": [
+            "idBoard",
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersInvited": {
+      "displayName": "membersInvited",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsMembersInvitedByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/membersInvited",
+          "descriptionTemplate": "Get invited members of board {idBoard}",
+          "params": [
+            "idBoard"
+          ]
+        }
+      }
+    },
+    "MarkAsViewed": {
+      "displayName": "markAsViewed",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "add": {
+          "name": "addBoardsMarkAsViewedByIdBoard",
+          "method": "POST",
+          "path": "/boards/{idBoard}/markAsViewed",
+          "descriptionTemplate": "Mark board {idBoard} as viewed",
+          "params": [
+            "idBoard"
+          ]
+        }
+      }
+    },
+    "BoardsMembersInvited": {
+      "displayName": "boardsMembersInvited",
+      "params": [
+        "idBoard",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsMembersInvitedByIdBoardByField",
+          "method": "GET",
+          "path": "/boards/{idBoard}/membersInvited/{field}",
+          "descriptionTemplate": "Get boards members invited for board {idBoard} by field {field}",
+          "params": [
+            "idBoard",
+            "field"
+          ]
+        }
+      }
+    },
+    "BoardsMemberships": {
+      "displayName": "boardsMemberships",
+      "params": [
+        "idBoard",
+        "idMembership"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsMembershipsByIdBoardByIdMembership",
+          "method": "GET",
+          "path": "/boards/{idBoard}/memberships/{idMembership}",
+          "descriptionTemplate": "Get boards membership {idMembership} for board {idBoard}",
+          "params": [
+            "idBoard",
+            "idMembership"
+          ]
+        },
+        "update": {
+          "name": "updateBoardsMembershipsByIdBoardByIdMembership",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/memberships/{idMembership}",
+          "descriptionTemplate": "Update boards membership {idMembership} for board {idBoard}",
+          "params": [
+            "idBoard",
+            "idMembership"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardsMembershipsCollection": {
+      "displayName": "boardsMemberships",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsMembershipsByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/memberships",
+          "descriptionTemplate": "Get boards memberships for board {idBoard}",
+          "params": [
+            "idBoard"
+          ]
+        }
+      }
+    },
+    "BoardsMyPrefs": {
+      "displayName": "boardsMyPrefs",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsMyPrefsByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/myPrefs",
+          "descriptionTemplate": "Get boards myPrefs for board {idBoard}",
+          "params": [
+            "idBoard"
+          ]
+        }
+      }
+    },
+    "MyPrefsEmailPosition": {
+      "displayName": "myPrefsEmailPosition",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsEmailPositionByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/emailPosition",
+          "descriptionTemplate": "Update myPrefs emailPosition for board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MyPrefsIdEmailList": {
+      "displayName": "myPrefsIdEmailList",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsIdEmailListByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/idEmailList",
+          "descriptionTemplate": "Update myPrefs idEmailList for board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MyPrefsShowListGuide": {
+      "displayName": "myPrefsShowListGuide",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsShowListGuideByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/showListGuide",
+          "descriptionTemplate": "Update myPrefs showListGuide for board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MyPrefsShowSidebar": {
+      "displayName": "myPrefsShowSidebar",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsShowSidebarByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/showSidebar",
+          "descriptionTemplate": "Update myPrefs showSidebar for board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MyPrefsShowSidebarActivity": {
+      "displayName": "myPrefsShowSidebarActivity",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsShowSidebarActivityByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/showSidebarActivity",
+          "descriptionTemplate": "Update myPrefs showSidebarActivity for board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MyPrefsShowSidebarBoardActions": {
+      "displayName": "myPrefsShowSidebarBoardActions",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
+          "descriptionTemplate": "Update myPrefs showSidebarBoardActions for board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BoardMyPrefsShowSidebarMembers": {
+      "displayName": "board myPrefs showSidebarMembers",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsMyPrefsShowSidebarMembersByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/myPrefs/showSidebarMembers",
+          "descriptionTemplate": "Update board {idBoard} myPrefs showSidebarMembers",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "showSidebarMembers": "{showSidebarMembers}"
+          }
+        }
+      }
+    },
+    "BoardName": {
+      "displayName": "board name",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsNameByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/name",
+          "descriptionTemplate": "Update board {idBoard} name",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        }
+      }
+    },
+    "BoardOrganization": {
+      "displayName": "board organization",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsOrganizationByIdBoard",
+          "method": "GET",
+          "path": "/boards/{idBoard}/organization",
+          "descriptionTemplate": "Get organization of board {idBoard}",
+          "params": [
+            "idBoard",
+            "fields"
+          ]
+        },
+        "getByField": {
+          "name": "getBoardsOrganizationByIdBoardByField",
+          "method": "GET",
+          "path": "/boards/{idBoard}/organization/{field}",
+          "descriptionTemplate": "Get organization field {field} of board {idBoard}",
+          "params": [
+            "idBoard",
+            "field"
+          ]
+        }
+      }
+    },
+    "BoardPowerUps": {
+      "displayName": "board powerUps",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "add": {
+          "name": "addBoardsPowerUpsByIdBoard",
+          "method": "POST",
+          "path": "/boards/{idBoard}/powerUps",
+          "descriptionTemplate": "Add powerUp to board {idBoard}",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "powerUp": "{powerUp}"
+          }
+        },
+        "delete": {
+          "name": "deleteBoardsPowerUpsByIdBoardByPowerUp",
+          "method": "DELETE",
+          "path": "/boards/{idBoard}/powerUps/{powerUp}",
+          "descriptionTemplate": "Delete powerUp {powerUp} from board {idBoard}",
+          "params": [
+            "idBoard",
+            "powerUp"
+          ]
+        }
+      }
+    },
+    "BoardPrefsBackground": {
+      "displayName": "board prefs background",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsBackgroundByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/background",
+          "descriptionTemplate": "Update board {idBoard} prefs background",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "background": "{background}"
+          }
+        }
+      }
+    },
+    "BoardPrefsCalendarFeedEnabled": {
+      "displayName": "board prefs calendarFeedEnabled",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsCalendarFeedEnabledByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/calendarFeedEnabled",
+          "descriptionTemplate": "Update board {idBoard} prefs calendarFeedEnabled",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "calendarFeedEnabled": "{calendarFeedEnabled}"
+          }
+        }
+      }
+    },
+    "BoardPrefsCardAging": {
+      "displayName": "board prefs cardAging",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsCardAgingByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/cardAging",
+          "descriptionTemplate": "Update board {idBoard} prefs cardAging",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "cardAging": "{cardAging}"
+          }
+        }
+      }
+    },
+    "BoardPrefsCardCovers": {
+      "displayName": "board prefs cardCovers",
+      "params": [
+        "idBoard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsCardCoversByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/cardCovers",
+          "descriptionTemplate": "Update board {idBoard} prefs cardCovers",
+          "params": [
+            "idBoard"
+          ],
+          "bodyTemplate": {
+            "cardCovers": "{cardCovers}"
+          }
+        }
+      }
+    },
+    "BoardPrefsComments": {
+      "displayName": "board prefs comments",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsCommentsByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/comments",
+          "descriptionTemplate": "Update board {idBoard} prefs comments",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...prefs_comments}"
+        }
+      }
+    },
+    "BoardPrefsInvitations": {
+      "displayName": "board prefs invitations",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsInvitationsByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/invitations",
+          "descriptionTemplate": "Update board {idBoard} prefs invitations",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...prefs_invitations}"
+        }
+      }
+    },
+    "BoardPrefsPermissionLevel": {
+      "displayName": "board prefs permission level",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsPermissionLevelByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/permissionLevel",
+          "descriptionTemplate": "Update board {idBoard} prefs permission level",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...prefs_permissionLevel}"
+        }
+      }
+    },
+    "BoardPrefsSelfJoin": {
+      "displayName": "board prefs self join",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsSelfJoinByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/selfJoin",
+          "descriptionTemplate": "Update board {idBoard} prefs self join",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...prefs_selfJoin}"
+        }
+      }
+    },
+    "BoardPrefsVoting": {
+      "displayName": "board prefs voting",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsPrefsVotingByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/prefs/voting",
+          "descriptionTemplate": "Update board {idBoard} prefs voting",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...prefs_voting}"
+        }
+      }
+    },
+    "BoardSubscribed": {
+      "displayName": "board subscribed",
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateBoardsSubscribedByIdBoard",
+          "method": "PUT",
+          "path": "/boards/{idBoard}/subscribed",
+          "descriptionTemplate": "Update board {idBoard} subscribed",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...boards_subscribed}"
+        }
+      }
+    },
+    "BoardField": {
+      "displayName": "board field",
+      "params": [
+        "idBoard",
+        "field",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBoardsByIdBoardByField",
+          "method": "GET",
+          "path": "/boards/{idBoard}/{field}",
+          "descriptionTemplate": "Get board {idBoard} field {field}",
+          "params": [
+            "idBoard",
+            "field",
+            "key",
+            "token"
+          ]
+        }
+      }
+    },
+    "MemberActions": {
+      "displayName": "member action",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMemberActionsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/actions",
+          "descriptionTemplate": "Get actions for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MemberAvatar": {
+      "displayName": "member avatar",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "add": {
+          "name": "addMemberAvatarByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/avatar",
+          "descriptionTemplate": "Add avatar for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MemberAvatarSource": {
+      "displayName": "member avatar source",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMemberAvatarSourceByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/avatarSource",
+          "descriptionTemplate": "Update avatar source for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MemberBio": {
+      "displayName": "member bio",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMemberBioByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/bio",
+          "descriptionTemplate": "Update bio for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MemberBoardBackground": {
+      "displayName": "member board background",
+      "params": [
+        "idMember",
+        "idBoardBackground"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMemberBoardBackgroundByIdMemberByIdBoardBackground",
+          "method": "GET",
+          "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+          "descriptionTemplate": "Get board background {idBoardBackground} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardBackground",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "addMemberBoardBackgroundByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/boardBackgrounds",
+          "descriptionTemplate": "Add board background for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateMemberBoardBackgroundByIdMemberByIdBoardBackground",
+          "method": "PUT",
+          "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+          "descriptionTemplate": "Update board background {idBoardBackground} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardBackground",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteMemberBoardBackgroundByIdMemberByIdBoardBackground",
+          "method": "DELETE",
+          "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+          "descriptionTemplate": "Delete board background {idBoardBackground} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardBackground",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "getMemberBoardBackgroundsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/boardBackgrounds",
+          "descriptionTemplate": "Get board backgrounds for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MemberBoardStar": {
+      "displayName": "member board star",
+      "params": [
+        "idMember",
+        "idBoardStar"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMemberBoardStarByIdMemberByIdBoardStar",
+          "method": "GET",
+          "path": "/members/{idMember}/boardStars/{idBoardStar}",
+          "descriptionTemplate": "Get board star {idBoardStar} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardStar",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "addMemberBoardStarByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/boardStars",
+          "descriptionTemplate": "Add board star for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateMemberBoardStarByIdMemberByIdBoardStar",
+          "method": "PUT",
+          "path": "/members/{idMember}/boardStars/{idBoardStar}",
+          "descriptionTemplate": "Update board star {idBoardStar} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardStar",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteMemberBoardStarByIdMemberByIdBoardStar",
+          "method": "DELETE",
+          "path": "/members/{idMember}/boardStars/{idBoardStar}",
+          "descriptionTemplate": "Delete board star {idBoardStar} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardStar",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "getMemberBoardStarsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/boardStars",
+          "descriptionTemplate": "Get board stars for member {idMember}",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MemberBoardStarIdBoard": {
+      "displayName": "member board star id board",
+      "params": [
+        "idMember",
+        "idBoardStar"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMemberBoardStarIdBoardByIdMemberByIdBoardStar",
+          "method": "PUT",
+          "path": "/members/{idMember}/boardStars/{idBoardStar}/idBoard",
+          "descriptionTemplate": "Update board id for board star {idBoardStar} of member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardStar",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersBoardStarsPos": {
+      "displayName": "members board stars pos",
+      "params": [
+        "idMember",
+        "idBoardStar"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersBoardStarsPosByIdMemberByIdBoardStar",
+          "method": "PUT",
+          "path": "/members/{idMember}/boardStars/{idBoardStar}/pos",
+          "descriptionTemplate": "Update members board stars pos for member {idMember} and board star {idBoardStar}",
+          "params": [
+            "idMember",
+            "idBoardStar"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersBoards": {
+      "displayName": "members boards",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersBoardsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/boards",
+          "descriptionTemplate": "Get boards for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersBoardsByFilter": {
+      "displayName": "members boards by filter",
+      "params": [
+        "idMember",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersBoardsByIdMemberByFilter",
+          "method": "GET",
+          "path": "/members/{idMember}/boards/{filter}",
+          "descriptionTemplate": "Get boards for member {idMember} filtered by {filter}",
+          "params": [
+            "idMember",
+            "filter"
+          ]
+        }
+      }
+    },
+    "MembersBoardsInvited": {
+      "displayName": "members boards invited",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersBoardsInvitedByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/boardsInvited",
+          "descriptionTemplate": "Get invited boards for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersBoardsInvitedByField": {
+      "displayName": "members boards invited by field",
+      "params": [
+        "idMember",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersBoardsInvitedByIdMemberByField",
+          "method": "GET",
+          "path": "/members/{idMember}/boardsInvited/{field}",
+          "descriptionTemplate": "Get invited boards for member {idMember} filtered by field {field}",
+          "params": [
+            "idMember",
+            "field"
+          ]
+        }
+      }
+    },
+    "MembersCards": {
+      "displayName": "members cards",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersCardsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/cards",
+          "descriptionTemplate": "Get cards for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersCardsByFilter": {
+      "displayName": "members cards by filter",
+      "params": [
+        "idMember",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersCardsByIdMemberByFilter",
+          "method": "GET",
+          "path": "/members/{idMember}/cards/{filter}",
+          "descriptionTemplate": "Get cards for member {idMember} filtered by {filter}",
+          "params": [
+            "idMember",
+            "filter"
+          ]
+        }
+      }
+    },
+    "MembersCustomBoardBackgrounds": {
+      "displayName": "members custom board backgrounds",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "add": {
+          "name": "addMembersCustomBoardBackgroundsByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/customBoardBackgrounds",
+          "descriptionTemplate": "Add custom board background for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getMembersCustomBoardBackgroundsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/customBoardBackgrounds",
+          "descriptionTemplate": "Get custom board backgrounds for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersCustomBoardBackgroundsById": {
+      "displayName": "members custom board backgrounds by id",
+      "params": [
+        "idMember",
+        "idBoardBackground"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground",
+          "method": "GET",
+          "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+          "descriptionTemplate": "Get custom board background {idBoardBackground} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardBackground"
+          ]
+        },
+        "update": {
+          "name": "updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground",
+          "method": "PUT",
+          "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+          "descriptionTemplate": "Update custom board background {idBoardBackground} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardBackground"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground",
+          "method": "DELETE",
+          "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+          "descriptionTemplate": "Delete custom board background {idBoardBackground} for member {idMember}",
+          "params": [
+            "idMember",
+            "idBoardBackground"
+          ]
+        }
+      }
+    },
+    "MembersCustomEmoji": {
+      "displayName": "members custom emoji",
+      "params": [
+        "idMember",
+        "idCustomEmoji"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersCustomEmojiByIdMemberByIdCustomEmoji",
+          "method": "GET",
+          "path": "/members/{idMember}/customEmoji/{idCustomEmoji}",
+          "descriptionTemplate": "Get members custom emoji {idCustomEmoji} for member {idMember}",
+          "params": [
+            "idMember",
+            "idCustomEmoji"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "addMembersCustomEmojiByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/customEmoji",
+          "descriptionTemplate": "Add custom emoji for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersCustomStickers": {
+      "displayName": "members custom stickers",
+      "params": [
+        "idMember",
+        "idCustomSticker"
+      ],
+      "operations": {
+        "add": {
+          "name": "addMembersCustomStickersByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/customStickers",
+          "descriptionTemplate": "Add members custom sticker for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "idMember": "{idMember}"
+          }
+        },
+        "get": {
+          "name": "getMembersCustomStickersByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/customStickers",
+          "descriptionTemplate": "Get members custom stickers for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        },
+        "getById": {
+          "name": "getMembersCustomStickersByIdMemberByIdCustomSticker",
+          "method": "GET",
+          "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+          "descriptionTemplate": "Get members custom sticker {idCustomSticker} for member {idMember}",
+          "params": [
+            "idMember",
+            "idCustomSticker"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteMembersCustomStickersByIdMemberByIdCustomSticker",
+          "method": "DELETE",
+          "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+          "descriptionTemplate": "Delete members custom sticker {idCustomSticker} for member {idMember}",
+          "params": [
+            "idMember",
+            "idCustomSticker"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersDeltas": {
+      "displayName": "members deltas",
+      "params": [
+        "idMember",
+        "tags",
+        "ixLastUpdate"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersDeltasByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/deltas",
+          "descriptionTemplate": "Get members deltas for member {idMember} with tags {tags} and last update index {ixLastUpdate}",
+          "params": [
+            "idMember",
+            "tags",
+            "ixLastUpdate"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersFullName": {
+      "displayName": "members full name",
+      "params": [
+        "idMember",
+        "fullName"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersFullNameByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/fullName",
+          "descriptionTemplate": "Update full name {fullName} for member {idMember}",
+          "params": [
+            "idMember",
+            "fullName"
+          ],
+          "bodyTemplate": {
+            "fullName": "{fullName}"
+          }
+        }
+      }
+    },
+    "MembersInitials": {
+      "displayName": "members initials",
+      "params": [
+        "idMember",
+        "initials"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersInitialsByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/initials",
+          "descriptionTemplate": "Update initials {initials} for member {idMember}",
+          "params": [
+            "idMember",
+            "initials"
+          ],
+          "bodyTemplate": {
+            "initials": "{initials}"
+          }
+        }
+      }
+    },
+    "MembersNotifications": {
+      "displayName": "members notifications",
+      "params": [
+        "idMember",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersNotificationsByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/notifications",
+          "descriptionTemplate": "Get notifications for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByFilter": {
+          "name": "getMembersNotificationsByIdMemberByFilter",
+          "method": "GET",
+          "path": "/members/{idMember}/notifications/{filter}",
+          "descriptionTemplate": "Get notifications for member {idMember} with filter {filter}",
+          "params": [
+            "idMember",
+            "filter"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersOneTimeMessagesDismissed": {
+      "displayName": "members one time messages dismissed",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "add": {
+          "name": "addMembersOneTimeMessagesDismissedByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/oneTimeMessagesDismissed",
+          "descriptionTemplate": "Add one time messages dismissed for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "idMember": "{idMember}"
+          }
+        }
+      }
+    },
+    "MembersOrganizations": {
+      "displayName": "members organizations",
+      "params": [
+        "idMember",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersOrganizationsByIdMemberByFilter",
+          "method": "GET",
+          "path": "/members/{idMember}/organizations/{filter}",
+          "descriptionTemplate": "Get organizations for member {idMember} filtered by {filter}",
+          "params": [
+            "idMember",
+            "filter"
+          ]
+        }
+      }
+    },
+    "MembersOrganizationsInvited": {
+      "displayName": "membersOrganizationsInvited",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersOrganizationsInvitedByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/organizationsInvited",
+          "descriptionTemplate": "Get invited organizations for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersOrganizationsInvitedField": {
+      "displayName": "membersOrganizationsInvitedField",
+      "params": [
+        "idMember",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersOrganizationsInvitedByIdMemberByField",
+          "method": "GET",
+          "path": "/members/{idMember}/organizationsInvited/{field}",
+          "descriptionTemplate": "Get invited organizations field {field} for member {idMember}",
+          "params": [
+            "idMember",
+            "field"
+          ]
+        }
+      }
+    },
+    "MembersPrefsColorBlind": {
+      "displayName": "membersPrefsColorBlind",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersPrefsColorBlindByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/prefs/colorBlind",
+          "descriptionTemplate": "Update prefs colorBlind for member {idMember} with colorBlind {colorBlind}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "colorBlind": "{colorBlind}"
+          }
+        }
+      }
+    },
+    "MembersPrefsLocale": {
+      "displayName": "membersPrefsLocale",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersPrefsLocaleByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/prefs/locale",
+          "descriptionTemplate": "Update prefs locale for member {idMember} with locale {locale}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "locale": "{locale}"
+          }
+        }
+      }
+    },
+    "MembersPrefsMinutesBetweenSummaries": {
+      "displayName": "membersPrefsMinutesBetweenSummaries",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersPrefsMinutesBetweenSummariesByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/prefs/minutesBetweenSummaries",
+          "descriptionTemplate": "Update prefs minutesBetweenSummaries for member {idMember} with minutesBetweenSummaries {minutesBetweenSummaries}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "minutesBetweenSummaries": "{minutesBetweenSummaries}"
+          }
+        }
+      }
+    },
+    "MembersSavedSearches": {
+      "displayName": "membersSavedSearches",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersSavedSearchesByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/savedSearches",
+          "descriptionTemplate": "Get saved searches for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        },
+        "add": {
+          "name": "addMembersSavedSearchesByIdMember",
+          "method": "POST",
+          "path": "/members/{idMember}/savedSearches",
+          "descriptionTemplate": "Add saved search for member {idMember} with query {query}",
+          "params": [
+            "idMember",
+            "query"
+          ],
+          "bodyTemplate": {
+            "query": "{query}"
+          }
+        }
+      }
+    },
+    "MembersSavedSearch": {
+      "displayName": "membersSavedSearch",
+      "params": [
+        "idMember",
+        "idSavedSearch"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersSavedSearchesByIdMemberByIdSavedSearch",
+          "method": "GET",
+          "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+          "descriptionTemplate": "Get saved search {idSavedSearch} for member {idMember}",
+          "params": [
+            "idMember",
+            "idSavedSearch"
+          ]
+        },
+        "update": {
+          "name": "updateMembersSavedSearchesByIdMemberByIdSavedSearch",
+          "method": "PUT",
+          "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+          "descriptionTemplate": "Update saved search {idSavedSearch} for member {idMember} with query {query}",
+          "params": [
+            "idMember",
+            "idSavedSearch",
+            "query"
+          ],
+          "bodyTemplate": {
+            "query": "{query}"
+          }
+        },
+        "delete": {
+          "name": "deleteMembersSavedSearchesByIdMemberByIdSavedSearch",
+          "method": "DELETE",
+          "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+          "descriptionTemplate": "Delete saved search {idSavedSearch} for member {idMember}",
+          "params": [
+            "idMember",
+            "idSavedSearch"
+          ]
+        }
+      }
+    },
+    "MembersSavedSearchName": {
+      "displayName": "membersSavedSearchName",
+      "params": [
+        "idMember",
+        "idSavedSearch"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersSavedSearchesNameByIdMemberByIdSavedSearch",
+          "method": "PUT",
+          "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name",
+          "descriptionTemplate": "Update name of saved search {idSavedSearch} for member {idMember} with name {name}",
+          "params": [
+            "idMember",
+            "idSavedSearch",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        }
+      }
+    },
+    "MembersSavedSearchPos": {
+      "displayName": "membersSavedSearchPos",
+      "params": [
+        "idMember",
+        "idSavedSearch"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersSavedSearchesPosByIdMemberByIdSavedSearch",
+          "method": "PUT",
+          "path": "/members/{idMember}/savedSearches/{idSavedSearch}/pos",
+          "descriptionTemplate": "Update position of saved search {idSavedSearch} for member {idMember} with pos {pos}",
+          "params": [
+            "idMember",
+            "idSavedSearch",
+            "pos"
+          ],
+          "bodyTemplate": {
+            "pos": "{pos}"
+          }
+        }
+      }
+    },
+    "MembersSavedSearchesQuery": {
+      "displayName": "membersSavedSearchesQuery",
+      "params": [
+        "idMember",
+        "idSavedSearch"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersSavedSearchesQueryByIdMemberByIdSavedSearch",
+          "method": "PUT",
+          "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query",
+          "descriptionTemplate": "Update membersSavedSearchesQuery for member {idMember} and savedSearch {idSavedSearch}",
+          "params": [
+            "idMember",
+            "idSavedSearch"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersUsername": {
+      "displayName": "membersUsername",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateMembersUsernameByIdMember",
+          "method": "PUT",
+          "path": "/members/{idMember}/username",
+          "descriptionTemplate": "Update membersUsername for member {idMember}",
+          "params": [
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "MembersTokens": {
+      "displayName": "membersTokens",
+      "params": [
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersTokensByIdMember",
+          "method": "GET",
+          "path": "/members/{idMember}/tokens",
+          "descriptionTemplate": "Get membersTokens for member {idMember}",
+          "params": [
+            "idMember"
+          ]
+        }
+      }
+    },
+    "MembersField": {
+      "displayName": "membersField",
+      "params": [
+        "idMember",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getMembersByIdMemberByField",
+          "method": "GET",
+          "path": "/members/{idMember}/{field}",
+          "descriptionTemplate": "Get members field {field} for member {idMember}",
+          "params": [
+            "idMember",
+            "field"
           ]
         }
       }
@@ -101,32 +2267,13 @@
           "name": "addCardsActionsCommentsByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/actions/comments",
-          "descriptionTemplate": "Add comment to card {idCard} with text {text}",
+          "descriptionTemplate": "Add comment to card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "text"
+            "token"
           ],
-          "bodyTemplate": {
-            "text": "{text}"
-          }
-        },
-        "update": {
-          "name": "updateCardsActionsCommentsByIdCardByIdAction",
-          "method": "PUT",
-          "path": "/cards/{idCard}/actions/{idAction}/comments",
-          "descriptionTemplate": "Update comment {idAction} on card {idCard} with text {text}",
-          "params": [
-            "idCard",
-            "idAction",
-            "key",
-            "token",
-            "text"
-          ],
-          "bodyTemplate": {
-            "text": "{text}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteCardsActionsCommentsByIdCardByIdAction",
@@ -138,7 +2285,21 @@
             "idAction",
             "key",
             "token"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCardsActionsCommentsByIdCardByIdAction",
+          "method": "PUT",
+          "path": "/cards/{idCard}/actions/{idAction}/comments",
+          "descriptionTemplate": "Update comment {idAction} on card {idCard}",
+          "params": [
+            "idCard",
+            "idAction",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -153,22 +2314,13 @@
           "name": "addCardsAttachmentsByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/attachments",
-          "descriptionTemplate": "Add attachment to card {idCard} with name {name}",
+          "descriptionTemplate": "Add attachment to card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "file",
-            "mimeType",
-            "name",
-            "url"
+            "token"
           ],
-          "bodyTemplate": {
-            "file": "{file}",
-            "mimeType": "{mimeType}",
-            "name": "{name}",
-            "url": "{url}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteCardsAttachmentsByIdCardByIdAttachment",
@@ -180,7 +2332,8 @@
             "idAttachment",
             "key",
             "token"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getCardsAttachmentsByIdCardByIdAttachment",
@@ -193,11 +2346,22 @@
             "key",
             "token"
           ]
+        },
+        "list": {
+          "name": "getCardsAttachmentsByIdCard",
+          "method": "GET",
+          "path": "/cards/{idCard}/attachments",
+          "descriptionTemplate": "List attachments of card {idCard}",
+          "params": [
+            "idCard",
+            "key",
+            "token"
+          ]
         }
       }
     },
-    "CardChecklistCheckItem": {
-      "displayName": "card checklist check item",
+    "CardsChecklistCheckItem": {
+      "displayName": "cards checklist check item",
       "params": [
         "idCard",
         "idChecklist",
@@ -208,60 +2372,41 @@
           "name": "addCardsChecklistCheckItemByIdCardByIdChecklist",
           "method": "POST",
           "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem",
-          "descriptionTemplate": "Add check item to checklist {idChecklist} on card {idCard} with name {name}",
+          "descriptionTemplate": "Add cards checklist check item {idCheckItem} to checklist {idChecklist} on card {idCard}",
           "params": [
             "idCard",
-            "idChecklist",
-            "key",
-            "token",
-            "name",
-            "pos"
+            "idChecklist"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "pos": "{pos}"
-          }
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem",
           "method": "PUT",
           "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}",
-          "descriptionTemplate": "Update check item {idCheckItem} in checklist {idChecklistCurrent} on card {idCard} with name {name}, pos {pos}, state {state}",
+          "descriptionTemplate": "Update cards checklist check item {idCheckItem} in checklist {idChecklistCurrent} on card {idCard}",
           "params": [
             "idCard",
             "idChecklistCurrent",
-            "idCheckItem",
-            "key",
-            "token",
-            "idChecklist",
-            "name",
-            "pos",
-            "state"
+            "idCheckItem"
           ],
-          "bodyTemplate": {
-            "idChecklist": "{idChecklist}",
-            "name": "{name}",
-            "pos": "{pos}",
-            "state": "{state}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem",
           "method": "DELETE",
           "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}",
-          "descriptionTemplate": "Delete check item {idCheckItem} from checklist {idChecklist} on card {idCard}",
+          "descriptionTemplate": "Delete cards checklist check item {idCheckItem} from checklist {idChecklist} on card {idCard}",
           "params": [
             "idCard",
             "idChecklist",
-            "idCheckItem",
-            "key",
-            "token"
-          ]
+            "idCheckItem"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "CardChecklistCheckItemName": {
-      "displayName": "card checklist check item name",
+    "CardsChecklistCheckItemName": {
+      "displayName": "cards checklist check item name",
       "params": [
         "idCard",
         "idChecklist",
@@ -272,23 +2417,18 @@
           "name": "updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem",
           "method": "PUT",
           "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/name",
-          "descriptionTemplate": "Update name of check item {idCheckItem} in checklist {idChecklist} on card {idCard} to {value}",
+          "descriptionTemplate": "Update name of cards checklist check item {idCheckItem} in checklist {idChecklist} on card {idCard}",
           "params": [
             "idCard",
             "idChecklist",
-            "idCheckItem",
-            "key",
-            "token",
-            "value"
+            "idCheckItem"
           ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
-    "CardChecklistCheckItemPos": {
-      "displayName": "card checklist check item pos",
+    "CardsChecklistCheckItemPos": {
+      "displayName": "cards checklist check item pos",
       "params": [
         "idCard",
         "idChecklist",
@@ -299,23 +2439,18 @@
           "name": "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem",
           "method": "PUT",
           "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos",
-          "descriptionTemplate": "Update position of check item {idCheckItem} in checklist {idChecklist} on card {idCard} to {value}",
+          "descriptionTemplate": "Update position of cards checklist check item {idCheckItem} in checklist {idChecklist} on card {idCard}",
           "params": [
             "idCard",
             "idChecklist",
-            "idCheckItem",
-            "key",
-            "token",
-            "value"
+            "idCheckItem"
           ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
-    "CardChecklistCheckItemState": {
-      "displayName": "card checklist check item state",
+    "CardsChecklistCheckItemState": {
+      "displayName": "cards checklist check item state",
       "params": [
         "idCard",
         "idChecklist",
@@ -326,46 +2461,62 @@
           "name": "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem",
           "method": "PUT",
           "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state",
-          "descriptionTemplate": "Update state of check item {idCheckItem} in checklist {idChecklist} on card {idCard} to {value}",
+          "descriptionTemplate": "Update state of cards checklist check item {idCheckItem} in checklist {idChecklist} on card {idCard}",
           "params": [
             "idCard",
             "idChecklist",
-            "idCheckItem",
-            "key",
-            "token",
-            "value"
+            "idCheckItem"
           ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
-    "CardChecklist": {
-      "displayName": "card checklist",
+    "CardsChecklistCheckItemConvertToCard": {
+      "displayName": "cards checklist check item convert to card",
       "params": [
         "idCard",
-        "idChecklist"
+        "idChecklist",
+        "idCheckItem"
       ],
       "operations": {
+        "add": {
+          "name": "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem",
+          "method": "POST",
+          "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard",
+          "descriptionTemplate": "Convert cards checklist check item {idCheckItem} in checklist {idChecklist} on card {idCard} to card",
+          "params": [
+            "idCard",
+            "idChecklist",
+            "idCheckItem"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsChecklists": {
+      "displayName": "cards checklists",
+      "params": [
+        "idCard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCardsChecklistsByIdCard",
+          "method": "GET",
+          "path": "/cards/{idCard}/checklists",
+          "descriptionTemplate": "Get checklists for card {idCard}",
+          "params": [
+            "idCard"
+          ]
+        },
         "add": {
           "name": "addCardsChecklistsByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/checklists",
-          "descriptionTemplate": "Add checklist to card {idCard} with name {name}",
+          "descriptionTemplate": "Add checklist to card {idCard}",
           "params": [
-            "idCard",
-            "key",
-            "token",
-            "idChecklistSource",
-            "name",
-            "pos"
+            "idCard"
           ],
-          "bodyTemplate": {
-            "idChecklistSource": "{idChecklistSource}",
-            "name": "{name}",
-            "pos": "{pos}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteCardsChecklistsByIdCardByIdChecklist",
@@ -374,41 +2525,143 @@
           "descriptionTemplate": "Delete checklist {idChecklist} from card {idCard}",
           "params": [
             "idCard",
-            "idChecklist",
-            "key",
-            "token"
-          ]
-        },
-        "get": {
-          "name": "getCardsChecklistsByIdCard",
-          "method": "GET",
-          "path": "/cards/{idCard}/checklists",
-          "descriptionTemplate": "Get checklists for card {idCard}",
+            "idChecklist"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsClosed": {
+      "displayName": "cards closed",
+      "params": [
+        "idCard"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsClosedByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/closed",
+          "descriptionTemplate": "Update closed status of card {idCard}",
+          "params": [
+            "idCard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardDesc": {
+      "displayName": "card description",
+      "params": [
+        "idCard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsDescByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/desc",
+          "descriptionTemplate": "Update card description for card {idCard}",
           "params": [
             "idCard",
             "key",
             "token"
-          ]
+          ],
+          "bodyTemplate": {
+            "desc": "{desc}"
+          }
+        }
+      }
+    },
+    "CardDue": {
+      "displayName": "card due",
+      "params": [
+        "idCard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsDueByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/due",
+          "descriptionTemplate": "Update card due date for card {idCard}",
+          "params": [
+            "idCard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "due": "{due}"
+          }
+        }
+      }
+    },
+    "CardIdAttachmentCover": {
+      "displayName": "card attachment cover",
+      "params": [
+        "idCard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsIdAttachmentCoverByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/idAttachmentCover",
+          "descriptionTemplate": "Update card attachment cover for card {idCard}",
+          "params": [
+            "idCard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idAttachmentCover": "{idAttachmentCover}"
+          }
+        }
+      }
+    },
+    "CardIdBoard": {
+      "displayName": "card board",
+      "params": [
+        "idCard",
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsIdBoardByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/idBoard",
+          "descriptionTemplate": "Update card board for card {idCard}",
+          "params": [
+            "idCard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idBoard": "{idBoard}"
+          }
         }
       }
     },
     "CardIdLabels": {
-      "displayName": "card id label",
+      "displayName": "card label",
       "params": [
         "idCard",
-        "idLabel"
+        "key",
+        "token"
       ],
       "operations": {
         "add": {
           "name": "addCardsIdLabelsByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/idLabels",
-          "descriptionTemplate": "Add label {value} to card {idCard}",
+          "descriptionTemplate": "Add label to card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "value"
+            "token"
           ],
           "bodyTemplate": {
             "value": "{value}"
@@ -428,23 +2681,47 @@
         }
       }
     },
-    "CardIdMembers": {
-      "displayName": "card id member",
+    "CardIdList": {
+      "displayName": "card list",
       "params": [
         "idCard",
-        "idMember"
+        "key",
+        "token"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsIdListByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/idList",
+          "descriptionTemplate": "Update card list for card {idCard}",
+          "params": [
+            "idCard",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {
+            "idList": "{idList}"
+          }
+        }
+      }
+    },
+    "CardIdMembers": {
+      "displayName": "card member",
+      "params": [
+        "idCard",
+        "key",
+        "token"
       ],
       "operations": {
         "add": {
           "name": "addCardsIdMembersByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/idMembers",
-          "descriptionTemplate": "Add member {value} to card {idCard}",
+          "descriptionTemplate": "Add member to card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "value"
+            "token"
           ],
           "bodyTemplate": {
             "value": "{value}"
@@ -454,12 +2731,11 @@
           "name": "updateCardsIdMembersByIdCard",
           "method": "PUT",
           "path": "/cards/{idCard}/idMembers",
-          "descriptionTemplate": "Update members of card {idCard} with value {value}",
+          "descriptionTemplate": "Update members of card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "value"
+            "token"
           ],
           "bodyTemplate": {
             "value": "{value}"
@@ -479,29 +2755,25 @@
         }
       }
     },
-    "CardLabel": {
-      "displayName": "card label",
+    "CardLabels": {
+      "displayName": "card labels",
       "params": [
         "idCard",
-        "color"
+        "key",
+        "token"
       ],
       "operations": {
         "add": {
           "name": "addCardsLabelsByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/labels",
-          "descriptionTemplate": "Add label with color {color} and name {name} to card {idCard}",
+          "descriptionTemplate": "Add labels to card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "color",
-            "name",
-            "value"
+            "token"
           ],
           "bodyTemplate": {
-            "color": "{color}",
-            "name": "{name}",
             "value": "{value}"
           }
         },
@@ -509,21 +2781,25 @@
           "name": "updateCardsLabelsByIdCard",
           "method": "PUT",
           "path": "/cards/{idCard}/labels",
-          "descriptionTemplate": "Update label with color {color} and name {name} on card {idCard}",
+          "descriptionTemplate": "Update labels of card {idCard}",
           "params": [
             "idCard",
             "key",
-            "token",
-            "color",
-            "name",
-            "value"
+            "token"
           ],
           "bodyTemplate": {
-            "color": "{color}",
-            "name": "{name}",
             "value": "{value}"
           }
-        },
+        }
+      }
+    },
+    "CardsLabels": {
+      "displayName": "cardsLabels",
+      "params": [
+        "idCard",
+        "color"
+      ],
+      "operations": {
         "delete": {
           "name": "deleteCardsLabelsByIdCardByColor",
           "method": "DELETE",
@@ -531,88 +2807,208 @@
           "descriptionTemplate": "Delete label with color {color} from card {idCard}",
           "params": [
             "idCard",
-            "color",
-            "key",
-            "token"
-          ]
+            "color"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "CardMemberVoted": {
-      "displayName": "card member voted",
+    "CardsList": {
+      "displayName": "cardsList",
+      "params": [
+        "idCard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCardsListByIdCard",
+          "method": "GET",
+          "path": "/cards/{idCard}/list",
+          "descriptionTemplate": "Get list of card {idCard}",
+          "params": [
+            "idCard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsListField": {
+      "displayName": "cardsListField",
       "params": [
         "idCard",
-        "idMember"
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCardsListByIdCardByField",
+          "method": "GET",
+          "path": "/cards/{idCard}/list/{field}",
+          "descriptionTemplate": "Get field {field} of list of card {idCard}",
+          "params": [
+            "idCard",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsMarkAssociatedNotificationsRead": {
+      "displayName": "cardsMarkAssociatedNotificationsRead",
+      "params": [
+        "idCard"
       ],
       "operations": {
         "add": {
-          "name": "addCardsMembersVotedByIdCard",
+          "name": "addCardsMarkAssociatedNotificationsReadByIdCard",
           "method": "POST",
-          "path": "/cards/{idCard}/membersVoted",
-          "descriptionTemplate": "Add member vote {value} to card {idCard}",
+          "path": "/cards/{idCard}/markAssociatedNotificationsRead",
+          "descriptionTemplate": "Mark associated notifications read for card {idCard}",
           "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
+            "idCard"
           ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        },
-        "delete": {
-          "name": "deleteCardsMembersVotedByIdCardByIdMember",
-          "method": "DELETE",
-          "path": "/cards/{idCard}/membersVoted/{idMember}",
-          "descriptionTemplate": "Delete member vote {idMember} from card {idCard}",
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsMembers": {
+      "displayName": "cardsMembers",
+      "params": [
+        "idCard"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCardsMembersByIdCard",
+          "method": "GET",
+          "path": "/cards/{idCard}/members",
+          "descriptionTemplate": "Get members of card {idCard}",
           "params": [
-            "idCard",
-            "idMember",
-            "key",
-            "token"
-          ]
-        },
+            "idCard"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsMembersVoted": {
+      "displayName": "cardsMembersVoted",
+      "params": [
+        "idCard"
+      ],
+      "operations": {
         "get": {
           "name": "getCardsMembersVotedByIdCard",
           "method": "GET",
           "path": "/cards/{idCard}/membersVoted",
           "descriptionTemplate": "Get members voted on card {idCard}",
           "params": [
-            "idCard",
-            "key",
-            "token"
-          ]
+            "idCard"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "addCardsMembersVotedByIdCard",
+          "method": "POST",
+          "path": "/cards/{idCard}/membersVoted",
+          "descriptionTemplate": "Add member voted to card {idCard}",
+          "params": [
+            "idCard"
+          ],
+          "bodyTemplate": {
+            "cards_membersVoted": "{cards_membersVoted}"
+          }
         }
       }
     },
-    "CardSticker": {
-      "displayName": "card sticker",
+    "CardsMembersVotedByIdMember": {
+      "displayName": "cardsMembersVotedByIdMember",
+      "params": [
+        "idCard",
+        "idMember"
+      ],
+      "operations": {
+        "delete": {
+          "name": "deleteCardsMembersVotedByIdCardByIdMember",
+          "method": "DELETE",
+          "path": "/cards/{idCard}/membersVoted/{idMember}",
+          "descriptionTemplate": "Delete member {idMember} voted on card {idCard}",
+          "params": [
+            "idCard",
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CardsName": {
+      "displayName": "cardsName",
+      "params": [
+        "idCard",
+        "name"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsNameByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/name",
+          "descriptionTemplate": "Update name of card {idCard} to {name}",
+          "params": [
+            "idCard",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        }
+      }
+    },
+    "CardsPos": {
+      "displayName": "cardsPos",
+      "params": [
+        "idCard",
+        "pos"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateCardsPosByIdCard",
+          "method": "PUT",
+          "path": "/cards/{idCard}/pos",
+          "descriptionTemplate": "Update position of card {idCard} to {pos}",
+          "params": [
+            "idCard",
+            "pos"
+          ],
+          "bodyTemplate": {
+            "pos": "{pos}"
+          }
+        }
+      }
+    },
+    "CardsStickers": {
+      "displayName": "cardsStickers",
       "params": [
         "idCard",
         "idSticker"
       ],
       "operations": {
+        "get": {
+          "name": "getCardsStickersByIdCardByIdSticker",
+          "method": "GET",
+          "path": "/cards/{idCard}/stickers/{idSticker}",
+          "descriptionTemplate": "Get sticker {idSticker} from card {idCard}",
+          "params": [
+            "idCard",
+            "idSticker"
+          ],
+          "bodyTemplate": {}
+        },
         "add": {
           "name": "addCardsStickersByIdCard",
           "method": "POST",
           "path": "/cards/{idCard}/stickers",
-          "descriptionTemplate": "Add sticker to card {idCard} with image {image}",
+          "descriptionTemplate": "Add sticker to card {idCard}",
           "params": [
-            "idCard",
-            "key",
-            "token",
-            "image",
-            "left",
-            "rotate",
-            "top",
-            "zIndex"
+            "idCard"
           ],
           "bodyTemplate": {
-            "image": "{image}",
-            "left": "{left}",
-            "rotate": "{rotate}",
-            "top": "{top}",
-            "zIndex": "{zIndex}"
+            "cards_stickers": "{cards_stickers}"
           }
         },
         "delete": {
@@ -622,237 +3018,27 @@
           "descriptionTemplate": "Delete sticker {idSticker} from card {idCard}",
           "params": [
             "idCard",
-            "idSticker",
-            "key",
-            "token"
-          ]
-        },
-        "get": {
-          "name": "getCardsStickersByIdCardByIdSticker",
-          "method": "GET",
-          "path": "/cards/{idCard}/stickers/{idSticker}",
-          "descriptionTemplate": "Get sticker {idSticker} from card {idCard}",
-          "params": [
-            "idCard",
-            "idSticker",
-            "key",
-            "token"
-          ]
+            "idSticker"
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateCardsStickersByIdCardByIdSticker",
           "method": "PUT",
           "path": "/cards/{idCard}/stickers/{idSticker}",
-          "descriptionTemplate": "Update sticker {idSticker} on card {idCard} with image {image}",
+          "descriptionTemplate": "Update sticker {idSticker} on card {idCard}",
           "params": [
             "idCard",
-            "idSticker",
-            "key",
-            "token",
-            "image",
-            "left",
-            "rotate",
-            "top",
-            "zIndex"
+            "idSticker"
           ],
           "bodyTemplate": {
-            "image": "{image}",
-            "left": "{left}",
-            "rotate": "{rotate}",
-            "top": "{top}",
-            "zIndex": "{zIndex}"
+            "cards_stickers": "{cards_stickers}"
           }
         }
       }
     },
-    "CardClosed": {
-      "displayName": "card closed",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsClosedByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/closed",
-          "descriptionTemplate": "Update closed status of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardDesc": {
-      "displayName": "card desc",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsDescByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/desc",
-          "descriptionTemplate": "Update description of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardDue": {
-      "displayName": "card due",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsDueByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/due",
-          "descriptionTemplate": "Update due date of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardIdAttachmentCover": {
-      "displayName": "card id attachment cover",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsIdAttachmentCoverByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/idAttachmentCover",
-          "descriptionTemplate": "Update attachment cover id of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardIdBoard": {
-      "displayName": "card id board",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsIdBoardByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/idBoard",
-          "descriptionTemplate": "Update board id of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "idList",
-            "value"
-          ],
-          "bodyTemplate": {
-            "idList": "{idList}",
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardIdList": {
-      "displayName": "card id list",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsIdListByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/idList",
-          "descriptionTemplate": "Update list id of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardName": {
-      "displayName": "card name",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsNameByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/name",
-          "descriptionTemplate": "Update name of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardPos": {
-      "displayName": "card pos",
-      "params": [
-        "idCard"
-      ],
-      "operations": {
-        "update": {
-          "name": "updateCardsPosByIdCard",
-          "method": "PUT",
-          "path": "/cards/{idCard}/pos",
-          "descriptionTemplate": "Update position of card {idCard} to {value}",
-          "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "CardSubscribed": {
-      "displayName": "card subscribed",
+    "CardsSubscribed": {
+      "displayName": "cards subscribed",
       "params": [
         "idCard"
       ],
@@ -861,16 +3047,739 @@
           "name": "updateCardsSubscribedByIdCard",
           "method": "PUT",
           "path": "/cards/{idCard}/subscribed",
-          "descriptionTemplate": "Update subscribed status of card {idCard} to {value}",
+          "descriptionTemplate": "Update subscription status of card {idCard}",
           "params": [
-            "idCard",
-            "key",
-            "token",
-            "value"
+            "idCard"
           ],
           "bodyTemplate": {
-            "value": "{value}"
+            "cards_subscribed": "{cards_subscribed}"
           }
+        }
+      }
+    },
+    "CardsField": {
+      "displayName": "cards field",
+      "params": [
+        "idCard",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCardsByIdCardByField",
+          "method": "GET",
+          "path": "/cards/{idCard}/{field}",
+          "descriptionTemplate": "Get field {field} of card {idCard}",
+          "params": [
+            "idCard",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Organization": {
+      "displayName": "organization",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "add": {
+          "name": "addOrganization",
+          "method": "POST",
+          "path": "/organizations",
+          "descriptionTemplate": "Create organization with idOrg {idOrg}",
+          "params": [
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteOrganizationByIdOrg",
+          "method": "DELETE",
+          "path": "/organizations/{idOrg}",
+          "descriptionTemplate": "Delete organization with idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateOrganizationByIdOrg",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}",
+          "descriptionTemplate": "Update organization with idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getOrganizationByIdOrg",
+          "method": "GET",
+          "path": "/organizations/{idOrg}",
+          "descriptionTemplate": "Get organization with idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationDesc": {
+      "displayName": "organization description",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateOrganizationDescByIdOrg",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/desc",
+          "descriptionTemplate": "Update organization description for idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationDisplayName": {
+      "displayName": "organization display name",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateOrganizationDisplayNameByIdOrg",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/displayName",
+          "descriptionTemplate": "Update organization display name for idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationLogo": {
+      "displayName": "organization logo",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "add": {
+          "name": "addOrganizationLogoByIdOrg",
+          "method": "POST",
+          "path": "/organizations/{idOrg}/logo",
+          "descriptionTemplate": "Add logo to organization with idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteOrganizationLogoByIdOrg",
+          "method": "DELETE",
+          "path": "/organizations/{idOrg}/logo",
+          "descriptionTemplate": "Delete logo from organization with idOrg {idOrg}",
+          "params": [
+            "idOrg",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationMember": {
+      "displayName": "organization member",
+      "params": [
+        "idMember",
+        "idOrg"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationMemberByIdOrgByIdMember",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/members/{idMember}",
+          "descriptionTemplate": "Get organization member {idMember} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateOrganizationMemberByIdOrgByIdMember",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/members/{idMember}",
+          "descriptionTemplate": "Update organization member {idMember} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "$ref": "#/components/requestBodies/organizations_members"
+          }
+        },
+        "delete": {
+          "name": "deleteOrganizationMemberByIdOrgByIdMember",
+          "method": "DELETE",
+          "path": "/organizations/{idOrg}/members/{idMember}",
+          "descriptionTemplate": "Delete organization member {idMember} from organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationMemberDeactivated": {
+      "displayName": "organization member deactivated",
+      "params": [
+        "idOrg",
+        "idMember"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateOrganizationMemberDeactivatedByIdOrgByIdMember",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/members/{idMember}/deactivated",
+          "descriptionTemplate": "Update deactivated status of member {idMember} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMember"
+          ],
+          "bodyTemplate": {
+            "$ref": "#/components/schemas/organizations_members_deactivated"
+          }
+        }
+      }
+    },
+    "OrganizationMemberInvited": {
+      "displayName": "organization member invited",
+      "params": [
+        "idOrg",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationMemberInvitedByIdOrg",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/membersInvited",
+          "descriptionTemplate": "Get invited members of organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByField": {
+          "name": "getOrganizationMemberInvitedByIdOrgByField",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/membersInvited/{field}",
+          "descriptionTemplate": "Get invited members of organization {idOrg} filtered by {field}",
+          "params": [
+            "idOrg",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationMembership": {
+      "displayName": "organization membership",
+      "params": [
+        "idOrg",
+        "idMembership"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationMembershipByIdOrgByIdMembership",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/memberships/{idMembership}",
+          "descriptionTemplate": "Get membership {idMembership} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMembership"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateOrganizationMembershipByIdOrgByIdMembership",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/memberships/{idMembership}",
+          "descriptionTemplate": "Update membership {idMembership} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMembership"
+          ],
+          "bodyTemplate": {
+            "$ref": "#/components/schemas/organizations_memberships"
+          }
+        }
+      }
+    },
+    "OrganizationMemberships": {
+      "displayName": "organization memberships",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationMembershipsByIdOrg",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/memberships",
+          "descriptionTemplate": "Get memberships of organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationMembers": {
+      "displayName": "organization members",
+      "params": [
+        "idOrg",
+        "filter"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationMembersByIdOrgByFilter",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/members/{filter}",
+          "descriptionTemplate": "Get members of organization {idOrg} filtered by {filter}",
+          "params": [
+            "idOrg",
+            "filter"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationMemberCards": {
+      "displayName": "organization member cards",
+      "params": [
+        "idOrg",
+        "idMember"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationMemberCardsByIdOrgByIdMember",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/members/{idMember}/cards",
+          "descriptionTemplate": "Get cards of member {idMember} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationMemberAll": {
+      "displayName": "organization member all",
+      "params": [
+        "idOrg",
+        "idMember"
+      ],
+      "operations": {
+        "delete": {
+          "name": "deleteOrganizationMemberAllByIdOrgByIdMember",
+          "method": "DELETE",
+          "path": "/organizations/{idOrg}/members/{idMember}/all",
+          "descriptionTemplate": "Delete all data of member {idMember} in organization {idOrg}",
+          "params": [
+            "idOrg",
+            "idMember"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationName": {
+      "displayName": "organization name",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateOrganizationNameByIdOrg",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/name",
+          "descriptionTemplate": "Update name of organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {
+            "$ref": "#/components/schemas/organizations_name"
+          }
+        }
+      }
+    },
+    "PrefsAssociatedDomain": {
+      "displayName": "prefsAssociatedDomain",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updatePrefsAssociatedDomain",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/associatedDomain",
+          "descriptionTemplate": "Update prefs associated domain for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deletePrefsAssociatedDomain",
+          "method": "DELETE",
+          "path": "/organizations/{idOrg}/prefs/associatedDomain",
+          "descriptionTemplate": "Delete prefs associated domain for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PrefsBoardVisibilityRestrict": {
+      "displayName": "prefsBoardVisibilityRestrict",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "updateOrg": {
+          "name": "updatePrefsBoardVisibilityRestrictOrg",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
+          "descriptionTemplate": "Update prefs board visibility restrict org for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        },
+        "updatePrivate": {
+          "name": "updatePrefsBoardVisibilityRestrictPrivate",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private",
+          "descriptionTemplate": "Update prefs board visibility restrict private for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        },
+        "updatePublic": {
+          "name": "updatePrefsBoardVisibilityRestrictPublic",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/public",
+          "descriptionTemplate": "Update prefs board visibility restrict public for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PrefsExternalMembersDisabled": {
+      "displayName": "prefsExternalMembersDisabled",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updatePrefsExternalMembersDisabled",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/externalMembersDisabled",
+          "descriptionTemplate": "Update prefs external members disabled for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PrefsGoogleAppsVersion": {
+      "displayName": "prefsGoogleAppsVersion",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updatePrefsGoogleAppsVersion",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/googleAppsVersion",
+          "descriptionTemplate": "Update prefs google apps version for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PrefsOrgInviteRestrict": {
+      "displayName": "prefsOrgInviteRestrict",
+      "params": [
+        "idOrg",
+        "value"
+      ],
+      "operations": {
+        "update": {
+          "name": "updatePrefsOrgInviteRestrict",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+          "descriptionTemplate": "Update prefs org invite restrict for organization {idOrg} with value {value}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deletePrefsOrgInviteRestrict",
+          "method": "DELETE",
+          "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+          "descriptionTemplate": "Delete prefs org invite restrict for organization {idOrg} with value {value}",
+          "params": [
+            "idOrg",
+            "value"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "PrefsPermissionLevel": {
+      "displayName": "prefsPermissionLevel",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updatePrefsPermissionLevel",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/prefs/permissionLevel",
+          "descriptionTemplate": "Update prefs permission level for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationsWebsite": {
+      "displayName": "organizationsWebsite",
+      "params": [
+        "idOrg"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateOrganizationsWebsite",
+          "method": "PUT",
+          "path": "/organizations/{idOrg}/website",
+          "descriptionTemplate": "Update organizations website for organization {idOrg}",
+          "params": [
+            "idOrg"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OrganizationField": {
+      "displayName": "organizationField",
+      "params": [
+        "idOrg",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getOrganizationField",
+          "method": "GET",
+          "path": "/organizations/{idOrg}/{field}",
+          "descriptionTemplate": "Get organization {field} for organization {idOrg}",
+          "params": [
+            "idOrg",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Notification": {
+      "displayName": "notification",
+      "params": [
+        "idNotification"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationByIdNotification",
+          "method": "GET",
+          "path": "/notifications/{idNotification}",
+          "descriptionTemplate": "Get notification with id {idNotification}",
+          "params": [
+            "idNotification"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateNotificationsUnreadByIdNotification",
+          "method": "PUT",
+          "path": "/notifications/{idNotification}/unread",
+          "descriptionTemplate": "Update unread status of notification {idNotification}",
+          "params": [
+            "idNotification"
+          ],
+          "bodyTemplate": {
+            "unread": "{unread}"
+          }
+        }
+      }
+    },
+    "NotificationMember": {
+      "displayName": "notification member",
+      "params": [
+        "idNotification"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsMemberByIdNotification",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/member",
+          "descriptionTemplate": "Get member of notification {idNotification}",
+          "params": [
+            "idNotification"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationMemberField": {
+      "displayName": "notification member field",
+      "params": [
+        "idNotification",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsMemberByIdNotificationByField",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/member/{field}",
+          "descriptionTemplate": "Get member field {field} of notification {idNotification}",
+          "params": [
+            "idNotification",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationMemberCreator": {
+      "displayName": "notification member creator",
+      "params": [
+        "idNotification"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsMemberCreatorByIdNotification",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/memberCreator",
+          "descriptionTemplate": "Get member creator of notification {idNotification}",
+          "params": [
+            "idNotification"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationMemberCreatorField": {
+      "displayName": "notification member creator field",
+      "params": [
+        "idNotification",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsMemberCreatorByIdNotificationByField",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/memberCreator/{field}",
+          "descriptionTemplate": "Get member creator field {field} of notification {idNotification}",
+          "params": [
+            "idNotification",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationOrganization": {
+      "displayName": "notification organization",
+      "params": [
+        "idNotification"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsOrganizationByIdNotification",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/organization",
+          "descriptionTemplate": "Get organization of notification {idNotification}",
+          "params": [
+            "idNotification"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationOrganizationField": {
+      "displayName": "notification organization field",
+      "params": [
+        "idNotification",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsOrganizationByIdNotificationByField",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/organization/{field}",
+          "descriptionTemplate": "Get organization field {field} of notification {idNotification}",
+          "params": [
+            "idNotification",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "NotificationField": {
+      "displayName": "notification field",
+      "params": [
+        "idNotification",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationsByIdNotificationByField",
+          "method": "GET",
+          "path": "/notifications/{idNotification}/{field}",
+          "descriptionTemplate": "Get notification field {field} of notification {idNotification}",
+          "params": [
+            "idNotification",
+            "field"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -881,7 +3790,7 @@
       ],
       "operations": {
         "delete": {
-          "name": "deleteActionsByIdAction",
+          "name": "deleteAction",
           "method": "DELETE",
           "path": "/actions/{idAction}",
           "descriptionTemplate": "Delete action with id {idAction}",
@@ -891,20 +3800,21 @@
           "bodyTemplate": {}
         },
         "get": {
-          "name": "getActionsByIdAction",
+          "name": "getActionByIdActionByField",
           "method": "GET",
-          "path": "/actions/{idAction}",
-          "descriptionTemplate": "Get action with id {idAction}",
+          "path": "/actions/{idAction}/{field}",
+          "descriptionTemplate": "Get action {idAction} field {field}",
           "params": [
-            "idAction"
+            "idAction",
+            "field"
           ],
           "bodyTemplate": {}
         },
         "update": {
-          "name": "updateActionsByIdAction",
+          "name": "updateActionsTextByIdAction",
           "method": "PUT",
-          "path": "/actions/{idAction}",
-          "descriptionTemplate": "Update action with id {idAction} and text {text}",
+          "path": "/actions/{idAction}/text",
+          "descriptionTemplate": "Update action text for {idAction}",
           "params": [
             "idAction"
           ],
@@ -914,51 +3824,592 @@
         }
       }
     },
-    "ActionText": {
-      "displayName": "action text",
+    "ActionMember": {
+      "displayName": "action member",
       "params": [
-        "idAction"
+        "idAction",
+        "field"
       ],
       "operations": {
-        "update": {
-          "name": "updateActionsTextByIdAction",
-          "method": "PUT",
-          "path": "/actions/{idAction}/text",
-          "descriptionTemplate": "Update action text for action id {idAction} with value {value}",
+        "get": {
+          "name": "getActionsMemberByIdActionByField",
+          "method": "GET",
+          "path": "/actions/{idAction}/member/{field}",
+          "descriptionTemplate": "Get action member {field} for action {idAction}",
+          "params": [
+            "idAction",
+            "field"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ActionMemberCreator": {
+      "displayName": "action member creator",
+      "params": [
+        "idAction",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getActionsMemberCreatorByIdActionByField",
+          "method": "GET",
+          "path": "/actions/{idAction}/memberCreator/{field}",
+          "descriptionTemplate": "Get action member creator {field} for action {idAction}",
+          "params": [
+            "idAction",
+            "field"
+          ],
+          "bodyTemplate": {}
+        },
+        "getSummary": {
+          "name": "getActionsMemberCreatorByIdAction",
+          "method": "GET",
+          "path": "/actions/{idAction}/memberCreator",
+          "descriptionTemplate": "Get action member creator for action {idAction}",
           "params": [
             "idAction"
           ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ActionOrganization": {
+      "displayName": "action organization",
+      "params": [
+        "idAction",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getActionsOrganizationByIdActionByField",
+          "method": "GET",
+          "path": "/actions/{idAction}/organization/{field}",
+          "descriptionTemplate": "Get action organization {field} for action {idAction}",
+          "params": [
+            "idAction",
+            "field"
+          ],
+          "bodyTemplate": {}
+        },
+        "getSummary": {
+          "name": "getActionsOrganizationByIdAction",
+          "method": "GET",
+          "path": "/actions/{idAction}/organization",
+          "descriptionTemplate": "Get action organization for action {idAction}",
+          "params": [
+            "idAction"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ListClosed": {
+      "displayName": "listClosed",
+      "params": [
+        "idList"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateListsClosedByIdList",
+          "method": "PUT",
+          "path": "/lists/{idList}/closed",
+          "descriptionTemplate": "Update closed status of list {idList} to {closed}",
+          "params": [
+            "idList"
+          ],
           "bodyTemplate": {
-            "value": "{value}"
+            "value": "{closed}"
           }
+        }
+      }
+    },
+    "ListIdBoard": {
+      "displayName": "listIdBoard",
+      "params": [
+        "idList"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateListsIdBoardByIdList",
+          "method": "PUT",
+          "path": "/lists/{idList}/idBoard",
+          "descriptionTemplate": "Update board id of list {idList} to {idBoard}",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {
+            "value": "{idBoard}"
+          }
+        }
+      }
+    },
+    "ListCard": {
+      "displayName": "listCard",
+      "params": [
+        "idList"
+      ],
+      "operations": {
+        "add": {
+          "name": "addListsCardsByIdList",
+          "method": "POST",
+          "path": "/lists/{idList}/cards",
+          "descriptionTemplate": "Add card with name {name} to list {idList}",
+          "params": [
+            "idList"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "desc": "{desc}",
+            "pos": "{pos}",
+            "due": "{due}",
+            "idMembers": "{idMembers}",
+            "idLabels": "{idLabels}",
+            "urlSource": "{urlSource}",
+            "fileSource": "{fileSource}",
+            "idCardSource": "{idCardSource}",
+            "keepFromSource": "{keepFromSource}",
+            "idList": "{idList}"
+          }
+        },
+        "get": {
+          "name": "getListsCardsByIdList",
+          "method": "GET",
+          "path": "/lists/{idList}/cards",
+          "descriptionTemplate": "Get cards of list {idList}",
+          "params": [
+            "idList"
+          ]
+        }
+      }
+    },
+    "ChecklistCheckItem": {
+      "displayName": "checklist check item",
+      "params": [
+        "idChecklist",
+        "idCheckItem"
+      ],
+      "operations": {
+        "add": {
+          "name": "addChecklistsCheckItemsByIdChecklist",
+          "method": "POST",
+          "path": "/checklists/{idChecklist}/checkItems",
+          "descriptionTemplate": "Add check item to checklist {idChecklist}",
+          "params": [
+            "idChecklist"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem",
+          "method": "DELETE",
+          "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+          "descriptionTemplate": "Delete check item {idCheckItem} from checklist {idChecklist}",
+          "params": [
+            "idChecklist",
+            "idCheckItem"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getChecklistsCheckItemsByIdChecklistByIdCheckItem",
+          "method": "GET",
+          "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+          "descriptionTemplate": "Get check item {idCheckItem} from checklist {idChecklist}",
+          "params": [
+            "idChecklist",
+            "idCheckItem"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ChecklistIdCard": {
+      "displayName": "checklist idCard",
+      "params": [
+        "idChecklist"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateChecklistsIdCardByIdChecklist",
+          "method": "PUT",
+          "path": "/checklists/{idChecklist}/idCard",
+          "descriptionTemplate": "Update idCard of checklist {idChecklist}",
+          "params": [
+            "idChecklist"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ChecklistName": {
+      "displayName": "checklist name",
+      "params": [
+        "idChecklist"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateChecklistsNameByIdChecklist",
+          "method": "PUT",
+          "path": "/checklists/{idChecklist}/name",
+          "descriptionTemplate": "Update name of checklist {idChecklist}",
+          "params": [
+            "idChecklist"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "webhook",
+      "params": [
+        "idWebhook"
+      ],
+      "operations": {
+        "add": {
+          "name": "addWebhooks",
+          "method": "POST",
+          "path": "/webhooks",
+          "descriptionTemplate": "Create webhook with id {idWebhook}",
+          "params": [
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...webhooks body schema...}"
+        },
+        "get": {
+          "name": "getWebhooksByIdWebhook",
+          "method": "GET",
+          "path": "/webhooks/{idWebhook}",
+          "descriptionTemplate": "Get webhook with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateWebhooksByIdWebhook",
+          "method": "PUT",
+          "path": "/webhooks/{idWebhook}",
+          "descriptionTemplate": "Update webhook with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...webhooks body schema...}"
+        },
+        "delete": {
+          "name": "deleteWebhooksByIdWebhook",
+          "method": "DELETE",
+          "path": "/webhooks/{idWebhook}",
+          "descriptionTemplate": "Delete webhook with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "WebhookActive": {
+      "displayName": "webhook active",
+      "params": [
+        "idWebhook"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateWebhooksActiveByIdWebhook",
+          "method": "PUT",
+          "path": "/webhooks/{idWebhook}/active",
+          "descriptionTemplate": "Update webhook active status with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...webhooks_active body schema...}"
+        }
+      }
+    },
+    "WebhookCallbackURL": {
+      "displayName": "webhook callbackURL",
+      "params": [
+        "idWebhook"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateWebhooksCallbackURLByIdWebhook",
+          "method": "PUT",
+          "path": "/webhooks/{idWebhook}/callbackURL",
+          "descriptionTemplate": "Update webhook callbackURL with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...webhooks_callbackURL body schema...}"
+        }
+      }
+    },
+    "WebhookDescription": {
+      "displayName": "webhook description",
+      "params": [
+        "idWebhook"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateWebhooksDescriptionByIdWebhook",
+          "method": "PUT",
+          "path": "/webhooks/{idWebhook}/description",
+          "descriptionTemplate": "Update webhook description with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...webhooks_description body schema...}"
+        }
+      }
+    },
+    "WebhookIdModel": {
+      "displayName": "webhook idModel",
+      "params": [
+        "idWebhook"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateWebhooksIdModelByIdWebhook",
+          "method": "PUT",
+          "path": "/webhooks/{idWebhook}/idModel",
+          "descriptionTemplate": "Update webhook idModel with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": "{...webhooks_idModel body schema...}"
+        }
+      }
+    },
+    "WebhookField": {
+      "displayName": "webhook field",
+      "params": [
+        "idWebhook",
+        "field"
+      ],
+      "operations": {
+        "get": {
+          "name": "getWebhooksByIdWebhookByField",
+          "method": "GET",
+          "path": "/webhooks/{idWebhook}/{field}",
+          "descriptionTemplate": "Get webhook field {field} with id {idWebhook}",
+          "params": [
+            "idWebhook",
+            "field",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "LabelColor": {
+      "displayName": "label color",
+      "params": [
+        "idLabel"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateLabelsColorByIdLabel",
+          "method": "PUT",
+          "path": "/labels/{idLabel}/color",
+          "descriptionTemplate": "Update label color for label id {idLabel}",
+          "params": [
+            "idLabel",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "LabelName": {
+      "displayName": "label name",
+      "params": [
+        "idLabel"
+      ],
+      "operations": {
+        "update": {
+          "name": "updateLabelsNameByIdLabel",
+          "method": "PUT",
+          "path": "/labels/{idLabel}/name",
+          "descriptionTemplate": "Update label name for label id {idLabel}",
+          "params": [
+            "idLabel",
+            "key",
+            "token"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Token": {
+      "displayName": "token",
+      "params": [
+        "token",
+        "key"
+      ],
+      "operations": {
+        "get": {
+          "name": "getToken",
+          "method": "GET",
+          "path": "/tokens/{token}",
+          "descriptionTemplate": "Get token {token}",
+          "params": [
+            "token",
+            "key"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteToken",
+          "method": "DELETE",
+          "path": "/tokens/{token}",
+          "descriptionTemplate": "Delete token {token}",
+          "params": [
+            "token",
+            "key"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TokenMember": {
+      "displayName": "token member",
+      "params": [
+        "token",
+        "key"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTokenMember",
+          "method": "GET",
+          "path": "/tokens/{token}/member",
+          "descriptionTemplate": "Get member of token {token}",
+          "params": [
+            "token",
+            "key"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByField": {
+          "name": "getTokenMemberByField",
+          "method": "GET",
+          "path": "/tokens/{token}/member/{field}",
+          "descriptionTemplate": "Get member field {field} of token {token}",
+          "params": [
+            "token",
+            "field",
+            "key"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TokenWebhook": {
+      "displayName": "token webhook",
+      "params": [
+        "token",
+        "key"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTokenWebhooks",
+          "method": "GET",
+          "path": "/tokens/{token}/webhooks",
+          "descriptionTemplate": "Get webhooks of token {token}",
+          "params": [
+            "token",
+            "key"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "addTokenWebhook",
+          "method": "POST",
+          "path": "/tokens/{token}/webhooks",
+          "descriptionTemplate": "Add webhook to token {token}",
+          "params": [
+            "token",
+            "key"
+          ],
+          "bodyTemplate": "{tokens_webhooks}"
+        },
+        "update": {
+          "name": "updateTokenWebhook",
+          "method": "PUT",
+          "path": "/tokens/{token}/webhooks",
+          "descriptionTemplate": "Update webhook of token {token}",
+          "params": [
+            "token",
+            "key"
+          ],
+          "bodyTemplate": "{tokens_webhooks}"
+        },
+        "getById": {
+          "name": "getTokenWebhookById",
+          "method": "GET",
+          "path": "/tokens/{token}/webhooks/{idWebhook}",
+          "descriptionTemplate": "Get webhook {idWebhook} of token {token}",
+          "params": [
+            "token",
+            "idWebhook",
+            "key"
+          ],
+          "bodyTemplate": {}
+        },
+        "deleteById": {
+          "name": "deleteTokenWebhookById",
+          "method": "DELETE",
+          "path": "/tokens/{token}/webhooks/{idWebhook}",
+          "descriptionTemplate": "Delete webhook {idWebhook} of token {token}",
+          "params": [
+            "token",
+            "idWebhook",
+            "key"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Session": {
       "displayName": "session",
       "params": [
-        "idSession"
+        "idSession",
+        "key",
+        "token"
       ],
       "operations": {
         "add": {
           "name": "addSessions",
           "method": "POST",
           "path": "/sessions",
-          "descriptionTemplate": "Create session with idBoard {idBoard} and status {status}",
+          "descriptionTemplate": "Create session with key {key} and token {token}",
           "params": [
             "key",
             "token"
           ],
-          "bodyTemplate": {
-            "idBoard": "{idBoard}",
-            "status": "{status}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getSessionsSocket",
           "method": "GET",
           "path": "/sessions/socket",
-          "descriptionTemplate": "Get sessions socket",
+          "descriptionTemplate": "Get sessions socket with key {key} and token {token}",
           "params": [
             "key",
             "token"
@@ -969,50 +4420,9 @@
           "name": "updateSessionsByIdSession",
           "method": "PUT",
           "path": "/sessions/{idSession}",
-          "descriptionTemplate": "Update session {idSession} with idBoard {idBoard} and status {status}",
+          "descriptionTemplate": "Update session {idSession} with key {key} and token {token}",
           "params": [
             "idSession",
-            "key",
-            "token"
-          ],
-          "bodyTemplate": {
-            "idBoard": "{idBoard}",
-            "status": "{status}"
-          }
-        },
-        "updateStatus": {
-          "name": "updateSessionsStatusByIdSession",
-          "method": "PUT",
-          "path": "/sessions/{idSession}/status",
-          "descriptionTemplate": "Update session status {idSession} with status {value}",
-          "params": [
-            "idSession",
-            "key",
-            "token"
-          ],
-          "bodyTemplate": {
-            "value": "{value}"
-          }
-        }
-      }
-    },
-    "Search": {
-      "displayName": "search",
-      "params": [
-        "query",
-        "idOrganizations",
-        "key",
-        "token"
-      ],
-      "operations": {
-        "get": {
-          "name": "getSearch",
-          "method": "GET",
-          "path": "/search",
-          "descriptionTemplate": "Search with query {query} in organizations {idOrganizations}",
-          "params": [
-            "query",
-            "idOrganizations",
             "key",
             "token"
           ],
@@ -1020,21 +4430,21 @@
         }
       }
     },
-    "SearchMembers": {
-      "displayName": "searchMember",
+    "SessionStatus": {
+      "displayName": "session status",
       "params": [
-        "query",
+        "idSession",
         "key",
         "token"
       ],
       "operations": {
-        "get": {
-          "name": "getSearchMembers",
-          "method": "GET",
-          "path": "/search/members",
-          "descriptionTemplate": "Search members with query {query}",
+        "update": {
+          "name": "updateSessionsStatusByIdSession",
+          "method": "PUT",
+          "path": "/sessions/{idSession}/status",
+          "descriptionTemplate": "Update session status for {idSession} with key {key} and token {token}",
           "params": [
-            "query",
+            "idSession",
             "key",
             "token"
           ],

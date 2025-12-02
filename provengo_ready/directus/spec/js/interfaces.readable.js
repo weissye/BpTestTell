@@ -25,22 +25,46 @@ function waitFor(eventSet) {
   return bp.sync({waitFor: eventSet});
 }
 
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
+  });
+}
+
 // ---- Entity: user ----
 
 function createUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
   var url = "/users";
-  var description = "Create user " + first_name + " " + last_name + " with id " + id;
+  var description = "Create user with email " + email;
   var body = {
+    "avatar": String(avatar),
+    "description": String(description),
+    "email": String(email),
+    "first_name": String(first_name),
     "id": String(id),
+    "language": String(language),
+    "last_access": String(last_access),
+    "last_name": String(last_name),
+    "last_page": String(last_page),
+    "location": String(location),
+    "password": String(password),
+    "role": String(role),
+    "status": String(status),
+    "tags": String(tags),
+    "tfa_secret": String(tfa_secret),
+    "theme": String(theme),
+    "title": String(title),
+    "token": String(token),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function deleteUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
@@ -48,7 +72,8 @@ function deleteUser(avatar, description, email, first_name, id, language, last_a
   var description = "Delete user with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
@@ -56,16 +81,34 @@ function updateUser(avatar, description, email, first_name, id, language, last_a
   var url = "/users/" + id;
   var description = "Update user with id " + id;
   var body = {
+    "avatar": String(avatar),
+    "description": String(description),
+    "email": String(email),
+    "first_name": String(first_name),
     "id": String(id),
+    "language": String(language),
+    "last_access": String(last_access),
+    "last_name": String(last_name),
+    "last_page": String(last_page),
+    "location": String(location),
+    "password": String(password),
+    "role": String(role),
+    "status": String(status),
+    "tags": String(tags),
+    "tfa_secret": String(tfa_secret),
+    "theme": String(theme),
+    "title": String(title),
+    "token": String(token),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function getUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
@@ -73,61 +116,18 @@ function getUser(avatar, description, email, first_name, id, language, last_acce
   var description = "Retrieve user with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function getUsers(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
-  var url = "/users";
-  var description = "List users";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateUsers(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
-  var url = "/users";
-  var description = "Update multiple users";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      id: String(id)
-    }
-  });
-}
-
-function deleteUsers(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
-  var url = "/users";
-  var description = "Delete multiple users";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function tryToAddExistingUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
-  var url = "/users";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another User...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token);
 }
 
 function verifyUserExists(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
   var url = "/users";
-  var description = "Verify User exists";
+  var description = "Verify User with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -147,7 +147,7 @@ function verifyUserExists(avatar, description, email, first_name, id, language, 
 
 function verifyUserDoesNotExist(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
   var url = "/users";
-  var description = "Verify User does not exist";
+  var description = "Verify User with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -169,23 +169,21 @@ function tryToDeleteANonExistingUser(avatar, description, email, first_name, id,
   var url = "/users/" + id;
   var description = "Verify we cannot delete non-existing User";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
-  var expectedDesc = "Create user " + first_name + " " + last_name + " with id " + id;
-  return bp.EventSet("matchAddedUser", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  var expectedDesc = "Create user with email " + email;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyUserAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ (.+)\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ user\ (.+)\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ with\ email\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ user\ with\ email\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["first_name", "last_name", "id"];
+  var names = ["email"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -202,13 +200,13 @@ function getUserAddedEvent(keyVal) {
 
 function matchAnyUserAdded() {
   return bp.EventSet("matchAnyUserAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create user") > -1;
   });
 }
 
 function waitForUserAdded(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
-  var expectedDesc = "Create user " + first_name + " " + last_name + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+  var expectedDesc = "Create user with email " + email;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedUser(avatar, description, email, first_name, id, language, last_access, last_name, last_page, location, password, role, status, tags, tfa_secret, theme, title, token) {
@@ -230,39 +228,34 @@ function waitForAnyUserDeleted() {
   return obj;
 }
 
-// ---- Entity: user invite ----
+// ---- Entity: auth login ----
 
-function invite(email) {
-  var url = "/users/invite";
-  var description = "Invite user(s) with email " + email;
+function login(email, mode, otp, password) {
+  var url = "/auth/login";
+  var description = "Retrieve a Temporary Access Token for " + email;
   var body = {
     "email": String(email),
+    "mode": String(mode),
+    "otp": String(otp),
+    "password": String(password),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingUserInvite(email) {
-  var url = "/users/invite";
-  var body = {
-  };
-  var description = "Verify that we cannot add another UserInvite...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingAuthLogin(email, mode, otp, password) {
+  login(email, mode, otp, password);
 }
 
-function verifyUserInviteExists(email) {
-  var url = "/users/invite";
-  var description = "Verify UserInvite exists";
+function verifyAuthLoginExists(email, mode, otp, password) {
+  var url = "/auth/login";
+  var description = "Verify AuthLogin exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -270,19 +263,19 @@ function verifyUserInviteExists(email) {
       var items = JSON.parse(response.body);
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].email) === String(email)) {
-            return pvg.success("UserInvite exists");
+          if (String(items[i].email) === String(email) && String(items[i].mode) === String(mode) && String(items[i].otp) === String(otp) && String(items[i].password) === String(password)) {
+            return pvg.success("AuthLogin exists");
           }
         }
       }
-      return pvg.fail("Expected UserInvite to exist but it does not");
+      return pvg.fail("Expected AuthLogin to exist but it does not");
     }
   });
 }
 
-function verifyUserInviteDoesNotExist(email) {
-  var url = "/users/invite";
-  var description = "Verify UserInvite does not exist";
+function verifyAuthLoginDoesNotExist(email, mode, otp, password) {
+  var url = "/auth/login";
+  var description = "Verify AuthLogin does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -290,26 +283,24 @@ function verifyUserInviteDoesNotExist(email) {
       var items = JSON.parse(response.body);
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].email) === String(email)) {
-            return pvg.fail("Expected UserInvite to not exist but it does");
+          if (String(items[i].email) === String(email) && String(items[i].mode) === String(mode) && String(items[i].otp) === String(otp) && String(items[i].password) === String(password)) {
+            return pvg.fail("Expected AuthLogin to not exist but it does");
           }
         }
       }
-      return pvg.success("UserInvite does not exist");
+      return pvg.success("AuthLogin does not exist");
     }
   });
 }
 
-function matchAddedUserInvite(email) {
-  var expectedDesc = "Invite user(s) with email " + email;
-  return bp.EventSet("matchAddedUserInvite", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedAuthLogin(email, mode, otp, password) {
+  var expectedDesc = "Retrieve a Temporary Access Token for " + email;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyUserInviteAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Invite\ user\(s\)\ with\ email\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Invite\ user\(s\)\ with\ email\ (.+)$/);
+function waitForAnyAuthLoginAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Retrieve\ a\ Temporary\ Access\ Token\ for\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Retrieve\ a\ Temporary\ Access\ Token\ for\ (.+)$/);
   var captures = m.slice(1);
   var names = ["email"];
   var obj = {};
@@ -319,58 +310,343 @@ function waitForAnyUserInviteAdded() {
   return obj;
 }
 
-function getUserInviteAddedEvent(keyVal) {
-  return bp.EventSet("AddUserInvite:" + keyVal, function(e) {
+function getAuthLoginAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthLogin:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyUserInviteAdded() {
-  return bp.EventSet("matchAnyUserInviteAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user invite") > -1 && e.data.parameters.None !== undefined);
+function matchAnyAuthLoginAdded() {
+  return bp.EventSet("matchAnyAuthLoginAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create auth login") > -1;
   });
 }
 
-function waitForUserInviteAdded(email) {
-  var expectedDesc = "Invite user(s) with email " + email;
-  waitFor(matchesDescription(expectedDesc));
+function waitForAuthLoginAdded(email, mode, otp, password) {
+  var expectedDesc = "Retrieve a Temporary Access Token for " + email;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: user invite accept ----
+// ---- Entity: auth refresh ----
 
-function acceptInvite(password, token) {
-  var url = "/users/invite/accept";
-  var description = "Accept user invite with token " + token;
+function refresh(mode, refresh_token) {
+  var url = "/auth/refresh";
+  var description = "Refresh Token";
   var body = {
-    "token": String(token),
-    "password": String(password),
+    "mode": String(mode),
+    "refresh_token": String(refresh_token),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingUserInviteAccept(password, token) {
-  var url = "/users/invite/accept";
+function tryToAddExistingAuthRefresh(mode, refresh_token) {
+  refresh(mode, refresh_token);
+}
+
+function verifyAuthRefreshExists(mode, refresh_token) {
+  var url = "/auth/refresh";
+  var description = "Verify AuthRefresh exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].mode) === String(mode) && String(items[i].refresh_token) === String(refresh_token)) {
+            return pvg.success("AuthRefresh exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthRefresh to exist but it does not");
+    }
+  });
+}
+
+function verifyAuthRefreshDoesNotExist(mode, refresh_token) {
+  var url = "/auth/refresh";
+  var description = "Verify AuthRefresh does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].mode) === String(mode) && String(items[i].refresh_token) === String(refresh_token)) {
+            return pvg.fail("Expected AuthRefresh to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthRefresh does not exist");
+    }
+  });
+}
+
+function matchAddedAuthRefresh(mode, refresh_token) {
+  var expectedDesc = "Refresh Token";
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAuthRefreshAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Refresh\ Token$/));
+  var m = ev.data.parameters.description.match(/^Refresh\ Token$/);
+  var captures = m.slice(1);
+  var names = [];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAuthRefreshAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthRefresh:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyAuthRefreshAdded() {
+  return bp.EventSet("matchAnyAuthRefreshAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create auth refresh") > -1;
+  });
+}
+
+function waitForAuthRefreshAdded(mode, refresh_token) {
+  var expectedDesc = "Refresh Token";
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: auth logout ----
+
+function logout(mode, refresh_token) {
+  var url = "/auth/logout";
+  var description = "Log Out";
   var body = {
+    "mode": String(mode),
+    "refresh_token": String(refresh_token),
   };
-  var description = "Verify that we cannot add another UserInviteAccept...";
-  if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingAuthLogout(mode, refresh_token) {
+  logout(mode, refresh_token);
+}
+
+function verifyAuthLogoutExists(mode, refresh_token) {
+  var url = "/auth/logout";
+  var description = "Verify AuthLogout exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].mode) === String(mode) && String(items[i].refresh_token) === String(refresh_token)) {
+            return pvg.success("AuthLogout exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthLogout to exist but it does not");
+    }
   });
 }
 
-function verifyUserInviteAcceptExists(password, token) {
-  var url = "/users/invite/accept";
-  var description = "Verify UserInviteAccept exists";
+function verifyAuthLogoutDoesNotExist(mode, refresh_token) {
+  var url = "/auth/logout";
+  var description = "Verify AuthLogout does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].mode) === String(mode) && String(items[i].refresh_token) === String(refresh_token)) {
+            return pvg.fail("Expected AuthLogout to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthLogout does not exist");
+    }
+  });
+}
+
+function matchAddedAuthLogout(mode, refresh_token) {
+  var expectedDesc = "Log Out";
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAuthLogoutAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Log\ Out$/));
+  var m = ev.data.parameters.description.match(/^Log\ Out$/);
+  var captures = m.slice(1);
+  var names = [];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAuthLogoutAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthLogout:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyAuthLogoutAdded() {
+  return bp.EventSet("matchAnyAuthLogoutAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create auth logout") > -1;
+  });
+}
+
+function waitForAuthLogoutAdded(mode, refresh_token) {
+  var expectedDesc = "Log Out";
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: auth password request ----
+
+function passwordRequest(email) {
+  var url = "/auth/password/request";
+  var description = "Request a Password Reset for " + email;
+  var body = {
+    "email": String(email),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [401],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingAuthPasswordRequest(email) {
+  passwordRequest(email);
+}
+
+function verifyAuthPasswordRequestExists(email) {
+  var url = "/auth/password/request";
+  var description = "Verify AuthPasswordRequest exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].email) === String(email)) {
+            return pvg.success("AuthPasswordRequest exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthPasswordRequest to exist but it does not");
+    }
+  });
+}
+
+function verifyAuthPasswordRequestDoesNotExist(email) {
+  var url = "/auth/password/request";
+  var description = "Verify AuthPasswordRequest does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].email) === String(email)) {
+            return pvg.fail("Expected AuthPasswordRequest to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthPasswordRequest does not exist");
+    }
+  });
+}
+
+function matchAddedAuthPasswordRequest(email) {
+  var expectedDesc = "Request a Password Reset for " + email;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAuthPasswordRequestAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Request\ a\ Password\ Reset\ for\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Request\ a\ Password\ Reset\ for\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["email"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAuthPasswordRequestAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthPasswordRequest:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyAuthPasswordRequestAdded() {
+  return bp.EventSet("matchAnyAuthPasswordRequestAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create auth password request") > -1;
+  });
+}
+
+function waitForAuthPasswordRequestAdded(email) {
+  var expectedDesc = "Request a Password Reset for " + email;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: auth password reset ----
+
+function passwordReset(password, token) {
+  var url = "/auth/password/reset";
+  var description = "Reset a Password with token " + token;
+  var body = {
+    "password": String(password),
+    "token": String(token),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [401],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingAuthPasswordReset(password, token) {
+  passwordReset(password, token);
+}
+
+function verifyAuthPasswordResetExists(password, token) {
+  var url = "/auth/password/reset";
+  var description = "Verify AuthPasswordReset exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -379,18 +655,18 @@ function verifyUserInviteAcceptExists(password, token) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].password) === String(password) && String(items[i].token) === String(token)) {
-            return pvg.success("UserInviteAccept exists");
+            return pvg.success("AuthPasswordReset exists");
           }
         }
       }
-      return pvg.fail("Expected UserInviteAccept to exist but it does not");
+      return pvg.fail("Expected AuthPasswordReset to exist but it does not");
     }
   });
 }
 
-function verifyUserInviteAcceptDoesNotExist(password, token) {
-  var url = "/users/invite/accept";
-  var description = "Verify UserInviteAccept does not exist";
+function verifyAuthPasswordResetDoesNotExist(password, token) {
+  var url = "/auth/password/reset";
+  var description = "Verify AuthPasswordReset does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -399,25 +675,23 @@ function verifyUserInviteAcceptDoesNotExist(password, token) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].password) === String(password) && String(items[i].token) === String(token)) {
-            return pvg.fail("Expected UserInviteAccept to not exist but it does");
+            return pvg.fail("Expected AuthPasswordReset to not exist but it does");
           }
         }
       }
-      return pvg.success("UserInviteAccept does not exist");
+      return pvg.success("AuthPasswordReset does not exist");
     }
   });
 }
 
-function matchAddedUserInviteAccept(password, token) {
-  var expectedDesc = "Accept user invite with token " + token;
-  return bp.EventSet("matchAddedUserInviteAccept", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedAuthPasswordReset(password, token) {
+  var expectedDesc = "Reset a Password with token " + token;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyUserInviteAcceptAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Accept\ user\ invite\ with\ token\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Accept\ user\ invite\ with\ token\ (.+)$/);
+function waitForAnyAuthPasswordResetAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Reset\ a\ Password\ with\ token\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Reset\ a\ Password\ with\ token\ (.+)$/);
   var captures = m.slice(1);
   var names = ["token"];
   var obj = {};
@@ -427,369 +701,91 @@ function waitForAnyUserInviteAcceptAdded() {
   return obj;
 }
 
-function getUserInviteAcceptAddedEvent(keyVal) {
-  return bp.EventSet("AddUserInviteAccept:" + keyVal, function(e) {
+function getAuthPasswordResetAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthPasswordReset:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyUserInviteAcceptAdded() {
-  return bp.EventSet("matchAnyUserInviteAcceptAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user invite accept") > -1 && e.data.parameters.None !== undefined);
+function matchAnyAuthPasswordResetAdded() {
+  return bp.EventSet("matchAnyAuthPasswordResetAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create auth password reset") > -1;
   });
 }
 
-function waitForUserInviteAcceptAdded(password, token) {
-  var expectedDesc = "Accept user invite with token " + token;
-  waitFor(matchesDescription(expectedDesc));
+function waitForAuthPasswordResetAdded(password, token) {
+  var expectedDesc = "Reset a Password with token " + token;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: current user ----
+// ---- Entity: auth oauth ----
 
-function getMe() {
-  var url = "/users/me";
-  var description = "Retrieve current user";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateMe() {
-  var url = "/users/me";
-  var description = "Update current user";
-  var body = {
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function verifyCurrentUserExists() {
-  var url = "/users/me";
-  var description = "Verify CurrentUser exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (true) {
-            return pvg.success("CurrentUser exists");
-          }
-        }
-      }
-      return pvg.fail("Expected CurrentUser to exist but it does not");
-    }
-  });
-}
-
-function verifyCurrentUserDoesNotExist() {
-  var url = "/users/me";
-  var description = "Verify CurrentUser does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (true) {
-            return pvg.fail("Expected CurrentUser to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("CurrentUser does not exist");
-    }
-  });
-}
-
-// ---- Entity: current user last page ----
-
-function updateLastUsedPageMe(last_page) {
-  var url = "/users/me/track/page";
-  var description = "Update last page to " + last_page;
-  var body = {
-    "last_page": String(last_page),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-// ---- Entity: current user 2FA ----
-
-function meTfaEnable() {
-  var url = "/users/me/tfa/enable";
-  var description = "Enable 2FA for current user";
-  var body = {
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function meTfaDisable() {
-  var url = "/users/me/tfa/disable";
-  var description = "Disable 2FA for current user";
-  var body = {
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function tryToAddExistingCurrentUserTFA() {
-  var url = "/users/me/tfa/enable";
-  var body = {
-  };
-  var description = "Verify that we cannot add another CurrentUserTFA...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyCurrentUserTFAExists() {
-  var url = "/users/me/tfa/enable";
-  var description = "Verify CurrentUserTFA exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (true) {
-            return pvg.success("CurrentUserTFA exists");
-          }
-        }
-      }
-      return pvg.fail("Expected CurrentUserTFA to exist but it does not");
-    }
-  });
-}
-
-function verifyCurrentUserTFADoesNotExist() {
-  var url = "/users/me/tfa/enable";
-  var description = "Verify CurrentUserTFA does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (true) {
-            return pvg.fail("Expected CurrentUserTFA to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("CurrentUserTFA does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingCurrentUserTFA() {
-  var url = "/users/me/tfa/disable";
-  var description = "Verify we cannot delete non-existing CurrentUserTFA";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedCurrentUserTFA() {
-  var expectedDesc = "Enable 2FA for current user";
-  return bp.EventSet("matchAddedCurrentUserTFA", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyCurrentUserTFAAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Enable\ 2FA\ for\ current\ user$/));
-  var m = ev.data.parameters.description.match(/^Enable\ 2FA\ for\ current\ user$/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getCurrentUserTFAAddedEvent(keyVal) {
-  return bp.EventSet("AddCurrentUserTFA:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyCurrentUserTFAAdded() {
-  return bp.EventSet("matchAnyCurrentUserTFAAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create current user 2FA") > -1 && e.data.parameters.None !== undefined);
-  });
-}
-
-function waitForCurrentUserTFAAdded() {
-  var expectedDesc = "Enable 2FA for current user";
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedCurrentUserTFA() {
-  var expectedDesc = "Disable 2FA for current user";
-  return bp.EventSet("matchDeletedCurrentUserTFA", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyCurrentUserTFADeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Disable\ 2FA\ for\ current\ user$/));
-  var m = ev.data.parameters.description.match(/^Disable\ 2FA\ for\ current\ user$/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: auth ----
-
-function login(email, password, provider, refresh_token, token) {
-  var url = "/auth/login";
-  var description = "Create auth login session for user with email " + email;
-  var body = {
-    "email": String(email),
-    "password": String(password),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function passwordRequest(email, password, provider, refresh_token, token) {
-  var url = "/auth/password/request";
-  var description = "Request password reset for user with email " + email;
-  var body = {
-    "email": String(email),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function passwordReset(email, password, provider, refresh_token, token) {
-  var url = "/auth/password/reset";
-  var description = "Reset password using token " + token;
-  var body = {
-    "token": String(token),
-    "password": String(password),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function refresh(email, mode, password, provider, refresh_token, token) {
-  var url = "/auth/refresh";
-  var description = "Refresh auth token with refresh_token " + refresh_token;
-  var body = {
-    "refresh_token": String(refresh_token),
-    "mode": "mode_dummy",
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function logout(email, mode, password, provider, refresh_token, token) {
-  var url = "/auth/logout";
-  var description = "Logout and invalidate refresh_token " + refresh_token;
-  var body = {
-    "refresh_token": String(refresh_token),
-    "mode": "mode_dummy",
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function listOAuthProviders(email, password, provider, refresh_token, token) {
+function oauth() {
   var url = "/auth/oauth";
-  var description = "List OAuth providers";
+  var description = "List OAuth Providers";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function oauthProvider(email, password, provider, refresh_token, token) {
+function verifyAuthOAuthExists() {
+  var url = "/auth/oauth";
+  var description = "Verify AuthOAuth exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("AuthOAuth exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthOAuth to exist but it does not");
+    }
+  });
+}
+
+function verifyAuthOAuthDoesNotExist() {
+  var url = "/auth/oauth";
+  var description = "Verify AuthOAuth does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected AuthOAuth to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthOAuth does not exist");
+    }
+  });
+}
+
+// ---- Entity: auth oauth provider ----
+
+function oauthProvider(provider) {
   var url = "/auth/oauth/" + provider;
-  var description = "Authenticate using OAuth provider " + provider;
+  var description = "Authenticated using OAuth provider " + provider;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function tryToAddExistingAuth(email, password, provider, refresh_token, token) {
-  var url = "/auth/login";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Auth...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyAuthExists(email, password, provider, refresh_token, token) {
-  var url = "/auth/login";
-  var description = "Verify Auth exists";
+function verifyAuthOAuthProviderExists(provider) {
+  var url = "/auth/oauth";
+  var description = "Verify AuthOAuthProvider with provider " + provider + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -798,18 +794,18 @@ function verifyAuthExists(email, password, provider, refresh_token, token) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].provider) === String(provider)) {
-            return pvg.success("Auth exists");
+            return pvg.success("AuthOAuthProvider exists");
           }
         }
       }
-      return pvg.fail("Expected Auth to exist but it does not");
+      return pvg.fail("Expected AuthOAuthProvider to exist but it does not");
     }
   });
 }
 
-function verifyAuthDoesNotExist(email, password, provider, refresh_token, token) {
-  var url = "/auth/login";
-  var description = "Verify Auth does not exist";
+function verifyAuthOAuthProviderDoesNotExist(provider) {
+  var url = "/auth/oauth";
+  var description = "Verify AuthOAuthProvider with provider " + provider + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -818,125 +814,78 @@ function verifyAuthDoesNotExist(email, password, provider, refresh_token, token)
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].provider) === String(provider)) {
-            return pvg.fail("Expected Auth to not exist but it does");
+            return pvg.fail("Expected AuthOAuthProvider to not exist but it does");
           }
         }
       }
-      return pvg.success("Auth does not exist");
+      return pvg.success("AuthOAuthProvider does not exist");
     }
   });
 }
 
-function matchAddedAuth(email, password, provider, refresh_token, token) {
-  var expectedDesc = "Create auth login session for user with email " + email;
-  return bp.EventSet("matchAddedAuth", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
+// ---- Entity: content version ----
 
-function waitForAnyAuthAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ auth\ login\ session\ for\ user\ with\ email\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ auth\ login\ session\ for\ user\ with\ email\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["email"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getAuthAddedEvent(keyVal) {
-  return bp.EventSet("AddAuth:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyAuthAdded() {
-  return bp.EventSet("matchAnyAuthAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create auth") > -1 && e.data.parameters.None !== undefined);
-  });
-}
-
-function waitForAuthAdded(email, password, provider, refresh_token, token) {
-  var expectedDesc = "Create auth login session for user with email " + email;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-// ---- Entity: version ----
-
-function createContentVersion(collection, id, item, key, name) {
+function createContentVersion(id) {
   var url = "/versions";
-  var description = "Create version " + key + " with id " + id;
+  var description = "Create content version with id " + id;
   var body = {
     "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
-      , collection: String(collection)
-      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteContentVersion(collection, id, item, key, name) {
+function deleteContentVersion(id) {
   var url = "/versions/" + id;
-  var description = "Delete version with id " + id;
+  var description = "Delete content version with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateContentVersion(collection, id, item, key, name) {
+function updateContentVersion(id) {
   var url = "/versions/" + id;
-  var description = "Update version with id " + id;
+  var description = "Update content version with id " + id;
   var body = {
     "id": String(id),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
-      , collection: String(collection)
-      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getContentVersion(collection, id, item, key, name) {
+function getContentVersion(id) {
   var url = "/versions/" + id;
-  var description = "Get version with id " + id;
+  var description = "Get content version with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingVersions(collection, id, item, key, name) {
-  var url = "/versions";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Versions...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingContentVersion(id) {
+  getContentVersion(id);
 }
 
-function verifyVersionsExists(collection, id, item, key, name) {
+function verifyContentVersionExists(id) {
   var url = "/versions";
-  var description = "Verify Versions exists";
+  var description = "Verify ContentVersion with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -945,18 +894,18 @@ function verifyVersionsExists(collection, id, item, key, name) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.success("Versions exists");
+            return pvg.success("ContentVersion exists");
           }
         }
       }
-      return pvg.fail("Expected Versions to exist but it does not");
+      return pvg.fail("Expected ContentVersion to exist but it does not");
     }
   });
 }
 
-function verifyVersionsDoesNotExist(collection, id, item, key, name) {
+function verifyContentVersionDoesNotExist(id) {
   var url = "/versions";
-  var description = "Verify Versions does not exist";
+  var description = "Verify ContentVersion with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -965,36 +914,34 @@ function verifyVersionsDoesNotExist(collection, id, item, key, name) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected Versions to not exist but it does");
+            return pvg.fail("Expected ContentVersion to not exist but it does");
           }
         }
       }
-      return pvg.success("Versions does not exist");
+      return pvg.success("ContentVersion does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingVersions(collection, id, item, key, name) {
+function tryToDeleteANonExistingContentVersion(id) {
   var url = "/versions/" + id;
-  var description = "Verify we cannot delete non-existing Versions";
+  var description = "Verify we cannot delete non-existing ContentVersion";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedVersions(collection, id, item, key, name) {
-  var expectedDesc = "Create version " + key + " with id " + id;
-  return bp.EventSet("matchAddedVersions", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedContentVersion(id) {
+  var expectedDesc = "Create content version with id " + id;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyVersionsAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ version\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ version\ (.+)\ with\ id\ (.+)$/);
+function waitForAnyContentVersionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ content\ version\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ content\ version\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["key", "id"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1002,34 +949,34 @@ function waitForAnyVersionsAdded() {
   return obj;
 }
 
-function getVersionsAddedEvent(keyVal) {
-  return bp.EventSet("AddVersions:" + keyVal, function(e) {
+function getContentVersionAddedEvent(keyVal) {
+  return bp.EventSet("AddContentVersion:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyVersionsAdded() {
-  return bp.EventSet("matchAnyVersionsAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create version") > -1 && e.data.parameters.id !== undefined);
+function matchAnyContentVersionAdded() {
+  return bp.EventSet("matchAnyContentVersionAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create content version") > -1;
   });
 }
 
-function waitForVersionsAdded(collection, id, item, key, name) {
-  var expectedDesc = "Create version " + key + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForContentVersionAdded(id) {
+  var expectedDesc = "Create content version with id " + id;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedVersions(collection, id, item, key, name) {
-  var expectedDesc = "Delete version with id " + id;
-  return bp.EventSet("matchDeletedVersions", function(e) {
+function matchDeletedContentVersion(id) {
+  var expectedDesc = "Delete content version with id " + id;
+  return bp.EventSet("matchDeletedContentVersion", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyVersionsDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ version\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ version\ with\ id\ (.+)$/);
+function waitForAnyContentVersionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ content\ version\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ content\ version\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -1041,50 +988,37 @@ function waitForAnyVersionsDeleted() {
 
 // ---- Entity: extension ----
 
-function listExtensions(bundle, name) {
+function listExtensions(name) {
   var url = "/extensions";
-  var description = "List all extensions";
+  var description = "List extensions";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function updateExtensions(bundle, name) {
+function updateExtensions(name) {
   var url = "/extensions/" + name;
   var description = "Update extension " + name;
   var body = {
+    "meta": meta,
     "name": String(name),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { name: String(name) }) });
 }
 
-function updateExtensionBundle(bundle, name) {
-  var url = "/extensions/" + bundle + "/" + name;
-  var description = "Update extension " + name + " in bundle " + bundle;
-  var body = {
-    "name": String(name),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      name: String(name)
-    }
-  });
-}
-
-function verifyExtensionExists(bundle, name) {
+function verifyExtensionExists(name) {
   var url = "/extensions";
-  var description = "Verify Extension exists";
+  var description = "Verify Extension with name " + name + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1102,9 +1036,9 @@ function verifyExtensionExists(bundle, name) {
   });
 }
 
-function verifyExtensionDoesNotExist(bundle, name) {
+function verifyExtensionDoesNotExist(name) {
   var url = "/extensions";
-  var description = "Verify Extension does not exist";
+  var description = "Verify Extension with name " + name + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1122,81 +1056,104 @@ function verifyExtensionDoesNotExist(bundle, name) {
   });
 }
 
-// ---- Entity: field ----
+// ---- Entity: extension bundle ----
 
-function createField(collection, datatype, field, id, length, type) {
-  var url = "/fields/" + collection;
-  var description = "Create field " + field + " in collection " + collection;
+function updateExtensionBundle(bundle, name) {
+  var url = "/extensions/" + bundle + "/" + name;
+  var description = "Update extension bundle " + bundle + " with name " + name;
   var body = {
-    "field": String(field),
-    "datatype": String(datatype),
-    "type": String(type),
-    "length": String(length),
-    "collection": String(collection),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      collection: String(collection)
-      , id: String(id)
-    }
-  });
-}
-
-function getCollectionField(collection, datatype, field, id, length, type) {
-  var url = "/fields/" + collection + "/" + id;
-  var description = "Get field " + id + " in collection " + collection;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateField(collection, datatype, field, id, length, type) {
-  var url = "/fields/" + collection + "/" + id;
-  var description = "Update field " + id + " in collection " + collection;
-  var body = {
-    "collection": String(collection),
+    "bundle": String(bundle),
+    "meta": meta,
+    "name": String(name),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
+    parameters: {
+      description: description,
+      bundle: String(bundle)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { bundle: String(bundle) }) });
+}
+
+// ---- Entity: field ----
+
+function createField(collection, field, id, meta, schema, type) {
+  var url = "/fields/" + collection;
+  var description = "Create field " + field + " of type " + type + " in collection " + collection;
+  var body = {
+    "collection": String(collection),
+    "datatype": "datatype_" + collection,
+    "field": String(field),
+    "length": "length_" + collection,
+    "meta": meta,
+    "schema": schema,
+    "type": String(type),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       collection: String(collection)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { collection: String(collection) }) });
 }
 
-function deleteField(collection, datatype, field, id, length, type) {
+function getCollectionField(collection, field, id, meta, schema, type) {
   var url = "/fields/" + collection + "/" + id;
-  var description = "Delete field " + id + " in collection " + collection;
+  var description = "Retrieve field with id " + id + " in collection " + collection;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
+  });
+}
+
+function updateField(collection, field, id, meta, schema, type) {
+  var url = "/fields/" + collection + "/" + id;
+  var description = "Update field with id " + id + " in collection " + collection;
+  var body = {
+    "collection": String(collection),
+    "field": String(field),
+    "id": String(id),
+    "meta": meta,
+    "schema": schema,
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 401, 404],
+    parameters: {
+      description: description,
+      collection: String(collection)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { collection: String(collection) }) });
+}
+
+function deleteField(collection, field, id, meta, schema, type) {
+  var url = "/fields/" + collection + "/" + id;
+  var description = "Delete field with id " + id + " in collection " + collection;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingField(collection, datatype, field, id, length, type) {
-  var url = "/fields/" + collection;
-  var body = {
-    "collection": String(collection)
-  };
-  var description = "Verify that we cannot add another Field...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingField(collection, field, id, meta, schema, type) {
+  deleteField(collection, field, id, meta, schema, type);
 }
 
-function verifyFieldExists(collection, datatype, field, id, length, type) {
+function verifyFieldExists(collection, field, id, meta, schema, type) {
   var url = "/fields/" + collection;
-  var description = "Verify Field exists";
+  var description = "Verify Field with collection " + collection + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1214,9 +1171,9 @@ function verifyFieldExists(collection, datatype, field, id, length, type) {
   });
 }
 
-function verifyFieldDoesNotExist(collection, datatype, field, id, length, type) {
+function verifyFieldDoesNotExist(collection, field, id, meta, schema, type) {
   var url = "/fields/" + collection;
-  var description = "Verify Field does not exist";
+  var description = "Verify Field with collection " + collection + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1234,27 +1191,25 @@ function verifyFieldDoesNotExist(collection, datatype, field, id, length, type) 
   });
 }
 
-function tryToDeleteANonExistingField(collection, datatype, field, id, length, type) {
+function tryToDeleteANonExistingField(collection, field, id, meta, schema, type) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Verify we cannot delete non-existing Field";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedField(collection, datatype, field, id, length, type) {
-  var expectedDesc = "Create field " + field + " in collection " + collection;
-  return bp.EventSet("matchAddedField", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedField(collection, field, id, meta, schema, type) {
+  var expectedDesc = "Create field " + field + " of type " + type + " in collection " + collection;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFieldAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ field\ (.+)\ in\ collection\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ field\ (.+)\ in\ collection\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ field\ (.+)\ of\ type\ (.+)\ in\ collection\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ field\ (.+)\ of\ type\ (.+)\ in\ collection\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["field", "collection"];
+  var names = ["field", "type", "collection"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1271,25 +1226,25 @@ function getFieldAddedEvent(keyVal) {
 
 function matchAnyFieldAdded() {
   return bp.EventSet("matchAnyFieldAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create field") > -1 && e.data.parameters.collection !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.collection !== undefined && e.name.indexOf("Create field") > -1;
   });
 }
 
-function waitForFieldAdded(collection, datatype, field, id, length, type) {
-  var expectedDesc = "Create field " + field + " in collection " + collection;
-  waitFor(matchesDescription(expectedDesc));
+function waitForFieldAdded(collection, field, id, meta, schema, type) {
+  var expectedDesc = "Create field " + field + " of type " + type + " in collection " + collection;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedField(collection, datatype, field, id, length, type) {
-  var expectedDesc = "Delete field " + id + " in collection " + collection;
+function matchDeletedField(collection, field, id, meta, schema, type) {
+  var expectedDesc = "Delete field with id " + id + " in collection " + collection;
   return bp.EventSet("matchDeletedField", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyFieldDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ field\ (.+)\ in\ collection\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ field\ (.+)\ in\ collection\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ field\ with\ id\ (.+)\ in\ collection\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ field\ with\ id\ (.+)\ in\ collection\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "collection"];
   var obj = {};
@@ -1301,84 +1256,93 @@ function waitForAnyFieldDeleted() {
 
 // ---- Entity: permission ----
 
-function createPermission(collection, id, role) {
+function createPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "Create permission for role " + role + " on collection " + collection;
   var body = {
+    "collection": String(collection),
+    "comment": String(comment),
+    "create": String(create),
+    "delete": String(delete),
+    "explain": String(explain),
     "id": String(id),
+    "read": String(read),
+    "read_field_blacklist": String(read_field_blacklist),
+    "role": String(role),
+    "status": String(status),
+    "status_blacklist": String(status_blacklist),
+    "update": String(update),
+    "write_field_blacklist": String(write_field_blacklist),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deletePermission(collection, id, role) {
+function deletePermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Delete permission with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updatePermission(collection, id, role) {
+function updatePermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Update permission with id " + id;
   var body = {
+    "collection": collection,
+    "comment": String(comment),
+    "create": String(create),
+    "delete": String(delete),
+    "explain": String(explain),
     "id": String(id),
+    "read": String(read),
+    "read_field_blacklist": read_field_blacklist,
+    "role": role,
+    "status": status,
+    "status_blacklist": status_blacklist,
+    "update": String(update),
+    "write_field_blacklist": write_field_blacklist,
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getPermission(collection, id, role) {
+function getPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Get permission with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function getPermissions(collection, id, role) {
-  var url = "/permissions";
-  var description = "List permissions";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
+function tryToAddExistingPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+  getPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist);
 }
 
-function tryToAddExistingPermission(collection, id, role) {
+function verifyPermissionExists(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Permission...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyPermissionExists(collection, id, role) {
-  var url = "/permissions";
-  var description = "Verify Permission exists";
+  var description = "Verify Permission with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1396,9 +1360,9 @@ function verifyPermissionExists(collection, id, role) {
   });
 }
 
-function verifyPermissionDoesNotExist(collection, id, role) {
+function verifyPermissionDoesNotExist(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
-  var description = "Verify Permission does not exist";
+  var description = "Verify Permission with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1416,20 +1380,18 @@ function verifyPermissionDoesNotExist(collection, id, role) {
   });
 }
 
-function tryToDeleteANonExistingPermission(collection, id, role) {
+function tryToDeleteANonExistingPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Verify we cannot delete non-existing Permission";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedPermission(collection, id, role) {
+function matchAddedPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var expectedDesc = "Create permission for role " + role + " on collection " + collection;
-  return bp.EventSet("matchAddedPermission", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyPermissionAdded() {
@@ -1453,16 +1415,16 @@ function getPermissionAddedEvent(keyVal) {
 
 function matchAnyPermissionAdded() {
   return bp.EventSet("matchAnyPermissionAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create permission") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create permission") > -1;
   });
 }
 
-function waitForPermissionAdded(collection, id, role) {
+function waitForPermissionAdded(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var expectedDesc = "Create permission for role " + role + " on collection " + collection;
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedPermission(collection, id, role) {
+function matchDeletedPermission(collection, comment, create, delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var expectedDesc = "Delete permission with id " + id;
   return bp.EventSet("matchDeletedPermission", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -1481,151 +1443,31 @@ function waitForAnyPermissionDeleted() {
   return obj;
 }
 
-// ---- Entity: schema ----
-
-function schemaSnapshot(force) {
-  var url = "/schema/snapshot";
-  var description = "Retrieve schema snapshot";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function schemaApply(data, force) {
-  var url = "/schema/apply";
-  var description = "Apply schema difference with data {data}";
-  var body = {
-    "data": "data_dummy",
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function schemaDiff(data, force) {
-  var url = "/schema/diff";
-  var description = "Retrieve schema difference with data {data}";
-  var body = {
-    "data": "data_dummy",
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-    }
-  });
-}
-
-function tryToAddExistingSchema(force) {
-  var url = "/schema/apply";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Schema...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifySchemaExists(force) {
-  var url = "/schema/apply";
-  var description = "Verify Schema exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].force) === String(force)) {
-            return pvg.success("Schema exists");
-          }
-        }
-      }
-      return pvg.fail("Expected Schema to exist but it does not");
-    }
-  });
-}
-
-function verifySchemaDoesNotExist(force) {
-  var url = "/schema/apply";
-  var description = "Verify Schema does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].force) === String(force)) {
-            return pvg.fail("Expected Schema to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("Schema does not exist");
-    }
-  });
-}
-
-function matchAddedSchema(force) {
-  var expectedDesc = "Apply schema difference with data {data}";
-  return bp.EventSet("matchAddedSchema", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnySchemaAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Apply\ schema\ difference\ with\ data\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Apply\ schema\ difference\ with\ data\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["data"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getSchemaAddedEvent(keyVal) {
-  return bp.EventSet("AddSchema:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnySchemaAdded() {
-  return bp.EventSet("matchAnySchemaAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create schema") > -1 && e.data.parameters.None !== undefined);
-  });
-}
-
-function waitForSchemaAdded(force) {
-  var expectedDesc = "Apply schema difference with data {data}";
-  waitFor(matchesDescription(expectedDesc));
-}
-
 // ---- Entity: activity ----
 
 function getActivity(id) {
   var url = "/activity/" + id;
-  var description = "Retrieve activity with id " + id;
+  var description = "Retrieve an Activity Action with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
+  });
+}
+
+function getActivities(id) {
+  var url = "/activity";
+  var description = "List Activity Actions";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function verifyActivityExists(id) {
   var url = "/activity";
-  var description = "Verify Activity exists";
+  var description = "Verify Activity with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1645,7 +1487,7 @@ function verifyActivityExists(id) {
 
 function verifyActivityDoesNotExist(id) {
   var url = "/activity";
-  var description = "Verify Activity does not exist";
+  var description = "Verify Activity with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1667,73 +1509,68 @@ function verifyActivityDoesNotExist(id) {
 
 function createItem(collection, id) {
   var url = "/items/" + collection;
-  var description = "Create item in collection " + collection;
+  var description = "Create an item in collection " + collection;
   var body = {
     "collection": String(collection),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
       collection: String(collection)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { collection: String(collection) }) });
 }
 
 function deleteItem(collection, id) {
   var url = "/items/" + collection + "/" + id;
-  var description = "Delete item with id " + id + " from collection " + collection;
+  var description = "Delete item " + id + " from collection " + collection;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function updateItem(collection, id) {
   var url = "/items/" + collection + "/" + id;
-  var description = "Update item with id " + id + " in collection " + collection;
+  var description = "Update item " + id + " in collection " + collection;
   var body = {
     "collection": String(collection),
+    "id": String(id),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       collection: String(collection)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { collection: String(collection) }) });
 }
 
 function getItem(collection, id) {
   var url = "/items/" + collection + "/" + id;
-  var description = "Get item with id " + id + " from collection " + collection;
+  var description = "Retrieve item " + id + " from collection " + collection;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function tryToAddExistingItem(collection, id) {
-  var url = "/items/" + collection;
-  var body = {
-    "collection": String(collection)
-  };
-  var description = "Verify that we cannot add another Item...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getItem(collection, id);
 }
 
 function verifyItemExists(collection, id) {
   var url = "/items/" + collection;
-  var description = "Verify Item exists";
+  var description = "Verify Item with collection " + collection + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1753,7 +1590,7 @@ function verifyItemExists(collection, id) {
 
 function verifyItemDoesNotExist(collection, id) {
   var url = "/items/" + collection;
-  var description = "Verify Item does not exist";
+  var description = "Verify Item with collection " + collection + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1775,21 +1612,19 @@ function tryToDeleteANonExistingItem(collection, id) {
   var url = "/items/" + collection + "/" + id;
   var description = "Verify we cannot delete non-existing Item";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedItem(collection, id) {
-  var expectedDesc = "Create item in collection " + collection;
-  return bp.EventSet("matchAddedItem", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  var expectedDesc = "Create an item in collection " + collection;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyItemAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ item\ in\ collection\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ item\ in\ collection\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ an\ item\ in\ collection\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ an\ item\ in\ collection\ (.+)$/);
   var captures = m.slice(1);
   var names = ["collection"];
   var obj = {};
@@ -1808,25 +1643,25 @@ function getItemAddedEvent(keyVal) {
 
 function matchAnyItemAdded() {
   return bp.EventSet("matchAnyItemAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create item") > -1 && e.data.parameters.collection !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.collection !== undefined && e.name.indexOf("Create item") > -1;
   });
 }
 
 function waitForItemAdded(collection, id) {
-  var expectedDesc = "Create item in collection " + collection;
-  waitFor(matchesDescription(expectedDesc));
+  var expectedDesc = "Create an item in collection " + collection;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedItem(collection, id) {
-  var expectedDesc = "Delete item with id " + id + " from collection " + collection;
+  var expectedDesc = "Delete item " + id + " from collection " + collection;
   return bp.EventSet("matchDeletedItem", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyItemDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ item\ with\ id\ (.+)\ from\ collection\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ item\ with\ id\ (.+)\ from\ collection\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ item\ (.+)\ from\ collection\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ item\ (.+)\ from\ collection\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "collection"];
   var obj = {};
@@ -1838,112 +1673,86 @@ function waitForAnyItemDeleted() {
 
 // ---- Entity: preset ----
 
-function createPreset(collection, id) {
+function createPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets";
   var description = "Create preset for collection " + collection;
   var body = {
     "collection": String(collection),
+    "filters": String(filters),
     "id": String(id),
+    "layout": String(layout),
+    "layout_options": String(layout_options),
+    "layout_query": String(layout_query),
+    "role": String(role),
+    "search": String(search),
+    "title": String(title),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deletePreset(collection, id) {
+function deletePreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets/" + id;
   var description = "Delete preset with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function updatePreset(collection, id) {
+function updatePreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets/" + id;
   var description = "Update preset with id " + id + " for collection " + collection;
   var body = {
     "collection": String(collection),
+    "filters": String(filters),
     "id": String(id),
+    "role": String(role),
+    "search_query": "search_query_" + id,
+    "title": String(title),
+    "translation": translation,
+    "view_options": "view_options_" + id,
+    "view_query": "view_query_" + id,
+    "view_type": "view_type_" + id,
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function updatePresets(collection, id) {
-  var url = "/presets";
-  var description = "Update multiple presets for collection " + collection;
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      id: String(id)
-      , collection: String(collection)
-    }
-  });
-}
-
-function getPreset(collection, id) {
+function getPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets/" + id;
   var description = "Retrieve preset with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function getPresets(collection, id) {
-  var url = "/presets";
-  var description = "List presets";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
+function tryToAddExistingPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
+  getPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title);
 }
 
-function deletePresets(collection, id) {
+function verifyPresetExists(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets";
-  var description = "Delete multiple presets";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingPreset(collection, id) {
-  var url = "/presets";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Preset...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyPresetExists(collection, id) {
-  var url = "/presets";
-  var description = "Verify Preset exists";
+  var description = "Verify Preset with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1961,9 +1770,9 @@ function verifyPresetExists(collection, id) {
   });
 }
 
-function verifyPresetDoesNotExist(collection, id) {
+function verifyPresetDoesNotExist(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets";
-  var description = "Verify Preset does not exist";
+  var description = "Verify Preset with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1981,20 +1790,18 @@ function verifyPresetDoesNotExist(collection, id) {
   });
 }
 
-function tryToDeleteANonExistingPreset(collection, id) {
+function tryToDeleteANonExistingPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var url = "/presets/" + id;
   var description = "Verify we cannot delete non-existing Preset";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401],
     parameters: { description: description }
   });
 }
 
-function matchAddedPreset(collection, id) {
+function matchAddedPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var expectedDesc = "Create preset for collection " + collection;
-  return bp.EventSet("matchAddedPreset", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyPresetAdded() {
@@ -2018,16 +1825,16 @@ function getPresetAddedEvent(keyVal) {
 
 function matchAnyPresetAdded() {
   return bp.EventSet("matchAnyPresetAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create preset") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create preset") > -1;
   });
 }
 
-function waitForPresetAdded(collection, id) {
+function waitForPresetAdded(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var expectedDesc = "Create preset for collection " + collection;
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedPreset(collection, id) {
+function matchDeletedPreset(collection, filters, id, layout, layout_options, layout_query, role, search, title) {
   var expectedDesc = "Delete preset with id " + id;
   return bp.EventSet("matchDeletedPreset", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -2048,77 +1855,84 @@ function waitForAnyPresetDeleted() {
 
 // ---- Entity: collection ----
 
-function createCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function createCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections";
-  var description = "Create collection " + collection + " with id " + id;
+  var description = "Create collection " + collection;
   var body = {
+    "archive_app_filter": String(archive_app_filter),
+    "archive_field": String(archive_field),
+    "archive_value": String(archive_value),
     "collection": String(collection),
+    "display_template": String(display_template),
     "fields": String(fields),
+    "hidden": String(hidden),
+    "icon": String(icon),
     "id": String(id),
+    "note": String(note),
+    "singleton": String(singleton),
+    "sort_field": String(sort_field),
+    "translation": String(translation),
+    "unarchive_value": String(unarchive_value),
+    "versioning": String(versioning),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function getCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
-  var description = "Retrieve collection with id " + id;
+  var description = "Retrieve collection " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function updateCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
-  var description = "Update collection with id " + id;
+  var description = "Update collection " + id;
   var body = {
     "id": String(id),
+    "meta": meta,
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function deleteCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
-  var description = "Delete collection with id " + id;
+  var description = "Delete collection " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
-  var url = "/collections";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Collection...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
+  deleteCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning);
 }
 
-function verifyCollectionExists(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function verifyCollectionExists(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections";
-  var description = "Verify Collection exists";
+  var description = "Verify Collection with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2136,9 +1950,9 @@ function verifyCollectionExists(archive_app_filter, archive_field, archive_value
   });
 }
 
-function verifyCollectionDoesNotExist(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function verifyCollectionDoesNotExist(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections";
-  var description = "Verify Collection does not exist";
+  var description = "Verify Collection with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2156,27 +1970,25 @@ function verifyCollectionDoesNotExist(archive_app_filter, archive_field, archive
   });
 }
 
-function tryToDeleteANonExistingCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
+function tryToDeleteANonExistingCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Verify we cannot delete non-existing Collection";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
-  var expectedDesc = "Create collection " + collection + " with id " + id;
-  return bp.EventSet("matchAddedCollection", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
+  var expectedDesc = "Create collection " + collection;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCollectionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ collection\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ collection\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ collection\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ collection\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["collection", "id"];
+  var names = ["collection"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2193,25 +2005,25 @@ function getCollectionAddedEvent(keyVal) {
 
 function matchAnyCollectionAdded() {
   return bp.EventSet("matchAnyCollectionAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create collection") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create collection") > -1;
   });
 }
 
-function waitForCollectionAdded(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
-  var expectedDesc = "Create collection " + collection + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForCollectionAdded(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
+  var expectedDesc = "Create collection " + collection;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, meta, note, singleton, sort_field, translation, unarchive_value, versioning) {
-  var expectedDesc = "Delete collection with id " + id;
+function matchDeletedCollection(archive_app_filter, archive_field, archive_value, collection, display_template, fields, hidden, icon, id, note, singleton, sort_field, translation, unarchive_value, versioning) {
+  var expectedDesc = "Delete collection " + id;
   return bp.EventSet("matchDeletedCollection", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyCollectionDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ collection\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ collection\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ collection\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ collection\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -2225,22 +2037,23 @@ function waitForAnyCollectionDeleted() {
 
 function createComment(collection, comment, id, item) {
   var url = "/comments";
-  var description = "Create comment " + comment + " for item " + item + " in collection " + collection;
+  var description = "Create comment on collection " + collection + " for item " + item + " with comment " + comment;
   var body = {
     "collection": String(collection),
-    "item": String(item),
     "comment": String(comment),
     "id": String(id),
+    "item": String(item),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function deleteComment(collection, comment, id, item) {
@@ -2248,26 +2061,30 @@ function deleteComment(collection, comment, id, item) {
   var description = "Delete comment with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
 function updateComment(collection, comment, id, item) {
   var url = "/comments/" + id;
-  var description = "Update comment with id " + id + " in collection " + collection;
+  var description = "Update comment with id " + id + " on collection " + collection + " for item " + item + " with comment " + comment;
   var body = {
     "collection": String(collection),
+    "comment": String(comment),
     "id": String(id),
+    "item": String(item),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , collection: String(collection)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function getComment(collection, comment, id, item) {
@@ -2275,27 +2092,18 @@ function getComment(collection, comment, id, item) {
   var description = "Get comment with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
 function tryToAddExistingComment(collection, comment, id, item) {
-  var url = "/comments";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Comment...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  getComment(collection, comment, id, item);
 }
 
 function verifyCommentExists(collection, comment, id, item) {
   var url = "/comments";
-  var description = "Verify Comment exists";
+  var description = "Verify Comment with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2315,7 +2123,7 @@ function verifyCommentExists(collection, comment, id, item) {
 
 function verifyCommentDoesNotExist(collection, comment, id, item) {
   var url = "/comments";
-  var description = "Verify Comment does not exist";
+  var description = "Verify Comment with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2337,23 +2145,21 @@ function tryToDeleteANonExistingComment(collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Verify we cannot delete non-existing Comment";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401],
     parameters: { description: description }
   });
 }
 
 function matchAddedComment(collection, comment, id, item) {
-  var expectedDesc = "Create comment " + comment + " for item " + item + " in collection " + collection;
-  return bp.EventSet("matchAddedComment", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  var expectedDesc = "Create comment on collection " + collection + " for item " + item + " with comment " + comment;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCommentAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ comment\ (.+)\ for\ item\ (.+)\ in\ collection\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ comment\ (.+)\ for\ item\ (.+)\ in\ collection\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ comment\ on\ collection\ (.+)\ for\ item\ (.+)\ with\ comment\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ comment\ on\ collection\ (.+)\ for\ item\ (.+)\ with\ comment\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["comment", "item", "collection"];
+  var names = ["collection", "item", "comment"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2370,13 +2176,13 @@ function getCommentAddedEvent(keyVal) {
 
 function matchAnyCommentAdded() {
   return bp.EventSet("matchAnyCommentAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create comment") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create comment") > -1;
   });
 }
 
 function waitForCommentAdded(collection, comment, id, item) {
-  var expectedDesc = "Create comment " + comment + " for item " + item + " in collection " + collection;
-  waitFor(matchesDescription(expectedDesc));
+  var expectedDesc = "Create comment on collection " + collection + " for item " + item + " with comment " + comment;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedComment(collection, comment, id, item) {
@@ -2400,73 +2206,73 @@ function waitForAnyCommentDeleted() {
 
 // ---- Entity: file ----
 
-function createFile(id) {
+function createFile(data, id) {
   var url = "/files";
   var description = "Create file";
   var body = {
+    "data": String(data),
     "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
       id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteFile(id) {
+function deleteFile(data, id) {
   var url = "/files/" + id;
   var description = "Delete file with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function updateFile(id) {
+function updateFile(data, id) {
   var url = "/files/" + id;
-  var description = "Update file with id " + id + " and title {title}";
+  var description = "Update file with id " + id;
   var body = {
+    "description": "description_" + id,
+    "filename_download": "filename_download_" + id,
+    "folder": "folder_" + id,
     "id": String(id),
+    "tags": [],
+    "title": "title_" + id,
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401],
     parameters: {
       description: description,
       id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getFile(id) {
+function getFile(data, id) {
   var url = "/files/" + id;
   var description = "Get file with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function tryToAddExistingFile(id) {
-  var url = "/files";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another File...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingFile(data, id) {
+  getFile(data, id);
 }
 
-function verifyFileExists(id) {
+function verifyFileExists(data, id) {
   var url = "/files";
-  var description = "Verify File exists";
+  var description = "Verify File with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2484,9 +2290,9 @@ function verifyFileExists(id) {
   });
 }
 
-function verifyFileDoesNotExist(id) {
+function verifyFileDoesNotExist(data, id) {
   var url = "/files";
-  var description = "Verify File does not exist";
+  var description = "Verify File with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2504,20 +2310,18 @@ function verifyFileDoesNotExist(id) {
   });
 }
 
-function tryToDeleteANonExistingFile(id) {
+function tryToDeleteANonExistingFile(data, id) {
   var url = "/files/" + id;
   var description = "Verify we cannot delete non-existing File";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401],
     parameters: { description: description }
   });
 }
 
-function matchAddedFile(id) {
+function matchAddedFile(data, id) {
   var expectedDesc = "Create file";
-  return bp.EventSet("matchAddedFile", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFileAdded() {
@@ -2541,16 +2345,16 @@ function getFileAddedEvent(keyVal) {
 
 function matchAnyFileAdded() {
   return bp.EventSet("matchAnyFileAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create file") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create file") > -1;
   });
 }
 
-function waitForFileAdded(id) {
+function waitForFileAdded(data, id) {
   var expectedDesc = "Create file";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedFile(id) {
+function matchDeletedFile(data, id) {
   var expectedDesc = "Delete file with id " + id;
   return bp.EventSet("matchDeletedFile", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -2569,77 +2373,176 @@ function waitForAnyFileDeleted() {
   return obj;
 }
 
+// ---- Entity: files ----
+
+function getFiles() {
+  var url = "/files";
+  var description = "List files";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
+  });
+}
+
+function updateFiles() {
+  var url = "/files";
+  var description = "Update multiple files";
+  var body = {
+    "data": data,
+    "keys": [],
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 401],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function deleteFiles() {
+  var url = "/files";
+  var description = "Delete multiple files";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
+  });
+}
+
+function verifyFilesExists() {
+  var url = "/files";
+  var description = "Verify Files exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("Files exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Files to exist but it does not");
+    }
+  });
+}
+
+function verifyFilesDoesNotExist() {
+  var url = "/files";
+  var description = "Verify Files does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected Files to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Files does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingFiles() {
+  var url = "/files";
+  var description = "Verify we cannot delete non-existing Files";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 401],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedFiles() {
+  var expectedDesc = "Delete multiple files";
+  return bp.EventSet("matchDeletedFiles", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyFilesDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ multiple\ files$/));
+  var m = ev.data.parameters.description.match(/^Delete\ multiple\ files$/);
+  var captures = m.slice(1);
+  var names = [];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
 // ---- Entity: flow ----
 
-function createFlow(id, name) {
+function createFlow(id) {
   var url = "/flows";
-  var description = "Create flow " + name + " with id " + id;
+  var description = "Create a flow with id " + id;
   var body = {
     "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteFlow(id, name) {
+function deleteFlow(id) {
   var url = "/flows/" + id;
   var description = "Delete flow with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateFlow(id, name) {
+function updateFlow(id) {
   var url = "/flows/" + id;
-  var description = "Update flow " + name + " with id " + id;
+  var description = "Update flow with id " + id;
   var body = {
     "id": String(id),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getFlow(id, name) {
+function getFlow(id) {
   var url = "/flows/" + id;
-  var description = "Get flow " + name + " with id " + id;
+  var description = "Retrieve flow with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingFlow(id, name) {
-  var url = "/flows";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Flow...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingFlow(id) {
+  getFlow(id);
 }
 
-function verifyFlowExists(id, name) {
+function verifyFlowExists(id) {
   var url = "/flows";
-  var description = "Verify Flow exists";
+  var description = "Verify Flow with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2657,9 +2560,9 @@ function verifyFlowExists(id, name) {
   });
 }
 
-function verifyFlowDoesNotExist(id, name) {
+function verifyFlowDoesNotExist(id) {
   var url = "/flows";
-  var description = "Verify Flow does not exist";
+  var description = "Verify Flow with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2677,27 +2580,25 @@ function verifyFlowDoesNotExist(id, name) {
   });
 }
 
-function tryToDeleteANonExistingFlow(id, name) {
+function tryToDeleteANonExistingFlow(id) {
   var url = "/flows/" + id;
   var description = "Verify we cannot delete non-existing Flow";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedFlow(id, name) {
-  var expectedDesc = "Create flow " + name + " with id " + id;
-  return bp.EventSet("matchAddedFlow", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedFlow(id) {
+  var expectedDesc = "Create a flow with id " + id;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFlowAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ flow\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ flow\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ a\ flow\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ a\ flow\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2714,16 +2615,16 @@ function getFlowAddedEvent(keyVal) {
 
 function matchAnyFlowAdded() {
   return bp.EventSet("matchAnyFlowAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create flow") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create flow") > -1;
   });
 }
 
-function waitForFlowAdded(id, name) {
-  var expectedDesc = "Create flow " + name + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForFlowAdded(id) {
+  var expectedDesc = "Create a flow with id " + id;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedFlow(id, name) {
+function matchDeletedFlow(id) {
   var expectedDesc = "Delete flow with id " + id;
   return bp.EventSet("matchDeletedFlow", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -2744,76 +2645,73 @@ function waitForAnyFlowDeleted() {
 
 // ---- Entity: folder ----
 
-function createFolder(id, name) {
+function createFolder(id, name, parent) {
   var url = "/folders";
-  var description = "Create folder " + name + " with id " + id;
+  var description = "Create folder " + name;
   var body = {
-    "name": String(name),
     "id": String(id),
+    "name": String(name),
+    "parent": String(parent),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteFolder(id, name) {
+function deleteFolder(id, name, parent) {
   var url = "/folders/" + id;
-  var description = "Delete folder with id " + id;
+  var description = "Delete folder " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateFolder(id, name) {
+function updateFolder(id, name, parent) {
   var url = "/folders/" + id;
-  var description = "Update folder " + name + " with id " + id;
+  var description = "Update folder " + id + " with name " + name;
   var body = {
     "id": String(id),
+    "name": String(name),
+    "parent": String(parent),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
       , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getFolder(id, name) {
+function getFolder(id, name, parent) {
   var url = "/folders/" + id;
-  var description = "Get folder " + name + " with id " + id;
+  var description = "Get folder " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingFolder(id, name) {
-  var url = "/folders";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Folder...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingFolder(id, name, parent) {
+  getFolder(id, name, parent);
 }
 
-function verifyFolderExists(id, name) {
+function verifyFolderExists(id, name, parent) {
   var url = "/folders";
-  var description = "Verify Folder exists";
+  var description = "Verify Folder with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2831,9 +2729,9 @@ function verifyFolderExists(id, name) {
   });
 }
 
-function verifyFolderDoesNotExist(id, name) {
+function verifyFolderDoesNotExist(id, name, parent) {
   var url = "/folders";
-  var description = "Verify Folder does not exist";
+  var description = "Verify Folder with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2851,27 +2749,25 @@ function verifyFolderDoesNotExist(id, name) {
   });
 }
 
-function tryToDeleteANonExistingFolder(id, name) {
+function tryToDeleteANonExistingFolder(id, name, parent) {
   var url = "/folders/" + id;
   var description = "Verify we cannot delete non-existing Folder";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedFolder(id, name) {
-  var expectedDesc = "Create folder " + name + " with id " + id;
-  return bp.EventSet("matchAddedFolder", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedFolder(id, name, parent) {
+  var expectedDesc = "Create folder " + name;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFolderAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ folder\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ folder\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ folder\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ folder\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2888,25 +2784,25 @@ function getFolderAddedEvent(keyVal) {
 
 function matchAnyFolderAdded() {
   return bp.EventSet("matchAnyFolderAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create folder") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create folder") > -1;
   });
 }
 
-function waitForFolderAdded(id, name) {
-  var expectedDesc = "Create folder " + name + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForFolderAdded(id, name, parent) {
+  var expectedDesc = "Create folder " + name;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedFolder(id, name) {
-  var expectedDesc = "Delete folder with id " + id;
+function matchDeletedFolder(id, name, parent) {
+  var expectedDesc = "Delete folder " + id;
   return bp.EventSet("matchDeletedFolder", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyFolderDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ folder\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ folder\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ folder\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ folder\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -2918,33 +2814,34 @@ function waitForAnyFolderDeleted() {
 
 // ---- Entity: operation ----
 
-function createOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function createOperation(id) {
   var url = "/operations";
-  var description = "Create operation " + name + " with id " + id;
+  var description = "Create operation with id " + id;
   var body = {
     "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function deleteOperation(id) {
   var url = "/operations/" + id;
-  var description = "Retrieve operation with id " + id;
+  var description = "Delete operation with id " + id;
   var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function updateOperation(id) {
   var url = "/operations/" + id;
   var description = "Update operation with id " + id;
   var body = {
@@ -2952,41 +2849,32 @@ function updateOperation(date_created, id, key, name, operation, options, positi
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function getOperation(id) {
   var url = "/operations/" + id;
-  var description = "Delete operation with id " + id;
+  var description = "Get operation with id " + id;
   var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
-  var url = "/operations";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Operation...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingOperation(id) {
+  getOperation(id);
 }
 
-function verifyOperationExists(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function verifyOperationExists(id) {
   var url = "/operations";
-  var description = "Verify Operation exists";
+  var description = "Verify Operation with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3004,9 +2892,9 @@ function verifyOperationExists(date_created, id, key, name, operation, options, 
   });
 }
 
-function verifyOperationDoesNotExist(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function verifyOperationDoesNotExist(id) {
   var url = "/operations";
-  var description = "Verify Operation does not exist";
+  var description = "Verify Operation with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3024,27 +2912,25 @@ function verifyOperationDoesNotExist(date_created, id, key, name, operation, opt
   });
 }
 
-function tryToDeleteANonExistingOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function tryToDeleteANonExistingOperation(id) {
   var url = "/operations/" + id;
   var description = "Verify we cannot delete non-existing Operation";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
-  var expectedDesc = "Create operation " + name + " with id " + id;
-  return bp.EventSet("matchAddedOperation", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedOperation(id) {
+  var expectedDesc = "Create operation with id " + id;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyOperationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ operation\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ operation\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ operation\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ operation\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3061,16 +2947,16 @@ function getOperationAddedEvent(keyVal) {
 
 function matchAnyOperationAdded() {
   return bp.EventSet("matchAnyOperationAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create operation") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create operation") > -1;
   });
 }
 
-function waitForOperationAdded(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
-  var expectedDesc = "Create operation " + name + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForOperationAdded(id) {
+  var expectedDesc = "Create operation with id " + id;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedOperation(date_created, id, key, name, operation, options, position_x, position_y, reject, resolve, type, user_created) {
+function matchDeletedOperation(id) {
   var expectedDesc = "Delete operation with id " + id;
   return bp.EventSet("matchDeletedOperation", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -3095,24 +2981,31 @@ function createRelation(collection_many, collection_one, field_many, field_one, 
   var url = "/relations";
   var description = "Create relation with collection_many " + collection_many + " and collection_one " + collection_one;
   var body = {
+    "collection_many": String(collection_many),
+    "collection_one": String(collection_one),
+    "field_many": String(field_many),
+    "field_one": String(field_one),
     "id": String(id),
+    "junction_field": String(junction_field),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function getRelation(collection_many, collection_one, field_many, field_one, id, junction_field) {
   var url = "/relations/" + id;
-  var description = "Get relation with id " + id;
+  var description = "Retrieve relation with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
@@ -3120,16 +3013,22 @@ function updateRelation(collection_many, collection_one, field_many, field_one, 
   var url = "/relations/" + id;
   var description = "Update relation with id " + id;
   var body = {
+    "collection_many": String(collection_many),
+    "collection_one": String(collection_one),
+    "field_many": String(field_many),
+    "field_one": String(field_one),
     "id": String(id),
+    "junction_field": String(junction_field),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function deleteRelation(collection_many, collection_one, field_many, field_one, id, junction_field) {
@@ -3137,27 +3036,18 @@ function deleteRelation(collection_many, collection_one, field_many, field_one, 
   var description = "Delete relation with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function tryToAddExistingRelation(collection_many, collection_one, field_many, field_one, id, junction_field) {
-  var url = "/relations";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Relation...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  deleteRelation(collection_many, collection_one, field_many, field_one, id, junction_field);
 }
 
 function verifyRelationExists(collection_many, collection_one, field_many, field_one, id, junction_field) {
   var url = "/relations";
-  var description = "Verify Relation exists";
+  var description = "Verify Relation with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3177,7 +3067,7 @@ function verifyRelationExists(collection_many, collection_one, field_many, field
 
 function verifyRelationDoesNotExist(collection_many, collection_one, field_many, field_one, id, junction_field) {
   var url = "/relations";
-  var description = "Verify Relation does not exist";
+  var description = "Verify Relation with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3199,16 +3089,14 @@ function tryToDeleteANonExistingRelation(collection_many, collection_one, field_
   var url = "/relations/" + id;
   var description = "Verify we cannot delete non-existing Relation";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedRelation(collection_many, collection_one, field_many, field_one, id, junction_field) {
   var expectedDesc = "Create relation with collection_many " + collection_many + " and collection_one " + collection_one;
-  return bp.EventSet("matchAddedRelation", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRelationAdded() {
@@ -3232,13 +3120,13 @@ function getRelationAddedEvent(keyVal) {
 
 function matchAnyRelationAdded() {
   return bp.EventSet("matchAnyRelationAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create relation") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create relation") > -1;
   });
 }
 
 function waitForRelationAdded(collection_many, collection_one, field_many, field_one, id, junction_field) {
   var expectedDesc = "Create relation with collection_many " + collection_many + " and collection_one " + collection_one;
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRelation(collection_many, collection_one, field_many, field_one, id, junction_field) {
@@ -3264,16 +3152,27 @@ function waitForAnyRelationDeleted() {
 
 function getRevision(id) {
   var url = "/revisions/" + id;
-  var description = "Retrieve revision with id " + id;
+  var description = "Retrieve a Revision with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
+  });
+}
+
+function getRevisions(id) {
+  var url = "/revisions";
+  var description = "List Revisions";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function verifyRevisionExists(id) {
   var url = "/revisions";
-  var description = "Verify Revision exists";
+  var description = "Verify Revision with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3293,7 +3192,7 @@ function verifyRevisionExists(id) {
 
 function verifyRevisionDoesNotExist(id) {
   var url = "/revisions";
-  var description = "Verify Revision does not exist";
+  var description = "Verify Revision with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3313,73 +3212,83 @@ function verifyRevisionDoesNotExist(id) {
 
 // ---- Entity: role ----
 
-function createRole(id) {
+function createRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles";
-  var description = "Create role {name} with id " + id;
+  var description = "Create role " + name;
   var body = {
+    "description": String(description),
+    "enforce_tfa": String(enforce_tfa),
+    "external_id": String(external_id),
     "id": String(id),
+    "ip_access": String(ip_access),
+    "module_listing": String(module_listing),
+    "name": String(name),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
+      , external_id: String(external_id)
+      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteRole(id) {
+function deleteRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles/" + id;
-  var description = "Delete role with id " + id;
+  var description = "Delete role " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateRole(id) {
+function updateRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles/" + id;
-  var description = "Update role {name} with id " + id;
+  var description = "Update role " + id + " with name " + name;
   var body = {
+    "description": String(description),
+    "enforce_tfa": String(enforce_tfa),
+    "external_id": String(external_id),
     "id": String(id),
+    "ip_access": String(ip_access),
+    "module_listing": String(module_listing),
+    "name": String(name),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
+      , external_id: String(external_id)
+      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getRole(id) {
+function getRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles/" + id;
-  var description = "Get role with id " + id;
+  var description = "Get role " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingRole(id) {
-  var url = "/roles";
-  var body = {
-    "id": String(id)
-  };
-  var description = "Verify that we cannot add another Role...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
+  getRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name);
 }
 
-function verifyRoleExists(id) {
+function verifyRoleExists(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles";
-  var description = "Verify Role exists";
+  var description = "Verify Role with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3397,9 +3306,9 @@ function verifyRoleExists(id) {
   });
 }
 
-function verifyRoleDoesNotExist(id) {
+function verifyRoleDoesNotExist(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles";
-  var description = "Verify Role does not exist";
+  var description = "Verify Role with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3417,27 +3326,25 @@ function verifyRoleDoesNotExist(id) {
   });
 }
 
-function tryToDeleteANonExistingRole(id) {
+function tryToDeleteANonExistingRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
   var url = "/roles/" + id;
   var description = "Verify we cannot delete non-existing Role";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedRole(id) {
-  var expectedDesc = "Create role {name} with id " + id;
-  return bp.EventSet("matchAddedRole", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
+  var expectedDesc = "Create role " + name;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ role\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ role\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3454,25 +3361,25 @@ function getRoleAddedEvent(keyVal) {
 
 function matchAnyRoleAdded() {
   return bp.EventSet("matchAnyRoleAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create role") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create role") > -1;
   });
 }
 
-function waitForRoleAdded(id) {
-  var expectedDesc = "Create role {name} with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForRoleAdded(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
+  var expectedDesc = "Create role " + name;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedRole(id) {
-  var expectedDesc = "Delete role with id " + id;
+function matchDeletedRole(description, enforce_tfa, external_id, id, ip_access, module_listing, name) {
+  var expectedDesc = "Delete role " + id;
   return bp.EventSet("matchDeletedRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -3484,73 +3391,123 @@ function waitForAnyRoleDeleted() {
 
 // ---- Entity: webhook ----
 
-function createWebhook(id) {
+function createWebhook(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks";
-  var description = "Create webhook {name}";
+  var description = "Create webhook " + name;
   var body = {
+    "actions": String(actions),
+    "data": String(data),
     "id": String(id),
+    "method": String(method),
+    "name": String(name),
+    "status": String(status),
+    "system-collections": String(system-collections),
+    "url": String(url),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
+      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteWebhook(id) {
+function deleteWebhook(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks/" + id;
   var description = "Delete webhook " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function updateWebhook(id) {
+function updateWebhook(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks/" + id;
-  var description = "Update webhook " + id + " with name {name}";
+  var description = "Update webhook " + id + " with name " + name;
   var body = {
+    "actions": String(actions),
+    "data": String(data),
     "id": String(id),
+    "method": String(method),
+    "name": String(name),
+    "status": String(status),
+    "system-collections": String(system-collections),
+    "url": String(url),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
       id: String(id)
+      , name: String(name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWebhook(id) {
+function getWebhook(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks/" + id;
   var description = "Get webhook " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
-function tryToAddExistingWebhook(id) {
+function getWebhooks(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks";
+  var description = "List webhooks";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
+  });
+}
+
+function updateWebhooks(actions, data, id, method, name, status, system-collections, url) {
+  var url = "/webhooks";
+  var description = "Update multiple webhooks";
   var body = {
-    "id": String(id)
+    "data": data,
+    "id": String(id),
+    "keys": [],
   };
-  var description = "Verify that we cannot add another Webhook...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
+  svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    expectedResponseCodes: [200, 401],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteWebhooks(actions, data, id, method, name, status, system-collections, url) {
+  var url = "/webhooks";
+  var description = "Delete multiple webhooks";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
   });
 }
 
-function verifyWebhookExists(id) {
+function tryToAddExistingWebhook(actions, data, id, method, name, status, system-collections, url) {
+  deleteWebhooks(actions, data, id, method, name, status, system-collections, url);
+}
+
+function verifyWebhookExists(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks";
-  var description = "Verify Webhook exists";
+  var description = "Verify Webhook with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3568,9 +3525,9 @@ function verifyWebhookExists(id) {
   });
 }
 
-function verifyWebhookDoesNotExist(id) {
+function verifyWebhookDoesNotExist(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks";
-  var description = "Verify Webhook does not exist";
+  var description = "Verify Webhook with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3588,20 +3545,18 @@ function verifyWebhookDoesNotExist(id) {
   });
 }
 
-function tryToDeleteANonExistingWebhook(id) {
+function tryToDeleteANonExistingWebhook(actions, data, id, method, name, status, system-collections, url) {
   var url = "/webhooks/" + id;
   var description = "Verify we cannot delete non-existing Webhook";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200, 401, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedWebhook(id) {
-  var expectedDesc = "Create webhook {name}";
-  return bp.EventSet("matchAddedWebhook", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedWebhook(actions, data, id, method, name, status, system-collections, url) {
+  var expectedDesc = "Create webhook " + name;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyWebhookAdded() {
@@ -3625,16 +3580,16 @@ function getWebhookAddedEvent(keyVal) {
 
 function matchAnyWebhookAdded() {
   return bp.EventSet("matchAnyWebhookAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create webhook") > -1 && e.data.parameters.id !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create webhook") > -1;
   });
 }
 
-function waitForWebhookAdded(id) {
-  var expectedDesc = "Create webhook {name}";
-  waitFor(matchesDescription(expectedDesc));
+function waitForWebhookAdded(actions, data, id, method, name, status, system-collections, url) {
+  var expectedDesc = "Create webhook " + name;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedWebhook(id) {
+function matchDeletedWebhook(actions, data, id, method, name, status, system-collections, url) {
   var expectedDesc = "Delete webhook " + id;
   return bp.EventSet("matchDeletedWebhook", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -3655,18 +3610,19 @@ function waitForAnyWebhookDeleted() {
 
 // ---- Entity: asset ----
 
-function getAsset(download, id, key, transforms) {
+function getAsset(id) {
   var url = "/assets/" + id;
-  var description = "Get an Asset with id " + id + " and key " + key;
+  var description = "Get an Asset with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404]
   });
 }
 
-function verifyAssetExists(download, id, key, transforms) {
+function verifyAssetExists(id) {
   var url = "/assets";
-  var description = "Verify Asset exists";
+  var description = "Verify Asset with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3684,9 +3640,9 @@ function verifyAssetExists(download, id, key, transforms) {
   });
 }
 
-function verifyAssetDoesNotExist(download, id, key, transforms) {
+function verifyAssetDoesNotExist(id) {
   var url = "/assets";
-  var description = "Verify Asset does not exist";
+  var description = "Verify Asset with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3704,34 +3660,36 @@ function verifyAssetDoesNotExist(download, id, key, transforms) {
   });
 }
 
-// ---- Entity: settings ----
+// ---- Entity: setting ----
 
 function getSettings() {
   var url = "/settings";
-  var description = "Retrieve settings";
+  var description = "Retrieve Settings";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
   });
 }
 
 function updateSetting() {
   var url = "/settings";
-  var description = "Update settings";
+  var description = "Update Settings";
   var body = {
   };
   svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200, 401, 404],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function verifySettingsExists() {
+function verifySettingExists() {
   var url = "/settings";
-  var description = "Verify Settings exists";
+  var description = "Verify Setting exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3740,18 +3698,18 @@ function verifySettingsExists() {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (true) {
-            return pvg.success("Settings exists");
+            return pvg.success("Setting exists");
           }
         }
       }
-      return pvg.fail("Expected Settings to exist but it does not");
+      return pvg.fail("Expected Setting to exist but it does not");
     }
   });
 }
 
-function verifySettingsDoesNotExist() {
+function verifySettingDoesNotExist() {
   var url = "/settings";
-  var description = "Verify Settings does not exist";
+  var description = "Verify Setting does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3760,11 +3718,11 @@ function verifySettingsDoesNotExist() {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (true) {
-            return pvg.fail("Expected Settings to not exist but it does");
+            return pvg.fail("Expected Setting to not exist but it does");
           }
         }
       }
-      return pvg.success("Settings does not exist");
+      return pvg.success("Setting does not exist");
     }
   });
 }

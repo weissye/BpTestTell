@@ -6,22 +6,21 @@ function resolveDependencies(deps, pkMap) {
   let captured = {};
   while (Object.keys(deps).length > 0) {
     let missingEventSets = Object.values(deps);
-    // bp.log.info("Guard waiting for: " + Object.keys(deps).join(", "));
     let e = bp.sync({waitFor: missingEventSets});
-    // bp.log.info("Guard received event: " + e.name);
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        // 1. Try basic capture
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
-        // 2. Try using pkMap if available
-        if (!val && pkMap && pkMap[k] && e.data && e.data[pkMap[k]]) { val = e.data[pkMap[k]]; }
-        // 3. Try fallback scan for any ID-like field
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        if (!val && pkMap && pkMap[k]) {
+            let mappedKey = pkMap[k];
+            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
+        }
         if (!val && e.data) {
           for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }
         }
-        captured[k] = val;
-        delete deps[k];
-        // if (captured[k]) bp.log.info("Captured " + k + ": " + captured[k]);
+        if (val) {
+            captured[k] = val;
+            delete deps[k];
+        }
       }
     }
   }

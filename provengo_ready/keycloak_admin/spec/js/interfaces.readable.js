@@ -25,6 +25,12 @@ function waitFor(eventSet) {
   return bp.sync({waitFor: eventSet});
 }
 
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
+  });
+}
+
 // ---- Entity: realm ----
 
 function getRealm(realm) {
@@ -32,23 +38,8 @@ function getRealm(realm) {
   var description = "Get realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function createRealm(realm) {
-  var url = "/";
-  var description = "Create realm";
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-    }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -56,16 +47,156 @@ function updateRealm(realm) {
   var url = "/" + realm;
   var description = "Update realm " + realm;
   var body = {
+    "accessCodeLifespan": String(1),
+    "accessCodeLifespanLogin": String(1),
+    "accessCodeLifespanUserAction": String(1),
+    "accessTokenLifespan": String(1),
+    "accessTokenLifespanForImplicitFlow": String(1),
+    "accountTheme": "accountTheme_" + realm,
+    "actionTokenGeneratedByAdminLifespan": String(1),
+    "actionTokenGeneratedByUserLifespan": String(1),
+    "adminEventsDetailsEnabled": String(true),
+    "adminEventsEnabled": String(true),
+    "adminTheme": "adminTheme_" + realm,
+    "applicationScopeMappings": applicationScopeMappings,
+    "applications": [],
+    "attributes": attributes,
+    "authenticationFlows": [],
+    "authenticatorConfig": [],
+    "browserFlow": "browserFlow_" + realm,
+    "browserSecurityHeaders": browserSecurityHeaders,
+    "bruteForceProtected": String(true),
+    "certificate": "certificate_" + realm,
+    "clientAuthenticationFlow": "clientAuthenticationFlow_" + realm,
+    "clientOfflineSessionIdleTimeout": String(1),
+    "clientOfflineSessionMaxLifespan": String(1),
+    "clientPolicies": [],
+    "clientProfiles": [],
+    "clientScopeMappings": clientScopeMappings,
+    "clientScopes": [],
+    "clientSessionIdleTimeout": String(1),
+    "clientSessionMaxLifespan": String(1),
+    "clientTemplates": [],
+    "clients": [],
+    "codeSecret": "codeSecret_" + realm,
+    "components": components,
+    "defaultDefaultClientScopes": [],
+    "defaultGroups": [],
+    "defaultLocale": "defaultLocale_" + realm,
+    "defaultOptionalClientScopes": [],
+    "defaultRole": "defaultRole_" + realm,
+    "defaultRoles": [],
+    "defaultSignatureAlgorithm": "defaultSignatureAlgorithm_" + realm,
+    "directGrantFlow": "directGrantFlow_" + realm,
+    "displayName": "displayName_" + realm,
+    "displayNameHtml": "displayNameHtml_" + realm,
+    "dockerAuthenticationFlow": "dockerAuthenticationFlow_" + realm,
+    "duplicateEmailsAllowed": String(true),
+    "editUsernameAllowed": String(true),
+    "emailTheme": "emailTheme_" + realm,
+    "enabled": String(true),
+    "enabledEventTypes": [],
+    "eventsEnabled": String(true),
+    "eventsExpiration": String(1),
+    "eventsListeners": [],
+    "failureFactor": String(1),
+    "federatedUsers": [],
+    "groups": [],
+    "id": "id_" + realm,
+    "identityProviderMappers": [],
+    "identityProviders": [],
+    "internationalizationEnabled": String(true),
+    "keycloakVersion": "keycloakVersion_" + realm,
+    "loginTheme": "loginTheme_" + realm,
+    "loginWithEmailAllowed": String(true),
+    "maxDeltaTimeSeconds": String(1),
+    "maxFailureWaitSeconds": String(1),
+    "minimumQuickLoginWaitSeconds": String(1),
+    "notBefore": String(1),
+    "oAuth2DeviceCodeLifespan": String(1),
+    "oAuth2DevicePollingInterval": String(1),
+    "oauth2DeviceCodeLifespan": String(1),
+    "oauth2DevicePollingInterval": String(1),
+    "oauthClients": [],
+    "offlineSessionIdleTimeout": String(1),
+    "offlineSessionMaxLifespan": String(1),
+    "offlineSessionMaxLifespanEnabled": String(true),
+    "otpPolicyAlgorithm": "otpPolicyAlgorithm_" + realm,
+    "otpPolicyCodeReusable": String(true),
+    "otpPolicyDigits": String(1),
+    "otpPolicyInitialCounter": String(1),
+    "otpPolicyLookAheadWindow": String(1),
+    "otpPolicyPeriod": String(1),
+    "otpPolicyType": "otpPolicyType_" + realm,
+    "otpSupportedApplications": [],
+    "passwordCredentialGrantAllowed": String(true),
+    "passwordPolicy": "passwordPolicy_" + realm,
+    "permanentLockout": String(true),
+    "privateKey": "privateKey_" + realm,
+    "protocolMappers": [],
+    "publicKey": "publicKey_" + realm,
+    "quickLoginCheckMilliSeconds": String(1),
     "realm": String(realm),
+    "realmCacheEnabled": String(true),
+    "refreshTokenMaxReuse": String(1),
+    "registrationAllowed": String(true),
+    "registrationEmailAsUsername": String(true),
+    "registrationFlow": "registrationFlow_" + realm,
+    "rememberMe": String(true),
+    "requiredActions": [],
+    "requiredCredentials": [],
+    "resetCredentialsFlow": "resetCredentialsFlow_" + realm,
+    "resetPasswordAllowed": String(true),
+    "revokeRefreshToken": String(true),
+    "roles": "roles_" + realm,
+    "scopeMappings": [],
+    "smtpServer": smtpServer,
+    "social": String(true),
+    "socialProviders": socialProviders,
+    "sslRequired": "sslRequired_" + realm,
+    "ssoSessionIdleTimeout": String(1),
+    "ssoSessionIdleTimeoutRememberMe": String(1),
+    "ssoSessionMaxLifespan": String(1),
+    "ssoSessionMaxLifespanRememberMe": String(1),
+    "supportedLocales": [],
+    "updateProfileOnInitialSocialLogin": String(true),
+    "userCacheEnabled": String(true),
+    "userFederationMappers": [],
+    "userFederationProviders": [],
+    "userManagedAccessAllowed": String(true),
+    "users": [],
+    "verifyEmail": String(true),
+    "waitIncrementSeconds": String(1),
+    "webAuthnPolicyAcceptableAaguids": [],
+    "webAuthnPolicyAttestationConveyancePreference": "webAuthnPolicyAttestationConveyancePreference_" + realm,
+    "webAuthnPolicyAuthenticatorAttachment": "webAuthnPolicyAuthenticatorAttachment_" + realm,
+    "webAuthnPolicyAvoidSameAuthenticatorRegister": String(true),
+    "webAuthnPolicyCreateTimeout": String(1),
+    "webAuthnPolicyPasswordlessAcceptableAaguids": [],
+    "webAuthnPolicyPasswordlessAttestationConveyancePreference": "webAuthnPolicyPasswordlessAttestationConveyancePreference_" + realm,
+    "webAuthnPolicyPasswordlessAuthenticatorAttachment": "webAuthnPolicyPasswordlessAuthenticatorAttachment_" + realm,
+    "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": String(true),
+    "webAuthnPolicyPasswordlessCreateTimeout": String(1),
+    "webAuthnPolicyPasswordlessRequireResidentKey": "webAuthnPolicyPasswordlessRequireResidentKey_" + realm,
+    "webAuthnPolicyPasswordlessRpEntityName": "webAuthnPolicyPasswordlessRpEntityName_" + realm,
+    "webAuthnPolicyPasswordlessRpId": "webAuthnPolicyPasswordlessRpId_" + realm,
+    "webAuthnPolicyPasswordlessSignatureAlgorithms": [],
+    "webAuthnPolicyPasswordlessUserVerificationRequirement": "webAuthnPolicyPasswordlessUserVerificationRequirement_" + realm,
+    "webAuthnPolicyRequireResidentKey": "webAuthnPolicyRequireResidentKey_" + realm,
+    "webAuthnPolicyRpEntityName": "webAuthnPolicyRpEntityName_" + realm,
+    "webAuthnPolicyRpId": "webAuthnPolicyRpId_" + realm,
+    "webAuthnPolicySignatureAlgorithms": [],
+    "webAuthnPolicyUserVerificationRequirement": "webAuthnPolicyUserVerificationRequirement_" + realm,
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function deleteRealm(realm) {
@@ -73,61 +204,8 @@ function deleteRealm(realm) {
   var description = "Delete realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingRealm(realm) {
-  var url = "/";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another Realm...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyRealmExists(realm) {
-  var url = "/";
-  var description = "Verify Realm exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("Realm exists");
-          }
-        }
-      }
-      return pvg.fail("Expected Realm to exist but it does not");
-    }
-  });
-}
-
-function verifyRealmDoesNotExist(realm) {
-  var url = "/";
-  var description = "Verify Realm does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected Realm to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("Realm does not exist");
-    }
+    expectedResponseCodes: [204]
   });
 }
 
@@ -135,46 +213,9 @@ function tryToDeleteANonExistingRealm(realm) {
   var url = "/" + realm;
   var description = "Verify we cannot delete non-existing Realm";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
-}
-
-function matchAddedRealm(realm) {
-  var expectedDesc = "Create realm";
-  return bp.EventSet("matchAddedRealm", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyRealmAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ realm$/));
-  var m = ev.data.parameters.description.match(/^Create\ realm$/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getRealmAddedEvent(keyVal) {
-  return bp.EventSet("AddRealm:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyRealmAdded() {
-  return bp.EventSet("matchAnyRealmAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create realm") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForRealmAdded(realm) {
-  var expectedDesc = "Create realm";
-  waitFor(matchesDescription(expectedDesc));
 }
 
 function matchDeletedRealm(realm) {
@@ -196,44 +237,533 @@ function waitForAnyRealmDeleted() {
   return obj;
 }
 
-// ---- Entity: localization ----
+// ---- Entity: admin event ----
 
-function getLocalization(key, locale, realm) {
-  var url = "/" + realm + "/localization/" + locale + "/" + key;
-  var description = "Get localization for realm " + realm + ", locale " + locale + ", key " + key;
+function getAdminEvents(authClient, authIpAddress, authRealm, authUser, dateFrom, dateTo, first, max, operationTypes, realm, resourcePath, resourceTypes) {
+  var url = "/" + realm + "/admin-events";
+  var description = "Get admin events for realm " + realm;
   var body = undefined;
   svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function deleteAdminEvents(authClient, authIpAddress, authRealm, authUser, dateFrom, dateTo, first, max, operationTypes, realm, resourcePath, resourceTypes) {
+  var url = "/" + realm + "/admin-events";
+  var description = "Delete admin events for realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingAdminEvent(authClient, authIpAddress, authRealm, authUser, dateFrom, dateTo, first, max, operationTypes, realm, resourcePath, resourceTypes) {
+  var url = "/" + realm + "/admin-events";
+  var description = "Verify we cannot delete non-existing AdminEvent";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function addLocalization(key, locale, realm) {
-  var url = "/" + realm + "/localization/" + locale;
-  var description = "Add localization for realm " + realm + ", locale " + locale;
+function matchDeletedAdminEvent(authClient, authIpAddress, authRealm, authUser, dateFrom, dateTo, first, max, operationTypes, realm, resourcePath, resourceTypes) {
+  var expectedDesc = "Delete admin events for realm " + realm;
+  return bp.EventSet("matchDeletedAdminEvent", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyAdminEventDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ admin\ events\ for\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ admin\ events\ for\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: client description converter ----
+
+function postClientDescriptionConverter(realm) {
+  var url = "/" + realm + "/client-description-converter";
+  var description = "Post client description converter for realm " + realm;
   var body = {
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
-      realm: String(realm)
-      , key: String(key)
-      , locale: String(locale)
+      , realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingClientDescriptionConverter(realm) {
+  postClientDescriptionConverter(realm);
+}
+
+function verifyClientDescriptionConverterExists(realm) {
+  var url = "/" + realm + "/client-description-converter";
+  var description = "Verify ClientDescriptionConverter exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.success("ClientDescriptionConverter exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ClientDescriptionConverter to exist but it does not");
     }
   });
 }
 
-function updateLocalization(key, locale, realm) {
-  var url = "/" + realm + "/localization/" + locale + "/" + key;
-  var description = "Update localization for realm " + realm + ", locale " + locale + ", key " + key;
+function verifyClientDescriptionConverterDoesNotExist(realm) {
+  var url = "/" + realm + "/client-description-converter";
+  var description = "Verify ClientDescriptionConverter does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected ClientDescriptionConverter to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ClientDescriptionConverter does not exist");
+    }
+  });
+}
+
+function matchAddedClientDescriptionConverter(realm) {
+  var expectedDesc = "Post client description converter for realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyClientDescriptionConverterAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Post\ client\ description\ converter\ for\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Post\ client\ description\ converter\ for\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getClientDescriptionConverterAddedEvent(keyVal) {
+  return bp.EventSet("AddClientDescriptionConverter:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyClientDescriptionConverterAdded() {
+  return bp.EventSet("matchAnyClientDescriptionConverterAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create client description converter") > -1;
+  });
+}
+
+function waitForClientDescriptionConverterAdded(realm) {
+  var expectedDesc = "Post client description converter for realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: client policies ----
+
+function getPolicies(realm) {
+  var url = "/" + realm + "/client-policies/policies";
+  var description = "Get client policies for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putPolicies(realm) {
+  var url = "/" + realm + "/client-policies/policies";
+  var description = "Update client policies for realm " + realm;
   var body = {
+    "policies": [],
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+// ---- Entity: client profiles ----
+
+function getProfiles(include-global-profiles, realm) {
+  var url = "/" + realm + "/client-policies/profiles";
+  var description = "Get client profiles for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putProfiles(include-global-profiles, realm) {
+  var url = "/" + realm + "/client-policies/profiles";
+  var description = "Update client profiles for realm " + realm;
+  var body = {
+    "globalProfiles": [],
+    "profiles": [],
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+// ---- Entity: client session stats ----
+
+function getClientSessionStats(realm) {
+  var url = "/" + realm + "/client-session-stats";
+  var description = "Get client session stats for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: credential registrators ----
+
+function getCredentialRegistrators(realm) {
+  var url = "/" + realm + "/credential-registrators";
+  var description = "Get credential registrators for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: default default client scope ----
+
+function putDefaultDefaultClientScope(clientScopeId, realm) {
+  var url = "/" + realm + "/default-default-client-scopes/" + clientScopeId;
+  var description = "Update default default client scope " + clientScopeId + " for realm " + realm;
+  var body = {
+    "clientScopeId": String(clientScopeId),
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientScopeId: String(clientScopeId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteDefaultDefaultClientScope(clientScopeId, realm) {
+  var url = "/" + realm + "/default-default-client-scopes/" + clientScopeId;
+  var description = "Delete default default client scope " + clientScopeId + " for realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingDefaultDefaultClientScope(clientScopeId, realm) {
+  var url = "/" + realm + "/default-default-client-scopes/" + clientScopeId;
+  var description = "Verify we cannot delete non-existing DefaultDefaultClientScope";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedDefaultDefaultClientScope(clientScopeId, realm) {
+  var expectedDesc = "Delete default default client scope " + clientScopeId + " for realm " + realm;
+  return bp.EventSet("matchDeletedDefaultDefaultClientScope", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyDefaultDefaultClientScopeDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ default\ default\ client\ scope\ (.+)\ for\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ default\ default\ client\ scope\ (.+)\ for\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["clientScopeId", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: default group ----
+
+function putDefaultGroup(groupId, realm) {
+  var url = "/" + realm + "/default-groups/" + groupId;
+  var description = "Update default group " + groupId + " in realm " + realm;
+  var body = {
+    "groupId": String(groupId),
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , groupId: String(groupId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteDefaultGroup(groupId, realm) {
+  var url = "/" + realm + "/default-groups/" + groupId;
+  var description = "Delete default group " + groupId + " from realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingDefaultGroup(groupId, realm) {
+  var url = "/" + realm + "/default-groups/" + groupId;
+  var description = "Verify we cannot delete non-existing DefaultGroup";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedDefaultGroup(groupId, realm) {
+  var expectedDesc = "Delete default group " + groupId + " from realm " + realm;
+  return bp.EventSet("matchDeletedDefaultGroup", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyDefaultGroupDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ default\ group\ (.+)\ from\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ default\ group\ (.+)\ from\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["groupId", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: default optional client scope ----
+
+function putDefaultOptionalClientScope(clientScopeId, realm) {
+  var url = "/" + realm + "/default-optional-client-scopes/" + clientScopeId;
+  var description = "Update default optional client scope " + clientScopeId + " in realm " + realm;
+  var body = {
+    "clientScopeId": String(clientScopeId),
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientScopeId: String(clientScopeId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteDefaultOptionalClientScope(clientScopeId, realm) {
+  var url = "/" + realm + "/default-optional-client-scopes/" + clientScopeId;
+  var description = "Delete default optional client scope " + clientScopeId + " from realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingDefaultOptionalClientScope(clientScopeId, realm) {
+  var url = "/" + realm + "/default-optional-client-scopes/" + clientScopeId;
+  var description = "Verify we cannot delete non-existing DefaultOptionalClientScope";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedDefaultOptionalClientScope(clientScopeId, realm) {
+  var expectedDesc = "Delete default optional client scope " + clientScopeId + " from realm " + realm;
+  return bp.EventSet("matchDeletedDefaultOptionalClientScope", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyDefaultOptionalClientScopeDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ default\ optional\ client\ scope\ (.+)\ from\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ default\ optional\ client\ scope\ (.+)\ from\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["clientScopeId", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: event ----
+
+function getEvents(client, dateFrom, dateTo, first, ipAddress, max, realm, type, user) {
+  var url = "/" + realm + "/events";
+  var description = "Get events in realm " + realm + " filtered by client " + client + ", dateFrom " + dateFrom + ", dateTo " + dateTo + ", first " + first + ", ipAddress " + ipAddress + ", max " + max + ", type " + type + ", user " + user;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function deleteEvents(client, dateFrom, dateTo, first, ipAddress, max, realm, type, user) {
+  var url = "/" + realm + "/events";
+  var description = "Delete events in realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingEvent(client, dateFrom, dateTo, first, ipAddress, max, realm, type, user) {
+  var url = "/" + realm + "/events";
+  var description = "Verify we cannot delete non-existing Event";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedEvent(client, dateFrom, dateTo, first, ipAddress, max, realm, type, user) {
+  var expectedDesc = "Delete events in realm " + realm;
+  return bp.EventSet("matchDeletedEvent", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyEventDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ events\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ events\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: events config ----
+
+function getEventsConfig(realm) {
+  var url = "/" + realm + "/events/config";
+  var description = "Get events config for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putEventsConfig(realm) {
+  var url = "/" + realm + "/events/config";
+  var description = "Update events config for realm " + realm;
+  var body = {
+    "adminEventsDetailsEnabled": String(true),
+    "adminEventsEnabled": String(true),
+    "enabledEventTypes": [],
+    "eventsEnabled": String(true),
+    "eventsExpiration": String(1),
+    "eventsListeners": [],
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+// ---- Entity: localization ----
+
+function getLocalizationByRealm(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization";
+  var description = "Get localization for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function getLocalizationByRealmByLocale(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization/" + locale;
+  var description = "Get localization for realm " + realm + " and locale " + locale;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function postLocalization(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization/" + locale;
+  var description = "Add localization string for realm " + realm + " and locale " + locale;
+  var body = {
+    "locale": String(locale),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
@@ -241,34 +771,67 @@ function updateLocalization(key, locale, realm) {
       , locale: String(locale)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteLocalization(key, locale, realm) {
-  var url = "/" + realm + "/localization/" + locale + "/" + key;
-  var description = "Delete localization for realm " + realm + ", locale " + locale + ", key " + key;
+function deleteLocalizationByRealmByLocale(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization/" + locale;
+  var description = "Delete localization for realm " + realm + " and locale " + locale;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingLocalization(key, locale, realm) {
-  var url = "/" + realm + "/localization/" + locale;
+function getLocalizationByRealmByLocaleByKey(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization/" + locale + "/" + key;
+  var description = "Get localization for realm " + realm + ", locale " + locale + " and key " + key;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putLocalization(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization/" + locale + "/" + key;
+  var description = "Update localization string for realm " + realm + ", locale " + locale + " and key " + key;
   var body = {
-    "realm": String(realm)
+    "key": String(key),
+    "locale": String(locale),
+    "realm": String(realm),
   };
-  var description = "Verify that we cannot add another Localization...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
+  svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , key: String(key)
+      , locale: String(locale)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteLocalizationByRealmByLocaleByKey(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var url = "/" + realm + "/localization/" + locale + "/" + key;
+  var description = "Delete localization for realm " + realm + ", locale " + locale + " and key " + key;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function verifyLocalizationExists(key, locale, realm) {
+function tryToAddExistingLocalization(key, locale, realm, useRealmDefaultLocaleFallback) {
+  deleteLocalizationByRealmByLocaleByKey(key, locale, realm, useRealmDefaultLocaleFallback);
+}
+
+function verifyLocalizationExists(key, locale, realm, useRealmDefaultLocaleFallback) {
   var url = "/" + realm + "/localization/" + locale;
-  var description = "Verify Localization exists";
+  var description = "Verify Localization with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -286,9 +849,9 @@ function verifyLocalizationExists(key, locale, realm) {
   });
 }
 
-function verifyLocalizationDoesNotExist(key, locale, realm) {
+function verifyLocalizationDoesNotExist(key, locale, realm, useRealmDefaultLocaleFallback) {
   var url = "/" + realm + "/localization/" + locale;
-  var description = "Verify Localization does not exist";
+  var description = "Verify Localization with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -306,25 +869,14 @@ function verifyLocalizationDoesNotExist(key, locale, realm) {
   });
 }
 
-function tryToDeleteANonExistingLocalization(key, locale, realm) {
-  var url = "/" + realm + "/localization/" + locale + "/" + key;
-  var description = "Verify we cannot delete non-existing Localization";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedLocalization(key, locale, realm) {
-  var expectedDesc = "Add localization for realm " + realm + ", locale " + locale;
-  return bp.EventSet("matchAddedLocalization", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedLocalization(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var expectedDesc = "Add localization string for realm " + realm + " and locale " + locale;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyLocalizationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ localization\ for\ realm\ (.+),\ locale\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ localization\ for\ realm\ (.+),\ locale\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ localization\ string\ for\ realm\ (.+)\ and\ locale\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ localization\ string\ for\ realm\ (.+)\ and\ locale\ (.+)$/);
   var captures = m.slice(1);
   var names = ["realm", "locale"];
   var obj = {};
@@ -343,281 +895,13 @@ function getLocalizationAddedEvent(keyVal) {
 
 function matchAnyLocalizationAdded() {
   return bp.EventSet("matchAnyLocalizationAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create localization") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create localization") > -1;
   });
 }
 
-function waitForLocalizationAdded(key, locale, realm) {
-  var expectedDesc = "Add localization for realm " + realm + ", locale " + locale;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedLocalization(key, locale, realm) {
-  var expectedDesc = "Delete localization for realm " + realm + ", locale " + locale + ", key " + key;
-  return bp.EventSet("matchDeletedLocalization", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyLocalizationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ localization\ for\ realm\ (.+),\ locale\ (.+),\ key\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ localization\ for\ realm\ (.+),\ locale\ (.+),\ key\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["realm", "locale", "key"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: defaultDefaultClientScope ----
-
-function updateDefaultDefaultClientScope(clientScopeId, realm) {
-  var url = "/" + realm + "/default-default-client-scopes/" + clientScopeId;
-  var description = "Update default default client scope " + clientScopeId + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , clientScopeId: String(clientScopeId)
-    }
-  });
-}
-
-function deleteDefaultDefaultClientScope(clientScopeId, realm) {
-  var url = "/" + realm + "/default-default-client-scopes/" + clientScopeId;
-  var description = "Delete default default client scope " + clientScopeId + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToDeleteANonExistingDefaultDefaultClientScope(clientScopeId, realm) {
-  var url = "/" + realm + "/default-default-client-scopes/" + clientScopeId;
-  var description = "Verify we cannot delete non-existing DefaultDefaultClientScope";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchDeletedDefaultDefaultClientScope(clientScopeId, realm) {
-  var expectedDesc = "Delete default default client scope " + clientScopeId + " in realm " + realm;
-  return bp.EventSet("matchDeletedDefaultDefaultClientScope", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyDefaultDefaultClientScopeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ default\ default\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ default\ default\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["clientScopeId", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: defaultGroup ----
-
-function updateDefaultGroup(groupId, realm) {
-  var url = "/" + realm + "/default-groups/" + groupId;
-  var description = "Update default group " + groupId + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , groupId: String(groupId)
-    }
-  });
-}
-
-function deleteDefaultGroup(groupId, realm) {
-  var url = "/" + realm + "/default-groups/" + groupId;
-  var description = "Delete default group " + groupId + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToDeleteANonExistingDefaultGroup(groupId, realm) {
-  var url = "/" + realm + "/default-groups/" + groupId;
-  var description = "Verify we cannot delete non-existing DefaultGroup";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchDeletedDefaultGroup(groupId, realm) {
-  var expectedDesc = "Delete default group " + groupId + " in realm " + realm;
-  return bp.EventSet("matchDeletedDefaultGroup", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyDefaultGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ default\ group\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ default\ group\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["groupId", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: defaultOptionalClientScope ----
-
-function updateDefaultOptionalClientScope(clientScopeId, realm) {
-  var url = "/" + realm + "/default-optional-client-scopes/" + clientScopeId;
-  var description = "Update default optional client scope " + clientScopeId + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , clientScopeId: String(clientScopeId)
-    }
-  });
-}
-
-function deleteDefaultOptionalClientScope(clientScopeId, realm) {
-  var url = "/" + realm + "/default-optional-client-scopes/" + clientScopeId;
-  var description = "Delete default optional client scope " + clientScopeId + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToDeleteANonExistingDefaultOptionalClientScope(clientScopeId, realm) {
-  var url = "/" + realm + "/default-optional-client-scopes/" + clientScopeId;
-  var description = "Verify we cannot delete non-existing DefaultOptionalClientScope";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchDeletedDefaultOptionalClientScope(clientScopeId, realm) {
-  var expectedDesc = "Delete default optional client scope " + clientScopeId + " in realm " + realm;
-  return bp.EventSet("matchDeletedDefaultOptionalClientScope", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyDefaultOptionalClientScopeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ default\ optional\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ default\ optional\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["clientScopeId", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: clientPolicies ----
-
-function getClientPolicies(realm) {
-  var url = "/" + realm + "/client-policies/policies";
-  var description = "Get client policies in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateClientPolicies(realm) {
-  var url = "/" + realm + "/client-policies/policies";
-  var description = "Update client policies in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-    }
-  });
-}
-
-// ---- Entity: clientProfiles ----
-
-function getClientProfiles(realm) {
-  var url = "/" + realm + "/client-policies/profiles";
-  var description = "Get client profiles in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateClientProfiles(realm) {
-  var url = "/" + realm + "/client-policies/profiles";
-  var description = "Update client profiles in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-    }
-  });
-}
-
-// ---- Entity: usersManagementPermissions ----
-
-function getUsersManagementPermissions(realm) {
-  var url = "/" + realm + "/users-management-permissions";
-  var description = "Get users management permissions in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateUsersManagementPermissions(realm) {
-  var url = "/" + realm + "/users-management-permissions";
-  var description = "Update users management permissions in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-    }
-  });
+function waitForLocalizationAdded(key, locale, realm, useRealmDefaultLocaleFallback) {
+  var expectedDesc = "Add localization string for realm " + realm + " and locale " + locale;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: session ----
@@ -627,7 +911,8 @@ function deleteSession(realm, session) {
   var description = "Delete session " + session + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
@@ -635,7 +920,7 @@ function tryToDeleteANonExistingSession(realm, session) {
   var url = "/" + realm + "/sessions/" + session;
   var description = "Verify we cannot delete non-existing Session";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -659,77 +944,111 @@ function waitForAnySessionDeleted() {
   return obj;
 }
 
+// ---- Entity: usersManagementPermissions ----
+
+function getUsersManagementPermissions(realm) {
+  var url = "/" + realm + "/users-management-permissions";
+  var description = "Get users management permissions in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putUsersManagementPermissions(realm) {
+  var url = "/" + realm + "/users-management-permissions";
+  var description = "Update users management permissions in realm " + realm;
+  var body = {
+    "enabled": String(true),
+    "realm": String(realm),
+    "resource": "resource_" + realm,
+    "scopePermissions": scopePermissions,
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
 // ---- Entity: authentication config ----
 
-function postAuthenticationConfig(id, realm) {
+function postAuthenticationConfig(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config";
-  var description = "Create authentication config in realm " + realm;
+  var description = "Create authentication config with id " + id;
   var body = {
+    "alias": String(alias),
+    "config": config,
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , alias: String(alias)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getAuthenticationConfig(id, realm) {
+function getAuthenticationConfig(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config/" + id;
-  var description = "Get authentication config " + id + " in realm " + realm;
+  var description = "Get authentication config with id " + id;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function putAuthenticationConfig(id, realm) {
+function putAuthenticationConfig(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config/" + id;
-  var description = "Update authentication config " + id + " in realm " + realm;
+  var description = "Update authentication config with id " + id;
   var body = {
+    "alias": String(alias),
+    "config": config,
+    "id": String(id),
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
+      , alias: String(alias)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteConfig(id, realm) {
+function deleteConfig(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config/" + id;
-  var description = "Delete authentication config " + id + " in realm " + realm;
+  var description = "Delete authentication config with id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingAuthenticationConfig(id, realm) {
-  var url = "/" + realm + "/authentication/config";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another AuthenticationConfig...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingAuthenticationConfig(alias, config, id, realm) {
+  deleteConfig(alias, config, id, realm);
 }
 
-function verifyAuthenticationConfigExists(id, realm) {
+function verifyAuthenticationConfigExists(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config";
-  var description = "Verify AuthenticationConfig exists";
+  var description = "Verify AuthenticationConfig with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -747,9 +1066,9 @@ function verifyAuthenticationConfigExists(id, realm) {
   });
 }
 
-function verifyAuthenticationConfigDoesNotExist(id, realm) {
+function verifyAuthenticationConfigDoesNotExist(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config";
-  var description = "Verify AuthenticationConfig does not exist";
+  var description = "Verify AuthenticationConfig with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -767,27 +1086,25 @@ function verifyAuthenticationConfigDoesNotExist(id, realm) {
   });
 }
 
-function tryToDeleteANonExistingAuthenticationConfig(id, realm) {
+function tryToDeleteANonExistingAuthenticationConfig(alias, config, id, realm) {
   var url = "/" + realm + "/authentication/config/" + id;
   var description = "Verify we cannot delete non-existing AuthenticationConfig";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedAuthenticationConfig(id, realm) {
-  var expectedDesc = "Create authentication config in realm " + realm;
-  return bp.EventSet("matchAddedAuthenticationConfig", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedAuthenticationConfig(alias, config, id, realm) {
+  var expectedDesc = "Create authentication config with id " + id;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyAuthenticationConfigAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ authentication\ config\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ authentication\ config\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ authentication\ config\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ authentication\ config\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["realm"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -804,27 +1121,27 @@ function getAuthenticationConfigAddedEvent(keyVal) {
 
 function matchAnyAuthenticationConfigAdded() {
   return bp.EventSet("matchAnyAuthenticationConfigAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create authentication config") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create authentication config") > -1;
   });
 }
 
-function waitForAuthenticationConfigAdded(id, realm) {
-  var expectedDesc = "Create authentication config in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForAuthenticationConfigAdded(alias, config, id, realm) {
+  var expectedDesc = "Create authentication config with id " + id;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedAuthenticationConfig(id, realm) {
-  var expectedDesc = "Delete authentication config " + id + " in realm " + realm;
+function matchDeletedAuthenticationConfig(alias, config, id, realm) {
+  var expectedDesc = "Delete authentication config with id " + id;
   return bp.EventSet("matchDeletedAuthenticationConfig", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyAuthenticationConfigDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ authentication\ config\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ authentication\ config\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ authentication\ config\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ authentication\ config\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id", "realm"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -832,60 +1149,65 @@ function waitForAnyAuthenticationConfigDeleted() {
   return obj;
 }
 
-// ---- Entity: authentication execution ----
+// ---- Entity: execution ----
 
-function postExecutions(executionId, realm) {
+function postExecutions(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
   var url = "/" + realm + "/authentication/executions";
-  var description = "Create authentication execution in realm " + realm;
+  var description = "Create execution with id " + executionId;
   var body = {
+    "authenticator": String(authenticator),
+    "authenticatorConfig": String(authenticatorConfig),
+    "authenticatorFlow": String(authenticatorFlow),
+    "autheticatorFlow": String(autheticatorFlow),
+    "executionId": String(executionId),
+    "flowId": String(flowId),
+    "id": String(id),
+    "parentFlow": String(parentFlow),
+    "priority": String(priority),
     "realm": String(realm),
+    "requirement": String(requirement),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , executionId: String(executionId)
+      , flowId: String(flowId)
+      , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getExecution(executionId, realm) {
+function getExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
   var url = "/" + realm + "/authentication/executions/" + executionId;
-  var description = "Get authentication execution " + executionId + " in realm " + realm;
+  var description = "Get execution with id " + executionId;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function deleteExecution(executionId, realm) {
+function deleteExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
   var url = "/" + realm + "/authentication/executions/" + executionId;
-  var description = "Delete authentication execution " + executionId + " in realm " + realm;
+  var description = "Delete execution with id " + executionId;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingAuthenticationExecution(executionId, realm) {
-  var url = "/" + realm + "/authentication/executions";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another AuthenticationExecution...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
+  deleteExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
 }
 
-function verifyAuthenticationExecutionExists(executionId, realm) {
+function verifyExecutionExists(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
   var url = "/" + realm + "/authentication/executions";
-  var description = "Verify AuthenticationExecution exists";
+  var description = "Verify Execution with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -894,18 +1216,18 @@ function verifyAuthenticationExecutionExists(executionId, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("AuthenticationExecution exists");
+            return pvg.success("Execution exists");
           }
         }
       }
-      return pvg.fail("Expected AuthenticationExecution to exist but it does not");
+      return pvg.fail("Expected Execution to exist but it does not");
     }
   });
 }
 
-function verifyAuthenticationExecutionDoesNotExist(executionId, realm) {
+function verifyExecutionDoesNotExist(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
   var url = "/" + realm + "/authentication/executions";
-  var description = "Verify AuthenticationExecution does not exist";
+  var description = "Verify Execution with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -914,36 +1236,34 @@ function verifyAuthenticationExecutionDoesNotExist(executionId, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected AuthenticationExecution to not exist but it does");
+            return pvg.fail("Expected Execution to not exist but it does");
           }
         }
       }
-      return pvg.success("AuthenticationExecution does not exist");
+      return pvg.success("Execution does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingAuthenticationExecution(executionId, realm) {
+function tryToDeleteANonExistingExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
   var url = "/" + realm + "/authentication/executions/" + executionId;
-  var description = "Verify we cannot delete non-existing AuthenticationExecution";
+  var description = "Verify we cannot delete non-existing Execution";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedAuthenticationExecution(executionId, realm) {
-  var expectedDesc = "Create authentication execution in realm " + realm;
-  return bp.EventSet("matchAddedAuthenticationExecution", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
+  var expectedDesc = "Create execution with id " + executionId;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyAuthenticationExecutionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ authentication\ execution\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ authentication\ execution\ in\ realm\ (.+)$/);
+function waitForAnyExecutionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ execution\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ execution\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["realm"];
+  var names = ["executionId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -951,36 +1271,36 @@ function waitForAnyAuthenticationExecutionAdded() {
   return obj;
 }
 
-function getAuthenticationExecutionAddedEvent(keyVal) {
-  return bp.EventSet("AddAuthenticationExecution:" + keyVal, function(e) {
+function getExecutionAddedEvent(keyVal) {
+  return bp.EventSet("AddExecution:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyAuthenticationExecutionAdded() {
-  return bp.EventSet("matchAnyAuthenticationExecutionAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create authentication execution") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyExecutionAdded() {
+  return bp.EventSet("matchAnyExecutionAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create execution") > -1;
   });
 }
 
-function waitForAuthenticationExecutionAdded(executionId, realm) {
-  var expectedDesc = "Create authentication execution in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForExecutionAdded(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
+  var expectedDesc = "Create execution with id " + executionId;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedAuthenticationExecution(executionId, realm) {
-  var expectedDesc = "Delete authentication execution " + executionId + " in realm " + realm;
-  return bp.EventSet("matchDeletedAuthenticationExecution", function(e) {
+function matchDeletedExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement) {
+  var expectedDesc = "Delete execution with id " + executionId;
+  return bp.EventSet("matchDeletedExecution", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyAuthenticationExecutionDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ authentication\ execution\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ authentication\ execution\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyExecutionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ execution\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ execution\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["executionId", "realm"];
+  var names = ["executionId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -990,50 +1310,47 @@ function waitForAnyAuthenticationExecutionDeleted() {
 
 // ---- Entity: execution config ----
 
-function postExecutionConfig(executionId, id, realm) {
+function postExecutionConfig(alias, config, executionId, id, realm) {
   var url = "/" + realm + "/authentication/executions/" + executionId + "/config";
-  var description = "Create execution config for execution " + executionId + " in realm " + realm;
+  var description = "Create execution config with id " + id + " for execution " + executionId;
   var body = {
+    "alias": String(alias),
+    "config": config,
+    "executionId": String(executionId),
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , alias: String(alias)
       , executionId: String(executionId)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getExecutionConfig(executionId, id, realm) {
+function getExecutionConfig(alias, config, executionId, id, realm) {
   var url = "/" + realm + "/authentication/executions/" + executionId + "/config/" + id;
-  var description = "Get execution config " + id + " for execution " + executionId + " in realm " + realm;
+  var description = "Get execution config with id " + id + " for execution " + executionId;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingExecutionConfig(executionId, id, realm) {
-  var url = "/" + realm + "/authentication/executions/" + executionId + "/config";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ExecutionConfig...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingExecutionConfig(alias, config, executionId, id, realm) {
+  getExecutionConfig(alias, config, executionId, id, realm);
 }
 
-function verifyExecutionConfigExists(executionId, id, realm) {
+function verifyExecutionConfigExists(alias, config, executionId, id, realm) {
   var url = "/" + realm + "/authentication/executions/" + executionId + "/config";
-  var description = "Verify ExecutionConfig exists";
+  var description = "Verify ExecutionConfig with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1051,9 +1368,9 @@ function verifyExecutionConfigExists(executionId, id, realm) {
   });
 }
 
-function verifyExecutionConfigDoesNotExist(executionId, id, realm) {
+function verifyExecutionConfigDoesNotExist(alias, config, executionId, id, realm) {
   var url = "/" + realm + "/authentication/executions/" + executionId + "/config";
-  var description = "Verify ExecutionConfig does not exist";
+  var description = "Verify ExecutionConfig with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1071,18 +1388,16 @@ function verifyExecutionConfigDoesNotExist(executionId, id, realm) {
   });
 }
 
-function matchAddedExecutionConfig(executionId, id, realm) {
-  var expectedDesc = "Create execution config for execution " + executionId + " in realm " + realm;
-  return bp.EventSet("matchAddedExecutionConfig", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedExecutionConfig(alias, config, executionId, id, realm) {
+  var expectedDesc = "Create execution config with id " + id + " for execution " + executionId;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyExecutionConfigAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ execution\ config\ for\ execution\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ execution\ config\ for\ execution\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ execution\ config\ with\ id\ (.+)\ for\ execution\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ execution\ config\ with\ id\ (.+)\ for\ execution\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["executionId", "realm"];
+  var names = ["id", "executionId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1099,86 +1414,100 @@ function getExecutionConfigAddedEvent(keyVal) {
 
 function matchAnyExecutionConfigAdded() {
   return bp.EventSet("matchAnyExecutionConfigAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create execution config") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create execution config") > -1;
   });
 }
 
-function waitForExecutionConfigAdded(executionId, id, realm) {
-  var expectedDesc = "Create execution config for execution " + executionId + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForExecutionConfigAdded(alias, config, executionId, id, realm) {
+  var expectedDesc = "Create execution config with id " + id + " for execution " + executionId;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: authentication flow ----
 
-function postFlows(id, realm) {
+function createAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows";
   var description = "Create authentication flow in realm " + realm;
   var body = {
+    "alias": String(alias),
+    "authenticationExecutions": String(authenticationExecutions),
+    "builtIn": String(builtIn),
+    "description": String(description),
+    "id": String(id),
+    "providerId": String(providerId),
     "realm": String(realm),
+    "topLevel": String(topLevel),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , alias: String(alias)
+      , flowAlias: String(flowAlias)
       , id: String(id)
+      , providerId: String(providerId)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getFlow(id, realm) {
+function getAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows/" + id;
   var description = "Get authentication flow " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function putFlow(id, realm) {
+function updateAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows/" + id;
   var description = "Update authentication flow " + id + " in realm " + realm;
   var body = {
+    "alias": String(alias),
+    "authenticationExecutions": String(authenticationExecutions),
+    "builtIn": String(builtIn),
+    "description": String(description),
+    "id": String(id),
+    "providerId": String(providerId),
     "realm": String(realm),
+    "topLevel": String(topLevel),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , alias: String(alias)
+      , flowAlias: String(flowAlias)
       , id: String(id)
+      , providerId: String(providerId)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteFlow(id, realm) {
+function deleteAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows/" + id;
   var description = "Delete authentication flow " + id + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingAuthenticationFlow(id, realm) {
-  var url = "/" + realm + "/authentication/flows";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another AuthenticationFlow...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
+  deleteAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
 }
 
-function verifyAuthenticationFlowExists(id, realm) {
+function verifyAuthenticationFlowExists(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows";
-  var description = "Verify AuthenticationFlow exists";
+  var description = "Verify AuthenticationFlow with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1196,9 +1525,9 @@ function verifyAuthenticationFlowExists(id, realm) {
   });
 }
 
-function verifyAuthenticationFlowDoesNotExist(id, realm) {
+function verifyAuthenticationFlowDoesNotExist(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows";
-  var description = "Verify AuthenticationFlow does not exist";
+  var description = "Verify AuthenticationFlow with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1216,20 +1545,18 @@ function verifyAuthenticationFlowDoesNotExist(id, realm) {
   });
 }
 
-function tryToDeleteANonExistingAuthenticationFlow(id, realm) {
+function tryToDeleteANonExistingAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var url = "/" + realm + "/authentication/flows/" + id;
   var description = "Verify we cannot delete non-existing AuthenticationFlow";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedAuthenticationFlow(id, realm) {
+function matchAddedAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var expectedDesc = "Create authentication flow in realm " + realm;
-  return bp.EventSet("matchAddedAuthenticationFlow", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyAuthenticationFlowAdded() {
@@ -1253,16 +1580,16 @@ function getAuthenticationFlowAddedEvent(keyVal) {
 
 function matchAnyAuthenticationFlowAdded() {
   return bp.EventSet("matchAnyAuthenticationFlowAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create authentication flow") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create authentication flow") > -1;
   });
 }
 
-function waitForAuthenticationFlowAdded(id, realm) {
+function waitForAuthenticationFlowAdded(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var expectedDesc = "Create authentication flow in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedAuthenticationFlow(id, realm) {
+function matchDeletedAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel) {
   var expectedDesc = "Delete authentication flow " + id + " in realm " + realm;
   return bp.EventSet("matchDeletedAuthenticationFlow", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -1281,22 +1608,403 @@ function waitForAnyAuthenticationFlowDeleted() {
   return obj;
 }
 
-// ---- Entity: authentication execution info ----
+// ---- Entity: authentication execution ----
 
-function putExecutions(flowAlias, realm) {
-  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions";
-  var description = "Update authentication executions info for flow " + flowAlias + " in realm " + realm;
+function raiseExecutionPriority(executionId, flowAlias, realm) {
+  var url = "/" + realm + "/authentication/executions/" + executionId + "/raise-priority";
+  var description = "Raise priority of execution " + executionId + " in realm " + realm;
   var body = {
+    "executionId": String(executionId),
     "realm": String(realm),
   };
-  svc.put(url, {
+  svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
+      , executionId: String(executionId)
       , flowAlias: String(flowAlias)
     }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function addExecution(executionId, flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions/execution";
+  var description = "Add execution to flow " + flowAlias + " in realm " + realm;
+  var body = {
+    "flowAlias": String(flowAlias),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , executionId: String(executionId)
+      , flowAlias: String(flowAlias)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function getExecutions(executionId, flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions";
+  var description = "Get executions for flow " + flowAlias + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateExecutions(executionId, flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions";
+  var description = "Update executions for flow " + flowAlias + " in realm " + realm;
+  var body = {
+    "alias": "alias_" + realm,
+    "authenticationConfig": "authenticationConfig_" + realm,
+    "authenticationFlow": String(true),
+    "configurable": String(true),
+    "description": "description_" + realm,
+    "displayName": "displayName_" + realm,
+    "flowAlias": String(flowAlias),
+    "flowId": "flowId_" + realm,
+    "id": "id_" + realm,
+    "index": String(1),
+    "level": String(1),
+    "providerId": "providerId_" + realm,
+    "realm": String(realm),
+    "requirement": "requirement_" + realm,
+    "requirementChoices": [],
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , executionId: String(executionId)
+      , flowAlias: String(flowAlias)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function tryToAddExistingAuthenticationExecution(executionId, flowAlias, realm) {
+  updateExecutions(executionId, flowAlias, realm);
+}
+
+function verifyAuthenticationExecutionExists(executionId, flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions/execution";
+  var description = "Verify AuthenticationExecution with realm " + realm + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.success("AuthenticationExecution exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthenticationExecution to exist but it does not");
+    }
+  });
+}
+
+function verifyAuthenticationExecutionDoesNotExist(executionId, flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions/execution";
+  var description = "Verify AuthenticationExecution with realm " + realm + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected AuthenticationExecution to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthenticationExecution does not exist");
+    }
+  });
+}
+
+function matchAddedAuthenticationExecution(executionId, flowAlias, realm) {
+  var expectedDesc = "Add execution to flow " + flowAlias + " in realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAuthenticationExecutionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ execution\ to\ flow\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ execution\ to\ flow\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["flowAlias", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAuthenticationExecutionAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthenticationExecution:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.realm) === String(keyVal);
+  });
+}
+
+function matchAnyAuthenticationExecutionAdded() {
+  return bp.EventSet("matchAnyAuthenticationExecutionAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create authentication execution") > -1;
+  });
+}
+
+function waitForAuthenticationExecutionAdded(executionId, flowAlias, realm) {
+  var expectedDesc = "Add execution to flow " + flowAlias + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: authentication flow copy ----
+
+function copyAuthenticationFlow(flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/copy";
+  var description = "Copy authentication flow " + flowAlias + " in realm " + realm;
+  var body = {
+    "flowAlias": String(flowAlias),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      , flowAlias: String(flowAlias)
+      , realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingAuthenticationFlowCopy(flowAlias, realm) {
+  copyAuthenticationFlow(flowAlias, realm);
+}
+
+function verifyAuthenticationFlowCopyExists(flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/copy";
+  var description = "Verify AuthenticationFlowCopy exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].flowAlias) === String(flowAlias) && String(items[i].realm) === String(realm)) {
+            return pvg.success("AuthenticationFlowCopy exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthenticationFlowCopy to exist but it does not");
+    }
+  });
+}
+
+function verifyAuthenticationFlowCopyDoesNotExist(flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/copy";
+  var description = "Verify AuthenticationFlowCopy does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].flowAlias) === String(flowAlias) && String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected AuthenticationFlowCopy to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthenticationFlowCopy does not exist");
+    }
+  });
+}
+
+function matchAddedAuthenticationFlowCopy(flowAlias, realm) {
+  var expectedDesc = "Copy authentication flow " + flowAlias + " in realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAuthenticationFlowCopyAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Copy\ authentication\ flow\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Copy\ authentication\ flow\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["flowAlias", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAuthenticationFlowCopyAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthenticationFlowCopy:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyAuthenticationFlowCopyAdded() {
+  return bp.EventSet("matchAnyAuthenticationFlowCopyAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create authentication flow copy") > -1;
+  });
+}
+
+function waitForAuthenticationFlowCopyAdded(flowAlias, realm) {
+  var expectedDesc = "Copy authentication flow " + flowAlias + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: authentication flow flow ----
+
+function addFlowToFlow(flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions/flow";
+  var description = "Add flow to flow " + flowAlias + " in realm " + realm;
+  var body = {
+    "flowAlias": String(flowAlias),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      , flowAlias: String(flowAlias)
+      , realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingAuthenticationFlowFlow(flowAlias, realm) {
+  addFlowToFlow(flowAlias, realm);
+}
+
+function verifyAuthenticationFlowFlowExists(flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions/flow";
+  var description = "Verify AuthenticationFlowFlow exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].flowAlias) === String(flowAlias) && String(items[i].realm) === String(realm)) {
+            return pvg.success("AuthenticationFlowFlow exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AuthenticationFlowFlow to exist but it does not");
+    }
+  });
+}
+
+function verifyAuthenticationFlowFlowDoesNotExist(flowAlias, realm) {
+  var url = "/" + realm + "/authentication/flows/" + flowAlias + "/executions/flow";
+  var description = "Verify AuthenticationFlowFlow does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].flowAlias) === String(flowAlias) && String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected AuthenticationFlowFlow to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AuthenticationFlowFlow does not exist");
+    }
+  });
+}
+
+function matchAddedAuthenticationFlowFlow(flowAlias, realm) {
+  var expectedDesc = "Add flow to flow " + flowAlias + " in realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyAuthenticationFlowFlowAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ flow\ to\ flow\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ flow\ to\ flow\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["flowAlias", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getAuthenticationFlowFlowAddedEvent(keyVal) {
+  return bp.EventSet("AddAuthenticationFlowFlow:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyAuthenticationFlowFlowAdded() {
+  return bp.EventSet("matchAnyAuthenticationFlowFlowAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create authentication flow flow") > -1;
+  });
+}
+
+function waitForAuthenticationFlowFlowAdded(flowAlias, realm) {
+  var expectedDesc = "Add flow to flow " + flowAlias + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: form action provider ----
+
+function getFormActionProviders(realm) {
+  var url = "/" + realm + "/authentication/form-action-providers";
+  var description = "Get form action providers in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: form provider ----
+
+function getFormProviders(realm) {
+  var url = "/" + realm + "/authentication/form-providers";
+  var description = "Get form providers in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: per client config description ----
+
+function getPerClientConfigDescription(realm) {
+  var url = "/" + realm + "/authentication/per-client-config-description";
+  var description = "Get per client config description in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -1304,19 +2012,20 @@ function putExecutions(flowAlias, realm) {
 
 function postRegisterRequiredAction(alias, realm) {
   var url = "/" + realm + "/authentication/register-required-action";
-  var description = "Register required action in realm " + realm;
+  var description = "Create required action " + alias + " in realm " + realm;
   var body = {
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
       , alias: String(alias)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function getRequiredAction(alias, realm) {
@@ -1324,7 +2033,8 @@ function getRequiredAction(alias, realm) {
   var description = "Get required action " + alias + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -1332,17 +2042,25 @@ function putRequiredAction(alias, realm) {
   var url = "/" + realm + "/authentication/required-actions/" + alias;
   var description = "Update required action " + alias + " in realm " + realm;
   var body = {
+    "alias": String(alias),
+    "config": config,
+    "defaultAction": String(true),
+    "enabled": String(true),
+    "name": "name_" + realm,
+    "priority": String(1),
+    "providerId": "providerId_" + realm,
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
       , alias: String(alias)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function deleteRequiredAction(alias, realm) {
@@ -1350,27 +2068,18 @@ function deleteRequiredAction(alias, realm) {
   var description = "Delete required action " + alias + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
 function tryToAddExistingRequiredAction(alias, realm) {
-  var url = "/" + realm + "/authentication/register-required-action";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another RequiredAction...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  deleteRequiredAction(alias, realm);
 }
 
 function verifyRequiredActionExists(alias, realm) {
   var url = "/" + realm + "/authentication/register-required-action";
-  var description = "Verify RequiredAction exists";
+  var description = "Verify RequiredAction with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1390,7 +2099,7 @@ function verifyRequiredActionExists(alias, realm) {
 
 function verifyRequiredActionDoesNotExist(alias, realm) {
   var url = "/" + realm + "/authentication/register-required-action";
-  var description = "Verify RequiredAction does not exist";
+  var description = "Verify RequiredAction with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1412,23 +2121,21 @@ function tryToDeleteANonExistingRequiredAction(alias, realm) {
   var url = "/" + realm + "/authentication/required-actions/" + alias;
   var description = "Verify we cannot delete non-existing RequiredAction";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedRequiredAction(alias, realm) {
-  var expectedDesc = "Register required action in realm " + realm;
-  return bp.EventSet("matchAddedRequiredAction", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  var expectedDesc = "Create required action " + alias + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRequiredActionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Register\ required\ action\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Register\ required\ action\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ required\ action\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ required\ action\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["realm"];
+  var names = ["alias", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1445,13 +2152,13 @@ function getRequiredActionAddedEvent(keyVal) {
 
 function matchAnyRequiredActionAdded() {
   return bp.EventSet("matchAnyRequiredActionAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create required action") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create required action") > -1;
   });
 }
 
 function waitForRequiredActionAdded(alias, realm) {
-  var expectedDesc = "Register required action in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+  var expectedDesc = "Create required action " + alias + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRequiredAction(alias, realm) {
@@ -1475,86 +2182,124 @@ function waitForAnyRequiredActionDeleted() {
 
 // ---- Entity: client ----
 
-function createClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients";
-  var description = "Create client " + clientId + " with id " + id;
+function postClientPushRevocation(first, id, max, realm) {
+  var url = "/" + realm + "/clients/" + id + "/push-revocation";
+  var description = "Post client push revocation for client " + id + " in realm " + realm;
   var body = {
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
-      realm: String(realm)
-      , clientId: String(clientId)
       , id: String(id)
+      , realm: String(realm)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function getClients(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients";
-  var description = "Get clients in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function getClientById(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients/" + id;
-  var description = "Get client by id " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients/" + id;
-  var description = "Update client " + id + " in realm " + realm;
+function postRegistrationAccessToken(first, id, max, realm) {
+  var url = "/" + realm + "/clients/" + id + "/registration-access-token";
+  var description = "Post registration access token for client " + id + " in realm " + realm;
   var body = {
+    "id": String(id),
     "realm": String(realm),
   };
-  svc.put(url, {
+  svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
-      realm: String(realm)
-      , clientId: String(clientId)
       , id: String(id)
+      , realm: String(realm)
     }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getServiceAccountUser(first, id, max, realm) {
+  var url = "/" + realm + "/clients/" + id + "/service-account-user";
+  var description = "Get service account user for client " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function deleteClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients/" + id;
-  var description = "Delete client " + id + " in realm " + realm;
+function getSessionCount(first, id, max, realm) {
+  var url = "/" + realm + "/clients/" + id + "/session-count";
+  var description = "Get session count for client " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function getTestNodesAvailable(first, id, max, realm) {
+  var url = "/" + realm + "/clients/" + id + "/test-nodes-available";
+  var description = "Get test nodes available for client " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function getClientUserSessions(first, id, max, realm) {
+  var url = "/" + realm + "/clients/" + id + "/user-sessions";
+  var description = "Get user sessions for client " + id + " in realm " + realm + " with paging first " + first + " max " + max;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: client node ----
+
+function postNodes(id, node, realm) {
+  var url = "/" + realm + "/clients/" + id + "/nodes";
+  var description = "Add node " + node + " to client " + id + " in realm " + realm;
+  var body = {
+    "id": String(id),
+    "node": String(node),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , id: String(id)
+      , node: String(node)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteNode(id, node, realm) {
+  var url = "/" + realm + "/clients/" + id + "/nodes/" + node;
+  var description = "Delete node " + node + " from client " + id + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another Client...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientNode(id, node, realm) {
+  deleteNode(id, node, realm);
 }
 
-function verifyClientExists(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients";
-  var description = "Verify Client exists";
+function verifyClientNodeExists(id, node, realm) {
+  var url = "/" + realm + "/clients/" + id + "/nodes";
+  var description = "Verify ClientNode with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1563,18 +2308,18 @@ function verifyClientExists(clientId, first, id, max, q, realm, search, viewable
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("Client exists");
+            return pvg.success("ClientNode exists");
           }
         }
       }
-      return pvg.fail("Expected Client to exist but it does not");
+      return pvg.fail("Expected ClientNode to exist but it does not");
     }
   });
 }
 
-function verifyClientDoesNotExist(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients";
-  var description = "Verify Client does not exist";
+function verifyClientNodeDoesNotExist(id, node, realm) {
+  var url = "/" + realm + "/clients/" + id + "/nodes";
+  var description = "Verify ClientNode with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1583,36 +2328,34 @@ function verifyClientDoesNotExist(clientId, first, id, max, q, realm, search, vi
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected Client to not exist but it does");
+            return pvg.fail("Expected ClientNode to not exist but it does");
           }
         }
       }
-      return pvg.success("Client does not exist");
+      return pvg.success("ClientNode does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var url = "/" + realm + "/clients/" + id;
-  var description = "Verify we cannot delete non-existing Client";
+function tryToDeleteANonExistingClientNode(id, node, realm) {
+  var url = "/" + realm + "/clients/" + id + "/nodes/" + node;
+  var description = "Verify we cannot delete non-existing ClientNode";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var expectedDesc = "Create client " + clientId + " with id " + id;
-  return bp.EventSet("matchAddedClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientNode(id, node, realm) {
+  var expectedDesc = "Add node " + node + " to client " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ (.+)\ with\ id\ (.+)$/);
+function waitForAnyClientNodeAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ node\ (.+)\ to\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ node\ (.+)\ to\ client\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["clientId", "id"];
+  var names = ["node", "id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1620,36 +2363,36 @@ function waitForAnyClientAdded() {
   return obj;
 }
 
-function getClientAddedEvent(keyVal) {
-  return bp.EventSet("AddClient:" + keyVal, function(e) {
+function getClientNodeAddedEvent(keyVal) {
+  return bp.EventSet("AddClientNode:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyClientAdded() {
-  return bp.EventSet("matchAnyClientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyClientNodeAdded() {
+  return bp.EventSet("matchAnyClientNodeAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client node") > -1;
   });
 }
 
-function waitForClientAdded(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var expectedDesc = "Create client " + clientId + " with id " + id;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientNodeAdded(id, node, realm) {
+  var expectedDesc = "Add node " + node + " to client " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedClient(clientId, first, id, max, q, realm, search, viewableOnly) {
-  var expectedDesc = "Delete client " + id + " in realm " + realm;
-  return bp.EventSet("matchDeletedClient", function(e) {
+function matchDeletedClientNode(id, node, realm) {
+  var expectedDesc = "Delete node " + node + " from client " + id + " in realm " + realm;
+  return bp.EventSet("matchDeletedClientNode", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyClientDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ client\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientNodeDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ node\ (.+)\ from\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ node\ (.+)\ from\ client\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id", "realm"];
+  var names = ["node", "id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1657,77 +2400,353 @@ function waitForAnyClientDeleted() {
   return obj;
 }
 
-// ---- Entity: user ----
+// ---- Entity: optional client scope ----
 
-function postUsers(id, realm, username) {
-  var url = "/" + realm + "/users";
-  var description = "Create user with username " + username;
+function putOptionalClientScope(clientScopeId, id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/optional-client-scopes/" + clientScopeId;
+  var description = "Update optional client scope " + clientScopeId + " for client " + id + " in realm " + realm;
   var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id: String(id)
-    }
-  });
-}
-
-function getUserByRealmById(id, realm, username) {
-  var url = "/" + realm + "/users/" + id;
-  var description = "Get user with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function putUser(id, realm, username) {
-  var url = "/" + realm + "/users/" + id;
-  var description = "Update user with id " + id + " and username " + username;
-  var body = {
+    "clientScopeId": String(clientScopeId),
+    "id": String(id),
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientScopeId: String(clientScopeId)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteOptionalClientScope(clientScopeId, id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/optional-client-scopes/" + clientScopeId;
+  var description = "Delete optional client scope " + clientScopeId + " from client " + id + " in realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingOptionalClientScope(clientScopeId, id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/optional-client-scopes/" + clientScopeId;
+  var description = "Verify we cannot delete non-existing OptionalClientScope";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedOptionalClientScope(clientScopeId, id, realm) {
+  var expectedDesc = "Delete optional client scope " + clientScopeId + " from client " + id + " in realm " + realm;
+  return bp.EventSet("matchDeletedOptionalClientScope", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyOptionalClientScopeDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ optional\ client\ scope\ (.+)\ from\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ optional\ client\ scope\ (.+)\ from\ client\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["clientScopeId", "id", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: client management permissions ----
+
+function getClientManagementPermissions(id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/management/permissions";
+  var description = "Get management permissions for client " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putClientManagementPermissions(id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/management/permissions";
+  var description = "Update management permissions for client " + id + " in realm " + realm;
+  var body = {
+    "enabled": String(true),
+    "id": String(id),
+    "realm": String(realm),
+    "resource": "resource_" + realm,
+    "scopePermissions": scopePermissions,
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteUserByRealmById(id, realm, username) {
-  var url = "/" + realm + "/users/" + id;
-  var description = "Delete user with id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
+// ---- Entity: user ----
 
-function tryToAddExistingUser(id, realm, username) {
+function createUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
   var url = "/" + realm + "/users";
+  var description = "Create user with id " + id + " in realm " + realm;
   var body = {
-    "realm": String(realm)
+    "access": access,
+    "applicationRoles": applicationRoles,
+    "attributes": attributes,
+    "clientConsents": String(clientConsents),
+    "clientRoles": clientRoles,
+    "createdTimestamp": String(createdTimestamp),
+    "credentials": String(credentials),
+    "disableableCredentialTypes": String(disableableCredentialTypes),
+    "email": String(email),
+    "emailVerified": String(emailVerified),
+    "enabled": String(enabled),
+    "federatedIdentities": String(federatedIdentities),
+    "federationLink": String(federationLink),
+    "firstName": String(firstName),
+    "groups": String(groups),
+    "id": String(id),
+    "lastName": String(lastName),
+    "notBefore": String(notBefore),
+    "origin": String(origin),
+    "realm": String(realm),
+    "realmRoles": String(realmRoles),
+    "requiredActions": String(requiredActions),
+    "self": String(self),
+    "serviceAccountClientId": String(serviceAccountClientId),
+    "socialLinks": String(socialLinks),
+    "totp": String(totp),
+    "username": String(username),
   };
-  var description = "Verify that we cannot add another User...";
-  if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientUuid: String(clientUuid)
+      , client_id: String(client_id)
+      , id: String(id)
+      , serviceAccountClientId: String(serviceAccountClientId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function getUserById(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id;
+  var description = "Get user with id " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function verifyUserExists(id, realm, username) {
+function updateUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id;
+  var description = "Update user with id " + id + " in realm " + realm;
+  var body = {
+    "access": access,
+    "applicationRoles": applicationRoles,
+    "attributes": attributes,
+    "clientConsents": String(clientConsents),
+    "clientRoles": clientRoles,
+    "createdTimestamp": String(createdTimestamp),
+    "credentials": String(credentials),
+    "disableableCredentialTypes": String(disableableCredentialTypes),
+    "email": String(email),
+    "emailVerified": String(emailVerified),
+    "enabled": String(enabled),
+    "federatedIdentities": String(federatedIdentities),
+    "federationLink": String(federationLink),
+    "firstName": String(firstName),
+    "groups": String(groups),
+    "id": String(id),
+    "lastName": String(lastName),
+    "notBefore": String(notBefore),
+    "origin": String(origin),
+    "realm": String(realm),
+    "realmRoles": String(realmRoles),
+    "requiredActions": String(requiredActions),
+    "self": String(self),
+    "serviceAccountClientId": String(serviceAccountClientId),
+    "socialLinks": String(socialLinks),
+    "totp": String(totp),
+    "username": String(username),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientUuid: String(clientUuid)
+      , client_id: String(client_id)
+      , id: String(id)
+      , serviceAccountClientId: String(serviceAccountClientId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id;
+  var description = "Delete user with id " + id + " in realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function postLogout(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id + "/logout";
+  var description = "Logout user " + id + " in realm " + realm;
+  var body = {
+    "id": String(id),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientUuid: String(clientUuid)
+      , client_id: String(client_id)
+      , id: String(id)
+      , serviceAccountClientId: String(serviceAccountClientId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function getOfflineSession(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id + "/offline-sessions/" + clientUuid;
+  var description = "Get offline session " + clientUuid + " for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function putResetPassword(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id + "/reset-password";
+  var description = "Reset password for user " + id + " in realm " + realm;
+  var body = {
+    "algorithm": "algorithm_" + realm,
+    "config": config,
+    "counter": String(1),
+    "createdDate": String(1),
+    "credentialData": "credentialData_" + realm,
+    "device": "device_" + realm,
+    "digits": String(1),
+    "hashIterations": String(1),
+    "hashedSaltedValue": "hashedSaltedValue_" + realm,
+    "id": String(id),
+    "period": String(1),
+    "priority": String(1),
+    "realm": String(realm),
+    "salt": "salt_" + realm,
+    "secretData": "secretData_" + realm,
+    "temporary": String(true),
+    "type": "type_" + realm,
+    "userLabel": "userLabel_" + realm,
+    "value": "value_" + realm,
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientUuid: String(clientUuid)
+      , client_id: String(client_id)
+      , id: String(id)
+      , serviceAccountClientId: String(serviceAccountClientId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function putResetPasswordEmail(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id + "/reset-password-email";
+  var description = "Reset password email for user " + id + " in realm " + realm + " with client_id " + client_id + " and redirect_uri " + redirect_uri;
+  var body = {
+    "client_id": String(client_id),
+    "id": String(id),
+    "realm": String(realm),
+    "redirect_uri": String(redirect_uri),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientUuid: String(clientUuid)
+      , client_id: String(client_id)
+      , id: String(id)
+      , serviceAccountClientId: String(serviceAccountClientId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function putSendVerifyEmail(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id + "/send-verify-email";
+  var description = "Send verify email for user " + id + " in realm " + realm + " with client_id " + client_id + " and redirect_uri " + redirect_uri;
+  var body = {
+    "client_id": String(client_id),
+    "id": String(id),
+    "realm": String(realm),
+    "redirect_uri": String(redirect_uri),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , clientUuid: String(clientUuid)
+      , client_id: String(client_id)
+      , id: String(id)
+      , serviceAccountClientId: String(serviceAccountClientId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function getSessions(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var url = "/" + realm + "/users/" + id + "/sessions";
+  var description = "Get sessions for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  getSessions(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
+}
+
+function verifyUserExists(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
   var url = "/" + realm + "/users";
-  var description = "Verify User exists";
+  var description = "Verify User with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1745,9 +2764,9 @@ function verifyUserExists(id, realm, username) {
   });
 }
 
-function verifyUserDoesNotExist(id, realm, username) {
+function verifyUserDoesNotExist(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
   var url = "/" + realm + "/users";
-  var description = "Verify User does not exist";
+  var description = "Verify User with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1765,27 +2784,25 @@ function verifyUserDoesNotExist(id, realm, username) {
   });
 }
 
-function tryToDeleteANonExistingUser(id, realm, username) {
+function tryToDeleteANonExistingUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
   var url = "/" + realm + "/users/" + id;
   var description = "Verify we cannot delete non-existing User";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200],
     parameters: { description: description }
   });
 }
 
-function matchAddedUser(id, realm, username) {
-  var expectedDesc = "Create user with username " + username;
-  return bp.EventSet("matchAddedUser", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var expectedDesc = "Create user with id " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyUserAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ with\ username\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ user\ with\ username\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ with\ id\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ user\ with\ id\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["username"];
+  var names = ["id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1802,27 +2819,77 @@ function getUserAddedEvent(keyVal) {
 
 function matchAnyUserAdded() {
   return bp.EventSet("matchAnyUserAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create user") > -1;
   });
 }
 
-function waitForUserAdded(id, realm, username) {
-  var expectedDesc = "Create user with username " + username;
-  waitFor(matchesDescription(expectedDesc));
+function waitForUserAdded(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var expectedDesc = "Create user with id " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedUser(id, realm, username) {
-  var expectedDesc = "Delete user with id " + id;
+function matchDeletedUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username) {
+  var expectedDesc = "Delete user with id " + id + " in realm " + realm;
   return bp.EventSet("matchDeletedUser", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyUserDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ user\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ user\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ user\ with\ id\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ user\ with\ id\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["id", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: user consent ----
+
+function getUserConsents(client, id, realm) {
+  var url = "/" + realm + "/users/" + id + "/consents";
+  var description = "Get consents for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function deleteUserConsent(client, id, realm) {
+  var url = "/" + realm + "/users/" + id + "/consents/" + client;
+  var description = "Delete consent for client " + client + " of user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function tryToDeleteANonExistingUserConsent(client, id, realm) {
+  var url = "/" + realm + "/users/" + id + "/consents/" + client;
+  var description = "Verify we cannot delete non-existing UserConsent";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedUserConsent(client, id, realm) {
+  var expectedDesc = "Delete consent for client " + client + " of user " + id + " in realm " + realm;
+  return bp.EventSet("matchDeletedUserConsent", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserConsentDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ consent\ for\ client\ (.+)\ of\ user\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ consent\ for\ client\ (.+)\ of\ user\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["client", "id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1832,36 +2899,91 @@ function waitForAnyUserDeleted() {
 
 // ---- Entity: user credential ----
 
-function deleteCredential(credentialId, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/credentials/" + credentialId;
-  var description = "Delete credential " + credentialId + " for user " + id;
+function getUserCredentials(credentialId, id, newPreviousCredentialId, realm) {
+  var url = "/" + realm + "/users/" + id + "/credentials";
+  var description = "Get credentials for user " + id + " in realm " + realm;
   var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToDeleteANonExistingUserCredential(credentialId, id, realm) {
+function deleteUserCredential(credentialId, id, newPreviousCredentialId, realm) {
+  var url = "/" + realm + "/users/" + id + "/credentials/" + credentialId;
+  var description = "Delete credential " + credentialId + " for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function updateUserCredentialUserLabel(credentialId, id, newPreviousCredentialId, realm) {
+  var url = "/" + realm + "/users/" + id + "/credentials/" + credentialId + "/userLabel";
+  var description = "Update user credential label for credentialId " + credentialId + " of user " + id + " in realm " + realm;
+  var body = {
+    "credentialId": String(credentialId),
+    "id": String(id),
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , credentialId: String(credentialId)
+      , id: String(id)
+      , newPreviousCredentialId: String(newPreviousCredentialId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function moveUserCredentialToFirst(credentialId, id, newPreviousCredentialId, realm) {
+  var url = "/" + realm + "/users/" + id + "/credentials/" + credentialId + "/moveToFirst";
+  var description = "Move user credential " + credentialId + " to first for user " + id + " in realm " + realm;
+  var body = {
+    "credentialId": String(credentialId),
+    "id": String(id),
+    "realm": String(realm),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , credentialId: String(credentialId)
+      , id: String(id)
+      , newPreviousCredentialId: String(newPreviousCredentialId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function tryToDeleteANonExistingUserCredential(credentialId, id, newPreviousCredentialId, realm) {
   var url = "/" + realm + "/users/" + id + "/credentials/" + credentialId;
   var description = "Verify we cannot delete non-existing UserCredential";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchDeletedUserCredential(credentialId, id, realm) {
-  var expectedDesc = "Delete credential " + credentialId + " for user " + id;
+function matchDeletedUserCredential(credentialId, id, newPreviousCredentialId, realm) {
+  var expectedDesc = "Delete credential " + credentialId + " for user " + id + " in realm " + realm;
   return bp.EventSet("matchDeletedUserCredential", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyUserCredentialDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ credential\ (.+)\ for\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ credential\ (.+)\ for\ user\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ credential\ (.+)\ for\ user\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ credential\ (.+)\ for\ user\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["credentialId", "id"];
+  var names = ["credentialId", "id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1869,76 +2991,116 @@ function waitForAnyUserCredentialDeleted() {
   return obj;
 }
 
-// ---- Entity: user credential label ----
+// ---- Entity: user profile ----
 
-function putUserLabel(credentialId, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/credentials/" + credentialId + "/userLabel";
-  var description = "Update label for credential " + credentialId + " of user " + id;
+function getUserProfile(realm) {
+  var url = "/" + realm + "/users/profile";
+  var description = "Get profile for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateUserProfile(realm) {
+  var url = "/" + realm + "/users/profile";
+  var description = "Update profile for realm " + realm;
   var body = {
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
-      , credentialId: String(credentialId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+// ---- Entity: user storage credential type ----
+
+function getUserStorageCredentialTypes(id, realm) {
+  var url = "/" + realm + "/users/" + id + "/configured-user-storage-credential-types";
+  var description = "Get configured user storage credential types for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: user credential types ----
+
+function disableUserCredentialTypes(id, realm) {
+  var url = "/" + realm + "/users/" + id + "/disable-credential-types";
+  var description = "Disable credential types for user " + id + " in realm " + realm;
+  var body = {
+    "id": String(id),
+    "realm": String(realm),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204],
+    parameters: {
+      description: description,
+      realm: String(realm)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-// ---- Entity: user consent ----
+// ---- Entity: user actions email ----
 
-function deleteConsent(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/consents/" + client;
-  var description = "Delete consent for client " + client + " of user " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+function executeUserActionsEmail(client_id, id, lifespan, realm, redirect_uri) {
+  var url = "/" + realm + "/users/" + id + "/execute-actions-email";
+  var description = "Execute actions email for user " + id + " in realm " + realm + " with client_id " + client_id + ", lifespan " + lifespan + ", redirect_uri " + redirect_uri;
+  var body = {
+    "client_id": String(client_id),
+    "id": String(id),
+    "lifespan": String(lifespan),
+    "realm": String(realm),
+    "redirect_uri": String(redirect_uri),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , client_id: String(client_id)
+      , id: String(id)
+    }
   });
-}
-
-function tryToDeleteANonExistingUserConsent(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/consents/" + client;
-  var description = "Verify we cannot delete non-existing UserConsent";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchDeletedUserConsent(client, id, realm) {
-  var expectedDesc = "Delete consent for client " + client + " of user " + id;
-  return bp.EventSet("matchDeletedUserConsent", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyUserConsentDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ consent\ for\ client\ (.+)\ of\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ consent\ for\ client\ (.+)\ of\ user\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["client", "id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 // ---- Entity: user federated identity ----
 
-function postFederatedIdentity(id, provider, realm) {
+function getUserFederatedIdentity(id, provider, realm) {
+  var url = "/" + realm + "/users/" + id + "/federated-identity";
+  var description = "Get federated identity for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function addUserFederatedIdentity(id, provider, realm) {
   var url = "/" + realm + "/users/" + id + "/federated-identity/" + provider;
-  var description = "Add federated identity " + provider + " for user " + id;
+  var description = "Add federated identity " + provider + " for user " + id + " in realm " + realm;
   var body = {
+    "id": String(id),
+    "provider": String(provider),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
@@ -1946,34 +3108,26 @@ function postFederatedIdentity(id, provider, realm) {
       , provider: String(provider)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteFederatedIdentity(id, provider, realm) {
+function deleteUserFederatedIdentity(id, provider, realm) {
   var url = "/" + realm + "/users/" + id + "/federated-identity/" + provider;
-  var description = "Delete federated identity " + provider + " for user " + id;
+  var description = "Delete federated identity " + provider + " for user " + id + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
 function tryToAddExistingUserFederatedIdentity(id, provider, realm) {
-  var url = "/" + realm + "/users/" + id + "/federated-identity/" + provider;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another UserFederatedIdentity...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  deleteUserFederatedIdentity(id, provider, realm);
 }
 
 function verifyUserFederatedIdentityExists(id, provider, realm) {
   var url = "/" + realm + "/users/" + id + "/federated-identity/" + provider;
-  var description = "Verify UserFederatedIdentity exists";
+  var description = "Verify UserFederatedIdentity with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1993,7 +3147,7 @@ function verifyUserFederatedIdentityExists(id, provider, realm) {
 
 function verifyUserFederatedIdentityDoesNotExist(id, provider, realm) {
   var url = "/" + realm + "/users/" + id + "/federated-identity/" + provider;
-  var description = "Verify UserFederatedIdentity does not exist";
+  var description = "Verify UserFederatedIdentity with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2015,23 +3169,21 @@ function tryToDeleteANonExistingUserFederatedIdentity(id, provider, realm) {
   var url = "/" + realm + "/users/" + id + "/federated-identity/" + provider;
   var description = "Verify we cannot delete non-existing UserFederatedIdentity";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedUserFederatedIdentity(id, provider, realm) {
-  var expectedDesc = "Add federated identity " + provider + " for user " + id;
-  return bp.EventSet("matchAddedUserFederatedIdentity", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  var expectedDesc = "Add federated identity " + provider + " for user " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyUserFederatedIdentityAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ federated\ identity\ (.+)\ for\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ federated\ identity\ (.+)\ for\ user\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ federated\ identity\ (.+)\ for\ user\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ federated\ identity\ (.+)\ for\ user\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["provider", "id"];
+  var names = ["provider", "id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2048,27 +3200,27 @@ function getUserFederatedIdentityAddedEvent(keyVal) {
 
 function matchAnyUserFederatedIdentityAdded() {
   return bp.EventSet("matchAnyUserFederatedIdentityAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user federated identity") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create user federated identity") > -1;
   });
 }
 
 function waitForUserFederatedIdentityAdded(id, provider, realm) {
-  var expectedDesc = "Add federated identity " + provider + " for user " + id;
-  waitFor(matchesDescription(expectedDesc));
+  var expectedDesc = "Add federated identity " + provider + " for user " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedUserFederatedIdentity(id, provider, realm) {
-  var expectedDesc = "Delete federated identity " + provider + " for user " + id;
+  var expectedDesc = "Delete federated identity " + provider + " for user " + id + " in realm " + realm;
   return bp.EventSet("matchDeletedUserFederatedIdentity", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyUserFederatedIdentityDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ federated\ identity\ (.+)\ for\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ federated\ identity\ (.+)\ for\ user\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ federated\ identity\ (.+)\ for\ user\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ federated\ identity\ (.+)\ for\ user\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["provider", "id"];
+  var names = ["provider", "id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2078,15 +3230,37 @@ function waitForAnyUserFederatedIdentityDeleted() {
 
 // ---- Entity: user group ----
 
-function putUserGroup(groupId, id, realm) {
+function getUserGroups(briefRepresentation, first, groupId, id, max, realm, search) {
+  var url = "/" + realm + "/users/" + id + "/groups";
+  var description = "Get groups for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function getUserGroupsCount(briefRepresentation, first, groupId, id, max, realm, search) {
+  var url = "/" + realm + "/users/" + id + "/groups/count";
+  var description = "Get groups count for user " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function addUserGroup(briefRepresentation, first, groupId, id, max, realm, search) {
   var url = "/" + realm + "/users/" + id + "/groups/" + groupId;
-  var description = "Add user " + id + " to group " + groupId;
+  var description = "Add user " + id + " to group " + groupId + " in realm " + realm;
   var body = {
+    "groupId": String(groupId),
+    "id": String(id),
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
@@ -2094,34 +3268,26 @@ function putUserGroup(groupId, id, realm) {
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteUserGroup(groupId, id, realm) {
+function deleteUserGroup(briefRepresentation, first, groupId, id, max, realm, search) {
   var url = "/" + realm + "/users/" + id + "/groups/" + groupId;
-  var description = "Remove user " + id + " from group " + groupId;
+  var description = "Remove user " + id + " from group " + groupId + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingUserGroup(groupId, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/groups/" + groupId;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another UserGroup...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingUserGroup(briefRepresentation, first, groupId, id, max, realm, search) {
+  deleteUserGroup(briefRepresentation, first, groupId, id, max, realm, search);
 }
 
-function verifyUserGroupExists(groupId, id, realm) {
+function verifyUserGroupExists(briefRepresentation, first, groupId, id, max, realm, search) {
   var url = "/" + realm + "/users/" + id + "/groups/" + groupId;
-  var description = "Verify UserGroup exists";
+  var description = "Verify UserGroup with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2139,9 +3305,9 @@ function verifyUserGroupExists(groupId, id, realm) {
   });
 }
 
-function verifyUserGroupDoesNotExist(groupId, id, realm) {
+function verifyUserGroupDoesNotExist(briefRepresentation, first, groupId, id, max, realm, search) {
   var url = "/" + realm + "/users/" + id + "/groups/" + groupId;
-  var description = "Verify UserGroup does not exist";
+  var description = "Verify UserGroup with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2159,27 +3325,25 @@ function verifyUserGroupDoesNotExist(groupId, id, realm) {
   });
 }
 
-function tryToDeleteANonExistingUserGroup(groupId, id, realm) {
+function tryToDeleteANonExistingUserGroup(briefRepresentation, first, groupId, id, max, realm, search) {
   var url = "/" + realm + "/users/" + id + "/groups/" + groupId;
   var description = "Verify we cannot delete non-existing UserGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedUserGroup(groupId, id, realm) {
-  var expectedDesc = "Add user " + id + " to group " + groupId;
-  return bp.EventSet("matchAddedUserGroup", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedUserGroup(briefRepresentation, first, groupId, id, max, realm, search) {
+  var expectedDesc = "Add user " + id + " to group " + groupId + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyUserGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ user\ (.+)\ to\ group\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ user\ (.+)\ to\ group\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ user\ (.+)\ to\ group\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ user\ (.+)\ to\ group\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id", "groupId"];
+  var names = ["id", "groupId", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2196,27 +3360,27 @@ function getUserGroupAddedEvent(keyVal) {
 
 function matchAnyUserGroupAdded() {
   return bp.EventSet("matchAnyUserGroupAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user group") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create user group") > -1;
   });
 }
 
-function waitForUserGroupAdded(groupId, id, realm) {
-  var expectedDesc = "Add user " + id + " to group " + groupId;
-  waitFor(matchesDescription(expectedDesc));
+function waitForUserGroupAdded(briefRepresentation, first, groupId, id, max, realm, search) {
+  var expectedDesc = "Add user " + id + " to group " + groupId + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedUserGroup(groupId, id, realm) {
-  var expectedDesc = "Remove user " + id + " from group " + groupId;
+function matchDeletedUserGroup(briefRepresentation, first, groupId, id, max, realm, search) {
+  var expectedDesc = "Remove user " + id + " from group " + groupId + " in realm " + realm;
   return bp.EventSet("matchDeletedUserGroup", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyUserGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Remove\ user\ (.+)\ from\ group\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Remove\ user\ (.+)\ from\ group\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ user\ (.+)\ from\ group\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ user\ (.+)\ from\ group\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id", "groupId"];
+  var names = ["id", "groupId", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2224,80 +3388,165 @@ function waitForAnyUserGroupDeleted() {
   return obj;
 }
 
-// ---- Entity: user reset password ----
+// ---- Entity: user impersonation ----
 
-function putResetPassword(id, realm) {
-  var url = "/" + realm + "/users/" + id + "/reset-password";
-  var description = "Reset password for user " + id;
+function impersonateUser(id, realm) {
+  var url = "/" + realm + "/users/" + id + "/impersonation";
+  var description = "Impersonate user " + id + " in realm " + realm;
   var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id: String(id)
-    }
-  });
-}
-
-// ---- Entity: client scope scope mappings client ----
-
-function postClientScopeScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var description = "Add role " + name + " with id " + id + " to client scope " + id + " for client " + client + " in realm " + realm;
-  var body = {
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      , id: String(id)
+      , realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingUserImpersonation(id, realm) {
+  impersonateUser(id, realm);
+}
+
+function verifyUserImpersonationExists(id, realm) {
+  var url = "/" + realm + "/users/" + id + "/impersonation";
+  var description = "Verify UserImpersonation exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.success("UserImpersonation exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserImpersonation to exist but it does not");
+    }
+  });
+}
+
+function verifyUserImpersonationDoesNotExist(id, realm) {
+  var url = "/" + realm + "/users/" + id + "/impersonation";
+  var description = "Verify UserImpersonation does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.fail("Expected UserImpersonation to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserImpersonation does not exist");
+    }
+  });
+}
+
+function matchAddedUserImpersonation(id, realm) {
+  var expectedDesc = "Impersonate user " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyUserImpersonationAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Impersonate\ user\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Impersonate\ user\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["id", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserImpersonationAddedEvent(keyVal) {
+  return bp.EventSet("AddUserImpersonation:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyUserImpersonationAdded() {
+  return bp.EventSet("matchAnyUserImpersonationAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create user impersonation") > -1;
+  });
+}
+
+function waitForUserImpersonationAdded(id, realm) {
+  var expectedDesc = "Impersonate user " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: client scope scope mapping client ----
+
+function postClientScopeScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
+  var description = "Add role mapping to client scope " + id + " for client " + client + " in realm " + realm;
+  var body = {
+    "attributes": attributes,
+    "client": String(client),
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
       , client: String(client)
+      , containerId: String(containerId)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteClientScopeScopeMappingsClient(client, id, name, realm) {
+function deleteClientScopeScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var description = "Delete role " + name + " with id " + id + " from client scope " + id + " for client " + client + " in realm " + realm;
+  var description = "Delete role mapping from client scope " + id + " for client " + client + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function getClientScopeScopeMappingsClient(client, id, name, realm) {
+function getClientScopeScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var description = "Get scope mappings for client scope " + id + " and client " + client + " in realm " + realm;
+  var description = "Get role mappings of client scope " + id + " for client " + client + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingClientScopeScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientScopeScopeMappingsClient...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientScopeScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getClientScopeScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
 }
 
-function verifyClientScopeScopeMappingsClientExists(client, id, name, realm) {
+function verifyClientScopeScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify ClientScopeScopeMappingsClient exists";
+  var description = "Verify ClientScopeScopeMappingClient with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2306,18 +3555,18 @@ function verifyClientScopeScopeMappingsClientExists(client, id, name, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientScopeScopeMappingsClient exists");
+            return pvg.success("ClientScopeScopeMappingClient exists");
           }
         }
       }
-      return pvg.fail("Expected ClientScopeScopeMappingsClient to exist but it does not");
+      return pvg.fail("Expected ClientScopeScopeMappingClient to exist but it does not");
     }
   });
 }
 
-function verifyClientScopeScopeMappingsClientDoesNotExist(client, id, name, realm) {
+function verifyClientScopeScopeMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify ClientScopeScopeMappingsClient does not exist";
+  var description = "Verify ClientScopeScopeMappingClient with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2326,36 +3575,34 @@ function verifyClientScopeScopeMappingsClientDoesNotExist(client, id, name, real
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientScopeScopeMappingsClient to not exist but it does");
+            return pvg.fail("Expected ClientScopeScopeMappingClient to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientScopeScopeMappingsClient does not exist");
+      return pvg.success("ClientScopeScopeMappingClient does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingClientScopeScopeMappingsClient(client, id, name, realm) {
+function tryToDeleteANonExistingClientScopeScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify we cannot delete non-existing ClientScopeScopeMappingsClient";
+  var description = "Verify we cannot delete non-existing ClientScopeScopeMappingClient";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClientScopeScopeMappingsClient(client, id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client scope " + id + " for client " + client + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeScopeMappingsClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientScopeScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to client scope " + id + " for client " + client + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientScopeScopeMappingsClientAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientScopeScopeMappingClientAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "client", "realm"];
+  var names = ["id", "client", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2363,36 +3610,36 @@ function waitForAnyClientScopeScopeMappingsClientAdded() {
   return obj;
 }
 
-function getClientScopeScopeMappingsClientAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeScopeMappingsClient:" + keyVal, function(e) {
+function getClientScopeScopeMappingClientAddedEvent(keyVal) {
+  return bp.EventSet("AddClientScopeScopeMappingClient:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyClientScopeScopeMappingsClientAdded() {
-  return bp.EventSet("matchAnyClientScopeScopeMappingsClientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope scope mappings client") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyClientScopeScopeMappingClientAdded() {
+  return bp.EventSet("matchAnyClientScopeScopeMappingClientAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client scope scope mapping client") > -1;
   });
 }
 
-function waitForClientScopeScopeMappingsClientAdded(client, id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client scope " + id + " for client " + client + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientScopeScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to client scope " + id + " for client " + client + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedClientScopeScopeMappingsClient(client, id, name, realm) {
-  var expectedDesc = "Delete role " + name + " with id " + id + " from client scope " + id + " for client " + client + " in realm " + realm;
-  return bp.EventSet("matchDeletedClientScopeScopeMappingsClient", function(e) {
+function matchDeletedClientScopeScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role mapping from client scope " + id + " for client " + client + " in realm " + realm;
+  return bp.EventSet("matchDeletedClientScopeScopeMappingClient", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyClientScopeScopeMappingsClientDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientScopeScopeMappingClientDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ client\ scope\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "client", "realm"];
+  var names = ["id", "client", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2400,60 +3647,87 @@ function waitForAnyClientScopeScopeMappingsClientDeleted() {
   return obj;
 }
 
-// ---- Entity: client scope scope mappings realm ----
+// ---- Entity: client scope scope mapping client available ----
 
-function postClientScopeScopeMappingsRealm(id, name, realm) {
+function getClientScopeScopeMappingsClientAvailable(client, id, realm) {
+  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client + "/available";
+  var description = "Get available role mappings of client scope " + id + " for client " + client + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: client scope scope mapping client composite ----
+
+function getClientScopeScopeMappingsClientComposite(briefRepresentation, client, id, realm) {
+  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/clients/" + client + "/composite";
+  var description = "Get composite role mappings of client scope " + id + " for client " + client + " in realm " + realm + " with briefRepresentation " + briefRepresentation;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: client scope scope mapping realm ----
+
+function postClientScopeScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var description = "Add role " + name + " with id " + id + " to client scope " + id + " in realm " + realm;
+  var description = "Add role mapping to client scope " + id + " realm in realm " + realm;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
+      , containerId: String(containerId)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteClientScopeScopeMappingsRealm(id, name, realm) {
+function deleteClientScopeScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var description = "Delete role " + name + " with id " + id + " from client scope " + id + " in realm " + realm;
+  var description = "Delete role mapping from client scope " + id + " realm in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function getClientScopeScopeMappingsRealm(id, name, realm) {
+function getClientScopeScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var description = "Get realm scope mappings for client scope " + id + " in realm " + realm;
+  var description = "Get role mappings of client scope " + id + " realm in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingClientScopeScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientScopeScopeMappingsRealm...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientScopeScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getClientScopeScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
 }
 
-function verifyClientScopeScopeMappingsRealmExists(id, name, realm) {
+function verifyClientScopeScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var description = "Verify ClientScopeScopeMappingsRealm exists";
+  var description = "Verify ClientScopeScopeMappingRealm with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2462,18 +3736,18 @@ function verifyClientScopeScopeMappingsRealmExists(id, name, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientScopeScopeMappingsRealm exists");
+            return pvg.success("ClientScopeScopeMappingRealm exists");
           }
         }
       }
-      return pvg.fail("Expected ClientScopeScopeMappingsRealm to exist but it does not");
+      return pvg.fail("Expected ClientScopeScopeMappingRealm to exist but it does not");
     }
   });
 }
 
-function verifyClientScopeScopeMappingsRealmDoesNotExist(id, name, realm) {
+function verifyClientScopeScopeMappingRealmDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var description = "Verify ClientScopeScopeMappingsRealm does not exist";
+  var description = "Verify ClientScopeScopeMappingRealm with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2482,36 +3756,34 @@ function verifyClientScopeScopeMappingsRealmDoesNotExist(id, name, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientScopeScopeMappingsRealm to not exist but it does");
+            return pvg.fail("Expected ClientScopeScopeMappingRealm to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientScopeScopeMappingsRealm does not exist");
+      return pvg.success("ClientScopeScopeMappingRealm does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingClientScopeScopeMappingsRealm(id, name, realm) {
+function tryToDeleteANonExistingClientScopeScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm";
-  var description = "Verify we cannot delete non-existing ClientScopeScopeMappingsRealm";
+  var description = "Verify we cannot delete non-existing ClientScopeScopeMappingRealm";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClientScopeScopeMappingsRealm(id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client scope " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeScopeMappingsRealm", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientScopeScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to client scope " + id + " realm in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientScopeScopeMappingsRealmAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientScopeScopeMappingRealmAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ client\ scope\ (.+)\ realm\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ client\ scope\ (.+)\ realm\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
+  var names = ["id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2519,36 +3791,36 @@ function waitForAnyClientScopeScopeMappingsRealmAdded() {
   return obj;
 }
 
-function getClientScopeScopeMappingsRealmAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeScopeMappingsRealm:" + keyVal, function(e) {
+function getClientScopeScopeMappingRealmAddedEvent(keyVal) {
+  return bp.EventSet("AddClientScopeScopeMappingRealm:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyClientScopeScopeMappingsRealmAdded() {
-  return bp.EventSet("matchAnyClientScopeScopeMappingsRealmAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope scope mappings realm") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyClientScopeScopeMappingRealmAdded() {
+  return bp.EventSet("matchAnyClientScopeScopeMappingRealmAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client scope scope mapping realm") > -1;
   });
 }
 
-function waitForClientScopeScopeMappingsRealmAdded(id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client scope " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientScopeScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to client scope " + id + " realm in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedClientScopeScopeMappingsRealm(id, name, realm) {
-  var expectedDesc = "Delete role " + name + " with id " + id + " from client scope " + id + " in realm " + realm;
-  return bp.EventSet("matchDeletedClientScopeScopeMappingsRealm", function(e) {
+function matchDeletedClientScopeScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role mapping from client scope " + id + " realm in realm " + realm;
+  return bp.EventSet("matchDeletedClientScopeScopeMappingRealm", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyClientScopeScopeMappingsRealmDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientScopeScopeMappingRealmDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ client\ scope\ (.+)\ realm\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ client\ scope\ (.+)\ realm\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
+  var names = ["id", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2556,640 +3828,27 @@ function waitForAnyClientScopeScopeMappingsRealmDeleted() {
   return obj;
 }
 
-// ---- Entity: client template scope mappings client ----
+// ---- Entity: client scope scope mapping realm available ----
 
-function postClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var description = "Add role " + name + " with id " + id + " to client template " + id + " for client " + client + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , client: String(client)
-      , id: String(id)
-    }
-  });
-}
-
-function deleteClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var description = "Delete role " + name + " with id " + id + " from client template " + id + " for client " + client + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function getClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var description = "Get scope mappings for client template " + id + " and client " + client + " in realm " + realm;
+function getClientScopeScopeMappingsRealmAvailable(id, realm) {
+  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm/available";
+  var description = "Get available role mappings of client scope " + id + " realm in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientTemplateScopeMappingsClient...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientTemplateScopeMappingsClientExists(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify ClientTemplateScopeMappingsClient exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientTemplateScopeMappingsClient exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientTemplateScopeMappingsClient to exist but it does not");
-    }
+    expectedResponseCodes: [200]
   });
 }
 
-function verifyClientTemplateScopeMappingsClientDoesNotExist(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify ClientTemplateScopeMappingsClient does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientTemplateScopeMappingsClient to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientTemplateScopeMappingsClient does not exist");
-    }
-  });
-}
+// ---- Entity: client scope scope mapping realm composite ----
 
-function tryToDeleteANonExistingClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify we cannot delete non-existing ClientTemplateScopeMappingsClient";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client template " + id + " for client " + client + " in realm " + realm;
-  return bp.EventSet("matchAddedClientTemplateScopeMappingsClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientTemplateScopeMappingsClientAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "client", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientTemplateScopeMappingsClientAddedEvent(keyVal) {
-  return bp.EventSet("AddClientTemplateScopeMappingsClient:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientTemplateScopeMappingsClientAdded() {
-  return bp.EventSet("matchAnyClientTemplateScopeMappingsClientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client template scope mappings client") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientTemplateScopeMappingsClientAdded(client, id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client template " + id + " for client " + client + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedClientTemplateScopeMappingsClient(client, id, name, realm) {
-  var expectedDesc = "Delete role " + name + " with id " + id + " from client template " + id + " for client " + client + " in realm " + realm;
-  return bp.EventSet("matchDeletedClientTemplateScopeMappingsClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientTemplateScopeMappingsClientDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "client", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: client template scope mappings realm ----
-
-function postClientTemplateScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var description = "Add role " + name + " with id " + id + " to client template " + id + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id: String(id)
-    }
-  });
-}
-
-function deleteClientTemplateScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var description = "Delete role " + name + " with id " + id + " from client template " + id + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function getClientTemplateScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var description = "Get realm scope mappings for client template " + id + " in realm " + realm;
+function getClientScopeScopeMappingsRealmComposite(briefRepresentation, id, realm) {
+  var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings/realm/composite";
+  var description = "Get composite role mappings of client scope " + id + " realm in realm " + realm + " with briefRepresentation " + briefRepresentation;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientTemplateScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientTemplateScopeMappingsRealm...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientTemplateScopeMappingsRealmExists(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var description = "Verify ClientTemplateScopeMappingsRealm exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientTemplateScopeMappingsRealm exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientTemplateScopeMappingsRealm to exist but it does not");
-    }
-  });
-}
-
-function verifyClientTemplateScopeMappingsRealmDoesNotExist(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var description = "Verify ClientTemplateScopeMappingsRealm does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientTemplateScopeMappingsRealm to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientTemplateScopeMappingsRealm does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingClientTemplateScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
-  var description = "Verify we cannot delete non-existing ClientTemplateScopeMappingsRealm";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedClientTemplateScopeMappingsRealm(id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client template " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientTemplateScopeMappingsRealm", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientTemplateScopeMappingsRealmAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ template\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ template\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientTemplateScopeMappingsRealmAddedEvent(keyVal) {
-  return bp.EventSet("AddClientTemplateScopeMappingsRealm:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientTemplateScopeMappingsRealmAdded() {
-  return bp.EventSet("matchAnyClientTemplateScopeMappingsRealmAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client template scope mappings realm") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientTemplateScopeMappingsRealmAdded(id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client template " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedClientTemplateScopeMappingsRealm(id, name, realm) {
-  var expectedDesc = "Delete role " + name + " with id " + id + " from client template " + id + " in realm " + realm;
-  return bp.EventSet("matchDeletedClientTemplateScopeMappingsRealm", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientTemplateScopeMappingsRealmDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ template\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ template\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: client scope mappings client ----
-
-function postClientScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var description = "Add role " + name + " with id " + id + " to client " + id + " for client " + client + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , client: String(client)
-      , id: String(id)
-    }
-  });
-}
-
-function deleteClientScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var description = "Delete role " + name + " with id " + id + " from client " + id + " for client " + client + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function getClientScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var description = "Get scope mappings for client " + id + " and client " + client + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientScopeMappingsClient...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientScopeMappingsClientExists(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify ClientScopeMappingsClient exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientScopeMappingsClient exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientScopeMappingsClient to exist but it does not");
-    }
-  });
-}
-
-function verifyClientScopeMappingsClientDoesNotExist(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify ClientScopeMappingsClient does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientScopeMappingsClient to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientScopeMappingsClient does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingClientScopeMappingsClient(client, id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
-  var description = "Verify we cannot delete non-existing ClientScopeMappingsClient";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedClientScopeMappingsClient(client, id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client " + id + " for client " + client + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeMappingsClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientScopeMappingsClientAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "client", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientScopeMappingsClientAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeMappingsClient:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientScopeMappingsClientAdded() {
-  return bp.EventSet("matchAnyClientScopeMappingsClientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope mappings client") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientScopeMappingsClientAdded(client, id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client " + id + " for client " + client + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedClientScopeMappingsClient(client, id, name, realm) {
-  var expectedDesc = "Delete role " + name + " with id " + id + " from client " + id + " for client " + client + " in realm " + realm;
-  return bp.EventSet("matchDeletedClientScopeMappingsClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientScopeMappingsClientDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "client", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: client scope mappings realm ----
-
-function postClientScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var description = "Add role " + name + " with id " + id + " to client " + id + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id: String(id)
-    }
-  });
-}
-
-function deleteClientScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var description = "Delete role " + name + " with id " + id + " from client " + id + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function getClientScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var description = "Get realm scope mappings for client " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientScopeMappingsRealm...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientScopeMappingsRealmExists(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var description = "Verify ClientScopeMappingsRealm exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientScopeMappingsRealm exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientScopeMappingsRealm to exist but it does not");
-    }
-  });
-}
-
-function verifyClientScopeMappingsRealmDoesNotExist(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var description = "Verify ClientScopeMappingsRealm does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientScopeMappingsRealm to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientScopeMappingsRealm does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingClientScopeMappingsRealm(id, name, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
-  var description = "Verify we cannot delete non-existing ClientScopeMappingsRealm";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedClientScopeMappingsRealm(id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeMappingsRealm", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientScopeMappingsRealmAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ (.+)\ with\ id\ (.+)\ to\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientScopeMappingsRealmAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeMappingsRealm:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientScopeMappingsRealmAdded() {
-  return bp.EventSet("matchAnyClientScopeMappingsRealmAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope mappings realm") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientScopeMappingsRealmAdded(id, name, realm) {
-  var expectedDesc = "Add role " + name + " with id " + id + " to client " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedClientScopeMappingsRealm(id, name, realm) {
-  var expectedDesc = "Delete role " + name + " with id " + id + " from client " + id + " in realm " + realm;
-  return bp.EventSet("matchDeletedClientScopeMappingsRealm", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientScopeMappingsRealmDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)\ with\ id\ (.+)\ from\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: client scope mappings ----
-
-function getClientScopeMappings(id, realm) {
-  var url = "/" + realm + "/clients/" + id + "/scope-mappings";
-  var description = "Get scope mappings for client " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
+    expectedResponseCodes: [200]
   });
 }
 
@@ -3197,10 +3856,182 @@ function getClientScopeMappings(id, realm) {
 
 function getClientScopeScopeMappings(id, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/scope-mappings";
-  var description = "Get scope mappings for client scope " + id + " in realm " + realm;
+  var description = "Get scope mappings of client scope " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: client template scope mapping client ----
+
+function postClientTemplateScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
+  var description = "Add role mapping to client template " + id + " for client " + client + " in realm " + realm;
+  var body = {
+    "attributes": attributes,
+    "client": String(client),
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , client: String(client)
+      , containerId: String(containerId)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteClientTemplateScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
+  var description = "Delete role mapping from client template " + id + " for client " + client + " in realm " + realm;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getClientTemplateScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
+  var description = "Get role mappings of client template " + id + " for client " + client + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingClientTemplateScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getClientTemplateScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+}
+
+function verifyClientTemplateScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
+  var description = "Verify ClientTemplateScopeMappingClient with realm " + realm + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.success("ClientTemplateScopeMappingClient exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ClientTemplateScopeMappingClient to exist but it does not");
+    }
+  });
+}
+
+function verifyClientTemplateScopeMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
+  var description = "Verify ClientTemplateScopeMappingClient with realm " + realm + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected ClientTemplateScopeMappingClient to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ClientTemplateScopeMappingClient does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingClientTemplateScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client;
+  var description = "Verify we cannot delete non-existing ClientTemplateScopeMappingClient";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
     parameters: { description: description }
+  });
+}
+
+function matchAddedClientTemplateScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to client template " + id + " for client " + client + " in realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyClientTemplateScopeMappingClientAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["id", "client", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getClientTemplateScopeMappingClientAddedEvent(keyVal) {
+  return bp.EventSet("AddClientTemplateScopeMappingClient:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.realm) === String(keyVal);
+  });
+}
+
+function matchAnyClientTemplateScopeMappingClientAdded() {
+  return bp.EventSet("matchAnyClientTemplateScopeMappingClientAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client template scope mapping client") > -1;
+  });
+}
+
+function waitForClientTemplateScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to client template " + id + " for client " + client + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedClientTemplateScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role mapping from client template " + id + " for client " + client + " in realm " + realm;
+  return bp.EventSet("matchDeletedClientTemplateScopeMappingClient", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyClientTemplateScopeMappingClientDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ client\ template\ (.+)\ for\ client\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["id", "client", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: client template scope mapping client available ----
+
+function getClientTemplateScopeMappingsClientAvailable(client, id, realm) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/clients/" + client + "/available";
+  var description = "Get available role mappings of client template " + id + " for client " + client + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -3208,86 +4039,587 @@ function getClientScopeScopeMappings(id, realm) {
 
 function getClientTemplateScopeMappings(id, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/scope-mappings";
-  var description = "Get scope mappings for client template " + id + " in realm " + realm;
+  var description = "Get scope mappings of client template " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: client template scope mapping realm ----
+
+function postClientTemplateScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
+  var description = "Add role to client template scope mapping realm in realm " + realm + " with id " + id;
+  var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , containerId: String(containerId)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteClientTemplateScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
+  var description = "Delete role from client template scope mapping realm in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getClientTemplateScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
+  var description = "Get client template scope mapping realm in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingClientTemplateScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getClientTemplateScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+}
+
+function verifyClientTemplateScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
+  var description = "Verify ClientTemplateScopeMappingRealm with realm " + realm + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.success("ClientTemplateScopeMappingRealm exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ClientTemplateScopeMappingRealm to exist but it does not");
+    }
+  });
+}
+
+function verifyClientTemplateScopeMappingRealmDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
+  var description = "Verify ClientTemplateScopeMappingRealm with realm " + realm + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected ClientTemplateScopeMappingRealm to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ClientTemplateScopeMappingRealm does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingClientTemplateScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/client-templates/" + id + "/scope-mappings/realm";
+  var description = "Verify we cannot delete non-existing ClientTemplateScopeMappingRealm";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
+}
+
+function matchAddedClientTemplateScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role to client template scope mapping realm in realm " + realm + " with id " + id;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyClientTemplateScopeMappingRealmAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ to\ client\ template\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ to\ client\ template\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm", "id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getClientTemplateScopeMappingRealmAddedEvent(keyVal) {
+  return bp.EventSet("AddClientTemplateScopeMappingRealm:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.realm) === String(keyVal);
+  });
+}
+
+function matchAnyClientTemplateScopeMappingRealmAdded() {
+  return bp.EventSet("matchAnyClientTemplateScopeMappingRealmAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client template scope mapping realm") > -1;
+  });
+}
+
+function waitForClientTemplateScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role to client template scope mapping realm in realm " + realm + " with id " + id;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedClientTemplateScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role from client template scope mapping realm in realm " + realm + " with id " + id;
+  return bp.EventSet("matchDeletedClientTemplateScopeMappingRealm", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyClientTemplateScopeMappingRealmDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ from\ client\ template\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ from\ client\ template\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm", "id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: client scope mapping ----
+
+function getClientScopeMappings(id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings";
+  var description = "Get client scope mappings in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: client scope mapping client ----
+
+function postClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
+  var description = "Add role to client scope mapping client " + client + " in realm " + realm + " with id " + id;
+  var body = {
+    "attributes": attributes,
+    "client": String(client),
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , client: String(client)
+      , containerId: String(containerId)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
+  var description = "Delete role from client scope mapping client " + client + " in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
+  var description = "Get client scope mapping client " + client + " in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingClientScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+}
+
+function verifyClientScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
+  var description = "Verify ClientScopeMappingClient with realm " + realm + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.success("ClientScopeMappingClient exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ClientScopeMappingClient to exist but it does not");
+    }
+  });
+}
+
+function verifyClientScopeMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
+  var description = "Verify ClientScopeMappingClient with realm " + realm + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected ClientScopeMappingClient to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ClientScopeMappingClient does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingClientScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/clients/" + client;
+  var description = "Verify we cannot delete non-existing ClientScopeMappingClient";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedClientScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role to client scope mapping client " + client + " in realm " + realm + " with id " + id;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyClientScopeMappingClientAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ to\ client\ scope\ mapping\ client\ (.+)\ in\ realm\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ to\ client\ scope\ mapping\ client\ (.+)\ in\ realm\ (.+)\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["client", "realm", "id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getClientScopeMappingClientAddedEvent(keyVal) {
+  return bp.EventSet("AddClientScopeMappingClient:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.realm) === String(keyVal);
+  });
+}
+
+function matchAnyClientScopeMappingClientAdded() {
+  return bp.EventSet("matchAnyClientScopeMappingClientAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client scope mapping client") > -1;
+  });
+}
+
+function waitForClientScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role to client scope mapping client " + client + " in realm " + realm + " with id " + id;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedClientScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role from client scope mapping client " + client + " in realm " + realm + " with id " + id;
+  return bp.EventSet("matchDeletedClientScopeMappingClient", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyClientScopeMappingClientDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ from\ client\ scope\ mapping\ client\ (.+)\ in\ realm\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ from\ client\ scope\ mapping\ client\ (.+)\ in\ realm\ (.+)\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["client", "realm", "id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: client scope mapping realm ----
+
+function postClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
+  var description = "Add role to client scope mapping realm in realm " + realm + " with id " + id;
+  var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , containerId: String(containerId)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function deleteClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
+  var description = "Delete role from client scope mapping realm in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
+  var description = "Get client scope mapping realm in realm " + realm + " with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function tryToAddExistingClientScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+}
+
+function verifyClientScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
+  var description = "Verify ClientScopeMappingRealm with realm " + realm + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.success("ClientScopeMappingRealm exists");
+          }
+        }
+      }
+      return pvg.fail("Expected ClientScopeMappingRealm to exist but it does not");
+    }
+  });
+}
+
+function verifyClientScopeMappingRealmDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
+  var description = "Verify ClientScopeMappingRealm with realm " + realm + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm) === String(realm)) {
+            return pvg.fail("Expected ClientScopeMappingRealm to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("ClientScopeMappingRealm does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingClientScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/clients/" + id + "/scope-mappings/realm";
+  var description = "Verify we cannot delete non-existing ClientScopeMappingRealm";
+  svc.delete(url, {
+    expectedResponseCodes: [204],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedClientScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role to client scope mapping realm in realm " + realm + " with id " + id;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyClientScopeMappingRealmAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ to\ client\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ to\ client\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm", "id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getClientScopeMappingRealmAddedEvent(keyVal) {
+  return bp.EventSet("AddClientScopeMappingRealm:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.realm) === String(keyVal);
+  });
+}
+
+function matchAnyClientScopeMappingRealmAdded() {
+  return bp.EventSet("matchAnyClientScopeMappingRealmAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client scope mapping realm") > -1;
+  });
+}
+
+function waitForClientScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role to client scope mapping realm in realm " + realm + " with id " + id;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedClientScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role from client scope mapping realm in realm " + realm + " with id " + id;
+  return bp.EventSet("matchDeletedClientScopeMappingRealm", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyClientScopeMappingRealmDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ from\ client\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ from\ client\ scope\ mapping\ realm\ in\ realm\ (.+)\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["realm", "id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: client role ----
 
-function postClientRoles(id, realm, role-name) {
+function createClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles";
   var description = "Create client role " + role-name + " in client " + id + " of realm " + realm;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , containerId: String(containerId)
       , id: String(id)
       , role-name: String(role-name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteClientRole(id, realm, role-name) {
+function deleteClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles/" + role-name;
   var description = "Delete client role " + role-name + " in client " + id + " of realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function putClientRole(id, realm, role-name) {
+function updateClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles/" + role-name;
   var description = "Update client role " + role-name + " in client " + id + " of realm " + realm;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "role-name": String(role-name),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , containerId: String(containerId)
       , id: String(id)
       , role-name: String(role-name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientRole(id, realm, role-name) {
+function getClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles/" + role-name;
   var description = "Get client role " + role-name + " in client " + id + " of realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingClientRole(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientRole...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  getClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
 }
 
-function verifyClientRoleExists(id, realm, role-name) {
+function verifyClientRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles";
-  var description = "Verify ClientRole exists";
+  var description = "Verify ClientRole with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3305,9 +4637,9 @@ function verifyClientRoleExists(id, realm, role-name) {
   });
 }
 
-function verifyClientRoleDoesNotExist(id, realm, role-name) {
+function verifyClientRoleDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles";
-  var description = "Verify ClientRole does not exist";
+  var description = "Verify ClientRole with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3325,20 +4657,18 @@ function verifyClientRoleDoesNotExist(id, realm, role-name) {
   });
 }
 
-function tryToDeleteANonExistingClientRole(id, realm, role-name) {
+function tryToDeleteANonExistingClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/clients/" + id + "/roles/" + role-name;
   var description = "Verify we cannot delete non-existing ClientRole";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClientRole(id, realm, role-name) {
+function matchAddedClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var expectedDesc = "Create client role " + role-name + " in client " + id + " of realm " + realm;
-  return bp.EventSet("matchAddedClientRole", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyClientRoleAdded() {
@@ -3362,16 +4692,16 @@ function getClientRoleAddedEvent(keyVal) {
 
 function matchAnyClientRoleAdded() {
   return bp.EventSet("matchAnyClientRoleAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client role") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client role") > -1;
   });
 }
 
-function waitForClientRoleAdded(id, realm, role-name) {
+function waitForClientRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var expectedDesc = "Create client role " + role-name + " in client " + id + " of realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedClientRole(id, realm, role-name) {
+function matchDeletedClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var expectedDesc = "Delete client role " + role-name + " in client " + id + " of realm " + realm;
   return bp.EventSet("matchDeletedClientRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -3390,234 +4720,94 @@ function waitForAnyClientRoleDeleted() {
   return obj;
 }
 
-// ---- Entity: client role composite ----
+// ---- Entity: realm role ----
 
-function postClientRoleComposites(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var description = "Add composites to client role " + role-name + " in client " + id + " of realm " + realm;
+function createRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles";
+  var description = "Create realm role " + role-name + " in realm " + realm;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
+      , containerId: String(containerId)
       , id: String(id)
       , role-name: String(role-name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteClientRoleComposites(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var description = "Delete composites from client role " + role-name + " in client " + id + " of realm " + realm;
+function deleteRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name;
+  var description = "Delete realm role " + role-name + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function getClientRoleComposites(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var description = "Get composites of client role " + role-name + " in client " + id + " of realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientRoleComposite(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientRoleComposite...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientRoleCompositeExists(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var description = "Verify ClientRoleComposite exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientRoleComposite exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientRoleComposite to exist but it does not");
-    }
+    expectedResponseCodes: [204]
   });
 }
 
-function verifyClientRoleCompositeDoesNotExist(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var description = "Verify ClientRoleComposite does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientRoleComposite to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientRoleComposite does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingClientRoleComposite(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/composites";
-  var description = "Verify we cannot delete non-existing ClientRoleComposite";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedClientRoleComposite(id, realm, role-name) {
-  var expectedDesc = "Add composites to client role " + role-name + " in client " + id + " of realm " + realm;
-  return bp.EventSet("matchAddedClientRoleComposite", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientRoleCompositeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ composites\ to\ client\ role\ (.+)\ in\ client\ (.+)\ of\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ composites\ to\ client\ role\ (.+)\ in\ client\ (.+)\ of\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["role-name", "id", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientRoleCompositeAddedEvent(keyVal) {
-  return bp.EventSet("AddClientRoleComposite:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientRoleCompositeAdded() {
-  return bp.EventSet("matchAnyClientRoleCompositeAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client role composite") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientRoleCompositeAdded(id, realm, role-name) {
-  var expectedDesc = "Add composites to client role " + role-name + " in client " + id + " of realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedClientRoleComposite(id, realm, role-name) {
-  var expectedDesc = "Delete composites from client role " + role-name + " in client " + id + " of realm " + realm;
-  return bp.EventSet("matchDeletedClientRoleComposite", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientRoleCompositeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ composites\ from\ client\ role\ (.+)\ in\ client\ (.+)\ of\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ composites\ from\ client\ role\ (.+)\ in\ client\ (.+)\ of\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["role-name", "id", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: role ----
-
-function postRolesByRealm(realm, role-id) {
-  var url = "/" + realm + "/roles";
-  var description = "Create role {role-name} in realm " + realm;
+function updateRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name;
+  var description = "Update realm role " + role-name + " in realm " + realm;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , role-id: String(role-id)
-    }
-  });
-}
-
-function deleteRoleById(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id;
-  var description = "Delete role with id " + role-id + " in realm " + realm;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function updateRoleById(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id;
-  var description = "Update role with id " + role-id + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
+    "role-name": String(role-name),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
-      , role-id: String(role-id)
+      , containerId: String(containerId)
+      , id: String(id)
+      , role-name: String(role-name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getRoleById(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id;
-  var description = "Get role with id " + role-id + " in realm " + realm;
+function getRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name;
+  var description = "Get realm role " + role-name + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingRole(realm, role-id) {
-  var url = "/" + realm + "/roles";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another Role...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  getRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
 }
 
-function verifyRoleExists(realm, role-id) {
+function verifyRealmRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/roles";
-  var description = "Verify Role exists";
+  var description = "Verify RealmRole with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3626,18 +4816,18 @@ function verifyRoleExists(realm, role-id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("Role exists");
+            return pvg.success("RealmRole exists");
           }
         }
       }
-      return pvg.fail("Expected Role to exist but it does not");
+      return pvg.fail("Expected RealmRole to exist but it does not");
     }
   });
 }
 
-function verifyRoleDoesNotExist(realm, role-id) {
+function verifyRealmRoleDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
   var url = "/" + realm + "/roles";
-  var description = "Verify Role does not exist";
+  var description = "Verify RealmRole with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3646,34 +4836,32 @@ function verifyRoleDoesNotExist(realm, role-id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected Role to not exist but it does");
+            return pvg.fail("Expected RealmRole to not exist but it does");
           }
         }
       }
-      return pvg.success("Role does not exist");
+      return pvg.success("RealmRole does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingRole(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id;
-  var description = "Verify we cannot delete non-existing Role";
+function tryToDeleteANonExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name;
+  var description = "Verify we cannot delete non-existing RealmRole";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedRole(realm, role-id) {
-  var expectedDesc = "Create role {role-name} in realm " + realm;
-  return bp.EventSet("matchAddedRole", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var expectedDesc = "Create realm role " + role-name + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ role\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyRealmRoleAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ realm\ role\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ realm\ role\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["role-name", "realm"];
   var obj = {};
@@ -3683,36 +4871,36 @@ function waitForAnyRoleAdded() {
   return obj;
 }
 
-function getRoleAddedEvent(keyVal) {
-  return bp.EventSet("AddRole:" + keyVal, function(e) {
+function getRealmRoleAddedEvent(keyVal) {
+  return bp.EventSet("AddRealmRole:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyRoleAdded() {
-  return bp.EventSet("matchAnyRoleAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create role") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyRealmRoleAdded() {
+  return bp.EventSet("matchAnyRealmRoleAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create realm role") > -1;
   });
 }
 
-function waitForRoleAdded(realm, role-id) {
-  var expectedDesc = "Create role {role-name} in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForRealmRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var expectedDesc = "Create realm role " + role-name + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedRole(realm, role-id) {
-  var expectedDesc = "Delete role with id " + role-id + " in realm " + realm;
-  return bp.EventSet("matchDeletedRole", function(e) {
+function matchDeletedRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var expectedDesc = "Delete realm role " + role-name + " in realm " + realm;
+  return bp.EventSet("matchDeletedRealmRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ with\ id\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ with\ id\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyRealmRoleDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ realm\ role\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ realm\ role\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["role-id", "realm"];
+  var names = ["role-name", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3722,58 +4910,63 @@ function waitForAnyRoleDeleted() {
 
 // ---- Entity: role composite ----
 
-function addRoleComposites(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
-  var description = "Add composites to role " + role-id + " in realm " + realm;
+function postRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites";
+  var description = "Add role composite to role " + role-name + " in realm " + realm;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "role-name": String(role-name),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
-      , role-id: String(role-id)
+      , containerId: String(containerId)
+      , id: String(id)
+      , role-name: String(role-name)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteRoleComposites(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
-  var description = "Delete composites from role " + role-id + " in realm " + realm;
+function deleteRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites";
+  var description = "Delete role composite from role " + role-name + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function getRoleComposites(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
-  var description = "Get composites of role " + role-id + " in realm " + realm;
+function getRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites";
+  var description = "Get role composites of role " + role-name + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingRoleComposite(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another RoleComposite...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  getRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
 }
 
-function verifyRoleCompositeExists(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
-  var description = "Verify RoleComposite exists";
+function verifyRoleCompositeExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites";
+  var description = "Verify RoleComposite with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3791,9 +4984,9 @@ function verifyRoleCompositeExists(first, max, realm, role-id, search) {
   });
 }
 
-function verifyRoleCompositeDoesNotExist(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
-  var description = "Verify RoleComposite does not exist";
+function verifyRoleCompositeDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites";
+  var description = "Verify RoleComposite with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3811,27 +5004,25 @@ function verifyRoleCompositeDoesNotExist(first, max, realm, role-id, search) {
   });
 }
 
-function tryToDeleteANonExistingRoleComposite(first, max, realm, role-id, search) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites";
+function tryToDeleteANonExistingRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites";
   var description = "Verify we cannot delete non-existing RoleComposite";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedRoleComposite(first, max, realm, role-id, search) {
-  var expectedDesc = "Add composites to role " + role-id + " in realm " + realm;
-  return bp.EventSet("matchAddedRoleComposite", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var expectedDesc = "Add role composite to role " + role-name + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRoleCompositeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ composites\ to\ role\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ composites\ to\ role\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ composite\ to\ role\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ composite\ to\ role\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["role-id", "realm"];
+  var names = ["role-name", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3848,27 +5039,27 @@ function getRoleCompositeAddedEvent(keyVal) {
 
 function matchAnyRoleCompositeAdded() {
   return bp.EventSet("matchAnyRoleCompositeAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create role composite") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create role composite") > -1;
   });
 }
 
-function waitForRoleCompositeAdded(first, max, realm, role-id, search) {
-  var expectedDesc = "Add composites to role " + role-id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForRoleCompositeAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var expectedDesc = "Add role composite to role " + role-name + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedRoleComposite(first, max, realm, role-id, search) {
-  var expectedDesc = "Delete composites from role " + role-id + " in realm " + realm;
+function matchDeletedRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired) {
+  var expectedDesc = "Delete role composite from role " + role-name + " in realm " + realm;
   return bp.EventSet("matchDeletedRoleComposite", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRoleCompositeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ composites\ from\ role\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ composites\ from\ role\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ composite\ from\ role\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ composite\ from\ role\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["role-id", "realm"];
+  var names = ["role-name", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3876,101 +5067,118 @@ function waitForAnyRoleCompositeDeleted() {
   return obj;
 }
 
-// ---- Entity: client role management permission ----
+// ---- Entity: role composite client ----
 
-function putClientRoleManagementPermissions(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/management/permissions";
-  var description = "Update management permissions for client role " + role-name + " in client " + id + " of realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id: String(id)
-      , role-name: String(role-name)
-    }
+function getRoleCompositeClient(clientUuid, realm, role-name) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites/clients/" + clientUuid;
+  var description = "Get client composites of role " + role-name + " in realm " + realm + " for client " + clientUuid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function getClientRoleManagementPermissions(id, realm, role-name) {
-  var url = "/" + realm + "/clients/" + id + "/roles/" + role-name + "/management/permissions";
-  var description = "Get management permissions for client role " + role-name + " in client " + id + " of realm " + realm;
+// ---- Entity: role composite realm ----
+
+function getRoleCompositeRealm(realm, role-name) {
+  var url = "/" + realm + "/roles/" + role-name + "/composites/realm";
+  var description = "Get realm composites of role " + role-name + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+// ---- Entity: role group ----
+
+function getRoleGroups(briefRepresentation, first, max, realm, role-name) {
+  var url = "/" + realm + "/roles/" + role-name + "/groups";
+  var description = "Get groups of role " + role-name + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 // ---- Entity: role management permission ----
 
-function updateRoleManagementPermissions(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/management/permissions";
-  var description = "Update management permissions of role " + role-id + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , role-id: String(role-id)
-    }
+function getRoleManagementPermissions(realm, role-name) {
+  var url = "/" + realm + "/roles/" + role-name + "/management/permissions";
+  var description = "Get management permissions of role " + role-name + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function getRoleManagementPermissions(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/management/permissions";
-  var description = "Get management permissions of role " + role-id + " in realm " + realm;
+function putRoleManagementPermissions(realm, role-name) {
+  var url = "/" + realm + "/roles/" + role-name + "/management/permissions";
+  var description = "Update management permissions of role " + role-name + " in realm " + realm;
+  var body = {
+    "enabled": String(true),
+    "realm": String(realm),
+    "resource": "resource_" + realm,
+    "role-name": String(role-name),
+    "scopePermissions": scopePermissions,
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , role-name: String(role-name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+// ---- Entity: role user ----
+
+function getRoleUsers(first, max, realm, role-name) {
+  var url = "/" + realm + "/roles/" + role-name + "/users";
+  var description = "Get users of role " + role-name + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 // ---- Entity: client scope protocol mapper ----
 
-function postClientScopeProtocolMappersModels(id1, id2, realm) {
-  var url = "/" + realm + "/client-scopes/{id}/protocol-mappers/models";
-  var description = "Create client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id1: String(id1)
-      , id2: String(id2)
-    }
-  });
-}
-
-function deleteClientScopeProtocolMappersModel(id1, id2, realm) {
+function getClientScopeProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-scopes/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Delete client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
+  var description = "Get client scope protocol mapper " + id2 + " in client scope " + id1 + " of realm " + realm;
   var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function putClientScopeProtocolMappersModel(id1, id2, realm) {
+function updateClientScopeProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-scopes/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Update client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
+  var description = "Update client scope protocol mapper " + id2 + " in client scope " + id1 + " of realm " + realm;
   var body = {
+    "config": config,
+    "consentRequired": String(true),
+    "consentText": "consentText_" + realm,
+    "id": "id_" + realm,
+    "id1": String(id1),
+    "id2": String(id2),
+    "name": "name_" + realm,
+    "protocol": "protocol_" + realm,
+    "protocolMapper": "protocolMapper_" + realm,
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
@@ -3978,68 +5186,16 @@ function putClientScopeProtocolMappersModel(id1, id2, realm) {
       , id2: String(id2)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientScopeProtocolMappersModel(id1, id2, realm) {
+function deleteClientScopeProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-scopes/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Get client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
+  var description = "Delete client scope protocol mapper " + id2 + " in client scope " + id1 + " of realm " + realm;
   var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientScopeProtocolMapper(id1, id2, realm) {
-  var url = "/" + realm + "/client-scopes/{id}/protocol-mappers/models";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientScopeProtocolMapper...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientScopeProtocolMapperExists(id1, id2, realm) {
-  var url = "/" + realm + "/client-scopes/{id}/protocol-mappers/models";
-  var description = "Verify ClientScopeProtocolMapper exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
+  svc.delete(url, {
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientScopeProtocolMapper exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientScopeProtocolMapper to exist but it does not");
-    }
-  });
-}
-
-function verifyClientScopeProtocolMapperDoesNotExist(id1, id2, realm) {
-  var url = "/" + realm + "/client-scopes/{id}/protocol-mappers/models";
-  var description = "Verify ClientScopeProtocolMapper does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientScopeProtocolMapper to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientScopeProtocolMapper does not exist");
-    }
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4047,58 +5203,21 @@ function tryToDeleteANonExistingClientScopeProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-scopes/" + id1 + "/protocol-mappers/models/" + id2;
   var description = "Verify we cannot delete non-existing ClientScopeProtocolMapper";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClientScopeProtocolMapper(id1, id2, realm) {
-  var expectedDesc = "Create client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeProtocolMapper", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientScopeProtocolMapperAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ scope\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ scope\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id2", "id1", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientScopeProtocolMapperAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeProtocolMapper:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientScopeProtocolMapperAdded() {
-  return bp.EventSet("matchAnyClientScopeProtocolMapperAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope protocol mapper") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientScopeProtocolMapperAdded(id1, id2, realm) {
-  var expectedDesc = "Create client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
 function matchDeletedClientScopeProtocolMapper(id1, id2, realm) {
-  var expectedDesc = "Delete client scope protocol mapper with id " + id2 + " in client scope " + id1 + " in realm " + realm;
+  var expectedDesc = "Delete client scope protocol mapper " + id2 + " in client scope " + id1 + " of realm " + realm;
   return bp.EventSet("matchDeletedClientScopeProtocolMapper", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyClientScopeProtocolMapperDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ scope\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ client\ scope\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ scope\ protocol\ mapper\ (.+)\ in\ client\ scope\ (.+)\ of\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ client\ scope\ protocol\ mapper\ (.+)\ in\ client\ scope\ (.+)\ of\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id2", "id1", "realm"];
   var obj = {};
@@ -4108,23 +5227,24 @@ function waitForAnyClientScopeProtocolMapperDeleted() {
   return obj;
 }
 
-// ---- Entity: client scope protocol mapper add model ----
+// ---- Entity: client scope protocol mapper add models ----
 
-function postClientScopeProtocolMappersAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+function addClientScopeProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/add-models";
-  var description = "Add client scope protocol mapper model in client scope " + id + " in realm " + realm;
+  var description = "Add protocol mapper models to client scope " + id + " in realm " + realm;
   var body = {
-    "id": String(id),
-    "name": "name_dummy",
-    "protocol": "protocol_dummy",
-    "protocolMapper": "protocolMapper_dummy",
-    "consentRequired": String(true),
-    "consentText": "consentText_dummy",
     "config": config,
+    "consentRequired": String(consentRequired),
+    "consentText": String(consentText),
+    "id": String(id),
+    "name": String(name),
+    "protocol": String(protocol),
+    "protocolMapper": String(protocolMapper),
+    "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       , id: String(id)
@@ -4132,24 +5252,16 @@ function postClientScopeProtocolMappersAddModels(config, consentRequired, consen
       , realm: String(realm)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingClientScopeProtocolMapperAddModel(id, realm) {
-  var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/add-models";
-  var body = {
-  };
-  var description = "Verify that we cannot add another ClientScopeProtocolMapperAddModel...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientScopeProtocolMapperAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  addClientScopeProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 }
 
-function verifyClientScopeProtocolMapperAddModelExists(id, realm) {
+function verifyClientScopeProtocolMapperAddModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/add-models";
-  var description = "Verify ClientScopeProtocolMapperAddModel exists";
+  var description = "Verify ClientScopeProtocolMapperAddModels exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4158,18 +5270,18 @@ function verifyClientScopeProtocolMapperAddModelExists(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.success("ClientScopeProtocolMapperAddModel exists");
+            return pvg.success("ClientScopeProtocolMapperAddModels exists");
           }
         }
       }
-      return pvg.fail("Expected ClientScopeProtocolMapperAddModel to exist but it does not");
+      return pvg.fail("Expected ClientScopeProtocolMapperAddModels to exist but it does not");
     }
   });
 }
 
-function verifyClientScopeProtocolMapperAddModelDoesNotExist(id, realm) {
+function verifyClientScopeProtocolMapperAddModelsDoesNotExist(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/add-models";
-  var description = "Verify ClientScopeProtocolMapperAddModel does not exist";
+  var description = "Verify ClientScopeProtocolMapperAddModels does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4178,25 +5290,23 @@ function verifyClientScopeProtocolMapperAddModelDoesNotExist(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected ClientScopeProtocolMapperAddModel to not exist but it does");
+            return pvg.fail("Expected ClientScopeProtocolMapperAddModels to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientScopeProtocolMapperAddModel does not exist");
+      return pvg.success("ClientScopeProtocolMapperAddModels does not exist");
     }
   });
 }
 
-function matchAddedClientScopeProtocolMapperAddModel(id, realm) {
-  var expectedDesc = "Add client scope protocol mapper model in client scope " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeProtocolMapperAddModel", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientScopeProtocolMapperAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper models to client scope " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientScopeProtocolMapperAddModelAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ client\ scope\ protocol\ mapper\ model\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ client\ scope\ protocol\ mapper\ model\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientScopeProtocolMapperAddModelsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ protocol\ mapper\ models\ to\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ protocol\ mapper\ models\ to\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -4206,69 +5316,69 @@ function waitForAnyClientScopeProtocolMapperAddModelAdded() {
   return obj;
 }
 
-function getClientScopeProtocolMapperAddModelAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeProtocolMapperAddModel:" + keyVal, function(e) {
+function getClientScopeProtocolMapperAddModelsAddedEvent(keyVal) {
+  return bp.EventSet("AddClientScopeProtocolMapperAddModels:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyClientScopeProtocolMapperAddModelAdded() {
-  return bp.EventSet("matchAnyClientScopeProtocolMapperAddModelAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope protocol mapper add model") > -1 && e.data.parameters.None !== undefined);
+function matchAnyClientScopeProtocolMapperAddModelsAdded() {
+  return bp.EventSet("matchAnyClientScopeProtocolMapperAddModelsAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create client scope protocol mapper add models") > -1;
   });
 }
 
-function waitForClientScopeProtocolMapperAddModelAdded(id, realm) {
-  var expectedDesc = "Add client scope protocol mapper model in client scope " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientScopeProtocolMapperAddModelsAdded(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper models to client scope " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: client scope protocol mappers ----
+// ---- Entity: client scope protocol mapper models ----
 
-function postClientScopeProtocolMappersModels(id, realm) {
+function getClientScopeProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/models";
-  var description = "Create client scope protocol mapper in client scope " + id + " in realm " + realm;
+  var description = "Get protocol mapper models of client scope " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function addClientScopeProtocolMapperModel(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/models";
+  var description = "Add protocol mapper model to client scope " + id + " in realm " + realm;
   var body = {
+    "config": config,
+    "consentRequired": String(consentRequired),
+    "consentText": String(consentText),
+    "id": String(id),
+    "name": String(name),
+    "protocol": String(protocol),
+    "protocolMapper": String(protocolMapper),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
+      , protocol: String(protocol)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientScopeProtocolMappersModels(id, realm) {
-  var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/models";
-  var description = "Get all protocol mappers for client scope " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
+function tryToAddExistingClientScopeProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  addClientScopeProtocolMapperModel(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 }
 
-function tryToAddExistingClientScopeProtocolMappers(id, realm) {
+function verifyClientScopeProtocolMapperModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/models";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientScopeProtocolMappers...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientScopeProtocolMappersExists(id, realm) {
-  var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/models";
-  var description = "Verify ClientScopeProtocolMappers exists";
+  var description = "Verify ClientScopeProtocolMapperModels with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4277,18 +5387,18 @@ function verifyClientScopeProtocolMappersExists(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientScopeProtocolMappers exists");
+            return pvg.success("ClientScopeProtocolMapperModels exists");
           }
         }
       }
-      return pvg.fail("Expected ClientScopeProtocolMappers to exist but it does not");
+      return pvg.fail("Expected ClientScopeProtocolMapperModels to exist but it does not");
     }
   });
 }
 
-function verifyClientScopeProtocolMappersDoesNotExist(id, realm) {
+function verifyClientScopeProtocolMapperModelsDoesNotExist(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/models";
-  var description = "Verify ClientScopeProtocolMappers does not exist";
+  var description = "Verify ClientScopeProtocolMapperModels with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4297,25 +5407,23 @@ function verifyClientScopeProtocolMappersDoesNotExist(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientScopeProtocolMappers to not exist but it does");
+            return pvg.fail("Expected ClientScopeProtocolMapperModels to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientScopeProtocolMappers does not exist");
+      return pvg.success("ClientScopeProtocolMapperModels does not exist");
     }
   });
 }
 
-function matchAddedClientScopeProtocolMappers(id, realm) {
-  var expectedDesc = "Create client scope protocol mapper in client scope " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientScopeProtocolMappers", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientScopeProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper model to client scope " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientScopeProtocolMappersAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ scope\ protocol\ mapper\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ scope\ protocol\ mapper\ in\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientScopeProtocolMapperModelsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ protocol\ mapper\ model\ to\ client\ scope\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ protocol\ mapper\ model\ to\ client\ scope\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -4325,73 +5433,66 @@ function waitForAnyClientScopeProtocolMappersAdded() {
   return obj;
 }
 
-function getClientScopeProtocolMappersAddedEvent(keyVal) {
-  return bp.EventSet("AddClientScopeProtocolMappers:" + keyVal, function(e) {
+function getClientScopeProtocolMapperModelsAddedEvent(keyVal) {
+  return bp.EventSet("AddClientScopeProtocolMapperModels:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyClientScopeProtocolMappersAdded() {
-  return bp.EventSet("matchAnyClientScopeProtocolMappersAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client scope protocol mappers") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyClientScopeProtocolMapperModelsAdded() {
+  return bp.EventSet("matchAnyClientScopeProtocolMapperModelsAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client scope protocol mapper models") > -1;
   });
 }
 
-function waitForClientScopeProtocolMappersAdded(id, realm) {
-  var expectedDesc = "Create client scope protocol mapper in client scope " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientScopeProtocolMapperModelsAdded(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper model to client scope " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: client scope protocol mappers protocol ----
+// ---- Entity: client scope protocol mapper protocol ----
 
-function getClientScopeProtocolMappersProtocol(id, protocol, realm) {
+function getClientScopeProtocolMapperByProtocol(id, protocol, realm) {
   var url = "/" + realm + "/client-scopes/" + id + "/protocol-mappers/protocol/" + protocol;
-  var description = "Get protocol mappers for protocol " + protocol + " in client scope " + id + " in realm " + realm;
+  var description = "Get protocol mapper models for protocol " + protocol + " in client scope " + id + " of realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 // ---- Entity: client template protocol mapper ----
 
-function postClientTemplateProtocolMappersModels(id1, id2, realm) {
-  var url = "/" + realm + "/client-templates/{id}/protocol-mappers/models";
-  var description = "Create client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id1: String(id1)
-      , id2: String(id2)
-    }
-  });
-}
-
-function deleteClientTemplateProtocolMappersModel(id1, id2, realm) {
+function getClientTemplateProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-templates/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Delete client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
+  var description = "Get client template protocol mapper " + id2 + " in client template " + id1 + " of realm " + realm;
   var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function putClientTemplateProtocolMappersModel(id1, id2, realm) {
+function updateClientTemplateProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-templates/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Update client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
+  var description = "Update client template protocol mapper " + id2 + " in client template " + id1 + " of realm " + realm;
   var body = {
+    "config": config,
+    "consentRequired": String(true),
+    "consentText": "consentText_" + realm,
+    "id": "id_" + realm,
+    "id1": String(id1),
+    "id2": String(id2),
+    "name": "name_" + realm,
+    "protocol": "protocol_" + realm,
+    "protocolMapper": "protocolMapper_" + realm,
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
@@ -4399,68 +5500,16 @@ function putClientTemplateProtocolMappersModel(id1, id2, realm) {
       , id2: String(id2)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientTemplateProtocolMappersModel(id1, id2, realm) {
+function deleteClientTemplateProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-templates/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Get client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
+  var description = "Delete client template protocol mapper " + id2 + " in client template " + id1 + " of realm " + realm;
   var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientTemplateProtocolMapper(id1, id2, realm) {
-  var url = "/" + realm + "/client-templates/{id}/protocol-mappers/models";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientTemplateProtocolMapper...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientTemplateProtocolMapperExists(id1, id2, realm) {
-  var url = "/" + realm + "/client-templates/{id}/protocol-mappers/models";
-  var description = "Verify ClientTemplateProtocolMapper exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
+  svc.delete(url, {
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientTemplateProtocolMapper exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientTemplateProtocolMapper to exist but it does not");
-    }
-  });
-}
-
-function verifyClientTemplateProtocolMapperDoesNotExist(id1, id2, realm) {
-  var url = "/" + realm + "/client-templates/{id}/protocol-mappers/models";
-  var description = "Verify ClientTemplateProtocolMapper does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientTemplateProtocolMapper to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientTemplateProtocolMapper does not exist");
-    }
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4468,58 +5517,21 @@ function tryToDeleteANonExistingClientTemplateProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/client-templates/" + id1 + "/protocol-mappers/models/" + id2;
   var description = "Verify we cannot delete non-existing ClientTemplateProtocolMapper";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClientTemplateProtocolMapper(id1, id2, realm) {
-  var expectedDesc = "Create client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
-  return bp.EventSet("matchAddedClientTemplateProtocolMapper", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientTemplateProtocolMapperAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ template\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ template\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id2", "id1", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientTemplateProtocolMapperAddedEvent(keyVal) {
-  return bp.EventSet("AddClientTemplateProtocolMapper:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientTemplateProtocolMapperAdded() {
-  return bp.EventSet("matchAnyClientTemplateProtocolMapperAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client template protocol mapper") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientTemplateProtocolMapperAdded(id1, id2, realm) {
-  var expectedDesc = "Create client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
 function matchDeletedClientTemplateProtocolMapper(id1, id2, realm) {
-  var expectedDesc = "Delete client template protocol mapper with id " + id2 + " in client template " + id1 + " in realm " + realm;
+  var expectedDesc = "Delete client template protocol mapper " + id2 + " in client template " + id1 + " of realm " + realm;
   return bp.EventSet("matchDeletedClientTemplateProtocolMapper", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyClientTemplateProtocolMapperDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ template\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ client\ template\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ template\ protocol\ mapper\ (.+)\ in\ client\ template\ (.+)\ of\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ client\ template\ protocol\ mapper\ (.+)\ in\ client\ template\ (.+)\ of\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id2", "id1", "realm"];
   var obj = {};
@@ -4529,23 +5541,24 @@ function waitForAnyClientTemplateProtocolMapperDeleted() {
   return obj;
 }
 
-// ---- Entity: client template protocol mapper add model ----
+// ---- Entity: client template protocol mapper add models ----
 
-function postClientTemplateProtocolMappersAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+function addClientTemplateProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/add-models";
-  var description = "Add client template protocol mapper model in client template " + id + " in realm " + realm;
+  var description = "Add protocol mapper models to client template " + id + " in realm " + realm;
   var body = {
-    "id": String(id),
-    "name": "name_dummy",
-    "protocol": "protocol_dummy",
-    "protocolMapper": "protocolMapper_dummy",
-    "consentRequired": String(true),
-    "consentText": "consentText_dummy",
     "config": config,
+    "consentRequired": String(consentRequired),
+    "consentText": String(consentText),
+    "id": String(id),
+    "name": String(name),
+    "protocol": String(protocol),
+    "protocolMapper": String(protocolMapper),
+    "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       , id: String(id)
@@ -4553,24 +5566,16 @@ function postClientTemplateProtocolMappersAddModels(config, consentRequired, con
       , realm: String(realm)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingClientTemplateProtocolMapperAddModel(id, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/add-models";
-  var body = {
-  };
-  var description = "Verify that we cannot add another ClientTemplateProtocolMapperAddModel...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientTemplateProtocolMapperAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  addClientTemplateProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 }
 
-function verifyClientTemplateProtocolMapperAddModelExists(id, realm) {
+function verifyClientTemplateProtocolMapperAddModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/add-models";
-  var description = "Verify ClientTemplateProtocolMapperAddModel exists";
+  var description = "Verify ClientTemplateProtocolMapperAddModels exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4579,18 +5584,18 @@ function verifyClientTemplateProtocolMapperAddModelExists(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.success("ClientTemplateProtocolMapperAddModel exists");
+            return pvg.success("ClientTemplateProtocolMapperAddModels exists");
           }
         }
       }
-      return pvg.fail("Expected ClientTemplateProtocolMapperAddModel to exist but it does not");
+      return pvg.fail("Expected ClientTemplateProtocolMapperAddModels to exist but it does not");
     }
   });
 }
 
-function verifyClientTemplateProtocolMapperAddModelDoesNotExist(id, realm) {
+function verifyClientTemplateProtocolMapperAddModelsDoesNotExist(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/add-models";
-  var description = "Verify ClientTemplateProtocolMapperAddModel does not exist";
+  var description = "Verify ClientTemplateProtocolMapperAddModels does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4599,25 +5604,23 @@ function verifyClientTemplateProtocolMapperAddModelDoesNotExist(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected ClientTemplateProtocolMapperAddModel to not exist but it does");
+            return pvg.fail("Expected ClientTemplateProtocolMapperAddModels to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientTemplateProtocolMapperAddModel does not exist");
+      return pvg.success("ClientTemplateProtocolMapperAddModels does not exist");
     }
   });
 }
 
-function matchAddedClientTemplateProtocolMapperAddModel(id, realm) {
-  var expectedDesc = "Add client template protocol mapper model in client template " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientTemplateProtocolMapperAddModel", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientTemplateProtocolMapperAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper models to client template " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientTemplateProtocolMapperAddModelAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ client\ template\ protocol\ mapper\ model\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ client\ template\ protocol\ mapper\ model\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientTemplateProtocolMapperAddModelsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ protocol\ mapper\ models\ to\ client\ template\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ protocol\ mapper\ models\ to\ client\ template\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -4627,69 +5630,69 @@ function waitForAnyClientTemplateProtocolMapperAddModelAdded() {
   return obj;
 }
 
-function getClientTemplateProtocolMapperAddModelAddedEvent(keyVal) {
-  return bp.EventSet("AddClientTemplateProtocolMapperAddModel:" + keyVal, function(e) {
+function getClientTemplateProtocolMapperAddModelsAddedEvent(keyVal) {
+  return bp.EventSet("AddClientTemplateProtocolMapperAddModels:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyClientTemplateProtocolMapperAddModelAdded() {
-  return bp.EventSet("matchAnyClientTemplateProtocolMapperAddModelAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client template protocol mapper add model") > -1 && e.data.parameters.None !== undefined);
+function matchAnyClientTemplateProtocolMapperAddModelsAdded() {
+  return bp.EventSet("matchAnyClientTemplateProtocolMapperAddModelsAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create client template protocol mapper add models") > -1;
   });
 }
 
-function waitForClientTemplateProtocolMapperAddModelAdded(id, realm) {
-  var expectedDesc = "Add client template protocol mapper model in client template " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientTemplateProtocolMapperAddModelsAdded(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper models to client template " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: client template protocol mappers ----
+// ---- Entity: client template protocol mapper models ----
 
-function postClientTemplateProtocolMappersModels(id, realm) {
+function getClientTemplateProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/models";
-  var description = "Create client template protocol mapper in client template " + id + " in realm " + realm;
+  var description = "Get protocol mapper models of client template " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function addClientTemplateProtocolMapperModel(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/models";
+  var description = "Add protocol mapper model to client template " + id + " in realm " + realm;
   var body = {
+    "config": config,
+    "consentRequired": String(consentRequired),
+    "consentText": String(consentText),
+    "id": String(id),
+    "name": String(name),
+    "protocol": String(protocol),
+    "protocolMapper": String(protocolMapper),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
+      , protocol: String(protocol)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientTemplateProtocolMappersModels(id, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/models";
-  var description = "Get all protocol mappers for client template " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
+function tryToAddExistingClientTemplateProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  addClientTemplateProtocolMapperModel(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 }
 
-function tryToAddExistingClientTemplateProtocolMappers(id, realm) {
+function verifyClientTemplateProtocolMapperModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/models";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientTemplateProtocolMappers...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientTemplateProtocolMappersExists(id, realm) {
-  var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/models";
-  var description = "Verify ClientTemplateProtocolMappers exists";
+  var description = "Verify ClientTemplateProtocolMapperModels with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4698,18 +5701,18 @@ function verifyClientTemplateProtocolMappersExists(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientTemplateProtocolMappers exists");
+            return pvg.success("ClientTemplateProtocolMapperModels exists");
           }
         }
       }
-      return pvg.fail("Expected ClientTemplateProtocolMappers to exist but it does not");
+      return pvg.fail("Expected ClientTemplateProtocolMapperModels to exist but it does not");
     }
   });
 }
 
-function verifyClientTemplateProtocolMappersDoesNotExist(id, realm) {
+function verifyClientTemplateProtocolMapperModelsDoesNotExist(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/models";
-  var description = "Verify ClientTemplateProtocolMappers does not exist";
+  var description = "Verify ClientTemplateProtocolMapperModels with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4718,25 +5721,23 @@ function verifyClientTemplateProtocolMappersDoesNotExist(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientTemplateProtocolMappers to not exist but it does");
+            return pvg.fail("Expected ClientTemplateProtocolMapperModels to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientTemplateProtocolMappers does not exist");
+      return pvg.success("ClientTemplateProtocolMapperModels does not exist");
     }
   });
 }
 
-function matchAddedClientTemplateProtocolMappers(id, realm) {
-  var expectedDesc = "Create client template protocol mapper in client template " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientTemplateProtocolMappers", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientTemplateProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper model to client template " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientTemplateProtocolMappersAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ template\ protocol\ mapper\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ template\ protocol\ mapper\ in\ client\ template\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientTemplateProtocolMapperModelsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ protocol\ mapper\ model\ to\ client\ template\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ protocol\ mapper\ model\ to\ client\ template\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -4746,73 +5747,66 @@ function waitForAnyClientTemplateProtocolMappersAdded() {
   return obj;
 }
 
-function getClientTemplateProtocolMappersAddedEvent(keyVal) {
-  return bp.EventSet("AddClientTemplateProtocolMappers:" + keyVal, function(e) {
+function getClientTemplateProtocolMapperModelsAddedEvent(keyVal) {
+  return bp.EventSet("AddClientTemplateProtocolMapperModels:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyClientTemplateProtocolMappersAdded() {
-  return bp.EventSet("matchAnyClientTemplateProtocolMappersAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client template protocol mappers") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyClientTemplateProtocolMapperModelsAdded() {
+  return bp.EventSet("matchAnyClientTemplateProtocolMapperModelsAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client template protocol mapper models") > -1;
   });
 }
 
-function waitForClientTemplateProtocolMappersAdded(id, realm) {
-  var expectedDesc = "Create client template protocol mapper in client template " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientTemplateProtocolMapperModelsAdded(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper model to client template " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: client template protocol mappers protocol ----
+// ---- Entity: client template protocol mapper protocol ----
 
-function getClientTemplateProtocolMappersProtocol(id, protocol, realm) {
+function getClientTemplateProtocolMapperByProtocol(id, protocol, realm) {
   var url = "/" + realm + "/client-templates/" + id + "/protocol-mappers/protocol/" + protocol;
-  var description = "Get protocol mappers for protocol " + protocol + " in client template " + id + " in realm " + realm;
+  var description = "Get protocol mapper models for protocol " + protocol + " in client template " + id + " of realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 // ---- Entity: client protocol mapper ----
 
-function postClientProtocolMappersModels(id1, id2, realm) {
-  var url = "/" + realm + "/clients/{id}/protocol-mappers/models";
-  var description = "Create client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , id1: String(id1)
-      , id2: String(id2)
-    }
-  });
-}
-
-function deleteClientProtocolMappersModel(id1, id2, realm) {
+function getClientProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/clients/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Delete client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
+  var description = "Get client protocol mapper " + id2 + " in client " + id1 + " of realm " + realm;
   var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function putClientProtocolMappersModel(id1, id2, realm) {
+function updateClientProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/clients/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Update client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
+  var description = "Update client protocol mapper " + id2 + " in client " + id1 + " of realm " + realm;
   var body = {
+    "config": config,
+    "consentRequired": String(true),
+    "consentText": "consentText_" + realm,
+    "id": "id_" + realm,
+    "id1": String(id1),
+    "id2": String(id2),
+    "name": "name_" + realm,
+    "protocol": "protocol_" + realm,
+    "protocolMapper": "protocolMapper_" + realm,
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
@@ -4820,68 +5814,16 @@ function putClientProtocolMappersModel(id1, id2, realm) {
       , id2: String(id2)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientProtocolMappersModel(id1, id2, realm) {
+function deleteClientProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/clients/" + id1 + "/protocol-mappers/models/" + id2;
-  var description = "Get client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
+  var description = "Delete client protocol mapper " + id2 + " in client " + id1 + " of realm " + realm;
   var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingClientProtocolMapper(id1, id2, realm) {
-  var url = "/" + realm + "/clients/{id}/protocol-mappers/models";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientProtocolMapper...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyClientProtocolMapperExists(id1, id2, realm) {
-  var url = "/" + realm + "/clients/{id}/protocol-mappers/models";
-  var description = "Verify ClientProtocolMapper exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
+  svc.delete(url, {
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientProtocolMapper exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ClientProtocolMapper to exist but it does not");
-    }
-  });
-}
-
-function verifyClientProtocolMapperDoesNotExist(id1, id2, realm) {
-  var url = "/" + realm + "/clients/{id}/protocol-mappers/models";
-  var description = "Verify ClientProtocolMapper does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientProtocolMapper to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ClientProtocolMapper does not exist");
-    }
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4889,58 +5831,21 @@ function tryToDeleteANonExistingClientProtocolMapper(id1, id2, realm) {
   var url = "/" + realm + "/clients/" + id1 + "/protocol-mappers/models/" + id2;
   var description = "Verify we cannot delete non-existing ClientProtocolMapper";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedClientProtocolMapper(id1, id2, realm) {
-  var expectedDesc = "Create client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
-  return bp.EventSet("matchAddedClientProtocolMapper", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyClientProtocolMapperAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ (.+)\ in\ realm\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id2", "id1", "realm"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getClientProtocolMapperAddedEvent(keyVal) {
-  return bp.EventSet("AddClientProtocolMapper:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyClientProtocolMapperAdded() {
-  return bp.EventSet("matchAnyClientProtocolMapperAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client protocol mapper") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForClientProtocolMapperAdded(id1, id2, realm) {
-  var expectedDesc = "Create client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
-}
-
 function matchDeletedClientProtocolMapper(id1, id2, realm) {
-  var expectedDesc = "Delete client protocol mapper with id " + id2 + " in client " + id1 + " in realm " + realm;
+  var expectedDesc = "Delete client protocol mapper " + id2 + " in client " + id1 + " of realm " + realm;
   return bp.EventSet("matchDeletedClientProtocolMapper", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyClientProtocolMapperDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ client\ protocol\ mapper\ with\ id\ (.+)\ in\ client\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ protocol\ mapper\ (.+)\ in\ client\ (.+)\ of\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ client\ protocol\ mapper\ (.+)\ in\ client\ (.+)\ of\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id2", "id1", "realm"];
   var obj = {};
@@ -4950,23 +5855,24 @@ function waitForAnyClientProtocolMapperDeleted() {
   return obj;
 }
 
-// ---- Entity: client protocol mapper add model ----
+// ---- Entity: client protocol mapper add models ----
 
-function postClientProtocolMappersAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+function addClientProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/add-models";
-  var description = "Add client protocol mapper model in client " + id + " in realm " + realm;
+  var description = "Add protocol mapper models to client " + id + " in realm " + realm;
   var body = {
-    "id": String(id),
-    "name": "name_dummy",
-    "protocol": "protocol_dummy",
-    "protocolMapper": "protocolMapper_dummy",
-    "consentRequired": String(true),
-    "consentText": "consentText_dummy",
     "config": config,
+    "consentRequired": String(consentRequired),
+    "consentText": String(consentText),
+    "id": String(id),
+    "name": String(name),
+    "protocol": String(protocol),
+    "protocolMapper": String(protocolMapper),
+    "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       , id: String(id)
@@ -4974,24 +5880,16 @@ function postClientProtocolMappersAddModels(config, consentRequired, consentText
       , realm: String(realm)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingClientProtocolMapperAddModel(id, realm) {
-  var url = "/" + realm + "/clients/" + id + "/protocol-mappers/add-models";
-  var body = {
-  };
-  var description = "Verify that we cannot add another ClientProtocolMapperAddModel...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingClientProtocolMapperAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  addClientProtocolMapperModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 }
 
-function verifyClientProtocolMapperAddModelExists(id, realm) {
+function verifyClientProtocolMapperAddModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/add-models";
-  var description = "Verify ClientProtocolMapperAddModel exists";
+  var description = "Verify ClientProtocolMapperAddModels exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5000,18 +5898,18 @@ function verifyClientProtocolMapperAddModelExists(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.success("ClientProtocolMapperAddModel exists");
+            return pvg.success("ClientProtocolMapperAddModels exists");
           }
         }
       }
-      return pvg.fail("Expected ClientProtocolMapperAddModel to exist but it does not");
+      return pvg.fail("Expected ClientProtocolMapperAddModels to exist but it does not");
     }
   });
 }
 
-function verifyClientProtocolMapperAddModelDoesNotExist(id, realm) {
+function verifyClientProtocolMapperAddModelsDoesNotExist(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/add-models";
-  var description = "Verify ClientProtocolMapperAddModel does not exist";
+  var description = "Verify ClientProtocolMapperAddModels does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5020,25 +5918,23 @@ function verifyClientProtocolMapperAddModelDoesNotExist(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected ClientProtocolMapperAddModel to not exist but it does");
+            return pvg.fail("Expected ClientProtocolMapperAddModels to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientProtocolMapperAddModel does not exist");
+      return pvg.success("ClientProtocolMapperAddModels does not exist");
     }
   });
 }
 
-function matchAddedClientProtocolMapperAddModel(id, realm) {
-  var expectedDesc = "Add client protocol mapper model in client " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientProtocolMapperAddModel", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedClientProtocolMapperAddModels(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper models to client " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientProtocolMapperAddModelAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ client\ protocol\ mapper\ model\ in\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ client\ protocol\ mapper\ model\ in\ client\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyClientProtocolMapperAddModelsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ protocol\ mapper\ models\ to\ client\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ protocol\ mapper\ models\ to\ client\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -5048,69 +5944,69 @@ function waitForAnyClientProtocolMapperAddModelAdded() {
   return obj;
 }
 
-function getClientProtocolMapperAddModelAddedEvent(keyVal) {
-  return bp.EventSet("AddClientProtocolMapperAddModel:" + keyVal, function(e) {
+function getClientProtocolMapperAddModelsAddedEvent(keyVal) {
+  return bp.EventSet("AddClientProtocolMapperAddModels:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyClientProtocolMapperAddModelAdded() {
-  return bp.EventSet("matchAnyClientProtocolMapperAddModelAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client protocol mapper add model") > -1 && e.data.parameters.None !== undefined);
+function matchAnyClientProtocolMapperAddModelsAdded() {
+  return bp.EventSet("matchAnyClientProtocolMapperAddModelsAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create client protocol mapper add models") > -1;
   });
 }
 
-function waitForClientProtocolMapperAddModelAdded(id, realm) {
-  var expectedDesc = "Add client protocol mapper model in client " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForClientProtocolMapperAddModelsAdded(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Add protocol mapper models to client " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: client protocol mappers ----
+// ---- Entity: protocol mapper ----
 
-function postClientProtocolMappersModels(id, realm) {
+function createProtocolMapper(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/models";
-  var description = "Create client protocol mapper in client " + id + " in realm " + realm;
+  var description = "Create protocol mapper with id " + id + " in realm " + realm;
   var body = {
+    "config": config,
+    "consentRequired": String(consentRequired),
+    "consentText": String(consentText),
+    "id": String(id),
+    "name": String(name),
+    "protocol": String(protocol),
+    "protocolMapper": String(protocolMapper),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
+      , protocol: String(protocol)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getClientProtocolMappersModels(id, realm) {
+function getProtocolMappers(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/models";
-  var description = "Get all protocol mappers for client " + id + " in realm " + realm;
+  var description = "Get protocol mappers for client " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingClientProtocolMappers(id, realm) {
-  var url = "/" + realm + "/clients/" + id + "/protocol-mappers/models";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientProtocolMappers...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingProtocolMapper(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  getProtocolMappers(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 }
 
-function verifyClientProtocolMappersExists(id, realm) {
+function verifyProtocolMapperExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/models";
-  var description = "Verify ClientProtocolMappers exists";
+  var description = "Verify ProtocolMapper with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5119,18 +6015,18 @@ function verifyClientProtocolMappersExists(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("ClientProtocolMappers exists");
+            return pvg.success("ProtocolMapper exists");
           }
         }
       }
-      return pvg.fail("Expected ClientProtocolMappers to exist but it does not");
+      return pvg.fail("Expected ProtocolMapper to exist but it does not");
     }
   });
 }
 
-function verifyClientProtocolMappersDoesNotExist(id, realm) {
+function verifyProtocolMapperDoesNotExist(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
   var url = "/" + realm + "/clients/" + id + "/protocol-mappers/models";
-  var description = "Verify ClientProtocolMappers does not exist";
+  var description = "Verify ProtocolMapper with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5139,25 +6035,23 @@ function verifyClientProtocolMappersDoesNotExist(id, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected ClientProtocolMappers to not exist but it does");
+            return pvg.fail("Expected ProtocolMapper to not exist but it does");
           }
         }
       }
-      return pvg.success("ClientProtocolMappers does not exist");
+      return pvg.success("ProtocolMapper does not exist");
     }
   });
 }
 
-function matchAddedClientProtocolMappers(id, realm) {
-  var expectedDesc = "Create client protocol mapper in client " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientProtocolMappers", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedProtocolMapper(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Create protocol mapper with id " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyClientProtocolMappersAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ protocol\ mapper\ in\ client\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ client\ protocol\ mapper\ in\ client\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyProtocolMapperAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ protocol\ mapper\ with\ id\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ protocol\ mapper\ with\ id\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -5167,106 +6061,133 @@ function waitForAnyClientProtocolMappersAdded() {
   return obj;
 }
 
-function getClientProtocolMappersAddedEvent(keyVal) {
-  return bp.EventSet("AddClientProtocolMappers:" + keyVal, function(e) {
+function getProtocolMapperAddedEvent(keyVal) {
+  return bp.EventSet("AddProtocolMapper:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyClientProtocolMappersAdded() {
-  return bp.EventSet("matchAnyClientProtocolMappersAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client protocol mappers") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyProtocolMapperAdded() {
+  return bp.EventSet("matchAnyProtocolMapperAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create protocol mapper") > -1;
   });
 }
 
-function waitForClientProtocolMappersAdded(id, realm) {
-  var expectedDesc = "Create client protocol mapper in client " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForProtocolMapperAdded(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm) {
+  var expectedDesc = "Create protocol mapper with id " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: client protocol mappers protocol ----
+// ---- Entity: identity provider ----
 
-function getClientProtocolMappersProtocol(id, protocol, realm) {
-  var url = "/" + realm + "/clients/" + id + "/protocol-mappers/protocol/" + protocol;
-  var description = "Get protocol mappers for protocol " + protocol + " in client " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-// ---- Entity: identityProvider ----
-
-function postInstances(alias, realm) {
+function createIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances";
-  var description = "Create identityProvider with alias " + alias + " in realm " + realm;
+  var description = "Create identity provider in realm " + realm;
   var body = {
+    "addReadTokenRoleOnCreate": String(addReadTokenRoleOnCreate),
+    "alias": String(alias),
+    "authenticateByDefault": String(authenticateByDefault),
+    "config": config,
+    "displayName": String(displayName),
+    "enabled": String(enabled),
+    "firstBrokerLoginFlowAlias": String(firstBrokerLoginFlowAlias),
+    "internalId": String(internalId),
+    "linkOnly": String(linkOnly),
+    "postBrokerLoginFlowAlias": String(postBrokerLoginFlowAlias),
+    "providerId": String(providerId),
     "realm": String(realm),
+    "storeToken": String(storeToken),
+    "trustEmail": String(trustEmail),
+    "updateProfileFirstLogin": String(updateProfileFirstLogin),
+    "updateProfileFirstLoginMode": String(updateProfileFirstLoginMode),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , alias: String(alias)
+      , internalId: String(internalId)
+      , providerId: String(providerId)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteInstance(alias, realm) {
+function deleteIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances/" + alias;
-  var description = "Delete identityProvider with alias " + alias + " in realm " + realm;
+  var description = "Delete identity provider " + alias + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function putInstance(alias, realm) {
+function updateIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances/" + alias;
-  var description = "Update identityProvider with alias " + alias + " in realm " + realm;
+  var description = "Update identity provider " + alias + " in realm " + realm;
   var body = {
+    "addReadTokenRoleOnCreate": String(addReadTokenRoleOnCreate),
+    "alias": String(alias),
+    "authenticateByDefault": String(authenticateByDefault),
+    "config": config,
+    "displayName": String(displayName),
+    "enabled": String(enabled),
+    "firstBrokerLoginFlowAlias": String(firstBrokerLoginFlowAlias),
+    "internalId": String(internalId),
+    "linkOnly": String(linkOnly),
+    "postBrokerLoginFlowAlias": String(postBrokerLoginFlowAlias),
+    "providerId": String(providerId),
     "realm": String(realm),
+    "storeToken": String(storeToken),
+    "trustEmail": String(trustEmail),
+    "updateProfileFirstLogin": String(updateProfileFirstLogin),
+    "updateProfileFirstLoginMode": String(updateProfileFirstLoginMode),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , alias: String(alias)
+      , internalId: String(internalId)
+      , providerId: String(providerId)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getInstance(alias, realm) {
+function getIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances/" + alias;
-  var description = "Get identityProvider with alias " + alias + " in realm " + realm;
+  var description = "Get identity provider " + alias + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingIdentityProvider(alias, realm) {
+function listIdentityProviders(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another IdentityProvider...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+  var description = "List identity providers in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function verifyIdentityProviderExists(alias, realm) {
+function tryToAddExistingIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
+  listIdentityProviders(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
+}
+
+function verifyIdentityProviderExists(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances";
-  var description = "Verify IdentityProvider exists";
+  var description = "Verify IdentityProvider with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5284,9 +6205,9 @@ function verifyIdentityProviderExists(alias, realm) {
   });
 }
 
-function verifyIdentityProviderDoesNotExist(alias, realm) {
+function verifyIdentityProviderDoesNotExist(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances";
-  var description = "Verify IdentityProvider does not exist";
+  var description = "Verify IdentityProvider with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5304,27 +6225,25 @@ function verifyIdentityProviderDoesNotExist(alias, realm) {
   });
 }
 
-function tryToDeleteANonExistingIdentityProvider(alias, realm) {
+function tryToDeleteANonExistingIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
   var url = "/" + realm + "/identity-provider/instances/" + alias;
   var description = "Verify we cannot delete non-existing IdentityProvider";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [200],
     parameters: { description: description }
   });
 }
 
-function matchAddedIdentityProvider(alias, realm) {
-  var expectedDesc = "Create identityProvider with alias " + alias + " in realm " + realm;
-  return bp.EventSet("matchAddedIdentityProvider", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
+  var expectedDesc = "Create identity provider in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIdentityProviderAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ identityProvider\ with\ alias\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ identityProvider\ with\ alias\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ identity\ provider\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ identity\ provider\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["alias", "realm"];
+  var names = ["realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -5341,25 +6260,25 @@ function getIdentityProviderAddedEvent(keyVal) {
 
 function matchAnyIdentityProviderAdded() {
   return bp.EventSet("matchAnyIdentityProviderAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create identityProvider") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create identity provider") > -1;
   });
 }
 
-function waitForIdentityProviderAdded(alias, realm) {
-  var expectedDesc = "Create identityProvider with alias " + alias + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForIdentityProviderAdded(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
+  var expectedDesc = "Create identity provider in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedIdentityProvider(alias, realm) {
-  var expectedDesc = "Delete identityProvider with alias " + alias + " in realm " + realm;
+function matchDeletedIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode) {
+  var expectedDesc = "Delete identity provider " + alias + " in realm " + realm;
   return bp.EventSet("matchDeletedIdentityProvider", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyIdentityProviderDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ identityProvider\ with\ alias\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ identityProvider\ with\ alias\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ identity\ provider\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ identity\ provider\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["alias", "realm"];
   var obj = {};
@@ -5369,17 +6288,23 @@ function waitForAnyIdentityProviderDeleted() {
   return obj;
 }
 
-// ---- Entity: identityProviderMapper ----
+// ---- Entity: identity provider mapper ----
 
-function postMappers(alias, id, name, realm) {
+function createIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers";
-  var description = "Create identityProviderMapper with name " + name + " and id " + id + " for identityProvider " + alias + " in realm " + realm;
+  var description = "Create mapper " + id + " for identity provider " + alias + " in realm " + realm;
   var body = {
+    "alias": String(alias),
+    "config": config,
+    "id": String(id),
+    "identityProviderAlias": String(identityProviderAlias),
+    "identityProviderMapper": String(identityProviderMapper),
+    "name": String(name),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
@@ -5387,26 +6312,34 @@ function postMappers(alias, id, name, realm) {
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteMapper(alias, id, name, realm) {
+function deleteIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers/" + id;
-  var description = "Delete identityProviderMapper with id " + id + " for identityProvider " + alias + " in realm " + realm;
+  var description = "Delete mapper " + id + " for identity provider " + alias + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function putMapper(alias, id, name, realm) {
+function updateIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers/" + id;
-  var description = "Update identityProviderMapper with id " + id + " for identityProvider " + alias + " in realm " + realm;
+  var description = "Update mapper " + id + " for identity provider " + alias + " in realm " + realm;
   var body = {
+    "alias": String(alias),
+    "config": config,
+    "id": String(id),
+    "identityProviderAlias": String(identityProviderAlias),
+    "identityProviderMapper": String(identityProviderMapper),
+    "name": String(name),
     "realm": String(realm),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [204],
     parameters: {
       description: description,
       realm: String(realm)
@@ -5414,34 +6347,36 @@ function putMapper(alias, id, name, realm) {
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getMapper(alias, id, name, realm) {
+function getIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers/" + id;
-  var description = "Get identityProviderMapper with id " + id + " for identityProvider " + alias + " in realm " + realm;
+  var description = "Get mapper " + id + " for identity provider " + alias + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingIdentityProviderMapper(alias, id, name, realm) {
+function listIdentityProviderMappers(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another IdentityProviderMapper...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+  var description = "List mappers for identity provider " + alias + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function verifyIdentityProviderMapperExists(alias, id, name, realm) {
+function tryToAddExistingIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
+  listIdentityProviderMappers(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
+}
+
+function verifyIdentityProviderMapperExists(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers";
-  var description = "Verify IdentityProviderMapper exists";
+  var description = "Verify IdentityProviderMapper with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5459,9 +6394,9 @@ function verifyIdentityProviderMapperExists(alias, id, name, realm) {
   });
 }
 
-function verifyIdentityProviderMapperDoesNotExist(alias, id, name, realm) {
+function verifyIdentityProviderMapperDoesNotExist(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers";
-  var description = "Verify IdentityProviderMapper does not exist";
+  var description = "Verify IdentityProviderMapper with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5479,27 +6414,25 @@ function verifyIdentityProviderMapperDoesNotExist(alias, id, name, realm) {
   });
 }
 
-function tryToDeleteANonExistingIdentityProviderMapper(alias, id, name, realm) {
+function tryToDeleteANonExistingIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/mappers/" + id;
   var description = "Verify we cannot delete non-existing IdentityProviderMapper";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedIdentityProviderMapper(alias, id, name, realm) {
-  var expectedDesc = "Create identityProviderMapper with name " + name + " and id " + id + " for identityProvider " + alias + " in realm " + realm;
-  return bp.EventSet("matchAddedIdentityProviderMapper", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
+  var expectedDesc = "Create mapper " + id + " for identity provider " + alias + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIdentityProviderMapperAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ identityProviderMapper\ with\ name\ (.+)\ and\ id\ (.+)\ for\ identityProvider\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ identityProviderMapper\ with\ name\ (.+)\ and\ id\ (.+)\ for\ identityProvider\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ mapper\ (.+)\ for\ identity\ provider\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ mapper\ (.+)\ for\ identity\ provider\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "alias", "realm"];
+  var names = ["id", "alias", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -5516,25 +6449,25 @@ function getIdentityProviderMapperAddedEvent(keyVal) {
 
 function matchAnyIdentityProviderMapperAdded() {
   return bp.EventSet("matchAnyIdentityProviderMapperAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create identityProviderMapper") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create identity provider mapper") > -1;
   });
 }
 
-function waitForIdentityProviderMapperAdded(alias, id, name, realm) {
-  var expectedDesc = "Create identityProviderMapper with name " + name + " and id " + id + " for identityProvider " + alias + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForIdentityProviderMapperAdded(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
+  var expectedDesc = "Create mapper " + id + " for identity provider " + alias + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedIdentityProviderMapper(alias, id, name, realm) {
-  var expectedDesc = "Delete identityProviderMapper with id " + id + " for identityProvider " + alias + " in realm " + realm;
+function matchDeletedIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm) {
+  var expectedDesc = "Delete mapper " + id + " for identity provider " + alias + " in realm " + realm;
   return bp.EventSet("matchDeletedIdentityProviderMapper", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyIdentityProviderMapperDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ identityProviderMapper\ with\ id\ (.+)\ for\ identityProvider\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ identityProviderMapper\ with\ id\ (.+)\ for\ identityProvider\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ mapper\ (.+)\ for\ identity\ provider\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ mapper\ (.+)\ for\ identity\ provider\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "alias", "realm"];
   var obj = {};
@@ -5544,106 +6477,97 @@ function waitForAnyIdentityProviderMapperDeleted() {
   return obj;
 }
 
-// ---- Entity: identityProviderManagementPermission ----
+// ---- Entity: identity provider management permissions ----
 
-function putInstanceManagementPermissions(alias, realm) {
+function updateIdentityProviderManagementPermissions(alias, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/management/permissions";
-  var description = "Update management permissions for identityProvider " + alias + " in realm " + realm;
+  var description = "Update management permissions for identity provider " + alias + " in realm " + realm;
   var body = {
+    "alias": String(alias),
+    "enabled": String(true),
     "realm": String(realm),
+    "resource": "resource_" + realm,
+    "scopePermissions": scopePermissions,
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , alias: String(alias)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getInstanceManagementPermissions(alias, realm) {
+function getIdentityProviderManagementPermissions(alias, realm) {
   var url = "/" + realm + "/identity-provider/instances/" + alias + "/management/permissions";
-  var description = "Get management permissions for identityProvider " + alias + " in realm " + realm;
+  var description = "Get management permissions for identity provider " + alias + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-// ---- Entity: group role mapping ----
+// ---- Entity: group role mapping realm ----
 
-function getGroupRoleMappings(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings";
-  var description = "Get role mappings for group " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function postGroupRoleMappingsRealm(briefRepresentation, id, name, realm) {
+function postGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
-  var description = "Add role mapping " + name + " with id " + id + " to group " + id + " in realm " + realm;
+  var description = "Add role mapping to group " + id + " in realm " + realm + " with role name " + name + " and id " + id;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
+      , containerId: String(containerId)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteGroupRoleMappingsRealm(briefRepresentation, id, name, realm) {
+function deleteGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
-  var description = "Delete role mapping " + name + " with id " + id + " from group " + id + " in realm " + realm;
+  var description = "Delete role mapping from group " + id + " in realm " + realm + " with role name " + name + " and id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function getGroupRoleMappingsRealmAvailable(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/realm/available";
-  var description = "Get available role mappings for group " + id + " in realm " + realm;
+function getGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
+  var description = "Get role mappings of group " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function getGroupRoleMappingsRealmComposite(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/realm/composite";
-  var description = "Get composite role mappings for group " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
+function tryToAddExistingGroupRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
 }
 
-function tryToAddExistingGroupRoleMapping(briefRepresentation, id, name, realm) {
+function verifyGroupRoleMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another GroupRoleMapping...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyGroupRoleMappingExists(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
-  var description = "Verify GroupRoleMapping exists";
+  var description = "Verify GroupRoleMappingRealm with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5652,18 +6576,18 @@ function verifyGroupRoleMappingExists(briefRepresentation, id, name, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("GroupRoleMapping exists");
+            return pvg.success("GroupRoleMappingRealm exists");
           }
         }
       }
-      return pvg.fail("Expected GroupRoleMapping to exist but it does not");
+      return pvg.fail("Expected GroupRoleMappingRealm to exist but it does not");
     }
   });
 }
 
-function verifyGroupRoleMappingDoesNotExist(briefRepresentation, id, name, realm) {
+function verifyGroupRoleMappingRealmDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
-  var description = "Verify GroupRoleMapping does not exist";
+  var description = "Verify GroupRoleMappingRealm with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5672,36 +6596,34 @@ function verifyGroupRoleMappingDoesNotExist(briefRepresentation, id, name, realm
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected GroupRoleMapping to not exist but it does");
+            return pvg.fail("Expected GroupRoleMappingRealm to not exist but it does");
           }
         }
       }
-      return pvg.success("GroupRoleMapping does not exist");
+      return pvg.success("GroupRoleMappingRealm does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingGroupRoleMapping(briefRepresentation, id, name, realm) {
+function tryToDeleteANonExistingGroupRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/groups/" + id + "/role-mappings/realm";
-  var description = "Verify we cannot delete non-existing GroupRoleMapping";
+  var description = "Verify we cannot delete non-existing GroupRoleMappingRealm";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedGroupRoleMapping(briefRepresentation, id, name, realm) {
-  var expectedDesc = "Add role mapping " + name + " with id " + id + " to group " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedGroupRoleMapping", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedGroupRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to group " + id + " in realm " + realm + " with role name " + name + " and id " + id;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyGroupRoleMappingAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ (.+)\ with\ id\ (.+)\ to\ group\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ (.+)\ with\ id\ (.+)\ to\ group\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyGroupRoleMappingRealmAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ group\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ group\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
+  var names = ["id", "realm", "name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -5709,36 +6631,36 @@ function waitForAnyGroupRoleMappingAdded() {
   return obj;
 }
 
-function getGroupRoleMappingAddedEvent(keyVal) {
-  return bp.EventSet("AddGroupRoleMapping:" + keyVal, function(e) {
+function getGroupRoleMappingRealmAddedEvent(keyVal) {
+  return bp.EventSet("AddGroupRoleMappingRealm:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyGroupRoleMappingAdded() {
-  return bp.EventSet("matchAnyGroupRoleMappingAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create group role mapping") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyGroupRoleMappingRealmAdded() {
+  return bp.EventSet("matchAnyGroupRoleMappingRealmAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create group role mapping realm") > -1;
   });
 }
 
-function waitForGroupRoleMappingAdded(briefRepresentation, id, name, realm) {
-  var expectedDesc = "Add role mapping " + name + " with id " + id + " to group " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForGroupRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to group " + id + " in realm " + realm + " with role name " + name + " and id " + id;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedGroupRoleMapping(briefRepresentation, id, name, realm) {
-  var expectedDesc = "Delete role mapping " + name + " with id " + id + " from group " + id + " in realm " + realm;
-  return bp.EventSet("matchDeletedGroupRoleMapping", function(e) {
+function matchDeletedGroupRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role mapping from group " + id + " in realm " + realm + " with role name " + name + " and id " + id;
+  return bp.EventSet("matchDeletedGroupRoleMappingRealm", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyGroupRoleMappingDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ (.+)\ with\ id\ (.+)\ from\ group\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ (.+)\ with\ id\ (.+)\ from\ group\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyGroupRoleMappingRealmDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ group\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ group\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
+  var names = ["id", "realm", "name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -5746,78 +6668,63 @@ function waitForAnyGroupRoleMappingDeleted() {
   return obj;
 }
 
-// ---- Entity: user role mapping ----
+// ---- Entity: user role mapping realm ----
 
-function getUserRoleMappings(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings";
-  var description = "Get role mappings for user " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function postUserRoleMappingsRealm(briefRepresentation, id, name, realm) {
+function postUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
-  var description = "Add role mapping " + name + " with id " + id + " to user " + id + " in realm " + realm;
+  var description = "Add role mapping to user " + id + " in realm " + realm + " with role name " + name + " and id " + id;
   var body = {
+    "attributes": attributes,
+    "clientRole": String(clientRole),
+    "composite": String(composite),
+    "composites": String(composites),
+    "containerId": String(containerId),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
     "realm": String(realm),
+    "scopeParamRequired": String(scopeParamRequired),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
       realm: String(realm)
+      , containerId: String(containerId)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteUserRoleMappingsRealm(briefRepresentation, id, name, realm) {
+function deleteUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
-  var description = "Delete role mapping " + name + " with id " + id + " from user " + id + " in realm " + realm;
+  var description = "Delete role mapping from user " + id + " in realm " + realm + " with role name " + name + " and id " + id;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function getUserRoleMappingsRealmAvailable(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/realm/available";
-  var description = "Get available role mappings for user " + id + " in realm " + realm;
+function getUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
+  var description = "Get role mappings of user " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function getUserRoleMappingsRealmComposite(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/realm/composite";
-  var description = "Get composite role mappings for user " + id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
+function tryToAddExistingUserRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  getUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
 }
 
-function tryToAddExistingUserRoleMapping(briefRepresentation, id, name, realm) {
+function verifyUserRoleMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another UserRoleMapping...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyUserRoleMappingExists(briefRepresentation, id, name, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
-  var description = "Verify UserRoleMapping exists";
+  var description = "Verify UserRoleMappingRealm with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5826,18 +6733,18 @@ function verifyUserRoleMappingExists(briefRepresentation, id, name, realm) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.success("UserRoleMapping exists");
+            return pvg.success("UserRoleMappingRealm exists");
           }
         }
       }
-      return pvg.fail("Expected UserRoleMapping to exist but it does not");
+      return pvg.fail("Expected UserRoleMappingRealm to exist but it does not");
     }
   });
 }
 
-function verifyUserRoleMappingDoesNotExist(briefRepresentation, id, name, realm) {
+function verifyUserRoleMappingRealmDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
-  var description = "Verify UserRoleMapping does not exist";
+  var description = "Verify UserRoleMappingRealm with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5846,36 +6753,34 @@ function verifyUserRoleMappingDoesNotExist(briefRepresentation, id, name, realm)
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected UserRoleMapping to not exist but it does");
+            return pvg.fail("Expected UserRoleMappingRealm to not exist but it does");
           }
         }
       }
-      return pvg.success("UserRoleMapping does not exist");
+      return pvg.success("UserRoleMappingRealm does not exist");
     }
   });
 }
 
-function tryToDeleteANonExistingUserRoleMapping(briefRepresentation, id, name, realm) {
+function tryToDeleteANonExistingUserRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
   var url = "/" + realm + "/users/" + id + "/role-mappings/realm";
-  var description = "Verify we cannot delete non-existing UserRoleMapping";
+  var description = "Verify we cannot delete non-existing UserRoleMappingRealm";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedUserRoleMapping(briefRepresentation, id, name, realm) {
-  var expectedDesc = "Add role mapping " + name + " with id " + id + " to user " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedUserRoleMapping", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedUserRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to user " + id + " in realm " + realm + " with role name " + name + " and id " + id;
+  return matchSuccess(expectedDesc);
 }
 
-function waitForAnyUserRoleMappingAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ (.+)\ with\ id\ (.+)\ to\ user\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ (.+)\ with\ id\ (.+)\ to\ user\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyUserRoleMappingRealmAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ user\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ user\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
+  var names = ["id", "realm", "name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -5883,36 +6788,36 @@ function waitForAnyUserRoleMappingAdded() {
   return obj;
 }
 
-function getUserRoleMappingAddedEvent(keyVal) {
-  return bp.EventSet("AddUserRoleMapping:" + keyVal, function(e) {
+function getUserRoleMappingRealmAddedEvent(keyVal) {
+  return bp.EventSet("AddUserRoleMappingRealm:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.realm) === String(keyVal);
   });
 }
 
-function matchAnyUserRoleMappingAdded() {
-  return bp.EventSet("matchAnyUserRoleMappingAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user role mapping") > -1 && e.data.parameters.realm !== undefined);
+function matchAnyUserRoleMappingRealmAdded() {
+  return bp.EventSet("matchAnyUserRoleMappingRealmAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create user role mapping realm") > -1;
   });
 }
 
-function waitForUserRoleMappingAdded(briefRepresentation, id, name, realm) {
-  var expectedDesc = "Add role mapping " + name + " with id " + id + " to user " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForUserRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Add role mapping to user " + id + " in realm " + realm + " with role name " + name + " and id " + id;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedUserRoleMapping(briefRepresentation, id, name, realm) {
-  var expectedDesc = "Delete role mapping " + name + " with id " + id + " from user " + id + " in realm " + realm;
-  return bp.EventSet("matchDeletedUserRoleMapping", function(e) {
+function matchDeletedUserRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired) {
+  var expectedDesc = "Delete role mapping from user " + id + " in realm " + realm + " with role name " + name + " and id " + id;
+  return bp.EventSet("matchDeletedUserRoleMappingRealm", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyUserRoleMappingDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ (.+)\ with\ id\ (.+)\ from\ user\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ (.+)\ with\ id\ (.+)\ from\ user\ (.+)\ in\ realm\ (.+)$/);
+function waitForAnyUserRoleMappingRealmDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ user\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ user\ (.+)\ in\ realm\ (.+)\ with\ role\ name\ (.+)\ and\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "id", "realm"];
+  var names = ["id", "realm", "name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -5927,7 +6832,8 @@ function getCertificate(attr, id, realm) {
   var description = "Get client certificate " + attr + " for client " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -5935,11 +6841,13 @@ function postUpload(attr, id, realm) {
   var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/upload";
   var description = "Upload client certificate " + attr + " for client " + id + " in realm " + realm;
   var body = {
+    "attr": String(attr),
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
@@ -5947,17 +6855,20 @@ function postUpload(attr, id, realm) {
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function postUploadCertificate(attr, id, realm) {
   var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/upload-certificate";
-  var description = "Upload certificate for client certificate " + attr + " for client " + id + " in realm " + realm;
+  var description = "Upload client certificate file " + attr + " for client " + id + " in realm " + realm;
   var body = {
+    "attr": String(attr),
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
@@ -5965,17 +6876,47 @@ function postUploadCertificate(attr, id, realm) {
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
+}
+
+function postDownload(attr, id, realm) {
+  var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/download";
+  var description = "Download client certificate " + attr + " for client " + id + " in realm " + realm + " with KeyStoreConfig";
+  var body = {
+    "attr": String(attr),
+    "format": "format_" + realm,
+    "id": String(id),
+    "keyAlias": "keyAlias_" + realm,
+    "keyPassword": "keyPassword_" + realm,
+    "realm": String(realm),
+    "realmAlias": "realmAlias_" + realm,
+    "realmCertificate": String(true),
+    "storePassword": "storePassword_" + realm,
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      realm: String(realm)
+      , attr: String(attr)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function postGenerate(attr, id, realm) {
   var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/generate";
   var description = "Generate client certificate " + attr + " for client " + id + " in realm " + realm;
   var body = {
+    "attr": String(attr),
+    "id": String(id),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
@@ -5983,17 +6924,26 @@ function postGenerate(attr, id, realm) {
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function postGenerateAndDownload(attr, id, realm) {
   var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/generate-and-download";
-  var description = "Generate and download client certificate " + attr + " for client " + id + " in realm " + realm;
+  var description = "Generate and download client certificate " + attr + " for client " + id + " in realm " + realm + " with KeyStoreConfig";
   var body = {
+    "attr": String(attr),
+    "format": "format_" + realm,
+    "id": String(id),
+    "keyAlias": "keyAlias_" + realm,
+    "keyPassword": "keyPassword_" + realm,
     "realm": String(realm),
+    "realmAlias": "realmAlias_" + realm,
+    "realmCertificate": String(true),
+    "storePassword": "storePassword_" + realm,
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
@@ -6001,43 +6951,16 @@ function postGenerateAndDownload(attr, id, realm) {
       , id: String(id)
     }
   });
-}
-
-function postDownload(attr, id, realm) {
-  var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/download";
-  var description = "Download client certificate " + attr + " for client " + id + " in realm " + realm;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , attr: String(attr)
-      , id: String(id)
-    }
-  });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function tryToAddExistingClientCertificate(attr, id, realm) {
-  var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/upload";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientCertificate...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  postGenerateAndDownload(attr, id, realm);
 }
 
 function verifyClientCertificateExists(attr, id, realm) {
   var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/upload";
-  var description = "Verify ClientCertificate exists";
+  var description = "Verify ClientCertificate with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6057,7 +6980,7 @@ function verifyClientCertificateExists(attr, id, realm) {
 
 function verifyClientCertificateDoesNotExist(attr, id, realm) {
   var url = "/" + realm + "/clients/" + id + "/certificates/" + attr + "/upload";
-  var description = "Verify ClientCertificate does not exist";
+  var description = "Verify ClientCertificate with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6077,9 +7000,7 @@ function verifyClientCertificateDoesNotExist(attr, id, realm) {
 
 function matchAddedClientCertificate(attr, id, realm) {
   var expectedDesc = "Upload client certificate " + attr + " for client " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedClientCertificate", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyClientCertificateAdded() {
@@ -6103,86 +7024,96 @@ function getClientCertificateAddedEvent(keyVal) {
 
 function matchAnyClientCertificateAdded() {
   return bp.EventSet("matchAnyClientCertificateAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create client certificate") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create client certificate") > -1;
   });
 }
 
 function waitForClientCertificateAdded(attr, id, realm) {
   var expectedDesc = "Upload client certificate " + attr + " for client " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: group ----
 
-function createGroup(id, name, realm) {
+function createGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups";
-  var description = "Create group " + name + " with id " + id + " in realm " + realm;
+  var description = "Create group " + name + " in realm " + realm;
   var body = {
+    "access": access,
+    "attributes": attributes,
+    "clientRoles": clientRoles,
+    "id": String(id),
+    "name": String(name),
+    "path": String(path),
     "realm": String(realm),
+    "realmRoles": String(realmRoles),
+    "subGroups": String(subGroups),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteGroup(id, name, realm) {
+function deleteGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups/" + id;
-  var description = "Delete group with id " + id + " in realm " + realm;
+  var description = "Delete group " + id + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
-function updateGroup(id, name, realm) {
+function updateGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups/" + id;
-  var description = "Update group " + name + " with id " + id + " in realm " + realm;
+  var description = "Update group " + id + " in realm " + realm;
   var body = {
+    "access": access,
+    "attributes": attributes,
+    "clientRoles": clientRoles,
+    "id": String(id),
+    "name": String(name),
+    "path": String(path),
     "realm": String(realm),
+    "realmRoles": String(realmRoles),
+    "subGroups": String(subGroups),
   };
   svc.put(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function getGroup(id, name, realm) {
+function getGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups/" + id;
-  var description = "Get group with id " + id + " in realm " + realm;
+  var description = "Get group " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
-function tryToAddExistingGroup(id, name, realm) {
-  var url = "/" + realm + "/groups";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another Group...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+function tryToAddExistingGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  getGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
 }
 
-function verifyGroupExists(id, name, realm) {
+function verifyGroupExists(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups";
-  var description = "Verify Group exists";
+  var description = "Verify Group with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6200,9 +7131,9 @@ function verifyGroupExists(id, name, realm) {
   });
 }
 
-function verifyGroupDoesNotExist(id, name, realm) {
+function verifyGroupDoesNotExist(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups";
-  var description = "Verify Group does not exist";
+  var description = "Verify Group with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6220,27 +7151,25 @@ function verifyGroupDoesNotExist(id, name, realm) {
   });
 }
 
-function tryToDeleteANonExistingGroup(id, name, realm) {
+function tryToDeleteANonExistingGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
   var url = "/" + realm + "/groups/" + id;
   var description = "Verify we cannot delete non-existing Group";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedGroup(id, name, realm) {
-  var expectedDesc = "Create group " + name + " with id " + id + " in realm " + realm;
-  return bp.EventSet("matchAddedGroup", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchAddedGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var expectedDesc = "Create group " + name + " in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ group\ (.+)\ with\ id\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ group\ (.+)\ with\ id\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ group\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ group\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id", "realm"];
+  var names = ["name", "realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -6257,25 +7186,25 @@ function getGroupAddedEvent(keyVal) {
 
 function matchAnyGroupAdded() {
   return bp.EventSet("matchAnyGroupAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create group") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create group") > -1;
   });
 }
 
-function waitForGroupAdded(id, name, realm) {
-  var expectedDesc = "Create group " + name + " with id " + id + " in realm " + realm;
-  waitFor(matchesDescription(expectedDesc));
+function waitForGroupAdded(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var expectedDesc = "Create group " + name + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedGroup(id, name, realm) {
-  var expectedDesc = "Delete group with id " + id + " in realm " + realm;
+function matchDeletedGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var expectedDesc = "Delete group " + id + " in realm " + realm;
   return bp.EventSet("matchDeletedGroup", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ group\ with\ id\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ group\ with\ id\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ group\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ group\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -6285,339 +7214,156 @@ function waitForAnyGroupDeleted() {
   return obj;
 }
 
-// ---- Entity: groupRoleMappingClient ----
+// ---- Entity: group child ----
 
-function postGroupRoleMappingsClient(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var description = "Add role mapping to group " + id + " in realm " + realm + " for client " + client + " with role id " + id;
+function addGroupChild(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var url = "/" + realm + "/groups/" + id + "/children";
+  var description = "Add child group " + name + " to group " + id + " in realm " + realm;
   var body = {
+    "access": access,
+    "attributes": attributes,
+    "clientRoles": clientRoles,
+    "id": String(id),
+    "name": String(name),
+    "path": String(path),
     "realm": String(realm),
+    "realmRoles": String(realmRoles),
+    "subGroups": String(subGroups),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      , id: String(id)
+      , realm: String(realm)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingGroupChild(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  addGroupChild(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
+}
+
+function verifyGroupChildExists(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var url = "/" + realm + "/groups/" + id + "/children";
+  var description = "Verify GroupChild exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.success("GroupChild exists");
+          }
+        }
+      }
+      return pvg.fail("Expected GroupChild to exist but it does not");
+    }
+  });
+}
+
+function verifyGroupChildDoesNotExist(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var url = "/" + realm + "/groups/" + id + "/children";
+  var description = "Verify GroupChild does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.fail("Expected GroupChild to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("GroupChild does not exist");
+    }
+  });
+}
+
+function matchAddedGroupChild(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var expectedDesc = "Add child group " + name + " to group " + id + " in realm " + realm;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyGroupChildAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ child\ group\ (.+)\ to\ group\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ child\ group\ (.+)\ to\ group\ (.+)\ in\ realm\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["name", "id", "realm"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getGroupChildAddedEvent(keyVal) {
+  return bp.EventSet("AddGroupChild:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyGroupChildAdded() {
+  return bp.EventSet("matchAnyGroupChildAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create group child") > -1;
+  });
+}
+
+function waitForGroupChildAdded(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups) {
+  var expectedDesc = "Add child group " + name + " to group " + id + " in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: group management permission ----
+
+function getGroupManagementPermissions(id, realm) {
+  var url = "/" + realm + "/groups/" + id + "/management/permissions";
+  var description = "Get management permissions for group " + id + " in realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateGroupManagementPermissions(id, realm) {
+  var url = "/" + realm + "/groups/" + id + "/management/permissions";
+  var description = "Update management permissions for group " + id + " in realm " + realm;
+  var body = {
+    "enabled": String(true),
+    "id": String(id),
+    "realm": String(realm),
+    "resource": "resource_" + realm,
+    "scopePermissions": scopePermissions,
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
-      , client: String(client)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
-function deleteGroupRoleMappingsClient(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var description = "Delete role mapping from group " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
+// ---- Entity: group member ----
 
-function getGroupRoleMappingsClient(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var description = "Get role mappings for group " + id + " in realm " + realm + " for client " + client;
+function getGroupMembers(id, realm) {
+  var url = "/" + realm + "/groups/" + id + "/members";
+  var description = "Get members of group " + id + " in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingGroupRoleMappingClient(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another GroupRoleMappingClient...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyGroupRoleMappingClientExists(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var description = "Verify GroupRoleMappingClient exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
     parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("GroupRoleMappingClient exists");
-          }
-        }
-      }
-      return pvg.fail("Expected GroupRoleMappingClient to exist but it does not");
-    }
-  });
-}
-
-function verifyGroupRoleMappingClientDoesNotExist(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var description = "Verify GroupRoleMappingClient does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected GroupRoleMappingClient to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("GroupRoleMappingClient does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingGroupRoleMappingClient(client, id, realm) {
-  var url = "/" + realm + "/groups/" + id + "/role-mappings/clients/" + client;
-  var description = "Verify we cannot delete non-existing GroupRoleMappingClient";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedGroupRoleMappingClient(client, id, realm) {
-  var expectedDesc = "Add role mapping to group " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  return bp.EventSet("matchAddedGroupRoleMappingClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyGroupRoleMappingClientAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ group\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ group\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id", "realm", "client", "id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getGroupRoleMappingClientAddedEvent(keyVal) {
-  return bp.EventSet("AddGroupRoleMappingClient:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyGroupRoleMappingClientAdded() {
-  return bp.EventSet("matchAnyGroupRoleMappingClientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create groupRoleMappingClient") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForGroupRoleMappingClientAdded(client, id, realm) {
-  var expectedDesc = "Add role mapping to group " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedGroupRoleMappingClient(client, id, realm) {
-  var expectedDesc = "Delete role mapping from group " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  return bp.EventSet("matchDeletedGroupRoleMappingClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyGroupRoleMappingClientDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ group\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ group\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id", "realm", "client", "id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: userRoleMappingClient ----
-
-function postUserRoleMappingsClient(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var description = "Add role mapping to user " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  var body = {
-    "realm": String(realm),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
-    parameters: {
-      description: description,
-      realm: String(realm)
-      , client: String(client)
-      , id: String(id)
-    }
-  });
-}
-
-function deleteUserRoleMappingsClient(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var description = "Delete role mapping from user " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description }
-  });
-}
-
-function getUserRoleMappingsClient(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var description = "Get role mappings for user " + id + " in realm " + realm + " for client " + client;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-function tryToAddExistingUserRoleMappingClient(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another UserRoleMappingClient...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyUserRoleMappingClientExists(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var description = "Verify UserRoleMappingClient exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.success("UserRoleMappingClient exists");
-          }
-        }
-      }
-      return pvg.fail("Expected UserRoleMappingClient to exist but it does not");
-    }
-  });
-}
-
-function verifyUserRoleMappingClientDoesNotExist(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var description = "Verify UserRoleMappingClient does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].realm) === String(realm)) {
-            return pvg.fail("Expected UserRoleMappingClient to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("UserRoleMappingClient does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingUserRoleMappingClient(client, id, realm) {
-  var url = "/" + realm + "/users/" + id + "/role-mappings/clients/" + client;
-  var description = "Verify we cannot delete non-existing UserRoleMappingClient";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedUserRoleMappingClient(client, id, realm) {
-  var expectedDesc = "Add role mapping to user " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  return bp.EventSet("matchAddedUserRoleMappingClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyUserRoleMappingClientAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ role\ mapping\ to\ user\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ role\ mapping\ to\ user\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id", "realm", "client", "id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getUserRoleMappingClientAddedEvent(keyVal) {
-  return bp.EventSet("AddUserRoleMappingClient:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.realm) === String(keyVal);
-  });
-}
-
-function matchAnyUserRoleMappingClientAdded() {
-  return bp.EventSet("matchAnyUserRoleMappingClientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create userRoleMappingClient") > -1 && e.data.parameters.realm !== undefined);
-  });
-}
-
-function waitForUserRoleMappingClientAdded(client, id, realm) {
-  var expectedDesc = "Add role mapping to user " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  waitFor(matchesDescription(expectedDesc));
-}
-
-function matchDeletedUserRoleMappingClient(client, id, realm) {
-  var expectedDesc = "Delete role mapping from user " + id + " in realm " + realm + " for client " + client + " with role id " + id;
-  return bp.EventSet("matchDeletedUserRoleMappingClient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyUserRoleMappingClientDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ mapping\ from\ user\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ mapping\ from\ user\ (.+)\ in\ realm\ (.+)\ for\ client\ (.+)\ with\ role\ id\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id", "realm", "client", "id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: role composite client ----
-
-function getRoleCompositesClient(clientUuid, realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites/clients/" + clientUuid;
-  var description = "Get client composites of role " + role-id + " for client " + clientUuid + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
-  });
-}
-
-// ---- Entity: role composite realm ----
-
-function getRoleCompositesRealm(realm, role-id) {
-  var url = "/" + realm + "/roles-by-id/" + role-id + "/composites/realm";
-  var description = "Get realm composites of role " + role-id + " in realm " + realm;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description }
+    expectedResponseCodes: [200]
   });
 }
 
@@ -6625,56 +7371,51 @@ function getRoleCompositesRealm(realm, role-id) {
 
 function postClientsInitialAccess(count, expiration, id, realm) {
   var url = "/" + realm + "/clients-initial-access";
-  var description = "Create clientInitialAccess with expiration " + expiration + " and count " + count;
+  var description = "Create client initial access in realm " + realm;
   var body = {
+    "count": String(count),
+    "expiration": String(expiration),
     "realm": String(realm),
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [200],
     parameters: {
       description: description,
       realm: String(realm)
       , id: String(id)
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { realm: String(realm) }) });
 }
 
 function getClientsInitialAccess(count, expiration, id, realm) {
   var url = "/" + realm + "/clients-initial-access";
-  var description = "Get clientInitialAccess list in realm " + realm;
+  var description = "Get client initial access list in realm " + realm;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function deleteClientsInitialAcces(count, expiration, id, realm) {
   var url = "/" + realm + "/clients-initial-access/" + id;
-  var description = "Delete clientInitialAccess with id " + id + " in realm " + realm;
+  var description = "Delete client initial access with id " + id + " in realm " + realm;
   var body = undefined;
   svc.delete(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [204]
   });
 }
 
 function tryToAddExistingClientInitialAccess(count, expiration, id, realm) {
-  var url = "/" + realm + "/clients-initial-access";
-  var body = {
-    "realm": String(realm)
-  };
-  var description = "Verify that we cannot add another ClientInitialAccess...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  deleteClientsInitialAcces(count, expiration, id, realm);
 }
 
 function verifyClientInitialAccessExists(count, expiration, id, realm) {
   var url = "/" + realm + "/clients-initial-access";
-  var description = "Verify ClientInitialAccess exists";
+  var description = "Verify ClientInitialAccess with realm " + realm + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6694,7 +7435,7 @@ function verifyClientInitialAccessExists(count, expiration, id, realm) {
 
 function verifyClientInitialAccessDoesNotExist(count, expiration, id, realm) {
   var url = "/" + realm + "/clients-initial-access";
-  var description = "Verify ClientInitialAccess does not exist";
+  var description = "Verify ClientInitialAccess with realm " + realm + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6716,23 +7457,21 @@ function tryToDeleteANonExistingClientInitialAccess(count, expiration, id, realm
   var url = "/" + realm + "/clients-initial-access/" + id;
   var description = "Verify we cannot delete non-existing ClientInitialAccess";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 404],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedClientInitialAccess(count, expiration, id, realm) {
-  var expectedDesc = "Create clientInitialAccess with expiration " + expiration + " and count " + count;
-  return bp.EventSet("matchAddedClientInitialAccess", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  var expectedDesc = "Create client initial access in realm " + realm;
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyClientInitialAccessAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ clientInitialAccess\ with\ expiration\ (.+)\ and\ count\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ clientInitialAccess\ with\ expiration\ (.+)\ and\ count\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ client\ initial\ access\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ client\ initial\ access\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["expiration", "count"];
+  var names = ["realm"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -6749,25 +7488,25 @@ function getClientInitialAccessAddedEvent(keyVal) {
 
 function matchAnyClientInitialAccessAdded() {
   return bp.EventSet("matchAnyClientInitialAccessAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create clientInitialAccess") > -1 && e.data.parameters.realm !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.realm !== undefined && e.name.indexOf("Create clientInitialAccess") > -1;
   });
 }
 
 function waitForClientInitialAccessAdded(count, expiration, id, realm) {
-  var expectedDesc = "Create clientInitialAccess with expiration " + expiration + " and count " + count;
-  waitFor(matchesDescription(expectedDesc));
+  var expectedDesc = "Create client initial access in realm " + realm;
+  waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedClientInitialAccess(count, expiration, id, realm) {
-  var expectedDesc = "Delete clientInitialAccess with id " + id + " in realm " + realm;
+  var expectedDesc = "Delete client initial access with id " + id + " in realm " + realm;
   return bp.EventSet("matchDeletedClientInitialAccess", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyClientInitialAccessDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ clientInitialAccess\ with\ id\ (.+)\ in\ realm\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ clientInitialAccess\ with\ id\ (.+)\ in\ realm\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ client\ initial\ access\ with\ id\ (.+)\ in\ realm\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ client\ initial\ access\ with\ id\ (.+)\ in\ realm\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "realm"];
   var obj = {};
@@ -6775,4 +7514,16 @@ function waitForAnyClientInitialAccessDeleted() {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
   }
   return obj;
+}
+
+// ---- Entity: key ----
+
+function getKeys(realm) {
+  var url = "/" + realm + "/keys";
+  var description = "Get keys for realm " + realm;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }

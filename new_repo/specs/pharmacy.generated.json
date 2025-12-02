@@ -13,9 +13,7 @@
           "method": "POST",
           "path": "/drugs",
           "descriptionTemplate": "Create drug {id}",
-          "params": [
-            "id"
-          ],
+          "params": [],
           "bodyTemplate": {
             "id": "{id}"
           }
@@ -63,9 +61,7 @@
           "method": "POST",
           "path": "/patients",
           "descriptionTemplate": "Create patient {id}",
-          "params": [
-            "id"
-          ],
+          "params": [],
           "bodyTemplate": {
             "id": "{id}"
           }
@@ -113,9 +109,7 @@
           "method": "POST",
           "path": "/orders",
           "descriptionTemplate": "Create order {id}",
-          "params": [
-            "id"
-          ],
+          "params": [],
           "bodyTemplate": {
             "id": "{id}"
           }
@@ -163,9 +157,7 @@
           "method": "POST",
           "path": "/prescriptions",
           "descriptionTemplate": "Create prescription {id}",
-          "params": [
-            "id"
-          ],
+          "params": [],
           "bodyTemplate": {
             "id": "{id}"
           }
@@ -213,9 +205,7 @@
           "method": "POST",
           "path": "/inventory",
           "descriptionTemplate": "Create inventory {ndc}",
-          "params": [
-            "ndc"
-          ],
+          "params": [],
           "bodyTemplate": {
             "ndc": "{ndc}"
           }

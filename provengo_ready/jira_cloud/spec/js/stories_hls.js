@@ -1,2870 +1,3176 @@
 // Auto-generated HLS stories
 //@provengo summon rest
 
-const bthread = bp.registerBThread;
+
+function resolveDependencies(deps, pkMap) {
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let missingEventSets = Object.values(deps);
+    let e = bp.sync({waitFor: missingEventSets});
+    for (let k in deps) {
+      if (deps[k].contains(e)) {
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        if (!val && pkMap && pkMap[k]) {
+            let mappedKey = pkMap[k];
+            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
+        }
+        if (!val && e.data) {
+          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }
+        }
+        if (val) {
+            captured[k] = val;
+            delete deps[k];
+        }
+      }
+    }
+  }
+  return captured;
+}
 
 // Story: crud:Issue:nondet:1:1
 bthread("crud:Issue:nondet:1:1", function () {
-  let updateHistory = "updateHistory_200";
+  let fields = {};
+  let historyMetadata = "historyMetadata_200";
+  let id = 200;
   let issueIdOrKey = 200;
-  let fields = "fields_200";
-  let fieldsByKeys = "fieldsByKeys_200";
-  let expand = "expand_200";
+  let issuetype = "issuetype_200";
+  let key = "key_200";
+  let project = "project_200";
   let properties = "properties_200";
-  let failFast = "failFast_200";
-  let notifyUsers = "notifyUsers_200";
-  let overrideScreenSecurity = 200;
-  let overrideEditableFlag = 200;
-  let returnIssue = "returnIssue_200";
-  let deleteSubtasks = "deleteSubtasks_200";
-  let startAt = "startAt_200";
-  let maxResults = "maxResults_200";
-  let transitionId = 200;
-  let skipRemoteOnlyCondition = "skipRemoteOnlyCondition_200";
-  let includeUnavailableTransitions = "includeUnavailableTransitions_200";
-  let sortByOpsBarAndStatus = "sortByOpsBarAndStatus_200";
-  createIssue("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
-  tryToAddExistingIssue("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
-  verifyIssueExists("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
-  editIssue("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
-  deleteIssue("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
-  tryToDeleteANonExistingIssue("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
-  verifyIssueDoesNotExist("updateHistory_200", 200, "fields_200", "fieldsByKeys_200", "expand_200", "properties_200", "failFast_200", "notifyUsers_200", 200, 200, "returnIssue_200", "deleteSubtasks_200", "startAt_200", "maxResults_200", 200, "skipRemoteOnlyCondition_200", "includeUnavailableTransitions_200", "sortByOpsBarAndStatus_200");
+  let summary = "summary_200";
+  let transition = "transition_200";
+  let update = {};
+  let updateHistory = "updateHistory_200";
+  createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  deleteIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
 });
 
 // Story: crud:Issue:nondet:1:2
 bthread("crud:Issue:nondet:1:2", function () {
-  let updateHistory = "updateHistory_201";
+  let fields = {};
+  let historyMetadata = "historyMetadata_201";
+  let id = 201;
   let issueIdOrKey = 201;
-  let fields = "fields_201";
-  let fieldsByKeys = "fieldsByKeys_201";
-  let expand = "expand_201";
+  let issuetype = "issuetype_201";
+  let key = "key_201";
+  let project = "project_201";
   let properties = "properties_201";
-  let failFast = "failFast_201";
-  let notifyUsers = "notifyUsers_201";
-  let overrideScreenSecurity = 201;
-  let overrideEditableFlag = 201;
-  let returnIssue = "returnIssue_201";
-  let deleteSubtasks = "deleteSubtasks_201";
-  let startAt = "startAt_201";
-  let maxResults = "maxResults_201";
-  let transitionId = 201;
-  let skipRemoteOnlyCondition = "skipRemoteOnlyCondition_201";
-  let includeUnavailableTransitions = "includeUnavailableTransitions_201";
-  let sortByOpsBarAndStatus = "sortByOpsBarAndStatus_201";
-  createIssue("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
-  tryToAddExistingIssue("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
-  editIssue("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
-  verifyIssueExists("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
-  deleteIssue("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
-  tryToDeleteANonExistingIssue("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
-  verifyIssueDoesNotExist("updateHistory_201", 201, "fields_201", "fieldsByKeys_201", "expand_201", "properties_201", "failFast_201", "notifyUsers_201", 201, 201, "returnIssue_201", "deleteSubtasks_201", "startAt_201", "maxResults_201", 201, "skipRemoteOnlyCondition_201", "includeUnavailableTransitions_201", "sortByOpsBarAndStatus_201");
+  let summary = "summary_201";
+  let transition = "transition_201";
+  let update = {};
+  let updateHistory = "updateHistory_201";
+  createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  deleteIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
 });
 
 // Story: crud:Issue:nondet:negative:dup-add
 bthread("crud:Issue:nondet:negative:dup-add", function () {
-  let updateHistory = "updateHistory_206";
+  let fields = {};
+  let historyMetadata = "historyMetadata_206";
+  let id = 206;
   let issueIdOrKey = 206;
-  let fields = "fields_206";
-  let fieldsByKeys = "fieldsByKeys_206";
-  let expand = "expand_206";
+  let issuetype = "issuetype_206";
+  let key = "key_206";
+  let project = "project_206";
   let properties = "properties_206";
-  let failFast = "failFast_206";
-  let notifyUsers = "notifyUsers_206";
-  let overrideScreenSecurity = 206;
-  let overrideEditableFlag = 206;
-  let returnIssue = "returnIssue_206";
-  let deleteSubtasks = "deleteSubtasks_206";
-  let startAt = "startAt_206";
-  let maxResults = "maxResults_206";
-  let transitionId = 206;
-  let skipRemoteOnlyCondition = "skipRemoteOnlyCondition_206";
-  let includeUnavailableTransitions = "includeUnavailableTransitions_206";
-  let sortByOpsBarAndStatus = "sortByOpsBarAndStatus_206";
-  createIssue("updateHistory_206", 206, "fields_206", "fieldsByKeys_206", "expand_206", "properties_206", "failFast_206", "notifyUsers_206", 206, 206, "returnIssue_206", "deleteSubtasks_206", "startAt_206", "maxResults_206", 206, "skipRemoteOnlyCondition_206", "includeUnavailableTransitions_206", "sortByOpsBarAndStatus_206");
-  verifyIssueExists("updateHistory_206", 206, "fields_206", "fieldsByKeys_206", "expand_206", "properties_206", "failFast_206", "notifyUsers_206", 206, 206, "returnIssue_206", "deleteSubtasks_206", "startAt_206", "maxResults_206", 206, "skipRemoteOnlyCondition_206", "includeUnavailableTransitions_206", "sortByOpsBarAndStatus_206");
-  tryToAddExistingIssue("updateHistory_206", 206, "fields_206", "fieldsByKeys_206", "expand_206", "properties_206", "failFast_206", "notifyUsers_206", 206, 206, "returnIssue_206", "deleteSubtasks_206", "startAt_206", "maxResults_206", 206, "skipRemoteOnlyCondition_206", "includeUnavailableTransitions_206", "sortByOpsBarAndStatus_206");
-  verifyIssueExists("updateHistory_206", 206, "fields_206", "fieldsByKeys_206", "expand_206", "properties_206", "failFast_206", "notifyUsers_206", 206, 206, "returnIssue_206", "deleteSubtasks_206", "startAt_206", "maxResults_206", 206, "skipRemoteOnlyCondition_206", "includeUnavailableTransitions_206", "sortByOpsBarAndStatus_206");
+  let summary = "summary_206";
+  let transition = "transition_206";
+  let update = {};
+  let updateHistory = "updateHistory_206";
+  createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
 });
 
-// Story: crud:Issue:nondet:existing:update
-bthread("crud:Issue:nondet:existing:update", function () {
-  let ev = waitForAnyIssueAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssue.apply(null, args), function () {
-    verifyIssueExists.apply(null, args);
-    editIssue.apply(null, args);
-    verifyIssueExists.apply(null, args);
-  });
+// Story: crud:Event:read_only
+bthread("crud:Event:read_only", function () {
+
+  verifyEventExists();
 });
 
-// Story: monitor:Issue:add
-bthread("monitor:Issue:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssue.apply(null, args), function () {
-      verifyIssueExists.apply(null, args);
-    });
-  }
+// Story: crud:IssueChangelog:read_only
+bthread("crud:IssueChangelog:read_only", function () {
+  let changelogIds = "changelogIds_240";
+  verifyIssueChangelogExists(changelogIds, issueIdOrKey);
+});
+
+// Story: crud:IssueTransition:read_only
+bthread("crud:IssueTransition:read_only", function () {
+  let fields = {};
+  let historyMetadata = "historyMetadata_260";
+  let properties = "properties_260";
+  let transition = "transition_260";
+  let transitionId = 260;
+  let update = {};
+  verifyIssueTransitionExists(fields, historyMetadata, issueIdOrKey, properties, transition, transitionId, update);
+});
+
+// Story: crud:IssueEditMeta:read_only
+bthread("crud:IssueEditMeta:read_only", function () {
+
+  verifyIssueEditMetaExists(issueIdOrKey);
 });
 
 // Story: crud:Workflow:nondet:1:1
 bthread("crud:Workflow:nondet:1:1", function () {
-  let name = "name_210";
-  let entityId = 210;
-  let workflowName = "workflowName_210";
-  createWorkflow("name_210", 210, "workflowName_210");
-  tryToAddExistingWorkflow("name_210", 210, "workflowName_210");
-  verifyWorkflowExists("name_210", 210, "workflowName_210");
-  updateWorkflows("name_210", 210, "workflowName_210");
-  deleteInactiveWorkflow("name_210", 210, "workflowName_210");
-  tryToDeleteANonExistingWorkflow("name_210", 210, "workflowName_210");
-  verifyWorkflowDoesNotExist("name_210", 210, "workflowName_210");
+  let entityId = 300;
+  let expand = "expand_300";
+  let id = 300;
+  let isActive = "isActive_300";
+  let maxResults = "maxResults_300";
+  let name = "name_300";
+  let orderBy = "orderBy_300";
+  let queryString = "queryString_300";
+  let scope = "scope_300";
+  let startAt = "startAt_300";
+  let workflowIds = "workflowIds_300";
+  let workflowNames = "workflowNames_300";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"issueTypeIds": "id", "projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  projectId = captured["projectId"];
+  readWorkflowPreviews(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  // waitForWorkflowAdded(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  tryToAddExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  verifyWorkflowExists(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  updateWorkflows(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  deleteInactiveWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  tryToDeleteANonExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  verifyWorkflowDoesNotExist(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
 });
 
 // Story: crud:Workflow:nondet:1:2
 bthread("crud:Workflow:nondet:1:2", function () {
-  let name = "name_211";
-  let entityId = 211;
-  let workflowName = "workflowName_211";
-  createWorkflow("name_211", 211, "workflowName_211");
-  tryToAddExistingWorkflow("name_211", 211, "workflowName_211");
-  updateWorkflows("name_211", 211, "workflowName_211");
-  verifyWorkflowExists("name_211", 211, "workflowName_211");
-  deleteInactiveWorkflow("name_211", 211, "workflowName_211");
-  tryToDeleteANonExistingWorkflow("name_211", 211, "workflowName_211");
-  verifyWorkflowDoesNotExist("name_211", 211, "workflowName_211");
+  let entityId = 301;
+  let expand = "expand_301";
+  let id = 301;
+  let isActive = "isActive_301";
+  let maxResults = "maxResults_301";
+  let name = "name_301";
+  let orderBy = "orderBy_301";
+  let queryString = "queryString_301";
+  let scope = "scope_301";
+  let startAt = "startAt_301";
+  let workflowIds = "workflowIds_301";
+  let workflowNames = "workflowNames_301";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"issueTypeIds": "id", "projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  projectId = captured["projectId"];
+  readWorkflowPreviews(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  // waitForWorkflowAdded(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  tryToAddExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  updateWorkflows(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  verifyWorkflowExists(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  deleteInactiveWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  tryToDeleteANonExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  verifyWorkflowDoesNotExist(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
 });
 
 // Story: crud:Workflow:nondet:negative:dup-add
 bthread("crud:Workflow:nondet:negative:dup-add", function () {
-  let name = "name_216";
-  let entityId = 216;
-  let workflowName = "workflowName_216";
-  createWorkflow("name_216", 216, "workflowName_216");
-  verifyWorkflowExists("name_216", 216, "workflowName_216");
-  tryToAddExistingWorkflow("name_216", 216, "workflowName_216");
-  verifyWorkflowExists("name_216", 216, "workflowName_216");
+  let entityId = 306;
+  let expand = "expand_306";
+  let id = 306;
+  let isActive = "isActive_306";
+  let maxResults = "maxResults_306";
+  let name = "name_306";
+  let orderBy = "orderBy_306";
+  let queryString = "queryString_306";
+  let scope = "scope_306";
+  let startAt = "startAt_306";
+  let workflowIds = "workflowIds_306";
+  let workflowNames = "workflowNames_306";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"issueTypeIds": "id", "projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  projectId = captured["projectId"];
+  readWorkflowPreviews(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  // waitForWorkflowAdded(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  verifyWorkflowExists(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  tryToAddExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  verifyWorkflowExists(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
 });
 
-// Story: crud:Workflow:nondet:existing:update
-bthread("crud:Workflow:nondet:existing:update", function () {
-  let ev = waitForAnyWorkflowAdded();
-  let args = Object.values(ev);
-  block(matchDeletedWorkflow.apply(null, args), function () {
-    verifyWorkflowExists.apply(null, args);
-    updateWorkflows.apply(null, args);
-    verifyWorkflowExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Workflow:add
-bthread("monitor:Workflow:add", function () {
-  while (true) {
-    let ev = waitForAnyWorkflowAdded();
-    let args = Object.values(ev);
-    block(matchDeletedWorkflow.apply(null, args), function () {
-      verifyWorkflowExists.apply(null, args);
-    });
-  }
+// Story: crud:WorkflowsBulk:read_only
+bthread("crud:WorkflowsBulk:read_only", function () {
+  let scope = "scope_310";
+  let statuses = "statuses_310";
+  let workflows = "workflows_310";
+  verifyWorkflowsBulkExists(scope, statuses, workflows);
 });
 
 // Story: crud:IssueSecurityScheme:nondet:1:1
 bthread("crud:IssueSecurityScheme:nondet:1:1", function () {
-  let id = 220;
-  let name = "name_220";
-  let schemeId = 220;
-  createIssueSecurityScheme(220, "name_220", 220);
-  tryToAddExistingIssueSecurityScheme(220, "name_220", 220);
-  verifyIssueSecuritySchemeExists(220, "name_220", 220);
-  updateIssueSecurityScheme(220, "name_220", 220);
-  deleteSecurityScheme(220, "name_220", 220);
-  tryToDeleteANonExistingIssueSecurityScheme(220, "name_220", 220);
-  verifyIssueSecuritySchemeDoesNotExist(220, "name_220", 220);
+  let description = "description_320";
+  let id = 320;
+  let levels = "levels_320";
+  let name = "name_320";
+  let schemeId = 320;
+  createIssueSecurityScheme(description, id, levels, name, schemeId);
+  // waitForIssueSecuritySchemeAdded(description, id, levels, name, schemeId);
+  tryToAddExistingIssueSecurityScheme(description, id, levels, name, schemeId);
+  verifyIssueSecuritySchemeExists(description, id, levels, name, schemeId);
+  updateIssueSecurityScheme(description, id, levels, name, schemeId);
+  deleteSecurityScheme(description, id, levels, name, schemeId);
+  tryToDeleteANonExistingIssueSecurityScheme(description, id, levels, name, schemeId);
+  verifyIssueSecuritySchemeDoesNotExist(description, id, levels, name, schemeId);
 });
 
 // Story: crud:IssueSecurityScheme:nondet:1:2
 bthread("crud:IssueSecurityScheme:nondet:1:2", function () {
-  let id = 221;
-  let name = "name_221";
-  let schemeId = 221;
-  createIssueSecurityScheme(221, "name_221", 221);
-  tryToAddExistingIssueSecurityScheme(221, "name_221", 221);
-  updateIssueSecurityScheme(221, "name_221", 221);
-  verifyIssueSecuritySchemeExists(221, "name_221", 221);
-  deleteSecurityScheme(221, "name_221", 221);
-  tryToDeleteANonExistingIssueSecurityScheme(221, "name_221", 221);
-  verifyIssueSecuritySchemeDoesNotExist(221, "name_221", 221);
+  let description = "description_321";
+  let id = 321;
+  let levels = "levels_321";
+  let name = "name_321";
+  let schemeId = 321;
+  createIssueSecurityScheme(description, id, levels, name, schemeId);
+  // waitForIssueSecuritySchemeAdded(description, id, levels, name, schemeId);
+  tryToAddExistingIssueSecurityScheme(description, id, levels, name, schemeId);
+  updateIssueSecurityScheme(description, id, levels, name, schemeId);
+  verifyIssueSecuritySchemeExists(description, id, levels, name, schemeId);
+  deleteSecurityScheme(description, id, levels, name, schemeId);
+  tryToDeleteANonExistingIssueSecurityScheme(description, id, levels, name, schemeId);
+  verifyIssueSecuritySchemeDoesNotExist(description, id, levels, name, schemeId);
 });
 
 // Story: crud:IssueSecurityScheme:nondet:negative:dup-add
 bthread("crud:IssueSecurityScheme:nondet:negative:dup-add", function () {
-  let id = 226;
-  let name = "name_226";
-  let schemeId = 226;
-  createIssueSecurityScheme(226, "name_226", 226);
-  verifyIssueSecuritySchemeExists(226, "name_226", 226);
-  tryToAddExistingIssueSecurityScheme(226, "name_226", 226);
-  verifyIssueSecuritySchemeExists(226, "name_226", 226);
-});
-
-// Story: crud:IssueSecurityScheme:nondet:existing:update
-bthread("crud:IssueSecurityScheme:nondet:existing:update", function () {
-  let ev = waitForAnyIssueSecuritySchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueSecurityScheme.apply(null, args), function () {
-    verifyIssueSecuritySchemeExists.apply(null, args);
-    updateIssueSecurityScheme.apply(null, args);
-    verifyIssueSecuritySchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueSecurityScheme:add
-bthread("monitor:IssueSecurityScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueSecuritySchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueSecurityScheme.apply(null, args), function () {
-      verifyIssueSecuritySchemeExists.apply(null, args);
-    });
-  }
+  let description = "description_326";
+  let id = 326;
+  let levels = "levels_326";
+  let name = "name_326";
+  let schemeId = 326;
+  createIssueSecurityScheme(description, id, levels, name, schemeId);
+  // waitForIssueSecuritySchemeAdded(description, id, levels, name, schemeId);
+  verifyIssueSecuritySchemeExists(description, id, levels, name, schemeId);
+  tryToAddExistingIssueSecurityScheme(description, id, levels, name, schemeId);
+  verifyIssueSecuritySchemeExists(description, id, levels, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevel:nondet:1:1
 bthread("crud:IssueSecurityLevel:nondet:1:1", function () {
-  let schemeId = 230;
-  let levelId = 230;
-  let name = "name_230";
-  addSecurityLevel(230, 230, "name_230");
-  tryToAddExistingIssueSecurityLevel(230, 230, "name_230");
-  verifyIssueSecurityLevelExists(230, 230, "name_230");
-  updateSecurityLevel(230, 230, "name_230");
-  removeLevel(230, 230, "name_230");
-  tryToDeleteANonExistingIssueSecurityLevel(230, 230, "name_230");
-  verifyIssueSecurityLevelDoesNotExist(230, 230, "name_230");
+  let id = 330;
+  let levelId = 330;
+  let name = "name_330";
+  let schemeId = 330;
+  addSecurityLevel(id, levelId, name, schemeId);
+  // waitForIssueSecurityLevelAdded(id, levelId, name, schemeId);
+  tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
+  updateSecurityLevel(id, levelId, name, schemeId);
+  removeLevel(id, levelId, name, schemeId);
+  tryToDeleteANonExistingIssueSecurityLevel(id, levelId, name, schemeId);
+  verifyIssueSecurityLevelDoesNotExist(id, levelId, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevel:nondet:1:2
 bthread("crud:IssueSecurityLevel:nondet:1:2", function () {
-  let schemeId = 231;
-  let levelId = 231;
-  let name = "name_231";
-  addSecurityLevel(231, 231, "name_231");
-  tryToAddExistingIssueSecurityLevel(231, 231, "name_231");
-  updateSecurityLevel(231, 231, "name_231");
-  verifyIssueSecurityLevelExists(231, 231, "name_231");
-  removeLevel(231, 231, "name_231");
-  tryToDeleteANonExistingIssueSecurityLevel(231, 231, "name_231");
-  verifyIssueSecurityLevelDoesNotExist(231, 231, "name_231");
+  let id = 331;
+  let levelId = 331;
+  let name = "name_331";
+  let schemeId = 331;
+  addSecurityLevel(id, levelId, name, schemeId);
+  // waitForIssueSecurityLevelAdded(id, levelId, name, schemeId);
+  tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId);
+  updateSecurityLevel(id, levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
+  removeLevel(id, levelId, name, schemeId);
+  tryToDeleteANonExistingIssueSecurityLevel(id, levelId, name, schemeId);
+  verifyIssueSecurityLevelDoesNotExist(id, levelId, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevel:nondet:negative:dup-add
 bthread("crud:IssueSecurityLevel:nondet:negative:dup-add", function () {
-  let schemeId = 236;
-  let levelId = 236;
-  let name = "name_236";
-  addSecurityLevel(236, 236, "name_236");
-  verifyIssueSecurityLevelExists(236, 236, "name_236");
-  tryToAddExistingIssueSecurityLevel(236, 236, "name_236");
-  verifyIssueSecurityLevelExists(236, 236, "name_236");
-});
-
-// Story: crud:IssueSecurityLevel:nondet:existing:update
-bthread("crud:IssueSecurityLevel:nondet:existing:update", function () {
-  let ev = waitForAnyIssueSecurityLevelAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueSecurityLevel.apply(null, args), function () {
-    verifyIssueSecurityLevelExists.apply(null, args);
-    updateSecurityLevel.apply(null, args);
-    verifyIssueSecurityLevelExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueSecurityLevel:add
-bthread("monitor:IssueSecurityLevel:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueSecurityLevelAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueSecurityLevel.apply(null, args), function () {
-      verifyIssueSecurityLevelExists.apply(null, args);
-    });
-  }
+  let id = 336;
+  let levelId = 336;
+  let name = "name_336";
+  let schemeId = 336;
+  addSecurityLevel(id, levelId, name, schemeId);
+  // waitForIssueSecurityLevelAdded(id, levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
+  tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevelMember:nondet:1:1
 bthread("crud:IssueSecurityLevelMember:nondet:1:1", function () {
-  let schemeId = 240;
-  let levelId = 240;
-  let memberId = 240;
-  addSecurityLevelMembers(240, 240, 240);
-  tryToAddExistingIssueSecurityLevelMember(240, 240, 240);
-  verifyIssueSecurityLevelMemberExists(240, 240, 240);
-  removeMemberFromSecurityLevel(240, 240, 240);
-  tryToDeleteANonExistingIssueSecurityLevelMember(240, 240, 240);
-  verifyIssueSecurityLevelMemberDoesNotExist(240, 240, 240);
+  let id = 340;
+  let levelId = 340;
+  let memberId = 340;
+  let schemeId = 340;
+  addSecurityLevelMembers(id, levelId, memberId, schemeId);
+  // waitForIssueSecurityLevelMemberAdded(id, levelId, memberId, schemeId);
+  tryToAddExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId);
+  verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId);
+  removeMemberFromSecurityLevel(id, levelId, memberId, schemeId);
+  tryToDeleteANonExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId);
+  verifyIssueSecurityLevelMemberDoesNotExist(id, levelId, memberId, schemeId);
 });
 
 // Story: crud:IssueSecurityLevelMember:nondet:1:2
 bthread("crud:IssueSecurityLevelMember:nondet:1:2", function () {
-  let schemeId = 241;
-  let levelId = 241;
-  let memberId = 241;
-  addSecurityLevelMembers(241, 241, 241);
-  tryToAddExistingIssueSecurityLevelMember(241, 241, 241);
-  verifyIssueSecurityLevelMemberExists(241, 241, 241);
-  removeMemberFromSecurityLevel(241, 241, 241);
-  tryToDeleteANonExistingIssueSecurityLevelMember(241, 241, 241);
-  verifyIssueSecurityLevelMemberDoesNotExist(241, 241, 241);
+  let id = 341;
+  let levelId = 341;
+  let memberId = 341;
+  let schemeId = 341;
+  addSecurityLevelMembers(id, levelId, memberId, schemeId);
+  // waitForIssueSecurityLevelMemberAdded(id, levelId, memberId, schemeId);
+  tryToAddExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId);
+  verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId);
+  removeMemberFromSecurityLevel(id, levelId, memberId, schemeId);
+  tryToDeleteANonExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId);
+  verifyIssueSecurityLevelMemberDoesNotExist(id, levelId, memberId, schemeId);
 });
 
 // Story: crud:IssueSecurityLevelMember:nondet:negative:dup-add
 bthread("crud:IssueSecurityLevelMember:nondet:negative:dup-add", function () {
-  let schemeId = 246;
-  let levelId = 246;
-  let memberId = 246;
-  addSecurityLevelMembers(246, 246, 246);
-  verifyIssueSecurityLevelMemberExists(246, 246, 246);
-  tryToAddExistingIssueSecurityLevelMember(246, 246, 246);
-  verifyIssueSecurityLevelMemberExists(246, 246, 246);
-});
-
-// Story: monitor:IssueSecurityLevelMember:add
-bthread("monitor:IssueSecurityLevelMember:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueSecurityLevelMemberAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueSecurityLevelMember.apply(null, args), function () {
-      verifyIssueSecurityLevelMemberExists.apply(null, args);
-    });
-  }
+  let id = 346;
+  let levelId = 346;
+  let memberId = 346;
+  let schemeId = 346;
+  addSecurityLevelMembers(id, levelId, memberId, schemeId);
+  // waitForIssueSecurityLevelMemberAdded(id, levelId, memberId, schemeId);
+  verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId);
+  tryToAddExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId);
+  verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId);
 });
 
 // Story: crud:IssueSecuritySchemeProjectAssociation:read_only
 bthread("crud:IssueSecuritySchemeProjectAssociation:read_only", function () {
-  let projectId = 250;
-  let schemeId = 250;
-  verifyIssueSecuritySchemeProjectAssociationExists(250, 250);
+  let schemeId = 350;
+  verifyIssueSecuritySchemeProjectAssociationExists(issueSecuritySchemeId, projectId, schemeId);
 });
 
 // Story: crud:Version:nondet:1:1
 bthread("crud:Version:nondet:1:1", function () {
-  let id = 270;
-  createVersion(270);
-  tryToAddExistingVersion(270);
-  verifyVersionExists(270);
-  updateVersion(270);
-  deleteVersion(270);
-  tryToDeleteANonExistingVersion(270);
-  verifyVersionDoesNotExist(270);
+  let approvers = "approvers_370";
+  let archived = "archived_370";
+  let description = "description_370";
+  let driver = "driver_370";
+  let expand = "expand_370";
+  let id = 370;
+  let issuesStatusForFixVersion = "issuesStatusForFixVersion_370";
+  let moveAffectedIssuesTo = "moveAffectedIssuesTo_370";
+  let moveFixIssuesTo = "moveFixIssuesTo_370";
+  let moveUnfixedIssuesTo = "moveUnfixedIssuesTo_370";
+  let name = "name_370";
+  let operations = "operations_370";
+  let overdue = "overdue_370";
+  let project = "project_370";
+  let releaseDate = "releaseDate_370";
+  let released = "released_370";
+  let self = "self_370";
+  let startDate = "startDate_370";
+  let userReleaseDate = "userReleaseDate_370";
+  let userStartDate = "userStartDate_370";
+  // Dependency Barrier
+  let deps = {};
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  projectId = captured["projectId"];
+  createVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  // waitForVersionAdded(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  tryToAddExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  verifyVersionExists(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  updateVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  deleteVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  tryToDeleteANonExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  verifyVersionDoesNotExist(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
 });
 
 // Story: crud:Version:nondet:1:2
 bthread("crud:Version:nondet:1:2", function () {
-  let id = 271;
-  createVersion(271);
-  tryToAddExistingVersion(271);
-  updateVersion(271);
-  verifyVersionExists(271);
-  deleteVersion(271);
-  tryToDeleteANonExistingVersion(271);
-  verifyVersionDoesNotExist(271);
+  let approvers = "approvers_371";
+  let archived = "archived_371";
+  let description = "description_371";
+  let driver = "driver_371";
+  let expand = "expand_371";
+  let id = 371;
+  let issuesStatusForFixVersion = "issuesStatusForFixVersion_371";
+  let moveAffectedIssuesTo = "moveAffectedIssuesTo_371";
+  let moveFixIssuesTo = "moveFixIssuesTo_371";
+  let moveUnfixedIssuesTo = "moveUnfixedIssuesTo_371";
+  let name = "name_371";
+  let operations = "operations_371";
+  let overdue = "overdue_371";
+  let project = "project_371";
+  let releaseDate = "releaseDate_371";
+  let released = "released_371";
+  let self = "self_371";
+  let startDate = "startDate_371";
+  let userReleaseDate = "userReleaseDate_371";
+  let userStartDate = "userStartDate_371";
+  // Dependency Barrier
+  let deps = {};
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  projectId = captured["projectId"];
+  createVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  // waitForVersionAdded(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  tryToAddExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  updateVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  verifyVersionExists(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  deleteVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  tryToDeleteANonExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  verifyVersionDoesNotExist(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
 });
 
 // Story: crud:Version:nondet:negative:dup-add
 bthread("crud:Version:nondet:negative:dup-add", function () {
-  let id = 276;
-  createVersion(276);
-  verifyVersionExists(276);
-  tryToAddExistingVersion(276);
-  verifyVersionExists(276);
+  let approvers = "approvers_376";
+  let archived = "archived_376";
+  let description = "description_376";
+  let driver = "driver_376";
+  let expand = "expand_376";
+  let id = 376;
+  let issuesStatusForFixVersion = "issuesStatusForFixVersion_376";
+  let moveAffectedIssuesTo = "moveAffectedIssuesTo_376";
+  let moveFixIssuesTo = "moveFixIssuesTo_376";
+  let moveUnfixedIssuesTo = "moveUnfixedIssuesTo_376";
+  let name = "name_376";
+  let operations = "operations_376";
+  let overdue = "overdue_376";
+  let project = "project_376";
+  let releaseDate = "releaseDate_376";
+  let released = "released_376";
+  let self = "self_376";
+  let startDate = "startDate_376";
+  let userReleaseDate = "userReleaseDate_376";
+  let userStartDate = "userStartDate_376";
+  // Dependency Barrier
+  let deps = {};
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  projectId = captured["projectId"];
+  createVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  // waitForVersionAdded(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  verifyVersionExists(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  tryToAddExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  verifyVersionExists(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
 });
 
-// Story: crud:Version:nondet:existing:update
-bthread("crud:Version:nondet:existing:update", function () {
-  let ev = waitForAnyVersionAdded();
-  let args = Object.values(ev);
-  block(matchDeletedVersion.apply(null, args), function () {
-    verifyVersionExists.apply(null, args);
-    updateVersion.apply(null, args);
-    verifyVersionExists.apply(null, args);
-  });
+// Story: crud:ProjectVersions:read_only
+bthread("crud:ProjectVersions:read_only", function () {
+  let expand = "expand_380";
+  let maxResults = "maxResults_380";
+  let orderBy = "orderBy_380";
+  let query = "query_380";
+  let startAt = "startAt_380";
+  let status = "status_380";
+  verifyProjectVersionsExists(expand, maxResults, orderBy, projectIdOrKey, query, startAt, status);
 });
 
-// Story: monitor:Version:add
-bthread("monitor:Version:add", function () {
-  while (true) {
-    let ev = waitForAnyVersionAdded();
-    let args = Object.values(ev);
-    block(matchDeletedVersion.apply(null, args), function () {
-      verifyVersionExists.apply(null, args);
-    });
-  }
+// Story: crud:VersionRelatedWork:read_only
+bthread("crud:VersionRelatedWork:read_only", function () {
+  let category = "category_410";
+  let id = 410;
+  let title = "title_410";
+  let url = "url_410";
+  verifyVersionRelatedWorkExists(category, id, issueId, relatedWorkId, title, url);
 });
 
-// Story: crud:VersionRelatedWork:nondet:1:1
-bthread("crud:VersionRelatedWork:nondet:1:1", function () {
-  let id = 280;
-  let versionId = 280;
-  let relatedWorkId = 280;
-  createRelatedWork(280, 280, 280);
-  tryToAddExistingVersionRelatedWork(280, 280, 280);
-  verifyVersionRelatedWorkExists(280, 280, 280);
-  updateRelatedWork(280, 280, 280);
-  deleteRelatedWork(280, 280, 280);
-  tryToDeleteANonExistingVersionRelatedWork(280, 280, 280);
-  verifyVersionRelatedWorkDoesNotExist(280, 280, 280);
+// Story: crud:VersionRelatedIssuesCount:read_only
+bthread("crud:VersionRelatedIssuesCount:read_only", function () {
+  let id = 430;
+  verifyVersionRelatedIssuesCountExists(id);
 });
 
-// Story: crud:VersionRelatedWork:nondet:1:2
-bthread("crud:VersionRelatedWork:nondet:1:2", function () {
-  let id = 281;
-  let versionId = 281;
-  let relatedWorkId = 281;
-  createRelatedWork(281, 281, 281);
-  tryToAddExistingVersionRelatedWork(281, 281, 281);
-  updateRelatedWork(281, 281, 281);
-  verifyVersionRelatedWorkExists(281, 281, 281);
-  deleteRelatedWork(281, 281, 281);
-  tryToDeleteANonExistingVersionRelatedWork(281, 281, 281);
-  verifyVersionRelatedWorkDoesNotExist(281, 281, 281);
-});
-
-// Story: crud:VersionRelatedWork:nondet:negative:dup-add
-bthread("crud:VersionRelatedWork:nondet:negative:dup-add", function () {
-  let id = 286;
-  let versionId = 286;
-  let relatedWorkId = 286;
-  createRelatedWork(286, 286, 286);
-  verifyVersionRelatedWorkExists(286, 286, 286);
-  tryToAddExistingVersionRelatedWork(286, 286, 286);
-  verifyVersionRelatedWorkExists(286, 286, 286);
-});
-
-// Story: crud:VersionRelatedWork:nondet:existing:update
-bthread("crud:VersionRelatedWork:nondet:existing:update", function () {
-  let ev = waitForAnyVersionRelatedWorkAdded();
-  let args = Object.values(ev);
-  block(matchDeletedVersionRelatedWork.apply(null, args), function () {
-    verifyVersionRelatedWorkExists.apply(null, args);
-    updateRelatedWork.apply(null, args);
-    verifyVersionRelatedWorkExists.apply(null, args);
-  });
-});
-
-// Story: monitor:VersionRelatedWork:add
-bthread("monitor:VersionRelatedWork:add", function () {
-  while (true) {
-    let ev = waitForAnyVersionRelatedWorkAdded();
-    let args = Object.values(ev);
-    block(matchDeletedVersionRelatedWork.apply(null, args), function () {
-      verifyVersionRelatedWorkExists.apply(null, args);
-    });
-  }
+// Story: crud:VersionUnresolvedIssuesCount:read_only
+bthread("crud:VersionUnresolvedIssuesCount:read_only", function () {
+  let id = 440;
+  verifyVersionUnresolvedIssuesCountExists(id);
 });
 
 // Story: crud:Dashboard:nondet:1:1
 bthread("crud:Dashboard:nondet:1:1", function () {
-  let extendAdminPermissions = "extendAdminPermissions_290";
-  let id = 290;
-  createDashboard("extendAdminPermissions_290", 290);
-  tryToAddExistingDashboard("extendAdminPermissions_290", 290);
-  verifyDashboardExists("extendAdminPermissions_290", 290);
-  updateDashboard("extendAdminPermissions_290", 290);
-  deleteDashboard("extendAdminPermissions_290", 290);
-  tryToDeleteANonExistingDashboard("extendAdminPermissions_290", 290);
-  verifyDashboardDoesNotExist("extendAdminPermissions_290", 290);
+  let description = "description_460";
+  let editPermissions = "editPermissions_460";
+  let id = 460;
+  let name = "name_460";
+  let sharePermissions = "sharePermissions_460";
+  createDashboard(description, editPermissions, id, name, sharePermissions);
+  // waitForDashboardAdded(description, editPermissions, id, name, sharePermissions);
+  tryToAddExistingDashboard(description, editPermissions, id, name, sharePermissions);
+  verifyDashboardExists(description, editPermissions, id, name, sharePermissions);
+  updateDashboard(description, editPermissions, id, name, sharePermissions);
+  deleteDashboard(description, editPermissions, id, name, sharePermissions);
+  tryToDeleteANonExistingDashboard(description, editPermissions, id, name, sharePermissions);
+  verifyDashboardDoesNotExist(description, editPermissions, id, name, sharePermissions);
 });
 
 // Story: crud:Dashboard:nondet:1:2
 bthread("crud:Dashboard:nondet:1:2", function () {
-  let extendAdminPermissions = "extendAdminPermissions_291";
-  let id = 291;
-  createDashboard("extendAdminPermissions_291", 291);
-  tryToAddExistingDashboard("extendAdminPermissions_291", 291);
-  updateDashboard("extendAdminPermissions_291", 291);
-  verifyDashboardExists("extendAdminPermissions_291", 291);
-  deleteDashboard("extendAdminPermissions_291", 291);
-  tryToDeleteANonExistingDashboard("extendAdminPermissions_291", 291);
-  verifyDashboardDoesNotExist("extendAdminPermissions_291", 291);
+  let description = "description_461";
+  let editPermissions = "editPermissions_461";
+  let id = 461;
+  let name = "name_461";
+  let sharePermissions = "sharePermissions_461";
+  createDashboard(description, editPermissions, id, name, sharePermissions);
+  // waitForDashboardAdded(description, editPermissions, id, name, sharePermissions);
+  tryToAddExistingDashboard(description, editPermissions, id, name, sharePermissions);
+  updateDashboard(description, editPermissions, id, name, sharePermissions);
+  verifyDashboardExists(description, editPermissions, id, name, sharePermissions);
+  deleteDashboard(description, editPermissions, id, name, sharePermissions);
+  tryToDeleteANonExistingDashboard(description, editPermissions, id, name, sharePermissions);
+  verifyDashboardDoesNotExist(description, editPermissions, id, name, sharePermissions);
 });
 
 // Story: crud:Dashboard:nondet:negative:dup-add
 bthread("crud:Dashboard:nondet:negative:dup-add", function () {
-  let extendAdminPermissions = "extendAdminPermissions_296";
-  let id = 296;
-  createDashboard("extendAdminPermissions_296", 296);
-  verifyDashboardExists("extendAdminPermissions_296", 296);
-  tryToAddExistingDashboard("extendAdminPermissions_296", 296);
-  verifyDashboardExists("extendAdminPermissions_296", 296);
-});
-
-// Story: crud:Dashboard:nondet:existing:update
-bthread("crud:Dashboard:nondet:existing:update", function () {
-  let ev = waitForAnyDashboardAdded();
-  let args = Object.values(ev);
-  block(matchDeletedDashboard.apply(null, args), function () {
-    verifyDashboardExists.apply(null, args);
-    updateDashboard.apply(null, args);
-    verifyDashboardExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Dashboard:add
-bthread("monitor:Dashboard:add", function () {
-  while (true) {
-    let ev = waitForAnyDashboardAdded();
-    let args = Object.values(ev);
-    block(matchDeletedDashboard.apply(null, args), function () {
-      verifyDashboardExists.apply(null, args);
-    });
-  }
+  let description = "description_466";
+  let editPermissions = "editPermissions_466";
+  let id = 466;
+  let name = "name_466";
+  let sharePermissions = "sharePermissions_466";
+  createDashboard(description, editPermissions, id, name, sharePermissions);
+  // waitForDashboardAdded(description, editPermissions, id, name, sharePermissions);
+  verifyDashboardExists(description, editPermissions, id, name, sharePermissions);
+  tryToAddExistingDashboard(description, editPermissions, id, name, sharePermissions);
+  verifyDashboardExists(description, editPermissions, id, name, sharePermissions);
 });
 
 // Story: crud:DashboardGadget:nondet:1:1
 bthread("crud:DashboardGadget:nondet:1:1", function () {
-  let dashboardId = 300;
-  let gadgetId = 300;
-  let moduleKey = "moduleKey_300";
-  let uri = "uri_300";
-  addGadget(300, 300, "moduleKey_300", "uri_300");
-  tryToAddExistingDashboardGadget(300, 300, "moduleKey_300", "uri_300");
-  verifyDashboardGadgetExists(300, 300, "moduleKey_300", "uri_300");
-  updateGadget(300, 300, "moduleKey_300", "uri_300");
-  removeGadget(300, 300, "moduleKey_300", "uri_300");
-  tryToDeleteANonExistingDashboardGadget(300, 300, "moduleKey_300", "uri_300");
-  verifyDashboardGadgetDoesNotExist(300, 300, "moduleKey_300", "uri_300");
+  let color = "color_470";
+  let gadgetId = 470;
+  let ignoreUriAndModuleKeyValidation = "ignoreUriAndModuleKeyValidation_470";
+  let moduleKey = "moduleKey_470";
+  let position = "position_470";
+  let title = "title_470";
+  let uri = "uri_470";
+  // Dependency Barrier
+  let deps = {};
+  deps["dashboardId"] = matchAnyDashboardAdded();
+  let pkMap = {"dashboardId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  dashboardId = captured["dashboardId"];
+  addGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  // waitForDashboardGadgetAdded(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  tryToAddExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  verifyDashboardGadgetExists(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  updateGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  removeGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  tryToDeleteANonExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  verifyDashboardGadgetDoesNotExist(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
 });
 
 // Story: crud:DashboardGadget:nondet:1:2
 bthread("crud:DashboardGadget:nondet:1:2", function () {
-  let dashboardId = 301;
-  let gadgetId = 301;
-  let moduleKey = "moduleKey_301";
-  let uri = "uri_301";
-  addGadget(301, 301, "moduleKey_301", "uri_301");
-  tryToAddExistingDashboardGadget(301, 301, "moduleKey_301", "uri_301");
-  updateGadget(301, 301, "moduleKey_301", "uri_301");
-  verifyDashboardGadgetExists(301, 301, "moduleKey_301", "uri_301");
-  removeGadget(301, 301, "moduleKey_301", "uri_301");
-  tryToDeleteANonExistingDashboardGadget(301, 301, "moduleKey_301", "uri_301");
-  verifyDashboardGadgetDoesNotExist(301, 301, "moduleKey_301", "uri_301");
+  let color = "color_471";
+  let gadgetId = 471;
+  let ignoreUriAndModuleKeyValidation = "ignoreUriAndModuleKeyValidation_471";
+  let moduleKey = "moduleKey_471";
+  let position = "position_471";
+  let title = "title_471";
+  let uri = "uri_471";
+  // Dependency Barrier
+  let deps = {};
+  deps["dashboardId"] = matchAnyDashboardAdded();
+  let pkMap = {"dashboardId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  dashboardId = captured["dashboardId"];
+  addGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  // waitForDashboardGadgetAdded(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  tryToAddExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  updateGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  verifyDashboardGadgetExists(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  removeGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  tryToDeleteANonExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  verifyDashboardGadgetDoesNotExist(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
 });
 
 // Story: crud:DashboardGadget:nondet:negative:dup-add
 bthread("crud:DashboardGadget:nondet:negative:dup-add", function () {
-  let dashboardId = 306;
-  let gadgetId = 306;
-  let moduleKey = "moduleKey_306";
-  let uri = "uri_306";
-  addGadget(306, 306, "moduleKey_306", "uri_306");
-  verifyDashboardGadgetExists(306, 306, "moduleKey_306", "uri_306");
-  tryToAddExistingDashboardGadget(306, 306, "moduleKey_306", "uri_306");
-  verifyDashboardGadgetExists(306, 306, "moduleKey_306", "uri_306");
-});
-
-// Story: crud:DashboardGadget:nondet:existing:update
-bthread("crud:DashboardGadget:nondet:existing:update", function () {
-  let ev = waitForAnyDashboardGadgetAdded();
-  let args = Object.values(ev);
-  block(matchDeletedDashboardGadget.apply(null, args), function () {
-    verifyDashboardGadgetExists.apply(null, args);
-    updateGadget.apply(null, args);
-    verifyDashboardGadgetExists.apply(null, args);
-  });
-});
-
-// Story: monitor:DashboardGadget:add
-bthread("monitor:DashboardGadget:add", function () {
-  while (true) {
-    let ev = waitForAnyDashboardGadgetAdded();
-    let args = Object.values(ev);
-    block(matchDeletedDashboardGadget.apply(null, args), function () {
-      verifyDashboardGadgetExists.apply(null, args);
-    });
-  }
+  let color = "color_476";
+  let gadgetId = 476;
+  let ignoreUriAndModuleKeyValidation = "ignoreUriAndModuleKeyValidation_476";
+  let moduleKey = "moduleKey_476";
+  let position = "position_476";
+  let title = "title_476";
+  let uri = "uri_476";
+  // Dependency Barrier
+  let deps = {};
+  deps["dashboardId"] = matchAnyDashboardAdded();
+  let pkMap = {"dashboardId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  dashboardId = captured["dashboardId"];
+  addGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  // waitForDashboardGadgetAdded(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  verifyDashboardGadgetExists(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  tryToAddExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  verifyDashboardGadgetExists(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
 });
 
 // Story: crud:DashboardItemProperty:read_only
 bthread("crud:DashboardItemProperty:read_only", function () {
-  let dashboardId = 310;
-  let itemId = 310;
-  let propertyKey = "propertyKey_310";
-  verifyDashboardItemPropertyExists(310, 310, "propertyKey_310");
+  let itemId = 480;
+  let propertyKey = "propertyKey_480";
+  verifyDashboardItemPropertyExists(dashboardId, itemId, propertyKey);
 });
 
 // Story: crud:CustomFieldContext:nondet:1:1
 bthread("crud:CustomFieldContext:nondet:1:1", function () {
-  let fieldId = 320;
-  let contextId = 320;
-  let isAnyIssueType = "isAnyIssueType_320";
-  let isGlobalContext = "isGlobalContext_320";
-  let startAt = "startAt_320";
-  let maxResults = "maxResults_320";
-  createCustomFieldContext(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
-  tryToAddExistingCustomFieldContext(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
-  verifyCustomFieldContextExists(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
-  updateCustomFieldContext(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
-  deleteCustomFieldContext(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
-  tryToDeleteANonExistingCustomFieldContext(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
-  verifyCustomFieldContextDoesNotExist(320, 320, "isAnyIssueType_320", "isGlobalContext_320", "startAt_320", "maxResults_320");
+  let contextId = 490;
+  let description = "description_490";
+  let fieldId = 490;
+  let id = 490;
+  let isAnyIssueType = "isAnyIssueType_490";
+  let isGlobalContext = "isGlobalContext_490";
+  let maxResults = "maxResults_490";
+  let name = "name_490";
+  let startAt = "startAt_490";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["projectIds"] = matchAnyProjectAdded();
+  let pkMap = {"issueTypeIds": "id", "projectIds": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  projectIds = captured["projectIds"];
+  createCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  // waitForCustomFieldContextAdded(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  tryToAddExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  verifyCustomFieldContextExists(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  updateCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  deleteCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  tryToDeleteANonExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  verifyCustomFieldContextDoesNotExist(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
 });
 
 // Story: crud:CustomFieldContext:nondet:1:2
 bthread("crud:CustomFieldContext:nondet:1:2", function () {
-  let fieldId = 321;
-  let contextId = 321;
-  let isAnyIssueType = "isAnyIssueType_321";
-  let isGlobalContext = "isGlobalContext_321";
-  let startAt = "startAt_321";
-  let maxResults = "maxResults_321";
-  createCustomFieldContext(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
-  tryToAddExistingCustomFieldContext(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
-  updateCustomFieldContext(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
-  verifyCustomFieldContextExists(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
-  deleteCustomFieldContext(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
-  tryToDeleteANonExistingCustomFieldContext(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
-  verifyCustomFieldContextDoesNotExist(321, 321, "isAnyIssueType_321", "isGlobalContext_321", "startAt_321", "maxResults_321");
+  let contextId = 491;
+  let description = "description_491";
+  let fieldId = 491;
+  let id = 491;
+  let isAnyIssueType = "isAnyIssueType_491";
+  let isGlobalContext = "isGlobalContext_491";
+  let maxResults = "maxResults_491";
+  let name = "name_491";
+  let startAt = "startAt_491";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["projectIds"] = matchAnyProjectAdded();
+  let pkMap = {"issueTypeIds": "id", "projectIds": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  projectIds = captured["projectIds"];
+  createCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  // waitForCustomFieldContextAdded(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  tryToAddExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  updateCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  verifyCustomFieldContextExists(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  deleteCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  tryToDeleteANonExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  verifyCustomFieldContextDoesNotExist(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
 });
 
 // Story: crud:CustomFieldContext:nondet:negative:dup-add
 bthread("crud:CustomFieldContext:nondet:negative:dup-add", function () {
-  let fieldId = 326;
-  let contextId = 326;
-  let isAnyIssueType = "isAnyIssueType_326";
-  let isGlobalContext = "isGlobalContext_326";
-  let startAt = "startAt_326";
-  let maxResults = "maxResults_326";
-  createCustomFieldContext(326, 326, "isAnyIssueType_326", "isGlobalContext_326", "startAt_326", "maxResults_326");
-  verifyCustomFieldContextExists(326, 326, "isAnyIssueType_326", "isGlobalContext_326", "startAt_326", "maxResults_326");
-  tryToAddExistingCustomFieldContext(326, 326, "isAnyIssueType_326", "isGlobalContext_326", "startAt_326", "maxResults_326");
-  verifyCustomFieldContextExists(326, 326, "isAnyIssueType_326", "isGlobalContext_326", "startAt_326", "maxResults_326");
-});
-
-// Story: crud:CustomFieldContext:nondet:existing:update
-bthread("crud:CustomFieldContext:nondet:existing:update", function () {
-  let ev = waitForAnyCustomFieldContextAdded();
-  let args = Object.values(ev);
-  block(matchDeletedCustomFieldContext.apply(null, args), function () {
-    verifyCustomFieldContextExists.apply(null, args);
-    updateCustomFieldContext.apply(null, args);
-    verifyCustomFieldContextExists.apply(null, args);
-  });
-});
-
-// Story: monitor:CustomFieldContext:add
-bthread("monitor:CustomFieldContext:add", function () {
-  while (true) {
-    let ev = waitForAnyCustomFieldContextAdded();
-    let args = Object.values(ev);
-    block(matchDeletedCustomFieldContext.apply(null, args), function () {
-      verifyCustomFieldContextExists.apply(null, args);
-    });
-  }
+  let contextId = 496;
+  let description = "description_496";
+  let fieldId = 496;
+  let id = 496;
+  let isAnyIssueType = "isAnyIssueType_496";
+  let isGlobalContext = "isGlobalContext_496";
+  let maxResults = "maxResults_496";
+  let name = "name_496";
+  let startAt = "startAt_496";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["projectIds"] = matchAnyProjectAdded();
+  let pkMap = {"issueTypeIds": "id", "projectIds": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  projectIds = captured["projectIds"];
+  createCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  // waitForCustomFieldContextAdded(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  verifyCustomFieldContextExists(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  tryToAddExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  verifyCustomFieldContextExists(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
 });
 
 // Story: crud:CustomFieldContextDefaultValue:read_only
 bthread("crud:CustomFieldContextDefaultValue:read_only", function () {
-  let fieldId = 330;
-  let contextId = 330;
-  let startAt = "startAt_330";
-  let maxResults = "maxResults_330";
-  verifyCustomFieldContextDefaultValueExists(330, 330, "startAt_330", "maxResults_330");
+  let contextId = 500;
+  let fieldId = 500;
+  let maxResults = "maxResults_500";
+  let startAt = "startAt_500";
+  verifyCustomFieldContextDefaultValueExists(contextId, fieldId, maxResults, startAt);
 });
 
 // Story: crud:CustomFieldContextIssueTypeMapping:read_only
 bthread("crud:CustomFieldContextIssueTypeMapping:read_only", function () {
-  let fieldId = 340;
-  let contextId = 340;
-  let startAt = "startAt_340";
-  let maxResults = "maxResults_340";
-  verifyCustomFieldContextIssueTypeMappingExists(340, 340, "startAt_340", "maxResults_340");
+  let contextId = 510;
+  let fieldId = 510;
+  let maxResults = "maxResults_510";
+  let startAt = "startAt_510";
+  verifyCustomFieldContextIssueTypeMappingExists(contextId, fieldId, maxResults, startAt);
 });
 
 // Story: crud:CustomFieldContextProjectMapping:read_only
 bthread("crud:CustomFieldContextProjectMapping:read_only", function () {
-  let fieldId = 360;
-  let contextId = 360;
-  let startAt = "startAt_360";
-  let maxResults = "maxResults_360";
-  verifyCustomFieldContextProjectMappingExists(360, 360, "startAt_360", "maxResults_360");
-});
-
-// Story: crud:CustomFieldContextIssueType:nondet:1:1
-bthread("crud:CustomFieldContextIssueType:nondet:1:1", function () {
-  let fieldId = 370;
-  let contextId = 370;
-  addIssueTypesToContext(370, 370);
-  tryToAddExistingCustomFieldContextIssueType(370, 370);
-  verifyCustomFieldContextIssueTypeExists(370, 370);
-  removeIssueTypesFromContext(370, 370);
-  tryToDeleteANonExistingCustomFieldContextIssueType(370, 370);
-  verifyCustomFieldContextIssueTypeDoesNotExist(370, 370);
-});
-
-// Story: crud:CustomFieldContextIssueType:nondet:1:2
-bthread("crud:CustomFieldContextIssueType:nondet:1:2", function () {
-  let fieldId = 371;
-  let contextId = 371;
-  addIssueTypesToContext(371, 371);
-  tryToAddExistingCustomFieldContextIssueType(371, 371);
-  verifyCustomFieldContextIssueTypeExists(371, 371);
-  removeIssueTypesFromContext(371, 371);
-  tryToDeleteANonExistingCustomFieldContextIssueType(371, 371);
-  verifyCustomFieldContextIssueTypeDoesNotExist(371, 371);
-});
-
-// Story: crud:CustomFieldContextIssueType:nondet:negative:dup-add
-bthread("crud:CustomFieldContextIssueType:nondet:negative:dup-add", function () {
-  let fieldId = 376;
-  let contextId = 376;
-  addIssueTypesToContext(376, 376);
-  verifyCustomFieldContextIssueTypeExists(376, 376);
-  tryToAddExistingCustomFieldContextIssueType(376, 376);
-  verifyCustomFieldContextIssueTypeExists(376, 376);
-});
-
-// Story: monitor:CustomFieldContextIssueType:add
-bthread("monitor:CustomFieldContextIssueType:add", function () {
-  while (true) {
-    let ev = waitForAnyCustomFieldContextIssueTypeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedCustomFieldContextIssueType.apply(null, args), function () {
-      verifyCustomFieldContextIssueTypeExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:CustomFieldContextProject:nondet:1:1
-bthread("crud:CustomFieldContextProject:nondet:1:1", function () {
-  let fieldId = 380;
-  let contextId = 380;
-  assignProjectsToCustomFieldContext(380, 380);
-  tryToAddExistingCustomFieldContextProject(380, 380);
-  verifyCustomFieldContextProjectExists(380, 380);
-  removeCustomFieldContextFromProjects(380, 380);
-  tryToDeleteANonExistingCustomFieldContextProject(380, 380);
-  verifyCustomFieldContextProjectDoesNotExist(380, 380);
-});
-
-// Story: crud:CustomFieldContextProject:nondet:1:2
-bthread("crud:CustomFieldContextProject:nondet:1:2", function () {
-  let fieldId = 381;
-  let contextId = 381;
-  assignProjectsToCustomFieldContext(381, 381);
-  tryToAddExistingCustomFieldContextProject(381, 381);
-  verifyCustomFieldContextProjectExists(381, 381);
-  removeCustomFieldContextFromProjects(381, 381);
-  tryToDeleteANonExistingCustomFieldContextProject(381, 381);
-  verifyCustomFieldContextProjectDoesNotExist(381, 381);
-});
-
-// Story: crud:CustomFieldContextProject:nondet:negative:dup-add
-bthread("crud:CustomFieldContextProject:nondet:negative:dup-add", function () {
-  let fieldId = 386;
-  let contextId = 386;
-  assignProjectsToCustomFieldContext(386, 386);
-  verifyCustomFieldContextProjectExists(386, 386);
-  tryToAddExistingCustomFieldContextProject(386, 386);
-  verifyCustomFieldContextProjectExists(386, 386);
-});
-
-// Story: monitor:CustomFieldContextProject:add
-bthread("monitor:CustomFieldContextProject:add", function () {
-  while (true) {
-    let ev = waitForAnyCustomFieldContextProjectAdded();
-    let args = Object.values(ev);
-    block(matchDeletedCustomFieldContextProject.apply(null, args), function () {
-      verifyCustomFieldContextProjectExists.apply(null, args);
-    });
-  }
+  let contextId = 520;
+  let fieldId = 520;
+  let maxResults = "maxResults_520";
+  let startAt = "startAt_520";
+  verifyCustomFieldContextProjectMappingExists(contextId, fieldId, maxResults, startAt);
 });
 
 // Story: crud:Project:nondet:1:1
 bthread("crud:Project:nondet:1:1", function () {
-  let projectIdOrKey = 390;
-  createProject(390);
-  tryToAddExistingProject(390);
-  verifyProjectExists(390);
-  updateProject(390);
-  deleteProject(390);
-  tryToDeleteANonExistingProject(390);
-  verifyProjectDoesNotExist(390);
+  let assigneeType = "assigneeType_550";
+  let categoryId = 550;
+  let description = "description_550";
+  let fieldConfigurationScheme = 550;
+  let issueSecurityScheme = 550;
+  let issueTypeScheme = 550;
+  let issueTypeScreenScheme = 550;
+  let key = "key_550";
+  let lead = "lead_550";
+  let leadAccountId = 550;
+  let name = "name_550";
+  let notificationScheme = 550;
+  let permissionScheme = 550;
+  let projectIdOrKey = 550;
+  let projectTemplateKey = "projectTemplateKey_550";
+  let projectTypeKey = "projectTypeKey_550";
+  let url = "url_550";
+  let workflowScheme = 550;
+  // Dependency Barrier
+  let deps = {};
+  deps["avatarId"] = matchAnyAvatarAdded();
+  let pkMap = {"avatarId": "type"};
+  let captured = resolveDependencies(deps, pkMap);
+  avatarId = captured["avatarId"];
+  createProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  // waitForProjectAdded(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  tryToAddExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  verifyProjectExists(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  updateProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  deleteProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  tryToDeleteANonExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  verifyProjectDoesNotExist(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
 });
 
 // Story: crud:Project:nondet:1:2
 bthread("crud:Project:nondet:1:2", function () {
-  let projectIdOrKey = 391;
-  createProject(391);
-  tryToAddExistingProject(391);
-  updateProject(391);
-  verifyProjectExists(391);
-  deleteProject(391);
-  tryToDeleteANonExistingProject(391);
-  verifyProjectDoesNotExist(391);
+  let assigneeType = "assigneeType_551";
+  let categoryId = 551;
+  let description = "description_551";
+  let fieldConfigurationScheme = 551;
+  let issueSecurityScheme = 551;
+  let issueTypeScheme = 551;
+  let issueTypeScreenScheme = 551;
+  let key = "key_551";
+  let lead = "lead_551";
+  let leadAccountId = 551;
+  let name = "name_551";
+  let notificationScheme = 551;
+  let permissionScheme = 551;
+  let projectIdOrKey = 551;
+  let projectTemplateKey = "projectTemplateKey_551";
+  let projectTypeKey = "projectTypeKey_551";
+  let url = "url_551";
+  let workflowScheme = 551;
+  // Dependency Barrier
+  let deps = {};
+  deps["avatarId"] = matchAnyAvatarAdded();
+  let pkMap = {"avatarId": "type"};
+  let captured = resolveDependencies(deps, pkMap);
+  avatarId = captured["avatarId"];
+  createProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  // waitForProjectAdded(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  tryToAddExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  updateProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  verifyProjectExists(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  deleteProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  tryToDeleteANonExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  verifyProjectDoesNotExist(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
 });
 
 // Story: crud:Project:nondet:negative:dup-add
 bthread("crud:Project:nondet:negative:dup-add", function () {
-  let projectIdOrKey = 396;
-  createProject(396);
-  verifyProjectExists(396);
-  tryToAddExistingProject(396);
-  verifyProjectExists(396);
-});
-
-// Story: crud:Project:nondet:existing:update
-bthread("crud:Project:nondet:existing:update", function () {
-  let ev = waitForAnyProjectAdded();
-  let args = Object.values(ev);
-  block(matchDeletedProject.apply(null, args), function () {
-    verifyProjectExists.apply(null, args);
-    updateProject.apply(null, args);
-    verifyProjectExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Project:add
-bthread("monitor:Project:add", function () {
-  while (true) {
-    let ev = waitForAnyProjectAdded();
-    let args = Object.values(ev);
-    block(matchDeletedProject.apply(null, args), function () {
-      verifyProjectExists.apply(null, args);
-    });
-  }
+  let assigneeType = "assigneeType_556";
+  let categoryId = 556;
+  let description = "description_556";
+  let fieldConfigurationScheme = 556;
+  let issueSecurityScheme = 556;
+  let issueTypeScheme = 556;
+  let issueTypeScreenScheme = 556;
+  let key = "key_556";
+  let lead = "lead_556";
+  let leadAccountId = 556;
+  let name = "name_556";
+  let notificationScheme = 556;
+  let permissionScheme = 556;
+  let projectIdOrKey = 556;
+  let projectTemplateKey = "projectTemplateKey_556";
+  let projectTypeKey = "projectTypeKey_556";
+  let url = "url_556";
+  let workflowScheme = 556;
+  // Dependency Barrier
+  let deps = {};
+  deps["avatarId"] = matchAnyAvatarAdded();
+  let pkMap = {"avatarId": "type"};
+  let captured = resolveDependencies(deps, pkMap);
+  avatarId = captured["avatarId"];
+  createProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  // waitForProjectAdded(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  verifyProjectExists(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  tryToAddExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  verifyProjectExists(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
 });
 
 // Story: crud:FieldConfiguration:nondet:1:1
 bthread("crud:FieldConfiguration:nondet:1:1", function () {
-  let id = 400;
-  let isDefault = "isDefault_400";
-  let query = "query_400";
-  let startAt = "startAt_400";
-  let maxResults = "maxResults_400";
-  createFieldConfiguration(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
-  tryToAddExistingFieldConfiguration(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
-  verifyFieldConfigurationExists(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
-  updateFieldConfiguration(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
-  deleteFieldConfiguration(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
-  tryToDeleteANonExistingFieldConfiguration(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
-  verifyFieldConfigurationDoesNotExist(400, "isDefault_400", "query_400", "startAt_400", "maxResults_400");
+  let description = "description_560";
+  let id = 560;
+  let isDefault = "isDefault_560";
+  let maxResults = "maxResults_560";
+  let name = "name_560";
+  let query = "query_560";
+  let startAt = "startAt_560";
+  createFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  // waitForFieldConfigurationAdded(description, id, isDefault, maxResults, name, query, startAt);
+  tryToAddExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  verifyFieldConfigurationExists(description, id, isDefault, maxResults, name, query, startAt);
+  updateFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  deleteFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  tryToDeleteANonExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  verifyFieldConfigurationDoesNotExist(description, id, isDefault, maxResults, name, query, startAt);
 });
 
 // Story: crud:FieldConfiguration:nondet:1:2
 bthread("crud:FieldConfiguration:nondet:1:2", function () {
-  let id = 401;
-  let isDefault = "isDefault_401";
-  let query = "query_401";
-  let startAt = "startAt_401";
-  let maxResults = "maxResults_401";
-  createFieldConfiguration(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
-  tryToAddExistingFieldConfiguration(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
-  updateFieldConfiguration(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
-  verifyFieldConfigurationExists(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
-  deleteFieldConfiguration(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
-  tryToDeleteANonExistingFieldConfiguration(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
-  verifyFieldConfigurationDoesNotExist(401, "isDefault_401", "query_401", "startAt_401", "maxResults_401");
+  let description = "description_561";
+  let id = 561;
+  let isDefault = "isDefault_561";
+  let maxResults = "maxResults_561";
+  let name = "name_561";
+  let query = "query_561";
+  let startAt = "startAt_561";
+  createFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  // waitForFieldConfigurationAdded(description, id, isDefault, maxResults, name, query, startAt);
+  tryToAddExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  updateFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  verifyFieldConfigurationExists(description, id, isDefault, maxResults, name, query, startAt);
+  deleteFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  tryToDeleteANonExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  verifyFieldConfigurationDoesNotExist(description, id, isDefault, maxResults, name, query, startAt);
 });
 
 // Story: crud:FieldConfiguration:nondet:negative:dup-add
 bthread("crud:FieldConfiguration:nondet:negative:dup-add", function () {
-  let id = 406;
-  let isDefault = "isDefault_406";
-  let query = "query_406";
-  let startAt = "startAt_406";
-  let maxResults = "maxResults_406";
-  createFieldConfiguration(406, "isDefault_406", "query_406", "startAt_406", "maxResults_406");
-  verifyFieldConfigurationExists(406, "isDefault_406", "query_406", "startAt_406", "maxResults_406");
-  tryToAddExistingFieldConfiguration(406, "isDefault_406", "query_406", "startAt_406", "maxResults_406");
-  verifyFieldConfigurationExists(406, "isDefault_406", "query_406", "startAt_406", "maxResults_406");
-});
-
-// Story: crud:FieldConfiguration:nondet:existing:update
-bthread("crud:FieldConfiguration:nondet:existing:update", function () {
-  let ev = waitForAnyFieldConfigurationAdded();
-  let args = Object.values(ev);
-  block(matchDeletedFieldConfiguration.apply(null, args), function () {
-    verifyFieldConfigurationExists.apply(null, args);
-    updateFieldConfiguration.apply(null, args);
-    verifyFieldConfigurationExists.apply(null, args);
-  });
-});
-
-// Story: monitor:FieldConfiguration:add
-bthread("monitor:FieldConfiguration:add", function () {
-  while (true) {
-    let ev = waitForAnyFieldConfigurationAdded();
-    let args = Object.values(ev);
-    block(matchDeletedFieldConfiguration.apply(null, args), function () {
-      verifyFieldConfigurationExists.apply(null, args);
-    });
-  }
+  let description = "description_566";
+  let id = 566;
+  let isDefault = "isDefault_566";
+  let maxResults = "maxResults_566";
+  let name = "name_566";
+  let query = "query_566";
+  let startAt = "startAt_566";
+  createFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  // waitForFieldConfigurationAdded(description, id, isDefault, maxResults, name, query, startAt);
+  verifyFieldConfigurationExists(description, id, isDefault, maxResults, name, query, startAt);
+  tryToAddExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
+  verifyFieldConfigurationExists(description, id, isDefault, maxResults, name, query, startAt);
 });
 
 // Story: crud:FieldConfigurationItems:read_only
 bthread("crud:FieldConfigurationItems:read_only", function () {
-  let id = 410;
-  let startAt = "startAt_410";
-  let maxResults = "maxResults_410";
-  verifyFieldConfigurationItemsExists(410, "startAt_410", "maxResults_410");
+  let id = 570;
+  let maxResults = "maxResults_570";
+  let startAt = "startAt_570";
+  verifyFieldConfigurationItemsExists(id, maxResults, startAt);
 });
 
 // Story: crud:FieldConfigurationScheme:nondet:1:1
 bthread("crud:FieldConfigurationScheme:nondet:1:1", function () {
-  let id = 420;
-  let startAt = "startAt_420";
-  let maxResults = "maxResults_420";
-  createFieldConfigurationScheme(420, "startAt_420", "maxResults_420");
-  tryToAddExistingFieldConfigurationScheme(420, "startAt_420", "maxResults_420");
-  verifyFieldConfigurationSchemeExists(420, "startAt_420", "maxResults_420");
-  updateFieldConfigurationScheme(420, "startAt_420", "maxResults_420");
-  deleteFieldConfigurationScheme(420, "startAt_420", "maxResults_420");
-  tryToDeleteANonExistingFieldConfigurationScheme(420, "startAt_420", "maxResults_420");
-  verifyFieldConfigurationSchemeDoesNotExist(420, "startAt_420", "maxResults_420");
+  let description = "description_580";
+  let id = 580;
+  let maxResults = "maxResults_580";
+  let name = "name_580";
+  let startAt = "startAt_580";
+  createFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  // waitForFieldConfigurationSchemeAdded(description, id, maxResults, name, startAt);
+  tryToAddExistingFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  verifyFieldConfigurationSchemeExists(description, id, maxResults, name, startAt);
+  updateFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  deleteFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  tryToDeleteANonExistingFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  verifyFieldConfigurationSchemeDoesNotExist(description, id, maxResults, name, startAt);
 });
 
 // Story: crud:FieldConfigurationScheme:nondet:1:2
 bthread("crud:FieldConfigurationScheme:nondet:1:2", function () {
-  let id = 421;
-  let startAt = "startAt_421";
-  let maxResults = "maxResults_421";
-  createFieldConfigurationScheme(421, "startAt_421", "maxResults_421");
-  tryToAddExistingFieldConfigurationScheme(421, "startAt_421", "maxResults_421");
-  updateFieldConfigurationScheme(421, "startAt_421", "maxResults_421");
-  verifyFieldConfigurationSchemeExists(421, "startAt_421", "maxResults_421");
-  deleteFieldConfigurationScheme(421, "startAt_421", "maxResults_421");
-  tryToDeleteANonExistingFieldConfigurationScheme(421, "startAt_421", "maxResults_421");
-  verifyFieldConfigurationSchemeDoesNotExist(421, "startAt_421", "maxResults_421");
+  let description = "description_581";
+  let id = 581;
+  let maxResults = "maxResults_581";
+  let name = "name_581";
+  let startAt = "startAt_581";
+  createFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  // waitForFieldConfigurationSchemeAdded(description, id, maxResults, name, startAt);
+  tryToAddExistingFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  updateFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  verifyFieldConfigurationSchemeExists(description, id, maxResults, name, startAt);
+  deleteFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  tryToDeleteANonExistingFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  verifyFieldConfigurationSchemeDoesNotExist(description, id, maxResults, name, startAt);
 });
 
 // Story: crud:FieldConfigurationScheme:nondet:negative:dup-add
 bthread("crud:FieldConfigurationScheme:nondet:negative:dup-add", function () {
-  let id = 426;
-  let startAt = "startAt_426";
-  let maxResults = "maxResults_426";
-  createFieldConfigurationScheme(426, "startAt_426", "maxResults_426");
-  verifyFieldConfigurationSchemeExists(426, "startAt_426", "maxResults_426");
-  tryToAddExistingFieldConfigurationScheme(426, "startAt_426", "maxResults_426");
-  verifyFieldConfigurationSchemeExists(426, "startAt_426", "maxResults_426");
-});
-
-// Story: crud:FieldConfigurationScheme:nondet:existing:update
-bthread("crud:FieldConfigurationScheme:nondet:existing:update", function () {
-  let ev = waitForAnyFieldConfigurationSchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedFieldConfigurationScheme.apply(null, args), function () {
-    verifyFieldConfigurationSchemeExists.apply(null, args);
-    updateFieldConfigurationScheme.apply(null, args);
-    verifyFieldConfigurationSchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:FieldConfigurationScheme:add
-bthread("monitor:FieldConfigurationScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyFieldConfigurationSchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedFieldConfigurationScheme.apply(null, args), function () {
-      verifyFieldConfigurationSchemeExists.apply(null, args);
-    });
-  }
+  let description = "description_586";
+  let id = 586;
+  let maxResults = "maxResults_586";
+  let name = "name_586";
+  let startAt = "startAt_586";
+  createFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  // waitForFieldConfigurationSchemeAdded(description, id, maxResults, name, startAt);
+  verifyFieldConfigurationSchemeExists(description, id, maxResults, name, startAt);
+  tryToAddExistingFieldConfigurationScheme(description, id, maxResults, name, startAt);
+  verifyFieldConfigurationSchemeExists(description, id, maxResults, name, startAt);
 });
 
 // Story: crud:FieldConfigurationSchemeMapping:read_only
 bthread("crud:FieldConfigurationSchemeMapping:read_only", function () {
-  let id = 430;
-  let fieldConfigurationSchemeId = 430;
-  let startAt = "startAt_430";
-  let maxResults = "maxResults_430";
-  verifyFieldConfigurationSchemeMappingExists(430, 430, "startAt_430", "maxResults_430");
+  let id = 590;
+  let maxResults = "maxResults_590";
+  let startAt = "startAt_590";
+  verifyFieldConfigurationSchemeMappingExists(fieldConfigurationSchemeId, id, maxResults, startAt);
 });
 
 // Story: crud:FieldConfigurationSchemeProjectAssociation:read_only
 bthread("crud:FieldConfigurationSchemeProjectAssociation:read_only", function () {
-  let projectId = 440;
-  let startAt = "startAt_440";
-  let maxResults = "maxResults_440";
-  verifyFieldConfigurationSchemeProjectAssociationExists(440, "startAt_440", "maxResults_440");
+  let maxResults = "maxResults_600";
+  let startAt = "startAt_600";
+  verifyFieldConfigurationSchemeProjectAssociationExists(maxResults, projectId, startAt);
 });
 
 // Story: crud:User:nondet:1:1
 bthread("crud:User:nondet:1:1", function () {
-  let accountId = 450;
-  let query = "query_450";
-  let property = "property_450";
-  let startAt = "startAt_450";
-  let maxResults = "maxResults_450";
-  let projectKeys = "projectKeys_450";
-  let project = "project_450";
-  let issueKey = "issueKey_450";
-  let issueId = 450;
-  let actionDescriptorId = 450;
-  let recommend = "recommend_450";
-  let permissions = "permissions_450";
-  let projectKey = "projectKey_450";
-  let showAvatar = "showAvatar_450";
-  let exclude = "exclude_450";
-  let excludeAccountIds = 450;
-  let avatarSize = "avatarSize_450";
-  let excludeConnectUsers = "excludeConnectUsers_450";
-  let maxResult = "maxResult_450";
-  createUser(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
-  tryToAddExistingUser(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
-  verifyUserExists(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
-  setUserColumns(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
-  removeUser(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
-  tryToDeleteANonExistingUser(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
-  verifyUserDoesNotExist(450, "query_450", "property_450", "startAt_450", "maxResults_450", "projectKeys_450", "project_450", "issueKey_450", 450, 450, "recommend_450", "permissions_450", "projectKey_450", "showAvatar_450", "exclude_450", 450, "avatarSize_450", "excludeConnectUsers_450", "maxResult_450");
+  let accountId = 610;
+  let actionDescriptorId = 610;
+  let applicationKeys = "applicationKeys_610";
+  let avatarSize = "avatarSize_610";
+  let displayName = "displayName_610";
+  let emailAddress = "emailAddress_610";
+  let exclude = "exclude_610";
+  let excludeAccountIds = "excludeAccountIds_610";
+  let excludeConnectUsers = "excludeConnectUsers_610";
+  let issueKey = "issueKey_610";
+  let key = "key_610";
+  let maxResult = "maxResult_610";
+  let maxResults = "maxResults_610";
+  let name = "name_610";
+  let password = "password_610";
+  let permissions = "permissions_610";
+  let products = "products_610";
+  let project = "project_610";
+  let projectKey = "projectKey_610";
+  let projectKeys = "projectKeys_610";
+  let property = "property_610";
+  let query = "query_610";
+  let recommend = "recommend_610";
+  let self = "self_610";
+  let showAvatar = "showAvatar_610";
+  let startAt = "startAt_610";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueId"] = matchAnyIssueAdded();
+  let pkMap = {"issueId": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueId = captured["issueId"];
+  createUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  // waitForUserAdded(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  tryToAddExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  verifyUserExists(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  removeUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  tryToDeleteANonExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  verifyUserDoesNotExist(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
 });
 
 // Story: crud:User:nondet:1:2
 bthread("crud:User:nondet:1:2", function () {
-  let accountId = 451;
-  let query = "query_451";
-  let property = "property_451";
-  let startAt = "startAt_451";
-  let maxResults = "maxResults_451";
-  let projectKeys = "projectKeys_451";
-  let project = "project_451";
-  let issueKey = "issueKey_451";
-  let issueId = 451;
-  let actionDescriptorId = 451;
-  let recommend = "recommend_451";
-  let permissions = "permissions_451";
-  let projectKey = "projectKey_451";
-  let showAvatar = "showAvatar_451";
-  let exclude = "exclude_451";
-  let excludeAccountIds = 451;
-  let avatarSize = "avatarSize_451";
-  let excludeConnectUsers = "excludeConnectUsers_451";
-  let maxResult = "maxResult_451";
-  createUser(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
-  tryToAddExistingUser(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
-  setUserColumns(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
-  verifyUserExists(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
-  removeUser(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
-  tryToDeleteANonExistingUser(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
-  verifyUserDoesNotExist(451, "query_451", "property_451", "startAt_451", "maxResults_451", "projectKeys_451", "project_451", "issueKey_451", 451, 451, "recommend_451", "permissions_451", "projectKey_451", "showAvatar_451", "exclude_451", 451, "avatarSize_451", "excludeConnectUsers_451", "maxResult_451");
+  let accountId = 611;
+  let actionDescriptorId = 611;
+  let applicationKeys = "applicationKeys_611";
+  let avatarSize = "avatarSize_611";
+  let displayName = "displayName_611";
+  let emailAddress = "emailAddress_611";
+  let exclude = "exclude_611";
+  let excludeAccountIds = "excludeAccountIds_611";
+  let excludeConnectUsers = "excludeConnectUsers_611";
+  let issueKey = "issueKey_611";
+  let key = "key_611";
+  let maxResult = "maxResult_611";
+  let maxResults = "maxResults_611";
+  let name = "name_611";
+  let password = "password_611";
+  let permissions = "permissions_611";
+  let products = "products_611";
+  let project = "project_611";
+  let projectKey = "projectKey_611";
+  let projectKeys = "projectKeys_611";
+  let property = "property_611";
+  let query = "query_611";
+  let recommend = "recommend_611";
+  let self = "self_611";
+  let showAvatar = "showAvatar_611";
+  let startAt = "startAt_611";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueId"] = matchAnyIssueAdded();
+  let pkMap = {"issueId": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueId = captured["issueId"];
+  createUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  // waitForUserAdded(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  tryToAddExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  verifyUserExists(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  removeUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  tryToDeleteANonExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  verifyUserDoesNotExist(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
 });
 
 // Story: crud:User:nondet:negative:dup-add
 bthread("crud:User:nondet:negative:dup-add", function () {
-  let accountId = 456;
-  let query = "query_456";
-  let property = "property_456";
-  let startAt = "startAt_456";
-  let maxResults = "maxResults_456";
-  let projectKeys = "projectKeys_456";
-  let project = "project_456";
-  let issueKey = "issueKey_456";
-  let issueId = 456;
-  let actionDescriptorId = 456;
-  let recommend = "recommend_456";
-  let permissions = "permissions_456";
-  let projectKey = "projectKey_456";
-  let showAvatar = "showAvatar_456";
-  let exclude = "exclude_456";
-  let excludeAccountIds = 456;
-  let avatarSize = "avatarSize_456";
-  let excludeConnectUsers = "excludeConnectUsers_456";
-  let maxResult = "maxResult_456";
-  createUser(456, "query_456", "property_456", "startAt_456", "maxResults_456", "projectKeys_456", "project_456", "issueKey_456", 456, 456, "recommend_456", "permissions_456", "projectKey_456", "showAvatar_456", "exclude_456", 456, "avatarSize_456", "excludeConnectUsers_456", "maxResult_456");
-  verifyUserExists(456, "query_456", "property_456", "startAt_456", "maxResults_456", "projectKeys_456", "project_456", "issueKey_456", 456, 456, "recommend_456", "permissions_456", "projectKey_456", "showAvatar_456", "exclude_456", 456, "avatarSize_456", "excludeConnectUsers_456", "maxResult_456");
-  tryToAddExistingUser(456, "query_456", "property_456", "startAt_456", "maxResults_456", "projectKeys_456", "project_456", "issueKey_456", 456, 456, "recommend_456", "permissions_456", "projectKey_456", "showAvatar_456", "exclude_456", 456, "avatarSize_456", "excludeConnectUsers_456", "maxResult_456");
-  verifyUserExists(456, "query_456", "property_456", "startAt_456", "maxResults_456", "projectKeys_456", "project_456", "issueKey_456", 456, 456, "recommend_456", "permissions_456", "projectKey_456", "showAvatar_456", "exclude_456", 456, "avatarSize_456", "excludeConnectUsers_456", "maxResult_456");
+  let accountId = 616;
+  let actionDescriptorId = 616;
+  let applicationKeys = "applicationKeys_616";
+  let avatarSize = "avatarSize_616";
+  let displayName = "displayName_616";
+  let emailAddress = "emailAddress_616";
+  let exclude = "exclude_616";
+  let excludeAccountIds = "excludeAccountIds_616";
+  let excludeConnectUsers = "excludeConnectUsers_616";
+  let issueKey = "issueKey_616";
+  let key = "key_616";
+  let maxResult = "maxResult_616";
+  let maxResults = "maxResults_616";
+  let name = "name_616";
+  let password = "password_616";
+  let permissions = "permissions_616";
+  let products = "products_616";
+  let project = "project_616";
+  let projectKey = "projectKey_616";
+  let projectKeys = "projectKeys_616";
+  let property = "property_616";
+  let query = "query_616";
+  let recommend = "recommend_616";
+  let self = "self_616";
+  let showAvatar = "showAvatar_616";
+  let startAt = "startAt_616";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueId"] = matchAnyIssueAdded();
+  let pkMap = {"issueId": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueId = captured["issueId"];
+  createUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  // waitForUserAdded(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  verifyUserExists(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  tryToAddExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  verifyUserExists(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
 });
 
-// Story: crud:User:nondet:existing:update
-bthread("crud:User:nondet:existing:update", function () {
-  let ev = waitForAnyUserAdded();
-  let args = Object.values(ev);
-  block(matchDeletedUser.apply(null, args), function () {
-    verifyUserExists.apply(null, args);
-    setUserColumns.apply(null, args);
-    verifyUserExists.apply(null, args);
-  });
+// Story: crud:UserColumns:read_only
+bthread("crud:UserColumns:read_only", function () {
+  let accountId = 620;
+  verifyUserColumnsExists(accountId);
 });
 
-// Story: monitor:User:add
-bthread("monitor:User:add", function () {
-  while (true) {
-    let ev = waitForAnyUserAdded();
-    let args = Object.values(ev);
-    block(matchDeletedUser.apply(null, args), function () {
-      verifyUserExists.apply(null, args);
-    });
-  }
+// Story: crud:UserEmail:read_only
+bthread("crud:UserEmail:read_only", function () {
+  let accountId = 630;
+  verifyUserEmailExists(accountId);
+});
+
+// Story: crud:UserEmailBulk:read_only
+bthread("crud:UserEmailBulk:read_only", function () {
+  let accountId = 640;
+  verifyUserEmailBulkExists(accountId);
+});
+
+// Story: crud:UserGroups:read_only
+bthread("crud:UserGroups:read_only", function () {
+  let accountId = 650;
+  verifyUserGroupsExists(accountId);
+});
+
+// Story: crud:UsersBulk:read_only
+bthread("crud:UsersBulk:read_only", function () {
+  let accountId = 660;
+  verifyUsersBulkExists(accountId);
+});
+
+// Story: crud:UsersBulkMigration:read_only
+bthread("crud:UsersBulkMigration:read_only", function () {
+  let key = "key_670";
+  let username = "username_670";
+  verifyUsersBulkMigrationExists(key, username);
+});
+
+// Story: crud:Users:read_only
+bthread("crud:Users:read_only", function () {
+  let maxResults = "maxResults_680";
+  let startAt = "startAt_680";
+  verifyUsersExists(maxResults, startAt);
+});
+
+// Story: crud:UsersDefault:read_only
+bthread("crud:UsersDefault:read_only", function () {
+  let maxResults = "maxResults_690";
+  let startAt = "startAt_690";
+  verifyUsersDefaultExists(maxResults, startAt);
 });
 
 // Story: crud:WorkflowScheme:nondet:1:1
 bthread("crud:WorkflowScheme:nondet:1:1", function () {
-  let id = 460;
-  let returnDraftIfExists = "returnDraftIfExists_460";
-  let startAt = "startAt_460";
-  let maxResults = "maxResults_460";
-  createWorkflowScheme(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
-  tryToAddExistingWorkflowScheme(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
-  verifyWorkflowSchemeExists(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
-  updateWorkflowScheme(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
-  deleteWorkflowScheme(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
-  tryToDeleteANonExistingWorkflowScheme(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
-  verifyWorkflowSchemeDoesNotExist(460, "returnDraftIfExists_460", "startAt_460", "maxResults_460");
+  let defaultWorkflow = "defaultWorkflow_700";
+  let description = "description_700";
+  let draft = "draft_700";
+  let id = 700;
+  let issueTypeMappings = {};
+  let issueTypes = {};
+  let lastModified = "lastModified_700";
+  let lastModifiedUser = "lastModifiedUser_700";
+  let name = "name_700";
+  let originalDefaultWorkflow = "originalDefaultWorkflow_700";
+  let originalIssueTypeMappings = {};
+  let returnDraftIfExists = "returnDraftIfExists_700";
+  let self = "self_700";
+  let updateDraftIfNeeded = "updateDraftIfNeeded_700";
+  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
 });
 
 // Story: crud:WorkflowScheme:nondet:1:2
 bthread("crud:WorkflowScheme:nondet:1:2", function () {
-  let id = 461;
-  let returnDraftIfExists = "returnDraftIfExists_461";
-  let startAt = "startAt_461";
-  let maxResults = "maxResults_461";
-  createWorkflowScheme(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
-  tryToAddExistingWorkflowScheme(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
-  updateWorkflowScheme(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
-  verifyWorkflowSchemeExists(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
-  deleteWorkflowScheme(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
-  tryToDeleteANonExistingWorkflowScheme(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
-  verifyWorkflowSchemeDoesNotExist(461, "returnDraftIfExists_461", "startAt_461", "maxResults_461");
+  let defaultWorkflow = "defaultWorkflow_701";
+  let description = "description_701";
+  let draft = "draft_701";
+  let id = 701;
+  let issueTypeMappings = {};
+  let issueTypes = {};
+  let lastModified = "lastModified_701";
+  let lastModifiedUser = "lastModifiedUser_701";
+  let name = "name_701";
+  let originalDefaultWorkflow = "originalDefaultWorkflow_701";
+  let originalIssueTypeMappings = {};
+  let returnDraftIfExists = "returnDraftIfExists_701";
+  let self = "self_701";
+  let updateDraftIfNeeded = "updateDraftIfNeeded_701";
+  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
 });
 
 // Story: crud:WorkflowScheme:nondet:negative:dup-add
 bthread("crud:WorkflowScheme:nondet:negative:dup-add", function () {
-  let id = 466;
-  let returnDraftIfExists = "returnDraftIfExists_466";
-  let startAt = "startAt_466";
-  let maxResults = "maxResults_466";
-  createWorkflowScheme(466, "returnDraftIfExists_466", "startAt_466", "maxResults_466");
-  verifyWorkflowSchemeExists(466, "returnDraftIfExists_466", "startAt_466", "maxResults_466");
-  tryToAddExistingWorkflowScheme(466, "returnDraftIfExists_466", "startAt_466", "maxResults_466");
-  verifyWorkflowSchemeExists(466, "returnDraftIfExists_466", "startAt_466", "maxResults_466");
+  let defaultWorkflow = "defaultWorkflow_706";
+  let description = "description_706";
+  let draft = "draft_706";
+  let id = 706;
+  let issueTypeMappings = {};
+  let issueTypes = {};
+  let lastModified = "lastModified_706";
+  let lastModifiedUser = "lastModifiedUser_706";
+  let name = "name_706";
+  let originalDefaultWorkflow = "originalDefaultWorkflow_706";
+  let originalIssueTypeMappings = {};
+  let returnDraftIfExists = "returnDraftIfExists_706";
+  let self = "self_706";
+  let updateDraftIfNeeded = "updateDraftIfNeeded_706";
+  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
 });
 
-// Story: crud:WorkflowScheme:nondet:existing:update
-bthread("crud:WorkflowScheme:nondet:existing:update", function () {
-  let ev = waitForAnyWorkflowSchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedWorkflowScheme.apply(null, args), function () {
-    verifyWorkflowSchemeExists.apply(null, args);
-    updateWorkflowScheme.apply(null, args);
-    verifyWorkflowSchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:WorkflowScheme:add
-bthread("monitor:WorkflowScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyWorkflowSchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedWorkflowScheme.apply(null, args), function () {
-      verifyWorkflowSchemeExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:DefaultWorkflow:read_only
-bthread("crud:DefaultWorkflow:read_only", function () {
-  let id = 470;
-  let returnDraftIfExists = "returnDraftIfExists_470";
-  let updateDraftIfNeeded = "updateDraftIfNeeded_470";
-  verifyDefaultWorkflowExists(470, "returnDraftIfExists_470", "updateDraftIfNeeded_470");
+// Story: crud:WorkflowSchemeDefaultWorkflow:read_only
+bthread("crud:WorkflowSchemeDefaultWorkflow:read_only", function () {
+  let id = 710;
+  let returnDraftIfExists = "returnDraftIfExists_710";
+  let updateDraftIfNeeded = "updateDraftIfNeeded_710";
+  verifyWorkflowSchemeDefaultWorkflowExists(id, returnDraftIfExists, updateDraftIfNeeded);
 });
 
 // Story: crud:WorkflowSchemeIssueType:read_only
 bthread("crud:WorkflowSchemeIssueType:read_only", function () {
-  let id = 480;
-  let issueType = "issueType_480";
-  let returnDraftIfExists = "returnDraftIfExists_480";
-  let updateDraftIfNeeded = "updateDraftIfNeeded_480";
-  verifyWorkflowSchemeIssueTypeExists(480, "issueType_480", "returnDraftIfExists_480", "updateDraftIfNeeded_480");
+  let id = 720;
+  let issueType = "issueType_720";
+  let returnDraftIfExists = "returnDraftIfExists_720";
+  let updateDraftIfNeeded = "updateDraftIfNeeded_720";
+  verifyWorkflowSchemeIssueTypeExists(id, issueType, returnDraftIfExists, updateDraftIfNeeded);
 });
 
-// Story: crud:WorkflowMapping:read_only
-bthread("crud:WorkflowMapping:read_only", function () {
-  let id = 490;
-  let workflowName = "workflowName_490";
-  let returnDraftIfExists = "returnDraftIfExists_490";
-  let updateDraftIfNeeded = "updateDraftIfNeeded_490";
-  verifyWorkflowMappingExists(490, "workflowName_490", "returnDraftIfExists_490", "updateDraftIfNeeded_490");
+// Story: crud:WorkflowSchemeWorkflowMapping:read_only
+bthread("crud:WorkflowSchemeWorkflowMapping:read_only", function () {
+  let id = 730;
+  let returnDraftIfExists = "returnDraftIfExists_730";
+  let updateDraftIfNeeded = "updateDraftIfNeeded_730";
+  let workflowName = "workflowName_730";
+  verifyWorkflowSchemeWorkflowMappingExists(id, returnDraftIfExists, updateDraftIfNeeded, workflowName);
 });
 
 // Story: crud:CustomField:nondet:1:1
 bthread("crud:CustomField:nondet:1:1", function () {
-  let id = 500;
-  let fieldId = 500;
-  createCustomField(500, 500);
-  tryToAddExistingCustomField(500, 500);
-  verifyCustomFieldExists(500, 500);
-  updateCustomField(500, 500);
-  deleteCustomField(500, 500);
-  tryToDeleteANonExistingCustomField(500, 500);
-  verifyCustomFieldDoesNotExist(500, 500);
+  let description = "description_740";
+  let fieldId = 740;
+  let id = 740;
+  let name = "name_740";
+  let searcherKey = "searcherKey_740";
+  let type = "type_740";
+  createCustomField(description, fieldId, id, name, searcherKey, type);
+  // waitForCustomFieldAdded(description, fieldId, id, name, searcherKey, type);
+  tryToAddExistingCustomField(description, fieldId, id, name, searcherKey, type);
+  verifyCustomFieldExists(description, fieldId, id, name, searcherKey, type);
+  updateCustomField(description, fieldId, id, name, searcherKey, type);
+  deleteCustomField(description, fieldId, id, name, searcherKey, type);
+  tryToDeleteANonExistingCustomField(description, fieldId, id, name, searcherKey, type);
+  verifyCustomFieldDoesNotExist(description, fieldId, id, name, searcherKey, type);
 });
 
 // Story: crud:CustomField:nondet:1:2
 bthread("crud:CustomField:nondet:1:2", function () {
-  let id = 501;
-  let fieldId = 501;
-  createCustomField(501, 501);
-  tryToAddExistingCustomField(501, 501);
-  updateCustomField(501, 501);
-  verifyCustomFieldExists(501, 501);
-  deleteCustomField(501, 501);
-  tryToDeleteANonExistingCustomField(501, 501);
-  verifyCustomFieldDoesNotExist(501, 501);
+  let description = "description_741";
+  let fieldId = 741;
+  let id = 741;
+  let name = "name_741";
+  let searcherKey = "searcherKey_741";
+  let type = "type_741";
+  createCustomField(description, fieldId, id, name, searcherKey, type);
+  // waitForCustomFieldAdded(description, fieldId, id, name, searcherKey, type);
+  tryToAddExistingCustomField(description, fieldId, id, name, searcherKey, type);
+  updateCustomField(description, fieldId, id, name, searcherKey, type);
+  verifyCustomFieldExists(description, fieldId, id, name, searcherKey, type);
+  deleteCustomField(description, fieldId, id, name, searcherKey, type);
+  tryToDeleteANonExistingCustomField(description, fieldId, id, name, searcherKey, type);
+  verifyCustomFieldDoesNotExist(description, fieldId, id, name, searcherKey, type);
 });
 
 // Story: crud:CustomField:nondet:negative:dup-add
 bthread("crud:CustomField:nondet:negative:dup-add", function () {
-  let id = 506;
-  let fieldId = 506;
-  createCustomField(506, 506);
-  verifyCustomFieldExists(506, 506);
-  tryToAddExistingCustomField(506, 506);
-  verifyCustomFieldExists(506, 506);
-});
-
-// Story: crud:CustomField:nondet:existing:update
-bthread("crud:CustomField:nondet:existing:update", function () {
-  let ev = waitForAnyCustomFieldAdded();
-  let args = Object.values(ev);
-  block(matchDeletedCustomField.apply(null, args), function () {
-    verifyCustomFieldExists.apply(null, args);
-    updateCustomField.apply(null, args);
-    verifyCustomFieldExists.apply(null, args);
-  });
-});
-
-// Story: monitor:CustomField:add
-bthread("monitor:CustomField:add", function () {
-  while (true) {
-    let ev = waitForAnyCustomFieldAdded();
-    let args = Object.values(ev);
-    block(matchDeletedCustomField.apply(null, args), function () {
-      verifyCustomFieldExists.apply(null, args);
-    });
-  }
+  let description = "description_746";
+  let fieldId = 746;
+  let id = 746;
+  let name = "name_746";
+  let searcherKey = "searcherKey_746";
+  let type = "type_746";
+  createCustomField(description, fieldId, id, name, searcherKey, type);
+  // waitForCustomFieldAdded(description, fieldId, id, name, searcherKey, type);
+  verifyCustomFieldExists(description, fieldId, id, name, searcherKey, type);
+  tryToAddExistingCustomField(description, fieldId, id, name, searcherKey, type);
+  verifyCustomFieldExists(description, fieldId, id, name, searcherKey, type);
 });
 
 // Story: crud:Filter:nondet:1:1
 bthread("crud:Filter:nondet:1:1", function () {
-  let id = 510;
-  createFilter(510);
-  tryToAddExistingFilter(510);
-  verifyFilterExists(510);
-  updateFilter(510);
-  deleteFilter(510);
-  tryToDeleteANonExistingFilter(510);
-  verifyFilterDoesNotExist(510);
+  let approximateLastUsed = "approximateLastUsed_760";
+  let description = "description_760";
+  let editPermissions = "editPermissions_760";
+  let favourite = "favourite_760";
+  let favouritedCount = 760;
+  let id = 760;
+  let jql = "jql_760";
+  let name = "name_760";
+  let owner = "owner_760";
+  let searchUrl = "searchUrl_760";
+  let self = "self_760";
+  let sharePermissions = "sharePermissions_760";
+  let sharedUsers = "sharedUsers_760";
+  let subscriptions = "subscriptions_760";
+  let viewUrl = "viewUrl_760";
+  createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  // waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  tryToAddExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  updateFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  deleteFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  tryToDeleteANonExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  verifyFilterDoesNotExist(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
 });
 
 // Story: crud:Filter:nondet:1:2
 bthread("crud:Filter:nondet:1:2", function () {
-  let id = 511;
-  createFilter(511);
-  tryToAddExistingFilter(511);
-  updateFilter(511);
-  verifyFilterExists(511);
-  deleteFilter(511);
-  tryToDeleteANonExistingFilter(511);
-  verifyFilterDoesNotExist(511);
+  let approximateLastUsed = "approximateLastUsed_761";
+  let description = "description_761";
+  let editPermissions = "editPermissions_761";
+  let favourite = "favourite_761";
+  let favouritedCount = 761;
+  let id = 761;
+  let jql = "jql_761";
+  let name = "name_761";
+  let owner = "owner_761";
+  let searchUrl = "searchUrl_761";
+  let self = "self_761";
+  let sharePermissions = "sharePermissions_761";
+  let sharedUsers = "sharedUsers_761";
+  let subscriptions = "subscriptions_761";
+  let viewUrl = "viewUrl_761";
+  createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  // waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  tryToAddExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  updateFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  deleteFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  tryToDeleteANonExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  verifyFilterDoesNotExist(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
 });
 
 // Story: crud:Filter:nondet:negative:dup-add
 bthread("crud:Filter:nondet:negative:dup-add", function () {
-  let id = 516;
-  createFilter(516);
-  verifyFilterExists(516);
-  tryToAddExistingFilter(516);
-  verifyFilterExists(516);
-});
-
-// Story: crud:Filter:nondet:existing:update
-bthread("crud:Filter:nondet:existing:update", function () {
-  let ev = waitForAnyFilterAdded();
-  let args = Object.values(ev);
-  block(matchDeletedFilter.apply(null, args), function () {
-    verifyFilterExists.apply(null, args);
-    updateFilter.apply(null, args);
-    verifyFilterExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Filter:add
-bthread("monitor:Filter:add", function () {
-  while (true) {
-    let ev = waitForAnyFilterAdded();
-    let args = Object.values(ev);
-    block(matchDeletedFilter.apply(null, args), function () {
-      verifyFilterExists.apply(null, args);
-    });
-  }
+  let approximateLastUsed = "approximateLastUsed_766";
+  let description = "description_766";
+  let editPermissions = "editPermissions_766";
+  let favourite = "favourite_766";
+  let favouritedCount = 766;
+  let id = 766;
+  let jql = "jql_766";
+  let name = "name_766";
+  let owner = "owner_766";
+  let searchUrl = "searchUrl_766";
+  let self = "self_766";
+  let sharePermissions = "sharePermissions_766";
+  let sharedUsers = "sharedUsers_766";
+  let subscriptions = "subscriptions_766";
+  let viewUrl = "viewUrl_766";
+  createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  // waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  tryToAddExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
 });
 
 // Story: crud:FilterColumns:read_only
 bthread("crud:FilterColumns:read_only", function () {
-  let id = 520;
-  verifyFilterColumnsExists(520);
+  let id = 770;
+  verifyFilterColumnsExists(id);
 });
 
 // Story: crud:FilterFavourite:nondet:1:1
 bthread("crud:FilterFavourite:nondet:1:1", function () {
-  let id = 530;
-  setFavouriteForFilter(530);
-  tryToAddExistingFilterFavourite(530);
-  verifyFilterFavouriteExists(530);
-  deleteFavouriteForFilter(530);
-  tryToDeleteANonExistingFilterFavourite(530);
-  verifyFilterFavouriteDoesNotExist(530);
+  let id = 780;
+  setFavouriteForFilter(id);
+  // waitForFilterFavouriteAdded(id);
+  tryToAddExistingFilterFavourite(id);
+  verifyFilterFavouriteExists(id);
+  deleteFavouriteForFilter(id);
+  tryToDeleteANonExistingFilterFavourite(id);
+  verifyFilterFavouriteDoesNotExist(id);
 });
 
 // Story: crud:FilterFavourite:nondet:1:2
 bthread("crud:FilterFavourite:nondet:1:2", function () {
-  let id = 531;
-  setFavouriteForFilter(531);
-  tryToAddExistingFilterFavourite(531);
-  verifyFilterFavouriteExists(531);
-  deleteFavouriteForFilter(531);
-  tryToDeleteANonExistingFilterFavourite(531);
-  verifyFilterFavouriteDoesNotExist(531);
+  let id = 781;
+  setFavouriteForFilter(id);
+  // waitForFilterFavouriteAdded(id);
+  tryToAddExistingFilterFavourite(id);
+  verifyFilterFavouriteExists(id);
+  deleteFavouriteForFilter(id);
+  tryToDeleteANonExistingFilterFavourite(id);
+  verifyFilterFavouriteDoesNotExist(id);
 });
 
 // Story: crud:FilterFavourite:nondet:negative:dup-add
 bthread("crud:FilterFavourite:nondet:negative:dup-add", function () {
-  let id = 536;
-  setFavouriteForFilter(536);
-  verifyFilterFavouriteExists(536);
-  tryToAddExistingFilterFavourite(536);
-  verifyFilterFavouriteExists(536);
-});
-
-// Story: monitor:FilterFavourite:add
-bthread("monitor:FilterFavourite:add", function () {
-  while (true) {
-    let ev = waitForAnyFilterFavouriteAdded();
-    let args = Object.values(ev);
-    block(matchDeletedFilterFavourite.apply(null, args), function () {
-      verifyFilterFavouriteExists.apply(null, args);
-    });
-  }
+  let id = 786;
+  setFavouriteForFilter(id);
+  // waitForFilterFavouriteAdded(id);
+  verifyFilterFavouriteExists(id);
+  tryToAddExistingFilterFavourite(id);
+  verifyFilterFavouriteExists(id);
 });
 
 // Story: crud:IssueTypeScreenScheme:nondet:1:1
 bthread("crud:IssueTypeScreenScheme:nondet:1:1", function () {
-  let name = "name_550";
-  let issueTypeScreenSchemeId = 550;
-  let id = 550;
-  let queryString = "queryString_550";
-  let orderBy = "orderBy_550";
-  let expand = "expand_550";
-  let startAt = "startAt_550";
-  let maxResults = "maxResults_550";
-  createIssueTypeScreenScheme("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
-  tryToAddExistingIssueTypeScreenScheme("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
-  verifyIssueTypeScreenSchemeExists("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
-  updateIssueTypeScreenScheme("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
-  deleteIssueTypeScreenScheme("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
-  tryToDeleteANonExistingIssueTypeScreenScheme("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
-  verifyIssueTypeScreenSchemeDoesNotExist("name_550", 550, 550, "queryString_550", "orderBy_550", "expand_550", "startAt_550", "maxResults_550");
+  let description = "description_800";
+  let expand = "expand_800";
+  let id = 800;
+  let issueTypeMappings = "issueTypeMappings_800";
+  let maxResults = "maxResults_800";
+  let name = "name_800";
+  let orderBy = "orderBy_800";
+  let queryString = "queryString_800";
+  let startAt = "startAt_800";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeScreenSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeScreenSchemeId"] = matchAnyScreenAdded();
+  deps["issueTypeScreenSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"issueTypeScreenSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  createIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  // waitForIssueTypeScreenSchemeAdded(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToAddExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeScreenSchemeExists(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  updateIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  deleteIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToDeleteANonExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeScreenSchemeDoesNotExist(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
 });
 
 // Story: crud:IssueTypeScreenScheme:nondet:1:2
 bthread("crud:IssueTypeScreenScheme:nondet:1:2", function () {
-  let name = "name_551";
-  let issueTypeScreenSchemeId = 551;
-  let id = 551;
-  let queryString = "queryString_551";
-  let orderBy = "orderBy_551";
-  let expand = "expand_551";
-  let startAt = "startAt_551";
-  let maxResults = "maxResults_551";
-  createIssueTypeScreenScheme("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
-  tryToAddExistingIssueTypeScreenScheme("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
-  updateIssueTypeScreenScheme("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
-  verifyIssueTypeScreenSchemeExists("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
-  deleteIssueTypeScreenScheme("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
-  tryToDeleteANonExistingIssueTypeScreenScheme("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
-  verifyIssueTypeScreenSchemeDoesNotExist("name_551", 551, 551, "queryString_551", "orderBy_551", "expand_551", "startAt_551", "maxResults_551");
+  let description = "description_801";
+  let expand = "expand_801";
+  let id = 801;
+  let issueTypeMappings = "issueTypeMappings_801";
+  let maxResults = "maxResults_801";
+  let name = "name_801";
+  let orderBy = "orderBy_801";
+  let queryString = "queryString_801";
+  let startAt = "startAt_801";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeScreenSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeScreenSchemeId"] = matchAnyScreenAdded();
+  deps["issueTypeScreenSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"issueTypeScreenSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  createIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  // waitForIssueTypeScreenSchemeAdded(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToAddExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  updateIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeScreenSchemeExists(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  deleteIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToDeleteANonExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeScreenSchemeDoesNotExist(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
 });
 
 // Story: crud:IssueTypeScreenScheme:nondet:negative:dup-add
 bthread("crud:IssueTypeScreenScheme:nondet:negative:dup-add", function () {
-  let name = "name_556";
-  let issueTypeScreenSchemeId = 556;
-  let id = 556;
-  let queryString = "queryString_556";
-  let orderBy = "orderBy_556";
-  let expand = "expand_556";
-  let startAt = "startAt_556";
-  let maxResults = "maxResults_556";
-  createIssueTypeScreenScheme("name_556", 556, 556, "queryString_556", "orderBy_556", "expand_556", "startAt_556", "maxResults_556");
-  verifyIssueTypeScreenSchemeExists("name_556", 556, 556, "queryString_556", "orderBy_556", "expand_556", "startAt_556", "maxResults_556");
-  tryToAddExistingIssueTypeScreenScheme("name_556", 556, 556, "queryString_556", "orderBy_556", "expand_556", "startAt_556", "maxResults_556");
-  verifyIssueTypeScreenSchemeExists("name_556", 556, 556, "queryString_556", "orderBy_556", "expand_556", "startAt_556", "maxResults_556");
-});
-
-// Story: crud:IssueTypeScreenScheme:nondet:existing:update
-bthread("crud:IssueTypeScreenScheme:nondet:existing:update", function () {
-  let ev = waitForAnyIssueTypeScreenSchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueTypeScreenScheme.apply(null, args), function () {
-    verifyIssueTypeScreenSchemeExists.apply(null, args);
-    updateIssueTypeScreenScheme.apply(null, args);
-    verifyIssueTypeScreenSchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueTypeScreenScheme:add
-bthread("monitor:IssueTypeScreenScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueTypeScreenSchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueTypeScreenScheme.apply(null, args), function () {
-      verifyIssueTypeScreenSchemeExists.apply(null, args);
-    });
-  }
+  let description = "description_806";
+  let expand = "expand_806";
+  let id = 806;
+  let issueTypeMappings = "issueTypeMappings_806";
+  let maxResults = "maxResults_806";
+  let name = "name_806";
+  let orderBy = "orderBy_806";
+  let queryString = "queryString_806";
+  let startAt = "startAt_806";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeScreenSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeScreenSchemeId"] = matchAnyScreenAdded();
+  deps["issueTypeScreenSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"issueTypeScreenSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
+  createIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  // waitForIssueTypeScreenSchemeAdded(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeScreenSchemeExists(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToAddExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeScreenSchemeExists(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
 });
 
 // Story: crud:IssueTypeScreenSchemeMapping:read_only
 bthread("crud:IssueTypeScreenSchemeMapping:read_only", function () {
-  let issueTypeScreenSchemeId = 560;
-  let startAt = "startAt_560";
-  let maxResults = "maxResults_560";
-  let screenSchemeId = 560;
-  let issueTypeIds = 560;
-  verifyIssueTypeScreenSchemeMappingExists(560, "startAt_560", "maxResults_560", 560, 560);
+  let maxResults = "maxResults_810";
+  let startAt = "startAt_810";
+  verifyIssueTypeScreenSchemeMappingExists(issueTypeScreenSchemeId, maxResults, startAt);
 });
 
 // Story: crud:IssueTypeScreenSchemeProjectAssociation:read_only
 bthread("crud:IssueTypeScreenSchemeProjectAssociation:read_only", function () {
-  let projectId = 570;
-  let startAt = "startAt_570";
-  let maxResults = "maxResults_570";
-  let issueTypeScreenSchemeId = 570;
-  verifyIssueTypeScreenSchemeProjectAssociationExists(570, "startAt_570", "maxResults_570", 570);
+  let maxResults = "maxResults_820";
+  let startAt = "startAt_820";
+  verifyIssueTypeScreenSchemeProjectAssociationExists(issueTypeScreenSchemeId, maxResults, projectId, startAt);
 });
 
 // Story: crud:IssueTypeScreenSchemeProject:read_only
 bthread("crud:IssueTypeScreenSchemeProject:read_only", function () {
-  let issueTypeScreenSchemeId = 580;
-  let startAt = "startAt_580";
-  let maxResults = "maxResults_580";
-  let query = "query_580";
-  verifyIssueTypeScreenSchemeProjectExists(580, "startAt_580", "maxResults_580", "query_580");
+  let maxResults = "maxResults_830";
+  let query = "query_830";
+  let startAt = "startAt_830";
+  verifyIssueTypeScreenSchemeProjectExists(issueTypeScreenSchemeId, maxResults, query, startAt);
 });
 
 // Story: crud:Attachment:read_only
 bthread("crud:Attachment:read_only", function () {
-  let id = 590;
-  verifyAttachmentExists(590);
+  let id = 840;
+  verifyAttachmentExists(id);
 });
 
 // Story: crud:AttachmentContent:read_only
 bthread("crud:AttachmentContent:read_only", function () {
-  let id = 600;
-  verifyAttachmentContentExists(600);
+  let id = 850;
+  verifyAttachmentContentExists(id);
 });
 
 // Story: crud:AttachmentThumbnail:read_only
 bthread("crud:AttachmentThumbnail:read_only", function () {
-  let id = 610;
-  verifyAttachmentThumbnailExists(610);
+  let id = 860;
+  verifyAttachmentThumbnailExists(id);
 });
 
 // Story: crud:AttachmentExpandedHuman:read_only
 bthread("crud:AttachmentExpandedHuman:read_only", function () {
-  let id = 620;
-  verifyAttachmentExpandedHumanExists(620);
+  let id = 870;
+  verifyAttachmentExpandedHumanExists(id);
 });
 
 // Story: crud:AttachmentExpandedRaw:read_only
 bthread("crud:AttachmentExpandedRaw:read_only", function () {
-  let id = 630;
-  verifyAttachmentExpandedRawExists(630);
+  let id = 880;
+  verifyAttachmentExpandedRawExists(id);
 });
 
-// Story: crud:AttachmentMeta:read_only
-bthread("crud:AttachmentMeta:read_only", function () {
-
-  verifyAttachmentMetaExists();
+// Story: crud:IssueBulk:nondet:1:1
+bthread("crud:IssueBulk:nondet:1:1", function () {
+  let editedFieldsInput = "editedFieldsInput_900";
+  let selectedActions = "selectedActions_900";
+  let sendBulkNotification = "sendBulkNotification_900";
+  let taskId = 900;
+  let transitionId = 900;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueIdsOrKeys"] = matchAnyIssueAdded();
+  deps["selectedIssueIdsOrKeys"] = matchAnyIssueAdded();
+  let pkMap = {"issueIdsOrKeys": "issueIdOrKey", "selectedIssueIdsOrKeys": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueIdsOrKeys = captured["issueIdsOrKeys"];
+  selectedIssueIdsOrKeys = captured["selectedIssueIdsOrKeys"];
+  submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  // waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  submitBulkMove(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  submitBulkDelete(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  tryToDeleteANonExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkDoesNotExist(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
 });
 
-// Story: crud:IssueBulk:read_only
-bthread("crud:IssueBulk:read_only", function () {
-  let selectedIssueIdsOrKeys = 660;
-  let issueIdsOrKeys = 660;
-  let searchText = "searchText_660";
-  let endingBefore = "endingBefore_660";
-  let startingAfter = "startingAfter_660";
-  let transitionId = 660;
-  let taskId = 660;
-  verifyIssueBulkExists(660, 660, "searchText_660", "endingBefore_660", "startingAfter_660", 660, 660);
+// Story: crud:IssueBulk:nondet:1:2
+bthread("crud:IssueBulk:nondet:1:2", function () {
+  let editedFieldsInput = "editedFieldsInput_901";
+  let selectedActions = "selectedActions_901";
+  let sendBulkNotification = "sendBulkNotification_901";
+  let taskId = 901;
+  let transitionId = 901;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueIdsOrKeys"] = matchAnyIssueAdded();
+  deps["selectedIssueIdsOrKeys"] = matchAnyIssueAdded();
+  let pkMap = {"issueIdsOrKeys": "issueIdOrKey", "selectedIssueIdsOrKeys": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueIdsOrKeys = captured["issueIdsOrKeys"];
+  selectedIssueIdsOrKeys = captured["selectedIssueIdsOrKeys"];
+  submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  // waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  submitBulkMove(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  submitBulkDelete(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  tryToDeleteANonExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkDoesNotExist(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+});
+
+// Story: crud:IssueBulk:nondet:negative:dup-add
+bthread("crud:IssueBulk:nondet:negative:dup-add", function () {
+  let editedFieldsInput = "editedFieldsInput_906";
+  let selectedActions = "selectedActions_906";
+  let sendBulkNotification = "sendBulkNotification_906";
+  let taskId = 906;
+  let transitionId = 906;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueIdsOrKeys"] = matchAnyIssueAdded();
+  deps["selectedIssueIdsOrKeys"] = matchAnyIssueAdded();
+  let pkMap = {"issueIdsOrKeys": "issueIdOrKey", "selectedIssueIdsOrKeys": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueIdsOrKeys = captured["issueIdsOrKeys"];
+  selectedIssueIdsOrKeys = captured["selectedIssueIdsOrKeys"];
+  submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  // waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
 });
 
 // Story: crud:IssueTypeScheme:nondet:1:1
 bthread("crud:IssueTypeScheme:nondet:1:1", function () {
-  let issueTypeSchemeId = 670;
-  let id = 670;
-  createIssueTypeScheme(670, 670);
-  tryToAddExistingIssueTypeScheme(670, 670);
-  verifyIssueTypeSchemeExists(670, 670);
-  updateIssueTypeScheme(670, 670);
-  deleteIssueTypeScheme(670, 670);
-  tryToDeleteANonExistingIssueTypeScheme(670, 670);
-  verifyIssueTypeSchemeDoesNotExist(670, 670);
+  let description = "description_910";
+  let expand = "expand_910";
+  let id = 910;
+  let maxResults = "maxResults_910";
+  let name = "name_910";
+  let orderBy = "orderBy_910";
+  let queryString = "queryString_910";
+  let startAt = "startAt_910";
+  // Dependency Barrier
+  let deps = {};
+  deps["defaultIssueTypeId"] = matchAnyIssueAdded();
+  deps["defaultIssueTypeId"] = matchAnyIssueTypeAdded();
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"defaultIssueTypeId": "id", "issueTypeIds": "id", "issueTypeSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  defaultIssueTypeId = captured["defaultIssueTypeId"];
+  defaultIssueTypeId = captured["defaultIssueTypeId"];
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  createIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  // waitForIssueTypeSchemeAdded(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToAddExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeSchemeExists(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  updateIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  deleteIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToDeleteANonExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeSchemeDoesNotExist(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
 });
 
 // Story: crud:IssueTypeScheme:nondet:1:2
 bthread("crud:IssueTypeScheme:nondet:1:2", function () {
-  let issueTypeSchemeId = 671;
-  let id = 671;
-  createIssueTypeScheme(671, 671);
-  tryToAddExistingIssueTypeScheme(671, 671);
-  updateIssueTypeScheme(671, 671);
-  verifyIssueTypeSchemeExists(671, 671);
-  deleteIssueTypeScheme(671, 671);
-  tryToDeleteANonExistingIssueTypeScheme(671, 671);
-  verifyIssueTypeSchemeDoesNotExist(671, 671);
+  let description = "description_911";
+  let expand = "expand_911";
+  let id = 911;
+  let maxResults = "maxResults_911";
+  let name = "name_911";
+  let orderBy = "orderBy_911";
+  let queryString = "queryString_911";
+  let startAt = "startAt_911";
+  // Dependency Barrier
+  let deps = {};
+  deps["defaultIssueTypeId"] = matchAnyIssueAdded();
+  deps["defaultIssueTypeId"] = matchAnyIssueTypeAdded();
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"defaultIssueTypeId": "id", "issueTypeIds": "id", "issueTypeSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  defaultIssueTypeId = captured["defaultIssueTypeId"];
+  defaultIssueTypeId = captured["defaultIssueTypeId"];
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  createIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  // waitForIssueTypeSchemeAdded(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToAddExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  updateIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeSchemeExists(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  deleteIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToDeleteANonExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeSchemeDoesNotExist(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
 });
 
 // Story: crud:IssueTypeScheme:nondet:negative:dup-add
 bthread("crud:IssueTypeScheme:nondet:negative:dup-add", function () {
-  let issueTypeSchemeId = 676;
-  let id = 676;
-  createIssueTypeScheme(676, 676);
-  verifyIssueTypeSchemeExists(676, 676);
-  tryToAddExistingIssueTypeScheme(676, 676);
-  verifyIssueTypeSchemeExists(676, 676);
-});
-
-// Story: crud:IssueTypeScheme:nondet:existing:update
-bthread("crud:IssueTypeScheme:nondet:existing:update", function () {
-  let ev = waitForAnyIssueTypeSchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueTypeScheme.apply(null, args), function () {
-    verifyIssueTypeSchemeExists.apply(null, args);
-    updateIssueTypeScheme.apply(null, args);
-    verifyIssueTypeSchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueTypeScheme:add
-bthread("monitor:IssueTypeScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueTypeSchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueTypeScheme.apply(null, args), function () {
-      verifyIssueTypeSchemeExists.apply(null, args);
-    });
-  }
+  let description = "description_916";
+  let expand = "expand_916";
+  let id = 916;
+  let maxResults = "maxResults_916";
+  let name = "name_916";
+  let orderBy = "orderBy_916";
+  let queryString = "queryString_916";
+  let startAt = "startAt_916";
+  // Dependency Barrier
+  let deps = {};
+  deps["defaultIssueTypeId"] = matchAnyIssueAdded();
+  deps["defaultIssueTypeId"] = matchAnyIssueTypeAdded();
+  deps["issueTypeIds"] = matchAnyIssueAdded();
+  deps["issueTypeIds"] = matchAnyIssueTypeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"defaultIssueTypeId": "id", "issueTypeIds": "id", "issueTypeSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  defaultIssueTypeId = captured["defaultIssueTypeId"];
+  defaultIssueTypeId = captured["defaultIssueTypeId"];
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeIds = captured["issueTypeIds"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  createIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  // waitForIssueTypeSchemeAdded(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeSchemeExists(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  tryToAddExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  verifyIssueTypeSchemeExists(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
 });
 
 // Story: crud:IssueTypeSchemeProjectAssociation:read_only
 bthread("crud:IssueTypeSchemeProjectAssociation:read_only", function () {
-  let projectId = 680;
-  verifyIssueTypeSchemeProjectAssociationExists(680);
+  let maxResults = "maxResults_920";
+  let startAt = "startAt_920";
+  verifyIssueTypeSchemeProjectAssociationExists(maxResults, projectId, startAt);
 });
 
 // Story: crud:IssueTypeSchemeMapping:read_only
 bthread("crud:IssueTypeSchemeMapping:read_only", function () {
-  let issueTypeSchemeId = 690;
-  verifyIssueTypeSchemeMappingExists(690);
+  let maxResults = "maxResults_930";
+  let startAt = "startAt_930";
+  verifyIssueTypeSchemeMappingExists(issueTypeSchemeId, maxResults, startAt);
 });
 
 // Story: crud:IssueTypeInScheme:nondet:1:1
 bthread("crud:IssueTypeInScheme:nondet:1:1", function () {
-  let issueTypeSchemeId = 700;
-  let issueTypeId = 700;
-  addIssueTypesToIssueTypeScheme(700, 700);
-  tryToAddExistingIssueTypeInScheme(700, 700);
-  verifyIssueTypeInSchemeExists(700, 700);
-  reorderIssueTypesInIssueTypeScheme(700, 700);
-  removeIssueTypeFromIssueTypeScheme(700, 700);
-  tryToDeleteANonExistingIssueTypeInScheme(700, 700);
-  verifyIssueTypeInSchemeDoesNotExist(700, 700);
+
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeId"] = matchAnyIssueAdded();
+  deps["issueTypeId"] = matchAnyIssueTypeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeSchemeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"issueTypeId": "id", "issueTypeSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeId = captured["issueTypeId"];
+  issueTypeId = captured["issueTypeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  addIssueTypesToIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  // waitForIssueTypeInSchemeAdded(issueTypeId, issueTypeSchemeId);
+  tryToAddExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId);
+  verifyIssueTypeInSchemeExists(issueTypeId, issueTypeSchemeId);
+  reorderIssueTypesInIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  removeIssueTypeFromIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  tryToDeleteANonExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId);
+  verifyIssueTypeInSchemeDoesNotExist(issueTypeId, issueTypeSchemeId);
 });
 
 // Story: crud:IssueTypeInScheme:nondet:1:2
 bthread("crud:IssueTypeInScheme:nondet:1:2", function () {
-  let issueTypeSchemeId = 701;
-  let issueTypeId = 701;
-  addIssueTypesToIssueTypeScheme(701, 701);
-  tryToAddExistingIssueTypeInScheme(701, 701);
-  reorderIssueTypesInIssueTypeScheme(701, 701);
-  verifyIssueTypeInSchemeExists(701, 701);
-  removeIssueTypeFromIssueTypeScheme(701, 701);
-  tryToDeleteANonExistingIssueTypeInScheme(701, 701);
-  verifyIssueTypeInSchemeDoesNotExist(701, 701);
+
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeId"] = matchAnyIssueAdded();
+  deps["issueTypeId"] = matchAnyIssueTypeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeSchemeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"issueTypeId": "id", "issueTypeSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeId = captured["issueTypeId"];
+  issueTypeId = captured["issueTypeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  addIssueTypesToIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  // waitForIssueTypeInSchemeAdded(issueTypeId, issueTypeSchemeId);
+  tryToAddExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId);
+  reorderIssueTypesInIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  verifyIssueTypeInSchemeExists(issueTypeId, issueTypeSchemeId);
+  removeIssueTypeFromIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  tryToDeleteANonExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId);
+  verifyIssueTypeInSchemeDoesNotExist(issueTypeId, issueTypeSchemeId);
 });
 
 // Story: crud:IssueTypeInScheme:nondet:negative:dup-add
 bthread("crud:IssueTypeInScheme:nondet:negative:dup-add", function () {
-  let issueTypeSchemeId = 706;
-  let issueTypeId = 706;
-  addIssueTypesToIssueTypeScheme(706, 706);
-  verifyIssueTypeInSchemeExists(706, 706);
-  tryToAddExistingIssueTypeInScheme(706, 706);
-  verifyIssueTypeInSchemeExists(706, 706);
-});
 
-// Story: crud:IssueTypeInScheme:nondet:existing:update
-bthread("crud:IssueTypeInScheme:nondet:existing:update", function () {
-  let ev = waitForAnyIssueTypeInSchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueTypeInScheme.apply(null, args), function () {
-    verifyIssueTypeInSchemeExists.apply(null, args);
-    reorderIssueTypesInIssueTypeScheme.apply(null, args);
-    verifyIssueTypeInSchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueTypeInScheme:add
-bthread("monitor:IssueTypeInScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueTypeInSchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueTypeInScheme.apply(null, args), function () {
-      verifyIssueTypeInSchemeExists.apply(null, args);
-    });
-  }
+  // Dependency Barrier
+  let deps = {};
+  deps["issueTypeId"] = matchAnyIssueAdded();
+  deps["issueTypeId"] = matchAnyIssueTypeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeSchemeAdded();
+  deps["issueTypeSchemeId"] = matchAnyIssueTypeAdded();
+  let pkMap = {"issueTypeId": "id", "issueTypeSchemeId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueTypeId = captured["issueTypeId"];
+  issueTypeId = captured["issueTypeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  issueTypeSchemeId = captured["issueTypeSchemeId"];
+  addIssueTypesToIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  // waitForIssueTypeInSchemeAdded(issueTypeId, issueTypeSchemeId);
+  verifyIssueTypeInSchemeExists(issueTypeId, issueTypeSchemeId);
+  tryToAddExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId);
+  verifyIssueTypeInSchemeExists(issueTypeId, issueTypeSchemeId);
 });
 
 // Story: crud:Avatar:nondet:1:1
 bthread("crud:Avatar:nondet:1:1", function () {
-  let type = "type_710";
-  let entityId = 710;
-  let id = 710;
-  let size = "size_710";
-  let format = "format_710";
-  let x = "x_710";
-  let y = "y_710";
-  let owningObjectId = 710;
-  storeAvatar("type_710", 710, 710, "size_710", "format_710", "x_710", "y_710", 710);
-  tryToAddExistingAvatar("type_710", 710, 710, "size_710", "format_710", "x_710", "y_710", 710);
-  verifyAvatarExists("type_710", 710, 710, "size_710", "format_710", "x_710", "y_710", 710);
-  deleteAvatar("type_710", 710, 710, "size_710", "format_710", "x_710", "y_710", 710);
-  tryToDeleteANonExistingAvatar("type_710", 710, 710, "size_710", "format_710", "x_710", "y_710", 710);
-  verifyAvatarDoesNotExist("type_710", 710, 710, "size_710", "format_710", "x_710", "y_710", 710);
+  let entityId = 950;
+  let id = 950;
+  let owningObjectId = 950;
+  let size = "size_950";
+  let type = 950;
+  let x = "x_950";
+  let y = "y_950";
+  storeAvatar(entityId, id, owningObjectId, size, type, x, y);
+  // waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y);
+  tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
+  deleteAvatar(entityId, id, owningObjectId, size, type, x, y);
+  tryToDeleteANonExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
+  verifyAvatarDoesNotExist(entityId, id, owningObjectId, size, type, x, y);
 });
 
 // Story: crud:Avatar:nondet:1:2
 bthread("crud:Avatar:nondet:1:2", function () {
-  let type = "type_711";
-  let entityId = 711;
-  let id = 711;
-  let size = "size_711";
-  let format = "format_711";
-  let x = "x_711";
-  let y = "y_711";
-  let owningObjectId = 711;
-  storeAvatar("type_711", 711, 711, "size_711", "format_711", "x_711", "y_711", 711);
-  tryToAddExistingAvatar("type_711", 711, 711, "size_711", "format_711", "x_711", "y_711", 711);
-  verifyAvatarExists("type_711", 711, 711, "size_711", "format_711", "x_711", "y_711", 711);
-  deleteAvatar("type_711", 711, 711, "size_711", "format_711", "x_711", "y_711", 711);
-  tryToDeleteANonExistingAvatar("type_711", 711, 711, "size_711", "format_711", "x_711", "y_711", 711);
-  verifyAvatarDoesNotExist("type_711", 711, 711, "size_711", "format_711", "x_711", "y_711", 711);
+  let entityId = 951;
+  let id = 951;
+  let owningObjectId = 951;
+  let size = "size_951";
+  let type = 951;
+  let x = "x_951";
+  let y = "y_951";
+  storeAvatar(entityId, id, owningObjectId, size, type, x, y);
+  // waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y);
+  tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
+  deleteAvatar(entityId, id, owningObjectId, size, type, x, y);
+  tryToDeleteANonExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
+  verifyAvatarDoesNotExist(entityId, id, owningObjectId, size, type, x, y);
 });
 
 // Story: crud:Avatar:nondet:negative:dup-add
 bthread("crud:Avatar:nondet:negative:dup-add", function () {
-  let type = "type_716";
-  let entityId = 716;
-  let id = 716;
-  let size = "size_716";
-  let format = "format_716";
-  let x = "x_716";
-  let y = "y_716";
-  let owningObjectId = 716;
-  storeAvatar("type_716", 716, 716, "size_716", "format_716", "x_716", "y_716", 716);
-  verifyAvatarExists("type_716", 716, 716, "size_716", "format_716", "x_716", "y_716", 716);
-  tryToAddExistingAvatar("type_716", 716, 716, "size_716", "format_716", "x_716", "y_716", 716);
-  verifyAvatarExists("type_716", 716, 716, "size_716", "format_716", "x_716", "y_716", 716);
+  let entityId = 956;
+  let id = 956;
+  let owningObjectId = 956;
+  let size = "size_956";
+  let type = 956;
+  let x = "x_956";
+  let y = "y_956";
+  storeAvatar(entityId, id, owningObjectId, size, type, x, y);
+  // waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
+  tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
 });
 
-// Story: monitor:Avatar:add
-bthread("monitor:Avatar:add", function () {
-  while (true) {
-    let ev = waitForAnyAvatarAdded();
-    let args = Object.values(ev);
-    block(matchDeletedAvatar.apply(null, args), function () {
-      verifyAvatarExists.apply(null, args);
-    });
-  }
+// Story: crud:SystemAvatar:read_only
+bthread("crud:SystemAvatar:read_only", function () {
+  let type = 960;
+  verifySystemAvatarExists(type);
 });
 
 // Story: crud:Worklog:nondet:1:1
 bthread("crud:Worklog:nondet:1:1", function () {
-  let issueIdOrKey = 720;
-  let id = 720;
-  let since = "since_720";
-  addWorklog(720, 720, "since_720");
-  tryToAddExistingWorklog(720, 720, "since_720");
-  verifyWorklogExists(720, 720, "since_720");
-  updateWorklog(720, 720, "since_720");
-  deleteWorklog(720, 720, "since_720");
-  tryToDeleteANonExistingWorklog(720, 720, "since_720");
-  verifyWorklogDoesNotExist(720, 720, "since_720");
+  let author = "author_980";
+  let comment = "comment_980";
+  let created = "created_980";
+  let id = 980;
+  let properties = "properties_980";
+  let self = "self_980";
+  let since = "since_980";
+  let started = "started_980";
+  let timeSpent = "timeSpent_980";
+  let timeSpentSeconds = 980;
+  let updateAuthor = "updateAuthor_980";
+  let updated = "updated_980";
+  let visibility = "visibility_980";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueId"] = matchAnyIssueAdded();
+  deps["issueIdOrKey"] = matchAnyIssueAdded();
+  let pkMap = {"issueId": "issueIdOrKey", "issueIdOrKey": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueId = captured["issueId"];
+  issueIdOrKey = captured["issueIdOrKey"];
+  addWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  // waitForWorklogAdded(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  tryToAddExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  verifyWorklogExists(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  updateWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  deleteWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  tryToDeleteANonExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  verifyWorklogDoesNotExist(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
 });
 
 // Story: crud:Worklog:nondet:1:2
 bthread("crud:Worklog:nondet:1:2", function () {
-  let issueIdOrKey = 721;
-  let id = 721;
-  let since = "since_721";
-  addWorklog(721, 721, "since_721");
-  tryToAddExistingWorklog(721, 721, "since_721");
-  updateWorklog(721, 721, "since_721");
-  verifyWorklogExists(721, 721, "since_721");
-  deleteWorklog(721, 721, "since_721");
-  tryToDeleteANonExistingWorklog(721, 721, "since_721");
-  verifyWorklogDoesNotExist(721, 721, "since_721");
+  let author = "author_981";
+  let comment = "comment_981";
+  let created = "created_981";
+  let id = 981;
+  let properties = "properties_981";
+  let self = "self_981";
+  let since = "since_981";
+  let started = "started_981";
+  let timeSpent = "timeSpent_981";
+  let timeSpentSeconds = 981;
+  let updateAuthor = "updateAuthor_981";
+  let updated = "updated_981";
+  let visibility = "visibility_981";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueId"] = matchAnyIssueAdded();
+  deps["issueIdOrKey"] = matchAnyIssueAdded();
+  let pkMap = {"issueId": "issueIdOrKey", "issueIdOrKey": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueId = captured["issueId"];
+  issueIdOrKey = captured["issueIdOrKey"];
+  addWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  // waitForWorklogAdded(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  tryToAddExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  updateWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  verifyWorklogExists(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  deleteWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  tryToDeleteANonExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  verifyWorklogDoesNotExist(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
 });
 
 // Story: crud:Worklog:nondet:negative:dup-add
 bthread("crud:Worklog:nondet:negative:dup-add", function () {
-  let issueIdOrKey = 726;
-  let id = 726;
-  let since = "since_726";
-  addWorklog(726, 726, "since_726");
-  verifyWorklogExists(726, 726, "since_726");
-  tryToAddExistingWorklog(726, 726, "since_726");
-  verifyWorklogExists(726, 726, "since_726");
-});
-
-// Story: crud:Worklog:nondet:existing:update
-bthread("crud:Worklog:nondet:existing:update", function () {
-  let ev = waitForAnyWorklogAdded();
-  let args = Object.values(ev);
-  block(matchDeletedWorklog.apply(null, args), function () {
-    verifyWorklogExists.apply(null, args);
-    updateWorklog.apply(null, args);
-    verifyWorklogExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Worklog:add
-bthread("monitor:Worklog:add", function () {
-  while (true) {
-    let ev = waitForAnyWorklogAdded();
-    let args = Object.values(ev);
-    block(matchDeletedWorklog.apply(null, args), function () {
-      verifyWorklogExists.apply(null, args);
-    });
-  }
+  let author = "author_986";
+  let comment = "comment_986";
+  let created = "created_986";
+  let id = 986;
+  let properties = "properties_986";
+  let self = "self_986";
+  let since = "since_986";
+  let started = "started_986";
+  let timeSpent = "timeSpent_986";
+  let timeSpentSeconds = 986;
+  let updateAuthor = "updateAuthor_986";
+  let updated = "updated_986";
+  let visibility = "visibility_986";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueId"] = matchAnyIssueAdded();
+  deps["issueIdOrKey"] = matchAnyIssueAdded();
+  let pkMap = {"issueId": "issueIdOrKey", "issueIdOrKey": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueId = captured["issueId"];
+  issueIdOrKey = captured["issueIdOrKey"];
+  addWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  // waitForWorklogAdded(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  verifyWorklogExists(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  tryToAddExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  verifyWorklogExists(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
 });
 
 // Story: crud:NotificationScheme:nondet:1:1
 bthread("crud:NotificationScheme:nondet:1:1", function () {
-  let notificationSchemeId = 730;
-  let id = 730;
-  createNotificationScheme(730, 730);
-  tryToAddExistingNotificationScheme(730, 730);
-  verifyNotificationSchemeExists(730, 730);
-  updateNotificationScheme(730, 730);
-  deleteNotificationScheme(730, 730);
-  tryToDeleteANonExistingNotificationScheme(730, 730);
-  verifyNotificationSchemeDoesNotExist(730, 730);
+  let description = "description_990";
+  let id = 990;
+  let name = "name_990";
+  let notificationSchemeEvents = "notificationSchemeEvents_990";
+  // Dependency Barrier
+  let deps = {};
+  deps["notificationSchemeId"] = matchAnyNotificationAdded();
+  let pkMap = {"notificationSchemeId": "notificationSchemeId"};
+  let captured = resolveDependencies(deps, pkMap);
+  notificationSchemeId = captured["notificationSchemeId"];
+  createNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  // waitForNotificationSchemeAdded(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  tryToAddExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  verifyNotificationSchemeExists(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  updateNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  deleteNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  tryToDeleteANonExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  verifyNotificationSchemeDoesNotExist(description, id, name, notificationSchemeEvents, notificationSchemeId);
 });
 
 // Story: crud:NotificationScheme:nondet:1:2
 bthread("crud:NotificationScheme:nondet:1:2", function () {
-  let notificationSchemeId = 731;
-  let id = 731;
-  createNotificationScheme(731, 731);
-  tryToAddExistingNotificationScheme(731, 731);
-  updateNotificationScheme(731, 731);
-  verifyNotificationSchemeExists(731, 731);
-  deleteNotificationScheme(731, 731);
-  tryToDeleteANonExistingNotificationScheme(731, 731);
-  verifyNotificationSchemeDoesNotExist(731, 731);
+  let description = "description_991";
+  let id = 991;
+  let name = "name_991";
+  let notificationSchemeEvents = "notificationSchemeEvents_991";
+  // Dependency Barrier
+  let deps = {};
+  deps["notificationSchemeId"] = matchAnyNotificationAdded();
+  let pkMap = {"notificationSchemeId": "notificationSchemeId"};
+  let captured = resolveDependencies(deps, pkMap);
+  notificationSchemeId = captured["notificationSchemeId"];
+  createNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  // waitForNotificationSchemeAdded(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  tryToAddExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  updateNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  verifyNotificationSchemeExists(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  deleteNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  tryToDeleteANonExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  verifyNotificationSchemeDoesNotExist(description, id, name, notificationSchemeEvents, notificationSchemeId);
 });
 
 // Story: crud:NotificationScheme:nondet:negative:dup-add
 bthread("crud:NotificationScheme:nondet:negative:dup-add", function () {
-  let notificationSchemeId = 736;
-  let id = 736;
-  createNotificationScheme(736, 736);
-  verifyNotificationSchemeExists(736, 736);
-  tryToAddExistingNotificationScheme(736, 736);
-  verifyNotificationSchemeExists(736, 736);
-});
-
-// Story: crud:NotificationScheme:nondet:existing:update
-bthread("crud:NotificationScheme:nondet:existing:update", function () {
-  let ev = waitForAnyNotificationSchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedNotificationScheme.apply(null, args), function () {
-    verifyNotificationSchemeExists.apply(null, args);
-    updateNotificationScheme.apply(null, args);
-    verifyNotificationSchemeExists.apply(null, args);
-  });
-});
-
-// Story: monitor:NotificationScheme:add
-bthread("monitor:NotificationScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyNotificationSchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedNotificationScheme.apply(null, args), function () {
-      verifyNotificationSchemeExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:Notification:nondet:1:1
-bthread("crud:Notification:nondet:1:1", function () {
-  let id = 740;
-  let notificationSchemeId = 740;
-  let notificationId = 740;
-  addNotifications(740, 740, 740);
-  tryToAddExistingNotification(740, 740, 740);
-  verifyNotificationExists(740, 740, 740);
-  removeNotificationFromNotificationScheme(740, 740, 740);
-  tryToDeleteANonExistingNotification(740, 740, 740);
-  verifyNotificationDoesNotExist(740, 740, 740);
-});
-
-// Story: crud:Notification:nondet:1:2
-bthread("crud:Notification:nondet:1:2", function () {
-  let id = 741;
-  let notificationSchemeId = 741;
-  let notificationId = 741;
-  addNotifications(741, 741, 741);
-  tryToAddExistingNotification(741, 741, 741);
-  verifyNotificationExists(741, 741, 741);
-  removeNotificationFromNotificationScheme(741, 741, 741);
-  tryToDeleteANonExistingNotification(741, 741, 741);
-  verifyNotificationDoesNotExist(741, 741, 741);
-});
-
-// Story: crud:Notification:nondet:negative:dup-add
-bthread("crud:Notification:nondet:negative:dup-add", function () {
-  let id = 746;
-  let notificationSchemeId = 746;
-  let notificationId = 746;
-  addNotifications(746, 746, 746);
-  verifyNotificationExists(746, 746, 746);
-  tryToAddExistingNotification(746, 746, 746);
-  verifyNotificationExists(746, 746, 746);
-});
-
-// Story: monitor:Notification:add
-bthread("monitor:Notification:add", function () {
-  while (true) {
-    let ev = waitForAnyNotificationAdded();
-    let args = Object.values(ev);
-    block(matchDeletedNotification.apply(null, args), function () {
-      verifyNotificationExists.apply(null, args);
-    });
-  }
+  let description = "description_996";
+  let id = 996;
+  let name = "name_996";
+  let notificationSchemeEvents = "notificationSchemeEvents_996";
+  // Dependency Barrier
+  let deps = {};
+  deps["notificationSchemeId"] = matchAnyNotificationAdded();
+  let pkMap = {"notificationSchemeId": "notificationSchemeId"};
+  let captured = resolveDependencies(deps, pkMap);
+  notificationSchemeId = captured["notificationSchemeId"];
+  createNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  // waitForNotificationSchemeAdded(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  verifyNotificationSchemeExists(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  tryToAddExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  verifyNotificationSchemeExists(description, id, name, notificationSchemeEvents, notificationSchemeId);
 });
 
 // Story: crud:PriorityScheme:nondet:1:1
 bthread("crud:PriorityScheme:nondet:1:1", function () {
-  let name = "name_750";
-  let defaultPriorityId = 750;
-  let description = "description_750";
-  let priorityIds = 750;
-  let projectIds = 750;
-  let mappings = "mappings_750";
-  let schemeId = 750;
-  let priorities = "priorities_750";
-  let projects = "projects_750";
-  let startAt = "startAt_750";
-  let maxResults = "maxResults_750";
-  let priorityId = 750;
-  let schemeName = "schemeName_750";
-  let onlyDefault = "onlyDefault_750";
-  let orderBy = "orderBy_750";
-  let expand = "expand_750";
-  createPriorityScheme("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
-  tryToAddExistingPriorityScheme("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
-  verifyPrioritySchemeExists("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
-  updatePriorityScheme("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
-  deletePriorityScheme("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
-  tryToDeleteANonExistingPriorityScheme("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
-  verifyPrioritySchemeDoesNotExist("name_750", 750, "description_750", 750, 750, "mappings_750", 750, "priorities_750", "projects_750", "startAt_750", "maxResults_750", 750, "schemeName_750", "onlyDefault_750", "orderBy_750", "expand_750");
+  let description = "description_1020";
+  let expand = "expand_1020";
+  let mappings = "mappings_1020";
+  let maxResults = "maxResults_1020";
+  let name = "name_1020";
+  let onlyDefault = "onlyDefault_1020";
+  let orderBy = "orderBy_1020";
+  let schemeId = 1020;
+  let schemeName = "schemeName_1020";
+  let startAt = "startAt_1020";
+  // Dependency Barrier
+  let deps = {};
+  deps["defaultPriorityId"] = matchAnyPriorityAdded();
+  deps["priorityId"] = matchAnyPriorityAdded();
+  deps["priorityIds"] = matchAnyPriorityAdded();
+  deps["projectIds"] = matchAnyProjectAdded();
+  let pkMap = {"defaultPriorityId": "id", "priorityId": "id", "priorityIds": "id", "projectIds": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  defaultPriorityId = captured["defaultPriorityId"];
+  priorityId = captured["priorityId"];
+  priorityIds = captured["priorityIds"];
+  projectIds = captured["projectIds"];
+  createPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  // waitForPrioritySchemeAdded(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  tryToAddExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  verifyPrioritySchemeExists(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  updatePriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  deletePriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  tryToDeleteANonExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  verifyPrioritySchemeDoesNotExist(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
 });
 
 // Story: crud:PriorityScheme:nondet:1:2
 bthread("crud:PriorityScheme:nondet:1:2", function () {
-  let name = "name_751";
-  let defaultPriorityId = 751;
-  let description = "description_751";
-  let priorityIds = 751;
-  let projectIds = 751;
-  let mappings = "mappings_751";
-  let schemeId = 751;
-  let priorities = "priorities_751";
-  let projects = "projects_751";
-  let startAt = "startAt_751";
-  let maxResults = "maxResults_751";
-  let priorityId = 751;
-  let schemeName = "schemeName_751";
-  let onlyDefault = "onlyDefault_751";
-  let orderBy = "orderBy_751";
-  let expand = "expand_751";
-  createPriorityScheme("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
-  tryToAddExistingPriorityScheme("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
-  updatePriorityScheme("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
-  verifyPrioritySchemeExists("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
-  deletePriorityScheme("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
-  tryToDeleteANonExistingPriorityScheme("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
-  verifyPrioritySchemeDoesNotExist("name_751", 751, "description_751", 751, 751, "mappings_751", 751, "priorities_751", "projects_751", "startAt_751", "maxResults_751", 751, "schemeName_751", "onlyDefault_751", "orderBy_751", "expand_751");
+  let description = "description_1021";
+  let expand = "expand_1021";
+  let mappings = "mappings_1021";
+  let maxResults = "maxResults_1021";
+  let name = "name_1021";
+  let onlyDefault = "onlyDefault_1021";
+  let orderBy = "orderBy_1021";
+  let schemeId = 1021;
+  let schemeName = "schemeName_1021";
+  let startAt = "startAt_1021";
+  // Dependency Barrier
+  let deps = {};
+  deps["defaultPriorityId"] = matchAnyPriorityAdded();
+  deps["priorityId"] = matchAnyPriorityAdded();
+  deps["priorityIds"] = matchAnyPriorityAdded();
+  deps["projectIds"] = matchAnyProjectAdded();
+  let pkMap = {"defaultPriorityId": "id", "priorityId": "id", "priorityIds": "id", "projectIds": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  defaultPriorityId = captured["defaultPriorityId"];
+  priorityId = captured["priorityId"];
+  priorityIds = captured["priorityIds"];
+  projectIds = captured["projectIds"];
+  createPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  // waitForPrioritySchemeAdded(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  tryToAddExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  updatePriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  verifyPrioritySchemeExists(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  deletePriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  tryToDeleteANonExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  verifyPrioritySchemeDoesNotExist(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
 });
 
 // Story: crud:PriorityScheme:nondet:negative:dup-add
 bthread("crud:PriorityScheme:nondet:negative:dup-add", function () {
-  let name = "name_756";
-  let defaultPriorityId = 756;
-  let description = "description_756";
-  let priorityIds = 756;
-  let projectIds = 756;
-  let mappings = "mappings_756";
-  let schemeId = 756;
-  let priorities = "priorities_756";
-  let projects = "projects_756";
-  let startAt = "startAt_756";
-  let maxResults = "maxResults_756";
-  let priorityId = 756;
-  let schemeName = "schemeName_756";
-  let onlyDefault = "onlyDefault_756";
-  let orderBy = "orderBy_756";
-  let expand = "expand_756";
-  createPriorityScheme("name_756", 756, "description_756", 756, 756, "mappings_756", 756, "priorities_756", "projects_756", "startAt_756", "maxResults_756", 756, "schemeName_756", "onlyDefault_756", "orderBy_756", "expand_756");
-  verifyPrioritySchemeExists("name_756", 756, "description_756", 756, 756, "mappings_756", 756, "priorities_756", "projects_756", "startAt_756", "maxResults_756", 756, "schemeName_756", "onlyDefault_756", "orderBy_756", "expand_756");
-  tryToAddExistingPriorityScheme("name_756", 756, "description_756", 756, 756, "mappings_756", 756, "priorities_756", "projects_756", "startAt_756", "maxResults_756", 756, "schemeName_756", "onlyDefault_756", "orderBy_756", "expand_756");
-  verifyPrioritySchemeExists("name_756", 756, "description_756", 756, 756, "mappings_756", 756, "priorities_756", "projects_756", "startAt_756", "maxResults_756", 756, "schemeName_756", "onlyDefault_756", "orderBy_756", "expand_756");
+  let description = "description_1026";
+  let expand = "expand_1026";
+  let mappings = "mappings_1026";
+  let maxResults = "maxResults_1026";
+  let name = "name_1026";
+  let onlyDefault = "onlyDefault_1026";
+  let orderBy = "orderBy_1026";
+  let schemeId = 1026;
+  let schemeName = "schemeName_1026";
+  let startAt = "startAt_1026";
+  // Dependency Barrier
+  let deps = {};
+  deps["defaultPriorityId"] = matchAnyPriorityAdded();
+  deps["priorityId"] = matchAnyPriorityAdded();
+  deps["priorityIds"] = matchAnyPriorityAdded();
+  deps["projectIds"] = matchAnyProjectAdded();
+  let pkMap = {"defaultPriorityId": "id", "priorityId": "id", "priorityIds": "id", "projectIds": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  defaultPriorityId = captured["defaultPriorityId"];
+  priorityId = captured["priorityId"];
+  priorityIds = captured["priorityIds"];
+  projectIds = captured["projectIds"];
+  createPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  // waitForPrioritySchemeAdded(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  verifyPrioritySchemeExists(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  tryToAddExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  verifyPrioritySchemeExists(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
 });
 
-// Story: crud:PriorityScheme:nondet:existing:update
-bthread("crud:PriorityScheme:nondet:existing:update", function () {
-  let ev = waitForAnyPrioritySchemeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedPriorityScheme.apply(null, args), function () {
-    verifyPrioritySchemeExists.apply(null, args);
-    updatePriorityScheme.apply(null, args);
-    verifyPrioritySchemeExists.apply(null, args);
-  });
+// Story: crud:PrioritySchemePriorities:read_only
+bthread("crud:PrioritySchemePriorities:read_only", function () {
+  let maxResults = "maxResults_1040";
+  let schemeId = 1040;
+  let startAt = "startAt_1040";
+  verifyPrioritySchemePrioritiesExists(maxResults, schemeId, startAt);
 });
 
-// Story: monitor:PriorityScheme:add
-bthread("monitor:PriorityScheme:add", function () {
-  while (true) {
-    let ev = waitForAnyPrioritySchemeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedPriorityScheme.apply(null, args), function () {
-      verifyPrioritySchemeExists.apply(null, args);
-    });
-  }
+// Story: crud:PrioritySchemeProjects:read_only
+bthread("crud:PrioritySchemeProjects:read_only", function () {
+  let maxResults = "maxResults_1050";
+  let query = "query_1050";
+  let schemeId = 1050;
+  let startAt = "startAt_1050";
+  verifyPrioritySchemeProjectsExists(maxResults, projectId, query, schemeId, startAt);
+});
+
+// Story: crud:AvailablePriorities:read_only
+bthread("crud:AvailablePriorities:read_only", function () {
+  let exclude = "exclude_1060";
+  let maxResults = "maxResults_1060";
+  let query = "query_1060";
+  let schemeId = 1060;
+  let startAt = "startAt_1060";
+  verifyAvailablePrioritiesExists(exclude, maxResults, query, schemeId, startAt);
 });
 
 // Story: crud:Status:nondet:1:1
 bthread("crud:Status:nondet:1:1", function () {
-  let id = 760;
-  createStatuses(760);
-  tryToAddExistingStatus(760);
-  verifyStatusExists(760);
-  updateStatuses(760);
-  deleteStatusesById(760);
-  tryToDeleteANonExistingStatus(760);
-  verifyStatusDoesNotExist(760);
+  let id = 1070;
+  let name = "name_1070";
+  let scope = "scope_1070";
+  let statuses = "statuses_1070";
+  createStatuses(id, name, scope, statuses);
+  // waitForStatusAdded(id, name, scope, statuses);
+  tryToAddExistingStatus(id, name, scope, statuses);
+  verifyStatusExists(id, name, scope, statuses);
+  updateStatuses(id, name, scope, statuses);
+  deleteStatusesById(id, name, scope, statuses);
+  tryToDeleteANonExistingStatus(id, name, scope, statuses);
+  verifyStatusDoesNotExist(id, name, scope, statuses);
 });
 
 // Story: crud:Status:nondet:1:2
 bthread("crud:Status:nondet:1:2", function () {
-  let id = 761;
-  createStatuses(761);
-  tryToAddExistingStatus(761);
-  updateStatuses(761);
-  verifyStatusExists(761);
-  deleteStatusesById(761);
-  tryToDeleteANonExistingStatus(761);
-  verifyStatusDoesNotExist(761);
+  let id = 1071;
+  let name = "name_1071";
+  let scope = "scope_1071";
+  let statuses = "statuses_1071";
+  createStatuses(id, name, scope, statuses);
+  // waitForStatusAdded(id, name, scope, statuses);
+  tryToAddExistingStatus(id, name, scope, statuses);
+  updateStatuses(id, name, scope, statuses);
+  verifyStatusExists(id, name, scope, statuses);
+  deleteStatusesById(id, name, scope, statuses);
+  tryToDeleteANonExistingStatus(id, name, scope, statuses);
+  verifyStatusDoesNotExist(id, name, scope, statuses);
 });
 
 // Story: crud:Status:nondet:negative:dup-add
 bthread("crud:Status:nondet:negative:dup-add", function () {
-  let id = 766;
-  createStatuses(766);
-  verifyStatusExists(766);
-  tryToAddExistingStatus(766);
-  verifyStatusExists(766);
-});
-
-// Story: crud:Status:nondet:existing:update
-bthread("crud:Status:nondet:existing:update", function () {
-  let ev = waitForAnyStatusAdded();
-  let args = Object.values(ev);
-  block(matchDeletedStatus.apply(null, args), function () {
-    verifyStatusExists.apply(null, args);
-    updateStatuses.apply(null, args);
-    verifyStatusExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Status:add
-bthread("monitor:Status:add", function () {
-  while (true) {
-    let ev = waitForAnyStatusAdded();
-    let args = Object.values(ev);
-    block(matchDeletedStatus.apply(null, args), function () {
-      verifyStatusExists.apply(null, args);
-    });
-  }
+  let id = 1076;
+  let name = "name_1076";
+  let scope = "scope_1076";
+  let statuses = "statuses_1076";
+  createStatuses(id, name, scope, statuses);
+  // waitForStatusAdded(id, name, scope, statuses);
+  verifyStatusExists(id, name, scope, statuses);
+  tryToAddExistingStatus(id, name, scope, statuses);
+  verifyStatusExists(id, name, scope, statuses);
 });
 
 // Story: crud:WorkflowSchemeDraft:nondet:1:1
 bthread("crud:WorkflowSchemeDraft:nondet:1:1", function () {
-  let id = 770;
-  createWorkflowSchemeDraftFromParent(770);
-  tryToAddExistingWorkflowSchemeDraft(770);
-  verifyWorkflowSchemeDraftExists(770);
-  updateWorkflowSchemeDraft(770);
-  deleteWorkflowSchemeDraft(770);
-  tryToDeleteANonExistingWorkflowSchemeDraft(770);
-  verifyWorkflowSchemeDraftDoesNotExist(770);
+  let id = 1080;
+  createWorkflowSchemeDraftFromParent(id);
+  // waitForWorkflowSchemeDraftAdded(id);
+  tryToAddExistingWorkflowSchemeDraft(id);
+  verifyWorkflowSchemeDraftExists(id);
+  updateWorkflowSchemeDraft(id);
+  deleteWorkflowSchemeDraft(id);
+  tryToDeleteANonExistingWorkflowSchemeDraft(id);
+  verifyWorkflowSchemeDraftDoesNotExist(id);
 });
 
 // Story: crud:WorkflowSchemeDraft:nondet:1:2
 bthread("crud:WorkflowSchemeDraft:nondet:1:2", function () {
-  let id = 771;
-  createWorkflowSchemeDraftFromParent(771);
-  tryToAddExistingWorkflowSchemeDraft(771);
-  updateWorkflowSchemeDraft(771);
-  verifyWorkflowSchemeDraftExists(771);
-  deleteWorkflowSchemeDraft(771);
-  tryToDeleteANonExistingWorkflowSchemeDraft(771);
-  verifyWorkflowSchemeDraftDoesNotExist(771);
+  let id = 1081;
+  createWorkflowSchemeDraftFromParent(id);
+  // waitForWorkflowSchemeDraftAdded(id);
+  tryToAddExistingWorkflowSchemeDraft(id);
+  updateWorkflowSchemeDraft(id);
+  verifyWorkflowSchemeDraftExists(id);
+  deleteWorkflowSchemeDraft(id);
+  tryToDeleteANonExistingWorkflowSchemeDraft(id);
+  verifyWorkflowSchemeDraftDoesNotExist(id);
 });
 
 // Story: crud:WorkflowSchemeDraft:nondet:negative:dup-add
 bthread("crud:WorkflowSchemeDraft:nondet:negative:dup-add", function () {
-  let id = 776;
-  createWorkflowSchemeDraftFromParent(776);
-  verifyWorkflowSchemeDraftExists(776);
-  tryToAddExistingWorkflowSchemeDraft(776);
-  verifyWorkflowSchemeDraftExists(776);
-});
-
-// Story: crud:WorkflowSchemeDraft:nondet:existing:update
-bthread("crud:WorkflowSchemeDraft:nondet:existing:update", function () {
-  let ev = waitForAnyWorkflowSchemeDraftAdded();
-  let args = Object.values(ev);
-  block(matchDeletedWorkflowSchemeDraft.apply(null, args), function () {
-    verifyWorkflowSchemeDraftExists.apply(null, args);
-    updateWorkflowSchemeDraft.apply(null, args);
-    verifyWorkflowSchemeDraftExists.apply(null, args);
-  });
-});
-
-// Story: monitor:WorkflowSchemeDraft:add
-bthread("monitor:WorkflowSchemeDraft:add", function () {
-  while (true) {
-    let ev = waitForAnyWorkflowSchemeDraftAdded();
-    let args = Object.values(ev);
-    block(matchDeletedWorkflowSchemeDraft.apply(null, args), function () {
-      verifyWorkflowSchemeDraftExists.apply(null, args);
-    });
-  }
+  let id = 1086;
+  createWorkflowSchemeDraftFromParent(id);
+  // waitForWorkflowSchemeDraftAdded(id);
+  verifyWorkflowSchemeDraftExists(id);
+  tryToAddExistingWorkflowSchemeDraft(id);
+  verifyWorkflowSchemeDraftExists(id);
 });
 
 // Story: crud:DraftDefaultWorkflow:read_only
 bthread("crud:DraftDefaultWorkflow:read_only", function () {
-  let id = 780;
-  verifyDraftDefaultWorkflowExists(780);
+  let id = 1090;
+  verifyDraftDefaultWorkflowExists(id);
 });
 
 // Story: crud:WorkflowSchemeDraftIssueType:read_only
 bthread("crud:WorkflowSchemeDraftIssueType:read_only", function () {
-  let id = 790;
-  let issueType = "issueType_790";
-  verifyWorkflowSchemeDraftIssueTypeExists(790, "issueType_790");
+  let id = 1100;
+  let issueType = "issueType_1100";
+  verifyWorkflowSchemeDraftIssueTypeExists(id, issueType);
 });
 
 // Story: crud:DraftWorkflowMapping:read_only
 bthread("crud:DraftWorkflowMapping:read_only", function () {
-  let id = 810;
-  let workflowName = "workflowName_810";
-  verifyDraftWorkflowMappingExists(810, "workflowName_810");
+  let id = 1120;
+  let workflowName = "workflowName_1120";
+  verifyDraftWorkflowMappingExists(id, workflowName);
 });
 
 // Story: crud:Component:nondet:1:1
 bthread("crud:Component:nondet:1:1", function () {
-  let id = 820;
-  let moveIssuesTo = "moveIssuesTo_820";
-  createComponent(820, "moveIssuesTo_820");
-  tryToAddExistingComponent(820, "moveIssuesTo_820");
-  verifyComponentExists(820, "moveIssuesTo_820");
-  updateComponent(820, "moveIssuesTo_820");
-  deleteComponent(820, "moveIssuesTo_820");
-  tryToDeleteANonExistingComponent(820, "moveIssuesTo_820");
-  verifyComponentDoesNotExist(820, "moveIssuesTo_820");
+  let ari = "ari_1130";
+  let assignee = "assignee_1130";
+  let assigneeType = "assigneeType_1130";
+  let description = "description_1130";
+  let id = 1130;
+  let isAssigneeTypeValid = 1130;
+  let lead = "lead_1130";
+  let leadAccountId = 1130;
+  let leadUserName = "leadUserName_1130";
+  let metadata = {};
+  let moveIssuesTo = "moveIssuesTo_1130";
+  let name = "name_1130";
+  let project = "project_1130";
+  let realAssignee = "realAssignee_1130";
+  let realAssigneeType = "realAssigneeType_1130";
+  let self = "self_1130";
+  // Dependency Barrier
+  let deps = {};
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  projectId = captured["projectId"];
+  createComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  // waitForComponentAdded(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  tryToAddExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  updateComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  deleteComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  tryToDeleteANonExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  verifyComponentDoesNotExist(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
 });
 
 // Story: crud:Component:nondet:1:2
 bthread("crud:Component:nondet:1:2", function () {
-  let id = 821;
-  let moveIssuesTo = "moveIssuesTo_821";
-  createComponent(821, "moveIssuesTo_821");
-  tryToAddExistingComponent(821, "moveIssuesTo_821");
-  updateComponent(821, "moveIssuesTo_821");
-  verifyComponentExists(821, "moveIssuesTo_821");
-  deleteComponent(821, "moveIssuesTo_821");
-  tryToDeleteANonExistingComponent(821, "moveIssuesTo_821");
-  verifyComponentDoesNotExist(821, "moveIssuesTo_821");
+  let ari = "ari_1131";
+  let assignee = "assignee_1131";
+  let assigneeType = "assigneeType_1131";
+  let description = "description_1131";
+  let id = 1131;
+  let isAssigneeTypeValid = 1131;
+  let lead = "lead_1131";
+  let leadAccountId = 1131;
+  let leadUserName = "leadUserName_1131";
+  let metadata = {};
+  let moveIssuesTo = "moveIssuesTo_1131";
+  let name = "name_1131";
+  let project = "project_1131";
+  let realAssignee = "realAssignee_1131";
+  let realAssigneeType = "realAssigneeType_1131";
+  let self = "self_1131";
+  // Dependency Barrier
+  let deps = {};
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  projectId = captured["projectId"];
+  createComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  // waitForComponentAdded(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  tryToAddExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  updateComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  deleteComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  tryToDeleteANonExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  verifyComponentDoesNotExist(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
 });
 
 // Story: crud:Component:nondet:negative:dup-add
 bthread("crud:Component:nondet:negative:dup-add", function () {
-  let id = 826;
-  let moveIssuesTo = "moveIssuesTo_826";
-  createComponent(826, "moveIssuesTo_826");
-  verifyComponentExists(826, "moveIssuesTo_826");
-  tryToAddExistingComponent(826, "moveIssuesTo_826");
-  verifyComponentExists(826, "moveIssuesTo_826");
+  let ari = "ari_1136";
+  let assignee = "assignee_1136";
+  let assigneeType = "assigneeType_1136";
+  let description = "description_1136";
+  let id = 1136;
+  let isAssigneeTypeValid = 1136;
+  let lead = "lead_1136";
+  let leadAccountId = 1136;
+  let leadUserName = "leadUserName_1136";
+  let metadata = {};
+  let moveIssuesTo = "moveIssuesTo_1136";
+  let name = "name_1136";
+  let project = "project_1136";
+  let realAssignee = "realAssignee_1136";
+  let realAssigneeType = "realAssigneeType_1136";
+  let self = "self_1136";
+  // Dependency Barrier
+  let deps = {};
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  projectId = captured["projectId"];
+  createComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  // waitForComponentAdded(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  tryToAddExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
 });
 
-// Story: crud:Component:nondet:existing:update
-bthread("crud:Component:nondet:existing:update", function () {
-  let ev = waitForAnyComponentAdded();
-  let args = Object.values(ev);
-  block(matchDeletedComponent.apply(null, args), function () {
-    verifyComponentExists.apply(null, args);
-    updateComponent.apply(null, args);
-    verifyComponentExists.apply(null, args);
-  });
+// Story: crud:CustomFieldOption:read_only
+bthread("crud:CustomFieldOption:read_only", function () {
+  let id = 1140;
+  verifyCustomFieldOptionExists(id);
 });
 
-// Story: monitor:Component:add
-bthread("monitor:Component:add", function () {
-  while (true) {
-    let ev = waitForAnyComponentAdded();
-    let args = Object.values(ev);
-    block(matchDeletedComponent.apply(null, args), function () {
-      verifyComponentExists.apply(null, args);
-    });
-  }
+// Story: crud:CustomFieldOptionContext:nondet:1:1
+bthread("crud:CustomFieldOptionContext:nondet:1:1", function () {
+  let contextId = 1150;
+  let fieldId = 1150;
+  let optionId = 1150;
+  let options = "options_1150";
+  createCustomFieldOption(contextId, fieldId, optionId, options);
+  // waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options);
+  tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
+  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
+  updateCustomFieldOption(contextId, fieldId, optionId, options);
+  deleteCustomFieldOption(contextId, fieldId, optionId, options);
+  tryToDeleteANonExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
+  verifyCustomFieldOptionContextDoesNotExist(contextId, fieldId, optionId, options);
 });
 
-// Story: crud:CustomFieldOption:nondet:1:1
-bthread("crud:CustomFieldOption:nondet:1:1", function () {
-  let fieldId = 830;
-  let contextId = 830;
-  let optionId = 830;
-  createCustomFieldOption(830, 830, 830);
-  tryToAddExistingCustomFieldOption(830, 830, 830);
-  verifyCustomFieldOptionExists(830, 830, 830);
-  updateCustomFieldOption(830, 830, 830);
-  deleteCustomFieldOption(830, 830, 830);
-  tryToDeleteANonExistingCustomFieldOption(830, 830, 830);
-  verifyCustomFieldOptionDoesNotExist(830, 830, 830);
+// Story: crud:CustomFieldOptionContext:nondet:1:2
+bthread("crud:CustomFieldOptionContext:nondet:1:2", function () {
+  let contextId = 1151;
+  let fieldId = 1151;
+  let optionId = 1151;
+  let options = "options_1151";
+  createCustomFieldOption(contextId, fieldId, optionId, options);
+  // waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options);
+  tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
+  updateCustomFieldOption(contextId, fieldId, optionId, options);
+  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
+  deleteCustomFieldOption(contextId, fieldId, optionId, options);
+  tryToDeleteANonExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
+  verifyCustomFieldOptionContextDoesNotExist(contextId, fieldId, optionId, options);
 });
 
-// Story: crud:CustomFieldOption:nondet:1:2
-bthread("crud:CustomFieldOption:nondet:1:2", function () {
-  let fieldId = 831;
-  let contextId = 831;
-  let optionId = 831;
-  createCustomFieldOption(831, 831, 831);
-  tryToAddExistingCustomFieldOption(831, 831, 831);
-  updateCustomFieldOption(831, 831, 831);
-  verifyCustomFieldOptionExists(831, 831, 831);
-  deleteCustomFieldOption(831, 831, 831);
-  tryToDeleteANonExistingCustomFieldOption(831, 831, 831);
-  verifyCustomFieldOptionDoesNotExist(831, 831, 831);
-});
-
-// Story: crud:CustomFieldOption:nondet:negative:dup-add
-bthread("crud:CustomFieldOption:nondet:negative:dup-add", function () {
-  let fieldId = 836;
-  let contextId = 836;
-  let optionId = 836;
-  createCustomFieldOption(836, 836, 836);
-  verifyCustomFieldOptionExists(836, 836, 836);
-  tryToAddExistingCustomFieldOption(836, 836, 836);
-  verifyCustomFieldOptionExists(836, 836, 836);
-});
-
-// Story: crud:CustomFieldOption:nondet:existing:update
-bthread("crud:CustomFieldOption:nondet:existing:update", function () {
-  let ev = waitForAnyCustomFieldOptionAdded();
-  let args = Object.values(ev);
-  block(matchDeletedCustomFieldOption.apply(null, args), function () {
-    verifyCustomFieldOptionExists.apply(null, args);
-    updateCustomFieldOption.apply(null, args);
-    verifyCustomFieldOptionExists.apply(null, args);
-  });
-});
-
-// Story: monitor:CustomFieldOption:add
-bthread("monitor:CustomFieldOption:add", function () {
-  while (true) {
-    let ev = waitForAnyCustomFieldOptionAdded();
-    let args = Object.values(ev);
-    block(matchDeletedCustomFieldOption.apply(null, args), function () {
-      verifyCustomFieldOptionExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:CustomFieldOptionSingle:read_only
-bthread("crud:CustomFieldOptionSingle:read_only", function () {
-  let id = 840;
-  verifyCustomFieldOptionSingleExists(840);
+// Story: crud:CustomFieldOptionContext:nondet:negative:dup-add
+bthread("crud:CustomFieldOptionContext:nondet:negative:dup-add", function () {
+  let contextId = 1156;
+  let fieldId = 1156;
+  let optionId = 1156;
+  let options = "options_1156";
+  createCustomFieldOption(contextId, fieldId, optionId, options);
+  // waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options);
+  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
+  tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
+  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
 });
 
 // Story: crud:Screen:nondet:1:1
 bthread("crud:Screen:nondet:1:1", function () {
-  let screenId = 870;
-  let startAt = "startAt_870";
-  let maxResults = "maxResults_870";
-  let id = 870;
-  let queryString = "queryString_870";
-  let scope = "scope_870";
-  let orderBy = "orderBy_870";
-  createScreen(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
-  tryToAddExistingScreen(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
-  verifyScreenExists(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
-  updateScreen(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
-  deleteScreen(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
-  tryToDeleteANonExistingScreen(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
-  verifyScreenDoesNotExist(870, "startAt_870", "maxResults_870", 870, "queryString_870", "scope_870", "orderBy_870");
+  let description = "description_1180";
+  let id = 1180;
+  let maxResults = "maxResults_1180";
+  let name = "name_1180";
+  let orderBy = "orderBy_1180";
+  let queryString = "queryString_1180";
+  let scope = "scope_1180";
+  let screenId = 1180;
+  let startAt = "startAt_1180";
+  createScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  // waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  tryToAddExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  updateScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  deleteScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  tryToDeleteANonExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  verifyScreenDoesNotExist(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
 });
 
 // Story: crud:Screen:nondet:1:2
 bthread("crud:Screen:nondet:1:2", function () {
-  let screenId = 871;
-  let startAt = "startAt_871";
-  let maxResults = "maxResults_871";
-  let id = 871;
-  let queryString = "queryString_871";
-  let scope = "scope_871";
-  let orderBy = "orderBy_871";
-  createScreen(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
-  tryToAddExistingScreen(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
-  updateScreen(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
-  verifyScreenExists(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
-  deleteScreen(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
-  tryToDeleteANonExistingScreen(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
-  verifyScreenDoesNotExist(871, "startAt_871", "maxResults_871", 871, "queryString_871", "scope_871", "orderBy_871");
+  let description = "description_1181";
+  let id = 1181;
+  let maxResults = "maxResults_1181";
+  let name = "name_1181";
+  let orderBy = "orderBy_1181";
+  let queryString = "queryString_1181";
+  let scope = "scope_1181";
+  let screenId = 1181;
+  let startAt = "startAt_1181";
+  createScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  // waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  tryToAddExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  updateScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  deleteScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  tryToDeleteANonExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  verifyScreenDoesNotExist(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
 });
 
 // Story: crud:Screen:nondet:negative:dup-add
 bthread("crud:Screen:nondet:negative:dup-add", function () {
-  let screenId = 876;
-  let startAt = "startAt_876";
-  let maxResults = "maxResults_876";
-  let id = 876;
-  let queryString = "queryString_876";
-  let scope = "scope_876";
-  let orderBy = "orderBy_876";
-  createScreen(876, "startAt_876", "maxResults_876", 876, "queryString_876", "scope_876", "orderBy_876");
-  verifyScreenExists(876, "startAt_876", "maxResults_876", 876, "queryString_876", "scope_876", "orderBy_876");
-  tryToAddExistingScreen(876, "startAt_876", "maxResults_876", 876, "queryString_876", "scope_876", "orderBy_876");
-  verifyScreenExists(876, "startAt_876", "maxResults_876", 876, "queryString_876", "scope_876", "orderBy_876");
-});
-
-// Story: crud:Screen:nondet:existing:update
-bthread("crud:Screen:nondet:existing:update", function () {
-  let ev = waitForAnyScreenAdded();
-  let args = Object.values(ev);
-  block(matchDeletedScreen.apply(null, args), function () {
-    verifyScreenExists.apply(null, args);
-    updateScreen.apply(null, args);
-    verifyScreenExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Screen:add
-bthread("monitor:Screen:add", function () {
-  while (true) {
-    let ev = waitForAnyScreenAdded();
-    let args = Object.values(ev);
-    block(matchDeletedScreen.apply(null, args), function () {
-      verifyScreenExists.apply(null, args);
-    });
-  }
+  let description = "description_1186";
+  let id = 1186;
+  let maxResults = "maxResults_1186";
+  let name = "name_1186";
+  let orderBy = "orderBy_1186";
+  let queryString = "queryString_1186";
+  let scope = "scope_1186";
+  let screenId = 1186;
+  let startAt = "startAt_1186";
+  createScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  // waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  tryToAddExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
 });
 
 // Story: crud:FieldScreens:read_only
 bthread("crud:FieldScreens:read_only", function () {
-  let fieldId = 880;
-  let startAt = "startAt_880";
-  let maxResults = "maxResults_880";
-  let expand = "expand_880";
-  verifyFieldScreensExists(880, "startAt_880", "maxResults_880", "expand_880");
+  let expand = "expand_1190";
+  let fieldId = 1190;
+  let maxResults = "maxResults_1190";
+  let startAt = "startAt_1190";
+  verifyFieldScreensExists(expand, fieldId, maxResults, startAt);
 });
 
-// Story: crud:ScreenAvailableFields:read_only
-bthread("crud:ScreenAvailableFields:read_only", function () {
-  let screenId = 900;
-  verifyScreenAvailableFieldsExists(900);
+// Story: crud:AvailableScreenFields:read_only
+bthread("crud:AvailableScreenFields:read_only", function () {
+
+  verifyAvailableScreenFieldsExists(screenId);
 });
 
 // Story: crud:IssueFieldOption:nondet:1:1
 bthread("crud:IssueFieldOption:nondet:1:1", function () {
-  let fieldKey = "fieldKey_910";
-  let optionId = 910;
-  createIssueFieldOption("fieldKey_910", 910);
-  tryToAddExistingIssueFieldOption("fieldKey_910", 910);
-  verifyIssueFieldOptionExists("fieldKey_910", 910);
-  updateIssueFieldOption("fieldKey_910", 910);
-  deleteIssueFieldOption("fieldKey_910", 910);
-  tryToDeleteANonExistingIssueFieldOption("fieldKey_910", 910);
-  verifyIssueFieldOptionDoesNotExist("fieldKey_910", 910);
+  let config = "config_1220";
+  let fieldKey = 1220;
+  let optionId = 1220;
+  let properties = {};
+  let value = "value_1220";
+  createIssueFieldOption(config, fieldKey, optionId, properties, value);
+  // waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
+  tryToAddExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
+  verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value);
+  updateIssueFieldOption(config, fieldKey, optionId, properties, value);
+  deleteIssueFieldOption(config, fieldKey, optionId, properties, value);
+  tryToDeleteANonExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
+  verifyIssueFieldOptionDoesNotExist(config, fieldKey, optionId, properties, value);
 });
 
 // Story: crud:IssueFieldOption:nondet:1:2
 bthread("crud:IssueFieldOption:nondet:1:2", function () {
-  let fieldKey = "fieldKey_911";
-  let optionId = 911;
-  createIssueFieldOption("fieldKey_911", 911);
-  tryToAddExistingIssueFieldOption("fieldKey_911", 911);
-  updateIssueFieldOption("fieldKey_911", 911);
-  verifyIssueFieldOptionExists("fieldKey_911", 911);
-  deleteIssueFieldOption("fieldKey_911", 911);
-  tryToDeleteANonExistingIssueFieldOption("fieldKey_911", 911);
-  verifyIssueFieldOptionDoesNotExist("fieldKey_911", 911);
+  let config = "config_1221";
+  let fieldKey = 1221;
+  let optionId = 1221;
+  let properties = {};
+  let value = "value_1221";
+  createIssueFieldOption(config, fieldKey, optionId, properties, value);
+  // waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
+  tryToAddExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
+  updateIssueFieldOption(config, fieldKey, optionId, properties, value);
+  verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value);
+  deleteIssueFieldOption(config, fieldKey, optionId, properties, value);
+  tryToDeleteANonExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
+  verifyIssueFieldOptionDoesNotExist(config, fieldKey, optionId, properties, value);
 });
 
 // Story: crud:IssueFieldOption:nondet:negative:dup-add
 bthread("crud:IssueFieldOption:nondet:negative:dup-add", function () {
-  let fieldKey = "fieldKey_916";
-  let optionId = 916;
-  createIssueFieldOption("fieldKey_916", 916);
-  verifyIssueFieldOptionExists("fieldKey_916", 916);
-  tryToAddExistingIssueFieldOption("fieldKey_916", 916);
-  verifyIssueFieldOptionExists("fieldKey_916", 916);
-});
-
-// Story: crud:IssueFieldOption:nondet:existing:update
-bthread("crud:IssueFieldOption:nondet:existing:update", function () {
-  let ev = waitForAnyIssueFieldOptionAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueFieldOption.apply(null, args), function () {
-    verifyIssueFieldOptionExists.apply(null, args);
-    updateIssueFieldOption.apply(null, args);
-    verifyIssueFieldOptionExists.apply(null, args);
-  });
-});
-
-// Story: monitor:IssueFieldOption:add
-bthread("monitor:IssueFieldOption:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueFieldOptionAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueFieldOption.apply(null, args), function () {
-      verifyIssueFieldOptionExists.apply(null, args);
-    });
-  }
+  let config = "config_1226";
+  let fieldKey = 1226;
+  let optionId = 1226;
+  let properties = {};
+  let value = "value_1226";
+  createIssueFieldOption(config, fieldKey, optionId, properties, value);
+  // waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
+  verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value);
+  tryToAddExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
+  verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value);
 });
 
 // Story: crud:Group:nondet:1:1
 bthread("crud:Group:nondet:1:1", function () {
-  let groupname = "groupname_920";
-  let groupId = 920;
-  let swapGroup = "swapGroup_920";
-  let swapGroupId = 920;
-  let expand = "expand_920";
-  createGroup("groupname_920", 920, "swapGroup_920", 920, "expand_920");
-  tryToAddExistingGroup("groupname_920", 920, "swapGroup_920", 920, "expand_920");
-  verifyGroupExists("groupname_920", 920, "swapGroup_920", 920, "expand_920");
-  removeGroup("groupname_920", 920, "swapGroup_920", 920, "expand_920");
-  tryToDeleteANonExistingGroup("groupname_920", 920, "swapGroup_920", 920, "expand_920");
-  verifyGroupDoesNotExist("groupname_920", 920, "swapGroup_920", 920, "expand_920");
+  let expand = "expand_1230";
+  let groupId = 1230;
+  let groupname = "groupname_1230";
+  let name = "name_1230";
+  let swapGroup = "swapGroup_1230";
+  let swapGroupId = 1230;
+  createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  // waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  tryToAddExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  removeGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  tryToDeleteANonExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  verifyGroupDoesNotExist(expand, groupId, groupname, name, swapGroup, swapGroupId);
 });
 
 // Story: crud:Group:nondet:1:2
 bthread("crud:Group:nondet:1:2", function () {
-  let groupname = "groupname_921";
-  let groupId = 921;
-  let swapGroup = "swapGroup_921";
-  let swapGroupId = 921;
-  let expand = "expand_921";
-  createGroup("groupname_921", 921, "swapGroup_921", 921, "expand_921");
-  tryToAddExistingGroup("groupname_921", 921, "swapGroup_921", 921, "expand_921");
-  verifyGroupExists("groupname_921", 921, "swapGroup_921", 921, "expand_921");
-  removeGroup("groupname_921", 921, "swapGroup_921", 921, "expand_921");
-  tryToDeleteANonExistingGroup("groupname_921", 921, "swapGroup_921", 921, "expand_921");
-  verifyGroupDoesNotExist("groupname_921", 921, "swapGroup_921", 921, "expand_921");
+  let expand = "expand_1231";
+  let groupId = 1231;
+  let groupname = "groupname_1231";
+  let name = "name_1231";
+  let swapGroup = "swapGroup_1231";
+  let swapGroupId = 1231;
+  createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  // waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  tryToAddExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  removeGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  tryToDeleteANonExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  verifyGroupDoesNotExist(expand, groupId, groupname, name, swapGroup, swapGroupId);
 });
 
 // Story: crud:Group:nondet:negative:dup-add
 bthread("crud:Group:nondet:negative:dup-add", function () {
-  let groupname = "groupname_926";
-  let groupId = 926;
-  let swapGroup = "swapGroup_926";
-  let swapGroupId = 926;
-  let expand = "expand_926";
-  createGroup("groupname_926", 926, "swapGroup_926", 926, "expand_926");
-  verifyGroupExists("groupname_926", 926, "swapGroup_926", 926, "expand_926");
-  tryToAddExistingGroup("groupname_926", 926, "swapGroup_926", 926, "expand_926");
-  verifyGroupExists("groupname_926", 926, "swapGroup_926", 926, "expand_926");
-});
-
-// Story: monitor:Group:add
-bthread("monitor:Group:add", function () {
-  while (true) {
-    let ev = waitForAnyGroupAdded();
-    let args = Object.values(ev);
-    block(matchDeletedGroup.apply(null, args), function () {
-      verifyGroupExists.apply(null, args);
-    });
-  }
+  let expand = "expand_1236";
+  let groupId = 1236;
+  let groupname = "groupname_1236";
+  let name = "name_1236";
+  let swapGroup = "swapGroup_1236";
+  let swapGroupId = 1236;
+  createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  // waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  tryToAddExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
 });
 
 // Story: crud:GroupMember:read_only
 bthread("crud:GroupMember:read_only", function () {
-  let groupname = "groupname_930";
-  let groupId = 930;
-  let includeInactiveUsers = "includeInactiveUsers_930";
-  let startAt = "startAt_930";
-  let maxResults = "maxResults_930";
-  verifyGroupMemberExists("groupname_930", 930, "includeInactiveUsers_930", "startAt_930", "maxResults_930");
+  let groupname = "groupname_1240";
+  let includeInactiveUsers = "includeInactiveUsers_1240";
+  let maxResults = "maxResults_1240";
+  let startAt = "startAt_1240";
+  verifyGroupMemberExists(groupId, groupname, includeInactiveUsers, maxResults, startAt);
 });
 
 // Story: crud:GroupUser:nondet:1:1
 bthread("crud:GroupUser:nondet:1:1", function () {
-  let groupname = "groupname_940";
-  let groupId = 940;
-  let accountId = 940;
-  addUserToGroup("groupname_940", 940, 940);
-  tryToAddExistingGroupUser("groupname_940", 940, 940);
-  verifyGroupUserExists("groupname_940", 940, 940);
-  removeUserFromGroup("groupname_940", 940, 940);
-  tryToDeleteANonExistingGroupUser("groupname_940", 940, 940);
-  verifyGroupUserDoesNotExist("groupname_940", 940, 940);
+  let accountId = 1250;
+  let groupname = "groupname_1250";
+  let name = "name_1250";
+  // Dependency Barrier
+  let deps = {};
+  deps["groupId"] = matchAnyGroupAdded();
+  let pkMap = {"groupId": "groupId"};
+  let captured = resolveDependencies(deps, pkMap);
+  groupId = captured["groupId"];
+  addUserToGroup(accountId, groupId, groupname, name);
+  // waitForGroupUserAdded(accountId, groupId, groupname, name);
+  tryToAddExistingGroupUser(accountId, groupId, groupname, name);
+  verifyGroupUserExists(accountId, groupId, groupname, name);
+  removeUserFromGroup(accountId, groupId, groupname, name);
+  tryToDeleteANonExistingGroupUser(accountId, groupId, groupname, name);
+  verifyGroupUserDoesNotExist(accountId, groupId, groupname, name);
 });
 
 // Story: crud:GroupUser:nondet:1:2
 bthread("crud:GroupUser:nondet:1:2", function () {
-  let groupname = "groupname_941";
-  let groupId = 941;
-  let accountId = 941;
-  addUserToGroup("groupname_941", 941, 941);
-  tryToAddExistingGroupUser("groupname_941", 941, 941);
-  verifyGroupUserExists("groupname_941", 941, 941);
-  removeUserFromGroup("groupname_941", 941, 941);
-  tryToDeleteANonExistingGroupUser("groupname_941", 941, 941);
-  verifyGroupUserDoesNotExist("groupname_941", 941, 941);
+  let accountId = 1251;
+  let groupname = "groupname_1251";
+  let name = "name_1251";
+  // Dependency Barrier
+  let deps = {};
+  deps["groupId"] = matchAnyGroupAdded();
+  let pkMap = {"groupId": "groupId"};
+  let captured = resolveDependencies(deps, pkMap);
+  groupId = captured["groupId"];
+  addUserToGroup(accountId, groupId, groupname, name);
+  // waitForGroupUserAdded(accountId, groupId, groupname, name);
+  tryToAddExistingGroupUser(accountId, groupId, groupname, name);
+  verifyGroupUserExists(accountId, groupId, groupname, name);
+  removeUserFromGroup(accountId, groupId, groupname, name);
+  tryToDeleteANonExistingGroupUser(accountId, groupId, groupname, name);
+  verifyGroupUserDoesNotExist(accountId, groupId, groupname, name);
 });
 
 // Story: crud:GroupUser:nondet:negative:dup-add
 bthread("crud:GroupUser:nondet:negative:dup-add", function () {
-  let groupname = "groupname_946";
-  let groupId = 946;
-  let accountId = 946;
-  addUserToGroup("groupname_946", 946, 946);
-  verifyGroupUserExists("groupname_946", 946, 946);
-  tryToAddExistingGroupUser("groupname_946", 946, 946);
-  verifyGroupUserExists("groupname_946", 946, 946);
-});
-
-// Story: monitor:GroupUser:add
-bthread("monitor:GroupUser:add", function () {
-  while (true) {
-    let ev = waitForAnyGroupUserAdded();
-    let args = Object.values(ev);
-    block(matchDeletedGroupUser.apply(null, args), function () {
-      verifyGroupUserExists.apply(null, args);
-    });
-  }
-});
-
-// Story: crud:IssueSearch:read_only
-bthread("crud:IssueSearch:read_only", function () {
-  let query = "query_950";
-  let currentJQL = "currentJQL_950";
-  let currentIssueKey = "currentIssueKey_950";
-  let currentProjectId = 950;
-  let showSubTasks = "showSubTasks_950";
-  let showSubTaskParent = "showSubTaskParent_950";
-  let jql = "jql_950";
-  let startAt = "startAt_950";
-  let maxResults = "maxResults_950";
-  let validateQuery = 950;
-  let fields = "fields_950";
-  let expand = "expand_950";
-  let properties = "properties_950";
-  let fieldsByKeys = "fieldsByKeys_950";
-  let failFast = "failFast_950";
-  let nextPageToken = "nextPageToken_950";
-  let reconcileIssues = "reconcileIssues_950";
-  verifyIssueSearchExists("query_950", "currentJQL_950", "currentIssueKey_950", 950, "showSubTasks_950", "showSubTaskParent_950", "jql_950", "startAt_950", "maxResults_950", 950, "fields_950", "expand_950", "properties_950", "fieldsByKeys_950", "failFast_950", "nextPageToken_950", "reconcileIssues_950");
+  let accountId = 1256;
+  let groupname = "groupname_1256";
+  let name = "name_1256";
+  // Dependency Barrier
+  let deps = {};
+  deps["groupId"] = matchAnyGroupAdded();
+  let pkMap = {"groupId": "groupId"};
+  let captured = resolveDependencies(deps, pkMap);
+  groupId = captured["groupId"];
+  addUserToGroup(accountId, groupId, groupname, name);
+  // waitForGroupUserAdded(accountId, groupId, groupname, name);
+  verifyGroupUserExists(accountId, groupId, groupname, name);
+  tryToAddExistingGroupUser(accountId, groupId, groupname, name);
+  verifyGroupUserExists(accountId, groupId, groupname, name);
 });
 
 // Story: crud:IssueProperty:nondet:1:1
 bthread("crud:IssueProperty:nondet:1:1", function () {
-  let issueIdOrKey = 960;
-  let propertyKey = "propertyKey_960";
-  setIssueProperty(960, "propertyKey_960");
-  tryToAddExistingIssueProperty(960, "propertyKey_960");
-  verifyIssuePropertyExists(960, "propertyKey_960");
-  deleteIssueProperty(960, "propertyKey_960");
-  tryToDeleteANonExistingIssueProperty(960, "propertyKey_960");
-  verifyIssuePropertyDoesNotExist(960, "propertyKey_960");
+  let propertyKey = "propertyKey_1260";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueIdOrKey"] = matchAnyIssueAdded();
+  let pkMap = {"issueIdOrKey": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueIdOrKey = captured["issueIdOrKey"];
+  setIssueProperty(issueIdOrKey, propertyKey);
+  // waitForIssuePropertyAdded(issueIdOrKey, propertyKey);
+  tryToAddExistingIssueProperty(issueIdOrKey, propertyKey);
+  verifyIssuePropertyExists(issueIdOrKey, propertyKey);
+  deleteIssueProperty(issueIdOrKey, propertyKey);
+  tryToDeleteANonExistingIssueProperty(issueIdOrKey, propertyKey);
+  verifyIssuePropertyDoesNotExist(issueIdOrKey, propertyKey);
 });
 
 // Story: crud:IssueProperty:nondet:1:2
 bthread("crud:IssueProperty:nondet:1:2", function () {
-  let issueIdOrKey = 961;
-  let propertyKey = "propertyKey_961";
-  setIssueProperty(961, "propertyKey_961");
-  tryToAddExistingIssueProperty(961, "propertyKey_961");
-  verifyIssuePropertyExists(961, "propertyKey_961");
-  deleteIssueProperty(961, "propertyKey_961");
-  tryToDeleteANonExistingIssueProperty(961, "propertyKey_961");
-  verifyIssuePropertyDoesNotExist(961, "propertyKey_961");
+  let propertyKey = "propertyKey_1261";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueIdOrKey"] = matchAnyIssueAdded();
+  let pkMap = {"issueIdOrKey": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueIdOrKey = captured["issueIdOrKey"];
+  setIssueProperty(issueIdOrKey, propertyKey);
+  // waitForIssuePropertyAdded(issueIdOrKey, propertyKey);
+  tryToAddExistingIssueProperty(issueIdOrKey, propertyKey);
+  verifyIssuePropertyExists(issueIdOrKey, propertyKey);
+  deleteIssueProperty(issueIdOrKey, propertyKey);
+  tryToDeleteANonExistingIssueProperty(issueIdOrKey, propertyKey);
+  verifyIssuePropertyDoesNotExist(issueIdOrKey, propertyKey);
 });
 
 // Story: crud:IssueProperty:nondet:negative:dup-add
 bthread("crud:IssueProperty:nondet:negative:dup-add", function () {
-  let issueIdOrKey = 966;
-  let propertyKey = "propertyKey_966";
-  setIssueProperty(966, "propertyKey_966");
-  verifyIssuePropertyExists(966, "propertyKey_966");
-  tryToAddExistingIssueProperty(966, "propertyKey_966");
-  verifyIssuePropertyExists(966, "propertyKey_966");
-});
-
-// Story: monitor:IssueProperty:add
-bthread("monitor:IssueProperty:add", function () {
-  while (true) {
-    let ev = waitForAnyIssuePropertyAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueProperty.apply(null, args), function () {
-      verifyIssuePropertyExists.apply(null, args);
-    });
-  }
+  let propertyKey = "propertyKey_1266";
+  // Dependency Barrier
+  let deps = {};
+  deps["issueIdOrKey"] = matchAnyIssueAdded();
+  let pkMap = {"issueIdOrKey": "issueIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueIdOrKey = captured["issueIdOrKey"];
+  setIssueProperty(issueIdOrKey, propertyKey);
+  // waitForIssuePropertyAdded(issueIdOrKey, propertyKey);
+  verifyIssuePropertyExists(issueIdOrKey, propertyKey);
+  tryToAddExistingIssueProperty(issueIdOrKey, propertyKey);
+  verifyIssuePropertyExists(issueIdOrKey, propertyKey);
 });
 
 // Story: crud:IssuePropertyBulk:nondet:1:1
 bthread("crud:IssuePropertyBulk:nondet:1:1", function () {
-  let propertyKey = "propertyKey_990";
-  bulkSetIssueProperty("propertyKey_990");
-  tryToAddExistingIssuePropertyBulk("propertyKey_990");
-  verifyIssuePropertyBulkExists("propertyKey_990");
-  bulkDeleteIssueProperty("propertyKey_990");
-  tryToDeleteANonExistingIssuePropertyBulk("propertyKey_990");
-  verifyIssuePropertyBulkDoesNotExist("propertyKey_990");
+  let propertyKey = 1290;
+  bulkSetIssueProperty(propertyKey);
+  // waitForIssuePropertyBulkAdded(propertyKey);
+  tryToAddExistingIssuePropertyBulk(propertyKey);
+  verifyIssuePropertyBulkExists(propertyKey);
+  bulkDeleteIssueProperty(propertyKey);
+  tryToDeleteANonExistingIssuePropertyBulk(propertyKey);
+  verifyIssuePropertyBulkDoesNotExist(propertyKey);
 });
 
 // Story: crud:IssuePropertyBulk:nondet:1:2
 bthread("crud:IssuePropertyBulk:nondet:1:2", function () {
-  let propertyKey = "propertyKey_991";
-  bulkSetIssueProperty("propertyKey_991");
-  tryToAddExistingIssuePropertyBulk("propertyKey_991");
-  verifyIssuePropertyBulkExists("propertyKey_991");
-  bulkDeleteIssueProperty("propertyKey_991");
-  tryToDeleteANonExistingIssuePropertyBulk("propertyKey_991");
-  verifyIssuePropertyBulkDoesNotExist("propertyKey_991");
+  let propertyKey = 1291;
+  bulkSetIssueProperty(propertyKey);
+  // waitForIssuePropertyBulkAdded(propertyKey);
+  tryToAddExistingIssuePropertyBulk(propertyKey);
+  verifyIssuePropertyBulkExists(propertyKey);
+  bulkDeleteIssueProperty(propertyKey);
+  tryToDeleteANonExistingIssuePropertyBulk(propertyKey);
+  verifyIssuePropertyBulkDoesNotExist(propertyKey);
 });
 
 // Story: crud:IssuePropertyBulk:nondet:negative:dup-add
 bthread("crud:IssuePropertyBulk:nondet:negative:dup-add", function () {
-  let propertyKey = "propertyKey_996";
-  bulkSetIssueProperty("propertyKey_996");
-  verifyIssuePropertyBulkExists("propertyKey_996");
-  tryToAddExistingIssuePropertyBulk("propertyKey_996");
-  verifyIssuePropertyBulkExists("propertyKey_996");
-});
-
-// Story: monitor:IssuePropertyBulk:add
-bthread("monitor:IssuePropertyBulk:add", function () {
-  while (true) {
-    let ev = waitForAnyIssuePropertyBulkAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssuePropertyBulk.apply(null, args), function () {
-      verifyIssuePropertyBulkExists.apply(null, args);
-    });
-  }
+  let propertyKey = 1296;
+  bulkSetIssueProperty(propertyKey);
+  // waitForIssuePropertyBulkAdded(propertyKey);
+  verifyIssuePropertyBulkExists(propertyKey);
+  tryToAddExistingIssuePropertyBulk(propertyKey);
+  verifyIssuePropertyBulkExists(propertyKey);
 });
 
 // Story: crud:IssuePropertyKeys:read_only
 bthread("crud:IssuePropertyKeys:read_only", function () {
-  let issueIdOrKey = 1000;
-  verifyIssuePropertyKeysExists(1000);
+
+  verifyIssuePropertyKeysExists(issueIdOrKey);
 });
 
 // Story: crud:IssueType:nondet:1:1
 bthread("crud:IssueType:nondet:1:1", function () {
-  let id = 1010;
-  let alternativeIssueTypeId = 1010;
-  createIssueType(1010, 1010);
-  tryToAddExistingIssueType(1010, 1010);
-  verifyIssueTypeExists(1010, 1010);
-  updateIssueType(1010, 1010);
-  deleteIssueType(1010, 1010);
-  tryToDeleteANonExistingIssueType(1010, 1010);
-  verifyIssueTypeDoesNotExist(1010, 1010);
+  let description = "description_1310";
+  let hierarchyLevel = 1310;
+  let id = 1310;
+  let level = "level_1310";
+  let name = "name_1310";
+  let size = "size_1310";
+  let type = "type_1310";
+  let x = "x_1310";
+  let y = "y_1310";
+  // Dependency Barrier
+  let deps = {};
+  deps["alternativeIssueTypeId"] = matchAnyIssueAdded();
+  deps["avatarId"] = matchAnyAvatarAdded();
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "avatarId": "type", "projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  alternativeIssueTypeId = captured["alternativeIssueTypeId"];
+  avatarId = captured["avatarId"];
+  projectId = captured["projectId"];
+  createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  // waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  updateIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  deleteIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToDeleteANonExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeDoesNotExist(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
 });
 
 // Story: crud:IssueType:nondet:1:2
 bthread("crud:IssueType:nondet:1:2", function () {
-  let id = 1011;
-  let alternativeIssueTypeId = 1011;
-  createIssueType(1011, 1011);
-  tryToAddExistingIssueType(1011, 1011);
-  updateIssueType(1011, 1011);
-  verifyIssueTypeExists(1011, 1011);
-  deleteIssueType(1011, 1011);
-  tryToDeleteANonExistingIssueType(1011, 1011);
-  verifyIssueTypeDoesNotExist(1011, 1011);
+  let description = "description_1311";
+  let hierarchyLevel = 1311;
+  let id = 1311;
+  let level = "level_1311";
+  let name = "name_1311";
+  let size = "size_1311";
+  let type = "type_1311";
+  let x = "x_1311";
+  let y = "y_1311";
+  // Dependency Barrier
+  let deps = {};
+  deps["alternativeIssueTypeId"] = matchAnyIssueAdded();
+  deps["avatarId"] = matchAnyAvatarAdded();
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "avatarId": "type", "projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  alternativeIssueTypeId = captured["alternativeIssueTypeId"];
+  avatarId = captured["avatarId"];
+  projectId = captured["projectId"];
+  createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  // waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  updateIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  deleteIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToDeleteANonExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeDoesNotExist(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
 });
 
 // Story: crud:IssueType:nondet:negative:dup-add
 bthread("crud:IssueType:nondet:negative:dup-add", function () {
-  let id = 1016;
-  let alternativeIssueTypeId = 1016;
-  createIssueType(1016, 1016);
-  verifyIssueTypeExists(1016, 1016);
-  tryToAddExistingIssueType(1016, 1016);
-  verifyIssueTypeExists(1016, 1016);
+  let description = "description_1316";
+  let hierarchyLevel = 1316;
+  let id = 1316;
+  let level = "level_1316";
+  let name = "name_1316";
+  let size = "size_1316";
+  let type = "type_1316";
+  let x = "x_1316";
+  let y = "y_1316";
+  // Dependency Barrier
+  let deps = {};
+  deps["alternativeIssueTypeId"] = matchAnyIssueAdded();
+  deps["avatarId"] = matchAnyAvatarAdded();
+  deps["projectId"] = matchAnyProjectAdded();
+  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "avatarId": "type", "projectId": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  alternativeIssueTypeId = captured["alternativeIssueTypeId"];
+  avatarId = captured["avatarId"];
+  projectId = captured["projectId"];
+  createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  // waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
 });
 
-// Story: crud:IssueType:nondet:existing:update
-bthread("crud:IssueType:nondet:existing:update", function () {
-  let ev = waitForAnyIssueTypeAdded();
-  let args = Object.values(ev);
-  block(matchDeletedIssueType.apply(null, args), function () {
-    verifyIssueTypeExists.apply(null, args);
-    updateIssueType.apply(null, args);
-    verifyIssueTypeExists.apply(null, args);
-  });
+// Story: crud:AutoCompleteData:read_only
+bthread("crud:AutoCompleteData:read_only", function () {
+  let includeCollapsedFields = "includeCollapsedFields_1320";
+  verifyAutoCompleteDataExists(includeCollapsedFields, projectIds);
 });
 
-// Story: monitor:IssueType:add
-bthread("monitor:IssueType:add", function () {
-  while (true) {
-    let ev = waitForAnyIssueTypeAdded();
-    let args = Object.values(ev);
-    block(matchDeletedIssueType.apply(null, args), function () {
-      verifyIssueTypeExists.apply(null, args);
-    });
-  }
+// Story: crud:AutoCompleteSuggestions:read_only
+bthread("crud:AutoCompleteSuggestions:read_only", function () {
+  let fieldName = "fieldName_1330";
+  let fieldValue = "fieldValue_1330";
+  let predicateName = "predicateName_1330";
+  let predicateValue = "predicateValue_1330";
+  verifyAutoCompleteSuggestionsExists(fieldName, fieldValue, predicateName, predicateValue);
 });
 
-// Story: crud:JqlAutoCompleteData:read_only
-bthread("crud:JqlAutoCompleteData:read_only", function () {
-
-  verifyJqlAutoCompleteDataExists();
+// Story: crud:Plan:nondet:1:1
+bthread("crud:Plan:nondet:1:1", function () {
+  let crossProjectReleases = "crossProjectReleases_1370";
+  let customFields = "customFields_1370";
+  let exclusionRules = "exclusionRules_1370";
+  let issueSources = "issueSources_1370";
+  let leadAccountId = 1370;
+  let name = "name_1370";
+  let permissions = "permissions_1370";
+  let planId = 1370;
+  let scheduling = "scheduling_1370";
+  // Dependency Barrier
+  let deps = {};
+  deps["useGroupId"] = matchAnyGroupAdded();
+  let pkMap = {"useGroupId": "groupId"};
+  let captured = resolveDependencies(deps, pkMap);
+  useGroupId = captured["useGroupId"];
+  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
 });
 
-// Story: crud:JqlAutoCompleteSuggestions:read_only
-bthread("crud:JqlAutoCompleteSuggestions:read_only", function () {
-  let fieldName = "fieldName_1030";
-  let fieldValue = "fieldValue_1030";
-  let predicateName = "predicateName_1030";
-  let predicateValue = "predicateValue_1030";
-  verifyJqlAutoCompleteSuggestionsExists("fieldName_1030", "fieldValue_1030", "predicateName_1030", "predicateValue_1030");
+// Story: crud:Plan:nondet:1:2
+bthread("crud:Plan:nondet:1:2", function () {
+  let crossProjectReleases = "crossProjectReleases_1371";
+  let customFields = "customFields_1371";
+  let exclusionRules = "exclusionRules_1371";
+  let issueSources = "issueSources_1371";
+  let leadAccountId = 1371;
+  let name = "name_1371";
+  let permissions = "permissions_1371";
+  let planId = 1371;
+  let scheduling = "scheduling_1371";
+  // Dependency Barrier
+  let deps = {};
+  deps["useGroupId"] = matchAnyGroupAdded();
+  let pkMap = {"useGroupId": "groupId"};
+  let captured = resolveDependencies(deps, pkMap);
+  useGroupId = captured["useGroupId"];
+  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
 });
 
-// Story: crud:Plan:read_only
-bthread("crud:Plan:read_only", function () {
-  let planId = 1070;
-  let name = "name_1070";
-  verifyPlanExists(1070, "name_1070");
+// Story: crud:Plan:nondet:negative:dup-add
+bthread("crud:Plan:nondet:negative:dup-add", function () {
+  let crossProjectReleases = "crossProjectReleases_1376";
+  let customFields = "customFields_1376";
+  let exclusionRules = "exclusionRules_1376";
+  let issueSources = "issueSources_1376";
+  let leadAccountId = 1376;
+  let name = "name_1376";
+  let permissions = "permissions_1376";
+  let planId = 1376;
+  let scheduling = "scheduling_1376";
+  // Dependency Barrier
+  let deps = {};
+  deps["useGroupId"] = matchAnyGroupAdded();
+  let pkMap = {"useGroupId": "groupId"};
+  let captured = resolveDependencies(deps, pkMap);
+  useGroupId = captured["useGroupId"];
+  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
 });
 
 // Story: crud:AtlassianTeam:nondet:1:1
 bthread("crud:AtlassianTeam:nondet:1:1", function () {
-  let planId = 1080;
-  let id = 1080;
-  let atlassianTeamId = 1080;
-  addAtlassianTeam(1080, 1080, 1080);
-  tryToAddExistingAtlassianTeam(1080, 1080, 1080);
-  verifyAtlassianTeamExists(1080, 1080, 1080);
-  updateAtlassianTeam(1080, 1080, 1080);
-  removeAtlassianTeam(1080, 1080, 1080);
-  tryToDeleteANonExistingAtlassianTeam(1080, 1080, 1080);
-  verifyAtlassianTeamDoesNotExist(1080, 1080, 1080);
+  let capacity = 1380;
+  let id = 1380;
+  let planningStyle = "planningStyle_1380";
+  let sprintLength = 1380;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueSourceId"] = matchAnyIssueAdded();
+  deps["planId"] = matchAnyPlanAdded();
+  let pkMap = {"issueSourceId": "issueIdOrKey", "planId": "planId"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueSourceId = captured["issueSourceId"];
+  planId = captured["planId"];
+  addAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  // waitForAtlassianTeamAdded(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  tryToAddExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  verifyAtlassianTeamExists(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  updateAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  removeAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  tryToDeleteANonExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  verifyAtlassianTeamDoesNotExist(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
 });
 
 // Story: crud:AtlassianTeam:nondet:1:2
 bthread("crud:AtlassianTeam:nondet:1:2", function () {
-  let planId = 1081;
-  let id = 1081;
-  let atlassianTeamId = 1081;
-  addAtlassianTeam(1081, 1081, 1081);
-  tryToAddExistingAtlassianTeam(1081, 1081, 1081);
-  updateAtlassianTeam(1081, 1081, 1081);
-  verifyAtlassianTeamExists(1081, 1081, 1081);
-  removeAtlassianTeam(1081, 1081, 1081);
-  tryToDeleteANonExistingAtlassianTeam(1081, 1081, 1081);
-  verifyAtlassianTeamDoesNotExist(1081, 1081, 1081);
+  let capacity = 1381;
+  let id = 1381;
+  let planningStyle = "planningStyle_1381";
+  let sprintLength = 1381;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueSourceId"] = matchAnyIssueAdded();
+  deps["planId"] = matchAnyPlanAdded();
+  let pkMap = {"issueSourceId": "issueIdOrKey", "planId": "planId"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueSourceId = captured["issueSourceId"];
+  planId = captured["planId"];
+  addAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  // waitForAtlassianTeamAdded(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  tryToAddExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  updateAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  verifyAtlassianTeamExists(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  removeAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  tryToDeleteANonExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  verifyAtlassianTeamDoesNotExist(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
 });
 
 // Story: crud:AtlassianTeam:nondet:negative:dup-add
 bthread("crud:AtlassianTeam:nondet:negative:dup-add", function () {
-  let planId = 1086;
-  let id = 1086;
-  let atlassianTeamId = 1086;
-  addAtlassianTeam(1086, 1086, 1086);
-  verifyAtlassianTeamExists(1086, 1086, 1086);
-  tryToAddExistingAtlassianTeam(1086, 1086, 1086);
-  verifyAtlassianTeamExists(1086, 1086, 1086);
-});
-
-// Story: crud:AtlassianTeam:nondet:existing:update
-bthread("crud:AtlassianTeam:nondet:existing:update", function () {
-  let ev = waitForAnyAtlassianTeamAdded();
-  let args = Object.values(ev);
-  block(matchDeletedAtlassianTeam.apply(null, args), function () {
-    verifyAtlassianTeamExists.apply(null, args);
-    updateAtlassianTeam.apply(null, args);
-    verifyAtlassianTeamExists.apply(null, args);
-  });
-});
-
-// Story: monitor:AtlassianTeam:add
-bthread("monitor:AtlassianTeam:add", function () {
-  while (true) {
-    let ev = waitForAnyAtlassianTeamAdded();
-    let args = Object.values(ev);
-    block(matchDeletedAtlassianTeam.apply(null, args), function () {
-      verifyAtlassianTeamExists.apply(null, args);
-    });
-  }
+  let capacity = 1386;
+  let id = 1386;
+  let planningStyle = "planningStyle_1386";
+  let sprintLength = 1386;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueSourceId"] = matchAnyIssueAdded();
+  deps["planId"] = matchAnyPlanAdded();
+  let pkMap = {"issueSourceId": "issueIdOrKey", "planId": "planId"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueSourceId = captured["issueSourceId"];
+  planId = captured["planId"];
+  addAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  // waitForAtlassianTeamAdded(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  verifyAtlassianTeamExists(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  tryToAddExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  verifyAtlassianTeamExists(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
 });
 
 // Story: crud:PlanOnlyTeam:nondet:1:1
 bthread("crud:PlanOnlyTeam:nondet:1:1", function () {
-  let planId = 1090;
-  let name = "name_1090";
-  let planOnlyTeamId = 1090;
-  createPlanOnlyTeam(1090, "name_1090", 1090);
-  tryToAddExistingPlanOnlyTeam(1090, "name_1090", 1090);
-  verifyPlanOnlyTeamExists(1090, "name_1090", 1090);
-  updatePlanOnlyTeam(1090, "name_1090", 1090);
-  deletePlanOnlyTeam(1090, "name_1090", 1090);
-  tryToDeleteANonExistingPlanOnlyTeam(1090, "name_1090", 1090);
-  verifyPlanOnlyTeamDoesNotExist(1090, "name_1090", 1090);
+  let capacity = 1390;
+  let id = 1390;
+  let memberAccountIds = "memberAccountIds_1390";
+  let name = "name_1390";
+  let planningStyle = "planningStyle_1390";
+  let sprintLength = 1390;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueSourceId"] = matchAnyIssueAdded();
+  deps["planId"] = matchAnyPlanAdded();
+  let pkMap = {"issueSourceId": "issueIdOrKey", "planId": "planId"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueSourceId = captured["issueSourceId"];
+  planId = captured["planId"];
+  createPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  // waitForPlanOnlyTeamAdded(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  tryToAddExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  verifyPlanOnlyTeamExists(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  updatePlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  deletePlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  tryToDeleteANonExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  verifyPlanOnlyTeamDoesNotExist(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
 });
 
 // Story: crud:PlanOnlyTeam:nondet:1:2
 bthread("crud:PlanOnlyTeam:nondet:1:2", function () {
-  let planId = 1091;
-  let name = "name_1091";
-  let planOnlyTeamId = 1091;
-  createPlanOnlyTeam(1091, "name_1091", 1091);
-  tryToAddExistingPlanOnlyTeam(1091, "name_1091", 1091);
-  updatePlanOnlyTeam(1091, "name_1091", 1091);
-  verifyPlanOnlyTeamExists(1091, "name_1091", 1091);
-  deletePlanOnlyTeam(1091, "name_1091", 1091);
-  tryToDeleteANonExistingPlanOnlyTeam(1091, "name_1091", 1091);
-  verifyPlanOnlyTeamDoesNotExist(1091, "name_1091", 1091);
+  let capacity = 1391;
+  let id = 1391;
+  let memberAccountIds = "memberAccountIds_1391";
+  let name = "name_1391";
+  let planningStyle = "planningStyle_1391";
+  let sprintLength = 1391;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueSourceId"] = matchAnyIssueAdded();
+  deps["planId"] = matchAnyPlanAdded();
+  let pkMap = {"issueSourceId": "issueIdOrKey", "planId": "planId"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueSourceId = captured["issueSourceId"];
+  planId = captured["planId"];
+  createPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  // waitForPlanOnlyTeamAdded(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  tryToAddExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  updatePlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  verifyPlanOnlyTeamExists(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  deletePlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  tryToDeleteANonExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  verifyPlanOnlyTeamDoesNotExist(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
 });
 
 // Story: crud:PlanOnlyTeam:nondet:negative:dup-add
 bthread("crud:PlanOnlyTeam:nondet:negative:dup-add", function () {
-  let planId = 1096;
-  let name = "name_1096";
-  let planOnlyTeamId = 1096;
-  createPlanOnlyTeam(1096, "name_1096", 1096);
-  verifyPlanOnlyTeamExists(1096, "name_1096", 1096);
-  tryToAddExistingPlanOnlyTeam(1096, "name_1096", 1096);
-  verifyPlanOnlyTeamExists(1096, "name_1096", 1096);
-});
-
-// Story: crud:PlanOnlyTeam:nondet:existing:update
-bthread("crud:PlanOnlyTeam:nondet:existing:update", function () {
-  let ev = waitForAnyPlanOnlyTeamAdded();
-  let args = Object.values(ev);
-  block(matchDeletedPlanOnlyTeam.apply(null, args), function () {
-    verifyPlanOnlyTeamExists.apply(null, args);
-    updatePlanOnlyTeam.apply(null, args);
-    verifyPlanOnlyTeamExists.apply(null, args);
-  });
-});
-
-// Story: monitor:PlanOnlyTeam:add
-bthread("monitor:PlanOnlyTeam:add", function () {
-  while (true) {
-    let ev = waitForAnyPlanOnlyTeamAdded();
-    let args = Object.values(ev);
-    block(matchDeletedPlanOnlyTeam.apply(null, args), function () {
-      verifyPlanOnlyTeamExists.apply(null, args);
-    });
-  }
+  let capacity = 1396;
+  let id = 1396;
+  let memberAccountIds = "memberAccountIds_1396";
+  let name = "name_1396";
+  let planningStyle = "planningStyle_1396";
+  let sprintLength = 1396;
+  // Dependency Barrier
+  let deps = {};
+  deps["issueSourceId"] = matchAnyIssueAdded();
+  deps["planId"] = matchAnyPlanAdded();
+  let pkMap = {"issueSourceId": "issueIdOrKey", "planId": "planId"};
+  let captured = resolveDependencies(deps, pkMap);
+  issueSourceId = captured["issueSourceId"];
+  planId = captured["planId"];
+  createPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  // waitForPlanOnlyTeamAdded(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  verifyPlanOnlyTeamExists(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  tryToAddExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  verifyPlanOnlyTeamExists(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
 });
 
 // Story: crud:Team:read_only
 bthread("crud:Team:read_only", function () {
-  let planId = 1100;
-  let cursor = "cursor_1100";
-  let maxResults = "maxResults_1100";
-  verifyTeamExists(1100, "cursor_1100", "maxResults_1100");
+  let cursor = "cursor_1400";
+  let maxResults = "maxResults_1400";
+  verifyTeamExists(cursor, maxResults, planId);
 });
 
 // Story: crud:Priority:nondet:1:1
 bthread("crud:Priority:nondet:1:1", function () {
-  let id = 1110;
-  let startAt = "startAt_1110";
-  let maxResults = "maxResults_1110";
-  let projectId = 1110;
-  let priorityName = "priorityName_1110";
-  let onlyDefault = "onlyDefault_1110";
-  let expand = "expand_1110";
-  createPriority(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
-  tryToAddExistingPriority(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
-  verifyPriorityExists(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
-  updatePriority(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
-  deletePriority(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
-  tryToDeleteANonExistingPriority(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
-  verifyPriorityDoesNotExist(1110, "startAt_1110", "maxResults_1110", 1110, "priorityName_1110", "onlyDefault_1110", "expand_1110");
+  let description = "description_1410";
+  let iconUrl = "iconUrl_1410";
+  let id = 1410;
+  let name = "name_1410";
+  let statusColor = "statusColor_1410";
+  // Dependency Barrier
+  let deps = {};
+  deps["avatarId"] = matchAnyAvatarAdded();
+  let pkMap = {"avatarId": "type"};
+  let captured = resolveDependencies(deps, pkMap);
+  avatarId = captured["avatarId"];
+  createPriority(avatarId, description, iconUrl, id, name, statusColor);
+  // waitForPriorityAdded(avatarId, description, iconUrl, id, name, statusColor);
+  tryToAddExistingPriority(avatarId, description, iconUrl, id, name, statusColor);
+  verifyPriorityExists(avatarId, description, iconUrl, id, name, statusColor);
+  updatePriority(avatarId, description, iconUrl, id, name, statusColor);
+  deletePriority(avatarId, description, iconUrl, id, name, statusColor);
+  tryToDeleteANonExistingPriority(avatarId, description, iconUrl, id, name, statusColor);
+  verifyPriorityDoesNotExist(avatarId, description, iconUrl, id, name, statusColor);
 });
 
 // Story: crud:Priority:nondet:1:2
 bthread("crud:Priority:nondet:1:2", function () {
-  let id = 1111;
-  let startAt = "startAt_1111";
-  let maxResults = "maxResults_1111";
-  let projectId = 1111;
-  let priorityName = "priorityName_1111";
-  let onlyDefault = "onlyDefault_1111";
-  let expand = "expand_1111";
-  createPriority(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
-  tryToAddExistingPriority(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
-  updatePriority(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
-  verifyPriorityExists(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
-  deletePriority(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
-  tryToDeleteANonExistingPriority(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
-  verifyPriorityDoesNotExist(1111, "startAt_1111", "maxResults_1111", 1111, "priorityName_1111", "onlyDefault_1111", "expand_1111");
+  let description = "description_1411";
+  let iconUrl = "iconUrl_1411";
+  let id = 1411;
+  let name = "name_1411";
+  let statusColor = "statusColor_1411";
+  // Dependency Barrier
+  let deps = {};
+  deps["avatarId"] = matchAnyAvatarAdded();
+  let pkMap = {"avatarId": "type"};
+  let captured = resolveDependencies(deps, pkMap);
+  avatarId = captured["avatarId"];
+  createPriority(avatarId, description, iconUrl, id, name, statusColor);
+  // waitForPriorityAdded(avatarId, description, iconUrl, id, name, statusColor);
+  tryToAddExistingPriority(avatarId, description, iconUrl, id, name, statusColor);
+  updatePriority(avatarId, description, iconUrl, id, name, statusColor);
+  verifyPriorityExists(avatarId, description, iconUrl, id, name, statusColor);
+  deletePriority(avatarId, description, iconUrl, id, name, statusColor);
+  tryToDeleteANonExistingPriority(avatarId, description, iconUrl, id, name, statusColor);
+  verifyPriorityDoesNotExist(avatarId, description, iconUrl, id, name, statusColor);
 });
 
 // Story: crud:Priority:nondet:negative:dup-add
 bthread("crud:Priority:nondet:negative:dup-add", function () {
-  let id = 1116;
-  let startAt = "startAt_1116";
-  let maxResults = "maxResults_1116";
-  let projectId = 1116;
-  let priorityName = "priorityName_1116";
-  let onlyDefault = "onlyDefault_1116";
-  let expand = "expand_1116";
-  createPriority(1116, "startAt_1116", "maxResults_1116", 1116, "priorityName_1116", "onlyDefault_1116", "expand_1116");
-  verifyPriorityExists(1116, "startAt_1116", "maxResults_1116", 1116, "priorityName_1116", "onlyDefault_1116", "expand_1116");
-  tryToAddExistingPriority(1116, "startAt_1116", "maxResults_1116", 1116, "priorityName_1116", "onlyDefault_1116", "expand_1116");
-  verifyPriorityExists(1116, "startAt_1116", "maxResults_1116", 1116, "priorityName_1116", "onlyDefault_1116", "expand_1116");
-});
-
-// Story: crud:Priority:nondet:existing:update
-bthread("crud:Priority:nondet:existing:update", function () {
-  let ev = waitForAnyPriorityAdded();
-  let args = Object.values(ev);
-  block(matchDeletedPriority.apply(null, args), function () {
-    verifyPriorityExists.apply(null, args);
-    updatePriority.apply(null, args);
-    verifyPriorityExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Priority:add
-bthread("monitor:Priority:add", function () {
-  while (true) {
-    let ev = waitForAnyPriorityAdded();
-    let args = Object.values(ev);
-    block(matchDeletedPriority.apply(null, args), function () {
-      verifyPriorityExists.apply(null, args);
-    });
-  }
+  let description = "description_1416";
+  let iconUrl = "iconUrl_1416";
+  let id = 1416;
+  let name = "name_1416";
+  let statusColor = "statusColor_1416";
+  // Dependency Barrier
+  let deps = {};
+  deps["avatarId"] = matchAnyAvatarAdded();
+  let pkMap = {"avatarId": "type"};
+  let captured = resolveDependencies(deps, pkMap);
+  avatarId = captured["avatarId"];
+  createPriority(avatarId, description, iconUrl, id, name, statusColor);
+  // waitForPriorityAdded(avatarId, description, iconUrl, id, name, statusColor);
+  verifyPriorityExists(avatarId, description, iconUrl, id, name, statusColor);
+  tryToAddExistingPriority(avatarId, description, iconUrl, id, name, statusColor);
+  verifyPriorityExists(avatarId, description, iconUrl, id, name, statusColor);
 });

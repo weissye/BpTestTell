@@ -2,15 +2,25 @@
 //@provengo summon rest
 
 
-function resolveDependencies(deps) {
+function resolveDependencies(deps, pkMap) {
   let captured = {};
   while (Object.keys(deps).length > 0) {
     let missingEventSets = Object.values(deps);
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        captured[k] = e.data.parameters[k] || e.data.parameters.id || e.data.parameters.customerId || e.data.parameters.vin || e.data.parameters.garageId || e.data.parameters.chainId || e.data.parameters.pmId || e.data.parameters.roId;
-        delete deps[k];
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        if (!val && pkMap && pkMap[k]) {
+            let mappedKey = pkMap[k];
+            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
+        }
+        if (!val && e.data) {
+          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }
+        }
+        if (val) {
+            captured[k] = val;
+            delete deps[k];
+        }
       }
     }
   }
@@ -20,73 +30,79 @@ function resolveDependencies(deps) {
 // Story: crud:Drug:nondet:1:1
 bthread("crud:Drug:nondet:1:1", function () {
   let id = 200;
-  createDrug(id);
-  // waitForDrugAdded(id);
-  tryToAddExistingDrug(id);
-  verifyDrugExists(id);
-  updateDrug(id);
-  deleteDrug(id);
-  tryToDeleteANonExistingDrug(id);
-  verifyDrugDoesNotExist(id);
+  let name = "name_200";
+  createDrug(id, name);
+  // waitForDrugAdded(id, name);
+  tryToAddExistingDrug(id, name);
+  verifyDrugExists(id, name);
+  updateDrug(id, name);
+  deleteDrug(id, name);
+  tryToDeleteANonExistingDrug(id, name);
+  verifyDrugDoesNotExist(id, name);
 });
 
 // Story: crud:Drug:nondet:1:2
 bthread("crud:Drug:nondet:1:2", function () {
   let id = 201;
-  createDrug(id);
-  // waitForDrugAdded(id);
-  tryToAddExistingDrug(id);
-  updateDrug(id);
-  verifyDrugExists(id);
-  deleteDrug(id);
-  tryToDeleteANonExistingDrug(id);
-  verifyDrugDoesNotExist(id);
+  let name = "name_201";
+  createDrug(id, name);
+  // waitForDrugAdded(id, name);
+  tryToAddExistingDrug(id, name);
+  updateDrug(id, name);
+  verifyDrugExists(id, name);
+  deleteDrug(id, name);
+  tryToDeleteANonExistingDrug(id, name);
+  verifyDrugDoesNotExist(id, name);
 });
 
 // Story: crud:Drug:nondet:negative:dup-add
 bthread("crud:Drug:nondet:negative:dup-add", function () {
   let id = 206;
-  createDrug(id);
-  // waitForDrugAdded(id);
-  verifyDrugExists(id);
-  tryToAddExistingDrug(id);
-  verifyDrugExists(id);
+  let name = "name_206";
+  createDrug(id, name);
+  // waitForDrugAdded(id, name);
+  verifyDrugExists(id, name);
+  tryToAddExistingDrug(id, name);
+  verifyDrugExists(id, name);
 });
 
 // Story: crud:Patient:nondet:1:1
 bthread("crud:Patient:nondet:1:1", function () {
   let id = 210;
-  createPatient(id);
-  // waitForPatientAdded(id);
-  tryToAddExistingPatient(id);
-  verifyPatientExists(id);
-  updatePatient(id);
-  deletePatient(id);
-  tryToDeleteANonExistingPatient(id);
-  verifyPatientDoesNotExist(id);
+  let name = "name_210";
+  createPatient(id, name);
+  // waitForPatientAdded(id, name);
+  tryToAddExistingPatient(id, name);
+  verifyPatientExists(id, name);
+  updatePatient(id, name);
+  deletePatient(id, name);
+  tryToDeleteANonExistingPatient(id, name);
+  verifyPatientDoesNotExist(id, name);
 });
 
 // Story: crud:Patient:nondet:1:2
 bthread("crud:Patient:nondet:1:2", function () {
   let id = 211;
-  createPatient(id);
-  // waitForPatientAdded(id);
-  tryToAddExistingPatient(id);
-  updatePatient(id);
-  verifyPatientExists(id);
-  deletePatient(id);
-  tryToDeleteANonExistingPatient(id);
-  verifyPatientDoesNotExist(id);
+  let name = "name_211";
+  createPatient(id, name);
+  // waitForPatientAdded(id, name);
+  tryToAddExistingPatient(id, name);
+  updatePatient(id, name);
+  verifyPatientExists(id, name);
+  deletePatient(id, name);
+  tryToDeleteANonExistingPatient(id, name);
+  verifyPatientDoesNotExist(id, name);
 });
 
 // Story: crud:Patient:nondet:negative:dup-add
 bthread("crud:Patient:nondet:negative:dup-add", function () {
   let id = 216;
-  createPatient(id);
-  // waitForPatientAdded(id);
-  verifyPatientExists(id);
-  tryToAddExistingPatient(id);
-  verifyPatientExists(id);
+  let name = "name_216";
+  createPatient(id, name);
+  // waitForPatientAdded(id, name);
+  verifyPatientExists(id, name);
+  tryToAddExistingPatient(id, name);
+  verifyPatientExists(id, name);
 });
 
 // Story: crud:Order:nondet:1:1

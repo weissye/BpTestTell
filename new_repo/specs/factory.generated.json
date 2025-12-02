@@ -6,14 +6,6 @@
       "displayName": "machine",
       "params": [],
       "operations": {
-        "get": {
-          "name": "getMachines",
-          "method": "GET",
-          "path": "/machines",
-          "descriptionTemplate": "Get list of machines",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "add": {
           "name": "createMachine",
           "method": "POST",
@@ -21,43 +13,41 @@
           "descriptionTemplate": "Create machine",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getMachines",
+          "method": "GET",
+          "path": "/machines",
+          "descriptionTemplate": "Get machines",
+          "params": []
         }
       }
     },
-    "Workorder": {
+    "WorkOrder": {
       "displayName": "workorder",
       "params": [],
       "operations": {
-        "get": {
-          "name": "getWorkorders",
-          "method": "GET",
-          "path": "/workorders",
-          "descriptionTemplate": "Get list of workorders",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "add": {
-          "name": "createWorkorder",
+          "name": "createWorkOrder",
           "method": "POST",
           "path": "/workorders",
           "descriptionTemplate": "Create workorder",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getWorkOrders",
+          "method": "GET",
+          "path": "/workorders",
+          "descriptionTemplate": "Get workorders",
+          "params": []
         }
       }
     },
     "MaintenanceTicket": {
-      "displayName": "maintenanceTicket",
+      "displayName": "maintenance ticket",
       "params": [],
       "operations": {
-        "get": {
-          "name": "getMaintenanceTickets",
-          "method": "GET",
-          "path": "/maintenance-tickets",
-          "descriptionTemplate": "Get list of maintenance tickets",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "add": {
           "name": "createMaintenanceTicket",
           "method": "POST",
@@ -65,21 +55,20 @@
           "descriptionTemplate": "Create maintenance ticket",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getMaintenanceTickets",
+          "method": "GET",
+          "path": "/maintenance-tickets",
+          "descriptionTemplate": "Get maintenance tickets",
+          "params": []
         }
       }
     },
     "SensorReading": {
-      "displayName": "sensorReading",
+      "displayName": "sensor reading",
       "params": [],
       "operations": {
-        "get": {
-          "name": "getSensorReadings",
-          "method": "GET",
-          "path": "/sensor-readings",
-          "descriptionTemplate": "Get list of sensor readings",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "add": {
           "name": "createSensorReading",
           "method": "POST",
@@ -87,6 +76,13 @@
           "descriptionTemplate": "Create sensor reading",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getSensorReadings",
+          "method": "GET",
+          "path": "/sensor-readings",
+          "descriptionTemplate": "Get sensor readings",
+          "params": []
         }
       }
     }

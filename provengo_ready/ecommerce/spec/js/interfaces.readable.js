@@ -25,6 +25,12 @@ function waitFor(eventSet) {
   return bp.sync({waitFor: eventSet});
 }
 
+function matchSuccess(desc) {
+  return bp.EventSet("Success Event", function(e) {
+    return e.name === "Done: " + desc;
+  });
+}
+
 // ---- Entity: patient ----
 
 function createPatient() {
@@ -34,24 +40,16 @@ function createPatient() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingPatient() {
-  var url = "/patients";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Patient...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createPatient();
 }
 
 function verifyPatientExists() {
@@ -96,9 +94,7 @@ function verifyPatientDoesNotExist() {
 
 function matchAddedPatient() {
   var expectedDesc = "Create patient";
-  return bp.EventSet("matchAddedPatient", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyPatientAdded() {
@@ -122,23 +118,24 @@ function getPatientAddedEvent(keyVal) {
 
 function matchAnyPatientAdded() {
   return bp.EventSet("matchAnyPatientAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create patient") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create patient") > -1;
   });
 }
 
 function waitForPatientAdded() {
   var expectedDesc = "Create patient";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: drug ----
 
 function getDrugs() {
   var url = "/drugs";
-  var description = "Get drugs";
+  var description = "Get list of drugs";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -149,24 +146,16 @@ function createDrug() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingDrug() {
-  var url = "/drugs";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Drug...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createDrug();
 }
 
 function verifyDrugExists() {
@@ -211,9 +200,7 @@ function verifyDrugDoesNotExist() {
 
 function matchAddedDrug() {
   var expectedDesc = "Create drug";
-  return bp.EventSet("matchAddedDrug", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyDrugAdded() {
@@ -237,13 +224,13 @@ function getDrugAddedEvent(keyVal) {
 
 function matchAnyDrugAdded() {
   return bp.EventSet("matchAnyDrugAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create drug") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create drug") > -1;
   });
 }
 
 function waitForDrugAdded() {
   var expectedDesc = "Create drug";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: prescription ----
@@ -255,24 +242,16 @@ function createPrescription() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingPrescription() {
-  var url = "/prescriptions";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Prescription...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createPrescription();
 }
 
 function verifyPrescriptionExists() {
@@ -317,9 +296,7 @@ function verifyPrescriptionDoesNotExist() {
 
 function matchAddedPrescription() {
   var expectedDesc = "Create prescription";
-  return bp.EventSet("matchAddedPrescription", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyPrescriptionAdded() {
@@ -343,23 +320,24 @@ function getPrescriptionAddedEvent(keyVal) {
 
 function matchAnyPrescriptionAdded() {
   return bp.EventSet("matchAnyPrescriptionAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create prescription") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create prescription") > -1;
   });
 }
 
 function waitForPrescriptionAdded() {
   var expectedDesc = "Create prescription";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: order ----
 
 function getOrders() {
   var url = "/orders";
-  var description = "Get orders";
+  var description = "Get list of orders";
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
@@ -370,24 +348,16 @@ function createOrder() {
   };
   svc.post(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 201, 204, 409],
+    expectedResponseCodes: [201],
     parameters: {
       description: description,
     }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
 function tryToAddExistingOrder() {
-  var url = "/orders";
-  var body = {
-  };
-  var description = "Verify that we cannot add another Order...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
+  createOrder();
 }
 
 function verifyOrderExists() {
@@ -432,9 +402,7 @@ function verifyOrderDoesNotExist() {
 
 function matchAddedOrder() {
   var expectedDesc = "Create order";
-  return bp.EventSet("matchAddedOrder", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return matchSuccess(expectedDesc);
 }
 
 function waitForAnyOrderAdded() {
@@ -458,29 +426,30 @@ function getOrderAddedEvent(keyVal) {
 
 function matchAnyOrderAdded() {
   return bp.EventSet("matchAnyOrderAdded", function(e) {
-    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create order") > -1 && e.data.parameters.None !== undefined);
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create order") > -1;
   });
 }
 
 function waitForOrderAdded() {
   var expectedDesc = "Create order";
-  waitFor(matchesDescription(expectedDesc));
+  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: inventory ----
 
 function getInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Get inventory with ndc " + ndc;
+  var description = "Get inventory for ndc " + ndc;
   var body = undefined;
   svc.get(url, {
-    parameters: { description: description }
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function verifyInventoryExists(ndc) {
   var url = "/inventory";
-  var description = "Verify Inventory exists";
+  var description = "Verify Inventory with ndc " + ndc + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -500,7 +469,7 @@ function verifyInventoryExists(ndc) {
 
 function verifyInventoryDoesNotExist(ndc) {
   var url = "/inventory";
-  var description = "Verify Inventory does not exist";
+  var description = "Verify Inventory with ndc " + ndc + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },

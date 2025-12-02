@@ -289,15 +289,27 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                     val_expr = "null"
                     f_type = props.get(field, {}).get("type", "string")
                     f_type = _infer_type(field, f_type)
+                    
+                    var_to_use = None
+                    if field == primary_key: var_to_use = primary_key
+                    elif field in sig_params: var_to_use = field
 
-                    if f_type == "object":
-                        val_expr = f'{field}' 
-                    elif field == primary_key:
-                        val_expr = f'String({primary_key})'
-                    elif field in sig_params:
-                        val_expr = f'String({field})'
+                    if var_to_use:
+                        if f_type in ["integer", "number"]:
+                            val_expr = f'Number({var_to_use})'
+                        elif f_type == "boolean":
+                            val_expr = f'{var_to_use}'
+                        elif f_type == "object":
+                             val_expr = f'{var_to_use}'
+                        else:
+                            val_expr = f'String({var_to_use})'
                     else:
-                        val_expr = f'"{field}_dummy"'
+                        if f_type in ["integer", "number"]: val_expr = "1"
+                        elif f_type == "boolean": val_expr = "true"
+                        elif f_type == "array": val_expr = "[]"
+                        elif f_type == "object": val_expr = "{}"
+                        else:
+                            val_expr = f'"{field}_dummy"'
 
                     b_lines.append(f'    "{field}": {val_expr},')
                 
@@ -343,9 +355,54 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             for p in sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
             
-            # Wrapper uses same unified signature
+            # FIX: Generate body identically to create function
+            schema, required_fields = _get_operation_schema(op_data.get("path"), "POST", raw_spec)
+            props = schema.get("properties", {})
+            
+            # Reuse the fields_to_gen logic from main loop for consistency
+            fields_to_gen = required_fields if (required_fields or not props) else list(props.keys())
+            if not fields_to_gen: fields_to_gen = op_data.get("params", [])
+            if primary_key and primary_key not in fields_to_gen: fields_to_gen.append(primary_key)
+            for p in op_data.get("params", []):
+                if p not in fields_to_gen: fields_to_gen.append(p)
+            for p in props.keys():
+                 if p not in fields_to_gen: fields_to_gen.append(p)
+            fields_to_gen = sorted(list(set(fields_to_gen)))
+
+            b_lines = ["{"]
+            for field in fields_to_gen:
+                val_expr = "null"
+                f_type = props.get(field, {}).get("type", "string")
+                f_type = _infer_type(field, f_type)
+                var_to_use = None
+                if field == primary_key: var_to_use = primary_key
+                elif field in sig_params: var_to_use = field
+
+                if var_to_use:
+                    if f_type in ["integer", "number"]: val_expr = f'Number({var_to_use})'
+                    elif f_type == "boolean": val_expr = f'{var_to_use}'
+                    elif f_type == "object": val_expr = f'{var_to_use}'
+                    else: val_expr = f'String({var_to_use})'
+                else:
+                    if f_type in ["integer", "number"]: val_expr = "1"
+                    elif f_type == "boolean": val_expr = "true"
+                    elif f_type == "array": val_expr = "[]"
+                    elif f_type == "object": val_expr = "{}"
+                    else: val_expr = f'"{field}_dummy"'
+                b_lines.append(f'    "{field}": {val_expr},')
+            b_lines.append("  }")
+            body_js_wrapper = "\n".join(b_lines)
+            
             lines.append(f'function tryToAddExisting{name}({sig_args_str}) {{')
-            lines.append(f'  {fn_name}({sig_args_str});')
+            lines.append(f'  var url = {js_url};')
+            lines.append(f'  var body = {body_js_wrapper};') # Reconstructed body
+            lines.append(f'  var description = "Verify that we cannot add another {name}...";')
+            lines.append('  if (body === undefined) { body = {}; }')
+            lines.append('  svc.post(url, {')
+            lines.append('    body: JSON.stringify(body),')
+            lines.append('    expectedResponseCodes: [400, 409],')
+            lines.append('    parameters: { description: description }')
+            lines.append('  });')
             lines.append('}')
             lines.append('')
 
@@ -550,7 +607,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('')
     lines.append('')
 
-    # --- INJECTED HELPER: resolveDependencies (Generic with pkMap) ---
+    # --- INJECTED HELPER: resolveDependencies ---
     lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
@@ -563,14 +620,18 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('        // 1. Try basic capture')
     lines.append('        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));')
     lines.append('        // 2. Try using pkMap if available')
-    lines.append('        if (!val && pkMap && pkMap[k] && e.data && e.data[pkMap[k]]) { val = e.data[pkMap[k]]; }')
-    lines.append('        // 3. Try fallback scan for any ID-like field')
+    lines.append('        if (!val && pkMap && pkMap[k]) {')
+    lines.append('            let mappedKey = pkMap[k];')
+    lines.append('            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);')
+    lines.append('        }')
+    lines.append('        // 3. Generic Fallback scan (for ID/VIN)')
     lines.append('        if (!val && e.data) {')
     lines.append('          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }')
     lines.append('        }')
-    lines.append('        captured[k] = val;')
-    lines.append('        delete deps[k];')
-    lines.append('        // if (captured[k]) bp.log.info("Captured " + k + ": " + captured[k]);')
+    lines.append('        if (val) {')
+    lines.append('            captured[k] = val;')
+    lines.append('            delete deps[k];')
+    lines.append('        }')
     lines.append('      }')
     lines.append('    }')
     lines.append('  }')
@@ -614,7 +675,6 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         wait_add_fn = f"waitForAny{name}Added"
         match_del_fn = f"matchDeleted{name}"
         
-        # Ensure wait_specific_fn is defined
         wait_specific_fn = f"waitFor{name}Added"
 
         primary_key = None
@@ -720,6 +780,8 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             if barrier_str: lines.append(barrier_str)
             
             lines.append(f'  {add_fn}({get_args(base_id)});')
+            
+            # Commented out Linear Wait
             lines.append(f'  // {wait_specific_fn}({get_args(base_id)});') 
             
             lines.append(f'  {try_add_fn}({get_args(base_id)});')

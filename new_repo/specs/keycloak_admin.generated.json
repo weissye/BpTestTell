@@ -18,14 +18,6 @@
           ],
           "bodyTemplate": {}
         },
-        "add": {
-          "name": "createRealm",
-          "method": "POST",
-          "path": "/",
-          "descriptionTemplate": "Create realm",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "update": {
           "name": "updateRealm",
           "method": "PUT",
@@ -35,146 +27,7 @@
             "realm"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "realm": "{realm}",
-            "displayName": "{displayName}",
-            "displayNameHtml": "{displayNameHtml}",
-            "notBefore": "{notBefore}",
-            "defaultSignatureAlgorithm": "{defaultSignatureAlgorithm}",
-            "revokeRefreshToken": "{revokeRefreshToken}",
-            "refreshTokenMaxReuse": "{refreshTokenMaxReuse}",
-            "accessTokenLifespan": "{accessTokenLifespan}",
-            "accessTokenLifespanForImplicitFlow": "{accessTokenLifespanForImplicitFlow}",
-            "ssoSessionIdleTimeout": "{ssoSessionIdleTimeout}",
-            "ssoSessionMaxLifespan": "{ssoSessionMaxLifespan}",
-            "ssoSessionIdleTimeoutRememberMe": "{ssoSessionIdleTimeoutRememberMe}",
-            "ssoSessionMaxLifespanRememberMe": "{ssoSessionMaxLifespanRememberMe}",
-            "offlineSessionIdleTimeout": "{offlineSessionIdleTimeout}",
-            "offlineSessionMaxLifespanEnabled": "{offlineSessionMaxLifespanEnabled}",
-            "offlineSessionMaxLifespan": "{offlineSessionMaxLifespan}",
-            "clientSessionIdleTimeout": "{clientSessionIdleTimeout}",
-            "clientSessionMaxLifespan": "{clientSessionMaxLifespan}",
-            "clientOfflineSessionIdleTimeout": "{clientOfflineSessionIdleTimeout}",
-            "clientOfflineSessionMaxLifespan": "{clientOfflineSessionMaxLifespan}",
-            "accessCodeLifespan": "{accessCodeLifespan}",
-            "accessCodeLifespanUserAction": "{accessCodeLifespanUserAction}",
-            "accessCodeLifespanLogin": "{accessCodeLifespanLogin}",
-            "actionTokenGeneratedByAdminLifespan": "{actionTokenGeneratedByAdminLifespan}",
-            "actionTokenGeneratedByUserLifespan": "{actionTokenGeneratedByUserLifespan}",
-            "oauth2DeviceCodeLifespan": "{oauth2DeviceCodeLifespan}",
-            "oauth2DevicePollingInterval": "{oauth2DevicePollingInterval}",
-            "enabled": "{enabled}",
-            "sslRequired": "{sslRequired}",
-            "passwordCredentialGrantAllowed": "{passwordCredentialGrantAllowed}",
-            "registrationAllowed": "{registrationAllowed}",
-            "registrationEmailAsUsername": "{registrationEmailAsUsername}",
-            "rememberMe": "{rememberMe}",
-            "verifyEmail": "{verifyEmail}",
-            "loginWithEmailAllowed": "{loginWithEmailAllowed}",
-            "duplicateEmailsAllowed": "{duplicateEmailsAllowed}",
-            "resetPasswordAllowed": "{resetPasswordAllowed}",
-            "editUsernameAllowed": "{editUsernameAllowed}",
-            "userCacheEnabled": "{userCacheEnabled}",
-            "realmCacheEnabled": "{realmCacheEnabled}",
-            "bruteForceProtected": "{bruteForceProtected}",
-            "permanentLockout": "{permanentLockout}",
-            "maxFailureWaitSeconds": "{maxFailureWaitSeconds}",
-            "minimumQuickLoginWaitSeconds": "{minimumQuickLoginWaitSeconds}",
-            "waitIncrementSeconds": "{waitIncrementSeconds}",
-            "quickLoginCheckMilliSeconds": "{quickLoginCheckMilliSeconds}",
-            "maxDeltaTimeSeconds": "{maxDeltaTimeSeconds}",
-            "failureFactor": "{failureFactor}",
-            "privateKey": "{privateKey}",
-            "publicKey": "{publicKey}",
-            "certificate": "{certificate}",
-            "codeSecret": "{codeSecret}",
-            "roles": "{roles}",
-            "groups": "{groups}",
-            "defaultRoles": "{defaultRoles}",
-            "defaultRole": "{defaultRole}",
-            "defaultGroups": "{defaultGroups}",
-            "requiredCredentials": "{requiredCredentials}",
-            "passwordPolicy": "{passwordPolicy}",
-            "otpPolicyType": "{otpPolicyType}",
-            "otpPolicyAlgorithm": "{otpPolicyAlgorithm}",
-            "otpPolicyInitialCounter": "{otpPolicyInitialCounter}",
-            "otpPolicyDigits": "{otpPolicyDigits}",
-            "otpPolicyLookAheadWindow": "{otpPolicyLookAheadWindow}",
-            "otpPolicyPeriod": "{otpPolicyPeriod}",
-            "otpPolicyCodeReusable": "{otpPolicyCodeReusable}",
-            "otpSupportedApplications": "{otpSupportedApplications}",
-            "webAuthnPolicyRpEntityName": "{webAuthnPolicyRpEntityName}",
-            "webAuthnPolicySignatureAlgorithms": "{webAuthnPolicySignatureAlgorithms}",
-            "webAuthnPolicyRpId": "{webAuthnPolicyRpId}",
-            "webAuthnPolicyAttestationConveyancePreference": "{webAuthnPolicyAttestationConveyancePreference}",
-            "webAuthnPolicyAuthenticatorAttachment": "{webAuthnPolicyAuthenticatorAttachment}",
-            "webAuthnPolicyRequireResidentKey": "{webAuthnPolicyRequireResidentKey}",
-            "webAuthnPolicyUserVerificationRequirement": "{webAuthnPolicyUserVerificationRequirement}",
-            "webAuthnPolicyCreateTimeout": "{webAuthnPolicyCreateTimeout}",
-            "webAuthnPolicyAvoidSameAuthenticatorRegister": "{webAuthnPolicyAvoidSameAuthenticatorRegister}",
-            "webAuthnPolicyAcceptableAaguids": "{webAuthnPolicyAcceptableAaguids}",
-            "webAuthnPolicyPasswordlessRpEntityName": "{webAuthnPolicyPasswordlessRpEntityName}",
-            "webAuthnPolicyPasswordlessSignatureAlgorithms": "{webAuthnPolicyPasswordlessSignatureAlgorithms}",
-            "webAuthnPolicyPasswordlessRpId": "{webAuthnPolicyPasswordlessRpId}",
-            "webAuthnPolicyPasswordlessAttestationConveyancePreference": "{webAuthnPolicyPasswordlessAttestationConveyancePreference}",
-            "webAuthnPolicyPasswordlessAuthenticatorAttachment": "{webAuthnPolicyPasswordlessAuthenticatorAttachment}",
-            "webAuthnPolicyPasswordlessRequireResidentKey": "{webAuthnPolicyPasswordlessRequireResidentKey}",
-            "webAuthnPolicyPasswordlessUserVerificationRequirement": "{webAuthnPolicyPasswordlessUserVerificationRequirement}",
-            "webAuthnPolicyPasswordlessCreateTimeout": "{webAuthnPolicyPasswordlessCreateTimeout}",
-            "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": "{webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister}",
-            "webAuthnPolicyPasswordlessAcceptableAaguids": "{webAuthnPolicyPasswordlessAcceptableAaguids}",
-            "clientProfiles": "{clientProfiles}",
-            "clientPolicies": "{clientPolicies}",
-            "users": "{users}",
-            "federatedUsers": "{federatedUsers}",
-            "scopeMappings": "{scopeMappings}",
-            "clientScopeMappings": "{clientScopeMappings}",
-            "clients": "{clients}",
-            "clientScopes": "{clientScopes}",
-            "defaultDefaultClientScopes": "{defaultDefaultClientScopes}",
-            "defaultOptionalClientScopes": "{defaultOptionalClientScopes}",
-            "browserSecurityHeaders": "{browserSecurityHeaders}",
-            "smtpServer": "{smtpServer}",
-            "userFederationProviders": "{userFederationProviders}",
-            "userFederationMappers": "{userFederationMappers}",
-            "loginTheme": "{loginTheme}",
-            "accountTheme": "{accountTheme}",
-            "adminTheme": "{adminTheme}",
-            "emailTheme": "{emailTheme}",
-            "eventsEnabled": "{eventsEnabled}",
-            "eventsExpiration": "{eventsExpiration}",
-            "eventsListeners": "{eventsListeners}",
-            "enabledEventTypes": "{enabledEventTypes}",
-            "adminEventsEnabled": "{adminEventsEnabled}",
-            "adminEventsDetailsEnabled": "{adminEventsDetailsEnabled}",
-            "identityProviders": "{identityProviders}",
-            "identityProviderMappers": "{identityProviderMappers}",
-            "protocolMappers": "{protocolMappers}",
-            "components": "{components}",
-            "internationalizationEnabled": "{internationalizationEnabled}",
-            "supportedLocales": "{supportedLocales}",
-            "defaultLocale": "{defaultLocale}",
-            "authenticationFlows": "{authenticationFlows}",
-            "authenticatorConfig": "{authenticatorConfig}",
-            "requiredActions": "{requiredActions}",
-            "browserFlow": "{browserFlow}",
-            "registrationFlow": "{registrationFlow}",
-            "directGrantFlow": "{directGrantFlow}",
-            "resetCredentialsFlow": "{resetCredentialsFlow}",
-            "clientAuthenticationFlow": "{clientAuthenticationFlow}",
-            "dockerAuthenticationFlow": "{dockerAuthenticationFlow}",
-            "attributes": "{attributes}",
-            "keycloakVersion": "{keycloakVersion}",
-            "userManagedAccessAllowed": "{userManagedAccessAllowed}",
-            "social": "{social}",
-            "updateProfileOnInitialSocialLogin": "{updateProfileOnInitialSocialLogin}",
-            "socialProviders": "{socialProviders}",
-            "applicationScopeMappings": "{applicationScopeMappings}",
-            "applications": "{applications}",
-            "oauthClients": "{oauthClients}",
-            "clientTemplates": "{clientTemplates}",
-            "oAuth2DeviceCodeLifespan": "{oAuth2DeviceCodeLifespan}",
-            "oAuth2DevicePollingInterval": "{oAuth2DevicePollingInterval}"
+            "realm": "{realm}"
           }
         },
         "delete": {
@@ -189,75 +42,174 @@
         }
       }
     },
-    "Localization": {
-      "displayName": "localization",
+    "AdminEvent": {
+      "displayName": "admin event",
       "params": [
-        "realm",
-        "locale",
-        "key"
+        "realm"
       ],
       "operations": {
         "get": {
-          "name": "getLocalization",
+          "name": "getAdminEvents",
           "method": "GET",
-          "path": "/{realm}/localization/{locale}/{key}",
-          "descriptionTemplate": "Get localization for realm {realm}, locale {locale}, key {key}",
+          "path": "/{realm}/admin-events",
+          "descriptionTemplate": "Get admin events for realm {realm}",
           "params": [
             "realm",
-            "locale",
-            "key"
-          ],
-          "bodyTemplate": {}
-        },
-        "add": {
-          "name": "addLocalization",
-          "method": "POST",
-          "path": "/{realm}/localization/{locale}",
-          "descriptionTemplate": "Add localization for realm {realm}, locale {locale}",
-          "params": [
-            "realm",
-            "locale"
-          ],
-          "bodyTemplate": {}
-        },
-        "update": {
-          "name": "updateLocalization",
-          "method": "PUT",
-          "path": "/{realm}/localization/{locale}/{key}",
-          "descriptionTemplate": "Update localization for realm {realm}, locale {locale}, key {key}",
-          "params": [
-            "realm",
-            "locale",
-            "key"
+            "authClient",
+            "authIpAddress",
+            "authRealm",
+            "authUser",
+            "dateFrom",
+            "dateTo",
+            "first",
+            "max",
+            "operationTypes",
+            "resourcePath",
+            "resourceTypes"
           ],
           "bodyTemplate": {}
         },
         "delete": {
-          "name": "deleteLocalization",
+          "name": "deleteAdminEvents",
           "method": "DELETE",
-          "path": "/{realm}/localization/{locale}/{key}",
-          "descriptionTemplate": "Delete localization for realm {realm}, locale {locale}, key {key}",
+          "path": "/{realm}/admin-events",
+          "descriptionTemplate": "Delete admin events for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ClientDescriptionConverter": {
+      "displayName": "client description converter",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "add": {
+          "name": "postClientDescriptionConverter",
+          "method": "POST",
+          "path": "/{realm}/client-description-converter",
+          "descriptionTemplate": "Post client description converter for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          }
+        }
+      }
+    },
+    "ClientPolicies": {
+      "displayName": "client policies",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getPolicies",
+          "method": "GET",
+          "path": "/{realm}/client-policies/policies",
+          "descriptionTemplate": "Get client policies for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "putPolicies",
+          "method": "PUT",
+          "path": "/{realm}/client-policies/policies",
+          "descriptionTemplate": "Update client policies for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {
+            "realm": "{realm}"
+          }
+        }
+      }
+    },
+    "ClientProfiles": {
+      "displayName": "client profiles",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getProfiles",
+          "method": "GET",
+          "path": "/{realm}/client-policies/profiles",
+          "descriptionTemplate": "Get client profiles for realm {realm}",
           "params": [
             "realm",
-            "locale",
-            "key"
+            "include-global-profiles"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "putProfiles",
+          "method": "PUT",
+          "path": "/{realm}/client-policies/profiles",
+          "descriptionTemplate": "Update client profiles for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {
+            "realm": "{realm}"
+          }
+        }
+      }
+    },
+    "ClientSessionStats": {
+      "displayName": "client session stats",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientSessionStats",
+          "method": "GET",
+          "path": "/{realm}/client-session-stats",
+          "descriptionTemplate": "Get client session stats for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CredentialRegistrators": {
+      "displayName": "credential registrators",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCredentialRegistrators",
+          "method": "GET",
+          "path": "/{realm}/credential-registrators",
+          "descriptionTemplate": "Get credential registrators for realm {realm}",
+          "params": [
+            "realm"
           ],
           "bodyTemplate": {}
         }
       }
     },
     "DefaultDefaultClientScope": {
-      "displayName": "defaultDefaultClientScope",
+      "displayName": "default default client scope",
       "params": [
         "realm",
         "clientScopeId"
       ],
       "operations": {
         "update": {
-          "name": "updateDefaultDefaultClientScope",
+          "name": "putDefaultDefaultClientScope",
           "method": "PUT",
           "path": "/{realm}/default-default-client-scopes/{clientScopeId}",
-          "descriptionTemplate": "Update default default client scope {clientScopeId} in realm {realm}",
+          "descriptionTemplate": "Update default default client scope {clientScopeId} for realm {realm}",
           "params": [
             "realm",
             "clientScopeId"
@@ -268,7 +220,7 @@
           "name": "deleteDefaultDefaultClientScope",
           "method": "DELETE",
           "path": "/{realm}/default-default-client-scopes/{clientScopeId}",
-          "descriptionTemplate": "Delete default default client scope {clientScopeId} in realm {realm}",
+          "descriptionTemplate": "Delete default default client scope {clientScopeId} for realm {realm}",
           "params": [
             "realm",
             "clientScopeId"
@@ -278,14 +230,14 @@
       }
     },
     "DefaultGroup": {
-      "displayName": "defaultGroup",
+      "displayName": "default group",
       "params": [
         "realm",
         "groupId"
       ],
       "operations": {
         "update": {
-          "name": "updateDefaultGroup",
+          "name": "putDefaultGroup",
           "method": "PUT",
           "path": "/{realm}/default-groups/{groupId}",
           "descriptionTemplate": "Update default group {groupId} in realm {realm}",
@@ -299,7 +251,7 @@
           "name": "deleteDefaultGroup",
           "method": "DELETE",
           "path": "/{realm}/default-groups/{groupId}",
-          "descriptionTemplate": "Delete default group {groupId} in realm {realm}",
+          "descriptionTemplate": "Delete default group {groupId} from realm {realm}",
           "params": [
             "realm",
             "groupId"
@@ -309,14 +261,14 @@
       }
     },
     "DefaultOptionalClientScope": {
-      "displayName": "defaultOptionalClientScope",
+      "displayName": "default optional client scope",
       "params": [
         "realm",
         "clientScopeId"
       ],
       "operations": {
         "update": {
-          "name": "updateDefaultOptionalClientScope",
+          "name": "putDefaultOptionalClientScope",
           "method": "PUT",
           "path": "/{realm}/default-optional-client-scopes/{clientScopeId}",
           "descriptionTemplate": "Update default optional client scope {clientScopeId} in realm {realm}",
@@ -330,7 +282,7 @@
           "name": "deleteDefaultOptionalClientScope",
           "method": "DELETE",
           "path": "/{realm}/default-optional-client-scopes/{clientScopeId}",
-          "descriptionTemplate": "Delete default optional client scope {clientScopeId} in realm {realm}",
+          "descriptionTemplate": "Delete default optional client scope {clientScopeId} from realm {realm}",
           "params": [
             "realm",
             "clientScopeId"
@@ -339,96 +291,171 @@
         }
       }
     },
-    "ClientPolicies": {
-      "displayName": "clientPolicies",
+    "Event": {
+      "displayName": "event",
+      "params": [
+        "realm",
+        "client",
+        "dateFrom",
+        "dateTo",
+        "first",
+        "ipAddress",
+        "max",
+        "type",
+        "user"
+      ],
+      "operations": {
+        "get": {
+          "name": "getEvents",
+          "method": "GET",
+          "path": "/{realm}/events",
+          "descriptionTemplate": "Get events in realm {realm} filtered by client {client}, dateFrom {dateFrom}, dateTo {dateTo}, first {first}, ipAddress {ipAddress}, max {max}, type {type}, user {user}",
+          "params": [
+            "realm",
+            "client",
+            "dateFrom",
+            "dateTo",
+            "first",
+            "ipAddress",
+            "max",
+            "type",
+            "user"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteEvents",
+          "method": "DELETE",
+          "path": "/{realm}/events",
+          "descriptionTemplate": "Delete events in realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "EventsConfig": {
+      "displayName": "events config",
       "params": [
         "realm"
       ],
       "operations": {
         "get": {
-          "name": "getClientPolicies",
+          "name": "getEventsConfig",
           "method": "GET",
-          "path": "/{realm}/client-policies/policies",
-          "descriptionTemplate": "Get client policies in realm {realm}",
+          "path": "/{realm}/events/config",
+          "descriptionTemplate": "Get events config for realm {realm}",
           "params": [
             "realm"
           ],
           "bodyTemplate": {}
         },
         "update": {
-          "name": "updateClientPolicies",
+          "name": "putEventsConfig",
           "method": "PUT",
-          "path": "/{realm}/client-policies/policies",
-          "descriptionTemplate": "Update client policies in realm {realm}",
+          "path": "/{realm}/events/config",
+          "descriptionTemplate": "Update events config for realm {realm}",
           "params": [
             "realm"
           ],
           "bodyTemplate": {
-            "policies": "{policies}"
+            "RealmEventsConfigRepresentation": "{RealmEventsConfigRepresentation}"
           }
         }
       }
     },
-    "ClientProfiles": {
-      "displayName": "clientProfiles",
+    "Localization": {
+      "displayName": "localization",
       "params": [
-        "realm"
+        "realm",
+        "locale",
+        "key"
       ],
       "operations": {
-        "get": {
-          "name": "getClientProfiles",
+        "getByRealm": {
+          "name": "getLocalizationByRealm",
           "method": "GET",
-          "path": "/{realm}/client-policies/profiles",
-          "descriptionTemplate": "Get client profiles in realm {realm}",
+          "path": "/{realm}/localization",
+          "descriptionTemplate": "Get localization for realm {realm}",
           "params": [
             "realm"
           ],
           "bodyTemplate": {}
         },
-        "update": {
-          "name": "updateClientProfiles",
-          "method": "PUT",
-          "path": "/{realm}/client-policies/profiles",
-          "descriptionTemplate": "Update client profiles in realm {realm}",
+        "getByRealmLocale": {
+          "name": "getLocalizationByRealmByLocale",
+          "method": "GET",
+          "path": "/{realm}/localization/{locale}",
+          "descriptionTemplate": "Get localization for realm {realm} and locale {locale}",
           "params": [
-            "realm"
+            "realm",
+            "locale",
+            "useRealmDefaultLocaleFallback"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "postLocalization",
+          "method": "POST",
+          "path": "/{realm}/localization/{locale}",
+          "descriptionTemplate": "Add localization string for realm {realm} and locale {locale}",
+          "params": [
+            "realm",
+            "locale"
           ],
           "bodyTemplate": {
-            "profiles": "{profiles}",
-            "globalProfiles": "{globalProfiles}"
+            "string": "{string}"
           }
-        }
-      }
-    },
-    "UsersManagementPermissions": {
-      "displayName": "usersManagementPermissions",
-      "params": [
-        "realm"
-      ],
-      "operations": {
-        "get": {
-          "name": "getUsersManagementPermissions",
-          "method": "GET",
-          "path": "/{realm}/users-management-permissions",
-          "descriptionTemplate": "Get users management permissions in realm {realm}",
+        },
+        "deleteByRealmLocale": {
+          "name": "deleteLocalizationByRealmByLocale",
+          "method": "DELETE",
+          "path": "/{realm}/localization/{locale}",
+          "descriptionTemplate": "Delete localization for realm {realm} and locale {locale}",
           "params": [
-            "realm"
+            "realm",
+            "locale"
+          ],
+          "bodyTemplate": {}
+        },
+        "getByRealmLocaleKey": {
+          "name": "getLocalizationByRealmByLocaleByKey",
+          "method": "GET",
+          "path": "/{realm}/localization/{locale}/{key}",
+          "descriptionTemplate": "Get localization for realm {realm}, locale {locale} and key {key}",
+          "params": [
+            "realm",
+            "locale",
+            "key"
           ],
           "bodyTemplate": {}
         },
         "update": {
-          "name": "updateUsersManagementPermissions",
+          "name": "putLocalization",
           "method": "PUT",
-          "path": "/{realm}/users-management-permissions",
-          "descriptionTemplate": "Update users management permissions in realm {realm}",
+          "path": "/{realm}/localization/{locale}/{key}",
+          "descriptionTemplate": "Update localization string for realm {realm}, locale {locale} and key {key}",
           "params": [
-            "realm"
+            "realm",
+            "locale",
+            "key"
           ],
           "bodyTemplate": {
-            "enabled": "{enabled}",
-            "resource": "{resource}",
-            "scopePermissions": "{scopePermissions}"
+            "string": "{string}"
           }
+        },
+        "deleteByRealmLocaleKey": {
+          "name": "deleteLocalizationByRealmByLocaleByKey",
+          "method": "DELETE",
+          "path": "/{realm}/localization/{locale}/{key}",
+          "descriptionTemplate": "Delete localization for realm {realm}, locale {locale} and key {key}",
+          "params": [
+            "realm",
+            "locale",
+            "key"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -452,10 +479,39 @@
         }
       }
     },
+    "UsersManagementPermissions": {
+      "displayName": "usersManagementPermissions",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUsersManagementPermissions",
+          "method": "GET",
+          "path": "/{realm}/users-management-permissions",
+          "descriptionTemplate": "Get users management permissions in realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "putUsersManagementPermissions",
+          "method": "PUT",
+          "path": "/{realm}/users-management-permissions",
+          "descriptionTemplate": "Update users management permissions in realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {
+            "ManagementPermissionReference": "{ManagementPermissionReference}"
+          }
+        }
+      }
+    },
     "AuthenticationConfig": {
       "displayName": "authentication config",
       "params": [
-        "realm",
         "id"
       ],
       "operations": {
@@ -463,22 +519,20 @@
           "name": "postAuthenticationConfig",
           "method": "POST",
           "path": "/{realm}/authentication/config",
-          "descriptionTemplate": "Create authentication config in realm {realm}",
+          "descriptionTemplate": "Create authentication config with id {id}",
           "params": [
-            "realm"
+            "id"
           ],
           "bodyTemplate": {
-            "alias": "{alias}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
         "get": {
           "name": "getAuthenticationConfig",
           "method": "GET",
           "path": "/{realm}/authentication/config/{id}",
-          "descriptionTemplate": "Get authentication config {id} in realm {realm}",
+          "descriptionTemplate": "Get authentication config with id {id}",
           "params": [
-            "realm",
             "id"
           ]
         },
@@ -486,32 +540,28 @@
           "name": "putAuthenticationConfig",
           "method": "PUT",
           "path": "/{realm}/authentication/config/{id}",
-          "descriptionTemplate": "Update authentication config {id} in realm {realm}",
+          "descriptionTemplate": "Update authentication config with id {id}",
           "params": [
-            "realm",
             "id"
           ],
           "bodyTemplate": {
-            "alias": "{alias}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
         "delete": {
           "name": "deleteConfig",
           "method": "DELETE",
           "path": "/{realm}/authentication/config/{id}",
-          "descriptionTemplate": "Delete authentication config {id} in realm {realm}",
+          "descriptionTemplate": "Delete authentication config with id {id}",
           "params": [
-            "realm",
             "id"
           ]
         }
       }
     },
-    "AuthenticationExecution": {
-      "displayName": "authentication execution",
+    "Execution": {
+      "displayName": "execution",
       "params": [
-        "realm",
         "executionId"
       ],
       "operations": {
@@ -519,29 +569,20 @@
           "name": "postExecutions",
           "method": "POST",
           "path": "/{realm}/authentication/executions",
-          "descriptionTemplate": "Create authentication execution in realm {realm}",
+          "descriptionTemplate": "Create execution with id {executionId}",
           "params": [
-            "realm"
+            "executionId"
           ],
           "bodyTemplate": {
-            "authenticatorConfig": "{authenticatorConfig}",
-            "authenticator": "{authenticator}",
-            "authenticatorFlow": "{authenticatorFlow}",
-            "requirement": "{requirement}",
-            "priority": "{priority}",
-            "autheticatorFlow": "{autheticatorFlow}",
-            "id": "{id}",
-            "flowId": "{flowId}",
-            "parentFlow": "{parentFlow}"
+            "executionId": "{executionId}"
           }
         },
         "get": {
           "name": "getExecution",
           "method": "GET",
           "path": "/{realm}/authentication/executions/{executionId}",
-          "descriptionTemplate": "Get authentication execution {executionId} in realm {realm}",
+          "descriptionTemplate": "Get execution with id {executionId}",
           "params": [
-            "realm",
             "executionId"
           ]
         },
@@ -549,9 +590,8 @@
           "name": "deleteExecution",
           "method": "DELETE",
           "path": "/{realm}/authentication/executions/{executionId}",
-          "descriptionTemplate": "Delete authentication execution {executionId} in realm {realm}",
+          "descriptionTemplate": "Delete execution with id {executionId}",
           "params": [
-            "realm",
             "executionId"
           ]
         }
@@ -560,31 +600,29 @@
     "ExecutionConfig": {
       "displayName": "execution config",
       "params": [
-        "realm",
-        "executionId"
+        "executionId",
+        "id"
       ],
       "operations": {
         "add": {
           "name": "postExecutionConfig",
           "method": "POST",
           "path": "/{realm}/authentication/executions/{executionId}/config",
-          "descriptionTemplate": "Create execution config for execution {executionId} in realm {realm}",
+          "descriptionTemplate": "Create execution config with id {id} for execution {executionId}",
           "params": [
-            "realm",
-            "executionId"
+            "executionId",
+            "id"
           ],
           "bodyTemplate": {
-            "alias": "{alias}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
         "get": {
           "name": "getExecutionConfig",
           "method": "GET",
           "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
-          "descriptionTemplate": "Get execution config {id} for execution {executionId} in realm {realm}",
+          "descriptionTemplate": "Get execution config with id {id} for execution {executionId}",
           "params": [
-            "realm",
             "executionId",
             "id"
           ]
@@ -600,25 +638,17 @@
       ],
       "operations": {
         "add": {
-          "name": "postFlows",
+          "name": "createAuthenticationFlow",
           "method": "POST",
           "path": "/{realm}/authentication/flows",
           "descriptionTemplate": "Create authentication flow in realm {realm}",
           "params": [
             "realm"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "alias": "{alias}",
-            "description": "{description}",
-            "providerId": "{providerId}",
-            "topLevel": "{topLevel}",
-            "builtIn": "{builtIn}",
-            "authenticationExecutions": "{authenticationExecutions}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
-          "name": "getFlow",
+          "name": "getAuthenticationFlow",
           "method": "GET",
           "path": "/{realm}/authentication/flows/{id}",
           "descriptionTemplate": "Get authentication flow {id} in realm {realm}",
@@ -628,7 +658,7 @@
           ]
         },
         "update": {
-          "name": "putFlow",
+          "name": "updateAuthenticationFlow",
           "method": "PUT",
           "path": "/{realm}/authentication/flows/{id}",
           "descriptionTemplate": "Update authentication flow {id} in realm {realm}",
@@ -636,18 +666,10 @@
             "realm",
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "alias": "{alias}",
-            "description": "{description}",
-            "providerId": "{providerId}",
-            "topLevel": "{topLevel}",
-            "builtIn": "{builtIn}",
-            "authenticationExecutions": "{authenticationExecutions}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
-          "name": "deleteFlow",
+          "name": "deleteAuthenticationFlow",
           "method": "DELETE",
           "path": "/{realm}/authentication/flows/{id}",
           "descriptionTemplate": "Delete authentication flow {id} in realm {realm}",
@@ -658,37 +680,146 @@
         }
       }
     },
-    "AuthenticationExecutionInfo": {
-      "displayName": "authentication execution info",
+    "AuthenticationExecution": {
+      "displayName": "authentication execution",
+      "params": [
+        "realm",
+        "executionId",
+        "flowAlias"
+      ],
+      "operations": {
+        "raisePriority": {
+          "name": "raiseExecutionPriority",
+          "method": "POST",
+          "path": "/{realm}/authentication/executions/{executionId}/raise-priority",
+          "descriptionTemplate": "Raise priority of execution {executionId} in realm {realm}",
+          "params": [
+            "realm",
+            "executionId"
+          ]
+        },
+        "add": {
+          "name": "addExecution",
+          "method": "POST",
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution",
+          "descriptionTemplate": "Add execution to flow {flowAlias} in realm {realm}",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getExecutions",
+          "method": "GET",
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+          "descriptionTemplate": "Get executions for flow {flowAlias} in realm {realm}",
+          "params": [
+            "realm",
+            "flowAlias"
+          ]
+        },
+        "update": {
+          "name": "updateExecutions",
+          "method": "PUT",
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+          "descriptionTemplate": "Update executions for flow {flowAlias} in realm {realm}",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AuthenticationFlowCopy": {
+      "displayName": "authentication flow copy",
       "params": [
         "realm",
         "flowAlias"
       ],
       "operations": {
-        "update": {
-          "name": "putExecutions",
-          "method": "PUT",
-          "path": "/{realm}/authentication/flows/{flowAlias}/executions",
-          "descriptionTemplate": "Update authentication executions info for flow {flowAlias} in realm {realm}",
+        "add": {
+          "name": "copyAuthenticationFlow",
+          "method": "POST",
+          "path": "/{realm}/authentication/flows/{flowAlias}/copy",
+          "descriptionTemplate": "Copy authentication flow {flowAlias} in realm {realm}",
           "params": [
             "realm",
             "flowAlias"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "requirement": "{requirement}",
-            "displayName": "{displayName}",
-            "alias": "{alias}",
-            "description": "{description}",
-            "requirementChoices": "{requirementChoices}",
-            "configurable": "{configurable}",
-            "authenticationFlow": "{authenticationFlow}",
-            "providerId": "{providerId}",
-            "authenticationConfig": "{authenticationConfig}",
-            "flowId": "{flowId}",
-            "level": "{level}",
-            "index": "{index}"
-          }
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "AuthenticationFlowFlow": {
+      "displayName": "authentication flow flow",
+      "params": [
+        "realm",
+        "flowAlias"
+      ],
+      "operations": {
+        "add": {
+          "name": "addFlowToFlow",
+          "method": "POST",
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
+          "descriptionTemplate": "Add flow to flow {flowAlias} in realm {realm}",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "FormActionProvider": {
+      "displayName": "form action provider",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFormActionProviders",
+          "method": "GET",
+          "path": "/{realm}/authentication/form-action-providers",
+          "descriptionTemplate": "Get form action providers in realm {realm}",
+          "params": [
+            "realm"
+          ]
+        }
+      }
+    },
+    "FormProvider": {
+      "displayName": "form provider",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFormProviders",
+          "method": "GET",
+          "path": "/{realm}/authentication/form-providers",
+          "descriptionTemplate": "Get form providers in realm {realm}",
+          "params": [
+            "realm"
+          ]
+        }
+      }
+    },
+    "PerClientConfigDescription": {
+      "displayName": "per client config description",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getPerClientConfigDescription",
+          "method": "GET",
+          "path": "/{realm}/authentication/per-client-config-description",
+          "descriptionTemplate": "Get per client config description in realm {realm}",
+          "params": [
+            "realm"
+          ]
         }
       }
     },
@@ -703,13 +834,11 @@
           "name": "postRegisterRequiredAction",
           "method": "POST",
           "path": "/{realm}/authentication/register-required-action",
-          "descriptionTemplate": "Register required action in realm {realm}",
+          "descriptionTemplate": "Create required action {alias} in realm {realm}",
           "params": [
             "realm"
           ],
-          "bodyTemplate": {
-            "alias": "{alias}"
-          }
+          "bodyTemplate": "{alias}"
         },
         "get": {
           "name": "getRequiredAction",
@@ -731,13 +860,7 @@
             "alias"
           ],
           "bodyTemplate": {
-            "alias": "{alias}",
-            "name": "{name}",
-            "providerId": "{providerId}",
-            "enabled": "{enabled}",
-            "defaultAction": "{defaultAction}",
-            "priority": "{priority}",
-            "config": "{config}"
+            "RequiredActionProviderRepresentation": "{RequiredActionProviderRepresentation}"
           }
         },
         "delete": {
@@ -756,154 +879,181 @@
       "displayName": "client",
       "params": [
         "realm",
+        "id"
+      ],
+      "operations": {
+        "add": null,
+        "get": null,
+        "update": null,
+        "delete": null,
+        "postClientPushRevocation": {
+          "name": "postClientPushRevocation",
+          "method": "POST",
+          "path": "/{realm}/clients/{id}/push-revocation",
+          "descriptionTemplate": "Post client push revocation for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "postRegistrationAccessToken": {
+          "name": "postRegistrationAccessToken",
+          "method": "POST",
+          "path": "/{realm}/clients/{id}/registration-access-token",
+          "descriptionTemplate": "Post registration access token for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "getServiceAccountUser": {
+          "name": "getServiceAccountUser",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/service-account-user",
+          "descriptionTemplate": "Get service account user for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "getSessionCount": {
+          "name": "getSessionCount",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/session-count",
+          "descriptionTemplate": "Get session count for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "getTestNodesAvailable": {
+          "name": "getTestNodesAvailable",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/test-nodes-available",
+          "descriptionTemplate": "Get test nodes available for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "getClientUserSessions": {
+          "name": "getClientUserSessions",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/user-sessions",
+          "descriptionTemplate": "Get user sessions for client {id} in realm {realm} with paging first {first} max {max}",
+          "params": [
+            "realm",
+            "id",
+            "first",
+            "max"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ClientNode": {
+      "displayName": "client node",
+      "params": [
+        "realm",
         "id",
-        "clientId",
-        "name"
+        "node"
       ],
       "operations": {
         "add": {
-          "name": "createClient",
+          "name": "postNodes",
           "method": "POST",
-          "path": "/{realm}/clients",
-          "descriptionTemplate": "Create client {clientId} with id {id}",
+          "path": "/{realm}/clients/{id}/nodes",
+          "descriptionTemplate": "Add node {node} to client {id} in realm {realm}",
           "params": [
-            "realm"
+            "realm",
+            "id",
+            "node"
           ],
-          "bodyTemplate": {
-            "clientId": "{clientId}",
-            "name": "{name}",
-            "description": "{description}",
-            "rootUrl": "{rootUrl}",
-            "adminUrl": "{adminUrl}",
-            "baseUrl": "{baseUrl}",
-            "surrogateAuthRequired": "{surrogateAuthRequired}",
-            "enabled": "{enabled}",
-            "alwaysDisplayInConsole": "{alwaysDisplayInConsole}",
-            "clientAuthenticatorType": "{clientAuthenticatorType}",
-            "secret": "{secret}",
-            "registrationAccessToken": "{registrationAccessToken}",
-            "defaultRoles": "{defaultRoles}",
-            "redirectUris": "{redirectUris}",
-            "webOrigins": "{webOrigins}",
-            "notBefore": "{notBefore}",
-            "bearerOnly": "{bearerOnly}",
-            "consentRequired": "{consentRequired}",
-            "standardFlowEnabled": "{standardFlowEnabled}",
-            "implicitFlowEnabled": "{implicitFlowEnabled}",
-            "directAccessGrantsEnabled": "{directAccessGrantsEnabled}",
-            "serviceAccountsEnabled": "{serviceAccountsEnabled}",
-            "oauth2DeviceAuthorizationGrantEnabled": "{oauth2DeviceAuthorizationGrantEnabled}",
-            "authorizationServicesEnabled": "{authorizationServicesEnabled}",
-            "directGrantsOnly": "{directGrantsOnly}",
-            "publicClient": "{publicClient}",
-            "frontchannelLogout": "{frontchannelLogout}",
-            "protocol": "{protocol}",
-            "attributes": "{attributes}",
-            "authenticationFlowBindingOverrides": "{authenticationFlowBindingOverrides}",
-            "fullScopeAllowed": "{fullScopeAllowed}",
-            "nodeReRegistrationTimeout": "{nodeReRegistrationTimeout}",
-            "registeredNodes": "{registeredNodes}",
-            "protocolMappers": "{protocolMappers}",
-            "clientTemplate": "{clientTemplate}",
-            "useTemplateConfig": "{useTemplateConfig}",
-            "useTemplateScope": "{useTemplateScope}",
-            "useTemplateMappers": "{useTemplateMappers}",
-            "defaultClientScopes": "{defaultClientScopes}",
-            "optionalClientScopes": "{optionalClientScopes}",
-            "authorizationSettings": "{authorizationSettings}",
-            "access": "{access}",
-            "origin": "{origin}"
-          }
-        },
-        "get": {
-          "name": "getClients",
-          "method": "GET",
-          "path": "/{realm}/clients",
-          "descriptionTemplate": "Get clients in realm {realm}",
-          "params": [
-            "realm",
-            "clientId",
-            "first",
-            "max",
-            "q",
-            "search",
-            "viewableOnly"
-          ]
-        },
-        "getById": {
-          "name": "getClientById",
-          "method": "GET",
-          "path": "/{realm}/clients/{id}",
-          "descriptionTemplate": "Get client by id {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateClient",
-          "method": "PUT",
-          "path": "/{realm}/clients/{id}",
-          "descriptionTemplate": "Update client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ],
-          "bodyTemplate": {
-            "clientId": "{clientId}",
-            "name": "{name}",
-            "description": "{description}",
-            "rootUrl": "{rootUrl}",
-            "adminUrl": "{adminUrl}",
-            "baseUrl": "{baseUrl}",
-            "surrogateAuthRequired": "{surrogateAuthRequired}",
-            "enabled": "{enabled}",
-            "alwaysDisplayInConsole": "{alwaysDisplayInConsole}",
-            "clientAuthenticatorType": "{clientAuthenticatorType}",
-            "secret": "{secret}",
-            "registrationAccessToken": "{registrationAccessToken}",
-            "defaultRoles": "{defaultRoles}",
-            "redirectUris": "{redirectUris}",
-            "webOrigins": "{webOrigins}",
-            "notBefore": "{notBefore}",
-            "bearerOnly": "{bearerOnly}",
-            "consentRequired": "{consentRequired}",
-            "standardFlowEnabled": "{standardFlowEnabled}",
-            "implicitFlowEnabled": "{implicitFlowEnabled}",
-            "directAccessGrantsEnabled": "{directAccessGrantsEnabled}",
-            "serviceAccountsEnabled": "{serviceAccountsEnabled}",
-            "oauth2DeviceAuthorizationGrantEnabled": "{oauth2DeviceAuthorizationGrantEnabled}",
-            "authorizationServicesEnabled": "{authorizationServicesEnabled}",
-            "directGrantsOnly": "{directGrantsOnly}",
-            "publicClient": "{publicClient}",
-            "frontchannelLogout": "{frontchannelLogout}",
-            "protocol": "{protocol}",
-            "attributes": "{attributes}",
-            "authenticationFlowBindingOverrides": "{authenticationFlowBindingOverrides}",
-            "fullScopeAllowed": "{fullScopeAllowed}",
-            "nodeReRegistrationTimeout": "{nodeReRegistrationTimeout}",
-            "registeredNodes": "{registeredNodes}",
-            "protocolMappers": "{protocolMappers}",
-            "clientTemplate": "{clientTemplate}",
-            "useTemplateConfig": "{useTemplateConfig}",
-            "useTemplateScope": "{useTemplateScope}",
-            "useTemplateMappers": "{useTemplateMappers}",
-            "defaultClientScopes": "{defaultClientScopes}",
-            "optionalClientScopes": "{optionalClientScopes}",
-            "authorizationSettings": "{authorizationSettings}",
-            "access": "{access}",
-            "origin": "{origin}"
-          }
+          "bodyTemplate": "{node}"
         },
         "delete": {
-          "name": "deleteClient",
+          "name": "deleteNode",
           "method": "DELETE",
-          "path": "/{realm}/clients/{id}",
-          "descriptionTemplate": "Delete client {id} in realm {realm}",
+          "path": "/{realm}/clients/{id}/nodes/{node}",
+          "descriptionTemplate": "Delete node {node} from client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "node"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "OptionalClientScope": {
+      "displayName": "optional client scope",
+      "params": [
+        "realm",
+        "id",
+        "clientScopeId"
+      ],
+      "operations": {
+        "update": {
+          "name": "putOptionalClientScope",
+          "method": "PUT",
+          "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+          "descriptionTemplate": "Update optional client scope {clientScopeId} for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "clientScopeId"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteOptionalClientScope",
+          "method": "DELETE",
+          "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+          "descriptionTemplate": "Delete optional client scope {clientScopeId} from client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "clientScopeId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ClientManagementPermissions": {
+      "displayName": "client management permissions",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientManagementPermissions",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/management/permissions",
+          "descriptionTemplate": "Get management permissions for client {id} in realm {realm}",
           "params": [
             "realm",
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "putClientManagementPermissions",
+          "method": "PUT",
+          "path": "/{realm}/clients/{id}/management/permissions",
+          "descriptionTemplate": "Update management permissions for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {
+            "ManagementPermissionReference": "{ManagementPermissionReference}"
+          }
         }
       }
     },
@@ -915,138 +1065,122 @@
       ],
       "operations": {
         "add": {
-          "name": "postUsers",
+          "name": "createUser",
           "method": "POST",
           "path": "/{realm}/users",
-          "descriptionTemplate": "Create user with username {username}",
+          "descriptionTemplate": "Create user with id {id} in realm {realm}",
           "params": [
-            "realm",
-            "username"
+            "realm"
           ],
           "bodyTemplate": {
-            "username": "{username}",
-            "enabled": "{enabled}",
-            "emailVerified": "{emailVerified}",
-            "firstName": "{firstName}",
-            "lastName": "{lastName}",
-            "email": "{email}",
-            "federationLink": "{federationLink}",
-            "serviceAccountClientId": "{serviceAccountClientId}",
-            "attributes": "{attributes}",
-            "credentials": "{credentials}",
-            "disableableCredentialTypes": "{disableableCredentialTypes}",
-            "requiredActions": "{requiredActions}",
-            "federatedIdentities": "{federatedIdentities}",
-            "realmRoles": "{realmRoles}",
-            "clientRoles": "{clientRoles}",
-            "clientConsents": "{clientConsents}",
-            "notBefore": "{notBefore}",
-            "applicationRoles": "{applicationRoles}",
-            "socialLinks": "{socialLinks}",
-            "groups": "{groups}",
-            "access": "{access}",
-            "origin": "{origin}",
-            "createdTimestamp": "{createdTimestamp}"
+            "id": "{id}"
           }
         },
         "get": {
-          "name": "getUserByRealmById",
+          "name": "getUserById",
           "method": "GET",
           "path": "/{realm}/users/{id}",
-          "descriptionTemplate": "Get user with id {id}",
+          "descriptionTemplate": "Get user with id {id} in realm {realm}",
           "params": [
             "realm",
             "id"
           ]
         },
         "update": {
-          "name": "putUser",
+          "name": "updateUser",
           "method": "PUT",
           "path": "/{realm}/users/{id}",
-          "descriptionTemplate": "Update user with id {id} and username {username}",
+          "descriptionTemplate": "Update user with id {id} in realm {realm}",
           "params": [
             "realm",
-            "id",
-            "username"
+            "id"
           ],
           "bodyTemplate": {
-            "username": "{username}",
-            "enabled": "{enabled}",
-            "emailVerified": "{emailVerified}",
-            "firstName": "{firstName}",
-            "lastName": "{lastName}",
-            "email": "{email}",
-            "federationLink": "{federationLink}",
-            "serviceAccountClientId": "{serviceAccountClientId}",
-            "attributes": "{attributes}",
-            "credentials": "{credentials}",
-            "disableableCredentialTypes": "{disableableCredentialTypes}",
-            "requiredActions": "{requiredActions}",
-            "federatedIdentities": "{federatedIdentities}",
-            "realmRoles": "{realmRoles}",
-            "clientRoles": "{clientRoles}",
-            "clientConsents": "{clientConsents}",
-            "notBefore": "{notBefore}",
-            "applicationRoles": "{applicationRoles}",
-            "socialLinks": "{socialLinks}",
-            "groups": "{groups}",
-            "access": "{access}",
-            "origin": "{origin}",
-            "createdTimestamp": "{createdTimestamp}"
+            "id": "{id}"
           }
         },
         "delete": {
-          "name": "deleteUserByRealmById",
+          "name": "deleteUser",
           "method": "DELETE",
           "path": "/{realm}/users/{id}",
-          "descriptionTemplate": "Delete user with id {id}",
+          "descriptionTemplate": "Delete user with id {id} in realm {realm}",
           "params": [
             "realm",
             "id"
           ]
-        }
-      }
-    },
-    "UserCredential": {
-      "displayName": "user credential",
-      "params": [
-        "realm",
-        "id",
-        "credentialId"
-      ],
-      "operations": {
-        "delete": {
-          "name": "deleteCredential",
-          "method": "DELETE",
-          "path": "/{realm}/users/{id}/credentials/{credentialId}",
-          "descriptionTemplate": "Delete credential {credentialId} for user {id}",
+        },
+        "logout": {
+          "name": "postLogout",
+          "method": "POST",
+          "path": "/{realm}/users/{id}/logout",
+          "descriptionTemplate": "Logout user {id} in realm {realm}",
           "params": [
             "realm",
-            "id",
-            "credentialId"
-          ]
-        }
-      }
-    },
-    "UserCredentialLabel": {
-      "displayName": "user credential label",
-      "params": [
-        "realm",
-        "id",
-        "credentialId"
-      ],
-      "operations": {
-        "update": {
-          "name": "putUserLabel",
-          "method": "PUT",
-          "path": "/{realm}/users/{id}/credentials/{credentialId}/userLabel",
-          "descriptionTemplate": "Update label for credential {credentialId} of user {id}",
-          "params": [
-            "realm",
-            "id",
-            "credentialId"
+            "id"
           ],
-          "bodyTemplate": "{label}"
+          "bodyTemplate": {}
+        },
+        "getOfflineSession": {
+          "name": "getOfflineSession",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/offline-sessions/{clientUuid}",
+          "descriptionTemplate": "Get offline session {clientUuid} for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "clientUuid"
+          ],
+          "bodyTemplate": {}
+        },
+        "resetPassword": {
+          "name": "putResetPassword",
+          "method": "PUT",
+          "path": "/{realm}/users/{id}/reset-password",
+          "descriptionTemplate": "Reset password for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {
+            "credential": "{credential}"
+          }
+        },
+        "resetPasswordEmail": {
+          "name": "putResetPasswordEmail",
+          "method": "PUT",
+          "path": "/{realm}/users/{id}/reset-password-email",
+          "descriptionTemplate": "Reset password email for user {id} in realm {realm} with client_id {client_id} and redirect_uri {redirect_uri}",
+          "params": [
+            "realm",
+            "id",
+            "client_id",
+            "redirect_uri"
+          ],
+          "bodyTemplate": {}
+        },
+        "sendVerifyEmail": {
+          "name": "putSendVerifyEmail",
+          "method": "PUT",
+          "path": "/{realm}/users/{id}/send-verify-email",
+          "descriptionTemplate": "Send verify email for user {id} in realm {realm} with client_id {client_id} and redirect_uri {redirect_uri}",
+          "params": [
+            "realm",
+            "id",
+            "client_id",
+            "redirect_uri"
+          ],
+          "bodyTemplate": {}
+        },
+        "getSessions": {
+          "name": "getSessions",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/sessions",
+          "descriptionTemplate": "Get sessions for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -1058,16 +1192,174 @@
         "client"
       ],
       "operations": {
+        "get": {
+          "name": "getUserConsents",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/consents",
+          "descriptionTemplate": "Get consents for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        },
         "delete": {
-          "name": "deleteConsent",
+          "name": "deleteUserConsent",
           "method": "DELETE",
           "path": "/{realm}/users/{id}/consents/{client}",
-          "descriptionTemplate": "Delete consent for client {client} of user {id}",
+          "descriptionTemplate": "Delete consent for client {client} of user {id} in realm {realm}",
           "params": [
             "realm",
             "id",
             "client"
           ]
+        }
+      }
+    },
+    "UserCredential": {
+      "displayName": "user credential",
+      "params": [
+        "credentialId",
+        "id",
+        "realm",
+        "newPreviousCredentialId"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserCredentials",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/credentials",
+          "descriptionTemplate": "Get credentials for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        },
+        "delete": {
+          "name": "deleteUserCredential",
+          "method": "DELETE",
+          "path": "/{realm}/users/{id}/credentials/{credentialId}",
+          "descriptionTemplate": "Delete credential {credentialId} for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "credentialId"
+          ]
+        },
+        "update": {
+          "name": "updateUserCredentialUserLabel",
+          "method": "PUT",
+          "path": "/{realm}/users/{id}/credentials/{credentialId}/userLabel",
+          "descriptionTemplate": "Update user credential label for credentialId {credentialId} of user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "credentialId"
+          ],
+          "bodyTemplate": "{string}"
+        },
+        "postMoveToFirst": {
+          "name": "moveUserCredentialToFirst",
+          "method": "POST",
+          "path": "/{realm}/users/{id}/credentials/{credentialId}/moveToFirst",
+          "descriptionTemplate": "Move user credential {credentialId} to first for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "credentialId"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UserProfile": {
+      "displayName": "user profile",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserProfile",
+          "method": "GET",
+          "path": "/{realm}/users/profile",
+          "descriptionTemplate": "Get profile for realm {realm}",
+          "params": [
+            "realm"
+          ]
+        },
+        "update": {
+          "name": "updateUserProfile",
+          "method": "PUT",
+          "path": "/{realm}/users/profile",
+          "descriptionTemplate": "Update profile for realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": "{string}"
+        }
+      }
+    },
+    "UserStorageCredentialType": {
+      "displayName": "user storage credential type",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getUserStorageCredentialTypes",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/configured-user-storage-credential-types",
+          "descriptionTemplate": "Get configured user storage credential types for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        }
+      }
+    },
+    "UserCredentialTypes": {
+      "displayName": "user credential types",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "update": {
+          "name": "disableUserCredentialTypes",
+          "method": "PUT",
+          "path": "/{realm}/users/{id}/disable-credential-types",
+          "descriptionTemplate": "Disable credential types for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": "{string}"
+        }
+      }
+    },
+    "UserActionsEmail": {
+      "displayName": "user actions email",
+      "params": [
+        "realm",
+        "id",
+        "client_id",
+        "lifespan",
+        "redirect_uri"
+      ],
+      "operations": {
+        "update": {
+          "name": "executeUserActionsEmail",
+          "method": "PUT",
+          "path": "/{realm}/users/{id}/execute-actions-email",
+          "descriptionTemplate": "Execute actions email for user {id} in realm {realm} with client_id {client_id}, lifespan {lifespan}, redirect_uri {redirect_uri}",
+          "params": [
+            "realm",
+            "id",
+            "client_id",
+            "lifespan",
+            "redirect_uri"
+          ],
+          "bodyTemplate": "{string}"
         }
       }
     },
@@ -1079,27 +1371,40 @@
         "provider"
       ],
       "operations": {
+        "get": {
+          "name": "getUserFederatedIdentity",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/federated-identity",
+          "descriptionTemplate": "Get federated identity for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
         "add": {
-          "name": "postFederatedIdentity",
+          "name": "addUserFederatedIdentity",
           "method": "POST",
           "path": "/{realm}/users/{id}/federated-identity/{provider}",
-          "descriptionTemplate": "Add federated identity {provider} for user {id}",
+          "descriptionTemplate": "Add federated identity {provider} for user {id} in realm {realm}",
           "params": [
             "realm",
             "id",
             "provider"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "delete": {
-          "name": "deleteFederatedIdentity",
+          "name": "deleteUserFederatedIdentity",
           "method": "DELETE",
           "path": "/{realm}/users/{id}/federated-identity/{provider}",
-          "descriptionTemplate": "Delete federated identity {provider} for user {id}",
+          "descriptionTemplate": "Delete federated identity {provider} for user {id} in realm {realm}",
           "params": [
             "realm",
             "id",
             "provider"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -1111,70 +1416,81 @@
         "groupId"
       ],
       "operations": {
+        "get": {
+          "name": "getUserGroups",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/groups",
+          "descriptionTemplate": "Get groups for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "briefRepresentation",
+            "first",
+            "max",
+            "search"
+          ],
+          "bodyTemplate": {}
+        },
+        "getCount": {
+          "name": "getUserGroupsCount",
+          "method": "GET",
+          "path": "/{realm}/users/{id}/groups/count",
+          "descriptionTemplate": "Get groups count for user {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "search"
+          ],
+          "bodyTemplate": {}
+        },
         "add": {
-          "name": "putUserGroup",
+          "name": "addUserGroup",
           "method": "PUT",
           "path": "/{realm}/users/{id}/groups/{groupId}",
-          "descriptionTemplate": "Add user {id} to group {groupId}",
+          "descriptionTemplate": "Add user {id} to group {groupId} in realm {realm}",
           "params": [
             "realm",
             "id",
             "groupId"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteUserGroup",
           "method": "DELETE",
           "path": "/{realm}/users/{id}/groups/{groupId}",
-          "descriptionTemplate": "Remove user {id} from group {groupId}",
+          "descriptionTemplate": "Remove user {id} from group {groupId} in realm {realm}",
           "params": [
             "realm",
             "id",
             "groupId"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "UserResetPassword": {
-      "displayName": "user reset password",
+    "UserImpersonation": {
+      "displayName": "user impersonation",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
-        "update": {
-          "name": "putResetPassword",
-          "method": "PUT",
-          "path": "/{realm}/users/{id}/reset-password",
-          "descriptionTemplate": "Reset password for user {id}",
+        "add": {
+          "name": "impersonateUser",
+          "method": "POST",
+          "path": "/{realm}/users/{id}/impersonation",
+          "descriptionTemplate": "Impersonate user {id} in realm {realm}",
           "params": [
             "realm",
             "id"
           ],
-          "bodyTemplate": {
-            "type": "{type}",
-            "userLabel": "{userLabel}",
-            "createdDate": "{createdDate}",
-            "secretData": "{secretData}",
-            "credentialData": "{credentialData}",
-            "priority": "{priority}",
-            "value": "{value}",
-            "temporary": "{temporary}",
-            "device": "{device}",
-            "hashedSaltedValue": "{hashedSaltedValue}",
-            "salt": "{salt}",
-            "hashIterations": "{hashIterations}",
-            "counter": "{counter}",
-            "algorithm": "{algorithm}",
-            "digits": "{digits}",
-            "period": "{period}",
-            "config": "{config}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
-    "ClientScopeScopeMappingsClient": {
-      "displayName": "client scope scope mappings client",
+    "ClientScopeScopeMappingClient": {
+      "displayName": "client scope scope mapping client",
       "params": [
         "realm",
         "id",
@@ -1185,53 +1501,31 @@
           "name": "postClientScopeScopeMappingsClient",
           "method": "POST",
           "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Add role {name} with id {id} to client scope {id} for client {client} in realm {realm}",
+          "descriptionTemplate": "Add role mapping to client scope {id} for client {client} in realm {realm}",
           "params": [
             "realm",
             "id",
-            "client",
-            "name",
-            "id"
+            "client"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteClientScopeScopeMappingsClient",
           "method": "DELETE",
           "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Delete role {name} with id {id} from client scope {id} for client {client} in realm {realm}",
+          "descriptionTemplate": "Delete role mapping from client scope {id} for client {client} in realm {realm}",
           "params": [
             "realm",
             "id",
-            "client",
-            "name",
-            "id"
+            "client"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getClientScopeScopeMappingsClient",
           "method": "GET",
           "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Get scope mappings for client scope {id} and client {client} in realm {realm}",
+          "descriptionTemplate": "Get role mappings of client scope {id} for client {client} in realm {realm}",
           "params": [
             "realm",
             "id",
@@ -1240,8 +1534,52 @@
         }
       }
     },
-    "ClientScopeScopeMappingsRealm": {
-      "displayName": "client scope scope mappings realm",
+    "ClientScopeScopeMappingClientAvailable": {
+      "displayName": "client scope scope mapping client available",
+      "params": [
+        "realm",
+        "id",
+        "client"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientScopeScopeMappingsClientAvailable",
+          "method": "GET",
+          "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available",
+          "descriptionTemplate": "Get available role mappings of client scope {id} for client {client} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ]
+        }
+      }
+    },
+    "ClientScopeScopeMappingClientComposite": {
+      "displayName": "client scope scope mapping client composite",
+      "params": [
+        "realm",
+        "id",
+        "client",
+        "briefRepresentation"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientScopeScopeMappingsClientComposite",
+          "method": "GET",
+          "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/composite",
+          "descriptionTemplate": "Get composite role mappings of client scope {id} for client {client} in realm {realm} with briefRepresentation {briefRepresentation}",
+          "params": [
+            "realm",
+            "id",
+            "client",
+            "briefRepresentation"
+          ]
+        }
+      }
+    },
+    "ClientScopeScopeMappingRealm": {
+      "displayName": "client scope scope mapping realm",
       "params": [
         "realm",
         "id"
@@ -1251,51 +1589,29 @@
           "name": "postClientScopeScopeMappingsRealm",
           "method": "POST",
           "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Add role {name} with id {id} to client scope {id} in realm {realm}",
+          "descriptionTemplate": "Add role mapping to client scope {id} realm in realm {realm}",
           "params": [
             "realm",
-            "id",
-            "name",
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteClientScopeScopeMappingsRealm",
           "method": "DELETE",
           "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Delete role {name} with id {id} from client scope {id} in realm {realm}",
+          "descriptionTemplate": "Delete role mapping from client scope {id} realm in realm {realm}",
           "params": [
             "realm",
-            "id",
-            "name",
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getClientScopeScopeMappingsRealm",
           "method": "GET",
           "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Get realm scope mappings for client scope {id} in realm {realm}",
+          "descriptionTemplate": "Get role mappings of client scope {id} realm in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -1303,281 +1619,42 @@
         }
       }
     },
-    "ClientTemplateScopeMappingsClient": {
-      "displayName": "client template scope mappings client",
+    "ClientScopeScopeMappingRealmAvailable": {
+      "displayName": "client scope scope mapping realm available",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientScopeScopeMappingsRealmAvailable",
+          "method": "GET",
+          "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/available",
+          "descriptionTemplate": "Get available role mappings of client scope {id} realm in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        }
+      }
+    },
+    "ClientScopeScopeMappingRealmComposite": {
+      "displayName": "client scope scope mapping realm composite",
       "params": [
         "realm",
         "id",
-        "client"
-      ],
-      "operations": {
-        "add": {
-          "name": "postClientTemplateScopeMappingsClient",
-          "method": "POST",
-          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Add role {name} with id {id} to client template {id} for client {client} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "delete": {
-          "name": "deleteClientTemplateScopeMappingsClient",
-          "method": "DELETE",
-          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Delete role {name} with id {id} from client template {id} for client {client} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "get": {
-          "name": "getClientTemplateScopeMappingsClient",
-          "method": "GET",
-          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Get scope mappings for client template {id} and client {client} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "client"
-          ]
-        }
-      }
-    },
-    "ClientTemplateScopeMappingsRealm": {
-      "displayName": "client template scope mappings realm",
-      "params": [
-        "realm",
-        "id"
-      ],
-      "operations": {
-        "add": {
-          "name": "postClientTemplateScopeMappingsRealm",
-          "method": "POST",
-          "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Add role {name} with id {id} to client template {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "delete": {
-          "name": "deleteClientTemplateScopeMappingsRealm",
-          "method": "DELETE",
-          "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Delete role {name} with id {id} from client template {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "get": {
-          "name": "getClientTemplateScopeMappingsRealm",
-          "method": "GET",
-          "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Get realm scope mappings for client template {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
-        }
-      }
-    },
-    "ClientScopeMappingsClient": {
-      "displayName": "client scope mappings client",
-      "params": [
-        "realm",
-        "id",
-        "client"
-      ],
-      "operations": {
-        "add": {
-          "name": "postClientScopeMappingsClient",
-          "method": "POST",
-          "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Add role {name} with id {id} to client {id} for client {client} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "delete": {
-          "name": "deleteClientScopeMappingsClient",
-          "method": "DELETE",
-          "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Delete role {name} with id {id} from client {id} for client {client} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "get": {
-          "name": "getClientScopeMappingsClient",
-          "method": "GET",
-          "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
-          "descriptionTemplate": "Get scope mappings for client {id} and client {client} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "client"
-          ]
-        }
-      }
-    },
-    "ClientScopeMappingsRealm": {
-      "displayName": "client scope mappings realm",
-      "params": [
-        "realm",
-        "id"
-      ],
-      "operations": {
-        "add": {
-          "name": "postClientScopeMappingsRealm",
-          "method": "POST",
-          "path": "/{realm}/clients/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Add role {name} with id {id} to client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "delete": {
-          "name": "deleteClientScopeMappingsRealm",
-          "method": "DELETE",
-          "path": "/{realm}/clients/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Delete role {name} with id {id} from client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "name",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "get": {
-          "name": "getClientScopeMappingsRealm",
-          "method": "GET",
-          "path": "/{realm}/clients/{id}/scope-mappings/realm",
-          "descriptionTemplate": "Get realm scope mappings for client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
-        }
-      }
-    },
-    "ClientScopeMappings": {
-      "displayName": "client scope mappings",
-      "params": [
-        "realm",
-        "id"
+        "briefRepresentation"
       ],
       "operations": {
         "get": {
-          "name": "getClientScopeMappings",
+          "name": "getClientScopeScopeMappingsRealmComposite",
           "method": "GET",
-          "path": "/{realm}/clients/{id}/scope-mappings",
-          "descriptionTemplate": "Get scope mappings for client {id} in realm {realm}",
+          "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/composite",
+          "descriptionTemplate": "Get composite role mappings of client scope {id} realm in realm {realm} with briefRepresentation {briefRepresentation}",
           "params": [
             "realm",
-            "id"
+            "id",
+            "briefRepresentation"
           ]
         }
       }
@@ -1593,10 +1670,76 @@
           "name": "getClientScopeScopeMappings",
           "method": "GET",
           "path": "/{realm}/client-scopes/{id}/scope-mappings",
-          "descriptionTemplate": "Get scope mappings for client scope {id} in realm {realm}",
+          "descriptionTemplate": "Get scope mappings of client scope {id} in realm {realm}",
           "params": [
             "realm",
             "id"
+          ]
+        }
+      }
+    },
+    "ClientTemplateScopeMappingClient": {
+      "displayName": "client template scope mapping client",
+      "params": [
+        "realm",
+        "id",
+        "client"
+      ],
+      "operations": {
+        "add": {
+          "name": "postClientTemplateScopeMappingsClient",
+          "method": "POST",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+          "descriptionTemplate": "Add role mapping to client template {id} for client {client} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteClientTemplateScopeMappingsClient",
+          "method": "DELETE",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+          "descriptionTemplate": "Delete role mapping from client template {id} for client {client} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getClientTemplateScopeMappingsClient",
+          "method": "GET",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+          "descriptionTemplate": "Get role mappings of client template {id} for client {client} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ]
+        }
+      }
+    },
+    "ClientTemplateScopeMappingClientAvailable": {
+      "displayName": "client template scope mapping client available",
+      "params": [
+        "realm",
+        "id",
+        "client"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientTemplateScopeMappingsClientAvailable",
+          "method": "GET",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}/available",
+          "descriptionTemplate": "Get available role mappings of client template {id} for client {client} in realm {realm}",
+          "params": [
+            "realm",
+            "id",
+            "client"
           ]
         }
       }
@@ -1612,7 +1755,153 @@
           "name": "getClientTemplateScopeMappings",
           "method": "GET",
           "path": "/{realm}/client-templates/{id}/scope-mappings",
-          "descriptionTemplate": "Get scope mappings for client template {id} in realm {realm}",
+          "descriptionTemplate": "Get scope mappings of client template {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        }
+      }
+    },
+    "ClientTemplateScopeMappingRealm": {
+      "displayName": "client template scope mapping realm",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "postClientTemplateScopeMappingsRealm",
+          "method": "POST",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+          "descriptionTemplate": "Add role to client template scope mapping realm in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteClientTemplateScopeMappingsRealm",
+          "method": "DELETE",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+          "descriptionTemplate": "Delete role from client template scope mapping realm in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getClientTemplateScopeMappingsRealm",
+          "method": "GET",
+          "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+          "descriptionTemplate": "Get client template scope mapping realm in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        }
+      }
+    },
+    "ClientScopeMapping": {
+      "displayName": "client scope mapping",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getClientScopeMappings",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/scope-mappings",
+          "descriptionTemplate": "Get client scope mappings in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        }
+      }
+    },
+    "ClientScopeMappingClient": {
+      "displayName": "client scope mapping client",
+      "params": [
+        "realm",
+        "id",
+        "client"
+      ],
+      "operations": {
+        "add": {
+          "name": "postClientScopeMappingsClient",
+          "method": "POST",
+          "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+          "descriptionTemplate": "Add role to client scope mapping client {client} in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteClientScopeMappingsClient",
+          "method": "DELETE",
+          "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+          "descriptionTemplate": "Delete role from client scope mapping client {client} in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getClientScopeMappingsClient",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+          "descriptionTemplate": "Get client scope mapping client {client} in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id",
+            "client"
+          ]
+        }
+      }
+    },
+    "ClientScopeMappingRealm": {
+      "displayName": "client scope mapping realm",
+      "params": [
+        "realm",
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "postClientScopeMappingsRealm",
+          "method": "POST",
+          "path": "/{realm}/clients/{id}/scope-mappings/realm",
+          "descriptionTemplate": "Add role to client scope mapping realm in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteClientScopeMappingsRealm",
+          "method": "DELETE",
+          "path": "/{realm}/clients/{id}/scope-mappings/realm",
+          "descriptionTemplate": "Delete role from client scope mapping realm in realm {realm} with id {id}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getClientScopeMappingsRealm",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/scope-mappings/realm",
+          "descriptionTemplate": "Get client scope mapping realm in realm {realm} with id {id}",
           "params": [
             "realm",
             "id"
@@ -1629,7 +1918,7 @@
       ],
       "operations": {
         "add": {
-          "name": "postClientRoles",
+          "name": "createClientRole",
           "method": "POST",
           "path": "/{realm}/clients/{id}/roles",
           "descriptionTemplate": "Create client role {role-name} in client {id} of realm {realm}",
@@ -1638,13 +1927,7 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{role-name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
+            "name": "{role-name}"
           }
         },
         "delete": {
@@ -1656,10 +1939,11 @@
             "realm",
             "id",
             "role-name"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
-          "name": "putClientRole",
+          "name": "updateClientRole",
           "method": "PUT",
           "path": "/{realm}/clients/{id}/roles/{role-name}",
           "descriptionTemplate": "Update client role {role-name} in client {id} of realm {realm}",
@@ -1669,13 +1953,7 @@
             "role-name"
           ],
           "bodyTemplate": {
-            "name": "{role-name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
+            "name": "{role-name}"
           }
         },
         "get": {
@@ -1687,136 +1965,64 @@
             "realm",
             "id",
             "role-name"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "ClientRoleComposite": {
-      "displayName": "client role composite",
-      "params": [
-        "realm",
-        "id",
-        "role-name"
-      ],
-      "operations": {
-        "add": {
-          "name": "postClientRoleComposites",
-          "method": "POST",
-          "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
-          "descriptionTemplate": "Add composites to client role {role-name} in client {id} of realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "role-name"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "delete": {
-          "name": "deleteClientRoleComposites",
-          "method": "DELETE",
-          "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
-          "descriptionTemplate": "Delete composites from client role {role-name} in client {id} of realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "role-name"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
-        },
-        "get": {
-          "name": "getClientRoleComposites",
-          "method": "GET",
-          "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
-          "descriptionTemplate": "Get composites of client role {role-name} in client {id} of realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "role-name"
-          ]
-        }
-      }
-    },
-    "Role": {
-      "displayName": "role",
+    "RealmRole": {
+      "displayName": "realm role",
       "params": [
         "realm",
         "role-name"
       ],
       "operations": {
         "add": {
-          "name": "postRolesByRealm",
+          "name": "createRealmRole",
           "method": "POST",
           "path": "/{realm}/roles",
-          "descriptionTemplate": "Create role {role-name} in realm {realm}",
+          "descriptionTemplate": "Create realm role {role-name} in realm {realm}",
           "params": [
             "realm"
           ],
           "bodyTemplate": {
-            "name": "{role-name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
+            "name": "{role-name}"
           }
         },
         "delete": {
-          "name": "deleteRoleById",
+          "name": "deleteRealmRole",
           "method": "DELETE",
-          "path": "/{realm}/roles-by-id/{role-id}",
-          "descriptionTemplate": "Delete role with id {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}",
+          "descriptionTemplate": "Delete realm role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id"
-          ]
+            "role-name"
+          ],
+          "bodyTemplate": {}
         },
         "update": {
-          "name": "updateRoleById",
+          "name": "updateRealmRole",
           "method": "PUT",
-          "path": "/{realm}/roles-by-id/{role-id}",
-          "descriptionTemplate": "Update role with id {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}",
+          "descriptionTemplate": "Update realm role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id"
+            "role-name"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "composites": "{composites}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
+            "name": "{role-name}"
           }
         },
         "get": {
-          "name": "getRoleById",
+          "name": "getRealmRole",
           "method": "GET",
-          "path": "/{realm}/roles-by-id/{role-id}",
-          "descriptionTemplate": "Get role with id {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}",
+          "descriptionTemplate": "Get realm role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id"
-          ]
+            "role-name"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -1828,95 +2034,97 @@
       ],
       "operations": {
         "add": {
-          "name": "addRoleComposites",
+          "name": "postRoleComposite",
           "method": "POST",
-          "path": "/{realm}/roles-by-id/{role-id}/composites",
-          "descriptionTemplate": "Add composites to role {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}/composites",
+          "descriptionTemplate": "Add role composite to role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id"
+            "role-name"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "composites": "{composites}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
-          "name": "deleteRoleComposites",
+          "name": "deleteRoleComposite",
           "method": "DELETE",
-          "path": "/{realm}/roles-by-id/{role-id}/composites",
-          "descriptionTemplate": "Delete composites from role {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}/composites",
+          "descriptionTemplate": "Delete role composite from role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id"
+            "role-name"
           ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "composites": "{composites}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
-          "name": "getRoleComposites",
+          "name": "getRoleComposite",
           "method": "GET",
-          "path": "/{realm}/roles-by-id/{role-id}/composites",
-          "descriptionTemplate": "Get composites of role {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}/composites",
+          "descriptionTemplate": "Get role composites of role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id",
-            "first",
-            "max",
-            "search"
+            "role-name"
           ]
         }
       }
     },
-    "ClientRoleManagementPermission": {
-      "displayName": "client role management permission",
+    "RoleCompositeClient": {
+      "displayName": "role composite client",
       "params": [
         "realm",
-        "id",
+        "role-name",
+        "clientUuid"
+      ],
+      "operations": {
+        "get": {
+          "name": "getRoleCompositeClient",
+          "method": "GET",
+          "path": "/{realm}/roles/{role-name}/composites/clients/{clientUuid}",
+          "descriptionTemplate": "Get client composites of role {role-name} in realm {realm} for client {clientUuid}",
+          "params": [
+            "realm",
+            "role-name",
+            "clientUuid"
+          ]
+        }
+      }
+    },
+    "RoleCompositeRealm": {
+      "displayName": "role composite realm",
+      "params": [
+        "realm",
         "role-name"
       ],
       "operations": {
-        "update": {
-          "name": "putClientRoleManagementPermissions",
-          "method": "PUT",
-          "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions",
-          "descriptionTemplate": "Update management permissions for client role {role-name} in client {id} of realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "role-name"
-          ],
-          "bodyTemplate": {
-            "enabled": "{enabled}",
-            "resource": "{resource}",
-            "scopePermissions": "{scopePermissions}"
-          }
-        },
         "get": {
-          "name": "getClientRoleManagementPermissions",
+          "name": "getRoleCompositeRealm",
           "method": "GET",
-          "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions",
-          "descriptionTemplate": "Get management permissions for client role {role-name} in client {id} of realm {realm}",
+          "path": "/{realm}/roles/{role-name}/composites/realm",
+          "descriptionTemplate": "Get realm composites of role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "id",
             "role-name"
+          ]
+        }
+      }
+    },
+    "RoleGroup": {
+      "displayName": "role group",
+      "params": [
+        "realm",
+        "role-name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getRoleGroups",
+          "method": "GET",
+          "path": "/{realm}/roles/{role-name}/groups",
+          "descriptionTemplate": "Get groups of role {role-name} in realm {realm}",
+          "params": [
+            "realm",
+            "role-name",
+            "briefRepresentation",
+            "first",
+            "max"
           ]
         }
       }
@@ -1928,29 +2136,46 @@
         "role-name"
       ],
       "operations": {
-        "update": {
-          "name": "updateRoleManagementPermissions",
-          "method": "PUT",
-          "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
-          "descriptionTemplate": "Update management permissions of role {role-id} in realm {realm}",
-          "params": [
-            "realm",
-            "role-id"
-          ],
-          "bodyTemplate": {
-            "enabled": "{enabled}",
-            "resource": "{resource}",
-            "scopePermissions": "{scopePermissions}"
-          }
-        },
         "get": {
           "name": "getRoleManagementPermissions",
           "method": "GET",
-          "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
-          "descriptionTemplate": "Get management permissions of role {role-id} in realm {realm}",
+          "path": "/{realm}/roles/{role-name}/management/permissions",
+          "descriptionTemplate": "Get management permissions of role {role-name} in realm {realm}",
           "params": [
             "realm",
-            "role-id"
+            "role-name"
+          ]
+        },
+        "update": {
+          "name": "putRoleManagementPermissions",
+          "method": "PUT",
+          "path": "/{realm}/roles/{role-name}/management/permissions",
+          "descriptionTemplate": "Update management permissions of role {role-name} in realm {realm}",
+          "params": [
+            "realm",
+            "role-name"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RoleUser": {
+      "displayName": "role user",
+      "params": [
+        "realm",
+        "role-name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getRoleUsers",
+          "method": "GET",
+          "path": "/{realm}/roles/{role-name}/users",
+          "descriptionTemplate": "Get users of role {role-name} in realm {realm}",
+          "params": [
+            "realm",
+            "role-name",
+            "first",
+            "max"
           ]
         }
       }
@@ -1963,14 +2188,26 @@
         "id2"
       ],
       "operations": {
-        "add": {
-          "name": "postClientScopeProtocolMappersModels",
-          "method": "POST",
-          "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Create client scope protocol mapper with id {id2} in client scope {id1} in realm {realm}",
+        "get": {
+          "name": "getClientScopeProtocolMapper",
+          "method": "GET",
+          "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
+          "descriptionTemplate": "Get client scope protocol mapper {id2} in client scope {id1} of realm {realm}",
           "params": [
             "realm",
-            "id1"
+            "id1",
+            "id2"
+          ]
+        },
+        "update": {
+          "name": "updateClientScopeProtocolMapper",
+          "method": "PUT",
+          "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
+          "descriptionTemplate": "Update client scope protocol mapper {id2} in client scope {id1} of realm {realm}",
+          "params": [
+            "realm",
+            "id1",
+            "id2"
           ],
           "bodyTemplate": {
             "name": "{name}",
@@ -1982,40 +2219,10 @@
           }
         },
         "delete": {
-          "name": "deleteClientScopeProtocolMappersModel",
+          "name": "deleteClientScopeProtocolMapper",
           "method": "DELETE",
           "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Delete client scope protocol mapper with id {id2} in client scope {id1} in realm {realm}",
-          "params": [
-            "realm",
-            "id1",
-            "id2"
-          ]
-        },
-        "update": {
-          "name": "putClientScopeProtocolMappersModel",
-          "method": "PUT",
-          "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Update client scope protocol mapper with id {id2} in client scope {id1} in realm {realm}",
-          "params": [
-            "realm",
-            "id1",
-            "id2"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "protocol": "{protocol}",
-            "protocolMapper": "{protocolMapper}",
-            "consentRequired": "{consentRequired}",
-            "consentText": "{consentText}",
-            "config": "{config}"
-          }
-        },
-        "get": {
-          "name": "getClientScopeProtocolMappersModel",
-          "method": "GET",
-          "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Get client scope protocol mapper with id {id2} in client scope {id1} in realm {realm}",
+          "descriptionTemplate": "Delete client scope protocol mapper {id2} in client scope {id1} of realm {realm}",
           "params": [
             "realm",
             "id1",
@@ -2024,18 +2231,18 @@
         }
       }
     },
-    "ClientScopeProtocolMapperAddModel": {
-      "displayName": "client scope protocol mapper add model",
+    "ClientScopeProtocolMapperAddModels": {
+      "displayName": "client scope protocol mapper add models",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
         "add": {
-          "name": "postClientScopeProtocolMappersAddModels",
+          "name": "addClientScopeProtocolMapperModels",
           "method": "POST",
           "path": "/{realm}/client-scopes/{id}/protocol-mappers/add-models",
-          "descriptionTemplate": "Add client scope protocol mapper model in client scope {id} in realm {realm}",
+          "descriptionTemplate": "Add protocol mapper models to client scope {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2051,18 +2258,28 @@
         }
       }
     },
-    "ClientScopeProtocolMappers": {
-      "displayName": "client scope protocol mappers",
+    "ClientScopeProtocolMapperModels": {
+      "displayName": "client scope protocol mapper models",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
+        "get": {
+          "name": "getClientScopeProtocolMapperModels",
+          "method": "GET",
+          "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
+          "descriptionTemplate": "Get protocol mapper models of client scope {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        },
         "add": {
-          "name": "postClientScopeProtocolMappersModels",
+          "name": "addClientScopeProtocolMapperModel",
           "method": "POST",
           "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Create client scope protocol mapper in client scope {id} in realm {realm}",
+          "descriptionTemplate": "Add protocol mapper model to client scope {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2075,21 +2292,11 @@
             "consentText": "{consentText}",
             "config": "{config}"
           }
-        },
-        "get": {
-          "name": "getClientScopeProtocolMappersModels",
-          "method": "GET",
-          "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Get all protocol mappers for client scope {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
         }
       }
     },
-    "ClientScopeProtocolMappersProtocol": {
-      "displayName": "client scope protocol mappers protocol",
+    "ClientScopeProtocolMapperProtocol": {
+      "displayName": "client scope protocol mapper protocol",
       "params": [
         "realm",
         "id",
@@ -2097,10 +2304,10 @@
       ],
       "operations": {
         "get": {
-          "name": "getClientScopeProtocolMappersProtocol",
+          "name": "getClientScopeProtocolMapperByProtocol",
           "method": "GET",
           "path": "/{realm}/client-scopes/{id}/protocol-mappers/protocol/{protocol}",
-          "descriptionTemplate": "Get protocol mappers for protocol {protocol} in client scope {id} in realm {realm}",
+          "descriptionTemplate": "Get protocol mapper models for protocol {protocol} in client scope {id} of realm {realm}",
           "params": [
             "realm",
             "id",
@@ -2117,14 +2324,26 @@
         "id2"
       ],
       "operations": {
-        "add": {
-          "name": "postClientTemplateProtocolMappersModels",
-          "method": "POST",
-          "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Create client template protocol mapper with id {id2} in client template {id1} in realm {realm}",
+        "get": {
+          "name": "getClientTemplateProtocolMapper",
+          "method": "GET",
+          "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
+          "descriptionTemplate": "Get client template protocol mapper {id2} in client template {id1} of realm {realm}",
           "params": [
             "realm",
-            "id1"
+            "id1",
+            "id2"
+          ]
+        },
+        "update": {
+          "name": "updateClientTemplateProtocolMapper",
+          "method": "PUT",
+          "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
+          "descriptionTemplate": "Update client template protocol mapper {id2} in client template {id1} of realm {realm}",
+          "params": [
+            "realm",
+            "id1",
+            "id2"
           ],
           "bodyTemplate": {
             "name": "{name}",
@@ -2136,40 +2355,10 @@
           }
         },
         "delete": {
-          "name": "deleteClientTemplateProtocolMappersModel",
+          "name": "deleteClientTemplateProtocolMapper",
           "method": "DELETE",
           "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Delete client template protocol mapper with id {id2} in client template {id1} in realm {realm}",
-          "params": [
-            "realm",
-            "id1",
-            "id2"
-          ]
-        },
-        "update": {
-          "name": "putClientTemplateProtocolMappersModel",
-          "method": "PUT",
-          "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Update client template protocol mapper with id {id2} in client template {id1} in realm {realm}",
-          "params": [
-            "realm",
-            "id1",
-            "id2"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "protocol": "{protocol}",
-            "protocolMapper": "{protocolMapper}",
-            "consentRequired": "{consentRequired}",
-            "consentText": "{consentText}",
-            "config": "{config}"
-          }
-        },
-        "get": {
-          "name": "getClientTemplateProtocolMappersModel",
-          "method": "GET",
-          "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Get client template protocol mapper with id {id2} in client template {id1} in realm {realm}",
+          "descriptionTemplate": "Delete client template protocol mapper {id2} in client template {id1} of realm {realm}",
           "params": [
             "realm",
             "id1",
@@ -2178,18 +2367,18 @@
         }
       }
     },
-    "ClientTemplateProtocolMapperAddModel": {
-      "displayName": "client template protocol mapper add model",
+    "ClientTemplateProtocolMapperAddModels": {
+      "displayName": "client template protocol mapper add models",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
         "add": {
-          "name": "postClientTemplateProtocolMappersAddModels",
+          "name": "addClientTemplateProtocolMapperModels",
           "method": "POST",
           "path": "/{realm}/client-templates/{id}/protocol-mappers/add-models",
-          "descriptionTemplate": "Add client template protocol mapper model in client template {id} in realm {realm}",
+          "descriptionTemplate": "Add protocol mapper models to client template {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2205,18 +2394,28 @@
         }
       }
     },
-    "ClientTemplateProtocolMappers": {
-      "displayName": "client template protocol mappers",
+    "ClientTemplateProtocolMapperModels": {
+      "displayName": "client template protocol mapper models",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
+        "get": {
+          "name": "getClientTemplateProtocolMapperModels",
+          "method": "GET",
+          "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
+          "descriptionTemplate": "Get protocol mapper models of client template {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ]
+        },
         "add": {
-          "name": "postClientTemplateProtocolMappersModels",
+          "name": "addClientTemplateProtocolMapperModel",
           "method": "POST",
           "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Create client template protocol mapper in client template {id} in realm {realm}",
+          "descriptionTemplate": "Add protocol mapper model to client template {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2229,21 +2428,11 @@
             "consentText": "{consentText}",
             "config": "{config}"
           }
-        },
-        "get": {
-          "name": "getClientTemplateProtocolMappersModels",
-          "method": "GET",
-          "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Get all protocol mappers for client template {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
         }
       }
     },
-    "ClientTemplateProtocolMappersProtocol": {
-      "displayName": "client template protocol mappers protocol",
+    "ClientTemplateProtocolMapperProtocol": {
+      "displayName": "client template protocol mapper protocol",
       "params": [
         "realm",
         "id",
@@ -2251,10 +2440,10 @@
       ],
       "operations": {
         "get": {
-          "name": "getClientTemplateProtocolMappersProtocol",
+          "name": "getClientTemplateProtocolMapperByProtocol",
           "method": "GET",
           "path": "/{realm}/client-templates/{id}/protocol-mappers/protocol/{protocol}",
-          "descriptionTemplate": "Get protocol mappers for protocol {protocol} in client template {id} in realm {realm}",
+          "descriptionTemplate": "Get protocol mapper models for protocol {protocol} in client template {id} of realm {realm}",
           "params": [
             "realm",
             "id",
@@ -2271,14 +2460,26 @@
         "id2"
       ],
       "operations": {
-        "add": {
-          "name": "postClientProtocolMappersModels",
-          "method": "POST",
-          "path": "/{realm}/clients/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Create client protocol mapper with id {id2} in client {id1} in realm {realm}",
+        "get": {
+          "name": "getClientProtocolMapper",
+          "method": "GET",
+          "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
+          "descriptionTemplate": "Get client protocol mapper {id2} in client {id1} of realm {realm}",
           "params": [
             "realm",
-            "id1"
+            "id1",
+            "id2"
+          ]
+        },
+        "update": {
+          "name": "updateClientProtocolMapper",
+          "method": "PUT",
+          "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
+          "descriptionTemplate": "Update client protocol mapper {id2} in client {id1} of realm {realm}",
+          "params": [
+            "realm",
+            "id1",
+            "id2"
           ],
           "bodyTemplate": {
             "name": "{name}",
@@ -2290,40 +2491,10 @@
           }
         },
         "delete": {
-          "name": "deleteClientProtocolMappersModel",
+          "name": "deleteClientProtocolMapper",
           "method": "DELETE",
           "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Delete client protocol mapper with id {id2} in client {id1} in realm {realm}",
-          "params": [
-            "realm",
-            "id1",
-            "id2"
-          ]
-        },
-        "update": {
-          "name": "putClientProtocolMappersModel",
-          "method": "PUT",
-          "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Update client protocol mapper with id {id2} in client {id1} in realm {realm}",
-          "params": [
-            "realm",
-            "id1",
-            "id2"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "protocol": "{protocol}",
-            "protocolMapper": "{protocolMapper}",
-            "consentRequired": "{consentRequired}",
-            "consentText": "{consentText}",
-            "config": "{config}"
-          }
-        },
-        "get": {
-          "name": "getClientProtocolMappersModel",
-          "method": "GET",
-          "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
-          "descriptionTemplate": "Get client protocol mapper with id {id2} in client {id1} in realm {realm}",
+          "descriptionTemplate": "Delete client protocol mapper {id2} in client {id1} of realm {realm}",
           "params": [
             "realm",
             "id1",
@@ -2332,18 +2503,18 @@
         }
       }
     },
-    "ClientProtocolMapperAddModel": {
-      "displayName": "client protocol mapper add model",
+    "ClientProtocolMapperAddModels": {
+      "displayName": "client protocol mapper add models",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
         "add": {
-          "name": "postClientProtocolMappersAddModels",
+          "name": "addClientProtocolMapperModels",
           "method": "POST",
           "path": "/{realm}/clients/{id}/protocol-mappers/add-models",
-          "descriptionTemplate": "Add client protocol mapper model in client {id} in realm {realm}",
+          "descriptionTemplate": "Add protocol mapper models to client {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2359,149 +2530,111 @@
         }
       }
     },
-    "ClientProtocolMappers": {
-      "displayName": "client protocol mappers",
+    "ProtocolMapper": {
+      "displayName": "protocol mapper",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
         "add": {
-          "name": "postClientProtocolMappersModels",
+          "name": "createProtocolMapper",
           "method": "POST",
           "path": "/{realm}/clients/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Create client protocol mapper in client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "protocol": "{protocol}",
-            "protocolMapper": "{protocolMapper}",
-            "consentRequired": "{consentRequired}",
-            "consentText": "{consentText}",
-            "config": "{config}"
-          }
-        },
-        "get": {
-          "name": "getClientProtocolMappersModels",
-          "method": "GET",
-          "path": "/{realm}/clients/{id}/protocol-mappers/models",
-          "descriptionTemplate": "Get all protocol mappers for client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
-        }
-      }
-    },
-    "ClientProtocolMappersProtocol": {
-      "displayName": "client protocol mappers protocol",
-      "params": [
-        "realm",
-        "id",
-        "protocol"
-      ],
-      "operations": {
-        "get": {
-          "name": "getClientProtocolMappersProtocol",
-          "method": "GET",
-          "path": "/{realm}/clients/{id}/protocol-mappers/protocol/{protocol}",
-          "descriptionTemplate": "Get protocol mappers for protocol {protocol} in client {id} in realm {realm}",
+          "descriptionTemplate": "Create protocol mapper with id {id} in realm {realm}",
           "params": [
             "realm",
             "id",
-            "protocol"
+            "name",
+            "protocol",
+            "protocolMapper"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "protocol": "{protocol}",
+            "protocolMapper": "{protocolMapper}"
+          }
+        },
+        "get": {
+          "name": "getProtocolMappers",
+          "method": "GET",
+          "path": "/{realm}/clients/{id}/protocol-mappers/models",
+          "descriptionTemplate": "Get protocol mappers for client {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
           ]
         }
       }
     },
     "IdentityProvider": {
-      "displayName": "identityProvider",
+      "displayName": "identity provider",
       "params": [
         "realm",
         "alias"
       ],
       "operations": {
         "add": {
-          "name": "postInstances",
+          "name": "createIdentityProvider",
           "method": "POST",
           "path": "/{realm}/identity-provider/instances",
-          "descriptionTemplate": "Create identityProvider with alias {alias} in realm {realm}",
+          "descriptionTemplate": "Create identity provider in realm {realm}",
           "params": [
-            "realm",
-            "alias"
+            "realm"
           ],
           "bodyTemplate": {
-            "alias": "{alias}",
-            "displayName": "{displayName}",
-            "internalId": "{internalId}",
-            "providerId": "{providerId}",
-            "enabled": "{enabled}",
-            "updateProfileFirstLoginMode": "{updateProfileFirstLoginMode}",
-            "trustEmail": "{trustEmail}",
-            "storeToken": "{storeToken}",
-            "addReadTokenRoleOnCreate": "{addReadTokenRoleOnCreate}",
-            "authenticateByDefault": "{authenticateByDefault}",
-            "linkOnly": "{linkOnly}",
-            "firstBrokerLoginFlowAlias": "{firstBrokerLoginFlowAlias}",
-            "postBrokerLoginFlowAlias": "{postBrokerLoginFlowAlias}",
-            "config": "{config}",
-            "updateProfileFirstLogin": "{updateProfileFirstLogin}"
+            "alias": "{alias}"
           }
         },
         "delete": {
-          "name": "deleteInstance",
+          "name": "deleteIdentityProvider",
           "method": "DELETE",
           "path": "/{realm}/identity-provider/instances/{alias}",
-          "descriptionTemplate": "Delete identityProvider with alias {alias} in realm {realm}",
+          "descriptionTemplate": "Delete identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
-          "name": "putInstance",
+          "name": "updateIdentityProvider",
           "method": "PUT",
           "path": "/{realm}/identity-provider/instances/{alias}",
-          "descriptionTemplate": "Update identityProvider with alias {alias} in realm {realm}",
+          "descriptionTemplate": "Update identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias"
           ],
           "bodyTemplate": {
-            "alias": "{alias}",
-            "displayName": "{displayName}",
-            "internalId": "{internalId}",
-            "providerId": "{providerId}",
-            "enabled": "{enabled}",
-            "updateProfileFirstLoginMode": "{updateProfileFirstLoginMode}",
-            "trustEmail": "{trustEmail}",
-            "storeToken": "{storeToken}",
-            "addReadTokenRoleOnCreate": "{addReadTokenRoleOnCreate}",
-            "authenticateByDefault": "{authenticateByDefault}",
-            "linkOnly": "{linkOnly}",
-            "firstBrokerLoginFlowAlias": "{firstBrokerLoginFlowAlias}",
-            "postBrokerLoginFlowAlias": "{postBrokerLoginFlowAlias}",
-            "config": "{config}",
-            "updateProfileFirstLogin": "{updateProfileFirstLogin}"
+            "alias": "{alias}"
           }
         },
         "get": {
-          "name": "getInstance",
+          "name": "getIdentityProvider",
           "method": "GET",
           "path": "/{realm}/identity-provider/instances/{alias}",
-          "descriptionTemplate": "Get identityProvider with alias {alias} in realm {realm}",
+          "descriptionTemplate": "Get identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listIdentityProviders",
+          "method": "GET",
+          "path": "/{realm}/identity-provider/instances",
+          "descriptionTemplate": "List identity providers in realm {realm}",
+          "params": [
+            "realm"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "IdentityProviderMapper": {
-      "displayName": "identityProviderMapper",
+      "displayName": "identity provider mapper",
       "params": [
         "realm",
         "alias",
@@ -2509,122 +2642,112 @@
       ],
       "operations": {
         "add": {
-          "name": "postMappers",
+          "name": "createIdentityProviderMapper",
           "method": "POST",
           "path": "/{realm}/identity-provider/instances/{alias}/mappers",
-          "descriptionTemplate": "Create identityProviderMapper with name {name} and id {id} for identityProvider {alias} in realm {realm}",
+          "descriptionTemplate": "Create mapper {id} for identity provider {alias} in realm {realm}",
           "params": [
             "realm",
-            "alias",
-            "name",
-            "id"
+            "alias"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "identityProviderAlias": "{identityProviderAlias}",
-            "identityProviderMapper": "{identityProviderMapper}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
         "delete": {
-          "name": "deleteMapper",
+          "name": "deleteIdentityProviderMapper",
           "method": "DELETE",
           "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
-          "descriptionTemplate": "Delete identityProviderMapper with id {id} for identityProvider {alias} in realm {realm}",
+          "descriptionTemplate": "Delete mapper {id} for identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias",
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
-          "name": "putMapper",
+          "name": "updateIdentityProviderMapper",
           "method": "PUT",
           "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
-          "descriptionTemplate": "Update identityProviderMapper with id {id} for identityProvider {alias} in realm {realm}",
+          "descriptionTemplate": "Update mapper {id} for identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias",
             "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "identityProviderAlias": "{identityProviderAlias}",
-            "identityProviderMapper": "{identityProviderMapper}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
         "get": {
-          "name": "getMapper",
+          "name": "getIdentityProviderMapper",
           "method": "GET",
           "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
-          "descriptionTemplate": "Get identityProviderMapper with id {id} for identityProvider {alias} in realm {realm}",
+          "descriptionTemplate": "Get mapper {id} for identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias",
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listIdentityProviderMappers",
+          "method": "GET",
+          "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+          "descriptionTemplate": "List mappers for identity provider {alias} in realm {realm}",
+          "params": [
+            "realm",
+            "alias"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "IdentityProviderManagementPermission": {
-      "displayName": "identityProviderManagementPermission",
+    "IdentityProviderManagementPermissions": {
+      "displayName": "identity provider management permissions",
       "params": [
         "realm",
         "alias"
       ],
       "operations": {
         "update": {
-          "name": "putInstanceManagementPermissions",
+          "name": "updateIdentityProviderManagementPermissions",
           "method": "PUT",
           "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
-          "descriptionTemplate": "Update management permissions for identityProvider {alias} in realm {realm}",
+          "descriptionTemplate": "Update management permissions for identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias"
           ],
-          "bodyTemplate": {
-            "enabled": "{enabled}",
-            "resource": "{resource}",
-            "scopePermissions": "{scopePermissions}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
-          "name": "getInstanceManagementPermissions",
+          "name": "getIdentityProviderManagementPermissions",
           "method": "GET",
           "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
-          "descriptionTemplate": "Get management permissions for identityProvider {alias} in realm {realm}",
+          "descriptionTemplate": "Get management permissions for identity provider {alias} in realm {realm}",
           "params": [
             "realm",
             "alias"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "GroupRoleMapping": {
-      "displayName": "group role mapping",
+    "GroupRoleMappingRealm": {
+      "displayName": "group role mapping realm",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
-        "get": {
-          "name": "getGroupRoleMappings",
-          "method": "GET",
-          "path": "/{realm}/groups/{id}/role-mappings",
-          "descriptionTemplate": "Get role mappings for group {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
-        },
         "add": {
           "name": "postGroupRoleMappingsRealm",
           "method": "POST",
           "path": "/{realm}/groups/{id}/role-mappings/realm",
-          "descriptionTemplate": "Add role mapping {name} with id {id} to group {id} in realm {realm}",
+          "descriptionTemplate": "Add role mapping to group {id} in realm {realm} with role name {name} and id {id}",
           "params": [
             "realm",
             "id",
@@ -2640,7 +2763,7 @@
           "name": "deleteGroupRoleMappingsRealm",
           "method": "DELETE",
           "path": "/{realm}/groups/{id}/role-mappings/realm",
-          "descriptionTemplate": "Delete role mapping {name} with id {id} from group {id} in realm {realm}",
+          "descriptionTemplate": "Delete role mapping from group {id} in realm {realm} with role name {name} and id {id}",
           "params": [
             "realm",
             "id",
@@ -2652,51 +2775,30 @@
             "name": "{name}"
           }
         },
-        "getAvailable": {
-          "name": "getGroupRoleMappingsRealmAvailable",
+        "get": {
+          "name": "getGroupRoleMappingsRealm",
           "method": "GET",
-          "path": "/{realm}/groups/{id}/role-mappings/realm/available",
-          "descriptionTemplate": "Get available role mappings for group {id} in realm {realm}",
+          "path": "/{realm}/groups/{id}/role-mappings/realm",
+          "descriptionTemplate": "Get role mappings of group {id} in realm {realm}",
           "params": [
             "realm",
             "id"
           ]
-        },
-        "getComposite": {
-          "name": "getGroupRoleMappingsRealmComposite",
-          "method": "GET",
-          "path": "/{realm}/groups/{id}/role-mappings/realm/composite",
-          "descriptionTemplate": "Get composite role mappings for group {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "briefRepresentation"
-          ]
         }
       }
     },
-    "UserRoleMapping": {
-      "displayName": "user role mapping",
+    "UserRoleMappingRealm": {
+      "displayName": "user role mapping realm",
       "params": [
         "realm",
         "id"
       ],
       "operations": {
-        "get": {
-          "name": "getUserRoleMappings",
-          "method": "GET",
-          "path": "/{realm}/users/{id}/role-mappings",
-          "descriptionTemplate": "Get role mappings for user {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id"
-          ]
-        },
         "add": {
           "name": "postUserRoleMappingsRealm",
           "method": "POST",
           "path": "/{realm}/users/{id}/role-mappings/realm",
-          "descriptionTemplate": "Add role mapping {name} with id {id} to user {id} in realm {realm}",
+          "descriptionTemplate": "Add role mapping to user {id} in realm {realm} with role name {name} and id {id}",
           "params": [
             "realm",
             "id",
@@ -2712,7 +2814,7 @@
           "name": "deleteUserRoleMappingsRealm",
           "method": "DELETE",
           "path": "/{realm}/users/{id}/role-mappings/realm",
-          "descriptionTemplate": "Delete role mapping {name} with id {id} from user {id} in realm {realm}",
+          "descriptionTemplate": "Delete role mapping from user {id} in realm {realm} with role name {name} and id {id}",
           "params": [
             "realm",
             "id",
@@ -2724,25 +2826,14 @@
             "name": "{name}"
           }
         },
-        "getAvailable": {
-          "name": "getUserRoleMappingsRealmAvailable",
+        "get": {
+          "name": "getUserRoleMappingsRealm",
           "method": "GET",
-          "path": "/{realm}/users/{id}/role-mappings/realm/available",
-          "descriptionTemplate": "Get available role mappings for user {id} in realm {realm}",
+          "path": "/{realm}/users/{id}/role-mappings/realm",
+          "descriptionTemplate": "Get role mappings of user {id} in realm {realm}",
           "params": [
             "realm",
             "id"
-          ]
-        },
-        "getComposite": {
-          "name": "getUserRoleMappingsRealmComposite",
-          "method": "GET",
-          "path": "/{realm}/users/{id}/role-mappings/realm/composite",
-          "descriptionTemplate": "Get composite role mappings for user {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "briefRepresentation"
           ]
         }
       }
@@ -2764,7 +2855,8 @@
             "realm",
             "id",
             "attr"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "postUpload",
@@ -2778,11 +2870,11 @@
           ],
           "bodyTemplate": {}
         },
-        "update": {
+        "addUploadCertificate": {
           "name": "postUploadCertificate",
           "method": "POST",
           "path": "/{realm}/clients/{id}/certificates/{attr}/upload-certificate",
-          "descriptionTemplate": "Upload certificate for client certificate {attr} for client {id} in realm {realm}",
+          "descriptionTemplate": "Upload client certificate file {attr} for client {id} in realm {realm}",
           "params": [
             "realm",
             "id",
@@ -2790,7 +2882,21 @@
           ],
           "bodyTemplate": {}
         },
-        "generate": {
+        "addDownload": {
+          "name": "postDownload",
+          "method": "POST",
+          "path": "/{realm}/clients/{id}/certificates/{attr}/download",
+          "descriptionTemplate": "Download client certificate {attr} for client {id} in realm {realm} with KeyStoreConfig",
+          "params": [
+            "realm",
+            "id",
+            "attr"
+          ],
+          "bodyTemplate": {
+            "KeyStoreConfig": "{KeyStoreConfig}"
+          }
+        },
+        "addGenerate": {
           "name": "postGenerate",
           "method": "POST",
           "path": "/{realm}/clients/{id}/certificates/{attr}/generate",
@@ -2802,44 +2908,18 @@
           ],
           "bodyTemplate": {}
         },
-        "generateAndDownload": {
+        "addGenerateAndDownload": {
           "name": "postGenerateAndDownload",
           "method": "POST",
           "path": "/{realm}/clients/{id}/certificates/{attr}/generate-and-download",
-          "descriptionTemplate": "Generate and download client certificate {attr} for client {id} in realm {realm}",
+          "descriptionTemplate": "Generate and download client certificate {attr} for client {id} in realm {realm} with KeyStoreConfig",
           "params": [
             "realm",
             "id",
             "attr"
           ],
           "bodyTemplate": {
-            "realm": "{realm}",
-            "realmCertificate": "{realmCertificate}",
-            "storePassword": "{storePassword}",
-            "keyPassword": "{keyPassword}",
-            "keyAlias": "{keyAlias}",
-            "realmAlias": "{realmAlias}",
-            "format": "{format}"
-          }
-        },
-        "download": {
-          "name": "postDownload",
-          "method": "POST",
-          "path": "/{realm}/clients/{id}/certificates/{attr}/download",
-          "descriptionTemplate": "Download client certificate {attr} for client {id} in realm {realm}",
-          "params": [
-            "realm",
-            "id",
-            "attr"
-          ],
-          "bodyTemplate": {
-            "realm": "{realm}",
-            "realmCertificate": "{realmCertificate}",
-            "storePassword": "{storePassword}",
-            "keyPassword": "{keyPassword}",
-            "keyAlias": "{keyAlias}",
-            "realmAlias": "{realmAlias}",
-            "format": "{format}"
+            "KeyStoreConfig": "{KeyStoreConfig}"
           }
         }
       }
@@ -2848,15 +2928,14 @@
       "displayName": "group",
       "params": [
         "realm",
-        "id",
-        "name"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createGroup",
           "method": "POST",
           "path": "/{realm}/groups",
-          "descriptionTemplate": "Create group {name} with id {id} in realm {realm}",
+          "descriptionTemplate": "Create group {name} in realm {realm}",
           "params": [
             "realm",
             "name"
@@ -2869,7 +2948,7 @@
           "name": "deleteGroup",
           "method": "DELETE",
           "path": "/{realm}/groups/{id}",
-          "descriptionTemplate": "Delete group with id {id} in realm {realm}",
+          "descriptionTemplate": "Delete group {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2879,14 +2958,13 @@
           "name": "updateGroup",
           "method": "PUT",
           "path": "/{realm}/groups/{id}",
-          "descriptionTemplate": "Update group {name} with id {id} in realm {realm}",
+          "descriptionTemplate": "Update group {id} in realm {realm}",
           "params": [
             "realm",
             "id",
             "name"
           ],
           "bodyTemplate": {
-            "id": "{id}",
             "name": "{name}"
           }
         },
@@ -2894,7 +2972,7 @@
           "name": "getGroup",
           "method": "GET",
           "path": "/{realm}/groups/{id}",
-          "descriptionTemplate": "Get group with id {id} in realm {realm}",
+          "descriptionTemplate": "Get group {id} in realm {realm}",
           "params": [
             "realm",
             "id"
@@ -2902,176 +2980,75 @@
         }
       }
     },
-    "GroupRoleMappingClient": {
-      "displayName": "groupRoleMappingClient",
+    "GroupChild": {
+      "displayName": "group child",
       "params": [
         "realm",
         "id",
-        "client"
+        "name"
       ],
       "operations": {
         "add": {
-          "name": "postGroupRoleMappingsClient",
+          "name": "addGroupChild",
           "method": "POST",
-          "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
-          "descriptionTemplate": "Add role mapping to group {id} in realm {realm} for client {client} with role id {id}",
+          "path": "/{realm}/groups/{id}/children",
+          "descriptionTemplate": "Add child group {name} to group {id} in realm {realm}",
           "params": [
             "realm",
             "id",
-            "client",
-            "id"
+            "name"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}",
-            "composites": "{composites}"
+            "name": "{name}"
           }
-        },
-        "delete": {
-          "name": "deleteGroupRoleMappingsClient",
-          "method": "DELETE",
-          "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
-          "descriptionTemplate": "Delete role mapping from group {id} in realm {realm} for client {client} with role id {id}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}",
-            "composites": "{composites}"
-          }
-        },
-        "get": {
-          "name": "getGroupRoleMappingsClient",
-          "method": "GET",
-          "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
-          "descriptionTemplate": "Get role mappings for group {id} in realm {realm} for client {client}",
-          "params": [
-            "realm",
-            "id",
-            "client"
-          ]
         }
       }
     },
-    "UserRoleMappingClient": {
-      "displayName": "userRoleMappingClient",
+    "GroupManagementPermission": {
+      "displayName": "group management permission",
       "params": [
         "realm",
-        "id",
-        "client"
+        "id"
       ],
       "operations": {
-        "add": {
-          "name": "postUserRoleMappingsClient",
-          "method": "POST",
-          "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
-          "descriptionTemplate": "Add role mapping to user {id} in realm {realm} for client {client} with role id {id}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}",
-            "composites": "{composites}"
-          }
-        },
-        "delete": {
-          "name": "deleteUserRoleMappingsClient",
-          "method": "DELETE",
-          "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
-          "descriptionTemplate": "Delete role mapping from user {id} in realm {realm} for client {client} with role id {id}",
-          "params": [
-            "realm",
-            "id",
-            "client",
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "description": "{description}",
-            "scopeParamRequired": "{scopeParamRequired}",
-            "composite": "{composite}",
-            "clientRole": "{clientRole}",
-            "containerId": "{containerId}",
-            "attributes": "{attributes}",
-            "composites": "{composites}"
-          }
-        },
         "get": {
-          "name": "getUserRoleMappingsClient",
+          "name": "getGroupManagementPermissions",
           "method": "GET",
-          "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
-          "descriptionTemplate": "Get role mappings for user {id} in realm {realm} for client {client}",
+          "path": "/{realm}/groups/{id}/management/permissions",
+          "descriptionTemplate": "Get management permissions for group {id} in realm {realm}",
           "params": [
             "realm",
-            "id",
-            "client"
+            "id"
           ]
+        },
+        "update": {
+          "name": "updateGroupManagementPermissions",
+          "method": "PUT",
+          "path": "/{realm}/groups/{id}/management/permissions",
+          "descriptionTemplate": "Update management permissions for group {id} in realm {realm}",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "RoleCompositeClient": {
-      "displayName": "role composite client",
+    "GroupMember": {
+      "displayName": "group member",
       "params": [
         "realm",
-        "role-id",
-        "clientUuid"
+        "id"
       ],
       "operations": {
         "get": {
-          "name": "getRoleCompositesClient",
+          "name": "getGroupMembers",
           "method": "GET",
-          "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
-          "descriptionTemplate": "Get client composites of role {role-id} for client {clientUuid} in realm {realm}",
+          "path": "/{realm}/groups/{id}/members",
+          "descriptionTemplate": "Get members of group {id} in realm {realm}",
           "params": [
             "realm",
-            "role-id",
-            "clientUuid"
-          ]
-        }
-      }
-    },
-    "RoleCompositeRealm": {
-      "displayName": "role composite realm",
-      "params": [
-        "realm",
-        "role-id"
-      ],
-      "operations": {
-        "get": {
-          "name": "getRoleCompositesRealm",
-          "method": "GET",
-          "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
-          "descriptionTemplate": "Get realm composites of role {role-id} in realm {realm}",
-          "params": [
-            "realm",
-            "role-id"
+            "id"
           ]
         }
       }
@@ -3087,22 +3064,17 @@
           "name": "postClientsInitialAccess",
           "method": "POST",
           "path": "/{realm}/clients-initial-access",
-          "descriptionTemplate": "Create clientInitialAccess with expiration {expiration} and count {count}",
+          "descriptionTemplate": "Create client initial access in realm {realm}",
           "params": [
-            "realm",
-            "expiration",
-            "count"
+            "realm"
           ],
-          "bodyTemplate": {
-            "expiration": "{expiration}",
-            "count": "{count}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getClientsInitialAccess",
           "method": "GET",
           "path": "/{realm}/clients-initial-access",
-          "descriptionTemplate": "Get clientInitialAccess list in realm {realm}",
+          "descriptionTemplate": "Get client initial access list in realm {realm}",
           "params": [
             "realm"
           ]
@@ -3111,10 +3083,27 @@
           "name": "deleteClientsInitialAcces",
           "method": "DELETE",
           "path": "/{realm}/clients-initial-access/{id}",
-          "descriptionTemplate": "Delete clientInitialAccess with id {id} in realm {realm}",
+          "descriptionTemplate": "Delete client initial access with id {id} in realm {realm}",
           "params": [
             "realm",
             "id"
+          ]
+        }
+      }
+    },
+    "Key": {
+      "displayName": "key",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "get": {
+          "name": "getKeys",
+          "method": "GET",
+          "path": "/{realm}/keys",
+          "descriptionTemplate": "Get keys for realm {realm}",
+          "params": [
+            "realm"
           ]
         }
       }

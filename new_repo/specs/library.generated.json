@@ -6,7 +6,9 @@
       "displayName": "user",
       "params": [
         "id",
-        "name"
+        "name",
+        "email",
+        "password"
       ],
       "operations": {
         "add": {
@@ -16,11 +18,15 @@
           "descriptionTemplate": "Create user {name} with id {id}",
           "params": [
             "id",
-            "name"
+            "name",
+            "email",
+            "password"
           ],
           "bodyTemplate": {
             "id": "{id}",
-            "name": "{name}"
+            "name": "{name}",
+            "email": "{email}",
+            "password": "{password}"
           }
         },
         "delete": {
@@ -31,6 +37,15 @@
           "params": [
             "id"
           ]
+        },
+        "get": {
+          "name": "listUsers",
+          "method": "GET",
+          "path": "/users",
+          "descriptionTemplate": "List/search users with query {q}",
+          "params": [
+            "q"
+          ]
         }
       }
     },
@@ -38,7 +53,9 @@
       "displayName": "book",
       "params": [
         "id",
-        "title"
+        "title",
+        "author",
+        "isbn"
       ],
       "operations": {
         "add": {
@@ -48,11 +65,15 @@
           "descriptionTemplate": "Create book {title} with id {id}",
           "params": [
             "id",
-            "title"
+            "title",
+            "author",
+            "isbn"
           ],
           "bodyTemplate": {
             "id": "{id}",
-            "title": "{title}"
+            "title": "{title}",
+            "author": "{author}",
+            "isbn": "{isbn}"
           }
         },
         "get": {
@@ -72,6 +93,15 @@
           "params": [
             "id"
           ]
+        },
+        "list": {
+          "name": "listBooks",
+          "method": "GET",
+          "path": "/books",
+          "descriptionTemplate": "List/search books with query {q}",
+          "params": [
+            "q"
+          ]
         }
       }
     },
@@ -79,28 +109,44 @@
       "displayName": "loan",
       "params": [
         "userId",
-        "bookId"
+        "bookId",
+        "loanDate",
+        "dueDate"
       ],
       "operations": {
         "add": {
           "name": "createLoan",
           "method": "POST",
           "path": "/loans",
-          "descriptionTemplate": "Create loan for userId {userId} and bookId {bookId}",
+          "descriptionTemplate": "Create loan for user {userId} and book {bookId}",
           "params": [
             "userId",
-            "bookId"
+            "bookId",
+            "loanDate",
+            "dueDate"
           ],
           "bodyTemplate": {
             "userId": "{userId}",
-            "bookId": "{bookId}"
+            "bookId": "{bookId}",
+            "loanDate": "{loanDate}",
+            "dueDate": "{dueDate}"
           }
         },
         "delete": {
           "name": "deleteLoan",
           "method": "DELETE",
           "path": "/loans/{userId}/{bookId}",
-          "descriptionTemplate": "Delete loan for userId {userId} and bookId {bookId}",
+          "descriptionTemplate": "Delete loan for user {userId} and book {bookId}",
+          "params": [
+            "userId",
+            "bookId"
+          ]
+        },
+        "get": {
+          "name": "listLoans",
+          "method": "GET",
+          "path": "/loans",
+          "descriptionTemplate": "List/search loans for user {userId} and book {bookId}",
           "params": [
             "userId",
             "bookId"
@@ -113,23 +159,26 @@
       "params": [
         "id",
         "userId",
-        "bookId"
+        "bookId",
+        "holdDate"
       ],
       "operations": {
         "add": {
           "name": "createHold",
           "method": "POST",
           "path": "/holds",
-          "descriptionTemplate": "Create hold with id {id} for userId {userId} and bookId {bookId}",
+          "descriptionTemplate": "Create hold with id {id}",
           "params": [
             "id",
             "userId",
-            "bookId"
+            "bookId",
+            "holdDate"
           ],
           "bodyTemplate": {
             "id": "{id}",
             "userId": "{userId}",
-            "bookId": "{bookId}"
+            "bookId": "{bookId}",
+            "holdDate": "{holdDate}"
           }
         },
         "delete": {
@@ -140,6 +189,13 @@
           "params": [
             "id"
           ]
+        },
+        "get": {
+          "name": "listHolds",
+          "method": "GET",
+          "path": "/holds",
+          "descriptionTemplate": "List holds",
+          "params": []
         }
       }
     }
@@ -149,7 +205,7 @@
     "openapi": "3.0.3",
     "info": {
       "title": "Library SUT (Corrected)",
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     "paths": {
       "/users": {
@@ -225,8 +281,21 @@
             }
           ],
           "responses": {
-            "204": {
-              "description": "No Content"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Deleted"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "400": {
+              "description": "Bad Request"
             }
           }
         }
@@ -333,8 +402,21 @@
             }
           ],
           "responses": {
-            "204": {
-              "description": "No Content"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Deleted"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "400": {
+              "description": "Bad Request"
             }
           }
         }
@@ -363,6 +445,9 @@
                   }
                 }
               }
+            },
+            "400": {
+              "description": "Bad Request"
             }
           }
         },
@@ -427,8 +512,18 @@
             }
           ],
           "responses": {
-            "204": {
-              "description": "No Content"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Deleted"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found"
             }
           }
         }
@@ -495,8 +590,15 @@
             }
           ],
           "responses": {
-            "204": {
-              "description": "No Content"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Deleted"
+                  }
+                }
+              }
             }
           }
         }
@@ -603,6 +705,17 @@
               "$ref": "#/components/schemas/HoldCreate"
             }
           ]
+        },
+        "Deleted": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "booksRemaining": {
+              "type": "integer"
+            }
+          }
         }
       }
     }
