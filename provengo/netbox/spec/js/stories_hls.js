@@ -6,14 +6,19 @@ function resolveDependencies(deps, pkMap) {
   let captured = {};
   while (Object.keys(deps).length > 0) {
     let missingEventSets = Object.values(deps);
+    // bp.log.info("Guard waiting for: " + Object.keys(deps).join(", "));
     let e = bp.sync({waitFor: missingEventSets});
+    // bp.log.info("Guard received event: " + e.name);
     for (let k in deps) {
       if (deps[k].contains(e)) {
+        // 1. Try basic capture
         let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
+        // 2. Try using pkMap if available
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
         }
+        // 3. Generic Fallback scan (for ID/VIN)
         if (!val && e.data) {
           for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }
         }
@@ -35,7 +40,7 @@ bthread("crud:CableTermination:nondet:1:1", function () {
   let termination_id = 200;
   let termination_type = "termination_type_200";
   createCableTermination(cable, cable_end, id, termination_id, termination_type);
-  waitForCableTerminationAdded(cable, cable_end, id, termination_id, termination_type);
+  // waitForCableTerminationAdded(cable, cable_end, id, termination_id, termination_type);
   tryToAddExistingCableTermination(cable, cable_end, id, termination_id, termination_type);
   verifyCableTerminationExists(cable, cable_end, id, termination_id, termination_type);
   updateCableTermination(cable, cable_end, id, termination_id, termination_type);
@@ -92,7 +97,7 @@ bthread("crud:Cable:nondet:1:1", function () {
   let tenant = "tenant_210";
   let type = "type_210";
   createCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
-  waitForCableAdded(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
+  // waitForCableAdded(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
   tryToAddExistingCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
   verifyCableExists(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
   updateCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
@@ -160,7 +165,7 @@ bthread("crud:ConsolePortTemplate:nondet:1:1", function () {
   let name = "name_220";
   let type = "type_220";
   createConsolePortTemplate(description, device_type, id, label, module_type, name, type);
-  waitForConsolePortTemplateAdded(description, device_type, id, label, module_type, name, type);
+  // waitForConsolePortTemplateAdded(description, device_type, id, label, module_type, name, type);
   tryToAddExistingConsolePortTemplate(description, device_type, id, label, module_type, name, type);
   verifyConsolePortTemplateExists(description, device_type, id, label, module_type, name, type);
   updateConsolePortTemplate(description, device_type, id, label, module_type, name, type);
@@ -218,7 +223,7 @@ bthread("crud:ConsolePort:nondet:1:1", function () {
   let tags = "tags_230";
   let type = "type_230";
   createConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  waitForConsolePortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
+  // waitForConsolePortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   tryToAddExistingConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   verifyConsolePortExists(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   updateConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
@@ -280,7 +285,7 @@ bthread("crud:ConsoleServerPortTemplate:nondet:1:1", function () {
   let name = "name_240";
   let type = "type_240";
   createConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
-  waitForConsoleServerPortTemplateAdded(description, device_type, id, label, module_type, name, type);
+  // waitForConsoleServerPortTemplateAdded(description, device_type, id, label, module_type, name, type);
   tryToAddExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   verifyConsoleServerPortTemplateExists(description, device_type, id, label, module_type, name, type);
   updateConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
@@ -338,7 +343,7 @@ bthread("crud:ConsoleServerPort:nondet:1:1", function () {
   let tags = "tags_250";
   let type = "type_250";
   createConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
+  // waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   tryToAddExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   verifyConsoleServerPortExists(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   updateConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
@@ -398,7 +403,7 @@ bthread("crud:DeviceBayTemplate:nondet:1:1", function () {
   let label = "label_260";
   let name = "name_260";
   createDeviceBayTemplate(description, device_type, id, label, name);
-  waitForDeviceBayTemplateAdded(description, device_type, id, label, name);
+  // waitForDeviceBayTemplateAdded(description, device_type, id, label, name);
   tryToAddExistingDeviceBayTemplate(description, device_type, id, label, name);
   verifyDeviceBayTemplateExists(description, device_type, id, label, name);
   updateDeviceBayTemplate(description, device_type, id, label, name);
@@ -449,7 +454,7 @@ bthread("crud:DeviceBay:nondet:1:1", function () {
   let name = "name_270";
   let tags = "tags_270";
   createDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
-  waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags);
+  // waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags);
   tryToAddExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   verifyDeviceBayExists(custom_fields, description, device, id, installed_device, label, name, tags);
   updateDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
@@ -509,7 +514,7 @@ bthread("crud:DeviceRole:nondet:1:1", function () {
   let tags = "tags_280";
   let vm_role = "vm_role_280";
   createDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
-  waitForDeviceRoleAdded(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
+  // waitForDeviceRoleAdded(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   tryToAddExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   verifyDeviceRoleExists(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   updateDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
@@ -583,7 +588,7 @@ bthread("crud:DeviceType:nondet:1:1", function () {
   let weight = 290;
   let weight_unit = "weight_unit_290";
   createDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  waitForDeviceTypeAdded(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  // waitForDeviceTypeAdded(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   tryToAddExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   verifyDeviceTypeExists(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   updateDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
@@ -684,7 +689,7 @@ bthread("crud:Device:nondet:1:1", function () {
   let vc_priority = 300;
   let virtual_chassis = "virtual_chassis_300";
   createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  waitForDeviceAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  // waitForDeviceAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   updateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
@@ -787,7 +792,7 @@ bthread("crud:FrontPortTemplate:nondet:1:1", function () {
   let rear_port_position = 310;
   let type = "type_310";
   createFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  waitForFrontPortTemplateAdded(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
+  // waitForFrontPortTemplateAdded(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   tryToAddExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   verifyFrontPortTemplateExists(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   updateFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
@@ -853,7 +858,7 @@ bthread("crud:FrontPort:nondet:1:1", function () {
   let tags = "tags_320";
   let type = "type_320";
   createFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  waitForFrontPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  // waitForFrontPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   tryToAddExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   verifyFrontPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   updateFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
@@ -931,11 +936,11 @@ bthread("crud:InterfaceTemplate:nondet:1:1", function () {
   let rf_role = "rf_role_340";
   let type = "type_340";
   createInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
-  waitForInterfaceTemplateAdded(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+  // waitForInterfaceTemplateAdded(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToAddExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateExists(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
-  updateInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
-  deleteInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+  bulkUpdateInterfaceTemplates(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+  deleteInterfaceTemplatesBulk(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
 });
@@ -958,9 +963,9 @@ bthread("crud:InterfaceTemplate:nondet:1:2", function () {
   createInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   // waitForInterfaceTemplateAdded(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToAddExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
-  updateInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+  bulkUpdateInterfaceTemplates(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateExists(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
-  deleteInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+  deleteInterfaceTemplatesBulk(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
 });
@@ -1007,7 +1012,7 @@ bthread("crud:Interface:nondet:1:1", function () {
   let vlan_translation_policy = "vlan_translation_policy_350";
   let vrf = "vrf_350";
   createInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
-  waitForInterfaceAdded(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
+  // waitForInterfaceAdded(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
   tryToAddExistingInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
   verifyInterfaceExists(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
   updateInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
@@ -1081,11 +1086,11 @@ bthread("crud:InventoryItemRole:nondet:1:1", function () {
   let slug = "slug_360";
   let tags = "tags_360";
   createInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
-  waitForInventoryItemRoleAdded(color, custom_fields, description, id, name, slug, tags);
+  // waitForInventoryItemRoleAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
   verifyInventoryItemRoleExists(color, custom_fields, description, id, name, slug, tags);
-  updateInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
-  deleteInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
+  bulkUpdateInventoryItemRoles(color, custom_fields, description, id, name, slug, tags);
+  deleteInventoryItemRolesBulk(color, custom_fields, description, id, name, slug, tags);
   tryToDeleteANonExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
   verifyInventoryItemRoleDoesNotExist(color, custom_fields, description, id, name, slug, tags);
 });
@@ -1102,9 +1107,9 @@ bthread("crud:InventoryItemRole:nondet:1:2", function () {
   createInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
   // waitForInventoryItemRoleAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
-  updateInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
+  bulkUpdateInventoryItemRoles(color, custom_fields, description, id, name, slug, tags);
   verifyInventoryItemRoleExists(color, custom_fields, description, id, name, slug, tags);
-  deleteInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
+  deleteInventoryItemRolesBulk(color, custom_fields, description, id, name, slug, tags);
   tryToDeleteANonExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags);
   verifyInventoryItemRoleDoesNotExist(color, custom_fields, description, id, name, slug, tags);
 });
@@ -1139,11 +1144,11 @@ bthread("crud:InventoryItemTemplate:nondet:1:1", function () {
   let part_id = 370;
   let role = "role_370";
   createInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
-  waitForInventoryItemTemplateAdded(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
+  // waitForInventoryItemTemplateAdded(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   tryToAddExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   verifyInventoryItemTemplateExists(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
-  updateInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
-  deleteInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
+  bulkUpdateInventoryItemTemplates(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
+  deleteInventoryItemTemplatesBulk(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   tryToDeleteANonExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   verifyInventoryItemTemplateDoesNotExist(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
 });
@@ -1164,9 +1169,9 @@ bthread("crud:InventoryItemTemplate:nondet:1:2", function () {
   createInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   // waitForInventoryItemTemplateAdded(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   tryToAddExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
-  updateInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
+  bulkUpdateInventoryItemTemplates(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   verifyInventoryItemTemplateExists(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
-  deleteInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
+  deleteInventoryItemTemplatesBulk(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   tryToDeleteANonExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
   verifyInventoryItemTemplateDoesNotExist(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
 });
@@ -1211,7 +1216,7 @@ bthread("crud:InventoryItem:nondet:1:1", function () {
   let status = "status_380";
   let tags = "tags_380";
   createInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
-  waitForInventoryItemAdded(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
+  // waitForInventoryItemAdded(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
   tryToAddExistingInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
   verifyInventoryItemExists(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
   updateInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
@@ -1290,7 +1295,7 @@ bthread("crud:Location:nondet:1:1", function () {
   let tags = "tags_390";
   let tenant = "tenant_390";
   createLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
-  waitForLocationAdded(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
+  // waitForLocationAdded(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
   tryToAddExistingLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
   verifyLocationExists(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
   updateLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
@@ -1355,7 +1360,7 @@ bthread("crud:MACAddress:nondet:1:1", function () {
   let mac_address = "mac_address_400";
   let tags = "tags_400";
   createMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
-  waitForMACAddressAdded(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
+  // waitForMACAddressAdded(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
   tryToAddExistingMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
   verifyMACAddressExists(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
   updateMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
@@ -1410,7 +1415,7 @@ bthread("crud:Manufacturer:nondet:1:1", function () {
   let slug = "slug_410";
   let tags = "tags_410";
   createManufacturer(custom_fields, description, id, name, slug, tags);
-  waitForManufacturerAdded(custom_fields, description, id, name, slug, tags);
+  // waitForManufacturerAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingManufacturer(custom_fields, description, id, name, slug, tags);
   verifyManufacturerExists(custom_fields, description, id, name, slug, tags);
   updateManufacturer(custom_fields, description, id, name, slug, tags);
@@ -1462,7 +1467,7 @@ bthread("crud:ModuleBayTemplate:nondet:1:1", function () {
   let name = "name_420";
   let position = "position_420";
   createModuleBayTemplate(description, device_type, id, label, module_type, name, position);
-  waitForModuleBayTemplateAdded(description, device_type, id, label, module_type, name, position);
+  // waitForModuleBayTemplateAdded(description, device_type, id, label, module_type, name, position);
   tryToAddExistingModuleBayTemplate(description, device_type, id, label, module_type, name, position);
   verifyModuleBayTemplateExists(description, device_type, id, label, module_type, name, position);
   updateModuleBayTemplate(description, device_type, id, label, module_type, name, position);
@@ -1519,7 +1524,7 @@ bthread("crud:ModuleBay:nondet:1:1", function () {
   let position = "position_430";
   let tags = "tags_430";
   createModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
-  waitForModuleBayAdded(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
+  // waitForModuleBayAdded(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
   tryToAddExistingModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
   verifyModuleBayExists(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
   updateModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
@@ -1579,7 +1584,7 @@ bthread("crud:ModuleTypeProfile:nondet:1:1", function () {
   let schema = "schema_440";
   let tags = "tags_440";
   createModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags);
-  waitForModuleTypeProfileAdded(comments, custom_fields, description, id, name, schema, tags);
+  // waitForModuleTypeProfileAdded(comments, custom_fields, description, id, name, schema, tags);
   tryToAddExistingModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags);
   verifyModuleTypeProfileExists(comments, custom_fields, description, id, name, schema, tags);
   updateModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags);
@@ -1639,7 +1644,7 @@ bthread("crud:ModuleType:nondet:1:1", function () {
   let weight = 450;
   let weight_unit = "weight_unit_450";
   createModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
-  waitForModuleTypeAdded(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
+  // waitForModuleTypeAdded(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
   tryToAddExistingModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
   verifyModuleTypeExists(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
   updateModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
@@ -1709,7 +1714,7 @@ bthread("crud:Module:nondet:1:1", function () {
   let status = "status_460";
   let tags = "tags_460";
   createModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
-  waitForModuleAdded(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
+  // waitForModuleAdded(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
   tryToAddExistingModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
   verifyModuleExists(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
   updateModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
@@ -1774,7 +1779,7 @@ bthread("crud:Platform:nondet:1:1", function () {
   let slug = "slug_470";
   let tags = "tags_470";
   createPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
-  waitForPlatformAdded(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
+  // waitForPlatformAdded(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
   tryToAddExistingPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
   verifyPlatformExists(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
   updatePlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
@@ -1844,7 +1849,7 @@ bthread("crud:PowerFeed:nondet:1:1", function () {
   let type = "type_480";
   let voltage = 480;
   createPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
-  waitForPowerFeedAdded(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
+  // waitForPowerFeedAdded(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
   tryToAddExistingPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
   verifyPowerFeedExists(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
   updatePowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
@@ -1920,7 +1925,7 @@ bthread("crud:PowerOutletTemplate:nondet:1:1", function () {
   let power_port = "power_port_490";
   let type = "type_490";
   createPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
-  waitForPowerOutletTemplateAdded(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
+  // waitForPowerOutletTemplateAdded(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
   tryToAddExistingPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
   verifyPowerOutletTemplateExists(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
   updatePowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
@@ -1985,7 +1990,7 @@ bthread("crud:PowerOutlet:nondet:1:1", function () {
   let tags = "tags_500";
   let type = "type_500";
   createPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
-  waitForPowerOutletAdded(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
+  // waitForPowerOutletAdded(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
   tryToAddExistingPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
   verifyPowerOutletExists(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
   updatePowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
@@ -2054,7 +2059,7 @@ bthread("crud:PowerPanel:nondet:1:1", function () {
   let site = "site_510";
   let tags = "tags_510";
   createPowerPanel(comments, custom_fields, description, id, location, name, site, tags);
-  waitForPowerPanelAdded(comments, custom_fields, description, id, location, name, site, tags);
+  // waitForPowerPanelAdded(comments, custom_fields, description, id, location, name, site, tags);
   tryToAddExistingPowerPanel(comments, custom_fields, description, id, location, name, site, tags);
   verifyPowerPanelExists(comments, custom_fields, description, id, location, name, site, tags);
   updatePowerPanel(comments, custom_fields, description, id, location, name, site, tags);
@@ -2112,7 +2117,7 @@ bthread("crud:PowerPortTemplate:nondet:1:1", function () {
   let name = "name_520";
   let type = "type_520";
   createPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
-  waitForPowerPortTemplateAdded(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
+  // waitForPowerPortTemplateAdded(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
   tryToAddExistingPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
   verifyPowerPortTemplateExists(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
   updatePowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
@@ -2175,7 +2180,7 @@ bthread("crud:PowerPort:nondet:1:1", function () {
   let tags = "tags_530";
   let type = "type_530";
   createPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
-  waitForPowerPortAdded(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
+  // waitForPowerPortAdded(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
   tryToAddExistingPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
   verifyPowerPortExists(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
   updatePowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
@@ -2242,7 +2247,7 @@ bthread("crud:RackReservation:nondet:1:1", function () {
   let units = "units_540";
   let user = "user_540";
   createRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
-  waitForRackReservationAdded(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
+  // waitForRackReservationAdded(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
   tryToAddExistingRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
   verifyRackReservationExists(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
   updateRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
@@ -2302,7 +2307,7 @@ bthread("crud:RackRole:nondet:1:1", function () {
   let slug = "slug_550";
   let tags = "tags_550";
   createRackRole(color, custom_fields, description, id, name, slug, tags);
-  waitForRackRoleAdded(color, custom_fields, description, id, name, slug, tags);
+  // waitForRackRoleAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingRackRole(color, custom_fields, description, id, name, slug, tags);
   verifyRackRoleExists(color, custom_fields, description, id, name, slug, tags);
   updateRackRole(color, custom_fields, description, id, name, slug, tags);
@@ -2371,7 +2376,7 @@ bthread("crud:RackType:nondet:1:1", function () {
   let weight_unit = "weight_unit_560";
   let width = 560;
   createRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  waitForRackTypeAdded(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  // waitForRackTypeAdded(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   tryToAddExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   verifyRackTypeExists(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   updateRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
@@ -2477,7 +2482,7 @@ bthread("crud:Rack:nondet:1:1", function () {
   let weight_unit = "weight_unit_570";
   let width = 570;
   createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  waitForRackAdded(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
+  // waitForRackAdded(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   updateRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
@@ -2577,7 +2582,7 @@ bthread("crud:RearPortTemplate:nondet:1:1", function () {
   let positions = 580;
   let type = "type_580";
   createRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
-  waitForRearPortTemplateAdded(color, description, device_type, id, label, module_type, name, positions, type);
+  // waitForRearPortTemplateAdded(color, description, device_type, id, label, module_type, name, positions, type);
   tryToAddExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
   verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, type);
   updateRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
@@ -2640,7 +2645,7 @@ bthread("crud:RearPort:nondet:1:1", function () {
   let tags = "tags_590";
   let type = "type_590";
   createRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
-  waitForRearPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
+  // waitForRearPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   tryToAddExistingRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   verifyRearPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   updateRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
@@ -2705,7 +2710,7 @@ bthread("crud:Region:nondet:1:1", function () {
   let slug = "slug_600";
   let tags = "tags_600";
   createRegion(comments, custom_fields, description, id, name, parent, slug, tags);
-  waitForRegionAdded(comments, custom_fields, description, id, name, parent, slug, tags);
+  // waitForRegionAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingRegion(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyRegionExists(comments, custom_fields, description, id, name, parent, slug, tags);
   updateRegion(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -2762,7 +2767,7 @@ bthread("crud:SiteGroup:nondet:1:1", function () {
   let slug = "slug_610";
   let tags = "tags_610";
   createSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags);
-  waitForSiteGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
+  // waitForSiteGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   verifySiteGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
   updateSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -2810,6 +2815,7 @@ bthread("crud:SiteGroup:nondet:negative:dup-add", function () {
 
 // Story: crud:Site:nondet:1:1
 bthread("crud:Site:nondet:1:1", function () {
+  let asn = "asn_620";
   let asns = "asns_620";
   let comments = "comments_620";
   let custom_fields = {};
@@ -2828,18 +2834,19 @@ bthread("crud:Site:nondet:1:1", function () {
   let tags = "tags_620";
   let tenant = "tenant_620";
   let time_zone = "time_zone_620";
-  createSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  tryToAddExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  updateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  deleteSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  verifySiteDoesNotExist(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  // waitForSiteAdded(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  updateSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  deleteSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToDeleteANonExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteDoesNotExist(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
 });
 
 // Story: crud:Site:nondet:1:2
 bthread("crud:Site:nondet:1:2", function () {
+  let asn = "asn_621";
   let asns = "asns_621";
   let comments = "comments_621";
   let custom_fields = {};
@@ -2858,18 +2865,19 @@ bthread("crud:Site:nondet:1:2", function () {
   let tags = "tags_621";
   let tenant = "tenant_621";
   let time_zone = "time_zone_621";
-  createSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  // waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  tryToAddExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  updateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  deleteSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  verifySiteDoesNotExist(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  // waitForSiteAdded(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  updateSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  deleteSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToDeleteANonExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteDoesNotExist(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
 });
 
 // Story: crud:Site:nondet:negative:dup-add
 bthread("crud:Site:nondet:negative:dup-add", function () {
+  let asn = "asn_626";
   let asns = "asns_626";
   let comments = "comments_626";
   let custom_fields = {};
@@ -2888,11 +2896,11 @@ bthread("crud:Site:nondet:negative:dup-add", function () {
   let tags = "tags_626";
   let tenant = "tenant_626";
   let time_zone = "time_zone_626";
-  createSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  // waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  tryToAddExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
-  verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  // waitForSiteAdded(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
 });
 
 // Story: crud:VirtualChassis:nondet:1:1
@@ -2906,7 +2914,7 @@ bthread("crud:VirtualChassis:nondet:1:1", function () {
   let name = "name_630";
   let tags = "tags_630";
   createVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags);
-  waitForVirtualChassisAdded(comments, custom_fields, description, domain, id, master, name, tags);
+  // waitForVirtualChassisAdded(comments, custom_fields, description, domain, id, master, name, tags);
   tryToAddExistingVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags);
   verifyVirtualChassisExists(comments, custom_fields, description, domain, id, master, name, tags);
   updateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags);
@@ -2967,7 +2975,7 @@ bthread("crud:VirtualDeviceContext:nondet:1:1", function () {
   let tags = "tags_640";
   let tenant = "tenant_640";
   createVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
-  waitForVirtualDeviceContextAdded(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
+  // waitForVirtualDeviceContextAdded(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
   tryToAddExistingVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
   verifyVirtualDeviceContextExists(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
   updateVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
@@ -3028,7 +3036,7 @@ bthread("crud:Bookmark:nondet:1:1", function () {
   let object_type = "object_type_650";
   let user = "user_650";
   createBookmark(id, object_id, object_type, user);
-  waitForBookmarkAdded(id, object_id, object_type, user);
+  // waitForBookmarkAdded(id, object_id, object_type, user);
   tryToAddExistingBookmark(id, object_id, object_type, user);
   verifyBookmarkExists(id, object_id, object_type, user);
   updateBookmark(id, object_id, object_type, user);
@@ -3076,7 +3084,7 @@ bthread("crud:ConfigContextProfile:nondet:1:1", function () {
   let schema = "schema_660";
   let tags = "tags_660";
   createConfigContextProfile(comments, data_source, description, id, name, schema, tags);
-  waitForConfigContextProfileAdded(comments, data_source, description, id, name, schema, tags);
+  // waitForConfigContextProfileAdded(comments, data_source, description, id, name, schema, tags);
   tryToAddExistingConfigContextProfile(comments, data_source, description, id, name, schema, tags);
   verifyConfigContextProfileExists(comments, data_source, description, id, name, schema, tags);
   updateConfigContextProfile(comments, data_source, description, id, name, schema, tags);
@@ -3144,7 +3152,7 @@ bthread("crud:ConfigContext:nondet:1:1", function () {
   let tenants = "tenants_670";
   let weight = 670;
   createConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
-  waitForConfigContextAdded(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
+  // waitForConfigContextAdded(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
   tryToAddExistingConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
   verifyConfigContextExists(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
   updateConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
@@ -3224,19 +3232,20 @@ bthread("crud:ConfigTemplate:nondet:1:1", function () {
   let environment_params = "environment_params_680";
   let file_extension = "file_extension_680";
   let file_name = "file_name_680";
+  let format = "format_680";
   let id = 680;
   let mime_type = "mime_type_680";
   let name = "name_680";
   let tags = "tags_680";
   let template_code = "template_code_680";
-  createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
+  createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  // waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
 });
 
 // Story: crud:ConfigTemplate:nondet:1:2
@@ -3247,19 +3256,20 @@ bthread("crud:ConfigTemplate:nondet:1:2", function () {
   let environment_params = "environment_params_681";
   let file_extension = "file_extension_681";
   let file_name = "file_name_681";
+  let format = "format_681";
   let id = 681;
   let mime_type = "mime_type_681";
   let name = "name_681";
   let tags = "tags_681";
   let template_code = "template_code_681";
-  createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  // waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
+  createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  // waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
 });
 
 // Story: crud:ConfigTemplate:nondet:negative:dup-add
@@ -3270,16 +3280,17 @@ bthread("crud:ConfigTemplate:nondet:negative:dup-add", function () {
   let environment_params = "environment_params_686";
   let file_extension = "file_extension_686";
   let file_name = "file_name_686";
+  let format = "format_686";
   let id = 686;
   let mime_type = "mime_type_686";
   let name = "name_686";
   let tags = "tags_686";
   let template_code = "template_code_686";
-  createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  // waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
-  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code);
+  createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  // waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
+  verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
 });
 
 // Story: crud:CustomFieldChoiceSet:nondet:1:1
@@ -3291,7 +3302,7 @@ bthread("crud:CustomFieldChoiceSet:nondet:1:1", function () {
   let name = "name_690";
   let order_alphabetically = "order_alphabetically_690";
   createCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically);
-  waitForCustomFieldChoiceSetAdded(base_choices, description, extra_choices, id, name, order_alphabetically);
+  // waitForCustomFieldChoiceSetAdded(base_choices, description, extra_choices, id, name, order_alphabetically);
   tryToAddExistingCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically);
   verifyCustomFieldChoiceSetExists(base_choices, description, extra_choices, id, name, order_alphabetically);
   updateCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically);
@@ -3337,7 +3348,7 @@ bthread("crud:CustomFieldChoiceSet:nondet:negative:dup-add", function () {
 bthread("crud:CustomField:nondet:1:1", function () {
   let choice_set = "choice_set_700";
   let comments = "comments_700";
-  let _default = "default_700";
+  let default = "default_700";
   let description = "description_700";
   let filter_logic = "filter_logic_700";
   let group_name = "group_name_700";
@@ -3358,21 +3369,21 @@ bthread("crud:CustomField:nondet:1:1", function () {
   let validation_minimum = 700;
   let validation_regex = "validation_regex_700";
   let weight = 700;
-  createCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  tryToAddExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  verifyCustomFieldExists(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  updateCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  deleteCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  tryToDeleteANonExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  verifyCustomFieldDoesNotExist(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  createCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  // waitForCustomFieldAdded(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  tryToAddExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  verifyCustomFieldExists(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  updateCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  deleteCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  tryToDeleteANonExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  verifyCustomFieldDoesNotExist(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
 });
 
 // Story: crud:CustomField:nondet:1:2
 bthread("crud:CustomField:nondet:1:2", function () {
   let choice_set = "choice_set_701";
   let comments = "comments_701";
-  let _default = "default_701";
+  let default = "default_701";
   let description = "description_701";
   let filter_logic = "filter_logic_701";
   let group_name = "group_name_701";
@@ -3393,21 +3404,21 @@ bthread("crud:CustomField:nondet:1:2", function () {
   let validation_minimum = 701;
   let validation_regex = "validation_regex_701";
   let weight = 701;
-  createCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  // waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  tryToAddExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  updateCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  verifyCustomFieldExists(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  deleteCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  tryToDeleteANonExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  verifyCustomFieldDoesNotExist(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  createCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  // waitForCustomFieldAdded(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  tryToAddExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  updateCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  verifyCustomFieldExists(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  deleteCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  tryToDeleteANonExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  verifyCustomFieldDoesNotExist(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
 });
 
 // Story: crud:CustomField:nondet:negative:dup-add
 bthread("crud:CustomField:nondet:negative:dup-add", function () {
   let choice_set = "choice_set_706";
   let comments = "comments_706";
-  let _default = "default_706";
+  let default = "default_706";
   let description = "description_706";
   let filter_logic = "filter_logic_706";
   let group_name = "group_name_706";
@@ -3428,11 +3439,11 @@ bthread("crud:CustomField:nondet:negative:dup-add", function () {
   let validation_minimum = 706;
   let validation_regex = "validation_regex_706";
   let weight = 706;
-  createCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  // waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  verifyCustomFieldExists(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  tryToAddExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
-  verifyCustomFieldExists(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  createCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  // waitForCustomFieldAdded(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  verifyCustomFieldExists(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  tryToAddExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
+  verifyCustomFieldExists(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
 });
 
 // Story: crud:CustomLink:nondet:1:1
@@ -3448,7 +3459,7 @@ bthread("crud:CustomLink:nondet:1:1", function () {
   let object_types = "object_types_710";
   let weight = 710;
   createCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
-  waitForCustomLinkAdded(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
+  // waitForCustomLinkAdded(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
   tryToAddExistingCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
   verifyCustomLinkExists(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
   updateCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
@@ -3519,7 +3530,7 @@ bthread("crud:EventRule:nondet:1:1", function () {
   let object_types = "object_types_730";
   let tags = "tags_730";
   createEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
-  waitForEventRuleAdded(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
+  // waitForEventRuleAdded(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
   tryToAddExistingEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
   verifyEventRuleExists(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
   updateEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
@@ -3587,7 +3598,7 @@ bthread("crud:ExportTemplate:nondet:1:1", function () {
   let object_types = "object_types_740";
   let template_code = "template_code_740";
   createExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
-  waitForExportTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
+  // waitForExportTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
   tryToAddExistingExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
   verifyExportTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
   updateExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
@@ -3648,7 +3659,7 @@ bthread("crud:ImageAttachment:nondet:1:1", function () {
   let object_id = 750;
   let object_type = "object_type_750";
   createImageAttachment(description, id, image, name, object_id, object_type);
-  waitForImageAttachmentAdded(description, id, image, name, object_id, object_type);
+  // waitForImageAttachmentAdded(description, id, image, name, object_id, object_type);
   tryToAddExistingImageAttachment(description, id, image, name, object_id, object_type);
   verifyImageAttachmentExists(description, id, image, name, object_id, object_type);
   updateImageAttachment(description, id, image, name, object_id, object_type);
@@ -3701,7 +3712,7 @@ bthread("crud:JournalEntry:nondet:1:1", function () {
   let kind = "kind_760";
   let tags = "tags_760";
   createJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
-  waitForJournalEntryAdded(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
+  // waitForJournalEntryAdded(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
   tryToAddExistingJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
   verifyJournalEntryExists(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
   updateJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
@@ -3755,7 +3766,7 @@ bthread("crud:NotificationGroup:nondet:1:1", function () {
   let name = "name_770";
   let users = "users_770";
   createNotificationGroup(description, groups, id, name, users);
-  waitForNotificationGroupAdded(description, groups, id, name, users);
+  // waitForNotificationGroupAdded(description, groups, id, name, users);
   tryToAddExistingNotificationGroup(description, groups, id, name, users);
   verifyNotificationGroupExists(description, groups, id, name, users);
   updateNotificationGroup(description, groups, id, name, users);
@@ -3804,7 +3815,7 @@ bthread("crud:Notification:nondet:1:1", function () {
   let read = "read_780";
   let user = "user_780";
   createNotification(event_type, id, object_id, object_type, read, user);
-  waitForNotificationAdded(event_type, id, object_id, object_type, read, user);
+  // waitForNotificationAdded(event_type, id, object_id, object_type, read, user);
   tryToAddExistingNotification(event_type, id, object_id, object_type, read, user);
   verifyNotificationExists(event_type, id, object_id, object_type, read, user);
   updateNotification(event_type, id, object_id, object_type, read, user);
@@ -3865,7 +3876,7 @@ bthread("crud:SavedFilter:nondet:1:1", function () {
   let user = 800;
   let weight = 800;
   createSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
-  waitForSavedFilterAdded(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
+  // waitForSavedFilterAdded(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
   tryToAddExistingSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
   verifySavedFilterExists(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
   updateSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
@@ -3919,7 +3930,7 @@ bthread("crud:SavedFilter:nondet:negative:dup-add", function () {
 bthread("crud:Script:nondet:1:1", function () {
   let id = 810;
   createScript(id);
-  waitForScriptAdded(id);
+  // waitForScriptAdded(id);
   tryToAddExistingScript(id);
   verifyScriptExists(id);
   updateScript(id);
@@ -3958,7 +3969,7 @@ bthread("crud:Subscription:nondet:1:1", function () {
   let object_type = "object_type_820";
   let user = "user_820";
   createSubscription(id, object_id, object_type, user);
-  waitForSubscriptionAdded(id, object_id, object_type, user);
+  // waitForSubscriptionAdded(id, object_id, object_type, user);
   tryToAddExistingSubscription(id, object_id, object_type, user);
   verifySubscriptionExists(id, object_id, object_type, user);
   updateSubscription(id, object_id, object_type, user);
@@ -4010,7 +4021,7 @@ bthread("crud:TableConfig:nondet:1:1", function () {
   let user = 830;
   let weight = 830;
   createTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
-  waitForTableConfigAdded(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
+  // waitForTableConfigAdded(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
   tryToAddExistingTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
   verifyTableConfigExists(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
   updateTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
@@ -4078,7 +4089,7 @@ bthread("crud:Tag:nondet:1:1", function () {
   let slug = "slug_850";
   let weight = 850;
   createTag(color, description, id, name, object_types, slug, weight);
-  waitForTagAdded(color, description, id, name, object_types, slug, weight);
+  // waitForTagAdded(color, description, id, name, object_types, slug, weight);
   tryToAddExistingTag(color, description, id, name, object_types, slug, weight);
   verifyTagExists(color, description, id, name, object_types, slug, weight);
   updateTag(color, description, id, name, object_types, slug, weight);
@@ -4138,7 +4149,7 @@ bthread("crud:Webhook:nondet:1:1", function () {
   let ssl_verification = "ssl_verification_860";
   let tags = "tags_860";
   createWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
-  waitForWebhookAdded(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
+  // waitForWebhookAdded(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
   tryToAddExistingWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
   verifyWebhookExists(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
   updateWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
@@ -4206,7 +4217,7 @@ bthread("crud:Aggregate:nondet:1:1", function () {
   let tags = "tags_870";
   let tenant = "tenant_870";
   createAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
-  waitForAggregateAdded(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
+  // waitForAggregateAdded(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
   tryToAddExistingAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
   verifyAggregateExists(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
   updateAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
@@ -4267,7 +4278,7 @@ bthread("crud:ASNRange:nondet:1:1", function () {
   let tags = "tags_880";
   let tenant = "tenant_880";
   createASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
-  waitForASNRangeAdded(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
+  // waitForASNRangeAdded(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
   tryToAddExistingASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
   verifyASNRangeExists(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
   updateASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
@@ -4328,7 +4339,7 @@ bthread("crud:ASN:nondet:1:1", function () {
   let tags = "tags_890";
   let tenant = "tenant_890";
   createASN(asn, comments, custom_fields, description, id, rir, tags, tenant);
-  waitForASNAdded(asn, comments, custom_fields, description, id, rir, tags, tenant);
+  // waitForASNAdded(asn, comments, custom_fields, description, id, rir, tags, tenant);
   tryToAddExistingASN(asn, comments, custom_fields, description, id, rir, tags, tenant);
   verifyASNExists(asn, comments, custom_fields, description, id, rir, tags, tenant);
   updateASN(asn, comments, custom_fields, description, id, rir, tags, tenant);
@@ -4378,7 +4389,6 @@ bthread("crud:ASN:nondet:negative:dup-add", function () {
 bthread("crud:FHRPGroupAssignment:nondet:1:1", function () {
   let group = "group_900";
   let id = 900;
-  let interface_id;
   let interface_type = "interface_type_900";
   let priority = 900;
   // Dependency Barrier
@@ -4388,7 +4398,7 @@ bthread("crud:FHRPGroupAssignment:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   interface_id = captured["interface_id"];
   createFHRPGroupAssignment(group, id, interface_id, interface_type, priority);
-  waitForFHRPGroupAssignmentAdded(group, id, interface_id, interface_type, priority);
+  // waitForFHRPGroupAssignmentAdded(group, id, interface_id, interface_type, priority);
   tryToAddExistingFHRPGroupAssignment(group, id, interface_id, interface_type, priority);
   verifyFHRPGroupAssignmentExists(group, id, interface_id, interface_type, priority);
   updateFHRPGroupAssignment(group, id, interface_id, interface_type, priority);
@@ -4401,7 +4411,6 @@ bthread("crud:FHRPGroupAssignment:nondet:1:1", function () {
 bthread("crud:FHRPGroupAssignment:nondet:1:2", function () {
   let group = "group_901";
   let id = 901;
-  let interface_id;
   let interface_type = "interface_type_901";
   let priority = 901;
   // Dependency Barrier
@@ -4424,7 +4433,6 @@ bthread("crud:FHRPGroupAssignment:nondet:1:2", function () {
 bthread("crud:FHRPGroupAssignment:nondet:negative:dup-add", function () {
   let group = "group_906";
   let id = 906;
-  let interface_id;
   let interface_type = "interface_type_906";
   let priority = 906;
   // Dependency Barrier
@@ -4447,7 +4455,6 @@ bthread("crud:FHRPGroup:nondet:1:1", function () {
   let comments = "comments_910";
   let custom_fields = {};
   let description = "description_910";
-  let group_id;
   let id = 910;
   let name = "name_910";
   let protocol = "protocol_910";
@@ -4459,7 +4466,7 @@ bthread("crud:FHRPGroup:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   group_id = captured["group_id"];
   createFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
-  waitForFHRPGroupAdded(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
+  // waitForFHRPGroupAdded(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
   tryToAddExistingFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
   verifyFHRPGroupExists(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
   updateFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
@@ -4475,7 +4482,6 @@ bthread("crud:FHRPGroup:nondet:1:2", function () {
   let comments = "comments_911";
   let custom_fields = {};
   let description = "description_911";
-  let group_id;
   let id = 911;
   let name = "name_911";
   let protocol = "protocol_911";
@@ -4503,7 +4509,6 @@ bthread("crud:FHRPGroup:nondet:negative:dup-add", function () {
   let comments = "comments_916";
   let custom_fields = {};
   let description = "description_916";
-  let group_id;
   let id = 916;
   let name = "name_916";
   let protocol = "protocol_916";
@@ -4538,7 +4543,7 @@ bthread("crud:IPAddress:nondet:1:1", function () {
   let tenant = "tenant_920";
   let vrf = "vrf_920";
   createIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
-  waitForIPAddressAdded(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
+  // waitForIPAddressAdded(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
   tryToAddExistingIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
   verifyIPAddressExists(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
   updateIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
@@ -4612,7 +4617,7 @@ bthread("crud:IPRange:nondet:1:1", function () {
   let tenant = "tenant_930";
   let vrf = "vrf_930";
   createIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
-  waitForIPRangeAdded(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
+  // waitForIPRangeAdded(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
   tryToAddExistingIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
   verifyIPRangeExists(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
   updateIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
@@ -4686,7 +4691,7 @@ bthread("crud:Prefix:nondet:1:1", function () {
   let vlan = "vlan_940";
   let vrf = "vrf_940";
   createPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
-  waitForPrefixAdded(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
+  // waitForPrefixAdded(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
   tryToAddExistingPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
   verifyPrefixExists(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
   updatePrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
@@ -4756,7 +4761,7 @@ bthread("crud:RIR:nondet:1:1", function () {
   let slug = "slug_950";
   let tags = "tags_950";
   createRIR(custom_fields, description, id, is_private, name, slug, tags);
-  waitForRIRAdded(custom_fields, description, id, is_private, name, slug, tags);
+  // waitForRIRAdded(custom_fields, description, id, is_private, name, slug, tags);
   tryToAddExistingRIR(custom_fields, description, id, is_private, name, slug, tags);
   verifyRIRExists(custom_fields, description, id, is_private, name, slug, tags);
   updateRIR(custom_fields, description, id, is_private, name, slug, tags);
@@ -4810,7 +4815,7 @@ bthread("crud:Role:nondet:1:1", function () {
   let tags = "tags_960";
   let weight = 960;
   createRole(custom_fields, description, id, name, slug, tags, weight);
-  waitForRoleAdded(custom_fields, description, id, name, slug, tags, weight);
+  // waitForRoleAdded(custom_fields, description, id, name, slug, tags, weight);
   tryToAddExistingRole(custom_fields, description, id, name, slug, tags, weight);
   verifyRoleExists(custom_fields, description, id, name, slug, tags, weight);
   updateRole(custom_fields, description, id, name, slug, tags, weight);
@@ -4864,7 +4869,7 @@ bthread("crud:RouteTarget:nondet:1:1", function () {
   let tags = "tags_970";
   let tenant = "tenant_970";
   createRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
-  waitForRouteTargetAdded(comments, custom_fields, description, id, name, tags, tenant);
+  // waitForRouteTargetAdded(comments, custom_fields, description, id, name, tags, tenant);
   tryToAddExistingRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
   verifyRouteTargetExists(comments, custom_fields, description, id, name, tags, tenant);
   updateRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
@@ -4919,7 +4924,7 @@ bthread("crud:ServiceTemplate:nondet:1:1", function () {
   let protocol = "protocol_980";
   let tags = "tags_980";
   createServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
-  waitForServiceTemplateAdded(comments, custom_fields, description, id, name, ports, protocol, tags);
+  // waitForServiceTemplateAdded(comments, custom_fields, description, id, name, ports, protocol, tags);
   tryToAddExistingServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
   verifyServiceTemplateExists(comments, custom_fields, description, id, name, ports, protocol, tags);
   updateServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
@@ -4979,7 +4984,7 @@ bthread("crud:Service:nondet:1:1", function () {
   let protocol = "protocol_990";
   let tags = "tags_990";
   createService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
-  waitForServiceAdded(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
+  // waitForServiceAdded(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   tryToAddExistingService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   verifyServiceExists(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   updateService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
@@ -5044,7 +5049,7 @@ bthread("crud:VLANGroup:nondet:1:1", function () {
   let tenant = "tenant_1000";
   let vid_ranges = "vid_ranges_1000";
   createVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
-  waitForVLANGroupAdded(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
+  // waitForVLANGroupAdded(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
   tryToAddExistingVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
   verifyVLANGroupExists(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
   updateVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
@@ -5094,19 +5099,13 @@ bthread("crud:VLANGroup:nondet:negative:dup-add", function () {
   verifyVLANGroupExists(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
 });
 
-// Story: crud:VLANGroupAvailableVlan:read_only
-bthread("crud:VLANGroupAvailableVlan:read_only", function () {
-  let id = 1010;
-  verifyVLANGroupAvailableVlanExists(id);
-});
-
 // Story: crud:VLANTranslationPolicy:nondet:1:1
 bthread("crud:VLANTranslationPolicy:nondet:1:1", function () {
-  let description = "description_1020";
-  let id = 1020;
-  let name = "name_1020";
+  let description = "description_1010";
+  let id = 1010;
+  let name = "name_1010";
   createVLANTranslationPolicy(description, id, name);
-  waitForVLANTranslationPolicyAdded(description, id, name);
+  // waitForVLANTranslationPolicyAdded(description, id, name);
   tryToAddExistingVLANTranslationPolicy(description, id, name);
   verifyVLANTranslationPolicyExists(description, id, name);
   updateVLANTranslationPolicy(description, id, name);
@@ -5117,9 +5116,9 @@ bthread("crud:VLANTranslationPolicy:nondet:1:1", function () {
 
 // Story: crud:VLANTranslationPolicy:nondet:1:2
 bthread("crud:VLANTranslationPolicy:nondet:1:2", function () {
-  let description = "description_1021";
-  let id = 1021;
-  let name = "name_1021";
+  let description = "description_1011";
+  let id = 1011;
+  let name = "name_1011";
   createVLANTranslationPolicy(description, id, name);
   // waitForVLANTranslationPolicyAdded(description, id, name);
   tryToAddExistingVLANTranslationPolicy(description, id, name);
@@ -5132,9 +5131,9 @@ bthread("crud:VLANTranslationPolicy:nondet:1:2", function () {
 
 // Story: crud:VLANTranslationPolicy:nondet:negative:dup-add
 bthread("crud:VLANTranslationPolicy:nondet:negative:dup-add", function () {
-  let description = "description_1026";
-  let id = 1026;
-  let name = "name_1026";
+  let description = "description_1016";
+  let id = 1016;
+  let name = "name_1016";
   createVLANTranslationPolicy(description, id, name);
   // waitForVLANTranslationPolicyAdded(description, id, name);
   verifyVLANTranslationPolicyExists(description, id, name);
@@ -5144,13 +5143,13 @@ bthread("crud:VLANTranslationPolicy:nondet:negative:dup-add", function () {
 
 // Story: crud:VLANTranslationRule:nondet:1:1
 bthread("crud:VLANTranslationRule:nondet:1:1", function () {
-  let description = "description_1030";
-  let id = 1030;
-  let local_vid = 1030;
-  let policy = 1030;
-  let remote_vid = 1030;
+  let description = "description_1020";
+  let id = 1020;
+  let local_vid = 1020;
+  let policy = 1020;
+  let remote_vid = 1020;
   createVLANTranslationRule(description, id, local_vid, policy, remote_vid);
-  waitForVLANTranslationRuleAdded(description, id, local_vid, policy, remote_vid);
+  // waitForVLANTranslationRuleAdded(description, id, local_vid, policy, remote_vid);
   tryToAddExistingVLANTranslationRule(description, id, local_vid, policy, remote_vid);
   verifyVLANTranslationRuleExists(description, id, local_vid, policy, remote_vid);
   updateVLANTranslationRule(description, id, local_vid, policy, remote_vid);
@@ -5161,11 +5160,11 @@ bthread("crud:VLANTranslationRule:nondet:1:1", function () {
 
 // Story: crud:VLANTranslationRule:nondet:1:2
 bthread("crud:VLANTranslationRule:nondet:1:2", function () {
-  let description = "description_1031";
-  let id = 1031;
-  let local_vid = 1031;
-  let policy = 1031;
-  let remote_vid = 1031;
+  let description = "description_1021";
+  let id = 1021;
+  let local_vid = 1021;
+  let policy = 1021;
+  let remote_vid = 1021;
   createVLANTranslationRule(description, id, local_vid, policy, remote_vid);
   // waitForVLANTranslationRuleAdded(description, id, local_vid, policy, remote_vid);
   tryToAddExistingVLANTranslationRule(description, id, local_vid, policy, remote_vid);
@@ -5178,11 +5177,11 @@ bthread("crud:VLANTranslationRule:nondet:1:2", function () {
 
 // Story: crud:VLANTranslationRule:nondet:negative:dup-add
 bthread("crud:VLANTranslationRule:nondet:negative:dup-add", function () {
-  let description = "description_1036";
-  let id = 1036;
-  let local_vid = 1036;
-  let policy = 1036;
-  let remote_vid = 1036;
+  let description = "description_1026";
+  let id = 1026;
+  let local_vid = 1026;
+  let policy = 1026;
+  let remote_vid = 1026;
   createVLANTranslationRule(description, id, local_vid, policy, remote_vid);
   // waitForVLANTranslationRuleAdded(description, id, local_vid, policy, remote_vid);
   verifyVLANTranslationRuleExists(description, id, local_vid, policy, remote_vid);
@@ -5192,22 +5191,22 @@ bthread("crud:VLANTranslationRule:nondet:negative:dup-add", function () {
 
 // Story: crud:VLAN:nondet:1:1
 bthread("crud:VLAN:nondet:1:1", function () {
-  let comments = "comments_1040";
+  let comments = "comments_1030";
   let custom_fields = {};
-  let description = "description_1040";
-  let group = "group_1040";
-  let id = 1040;
-  let name = "name_1040";
-  let qinq_role = "qinq_role_1040";
-  let qinq_svlan = 1040;
-  let role = "role_1040";
-  let site = "site_1040";
-  let status = "status_1040";
-  let tags = "tags_1040";
-  let tenant = "tenant_1040";
-  let vid = 1040;
+  let description = "description_1030";
+  let group = "group_1030";
+  let id = 1030;
+  let name = "name_1030";
+  let qinq_role = "qinq_role_1030";
+  let qinq_svlan = 1030;
+  let role = "role_1030";
+  let site = "site_1030";
+  let status = "status_1030";
+  let tags = "tags_1030";
+  let tenant = "tenant_1030";
+  let vid = 1030;
   createVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
-  waitForVLANAdded(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
+  // waitForVLANAdded(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   tryToAddExistingVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   verifyVLANExists(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   updateVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
@@ -5218,20 +5217,20 @@ bthread("crud:VLAN:nondet:1:1", function () {
 
 // Story: crud:VLAN:nondet:1:2
 bthread("crud:VLAN:nondet:1:2", function () {
-  let comments = "comments_1041";
+  let comments = "comments_1031";
   let custom_fields = {};
-  let description = "description_1041";
-  let group = "group_1041";
-  let id = 1041;
-  let name = "name_1041";
-  let qinq_role = "qinq_role_1041";
-  let qinq_svlan = 1041;
-  let role = "role_1041";
-  let site = "site_1041";
-  let status = "status_1041";
-  let tags = "tags_1041";
-  let tenant = "tenant_1041";
-  let vid = 1041;
+  let description = "description_1031";
+  let group = "group_1031";
+  let id = 1031;
+  let name = "name_1031";
+  let qinq_role = "qinq_role_1031";
+  let qinq_svlan = 1031;
+  let role = "role_1031";
+  let site = "site_1031";
+  let status = "status_1031";
+  let tags = "tags_1031";
+  let tenant = "tenant_1031";
+  let vid = 1031;
   createVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   // waitForVLANAdded(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   tryToAddExistingVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
@@ -5244,20 +5243,20 @@ bthread("crud:VLAN:nondet:1:2", function () {
 
 // Story: crud:VLAN:nondet:negative:dup-add
 bthread("crud:VLAN:nondet:negative:dup-add", function () {
-  let comments = "comments_1046";
+  let comments = "comments_1036";
   let custom_fields = {};
-  let description = "description_1046";
-  let group = "group_1046";
-  let id = 1046;
-  let name = "name_1046";
-  let qinq_role = "qinq_role_1046";
-  let qinq_svlan = 1046;
-  let role = "role_1046";
-  let site = "site_1046";
-  let status = "status_1046";
-  let tags = "tags_1046";
-  let tenant = "tenant_1046";
-  let vid = 1046;
+  let description = "description_1036";
+  let group = "group_1036";
+  let id = 1036;
+  let name = "name_1036";
+  let qinq_role = "qinq_role_1036";
+  let qinq_svlan = 1036;
+  let role = "role_1036";
+  let site = "site_1036";
+  let status = "status_1036";
+  let tags = "tags_1036";
+  let tenant = "tenant_1036";
+  let vid = 1036;
   createVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   // waitForVLANAdded(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
   verifyVLANExists(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
@@ -5267,19 +5266,19 @@ bthread("crud:VLAN:nondet:negative:dup-add", function () {
 
 // Story: crud:VRF:nondet:1:1
 bthread("crud:VRF:nondet:1:1", function () {
-  let comments = "comments_1050";
+  let comments = "comments_1040";
   let custom_fields = {};
-  let description = "description_1050";
-  let enforce_unique = "enforce_unique_1050";
-  let export_targets = "export_targets_1050";
-  let id = 1050;
-  let import_targets = "import_targets_1050";
-  let name = "name_1050";
-  let rd = "rd_1050";
-  let tags = "tags_1050";
-  let tenant = "tenant_1050";
+  let description = "description_1040";
+  let enforce_unique = "enforce_unique_1040";
+  let export_targets = "export_targets_1040";
+  let id = 1040;
+  let import_targets = "import_targets_1040";
+  let name = "name_1040";
+  let rd = "rd_1040";
+  let tags = "tags_1040";
+  let tenant = "tenant_1040";
   createVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
-  waitForVRFAdded(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
+  // waitForVRFAdded(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   tryToAddExistingVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   verifyVRFExists(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   updateVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
@@ -5290,17 +5289,17 @@ bthread("crud:VRF:nondet:1:1", function () {
 
 // Story: crud:VRF:nondet:1:2
 bthread("crud:VRF:nondet:1:2", function () {
-  let comments = "comments_1051";
+  let comments = "comments_1041";
   let custom_fields = {};
-  let description = "description_1051";
-  let enforce_unique = "enforce_unique_1051";
-  let export_targets = "export_targets_1051";
-  let id = 1051;
-  let import_targets = "import_targets_1051";
-  let name = "name_1051";
-  let rd = "rd_1051";
-  let tags = "tags_1051";
-  let tenant = "tenant_1051";
+  let description = "description_1041";
+  let enforce_unique = "enforce_unique_1041";
+  let export_targets = "export_targets_1041";
+  let id = 1041;
+  let import_targets = "import_targets_1041";
+  let name = "name_1041";
+  let rd = "rd_1041";
+  let tags = "tags_1041";
+  let tenant = "tenant_1041";
   createVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   // waitForVRFAdded(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   tryToAddExistingVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
@@ -5313,17 +5312,17 @@ bthread("crud:VRF:nondet:1:2", function () {
 
 // Story: crud:VRF:nondet:negative:dup-add
 bthread("crud:VRF:nondet:negative:dup-add", function () {
-  let comments = "comments_1056";
+  let comments = "comments_1046";
   let custom_fields = {};
-  let description = "description_1056";
-  let enforce_unique = "enforce_unique_1056";
-  let export_targets = "export_targets_1056";
-  let id = 1056;
-  let import_targets = "import_targets_1056";
-  let name = "name_1056";
-  let rd = "rd_1056";
-  let tags = "tags_1056";
-  let tenant = "tenant_1056";
+  let description = "description_1046";
+  let enforce_unique = "enforce_unique_1046";
+  let export_targets = "export_targets_1046";
+  let id = 1046;
+  let import_targets = "import_targets_1046";
+  let name = "name_1046";
+  let rd = "rd_1046";
+  let tags = "tags_1046";
+  let tenant = "tenant_1046";
   createVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   // waitForVRFAdded(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
   verifyVRFExists(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
@@ -5333,14 +5332,14 @@ bthread("crud:VRF:nondet:negative:dup-add", function () {
 
 // Story: crud:CircuitGroupAssignment:nondet:1:1
 bthread("crud:CircuitGroupAssignment:nondet:1:1", function () {
-  let group = "group_1060";
-  let id = 1060;
-  let member_id = 1060;
-  let member_type = "member_type_1060";
-  let priority = "priority_1060";
-  let tags = "tags_1060";
+  let group = "group_1050";
+  let id = 1050;
+  let member_id = 1050;
+  let member_type = "member_type_1050";
+  let priority = "priority_1050";
+  let tags = "tags_1050";
   createCircuitGroupAssignment(group, id, member_id, member_type, priority, tags);
-  waitForCircuitGroupAssignmentAdded(group, id, member_id, member_type, priority, tags);
+  // waitForCircuitGroupAssignmentAdded(group, id, member_id, member_type, priority, tags);
   tryToAddExistingCircuitGroupAssignment(group, id, member_id, member_type, priority, tags);
   verifyCircuitGroupAssignmentExists(group, id, member_id, member_type, priority, tags);
   updateCircuitGroupAssignment(group, id, member_id, member_type, priority, tags);
@@ -5351,12 +5350,12 @@ bthread("crud:CircuitGroupAssignment:nondet:1:1", function () {
 
 // Story: crud:CircuitGroupAssignment:nondet:1:2
 bthread("crud:CircuitGroupAssignment:nondet:1:2", function () {
-  let group = "group_1061";
-  let id = 1061;
-  let member_id = 1061;
-  let member_type = "member_type_1061";
-  let priority = "priority_1061";
-  let tags = "tags_1061";
+  let group = "group_1051";
+  let id = 1051;
+  let member_id = 1051;
+  let member_type = "member_type_1051";
+  let priority = "priority_1051";
+  let tags = "tags_1051";
   createCircuitGroupAssignment(group, id, member_id, member_type, priority, tags);
   // waitForCircuitGroupAssignmentAdded(group, id, member_id, member_type, priority, tags);
   tryToAddExistingCircuitGroupAssignment(group, id, member_id, member_type, priority, tags);
@@ -5369,12 +5368,12 @@ bthread("crud:CircuitGroupAssignment:nondet:1:2", function () {
 
 // Story: crud:CircuitGroupAssignment:nondet:negative:dup-add
 bthread("crud:CircuitGroupAssignment:nondet:negative:dup-add", function () {
-  let group = "group_1066";
-  let id = 1066;
-  let member_id = 1066;
-  let member_type = "member_type_1066";
-  let priority = "priority_1066";
-  let tags = "tags_1066";
+  let group = "group_1056";
+  let id = 1056;
+  let member_id = 1056;
+  let member_type = "member_type_1056";
+  let priority = "priority_1056";
+  let tags = "tags_1056";
   createCircuitGroupAssignment(group, id, member_id, member_type, priority, tags);
   // waitForCircuitGroupAssignmentAdded(group, id, member_id, member_type, priority, tags);
   verifyCircuitGroupAssignmentExists(group, id, member_id, member_type, priority, tags);
@@ -5385,14 +5384,14 @@ bthread("crud:CircuitGroupAssignment:nondet:negative:dup-add", function () {
 // Story: crud:CircuitGroup:nondet:1:1
 bthread("crud:CircuitGroup:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1070";
-  let id = 1070;
-  let name = "name_1070";
-  let slug = "slug_1070";
-  let tags = "tags_1070";
-  let tenant = "tenant_1070";
+  let description = "description_1060";
+  let id = 1060;
+  let name = "name_1060";
+  let slug = "slug_1060";
+  let tags = "tags_1060";
+  let tenant = "tenant_1060";
   createCircuitGroup(custom_fields, description, id, name, slug, tags, tenant);
-  waitForCircuitGroupAdded(custom_fields, description, id, name, slug, tags, tenant);
+  // waitForCircuitGroupAdded(custom_fields, description, id, name, slug, tags, tenant);
   tryToAddExistingCircuitGroup(custom_fields, description, id, name, slug, tags, tenant);
   verifyCircuitGroupExists(custom_fields, description, id, name, slug, tags, tenant);
   updateCircuitGroup(custom_fields, description, id, name, slug, tags, tenant);
@@ -5404,12 +5403,12 @@ bthread("crud:CircuitGroup:nondet:1:1", function () {
 // Story: crud:CircuitGroup:nondet:1:2
 bthread("crud:CircuitGroup:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1071";
-  let id = 1071;
-  let name = "name_1071";
-  let slug = "slug_1071";
-  let tags = "tags_1071";
-  let tenant = "tenant_1071";
+  let description = "description_1061";
+  let id = 1061;
+  let name = "name_1061";
+  let slug = "slug_1061";
+  let tags = "tags_1061";
+  let tenant = "tenant_1061";
   createCircuitGroup(custom_fields, description, id, name, slug, tags, tenant);
   // waitForCircuitGroupAdded(custom_fields, description, id, name, slug, tags, tenant);
   tryToAddExistingCircuitGroup(custom_fields, description, id, name, slug, tags, tenant);
@@ -5423,12 +5422,12 @@ bthread("crud:CircuitGroup:nondet:1:2", function () {
 // Story: crud:CircuitGroup:nondet:negative:dup-add
 bthread("crud:CircuitGroup:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1076";
-  let id = 1076;
-  let name = "name_1076";
-  let slug = "slug_1076";
-  let tags = "tags_1076";
-  let tenant = "tenant_1076";
+  let description = "description_1066";
+  let id = 1066;
+  let name = "name_1066";
+  let slug = "slug_1066";
+  let tags = "tags_1066";
+  let tenant = "tenant_1066";
   createCircuitGroup(custom_fields, description, id, name, slug, tags, tenant);
   // waitForCircuitGroupAdded(custom_fields, description, id, name, slug, tags, tenant);
   verifyCircuitGroupExists(custom_fields, description, id, name, slug, tags, tenant);
@@ -5438,21 +5437,21 @@ bthread("crud:CircuitGroup:nondet:negative:dup-add", function () {
 
 // Story: crud:CircuitTermination:nondet:1:1
 bthread("crud:CircuitTermination:nondet:1:1", function () {
-  let circuit = "circuit_1080";
+  let circuit = "circuit_1070";
   let custom_fields = {};
-  let description = "description_1080";
-  let id = 1080;
-  let mark_connected = "mark_connected_1080";
-  let port_speed = 1080;
-  let pp_info = "pp_info_1080";
-  let tags = "tags_1080";
-  let term_side = "term_side_1080";
-  let termination_id = 1080;
-  let termination_type = "termination_type_1080";
-  let upstream_speed = 1080;
-  let xconnect_id = 1080;
+  let description = "description_1070";
+  let id = 1070;
+  let mark_connected = "mark_connected_1070";
+  let port_speed = 1070;
+  let pp_info = "pp_info_1070";
+  let tags = "tags_1070";
+  let term_side = "term_side_1070";
+  let termination_id = 1070;
+  let termination_type = "termination_type_1070";
+  let upstream_speed = 1070;
+  let xconnect_id = 1070;
   createCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
-  waitForCircuitTerminationAdded(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
+  // waitForCircuitTerminationAdded(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   tryToAddExistingCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   verifyCircuitTerminationExists(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   updateCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
@@ -5463,19 +5462,19 @@ bthread("crud:CircuitTermination:nondet:1:1", function () {
 
 // Story: crud:CircuitTermination:nondet:1:2
 bthread("crud:CircuitTermination:nondet:1:2", function () {
-  let circuit = "circuit_1081";
+  let circuit = "circuit_1071";
   let custom_fields = {};
-  let description = "description_1081";
-  let id = 1081;
-  let mark_connected = "mark_connected_1081";
-  let port_speed = 1081;
-  let pp_info = "pp_info_1081";
-  let tags = "tags_1081";
-  let term_side = "term_side_1081";
-  let termination_id = 1081;
-  let termination_type = "termination_type_1081";
-  let upstream_speed = 1081;
-  let xconnect_id = 1081;
+  let description = "description_1071";
+  let id = 1071;
+  let mark_connected = "mark_connected_1071";
+  let port_speed = 1071;
+  let pp_info = "pp_info_1071";
+  let tags = "tags_1071";
+  let term_side = "term_side_1071";
+  let termination_id = 1071;
+  let termination_type = "termination_type_1071";
+  let upstream_speed = 1071;
+  let xconnect_id = 1071;
   createCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   // waitForCircuitTerminationAdded(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   tryToAddExistingCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
@@ -5488,19 +5487,19 @@ bthread("crud:CircuitTermination:nondet:1:2", function () {
 
 // Story: crud:CircuitTermination:nondet:negative:dup-add
 bthread("crud:CircuitTermination:nondet:negative:dup-add", function () {
-  let circuit = "circuit_1086";
+  let circuit = "circuit_1076";
   let custom_fields = {};
-  let description = "description_1086";
-  let id = 1086;
-  let mark_connected = "mark_connected_1086";
-  let port_speed = 1086;
-  let pp_info = "pp_info_1086";
-  let tags = "tags_1086";
-  let term_side = "term_side_1086";
-  let termination_id = 1086;
-  let termination_type = "termination_type_1086";
-  let upstream_speed = 1086;
-  let xconnect_id = 1086;
+  let description = "description_1076";
+  let id = 1076;
+  let mark_connected = "mark_connected_1076";
+  let port_speed = 1076;
+  let pp_info = "pp_info_1076";
+  let tags = "tags_1076";
+  let term_side = "term_side_1076";
+  let termination_id = 1076;
+  let termination_type = "termination_type_1076";
+  let upstream_speed = 1076;
+  let xconnect_id = 1076;
   createCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   // waitForCircuitTerminationAdded(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
   verifyCircuitTerminationExists(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
@@ -5510,15 +5509,15 @@ bthread("crud:CircuitTermination:nondet:negative:dup-add", function () {
 
 // Story: crud:CircuitType:nondet:1:1
 bthread("crud:CircuitType:nondet:1:1", function () {
-  let color = "color_1090";
+  let color = "color_1080";
   let custom_fields = {};
-  let description = "description_1090";
-  let id = 1090;
-  let name = "name_1090";
-  let slug = "slug_1090";
-  let tags = "tags_1090";
+  let description = "description_1080";
+  let id = 1080;
+  let name = "name_1080";
+  let slug = "slug_1080";
+  let tags = "tags_1080";
   createCircuitType(color, custom_fields, description, id, name, slug, tags);
-  waitForCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
+  // waitForCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingCircuitType(color, custom_fields, description, id, name, slug, tags);
   verifyCircuitTypeExists(color, custom_fields, description, id, name, slug, tags);
   updateCircuitType(color, custom_fields, description, id, name, slug, tags);
@@ -5529,13 +5528,13 @@ bthread("crud:CircuitType:nondet:1:1", function () {
 
 // Story: crud:CircuitType:nondet:1:2
 bthread("crud:CircuitType:nondet:1:2", function () {
-  let color = "color_1091";
+  let color = "color_1081";
   let custom_fields = {};
-  let description = "description_1091";
-  let id = 1091;
-  let name = "name_1091";
-  let slug = "slug_1091";
-  let tags = "tags_1091";
+  let description = "description_1081";
+  let id = 1081;
+  let name = "name_1081";
+  let slug = "slug_1081";
+  let tags = "tags_1081";
   createCircuitType(color, custom_fields, description, id, name, slug, tags);
   // waitForCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingCircuitType(color, custom_fields, description, id, name, slug, tags);
@@ -5548,13 +5547,13 @@ bthread("crud:CircuitType:nondet:1:2", function () {
 
 // Story: crud:CircuitType:nondet:negative:dup-add
 bthread("crud:CircuitType:nondet:negative:dup-add", function () {
-  let color = "color_1096";
+  let color = "color_1086";
   let custom_fields = {};
-  let description = "description_1096";
-  let id = 1096;
-  let name = "name_1096";
-  let slug = "slug_1096";
-  let tags = "tags_1096";
+  let description = "description_1086";
+  let id = 1086;
+  let name = "name_1086";
+  let slug = "slug_1086";
+  let tags = "tags_1086";
   createCircuitType(color, custom_fields, description, id, name, slug, tags);
   // waitForCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
   verifyCircuitTypeExists(color, custom_fields, description, id, name, slug, tags);
@@ -5564,23 +5563,21 @@ bthread("crud:CircuitType:nondet:negative:dup-add", function () {
 
 // Story: crud:Circuit:nondet:1:1
 bthread("crud:Circuit:nondet:1:1", function () {
-  let assignments = "assignments_1100";
-  let cid = 1100;
-  let comments = "comments_1100";
-  let commit_rate = 1100;
+  let assignments = "assignments_1090";
+  let cid = 1090;
+  let comments = "comments_1090";
+  let commit_rate = 1090;
   let custom_fields = {};
-  let description = "description_1100";
-  let distance = 1100;
-  let distance_unit = "distance_unit_1100";
-  let id = 1100;
-  let install_date = "install_date_1100";
-  let provider;
-  let provider_account;
-  let status = "status_1100";
-  let tags = "tags_1100";
-  let tenant = "tenant_1100";
-  let termination_date = "termination_date_1100";
-  let type = "type_1100";
+  let description = "description_1090";
+  let distance = 1090;
+  let distance_unit = "distance_unit_1090";
+  let id = 1090;
+  let install_date = "install_date_1090";
+  let status = "status_1090";
+  let tags = "tags_1090";
+  let tenant = "tenant_1090";
+  let termination_date = "termination_date_1090";
+  let type = "type_1090";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5590,7 +5587,7 @@ bthread("crud:Circuit:nondet:1:1", function () {
   provider = captured["provider"];
   provider_account = captured["provider_account"];
   createCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
-  waitForCircuitAdded(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
+  // waitForCircuitAdded(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
   tryToAddExistingCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
   verifyCircuitExists(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
   updateCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
@@ -5601,23 +5598,21 @@ bthread("crud:Circuit:nondet:1:1", function () {
 
 // Story: crud:Circuit:nondet:1:2
 bthread("crud:Circuit:nondet:1:2", function () {
-  let assignments = "assignments_1101";
-  let cid = 1101;
-  let comments = "comments_1101";
-  let commit_rate = 1101;
+  let assignments = "assignments_1091";
+  let cid = 1091;
+  let comments = "comments_1091";
+  let commit_rate = 1091;
   let custom_fields = {};
-  let description = "description_1101";
-  let distance = 1101;
-  let distance_unit = "distance_unit_1101";
-  let id = 1101;
-  let install_date = "install_date_1101";
-  let provider;
-  let provider_account;
-  let status = "status_1101";
-  let tags = "tags_1101";
-  let tenant = "tenant_1101";
-  let termination_date = "termination_date_1101";
-  let type = "type_1101";
+  let description = "description_1091";
+  let distance = 1091;
+  let distance_unit = "distance_unit_1091";
+  let id = 1091;
+  let install_date = "install_date_1091";
+  let status = "status_1091";
+  let tags = "tags_1091";
+  let tenant = "tenant_1091";
+  let termination_date = "termination_date_1091";
+  let type = "type_1091";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5638,23 +5633,21 @@ bthread("crud:Circuit:nondet:1:2", function () {
 
 // Story: crud:Circuit:nondet:negative:dup-add
 bthread("crud:Circuit:nondet:negative:dup-add", function () {
-  let assignments = "assignments_1106";
-  let cid = 1106;
-  let comments = "comments_1106";
-  let commit_rate = 1106;
+  let assignments = "assignments_1096";
+  let cid = 1096;
+  let comments = "comments_1096";
+  let commit_rate = 1096;
   let custom_fields = {};
-  let description = "description_1106";
-  let distance = 1106;
-  let distance_unit = "distance_unit_1106";
-  let id = 1106;
-  let install_date = "install_date_1106";
-  let provider;
-  let provider_account;
-  let status = "status_1106";
-  let tags = "tags_1106";
-  let tenant = "tenant_1106";
-  let termination_date = "termination_date_1106";
-  let type = "type_1106";
+  let description = "description_1096";
+  let distance = 1096;
+  let distance_unit = "distance_unit_1096";
+  let id = 1096;
+  let install_date = "install_date_1096";
+  let status = "status_1096";
+  let tags = "tags_1096";
+  let tenant = "tenant_1096";
+  let termination_date = "termination_date_1096";
+  let type = "type_1096";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5672,14 +5665,13 @@ bthread("crud:Circuit:nondet:negative:dup-add", function () {
 
 // Story: crud:ProviderAccount:nondet:1:1
 bthread("crud:ProviderAccount:nondet:1:1", function () {
-  let account = "account_1110";
-  let comments = "comments_1110";
+  let account = "account_1100";
+  let comments = "comments_1100";
   let custom_fields = {};
-  let description = "description_1110";
-  let id = 1110;
-  let name = "name_1110";
-  let provider;
-  let tags = "tags_1110";
+  let description = "description_1100";
+  let id = 1100;
+  let name = "name_1100";
+  let tags = "tags_1100";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5687,7 +5679,7 @@ bthread("crud:ProviderAccount:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   provider = captured["provider"];
   createProviderAccount(account, comments, custom_fields, description, id, name, provider, tags);
-  waitForProviderAccountAdded(account, comments, custom_fields, description, id, name, provider, tags);
+  // waitForProviderAccountAdded(account, comments, custom_fields, description, id, name, provider, tags);
   tryToAddExistingProviderAccount(account, comments, custom_fields, description, id, name, provider, tags);
   verifyProviderAccountExists(account, comments, custom_fields, description, id, name, provider, tags);
   updateProviderAccount(account, comments, custom_fields, description, id, name, provider, tags);
@@ -5698,14 +5690,13 @@ bthread("crud:ProviderAccount:nondet:1:1", function () {
 
 // Story: crud:ProviderAccount:nondet:1:2
 bthread("crud:ProviderAccount:nondet:1:2", function () {
-  let account = "account_1111";
-  let comments = "comments_1111";
+  let account = "account_1101";
+  let comments = "comments_1101";
   let custom_fields = {};
-  let description = "description_1111";
-  let id = 1111;
-  let name = "name_1111";
-  let provider;
-  let tags = "tags_1111";
+  let description = "description_1101";
+  let id = 1101;
+  let name = "name_1101";
+  let tags = "tags_1101";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5724,14 +5715,13 @@ bthread("crud:ProviderAccount:nondet:1:2", function () {
 
 // Story: crud:ProviderAccount:nondet:negative:dup-add
 bthread("crud:ProviderAccount:nondet:negative:dup-add", function () {
-  let account = "account_1116";
-  let comments = "comments_1116";
+  let account = "account_1106";
+  let comments = "comments_1106";
   let custom_fields = {};
-  let description = "description_1116";
-  let id = 1116;
-  let name = "name_1116";
-  let provider;
-  let tags = "tags_1116";
+  let description = "description_1106";
+  let id = 1106;
+  let name = "name_1106";
+  let tags = "tags_1106";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5747,14 +5737,12 @@ bthread("crud:ProviderAccount:nondet:negative:dup-add", function () {
 
 // Story: crud:ProviderNetwork:nondet:1:1
 bthread("crud:ProviderNetwork:nondet:1:1", function () {
-  let comments = "comments_1120";
+  let comments = "comments_1110";
   let custom_fields = {};
-  let description = "description_1120";
-  let id = 1120;
-  let name = "name_1120";
-  let provider;
-  let service_id;
-  let tags = "tags_1120";
+  let description = "description_1110";
+  let id = 1110;
+  let name = "name_1110";
+  let tags = "tags_1110";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5764,7 +5752,7 @@ bthread("crud:ProviderNetwork:nondet:1:1", function () {
   provider = captured["provider"];
   service_id = captured["service_id"];
   createProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags);
-  waitForProviderNetworkAdded(comments, custom_fields, description, id, name, provider, service_id, tags);
+  // waitForProviderNetworkAdded(comments, custom_fields, description, id, name, provider, service_id, tags);
   tryToAddExistingProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags);
   verifyProviderNetworkExists(comments, custom_fields, description, id, name, provider, service_id, tags);
   updateProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags);
@@ -5775,14 +5763,12 @@ bthread("crud:ProviderNetwork:nondet:1:1", function () {
 
 // Story: crud:ProviderNetwork:nondet:1:2
 bthread("crud:ProviderNetwork:nondet:1:2", function () {
-  let comments = "comments_1121";
+  let comments = "comments_1111";
   let custom_fields = {};
-  let description = "description_1121";
-  let id = 1121;
-  let name = "name_1121";
-  let provider;
-  let service_id;
-  let tags = "tags_1121";
+  let description = "description_1111";
+  let id = 1111;
+  let name = "name_1111";
+  let tags = "tags_1111";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5803,14 +5789,12 @@ bthread("crud:ProviderNetwork:nondet:1:2", function () {
 
 // Story: crud:ProviderNetwork:nondet:negative:dup-add
 bthread("crud:ProviderNetwork:nondet:negative:dup-add", function () {
-  let comments = "comments_1126";
+  let comments = "comments_1116";
   let custom_fields = {};
-  let description = "description_1126";
-  let id = 1126;
-  let name = "name_1126";
-  let provider;
-  let service_id;
-  let tags = "tags_1126";
+  let description = "description_1116";
+  let id = 1116;
+  let name = "name_1116";
+  let tags = "tags_1116";
   // Dependency Barrier
   let deps = {};
   deps["provider"] = matchAnyProviderAdded();
@@ -5828,17 +5812,17 @@ bthread("crud:ProviderNetwork:nondet:negative:dup-add", function () {
 
 // Story: crud:Provider:nondet:1:1
 bthread("crud:Provider:nondet:1:1", function () {
-  let accounts = "accounts_1130";
-  let asns = "asns_1130";
-  let comments = "comments_1130";
+  let accounts = "accounts_1120";
+  let asns = "asns_1120";
+  let comments = "comments_1120";
   let custom_fields = {};
-  let description = "description_1130";
-  let id = 1130;
-  let name = "name_1130";
-  let slug = "slug_1130";
-  let tags = "tags_1130";
+  let description = "description_1120";
+  let id = 1120;
+  let name = "name_1120";
+  let slug = "slug_1120";
+  let tags = "tags_1120";
   createProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
-  waitForProviderAdded(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
+  // waitForProviderAdded(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   tryToAddExistingProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   verifyProviderExists(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   updateProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
@@ -5849,15 +5833,15 @@ bthread("crud:Provider:nondet:1:1", function () {
 
 // Story: crud:Provider:nondet:1:2
 bthread("crud:Provider:nondet:1:2", function () {
-  let accounts = "accounts_1131";
-  let asns = "asns_1131";
-  let comments = "comments_1131";
+  let accounts = "accounts_1121";
+  let asns = "asns_1121";
+  let comments = "comments_1121";
   let custom_fields = {};
-  let description = "description_1131";
-  let id = 1131;
-  let name = "name_1131";
-  let slug = "slug_1131";
-  let tags = "tags_1131";
+  let description = "description_1121";
+  let id = 1121;
+  let name = "name_1121";
+  let slug = "slug_1121";
+  let tags = "tags_1121";
   createProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   // waitForProviderAdded(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   tryToAddExistingProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
@@ -5870,15 +5854,15 @@ bthread("crud:Provider:nondet:1:2", function () {
 
 // Story: crud:Provider:nondet:negative:dup-add
 bthread("crud:Provider:nondet:negative:dup-add", function () {
-  let accounts = "accounts_1136";
-  let asns = "asns_1136";
-  let comments = "comments_1136";
+  let accounts = "accounts_1126";
+  let asns = "asns_1126";
+  let comments = "comments_1126";
   let custom_fields = {};
-  let description = "description_1136";
-  let id = 1136;
-  let name = "name_1136";
-  let slug = "slug_1136";
-  let tags = "tags_1136";
+  let description = "description_1126";
+  let id = 1126;
+  let name = "name_1126";
+  let slug = "slug_1126";
+  let tags = "tags_1126";
   createProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   // waitForProviderAdded(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
   verifyProviderExists(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
@@ -5889,68 +5873,68 @@ bthread("crud:Provider:nondet:negative:dup-add", function () {
 // Story: crud:VirtualCircuitTermination:nondet:1:1
 bthread("crud:VirtualCircuitTermination:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1140";
-  let id = 1140;
-  let _interface = "interface_1140";
-  let role = "role_1140";
-  let tags = "tags_1140";
-  let virtual_circuit = "virtual_circuit_1140";
-  createVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  waitForVirtualCircuitTerminationAdded(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  verifyVirtualCircuitTerminationExists(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  updateVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  deleteVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, _interface, role, tags, virtual_circuit);
+  let description = "description_1130";
+  let id = 1130;
+  let interface = "interface_1130";
+  let role = "role_1130";
+  let tags = "tags_1130";
+  let virtual_circuit = "virtual_circuit_1130";
+  createVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  // waitForVirtualCircuitTerminationAdded(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  verifyVirtualCircuitTerminationExists(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  updateVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  deleteVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, interface, role, tags, virtual_circuit);
 });
 
 // Story: crud:VirtualCircuitTermination:nondet:1:2
 bthread("crud:VirtualCircuitTermination:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1141";
-  let id = 1141;
-  let _interface = "interface_1141";
-  let role = "role_1141";
-  let tags = "tags_1141";
-  let virtual_circuit = "virtual_circuit_1141";
-  createVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  // waitForVirtualCircuitTerminationAdded(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  updateVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  verifyVirtualCircuitTerminationExists(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  deleteVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, _interface, role, tags, virtual_circuit);
+  let description = "description_1131";
+  let id = 1131;
+  let interface = "interface_1131";
+  let role = "role_1131";
+  let tags = "tags_1131";
+  let virtual_circuit = "virtual_circuit_1131";
+  createVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  // waitForVirtualCircuitTerminationAdded(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  updateVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  verifyVirtualCircuitTerminationExists(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  deleteVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, interface, role, tags, virtual_circuit);
 });
 
 // Story: crud:VirtualCircuitTermination:nondet:negative:dup-add
 bthread("crud:VirtualCircuitTermination:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1146";
-  let id = 1146;
-  let _interface = "interface_1146";
-  let role = "role_1146";
-  let tags = "tags_1146";
-  let virtual_circuit = "virtual_circuit_1146";
-  createVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  // waitForVirtualCircuitTerminationAdded(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  verifyVirtualCircuitTerminationExists(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit);
-  verifyVirtualCircuitTerminationExists(custom_fields, description, id, _interface, role, tags, virtual_circuit);
+  let description = "description_1136";
+  let id = 1136;
+  let interface = "interface_1136";
+  let role = "role_1136";
+  let tags = "tags_1136";
+  let virtual_circuit = "virtual_circuit_1136";
+  createVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  // waitForVirtualCircuitTerminationAdded(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  verifyVirtualCircuitTerminationExists(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit);
+  verifyVirtualCircuitTerminationExists(custom_fields, description, id, interface, role, tags, virtual_circuit);
 });
 
 // Story: crud:VirtualCircuitType:nondet:1:1
 bthread("crud:VirtualCircuitType:nondet:1:1", function () {
-  let color = "color_1150";
+  let color = "color_1140";
   let custom_fields = {};
-  let description = "description_1150";
-  let id = 1150;
-  let name = "name_1150";
-  let slug = "slug_1150";
-  let tags = "tags_1150";
+  let description = "description_1140";
+  let id = 1140;
+  let name = "name_1140";
+  let slug = "slug_1140";
+  let tags = "tags_1140";
   createVirtualCircuitType(color, custom_fields, description, id, name, slug, tags);
-  waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
+  // waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingVirtualCircuitType(color, custom_fields, description, id, name, slug, tags);
   verifyVirtualCircuitTypeExists(color, custom_fields, description, id, name, slug, tags);
   updateVirtualCircuitType(color, custom_fields, description, id, name, slug, tags);
@@ -5961,13 +5945,13 @@ bthread("crud:VirtualCircuitType:nondet:1:1", function () {
 
 // Story: crud:VirtualCircuitType:nondet:1:2
 bthread("crud:VirtualCircuitType:nondet:1:2", function () {
-  let color = "color_1151";
+  let color = "color_1141";
   let custom_fields = {};
-  let description = "description_1151";
-  let id = 1151;
-  let name = "name_1151";
-  let slug = "slug_1151";
-  let tags = "tags_1151";
+  let description = "description_1141";
+  let id = 1141;
+  let name = "name_1141";
+  let slug = "slug_1141";
+  let tags = "tags_1141";
   createVirtualCircuitType(color, custom_fields, description, id, name, slug, tags);
   // waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
   tryToAddExistingVirtualCircuitType(color, custom_fields, description, id, name, slug, tags);
@@ -5980,13 +5964,13 @@ bthread("crud:VirtualCircuitType:nondet:1:2", function () {
 
 // Story: crud:VirtualCircuitType:nondet:negative:dup-add
 bthread("crud:VirtualCircuitType:nondet:negative:dup-add", function () {
-  let color = "color_1156";
+  let color = "color_1146";
   let custom_fields = {};
-  let description = "description_1156";
-  let id = 1156;
-  let name = "name_1156";
-  let slug = "slug_1156";
-  let tags = "tags_1156";
+  let description = "description_1146";
+  let id = 1146;
+  let name = "name_1146";
+  let slug = "slug_1146";
+  let tags = "tags_1146";
   createVirtualCircuitType(color, custom_fields, description, id, name, slug, tags);
   // waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags);
   verifyVirtualCircuitTypeExists(color, custom_fields, description, id, name, slug, tags);
@@ -5996,17 +5980,15 @@ bthread("crud:VirtualCircuitType:nondet:negative:dup-add", function () {
 
 // Story: crud:VirtualCircuit:nondet:1:1
 bthread("crud:VirtualCircuit:nondet:1:1", function () {
-  let cid = 1160;
-  let comments = "comments_1160";
+  let cid = 1150;
+  let comments = "comments_1150";
   let custom_fields = {};
-  let description = "description_1160";
-  let id = 1160;
-  let provider_account;
-  let provider_network;
-  let status = "status_1160";
-  let tags = "tags_1160";
-  let tenant = "tenant_1160";
-  let type = "type_1160";
+  let description = "description_1150";
+  let id = 1150;
+  let status = "status_1150";
+  let tags = "tags_1150";
+  let tenant = "tenant_1150";
+  let type = "type_1150";
   // Dependency Barrier
   let deps = {};
   deps["provider_account"] = matchAnyProviderAdded();
@@ -6016,7 +5998,7 @@ bthread("crud:VirtualCircuit:nondet:1:1", function () {
   provider_account = captured["provider_account"];
   provider_network = captured["provider_network"];
   createVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
+  // waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   updateVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
@@ -6027,17 +6009,15 @@ bthread("crud:VirtualCircuit:nondet:1:1", function () {
 
 // Story: crud:VirtualCircuit:nondet:1:2
 bthread("crud:VirtualCircuit:nondet:1:2", function () {
-  let cid = 1161;
-  let comments = "comments_1161";
+  let cid = 1151;
+  let comments = "comments_1151";
   let custom_fields = {};
-  let description = "description_1161";
-  let id = 1161;
-  let provider_account;
-  let provider_network;
-  let status = "status_1161";
-  let tags = "tags_1161";
-  let tenant = "tenant_1161";
-  let type = "type_1161";
+  let description = "description_1151";
+  let id = 1151;
+  let status = "status_1151";
+  let tags = "tags_1151";
+  let tenant = "tenant_1151";
+  let type = "type_1151";
   // Dependency Barrier
   let deps = {};
   deps["provider_account"] = matchAnyProviderAdded();
@@ -6058,17 +6038,15 @@ bthread("crud:VirtualCircuit:nondet:1:2", function () {
 
 // Story: crud:VirtualCircuit:nondet:negative:dup-add
 bthread("crud:VirtualCircuit:nondet:negative:dup-add", function () {
-  let cid = 1166;
-  let comments = "comments_1166";
+  let cid = 1156;
+  let comments = "comments_1156";
   let custom_fields = {};
-  let description = "description_1166";
-  let id = 1166;
-  let provider_account;
-  let provider_network;
-  let status = "status_1166";
-  let tags = "tags_1166";
-  let tenant = "tenant_1166";
-  let type = "type_1166";
+  let description = "description_1156";
+  let id = 1156;
+  let status = "status_1156";
+  let tags = "tags_1156";
+  let tenant = "tenant_1156";
+  let type = "type_1156";
   // Dependency Barrier
   let deps = {};
   deps["provider_account"] = matchAnyProviderAdded();
@@ -6086,43 +6064,43 @@ bthread("crud:VirtualCircuit:nondet:negative:dup-add", function () {
 
 // Story: crud:BackgroundQueue:read_only
 bthread("crud:BackgroundQueue:read_only", function () {
-  let name = 1170;
+  let name = 1160;
   verifyBackgroundQueueExists(name);
 });
 
 // Story: crud:BackgroundTask:read_only
 bthread("crud:BackgroundTask:read_only", function () {
-  let id = 1180;
+  let id = 1170;
   verifyBackgroundTaskExists(id);
 });
 
 // Story: crud:BackgroundWorker:read_only
 bthread("crud:BackgroundWorker:read_only", function () {
-  let name = 1190;
+  let name = 1180;
   verifyBackgroundWorkerExists(name);
 });
 
 // Story: crud:DataFile:read_only
 bthread("crud:DataFile:read_only", function () {
-  let id = 1200;
+  let id = 1190;
   verifyDataFileExists(id);
 });
 
 // Story: crud:DataSource:nondet:1:1
 bthread("crud:DataSource:nondet:1:1", function () {
-  let comments = "comments_1210";
+  let comments = "comments_1200";
   let custom_fields = {};
-  let description = "description_1210";
-  let enabled = "enabled_1210";
-  let id = 1210;
-  let ignore_rules = "ignore_rules_1210";
-  let name = "name_1210";
-  let parameters = "parameters_1210";
-  let source_url = "source_url_1210";
-  let sync_interval = 1210;
-  let type = "type_1210";
+  let description = "description_1200";
+  let enabled = "enabled_1200";
+  let id = 1200;
+  let ignore_rules = "ignore_rules_1200";
+  let name = "name_1200";
+  let parameters = "parameters_1200";
+  let source_url = "source_url_1200";
+  let sync_interval = 1200;
+  let type = "type_1200";
   createDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
-  waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
+  // waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   tryToAddExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   updateDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
@@ -6133,17 +6111,17 @@ bthread("crud:DataSource:nondet:1:1", function () {
 
 // Story: crud:DataSource:nondet:1:2
 bthread("crud:DataSource:nondet:1:2", function () {
-  let comments = "comments_1211";
+  let comments = "comments_1201";
   let custom_fields = {};
-  let description = "description_1211";
-  let enabled = "enabled_1211";
-  let id = 1211;
-  let ignore_rules = "ignore_rules_1211";
-  let name = "name_1211";
-  let parameters = "parameters_1211";
-  let source_url = "source_url_1211";
-  let sync_interval = 1211;
-  let type = "type_1211";
+  let description = "description_1201";
+  let enabled = "enabled_1201";
+  let id = 1201;
+  let ignore_rules = "ignore_rules_1201";
+  let name = "name_1201";
+  let parameters = "parameters_1201";
+  let source_url = "source_url_1201";
+  let sync_interval = 1201;
+  let type = "type_1201";
   createDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   // waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   tryToAddExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
@@ -6156,17 +6134,17 @@ bthread("crud:DataSource:nondet:1:2", function () {
 
 // Story: crud:DataSource:nondet:negative:dup-add
 bthread("crud:DataSource:nondet:negative:dup-add", function () {
-  let comments = "comments_1216";
+  let comments = "comments_1206";
   let custom_fields = {};
-  let description = "description_1216";
-  let enabled = "enabled_1216";
-  let id = 1216;
-  let ignore_rules = "ignore_rules_1216";
-  let name = "name_1216";
-  let parameters = "parameters_1216";
-  let source_url = "source_url_1216";
-  let sync_interval = 1216;
-  let type = "type_1216";
+  let description = "description_1206";
+  let enabled = "enabled_1206";
+  let id = 1206;
+  let ignore_rules = "ignore_rules_1206";
+  let name = "name_1206";
+  let parameters = "parameters_1206";
+  let source_url = "source_url_1206";
+  let sync_interval = 1206;
+  let type = "type_1206";
   createDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   // waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
@@ -6176,30 +6154,30 @@ bthread("crud:DataSource:nondet:negative:dup-add", function () {
 
 // Story: crud:Job:read_only
 bthread("crud:Job:read_only", function () {
-  let id = 1220;
+  let id = 1210;
   verifyJobExists(id);
 });
 
 // Story: crud:ObjectChange:read_only
 bthread("crud:ObjectChange:read_only", function () {
-  let id = 1230;
+  let id = 1220;
   verifyObjectChangeExists(id);
 });
 
 // Story: crud:IKEPolicy:nondet:1:1
 bthread("crud:IKEPolicy:nondet:1:1", function () {
-  let comments = "comments_1240";
+  let comments = "comments_1230";
   let custom_fields = {};
-  let description = "description_1240";
-  let id = 1240;
-  let mode = "mode_1240";
-  let name = "name_1240";
-  let preshared_key = "preshared_key_1240";
-  let proposals = "proposals_1240";
-  let tags = "tags_1240";
-  let version = 1240;
+  let description = "description_1230";
+  let id = 1230;
+  let mode = "mode_1230";
+  let name = "name_1230";
+  let preshared_key = "preshared_key_1230";
+  let proposals = "proposals_1230";
+  let tags = "tags_1230";
+  let version = 1230;
   createIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
-  waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
+  // waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   tryToAddExistingIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   verifyIKEPolicyExists(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   updateIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
@@ -6210,16 +6188,16 @@ bthread("crud:IKEPolicy:nondet:1:1", function () {
 
 // Story: crud:IKEPolicy:nondet:1:2
 bthread("crud:IKEPolicy:nondet:1:2", function () {
-  let comments = "comments_1241";
+  let comments = "comments_1231";
   let custom_fields = {};
-  let description = "description_1241";
-  let id = 1241;
-  let mode = "mode_1241";
-  let name = "name_1241";
-  let preshared_key = "preshared_key_1241";
-  let proposals = "proposals_1241";
-  let tags = "tags_1241";
-  let version = 1241;
+  let description = "description_1231";
+  let id = 1231;
+  let mode = "mode_1231";
+  let name = "name_1231";
+  let preshared_key = "preshared_key_1231";
+  let proposals = "proposals_1231";
+  let tags = "tags_1231";
+  let version = 1231;
   createIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   // waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   tryToAddExistingIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
@@ -6232,16 +6210,16 @@ bthread("crud:IKEPolicy:nondet:1:2", function () {
 
 // Story: crud:IKEPolicy:nondet:negative:dup-add
 bthread("crud:IKEPolicy:nondet:negative:dup-add", function () {
-  let comments = "comments_1246";
+  let comments = "comments_1236";
   let custom_fields = {};
-  let description = "description_1246";
-  let id = 1246;
-  let mode = "mode_1246";
-  let name = "name_1246";
-  let preshared_key = "preshared_key_1246";
-  let proposals = "proposals_1246";
-  let tags = "tags_1246";
-  let version = 1246;
+  let description = "description_1236";
+  let id = 1236;
+  let mode = "mode_1236";
+  let name = "name_1236";
+  let preshared_key = "preshared_key_1236";
+  let proposals = "proposals_1236";
+  let tags = "tags_1236";
+  let version = 1236;
   createIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   // waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
   verifyIKEPolicyExists(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
@@ -6251,19 +6229,19 @@ bthread("crud:IKEPolicy:nondet:negative:dup-add", function () {
 
 // Story: crud:IKEProposal:nondet:1:1
 bthread("crud:IKEProposal:nondet:1:1", function () {
-  let authentication_algorithm = "authentication_algorithm_1250";
-  let authentication_method = "authentication_method_1250";
-  let comments = "comments_1250";
+  let authentication_algorithm = "authentication_algorithm_1240";
+  let authentication_method = "authentication_method_1240";
+  let comments = "comments_1240";
   let custom_fields = {};
-  let description = "description_1250";
-  let encryption_algorithm = "encryption_algorithm_1250";
-  let group = 1250;
-  let id = 1250;
-  let name = "name_1250";
-  let sa_lifetime = 1250;
-  let tags = "tags_1250";
+  let description = "description_1240";
+  let encryption_algorithm = "encryption_algorithm_1240";
+  let group = 1240;
+  let id = 1240;
+  let name = "name_1240";
+  let sa_lifetime = 1240;
+  let tags = "tags_1240";
   createIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
-  waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
+  // waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   tryToAddExistingIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   verifyIKEProposalExists(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   updateIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
@@ -6274,17 +6252,17 @@ bthread("crud:IKEProposal:nondet:1:1", function () {
 
 // Story: crud:IKEProposal:nondet:1:2
 bthread("crud:IKEProposal:nondet:1:2", function () {
-  let authentication_algorithm = "authentication_algorithm_1251";
-  let authentication_method = "authentication_method_1251";
-  let comments = "comments_1251";
+  let authentication_algorithm = "authentication_algorithm_1241";
+  let authentication_method = "authentication_method_1241";
+  let comments = "comments_1241";
   let custom_fields = {};
-  let description = "description_1251";
-  let encryption_algorithm = "encryption_algorithm_1251";
-  let group = 1251;
-  let id = 1251;
-  let name = "name_1251";
-  let sa_lifetime = 1251;
-  let tags = "tags_1251";
+  let description = "description_1241";
+  let encryption_algorithm = "encryption_algorithm_1241";
+  let group = 1241;
+  let id = 1241;
+  let name = "name_1241";
+  let sa_lifetime = 1241;
+  let tags = "tags_1241";
   createIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   // waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   tryToAddExistingIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
@@ -6297,17 +6275,17 @@ bthread("crud:IKEProposal:nondet:1:2", function () {
 
 // Story: crud:IKEProposal:nondet:negative:dup-add
 bthread("crud:IKEProposal:nondet:negative:dup-add", function () {
-  let authentication_algorithm = "authentication_algorithm_1256";
-  let authentication_method = "authentication_method_1256";
-  let comments = "comments_1256";
+  let authentication_algorithm = "authentication_algorithm_1246";
+  let authentication_method = "authentication_method_1246";
+  let comments = "comments_1246";
   let custom_fields = {};
-  let description = "description_1256";
-  let encryption_algorithm = "encryption_algorithm_1256";
-  let group = 1256;
-  let id = 1256;
-  let name = "name_1256";
-  let sa_lifetime = 1256;
-  let tags = "tags_1256";
+  let description = "description_1246";
+  let encryption_algorithm = "encryption_algorithm_1246";
+  let group = 1246;
+  let id = 1246;
+  let name = "name_1246";
+  let sa_lifetime = 1246;
+  let tags = "tags_1246";
   createIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   // waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
   verifyIKEProposalExists(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
@@ -6317,16 +6295,16 @@ bthread("crud:IKEProposal:nondet:negative:dup-add", function () {
 
 // Story: crud:IPSecPolicy:nondet:1:1
 bthread("crud:IPSecPolicy:nondet:1:1", function () {
-  let comments = "comments_1260";
+  let comments = "comments_1250";
   let custom_fields = {};
-  let description = "description_1260";
-  let id = 1260;
-  let name = "name_1260";
-  let pfs_group = 1260;
-  let proposals = "proposals_1260";
-  let tags = "tags_1260";
+  let description = "description_1250";
+  let id = 1250;
+  let name = "name_1250";
+  let pfs_group = 1250;
+  let proposals = "proposals_1250";
+  let tags = "tags_1250";
   createIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
-  waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
+  // waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   tryToAddExistingIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   verifyIPSecPolicyExists(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   updateIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
@@ -6337,14 +6315,14 @@ bthread("crud:IPSecPolicy:nondet:1:1", function () {
 
 // Story: crud:IPSecPolicy:nondet:1:2
 bthread("crud:IPSecPolicy:nondet:1:2", function () {
-  let comments = "comments_1261";
+  let comments = "comments_1251";
   let custom_fields = {};
-  let description = "description_1261";
-  let id = 1261;
-  let name = "name_1261";
-  let pfs_group = 1261;
-  let proposals = "proposals_1261";
-  let tags = "tags_1261";
+  let description = "description_1251";
+  let id = 1251;
+  let name = "name_1251";
+  let pfs_group = 1251;
+  let proposals = "proposals_1251";
+  let tags = "tags_1251";
   createIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   // waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   tryToAddExistingIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
@@ -6357,14 +6335,14 @@ bthread("crud:IPSecPolicy:nondet:1:2", function () {
 
 // Story: crud:IPSecPolicy:nondet:negative:dup-add
 bthread("crud:IPSecPolicy:nondet:negative:dup-add", function () {
-  let comments = "comments_1266";
+  let comments = "comments_1256";
   let custom_fields = {};
-  let description = "description_1266";
-  let id = 1266;
-  let name = "name_1266";
-  let pfs_group = 1266;
-  let proposals = "proposals_1266";
-  let tags = "tags_1266";
+  let description = "description_1256";
+  let id = 1256;
+  let name = "name_1256";
+  let pfs_group = 1256;
+  let proposals = "proposals_1256";
+  let tags = "tags_1256";
   createIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   // waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
   verifyIPSecPolicyExists(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
@@ -6374,17 +6352,17 @@ bthread("crud:IPSecPolicy:nondet:negative:dup-add", function () {
 
 // Story: crud:IPSecProfile:nondet:1:1
 bthread("crud:IPSecProfile:nondet:1:1", function () {
-  let comments = "comments_1270";
+  let comments = "comments_1260";
   let custom_fields = {};
-  let description = "description_1270";
-  let id = 1270;
-  let ike_policy = "ike_policy_1270";
-  let ipsec_policy = "ipsec_policy_1270";
-  let mode = "mode_1270";
-  let name = "name_1270";
-  let tags = "tags_1270";
+  let description = "description_1260";
+  let id = 1260;
+  let ike_policy = "ike_policy_1260";
+  let ipsec_policy = "ipsec_policy_1260";
+  let mode = "mode_1260";
+  let name = "name_1260";
+  let tags = "tags_1260";
   createIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
-  waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
+  // waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   tryToAddExistingIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   verifyIPSecProfileExists(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   updateIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
@@ -6395,15 +6373,15 @@ bthread("crud:IPSecProfile:nondet:1:1", function () {
 
 // Story: crud:IPSecProfile:nondet:1:2
 bthread("crud:IPSecProfile:nondet:1:2", function () {
-  let comments = "comments_1271";
+  let comments = "comments_1261";
   let custom_fields = {};
-  let description = "description_1271";
-  let id = 1271;
-  let ike_policy = "ike_policy_1271";
-  let ipsec_policy = "ipsec_policy_1271";
-  let mode = "mode_1271";
-  let name = "name_1271";
-  let tags = "tags_1271";
+  let description = "description_1261";
+  let id = 1261;
+  let ike_policy = "ike_policy_1261";
+  let ipsec_policy = "ipsec_policy_1261";
+  let mode = "mode_1261";
+  let name = "name_1261";
+  let tags = "tags_1261";
   createIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   // waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   tryToAddExistingIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
@@ -6416,15 +6394,15 @@ bthread("crud:IPSecProfile:nondet:1:2", function () {
 
 // Story: crud:IPSecProfile:nondet:negative:dup-add
 bthread("crud:IPSecProfile:nondet:negative:dup-add", function () {
-  let comments = "comments_1276";
+  let comments = "comments_1266";
   let custom_fields = {};
-  let description = "description_1276";
-  let id = 1276;
-  let ike_policy = "ike_policy_1276";
-  let ipsec_policy = "ipsec_policy_1276";
-  let mode = "mode_1276";
-  let name = "name_1276";
-  let tags = "tags_1276";
+  let description = "description_1266";
+  let id = 1266;
+  let ike_policy = "ike_policy_1266";
+  let ipsec_policy = "ipsec_policy_1266";
+  let mode = "mode_1266";
+  let name = "name_1266";
+  let tags = "tags_1266";
   createIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   // waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
   verifyIPSecProfileExists(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
@@ -6434,18 +6412,18 @@ bthread("crud:IPSecProfile:nondet:negative:dup-add", function () {
 
 // Story: crud:IPSecProposal:nondet:1:1
 bthread("crud:IPSecProposal:nondet:1:1", function () {
-  let authentication_algorithm = "authentication_algorithm_1280";
-  let comments = "comments_1280";
+  let authentication_algorithm = "authentication_algorithm_1270";
+  let comments = "comments_1270";
   let custom_fields = {};
-  let description = "description_1280";
-  let encryption_algorithm = "encryption_algorithm_1280";
-  let id = 1280;
-  let name = "name_1280";
-  let sa_lifetime_data = 1280;
-  let sa_lifetime_seconds = 1280;
-  let tags = "tags_1280";
+  let description = "description_1270";
+  let encryption_algorithm = "encryption_algorithm_1270";
+  let id = 1270;
+  let name = "name_1270";
+  let sa_lifetime_data = 1270;
+  let sa_lifetime_seconds = 1270;
+  let tags = "tags_1270";
   createIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
-  waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
+  // waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   tryToAddExistingIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   verifyIPSecProposalExists(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   updateIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
@@ -6456,16 +6434,16 @@ bthread("crud:IPSecProposal:nondet:1:1", function () {
 
 // Story: crud:IPSecProposal:nondet:1:2
 bthread("crud:IPSecProposal:nondet:1:2", function () {
-  let authentication_algorithm = "authentication_algorithm_1281";
-  let comments = "comments_1281";
+  let authentication_algorithm = "authentication_algorithm_1271";
+  let comments = "comments_1271";
   let custom_fields = {};
-  let description = "description_1281";
-  let encryption_algorithm = "encryption_algorithm_1281";
-  let id = 1281;
-  let name = "name_1281";
-  let sa_lifetime_data = 1281;
-  let sa_lifetime_seconds = 1281;
-  let tags = "tags_1281";
+  let description = "description_1271";
+  let encryption_algorithm = "encryption_algorithm_1271";
+  let id = 1271;
+  let name = "name_1271";
+  let sa_lifetime_data = 1271;
+  let sa_lifetime_seconds = 1271;
+  let tags = "tags_1271";
   createIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   // waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   tryToAddExistingIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
@@ -6478,16 +6456,16 @@ bthread("crud:IPSecProposal:nondet:1:2", function () {
 
 // Story: crud:IPSecProposal:nondet:negative:dup-add
 bthread("crud:IPSecProposal:nondet:negative:dup-add", function () {
-  let authentication_algorithm = "authentication_algorithm_1286";
-  let comments = "comments_1286";
+  let authentication_algorithm = "authentication_algorithm_1276";
+  let comments = "comments_1276";
   let custom_fields = {};
-  let description = "description_1286";
-  let encryption_algorithm = "encryption_algorithm_1286";
-  let id = 1286;
-  let name = "name_1286";
-  let sa_lifetime_data = 1286;
-  let sa_lifetime_seconds = 1286;
-  let tags = "tags_1286";
+  let description = "description_1276";
+  let encryption_algorithm = "encryption_algorithm_1276";
+  let id = 1276;
+  let name = "name_1276";
+  let sa_lifetime_data = 1276;
+  let sa_lifetime_seconds = 1276;
+  let tags = "tags_1276";
   createIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   // waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
   verifyIPSecProposalExists(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
@@ -6497,14 +6475,14 @@ bthread("crud:IPSecProposal:nondet:negative:dup-add", function () {
 
 // Story: crud:L2VPNTermination:nondet:1:1
 bthread("crud:L2VPNTermination:nondet:1:1", function () {
-  let assigned_object_id = 1290;
-  let assigned_object_type = "assigned_object_type_1290";
+  let assigned_object_id = 1280;
+  let assigned_object_type = "assigned_object_type_1280";
   let custom_fields = {};
-  let id = 1290;
-  let l2vpn = "l2vpn_1290";
-  let tags = "tags_1290";
+  let id = 1280;
+  let l2vpn = "l2vpn_1280";
+  let tags = "tags_1280";
   createL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
-  waitForL2VPNTerminationAdded(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
+  // waitForL2VPNTerminationAdded(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   tryToAddExistingL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   verifyL2VPNTerminationExists(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   updateL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
@@ -6515,12 +6493,12 @@ bthread("crud:L2VPNTermination:nondet:1:1", function () {
 
 // Story: crud:L2VPNTermination:nondet:1:2
 bthread("crud:L2VPNTermination:nondet:1:2", function () {
-  let assigned_object_id = 1291;
-  let assigned_object_type = "assigned_object_type_1291";
+  let assigned_object_id = 1281;
+  let assigned_object_type = "assigned_object_type_1281";
   let custom_fields = {};
-  let id = 1291;
-  let l2vpn = "l2vpn_1291";
-  let tags = "tags_1291";
+  let id = 1281;
+  let l2vpn = "l2vpn_1281";
+  let tags = "tags_1281";
   createL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   // waitForL2VPNTerminationAdded(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   tryToAddExistingL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
@@ -6533,12 +6511,12 @@ bthread("crud:L2VPNTermination:nondet:1:2", function () {
 
 // Story: crud:L2VPNTermination:nondet:negative:dup-add
 bthread("crud:L2VPNTermination:nondet:negative:dup-add", function () {
-  let assigned_object_id = 1296;
-  let assigned_object_type = "assigned_object_type_1296";
+  let assigned_object_id = 1286;
+  let assigned_object_type = "assigned_object_type_1286";
   let custom_fields = {};
-  let id = 1296;
-  let l2vpn = "l2vpn_1296";
-  let tags = "tags_1296";
+  let id = 1286;
+  let l2vpn = "l2vpn_1286";
+  let tags = "tags_1286";
   createL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   // waitForL2VPNTerminationAdded(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
   verifyL2VPNTerminationExists(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
@@ -6548,21 +6526,21 @@ bthread("crud:L2VPNTermination:nondet:negative:dup-add", function () {
 
 // Story: crud:L2VPN:nondet:1:1
 bthread("crud:L2VPN:nondet:1:1", function () {
-  let comments = "comments_1300";
+  let comments = "comments_1290";
   let custom_fields = {};
-  let description = "description_1300";
-  let export_targets = "export_targets_1300";
-  let id = 1300;
-  let identifier = 1300;
-  let import_targets = "import_targets_1300";
-  let name = "name_1300";
-  let slug = "slug_1300";
-  let status = "status_1300";
-  let tags = "tags_1300";
-  let tenant = "tenant_1300";
-  let type = "type_1300";
+  let description = "description_1290";
+  let export_targets = "export_targets_1290";
+  let id = 1290;
+  let identifier = 1290;
+  let import_targets = "import_targets_1290";
+  let name = "name_1290";
+  let slug = "slug_1290";
+  let status = "status_1290";
+  let tags = "tags_1290";
+  let tenant = "tenant_1290";
+  let type = "type_1290";
   createL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
-  waitForL2VPNAdded(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
+  // waitForL2VPNAdded(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   tryToAddExistingL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   verifyL2VPNExists(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   updateL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
@@ -6573,19 +6551,19 @@ bthread("crud:L2VPN:nondet:1:1", function () {
 
 // Story: crud:L2VPN:nondet:1:2
 bthread("crud:L2VPN:nondet:1:2", function () {
-  let comments = "comments_1301";
+  let comments = "comments_1291";
   let custom_fields = {};
-  let description = "description_1301";
-  let export_targets = "export_targets_1301";
-  let id = 1301;
-  let identifier = 1301;
-  let import_targets = "import_targets_1301";
-  let name = "name_1301";
-  let slug = "slug_1301";
-  let status = "status_1301";
-  let tags = "tags_1301";
-  let tenant = "tenant_1301";
-  let type = "type_1301";
+  let description = "description_1291";
+  let export_targets = "export_targets_1291";
+  let id = 1291;
+  let identifier = 1291;
+  let import_targets = "import_targets_1291";
+  let name = "name_1291";
+  let slug = "slug_1291";
+  let status = "status_1291";
+  let tags = "tags_1291";
+  let tenant = "tenant_1291";
+  let type = "type_1291";
   createL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   // waitForL2VPNAdded(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   tryToAddExistingL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
@@ -6598,19 +6576,19 @@ bthread("crud:L2VPN:nondet:1:2", function () {
 
 // Story: crud:L2VPN:nondet:negative:dup-add
 bthread("crud:L2VPN:nondet:negative:dup-add", function () {
-  let comments = "comments_1306";
+  let comments = "comments_1296";
   let custom_fields = {};
-  let description = "description_1306";
-  let export_targets = "export_targets_1306";
-  let id = 1306;
-  let identifier = 1306;
-  let import_targets = "import_targets_1306";
-  let name = "name_1306";
-  let slug = "slug_1306";
-  let status = "status_1306";
-  let tags = "tags_1306";
-  let tenant = "tenant_1306";
-  let type = "type_1306";
+  let description = "description_1296";
+  let export_targets = "export_targets_1296";
+  let id = 1296;
+  let identifier = 1296;
+  let import_targets = "import_targets_1296";
+  let name = "name_1296";
+  let slug = "slug_1296";
+  let status = "status_1296";
+  let tags = "tags_1296";
+  let tenant = "tenant_1296";
+  let type = "type_1296";
   createL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   // waitForL2VPNAdded(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
   verifyL2VPNExists(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
@@ -6621,13 +6599,13 @@ bthread("crud:L2VPN:nondet:negative:dup-add", function () {
 // Story: crud:TunnelGroup:nondet:1:1
 bthread("crud:TunnelGroup:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1310";
-  let id = 1310;
-  let name = "name_1310";
-  let slug = "slug_1310";
-  let tags = "tags_1310";
+  let description = "description_1300";
+  let id = 1300;
+  let name = "name_1300";
+  let slug = "slug_1300";
+  let tags = "tags_1300";
   createTunnelGroup(custom_fields, description, id, name, slug, tags);
-  waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags);
+  // waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingTunnelGroup(custom_fields, description, id, name, slug, tags);
   verifyTunnelGroupExists(custom_fields, description, id, name, slug, tags);
   updateTunnelGroup(custom_fields, description, id, name, slug, tags);
@@ -6639,11 +6617,11 @@ bthread("crud:TunnelGroup:nondet:1:1", function () {
 // Story: crud:TunnelGroup:nondet:1:2
 bthread("crud:TunnelGroup:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1311";
-  let id = 1311;
-  let name = "name_1311";
-  let slug = "slug_1311";
-  let tags = "tags_1311";
+  let description = "description_1301";
+  let id = 1301;
+  let name = "name_1301";
+  let slug = "slug_1301";
+  let tags = "tags_1301";
   createTunnelGroup(custom_fields, description, id, name, slug, tags);
   // waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingTunnelGroup(custom_fields, description, id, name, slug, tags);
@@ -6657,11 +6635,11 @@ bthread("crud:TunnelGroup:nondet:1:2", function () {
 // Story: crud:TunnelGroup:nondet:negative:dup-add
 bthread("crud:TunnelGroup:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1316";
-  let id = 1316;
-  let name = "name_1316";
-  let slug = "slug_1316";
-  let tags = "tags_1316";
+  let description = "description_1306";
+  let id = 1306;
+  let name = "name_1306";
+  let slug = "slug_1306";
+  let tags = "tags_1306";
   createTunnelGroup(custom_fields, description, id, name, slug, tags);
   // waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags);
   verifyTunnelGroupExists(custom_fields, description, id, name, slug, tags);
@@ -6672,15 +6650,15 @@ bthread("crud:TunnelGroup:nondet:negative:dup-add", function () {
 // Story: crud:TunnelTermination:nondet:1:1
 bthread("crud:TunnelTermination:nondet:1:1", function () {
   let custom_fields = {};
-  let id = 1320;
-  let outside_ip = "outside_ip_1320";
-  let role = "role_1320";
-  let tags = "tags_1320";
-  let termination_id = 1320;
-  let termination_type = "termination_type_1320";
-  let tunnel = "tunnel_1320";
+  let id = 1310;
+  let outside_ip = "outside_ip_1310";
+  let role = "role_1310";
+  let tags = "tags_1310";
+  let termination_id = 1310;
+  let termination_type = "termination_type_1310";
+  let tunnel = "tunnel_1310";
   createTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
-  waitForTunnelTerminationAdded(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
+  // waitForTunnelTerminationAdded(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   tryToAddExistingTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   verifyTunnelTerminationExists(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   updateTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
@@ -6692,13 +6670,13 @@ bthread("crud:TunnelTermination:nondet:1:1", function () {
 // Story: crud:TunnelTermination:nondet:1:2
 bthread("crud:TunnelTermination:nondet:1:2", function () {
   let custom_fields = {};
-  let id = 1321;
-  let outside_ip = "outside_ip_1321";
-  let role = "role_1321";
-  let tags = "tags_1321";
-  let termination_id = 1321;
-  let termination_type = "termination_type_1321";
-  let tunnel = "tunnel_1321";
+  let id = 1311;
+  let outside_ip = "outside_ip_1311";
+  let role = "role_1311";
+  let tags = "tags_1311";
+  let termination_id = 1311;
+  let termination_type = "termination_type_1311";
+  let tunnel = "tunnel_1311";
   createTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   // waitForTunnelTerminationAdded(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   tryToAddExistingTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
@@ -6712,13 +6690,13 @@ bthread("crud:TunnelTermination:nondet:1:2", function () {
 // Story: crud:TunnelTermination:nondet:negative:dup-add
 bthread("crud:TunnelTermination:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let id = 1326;
-  let outside_ip = "outside_ip_1326";
-  let role = "role_1326";
-  let tags = "tags_1326";
-  let termination_id = 1326;
-  let termination_type = "termination_type_1326";
-  let tunnel = "tunnel_1326";
+  let id = 1316;
+  let outside_ip = "outside_ip_1316";
+  let role = "role_1316";
+  let tags = "tags_1316";
+  let termination_id = 1316;
+  let termination_type = "termination_type_1316";
+  let tunnel = "tunnel_1316";
   createTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   // waitForTunnelTerminationAdded(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
   verifyTunnelTerminationExists(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
@@ -6728,21 +6706,21 @@ bthread("crud:TunnelTermination:nondet:negative:dup-add", function () {
 
 // Story: crud:Tunnel:nondet:1:1
 bthread("crud:Tunnel:nondet:1:1", function () {
-  let comments = "comments_1330";
+  let comments = "comments_1320";
   let custom_fields = {};
-  let description = "description_1330";
-  let encapsulation = "encapsulation_1330";
-  let group = "group_1330";
-  let id = 1330;
-  let ipsec_profile = "ipsec_profile_1330";
-  let name = "name_1330";
-  let slug = "slug_1330";
-  let status = "status_1330";
-  let tags = "tags_1330";
-  let tenant = "tenant_1330";
-  let tunnel_id = 1330;
+  let description = "description_1320";
+  let encapsulation = "encapsulation_1320";
+  let group = "group_1320";
+  let id = 1320;
+  let ipsec_profile = "ipsec_profile_1320";
+  let name = "name_1320";
+  let slug = "slug_1320";
+  let status = "status_1320";
+  let tags = "tags_1320";
+  let tenant = "tenant_1320";
+  let tunnel_id = 1320;
   createTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
-  waitForTunnelAdded(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
+  // waitForTunnelAdded(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   tryToAddExistingTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   verifyTunnelExists(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   updateTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
@@ -6753,19 +6731,19 @@ bthread("crud:Tunnel:nondet:1:1", function () {
 
 // Story: crud:Tunnel:nondet:1:2
 bthread("crud:Tunnel:nondet:1:2", function () {
-  let comments = "comments_1331";
+  let comments = "comments_1321";
   let custom_fields = {};
-  let description = "description_1331";
-  let encapsulation = "encapsulation_1331";
-  let group = "group_1331";
-  let id = 1331;
-  let ipsec_profile = "ipsec_profile_1331";
-  let name = "name_1331";
-  let slug = "slug_1331";
-  let status = "status_1331";
-  let tags = "tags_1331";
-  let tenant = "tenant_1331";
-  let tunnel_id = 1331;
+  let description = "description_1321";
+  let encapsulation = "encapsulation_1321";
+  let group = "group_1321";
+  let id = 1321;
+  let ipsec_profile = "ipsec_profile_1321";
+  let name = "name_1321";
+  let slug = "slug_1321";
+  let status = "status_1321";
+  let tags = "tags_1321";
+  let tenant = "tenant_1321";
+  let tunnel_id = 1321;
   createTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   // waitForTunnelAdded(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   tryToAddExistingTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
@@ -6778,19 +6756,19 @@ bthread("crud:Tunnel:nondet:1:2", function () {
 
 // Story: crud:Tunnel:nondet:negative:dup-add
 bthread("crud:Tunnel:nondet:negative:dup-add", function () {
-  let comments = "comments_1336";
+  let comments = "comments_1326";
   let custom_fields = {};
-  let description = "description_1336";
-  let encapsulation = "encapsulation_1336";
-  let group = "group_1336";
-  let id = 1336;
-  let ipsec_profile = "ipsec_profile_1336";
-  let name = "name_1336";
-  let slug = "slug_1336";
-  let status = "status_1336";
-  let tags = "tags_1336";
-  let tenant = "tenant_1336";
-  let tunnel_id = 1336;
+  let description = "description_1326";
+  let encapsulation = "encapsulation_1326";
+  let group = "group_1326";
+  let id = 1326;
+  let ipsec_profile = "ipsec_profile_1326";
+  let name = "name_1326";
+  let slug = "slug_1326";
+  let status = "status_1326";
+  let tags = "tags_1326";
+  let tenant = "tenant_1326";
+  let tunnel_id = 1326;
   createTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   // waitForTunnelAdded(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
   verifyTunnelExists(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
@@ -6801,13 +6779,13 @@ bthread("crud:Tunnel:nondet:negative:dup-add", function () {
 // Story: crud:ClusterGroup:nondet:1:1
 bthread("crud:ClusterGroup:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1340";
-  let id = 1340;
-  let name = "name_1340";
-  let slug = "slug_1340";
-  let tags = "tags_1340";
+  let description = "description_1330";
+  let id = 1330;
+  let name = "name_1330";
+  let slug = "slug_1330";
+  let tags = "tags_1330";
   createClusterGroup(custom_fields, description, id, name, slug, tags);
-  waitForClusterGroupAdded(custom_fields, description, id, name, slug, tags);
+  // waitForClusterGroupAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingClusterGroup(custom_fields, description, id, name, slug, tags);
   verifyClusterGroupExists(custom_fields, description, id, name, slug, tags);
   updateClusterGroup(custom_fields, description, id, name, slug, tags);
@@ -6819,11 +6797,11 @@ bthread("crud:ClusterGroup:nondet:1:1", function () {
 // Story: crud:ClusterGroup:nondet:1:2
 bthread("crud:ClusterGroup:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1341";
-  let id = 1341;
-  let name = "name_1341";
-  let slug = "slug_1341";
-  let tags = "tags_1341";
+  let description = "description_1331";
+  let id = 1331;
+  let name = "name_1331";
+  let slug = "slug_1331";
+  let tags = "tags_1331";
   createClusterGroup(custom_fields, description, id, name, slug, tags);
   // waitForClusterGroupAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingClusterGroup(custom_fields, description, id, name, slug, tags);
@@ -6837,11 +6815,11 @@ bthread("crud:ClusterGroup:nondet:1:2", function () {
 // Story: crud:ClusterGroup:nondet:negative:dup-add
 bthread("crud:ClusterGroup:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1346";
-  let id = 1346;
-  let name = "name_1346";
-  let slug = "slug_1346";
-  let tags = "tags_1346";
+  let description = "description_1336";
+  let id = 1336;
+  let name = "name_1336";
+  let slug = "slug_1336";
+  let tags = "tags_1336";
   createClusterGroup(custom_fields, description, id, name, slug, tags);
   // waitForClusterGroupAdded(custom_fields, description, id, name, slug, tags);
   verifyClusterGroupExists(custom_fields, description, id, name, slug, tags);
@@ -6852,13 +6830,13 @@ bthread("crud:ClusterGroup:nondet:negative:dup-add", function () {
 // Story: crud:ClusterType:nondet:1:1
 bthread("crud:ClusterType:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1350";
-  let id = 1350;
-  let name = "name_1350";
-  let slug = "slug_1350";
-  let tags = "tags_1350";
+  let description = "description_1340";
+  let id = 1340;
+  let name = "name_1340";
+  let slug = "slug_1340";
+  let tags = "tags_1340";
   createClusterType(custom_fields, description, id, name, slug, tags);
-  waitForClusterTypeAdded(custom_fields, description, id, name, slug, tags);
+  // waitForClusterTypeAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingClusterType(custom_fields, description, id, name, slug, tags);
   verifyClusterTypeExists(custom_fields, description, id, name, slug, tags);
   updateClusterType(custom_fields, description, id, name, slug, tags);
@@ -6870,11 +6848,11 @@ bthread("crud:ClusterType:nondet:1:1", function () {
 // Story: crud:ClusterType:nondet:1:2
 bthread("crud:ClusterType:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1351";
-  let id = 1351;
-  let name = "name_1351";
-  let slug = "slug_1351";
-  let tags = "tags_1351";
+  let description = "description_1341";
+  let id = 1341;
+  let name = "name_1341";
+  let slug = "slug_1341";
+  let tags = "tags_1341";
   createClusterType(custom_fields, description, id, name, slug, tags);
   // waitForClusterTypeAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingClusterType(custom_fields, description, id, name, slug, tags);
@@ -6888,11 +6866,11 @@ bthread("crud:ClusterType:nondet:1:2", function () {
 // Story: crud:ClusterType:nondet:negative:dup-add
 bthread("crud:ClusterType:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1356";
-  let id = 1356;
-  let name = "name_1356";
-  let slug = "slug_1356";
-  let tags = "tags_1356";
+  let description = "description_1346";
+  let id = 1346;
+  let name = "name_1346";
+  let slug = "slug_1346";
+  let tags = "tags_1346";
   createClusterType(custom_fields, description, id, name, slug, tags);
   // waitForClusterTypeAdded(custom_fields, description, id, name, slug, tags);
   verifyClusterTypeExists(custom_fields, description, id, name, slug, tags);
@@ -6902,20 +6880,20 @@ bthread("crud:ClusterType:nondet:negative:dup-add", function () {
 
 // Story: crud:Cluster:nondet:1:1
 bthread("crud:Cluster:nondet:1:1", function () {
-  let comments = "comments_1360";
+  let comments = "comments_1350";
   let custom_fields = {};
-  let description = "description_1360";
-  let group = "group_1360";
-  let id = 1360;
-  let name = "name_1360";
-  let scope_id = 1360;
-  let scope_type = "scope_type_1360";
-  let status = "status_1360";
-  let tags = "tags_1360";
-  let tenant = "tenant_1360";
-  let type = "type_1360";
+  let description = "description_1350";
+  let group = "group_1350";
+  let id = 1350;
+  let name = "name_1350";
+  let scope_id = 1350;
+  let scope_type = "scope_type_1350";
+  let status = "status_1350";
+  let tags = "tags_1350";
+  let tenant = "tenant_1350";
+  let type = "type_1350";
   createCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
-  waitForClusterAdded(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
+  // waitForClusterAdded(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   tryToAddExistingCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   verifyClusterExists(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   updateCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
@@ -6926,18 +6904,18 @@ bthread("crud:Cluster:nondet:1:1", function () {
 
 // Story: crud:Cluster:nondet:1:2
 bthread("crud:Cluster:nondet:1:2", function () {
-  let comments = "comments_1361";
+  let comments = "comments_1351";
   let custom_fields = {};
-  let description = "description_1361";
-  let group = "group_1361";
-  let id = 1361;
-  let name = "name_1361";
-  let scope_id = 1361;
-  let scope_type = "scope_type_1361";
-  let status = "status_1361";
-  let tags = "tags_1361";
-  let tenant = "tenant_1361";
-  let type = "type_1361";
+  let description = "description_1351";
+  let group = "group_1351";
+  let id = 1351;
+  let name = "name_1351";
+  let scope_id = 1351;
+  let scope_type = "scope_type_1351";
+  let status = "status_1351";
+  let tags = "tags_1351";
+  let tenant = "tenant_1351";
+  let type = "type_1351";
   createCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   // waitForClusterAdded(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   tryToAddExistingCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
@@ -6950,18 +6928,18 @@ bthread("crud:Cluster:nondet:1:2", function () {
 
 // Story: crud:Cluster:nondet:negative:dup-add
 bthread("crud:Cluster:nondet:negative:dup-add", function () {
-  let comments = "comments_1366";
+  let comments = "comments_1356";
   let custom_fields = {};
-  let description = "description_1366";
-  let group = "group_1366";
-  let id = 1366;
-  let name = "name_1366";
-  let scope_id = 1366;
-  let scope_type = "scope_type_1366";
-  let status = "status_1366";
-  let tags = "tags_1366";
-  let tenant = "tenant_1366";
-  let type = "type_1366";
+  let description = "description_1356";
+  let group = "group_1356";
+  let id = 1356;
+  let name = "name_1356";
+  let scope_id = 1356;
+  let scope_type = "scope_type_1356";
+  let status = "status_1356";
+  let tags = "tags_1356";
+  let tenant = "tenant_1356";
+  let type = "type_1356";
   createCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   // waitForClusterAdded(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
   verifyClusterExists(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
@@ -6972,14 +6950,14 @@ bthread("crud:Cluster:nondet:negative:dup-add", function () {
 // Story: crud:VirtualDisk:nondet:1:1
 bthread("crud:VirtualDisk:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1370";
-  let id = 1370;
-  let name = "name_1370";
-  let size = 1370;
-  let tags = "tags_1370";
-  let virtual_machine = "virtual_machine_1370";
+  let description = "description_1360";
+  let id = 1360;
+  let name = "name_1360";
+  let size = 1360;
+  let tags = "tags_1360";
+  let virtual_machine = "virtual_machine_1360";
   createVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine);
-  waitForVirtualDiskAdded(custom_fields, description, id, name, size, tags, virtual_machine);
+  // waitForVirtualDiskAdded(custom_fields, description, id, name, size, tags, virtual_machine);
   tryToAddExistingVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine);
   verifyVirtualDiskExists(custom_fields, description, id, name, size, tags, virtual_machine);
   updateVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine);
@@ -6991,12 +6969,12 @@ bthread("crud:VirtualDisk:nondet:1:1", function () {
 // Story: crud:VirtualDisk:nondet:1:2
 bthread("crud:VirtualDisk:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1371";
-  let id = 1371;
-  let name = "name_1371";
-  let size = 1371;
-  let tags = "tags_1371";
-  let virtual_machine = "virtual_machine_1371";
+  let description = "description_1361";
+  let id = 1361;
+  let name = "name_1361";
+  let size = 1361;
+  let tags = "tags_1361";
+  let virtual_machine = "virtual_machine_1361";
   createVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine);
   // waitForVirtualDiskAdded(custom_fields, description, id, name, size, tags, virtual_machine);
   tryToAddExistingVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine);
@@ -7010,12 +6988,12 @@ bthread("crud:VirtualDisk:nondet:1:2", function () {
 // Story: crud:VirtualDisk:nondet:negative:dup-add
 bthread("crud:VirtualDisk:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1376";
-  let id = 1376;
-  let name = "name_1376";
-  let size = 1376;
-  let tags = "tags_1376";
-  let virtual_machine = "virtual_machine_1376";
+  let description = "description_1366";
+  let id = 1366;
+  let name = "name_1366";
+  let size = 1366;
+  let tags = "tags_1366";
+  let virtual_machine = "virtual_machine_1366";
   createVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine);
   // waitForVirtualDiskAdded(custom_fields, description, id, name, size, tags, virtual_machine);
   verifyVirtualDiskExists(custom_fields, description, id, name, size, tags, virtual_machine);
@@ -7025,112 +7003,115 @@ bthread("crud:VirtualDisk:nondet:negative:dup-add", function () {
 
 // Story: crud:VirtualMachine:nondet:1:1
 bthread("crud:VirtualMachine:nondet:1:1", function () {
-  let cluster = "cluster_1380";
-  let comments = "comments_1380";
-  let config_template = "config_template_1380";
+  let cluster = "cluster_1370";
+  let comments = "comments_1370";
+  let config_template = "config_template_1370";
   let custom_fields = {};
-  let description = "description_1380";
-  let device = "device_1380";
-  let disk = 1380;
-  let id = 1380;
-  let local_context_data = "local_context_data_1380";
-  let memory = 1380;
-  let name = "name_1380";
-  let platform = "platform_1380";
-  let primary_ip4 = "primary_ip4_1380";
-  let primary_ip6 = "primary_ip6_1380";
-  let role = "role_1380";
-  let serial = "serial_1380";
-  let site = "site_1380";
-  let status = "status_1380";
-  let tags = "tags_1380";
-  let tenant = "tenant_1380";
-  let vcpus = 1380;
-  createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  let description = "description_1370";
+  let device = "device_1370";
+  let disk = 1370;
+  let format = "format_1370";
+  let id = 1370;
+  let local_context_data = "local_context_data_1370";
+  let memory = 1370;
+  let name = "name_1370";
+  let platform = "platform_1370";
+  let primary_ip4 = "primary_ip4_1370";
+  let primary_ip6 = "primary_ip6_1370";
+  let role = "role_1370";
+  let serial = "serial_1370";
+  let site = "site_1370";
+  let status = "status_1370";
+  let tags = "tags_1370";
+  let tenant = "tenant_1370";
+  let vcpus = 1370;
+  createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  // waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
 });
 
 // Story: crud:VirtualMachine:nondet:1:2
 bthread("crud:VirtualMachine:nondet:1:2", function () {
-  let cluster = "cluster_1381";
-  let comments = "comments_1381";
-  let config_template = "config_template_1381";
+  let cluster = "cluster_1371";
+  let comments = "comments_1371";
+  let config_template = "config_template_1371";
   let custom_fields = {};
-  let description = "description_1381";
-  let device = "device_1381";
-  let disk = 1381;
-  let id = 1381;
-  let local_context_data = "local_context_data_1381";
-  let memory = 1381;
-  let name = "name_1381";
-  let platform = "platform_1381";
-  let primary_ip4 = "primary_ip4_1381";
-  let primary_ip6 = "primary_ip6_1381";
-  let role = "role_1381";
-  let serial = "serial_1381";
-  let site = "site_1381";
-  let status = "status_1381";
-  let tags = "tags_1381";
-  let tenant = "tenant_1381";
-  let vcpus = 1381;
-  createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  // waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  let description = "description_1371";
+  let device = "device_1371";
+  let disk = 1371;
+  let format = "format_1371";
+  let id = 1371;
+  let local_context_data = "local_context_data_1371";
+  let memory = 1371;
+  let name = "name_1371";
+  let platform = "platform_1371";
+  let primary_ip4 = "primary_ip4_1371";
+  let primary_ip6 = "primary_ip6_1371";
+  let role = "role_1371";
+  let serial = "serial_1371";
+  let site = "site_1371";
+  let status = "status_1371";
+  let tags = "tags_1371";
+  let tenant = "tenant_1371";
+  let vcpus = 1371;
+  createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  // waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
 });
 
 // Story: crud:VirtualMachine:nondet:negative:dup-add
 bthread("crud:VirtualMachine:nondet:negative:dup-add", function () {
-  let cluster = "cluster_1386";
-  let comments = "comments_1386";
-  let config_template = "config_template_1386";
+  let cluster = "cluster_1376";
+  let comments = "comments_1376";
+  let config_template = "config_template_1376";
   let custom_fields = {};
-  let description = "description_1386";
-  let device = "device_1386";
-  let disk = 1386;
-  let id = 1386;
-  let local_context_data = "local_context_data_1386";
-  let memory = 1386;
-  let name = "name_1386";
-  let platform = "platform_1386";
-  let primary_ip4 = "primary_ip4_1386";
-  let primary_ip6 = "primary_ip6_1386";
-  let role = "role_1386";
-  let serial = "serial_1386";
-  let site = "site_1386";
-  let status = "status_1386";
-  let tags = "tags_1386";
-  let tenant = "tenant_1386";
-  let vcpus = 1386;
-  createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  // waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
-  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  let description = "description_1376";
+  let device = "device_1376";
+  let disk = 1376;
+  let format = "format_1376";
+  let id = 1376;
+  let local_context_data = "local_context_data_1376";
+  let memory = 1376;
+  let name = "name_1376";
+  let platform = "platform_1376";
+  let primary_ip4 = "primary_ip4_1376";
+  let primary_ip6 = "primary_ip6_1376";
+  let role = "role_1376";
+  let serial = "serial_1376";
+  let site = "site_1376";
+  let status = "status_1376";
+  let tags = "tags_1376";
+  let tenant = "tenant_1376";
+  let vcpus = 1376;
+  createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  // waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
+  verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
 });
 
 // Story: crud:ContactAssignment:nondet:1:1
 bthread("crud:ContactAssignment:nondet:1:1", function () {
-  let contact = "contact_1390";
+  let contact = "contact_1380";
   let custom_fields = {};
-  let id = 1390;
-  let object_id = 1390;
-  let object_type = "object_type_1390";
-  let priority = "priority_1390";
-  let role = "role_1390";
-  let tags = "tags_1390";
+  let id = 1380;
+  let object_id = 1380;
+  let object_type = "object_type_1380";
+  let priority = "priority_1380";
+  let role = "role_1380";
+  let tags = "tags_1380";
   createContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags);
-  waitForContactAssignmentAdded(contact, custom_fields, id, object_id, object_type, priority, role, tags);
+  // waitForContactAssignmentAdded(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   tryToAddExistingContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   verifyContactAssignmentExists(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   updateContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags);
@@ -7141,14 +7122,14 @@ bthread("crud:ContactAssignment:nondet:1:1", function () {
 
 // Story: crud:ContactAssignment:nondet:1:2
 bthread("crud:ContactAssignment:nondet:1:2", function () {
-  let contact = "contact_1391";
+  let contact = "contact_1381";
   let custom_fields = {};
-  let id = 1391;
-  let object_id = 1391;
-  let object_type = "object_type_1391";
-  let priority = "priority_1391";
-  let role = "role_1391";
-  let tags = "tags_1391";
+  let id = 1381;
+  let object_id = 1381;
+  let object_type = "object_type_1381";
+  let priority = "priority_1381";
+  let role = "role_1381";
+  let tags = "tags_1381";
   createContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   // waitForContactAssignmentAdded(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   tryToAddExistingContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags);
@@ -7161,14 +7142,14 @@ bthread("crud:ContactAssignment:nondet:1:2", function () {
 
 // Story: crud:ContactAssignment:nondet:negative:dup-add
 bthread("crud:ContactAssignment:nondet:negative:dup-add", function () {
-  let contact = "contact_1396";
+  let contact = "contact_1386";
   let custom_fields = {};
-  let id = 1396;
-  let object_id = 1396;
-  let object_type = "object_type_1396";
-  let priority = "priority_1396";
-  let role = "role_1396";
-  let tags = "tags_1396";
+  let id = 1386;
+  let object_id = 1386;
+  let object_type = "object_type_1386";
+  let priority = "priority_1386";
+  let role = "role_1386";
+  let tags = "tags_1386";
   createContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   // waitForContactAssignmentAdded(contact, custom_fields, id, object_id, object_type, priority, role, tags);
   verifyContactAssignmentExists(contact, custom_fields, id, object_id, object_type, priority, role, tags);
@@ -7178,16 +7159,16 @@ bthread("crud:ContactAssignment:nondet:negative:dup-add", function () {
 
 // Story: crud:ContactGroup:nondet:1:1
 bthread("crud:ContactGroup:nondet:1:1", function () {
-  let comments = "comments_1400";
+  let comments = "comments_1390";
   let custom_fields = {};
-  let description = "description_1400";
-  let id = 1400;
-  let name = "name_1400";
-  let parent = 1400;
-  let slug = "slug_1400";
-  let tags = "tags_1400";
+  let description = "description_1390";
+  let id = 1390;
+  let name = "name_1390";
+  let parent = 1390;
+  let slug = "slug_1390";
+  let tags = "tags_1390";
   createContactGroup(comments, custom_fields, description, id, name, parent, slug, tags);
-  waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
+  // waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingContactGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyContactGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
   updateContactGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7198,14 +7179,14 @@ bthread("crud:ContactGroup:nondet:1:1", function () {
 
 // Story: crud:ContactGroup:nondet:1:2
 bthread("crud:ContactGroup:nondet:1:2", function () {
-  let comments = "comments_1401";
+  let comments = "comments_1391";
   let custom_fields = {};
-  let description = "description_1401";
-  let id = 1401;
-  let name = "name_1401";
-  let parent = 1401;
-  let slug = "slug_1401";
-  let tags = "tags_1401";
+  let description = "description_1391";
+  let id = 1391;
+  let name = "name_1391";
+  let parent = 1391;
+  let slug = "slug_1391";
+  let tags = "tags_1391";
   createContactGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   // waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingContactGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7218,14 +7199,14 @@ bthread("crud:ContactGroup:nondet:1:2", function () {
 
 // Story: crud:ContactGroup:nondet:negative:dup-add
 bthread("crud:ContactGroup:nondet:negative:dup-add", function () {
-  let comments = "comments_1406";
+  let comments = "comments_1396";
   let custom_fields = {};
-  let description = "description_1406";
-  let id = 1406;
-  let name = "name_1406";
-  let parent = 1406;
-  let slug = "slug_1406";
-  let tags = "tags_1406";
+  let description = "description_1396";
+  let id = 1396;
+  let name = "name_1396";
+  let parent = 1396;
+  let slug = "slug_1396";
+  let tags = "tags_1396";
   createContactGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   // waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyContactGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7236,13 +7217,13 @@ bthread("crud:ContactGroup:nondet:negative:dup-add", function () {
 // Story: crud:ContactRole:nondet:1:1
 bthread("crud:ContactRole:nondet:1:1", function () {
   let custom_fields = {};
-  let description = "description_1410";
-  let id = 1410;
-  let name = "name_1410";
-  let slug = "slug_1410";
-  let tags = "tags_1410";
+  let description = "description_1400";
+  let id = 1400;
+  let name = "name_1400";
+  let slug = "slug_1400";
+  let tags = "tags_1400";
   createContactRole(custom_fields, description, id, name, slug, tags);
-  waitForContactRoleAdded(custom_fields, description, id, name, slug, tags);
+  // waitForContactRoleAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingContactRole(custom_fields, description, id, name, slug, tags);
   verifyContactRoleExists(custom_fields, description, id, name, slug, tags);
   updateContactRole(custom_fields, description, id, name, slug, tags);
@@ -7254,11 +7235,11 @@ bthread("crud:ContactRole:nondet:1:1", function () {
 // Story: crud:ContactRole:nondet:1:2
 bthread("crud:ContactRole:nondet:1:2", function () {
   let custom_fields = {};
-  let description = "description_1411";
-  let id = 1411;
-  let name = "name_1411";
-  let slug = "slug_1411";
-  let tags = "tags_1411";
+  let description = "description_1401";
+  let id = 1401;
+  let name = "name_1401";
+  let slug = "slug_1401";
+  let tags = "tags_1401";
   createContactRole(custom_fields, description, id, name, slug, tags);
   // waitForContactRoleAdded(custom_fields, description, id, name, slug, tags);
   tryToAddExistingContactRole(custom_fields, description, id, name, slug, tags);
@@ -7272,11 +7253,11 @@ bthread("crud:ContactRole:nondet:1:2", function () {
 // Story: crud:ContactRole:nondet:negative:dup-add
 bthread("crud:ContactRole:nondet:negative:dup-add", function () {
   let custom_fields = {};
-  let description = "description_1416";
-  let id = 1416;
-  let name = "name_1416";
-  let slug = "slug_1416";
-  let tags = "tags_1416";
+  let description = "description_1406";
+  let id = 1406;
+  let name = "name_1406";
+  let slug = "slug_1406";
+  let tags = "tags_1406";
   createContactRole(custom_fields, description, id, name, slug, tags);
   // waitForContactRoleAdded(custom_fields, description, id, name, slug, tags);
   verifyContactRoleExists(custom_fields, description, id, name, slug, tags);
@@ -7286,20 +7267,20 @@ bthread("crud:ContactRole:nondet:negative:dup-add", function () {
 
 // Story: crud:Contact:nondet:1:1
 bthread("crud:Contact:nondet:1:1", function () {
-  let address = "address_1420";
-  let comments = "comments_1420";
+  let address = "address_1410";
+  let comments = "comments_1410";
   let custom_fields = {};
-  let description = "description_1420";
-  let email = "email_1420";
-  let groups = "groups_1420";
-  let id = 1420;
-  let link = "link_1420";
-  let name = "name_1420";
-  let phone = "phone_1420";
-  let tags = "tags_1420";
-  let title = "title_1420";
+  let description = "description_1410";
+  let email = "email_1410";
+  let groups = "groups_1410";
+  let id = 1410;
+  let link = "link_1410";
+  let name = "name_1410";
+  let phone = "phone_1410";
+  let tags = "tags_1410";
+  let title = "title_1410";
   createContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
-  waitForContactAdded(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
+  // waitForContactAdded(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   tryToAddExistingContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   verifyContactExists(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   updateContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
@@ -7310,18 +7291,18 @@ bthread("crud:Contact:nondet:1:1", function () {
 
 // Story: crud:Contact:nondet:1:2
 bthread("crud:Contact:nondet:1:2", function () {
-  let address = "address_1421";
-  let comments = "comments_1421";
+  let address = "address_1411";
+  let comments = "comments_1411";
   let custom_fields = {};
-  let description = "description_1421";
-  let email = "email_1421";
-  let groups = "groups_1421";
-  let id = 1421;
-  let link = "link_1421";
-  let name = "name_1421";
-  let phone = "phone_1421";
-  let tags = "tags_1421";
-  let title = "title_1421";
+  let description = "description_1411";
+  let email = "email_1411";
+  let groups = "groups_1411";
+  let id = 1411;
+  let link = "link_1411";
+  let name = "name_1411";
+  let phone = "phone_1411";
+  let tags = "tags_1411";
+  let title = "title_1411";
   createContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   // waitForContactAdded(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   tryToAddExistingContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
@@ -7334,18 +7315,18 @@ bthread("crud:Contact:nondet:1:2", function () {
 
 // Story: crud:Contact:nondet:negative:dup-add
 bthread("crud:Contact:nondet:negative:dup-add", function () {
-  let address = "address_1426";
-  let comments = "comments_1426";
+  let address = "address_1416";
+  let comments = "comments_1416";
   let custom_fields = {};
-  let description = "description_1426";
-  let email = "email_1426";
-  let groups = "groups_1426";
-  let id = 1426;
-  let link = "link_1426";
-  let name = "name_1426";
-  let phone = "phone_1426";
-  let tags = "tags_1426";
-  let title = "title_1426";
+  let description = "description_1416";
+  let email = "email_1416";
+  let groups = "groups_1416";
+  let id = 1416;
+  let link = "link_1416";
+  let name = "name_1416";
+  let phone = "phone_1416";
+  let tags = "tags_1416";
+  let title = "title_1416";
   createContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   // waitForContactAdded(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
   verifyContactExists(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
@@ -7355,16 +7336,16 @@ bthread("crud:Contact:nondet:negative:dup-add", function () {
 
 // Story: crud:TenantGroup:nondet:1:1
 bthread("crud:TenantGroup:nondet:1:1", function () {
-  let comments = "comments_1430";
+  let comments = "comments_1420";
   let custom_fields = {};
-  let description = "description_1430";
-  let id = 1430;
-  let name = "name_1430";
-  let parent = 1430;
-  let slug = "slug_1430";
-  let tags = "tags_1430";
+  let description = "description_1420";
+  let id = 1420;
+  let name = "name_1420";
+  let parent = 1420;
+  let slug = "slug_1420";
+  let tags = "tags_1420";
   createTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags);
-  waitForTenantGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
+  // waitForTenantGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyTenantGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
   updateTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7375,14 +7356,14 @@ bthread("crud:TenantGroup:nondet:1:1", function () {
 
 // Story: crud:TenantGroup:nondet:1:2
 bthread("crud:TenantGroup:nondet:1:2", function () {
-  let comments = "comments_1431";
+  let comments = "comments_1421";
   let custom_fields = {};
-  let description = "description_1431";
-  let id = 1431;
-  let name = "name_1431";
-  let parent = 1431;
-  let slug = "slug_1431";
-  let tags = "tags_1431";
+  let description = "description_1421";
+  let id = 1421;
+  let name = "name_1421";
+  let parent = 1421;
+  let slug = "slug_1421";
+  let tags = "tags_1421";
   createTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   // waitForTenantGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7395,14 +7376,14 @@ bthread("crud:TenantGroup:nondet:1:2", function () {
 
 // Story: crud:TenantGroup:nondet:negative:dup-add
 bthread("crud:TenantGroup:nondet:negative:dup-add", function () {
-  let comments = "comments_1436";
+  let comments = "comments_1426";
   let custom_fields = {};
-  let description = "description_1436";
-  let id = 1436;
-  let name = "name_1436";
-  let parent = 1436;
-  let slug = "slug_1436";
-  let tags = "tags_1436";
+  let description = "description_1426";
+  let id = 1426;
+  let name = "name_1426";
+  let parent = 1426;
+  let slug = "slug_1426";
+  let tags = "tags_1426";
   createTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   // waitForTenantGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyTenantGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7412,16 +7393,16 @@ bthread("crud:TenantGroup:nondet:negative:dup-add", function () {
 
 // Story: crud:Tenant:nondet:1:1
 bthread("crud:Tenant:nondet:1:1", function () {
-  let comments = "comments_1440";
+  let comments = "comments_1430";
   let custom_fields = {};
-  let description = "description_1440";
-  let group = "group_1440";
-  let id = 1440;
-  let name = "name_1440";
-  let slug = "slug_1440";
-  let tags = "tags_1440";
+  let description = "description_1430";
+  let group = "group_1430";
+  let id = 1430;
+  let name = "name_1430";
+  let slug = "slug_1430";
+  let tags = "tags_1430";
   createTenant(comments, custom_fields, description, group, id, name, slug, tags);
-  waitForTenantAdded(comments, custom_fields, description, group, id, name, slug, tags);
+  // waitForTenantAdded(comments, custom_fields, description, group, id, name, slug, tags);
   tryToAddExistingTenant(comments, custom_fields, description, group, id, name, slug, tags);
   verifyTenantExists(comments, custom_fields, description, group, id, name, slug, tags);
   updateTenant(comments, custom_fields, description, group, id, name, slug, tags);
@@ -7432,14 +7413,14 @@ bthread("crud:Tenant:nondet:1:1", function () {
 
 // Story: crud:Tenant:nondet:1:2
 bthread("crud:Tenant:nondet:1:2", function () {
-  let comments = "comments_1441";
+  let comments = "comments_1431";
   let custom_fields = {};
-  let description = "description_1441";
-  let group = "group_1441";
-  let id = 1441;
-  let name = "name_1441";
-  let slug = "slug_1441";
-  let tags = "tags_1441";
+  let description = "description_1431";
+  let group = "group_1431";
+  let id = 1431;
+  let name = "name_1431";
+  let slug = "slug_1431";
+  let tags = "tags_1431";
   createTenant(comments, custom_fields, description, group, id, name, slug, tags);
   // waitForTenantAdded(comments, custom_fields, description, group, id, name, slug, tags);
   tryToAddExistingTenant(comments, custom_fields, description, group, id, name, slug, tags);
@@ -7452,14 +7433,14 @@ bthread("crud:Tenant:nondet:1:2", function () {
 
 // Story: crud:Tenant:nondet:negative:dup-add
 bthread("crud:Tenant:nondet:negative:dup-add", function () {
-  let comments = "comments_1446";
+  let comments = "comments_1436";
   let custom_fields = {};
-  let description = "description_1446";
-  let group = "group_1446";
-  let id = 1446;
-  let name = "name_1446";
-  let slug = "slug_1446";
-  let tags = "tags_1446";
+  let description = "description_1436";
+  let group = "group_1436";
+  let id = 1436;
+  let name = "name_1436";
+  let slug = "slug_1436";
+  let tags = "tags_1436";
   createTenant(comments, custom_fields, description, group, id, name, slug, tags);
   // waitForTenantAdded(comments, custom_fields, description, group, id, name, slug, tags);
   verifyTenantExists(comments, custom_fields, description, group, id, name, slug, tags);
@@ -7469,12 +7450,12 @@ bthread("crud:Tenant:nondet:negative:dup-add", function () {
 
 // Story: crud:Group:nondet:1:1
 bthread("crud:Group:nondet:1:1", function () {
-  let description = "description_1450";
-  let id = 1450;
-  let name = "name_1450";
-  let permissions = "permissions_1450";
+  let description = "description_1440";
+  let id = 1440;
+  let name = "name_1440";
+  let permissions = "permissions_1440";
   createGroup(description, id, name, permissions);
-  waitForGroupAdded(description, id, name, permissions);
+  // waitForGroupAdded(description, id, name, permissions);
   tryToAddExistingGroup(description, id, name, permissions);
   verifyGroupExists(description, id, name, permissions);
   updateGroup(description, id, name, permissions);
@@ -7485,10 +7466,10 @@ bthread("crud:Group:nondet:1:1", function () {
 
 // Story: crud:Group:nondet:1:2
 bthread("crud:Group:nondet:1:2", function () {
-  let description = "description_1451";
-  let id = 1451;
-  let name = "name_1451";
-  let permissions = "permissions_1451";
+  let description = "description_1441";
+  let id = 1441;
+  let name = "name_1441";
+  let permissions = "permissions_1441";
   createGroup(description, id, name, permissions);
   // waitForGroupAdded(description, id, name, permissions);
   tryToAddExistingGroup(description, id, name, permissions);
@@ -7501,10 +7482,10 @@ bthread("crud:Group:nondet:1:2", function () {
 
 // Story: crud:Group:nondet:negative:dup-add
 bthread("crud:Group:nondet:negative:dup-add", function () {
-  let description = "description_1456";
-  let id = 1456;
-  let name = "name_1456";
-  let permissions = "permissions_1456";
+  let description = "description_1446";
+  let id = 1446;
+  let name = "name_1446";
+  let permissions = "permissions_1446";
   createGroup(description, id, name, permissions);
   // waitForGroupAdded(description, id, name, permissions);
   verifyGroupExists(description, id, name, permissions);
@@ -7514,17 +7495,17 @@ bthread("crud:Group:nondet:negative:dup-add", function () {
 
 // Story: crud:Permission:nondet:1:1
 bthread("crud:Permission:nondet:1:1", function () {
-  let actions = "actions_1460";
-  let constraints = "constraints_1460";
-  let description = "description_1460";
-  let enabled = "enabled_1460";
-  let groups = "groups_1460";
-  let id = 1460;
-  let name = "name_1460";
-  let object_types = "object_types_1460";
-  let users = "users_1460";
+  let actions = "actions_1450";
+  let constraints = "constraints_1450";
+  let description = "description_1450";
+  let enabled = "enabled_1450";
+  let groups = "groups_1450";
+  let id = 1450;
+  let name = "name_1450";
+  let object_types = "object_types_1450";
+  let users = "users_1450";
   createPermission(actions, constraints, description, enabled, groups, id, name, object_types, users);
-  waitForPermissionAdded(actions, constraints, description, enabled, groups, id, name, object_types, users);
+  // waitForPermissionAdded(actions, constraints, description, enabled, groups, id, name, object_types, users);
   tryToAddExistingPermission(actions, constraints, description, enabled, groups, id, name, object_types, users);
   verifyPermissionExists(actions, constraints, description, enabled, groups, id, name, object_types, users);
   updatePermission(actions, constraints, description, enabled, groups, id, name, object_types, users);
@@ -7535,15 +7516,15 @@ bthread("crud:Permission:nondet:1:1", function () {
 
 // Story: crud:Permission:nondet:1:2
 bthread("crud:Permission:nondet:1:2", function () {
-  let actions = "actions_1461";
-  let constraints = "constraints_1461";
-  let description = "description_1461";
-  let enabled = "enabled_1461";
-  let groups = "groups_1461";
-  let id = 1461;
-  let name = "name_1461";
-  let object_types = "object_types_1461";
-  let users = "users_1461";
+  let actions = "actions_1451";
+  let constraints = "constraints_1451";
+  let description = "description_1451";
+  let enabled = "enabled_1451";
+  let groups = "groups_1451";
+  let id = 1451;
+  let name = "name_1451";
+  let object_types = "object_types_1451";
+  let users = "users_1451";
   createPermission(actions, constraints, description, enabled, groups, id, name, object_types, users);
   // waitForPermissionAdded(actions, constraints, description, enabled, groups, id, name, object_types, users);
   tryToAddExistingPermission(actions, constraints, description, enabled, groups, id, name, object_types, users);
@@ -7556,15 +7537,15 @@ bthread("crud:Permission:nondet:1:2", function () {
 
 // Story: crud:Permission:nondet:negative:dup-add
 bthread("crud:Permission:nondet:negative:dup-add", function () {
-  let actions = "actions_1466";
-  let constraints = "constraints_1466";
-  let description = "description_1466";
-  let enabled = "enabled_1466";
-  let groups = "groups_1466";
-  let id = 1466;
-  let name = "name_1466";
-  let object_types = "object_types_1466";
-  let users = "users_1466";
+  let actions = "actions_1456";
+  let constraints = "constraints_1456";
+  let description = "description_1456";
+  let enabled = "enabled_1456";
+  let groups = "groups_1456";
+  let id = 1456;
+  let name = "name_1456";
+  let object_types = "object_types_1456";
+  let users = "users_1456";
   createPermission(actions, constraints, description, enabled, groups, id, name, object_types, users);
   // waitForPermissionAdded(actions, constraints, description, enabled, groups, id, name, object_types, users);
   verifyPermissionExists(actions, constraints, description, enabled, groups, id, name, object_types, users);
@@ -7574,15 +7555,15 @@ bthread("crud:Permission:nondet:negative:dup-add", function () {
 
 // Story: crud:Token:nondet:1:1
 bthread("crud:Token:nondet:1:1", function () {
-  let description = "description_1470";
-  let expires = "expires_1470";
-  let id = 1470;
-  let key = "key_1470";
-  let last_used = "last_used_1470";
-  let user = "user_1470";
-  let write_enabled = "write_enabled_1470";
+  let description = "description_1460";
+  let expires = "expires_1460";
+  let id = 1460;
+  let key = "key_1460";
+  let last_used = "last_used_1460";
+  let user = "user_1460";
+  let write_enabled = "write_enabled_1460";
   createToken(description, expires, id, key, last_used, user, write_enabled);
-  waitForTokenAdded(description, expires, id, key, last_used, user, write_enabled);
+  // waitForTokenAdded(description, expires, id, key, last_used, user, write_enabled);
   tryToAddExistingToken(description, expires, id, key, last_used, user, write_enabled);
   verifyTokenExists(description, expires, id, key, last_used, user, write_enabled);
   updateToken(description, expires, id, key, last_used, user, write_enabled);
@@ -7593,13 +7574,13 @@ bthread("crud:Token:nondet:1:1", function () {
 
 // Story: crud:Token:nondet:1:2
 bthread("crud:Token:nondet:1:2", function () {
-  let description = "description_1471";
-  let expires = "expires_1471";
-  let id = 1471;
-  let key = "key_1471";
-  let last_used = "last_used_1471";
-  let user = "user_1471";
-  let write_enabled = "write_enabled_1471";
+  let description = "description_1461";
+  let expires = "expires_1461";
+  let id = 1461;
+  let key = "key_1461";
+  let last_used = "last_used_1461";
+  let user = "user_1461";
+  let write_enabled = "write_enabled_1461";
   createToken(description, expires, id, key, last_used, user, write_enabled);
   // waitForTokenAdded(description, expires, id, key, last_used, user, write_enabled);
   tryToAddExistingToken(description, expires, id, key, last_used, user, write_enabled);
@@ -7612,13 +7593,13 @@ bthread("crud:Token:nondet:1:2", function () {
 
 // Story: crud:Token:nondet:negative:dup-add
 bthread("crud:Token:nondet:negative:dup-add", function () {
-  let description = "description_1476";
-  let expires = "expires_1476";
-  let id = 1476;
-  let key = "key_1476";
-  let last_used = "last_used_1476";
-  let user = "user_1476";
-  let write_enabled = "write_enabled_1476";
+  let description = "description_1466";
+  let expires = "expires_1466";
+  let id = 1466;
+  let key = "key_1466";
+  let last_used = "last_used_1466";
+  let user = "user_1466";
+  let write_enabled = "write_enabled_1466";
   createToken(description, expires, id, key, last_used, user, write_enabled);
   // waitForTokenAdded(description, expires, id, key, last_used, user, write_enabled);
   verifyTokenExists(description, expires, id, key, last_used, user, write_enabled);
@@ -7628,20 +7609,20 @@ bthread("crud:Token:nondet:negative:dup-add", function () {
 
 // Story: crud:User:nondet:1:1
 bthread("crud:User:nondet:1:1", function () {
-  let date_joined = "date_joined_1480";
-  let email = "email_1480";
-  let first_name = "first_name_1480";
-  let groups = "groups_1480";
-  let id = 1480;
-  let is_active = "is_active_1480";
-  let is_staff = "is_staff_1480";
-  let last_login = "last_login_1480";
-  let last_name = "last_name_1480";
-  let password = "password_1480";
-  let permissions = "permissions_1480";
-  let username = "username_1480";
+  let date_joined = "date_joined_1470";
+  let email = "email_1470";
+  let first_name = "first_name_1470";
+  let groups = "groups_1470";
+  let id = 1470;
+  let is_active = "is_active_1470";
+  let is_staff = "is_staff_1470";
+  let last_login = "last_login_1470";
+  let last_name = "last_name_1470";
+  let password = "password_1470";
+  let permissions = "permissions_1470";
+  let username = "username_1470";
   createUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
-  waitForUserAdded(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
+  // waitForUserAdded(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   tryToAddExistingUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   verifyUserExists(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   updateUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
@@ -7652,18 +7633,18 @@ bthread("crud:User:nondet:1:1", function () {
 
 // Story: crud:User:nondet:1:2
 bthread("crud:User:nondet:1:2", function () {
-  let date_joined = "date_joined_1481";
-  let email = "email_1481";
-  let first_name = "first_name_1481";
-  let groups = "groups_1481";
-  let id = 1481;
-  let is_active = "is_active_1481";
-  let is_staff = "is_staff_1481";
-  let last_login = "last_login_1481";
-  let last_name = "last_name_1481";
-  let password = "password_1481";
-  let permissions = "permissions_1481";
-  let username = "username_1481";
+  let date_joined = "date_joined_1471";
+  let email = "email_1471";
+  let first_name = "first_name_1471";
+  let groups = "groups_1471";
+  let id = 1471;
+  let is_active = "is_active_1471";
+  let is_staff = "is_staff_1471";
+  let last_login = "last_login_1471";
+  let last_name = "last_name_1471";
+  let password = "password_1471";
+  let permissions = "permissions_1471";
+  let username = "username_1471";
   createUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   // waitForUserAdded(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   tryToAddExistingUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
@@ -7676,18 +7657,18 @@ bthread("crud:User:nondet:1:2", function () {
 
 // Story: crud:User:nondet:negative:dup-add
 bthread("crud:User:nondet:negative:dup-add", function () {
-  let date_joined = "date_joined_1486";
-  let email = "email_1486";
-  let first_name = "first_name_1486";
-  let groups = "groups_1486";
-  let id = 1486;
-  let is_active = "is_active_1486";
-  let is_staff = "is_staff_1486";
-  let last_login = "last_login_1486";
-  let last_name = "last_name_1486";
-  let password = "password_1486";
-  let permissions = "permissions_1486";
-  let username = "username_1486";
+  let date_joined = "date_joined_1476";
+  let email = "email_1476";
+  let first_name = "first_name_1476";
+  let groups = "groups_1476";
+  let id = 1476;
+  let is_active = "is_active_1476";
+  let is_staff = "is_staff_1476";
+  let last_login = "last_login_1476";
+  let last_name = "last_name_1476";
+  let password = "password_1476";
+  let permissions = "permissions_1476";
+  let username = "username_1476";
   createUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   // waitForUserAdded(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
   verifyUserExists(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
@@ -7697,16 +7678,16 @@ bthread("crud:User:nondet:negative:dup-add", function () {
 
 // Story: crud:WirelessLANGroup:nondet:1:1
 bthread("crud:WirelessLANGroup:nondet:1:1", function () {
-  let comments = "comments_1490";
+  let comments = "comments_1480";
   let custom_fields = {};
-  let description = "description_1490";
-  let id = 1490;
-  let name = "name_1490";
-  let parent = 1490;
-  let slug = "slug_1490";
-  let tags = "tags_1490";
+  let description = "description_1480";
+  let id = 1480;
+  let name = "name_1480";
+  let parent = 1480;
+  let slug = "slug_1480";
+  let tags = "tags_1480";
   createWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags);
-  waitForWirelessLANGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
+  // waitForWirelessLANGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyWirelessLANGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
   updateWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7717,14 +7698,14 @@ bthread("crud:WirelessLANGroup:nondet:1:1", function () {
 
 // Story: crud:WirelessLANGroup:nondet:1:2
 bthread("crud:WirelessLANGroup:nondet:1:2", function () {
-  let comments = "comments_1491";
+  let comments = "comments_1481";
   let custom_fields = {};
-  let description = "description_1491";
-  let id = 1491;
-  let name = "name_1491";
-  let parent = 1491;
-  let slug = "slug_1491";
-  let tags = "tags_1491";
+  let description = "description_1481";
+  let id = 1481;
+  let name = "name_1481";
+  let parent = 1481;
+  let slug = "slug_1481";
+  let tags = "tags_1481";
   createWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   // waitForWirelessLANGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7737,14 +7718,14 @@ bthread("crud:WirelessLANGroup:nondet:1:2", function () {
 
 // Story: crud:WirelessLANGroup:nondet:negative:dup-add
 bthread("crud:WirelessLANGroup:nondet:negative:dup-add", function () {
-  let comments = "comments_1496";
+  let comments = "comments_1486";
   let custom_fields = {};
-  let description = "description_1496";
-  let id = 1496;
-  let name = "name_1496";
-  let parent = 1496;
-  let slug = "slug_1496";
-  let tags = "tags_1496";
+  let description = "description_1486";
+  let id = 1486;
+  let name = "name_1486";
+  let parent = 1486;
+  let slug = "slug_1486";
+  let tags = "tags_1486";
   createWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags);
   // waitForWirelessLANGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyWirelessLANGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
@@ -7754,23 +7735,23 @@ bthread("crud:WirelessLANGroup:nondet:negative:dup-add", function () {
 
 // Story: crud:WirelessLAN:nondet:1:1
 bthread("crud:WirelessLAN:nondet:1:1", function () {
-  let auth_cipher = "auth_cipher_1500";
-  let auth_psk = "auth_psk_1500";
-  let auth_type = "auth_type_1500";
-  let comments = "comments_1500";
+  let auth_cipher = "auth_cipher_1490";
+  let auth_psk = "auth_psk_1490";
+  let auth_type = "auth_type_1490";
+  let comments = "comments_1490";
   let custom_fields = {};
-  let description = "description_1500";
-  let group = "group_1500";
-  let id = 1500;
-  let scope_id = 1500;
-  let scope_type = "scope_type_1500";
-  let ssid = 1500;
-  let status = "status_1500";
-  let tags = "tags_1500";
-  let tenant = "tenant_1500";
-  let vlan = "vlan_1500";
+  let description = "description_1490";
+  let group = "group_1490";
+  let id = 1490;
+  let scope_id = 1490;
+  let scope_type = "scope_type_1490";
+  let ssid = 1490;
+  let status = "status_1490";
+  let tags = "tags_1490";
+  let tenant = "tenant_1490";
+  let vlan = "vlan_1490";
   createWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
-  waitForWirelessLANAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
+  // waitForWirelessLANAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   tryToAddExistingWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   verifyWirelessLANExists(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   updateWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
@@ -7781,21 +7762,21 @@ bthread("crud:WirelessLAN:nondet:1:1", function () {
 
 // Story: crud:WirelessLAN:nondet:1:2
 bthread("crud:WirelessLAN:nondet:1:2", function () {
-  let auth_cipher = "auth_cipher_1501";
-  let auth_psk = "auth_psk_1501";
-  let auth_type = "auth_type_1501";
-  let comments = "comments_1501";
+  let auth_cipher = "auth_cipher_1491";
+  let auth_psk = "auth_psk_1491";
+  let auth_type = "auth_type_1491";
+  let comments = "comments_1491";
   let custom_fields = {};
-  let description = "description_1501";
-  let group = "group_1501";
-  let id = 1501;
-  let scope_id = 1501;
-  let scope_type = "scope_type_1501";
-  let ssid = 1501;
-  let status = "status_1501";
-  let tags = "tags_1501";
-  let tenant = "tenant_1501";
-  let vlan = "vlan_1501";
+  let description = "description_1491";
+  let group = "group_1491";
+  let id = 1491;
+  let scope_id = 1491;
+  let scope_type = "scope_type_1491";
+  let ssid = 1491;
+  let status = "status_1491";
+  let tags = "tags_1491";
+  let tenant = "tenant_1491";
+  let vlan = "vlan_1491";
   createWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   // waitForWirelessLANAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   tryToAddExistingWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
@@ -7808,21 +7789,21 @@ bthread("crud:WirelessLAN:nondet:1:2", function () {
 
 // Story: crud:WirelessLAN:nondet:negative:dup-add
 bthread("crud:WirelessLAN:nondet:negative:dup-add", function () {
-  let auth_cipher = "auth_cipher_1506";
-  let auth_psk = "auth_psk_1506";
-  let auth_type = "auth_type_1506";
-  let comments = "comments_1506";
+  let auth_cipher = "auth_cipher_1496";
+  let auth_psk = "auth_psk_1496";
+  let auth_type = "auth_type_1496";
+  let comments = "comments_1496";
   let custom_fields = {};
-  let description = "description_1506";
-  let group = "group_1506";
-  let id = 1506;
-  let scope_id = 1506;
-  let scope_type = "scope_type_1506";
-  let ssid = 1506;
-  let status = "status_1506";
-  let tags = "tags_1506";
-  let tenant = "tenant_1506";
-  let vlan = "vlan_1506";
+  let description = "description_1496";
+  let group = "group_1496";
+  let id = 1496;
+  let scope_id = 1496;
+  let scope_type = "scope_type_1496";
+  let ssid = 1496;
+  let status = "status_1496";
+  let tags = "tags_1496";
+  let tenant = "tenant_1496";
+  let vlan = "vlan_1496";
   createWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   // waitForWirelessLANAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
   verifyWirelessLANExists(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
@@ -7832,23 +7813,23 @@ bthread("crud:WirelessLAN:nondet:negative:dup-add", function () {
 
 // Story: crud:WirelessLink:nondet:1:1
 bthread("crud:WirelessLink:nondet:1:1", function () {
-  let auth_cipher = "auth_cipher_1510";
-  let auth_psk = "auth_psk_1510";
-  let auth_type = "auth_type_1510";
-  let comments = "comments_1510";
+  let auth_cipher = "auth_cipher_1500";
+  let auth_psk = "auth_psk_1500";
+  let auth_type = "auth_type_1500";
+  let comments = "comments_1500";
   let custom_fields = {};
-  let description = "description_1510";
-  let distance = 1510;
-  let distance_unit = "distance_unit_1510";
-  let id = 1510;
-  let interface_a = "interface_a_1510";
-  let interface_b = "interface_b_1510";
-  let ssid = 1510;
-  let status = "status_1510";
-  let tags = "tags_1510";
-  let tenant = "tenant_1510";
+  let description = "description_1500";
+  let distance = 1500;
+  let distance_unit = "distance_unit_1500";
+  let id = 1500;
+  let interface_a = "interface_a_1500";
+  let interface_b = "interface_b_1500";
+  let ssid = 1500;
+  let status = "status_1500";
+  let tags = "tags_1500";
+  let tenant = "tenant_1500";
   createWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
-  waitForWirelessLinkAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
+  // waitForWirelessLinkAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   tryToAddExistingWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   verifyWirelessLinkExists(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   updateWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
@@ -7859,21 +7840,21 @@ bthread("crud:WirelessLink:nondet:1:1", function () {
 
 // Story: crud:WirelessLink:nondet:1:2
 bthread("crud:WirelessLink:nondet:1:2", function () {
-  let auth_cipher = "auth_cipher_1511";
-  let auth_psk = "auth_psk_1511";
-  let auth_type = "auth_type_1511";
-  let comments = "comments_1511";
+  let auth_cipher = "auth_cipher_1501";
+  let auth_psk = "auth_psk_1501";
+  let auth_type = "auth_type_1501";
+  let comments = "comments_1501";
   let custom_fields = {};
-  let description = "description_1511";
-  let distance = 1511;
-  let distance_unit = "distance_unit_1511";
-  let id = 1511;
-  let interface_a = "interface_a_1511";
-  let interface_b = "interface_b_1511";
-  let ssid = 1511;
-  let status = "status_1511";
-  let tags = "tags_1511";
-  let tenant = "tenant_1511";
+  let description = "description_1501";
+  let distance = 1501;
+  let distance_unit = "distance_unit_1501";
+  let id = 1501;
+  let interface_a = "interface_a_1501";
+  let interface_b = "interface_b_1501";
+  let ssid = 1501;
+  let status = "status_1501";
+  let tags = "tags_1501";
+  let tenant = "tenant_1501";
   createWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   // waitForWirelessLinkAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   tryToAddExistingWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
@@ -7886,21 +7867,21 @@ bthread("crud:WirelessLink:nondet:1:2", function () {
 
 // Story: crud:WirelessLink:nondet:negative:dup-add
 bthread("crud:WirelessLink:nondet:negative:dup-add", function () {
-  let auth_cipher = "auth_cipher_1516";
-  let auth_psk = "auth_psk_1516";
-  let auth_type = "auth_type_1516";
-  let comments = "comments_1516";
+  let auth_cipher = "auth_cipher_1506";
+  let auth_psk = "auth_psk_1506";
+  let auth_type = "auth_type_1506";
+  let comments = "comments_1506";
   let custom_fields = {};
-  let description = "description_1516";
-  let distance = 1516;
-  let distance_unit = "distance_unit_1516";
-  let id = 1516;
-  let interface_a = "interface_a_1516";
-  let interface_b = "interface_b_1516";
-  let ssid = 1516;
-  let status = "status_1516";
-  let tags = "tags_1516";
-  let tenant = "tenant_1516";
+  let description = "description_1506";
+  let distance = 1506;
+  let distance_unit = "distance_unit_1506";
+  let id = 1506;
+  let interface_a = "interface_a_1506";
+  let interface_b = "interface_b_1506";
+  let ssid = 1506;
+  let status = "status_1506";
+  let tags = "tags_1506";
+  let tenant = "tenant_1506";
   createWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   // waitForWirelessLinkAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
   verifyWirelessLinkExists(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);

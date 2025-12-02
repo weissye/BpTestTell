@@ -1,8 +1,8 @@
 //@provengo summon rest
 // === Auto-generated interfaces.readable.js ===
 
-var host = (typeof host !== 'undefined') ? host : '192.168.225.45';
-var port = (typeof port !== 'undefined') ? port : 5000;
+var host = (typeof host !== 'undefined') ? host : 'localhost';
+var port = (typeof port !== 'undefined') ? port : 23242;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {

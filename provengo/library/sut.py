@@ -340,15 +340,22 @@ def add_hold() -> tuple[Response, int]:
     """
     Create a new hold record.
 
-    Expected JSON body: {"userId": int, "bookId": int}
+    Expected JSON body: {"userId": int, "bookId": int, "id": int}
     Returns:
         201: Hold created successfully
+        400: Invalid request (duplicate id)
     """
     hold = request.get_json()
+    
+    # --- FIX START: Check for duplicates ---
+    if "id" in hold and any(h.get("id") == hold["id"] for h in holds):
+         logger.error(f"Attempt to add duplicate hold: {hold}")
+         return jsonify({"error": "Hold already exists"}), 400
+    # --- FIX END ---
+
     holds.append(hold)
     logger.info(f"Added new hold: {hold}")
     return jsonify({"message": "Hold added", "hold": hold}), 201
-
 
 @app.route("/holds/<int:hold_id>", methods=["DELETE"])
 def delete_hold(hold_id: int) -> tuple[Response, int]:

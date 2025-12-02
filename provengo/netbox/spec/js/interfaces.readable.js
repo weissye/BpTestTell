@@ -2,7 +2,7 @@
 // === Auto-generated interfaces.readable.js ===
 
 var host = (typeof host !== 'undefined') ? host : 'localhost';
-var port = (typeof port !== 'undefined') ? port : 8080;
+var port = (typeof port !== 'undefined') ? port : 5000;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {
@@ -61,7 +61,7 @@ function deleteCableTermination(cable, cable_end, id, termination_id, terminatio
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -159,7 +159,7 @@ function tryToDeleteANonExistingCableTermination(cable, cable_end, id, terminati
   var url = "/api/dcim/cable-terminations/" + id + "/";
   var description = "Verify we cannot delete non-existing CableTermination";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -256,7 +256,7 @@ function deleteCable(a_terminations, b_terminations, color, comments, custom_fie
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -309,6 +309,7 @@ function tryToAddExistingCable(a_terminations, b_terminations, color, comments, 
     "comments": String(comments),
     "custom_fields": custom_fields,
     "description": String(description),
+    "id": String(id),
     "label": String(label),
     "length": Number(length),
     "length_unit": String(length_unit),
@@ -316,7 +317,6 @@ function tryToAddExistingCable(a_terminations, b_terminations, color, comments, 
     "tags": String(tags),
     "tenant": String(tenant),
     "type": String(type),
-    "id": String(id),
   };
   var description = "Verify that we cannot add another Cable...";
   if (body === undefined) { body = {}; }
@@ -371,7 +371,7 @@ function tryToDeleteANonExistingCable(a_terminations, b_terminations, color, com
   var url = "/api/dcim/cables/" + id + "/";
   var description = "Verify we cannot delete non-existing Cable";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -462,7 +462,7 @@ function deleteConsolePortTemplate(description, device_type, id, label, module_t
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -564,7 +564,7 @@ function tryToDeleteANonExistingConsolePortTemplate(description, device_type, id
   var url = "/api/dcim/console-port-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ConsolePortTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -659,7 +659,7 @@ function deleteConsolePort(custom_fields, description, device, id, label, mark_c
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -769,7 +769,7 @@ function tryToDeleteANonExistingConsolePort(custom_fields, description, device, 
   var url = "/api/dcim/console-ports/" + id + "/";
   var description = "Verify we cannot delete non-existing ConsolePort";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -860,7 +860,7 @@ function deleteConsoleServerPortTemplate(description, device_type, id, label, mo
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -962,7 +962,7 @@ function tryToDeleteANonExistingConsoleServerPortTemplate(description, device_ty
   var url = "/api/dcim/console-server-port-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ConsoleServerPortTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -1025,7 +1025,7 @@ function waitForAnyConsoleServerPortTemplateDeleted() {
 
 function createConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-server-ports/";
-  var description = "Create console server port";
+  var description = "Create console server port with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -1057,7 +1057,7 @@ function deleteConsoleServerPort(custom_fields, description, device, id, label, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -1167,21 +1167,21 @@ function tryToDeleteANonExistingConsoleServerPort(custom_fields, description, de
   var url = "/api/dcim/console-server-ports/" + id + "/";
   var description = "Verify we cannot delete non-existing ConsoleServerPort";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  var expectedDesc = "Create console server port";
+  var expectedDesc = "Create console server port with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyConsoleServerPortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ console\ server\ port$/));
-  var m = ev.data.parameters.description.match(/^Create\ console\ server\ port$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ console\ server\ port\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ console\ server\ port\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1203,7 +1203,7 @@ function matchAnyConsoleServerPortAdded() {
 }
 
 function waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  var expectedDesc = "Create console server port";
+  var expectedDesc = "Create console server port with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1230,7 +1230,7 @@ function waitForAnyConsoleServerPortDeleted() {
 
 function createDeviceBayTemplate(description, device_type, id, label, name) {
   var url = "/api/dcim/device-bay-templates/";
-  var description = "Create device bay template";
+  var description = "Create device bay template with id " + id;
   var body = {
     "description": String(description),
     "device_type": String(device_type),
@@ -1256,7 +1256,7 @@ function deleteDeviceBayTemplate(description, device_type, id, label, name) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -1354,21 +1354,21 @@ function tryToDeleteANonExistingDeviceBayTemplate(description, device_type, id, 
   var url = "/api/dcim/device-bay-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing DeviceBayTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedDeviceBayTemplate(description, device_type, id, label, name) {
-  var expectedDesc = "Create device bay template";
+  var expectedDesc = "Create device bay template with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyDeviceBayTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay\ template$/));
-  var m = ev.data.parameters.description.match(/^Create\ device\ bay\ template$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ device\ bay\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1390,7 +1390,7 @@ function matchAnyDeviceBayTemplateAdded() {
 }
 
 function waitForDeviceBayTemplateAdded(description, device_type, id, label, name) {
-  var expectedDesc = "Create device bay template";
+  var expectedDesc = "Create device bay template with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1417,7 +1417,7 @@ function waitForAnyDeviceBayTemplateDeleted() {
 
 function createDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
   var url = "/api/dcim/device-bays/";
-  var description = "Create device bay";
+  var description = "Create device bay with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -1446,7 +1446,7 @@ function deleteDeviceBay(custom_fields, description, device, id, installed_devic
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -1550,21 +1550,21 @@ function tryToDeleteANonExistingDeviceBay(custom_fields, description, device, id
   var url = "/api/dcim/device-bays/" + id + "/";
   var description = "Verify we cannot delete non-existing DeviceBay";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
-  var expectedDesc = "Create device bay";
+  var expectedDesc = "Create device bay with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyDeviceBayAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay$/));
-  var m = ev.data.parameters.description.match(/^Create\ device\ bay$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ device\ bay\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1586,7 +1586,7 @@ function matchAnyDeviceBayAdded() {
 }
 
 function waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags) {
-  var expectedDesc = "Create device bay";
+  var expectedDesc = "Create device bay with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1645,7 +1645,7 @@ function deleteDeviceRole(color, comments, config_template, custom_fields, descr
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -1783,7 +1783,7 @@ function tryToDeleteANonExistingDeviceRole(color, comments, config_template, cus
   var url = "/api/dcim/device-roles/" + id + "/";
   var description = "Verify we cannot delete non-existing DeviceRole";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -1965,7 +1965,7 @@ function deleteDeviceType(airflow, comments, custom_fields, default_platform, de
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -2045,7 +2045,7 @@ function tryToDeleteANonExistingDeviceType(airflow, comments, custom_fields, def
   var url = "/api/dcim/device-types/" + id + "/";
   var description = "Verify we cannot delete non-existing DeviceType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -2263,7 +2263,7 @@ function deleteDevice(airflow, asset_tag, cluster, comments, config_template, cu
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -2354,7 +2354,7 @@ function tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, co
   var url = "/api/dcim/devices/" + id + "/";
   var description = "Verify we cannot delete non-existing Device";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -2512,7 +2512,7 @@ function deleteFrontPortTemplate(color, description, device_type, id, label, mod
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -2583,7 +2583,7 @@ function tryToDeleteANonExistingFrontPortTemplate(color, description, device_typ
   var url = "/api/dcim/front-port-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing FrontPortTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -2750,7 +2750,7 @@ function deleteFrontPort(color, custom_fields, description, device, id, label, m
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -2824,7 +2824,7 @@ function tryToDeleteANonExistingFrontPort(color, custom_fields, description, dev
   var url = "/api/dcim/front-ports/" + id + "/";
   var description = "Verify we cannot delete non-existing FrontPort";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -2887,7 +2887,7 @@ function waitForAnyFrontPortDeleted() {
 
 function getFrontPortPaths(id) {
   var url = "/api/dcim/front-ports/" + id + "/paths/";
-  var description = "Get front port paths for front port " + id;
+  var description = "Get paths for front port with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2939,7 +2939,7 @@ function verifyFrontPortPathsDoesNotExist(id) {
 
 function createInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/";
-  var description = "Create interface template " + name;
+  var description = "Create interface template " + name + " with id " + id;
   var body = {
     "bridge": Number(bridge),
     "description": String(description),
@@ -2967,19 +2967,65 @@ function createInterfaceTemplate(bridge, description, device_type, enabled, id, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var url = "/api/dcim/interface-templates/" + id + "/";
-  var description = "Delete interface template " + id;
+function deleteInterfaceTemplatesBulk(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/";
+  var description = "Bulk delete interface templates";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
+  });
+}
+
+function bulkUpdateInterfaceTemplates(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/";
+  var description = "Bulk update interface templates";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateInterfaceTemplates(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/";
+  var description = "Bulk partial update interface templates";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/" + id + "/";
+  var description = "Get interface template with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function updateInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/" + id + "/";
-  var description = "Update interface template " + id + " with name " + name;
+  var description = "Update interface template with id " + id;
   var body = {
     "bridge": Number(bridge),
     "description": String(description),
@@ -3007,13 +3053,43 @@ function updateInterfaceTemplate(bridge, description, device_type, enabled, id, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+function partialUpdateInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/" + id + "/";
-  var description = "Get interface template " + id;
+  var description = "Partial update interface template with id " + id;
+  var body = {
+    "bridge": Number(bridge),
+    "description": String(description),
+    "device_type": String(device_type),
+    "enabled": enabled,
+    "id": String(id),
+    "label": String(label),
+    "mgmt_only": mgmt_only,
+    "module_type": String(module_type),
+    "name": String(name),
+    "poe_mode": String(poe_mode),
+    "poe_type": String(poe_type),
+    "rf_role": String(rf_role),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/" + id + "/";
+  var description = "Delete interface template with id " + id;
   var body = undefined;
-  svc.get(url, {
+  svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -3084,24 +3160,24 @@ function verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, e
 }
 
 function tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var url = "/api/dcim/interface-templates/" + id + "/";
+  var url = "/api/dcim/interface-templates/";
   var description = "Verify we cannot delete non-existing InterfaceTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var expectedDesc = "Create interface template " + name;
+  var expectedDesc = "Create interface template " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyInterfaceTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ interface\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ interface\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ interface\ template\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ interface\ template\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3123,22 +3199,22 @@ function matchAnyInterfaceTemplateAdded() {
 }
 
 function waitForInterfaceTemplateAdded(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var expectedDesc = "Create interface template " + name;
+  var expectedDesc = "Create interface template " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var expectedDesc = "Delete interface template " + id;
+  var expectedDesc = "Bulk delete interface templates";
   return bp.EventSet("matchDeletedInterfaceTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyInterfaceTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ interface\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ interface\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ delete\ interface\ templates$/));
+  var m = ev.data.parameters.description.match(/^Bulk\ delete\ interface\ templates$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3188,7 +3264,7 @@ function deleteInterface(bridge, custom_fields, description, enabled, id, mode, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -3226,9 +3302,151 @@ function updateInterface(bridge, custom_fields, description, enabled, id, mode, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function bulkPartialUpdateInterfaces(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/";
+  var description = "Bulk partial update interfaces";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
 function getInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
   var url = "/api/virtualization/interfaces/" + id + "/";
   var description = "Get interface with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/" + id + "/";
+  var description = "Update interface with id " + id;
+  var body = {
+    "bridge": Number(bridge),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "device": "device_dummy",
+    "duplex": "duplex_dummy",
+    "enabled": enabled,
+    "id": String(id),
+    "label": "label_dummy",
+    "lag": 1,
+    "mark_connected": true,
+    "mgmt_only": true,
+    "mode": String(mode),
+    "module": "module_dummy",
+    "mtu": Number(mtu),
+    "name": String(name),
+    "parent": Number(parent),
+    "poe_mode": "poe_mode_dummy",
+    "poe_type": "poe_type_dummy",
+    "primary_mac_address": primary_mac_address,
+    "qinq_svlan": String(qinq_svlan),
+    "rf_channel": "rf_channel_dummy",
+    "rf_channel_frequency": 1,
+    "rf_channel_width": 1,
+    "rf_role": "rf_role_dummy",
+    "speed": 1,
+    "tagged_vlans": String(tagged_vlans),
+    "tags": String(tags),
+    "tx_power": 1,
+    "type": "type_dummy",
+    "untagged_vlan": String(untagged_vlan),
+    "vdcs": [],
+    "vlan_translation_policy": String(vlan_translation_policy),
+    "vrf": String(vrf),
+    "wireless_lans": [],
+    "wwn": "wwn_dummy",
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/" + id + "/";
+  var description = "Partial update interface with id " + id;
+  var body = {
+    "bridge": Number(bridge),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "device": "device_dummy",
+    "duplex": "duplex_dummy",
+    "enabled": enabled,
+    "id": String(id),
+    "label": "label_dummy",
+    "lag": 1,
+    "mark_connected": true,
+    "mgmt_only": true,
+    "mode": String(mode),
+    "module": "module_dummy",
+    "mtu": Number(mtu),
+    "name": String(name),
+    "parent": Number(parent),
+    "poe_mode": "poe_mode_dummy",
+    "poe_type": "poe_type_dummy",
+    "primary_mac_address": primary_mac_address,
+    "qinq_svlan": String(qinq_svlan),
+    "rf_channel": "rf_channel_dummy",
+    "rf_channel_frequency": 1,
+    "rf_channel_width": 1,
+    "rf_role": "rf_role_dummy",
+    "speed": 1,
+    "tagged_vlans": String(tagged_vlans),
+    "tags": String(tags),
+    "tx_power": 1,
+    "type": "type_dummy",
+    "untagged_vlan": String(untagged_vlan),
+    "vdcs": [],
+    "vlan_translation_policy": String(vlan_translation_policy),
+    "vrf": String(vrf),
+    "wireless_lans": [],
+    "wwn": "wwn_dummy",
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/" + id + "/";
+  var description = "Delete interface with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getInterfaceTrace(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/" + id + "/trace/";
+  var description = "Get trace for interface with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -3310,7 +3528,7 @@ function tryToDeleteANonExistingInterface(bridge, custom_fields, description, en
   var url = "/api/virtualization/interfaces/" + id + "/";
   var description = "Verify we cannot delete non-existing Interface";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -3373,7 +3591,7 @@ function waitForAnyInterfaceDeleted() {
 
 function createInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/inventory-item-roles/";
-  var description = "Create inventory item role " + id;
+  var description = "Create inventory item role with id " + id;
   var body = {
     "color": String(color),
     "custom_fields": custom_fields,
@@ -3395,19 +3613,65 @@ function createInventoryItemRole(color, custom_fields, description, id, name, sl
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/dcim/inventory-item-roles/" + id + "/";
-  var description = "Delete inventory item role " + id;
+function deleteInventoryItemRolesBulk(color, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/dcim/inventory-item-roles/";
+  var description = "Bulk delete inventory item roles";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
+  });
+}
+
+function bulkUpdateInventoryItemRoles(color, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/dcim/inventory-item-roles/";
+  var description = "Bulk update inventory item roles";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateInventoryItemRoles(color, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/dcim/inventory-item-roles/";
+  var description = "Bulk partial update inventory item roles";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/dcim/inventory-item-roles/" + id + "/";
+  var description = "Get inventory item role with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function updateInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/inventory-item-roles/" + id + "/";
-  var description = "Update inventory item role " + id;
+  var description = "Update inventory item role with id " + id;
   var body = {
     "color": String(color),
     "custom_fields": custom_fields,
@@ -3429,13 +3693,37 @@ function updateInventoryItemRole(color, custom_fields, description, id, name, sl
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
+function partialUpdateInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/inventory-item-roles/" + id + "/";
-  var description = "Get inventory item role " + id;
+  var description = "Partial update inventory item role with id " + id;
+  var body = {
+    "color": String(color),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/dcim/inventory-item-roles/" + id + "/";
+  var description = "Delete inventory item role with id " + id;
   var body = undefined;
-  svc.get(url, {
+  svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -3500,22 +3788,22 @@ function verifyInventoryItemRoleDoesNotExist(color, custom_fields, description, 
 }
 
 function tryToDeleteANonExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/dcim/inventory-item-roles/" + id + "/";
+  var url = "/api/dcim/inventory-item-roles/";
   var description = "Verify we cannot delete non-existing InventoryItemRole";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create inventory item role " + id;
+  var expectedDesc = "Create inventory item role with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyInventoryItemRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ role\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ role\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ role\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ role\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -3539,22 +3827,22 @@ function matchAnyInventoryItemRoleAdded() {
 }
 
 function waitForInventoryItemRoleAdded(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create inventory item role " + id;
+  var expectedDesc = "Create inventory item role with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Delete inventory item role " + id;
+  var expectedDesc = "Bulk delete inventory item roles";
   return bp.EventSet("matchDeletedInventoryItemRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyInventoryItemRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ inventory\ item\ role\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ inventory\ item\ role\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ delete\ inventory\ item\ roles$/));
+  var m = ev.data.parameters.description.match(/^Bulk\ delete\ inventory\ item\ roles$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3566,7 +3854,7 @@ function waitForAnyInventoryItemRoleDeleted() {
 
 function createInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/";
-  var description = "Create inventory item template " + name;
+  var description = "Create inventory item template with id " + id;
   var body = {
     "component_id": Number(component_id),
     "component_type": String(component_type),
@@ -3594,19 +3882,69 @@ function createInventoryItemTemplate(component_id, component_type, description, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var url = "/api/dcim/inventory-item-templates/" + id + "/";
-  var description = "Delete inventory item template " + id;
+function deleteInventoryItemTemplatesBulk(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+  var url = "/api/dcim/inventory-item-templates/";
+  var description = "Bulk delete inventory item templates";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
+  });
+}
+
+function bulkUpdateInventoryItemTemplates(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+  var url = "/api/dcim/inventory-item-templates/";
+  var description = "Bulk update inventory item templates";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , component_id: String(component_id)
+      , name: String(name)
+      , part_id: String(part_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateInventoryItemTemplates(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+  var url = "/api/dcim/inventory-item-templates/";
+  var description = "Bulk partial update inventory item templates";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , component_id: String(component_id)
+      , name: String(name)
+      , part_id: String(part_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+  var url = "/api/dcim/inventory-item-templates/" + id + "/";
+  var description = "Get inventory item template with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
   });
 }
 
 function updateInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/" + id + "/";
-  var description = "Update inventory item template " + id + " with name " + name;
+  var description = "Update inventory item template with id " + id;
   var body = {
     "component_id": Number(component_id),
     "component_type": String(component_type),
@@ -3634,13 +3972,43 @@ function updateInventoryItemTemplate(component_id, component_type, description, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+function partialUpdateInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/" + id + "/";
-  var description = "Get inventory item template " + id;
+  var description = "Partial update inventory item template with id " + id;
+  var body = {
+    "component_id": Number(component_id),
+    "component_type": String(component_type),
+    "description": String(description),
+    "device_type": String(device_type),
+    "id": String(id),
+    "label": String(label),
+    "manufacturer": String(manufacturer),
+    "name": String(name),
+    "parent": Number(parent),
+    "part_id": String(part_id),
+    "role": String(role),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , component_id: String(component_id)
+      , name: String(name)
+      , part_id: String(part_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+  var url = "/api/dcim/inventory-item-templates/" + id + "/";
+  var description = "Delete inventory item template with id " + id;
   var body = undefined;
-  svc.get(url, {
+  svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -3709,24 +4077,24 @@ function verifyInventoryItemTemplateDoesNotExist(component_id, component_type, d
 }
 
 function tryToDeleteANonExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var url = "/api/dcim/inventory-item-templates/" + id + "/";
+  var url = "/api/dcim/inventory-item-templates/";
   var description = "Verify we cannot delete non-existing InventoryItemTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var expectedDesc = "Create inventory item template " + name;
+  var expectedDesc = "Create inventory item template with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyInventoryItemTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3748,22 +4116,22 @@ function matchAnyInventoryItemTemplateAdded() {
 }
 
 function waitForInventoryItemTemplateAdded(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var expectedDesc = "Create inventory item template " + name;
+  var expectedDesc = "Create inventory item template with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var expectedDesc = "Delete inventory item template " + id;
+  var expectedDesc = "Bulk delete inventory item templates";
   return bp.EventSet("matchDeletedInventoryItemTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyInventoryItemTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ inventory\ item\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ inventory\ item\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ delete\ inventory\ item\ templates$/));
+  var m = ev.data.parameters.description.match(/^Bulk\ delete\ inventory\ item\ templates$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3815,7 +4183,7 @@ function deleteInventoryItem(asset_tag, component_id, component_type, custom_fie
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -3939,7 +4307,7 @@ function tryToDeleteANonExistingInventoryItem(asset_tag, component_id, component
   var url = "/api/dcim/inventory-items/" + id + "/";
   var description = "Verify we cannot delete non-existing InventoryItem";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -4035,7 +4403,7 @@ function deleteLocation(comments, custom_fields, description, facility, id, name
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4147,7 +4515,7 @@ function tryToDeleteANonExistingLocation(comments, custom_fields, description, f
   var url = "/api/dcim/locations/" + id + "/";
   var description = "Verify we cannot delete non-existing Location";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -4239,7 +4607,7 @@ function deleteMACAddress(assigned_object_id, assigned_object_type, comments, cu
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4343,7 +4711,7 @@ function tryToDeleteANonExistingMACAddress(assigned_object_id, assigned_object_t
   var url = "/api/dcim/mac-addresses/" + id + "/";
   var description = "Verify we cannot delete non-existing MACAddress";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -4433,7 +4801,7 @@ function deleteManufacturer(custom_fields, description, id, name, slug, tags) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4533,7 +4901,7 @@ function tryToDeleteANonExistingManufacturer(custom_fields, description, id, nam
   var url = "/api/dcim/manufacturers/" + id + "/";
   var description = "Verify we cannot delete non-existing Manufacturer";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -4624,7 +4992,7 @@ function deleteModuleBayTemplate(description, device_type, id, label, module_typ
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4726,7 +5094,7 @@ function tryToDeleteANonExistingModuleBayTemplate(description, device_type, id, 
   var url = "/api/dcim/module-bay-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ModuleBayTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -4820,7 +5188,7 @@ function deleteModuleBay(custom_fields, description, device, id, installed_modul
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -4928,7 +5296,7 @@ function tryToDeleteANonExistingModuleBay(custom_fields, description, device, id
   var url = "/api/dcim/module-bays/" + id + "/";
   var description = "Verify we cannot delete non-existing ModuleBay";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -5019,7 +5387,7 @@ function deleteModuleTypeProfile(comments, custom_fields, description, id, name,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -5121,7 +5489,7 @@ function tryToDeleteANonExistingModuleTypeProfile(comments, custom_fields, descr
   var url = "/api/dcim/module-type-profiles/" + id + "/";
   var description = "Verify we cannot delete non-existing ModuleTypeProfile";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -5217,7 +5585,7 @@ function deleteModuleType(airflow, attributes, comments, custom_fields, descript
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -5330,7 +5698,7 @@ function tryToDeleteANonExistingModuleType(airflow, attributes, comments, custom
   var url = "/api/dcim/module-types/" + id + "/";
   var description = "Verify we cannot delete non-existing ModuleType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -5424,7 +5792,7 @@ function deleteModule(asset_tag, comments, custom_fields, description, device, i
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -5533,7 +5901,7 @@ function tryToDeleteANonExistingModule(asset_tag, comments, custom_fields, descr
   var url = "/api/dcim/modules/" + id + "/";
   var description = "Verify we cannot delete non-existing Module";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -5627,7 +5995,7 @@ function deletePlatform(comments, config_template, custom_fields, description, i
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -5735,7 +6103,7 @@ function tryToDeleteANonExistingPlatform(comments, config_template, custom_field
   var url = "/api/dcim/platforms/" + id + "/";
   var description = "Verify we cannot delete non-existing Platform";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -5836,7 +6204,7 @@ function deletePowerFeed(amperage, comments, custom_fields, description, id, mar
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -5863,6 +6231,40 @@ function updatePowerFeed(amperage, comments, custom_fields, description, id, mar
     "voltage": Number(voltage),
   };
   svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdatePowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
+  var url = "/api/dcim/power-feeds/" + id + "/";
+  var description = "Partially update power feed with id " + id;
+  var body = {
+    "amperage": Number(amperage),
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "id": String(id),
+    "mark_connected": mark_connected,
+    "max_utilization": Number(max_utilization),
+    "name": String(name),
+    "phase": String(phase),
+    "power_panel": String(power_panel),
+    "rack": String(rack),
+    "status": String(status),
+    "supply": String(supply),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "type": String(type),
+    "voltage": Number(voltage),
+  };
+  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -5958,7 +6360,7 @@ function tryToDeleteANonExistingPowerFeed(amperage, comments, custom_fields, des
   var url = "/api/dcim/power-feeds/" + id + "/";
   var description = "Verify we cannot delete non-existing PowerFeed";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -6051,7 +6453,7 @@ function deletePowerOutletTemplate(description, device_type, feed_leg, id, label
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -6070,6 +6472,32 @@ function updatePowerOutletTemplate(description, device_type, feed_leg, id, label
     "type": String(type),
   };
   svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdatePowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
+  var url = "/api/dcim/power-outlet-templates/" + id + "/";
+  var description = "Partially update power outlet template with id " + id;
+  var body = {
+    "description": String(description),
+    "device_type": String(device_type),
+    "feed_leg": String(feed_leg),
+    "id": String(id),
+    "label": String(label),
+    "module_type": String(module_type),
+    "name": String(name),
+    "power_port": String(power_port),
+    "type": String(type),
+  };
+  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -6157,7 +6585,7 @@ function tryToDeleteANonExistingPowerOutletTemplate(description, device_type, fe
   var url = "/api/dcim/power-outlet-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing PowerOutletTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -6255,7 +6683,7 @@ function deletePowerOutlet(color, custom_fields, description, device, feed_leg, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -6279,6 +6707,37 @@ function updatePowerOutlet(color, custom_fields, description, device, feed_leg, 
     "type": String(type),
   };
   svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdatePowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
+  var url = "/api/dcim/power-outlets/" + id + "/";
+  var description = "Partially update power outlet with id " + id;
+  var body = {
+    "color": String(color),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "device": String(device),
+    "feed_leg": String(feed_leg),
+    "id": String(id),
+    "label": String(label),
+    "mark_connected": mark_connected,
+    "module": String(module),
+    "name": String(name),
+    "power_port": String(power_port),
+    "status": String(status),
+    "tags": String(tags),
+    "type": String(type),
+  };
+  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -6371,7 +6830,7 @@ function tryToDeleteANonExistingPowerOutlet(color, custom_fields, description, d
   var url = "/api/dcim/power-outlets/" + id + "/";
   var description = "Verify we cannot delete non-existing PowerOutlet";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -6463,7 +6922,7 @@ function deletePowerPanel(comments, custom_fields, description, id, location, na
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -6481,6 +6940,31 @@ function updatePowerPanel(comments, custom_fields, description, id, location, na
     "tags": String(tags),
   };
   svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdatePowerPanel(comments, custom_fields, description, id, location, name, site, tags) {
+  var url = "/api/dcim/power-panels/" + id + "/";
+  var description = "Partially update power panel with id " + id;
+  var body = {
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "id": String(id),
+    "location": String(location),
+    "name": String(name),
+    "site": String(site),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -6567,7 +7051,7 @@ function tryToDeleteANonExistingPowerPanel(comments, custom_fields, description,
   var url = "/api/dcim/power-panels/" + id + "/";
   var description = "Verify we cannot delete non-existing PowerPanel";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -6660,7 +7144,7 @@ function deletePowerPortTemplate(allocated_draw, description, device_type, id, l
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -6766,7 +7250,7 @@ function tryToDeleteANonExistingPowerPortTemplate(allocated_draw, description, d
   var url = "/api/dcim/power-port-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing PowerPortTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -6862,7 +7346,7 @@ function deletePowerPort(allocated_draw, custom_fields, description, device, id,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -6974,7 +7458,7 @@ function tryToDeleteANonExistingPowerPort(allocated_draw, custom_fields, descrip
   var url = "/api/dcim/power-ports/" + id + "/";
   var description = "Verify we cannot delete non-existing PowerPort";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -7067,7 +7551,7 @@ function deleteRackReservation(comments, custom_fields, description, id, rack, s
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -7174,7 +7658,7 @@ function tryToDeleteANonExistingRackReservation(comments, custom_fields, descrip
   var url = "/api/dcim/rack-reservations/" + id + "/";
   var description = "Verify we cannot delete non-existing RackReservation";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -7265,7 +7749,7 @@ function deleteRackRole(color, custom_fields, description, id, name, slug, tags)
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -7367,7 +7851,7 @@ function tryToDeleteANonExistingRackRole(color, custom_fields, description, id, 
   var url = "/api/dcim/rack-roles/" + id + "/";
   var description = "Verify we cannot delete non-existing RackRole";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -7473,7 +7957,7 @@ function deleteRackType(comments, custom_fields, desc_units, description, form_f
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -7643,7 +8127,7 @@ function tryToDeleteANonExistingRackType(comments, custom_fields, desc_units, de
   var url = "/api/dcim/rack-types/" + id + "/";
   var description = "Verify we cannot delete non-existing RackType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -7861,7 +8345,7 @@ function deleteRack(airflow, asset_tag, comments, custom_fields, desc_units, des
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -7951,7 +8435,7 @@ function tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields
   var url = "/api/dcim/racks/" + id + "/";
   var description = "Verify we cannot delete non-existing Rack";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -8106,7 +8590,7 @@ function deleteRearPortTemplate(color, description, device_type, id, label, modu
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -8176,7 +8660,7 @@ function tryToDeleteANonExistingRearPortTemplate(color, description, device_type
   var url = "/api/dcim/rear-port-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing RearPortTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -8340,7 +8824,7 @@ function deleteRearPort(color, custom_fields, description, device, id, label, ma
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -8413,7 +8897,7 @@ function tryToDeleteANonExistingRearPort(color, custom_fields, description, devi
   var url = "/api/dcim/rear-ports/" + id + "/";
   var description = "Verify we cannot delete non-existing RearPort";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -8476,7 +8960,7 @@ function waitForAnyRearPortDeleted() {
 
 function createRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/regions/";
-  var description = "Create region";
+  var description = "Create region " + slug + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -8565,7 +9049,7 @@ function deleteRegion(comments, custom_fields, description, id, name, parent, sl
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -8659,21 +9143,21 @@ function tryToDeleteANonExistingRegion(comments, custom_fields, description, id,
   var url = "/api/dcim/regions/" + id + "/";
   var description = "Verify we cannot delete non-existing Region";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create region";
+  var expectedDesc = "Create region " + slug + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRegionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ region$/));
-  var m = ev.data.parameters.description.match(/^Create\ region$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ region\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ region\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["slug", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8695,7 +9179,7 @@ function matchAnyRegionAdded() {
 }
 
 function waitForRegionAdded(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create region";
+  var expectedDesc = "Create region " + slug + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -8720,9 +9204,9 @@ function waitForAnyRegionDeleted() {
 
 // ---- Entity: site group ----
 
-function getSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/dcim/site-groups/" + id + "/";
-  var description = "Get site group with id " + id;
+function listSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "List site groups";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -8732,7 +9216,7 @@ function getSiteGroup(comments, custom_fields, description, id, name, parent, sl
 
 function createSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/site-groups/";
-  var description = "Create site group";
+  var description = "Create site group " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -8753,6 +9237,62 @@ function createSiteGroup(comments, custom_fields, description, id, name, parent,
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Bulk update site groups";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Bulk partial update site groups";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Bulk delete site groups";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/" + id + "/";
+  var description = "Get site group with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -8811,7 +9351,7 @@ function deleteSiteGroup(comments, custom_fields, description, id, name, parent,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -8880,21 +9420,21 @@ function tryToDeleteANonExistingSiteGroup(comments, custom_fields, description, 
   var url = "/api/dcim/site-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing SiteGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create site group";
+  var expectedDesc = "Create site group " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnySiteGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ site\ group$/));
-  var m = ev.data.parameters.description.match(/^Create\ site\ group$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ site\ group\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ site\ group\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8916,7 +9456,7 @@ function matchAnySiteGroupAdded() {
 }
 
 function waitForSiteGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create site group";
+  var expectedDesc = "Create site group " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -8941,9 +9481,9 @@ function waitForAnySiteGroupDeleted() {
 
 // ---- Entity: site ----
 
-function getSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var url = "/api/dcim/sites/" + id + "/";
-  var description = "Get site with id " + id;
+function listSites(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "List sites";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -8951,10 +9491,11 @@ function getSite(asns, comments, custom_fields, description, facility, group, id
   });
 }
 
-function createSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/";
-  var description = "Create site";
+  var description = "Create site " + name;
   var body = {
+    "asn": String(asn),
     "asns": String(asns),
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -8986,10 +9527,67 @@ function createSite(asns, comments, custom_fields, description, facility, group,
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function updateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function bulkUpdateSites(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "Bulk update sites";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateSites(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "Bulk partial update sites";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteSites(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "Bulk delete sites";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/" + id + "/";
+  var description = "Get site with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/" + id + "/";
   var description = "Update site with id " + id;
   var body = {
+    "asn": String(asn),
     "asns": String(asns),
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -9021,7 +9619,7 @@ function updateSite(asns, comments, custom_fields, description, facility, group,
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function partialUpdateSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/" + id + "/";
   var description = "Partially update site with id " + id;
   var body = {
@@ -9056,19 +9654,20 @@ function partialUpdateSite(asns, comments, custom_fields, description, facility,
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function deleteSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/" + id + "/";
   var description = "Delete site with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/";
   var body = {
+    "asn": String(asn),
     "asns": String(asns),
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -9097,7 +9696,7 @@ function tryToAddExistingSite(asns, comments, custom_fields, description, facili
   });
 }
 
-function verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/";
   var description = "Verify Site with id " + id + " exists";
   svc.get(url, {
@@ -9117,7 +9716,7 @@ function verifySiteExists(asns, comments, custom_fields, description, facility, 
   });
 }
 
-function verifySiteDoesNotExist(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function verifySiteDoesNotExist(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/";
   var description = "Verify Site with id " + id + " does not exist";
   svc.get(url, {
@@ -9137,25 +9736,25 @@ function verifySiteDoesNotExist(asns, comments, custom_fields, description, faci
   });
 }
 
-function tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function tryToDeleteANonExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/" + id + "/";
   var description = "Verify we cannot delete non-existing Site";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var expectedDesc = "Create site";
+function matchAddedSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var expectedDesc = "Create site " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnySiteAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ site$/));
-  var m = ev.data.parameters.description.match(/^Create\ site$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ site\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ site\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9176,12 +9775,12 @@ function matchAnySiteAdded() {
   });
 }
 
-function waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var expectedDesc = "Create site";
+function waitForSiteAdded(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var expectedDesc = "Create site " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+function matchDeletedSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var expectedDesc = "Delete site with id " + id;
   return bp.EventSet("matchDeletedSite", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -9202,9 +9801,9 @@ function waitForAnySiteDeleted() {
 
 // ---- Entity: virtual chassis ----
 
-function getVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
-  var url = "/api/dcim/virtual-chassis/" + id + "/";
-  var description = "Get virtual chassis with id " + id;
+function listVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "List virtual chassis";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -9214,7 +9813,7 @@ function getVirtualChassis(comments, custom_fields, description, domain, id, mas
 
 function createVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
   var url = "/api/dcim/virtual-chassis/";
-  var description = "Create virtual chassis";
+  var description = "Create virtual chassis " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -9235,6 +9834,62 @@ function createVirtualChassis(comments, custom_fields, description, domain, id, 
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Bulk update virtual chassis";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Bulk partial update virtual chassis";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Bulk delete virtual chassis";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/" + id + "/";
+  var description = "Get virtual chassis with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
@@ -9293,7 +9948,7 @@ function deleteVirtualChassis(comments, custom_fields, description, domain, id, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -9362,21 +10017,21 @@ function tryToDeleteANonExistingVirtualChassis(comments, custom_fields, descript
   var url = "/api/dcim/virtual-chassis/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualChassis";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
-  var expectedDesc = "Create virtual chassis";
+  var expectedDesc = "Create virtual chassis " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualChassisAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ chassis$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ chassis$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ chassis\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ chassis\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9398,7 +10053,7 @@ function matchAnyVirtualChassisAdded() {
 }
 
 function waitForVirtualChassisAdded(comments, custom_fields, description, domain, id, master, name, tags) {
-  var expectedDesc = "Create virtual chassis";
+  var expectedDesc = "Create virtual chassis " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -9423,9 +10078,9 @@ function waitForAnyVirtualChassisDeleted() {
 
 // ---- Entity: virtual device context ----
 
-function getVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
-  var description = "Get virtual device context with id " + id;
+function listVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "List virtual device contexts";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -9435,7 +10090,7 @@ function getVirtualDeviceContext(comments, custom_fields, description, device, i
 
 function createVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
   var url = "/api/dcim/virtual-device-contexts/";
-  var description = "Create virtual device context";
+  var description = "Create virtual device context " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -9460,6 +10115,62 @@ function createVirtualDeviceContext(comments, custom_fields, description, device
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "Bulk update virtual device contexts";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "Bulk partial update virtual device contexts";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "Bulk delete virtual device contexts";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
+  var description = "Get virtual device context with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
@@ -9526,7 +10237,7 @@ function deleteVirtualDeviceContext(comments, custom_fields, description, device
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -9599,21 +10310,21 @@ function tryToDeleteANonExistingVirtualDeviceContext(comments, custom_fields, de
   var url = "/api/dcim/virtual-device-contexts/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualDeviceContext";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var expectedDesc = "Create virtual device context";
+  var expectedDesc = "Create virtual device context " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualDeviceContextAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ device\ context$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ device\ context$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ device\ context\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ device\ context\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9635,7 +10346,7 @@ function matchAnyVirtualDeviceContextAdded() {
 }
 
 function waitForVirtualDeviceContextAdded(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var expectedDesc = "Create virtual device context";
+  var expectedDesc = "Create virtual device context " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -9687,7 +10398,7 @@ function deleteBookmark(id, object_id, object_type, user) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -9804,7 +10515,7 @@ function tryToDeleteANonExistingBookmark(id, object_id, object_type, user) {
   var url = "/api/extras/bookmarks/" + id + "/";
   var description = "Verify we cannot delete non-existing Bookmark";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -9895,7 +10606,7 @@ function deleteConfigContextProfile(comments, data_source, description, id, name
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -10021,7 +10732,7 @@ function tryToDeleteANonExistingConfigContextProfile(comments, data_source, desc
   var url = "/api/extras/config-context-profiles/" + id + "/";
   var description = "Verify we cannot delete non-existing ConfigContextProfile";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -10126,7 +10837,7 @@ function deleteConfigContext(cluster_groups, cluster_types, clusters, data, data
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -10294,7 +11005,7 @@ function tryToDeleteANonExistingConfigContext(cluster_groups, cluster_types, clu
   var url = "/api/extras/config-contexts/" + id + "/";
   var description = "Verify we cannot delete non-existing ConfigContext";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -10355,7 +11066,7 @@ function waitForAnyConfigContextDeleted() {
 
 // ---- Entity: config template ----
 
-function createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var description = "Create config template " + name + " with id " + id;
   var body = {
@@ -10383,17 +11094,17 @@ function createConfigTemplate(as_attachment, data_source, description, environme
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Delete config template with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
-function updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Update config template with id " + id;
   var body = {
@@ -10421,7 +11132,7 @@ function updateConfigTemplate(as_attachment, data_source, description, environme
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function partialUpdateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Partially update config template with id " + id;
   var body = {
@@ -10449,7 +11160,7 @@ function partialUpdateConfigTemplate(as_attachment, data_source, description, en
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function getConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Get config template with id " + id;
   var body = undefined;
@@ -10459,7 +11170,7 @@ function getConfigTemplate(as_attachment, data_source, description, environment_
   });
 }
 
-function renderConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function renderConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/render/";
   var description = "Render config template with id " + id;
   var body = {
@@ -10469,6 +11180,7 @@ function renderConfigTemplate(as_attachment, data_source, description, environme
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10487,7 +11199,7 @@ function renderConfigTemplate(as_attachment, data_source, description, environme
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function syncConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function syncConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/sync/";
   var description = "Sync config template with id " + id;
   var body = {
@@ -10497,6 +11209,7 @@ function syncConfigTemplate(as_attachment, data_source, description, environment
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10515,7 +11228,7 @@ function syncConfigTemplate(as_attachment, data_source, description, environment
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var body = {
     "as_attachment": as_attachment,
@@ -10524,6 +11237,7 @@ function tryToAddExistingConfigTemplate(as_attachment, data_source, description,
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10539,7 +11253,7 @@ function tryToAddExistingConfigTemplate(as_attachment, data_source, description,
   });
 }
 
-function verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var description = "Verify ConfigTemplate with id " + id + " exists";
   svc.get(url, {
@@ -10559,7 +11273,7 @@ function verifyConfigTemplateExists(as_attachment, data_source, description, env
   });
 }
 
-function verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var description = "Verify ConfigTemplate with id " + id + " does not exist";
   svc.get(url, {
@@ -10579,16 +11293,16 @@ function verifyConfigTemplateDoesNotExist(as_attachment, data_source, descriptio
   });
 }
 
-function tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ConfigTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function matchAddedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var expectedDesc = "Create config template " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
@@ -10618,12 +11332,12 @@ function matchAnyConfigTemplateAdded() {
   });
 }
 
-function waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var expectedDesc = "Create config template " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function matchDeletedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var expectedDesc = "Delete config template with id " + id;
   return bp.EventSet("matchDeletedConfigTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -10646,7 +11360,7 @@ function waitForAnyConfigTemplateDeleted() {
 
 function createCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
   var url = "/api/extras/custom-field-choice-sets/";
-  var description = "Create custom field choice set " + name;
+  var description = "Create custom field choice set " + name + " with id " + id;
   var body = {
     "base_choices": String(base_choices),
     "description": String(description),
@@ -10679,7 +11393,7 @@ function getCustomFieldChoiceSet(base_choices, description, extra_choices, id, n
 
 function updateCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
   var url = "/api/extras/custom-field-choice-sets/" + id + "/";
-  var description = "Update custom field choice set with id " + id + " and name " + name;
+  var description = "Update custom field choice set with id " + id;
   var body = {
     "base_choices": String(base_choices),
     "description": String(description),
@@ -10729,7 +11443,7 @@ function deleteCustomFieldChoiceSet(base_choices, description, extra_choices, id
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -10796,21 +11510,21 @@ function tryToDeleteANonExistingCustomFieldChoiceSet(base_choices, description, 
   var url = "/api/extras/custom-field-choice-sets/" + id + "/";
   var description = "Verify we cannot delete non-existing CustomFieldChoiceSet";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
-  var expectedDesc = "Create custom field choice set " + name;
+  var expectedDesc = "Create custom field choice set " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomFieldChoiceSetAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ choice\ set\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ choice\ set\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ choice\ set\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ choice\ set\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -10832,7 +11546,7 @@ function matchAnyCustomFieldChoiceSetAdded() {
 }
 
 function waitForCustomFieldChoiceSetAdded(base_choices, description, extra_choices, id, name, order_alphabetically) {
-  var expectedDesc = "Create custom field choice set " + name;
+  var expectedDesc = "Create custom field choice set " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -10857,13 +11571,13 @@ function waitForAnyCustomFieldChoiceSetDeleted() {
 
 // ---- Entity: custom field ----
 
-function createCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function createCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/";
-  var description = "Create custom field " + name;
+  var description = "Create custom field " + name + " with id " + id;
   var body = {
     "choice_set": String(choice_set),
     "comments": String(comments),
-    "default": String(_default),
+    "default": String(default),
     "description": String(description),
     "filter_logic": String(filter_logic),
     "group_name": String(group_name),
@@ -10897,7 +11611,7 @@ function createCustomField(choice_set, comments, _default, description, filter_l
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function getCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
   var description = "Get custom field with id " + id;
   var body = undefined;
@@ -10907,13 +11621,13 @@ function getCustomField(choice_set, comments, _default, description, filter_logi
   });
 }
 
-function updateCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function updateCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
-  var description = "Update custom field with id " + id + " and name " + name;
+  var description = "Update custom field with id " + id;
   var body = {
     "choice_set": String(choice_set),
     "comments": String(comments),
-    "default": String(_default),
+    "default": String(default),
     "description": String(description),
     "filter_logic": String(filter_logic),
     "group_name": String(group_name),
@@ -10947,13 +11661,13 @@ function updateCustomField(choice_set, comments, _default, description, filter_l
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function partialUpdateCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
   var description = "Partial update custom field with id " + id;
   var body = {
     "choice_set": String(choice_set),
     "comments": String(comments),
-    "default": String(_default),
+    "default": String(default),
     "description": String(description),
     "filter_logic": String(filter_logic),
     "group_name": String(group_name),
@@ -10987,22 +11701,22 @@ function partialUpdateCustomField(choice_set, comments, _default, description, f
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function deleteCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
   var description = "Delete custom field with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function tryToAddExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/";
   var body = {
     "choice_set": String(choice_set),
     "comments": String(comments),
-    "default": String(_default),
+    "default": String(default),
     "description": String(description),
     "filter_logic": String(filter_logic),
     "group_name": String(group_name),
@@ -11033,7 +11747,7 @@ function tryToAddExistingCustomField(choice_set, comments, _default, description
   });
 }
 
-function verifyCustomFieldExists(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function verifyCustomFieldExists(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/";
   var description = "Verify CustomField with id " + id + " exists";
   svc.get(url, {
@@ -11053,7 +11767,7 @@ function verifyCustomFieldExists(choice_set, comments, _default, description, fi
   });
 }
 
-function verifyCustomFieldDoesNotExist(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function verifyCustomFieldDoesNotExist(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/";
   var description = "Verify CustomField with id " + id + " does not exist";
   svc.get(url, {
@@ -11073,25 +11787,25 @@ function verifyCustomFieldDoesNotExist(choice_set, comments, _default, descripti
   });
 }
 
-function tryToDeleteANonExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function tryToDeleteANonExistingCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
   var description = "Verify we cannot delete non-existing CustomField";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  var expectedDesc = "Create custom field " + name;
+function matchAddedCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+  var expectedDesc = "Create custom field " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomFieldAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -11112,12 +11826,12 @@ function matchAnyCustomFieldAdded() {
   });
 }
 
-function waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  var expectedDesc = "Create custom field " + name;
+function waitForCustomFieldAdded(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+  var expectedDesc = "Create custom field " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
+function matchDeletedCustomField(choice_set, comments, default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var expectedDesc = "Delete custom field with id " + id;
   return bp.EventSet("matchDeletedCustomField", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -11140,7 +11854,7 @@ function waitForAnyCustomFieldDeleted() {
 
 function createCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/";
-  var description = "Create custom link " + name;
+  var description = "Create custom link " + name + " with id " + id;
   var body = {
     "button_class": String(button_class),
     "enabled": enabled,
@@ -11177,7 +11891,7 @@ function getCustomLink(button_class, enabled, group_name, id, link_text, link_ur
 
 function updateCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/" + id + "/";
-  var description = "Update custom link with id " + id + " and name " + name;
+  var description = "Update custom link with id " + id;
   var body = {
     "button_class": String(button_class),
     "enabled": enabled,
@@ -11235,7 +11949,7 @@ function deleteCustomLink(button_class, enabled, group_name, id, link_text, link
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -11306,21 +12020,21 @@ function tryToDeleteANonExistingCustomLink(button_class, enabled, group_name, id
   var url = "/api/extras/custom-links/" + id + "/";
   var description = "Verify we cannot delete non-existing CustomLink";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
-  var expectedDesc = "Create custom link " + name;
+  var expectedDesc = "Create custom link " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomLinkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ link\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ link\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ link\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ link\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -11342,7 +12056,7 @@ function matchAnyCustomLinkAdded() {
 }
 
 function waitForCustomLinkAdded(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
-  var expectedDesc = "Create custom link " + name;
+  var expectedDesc = "Create custom link " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -11417,7 +12131,7 @@ function deleteDashboard() {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -11465,7 +12179,7 @@ function tryToDeleteANonExistingDashboard() {
   var url = "/api/extras/dashboard/";
   var description = "Verify we cannot delete non-existing Dashboard";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -11527,7 +12241,7 @@ function deleteEventRule(action_object_id, action_object_type, action_type, cond
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -11670,7 +12384,7 @@ function tryToDeleteANonExistingEventRule(action_object_id, action_object_type, 
   var url = "/api/extras/event-rules/" + id + "/";
   var description = "Verify we cannot delete non-existing EventRule";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -11765,7 +12479,7 @@ function deleteExportTemplate(as_attachment, data_source, description, environme
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -11833,34 +12547,6 @@ function getExportTemplate(as_attachment, data_source, description, environment_
     parameters: { description: description },
     expectedResponseCodes: [200]
   });
-}
-
-function syncExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
-  var url = "/api/extras/export-templates/" + id + "/sync/";
-  var description = "Sync export template with id " + id;
-  var body = {
-    "as_attachment": as_attachment,
-    "data_source": String(data_source),
-    "description": String(description),
-    "environment_params": String(environment_params),
-    "file_extension": String(file_extension),
-    "file_name": String(file_name),
-    "id": String(id),
-    "mime_type": String(mime_type),
-    "name": String(name),
-    "object_types": String(object_types),
-    "template_code": String(template_code),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function tryToAddExistingExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
@@ -11931,7 +12617,7 @@ function tryToDeleteANonExistingExportTemplate(as_attachment, data_source, descr
   var url = "/api/extras/export-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ExportTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -12022,7 +12708,7 @@ function deleteImageAttachment(description, id, image, name, object_id, object_t
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -12147,7 +12833,7 @@ function tryToDeleteANonExistingImageAttachment(description, id, image, name, ob
   var url = "/api/extras/image-attachments/" + id + "/";
   var description = "Verify we cannot delete non-existing ImageAttachment";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -12239,7 +12925,7 @@ function deleteJournalEntry(assigned_object_id, assigned_object_type, comments, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -12368,7 +13054,7 @@ function tryToDeleteANonExistingJournalEntry(assigned_object_id, assigned_object
   var url = "/api/extras/journal-entries/" + id + "/";
   var description = "Verify we cannot delete non-existing JournalEntry";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -12457,7 +13143,7 @@ function deleteNotificationGroup(description, groups, id, name, users) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -12577,7 +13263,7 @@ function tryToDeleteANonExistingNotificationGroup(description, groups, id, name,
   var url = "/api/extras/notification-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing NotificationGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -12650,7 +13336,7 @@ function listNotifications(event_type, id, object_id, object_type, read, user) {
 
 function createNotification(event_type, id, object_id, object_type, read, user) {
   var url = "/api/extras/notifications/";
-  var description = "Create notification";
+  var description = "Create notification {name} with id " + id;
   var body = {
     "event_type": String(event_type),
     "id": String(id),
@@ -12713,7 +13399,7 @@ function bulkDeleteNotifications(event_type, id, object_id, object_type, read, u
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -12779,7 +13465,7 @@ function deleteNotification(event_type, id, object_id, object_type, read, user) 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -12846,21 +13532,21 @@ function tryToDeleteANonExistingNotification(event_type, id, object_id, object_t
   var url = "/api/extras/notifications/" + id + "/";
   var description = "Verify we cannot delete non-existing Notification";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedNotification(event_type, id, object_id, object_type, read, user) {
-  var expectedDesc = "Create notification";
+  var expectedDesc = "Create notification {name} with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyNotificationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ notification$/));
-  var m = ev.data.parameters.description.match(/^Create\ notification$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ notification\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ notification\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -12882,7 +13568,7 @@ function matchAnyNotificationAdded() {
 }
 
 function waitForNotificationAdded(event_type, id, object_id, object_type, read, user) {
-  var expectedDesc = "Create notification";
+  var expectedDesc = "Create notification {name} with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -12908,7 +13594,7 @@ function waitForAnyNotificationDeleted() {
 // ---- Entity: object type ----
 
 function listObjectTypes(id) {
-  var url = "/api/extras/object-types/";
+  var url = "/api/core/object-types/";
   var description = "List object types";
   var body = undefined;
   svc.get(url, {
@@ -12981,7 +13667,7 @@ function listSavedFilters(description, enabled, id, name, object_types, paramete
 
 function createSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/";
-  var description = "Create saved filter";
+  var description = "Create saved filter " + name + " with id " + id;
   var body = {
     "description": String(description),
     "enabled": enabled,
@@ -13048,7 +13734,7 @@ function bulkDeleteSavedFilters(description, enabled, id, name, object_types, pa
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -13122,7 +13808,7 @@ function deleteSavedFilter(description, enabled, id, name, object_types, paramet
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -13193,21 +13879,21 @@ function tryToDeleteANonExistingSavedFilter(description, enabled, id, name, obje
   var url = "/api/extras/saved-filters/" + id + "/";
   var description = "Verify we cannot delete non-existing SavedFilter";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
-  var expectedDesc = "Create saved filter";
+  var expectedDesc = "Create saved filter " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnySavedFilterAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ saved\ filter$/));
-  var m = ev.data.parameters.description.match(/^Create\ saved\ filter$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ saved\ filter\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ saved\ filter\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -13229,7 +13915,7 @@ function matchAnySavedFilterAdded() {
 }
 
 function waitForSavedFilterAdded(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
-  var expectedDesc = "Create saved filter";
+  var expectedDesc = "Create saved filter " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -13339,7 +14025,7 @@ function deleteScript(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -13401,7 +14087,7 @@ function tryToDeleteANonExistingScript(id) {
   var url = "/api/extras/scripts/" + id + "/";
   var description = "Verify we cannot delete non-existing Script";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -13535,7 +14221,7 @@ function bulkDeleteSubscriptions(id, object_id, object_type, user) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -13570,9 +14256,9 @@ function updateSubscription(id, object_id, object_type, user) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchSubscription(id, object_id, object_type, user) {
+function partialUpdateSubscription(id, object_id, object_type, user) {
   var url = "/api/extras/subscriptions/" + id + "/";
-  var description = "Patch subscription with id " + id;
+  var description = "Partially update subscription with id " + id;
   var body = {
     "id": String(id),
     "object_id": Number(object_id),
@@ -13597,7 +14283,7 @@ function deleteSubscription(id, object_id, object_type, user) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -13662,7 +14348,7 @@ function tryToDeleteANonExistingSubscription(id, object_id, object_type, user) {
   var url = "/api/extras/subscriptions/" + id + "/";
   var description = "Verify we cannot delete non-existing Subscription";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -13723,19 +14409,9 @@ function waitForAnySubscriptionDeleted() {
 
 // ---- Entity: table config ----
 
-function getTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
-  var url = "/api/extras/table-configs/" + id + "/";
-  var description = "Get table config with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
   var url = "/api/extras/table-configs/";
-  var description = "Create table config with name " + name;
+  var description = "Create table config " + name;
   var body = {
     "columns": String(columns),
     "description": String(description),
@@ -13759,6 +14435,16 @@ function createTableConfig(columns, description, enabled, id, name, object_type,
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
+  var url = "/api/extras/table-configs/" + id + "/";
+  var description = "Get table config with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
@@ -13789,9 +14475,9 @@ function updateTableConfig(columns, description, enabled, id, name, object_type,
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
+function partialUpdateTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
   var url = "/api/extras/table-configs/" + id + "/";
-  var description = "Patch table config with id " + id;
+  var description = "Partially update table config with id " + id;
   var body = {
     "columns": String(columns),
     "description": String(description),
@@ -13823,7 +14509,7 @@ function deleteTableConfig(columns, description, enabled, id, name, object_type,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -13895,19 +14581,19 @@ function tryToDeleteANonExistingTableConfig(columns, description, enabled, id, n
   var url = "/api/extras/table-configs/" + id + "/";
   var description = "Verify we cannot delete non-existing TableConfig";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
-  var expectedDesc = "Create table config with name " + name;
+  var expectedDesc = "Create table config " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyTableConfigAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ table\ config\ with\ name\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ table\ config\ with\ name\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ table\ config\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ table\ config\ (.+)$/);
   var captures = m.slice(1);
   var names = ["name"];
   var obj = {};
@@ -13931,7 +14617,7 @@ function matchAnyTableConfigAdded() {
 }
 
 function waitForTableConfigAdded(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
-  var expectedDesc = "Create table config with name " + name;
+  var expectedDesc = "Create table config " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -14008,19 +14694,9 @@ function verifyTaggedObjectDoesNotExist(id) {
 
 // ---- Entity: tag ----
 
-function getTag(color, description, id, name, object_types, slug, weight) {
-  var url = "/api/extras/tags/" + id + "/";
-  var description = "Get tag with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/";
-  var description = "Create tag with name " + name + " and slug " + slug;
+  var description = "Create tag " + name + " with slug " + slug;
   var body = {
     "color": String(color),
     "description": String(description),
@@ -14040,6 +14716,16 @@ function createTag(color, description, id, name, object_types, slug, weight) {
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getTag(color, description, id, name, object_types, slug, weight) {
+  var url = "/api/extras/tags/" + id + "/";
+  var description = "Get tag with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateTag(color, description, id, name, object_types, slug, weight) {
@@ -14066,9 +14752,9 @@ function updateTag(color, description, id, name, object_types, slug, weight) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchTag(color, description, id, name, object_types, slug, weight) {
+function partialUpdateTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/" + id + "/";
-  var description = "Patch tag with id " + id;
+  var description = "Partially update tag with id " + id;
   var body = {
     "color": String(color),
     "description": String(description),
@@ -14096,7 +14782,7 @@ function deleteTag(color, description, id, name, object_types, slug, weight) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -14164,19 +14850,19 @@ function tryToDeleteANonExistingTag(color, description, id, name, object_types, 
   var url = "/api/extras/tags/" + id + "/";
   var description = "Verify we cannot delete non-existing Tag";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedTag(color, description, id, name, object_types, slug, weight) {
-  var expectedDesc = "Create tag with name " + name + " and slug " + slug;
+  var expectedDesc = "Create tag " + name + " with slug " + slug;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyTagAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ tag\ with\ name\ (.+)\ and\ slug\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ tag\ with\ name\ (.+)\ and\ slug\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ tag\ (.+)\ with\ slug\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ tag\ (.+)\ with\ slug\ (.+)$/);
   var captures = m.slice(1);
   var names = ["name", "slug"];
   var obj = {};
@@ -14200,7 +14886,7 @@ function matchAnyTagAdded() {
 }
 
 function waitForTagAdded(color, description, id, name, object_types, slug, weight) {
-  var expectedDesc = "Create tag with name " + name + " and slug " + slug;
+  var expectedDesc = "Create tag " + name + " with slug " + slug;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -14225,19 +14911,9 @@ function waitForAnyTagDeleted() {
 
 // ---- Entity: webhook ----
 
-function getWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
-  var url = "/api/extras/webhooks/" + id + "/";
-  var description = "Get webhook with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
   var url = "/api/extras/webhooks/";
-  var description = "Create webhook with name " + name;
+  var description = "Create webhook " + name;
   var body = {
     "additional_headers": String(additional_headers),
     "body_template": String(body_template),
@@ -14263,6 +14939,16 @@ function createWebhook(additional_headers, body_template, ca_file_path, custom_f
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
+  var url = "/api/extras/webhooks/" + id + "/";
+  var description = "Get webhook with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
@@ -14295,9 +14981,9 @@ function updateWebhook(additional_headers, body_template, ca_file_path, custom_f
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
+function partialUpdateWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
   var url = "/api/extras/webhooks/" + id + "/";
-  var description = "Patch webhook with id " + id;
+  var description = "Partially update webhook with id " + id;
   var body = {
     "additional_headers": String(additional_headers),
     "body_template": String(body_template),
@@ -14331,7 +15017,7 @@ function deleteWebhook(additional_headers, body_template, ca_file_path, custom_f
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -14405,19 +15091,19 @@ function tryToDeleteANonExistingWebhook(additional_headers, body_template, ca_fi
   var url = "/api/extras/webhooks/" + id + "/";
   var description = "Verify we cannot delete non-existing Webhook";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
-  var expectedDesc = "Create webhook with name " + name;
+  var expectedDesc = "Create webhook " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyWebhookAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ webhook\ with\ name\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ webhook\ with\ name\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ webhook\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ webhook\ (.+)$/);
   var captures = m.slice(1);
   var names = ["name"];
   var obj = {};
@@ -14441,7 +15127,7 @@ function matchAnyWebhookAdded() {
 }
 
 function waitForWebhookAdded(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
-  var expectedDesc = "Create webhook with name " + name;
+  var expectedDesc = "Create webhook " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -14497,7 +15183,7 @@ function deleteAggregate(comments, custom_fields, date_added, description, id, p
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -14602,7 +15288,7 @@ function tryToDeleteANonExistingAggregate(comments, custom_fields, date_added, d
   var url = "/api/ipam/aggregates/" + id + "/";
   var description = "Verify we cannot delete non-existing Aggregate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -14696,7 +15382,7 @@ function deleteASNRange(custom_fields, description, end, id, name, rir, slug, st
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -14804,7 +15490,7 @@ function tryToDeleteANonExistingASNRange(custom_fields, description, end, id, na
   var url = "/api/ipam/asn-ranges/" + id + "/";
   var description = "Verify we cannot delete non-existing ASNRange";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -14895,7 +15581,7 @@ function deleteASN(asn, comments, custom_fields, description, id, rir, tags, ten
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -14998,7 +15684,7 @@ function tryToDeleteANonExistingASN(asn, comments, custom_fields, description, i
   var url = "/api/ipam/asns/" + id + "/";
   var description = "Verify we cannot delete non-existing ASN";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -15087,7 +15773,7 @@ function deleteFHRPGroupAssignment(group, id, interface_id, interface_type, prio
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -15185,7 +15871,7 @@ function tryToDeleteANonExistingFHRPGroupAssignment(group, id, interface_id, int
   var url = "/api/ipam/fhrp-group-assignments/" + id + "/";
   var description = "Verify we cannot delete non-existing FHRPGroupAssignment";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -15248,7 +15934,7 @@ function waitForAnyFHRPGroupAssignmentDeleted() {
 
 function createFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
   var url = "/api/ipam/fhrp-groups/";
-  var description = "Create fhrp group";
+  var description = "Create FHRP group with id " + id;
   var body = {
     "auth_key": String(auth_key),
     "auth_type": String(auth_type),
@@ -15280,7 +15966,7 @@ function deleteFHRPGroup(auth_key, auth_type, comments, custom_fields, descripti
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -15322,9 +16008,9 @@ function getFHRPGroup(auth_key, auth_type, comments, custom_fields, description,
   });
 }
 
-function partialUpdateFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
+function patchFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
   var url = "/api/ipam/fhrp-groups/" + id + "/";
-  var description = "Partially update fhrp group with id " + id;
+  var description = "Patch fhrp group with id " + id;
   var body = {
     "auth_key": String(auth_key),
     "auth_type": String(auth_type),
@@ -15417,21 +16103,21 @@ function tryToDeleteANonExistingFHRPGroup(auth_key, auth_type, comments, custom_
   var url = "/api/ipam/fhrp-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing FHRPGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
-  var expectedDesc = "Create fhrp group";
+  var expectedDesc = "Create FHRP group with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFHRPGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ fhrp\ group$/));
-  var m = ev.data.parameters.description.match(/^Create\ fhrp\ group$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ FHRP\ group\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ FHRP\ group\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -15453,7 +16139,7 @@ function matchAnyFHRPGroupAdded() {
 }
 
 function waitForFHRPGroupAdded(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
-  var expectedDesc = "Create fhrp group";
+  var expectedDesc = "Create FHRP group with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -15477,16 +16163,6 @@ function waitForAnyFHRPGroupDeleted() {
 }
 
 // ---- Entity: ip address ----
-
-function getIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
-  var url = "/api/ipam/ip-addresses/" + id + "/";
-  var description = "Get ip address with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
 
 function createIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-addresses/";
@@ -15517,6 +16193,16 @@ function createIPAddress(address, assigned_object_id, assigned_object_type, comm
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
+  var url = "/api/ipam/ip-addresses/" + id + "/";
+  var description = "Get ip address with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
@@ -15550,9 +16236,9 @@ function updateIPAddress(address, assigned_object_id, assigned_object_type, comm
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
+function patchIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-addresses/" + id + "/";
-  var description = "Partially update ip address with id " + id;
+  var description = "Patch ip address with id " + id;
   var body = {
     "address": address,
     "assigned_object_id": Number(assigned_object_id),
@@ -15587,7 +16273,7 @@ function deleteIPAddress(address, assigned_object_id, assigned_object_type, comm
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -15662,7 +16348,7 @@ function tryToDeleteANonExistingIPAddress(address, assigned_object_id, assigned_
   var url = "/api/ipam/ip-addresses/" + id + "/";
   var description = "Verify we cannot delete non-existing IPAddress";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -15723,16 +16409,6 @@ function waitForAnyIPAddressDeleted() {
 
 // ---- Entity: ip range ----
 
-function getIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
-  var url = "/api/ipam/ip-ranges/" + id + "/";
-  var description = "Get ip range with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/";
   var description = "Create ip range";
@@ -15760,6 +16436,16 @@ function createIPRange(comments, custom_fields, description, end_address, id, ma
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
+  var url = "/api/ipam/ip-ranges/" + id + "/";
+  var description = "Get ip range with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updateIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
@@ -15791,9 +16477,9 @@ function updateIPRange(comments, custom_fields, description, end_address, id, ma
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
+function patchIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/" + id + "/";
-  var description = "Partially update ip range with id " + id;
+  var description = "Patch ip range with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -15826,7 +16512,7 @@ function deleteIPRange(comments, custom_fields, description, end_address, id, ma
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -15900,7 +16586,7 @@ function tryToDeleteANonExistingIPRange(comments, custom_fields, description, en
   var url = "/api/ipam/ip-ranges/" + id + "/";
   var description = "Verify we cannot delete non-existing IPRange";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -15961,16 +16647,6 @@ function waitForAnyIPRangeDeleted() {
 
 // ---- Entity: prefix ----
 
-function getPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
-  var url = "/api/ipam/prefixes/" + id + "/";
-  var description = "Get prefix with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/";
   var description = "Create prefix";
@@ -16001,6 +16677,16 @@ function createPrefix(comments, custom_fields, description, id, is_pool, mark_ut
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
+  var url = "/api/ipam/prefixes/" + id + "/";
+  var description = "Get prefix with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
 }
 
 function updatePrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
@@ -16035,9 +16721,9 @@ function updatePrefix(comments, custom_fields, description, id, is_pool, mark_ut
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdatePrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
+function patchPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/" + id + "/";
-  var description = "Partially update prefix with id " + id;
+  var description = "Patch prefix with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16073,7 +16759,7 @@ function deletePrefix(comments, custom_fields, description, id, is_pool, mark_ut
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -16149,7 +16835,7 @@ function tryToDeleteANonExistingPrefix(comments, custom_fields, description, id,
   var url = "/api/ipam/prefixes/" + id + "/";
   var description = "Verify we cannot delete non-existing Prefix";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -16212,7 +16898,7 @@ function waitForAnyPrefixDeleted() {
 
 function createRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/";
-  var description = "Create RIR " + name + " with id " + id;
+  var description = "Create RIR with id " + id + " and name " + name;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -16246,7 +16932,7 @@ function getRIR(custom_fields, description, id, is_private, name, slug, tags) {
 
 function updateRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/" + id + "/";
-  var description = "Update RIR " + id;
+  var description = "Update RIR with id " + id + " and name " + name;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -16270,7 +16956,7 @@ function updateRIR(custom_fields, description, id, is_private, name, slug, tags)
 
 function partialUpdateRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/" + id + "/";
-  var description = "Partially update RIR " + id;
+  var description = "Partially update RIR with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -16294,11 +16980,11 @@ function partialUpdateRIR(custom_fields, description, id, is_private, name, slug
 
 function deleteRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/" + id + "/";
-  var description = "Delete RIR " + id;
+  var description = "Delete RIR with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -16366,21 +17052,21 @@ function tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, 
   var url = "/api/ipam/rirs/" + id + "/";
   var description = "Verify we cannot delete non-existing RIR";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var expectedDesc = "Create RIR " + name + " with id " + id;
+  var expectedDesc = "Create RIR with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRIRAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ RIR\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ RIR\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ RIR\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ RIR\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -16402,20 +17088,20 @@ function matchAnyRIRAdded() {
 }
 
 function waitForRIRAdded(custom_fields, description, id, is_private, name, slug, tags) {
-  var expectedDesc = "Create RIR " + name + " with id " + id;
+  var expectedDesc = "Create RIR with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var expectedDesc = "Delete RIR " + id;
+  var expectedDesc = "Delete RIR with id " + id;
   return bp.EventSet("matchDeletedRIR", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRIRDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ RIR\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ RIR\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ RIR\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ RIR\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -16429,7 +17115,7 @@ function waitForAnyRIRDeleted() {
 
 function createRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/";
-  var description = "Create role " + name + " with id " + id;
+  var description = "Create role with id " + id + " and name " + name;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -16463,7 +17149,7 @@ function getRole(custom_fields, description, id, name, slug, tags, weight) {
 
 function updateRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/" + id + "/";
-  var description = "Update role " + id;
+  var description = "Update role with id " + id + " and name " + name;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -16487,7 +17173,7 @@ function updateRole(custom_fields, description, id, name, slug, tags, weight) {
 
 function partialUpdateRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/" + id + "/";
-  var description = "Partially update role " + id;
+  var description = "Partially update role with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -16511,11 +17197,11 @@ function partialUpdateRole(custom_fields, description, id, name, slug, tags, wei
 
 function deleteRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/" + id + "/";
-  var description = "Delete role " + id;
+  var description = "Delete role with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -16583,21 +17269,21 @@ function tryToDeleteANonExistingRole(custom_fields, description, id, name, slug,
   var url = "/api/ipam/roles/" + id + "/";
   var description = "Verify we cannot delete non-existing Role";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedRole(custom_fields, description, id, name, slug, tags, weight) {
-  var expectedDesc = "Create role " + name + " with id " + id;
+  var expectedDesc = "Create role with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ role\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ role\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -16619,20 +17305,20 @@ function matchAnyRoleAdded() {
 }
 
 function waitForRoleAdded(custom_fields, description, id, name, slug, tags, weight) {
-  var expectedDesc = "Create role " + name + " with id " + id;
+  var expectedDesc = "Create role with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRole(custom_fields, description, id, name, slug, tags, weight) {
-  var expectedDesc = "Delete role " + id;
+  var expectedDesc = "Delete role with id " + id;
   return bp.EventSet("matchDeletedRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -16646,7 +17332,7 @@ function waitForAnyRoleDeleted() {
 
 function createRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/";
-  var description = "Create route target " + name + " with id " + id;
+  var description = "Create route target with id " + id + " and name " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16680,7 +17366,7 @@ function getRouteTarget(comments, custom_fields, description, id, name, tags, te
 
 function updateRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/" + id + "/";
-  var description = "Update route target " + id;
+  var description = "Update route target with id " + id + " and name " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16704,7 +17390,7 @@ function updateRouteTarget(comments, custom_fields, description, id, name, tags,
 
 function partialUpdateRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/" + id + "/";
-  var description = "Partially update route target " + id;
+  var description = "Partially update route target with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16728,11 +17414,11 @@ function partialUpdateRouteTarget(comments, custom_fields, description, id, name
 
 function deleteRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/" + id + "/";
-  var description = "Delete route target " + id;
+  var description = "Delete route target with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -16800,21 +17486,21 @@ function tryToDeleteANonExistingRouteTarget(comments, custom_fields, description
   var url = "/api/ipam/route-targets/" + id + "/";
   var description = "Verify we cannot delete non-existing RouteTarget";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var expectedDesc = "Create route target " + name + " with id " + id;
+  var expectedDesc = "Create route target with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRouteTargetAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ route\ target\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ route\ target\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ route\ target\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ route\ target\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -16836,20 +17522,20 @@ function matchAnyRouteTargetAdded() {
 }
 
 function waitForRouteTargetAdded(comments, custom_fields, description, id, name, tags, tenant) {
-  var expectedDesc = "Create route target " + name + " with id " + id;
+  var expectedDesc = "Create route target with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var expectedDesc = "Delete route target " + id;
+  var expectedDesc = "Delete route target with id " + id;
   return bp.EventSet("matchDeletedRouteTarget", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRouteTargetDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ route\ target\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ route\ target\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ route\ target\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ route\ target\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -16863,7 +17549,7 @@ function waitForAnyRouteTargetDeleted() {
 
 function createServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/";
-  var description = "Create service template " + name + " with id " + id;
+  var description = "Create service template with id " + id + " and name " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16898,7 +17584,7 @@ function getServiceTemplate(comments, custom_fields, description, id, name, port
 
 function updateServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/" + id + "/";
-  var description = "Update service template " + id;
+  var description = "Update service template with id " + id + " and name " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16923,7 +17609,7 @@ function updateServiceTemplate(comments, custom_fields, description, id, name, p
 
 function partialUpdateServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/" + id + "/";
-  var description = "Partially update service template " + id;
+  var description = "Partially update service template with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16948,11 +17634,11 @@ function partialUpdateServiceTemplate(comments, custom_fields, description, id, 
 
 function deleteServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/" + id + "/";
-  var description = "Delete service template " + id;
+  var description = "Delete service template with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -17021,21 +17707,21 @@ function tryToDeleteANonExistingServiceTemplate(comments, custom_fields, descrip
   var url = "/api/ipam/service-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ServiceTemplate";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var expectedDesc = "Create service template " + name + " with id " + id;
+  var expectedDesc = "Create service template with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyServiceTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ template\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ service\ template\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ template\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ service\ template\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -17057,20 +17743,20 @@ function matchAnyServiceTemplateAdded() {
 }
 
 function waitForServiceTemplateAdded(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var expectedDesc = "Create service template " + name + " with id " + id;
+  var expectedDesc = "Create service template with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var expectedDesc = "Delete service template " + id;
+  var expectedDesc = "Delete service template with id " + id;
   return bp.EventSet("matchDeletedServiceTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyServiceTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ service\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ service\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -17084,7 +17770,7 @@ function waitForAnyServiceTemplateDeleted() {
 
 function createService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/";
-  var description = "Create service " + name + " with id " + id;
+  var description = "Create service with id " + id + " and name " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -17123,7 +17809,7 @@ function getService(comments, custom_fields, description, id, ipaddresses, name,
 
 function updateService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/" + id + "/";
-  var description = "Update service " + id;
+  var description = "Update service with id " + id + " and name " + name;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -17152,7 +17838,7 @@ function updateService(comments, custom_fields, description, id, ipaddresses, na
 
 function partialUpdateService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/" + id + "/";
-  var description = "Partially update service " + id;
+  var description = "Partially update service with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -17181,11 +17867,11 @@ function partialUpdateService(comments, custom_fields, description, id, ipaddres
 
 function deleteService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/" + id + "/";
-  var description = "Delete service " + id;
+  var description = "Delete service with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -17257,21 +17943,21 @@ function tryToDeleteANonExistingService(comments, custom_fields, description, id
   var url = "/api/ipam/services/" + id + "/";
   var description = "Verify we cannot delete non-existing Service";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var expectedDesc = "Create service " + name + " with id " + id;
+  var expectedDesc = "Create service with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyServiceAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ service\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ service\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -17293,20 +17979,20 @@ function matchAnyServiceAdded() {
 }
 
 function waitForServiceAdded(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var expectedDesc = "Create service " + name + " with id " + id;
+  var expectedDesc = "Create service with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var expectedDesc = "Delete service " + id;
+  var expectedDesc = "Delete service with id " + id;
   return bp.EventSet("matchDeletedService", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyServiceDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ service\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ service\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -17352,7 +18038,7 @@ function deleteVLANGroup(custom_fields, description, id, name, scope_id, scope_t
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -17461,7 +18147,7 @@ function tryToDeleteANonExistingVLANGroup(custom_fields, description, id, name, 
   var url = "/api/ipam/vlan-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing VLANGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -17520,124 +18206,6 @@ function waitForAnyVLANGroupDeleted() {
   return obj;
 }
 
-// ---- Entity: vlan group available vlan ----
-
-function createVLANGroupAvailableVlan(id) {
-  var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Create available vlan for vlan group with id " + id;
-  var body = {
-    "id": String(id),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201],
-    parameters: {
-      description: description,
-      id: String(id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function getVLANGroupAvailableVlans(id) {
-  var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Get available vlans for vlan group with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function tryToAddExistingVLANGroupAvailableVlan(id) {
-  var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var body = {
-    "id": String(id),
-  };
-  var description = "Verify that we cannot add another VLANGroupAvailableVlan...";
-  if (body === undefined) { body = {}; }
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [400, 409],
-    parameters: { description: description }
-  });
-}
-
-function verifyVLANGroupAvailableVlanExists(id) {
-  var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Verify VLANGroupAvailableVlan with id " + id + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.success("VLANGroupAvailableVlan exists");
-          }
-        }
-      }
-      return pvg.fail("Expected VLANGroupAvailableVlan to exist but it does not");
-    }
-  });
-}
-
-function verifyVLANGroupAvailableVlanDoesNotExist(id) {
-  var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Verify VLANGroupAvailableVlan with id " + id + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected VLANGroupAvailableVlan to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("VLANGroupAvailableVlan does not exist");
-    }
-  });
-}
-
-function matchAddedVLANGroupAvailableVlan(id) {
-  var expectedDesc = "Create available vlan for vlan group with id " + id;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyVLANGroupAvailableVlanAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ available\ vlan\ for\ vlan\ group\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ available\ vlan\ for\ vlan\ group\ with\ id\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getVLANGroupAvailableVlanAddedEvent(keyVal) {
-  return bp.EventSet("AddVLANGroupAvailableVlan:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyVLANGroupAvailableVlanAdded() {
-  return bp.EventSet("matchAnyVLANGroupAvailableVlanAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create vlan group available vlan") > -1;
-  });
-}
-
-function waitForVLANGroupAvailableVlanAdded(id) {
-  var expectedDesc = "Create available vlan for vlan group with id " + id;
-  waitFor(matchSuccess(expectedDesc));
-}
-
 // ---- Entity: vlan translation policy ----
 
 function createVLANTranslationPolicy(description, id, name) {
@@ -17666,7 +18234,7 @@ function deleteVLANTranslationPolicy(description, id, name) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -17760,7 +18328,7 @@ function tryToDeleteANonExistingVLANTranslationPolicy(description, id, name) {
   var url = "/api/ipam/vlan-translation-policies/" + id + "/";
   var description = "Verify we cannot delete non-existing VLANTranslationPolicy";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -17848,7 +18416,7 @@ function deleteVLANTranslationRule(description, id, local_vid, policy, remote_vi
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -17945,7 +18513,7 @@ function tryToDeleteANonExistingVLANTranslationRule(description, id, local_vid, 
   var url = "/api/ipam/vlan-translation-rules/" + id + "/";
   var description = "Verify we cannot delete non-existing VLANTranslationRule";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -18043,7 +18611,7 @@ function deleteVLAN(comments, custom_fields, description, group, id, name, qinq_
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -18159,7 +18727,7 @@ function tryToDeleteANonExistingVLAN(comments, custom_fields, description, group
   var url = "/api/ipam/vlans/" + id + "/";
   var description = "Verify we cannot delete non-existing VLAN";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -18250,17 +18818,17 @@ function createVRF(comments, custom_fields, description, enforce_unique, export_
 
 function deleteVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Delete VRF with id " + id;
+  var description = "Delete vrf with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Update VRF with id " + id;
+  var description = "Update vrf with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -18288,7 +18856,7 @@ function updateVRF(comments, custom_fields, description, enforce_unique, export_
 
 function getVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Retrieve VRF with id " + id;
+  var description = "Retrieve vrf with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -18298,7 +18866,7 @@ function getVRF(comments, custom_fields, description, enforce_unique, export_tar
 
 function patchVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Partially update VRF with id " + id;
+  var description = "Partially update vrf with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -18392,7 +18960,7 @@ function tryToDeleteANonExistingVRF(comments, custom_fields, description, enforc
   var url = "/api/ipam/vrfs/" + id + "/";
   var description = "Verify we cannot delete non-existing VRF";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -18433,15 +19001,15 @@ function waitForVRFAdded(comments, custom_fields, description, enforce_unique, e
 }
 
 function matchDeletedVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
-  var expectedDesc = "Delete VRF with id " + id;
+  var expectedDesc = "Delete vrf with id " + id;
   return bp.EventSet("matchDeletedVRF", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyVRFDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ VRF\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ VRF\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ vrf\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ vrf\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -18482,7 +19050,7 @@ function deleteCircuitGroupAssignment(group, id, member_id, member_type, priorit
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -18582,7 +19150,7 @@ function tryToDeleteANonExistingCircuitGroupAssignment(group, id, member_id, mem
   var url = "/api/circuits/circuit-group-assignments/" + id + "/";
   var description = "Verify we cannot delete non-existing CircuitGroupAssignment";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -18673,7 +19241,7 @@ function deleteCircuitGroup(custom_fields, description, id, name, slug, tags, te
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -18775,7 +19343,7 @@ function tryToDeleteANonExistingCircuitGroup(custom_fields, description, id, nam
   var url = "/api/circuits/circuit-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing CircuitGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -18873,7 +19441,7 @@ function deleteCircuitTermination(circuit, custom_fields, description, id, mark_
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -18988,7 +19556,7 @@ function tryToDeleteANonExistingCircuitTermination(circuit, custom_fields, descr
   var url = "/api/circuits/circuit-terminations/" + id + "/";
   var description = "Verify we cannot delete non-existing CircuitTermination";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -19079,7 +19647,7 @@ function deleteCircuitType(color, custom_fields, description, id, name, slug, ta
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -19181,7 +19749,7 @@ function tryToDeleteANonExistingCircuitType(color, custom_fields, description, i
   var url = "/api/circuits/circuit-types/" + id + "/";
   var description = "Verify we cannot delete non-existing CircuitType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -19281,7 +19849,7 @@ function deleteCircuit(assignments, cid, comments, commit_rate, custom_fields, d
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -19435,7 +20003,7 @@ function tryToDeleteANonExistingCircuit(assignments, cid, comments, commit_rate,
   var url = "/api/circuits/circuits/" + id + "/";
   var description = "Verify we cannot delete non-existing Circuit";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -19496,6 +20064,16 @@ function waitForAnyCircuitDeleted() {
 
 // ---- Entity: provider account ----
 
+function listProviderAccounts(account, comments, custom_fields, description, id, name, provider, tags) {
+  var url = "/api/circuits/provider-accounts/";
+  var description = "List provider accounts";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
   var url = "/api/circuits/provider-accounts/";
   var description = "Create provider account";
@@ -19519,6 +20097,52 @@ function createProviderAccount(account, comments, custom_fields, description, id
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateProviderAccounts(account, comments, custom_fields, description, id, name, provider, tags) {
+  var url = "/api/circuits/provider-accounts/";
+  var description = "Bulk update provider accounts";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPatchProviderAccounts(account, comments, custom_fields, description, id, name, provider, tags) {
+  var url = "/api/circuits/provider-accounts/";
+  var description = "Bulk patch provider accounts";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteProviderAccounts(account, comments, custom_fields, description, id, name, provider, tags) {
+  var url = "/api/circuits/provider-accounts/";
+  var description = "Bulk delete provider accounts";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
 function getProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
@@ -19587,7 +20211,7 @@ function deleteProviderAccount(account, comments, custom_fields, description, id
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -19656,7 +20280,7 @@ function tryToDeleteANonExistingProviderAccount(account, comments, custom_fields
   var url = "/api/circuits/provider-accounts/" + id + "/";
   var description = "Verify we cannot delete non-existing ProviderAccount";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -19717,6 +20341,16 @@ function waitForAnyProviderAccountDeleted() {
 
 // ---- Entity: provider network ----
 
+function listProviderNetworks(comments, custom_fields, description, id, name, provider, service_id, tags) {
+  var url = "/api/circuits/provider-networks/";
+  var description = "List provider networks";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
   var url = "/api/circuits/provider-networks/";
   var description = "Create provider network";
@@ -19741,6 +20375,54 @@ function createProviderNetwork(comments, custom_fields, description, id, name, p
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateProviderNetworks(comments, custom_fields, description, id, name, provider, service_id, tags) {
+  var url = "/api/circuits/provider-networks/";
+  var description = "Bulk update provider networks";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+      , service_id: String(service_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPatchProviderNetworks(comments, custom_fields, description, id, name, provider, service_id, tags) {
+  var url = "/api/circuits/provider-networks/";
+  var description = "Bulk patch provider networks";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+      , service_id: String(service_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteProviderNetworks(comments, custom_fields, description, id, name, provider, service_id, tags) {
+  var url = "/api/circuits/provider-networks/";
+  var description = "Bulk delete provider networks";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
 function getProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
@@ -19811,7 +20493,7 @@ function deleteProviderNetwork(comments, custom_fields, description, id, name, p
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -19880,7 +20562,7 @@ function tryToDeleteANonExistingProviderNetwork(comments, custom_fields, descrip
   var url = "/api/circuits/provider-networks/" + id + "/";
   var description = "Verify we cannot delete non-existing ProviderNetwork";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -19941,6 +20623,16 @@ function waitForAnyProviderNetworkDeleted() {
 
 // ---- Entity: provider ----
 
+function listProviders(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/circuits/providers/";
+  var description = "List providers";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/providers/";
   var description = "Create provider";
@@ -19965,6 +20657,52 @@ function createProvider(accounts, asns, comments, custom_fields, description, id
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateProviders(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/circuits/providers/";
+  var description = "Bulk update providers";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPatchProviders(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/circuits/providers/";
+  var description = "Bulk patch providers";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteProviders(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/circuits/providers/";
+  var description = "Bulk delete providers";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
 }
 
 function getProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
@@ -20035,7 +20773,7 @@ function deleteProvider(accounts, asns, comments, custom_fields, description, id
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -20105,7 +20843,7 @@ function tryToDeleteANonExistingProvider(accounts, asns, comments, custom_fields
   var url = "/api/circuits/providers/" + id + "/";
   var description = "Verify we cannot delete non-existing Provider";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -20166,14 +20904,24 @@ function waitForAnyProviderDeleted() {
 
 // ---- Entity: virtual circuit termination ----
 
-function createVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function listVirtualCircuitTerminations(custom_fields, description, id, interface, role, tags, virtual_circuit) {
+  var url = "/api/circuits/virtual-circuit-terminations/";
+  var description = "List virtual circuit terminations";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function createVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/";
   var description = "Create virtual circuit termination";
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
     "id": String(id),
-    "interface": String(_interface),
+    "interface": String(interface),
     "role": String(role),
     "tags": String(tags),
     "virtual_circuit": String(virtual_circuit),
@@ -20189,7 +20937,51 @@ function createVirtualCircuitTermination(custom_fields, description, id, _interf
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function bulkUpdateVirtualCircuitTerminations(custom_fields, description, id, interface, role, tags, virtual_circuit) {
+  var url = "/api/circuits/virtual-circuit-terminations/";
+  var description = "Bulk update virtual circuit terminations";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPatchVirtualCircuitTerminations(custom_fields, description, id, interface, role, tags, virtual_circuit) {
+  var url = "/api/circuits/virtual-circuit-terminations/";
+  var description = "Bulk patch virtual circuit terminations";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualCircuitTerminations(custom_fields, description, id, interface, role, tags, virtual_circuit) {
+  var url = "/api/circuits/virtual-circuit-terminations/";
+  var description = "Bulk delete virtual circuit terminations";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function getVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Get virtual circuit termination with id " + id;
   var body = undefined;
@@ -20199,14 +20991,14 @@ function getVirtualCircuitTermination(custom_fields, description, id, _interface
   });
 }
 
-function updateVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function updateVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Update virtual circuit termination with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
     "id": String(id),
-    "interface": String(_interface),
+    "interface": String(interface),
     "role": String(role),
     "tags": String(tags),
     "virtual_circuit": String(virtual_circuit),
@@ -20222,14 +21014,14 @@ function updateVirtualCircuitTermination(custom_fields, description, id, _interf
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function patchVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Patch virtual circuit termination with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
     "id": String(id),
-    "interface": String(_interface),
+    "interface": String(interface),
     "role": String(role),
     "tags": String(tags),
     "virtual_circuit": String(virtual_circuit),
@@ -20245,23 +21037,23 @@ function patchVirtualCircuitTermination(custom_fields, description, id, _interfa
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function deleteVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Delete virtual circuit termination with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
-function tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function tryToAddExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/";
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
     "id": String(id),
-    "interface": String(_interface),
+    "interface": String(interface),
     "role": String(role),
     "tags": String(tags),
     "virtual_circuit": String(virtual_circuit),
@@ -20275,7 +21067,7 @@ function tryToAddExistingVirtualCircuitTermination(custom_fields, description, i
   });
 }
 
-function verifyVirtualCircuitTerminationExists(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function verifyVirtualCircuitTerminationExists(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/";
   var description = "Verify VirtualCircuitTermination with id " + id + " exists";
   svc.get(url, {
@@ -20295,7 +21087,7 @@ function verifyVirtualCircuitTerminationExists(custom_fields, description, id, _
   });
 }
 
-function verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/";
   var description = "Verify VirtualCircuitTermination with id " + id + " does not exist";
   svc.get(url, {
@@ -20315,16 +21107,16 @@ function verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description,
   });
 }
 
-function tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualCircuitTermination";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function matchAddedVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var expectedDesc = "Create virtual circuit termination";
   return matchSuccess(expectedDesc);
 }
@@ -20354,12 +21146,12 @@ function matchAnyVirtualCircuitTerminationAdded() {
   });
 }
 
-function waitForVirtualCircuitTerminationAdded(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function waitForVirtualCircuitTerminationAdded(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var expectedDesc = "Create virtual circuit termination";
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+function matchDeletedVirtualCircuitTermination(custom_fields, description, id, interface, role, tags, virtual_circuit) {
   var expectedDesc = "Delete virtual circuit termination with id " + id;
   return bp.EventSet("matchDeletedVirtualCircuitTermination", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -20382,7 +21174,7 @@ function waitForAnyVirtualCircuitTerminationDeleted() {
 
 function createVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/virtual-circuit-types/";
-  var description = "Create virtual circuit type with id " + id;
+  var description = "Create virtual circuit type with id " + id + " and name " + name;
   var body = {
     "color": String(color),
     "custom_fields": custom_fields,
@@ -20410,13 +21202,13 @@ function deleteVirtualCircuitType(color, custom_fields, description, id, name, s
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/virtual-circuit-types/" + id + "/";
-  var description = "Update virtual circuit type with id " + id;
+  var description = "Update virtual circuit type with id " + id + " and name " + name;
   var body = {
     "color": String(color),
     "custom_fields": custom_fields,
@@ -20427,30 +21219,6 @@ function updateVirtualCircuitType(color, custom_fields, description, id, name, s
     "tags": String(tags),
   };
   svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/circuits/virtual-circuit-types/" + id + "/";
-  var description = "Partially update virtual circuit type with id " + id;
-  var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -20536,21 +21304,21 @@ function tryToDeleteANonExistingVirtualCircuitType(color, custom_fields, descrip
   var url = "/api/circuits/virtual-circuit-types/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualCircuitType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create virtual circuit type with id " + id;
+  var expectedDesc = "Create virtual circuit type with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualCircuitTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ circuit\ type\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ circuit\ type\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ circuit\ type\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ circuit\ type\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -20572,7 +21340,7 @@ function matchAnyVirtualCircuitTypeAdded() {
 }
 
 function waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create virtual circuit type with id " + id;
+  var expectedDesc = "Create virtual circuit type with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -20599,7 +21367,7 @@ function waitForAnyVirtualCircuitTypeDeleted() {
 
 function createVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
   var url = "/api/circuits/virtual-circuits/";
-  var description = "Create virtual circuit with id " + id;
+  var description = "Create virtual circuit with id " + id + " and cid " + cid;
   var body = {
     "cid": String(cid),
     "comments": String(comments),
@@ -20630,13 +21398,13 @@ function deleteVirtualCircuit(cid, comments, custom_fields, description, id, pro
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
   var url = "/api/circuits/virtual-circuits/" + id + "/";
-  var description = "Update virtual circuit with id " + id;
+  var description = "Update virtual circuit with id " + id + " and cid " + cid;
   var body = {
     "cid": String(cid),
     "comments": String(comments),
@@ -20651,33 +21419,6 @@ function updateVirtualCircuit(cid, comments, custom_fields, description, id, pro
     "type": String(type),
   };
   svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
-  var url = "/api/circuits/virtual-circuits/" + id + "/";
-  var description = "Partially update virtual circuit with id " + id;
-  var body = {
-    "cid": String(cid),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "provider_account": String(provider_account),
-    "provider_network": String(provider_network),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "type": String(type),
-  };
-  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -20766,21 +21507,21 @@ function tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, des
   var url = "/api/circuits/virtual-circuits/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualCircuit";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
-  var expectedDesc = "Create virtual circuit with id " + id;
+  var expectedDesc = "Create virtual circuit with id " + id + " and cid " + cid;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualCircuitAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ circuit\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ circuit\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ circuit\ with\ id\ (.+)\ and\ cid\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ circuit\ with\ id\ (.+)\ and\ cid\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["id", "cid"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -20802,7 +21543,7 @@ function matchAnyVirtualCircuitAdded() {
 }
 
 function waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
-  var expectedDesc = "Create virtual circuit with id " + id;
+  var expectedDesc = "Create virtual circuit with id " + id + " and cid " + cid;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -21259,7 +22000,7 @@ function deleteDataSource(comments, custom_fields, description, enabled, id, ign
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -21319,16 +22060,6 @@ function partialUpdateDataSource(comments, custom_fields, description, enabled, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
-  var url = "/api/core/data-sources/" + id + "/";
-  var description = "Get data source with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function listDataSources(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
   var url = "/api/core/data-sources/";
   var description = "List data sources";
@@ -21381,13 +22112,13 @@ function bulkDeleteDataSources(comments, custom_fields, description, enabled, id
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
-function syncDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
+function syncCreateDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
   var url = "/api/core/data-sources/" + id + "/sync/";
-  var description = "Sync data source with id " + id;
+  var description = "Sync create data source with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -21481,7 +22212,7 @@ function tryToDeleteANonExistingDataSource(comments, custom_fields, description,
   var url = "/api/core/data-sources/" + id + "/";
   var description = "Verify we cannot delete non-existing DataSource";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -21668,7 +22399,7 @@ function verifyObjectChangeDoesNotExist(id) {
 
 function createIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
   var url = "/api/vpn/ike-policies/";
-  var description = "Create ike policy with id " + id;
+  var description = "Create ike policy " + name + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -21699,13 +22430,13 @@ function deleteIKEPolicy(comments, custom_fields, description, id, mode, name, p
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
   var url = "/api/vpn/ike-policies/" + id + "/";
-  var description = "Update ike policy with id " + id;
+  var description = "Update ike policy " + name + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -21730,46 +22461,9 @@ function updateIKEPolicy(comments, custom_fields, description, id, mode, name, p
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
-  var url = "/api/vpn/ike-policies/" + id + "/";
-  var description = "Partially update ike policy with id " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "mode": String(mode),
-    "name": String(name),
-    "preshared_key": String(preshared_key),
-    "proposals": String(proposals),
-    "tags": String(tags),
-    "version": Number(version),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function getIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
   var url = "/api/vpn/ike-policies/" + id + "/";
-  var description = "Get ike policy with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function listIKEPolicies(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
-  var url = "/api/vpn/ike-policies/";
-  var description = "List ike policies";
+  var description = "Get ike policy " + name + " with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -21844,21 +22538,21 @@ function tryToDeleteANonExistingIKEPolicy(comments, custom_fields, description, 
   var url = "/api/vpn/ike-policies/" + id + "/";
   var description = "Verify we cannot delete non-existing IKEPolicy";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
-  var expectedDesc = "Create ike policy with id " + id;
+  var expectedDesc = "Create ike policy " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIKEPolicyAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ ike\ policy\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ ike\ policy\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ ike\ policy\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ ike\ policy\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -21880,7 +22574,7 @@ function matchAnyIKEPolicyAdded() {
 }
 
 function waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
-  var expectedDesc = "Create ike policy with id " + id;
+  var expectedDesc = "Create ike policy " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -21907,7 +22601,7 @@ function waitForAnyIKEPolicyDeleted() {
 
 function createIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
   var url = "/api/vpn/ike-proposals/";
-  var description = "Create ike proposal with id " + id;
+  var description = "Create ike proposal " + name + " with id " + id;
   var body = {
     "authentication_algorithm": String(authentication_algorithm),
     "authentication_method": String(authentication_method),
@@ -21939,13 +22633,13 @@ function deleteIKEProposal(authentication_algorithm, authentication_method, comm
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
   var url = "/api/vpn/ike-proposals/" + id + "/";
-  var description = "Update ike proposal with id " + id;
+  var description = "Update ike proposal " + name + " with id " + id;
   var body = {
     "authentication_algorithm": String(authentication_algorithm),
     "authentication_method": String(authentication_method),
@@ -21971,47 +22665,9 @@ function updateIKEProposal(authentication_algorithm, authentication_method, comm
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
-  var url = "/api/vpn/ike-proposals/" + id + "/";
-  var description = "Partially update ike proposal with id " + id;
-  var body = {
-    "authentication_algorithm": String(authentication_algorithm),
-    "authentication_method": String(authentication_method),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "encryption_algorithm": String(encryption_algorithm),
-    "group": Number(group),
-    "id": String(id),
-    "name": String(name),
-    "sa_lifetime": Number(sa_lifetime),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function getIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
   var url = "/api/vpn/ike-proposals/" + id + "/";
-  var description = "Get ike proposal with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function listIKEProposals(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
-  var url = "/api/vpn/ike-proposals/";
-  var description = "List ike proposals";
+  var description = "Get ike proposal " + name + " with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -22087,21 +22743,21 @@ function tryToDeleteANonExistingIKEProposal(authentication_algorithm, authentica
   var url = "/api/vpn/ike-proposals/" + id + "/";
   var description = "Verify we cannot delete non-existing IKEProposal";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
-  var expectedDesc = "Create ike proposal with id " + id;
+  var expectedDesc = "Create ike proposal " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIKEProposalAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ ike\ proposal\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ ike\ proposal\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ ike\ proposal\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ ike\ proposal\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -22123,7 +22779,7 @@ function matchAnyIKEProposalAdded() {
 }
 
 function waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
-  var expectedDesc = "Create ike proposal with id " + id;
+  var expectedDesc = "Create ike proposal " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -22150,7 +22806,7 @@ function waitForAnyIKEProposalDeleted() {
 
 function createIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
   var url = "/api/vpn/ipsec-policies/";
-  var description = "Create ipsec policy with id " + id;
+  var description = "Create ipsec policy " + name + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -22179,13 +22835,13 @@ function deleteIPSecPolicy(comments, custom_fields, description, id, name, pfs_g
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
   var url = "/api/vpn/ipsec-policies/" + id + "/";
-  var description = "Update ipsec policy with id " + id;
+  var description = "Update ipsec policy " + name + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -22208,44 +22864,9 @@ function updateIPSecPolicy(comments, custom_fields, description, id, name, pfs_g
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
-  var url = "/api/vpn/ipsec-policies/" + id + "/";
-  var description = "Partially update ipsec policy with id " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "pfs_group": Number(pfs_group),
-    "proposals": String(proposals),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function getIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
   var url = "/api/vpn/ipsec-policies/" + id + "/";
-  var description = "Get ipsec policy with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function listIPSecPolicies(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
-  var url = "/api/vpn/ipsec-policies/";
-  var description = "List ipsec policies";
+  var description = "Get ipsec policy " + name + " with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -22318,21 +22939,21 @@ function tryToDeleteANonExistingIPSecPolicy(comments, custom_fields, description
   var url = "/api/vpn/ipsec-policies/" + id + "/";
   var description = "Verify we cannot delete non-existing IPSecPolicy";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
-  var expectedDesc = "Create ipsec policy with id " + id;
+  var expectedDesc = "Create ipsec policy " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIPSecPolicyAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ ipsec\ policy\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ ipsec\ policy\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ ipsec\ policy\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ ipsec\ policy\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -22354,7 +22975,7 @@ function matchAnyIPSecPolicyAdded() {
 }
 
 function waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
-  var expectedDesc = "Create ipsec policy with id " + id;
+  var expectedDesc = "Create ipsec policy " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -22381,7 +23002,7 @@ function waitForAnyIPSecPolicyDeleted() {
 
 function createIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
   var url = "/api/vpn/ipsec-profiles/";
-  var description = "Create ipsec profile with id " + id;
+  var description = "Create ipsec profile " + name + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -22411,13 +23032,13 @@ function deleteIPSecProfile(comments, custom_fields, description, id, ike_policy
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
   var url = "/api/vpn/ipsec-profiles/" + id + "/";
-  var description = "Update ipsec profile with id " + id;
+  var description = "Update ipsec profile " + name + " with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -22441,45 +23062,9 @@ function updateIPSecProfile(comments, custom_fields, description, id, ike_policy
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
-  var url = "/api/vpn/ipsec-profiles/" + id + "/";
-  var description = "Partially update ipsec profile with id " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "ike_policy": String(ike_policy),
-    "ipsec_policy": String(ipsec_policy),
-    "mode": String(mode),
-    "name": String(name),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function getIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
   var url = "/api/vpn/ipsec-profiles/" + id + "/";
-  var description = "Get ipsec profile with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function listIPSecProfiles(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
-  var url = "/api/vpn/ipsec-profiles/";
-  var description = "List ipsec profiles";
+  var description = "Get ipsec profile " + name + " with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -22553,21 +23138,21 @@ function tryToDeleteANonExistingIPSecProfile(comments, custom_fields, descriptio
   var url = "/api/vpn/ipsec-profiles/" + id + "/";
   var description = "Verify we cannot delete non-existing IPSecProfile";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
-  var expectedDesc = "Create ipsec profile with id " + id;
+  var expectedDesc = "Create ipsec profile " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIPSecProfileAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ ipsec\ profile\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ ipsec\ profile\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ ipsec\ profile\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ ipsec\ profile\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -22589,7 +23174,7 @@ function matchAnyIPSecProfileAdded() {
 }
 
 function waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
-  var expectedDesc = "Create ipsec profile with id " + id;
+  var expectedDesc = "Create ipsec profile " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -22616,7 +23201,7 @@ function waitForAnyIPSecProfileDeleted() {
 
 function createIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
   var url = "/api/vpn/ipsec-proposals/";
-  var description = "Create ipsec proposal with id " + id;
+  var description = "Create ipsec proposal " + name + " with id " + id;
   var body = {
     "authentication_algorithm": String(authentication_algorithm),
     "comments": String(comments),
@@ -22647,13 +23232,13 @@ function deleteIPSecProposal(authentication_algorithm, comments, custom_fields, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
 function updateIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
   var url = "/api/vpn/ipsec-proposals/" + id + "/";
-  var description = "Update ipsec proposal with id " + id;
+  var description = "Update ipsec proposal " + name + " with id " + id;
   var body = {
     "authentication_algorithm": String(authentication_algorithm),
     "comments": String(comments),
@@ -22678,46 +23263,9 @@ function updateIPSecProposal(authentication_algorithm, comments, custom_fields, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
-  var url = "/api/vpn/ipsec-proposals/" + id + "/";
-  var description = "Partially update ipsec proposal with id " + id;
-  var body = {
-    "authentication_algorithm": String(authentication_algorithm),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "encryption_algorithm": String(encryption_algorithm),
-    "id": String(id),
-    "name": String(name),
-    "sa_lifetime_data": Number(sa_lifetime_data),
-    "sa_lifetime_seconds": Number(sa_lifetime_seconds),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function getIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
   var url = "/api/vpn/ipsec-proposals/" + id + "/";
-  var description = "Get ipsec proposal with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function listIPSecProposals(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
-  var url = "/api/vpn/ipsec-proposals/";
-  var description = "List ipsec proposals";
+  var description = "Get ipsec proposal " + name + " with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -22792,21 +23340,21 @@ function tryToDeleteANonExistingIPSecProposal(authentication_algorithm, comments
   var url = "/api/vpn/ipsec-proposals/" + id + "/";
   var description = "Verify we cannot delete non-existing IPSecProposal";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
-  var expectedDesc = "Create ipsec proposal with id " + id;
+  var expectedDesc = "Create ipsec proposal " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIPSecProposalAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ ipsec\ proposal\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ ipsec\ proposal\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ ipsec\ proposal\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ ipsec\ proposal\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -22828,7 +23376,7 @@ function matchAnyIPSecProposalAdded() {
 }
 
 function waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
-  var expectedDesc = "Create ipsec proposal with id " + id;
+  var expectedDesc = "Create ipsec proposal " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -22882,7 +23430,7 @@ function deleteL2VPNTermination(assigned_object_id, assigned_object_type, custom
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -22982,7 +23530,7 @@ function tryToDeleteANonExistingL2VPNTermination(assigned_object_id, assigned_ob
   var url = "/api/vpn/l2vpn-terminations/" + id + "/";
   var description = "Verify we cannot delete non-existing L2VPNTermination";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -23079,7 +23627,7 @@ function deleteL2VPN(comments, custom_fields, description, export_targets, id, i
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -23193,7 +23741,7 @@ function tryToDeleteANonExistingL2VPN(comments, custom_fields, description, expo
   var url = "/api/vpn/l2vpns/" + id + "/";
   var description = "Verify we cannot delete non-existing L2VPN";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -23256,7 +23804,7 @@ function waitForAnyL2VPNDeleted() {
 
 function createTunnelGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/vpn/tunnel-groups/";
-  var description = "Create tunnel group " + name + " with id " + id;
+  var description = "Create tunnel group with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -23283,7 +23831,7 @@ function deleteTunnelGroup(custom_fields, description, id, name, slug, tags) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -23383,21 +23931,21 @@ function tryToDeleteANonExistingTunnelGroup(custom_fields, description, id, name
   var url = "/api/vpn/tunnel-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing TunnelGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
 function matchAddedTunnelGroup(custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create tunnel group " + name + " with id " + id;
+  var expectedDesc = "Create tunnel group with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyTunnelGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ tunnel\ group\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ tunnel\ group\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ tunnel\ group\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ tunnel\ group\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -23419,7 +23967,7 @@ function matchAnyTunnelGroupAdded() {
 }
 
 function waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create tunnel group " + name + " with id " + id;
+  var expectedDesc = "Create tunnel group with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -23475,7 +24023,7 @@ function deleteTunnelTermination(custom_fields, id, outside_ip, role, tags, term
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -23579,7 +24127,7 @@ function tryToDeleteANonExistingTunnelTermination(custom_fields, id, outside_ip,
   var url = "/api/vpn/tunnel-terminations/" + id + "/";
   var description = "Verify we cannot delete non-existing TunnelTermination";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -23652,7 +24200,6 @@ function createTunnel(comments, custom_fields, description, encapsulation, group
     "id": String(id),
     "ipsec_profile": String(ipsec_profile),
     "name": String(name),
-    "slug": String(slug),
     "status": String(status),
     "tags": String(tags),
     "tenant": String(tenant),
@@ -23677,7 +24224,7 @@ function deleteTunnel(comments, custom_fields, description, encapsulation, group
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -23693,7 +24240,6 @@ function updateTunnel(comments, custom_fields, description, encapsulation, group
     "id": String(id),
     "ipsec_profile": String(ipsec_profile),
     "name": String(name),
-    "slug": String(slug),
     "status": String(status),
     "tags": String(tags),
     "tenant": String(tenant),
@@ -23733,7 +24279,6 @@ function tryToAddExistingTunnel(comments, custom_fields, description, encapsulat
     "id": String(id),
     "ipsec_profile": String(ipsec_profile),
     "name": String(name),
-    "slug": String(slug),
     "status": String(status),
     "tags": String(tags),
     "tenant": String(tenant),
@@ -23792,7 +24337,7 @@ function tryToDeleteANonExistingTunnel(comments, custom_fields, description, enc
   var url = "/api/vpn/tunnels/" + id + "/";
   var description = "Verify we cannot delete non-existing Tunnel";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -23882,7 +24427,7 @@ function deleteClusterGroup(custom_fields, description, id, name, slug, tags) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -23982,7 +24527,7 @@ function tryToDeleteANonExistingClusterGroup(custom_fields, description, id, nam
   var url = "/api/virtualization/cluster-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing ClusterGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -24072,7 +24617,7 @@ function deleteClusterType(custom_fields, description, id, name, slug, tags) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -24172,7 +24717,7 @@ function tryToDeleteANonExistingClusterType(custom_fields, description, id, name
   var url = "/api/virtualization/cluster-types/" + id + "/";
   var description = "Verify we cannot delete non-existing ClusterType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -24269,7 +24814,7 @@ function deleteCluster(comments, custom_fields, description, group, id, name, sc
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -24382,7 +24927,7 @@ function tryToDeleteANonExistingCluster(comments, custom_fields, description, gr
   var url = "/api/virtualization/clusters/" + id + "/";
   var description = "Verify we cannot delete non-existing Cluster";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -24473,7 +25018,7 @@ function deleteVirtualDisk(custom_fields, description, id, name, size, tags, vir
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -24575,7 +25120,7 @@ function tryToDeleteANonExistingVirtualDisk(custom_fields, description, id, name
   var url = "/api/virtualization/virtual-disks/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualDisk";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -24636,9 +25181,9 @@ function waitForAnyVirtualDiskDeleted() {
 
 // ---- Entity: virtual machine ----
 
-function createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
-  var description = "Create virtual machine " + name + " with id " + id;
+  var description = "Create virtual machine with id " + id;
   var body = {
     "cluster": String(cluster),
     "comments": String(comments),
@@ -24674,17 +25219,17 @@ function createVirtualMachine(cluster, comments, config_template, custom_fields,
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Delete virtual machine with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
-function updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Update virtual machine with id " + id;
   var body = {
@@ -24722,7 +25267,45 @@ function updateVirtualMachine(cluster, comments, config_template, custom_fields,
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function partialUpdateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/" + id + "/";
+  var description = "Partially update virtual machine with id " + id;
+  var body = {
+    "cluster": String(cluster),
+    "comments": String(comments),
+    "config_template": String(config_template),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "device": String(device),
+    "disk": Number(disk),
+    "id": String(id),
+    "local_context_data": String(local_context_data),
+    "memory": Number(memory),
+    "name": String(name),
+    "platform": String(platform),
+    "primary_ip4": String(primary_ip4),
+    "primary_ip6": String(primary_ip6),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "vcpus": Number(vcpus),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Get virtual machine with id " + id;
   var body = undefined;
@@ -24732,7 +25315,102 @@ function getVirtualMachine(cluster, comments, config_template, custom_fields, de
   });
 }
 
-function tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function listVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "List virtual machines";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function bulkUpdateVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "Bulk update virtual machines";
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "Bulk partial update virtual machines";
+  var body = {
+    "id": String(id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "Bulk delete virtual machines";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [204]
+  });
+}
+
+function renderConfigVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/" + id + "/render-config/";
+  var description = "Render config for virtual machine with id " + id;
+  var body = {
+    "cluster": String(cluster),
+    "comments": String(comments),
+    "config_template": String(config_template),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "device": String(device),
+    "disk": Number(disk),
+    "format": String(format),
+    "id": String(id),
+    "local_context_data": String(local_context_data),
+    "memory": Number(memory),
+    "name": String(name),
+    "platform": String(platform),
+    "primary_ip4": String(primary_ip4),
+    "primary_ip6": String(primary_ip6),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "vcpus": Number(vcpus),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
   var body = {
     "cluster": String(cluster),
@@ -24742,6 +25420,7 @@ function tryToAddExistingVirtualMachine(cluster, comments, config_template, cust
     "description": String(description),
     "device": String(device),
     "disk": Number(disk),
+    "format": String(format),
     "id": String(id),
     "local_context_data": String(local_context_data),
     "memory": Number(memory),
@@ -24766,7 +25445,7 @@ function tryToAddExistingVirtualMachine(cluster, comments, config_template, cust
   });
 }
 
-function verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
   var description = "Verify VirtualMachine with id " + id + " exists";
   svc.get(url, {
@@ -24786,7 +25465,7 @@ function verifyVirtualMachineExists(cluster, comments, config_template, custom_f
   });
 }
 
-function verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
   var description = "Verify VirtualMachine with id " + id + " does not exist";
   svc.get(url, {
@@ -24806,25 +25485,25 @@ function verifyVirtualMachineDoesNotExist(cluster, comments, config_template, cu
   });
 }
 
-function tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualMachine";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
 
-function matchAddedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
-  var expectedDesc = "Create virtual machine " + name + " with id " + id;
+function matchAddedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var expectedDesc = "Create virtual machine with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualMachineAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ machine\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ machine\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ machine\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ machine\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -24845,12 +25524,12 @@ function matchAnyVirtualMachineAdded() {
   });
 }
 
-function waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
-  var expectedDesc = "Create virtual machine " + name + " with id " + id;
+function waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var expectedDesc = "Create virtual machine with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function matchDeletedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var expectedDesc = "Delete virtual machine with id " + id;
   return bp.EventSet("matchDeletedVirtualMachine", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -24902,7 +25581,7 @@ function deleteContactAssignment(contact, custom_fields, id, object_id, object_t
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -24954,62 +25633,6 @@ function partialUpdateContactAssignment(contact, custom_fields, id, object_id, o
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkUpdateContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/";
-  var description = "Bulk update contact assignments";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , object_id: String(object_id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/";
-  var description = "Bulk partial update contact assignments";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , object_id: String(object_id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/";
-  var description = "Bulk delete contact assignments";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/" + id + "/";
-  var description = "Get contact assignment with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function listContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
@@ -25087,7 +25710,7 @@ function tryToDeleteANonExistingContactAssignment(contact, custom_fields, id, ob
   var url = "/api/tenancy/contact-assignments/" + id + "/";
   var description = "Verify we cannot delete non-existing ContactAssignment";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -25179,7 +25802,7 @@ function deleteContactGroup(comments, custom_fields, description, id, name, pare
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -25231,62 +25854,6 @@ function partialUpdateContactGroup(comments, custom_fields, description, id, nam
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkUpdateContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/";
-  var description = "Bulk update contact groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/";
-  var description = "Bulk partial update contact groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/";
-  var description = "Bulk delete contact groups";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/" + id + "/";
-  var description = "Get contact group with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function listContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -25364,7 +25931,7 @@ function tryToDeleteANonExistingContactGroup(comments, custom_fields, descriptio
   var url = "/api/tenancy/contact-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing ContactGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -25454,7 +26021,7 @@ function deleteContactRole(custom_fields, description, id, name, slug, tags) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -25502,62 +26069,6 @@ function partialUpdateContactRole(custom_fields, description, id, name, slug, ta
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkUpdateContactRoles(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/";
-  var description = "Bulk update contact roles";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContactRoles(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/";
-  var description = "Bulk partial update contact roles";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContactRoles(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/";
-  var description = "Bulk delete contact roles";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContactRole(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/" + id + "/";
-  var description = "Get contact role with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function listContactRoles(custom_fields, description, id, name, slug, tags) {
@@ -25633,7 +26144,7 @@ function tryToDeleteANonExistingContactRole(custom_fields, description, id, name
   var url = "/api/tenancy/contact-roles/" + id + "/";
   var description = "Verify we cannot delete non-existing ContactRole";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -25729,7 +26240,7 @@ function deleteContact(address, comments, custom_fields, description, email, gro
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -25789,62 +26300,6 @@ function partialUpdateContact(address, comments, custom_fields, description, ema
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkUpdateContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/";
-  var description = "Bulk update contacts";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/";
-  var description = "Bulk partial update contacts";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/";
-  var description = "Bulk delete contacts";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/" + id + "/";
-  var description = "Get contact with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function listContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
@@ -25926,7 +26381,7 @@ function tryToDeleteANonExistingContact(address, comments, custom_fields, descri
   var url = "/api/tenancy/contacts/" + id + "/";
   var description = "Verify we cannot delete non-existing Contact";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -26018,7 +26473,7 @@ function deleteTenantGroup(comments, custom_fields, description, id, name, paren
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -26070,62 +26525,6 @@ function partialUpdateTenantGroup(comments, custom_fields, description, id, name
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkUpdateTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/";
-  var description = "Bulk update tenant groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/";
-  var description = "Bulk partial update tenant groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/";
-  var description = "Bulk delete tenant groups";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/" + id + "/";
-  var description = "Get tenant group with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function listTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -26203,7 +26602,7 @@ function tryToDeleteANonExistingTenantGroup(comments, custom_fields, description
   var url = "/api/tenancy/tenant-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing TenantGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -26295,7 +26694,7 @@ function deleteTenant(comments, custom_fields, description, group, id, name, slu
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -26324,9 +26723,34 @@ function updateTenant(comments, custom_fields, description, group, id, name, slu
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getTenant(comments, custom_fields, description, group, id, name, slug, tags) {
+function partialUpdateTenant(comments, custom_fields, description, group, id, name, slug, tags) {
   var url = "/api/tenancy/tenants/" + id + "/";
-  var description = "Get tenant with id " + id;
+  var description = "Partially update tenant with id " + id;
+  var body = {
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "group": String(group),
+    "id": String(id),
+    "name": String(name),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function listTenants(comments, custom_fields, description, group, id, name, slug, tags) {
+  var url = "/api/tenancy/tenants/";
+  var description = "List tenants";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -26399,7 +26823,7 @@ function tryToDeleteANonExistingTenant(comments, custom_fields, description, gro
   var url = "/api/tenancy/tenants/" + id + "/";
   var description = "Verify we cannot delete non-existing Tenant";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -26487,7 +26911,7 @@ function deleteGroup(description, id, name, permissions) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -26583,7 +27007,7 @@ function tryToDeleteANonExistingGroup(description, id, name, permissions) {
   var url = "/api/users/groups/" + id + "/";
   var description = "Verify we cannot delete non-existing Group";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -26676,7 +27100,7 @@ function deletePermission(actions, constraints, description, enabled, groups, id
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -26782,7 +27206,7 @@ function tryToDeleteANonExistingPermission(actions, constraints, description, en
   var url = "/api/users/permissions/" + id + "/";
   var description = "Verify we cannot delete non-existing Permission";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -26872,7 +27296,7 @@ function deleteToken(description, expires, id, key, last_used, user, write_enabl
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -26973,7 +27397,7 @@ function tryToDeleteANonExistingToken(description, expires, id, key, last_used, 
   var url = "/api/users/tokens/" + id + "/";
   var description = "Verify we cannot delete non-existing Token";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -27068,7 +27492,7 @@ function deleteUser(date_joined, email, first_name, groups, id, is_active, is_st
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -27179,7 +27603,7 @@ function tryToDeleteANonExistingUser(date_joined, email, first_name, groups, id,
   var url = "/api/users/users/" + id + "/";
   var description = "Verify we cannot delete non-existing User";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -27271,7 +27695,7 @@ function deleteWirelessLANGroup(comments, custom_fields, description, id, name, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -27300,9 +27724,44 @@ function updateWirelessLANGroup(comments, custom_fields, description, id, name, 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
+function partialUpdateWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/wireless/wireless-lan-groups/" + id + "/";
-  var description = "Get wireless LAN group with id " + id;
+  var description = "Partially update wireless LAN group with id " + id;
+  var body = {
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "parent": Number(parent),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function listWirelessLANGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/wireless/wireless-lan-groups/";
+  var description = "List wireless LAN groups";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function retrieveWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/wireless/wireless-lan-groups/" + id + "/";
+  var description = "Retrieve wireless LAN group with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -27375,7 +27834,7 @@ function tryToDeleteANonExistingWirelessLANGroup(comments, custom_fields, descri
   var url = "/api/wireless/wireless-lan-groups/" + id + "/";
   var description = "Verify we cannot delete non-existing WirelessLANGroup";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -27474,7 +27933,7 @@ function deleteWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fi
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -27510,9 +27969,51 @@ function updateWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fi
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
+function partialUpdateWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
   var url = "/api/wireless/wireless-lans/" + id + "/";
-  var description = "Get wireless LAN with id " + id;
+  var description = "Partially update wireless LAN with id " + id;
+  var body = {
+    "auth_cipher": String(auth_cipher),
+    "auth_psk": String(auth_psk),
+    "auth_type": String(auth_type),
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "group": String(group),
+    "id": String(id),
+    "scope_id": Number(scope_id),
+    "scope_type": String(scope_type),
+    "ssid": String(ssid),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "vlan": String(vlan),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , scope_id: String(scope_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function listWirelessLANs(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
+  var url = "/api/wireless/wireless-lans/";
+  var description = "List wireless LANs";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function retrieveWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
+  var url = "/api/wireless/wireless-lans/" + id + "/";
+  var description = "Retrieve wireless LAN with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -27592,7 +28093,7 @@ function tryToDeleteANonExistingWirelessLAN(auth_cipher, auth_psk, auth_type, co
   var url = "/api/wireless/wireless-lans/" + id + "/";
   var description = "Verify we cannot delete non-existing WirelessLAN";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }
@@ -27690,7 +28191,7 @@ function deleteWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_f
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [204]
   });
 }
 
@@ -27725,9 +28226,50 @@ function updateWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_f
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
+function partialUpdateWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
   var url = "/api/wireless/wireless-links/" + id + "/";
-  var description = "Get wireless link with id " + id;
+  var description = "Partially update wireless link with id " + id;
+  var body = {
+    "auth_cipher": String(auth_cipher),
+    "auth_psk": String(auth_psk),
+    "auth_type": String(auth_type),
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "distance": Number(distance),
+    "distance_unit": String(distance_unit),
+    "id": String(id),
+    "interface_a": String(interface_a),
+    "interface_b": String(interface_b),
+    "ssid": String(ssid),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function listWirelessLinks(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
+  var url = "/api/wireless/wireless-links/";
+  var description = "List wireless links";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function retrieveWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
+  var url = "/api/wireless/wireless-links/" + id + "/";
+  var description = "Retrieve wireless link with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -27807,7 +28349,7 @@ function tryToDeleteANonExistingWirelessLink(auth_cipher, auth_psk, auth_type, c
   var url = "/api/wireless/wireless-links/" + id + "/";
   var description = "Verify we cannot delete non-existing WirelessLink";
   svc.delete(url, {
-    expectedResponseCodes: [200, 204],
+    expectedResponseCodes: [204],
     parameters: { description: description }
   });
 }

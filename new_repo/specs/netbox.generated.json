@@ -220,16 +220,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateConsoleServerPortTemplate",
-          "method": "PATCH",
-          "path": "/api/dcim/console-server-port-templates/{id}/",
-          "descriptionTemplate": "Partially update console server port template with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getConsoleServerPortTemplate",
           "method": "GET",
@@ -271,16 +261,6 @@
           "method": "PUT",
           "path": "/api/dcim/console-server-ports/{id}/",
           "descriptionTemplate": "Update console server port with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "partialUpdate": {
-          "name": "partialUpdateConsoleServerPort",
-          "method": "PATCH",
-          "path": "/api/dcim/console-server-ports/{id}/",
-          "descriptionTemplate": "Partially update console server port with id {id}",
           "params": [
             "id"
           ],
@@ -332,16 +312,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateDeviceBayTemplate",
-          "method": "PATCH",
-          "path": "/api/dcim/device-bay-templates/{id}/",
-          "descriptionTemplate": "Partially update device bay template with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getDeviceBayTemplate",
           "method": "GET",
@@ -388,16 +358,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateDeviceBay",
-          "method": "PATCH",
-          "path": "/api/dcim/device-bays/{id}/",
-          "descriptionTemplate": "Partially update device bay with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getDeviceBay",
           "method": "GET",
@@ -413,8 +373,8 @@
     "DeviceRole": {
       "displayName": "device role",
       "params": [
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
         "add": {
@@ -446,23 +406,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "color": "{color}",
-            "vm_role": "{vm_role}",
-            "description": "{description}",
-            "content_types": "{content_types}"
-          }
-        },
-        "partialUpdate": {
-          "name": "partialUpdateDeviceRole",
-          "method": "PATCH",
-          "path": "/api/dcim/device-roles/{id}/",
-          "descriptionTemplate": "Partially update device role with id {id}",
-          "params": [
-            "id"
-          ],
           "bodyTemplate": {}
         },
         "get": {
@@ -474,22 +417,15 @@
             "id"
           ]
         },
-        "partial_update": {
-          "name": "partialUpdateDeviceRole",
+        "patch": {
+          "name": "patchDeviceRole",
           "method": "PATCH",
           "path": "/api/dcim/device-roles/{id}/",
-          "descriptionTemplate": "Partially update device role with id {id}",
+          "descriptionTemplate": "Patch device role with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "color": "{color}",
-            "vm_role": "{vm_role}",
-            "description": "{description}",
-            "content_types": "{content_types}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
@@ -499,49 +435,13 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listDeviceTypes",
-          "method": "GET",
-          "path": "/api/dcim/device-types/",
-          "descriptionTemplate": "List device types"
-        },
         "add": {
           "name": "createDeviceType",
           "method": "POST",
           "path": "/api/dcim/device-types/",
           "descriptionTemplate": "Create device type {model} with id {id}",
           "params": [],
-          "bodyTemplate": {
-            "manufacturer": "{manufacturer}",
-            "model": "{model}",
-            "slug": "{slug}",
-            "part_number": "{part_number}",
-            "u_height": "{u_height}",
-            "is_full_depth": "{is_full_depth}",
-            "subdevice_role": "{subdevice_role}",
-            "front_image": "{front_image}",
-            "rear_image": "{rear_image}",
-            "comments": "{comments}",
-            "tags": "{tags}"
-          }
-        },
-        "bulk_update": {
-          "name": "bulkUpdateDeviceTypes",
-          "method": "PUT",
-          "path": "/api/dcim/device-types/",
-          "descriptionTemplate": "Bulk update device types"
-        },
-        "bulk_partial_update": {
-          "name": "bulkPartialUpdateDeviceTypes",
-          "method": "PATCH",
-          "path": "/api/dcim/device-types/",
-          "descriptionTemplate": "Bulk partial update device types"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteDeviceTypes",
-          "method": "DELETE",
-          "path": "/api/dcim/device-types/",
-          "descriptionTemplate": "Bulk delete device types"
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getDeviceType",
@@ -560,41 +460,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "manufacturer": "{manufacturer}",
-            "model": "{model}",
-            "slug": "{slug}",
-            "part_number": "{part_number}",
-            "u_height": "{u_height}",
-            "is_full_depth": "{is_full_depth}",
-            "subdevice_role": "{subdevice_role}",
-            "front_image": "{front_image}",
-            "rear_image": "{rear_image}",
-            "comments": "{comments}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
-        "partial_update": {
-          "name": "partialUpdateDeviceType",
+        "patch": {
+          "name": "patchDeviceType",
           "method": "PATCH",
           "path": "/api/dcim/device-types/{id}/",
-          "descriptionTemplate": "Partially update device type with id {id}",
+          "descriptionTemplate": "Patch device type with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "manufacturer": "{manufacturer}",
-            "model": "{model}",
-            "slug": "{slug}",
-            "part_number": "{part_number}",
-            "u_height": "{u_height}",
-            "is_full_depth": "{is_full_depth}",
-            "subdevice_role": "{subdevice_role}",
-            "front_image": "{front_image}",
-            "rear_image": "{rear_image}",
-            "comments": "{comments}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteDeviceType",
@@ -613,59 +489,13 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listDevices",
-          "method": "GET",
-          "path": "/api/dcim/devices/",
-          "descriptionTemplate": "List devices"
-        },
         "add": {
           "name": "createDevice",
           "method": "POST",
           "path": "/api/dcim/devices/",
           "descriptionTemplate": "Create device {name} with id {id}",
           "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "device_type": "{device_type}",
-            "device_role": "{device_role}",
-            "tenant": "{tenant}",
-            "platform": "{platform}",
-            "serial": "{serial}",
-            "asset_tag": "{asset_tag}",
-            "site": "{site}",
-            "rack": "{rack}",
-            "position": "{position}",
-            "face": "{face}",
-            "status": "{status}",
-            "primary_ip4": "{primary_ip4}",
-            "primary_ip6": "{primary_ip6}",
-            "cluster": "{cluster}",
-            "virtual_chassis": "{virtual_chassis}",
-            "vc_position": "{vc_position}",
-            "vc_priority": "{vc_priority}",
-            "comments": "{comments}",
-            "local_context_data": "{local_context_data}",
-            "tags": "{tags}"
-          }
-        },
-        "bulk_update": {
-          "name": "bulkUpdateDevices",
-          "method": "PUT",
-          "path": "/api/dcim/devices/",
-          "descriptionTemplate": "Bulk update devices"
-        },
-        "bulk_partial_update": {
-          "name": "bulkPartialUpdateDevices",
-          "method": "PATCH",
-          "path": "/api/dcim/devices/",
-          "descriptionTemplate": "Bulk partial update devices"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteDevices",
-          "method": "DELETE",
-          "path": "/api/dcim/devices/",
-          "descriptionTemplate": "Bulk delete devices"
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getDevice",
@@ -684,61 +514,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "device_type": "{device_type}",
-            "device_role": "{device_role}",
-            "tenant": "{tenant}",
-            "platform": "{platform}",
-            "serial": "{serial}",
-            "asset_tag": "{asset_tag}",
-            "site": "{site}",
-            "rack": "{rack}",
-            "position": "{position}",
-            "face": "{face}",
-            "status": "{status}",
-            "primary_ip4": "{primary_ip4}",
-            "primary_ip6": "{primary_ip6}",
-            "cluster": "{cluster}",
-            "virtual_chassis": "{virtual_chassis}",
-            "vc_position": "{vc_position}",
-            "vc_priority": "{vc_priority}",
-            "comments": "{comments}",
-            "local_context_data": "{local_context_data}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
-        "partial_update": {
-          "name": "partialUpdateDevice",
+        "patch": {
+          "name": "patchDevice",
           "method": "PATCH",
           "path": "/api/dcim/devices/{id}/",
-          "descriptionTemplate": "Partially update device with id {id}",
+          "descriptionTemplate": "Patch device with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "device_type": "{device_type}",
-            "device_role": "{device_role}",
-            "tenant": "{tenant}",
-            "platform": "{platform}",
-            "serial": "{serial}",
-            "asset_tag": "{asset_tag}",
-            "site": "{site}",
-            "rack": "{rack}",
-            "position": "{position}",
-            "face": "{face}",
-            "status": "{status}",
-            "primary_ip4": "{primary_ip4}",
-            "primary_ip6": "{primary_ip6}",
-            "cluster": "{cluster}",
-            "virtual_chassis": "{virtual_chassis}",
-            "vc_position": "{vc_position}",
-            "vc_priority": "{vc_priority}",
-            "comments": "{comments}",
-            "local_context_data": "{local_context_data}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteDevice",
@@ -757,44 +543,13 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listFrontPortTemplates",
-          "method": "GET",
-          "path": "/api/dcim/front-port-templates/",
-          "descriptionTemplate": "List front port templates"
-        },
         "add": {
           "name": "createFrontPortTemplate",
           "method": "POST",
           "path": "/api/dcim/front-port-templates/",
           "descriptionTemplate": "Create front port template with id {id}",
           "params": [],
-          "bodyTemplate": {
-            "device_type": "{device_type}",
-            "name": "{name}",
-            "type": "{type}",
-            "color": "{color}",
-            "description": "{description}",
-            "tags": "{tags}"
-          }
-        },
-        "bulk_update": {
-          "name": "bulkUpdateFrontPortTemplates",
-          "method": "PUT",
-          "path": "/api/dcim/front-port-templates/",
-          "descriptionTemplate": "Bulk update front port templates"
-        },
-        "bulk_partial_update": {
-          "name": "bulkPartialUpdateFrontPortTemplates",
-          "method": "PATCH",
-          "path": "/api/dcim/front-port-templates/",
-          "descriptionTemplate": "Bulk partial update front port templates"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteFrontPortTemplates",
-          "method": "DELETE",
-          "path": "/api/dcim/front-port-templates/",
-          "descriptionTemplate": "Bulk delete front port templates"
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getFrontPortTemplate",
@@ -813,31 +568,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "device_type": "{device_type}",
-            "name": "{name}",
-            "type": "{type}",
-            "color": "{color}",
-            "description": "{description}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
-        "partial_update": {
-          "name": "partialUpdateFrontPortTemplate",
+        "patch": {
+          "name": "patchFrontPortTemplate",
           "method": "PATCH",
           "path": "/api/dcim/front-port-templates/{id}/",
-          "descriptionTemplate": "Partially update front port template with id {id}",
+          "descriptionTemplate": "Patch front port template with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "device_type": "{device_type}",
-            "name": "{name}",
-            "type": "{type}",
-            "color": "{color}",
-            "description": "{description}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteFrontPortTemplate",
@@ -856,46 +597,13 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listFrontPorts",
-          "method": "GET",
-          "path": "/api/dcim/front-ports/",
-          "descriptionTemplate": "List front ports"
-        },
         "add": {
           "name": "createFrontPort",
           "method": "POST",
           "path": "/api/dcim/front-ports/",
           "descriptionTemplate": "Create front port with id {id}",
           "params": [],
-          "bodyTemplate": {
-            "device": "{device}",
-            "name": "{name}",
-            "type": "{type}",
-            "cable": "{cable}",
-            "cable_end": "{cable_end}",
-            "color": "{color}",
-            "description": "{description}",
-            "tags": "{tags}"
-          }
-        },
-        "bulk_update": {
-          "name": "bulkUpdateFrontPorts",
-          "method": "PUT",
-          "path": "/api/dcim/front-ports/",
-          "descriptionTemplate": "Bulk update front ports"
-        },
-        "bulk_partial_update": {
-          "name": "bulkPartialUpdateFrontPorts",
-          "method": "PATCH",
-          "path": "/api/dcim/front-ports/",
-          "descriptionTemplate": "Bulk partial update front ports"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteFrontPorts",
-          "method": "DELETE",
-          "path": "/api/dcim/front-ports/",
-          "descriptionTemplate": "Bulk delete front ports"
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getFrontPort",
@@ -914,35 +622,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "device": "{device}",
-            "name": "{name}",
-            "type": "{type}",
-            "cable": "{cable}",
-            "cable_end": "{cable_end}",
-            "color": "{color}",
-            "description": "{description}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
-        "partial_update": {
-          "name": "partialUpdateFrontPort",
+        "patch": {
+          "name": "patchFrontPort",
           "method": "PATCH",
           "path": "/api/dcim/front-ports/{id}/",
-          "descriptionTemplate": "Partially update front port with id {id}",
+          "descriptionTemplate": "Patch front port with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "device": "{device}",
-            "name": "{name}",
-            "type": "{type}",
-            "cable": "{cable}",
-            "cable_end": "{cable_end}",
-            "color": "{color}",
-            "description": "{description}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteFrontPort",
@@ -968,8 +658,7 @@
           "descriptionTemplate": "Get front port paths for front port {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -983,59 +672,56 @@
           "name": "createInterfaceTemplate",
           "method": "POST",
           "path": "/api/dcim/interface-templates/",
-          "descriptionTemplate": "Create interface template {name} with id {id}",
+          "descriptionTemplate": "Create interface template {name}",
           "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "name": "{name}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "modified_by_request": "{modified_by_request}",
+            "created_by_request": "{created_by_request}",
+            "updated_by_request": "{updated_by_request}"
           }
         },
         "delete": {
-          "name": "deleteInterfaceTemplatesBulk",
+          "name": "deleteInterfaceTemplate",
           "method": "DELETE",
-          "path": "/api/dcim/interface-templates/",
-          "descriptionTemplate": "Bulk delete interface templates",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Delete interface template {id}",
+          "params": [
+            "id"
+          ]
         },
         "update": {
           "name": "updateInterfaceTemplate",
           "method": "PUT",
           "path": "/api/dcim/interface-templates/{id}/",
-          "descriptionTemplate": "Update interface template {id}",
+          "descriptionTemplate": "Update interface template {id} with name {name}",
           "params": [
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
+            "name": "{name}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "modified_by_request": "{modified_by_request}",
+            "created_by_request": "{created_by_request}",
+            "updated_by_request": "{updated_by_request}"
           }
-        },
-        "partialUpdate": {
-          "name": "partialUpdateInterfaceTemplate",
-          "method": "PATCH",
-          "path": "/api/dcim/interface-templates/{id}/",
-          "descriptionTemplate": "Partial update interface template {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}"
-          }
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateInterfaceTemplates",
-          "method": "PUT",
-          "path": "/api/dcim/interface-templates/",
-          "descriptionTemplate": "Bulk update interface templates",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateInterfaceTemplates",
-          "method": "PATCH",
-          "path": "/api/dcim/interface-templates/",
-          "descriptionTemplate": "Bulk partial update interface templates",
-          "params": [],
-          "bodyTemplate": {}
         },
         "get": {
           "name": "getInterfaceTemplate",
@@ -1044,16 +730,7 @@
           "descriptionTemplate": "Get interface template {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listInterfaceTemplates",
-          "method": "GET",
-          "path": "/api/dcim/interface-templates/",
-          "descriptionTemplate": "List interface templates",
-          "params": [],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -1091,18 +768,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateInterface",
-          "method": "PATCH",
-          "path": "/api/dcim/interfaces/{id}/",
-          "descriptionTemplate": "Partial update interface {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}"
-          }
-        },
         "get": {
           "name": "getInterface",
           "method": "GET",
@@ -1112,67 +777,38 @@
             "id"
           ],
           "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listInterfaces",
-          "method": "GET",
-          "path": "/api/dcim/interfaces/",
-          "descriptionTemplate": "List interfaces",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "trace": {
-          "name": "getInterfaceTrace",
-          "method": "GET",
-          "path": "/api/dcim/interfaces/{id}/trace/",
-          "descriptionTemplate": "Get trace for interface {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateInterfaces",
-          "method": "PUT",
-          "path": "/api/dcim/interfaces/",
-          "descriptionTemplate": "Bulk update interfaces",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateInterfaces",
-          "method": "PATCH",
-          "path": "/api/dcim/interfaces/",
-          "descriptionTemplate": "Bulk partial update interfaces",
-          "params": [],
-          "bodyTemplate": {}
         }
       }
     },
     "InventoryItemRole": {
       "displayName": "inventory item role",
       "params": [
-        "id",
-        "name"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createInventoryItemRole",
           "method": "POST",
           "path": "/api/dcim/inventory-item-roles/",
-          "descriptionTemplate": "Create inventory item role {name} with id {id}",
+          "descriptionTemplate": "Create inventory item role {id}",
           "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}",
+            "color": "{color}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}"
           }
         },
         "delete": {
-          "name": "deleteInventoryItemRolesBulk",
+          "name": "deleteInventoryItemRole",
           "method": "DELETE",
-          "path": "/api/dcim/inventory-item-roles/",
-          "descriptionTemplate": "Bulk delete inventory item roles",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Delete inventory item role {id}",
+          "params": [
+            "id"
+          ]
         },
         "update": {
           "name": "updateInventoryItemRole",
@@ -1183,19 +819,12 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
-          }
-        },
-        "partialUpdate": {
-          "name": "partialUpdateInventoryItemRole",
-          "method": "PATCH",
-          "path": "/api/dcim/inventory-item-roles/{id}/",
-          "descriptionTemplate": "Partial update inventory item role {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}"
+            "id": "{id}",
+            "color": "{color}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}"
           }
         },
         "get": {
@@ -1205,82 +834,69 @@
           "descriptionTemplate": "Get inventory item role {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listInventoryItemRoles",
-          "method": "GET",
-          "path": "/api/dcim/inventory-item-roles/",
-          "descriptionTemplate": "List inventory item roles",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateInventoryItemRoles",
-          "method": "PUT",
-          "path": "/api/dcim/inventory-item-roles/",
-          "descriptionTemplate": "Bulk update inventory item roles",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateInventoryItemRoles",
-          "method": "PATCH",
-          "path": "/api/dcim/inventory-item-roles/",
-          "descriptionTemplate": "Bulk partial update inventory item roles",
-          "params": [],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "InventoryItemTemplate": {
       "displayName": "inventory item template",
       "params": [
-        "id",
-        "name"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createInventoryItemTemplate",
           "method": "POST",
           "path": "/api/dcim/inventory-item-templates/",
-          "descriptionTemplate": "Create inventory item template {name} with id {id}",
+          "descriptionTemplate": "Create inventory item template {name}",
           "params": [],
           "bodyTemplate": {
-            "name": "{name}"
+            "name": "{name}",
+            "component_id": "{component_id}",
+            "component_type": "{component_type}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}",
+            "parent_id": "{parent_id}",
+            "part_id": "{part_id}",
+            "role": "{role}",
+            "role_id": "{role_id}",
+            "manufacturer": "{manufacturer}",
+            "manufacturer_id": "{manufacturer_id}"
           }
         },
         "delete": {
-          "name": "deleteInventoryItemTemplatesBulk",
+          "name": "deleteInventoryItemTemplate",
           "method": "DELETE",
-          "path": "/api/dcim/inventory-item-templates/",
-          "descriptionTemplate": "Bulk delete inventory item templates",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Delete inventory item template {id}",
+          "params": [
+            "id"
+          ]
         },
         "update": {
           "name": "updateInventoryItemTemplate",
           "method": "PUT",
           "path": "/api/dcim/inventory-item-templates/{id}/",
-          "descriptionTemplate": "Update inventory item template {id}",
+          "descriptionTemplate": "Update inventory item template {id} with name {name}",
           "params": [
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}"
-          }
-        },
-        "partialUpdate": {
-          "name": "partialUpdateInventoryItemTemplate",
-          "method": "PATCH",
-          "path": "/api/dcim/inventory-item-templates/{id}/",
-          "descriptionTemplate": "Partial update inventory item template {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}"
+            "name": "{name}",
+            "component_id": "{component_id}",
+            "component_type": "{component_type}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}",
+            "parent_id": "{parent_id}",
+            "part_id": "{part_id}",
+            "role": "{role}",
+            "role_id": "{role_id}",
+            "manufacturer": "{manufacturer}",
+            "manufacturer_id": "{manufacturer_id}"
           }
         },
         "get": {
@@ -1290,32 +906,7 @@
           "descriptionTemplate": "Get inventory item template {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listInventoryItemTemplates",
-          "method": "GET",
-          "path": "/api/dcim/inventory-item-templates/",
-          "descriptionTemplate": "List inventory item templates",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateInventoryItemTemplates",
-          "method": "PUT",
-          "path": "/api/dcim/inventory-item-templates/",
-          "descriptionTemplate": "Bulk update inventory item templates",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateInventoryItemTemplates",
-          "method": "PATCH",
-          "path": "/api/dcim/inventory-item-templates/",
-          "descriptionTemplate": "Bulk partial update inventory item templates",
-          "params": [],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -1753,11 +1344,9 @@
           "path": "/api/dcim/platforms/",
           "descriptionTemplate": "Create platform {name} with id {id}",
           "params": [
-            "slug",
             "name"
           ],
           "bodyTemplate": {
-            "slug": "{slug}",
             "name": "{name}"
           }
         },
@@ -1934,21 +1523,16 @@
     "PowerPanel": {
       "displayName": "power panel",
       "params": [
-        "id",
-        "name"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createPowerPanel",
           "method": "POST",
           "path": "/api/dcim/power-panels/",
-          "descriptionTemplate": "Create power panel {name} with id {id}",
-          "params": [
-            "name"
-          ],
-          "bodyTemplate": {
-            "name": "{name}"
-          }
+          "descriptionTemplate": "Create power panel with id {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deletePowerPanel",
@@ -2211,8 +1795,8 @@
       "displayName": "rack type",
       "params": [
         "name",
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
         "add": {
@@ -2264,11 +1848,11 @@
             "id"
           ]
         },
-        "partial_update": {
-          "name": "partialUpdateRackType",
+        "patch": {
+          "name": "patchRackType",
           "method": "PATCH",
           "path": "/api/dcim/rack-types/{id}/",
-          "descriptionTemplate": "Partially update rack type with id {id}",
+          "descriptionTemplate": "Patch rack type with id {id}",
           "params": [
             "id"
           ],
@@ -2288,12 +1872,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listRacks",
-          "method": "GET",
-          "path": "/api/dcim/racks/",
-          "descriptionTemplate": "List racks"
-        },
         "add": {
           "name": "createRack",
           "method": "POST",
@@ -2313,17 +1891,27 @@
             "outer_depth": "{outer_depth}",
             "outer_height": "{outer_height}",
             "outer_unit": "{outer_unit}",
+            "comments": "{comments}",
+            "tenant": "{tenant}",
+            "status": "{status}",
+            "role": "{role}",
+            "location": "{location}",
+            "manufacturer": "{manufacturer}",
             "weight": "{weight}",
             "weight_unit": "{weight_unit}",
             "max_weight": "{max_weight}",
-            "comments": "{comments}",
-            "tags": "{tags}",
-            "tenant": "{tenant}",
-            "role": "{role}",
-            "location": "{location}",
-            "status": "{status}",
+            "mounting_depth": "{mounting_depth}",
             "starting_unit": "{starting_unit}"
           }
+        },
+        "get": {
+          "name": "getRack",
+          "method": "GET",
+          "path": "/api/dcim/racks/{id}/",
+          "descriptionTemplate": "Get rack with id {id}",
+          "params": [
+            "id"
+          ]
         },
         "update": {
           "name": "updateRack",
@@ -2346,23 +1934,24 @@
             "outer_depth": "{outer_depth}",
             "outer_height": "{outer_height}",
             "outer_unit": "{outer_unit}",
+            "comments": "{comments}",
+            "tenant": "{tenant}",
+            "status": "{status}",
+            "role": "{role}",
+            "location": "{location}",
+            "manufacturer": "{manufacturer}",
             "weight": "{weight}",
             "weight_unit": "{weight_unit}",
             "max_weight": "{max_weight}",
-            "comments": "{comments}",
-            "tags": "{tags}",
-            "tenant": "{tenant}",
-            "role": "{role}",
-            "location": "{location}",
-            "status": "{status}",
+            "mounting_depth": "{mounting_depth}",
             "starting_unit": "{starting_unit}"
           }
         },
-        "partial_update": {
-          "name": "partialUpdateRack",
+        "patch": {
+          "name": "patchRack",
           "method": "PATCH",
           "path": "/api/dcim/racks/{id}/",
-          "descriptionTemplate": "Partially update rack with id {id}",
+          "descriptionTemplate": "Patch rack with id {id}",
           "params": [
             "id"
           ],
@@ -2379,15 +1968,16 @@
             "outer_depth": "{outer_depth}",
             "outer_height": "{outer_height}",
             "outer_unit": "{outer_unit}",
+            "comments": "{comments}",
+            "tenant": "{tenant}",
+            "status": "{status}",
+            "role": "{role}",
+            "location": "{location}",
+            "manufacturer": "{manufacturer}",
             "weight": "{weight}",
             "weight_unit": "{weight_unit}",
             "max_weight": "{max_weight}",
-            "comments": "{comments}",
-            "tags": "{tags}",
-            "tenant": "{tenant}",
-            "role": "{role}",
-            "location": "{location}",
-            "status": "{status}",
+            "mounting_depth": "{mounting_depth}",
             "starting_unit": "{starting_unit}"
           }
         },
@@ -2408,12 +1998,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listRearPortTemplates",
-          "method": "GET",
-          "path": "/api/dcim/rear-port-templates/",
-          "descriptionTemplate": "List rear port templates"
-        },
         "add": {
           "name": "createRearPortTemplate",
           "method": "POST",
@@ -2422,13 +2006,23 @@
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
-            "label": "{label}",
             "type": "{type}",
             "color": "{color}",
             "description": "{description}",
+            "label": "{label}",
             "positions": "{positions}",
-            "tags": "{tags}"
+            "rear_port": "{rear_port}",
+            "device_type": "{device_type}"
           }
+        },
+        "get": {
+          "name": "getRearPortTemplate",
+          "method": "GET",
+          "path": "/api/dcim/rear-port-templates/{id}/",
+          "descriptionTemplate": "Get rear port template with id {id}",
+          "params": [
+            "id"
+          ]
         },
         "update": {
           "name": "updateRearPortTemplate",
@@ -2440,30 +2034,32 @@
           ],
           "bodyTemplate": {
             "name": "{name}",
-            "label": "{label}",
             "type": "{type}",
             "color": "{color}",
             "description": "{description}",
+            "label": "{label}",
             "positions": "{positions}",
-            "tags": "{tags}"
+            "rear_port": "{rear_port}",
+            "device_type": "{device_type}"
           }
         },
-        "partial_update": {
-          "name": "partialUpdateRearPortTemplate",
+        "patch": {
+          "name": "patchRearPortTemplate",
           "method": "PATCH",
           "path": "/api/dcim/rear-port-templates/{id}/",
-          "descriptionTemplate": "Partially update rear port template with id {id}",
+          "descriptionTemplate": "Patch rear port template with id {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {
             "name": "{name}",
-            "label": "{label}",
             "type": "{type}",
             "color": "{color}",
             "description": "{description}",
+            "label": "{label}",
             "positions": "{positions}",
-            "tags": "{tags}"
+            "rear_port": "{rear_port}",
+            "device_type": "{device_type}"
           }
         },
         "delete": {
@@ -2483,12 +2079,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listRearPorts",
-          "method": "GET",
-          "path": "/api/dcim/rear-ports/",
-          "descriptionTemplate": "List rear ports"
-        },
         "add": {
           "name": "createRearPort",
           "method": "POST",
@@ -2500,21 +2090,30 @@
             "label": "{label}",
             "type": "{type}",
             "color": "{color}",
+            "description": "{description}",
             "cable_end": "{cable_end}",
             "cable": "{cable}",
             "device": "{device}",
             "device_role": "{device_role}",
             "device_type": "{device_type}",
             "module": "{module}",
+            "positions": "{positions}",
             "rack": "{rack}",
             "region": "{region}",
             "site": "{site}",
             "virtual_chassis": "{virtual_chassis}",
-            "description": "{description}",
-            "tags": "{tags}",
             "occupied": "{occupied}",
             "mark_connected": "{mark_connected}"
           }
+        },
+        "get": {
+          "name": "getRearPort",
+          "method": "GET",
+          "path": "/api/dcim/rear-ports/{id}/",
+          "descriptionTemplate": "Get rear port with id {id}",
+          "params": [
+            "id"
+          ]
         },
         "update": {
           "name": "updateRearPort",
@@ -2529,27 +2128,27 @@
             "label": "{label}",
             "type": "{type}",
             "color": "{color}",
+            "description": "{description}",
             "cable_end": "{cable_end}",
             "cable": "{cable}",
             "device": "{device}",
             "device_role": "{device_role}",
             "device_type": "{device_type}",
             "module": "{module}",
+            "positions": "{positions}",
             "rack": "{rack}",
             "region": "{region}",
             "site": "{site}",
             "virtual_chassis": "{virtual_chassis}",
-            "description": "{description}",
-            "tags": "{tags}",
             "occupied": "{occupied}",
             "mark_connected": "{mark_connected}"
           }
         },
-        "partial_update": {
-          "name": "partialUpdateRearPort",
+        "patch": {
+          "name": "patchRearPort",
           "method": "PATCH",
           "path": "/api/dcim/rear-ports/{id}/",
-          "descriptionTemplate": "Partially update rear port with id {id}",
+          "descriptionTemplate": "Patch rear port with id {id}",
           "params": [
             "id"
           ],
@@ -2558,18 +2157,18 @@
             "label": "{label}",
             "type": "{type}",
             "color": "{color}",
+            "description": "{description}",
             "cable_end": "{cable_end}",
             "cable": "{cable}",
             "device": "{device}",
             "device_role": "{device_role}",
             "device_type": "{device_type}",
             "module": "{module}",
+            "positions": "{positions}",
             "rack": "{rack}",
             "region": "{region}",
             "site": "{site}",
             "virtual_chassis": "{virtual_chassis}",
-            "description": "{description}",
-            "tags": "{tags}",
             "occupied": "{occupied}",
             "mark_connected": "{mark_connected}"
           }
@@ -2588,75 +2187,17 @@
     "Region": {
       "displayName": "region",
       "params": [
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
-        "list": {
-          "name": "listRegions",
-          "method": "GET",
-          "path": "/api/dcim/regions/",
-          "descriptionTemplate": "List regions"
-        },
         "add": {
           "name": "createRegion",
           "method": "POST",
           "path": "/api/dcim/regions/",
-          "descriptionTemplate": "Create region {slug} with id {id}",
+          "descriptionTemplate": "Create region",
           "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "parent": "{parent}",
-            "description": "{description}",
-            "contact": "{contact}",
-            "contact_group": "{contact_group}",
-            "contact_role": "{contact_role}",
-            "tags": "{tags}"
-          }
-        },
-        "update": {
-          "name": "updateRegion",
-          "method": "PUT",
-          "path": "/api/dcim/regions/{id}/",
-          "descriptionTemplate": "Update region with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "parent": "{parent}",
-            "description": "{description}"
-          }
-        },
-        "partial_update": {
-          "name": "partialUpdateRegion",
-          "method": "PATCH",
-          "path": "/api/dcim/regions/{id}/",
-          "descriptionTemplate": "Partially update region with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "parent": "{parent}",
-            "description": "{description}",
-            "contact": "{contact}",
-            "contact_group": "{contact_group}",
-            "contact_role": "{contact_role}",
-            "tags": "{tags}"
-          }
-        },
-        "delete": {
-          "name": "deleteRegion",
-          "method": "DELETE",
-          "path": "/api/dcim/regions/{id}/",
-          "descriptionTemplate": "Delete region with id {id}",
-          "params": [
-            "id"
-          ]
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getRegion",
@@ -2666,6 +2207,16 @@
           "params": [
             "id"
           ]
+        },
+        "update": {
+          "name": "updateRegion",
+          "method": "PUT",
+          "path": "/api/dcim/regions/{id}/",
+          "descriptionTemplate": "Update region with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
         },
         "patch": {
           "name": "patchRegion",
@@ -2679,8 +2230,30 @@
             "name": "{name}",
             "slug": "{slug}",
             "parent": "{parent}",
-            "description": "{description}"
+            "description": "{description}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
+            "contact_role": "{contact_role}"
           }
+        },
+        "delete": {
+          "name": "deleteRegion",
+          "method": "DELETE",
+          "path": "/api/dcim/regions/{id}/",
+          "descriptionTemplate": "Delete region with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "partial_update": {
+          "name": "partialUpdateRegion",
+          "method": "PATCH",
+          "path": "/api/dcim/regions/{id}/",
+          "descriptionTemplate": "Partially update region with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -2690,50 +2263,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listSiteGroups",
-          "method": "GET",
-          "path": "/api/dcim/site-groups/",
-          "descriptionTemplate": "List site groups",
-          "params": []
-        },
-        "add": {
-          "name": "createSiteGroup",
-          "method": "POST",
-          "path": "/api/dcim/site-groups/",
-          "descriptionTemplate": "Create site group {name}",
-          "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "parent": "{parent}",
-            "description": "{description}"
-          }
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateSiteGroups",
-          "method": "PUT",
-          "path": "/api/dcim/site-groups/",
-          "descriptionTemplate": "Bulk update site groups",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPatch": {
-          "name": "bulkPatchSiteGroups",
-          "method": "PATCH",
-          "path": "/api/dcim/site-groups/",
-          "descriptionTemplate": "Bulk patch site groups",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteSiteGroups",
-          "method": "DELETE",
-          "path": "/api/dcim/site-groups/",
-          "descriptionTemplate": "Bulk delete site groups",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getSiteGroup",
           "method": "GET",
@@ -2743,6 +2272,14 @@
             "id"
           ]
         },
+        "add": {
+          "name": "createSiteGroup",
+          "method": "POST",
+          "path": "/api/dcim/site-groups/",
+          "descriptionTemplate": "Create site group",
+          "params": [],
+          "bodyTemplate": {}
+        },
         "update": {
           "name": "updateSiteGroup",
           "method": "PUT",
@@ -2751,27 +2288,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "parent": "{parent}",
-            "description": "{description}"
-          }
+          "bodyTemplate": {}
         },
-        "patch": {
-          "name": "patchSiteGroup",
+        "partial_update": {
+          "name": "partialUpdateSiteGroup",
           "method": "PATCH",
           "path": "/api/dcim/site-groups/{id}/",
-          "descriptionTemplate": "Patch site group with id {id}",
+          "descriptionTemplate": "Partially update site group with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "parent": "{parent}",
-            "description": "{description}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteSiteGroup",
@@ -2790,62 +2317,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listSites",
-          "method": "GET",
-          "path": "/api/dcim/sites/",
-          "descriptionTemplate": "List sites",
-          "params": []
-        },
-        "add": {
-          "name": "createSite",
-          "method": "POST",
-          "path": "/api/dcim/sites/",
-          "descriptionTemplate": "Create site {name}",
-          "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "region": "{region}",
-            "tenant": "{tenant}",
-            "facility": "{facility}",
-            "asn": "{asn}",
-            "time_zone": "{time_zone}",
-            "description": "{description}",
-            "physical_address": "{physical_address}",
-            "shipping_address": "{shipping_address}",
-            "latitude": "{latitude}",
-            "longitude": "{longitude}",
-            "contact_name": "{contact_name}",
-            "contact_phone": "{contact_phone}",
-            "contact_email": "{contact_email}",
-            "comments": "{comments}"
-          }
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateSites",
-          "method": "PUT",
-          "path": "/api/dcim/sites/",
-          "descriptionTemplate": "Bulk update sites",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPatch": {
-          "name": "bulkPatchSites",
-          "method": "PATCH",
-          "path": "/api/dcim/sites/",
-          "descriptionTemplate": "Bulk patch sites",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteSites",
-          "method": "DELETE",
-          "path": "/api/dcim/sites/",
-          "descriptionTemplate": "Bulk delete sites",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getSite",
           "method": "GET",
@@ -2855,6 +2326,14 @@
             "id"
           ]
         },
+        "add": {
+          "name": "createSite",
+          "method": "POST",
+          "path": "/api/dcim/sites/",
+          "descriptionTemplate": "Create site",
+          "params": [],
+          "bodyTemplate": {}
+        },
         "update": {
           "name": "updateSite",
           "method": "PUT",
@@ -2863,51 +2342,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "region": "{region}",
-            "tenant": "{tenant}",
-            "facility": "{facility}",
-            "asn": "{asn}",
-            "time_zone": "{time_zone}",
-            "description": "{description}",
-            "physical_address": "{physical_address}",
-            "shipping_address": "{shipping_address}",
-            "latitude": "{latitude}",
-            "longitude": "{longitude}",
-            "contact_name": "{contact_name}",
-            "contact_phone": "{contact_phone}",
-            "contact_email": "{contact_email}",
-            "comments": "{comments}"
-          }
+          "bodyTemplate": {}
         },
-        "patch": {
-          "name": "patchSite",
+        "partial_update": {
+          "name": "partialUpdateSite",
           "method": "PATCH",
           "path": "/api/dcim/sites/{id}/",
-          "descriptionTemplate": "Patch site with id {id}",
+          "descriptionTemplate": "Partially update site with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "region": "{region}",
-            "tenant": "{tenant}",
-            "facility": "{facility}",
-            "asn": "{asn}",
-            "time_zone": "{time_zone}",
-            "description": "{description}",
-            "physical_address": "{physical_address}",
-            "shipping_address": "{shipping_address}",
-            "latitude": "{latitude}",
-            "longitude": "{longitude}",
-            "contact_name": "{contact_name}",
-            "contact_phone": "{contact_phone}",
-            "contact_email": "{contact_email}",
-            "comments": "{comments}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteSite",
@@ -2926,49 +2371,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listVirtualChassis",
-          "method": "GET",
-          "path": "/api/dcim/virtual-chassis/",
-          "descriptionTemplate": "List virtual chassis",
-          "params": []
-        },
-        "add": {
-          "name": "createVirtualChassis",
-          "method": "POST",
-          "path": "/api/dcim/virtual-chassis/",
-          "descriptionTemplate": "Create virtual chassis {name}",
-          "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "domain": "{domain}",
-            "description": "{description}"
-          }
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateVirtualChassis",
-          "method": "PUT",
-          "path": "/api/dcim/virtual-chassis/",
-          "descriptionTemplate": "Bulk update virtual chassis",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPatch": {
-          "name": "bulkPatchVirtualChassis",
-          "method": "PATCH",
-          "path": "/api/dcim/virtual-chassis/",
-          "descriptionTemplate": "Bulk patch virtual chassis",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteVirtualChassis",
-          "method": "DELETE",
-          "path": "/api/dcim/virtual-chassis/",
-          "descriptionTemplate": "Bulk delete virtual chassis",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getVirtualChassis",
           "method": "GET",
@@ -2978,6 +2380,14 @@
             "id"
           ]
         },
+        "add": {
+          "name": "createVirtualChassis",
+          "method": "POST",
+          "path": "/api/dcim/virtual-chassis/",
+          "descriptionTemplate": "Create virtual chassis",
+          "params": [],
+          "bodyTemplate": {}
+        },
         "update": {
           "name": "updateVirtualChassis",
           "method": "PUT",
@@ -2986,25 +2396,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "domain": "{domain}",
-            "description": "{description}"
-          }
+          "bodyTemplate": {}
         },
-        "patch": {
-          "name": "patchVirtualChassis",
+        "partial_update": {
+          "name": "partialUpdateVirtualChassis",
           "method": "PATCH",
           "path": "/api/dcim/virtual-chassis/{id}/",
-          "descriptionTemplate": "Patch virtual chassis with id {id}",
+          "descriptionTemplate": "Partially update virtual chassis with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "domain": "{domain}",
-            "description": "{description}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteVirtualChassis",
@@ -3023,49 +2425,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listVirtualDeviceContexts",
-          "method": "GET",
-          "path": "/api/dcim/virtual-device-contexts/",
-          "descriptionTemplate": "List virtual device contexts",
-          "params": []
-        },
-        "add": {
-          "name": "createVirtualDeviceContext",
-          "method": "POST",
-          "path": "/api/dcim/virtual-device-contexts/",
-          "descriptionTemplate": "Create virtual device context {name}",
-          "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "device": "{device}",
-            "description": "{description}"
-          }
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateVirtualDeviceContexts",
-          "method": "PUT",
-          "path": "/api/dcim/virtual-device-contexts/",
-          "descriptionTemplate": "Bulk update virtual device contexts",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPatch": {
-          "name": "bulkPatchVirtualDeviceContexts",
-          "method": "PATCH",
-          "path": "/api/dcim/virtual-device-contexts/",
-          "descriptionTemplate": "Bulk patch virtual device contexts",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteVirtualDeviceContexts",
-          "method": "DELETE",
-          "path": "/api/dcim/virtual-device-contexts/",
-          "descriptionTemplate": "Bulk delete virtual device contexts",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getVirtualDeviceContext",
           "method": "GET",
@@ -3075,6 +2434,14 @@
             "id"
           ]
         },
+        "add": {
+          "name": "createVirtualDeviceContext",
+          "method": "POST",
+          "path": "/api/dcim/virtual-device-contexts/",
+          "descriptionTemplate": "Create virtual device context",
+          "params": [],
+          "bodyTemplate": {}
+        },
         "update": {
           "name": "updateVirtualDeviceContext",
           "method": "PUT",
@@ -3083,25 +2450,17 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "device": "{device}",
-            "description": "{description}"
-          }
+          "bodyTemplate": {}
         },
-        "patch": {
-          "name": "patchVirtualDeviceContext",
+        "partial_update": {
+          "name": "partialUpdateVirtualDeviceContext",
           "method": "PATCH",
           "path": "/api/dcim/virtual-device-contexts/{id}/",
-          "descriptionTemplate": "Patch virtual device context with id {id}",
+          "descriptionTemplate": "Partially update virtual device context with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "device": "{device}",
-            "description": "{description}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteVirtualDeviceContext",
@@ -3345,8 +2704,7 @@
           "path": "/api/extras/config-templates/{id}/render/",
           "descriptionTemplate": "Render config template with id {id}",
           "params": [
-            "id",
-            "format"
+            "id"
           ],
           "bodyTemplate": {}
         },
@@ -3373,32 +2731,31 @@
           "name": "createCustomFieldChoiceSet",
           "method": "POST",
           "path": "/api/extras/custom-field-choice-sets/",
-          "descriptionTemplate": "Create custom field choice set {name} with id {id}",
+          "descriptionTemplate": "Create custom field choice set {name}",
           "params": [
-            "id",
             "name"
           ],
           "bodyTemplate": {
             "name": "{name}"
           }
         },
-        "delete": {
-          "name": "deleteCustomFieldChoiceSet",
-          "method": "DELETE",
+        "get": {
+          "name": "getCustomFieldChoiceSet",
+          "method": "GET",
           "path": "/api/extras/custom-field-choice-sets/{id}/",
-          "descriptionTemplate": "Delete custom field choice set with id {id}",
+          "descriptionTemplate": "Get custom field choice set with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateCustomFieldChoiceSet",
           "method": "PUT",
           "path": "/api/extras/custom-field-choice-sets/{id}/",
-          "descriptionTemplate": "Update custom field choice set with id {id}",
+          "descriptionTemplate": "Update custom field choice set with id {id} and name {name}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
             "name": "{name}"
@@ -3414,15 +2771,14 @@
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getCustomFieldChoiceSet",
-          "method": "GET",
+        "delete": {
+          "name": "deleteCustomFieldChoiceSet",
+          "method": "DELETE",
           "path": "/api/extras/custom-field-choice-sets/{id}/",
-          "descriptionTemplate": "Get custom field choice set with id {id}",
+          "descriptionTemplate": "Delete custom field choice set with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -3437,32 +2793,31 @@
           "name": "createCustomField",
           "method": "POST",
           "path": "/api/extras/custom-fields/",
-          "descriptionTemplate": "Create custom field {name} with id {id}",
+          "descriptionTemplate": "Create custom field {name}",
           "params": [
-            "id",
             "name"
           ],
           "bodyTemplate": {
             "name": "{name}"
           }
         },
-        "delete": {
-          "name": "deleteCustomField",
-          "method": "DELETE",
+        "get": {
+          "name": "getCustomField",
+          "method": "GET",
           "path": "/api/extras/custom-fields/{id}/",
-          "descriptionTemplate": "Delete custom field with id {id}",
+          "descriptionTemplate": "Get custom field with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateCustomField",
           "method": "PUT",
           "path": "/api/extras/custom-fields/{id}/",
-          "descriptionTemplate": "Update custom field with id {id}",
+          "descriptionTemplate": "Update custom field with id {id} and name {name}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
             "name": "{name}"
@@ -3478,15 +2833,14 @@
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getCustomField",
-          "method": "GET",
+        "delete": {
+          "name": "deleteCustomField",
+          "method": "DELETE",
           "path": "/api/extras/custom-fields/{id}/",
-          "descriptionTemplate": "Get custom field with id {id}",
+          "descriptionTemplate": "Delete custom field with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -3501,32 +2855,31 @@
           "name": "createCustomLink",
           "method": "POST",
           "path": "/api/extras/custom-links/",
-          "descriptionTemplate": "Create custom link {name} with id {id}",
+          "descriptionTemplate": "Create custom link {name}",
           "params": [
-            "id",
             "name"
           ],
           "bodyTemplate": {
             "name": "{name}"
           }
         },
-        "delete": {
-          "name": "deleteCustomLink",
-          "method": "DELETE",
+        "get": {
+          "name": "getCustomLink",
+          "method": "GET",
           "path": "/api/extras/custom-links/{id}/",
-          "descriptionTemplate": "Delete custom link with id {id}",
+          "descriptionTemplate": "Get custom link with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateCustomLink",
           "method": "PUT",
           "path": "/api/extras/custom-links/{id}/",
-          "descriptionTemplate": "Update custom link with id {id}",
+          "descriptionTemplate": "Update custom link with id {id} and name {name}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
             "name": "{name}"
@@ -3542,15 +2895,14 @@
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getCustomLink",
-          "method": "GET",
+        "delete": {
+          "name": "deleteCustomLink",
+          "method": "DELETE",
           "path": "/api/extras/custom-links/{id}/",
-          "descriptionTemplate": "Get custom link with id {id}",
+          "descriptionTemplate": "Delete custom link with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -3562,9 +2914,7 @@
           "name": "getDashboard",
           "method": "GET",
           "path": "/api/extras/dashboard/",
-          "descriptionTemplate": "Get dashboard",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Get dashboard"
         },
         "update": {
           "name": "updateDashboard",
@@ -3586,9 +2936,7 @@
           "name": "deleteDashboard",
           "method": "DELETE",
           "path": "/api/extras/dashboard/",
-          "descriptionTemplate": "Delete dashboard",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Delete dashboard"
         }
       }
     },
@@ -3858,19 +3206,20 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "description": "{description}",
-            "notifications": "{notifications}"
+            "id": "{id}"
           }
         },
         "partialUpdate": {
           "name": "partialUpdateNotificationGroup",
           "method": "PATCH",
-          "path": "/api/extras/notification-groups/",
-          "descriptionTemplate": "Bulk partial update notification group(s)",
-          "params": [],
-          "bodyTemplate": {}
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Partially update notification group {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "get": {
           "name": "getNotificationGroup",
@@ -3880,21 +3229,6 @@
           "params": [
             "id"
           ]
-        },
-        "patch": {
-          "name": "patchNotificationGroup",
-          "method": "PATCH",
-          "path": "/api/extras/notification-groups/{id}/",
-          "descriptionTemplate": "Patch notification group {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "description": "{description}",
-            "notifications": "{notifications}"
-          }
         }
       }
     },
@@ -3915,35 +3249,33 @@
           "name": "createNotification",
           "method": "POST",
           "path": "/api/extras/notifications/",
-          "descriptionTemplate": "Create notification {name} with id {id}",
+          "descriptionTemplate": "Create notification",
           "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "type": "{type}",
-            "group": "{group}",
-            "enabled": "{enabled}",
-            "level": "{level}",
-            "config": "{config}"
-          }
+          "bodyTemplate": {}
         },
         "bulkUpdate": {
           "name": "bulkUpdateNotifications",
           "method": "PUT",
           "path": "/api/extras/notifications/",
-          "descriptionTemplate": "Bulk update notifications"
+          "descriptionTemplate": "Bulk update notifications",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "bulkPatch": {
-          "name": "bulkPatchNotifications",
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateNotifications",
           "method": "PATCH",
           "path": "/api/extras/notifications/",
-          "descriptionTemplate": "Bulk patch notifications"
+          "descriptionTemplate": "Bulk partial update notifications",
+          "params": [],
+          "bodyTemplate": {}
         },
         "bulkDelete": {
           "name": "bulkDeleteNotifications",
           "method": "DELETE",
           "path": "/api/extras/notifications/",
-          "descriptionTemplate": "Bulk delete notifications"
+          "descriptionTemplate": "Bulk delete notifications",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getNotification",
@@ -3963,31 +3295,19 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "type": "{type}",
-            "group": "{group}",
-            "enabled": "{enabled}",
-            "level": "{level}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
-        "patch": {
-          "name": "patchNotification",
+        "partialUpdate": {
+          "name": "partialUpdateNotification",
           "method": "PATCH",
           "path": "/api/extras/notifications/{id}/",
-          "descriptionTemplate": "Patch notification {id}",
+          "descriptionTemplate": "Partially update notification {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "type": "{type}",
-            "group": "{group}",
-            "enabled": "{enabled}",
-            "level": "{level}",
-            "config": "{config}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -4042,37 +3362,33 @@
           "name": "createSavedFilter",
           "method": "POST",
           "path": "/api/extras/saved-filters/",
-          "descriptionTemplate": "Create saved filter {name} with id {id}",
+          "descriptionTemplate": "Create saved filter",
           "params": [],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "description": "{description}",
-            "enabled": "{enabled}",
-            "shared": "{shared}",
-            "user": "{user}",
-            "object_type": "{object_type}",
-            "weight": "{weight}",
-            "created": "{created}"
-          }
+          "bodyTemplate": {}
         },
         "bulkUpdate": {
           "name": "bulkUpdateSavedFilters",
           "method": "PUT",
           "path": "/api/extras/saved-filters/",
-          "descriptionTemplate": "Bulk update saved filters"
+          "descriptionTemplate": "Bulk update saved filters",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "bulkPatch": {
-          "name": "bulkPatchSavedFilters",
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateSavedFilters",
           "method": "PATCH",
           "path": "/api/extras/saved-filters/",
-          "descriptionTemplate": "Bulk patch saved filters"
+          "descriptionTemplate": "Bulk partial update saved filters",
+          "params": [],
+          "bodyTemplate": {}
         },
         "bulkDelete": {
           "name": "bulkDeleteSavedFilters",
           "method": "DELETE",
           "path": "/api/extras/saved-filters/",
-          "descriptionTemplate": "Bulk delete saved filters"
+          "descriptionTemplate": "Bulk delete saved filters",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getSavedFilter",
@@ -4092,35 +3408,19 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "description": "{description}",
-            "enabled": "{enabled}",
-            "shared": "{shared}",
-            "user": "{user}",
-            "object_type": "{object_type}",
-            "weight": "{weight}",
-            "created": "{created}"
+            "id": "{id}"
           }
         },
-        "patch": {
-          "name": "patchSavedFilter",
+        "partialUpdate": {
+          "name": "partialUpdateSavedFilter",
           "method": "PATCH",
           "path": "/api/extras/saved-filters/{id}/",
-          "descriptionTemplate": "Patch saved filter {id}",
+          "descriptionTemplate": "Partially update saved filter {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}",
-            "description": "{description}",
-            "enabled": "{enabled}",
-            "shared": "{shared}",
-            "user": "{user}",
-            "object_type": "{object_type}",
-            "weight": "{weight}",
-            "created": "{created}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -4151,7 +3451,7 @@
           "name": "createScript",
           "method": "POST",
           "path": "/api/extras/scripts/",
-          "descriptionTemplate": "Create script {id}",
+          "descriptionTemplate": "Create script",
           "params": [],
           "bodyTemplate": {}
         },
@@ -4173,29 +3473,19 @@
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
-            "source": "{source}",
-            "enabled": "{enabled}",
-            "is_executable": "{is_executable}",
-            "module_id": "{module_id}"
+            "id": "{id}"
           }
         },
-        "patch": {
-          "name": "patchScript",
+        "partialUpdate": {
+          "name": "partialUpdateScript",
           "method": "PATCH",
           "path": "/api/extras/scripts/{id}/",
-          "descriptionTemplate": "Patch script {id}",
+          "descriptionTemplate": "Partially update script {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
-            "source": "{source}",
-            "enabled": "{enabled}",
-            "is_executable": "{is_executable}",
-            "module_id": "{module_id}"
+            "id": "{id}"
           }
         },
         "delete": {
@@ -4234,19 +3524,25 @@
           "name": "bulkUpdateSubscriptions",
           "method": "PUT",
           "path": "/api/extras/subscriptions/",
-          "descriptionTemplate": "Bulk update subscriptions"
+          "descriptionTemplate": "Bulk update subscriptions",
+          "params": [],
+          "bodyTemplate": {}
         },
-        "bulkPatch": {
-          "name": "bulkPatchSubscriptions",
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateSubscriptions",
           "method": "PATCH",
           "path": "/api/extras/subscriptions/",
-          "descriptionTemplate": "Bulk patch subscriptions"
+          "descriptionTemplate": "Bulk partial update subscriptions",
+          "params": [],
+          "bodyTemplate": {}
         },
         "bulkDelete": {
           "name": "bulkDeleteSubscriptions",
           "method": "DELETE",
           "path": "/api/extras/subscriptions/",
-          "descriptionTemplate": "Bulk delete subscriptions"
+          "descriptionTemplate": "Bulk delete subscriptions",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getSubscription",
@@ -4255,7 +3551,8 @@
           "descriptionTemplate": "Get subscription with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateSubscription",
@@ -4270,10 +3567,10 @@
           }
         },
         "patch": {
-          "name": "partialUpdateSubscription",
+          "name": "patchSubscription",
           "method": "PATCH",
           "path": "/api/extras/subscriptions/{id}/",
-          "descriptionTemplate": "Partially update subscription with id {id}",
+          "descriptionTemplate": "Patch subscription with id {id}",
           "params": [
             "id"
           ],
@@ -4288,7 +3585,8 @@
           "descriptionTemplate": "Delete subscription with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -4306,7 +3604,8 @@
           "descriptionTemplate": "Get table config with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "createTableConfig",
@@ -4331,10 +3630,10 @@
           }
         },
         "patch": {
-          "name": "partialUpdateTableConfig",
+          "name": "patchTableConfig",
           "method": "PATCH",
           "path": "/api/extras/table-configs/{id}/",
-          "descriptionTemplate": "Partially update table config with id {id}",
+          "descriptionTemplate": "Patch table config with id {id}",
           "params": [
             "id"
           ],
@@ -4349,7 +3648,8 @@
           "descriptionTemplate": "Delete table config with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -4366,7 +3666,8 @@
           "descriptionTemplate": "Get tagged object with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -4385,7 +3686,8 @@
           "descriptionTemplate": "Get tag with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "createTag",
@@ -4412,10 +3714,10 @@
           }
         },
         "patch": {
-          "name": "partialUpdateTag",
+          "name": "patchTag",
           "method": "PATCH",
           "path": "/api/extras/tags/{id}/",
-          "descriptionTemplate": "Partially update tag with id {id}",
+          "descriptionTemplate": "Patch tag with id {id}",
           "params": [
             "id"
           ],
@@ -4431,7 +3733,8 @@
           "descriptionTemplate": "Delete tag with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -4449,7 +3752,8 @@
           "descriptionTemplate": "Get webhook with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "createWebhook",
@@ -4474,10 +3778,10 @@
           }
         },
         "patch": {
-          "name": "partialUpdateWebhook",
+          "name": "patchWebhook",
           "method": "PATCH",
           "path": "/api/extras/webhooks/{id}/",
-          "descriptionTemplate": "Partially update webhook with id {id}",
+          "descriptionTemplate": "Patch webhook with id {id}",
           "params": [
             "id"
           ],
@@ -4492,7 +3796,8 @@
           "descriptionTemplate": "Delete webhook with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -4543,7 +3848,7 @@
       }
     },
     "ASNRange": {
-      "displayName": "asn range",
+      "displayName": "asnRange",
       "params": [
         "id"
       ],
@@ -4635,7 +3940,7 @@
       }
     },
     "FHRPGroupAssignment": {
-      "displayName": "fhrp group assignment",
+      "displayName": "fhrpGroupAssignment",
       "params": [
         "id"
       ],
@@ -4681,7 +3986,7 @@
       }
     },
     "FHRPGroup": {
-      "displayName": "fhrp group",
+      "displayName": "fhrpGroup",
       "params": [
         "id"
       ],
@@ -4690,7 +3995,7 @@
           "name": "createFHRPGroup",
           "method": "POST",
           "path": "/api/ipam/fhrp-groups/",
-          "descriptionTemplate": "Create FHRP group",
+          "descriptionTemplate": "Create fhrp group",
           "params": [],
           "bodyTemplate": {}
         },
@@ -4698,7 +4003,7 @@
           "name": "deleteFHRPGroup",
           "method": "DELETE",
           "path": "/api/ipam/fhrp-groups/{id}/",
-          "descriptionTemplate": "Delete FHRP group with id {id}",
+          "descriptionTemplate": "Delete fhrp group with id {id}",
           "params": [
             "id"
           ],
@@ -4708,17 +4013,19 @@
           "name": "updateFHRPGroup",
           "method": "PUT",
           "path": "/api/ipam/fhrp-groups/{id}/",
-          "descriptionTemplate": "Update FHRP group with id {id}",
+          "descriptionTemplate": "Update fhrp group with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "get": {
           "name": "getFHRPGroup",
           "method": "GET",
           "path": "/api/ipam/fhrp-groups/{id}/",
-          "descriptionTemplate": "Get FHRP group with id {id}",
+          "descriptionTemplate": "Get fhrp group with id {id}",
           "params": [
             "id"
           ],
@@ -4728,11 +4035,13 @@
           "name": "partialUpdateFHRPGroup",
           "method": "PATCH",
           "path": "/api/ipam/fhrp-groups/{id}/",
-          "descriptionTemplate": "Partially update FHRP group with id {id}",
+          "descriptionTemplate": "Partially update fhrp group with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         }
       }
     },
@@ -4746,7 +4055,7 @@
           "name": "getIPAddress",
           "method": "GET",
           "path": "/api/ipam/ip-addresses/{id}/",
-          "descriptionTemplate": "Get IP address with id {id}",
+          "descriptionTemplate": "Get ip address with id {id}",
           "params": [
             "id"
           ],
@@ -4756,7 +4065,7 @@
           "name": "createIPAddress",
           "method": "POST",
           "path": "/api/ipam/ip-addresses/",
-          "descriptionTemplate": "Create IP address",
+          "descriptionTemplate": "Create ip address",
           "params": [],
           "bodyTemplate": {}
         },
@@ -4764,27 +4073,31 @@
           "name": "updateIPAddress",
           "method": "PUT",
           "path": "/api/ipam/ip-addresses/{id}/",
-          "descriptionTemplate": "Update IP address with id {id}",
+          "descriptionTemplate": "Update ip address with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "partial_update": {
           "name": "partialUpdateIPAddress",
           "method": "PATCH",
           "path": "/api/ipam/ip-addresses/{id}/",
-          "descriptionTemplate": "Partially update IP address with id {id}",
+          "descriptionTemplate": "Partially update ip address with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "delete": {
           "name": "deleteIPAddress",
           "method": "DELETE",
           "path": "/api/ipam/ip-addresses/{id}/",
-          "descriptionTemplate": "Delete IP address with id {id}",
+          "descriptionTemplate": "Delete ip address with id {id}",
           "params": [
             "id"
           ],
@@ -4802,7 +4115,7 @@
           "name": "getIPRange",
           "method": "GET",
           "path": "/api/ipam/ip-ranges/{id}/",
-          "descriptionTemplate": "Get IP range with id {id}",
+          "descriptionTemplate": "Get ip range with id {id}",
           "params": [
             "id"
           ],
@@ -4812,7 +4125,7 @@
           "name": "createIPRange",
           "method": "POST",
           "path": "/api/ipam/ip-ranges/",
-          "descriptionTemplate": "Create IP range",
+          "descriptionTemplate": "Create ip range",
           "params": [],
           "bodyTemplate": {}
         },
@@ -4820,27 +4133,31 @@
           "name": "updateIPRange",
           "method": "PUT",
           "path": "/api/ipam/ip-ranges/{id}/",
-          "descriptionTemplate": "Update IP range with id {id}",
+          "descriptionTemplate": "Update ip range with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "partial_update": {
           "name": "partialUpdateIPRange",
           "method": "PATCH",
           "path": "/api/ipam/ip-ranges/{id}/",
-          "descriptionTemplate": "Partially update IP range with id {id}",
+          "descriptionTemplate": "Partially update ip range with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "delete": {
           "name": "deleteIPRange",
           "method": "DELETE",
           "path": "/api/ipam/ip-ranges/{id}/",
-          "descriptionTemplate": "Delete IP range with id {id}",
+          "descriptionTemplate": "Delete ip range with id {id}",
           "params": [
             "id"
           ],
@@ -4880,7 +4197,9 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "partial_update": {
           "name": "partialUpdatePrefix",
@@ -4890,7 +4209,9 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}"
+          }
         },
         "delete": {
           "name": "deletePrefix",
@@ -4914,7 +4235,7 @@
           "name": "createRIR",
           "method": "POST",
           "path": "/api/ipam/rirs/",
-          "descriptionTemplate": "Create RIR with name {name}",
+          "descriptionTemplate": "Create RIR {name} with id {id}",
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -4928,59 +4249,112 @@
             "rir_date_source_comment": "{rir_date_source_comment}",
             "rir_date_source_url": "{rir_date_source_url}",
             "rir_date_source_url_comment": "{rir_date_source_url_comment}",
-            "rir_date_source_url_title": "{rir_date_source_url_title}",
-            "rir_date_source_url_title_comment": "{rir_date_source_url_title_comment}",
-            "rir_date_source_url_title_url": "{rir_date_source_url_title_url}",
-            "rir_date_source_url_title_url_comment": "{rir_date_source_url_title_url_comment}",
-            "rir_date_source_url_title_url_title": "{rir_date_source_url_title_url_title}",
-            "rir_date_source_url_title_url_title_comment": "{rir_date_source_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url": "{rir_date_source_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url}",
-            "rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_comment": "{rir_date_source_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_title_url_comment}"
+            "rir_date_source_url_date": "{rir_date_source_url_date}",
+            "rir_date_source_url_date_comment": "{rir_date_source_url_date_comment}",
+            "rir_date_source_url_date_source": "{rir_date_source_url_date_source}",
+            "rir_date_source_url_date_source_comment": "{rir_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url": "{rir_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_url_date_source}"
           }
         },
-        "delete": {
-          "name": "deleteRIR",
-          "method": "DELETE",
+        "get": {
+          "name": "getRIR",
+          "method": "GET",
           "path": "/api/ipam/rirs/{id}/",
-          "descriptionTemplate": "Delete RIR with id {id}",
+          "descriptionTemplate": "Get RIR with id {id}",
           "params": [
             "id"
           ]
@@ -4989,7 +4363,7 @@
           "name": "updateRIR",
           "method": "PUT",
           "path": "/api/ipam/rirs/{id}/",
-          "descriptionTemplate": "Update RIR with id {id}",
+          "descriptionTemplate": "Update RIR {id}",
           "params": [
             "id"
           ],
@@ -5004,36 +4378,27 @@
             "rir_date_source": "{rir_date_source}",
             "rir_date_source_comment": "{rir_date_source_comment}",
             "rir_date_source_url": "{rir_date_source_url}",
-            "rir_date_source_url_comment": "{rir_date_source_url_comment}",
-            "rir_date_source_url_title": "{rir_date_source_url_title}",
-            "rir_date_source_url_title_comment": "{rir_date_source_url_title_comment}"
+            "rir_date_source_url_comment": "{rir_date_source_url_comment}"
           }
         },
         "partial_update": {
           "name": "partialUpdateRIR",
           "method": "PATCH",
           "path": "/api/ipam/rirs/{id}/",
-          "descriptionTemplate": "Partially update RIR with id {id}",
+          "descriptionTemplate": "Partially update RIR {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getRIR",
-          "method": "GET",
+        "delete": {
+          "name": "deleteRIR",
+          "method": "DELETE",
           "path": "/api/ipam/rirs/{id}/",
-          "descriptionTemplate": "Get RIR with id {id}",
+          "descriptionTemplate": "Delete RIR {id}",
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "listRIRs",
-          "method": "GET",
-          "path": "/api/ipam/rirs/",
-          "descriptionTemplate": "List RIRs",
-          "params": []
         }
       }
     },
@@ -5047,7 +4412,7 @@
           "name": "createRole",
           "method": "POST",
           "path": "/api/ipam/roles/",
-          "descriptionTemplate": "Create role with name {name}",
+          "descriptionTemplate": "Create role {name} with id {id}",
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -5056,11 +4421,11 @@
             "description": "{description}"
           }
         },
-        "delete": {
-          "name": "deleteRole",
-          "method": "DELETE",
+        "get": {
+          "name": "getRole",
+          "method": "GET",
           "path": "/api/ipam/roles/{id}/",
-          "descriptionTemplate": "Delete role with id {id}",
+          "descriptionTemplate": "Get role with id {id}",
           "params": [
             "id"
           ]
@@ -5069,7 +4434,7 @@
           "name": "updateRole",
           "method": "PUT",
           "path": "/api/ipam/roles/{id}/",
-          "descriptionTemplate": "Update role with id {id}",
+          "descriptionTemplate": "Update role {id}",
           "params": [
             "id"
           ],
@@ -5084,27 +4449,20 @@
           "name": "partialUpdateRole",
           "method": "PATCH",
           "path": "/api/ipam/roles/{id}/",
-          "descriptionTemplate": "Partially update role with id {id}",
+          "descriptionTemplate": "Partially update role {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getRole",
-          "method": "GET",
+        "delete": {
+          "name": "deleteRole",
+          "method": "DELETE",
           "path": "/api/ipam/roles/{id}/",
-          "descriptionTemplate": "Get role with id {id}",
+          "descriptionTemplate": "Delete role {id}",
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "listRoles",
-          "method": "GET",
-          "path": "/api/ipam/roles/",
-          "descriptionTemplate": "List roles",
-          "params": []
         }
       }
     },
@@ -5118,7 +4476,7 @@
           "name": "createRouteTarget",
           "method": "POST",
           "path": "/api/ipam/route-targets/",
-          "descriptionTemplate": "Create route target with name {name}",
+          "descriptionTemplate": "Create route target {name} with id {id}",
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -5132,11 +4490,11 @@
             "exporting_vrf": "{exporting_vrf}"
           }
         },
-        "delete": {
-          "name": "deleteRouteTarget",
-          "method": "DELETE",
+        "get": {
+          "name": "getRouteTarget",
+          "method": "GET",
           "path": "/api/ipam/route-targets/{id}/",
-          "descriptionTemplate": "Delete route target with id {id}",
+          "descriptionTemplate": "Get route target with id {id}",
           "params": [
             "id"
           ]
@@ -5145,7 +4503,7 @@
           "name": "updateRouteTarget",
           "method": "PUT",
           "path": "/api/ipam/route-targets/{id}/",
-          "descriptionTemplate": "Update route target with id {id}",
+          "descriptionTemplate": "Update route target {id}",
           "params": [
             "id"
           ],
@@ -5165,27 +4523,20 @@
           "name": "partialUpdateRouteTarget",
           "method": "PATCH",
           "path": "/api/ipam/route-targets/{id}/",
-          "descriptionTemplate": "Partially update route target with id {id}",
+          "descriptionTemplate": "Partially update route target {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getRouteTarget",
-          "method": "GET",
+        "delete": {
+          "name": "deleteRouteTarget",
+          "method": "DELETE",
           "path": "/api/ipam/route-targets/{id}/",
-          "descriptionTemplate": "Get route target with id {id}",
+          "descriptionTemplate": "Delete route target {id}",
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "listRouteTargets",
-          "method": "GET",
-          "path": "/api/ipam/route-targets/",
-          "descriptionTemplate": "List route targets",
-          "params": []
         }
       }
     },
@@ -5199,7 +4550,7 @@
           "name": "createServiceTemplate",
           "method": "POST",
           "path": "/api/ipam/service-templates/",
-          "descriptionTemplate": "Create service template with name {name}",
+          "descriptionTemplate": "Create service template {name} with id {id}",
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -5209,11 +4560,11 @@
             "port": "{port}"
           }
         },
-        "delete": {
-          "name": "deleteServiceTemplate",
-          "method": "DELETE",
+        "get": {
+          "name": "getServiceTemplate",
+          "method": "GET",
           "path": "/api/ipam/service-templates/{id}/",
-          "descriptionTemplate": "Delete service template with id {id}",
+          "descriptionTemplate": "Get service template with id {id}",
           "params": [
             "id"
           ]
@@ -5222,7 +4573,7 @@
           "name": "updateServiceTemplate",
           "method": "PUT",
           "path": "/api/ipam/service-templates/{id}/",
-          "descriptionTemplate": "Update service template with id {id}",
+          "descriptionTemplate": "Update service template {id}",
           "params": [
             "id"
           ],
@@ -5238,27 +4589,20 @@
           "name": "partialUpdateServiceTemplate",
           "method": "PATCH",
           "path": "/api/ipam/service-templates/{id}/",
-          "descriptionTemplate": "Partially update service template with id {id}",
+          "descriptionTemplate": "Partially update service template {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getServiceTemplate",
-          "method": "GET",
+        "delete": {
+          "name": "deleteServiceTemplate",
+          "method": "DELETE",
           "path": "/api/ipam/service-templates/{id}/",
-          "descriptionTemplate": "Get service template with id {id}",
+          "descriptionTemplate": "Delete service template {id}",
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "listServiceTemplates",
-          "method": "GET",
-          "path": "/api/ipam/service-templates/",
-          "descriptionTemplate": "List service templates",
-          "params": []
         }
       }
     },
@@ -5272,62 +4616,23 @@
           "name": "createService",
           "method": "POST",
           "path": "/api/ipam/services/",
-          "descriptionTemplate": "Create service with name {name}",
+          "descriptionTemplate": "Create service {name} with id {id}",
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
+            "description": "{description}",
             "protocol": "{protocol}",
             "port": "{port}",
-            "description": "{description}",
             "device": "{device}",
             "virtual_machine": "{virtual_machine}",
             "ip_address": "{ip_address}",
             "fhrpgroup": "{fhrpgroup}",
             "contact": "{contact}",
             "contact_group": "{contact_group}",
-            "contact_role": "{contact_role}"
+            "contact_role": "{contact_role}",
+            "parent_object_id": "{parent_object_id}",
+            "parent_object_type": "{parent_object_type}"
           }
-        },
-        "delete": {
-          "name": "deleteService",
-          "method": "DELETE",
-          "path": "/api/ipam/services/{id}/",
-          "descriptionTemplate": "Delete service with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateService",
-          "method": "PUT",
-          "path": "/api/ipam/services/{id}/",
-          "descriptionTemplate": "Update service with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "protocol": "{protocol}",
-            "port": "{port}",
-            "description": "{description}",
-            "device": "{device}",
-            "virtual_machine": "{virtual_machine}",
-            "ip_address": "{ip_address}",
-            "fhrpgroup": "{fhrpgroup}",
-            "contact": "{contact}",
-            "contact_group": "{contact_group}",
-            "contact_role": "{contact_role}"
-          }
-        },
-        "partial_update": {
-          "name": "partialUpdateService",
-          "method": "PATCH",
-          "path": "/api/ipam/services/{id}/",
-          "descriptionTemplate": "Partially update service with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
         },
         "get": {
           "name": "getService",
@@ -5338,12 +4643,48 @@
             "id"
           ]
         },
-        "list": {
-          "name": "listServices",
-          "method": "GET",
-          "path": "/api/ipam/services/",
-          "descriptionTemplate": "List services",
-          "params": []
+        "update": {
+          "name": "updateService",
+          "method": "PUT",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Update service {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "protocol": "{protocol}",
+            "port": "{port}",
+            "device": "{device}",
+            "virtual_machine": "{virtual_machine}",
+            "ip_address": "{ip_address}",
+            "fhrpgroup": "{fhrpgroup}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
+            "contact_role": "{contact_role}",
+            "parent_object_id": "{parent_object_id}",
+            "parent_object_type": "{parent_object_type}"
+          }
+        },
+        "partial_update": {
+          "name": "partialUpdateService",
+          "method": "PATCH",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Partially update service {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteService",
+          "method": "DELETE",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Delete service {id}",
+          "params": [
+            "id"
+          ]
         }
       }
     },
@@ -5381,16 +4722,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateVLANGroup",
-          "method": "PATCH",
-          "path": "/api/ipam/vlan-groups/{id}/",
-          "descriptionTemplate": "Partially update vlan group with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getVLANGroup",
           "method": "GET",
@@ -5400,38 +4731,30 @@
             "id"
           ],
           "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listVLANGroups",
-          "method": "GET",
-          "path": "/api/ipam/vlan-groups/",
-          "descriptionTemplate": "List vlan groups",
-          "params": [],
-          "bodyTemplate": {}
         }
       }
     },
-    "AvailableVlan": {
-      "displayName": "available vlan",
+    "VLANGroupAvailableVlan": {
+      "displayName": "vlan group available vlan",
       "params": [
         "id"
       ],
       "operations": {
         "add": {
-          "name": "createAvailableVlan",
+          "name": "createVLANGroupAvailableVlan",
           "method": "POST",
           "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
-          "descriptionTemplate": "Create available vlan in vlan group {id}",
+          "descriptionTemplate": "Create available vlan for vlan group with id {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
         "get": {
-          "name": "listAvailableVlans",
+          "name": "getVLANGroupAvailableVlans",
           "method": "GET",
           "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
-          "descriptionTemplate": "List available vlans in vlan group {id}",
+          "descriptionTemplate": "Get available vlans for vlan group with id {id}",
           "params": [
             "id"
           ],
@@ -5473,16 +4796,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateVLANTranslationPolicy",
-          "method": "PATCH",
-          "path": "/api/ipam/vlan-translation-policies/{id}/",
-          "descriptionTemplate": "Partially update vlan translation policy with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getVLANTranslationPolicy",
           "method": "GET",
@@ -5491,14 +4804,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listVLANTranslationPolicies",
-          "method": "GET",
-          "path": "/api/ipam/vlan-translation-policies/",
-          "descriptionTemplate": "List vlan translation policies",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -5537,16 +4842,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateVLANTranslationRule",
-          "method": "PATCH",
-          "path": "/api/ipam/vlan-translation-rules/{id}/",
-          "descriptionTemplate": "Partially update vlan translation rule with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getVLANTranslationRule",
           "method": "GET",
@@ -5555,14 +4850,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listVLANTranslationRules",
-          "method": "GET",
-          "path": "/api/ipam/vlan-translation-rules/",
-          "descriptionTemplate": "List vlan translation rules",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -5601,16 +4888,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateVLAN",
-          "method": "PATCH",
-          "path": "/api/ipam/vlans/{id}/",
-          "descriptionTemplate": "Partially update vlan with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getVLAN",
           "method": "GET",
@@ -5619,14 +4896,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listVLANs",
-          "method": "GET",
-          "path": "/api/ipam/vlans/",
-          "descriptionTemplate": "List vlans",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -5649,7 +4918,7 @@
           "name": "deleteVRF",
           "method": "DELETE",
           "path": "/api/ipam/vrfs/{id}/",
-          "descriptionTemplate": "Delete vrf with id {id}",
+          "descriptionTemplate": "Delete VRF with id {id}",
           "params": [
             "id"
           ]
@@ -5658,7 +4927,7 @@
           "name": "updateVRF",
           "method": "PUT",
           "path": "/api/ipam/vrfs/{id}/",
-          "descriptionTemplate": "Update vrf with id {id}",
+          "descriptionTemplate": "Update VRF with id {id}",
           "params": [
             "id"
           ],
@@ -5667,43 +4936,26 @@
             "rd": "{rd}",
             "description": "{description}",
             "tags": "{tags}",
-            "enforce_unique": "{enforce_unique}",
             "tenant": "{tenant}",
-            "custom_fields": "{custom_fields}"
+            "enforce_unique": "{enforce_unique}",
+            "custom_fields": "{custom_fields}",
+            "id": "{id}"
           }
-        },
-        "partialUpdate": {
-          "name": "partialUpdateVRF",
-          "method": "PATCH",
-          "path": "/api/ipam/vrfs/{id}/",
-          "descriptionTemplate": "Partially update vrf with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
         },
         "get": {
           "name": "getVRF",
           "method": "GET",
           "path": "/api/ipam/vrfs/{id}/",
-          "descriptionTemplate": "Retrieve vrf with id {id}",
+          "descriptionTemplate": "Retrieve VRF with id {id}",
           "params": [
             "id"
           ]
-        },
-        "list": {
-          "name": "listVRFs",
-          "method": "GET",
-          "path": "/api/ipam/vrfs/",
-          "descriptionTemplate": "List vrfs",
-          "params": [],
-          "bodyTemplate": {}
         },
         "patch": {
           "name": "patchVRF",
           "method": "PATCH",
           "path": "/api/ipam/vrfs/{id}/",
-          "descriptionTemplate": "Partially update vrf with id {id}",
+          "descriptionTemplate": "Partially update VRF with id {id}",
           "params": [
             "id"
           ],
@@ -5712,8 +4964,8 @@
             "rd": "{rd}",
             "description": "{description}",
             "tags": "{tags}",
-            "enforce_unique": "{enforce_unique}",
             "tenant": "{tenant}",
+            "enforce_unique": "{enforce_unique}",
             "custom_fields": "{custom_fields}"
           }
         }
@@ -5968,13 +5220,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listProviderAccounts",
-          "method": "GET",
-          "path": "/api/circuits/provider-accounts/",
-          "descriptionTemplate": "List provider accounts",
-          "params": []
-        },
         "add": {
           "name": "createProviderAccount",
           "method": "POST",
@@ -5982,30 +5227,6 @@
           "descriptionTemplate": "Create provider account",
           "params": [],
           "bodyTemplate": "{...}"
-        },
-        "bulk_update": {
-          "name": "bulkUpdateProviderAccounts",
-          "method": "PUT",
-          "path": "/api/circuits/provider-accounts/",
-          "descriptionTemplate": "Bulk update provider accounts",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_patch": {
-          "name": "bulkPatchProviderAccounts",
-          "method": "PATCH",
-          "path": "/api/circuits/provider-accounts/",
-          "descriptionTemplate": "Bulk patch provider accounts",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteProviderAccounts",
-          "method": "DELETE",
-          "path": "/api/circuits/provider-accounts/",
-          "descriptionTemplate": "Bulk delete provider accounts",
-          "params": [],
-          "bodyTemplate": "[{...}]"
         },
         "get": {
           "name": "getProviderAccount",
@@ -6053,13 +5274,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listProviderNetworks",
-          "method": "GET",
-          "path": "/api/circuits/provider-networks/",
-          "descriptionTemplate": "List provider networks",
-          "params": []
-        },
         "add": {
           "name": "createProviderNetwork",
           "method": "POST",
@@ -6067,30 +5281,6 @@
           "descriptionTemplate": "Create provider network",
           "params": [],
           "bodyTemplate": "{...}"
-        },
-        "bulk_update": {
-          "name": "bulkUpdateProviderNetworks",
-          "method": "PUT",
-          "path": "/api/circuits/provider-networks/",
-          "descriptionTemplate": "Bulk update provider networks",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_patch": {
-          "name": "bulkPatchProviderNetworks",
-          "method": "PATCH",
-          "path": "/api/circuits/provider-networks/",
-          "descriptionTemplate": "Bulk patch provider networks",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteProviderNetworks",
-          "method": "DELETE",
-          "path": "/api/circuits/provider-networks/",
-          "descriptionTemplate": "Bulk delete provider networks",
-          "params": [],
-          "bodyTemplate": "[{...}]"
         },
         "get": {
           "name": "getProviderNetwork",
@@ -6138,13 +5328,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listProviders",
-          "method": "GET",
-          "path": "/api/circuits/providers/",
-          "descriptionTemplate": "List providers",
-          "params": []
-        },
         "add": {
           "name": "createProvider",
           "method": "POST",
@@ -6152,30 +5335,6 @@
           "descriptionTemplate": "Create provider",
           "params": [],
           "bodyTemplate": "{...}"
-        },
-        "bulk_update": {
-          "name": "bulkUpdateProviders",
-          "method": "PUT",
-          "path": "/api/circuits/providers/",
-          "descriptionTemplate": "Bulk update providers",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_patch": {
-          "name": "bulkPatchProviders",
-          "method": "PATCH",
-          "path": "/api/circuits/providers/",
-          "descriptionTemplate": "Bulk patch providers",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteProviders",
-          "method": "DELETE",
-          "path": "/api/circuits/providers/",
-          "descriptionTemplate": "Bulk delete providers",
-          "params": [],
-          "bodyTemplate": "[{...}]"
         },
         "get": {
           "name": "getProvider",
@@ -6223,13 +5382,6 @@
         "id"
       ],
       "operations": {
-        "list": {
-          "name": "listVirtualCircuitTerminations",
-          "method": "GET",
-          "path": "/api/circuits/virtual-circuit-terminations/",
-          "descriptionTemplate": "List virtual circuit terminations",
-          "params": []
-        },
         "add": {
           "name": "createVirtualCircuitTermination",
           "method": "POST",
@@ -6237,30 +5389,6 @@
           "descriptionTemplate": "Create virtual circuit termination",
           "params": [],
           "bodyTemplate": "{...}"
-        },
-        "bulk_update": {
-          "name": "bulkUpdateVirtualCircuitTerminations",
-          "method": "PUT",
-          "path": "/api/circuits/virtual-circuit-terminations/",
-          "descriptionTemplate": "Bulk update virtual circuit terminations",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_patch": {
-          "name": "bulkPatchVirtualCircuitTerminations",
-          "method": "PATCH",
-          "path": "/api/circuits/virtual-circuit-terminations/",
-          "descriptionTemplate": "Bulk patch virtual circuit terminations",
-          "params": [],
-          "bodyTemplate": "[{...}]"
-        },
-        "bulk_delete": {
-          "name": "bulkDeleteVirtualCircuitTerminations",
-          "method": "DELETE",
-          "path": "/api/circuits/virtual-circuit-terminations/",
-          "descriptionTemplate": "Bulk delete virtual circuit terminations",
-          "params": [],
-          "bodyTemplate": "[{...}]"
         },
         "get": {
           "name": "getVirtualCircuitTermination",
@@ -6346,6 +5474,16 @@
             "color": "{color}"
           }
         },
+        "partialUpdate": {
+          "name": "partialUpdateVirtualCircuitType",
+          "method": "PATCH",
+          "path": "/api/circuits/virtual-circuit-types/{id}/",
+          "descriptionTemplate": "Partially update virtual circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
         "get": {
           "name": "getVirtualCircuitType",
           "method": "GET",
@@ -6376,9 +5514,9 @@
             "provider": "{provider}",
             "provider_account": "{provider_account}",
             "provider_network_id": "{provider_network_id}",
+            "status": "{status}",
             "tenant": "{tenant}",
             "tenant_group": "{tenant_group}",
-            "status": "{status}",
             "description": "{description}"
           }
         },
@@ -6406,11 +5544,21 @@
             "provider": "{provider}",
             "provider_account": "{provider_account}",
             "provider_network_id": "{provider_network_id}",
+            "status": "{status}",
             "tenant": "{tenant}",
             "tenant_group": "{tenant_group}",
-            "status": "{status}",
             "description": "{description}"
           }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateVirtualCircuit",
+          "method": "PATCH",
+          "path": "/api/circuits/virtual-circuits/{id}/",
+          "descriptionTemplate": "Partially update virtual circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getVirtualCircuit",
@@ -6466,9 +5614,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
+          "bodyTemplate": {}
         },
         "enqueue": {
           "name": "enqueueBackgroundTask",
@@ -6478,9 +5624,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
+          "bodyTemplate": {}
         },
         "requeue": {
           "name": "requeueBackgroundTask",
@@ -6490,9 +5634,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
+          "bodyTemplate": {}
         },
         "stop": {
           "name": "stopBackgroundTask",
@@ -6502,9 +5644,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
@@ -6539,13 +5679,16 @@
           "descriptionTemplate": "Get data file with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "list": {
           "name": "listDataFiles",
           "method": "GET",
           "path": "/api/core/data-files/",
-          "descriptionTemplate": "List data files"
+          "descriptionTemplate": "List data files",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -6580,7 +5723,8 @@
           "descriptionTemplate": "Delete data source with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateDataSource",
@@ -6610,17 +5754,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
-            "enabled": "{enabled}",
-            "source_url": "{source_url}",
-            "status": "{status}",
-            "sync_interval": "{sync_interval}",
-            "tag": "{tag}",
-            "tag_id": "{tag_id}",
-            "type": "{type}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getDataSource",
@@ -6629,59 +5763,57 @@
           "descriptionTemplate": "Get data source with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "list": {
           "name": "listDataSources",
           "method": "GET",
           "path": "/api/core/data-sources/",
-          "descriptionTemplate": "List data sources"
+          "descriptionTemplate": "List data sources",
+          "params": [],
+          "bodyTemplate": {}
         },
         "bulkUpdate": {
           "name": "bulkUpdateDataSources",
           "method": "PUT",
           "path": "/api/core/data-sources/",
-          "descriptionTemplate": "Bulk update data sources"
+          "descriptionTemplate": "Bulk update data sources",
+          "params": [],
+          "bodyTemplate": {}
         },
         "bulkPartialUpdate": {
           "name": "bulkPartialUpdateDataSources",
           "method": "PATCH",
           "path": "/api/core/data-sources/",
-          "descriptionTemplate": "Bulk partial update data sources"
+          "descriptionTemplate": "Bulk partial update data sources",
+          "params": [],
+          "bodyTemplate": {}
         },
         "bulkDelete": {
           "name": "bulkDeleteDataSources",
           "method": "DELETE",
           "path": "/api/core/data-sources/",
-          "descriptionTemplate": "Bulk delete data sources"
+          "descriptionTemplate": "Bulk delete data sources",
+          "params": [],
+          "bodyTemplate": {}
         },
         "syncCreate": {
-          "name": "syncCreateDataSource",
+          "name": "syncDataSource",
           "method": "POST",
           "path": "/api/core/data-sources/{id}/sync/",
           "descriptionTemplate": "Sync data source with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
-            "enabled": "{enabled}",
-            "source_url": "{source_url}",
-            "status": "{status}",
-            "sync_interval": "{sync_interval}",
-            "tag": "{tag}",
-            "tag_id": "{tag_id}",
-            "type": "{type}"
-          }
+          "bodyTemplate": {}
         }
       }
     },
     "Job": {
       "displayName": "job",
       "params": [
-        "id",
-        "name"
+        "id"
       ],
       "operations": {
         "get": {
@@ -6691,13 +5823,16 @@
           "descriptionTemplate": "Get job with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "list": {
           "name": "listJobs",
           "method": "GET",
           "path": "/api/core/jobs/",
-          "descriptionTemplate": "List jobs"
+          "descriptionTemplate": "List jobs",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -6714,13 +5849,16 @@
           "descriptionTemplate": "Get object change with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "list": {
           "name": "listObjectChanges",
           "method": "GET",
           "path": "/api/core/object-changes/",
-          "descriptionTemplate": "List object changes"
+          "descriptionTemplate": "List object changes",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -7103,8 +6241,14 @@
           "method": "POST",
           "path": "/api/vpn/l2vpns/",
           "descriptionTemplate": "Create l2vpn {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "delete": {
           "name": "deleteL2VPN",
@@ -7124,7 +6268,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "get": {
           "name": "getL2VPN",
@@ -7151,8 +6298,14 @@
           "method": "POST",
           "path": "/api/vpn/tunnel-groups/",
           "descriptionTemplate": "Create tunnel group {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "delete": {
           "name": "deleteTunnelGroup",
@@ -7172,7 +6325,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "get": {
           "name": "getTunnelGroup",
@@ -7245,8 +6401,14 @@
           "method": "POST",
           "path": "/api/vpn/tunnels/",
           "descriptionTemplate": "Create tunnel {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "delete": {
           "name": "deleteTunnel",
@@ -7266,7 +6428,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "get": {
           "name": "getTunnel",
@@ -7638,14 +6803,6 @@
           ],
           "bodyTemplate": {}
         },
-        "list": {
-          "name": "listContactAssignments",
-          "method": "GET",
-          "path": "/api/tenancy/contact-assignments/",
-          "descriptionTemplate": "List contact assignments",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "bulkUpdate": {
           "name": "bulkUpdateContactAssignments",
           "method": "PUT",
@@ -7669,6 +6826,24 @@
           "descriptionTemplate": "Bulk delete contact assignments",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactAssignment",
+          "method": "GET",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Get contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContactAssignments",
+          "method": "GET",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "List contact assignments",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -7685,8 +6860,14 @@
           "method": "POST",
           "path": "/api/tenancy/contact-groups/",
           "descriptionTemplate": "Create contact group {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "delete": {
           "name": "deleteContactGroup",
@@ -7706,7 +6887,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "partialUpdate": {
           "name": "partialUpdateContactGroup",
@@ -7716,14 +6900,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listContactGroups",
-          "method": "GET",
-          "path": "/api/tenancy/contact-groups/",
-          "descriptionTemplate": "List contact groups",
-          "params": [],
           "bodyTemplate": {}
         },
         "bulkUpdate": {
@@ -7749,6 +6925,24 @@
           "descriptionTemplate": "Bulk delete contact groups",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactGroup",
+          "method": "GET",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Get contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContactGroups",
+          "method": "GET",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "List contact groups",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -7765,8 +6959,14 @@
           "method": "POST",
           "path": "/api/tenancy/contact-roles/",
           "descriptionTemplate": "Create contact role {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "delete": {
           "name": "deleteContactRole",
@@ -7786,7 +6986,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "partialUpdate": {
           "name": "partialUpdateContactRole",
@@ -7796,14 +6999,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listContactRoles",
-          "method": "GET",
-          "path": "/api/tenancy/contact-roles/",
-          "descriptionTemplate": "List contact roles",
-          "params": [],
           "bodyTemplate": {}
         },
         "bulkUpdate": {
@@ -7829,6 +7024,24 @@
           "descriptionTemplate": "Bulk delete contact roles",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactRole",
+          "method": "GET",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Get contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContactRoles",
+          "method": "GET",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "List contact roles",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -7844,8 +7057,12 @@
           "method": "POST",
           "path": "/api/tenancy/contacts/",
           "descriptionTemplate": "Create contact {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
         },
         "delete": {
           "name": "deleteContact",
@@ -7865,7 +7082,9 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}"
+          }
         },
         "partialUpdate": {
           "name": "partialUpdateContact",
@@ -7875,14 +7094,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listContacts",
-          "method": "GET",
-          "path": "/api/tenancy/contacts/",
-          "descriptionTemplate": "List contacts",
-          "params": [],
           "bodyTemplate": {}
         },
         "bulkUpdate": {
@@ -7908,6 +7119,24 @@
           "descriptionTemplate": "Bulk delete contacts",
           "params": [],
           "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContact",
+          "method": "GET",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Get contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listContacts",
+          "method": "GET",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "List contacts",
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -7924,8 +7153,14 @@
           "method": "POST",
           "path": "/api/tenancy/tenant-groups/",
           "descriptionTemplate": "Create tenant group {name} with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "params": [
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "delete": {
           "name": "deleteTenantGroup",
@@ -7945,7 +7180,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
         },
         "partialUpdate": {
           "name": "partialUpdateTenantGroup",
@@ -7955,14 +7193,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listTenantGroups",
-          "method": "GET",
-          "path": "/api/tenancy/tenant-groups/",
-          "descriptionTemplate": "List tenant groups",
-          "params": [],
           "bodyTemplate": {}
         },
         "bulkUpdate": {
@@ -7986,6 +7216,24 @@
           "method": "DELETE",
           "path": "/api/tenancy/tenant-groups/",
           "descriptionTemplate": "Bulk delete tenant groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getTenantGroup",
+          "method": "GET",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Get tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listTenantGroups",
+          "method": "GET",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "List tenant groups",
           "params": [],
           "bodyTemplate": {}
         }
@@ -8089,40 +7337,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateGroup",
-          "method": "PATCH",
-          "path": "/api/users/groups/{id}/",
-          "descriptionTemplate": "Partially update group with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateGroups",
-          "method": "PUT",
-          "path": "/api/users/groups/",
-          "descriptionTemplate": "Bulk update groups",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateGroups",
-          "method": "PATCH",
-          "path": "/api/users/groups/",
-          "descriptionTemplate": "Bulk partial update groups",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteGroups",
-          "method": "DELETE",
-          "path": "/api/users/groups/",
-          "descriptionTemplate": "Bulk delete groups",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getGroup",
           "method": "GET",
@@ -8131,14 +7345,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listGroups",
-          "method": "GET",
-          "path": "/api/users/groups/",
-          "descriptionTemplate": "List groups",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -8177,40 +7383,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdatePermission",
-          "method": "PATCH",
-          "path": "/api/users/permissions/{id}/",
-          "descriptionTemplate": "Partially update permission with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdatePermissions",
-          "method": "PUT",
-          "path": "/api/users/permissions/",
-          "descriptionTemplate": "Bulk update permissions",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdatePermissions",
-          "method": "PATCH",
-          "path": "/api/users/permissions/",
-          "descriptionTemplate": "Bulk partial update permissions",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeletePermissions",
-          "method": "DELETE",
-          "path": "/api/users/permissions/",
-          "descriptionTemplate": "Bulk delete permissions",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getPermission",
           "method": "GET",
@@ -8219,14 +7391,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listPermissions",
-          "method": "GET",
-          "path": "/api/users/permissions/",
-          "descriptionTemplate": "List permissions",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -8243,12 +7407,8 @@
           "method": "POST",
           "path": "/api/users/tokens/",
           "descriptionTemplate": "Create token with key {key}",
-          "params": [
-            "key"
-          ],
-          "bodyTemplate": {
-            "key": "{key}"
-          }
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteToken",
@@ -8270,40 +7430,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateToken",
-          "method": "PATCH",
-          "path": "/api/users/tokens/{id}/",
-          "descriptionTemplate": "Partially update token with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateTokens",
-          "method": "PUT",
-          "path": "/api/users/tokens/",
-          "descriptionTemplate": "Bulk update tokens",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateTokens",
-          "method": "PATCH",
-          "path": "/api/users/tokens/",
-          "descriptionTemplate": "Bulk partial update tokens",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteTokens",
-          "method": "DELETE",
-          "path": "/api/users/tokens/",
-          "descriptionTemplate": "Bulk delete tokens",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getToken",
           "method": "GET",
@@ -8312,22 +7438,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listTokens",
-          "method": "GET",
-          "path": "/api/users/tokens/",
-          "descriptionTemplate": "List tokens",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "provision": {
-          "name": "provisionToken",
-          "method": "POST",
-          "path": "/api/users/tokens/provision/",
-          "descriptionTemplate": "Provision token",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -8374,40 +7484,6 @@
           ],
           "bodyTemplate": {}
         },
-        "partialUpdate": {
-          "name": "partialUpdateUser",
-          "method": "PATCH",
-          "path": "/api/users/users/{id}/",
-          "descriptionTemplate": "Partially update user with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "bulkUpdate": {
-          "name": "bulkUpdateUsers",
-          "method": "PUT",
-          "path": "/api/users/users/",
-          "descriptionTemplate": "Bulk update users",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkPartialUpdate": {
-          "name": "bulkPartialUpdateUsers",
-          "method": "PATCH",
-          "path": "/api/users/users/",
-          "descriptionTemplate": "Bulk partial update users",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "bulkDelete": {
-          "name": "bulkDeleteUsers",
-          "method": "DELETE",
-          "path": "/api/users/users/",
-          "descriptionTemplate": "Bulk delete users",
-          "params": [],
-          "bodyTemplate": {}
-        },
         "get": {
           "name": "getUser",
           "method": "GET",
@@ -8416,14 +7492,6 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listUsers",
-          "method": "GET",
-          "path": "/api/users/users/",
-          "descriptionTemplate": "List users",
-          "params": [],
           "bodyTemplate": {}
         }
       }
