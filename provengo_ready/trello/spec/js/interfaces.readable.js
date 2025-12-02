@@ -3,3985 +3,2290 @@
 
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
+var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
-const svc = new RESTSession("http://localhost:8080", "provengo-client", {
+const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
 function matchesDescriptionRegex(re) {
   return bp.EventSet("Match description", function (e) {
-    return e && e.data && e.data.parameters && typeof e.data.parameters.description === "string"
-           && re.test(e.data.parameters.description);
+    return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description));
   });
 }
 
-// ---- Entity: board ----
-
-function addBoards(idBoard) {
-  var url = "/boards";
-  var description = "Create board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getBoardsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard;
-  var description = "Get board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard;
-  var description = "Update board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBoard(idBoard) {
-  return addBoards(idBoard);
-}
-
-function verifyBoardExists(idBoard) {
-  return getBoardsByIdBoard(idBoard);
-}
-
-function verifyBoardDoesNotExist(idBoard) {
-  return getBoardsByIdBoard(idBoard);
-}
-
-// ---- Entity: board checklist ----
-
-function addBoardsChecklistsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/checklists";
-  var description = "Add checklist to board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getBoardsChecklistsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/checklists";
-  var description = "Get checklists of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBoardChecklist(idBoard) {
-  return addBoardsChecklistsByIdBoard(idBoard);
-}
-
-function verifyBoardChecklistExists(idBoard) {
-  return getBoardsChecklistsByIdBoard(idBoard);
-}
-
-function verifyBoardChecklistDoesNotExist(idBoard) {
-  return getBoardsChecklistsByIdBoard(idBoard);
-}
-
-// ---- Entity: board card ----
-
-function getBoardsCardsByIdBoardByIdCard(idBoard, idCard) {
-  var url = "/boards/" + idBoard + "/cards/" + idCard;
-  var description = "Get card " + idCard + " from board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyBoardCardExists(idBoard, idCard) {
-  return getBoardsCardsByIdBoardByIdCard(idBoard, idCard);
-}
-
-function verifyBoardCardDoesNotExist(idBoard, idCard) {
-  return getBoardsCardsByIdBoardByIdCard(idBoard, idCard);
-}
-
-// ---- Entity: board label ----
-
-function addBoardsLabelsByIdBoard(idBoard, idLabel) {
-  var url = "/boards/" + idBoard + "/labels";
-  var description = "Add label to board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getBoardsLabelsByIdBoardByIdLabel(idBoard, idLabel) {
-  var url = "/boards/" + idBoard + "/labels/" + idLabel;
-  var description = "Get label " + idLabel + " from board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBoardLabel(idBoard, idLabel) {
-  return addBoardsLabelsByIdBoard(idBoard, idLabel);
-}
-
-function verifyBoardLabelExists(idBoard, idLabel) {
-  return getBoardsLabelsByIdBoardByIdLabel(idBoard, idLabel);
-}
-
-function verifyBoardLabelDoesNotExist(idBoard, idLabel) {
-  return getBoardsLabelsByIdBoardByIdLabel(idBoard, idLabel);
-}
-
-// ---- Entity: board list ----
-
-function addBoardsListsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/lists";
-  var description = "Add list to board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getBoardsListsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/lists";
-  var description = "Get lists of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBoardList(idBoard) {
-  return addBoardsListsByIdBoard(idBoard);
-}
-
-function verifyBoardListExists(idBoard) {
-  return getBoardsListsByIdBoard(idBoard);
-}
-
-function verifyBoardListDoesNotExist(idBoard) {
-  return getBoardsListsByIdBoard(idBoard);
-}
-
-// ---- Entity: board member ----
-
-function deleteBoardsMembersByIdBoardByIdMember(idBoard, idMember) {
-  var url = "/boards/" + idBoard + "/members/" + idMember;
-  var description = "Delete member " + idMember + " from board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMembersByIdBoardByIdMember(idBoard, idMember) {
-  var url = "/boards/" + idBoard + "/members/" + idMember;
-  var description = "Update member " + idMember + " on board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingBoardMember(idBoard, idMember) {
-  return deleteBoardsMembersByIdBoardByIdMember(idBoard, idMember);
-}
-
-// ---- Entity: board membership ----
-
-function getBoardsMembershipsByIdBoardByIdMembership(idBoard, idMembership) {
-  var url = "/boards/" + idBoard + "/memberships/" + idMembership;
-  var description = "Get membership " + idMembership + " of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMembershipsByIdBoardByIdMembership(idBoard, idMembership) {
-  var url = "/boards/" + idBoard + "/memberships/" + idMembership;
-  var description = "Update membership " + idMembership + " of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyBoardMembershipExists(idBoard, idMembership) {
-  return getBoardsMembershipsByIdBoardByIdMembership(idBoard, idMembership);
-}
-
-function verifyBoardMembershipDoesNotExist(idBoard, idMembership) {
-  return getBoardsMembershipsByIdBoardByIdMembership(idBoard, idMembership);
-}
-
-// ---- Entity: board powerUp ----
-
-function addBoardsPowerUpsByIdBoard(idBoard, powerUp) {
-  var url = "/boards/" + idBoard + "/powerUps";
-  var description = "Add powerUp to board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteBoardsPowerUpsByIdBoardByPowerUp(idBoard, powerUp) {
-  var url = "/boards/" + idBoard + "/powerUps/" + powerUp;
-  var description = "Delete powerUp " + powerUp + " from board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingBoardPowerUp(idBoard, powerUp) {
-  return addBoardsPowerUpsByIdBoard(idBoard, powerUp);
-}
-
-function tryToDeleteANonExistingBoardPowerUp(idBoard, powerUp) {
-  return deleteBoardsPowerUpsByIdBoardByPowerUp(idBoard, powerUp);
-}
-
-// ---- Entity: board prefs ----
-
-function updateBoardsPrefsBackgroundByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/background";
-  var description = "Update prefs background of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsCalendarFeedEnabledByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/calendarFeedEnabled";
-  var description = "Update prefs calendarFeedEnabled of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsCardAgingByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/cardAging";
-  var description = "Update prefs cardAging of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsCardCoversByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/cardCovers";
-  var description = "Update prefs cardCovers of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsCommentsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/comments";
-  var description = "Update prefs comments of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsInvitationsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/invitations";
-  var description = "Update prefs invitations of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsPermissionLevelByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/permissionLevel";
-  var description = "Update prefs permissionLevel of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsSelfJoinByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/selfJoin";
-  var description = "Update prefs selfJoin of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsPrefsVotingByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/prefs/voting";
-  var description = "Update prefs voting of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: board subscribed ----
-
-function updateBoardsSubscribedByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/subscribed";
-  var description = "Update subscribed status of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: board myPrefs ----
-
-function getBoardsMyPrefsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs";
-  var description = "Get myPrefs of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsEmailPositionByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/emailPosition";
-  var description = "Update myPrefs emailPosition of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsIdEmailListByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/idEmailList";
-  var description = "Update myPrefs idEmailList of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsShowListGuideByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/showListGuide";
-  var description = "Update myPrefs showListGuide of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsShowSidebarByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/showSidebar";
-  var description = "Update myPrefs showSidebar of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsShowSidebarActivityByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/showSidebarActivity";
-  var description = "Update myPrefs showSidebarActivity of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/showSidebarBoardActions";
-  var description = "Update myPrefs showSidebarBoardActions of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsMyPrefsShowSidebarMembersByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/myPrefs/showSidebarMembers";
-  var description = "Update myPrefs showSidebarMembers of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyBoardMyPrefsExists(idBoard) {
-  return getBoardsMyPrefsByIdBoard(idBoard);
-}
-
-function verifyBoardMyPrefsDoesNotExist(idBoard) {
-  return getBoardsMyPrefsByIdBoard(idBoard);
-}
-
-// ---- Entity: board labelName ----
-
-function updateBoardsLabelNamesBlueByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/labelNames/blue";
-  var description = "Update label name blue of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsLabelNamesGreenByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/labelNames/green";
-  var description = "Update label name green of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsLabelNamesOrangeByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/labelNames/orange";
-  var description = "Update label name orange of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsLabelNamesPurpleByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/labelNames/purple";
-  var description = "Update label name purple of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsLabelNamesRedByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/labelNames/red";
-  var description = "Update label name red of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateBoardsLabelNamesYellowByIdBoard(idBoard) {
-  var url = "/boards/" + idBoard + "/labelNames/yellow";
-  var description = "Update label name yellow of board " + idBoard;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member ----
-
-function getMemberByIdMember(idMember) {
-  var url = "/members/" + idMember;
-  var description = "Get member with idMember " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateMemberByIdMember(idMember) {
-  var url = "/members/" + idMember;
-  var description = "Update member with idMember " + idMember;
-  var body = {
-    "members": members,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberExists(idMember) {
-  return getMemberByIdMember(idMember);
-}
-
-function verifyMemberDoesNotExist(idMember) {
-  return getMemberByIdMember(idMember);
-}
-
-// ---- Entity: member avatar ----
-
-function addMemberAvatarByIdMember(idMember) {
-  var url = "/members/" + idMember + "/avatar";
-  var description = "Add avatar for member " + idMember;
-  var body = {
-    "members_avatar": members_avatar,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberAvatar(idMember) {
-  return addMemberAvatarByIdMember(idMember);
-}
-
-// ---- Entity: member avatar source ----
-
-function updateMemberAvatarSourceByIdMember(idMember) {
-  var url = "/members/" + idMember + "/avatarSource";
-  var description = "Update avatar source for member " + idMember;
-  var body = {
-    "members_avatarSource": members_avatarSource,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member bio ----
-
-function updateMemberBioByIdMember(idMember) {
-  var url = "/members/" + idMember + "/bio";
-  var description = "Update bio for member " + idMember;
-  var body = {
-    "members_bio": members_bio,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member board background ----
-
-function getMemberBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
-  var description = "Get board background " + idBoardBackground + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addMemberBoardBackgroundByIdMember(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/boardBackgrounds";
-  var description = "Add board background for member " + idMember;
-  var body = {
-    "members_boardBackgrounds": members_boardBackgrounds,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateMemberBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
-  var description = "Update board background " + idBoardBackground + " for member " + idMember;
-  var body = {
-    "members_boardBackgrounds": members_boardBackgrounds,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteMemberBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
-  var description = "Delete board background " + idBoardBackground + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberBoardBackground(idMember, idBoardBackground) {
-  return addMemberBoardBackgroundByIdMember(idMember, idBoardBackground);
-}
-
-function verifyMemberBoardBackgroundExists(idMember, idBoardBackground) {
-  return getMemberBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground);
-}
-
-function verifyMemberBoardBackgroundDoesNotExist(idMember, idBoardBackground) {
-  return getMemberBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground);
-}
-
-function tryToDeleteANonExistingMemberBoardBackground(idMember, idBoardBackground) {
-  return deleteMemberBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground);
-}
-
-// ---- Entity: member board star ----
-
-function getMemberBoardStarByIdMemberByIdBoardStar(idMember, idBoardStar) {
-  var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
-  var description = "Get board star " + idBoardStar + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addMemberBoardStarByIdMember(idMember, idBoardStar) {
-  var url = "/members/" + idMember + "/boardStars";
-  var description = "Add board star for member " + idMember;
-  var body = {
-    "members_boardStars": members_boardStars,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateMemberBoardStarByIdMemberByIdBoardStar(idMember, idBoardStar) {
-  var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
-  var description = "Update board star " + idBoardStar + " for member " + idMember;
-  var body = {
-    "members_boardStars": members_boardStars,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteMemberBoardStarByIdMemberByIdBoardStar(idMember, idBoardStar) {
-  var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
-  var description = "Delete board star " + idBoardStar + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberBoardStar(idMember, idBoardStar) {
-  return addMemberBoardStarByIdMember(idMember, idBoardStar);
-}
-
-function verifyMemberBoardStarExists(idMember, idBoardStar) {
-  return getMemberBoardStarByIdMemberByIdBoardStar(idMember, idBoardStar);
-}
-
-function verifyMemberBoardStarDoesNotExist(idMember, idBoardStar) {
-  return getMemberBoardStarByIdMemberByIdBoardStar(idMember, idBoardStar);
-}
-
-function tryToDeleteANonExistingMemberBoardStar(idMember, idBoardStar) {
-  return deleteMemberBoardStarByIdMemberByIdBoardStar(idMember, idBoardStar);
-}
-
-// ---- Entity: member board star idBoard ----
-
-function updateMemberBoardStarIdBoardByIdMemberByIdBoardStar(idMember, idBoardStar) {
-  var url = "/members/" + idMember + "/boardStars/" + idBoardStar + "/idBoard";
-  var description = "Update board star idBoard for board star " + idBoardStar + " and member " + idMember;
-  var body = {
-    "members_boardStars_idBoard": members_boardStars_idBoard,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member board star pos ----
-
-function updateMemberBoardStarPosByIdMemberByIdBoardStar(idMember, idBoardStar) {
-  var url = "/members/" + idMember + "/boardStars/" + idBoardStar + "/pos";
-  var description = "Update board star pos for board star " + idBoardStar + " and member " + idMember;
-  var body = {
-    "members_boardStars_pos": members_boardStars_pos,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member board ----
-
-function getMemberBoardsByIdMember(idMember) {
-  var url = "/members/" + idMember + "/boards";
-  var description = "Get boards for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberBoardExists(idMember) {
-  return getMemberBoardsByIdMember(idMember);
-}
-
-function verifyMemberBoardDoesNotExist(idMember) {
-  return getMemberBoardsByIdMember(idMember);
-}
-
-// ---- Entity: member board by filter ----
-
-function getMemberBoardsByIdMemberByFilter(idMember, filter) {
-  var url = "/members/" + idMember + "/boards/" + filter;
-  var description = "Get boards with filter " + filter + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberBoardByFilterExists(idMember, filter) {
-  return getMemberBoardsByIdMemberByFilter(idMember, filter);
-}
-
-function verifyMemberBoardByFilterDoesNotExist(idMember, filter) {
-  return getMemberBoardsByIdMemberByFilter(idMember, filter);
-}
-
-// ---- Entity: member boards invited ----
-
-function getMemberBoardsInvitedByIdMember(idMember) {
-  var url = "/members/" + idMember + "/boardsInvited";
-  var description = "Get invited boards for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberBoardsInvitedExists(idMember) {
-  return getMemberBoardsInvitedByIdMember(idMember);
-}
-
-function verifyMemberBoardsInvitedDoesNotExist(idMember) {
-  return getMemberBoardsInvitedByIdMember(idMember);
-}
-
-// ---- Entity: member boards invited by field ----
-
-function getMemberBoardsInvitedByIdMemberByField(idMember, field) {
-  var url = "/members/" + idMember + "/boardsInvited/" + field;
-  var description = "Get invited boards field " + field + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberBoardsInvitedByFieldExists(idMember, field) {
-  return getMemberBoardsInvitedByIdMemberByField(idMember, field);
-}
-
-function verifyMemberBoardsInvitedByFieldDoesNotExist(idMember, field) {
-  return getMemberBoardsInvitedByIdMemberByField(idMember, field);
-}
-
-// ---- Entity: member card ----
-
-function getMemberCardsByIdMember(idMember) {
-  var url = "/members/" + idMember + "/cards";
-  var description = "Get cards for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberCardExists(idMember) {
-  return getMemberCardsByIdMember(idMember);
-}
-
-function verifyMemberCardDoesNotExist(idMember) {
-  return getMemberCardsByIdMember(idMember);
-}
-
-// ---- Entity: member card by filter ----
-
-function getMemberCardsByIdMemberByFilter(idMember, filter) {
-  var url = "/members/" + idMember + "/cards/" + filter;
-  var description = "Get cards with filter " + filter + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberCardByFilterExists(idMember, filter) {
-  return getMemberCardsByIdMemberByFilter(idMember, filter);
-}
-
-function verifyMemberCardByFilterDoesNotExist(idMember, filter) {
-  return getMemberCardsByIdMemberByFilter(idMember, filter);
-}
-
-// ---- Entity: member custom board background ----
-
-function getMemberCustomBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
-  var description = "Get custom board background " + idBoardBackground + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addMemberCustomBoardBackgroundByIdMember(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/customBoardBackgrounds";
-  var description = "Add custom board background for member " + idMember;
-  var body = {
-    "members_customBoardBackgrounds": members_customBoardBackgrounds,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateMemberCustomBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
-  var description = "Update custom board background " + idBoardBackground + " for member " + idMember;
-  var body = {
-    "members_customBoardBackgrounds": members_customBoardBackgrounds,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteMemberCustomBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground) {
-  var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
-  var description = "Delete custom board background " + idBoardBackground + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberCustomBoardBackground(idMember, idBoardBackground) {
-  return addMemberCustomBoardBackgroundByIdMember(idMember, idBoardBackground);
-}
-
-function verifyMemberCustomBoardBackgroundExists(idMember, idBoardBackground) {
-  return getMemberCustomBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground);
-}
-
-function verifyMemberCustomBoardBackgroundDoesNotExist(idMember, idBoardBackground) {
-  return getMemberCustomBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground);
-}
-
-function tryToDeleteANonExistingMemberCustomBoardBackground(idMember, idBoardBackground) {
-  return deleteMemberCustomBoardBackgroundByIdMemberByIdBoardBackground(idMember, idBoardBackground);
-}
-
-// ---- Entity: member custom emoji ----
-
-function getMemberCustomEmojiByIdMemberByIdCustomEmoji(idMember, idCustomEmoji) {
-  var url = "/members/" + idMember + "/customEmoji/" + idCustomEmoji;
-  var description = "Get custom emoji " + idCustomEmoji + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addMemberCustomEmojiByIdMember(idMember, idCustomEmoji) {
-  var url = "/members/" + idMember + "/customEmoji";
-  var description = "Add custom emoji for member " + idMember;
-  var body = {
-    "members_customEmoji": members_customEmoji,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberCustomEmoji(idMember, idCustomEmoji) {
-  return addMemberCustomEmojiByIdMember(idMember, idCustomEmoji);
-}
-
-function verifyMemberCustomEmojiExists(idMember, idCustomEmoji) {
-  return getMemberCustomEmojiByIdMemberByIdCustomEmoji(idMember, idCustomEmoji);
-}
-
-function verifyMemberCustomEmojiDoesNotExist(idMember, idCustomEmoji) {
-  return getMemberCustomEmojiByIdMemberByIdCustomEmoji(idMember, idCustomEmoji);
-}
-
-// ---- Entity: member custom sticker ----
-
-function getMemberCustomStickerByIdMemberByIdCustomSticker(idMember, idCustomSticker) {
-  var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
-  var description = "Get custom sticker " + idCustomSticker + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addMemberCustomStickerByIdMember(idMember, idCustomSticker) {
-  var url = "/members/" + idMember + "/customStickers";
-  var description = "Add custom sticker for member " + idMember;
-  var body = {
-    "members_customStickers": members_customStickers,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteMemberCustomStickerByIdMemberByIdCustomSticker(idMember, idCustomSticker) {
-  var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
-  var description = "Delete custom sticker " + idCustomSticker + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberCustomSticker(idMember, idCustomSticker) {
-  return addMemberCustomStickerByIdMember(idMember, idCustomSticker);
-}
-
-function verifyMemberCustomStickerExists(idMember, idCustomSticker) {
-  return getMemberCustomStickerByIdMemberByIdCustomSticker(idMember, idCustomSticker);
-}
-
-function verifyMemberCustomStickerDoesNotExist(idMember, idCustomSticker) {
-  return getMemberCustomStickerByIdMemberByIdCustomSticker(idMember, idCustomSticker);
-}
-
-function tryToDeleteANonExistingMemberCustomSticker(idMember, idCustomSticker) {
-  return deleteMemberCustomStickerByIdMemberByIdCustomSticker(idMember, idCustomSticker);
-}
-
-// ---- Entity: member delta ----
-
-function getMemberDeltasByIdMember(idMember, tags, ixLastUpdate) {
-  var url = "/members/" + idMember + "/deltas";
-  var description = "Get deltas for member " + idMember + " with tags " + tags + " and last update index " + ixLastUpdate;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberDeltaExists(idMember, tags, ixLastUpdate) {
-  return getMemberDeltasByIdMember(idMember, tags, ixLastUpdate);
-}
-
-function verifyMemberDeltaDoesNotExist(idMember, tags, ixLastUpdate) {
-  return getMemberDeltasByIdMember(idMember, tags, ixLastUpdate);
-}
-
-// ---- Entity: member full name ----
-
-function updateMemberFullNameByIdMember(idMember) {
-  var url = "/members/" + idMember + "/fullName";
-  var description = "Update full name for member " + idMember;
-  var body = {
-    "members_fullName": members_fullName,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member initials ----
-
-function updateMemberInitialsByIdMember(idMember) {
-  var url = "/members/" + idMember + "/initials";
-  var description = "Update initials for member " + idMember;
-  var body = {
-    "members_initials": members_initials,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member notification ----
-
-function getMemberNotificationsByIdMember(idMember) {
-  var url = "/members/" + idMember + "/notifications";
-  var description = "Get notifications for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberNotificationExists(idMember) {
-  return getMemberNotificationsByIdMember(idMember);
-}
-
-function verifyMemberNotificationDoesNotExist(idMember) {
-  return getMemberNotificationsByIdMember(idMember);
-}
-
-// ---- Entity: member notification by filter ----
-
-function getMemberNotificationsByIdMemberByFilter(idMember, filter) {
-  var url = "/members/" + idMember + "/notifications/" + filter;
-  var description = "Get notifications with filter " + filter + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberNotificationByFilterExists(idMember, filter) {
-  return getMemberNotificationsByIdMemberByFilter(idMember, filter);
-}
-
-function verifyMemberNotificationByFilterDoesNotExist(idMember, filter) {
-  return getMemberNotificationsByIdMemberByFilter(idMember, filter);
-}
-
-// ---- Entity: member one time messages dismissed ----
-
-function addMemberOneTimeMessagesDismissedByIdMember(idMember) {
-  var url = "/members/" + idMember + "/oneTimeMessagesDismissed";
-  var description = "Add one time messages dismissed for member " + idMember;
-  var body = {
-    "members_oneTimeMessagesDismissed": members_oneTimeMessagesDismissed,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberOneTimeMessagesDismissed(idMember) {
-  return addMemberOneTimeMessagesDismissedByIdMember(idMember);
-}
-
-// ---- Entity: member organization ----
-
-function getMemberOrganizationsByIdMember(idMember) {
-  var url = "/members/" + idMember + "/organizations";
-  var description = "Get organizations for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberOrganizationExists(idMember) {
-  return getMemberOrganizationsByIdMember(idMember);
-}
-
-function verifyMemberOrganizationDoesNotExist(idMember) {
-  return getMemberOrganizationsByIdMember(idMember);
-}
-
-// ---- Entity: member organization by filter ----
-
-function getMemberOrganizationsByIdMemberByFilter(idMember, filter) {
-  var url = "/members/" + idMember + "/organizations/" + filter;
-  var description = "Get organizations with filter " + filter + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberOrganizationByFilterExists(idMember, filter) {
-  return getMemberOrganizationsByIdMemberByFilter(idMember, filter);
-}
-
-function verifyMemberOrganizationByFilterDoesNotExist(idMember, filter) {
-  return getMemberOrganizationsByIdMemberByFilter(idMember, filter);
-}
-
-// ---- Entity: member organizations invited ----
-
-function getMemberOrganizationsInvitedByIdMember(idMember) {
-  var url = "/members/" + idMember + "/organizationsInvited";
-  var description = "Get invited organizations for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberOrganizationsInvitedExists(idMember) {
-  return getMemberOrganizationsInvitedByIdMember(idMember);
-}
-
-function verifyMemberOrganizationsInvitedDoesNotExist(idMember) {
-  return getMemberOrganizationsInvitedByIdMember(idMember);
-}
-
-// ---- Entity: member organizations invited by field ----
-
-function getMemberOrganizationsInvitedByIdMemberByField(idMember, field) {
-  var url = "/members/" + idMember + "/organizationsInvited/" + field;
-  var description = "Get invited organizations field " + field + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+function matchesDescription(str) {
+  return bp.EventSet("Match description", function (e) {
+    return !!(e && e.data && e.data.parameters && e.data.parameters.description === str);
   });
 }
 
-function verifyMemberOrganizationsInvitedByFieldExists(idMember, field) {
-  return getMemberOrganizationsInvitedByIdMemberByField(idMember, field);
-}
-
-function verifyMemberOrganizationsInvitedByFieldDoesNotExist(idMember, field) {
-  return getMemberOrganizationsInvitedByIdMemberByField(idMember, field);
-}
-
-// ---- Entity: member prefs color blind ----
-
-function updateMemberPrefsColorBlindByIdMember(idMember) {
-  var url = "/members/" + idMember + "/prefs/colorBlind";
-  var description = "Update prefs color blind for member " + idMember;
-  var body = {
-    "prefs_colorBlind": prefs_colorBlind,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member prefs locale ----
-
-function updateMemberPrefsLocaleByIdMember(idMember) {
-  var url = "/members/" + idMember + "/prefs/locale";
-  var description = "Update prefs locale for member " + idMember;
-  var body = {
-    "prefs_locale": prefs_locale,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member prefs minutes between summaries ----
-
-function updateMemberPrefsMinutesBetweenSummariesByIdMember(idMember) {
-  var url = "/members/" + idMember + "/prefs/minutesBetweenSummaries";
-  var description = "Update prefs minutes between summaries for member " + idMember;
-  var body = {
-    "prefs_minutesBetweenSummaries": prefs_minutesBetweenSummaries,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member saved search ----
-
-function getMemberSavedSearchByIdMemberByIdSavedSearch(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
-  var description = "Get saved search " + idSavedSearch + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addMemberSavedSearchByIdMember(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches";
-  var description = "Add saved search for member " + idMember;
-  var body = {
-    "members_savedSearches": members_savedSearches,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateMemberSavedSearchByIdMemberByIdSavedSearch(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
-  var description = "Update saved search " + idSavedSearch + " for member " + idMember;
-  var body = {
-    "members_savedSearches": members_savedSearches,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteMemberSavedSearchByIdMemberByIdSavedSearch(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
-  var description = "Delete saved search " + idSavedSearch + " for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingMemberSavedSearch(idMember, idSavedSearch) {
-  return addMemberSavedSearchByIdMember(idMember, idSavedSearch);
-}
-
-function verifyMemberSavedSearchExists(idMember, idSavedSearch) {
-  return getMemberSavedSearchByIdMemberByIdSavedSearch(idMember, idSavedSearch);
-}
-
-function verifyMemberSavedSearchDoesNotExist(idMember, idSavedSearch) {
-  return getMemberSavedSearchByIdMemberByIdSavedSearch(idMember, idSavedSearch);
-}
-
-function tryToDeleteANonExistingMemberSavedSearch(idMember, idSavedSearch) {
-  return deleteMemberSavedSearchByIdMemberByIdSavedSearch(idMember, idSavedSearch);
-}
-
-// ---- Entity: member saved search name ----
-
-function updateMemberSavedSearchNameByIdMemberByIdSavedSearch(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch + "/name";
-  var description = "Update name of saved search " + idSavedSearch + " for member " + idMember;
-  var body = {
-    "members_savedSearches_name": members_savedSearches_name,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member saved search pos ----
-
-function updateMemberSavedSearchPosByIdMemberByIdSavedSearch(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch + "/pos";
-  var description = "Update position of saved search " + idSavedSearch + " for member " + idMember;
-  var body = {
-    "members_savedSearches_pos": members_savedSearches_pos,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member saved search query ----
-
-function updateMemberSavedSearchQueryByIdMemberByIdSavedSearch(idMember, idSavedSearch) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch + "/query";
-  var description = "Update query of saved search " + idSavedSearch + " for member " + idMember;
-  var body = {
-    "members_savedSearches_query": members_savedSearches_query,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: member token ----
-
-function getMemberTokensByIdMember(idMember) {
-  var url = "/members/" + idMember + "/tokens";
-  var description = "Get tokens for member " + idMember;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMemberTokenExists(idMember) {
-  return getMemberTokensByIdMember(idMember);
-}
-
-function verifyMemberTokenDoesNotExist(idMember) {
-  return getMemberTokensByIdMember(idMember);
-}
-
-// ---- Entity: member username ----
-
-function updateMemberUsernameByIdMember(idMember) {
-  var url = "/members/" + idMember + "/username";
-  var description = "Update username for member " + idMember;
-  var body = {
-    "members_username": members_username,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
+function waitFor(eventSet) {
+  return bp.sync({waitFor: eventSet});
 }
 
 // ---- Entity: card ----
 
-function addCards(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
+function addCards(idCard, key, token) {
   var url = "/cards";
-  var description = "Create card with id " + idCard;
+  var description = "Create card with idCard " + idCard + " and name {name}";
   var body = {
-    "/* card attributes per schema cards */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-function deleteCardsByIdCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
+function deleteCardsByIdCard(idCard, key, token) {
   var url = "/cards/" + idCard;
-  var description = "Delete card with id " + idCard;
+  var description = "Delete card with idCard " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function updateCardsByIdCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
+function updateCardsByIdCard(idCard, key, token) {
   var url = "/cards/" + idCard;
-  var description = "Update card with id " + idCard;
+  var description = "Update card with idCard " + idCard + " and name {name}";
   var body = {
-    "/* card attributes per schema cards */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-function getCardsByIdCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
+function getCardsByIdCard(idCard, key, token) {
   var url = "/cards/" + idCard;
-  var description = "Get card with id " + idCard;
+  var description = "Get card with idCard " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
-  return addCards(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields);
+function tryToAddExistingCard(idCard, key, token) {
+  var url = "/cards";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another Card...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyCardExists(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
-  return getCardsByIdCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields);
+function verifyCardExists(idCard, key, token) {
+  var url = "/cards";
+  var description = "Verify Card exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("Card exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Card to exist but it does not");
+    }
+  });
 }
 
-function verifyCardDoesNotExist(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
-  return getCardsByIdCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields);
+function verifyCardDoesNotExist(idCard, key, token) {
+  var url = "/cards";
+  var description = "Verify Card does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected Card to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Card does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields) {
-  return deleteCardsByIdCard(key, token, idCard, actions, actions_entities, actions_display, actions_limit, action_fields, action_memberCreator_fields, attachments, attachment_fields, members, member_fields, membersVoted, memberVoted_fields, checkItemStates, checkItemState_fields, checklists, checklist_fields, board, board_fields, list, list_fields, stickers, sticker_fields, fields);
+function tryToDeleteANonExistingCard(idCard, key, token) {
+  var url = "/cards/" + idCard;
+  var description = "Verify we cannot delete non-existing Card";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCard(idCard, key, token) {
+  var expectedDesc = "Create card with idCard " + idCard + " and name {name}";
+  return bp.EventSet("matchAddedCard", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ card\ with\ idCard\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ card\ with\ idCard\ (.+)\ and\ name\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCard", "name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardAddedEvent(keyVal) {
+  return bp.EventSet("AddCard:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardAdded() {
+  return bp.EventSet("matchAnyCardAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardAdded(idCard, key, token) {
+  var expectedDesc = "Create card with idCard " + idCard + " and name {name}";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCard(idCard, key, token) {
+  var expectedDesc = "Delete card with idCard " + idCard;
+  return bp.EventSet("matchDeletedCard", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ card\ with\ idCard\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ card\ with\ idCard\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: card action comment ----
 
-function addCardsActionsCommentsByIdCard(idCard, key, token, idAction) {
+function addCardsActionsCommentsByIdCard(idAction, idCard, key, text, token) {
   var url = "/cards/" + idCard + "/actions/comments";
-  var description = "Add comment action to card " + idCard;
+  var description = "Add comment to card " + idCard + " with text " + text;
   var body = {
-    "/* attributes per schema actions_comments */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idAction: String(idAction)
+    }
   });
 }
 
-function deleteCardsActionsCommentsByIdCardByIdAction(idCard, key, token, idAction) {
+function updateCardsActionsCommentsByIdCardByIdAction(idAction, idCard, key, text, token) {
   var url = "/cards/" + idCard + "/actions/" + idAction + "/comments";
-  var description = "Delete comment action " + idAction + " from card " + idCard;
+  var description = "Update comment " + idAction + " on card " + idCard + " with text " + text;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idAction: String(idAction)
+    }
+  });
+}
+
+function deleteCardsActionsCommentsByIdCardByIdAction(idAction, idCard, key, text, token) {
+  var url = "/cards/" + idCard + "/actions/" + idAction + "/comments";
+  var description = "Delete comment " + idAction + " from card " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function updateCardsActionsCommentsByIdCardByIdAction(idCard, key, token, idAction) {
-  var url = "/cards/" + idCard + "/actions/" + idAction + "/comments";
-  var description = "Update comment action " + idAction + " on card " + idCard;
+function tryToAddExistingCardActionComment(idAction, idCard, key, text, token) {
+  var url = "/cards/" + idCard + "/actions/comments";
   var body = {
-    "/* attributes per schema cards_actions_comments */": ...,
+    "idCard": String(idCard)
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  var description = "Verify that we cannot add another CardActionComment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingCardActionComment(idCard, key, token, idAction) {
-  return addCardsActionsCommentsByIdCard(idCard, key, token, idAction);
+function verifyCardActionCommentExists(idAction, idCard, key, text, token) {
+  var url = "/cards/" + idCard + "/actions/comments";
+  var description = "Verify CardActionComment exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardActionComment exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardActionComment to exist but it does not");
+    }
+  });
 }
 
-function tryToDeleteANonExistingCardActionComment(idCard, key, token, idAction) {
-  return deleteCardsActionsCommentsByIdCardByIdAction(idCard, key, token, idAction);
+function verifyCardActionCommentDoesNotExist(idAction, idCard, key, text, token) {
+  var url = "/cards/" + idCard + "/actions/comments";
+  var description = "Verify CardActionComment does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardActionComment to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardActionComment does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardActionComment(idAction, idCard, key, text, token) {
+  var url = "/cards/" + idCard + "/actions/" + idAction + "/comments";
+  var description = "Verify we cannot delete non-existing CardActionComment";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardActionComment(idAction, idCard, key, text, token) {
+  var expectedDesc = "Add comment to card " + idCard + " with text " + text;
+  return bp.EventSet("matchAddedCardActionComment", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardActionCommentAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ comment\ to\ card\ (.+)\ with\ text\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ comment\ to\ card\ (.+)\ with\ text\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCard", "text"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardActionCommentAddedEvent(keyVal) {
+  return bp.EventSet("AddCardActionComment:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardActionCommentAdded() {
+  return bp.EventSet("matchAnyCardActionCommentAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card action comment") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardActionCommentAdded(idAction, idCard, key, text, token) {
+  var expectedDesc = "Add comment to card " + idCard + " with text " + text;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardActionComment(idAction, idCard, key, text, token) {
+  var expectedDesc = "Delete comment " + idAction + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardActionComment", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardActionCommentDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ comment\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ comment\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idAction", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: card attachment ----
 
-function addCardsAttachmentsByIdCard(idCard, key, token, idAttachment, fields, filter) {
+function addCardsAttachmentsByIdCard(file, idAttachment, idCard, key, mimeType, name, token, url) {
   var url = "/cards/" + idCard + "/attachments";
-  var description = "Add attachment to card " + idCard;
+  var description = "Add attachment to card " + idCard + " with name " + name;
   var body = {
-    "/* attributes per schema cards_attachments */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idAttachment: String(idAttachment)
+    }
   });
 }
 
-function deleteCardsAttachmentsByIdCardByIdAttachment(idCard, key, token, idAttachment, fields, filter) {
+function deleteCardsAttachmentsByIdCardByIdAttachment(file, idAttachment, idCard, key, mimeType, name, token, url) {
   var url = "/cards/" + idCard + "/attachments/" + idAttachment;
   var description = "Delete attachment " + idAttachment + " from card " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function getCardsAttachmentsByIdCardByIdAttachment(idCard, key, token, idAttachment, fields, filter) {
+function getCardsAttachmentsByIdCardByIdAttachment(file, idAttachment, idCard, key, mimeType, name, token, url) {
   var url = "/cards/" + idCard + "/attachments/" + idAttachment;
   var description = "Get attachment " + idAttachment + " from card " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function getCardsAttachmentsByIdCard(idCard, key, token, idAttachment, fields, filter) {
+function tryToAddExistingCardAttachment(file, idAttachment, idCard, key, mimeType, name, token, url) {
   var url = "/cards/" + idCard + "/attachments";
-  var description = "Get attachments for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardAttachment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingCardAttachment(idCard, key, token, idAttachment, fields, filter) {
-  return addCardsAttachmentsByIdCard(idCard, key, token, idAttachment, fields, filter);
-}
-
-function verifyCardAttachmentExists(idCard, key, token, idAttachment, fields, filter) {
-  return getCardsAttachmentsByIdCardByIdAttachment(idCard, key, token, idAttachment, fields, filter);
-}
-
-function verifyCardAttachmentDoesNotExist(idCard, key, token, idAttachment, fields, filter) {
-  return getCardsAttachmentsByIdCardByIdAttachment(idCard, key, token, idAttachment, fields, filter);
-}
-
-function tryToDeleteANonExistingCardAttachment(idCard, key, token, idAttachment, fields, filter) {
-  return deleteCardsAttachmentsByIdCardByIdAttachment(idCard, key, token, idAttachment, fields, filter);
-}
-
-// ---- Entity: card board ----
-
-function getCardsBoardByIdCard(idCard, fields, key, token, field) {
-  var url = "/cards/" + idCard + "/board";
-  var description = "Get board for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
+function verifyCardAttachmentExists(file, idAttachment, idCard, key, mimeType, name, token, url) {
+  var url = "/cards/" + idCard + "/attachments";
+  var description = "Verify CardAttachment exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
     parameters: { description: description },
-    body: body
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardAttachment exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardAttachment to exist but it does not");
+    }
   });
 }
 
-function getCardsBoardByIdCardByField(idCard, fields, key, token, field) {
-  var url = "/cards/" + idCard + "/board/" + field;
-  var description = "Get board field " + field + " for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
+function verifyCardAttachmentDoesNotExist(file, idAttachment, idCard, key, mimeType, name, token, url) {
+  var url = "/cards/" + idCard + "/attachments";
+  var description = "Verify CardAttachment does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
     parameters: { description: description },
-    body: body
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardAttachment to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardAttachment does not exist");
+    }
   });
 }
 
-function verifyCardBoardExists(idCard, fields, key, token, field) {
-  return getCardsBoardByIdCard(idCard, fields, key, token, field);
-}
-
-function verifyCardBoardDoesNotExist(idCard, fields, key, token, field) {
-  return getCardsBoardByIdCard(idCard, fields, key, token, field);
-}
-
-// ---- Entity: card check item state ----
-
-function getCardsCheckItemStatesByIdCard(idCard, fields, key, token) {
-  var url = "/cards/" + idCard + "/checkItemStates";
-  var description = "Get check item states for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+function tryToDeleteANonExistingCardAttachment(file, idAttachment, idCard, key, mimeType, name, token, url) {
+  var url = "/cards/" + idCard + "/attachments/" + idAttachment;
+  var description = "Verify we cannot delete non-existing CardAttachment";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
   });
 }
 
-function verifyCardCheckItemStateExists(idCard, fields, key, token) {
-  return getCardsCheckItemStatesByIdCard(idCard, fields, key, token);
+function matchAddedCardAttachment(file, idAttachment, idCard, key, mimeType, name, token, url) {
+  var expectedDesc = "Add attachment to card " + idCard + " with name " + name;
+  return bp.EventSet("matchAddedCardAttachment", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-function verifyCardCheckItemStateDoesNotExist(idCard, fields, key, token) {
-  return getCardsCheckItemStatesByIdCard(idCard, fields, key, token);
+function waitForAnyCardAttachmentAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ attachment\ to\ card\ (.+)\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ attachment\ to\ card\ (.+)\ with\ name\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCard", "name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardAttachmentAddedEvent(keyVal) {
+  return bp.EventSet("AddCardAttachment:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardAttachmentAdded() {
+  return bp.EventSet("matchAnyCardAttachmentAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card attachment") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardAttachmentAdded(file, idAttachment, idCard, key, mimeType, name, token, url) {
+  var expectedDesc = "Add attachment to card " + idCard + " with name " + name;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardAttachment(file, idAttachment, idCard, key, mimeType, name, token, url) {
+  var expectedDesc = "Delete attachment " + idAttachment + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardAttachment", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardAttachmentDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ attachment\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ attachment\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idAttachment", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: card checklist check item ----
 
-function addCardsChecklistCheckItemByIdCardByIdChecklist(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
+function addCardsChecklistCheckItemByIdCardByIdChecklist(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem";
-  var description = "Add check item to checklist " + idChecklist + " on card " + idCard;
+  var description = "Add check item to checklist " + idChecklist + " on card " + idCard + " with name " + name;
   var body = {
-    "/* attributes per schema cards_checklist_checkItem */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idCheckItem: String(idCheckItem)
+      , idChecklist: String(idChecklist)
+      , idChecklistCurrent: String(idChecklistCurrent)
+    }
   });
 }
 
-function deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
+function updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var url = "/cards/" + idCard + "/checklist/" + idChecklistCurrent + "/checkItem/" + idCheckItem;
+  var description = "Update check item " + idCheckItem + " in checklist " + idChecklistCurrent + " on card " + idCard + " with name " + name + ", pos " + pos + ", state " + state;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idCheckItem: String(idCheckItem)
+      , idChecklist: String(idChecklist)
+      , idChecklistCurrent: String(idChecklistCurrent)
+    }
+  });
+}
+
+function deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem;
   var description = "Delete check item " + idCheckItem + " from checklist " + idChecklist + " on card " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
-  var url = "/cards/" + idCard + "/checklist/" + idChecklistCurrent + "/checkItem/" + idCheckItem;
-  var description = "Update check item " + idCheckItem + " in checklist " + idChecklistCurrent + " on card " + idCard;
+function tryToAddExistingCardChecklistCheckItem(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem";
   var body = {
-    "/* attributes per schema cards_checklist_idChecklistCurrent_checkItem */": ...,
+    "idCard": String(idCard)
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  var description = "Verify that we cannot add another CardChecklistCheckItem...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
   });
 }
 
-function updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
+function verifyCardChecklistCheckItemExists(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem";
+  var description = "Verify CardChecklistCheckItem exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardChecklistCheckItem exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardChecklistCheckItem to exist but it does not");
+    }
+  });
+}
+
+function verifyCardChecklistCheckItemDoesNotExist(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem";
+  var description = "Verify CardChecklistCheckItem does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardChecklistCheckItem to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardChecklistCheckItem does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardChecklistCheckItem(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem;
+  var description = "Verify we cannot delete non-existing CardChecklistCheckItem";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardChecklistCheckItem(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var expectedDesc = "Add check item to checklist " + idChecklist + " on card " + idCard + " with name " + name;
+  return bp.EventSet("matchAddedCardChecklistCheckItem", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardChecklistCheckItemAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ check\ item\ to\ checklist\ (.+)\ on\ card\ (.+)\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ check\ item\ to\ checklist\ (.+)\ on\ card\ (.+)\ with\ name\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idChecklist", "idCard", "name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardChecklistCheckItemAddedEvent(keyVal) {
+  return bp.EventSet("AddCardChecklistCheckItem:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardChecklistCheckItemAdded() {
+  return bp.EventSet("matchAnyCardChecklistCheckItemAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card checklist check item") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardChecklistCheckItemAdded(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var expectedDesc = "Add check item to checklist " + idChecklist + " on card " + idCard + " with name " + name;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardChecklistCheckItem(idCard, idCheckItem, idChecklist, idChecklistCurrent, key, name, pos, state, token) {
+  var expectedDesc = "Delete check item " + idCheckItem + " from checklist " + idChecklist + " on card " + idCard;
+  return bp.EventSet("matchDeletedCardChecklistCheckItem", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardChecklistCheckItemDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ check\ item\ (.+)\ from\ checklist\ (.+)\ on\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ check\ item\ (.+)\ from\ checklist\ (.+)\ on\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCheckItem", "idChecklist", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: card checklist check item name ----
+
+function updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, token, value) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/name";
-  var description = "Update name of check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard;
+  var description = "Update name of check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_checklist_checkItem_name */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idCheckItem: String(idCheckItem)
+      , idChecklist: String(idChecklist)
+    }
   });
 }
 
-function updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
+// ---- Entity: card checklist check item pos ----
+
+function updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, token, value) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/pos";
-  var description = "Update position of check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard;
+  var description = "Update position of check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_checklist_checkItem_pos */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idCheckItem: String(idCheckItem)
+      , idChecklist: String(idChecklist)
+    }
   });
 }
 
-function updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
+// ---- Entity: card checklist check item state ----
+
+function updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, token, value) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/state";
-  var description = "Update state of check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard;
+  var description = "Update state of check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_checklist_checkItem_state */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idCheckItem: String(idCheckItem)
+      , idChecklist: String(idChecklist)
+    }
   });
-}
-
-function addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
-  var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/convertToCard";
-  var description = "Convert check item " + idCheckItem + " in checklist " + idChecklist + " on card " + idCard + " to card";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardChecklistCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
-  return addCardsChecklistCheckItemByIdCardByIdChecklist(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent);
-}
-
-function tryToDeleteANonExistingCardChecklistCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent) {
-  return deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem(idCard, idChecklist, key, token, idCheckItem, idChecklistCurrent);
 }
 
 // ---- Entity: card checklist ----
 
-function addCardsChecklistsByIdCard(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
+function addCardsChecklistsByIdCard(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
   var url = "/cards/" + idCard + "/checklists";
-  var description = "Add checklist to card " + idCard;
+  var description = "Add checklist to card " + idCard + " with name " + name;
   var body = {
-    "/* attributes per schema cards_checklists */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idChecklist: String(idChecklist)
+    }
   });
 }
 
-function deleteCardsChecklistsByIdCardByIdChecklist(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
+function deleteCardsChecklistsByIdCardByIdChecklist(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
   var url = "/cards/" + idCard + "/checklists/" + idChecklist;
   var description = "Delete checklist " + idChecklist + " from card " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function getCardsChecklistsByIdCard(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
+function getCardsChecklistsByIdCard(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
   var url = "/cards/" + idCard + "/checklists";
   var description = "Get checklists for card " + idCard;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function tryToAddExistingCardChecklist(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
-  return addCardsChecklistsByIdCard(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields);
+function tryToAddExistingCardChecklist(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var url = "/cards/" + idCard + "/checklists";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardChecklist...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyCardChecklistExists(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
-  return getCardsChecklistsByIdCard(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields);
+function verifyCardChecklistExists(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var url = "/cards/" + idCard + "/checklists";
+  var description = "Verify CardChecklist exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardChecklist exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardChecklist to exist but it does not");
+    }
+  });
 }
 
-function verifyCardChecklistDoesNotExist(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
-  return getCardsChecklistsByIdCard(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields);
+function verifyCardChecklistDoesNotExist(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var url = "/cards/" + idCard + "/checklists";
+  var description = "Verify CardChecklist does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardChecklist to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardChecklist does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingCardChecklist(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields) {
-  return deleteCardsChecklistsByIdCardByIdChecklist(idCard, key, token, idChecklist, cards, card_fields, checkItems, checkItem_fields, filter, fields);
+function tryToDeleteANonExistingCardChecklist(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var url = "/cards/" + idCard + "/checklists/" + idChecklist;
+  var description = "Verify we cannot delete non-existing CardChecklist";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardChecklist(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var expectedDesc = "Add checklist to card " + idCard + " with name " + name;
+  return bp.EventSet("matchAddedCardChecklist", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardChecklistAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ checklist\ to\ card\ (.+)\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ checklist\ to\ card\ (.+)\ with\ name\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCard", "name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardChecklistAddedEvent(keyVal) {
+  return bp.EventSet("AddCardChecklist:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardChecklistAdded() {
+  return bp.EventSet("matchAnyCardChecklistAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card checklist") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardChecklistAdded(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var expectedDesc = "Add checklist to card " + idCard + " with name " + name;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardChecklist(idCard, idChecklist, idChecklistSource, key, name, pos, token) {
+  var expectedDesc = "Delete checklist " + idChecklist + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardChecklist", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardChecklistDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ checklist\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ checklist\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idChecklist", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: card id label ----
+
+function addCardsIdLabelsByIdCard(idCard, idLabel, key, token, value) {
+  var url = "/cards/" + idCard + "/idLabels";
+  var description = "Add label " + value + " to card " + idCard;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idLabel: String(idLabel)
+    }
+  });
+}
+
+function deleteCardsIdLabelsByIdCardByIdLabel(idCard, idLabel, key, token, value) {
+  var url = "/cards/" + idCard + "/idLabels/" + idLabel;
+  var description = "Delete label " + idLabel + " from card " + idCard;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingCardIdLabels(idCard, idLabel, key, token, value) {
+  var url = "/cards/" + idCard + "/idLabels";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardIdLabels...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyCardIdLabelsExists(idCard, idLabel, key, token, value) {
+  var url = "/cards/" + idCard + "/idLabels";
+  var description = "Verify CardIdLabels exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardIdLabels exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardIdLabels to exist but it does not");
+    }
+  });
+}
+
+function verifyCardIdLabelsDoesNotExist(idCard, idLabel, key, token, value) {
+  var url = "/cards/" + idCard + "/idLabels";
+  var description = "Verify CardIdLabels does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardIdLabels to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardIdLabels does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardIdLabels(idCard, idLabel, key, token, value) {
+  var url = "/cards/" + idCard + "/idLabels/" + idLabel;
+  var description = "Verify we cannot delete non-existing CardIdLabels";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardIdLabels(idCard, idLabel, key, token, value) {
+  var expectedDesc = "Add label " + value + " to card " + idCard;
+  return bp.EventSet("matchAddedCardIdLabels", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardIdLabelsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ label\ (.+)\ to\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ label\ (.+)\ to\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["value", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardIdLabelsAddedEvent(keyVal) {
+  return bp.EventSet("AddCardIdLabels:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardIdLabelsAdded() {
+  return bp.EventSet("matchAnyCardIdLabelsAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card id label") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardIdLabelsAdded(idCard, idLabel, key, token, value) {
+  var expectedDesc = "Add label " + value + " to card " + idCard;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardIdLabels(idCard, idLabel, key, token, value) {
+  var expectedDesc = "Delete label " + idLabel + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardIdLabels", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardIdLabelsDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ label\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ label\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idLabel", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: card id member ----
+
+function addCardsIdMembersByIdCard(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers";
+  var description = "Add member " + value + " to card " + idCard;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idMember: String(idMember)
+    }
+  });
+}
+
+function updateCardsIdMembersByIdCard(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers";
+  var description = "Update members of card " + idCard + " with value " + value;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idMember: String(idMember)
+    }
+  });
+}
+
+function deleteCardsIdMembersByIdCardByIdMember(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers/" + idMember;
+  var description = "Delete member " + idMember + " from card " + idCard;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingCardIdMembers(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardIdMembers...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyCardIdMembersExists(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers";
+  var description = "Verify CardIdMembers exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardIdMembers exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardIdMembers to exist but it does not");
+    }
+  });
+}
+
+function verifyCardIdMembersDoesNotExist(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers";
+  var description = "Verify CardIdMembers does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardIdMembers to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardIdMembers does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardIdMembers(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/idMembers/" + idMember;
+  var description = "Verify we cannot delete non-existing CardIdMembers";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardIdMembers(idCard, idMember, key, token, value) {
+  var expectedDesc = "Add member " + value + " to card " + idCard;
+  return bp.EventSet("matchAddedCardIdMembers", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardIdMembersAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ member\ (.+)\ to\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ member\ (.+)\ to\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["value", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardIdMembersAddedEvent(keyVal) {
+  return bp.EventSet("AddCardIdMembers:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardIdMembersAdded() {
+  return bp.EventSet("matchAnyCardIdMembersAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card id member") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardIdMembersAdded(idCard, idMember, key, token, value) {
+  var expectedDesc = "Add member " + value + " to card " + idCard;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardIdMembers(idCard, idMember, key, token, value) {
+  var expectedDesc = "Delete member " + idMember + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardIdMembers", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardIdMembersDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ member\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ member\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idMember", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: card label ----
+
+function addCardsLabelsByIdCard(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels";
+  var description = "Add label with color " + color + " and name " + name + " to card " + idCard;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , color: String(color)
+    }
+  });
+}
+
+function updateCardsLabelsByIdCard(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels";
+  var description = "Update label with color " + color + " and name " + name + " on card " + idCard;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , color: String(color)
+    }
+  });
+}
+
+function deleteCardsLabelsByIdCardByColor(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels/" + color;
+  var description = "Delete label with color " + color + " from card " + idCard;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingCardLabel(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardLabel...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyCardLabelExists(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels";
+  var description = "Verify CardLabel exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardLabel exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardLabel to exist but it does not");
+    }
+  });
+}
+
+function verifyCardLabelDoesNotExist(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels";
+  var description = "Verify CardLabel does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardLabel to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardLabel does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardLabel(color, idCard, key, name, token, value) {
+  var url = "/cards/" + idCard + "/labels/" + color;
+  var description = "Verify we cannot delete non-existing CardLabel";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardLabel(color, idCard, key, name, token, value) {
+  var expectedDesc = "Add label with color " + color + " and name " + name + " to card " + idCard;
+  return bp.EventSet("matchAddedCardLabel", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardLabelAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ label\ with\ color\ (.+)\ and\ name\ (.+)\ to\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ label\ with\ color\ (.+)\ and\ name\ (.+)\ to\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["color", "name", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardLabelAddedEvent(keyVal) {
+  return bp.EventSet("AddCardLabel:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardLabelAdded() {
+  return bp.EventSet("matchAnyCardLabelAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card label") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardLabelAdded(color, idCard, key, name, token, value) {
+  var expectedDesc = "Add label with color " + color + " and name " + name + " to card " + idCard;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardLabel(color, idCard, key, name, token, value) {
+  var expectedDesc = "Delete label with color " + color + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardLabel", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardLabelDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ label\ with\ color\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ label\ with\ color\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["color", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: card member voted ----
+
+function addCardsMembersVotedByIdCard(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted";
+  var description = "Add member vote " + value + " to card " + idCard;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idMember: String(idMember)
+    }
+  });
+}
+
+function deleteCardsMembersVotedByIdCardByIdMember(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted/" + idMember;
+  var description = "Delete member vote " + idMember + " from card " + idCard;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function getCardsMembersVotedByIdCard(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted";
+  var description = "Get members voted on card " + idCard;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingCardMemberVoted(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardMemberVoted...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyCardMemberVotedExists(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted";
+  var description = "Verify CardMemberVoted exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardMemberVoted exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardMemberVoted to exist but it does not");
+    }
+  });
+}
+
+function verifyCardMemberVotedDoesNotExist(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted";
+  var description = "Verify CardMemberVoted does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardMemberVoted to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardMemberVoted does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardMemberVoted(idCard, idMember, key, token, value) {
+  var url = "/cards/" + idCard + "/membersVoted/" + idMember;
+  var description = "Verify we cannot delete non-existing CardMemberVoted";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardMemberVoted(idCard, idMember, key, token, value) {
+  var expectedDesc = "Add member vote " + value + " to card " + idCard;
+  return bp.EventSet("matchAddedCardMemberVoted", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardMemberVotedAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ member\ vote\ (.+)\ to\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ member\ vote\ (.+)\ to\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["value", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardMemberVotedAddedEvent(keyVal) {
+  return bp.EventSet("AddCardMemberVoted:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardMemberVotedAdded() {
+  return bp.EventSet("matchAnyCardMemberVotedAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card member voted") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardMemberVotedAdded(idCard, idMember, key, token, value) {
+  var expectedDesc = "Add member vote " + value + " to card " + idCard;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardMemberVoted(idCard, idMember, key, token, value) {
+  var expectedDesc = "Delete member vote " + idMember + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardMemberVoted", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardMemberVotedDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ member\ vote\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ member\ vote\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idMember", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: card sticker ----
+
+function addCardsStickersByIdCard(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers";
+  var description = "Add sticker to card " + idCard + " with image " + image;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idSticker: String(idSticker)
+    }
+  });
+}
+
+function deleteCardsStickersByIdCardByIdSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Delete sticker " + idSticker + " from card " + idCard;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function getCardsStickersByIdCardByIdSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Get sticker " + idSticker + " from card " + idCard;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
+
+function updateCardsStickersByIdCardByIdSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Update sticker " + idSticker + " on card " + idCard + " with image " + image;
+  var body = {
+    "idCard": String(idCard),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+      , idSticker: String(idSticker)
+    }
+  });
+}
+
+function tryToAddExistingCardSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers";
+  var body = {
+    "idCard": String(idCard)
+  };
+  var description = "Verify that we cannot add another CardSticker...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyCardStickerExists(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers";
+  var description = "Verify CardSticker exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.success("CardSticker exists");
+          }
+        }
+      }
+      return pvg.fail("Expected CardSticker to exist but it does not");
+    }
+  });
+}
+
+function verifyCardStickerDoesNotExist(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers";
+  var description = "Verify CardSticker does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idCard) === String(idCard)) {
+            return pvg.fail("Expected CardSticker to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("CardSticker does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingCardSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Verify we cannot delete non-existing CardSticker";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCardSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var expectedDesc = "Add sticker to card " + idCard + " with image " + image;
+  return bp.EventSet("matchAddedCardSticker", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardStickerAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ sticker\ to\ card\ (.+)\ with\ image\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ sticker\ to\ card\ (.+)\ with\ image\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idCard", "image"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getCardStickerAddedEvent(keyVal) {
+  return bp.EventSet("AddCardSticker:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idCard) === String(keyVal);
+  });
+}
+
+function matchAnyCardStickerAdded() {
+  return bp.EventSet("matchAnyCardStickerAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create card sticker") > -1 && e.data.parameters.idCard !== undefined);
+  });
+}
+
+function waitForCardStickerAdded(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var expectedDesc = "Add sticker to card " + idCard + " with image " + image;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedCardSticker(idCard, idSticker, image, key, left, rotate, token, top, zIndex) {
+  var expectedDesc = "Delete sticker " + idSticker + " from card " + idCard;
+  return bp.EventSet("matchDeletedCardSticker", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCardStickerDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ sticker\ (.+)\ from\ card\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ sticker\ (.+)\ from\ card\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idSticker", "idCard"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: card closed ----
 
-function updateCardsClosedByIdCard(idCard, key, token) {
+function updateCardsClosedByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/closed";
-  var description = "Update closed status of card " + idCard;
+  var description = "Update closed status of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_closed */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-// ---- Entity: card description ----
+// ---- Entity: card desc ----
 
-function updateCardsDescByIdCard(idCard, key, token) {
+function updateCardsDescByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/desc";
-  var description = "Update description of card " + idCard;
+  var description = "Update description of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_desc */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
 // ---- Entity: card due ----
 
-function updateCardsDueByIdCard(idCard, key, token) {
+function updateCardsDueByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/due";
-  var description = "Update due date of card " + idCard;
+  var description = "Update due date of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_due */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-// ---- Entity: card attachment cover ----
+// ---- Entity: card id attachment cover ----
 
-function updateCardsIdAttachmentCoverByIdCard(idCard, key, token) {
+function updateCardsIdAttachmentCoverByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/idAttachmentCover";
-  var description = "Update attachment cover of card " + idCard;
+  var description = "Update attachment cover id of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_idAttachmentCover */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-// ---- Entity: card board id ----
+// ---- Entity: card id board ----
 
-function updateCardsIdBoardByIdCard(idCard, key, token) {
+function updateCardsIdBoardByIdCard(idCard, idList, key, token, value) {
   var url = "/cards/" + idCard + "/idBoard";
-  var description = "Update board id of card " + idCard;
+  var description = "Update board id of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_idBoard */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-// ---- Entity: card label ----
+// ---- Entity: card id list ----
 
-function addCardsIdLabelsByIdCard(idCard, key, token, idLabel, color) {
-  var url = "/cards/" + idCard + "/idLabels";
-  var description = "Add label to card " + idCard;
-  var body = {
-    "/* attributes per schema cards_idLabels */": ...,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteCardsIdLabelsByIdCardByIdLabel(idCard, key, token, idLabel, color) {
-  var url = "/cards/" + idCard + "/idLabels/" + idLabel;
-  var description = "Delete label " + idLabel + " from card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteCardsLabelsByIdCardByColor(idCard, key, token, idLabel, color) {
-  var url = "/cards/" + idCard + "/labels/" + color;
-  var description = "Delete label with color " + color + " from card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateCardsLabelsByIdCard(idCard, key, token, idLabel, color) {
-  var url = "/cards/" + idCard + "/labels";
-  var description = "Update labels of card " + idCard;
-  var body = {
-    "/* attributes per schema cards_labels */": ...,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardIdLabels(idCard, key, token, idLabel, color) {
-  return addCardsIdLabelsByIdCard(idCard, key, token, idLabel, color);
-}
-
-function tryToDeleteANonExistingCardIdLabels(idCard, key, token, idLabel, color) {
-  return deleteCardsIdLabelsByIdCardByIdLabel(idCard, key, token, idLabel, color);
-}
-
-// ---- Entity: card list id ----
-
-function updateCardsIdListByIdCard(idCard, key, token) {
+function updateCardsIdListByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/idList";
-  var description = "Update list id of card " + idCard;
+  var description = "Update list id of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_idList */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
-}
-
-// ---- Entity: card member ----
-
-function addCardsIdMembersByIdCard(idCard, key, token, idMember) {
-  var url = "/cards/" + idCard + "/idMembers";
-  var description = "Add member to card " + idCard;
-  var body = {
-    "/* attributes per schema cards_idMembers */": ...,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateCardsIdMembersByIdCard(idCard, key, token, idMember) {
-  var url = "/cards/" + idCard + "/idMembers";
-  var description = "Update members of card " + idCard;
-  var body = {
-    "/* attributes per schema cards_idMembers */": ...,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteCardsIdMembersByIdCardByIdMember(idCard, key, token, idMember) {
-  var url = "/cards/" + idCard + "/idMembers/" + idMember;
-  var description = "Delete member " + idMember + " from card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardIdMembers(idCard, key, token, idMember) {
-  return addCardsIdMembersByIdCard(idCard, key, token, idMember);
-}
-
-function tryToDeleteANonExistingCardIdMembers(idCard, key, token, idMember) {
-  return deleteCardsIdMembersByIdCardByIdMember(idCard, key, token, idMember);
-}
-
-// ---- Entity: card label ----
-
-function addCardsLabelsByIdCard(idCard, key, token) {
-  var url = "/cards/" + idCard + "/labels";
-  var description = "Add label to card " + idCard;
-  var body = {
-    "/* attributes per schema cards_labels */": ...,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateCardsLabelsByIdCard(idCard, key, token) {
-  var url = "/cards/" + idCard + "/labels";
-  var description = "Update labels of card " + idCard;
-  var body = {
-    "/* attributes per schema cards_labels */": ...,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardLabel(idCard, key, token) {
-  return addCardsLabelsByIdCard(idCard, key, token);
-}
-
-// ---- Entity: card list ----
-
-function getCardsListByIdCard(idCard, fields, key, token, field) {
-  var url = "/cards/" + idCard + "/list";
-  var description = "Get list for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getCardsListByIdCardByField(idCard, fields, key, token, field) {
-  var url = "/cards/" + idCard + "/list/" + field;
-  var description = "Get list field " + field + " for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCardListExists(idCard, fields, key, token, field) {
-  return getCardsListByIdCard(idCard, fields, key, token, field);
-}
-
-function verifyCardListDoesNotExist(idCard, fields, key, token, field) {
-  return getCardsListByIdCard(idCard, fields, key, token, field);
-}
-
-// ---- Entity: card mark associated notifications read ----
-
-function addCardsMarkAssociatedNotificationsReadByIdCard(idCard, key, token) {
-  var url = "/cards/" + idCard + "/markAssociatedNotificationsRead";
-  var description = "Mark associated notifications read for card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardMarkAssociatedNotificationsRead(idCard, key, token) {
-  return addCardsMarkAssociatedNotificationsReadByIdCard(idCard, key, token);
-}
-
-// ---- Entity: card member ----
-
-function getCardsMembersByIdCard(idCard, fields, key, token) {
-  var url = "/cards/" + idCard + "/members";
-  var description = "Get members of card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyCardMemberExists(idCard, fields, key, token) {
-  return getCardsMembersByIdCard(idCard, fields, key, token);
-}
-
-function verifyCardMemberDoesNotExist(idCard, fields, key, token) {
-  return getCardsMembersByIdCard(idCard, fields, key, token);
-}
-
-// ---- Entity: card member voted ----
-
-function getCardsMembersVotedByIdCard(idCard, fields, key, token, idMember) {
-  var url = "/cards/" + idCard + "/membersVoted";
-  var description = "Get members voted on card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addCardsMembersVotedByIdCard(idCard, fields, key, token, idMember) {
-  var url = "/cards/" + idCard + "/membersVoted";
-  var description = "Add member voted on card " + idCard;
-  var body = {
-    "/* attributes per schema cards_membersVoted */": ...,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteCardsMembersVotedByIdCardByIdMember(idCard, fields, key, token, idMember) {
-  var url = "/cards/" + idCard + "/membersVoted/" + idMember;
-  var description = "Delete member voted " + idMember + " from card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardMemberVoted(idCard, fields, key, token, idMember) {
-  return addCardsMembersVotedByIdCard(idCard, fields, key, token, idMember);
-}
-
-function verifyCardMemberVotedExists(idCard, fields, key, token, idMember) {
-  return getCardsMembersVotedByIdCard(idCard, fields, key, token, idMember);
-}
-
-function verifyCardMemberVotedDoesNotExist(idCard, fields, key, token, idMember) {
-  return getCardsMembersVotedByIdCard(idCard, fields, key, token, idMember);
-}
-
-function tryToDeleteANonExistingCardMemberVoted(idCard, fields, key, token, idMember) {
-  return deleteCardsMembersVotedByIdCardByIdMember(idCard, fields, key, token, idMember);
 }
 
 // ---- Entity: card name ----
 
-function updateCardsNameByIdCard(idCard, key, token) {
+function updateCardsNameByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/name";
-  var description = "Update name of card " + idCard;
+  var description = "Update name of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_name */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
 }
 
-// ---- Entity: card position ----
+// ---- Entity: card pos ----
 
-function updateCardsPosByIdCard(idCard, key, token) {
+function updateCardsPosByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/pos";
-  var description = "Update position of card " + idCard;
+  var description = "Update position of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_pos */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
-}
-
-// ---- Entity: card sticker ----
-
-function addCardsStickersByIdCard(idCard, key, token, idSticker, fields) {
-  var url = "/cards/" + idCard + "/stickers";
-  var description = "Add sticker to card " + idCard;
-  var body = {
-    "/* attributes per schema cards_stickers */": ...,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteCardsStickersByIdCardByIdSticker(idCard, key, token, idSticker, fields) {
-  var url = "/cards/" + idCard + "/stickers/" + idSticker;
-  var description = "Delete sticker " + idSticker + " from card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getCardsStickersByIdCardByIdSticker(idCard, key, token, idSticker, fields) {
-  var url = "/cards/" + idCard + "/stickers/" + idSticker;
-  var description = "Get sticker " + idSticker + " from card " + idCard;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateCardsStickersByIdCardByIdSticker(idCard, key, token, idSticker, fields) {
-  var url = "/cards/" + idCard + "/stickers/" + idSticker;
-  var description = "Update sticker " + idSticker + " on card " + idCard;
-  var body = {
-    "/* attributes per schema cards_stickers */": ...,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingCardSticker(idCard, key, token, idSticker, fields) {
-  return addCardsStickersByIdCard(idCard, key, token, idSticker, fields);
-}
-
-function verifyCardStickerExists(idCard, key, token, idSticker, fields) {
-  return getCardsStickersByIdCardByIdSticker(idCard, key, token, idSticker, fields);
-}
-
-function verifyCardStickerDoesNotExist(idCard, key, token, idSticker, fields) {
-  return getCardsStickersByIdCardByIdSticker(idCard, key, token, idSticker, fields);
-}
-
-function tryToDeleteANonExistingCardSticker(idCard, key, token, idSticker, fields) {
-  return deleteCardsStickersByIdCardByIdSticker(idCard, key, token, idSticker, fields);
 }
 
 // ---- Entity: card subscribed ----
 
-function updateCardsSubscribedByIdCard(idCard, key, token) {
+function updateCardsSubscribedByIdCard(idCard, key, token, value) {
   var url = "/cards/" + idCard + "/subscribed";
-  var description = "Update subscribed status of card " + idCard;
+  var description = "Update subscribed status of card " + idCard + " to " + value;
   var body = {
-    "/* attributes per schema cards_subscribed */": ...,
+    "idCard": String(idCard),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idCard: String(idCard)
+    }
   });
-}
-
-// ---- Entity: organization ----
-
-function addOrganizations(idOrg) {
-  var url = "/organizations";
-  var description = "Create organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteOrganizationsByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg;
-  var description = "Delete organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateOrganizationsByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg;
-  var description = "Update organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getOrganizationsByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg;
-  var description = "Get organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingOrganization(idOrg) {
-  return addOrganizations(idOrg);
-}
-
-function verifyOrganizationExists(idOrg) {
-  return getOrganizationsByIdOrg(idOrg);
-}
-
-function verifyOrganizationDoesNotExist(idOrg) {
-  return getOrganizationsByIdOrg(idOrg);
-}
-
-function tryToDeleteANonExistingOrganization(idOrg) {
-  return deleteOrganizationsByIdOrg(idOrg);
-}
-
-// ---- Entity: organization logo ----
-
-function addOrganizationsLogoByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/logo";
-  var description = "Add logo to organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteOrganizationsLogoByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/logo";
-  var description = "Delete logo of organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingOrganizationLogo(idOrg) {
-  return addOrganizationsLogoByIdOrg(idOrg);
-}
-
-function tryToDeleteANonExistingOrganizationLogo(idOrg) {
-  return deleteOrganizationsLogoByIdOrg(idOrg);
-}
-
-// ---- Entity: organization members ----
-
-function getOrganizationsMembersByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/members";
-  var description = "Get members of organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateOrganizationsMembersByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/members";
-  var description = "Update members of organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationMembersExists(idOrg) {
-  return getOrganizationsMembersByIdOrg(idOrg);
-}
-
-function verifyOrganizationMembersDoesNotExist(idOrg) {
-  return getOrganizationsMembersByIdOrg(idOrg);
-}
-
-// ---- Entity: organization member ----
-
-function deleteOrganizationsMembersByIdOrgByIdMember(idOrg, idMember) {
-  var url = "/organizations/" + idOrg + "/members/" + idMember;
-  var description = "Delete member " + idMember + " from organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateOrganizationsMembersByIdOrgByIdMember(idOrg, idMember) {
-  var url = "/organizations/" + idOrg + "/members/" + idMember;
-  var description = "Update member " + idMember + " of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingOrganizationMember(idOrg, idMember) {
-  return deleteOrganizationsMembersByIdOrgByIdMember(idOrg, idMember);
-}
-
-// ---- Entity: organization member deactivated ----
-
-function updateOrganizationsMembersDeactivatedByIdOrgByIdMember(idOrg, idMember) {
-  var url = "/organizations/" + idOrg + "/members/" + idMember + "/deactivated";
-  var description = "Update deactivated status of member " + idMember + " in organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization members invited ----
-
-function getOrganizationsMembersInvitedByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/membersInvited";
-  var description = "Get invited members of organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationMembersInvitedExists(idOrg) {
-  return getOrganizationsMembersInvitedByIdOrg(idOrg);
-}
-
-function verifyOrganizationMembersInvitedDoesNotExist(idOrg) {
-  return getOrganizationsMembersInvitedByIdOrg(idOrg);
-}
-
-// ---- Entity: organization memberships ----
-
-function getOrganizationsMembershipsByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/memberships";
-  var description = "Get memberships of organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationMembershipsExists(idOrg) {
-  return getOrganizationsMembershipsByIdOrg(idOrg);
-}
-
-function verifyOrganizationMembershipsDoesNotExist(idOrg) {
-  return getOrganizationsMembershipsByIdOrg(idOrg);
-}
-
-// ---- Entity: organization membership ----
-
-function getOrganizationsMembershipsByIdOrgByIdMembership(idOrg, idMembership) {
-  var url = "/organizations/" + idOrg + "/memberships/" + idMembership;
-  var description = "Get membership " + idMembership + " of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateOrganizationsMembershipsByIdOrgByIdMembership(idOrg, idMembership) {
-  var url = "/organizations/" + idOrg + "/memberships/" + idMembership;
-  var description = "Update membership " + idMembership + " of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationMembershipExists(idOrg, idMembership) {
-  return getOrganizationsMembershipsByIdOrgByIdMembership(idOrg, idMembership);
-}
-
-function verifyOrganizationMembershipDoesNotExist(idOrg, idMembership) {
-  return getOrganizationsMembershipsByIdOrgByIdMembership(idOrg, idMembership);
-}
-
-// ---- Entity: organization boards ----
-
-function getOrganizationsBoardsByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/boards";
-  var description = "Get boards of organization with idOrg " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationBoardsExists(idOrg) {
-  return getOrganizationsBoardsByIdOrg(idOrg);
-}
-
-function verifyOrganizationBoardsDoesNotExist(idOrg) {
-  return getOrganizationsBoardsByIdOrg(idOrg);
-}
-
-// ---- Entity: organization board filter ----
-
-function getOrganizationsBoardsByIdOrgByFilter(idOrg, filter) {
-  var url = "/organizations/" + idOrg + "/boards/" + filter;
-  var description = "Get boards of organization " + idOrg + " filtered by " + filter;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationBoardFilterExists(idOrg, filter) {
-  return getOrganizationsBoardsByIdOrgByFilter(idOrg, filter);
-}
-
-function verifyOrganizationBoardFilterDoesNotExist(idOrg, filter) {
-  return getOrganizationsBoardsByIdOrgByFilter(idOrg, filter);
-}
-
-// ---- Entity: organization deltas ----
-
-function getOrganizationsDeltasByIdOrg(idOrg, tags, ixLastUpdate) {
-  var url = "/organizations/" + idOrg + "/deltas";
-  var description = "Get deltas of organization " + idOrg + " with tags " + tags + " and last update index " + ixLastUpdate;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyOrganizationDeltasExists(idOrg, tags, ixLastUpdate) {
-  return getOrganizationsDeltasByIdOrg(idOrg, tags, ixLastUpdate);
-}
-
-function verifyOrganizationDeltasDoesNotExist(idOrg, tags, ixLastUpdate) {
-  return getOrganizationsDeltasByIdOrg(idOrg, tags, ixLastUpdate);
-}
-
-// ---- Entity: organization description ----
-
-function updateOrganizationsDescByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/desc";
-  var description = "Update description of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization display name ----
-
-function updateOrganizationsDisplayNameByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/displayName";
-  var description = "Update display name of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization name ----
-
-function updateOrganizationsNameByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/name";
-  var description = "Update name of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization website ----
-
-function updateOrganizationsWebsiteByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/website";
-  var description = "Update website of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization prefs associated domain ----
-
-function updateOrganizationsPrefsAssociatedDomainByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/associatedDomain";
-  var description = "Update associated domain prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteOrganizationsPrefsAssociatedDomainByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/associatedDomain";
-  var description = "Delete associated domain prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingOrganizationPrefsAssociatedDomain(idOrg) {
-  return deleteOrganizationsPrefsAssociatedDomainByIdOrg(idOrg);
-}
-
-// ---- Entity: organization prefs board visibility restrict org ----
-
-function updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/boardVisibilityRestrict/org";
-  var description = "Update board visibility restrict org prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization prefs board visibility restrict private ----
-
-function updateOrganizationsPrefsBoardVisibilityRestrictPrivateByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/boardVisibilityRestrict/private";
-  var description = "Update board visibility restrict private prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization prefs board visibility restrict public ----
-
-function updateOrganizationsPrefsBoardVisibilityRestrictPublicByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/boardVisibilityRestrict/public";
-  var description = "Update board visibility restrict public prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization prefs external members disabled ----
-
-function updateOrganizationsPrefsExternalMembersDisabledByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/externalMembersDisabled";
-  var description = "Update external members disabled prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: organization prefs org invite restrict ----
-
-function updateOrganizationsPrefsOrgInviteRestrictByIdOrg(idOrg, value) {
-  var url = "/organizations/" + idOrg + "/prefs/orgInviteRestrict";
-  var description = "Update org invite restrict prefs of organization " + idOrg + " with value " + value;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteOrganizationsPrefsOrgInviteRestrictByIdOrg(idOrg, value) {
-  var url = "/organizations/" + idOrg + "/prefs/orgInviteRestrict";
-  var description = "Delete org invite restrict prefs of organization " + idOrg + " with value " + value;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToDeleteANonExistingOrganizationPrefsOrgInviteRestrict(idOrg, value) {
-  return deleteOrganizationsPrefsOrgInviteRestrictByIdOrg(idOrg, value);
-}
-
-// ---- Entity: organization prefs permission level ----
-
-function updateOrganizationsPrefsPermissionLevelByIdOrg(idOrg) {
-  var url = "/organizations/" + idOrg + "/prefs/permissionLevel";
-  var description = "Update permission level prefs of organization " + idOrg;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: notification ----
-
-function getNotificationByIdNotification(idNotification) {
-  var url = "/notifications/" + idNotification;
-  var description = "Get notification with id " + idNotification;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateNotificationByIdNotification(idNotification) {
-  var url = "/notifications/" + idNotification;
-  var description = "Update notification with id " + idNotification;
-  var body = notifications;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyNotificationExists(idNotification) {
-  return getNotificationByIdNotification(idNotification);
-}
-
-function verifyNotificationDoesNotExist(idNotification) {
-  return getNotificationByIdNotification(idNotification);
-}
-
-// ---- Entity: notification unread ----
-
-function updateNotificationUnreadByIdNotification(idNotification) {
-  var url = "/notifications/" + idNotification + "/unread";
-  var description = "Update unread status of notification with id " + idNotification;
-  var body = notifications_unread;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: notifications all read ----
-
-function addNotificationsAllRead(key, token) {
-  var url = "/notifications/all/read";
-  var description = "Mark all notifications as read";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingNotificationsAllRead(key, token) {
-  return addNotificationsAllRead(key, token);
 }
 
 // ---- Entity: action ----
 
-function deleteAction(idAction) {
+function deleteActionsByIdAction(idAction) {
   var url = "/actions/" + idAction;
   var description = "Delete action with id " + idAction;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function getAction(idAction) {
+function getActionsByIdAction(idAction) {
   var url = "/actions/" + idAction;
   var description = "Get action with id " + idAction;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function updateAction(idAction) {
+function updateActionsByIdAction(idAction) {
   var url = "/actions/" + idAction;
-  var description = "Update action with id " + idAction;
+  var description = "Update action with id " + idAction + " and text {text}";
   var body = {
-    "actions": actions,
+    "idAction": String(idAction),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idAction: String(idAction)
+    }
   });
 }
 
 function verifyActionExists(idAction) {
-  return getAction(idAction);
+  var url = "/actions";
+  var description = "Verify Action exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idAction) === String(idAction)) {
+            return pvg.success("Action exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Action to exist but it does not");
+    }
+  });
 }
 
 function verifyActionDoesNotExist(idAction) {
-  return getAction(idAction);
+  var url = "/actions";
+  var description = "Verify Action does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idAction) === String(idAction)) {
+            return pvg.fail("Expected Action to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Action does not exist");
+    }
+  });
 }
 
 function tryToDeleteANonExistingAction(idAction) {
-  return deleteAction(idAction);
+  var url = "/actions/" + idAction;
+  var description = "Verify we cannot delete non-existing Action";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedAction(idAction) {
+  var expectedDesc = "Delete action with id " + idAction;
+  return bp.EventSet("matchDeletedAction", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyActionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ action\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ action\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idAction"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: action text ----
 
-function updateActionText(idAction) {
+function updateActionsTextByIdAction(idAction) {
   var url = "/actions/" + idAction + "/text";
-  var description = "Update action text for action id " + idAction;
+  var description = "Update action text for action id " + idAction + " with value {value}";
   var body = {
-    "actions_text": actions_text,
+    "idAction": String(idAction),
   };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idAction: String(idAction)
+    }
   });
-}
-
-// ---- Entity: list ----
-
-function addLists(key, token, idList, cards, card_fields, board, board_fields, fields) {
-  var url = "/lists";
-  var description = "Create list with id " + idList + " and name {name}";
-  var body = {
-    "name": name,
-    "idBoard": idBoard,
-    "pos": pos,
-    "closed": closed,
-    "subscribed": subscribed,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getListsByIdList(key, token, idList, cards, card_fields, board, board_fields, fields) {
-  var url = "/lists/" + idList;
-  var description = "Get list with id " + idList;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateListsByIdList(key, token, idList, cards, card_fields, board, board_fields, fields) {
-  var url = "/lists/" + idList;
-  var description = "Update list with id " + idList + " and name {name}";
-  var body = {
-    "name": name,
-    "idBoard": idBoard,
-    "pos": pos,
-    "closed": closed,
-    "subscribed": subscribed,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingList(key, token, idList, cards, card_fields, board, board_fields, fields) {
-  return addLists(key, token, idList, cards, card_fields, board, board_fields, fields);
-}
-
-function verifyListExists(key, token, idList, cards, card_fields, board, board_fields, fields) {
-  return getListsByIdList(key, token, idList, cards, card_fields, board, board_fields, fields);
-}
-
-function verifyListDoesNotExist(key, token, idList, cards, card_fields, board, board_fields, fields) {
-  return getListsByIdList(key, token, idList, cards, card_fields, board, board_fields, fields);
-}
-
-// ---- Entity: list card ----
-
-function addListsCardsByIdList(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields) {
-  var url = "/lists/" + idList + "/cards";
-  var description = "Add card to list " + idList + " with name {name}";
-  var body = {
-    "name": name,
-    "desc": desc,
-    "pos": pos,
-    "due": due,
-    "idMembers": idMembers,
-    "idLabels": idLabels,
-    "urlSource": urlSource,
-    "idList": idList,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getListsCardsByIdList(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields) {
-  var url = "/lists/" + idList + "/cards";
-  var description = "Get cards of list " + idList;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingListCard(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields) {
-  return addListsCardsByIdList(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields);
-}
-
-function verifyListCardExists(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields) {
-  return getListsCardsByIdList(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields);
-}
-
-function verifyListCardDoesNotExist(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields) {
-  return getListsCardsByIdList(idList, key, token, actions, attachments, attachment_fields, stickers, members, member_fields, checkItemStates, checklists, limit, since, before, filter, fields);
-}
-
-// ---- Entity: list closed ----
-
-function updateListsClosedByIdList(idList, key, token) {
-  var url = "/lists/" + idList + "/closed";
-  var description = "Update closed status of list " + idList + " to {closed}";
-  var body = {
-    "closed": closed,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: list idBoard ----
-
-function updateListsIdBoardByIdList(idList, key, token) {
-  var url = "/lists/" + idList + "/idBoard";
-  var description = "Update board id of list " + idList + " to {idBoard}";
-  var body = {
-    "idBoard": idBoard,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: list move all cards ----
-
-function addListsMoveAllCardsByIdList(idList, key, token) {
-  var url = "/lists/" + idList + "/moveAllCards";
-  var description = "Move all cards from list " + idList + " to list {idListTo}";
-  var body = {
-    "idList": idListTo,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingListMoveAllCards(idList, key, token) {
-  return addListsMoveAllCardsByIdList(idList, key, token);
-}
-
-// ---- Entity: list name ----
-
-function updateListsNameByIdList(idList, key, token) {
-  var url = "/lists/" + idList + "/name";
-  var description = "Update name of list " + idList + " to {name}";
-  var body = {
-    "name": name,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: list pos ----
-
-function updateListsPosByIdList(idList, key, token) {
-  var url = "/lists/" + idList + "/pos";
-  var description = "Update position of list " + idList + " to {pos}";
-  var body = {
-    "pos": pos,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: list subscribed ----
-
-function updateListsSubscribedByIdList(idList, key, token) {
-  var url = "/lists/" + idList + "/subscribed";
-  var description = "Update subscribed status of list " + idList + " to {subscribed}";
-  var body = {
-    "subscribed": subscribed,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: checklist ----
-
-function addChecklists(key, token, idChecklist) {
-  var url = "/checklists";
-  var description = "Create checklist with id " + idChecklist;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteChecklistsByIdChecklist(key, token, idChecklist) {
-  var url = "/checklists/" + idChecklist;
-  var description = "Delete checklist with id " + idChecklist;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateChecklistsByIdChecklist(key, token, idChecklist) {
-  var url = "/checklists/" + idChecklist;
-  var description = "Update checklist with id " + idChecklist;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getChecklistsByIdChecklist(key, token, idChecklist) {
-  var url = "/checklists/" + idChecklist;
-  var description = "Get checklist with id " + idChecklist;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingChecklist(key, token, idChecklist) {
-  return addChecklists(key, token, idChecklist);
-}
-
-function verifyChecklistExists(key, token, idChecklist) {
-  return getChecklistsByIdChecklist(key, token, idChecklist);
-}
-
-function verifyChecklistDoesNotExist(key, token, idChecklist) {
-  return getChecklistsByIdChecklist(key, token, idChecklist);
-}
-
-function tryToDeleteANonExistingChecklist(key, token, idChecklist) {
-  return deleteChecklistsByIdChecklist(key, token, idChecklist);
-}
-
-// ---- Entity: checklist check item ----
-
-function addChecklistsCheckItemsByIdChecklist(idChecklist, key, token, idCheckItem) {
-  var url = "/checklists/" + idChecklist + "/checkItems";
-  var description = "Add check item to checklist " + idChecklist + " with id " + idCheckItem;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteChecklistsCheckItemsByIdChecklistByIdCheckItem(idChecklist, key, token, idCheckItem) {
-  var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
-  var description = "Delete check item " + idCheckItem + " from checklist " + idChecklist;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getChecklistsCheckItemsByIdChecklistByIdCheckItem(idChecklist, key, token, idCheckItem) {
-  var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
-  var description = "Get check item " + idCheckItem + " from checklist " + idChecklist;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingChecklistCheckItem(idChecklist, key, token, idCheckItem) {
-  return addChecklistsCheckItemsByIdChecklist(idChecklist, key, token, idCheckItem);
-}
-
-function verifyChecklistCheckItemExists(idChecklist, key, token, idCheckItem) {
-  return getChecklistsCheckItemsByIdChecklistByIdCheckItem(idChecklist, key, token, idCheckItem);
-}
-
-function verifyChecklistCheckItemDoesNotExist(idChecklist, key, token, idCheckItem) {
-  return getChecklistsCheckItemsByIdChecklistByIdCheckItem(idChecklist, key, token, idCheckItem);
-}
-
-function tryToDeleteANonExistingChecklistCheckItem(idChecklist, key, token, idCheckItem) {
-  return deleteChecklistsCheckItemsByIdChecklistByIdCheckItem(idChecklist, key, token, idCheckItem);
-}
-
-// ---- Entity: webhook ----
-
-function addWebhooks(key, token, idWebhook, field) {
-  var url = "/webhooks";
-  var description = "Create webhook with id " + idWebhook;
-  var body = {
-    "idWebhook": idWebhook,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteWebhooksByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook;
-  var description = "Delete webhook with id " + idWebhook;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateWebhooksByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook;
-  var description = "Update webhook with id " + idWebhook;
-  var body = {
-    "idWebhook": idWebhook,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getWebhooksByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook;
-  var description = "Get webhook with id " + idWebhook;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateWebhooksActiveByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook + "/active";
-  var description = "Update webhook active status with id " + idWebhook;
-  var body = {
-    "idWebhook": idWebhook,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateWebhooksCallbackURLByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook + "/callbackURL";
-  var description = "Update webhook callback URL with id " + idWebhook;
-  var body = {
-    "idWebhook": idWebhook,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateWebhooksDescriptionByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook + "/description";
-  var description = "Update webhook description with id " + idWebhook;
-  var body = {
-    "idWebhook": idWebhook,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateWebhooksIdModelByIdWebhook(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook + "/idModel";
-  var description = "Update webhook idModel with id " + idWebhook;
-  var body = {
-    "idWebhook": idWebhook,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getWebhooksByIdWebhookByField(key, token, idWebhook, field) {
-  var url = "/webhooks/" + idWebhook + "/" + field;
-  var description = "Get webhook field " + field + " with id " + idWebhook;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingWebhook(key, token, idWebhook, field) {
-  return addWebhooks(key, token, idWebhook, field);
-}
-
-function verifyWebhookExists(key, token, idWebhook, field) {
-  return getWebhooksByIdWebhook(key, token, idWebhook, field);
-}
-
-function verifyWebhookDoesNotExist(key, token, idWebhook, field) {
-  return getWebhooksByIdWebhook(key, token, idWebhook, field);
-}
-
-function tryToDeleteANonExistingWebhook(key, token, idWebhook, field) {
-  return deleteWebhooksByIdWebhook(key, token, idWebhook, field);
-}
-
-// ---- Entity: label ----
-
-function addLabels(key, token, idLabel, fields) {
-  var url = "/labels";
-  var description = "Create label with id " + idLabel;
-  var body = {
-    "idLabel": idLabel,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteLabelsByIdLabel(key, token, idLabel, fields) {
-  var url = "/labels/" + idLabel;
-  var description = "Delete label with id " + idLabel;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getLabelsByIdLabel(key, token, idLabel, fields) {
-  var url = "/labels/" + idLabel;
-  var description = "Get label with id " + idLabel;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateLabelsByIdLabel(key, token, idLabel, fields) {
-  var url = "/labels/" + idLabel;
-  var description = "Update label with id " + idLabel;
-  var body = {
-    "idLabel": idLabel,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingLabel(key, token, idLabel, fields) {
-  return addLabels(key, token, idLabel, fields);
-}
-
-function verifyLabelExists(key, token, idLabel, fields) {
-  return getLabelsByIdLabel(key, token, idLabel, fields);
-}
-
-function verifyLabelDoesNotExist(key, token, idLabel, fields) {
-  return getLabelsByIdLabel(key, token, idLabel, fields);
-}
-
-function tryToDeleteANonExistingLabel(key, token, idLabel, fields) {
-  return deleteLabelsByIdLabel(key, token, idLabel, fields);
-}
-
-// ---- Entity: label color ----
-
-function updateLabelsColorByIdLabel(idLabel, key, token) {
-  var url = "/labels/" + idLabel + "/color";
-  var description = "Update label color for label id " + idLabel;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: label name ----
-
-function updateLabelsNameByIdLabel(idLabel, key, token) {
-  var url = "/labels/" + idLabel + "/name";
-  var description = "Update label name for label id " + idLabel;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-// ---- Entity: token ----
-
-function getTokensByToken(token, key) {
-  var url = "/tokens/" + token;
-  var description = "Get token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteTokensByToken(token, key) {
-  var url = "/tokens/" + token;
-  var description = "Delete token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTokenExists(token, key) {
-  return getTokensByToken(token, key);
-}
-
-function verifyTokenDoesNotExist(token, key) {
-  return getTokensByToken(token, key);
-}
-
-function tryToDeleteANonExistingToken(token, key) {
-  return deleteTokensByToken(token, key);
-}
-
-// ---- Entity: token member ----
-
-function getTokensMemberByToken(token, key) {
-  var url = "/tokens/" + token + "/member";
-  var description = "Get member of token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTokenMemberExists(token, key) {
-  return getTokensMemberByToken(token, key);
-}
-
-function verifyTokenMemberDoesNotExist(token, key) {
-  return getTokensMemberByToken(token, key);
-}
-
-// ---- Entity: token member field ----
-
-function getTokensMemberByTokenByField(token, field, key) {
-  var url = "/tokens/" + token + "/member/" + field;
-  var description = "Get member field " + field + " of token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTokenMemberFieldExists(token, field, key) {
-  return getTokensMemberByTokenByField(token, field, key);
-}
-
-function verifyTokenMemberFieldDoesNotExist(token, field, key) {
-  return getTokensMemberByTokenByField(token, field, key);
-}
-
-// ---- Entity: token webhook ----
-
-function getTokensWebhooksByToken(token, key) {
-  var url = "/tokens/" + token + "/webhooks";
-  var description = "Get webhooks of token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function addTokensWebhooksByToken(token, key) {
-  var url = "/tokens/" + token + "/webhooks";
-  var description = "Add webhook to token " + token;
-  var body = {
-    "idModel": idModel,
-    "callbackURL": callbackURL,
-    "description": description,
-    "active": active,
-    "modelType": modelType,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateTokensWebhooksByToken(token, key) {
-  var url = "/tokens/" + token + "/webhooks";
-  var description = "Update webhook of token " + token;
-  var body = {
-    "idModel": idModel,
-    "callbackURL": callbackURL,
-    "description": description,
-    "active": active,
-    "modelType": modelType,
-  };
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingTokenWebhook(token, key) {
-  return addTokensWebhooksByToken(token, key);
-}
-
-function verifyTokenWebhookExists(token, key) {
-  return getTokensWebhooksByToken(token, key);
-}
-
-function verifyTokenWebhookDoesNotExist(token, key) {
-  return getTokensWebhooksByToken(token, key);
-}
-
-// ---- Entity: token webhook by id ----
-
-function getTokensWebhooksByTokenByIdWebhook(token, idWebhook, key) {
-  var url = "/tokens/" + token + "/webhooks/" + idWebhook;
-  var description = "Get webhook " + idWebhook + " of token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteTokensWebhooksByTokenByIdWebhook(token, idWebhook, key) {
-  var url = "/tokens/" + token + "/webhooks/" + idWebhook;
-  var description = "Delete webhook " + idWebhook + " of token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTokenWebhookByIdExists(token, idWebhook, key) {
-  return getTokensWebhooksByTokenByIdWebhook(token, idWebhook, key);
-}
-
-function verifyTokenWebhookByIdDoesNotExist(token, idWebhook, key) {
-  return getTokensWebhooksByTokenByIdWebhook(token, idWebhook, key);
-}
-
-function tryToDeleteANonExistingTokenWebhookById(token, idWebhook, key) {
-  return deleteTokensWebhooksByTokenByIdWebhook(token, idWebhook, key);
-}
-
-// ---- Entity: token field ----
-
-function getTokensByTokenByField(token, field, key) {
-  var url = "/tokens/" + token + "/" + field;
-  var description = "Get field " + field + " of token " + token;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTokenFieldExists(token, field, key) {
-  return getTokensByTokenByField(token, field, key);
-}
-
-function verifyTokenFieldDoesNotExist(token, field, key) {
-  return getTokensByTokenByField(token, field, key);
 }
 
 // ---- Entity: session ----
 
-function addSessions(key, token, idSession) {
+function addSessions(idSession, key, token) {
   var url = "/sessions";
-  var description = "Create session with id " + idSession;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  var description = "Create session with idBoard {idBoard} and status {status}";
+  var body = {
+    "idSession": String(idSession),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      idSession: String(idSession)
+    }
   });
 }
 
-function updateSessionsByIdSession(key, token, idSession) {
+function getSessionsSocket(idSession, key, token) {
+  var url = "/sessions/socket";
+  var description = "Get sessions socket";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
+
+function updateSessionsByIdSession(idSession, key, token) {
   var url = "/sessions/" + idSession;
-  var description = "Update session " + idSession;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  var description = "Update session " + idSession + " with idBoard {idBoard} and status {status}";
+  var body = {
+    "idSession": String(idSession),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idSession: String(idSession)
+    }
   });
 }
-
-function tryToAddExistingSession(key, token, idSession) {
-  return addSessions(key, token, idSession);
-}
-
-// ---- Entity: session status ----
 
 function updateSessionsStatusByIdSession(idSession, key, token) {
   var url = "/sessions/" + idSession + "/status";
-  var description = "Update session status for session " + idSession;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
+  var description = "Update session status " + idSession + " with status {value}";
+  var body = {
+    "idSession": String(idSession),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      idSession: String(idSession)
+    }
   });
+}
+
+function tryToAddExistingSession(idSession, key, token) {
+  var url = "/sessions";
+  var body = {
+    "idSession": String(idSession)
+  };
+  var description = "Verify that we cannot add another Session...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifySessionExists(idSession, key, token) {
+  var url = "/sessions";
+  var description = "Verify Session exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idSession) === String(idSession)) {
+            return pvg.success("Session exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Session to exist but it does not");
+    }
+  });
+}
+
+function verifySessionDoesNotExist(idSession, key, token) {
+  var url = "/sessions";
+  var description = "Verify Session does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idSession) === String(idSession)) {
+            return pvg.fail("Expected Session to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Session does not exist");
+    }
+  });
+}
+
+function matchAddedSession(idSession, key, token) {
+  var expectedDesc = "Create session with idBoard {idBoard} and status {status}";
+  return bp.EventSet("matchAddedSession", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnySessionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ session\ with\ idBoard\ (.+)\ and\ status\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ session\ with\ idBoard\ (.+)\ and\ status\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["idBoard", "status"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getSessionAddedEvent(keyVal) {
+  return bp.EventSet("AddSession:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.idSession) === String(keyVal);
+  });
+}
+
+function matchAnySessionAdded() {
+  return bp.EventSet("matchAnySessionAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create session") > -1 && e.data.parameters.idSession !== undefined);
+  });
+}
+
+function waitForSessionAdded(idSession, key, token) {
+  var expectedDesc = "Create session with idBoard {idBoard} and status {status}";
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: search ----
 
-function getSearch(query, idOrganizations, key, token) {
+function getSearch(idOrganizations, key, query, token) {
   var url = "/search";
-  var description = "Get search results for query " + query + " in organizations " + idOrganizations;
+  var description = "Search with query " + query + " in organizations " + idOrganizations;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function verifySearchExists(query, idOrganizations, key, token) {
-  return getSearch(query, idOrganizations, key, token);
+function verifySearchExists(idOrganizations, key, query, token) {
+  var url = "/search";
+  var description = "Verify Search exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idOrganizations) === String(idOrganizations)) {
+            return pvg.success("Search exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Search to exist but it does not");
+    }
+  });
 }
 
-function verifySearchDoesNotExist(query, idOrganizations, key, token) {
-  return getSearch(query, idOrganizations, key, token);
+function verifySearchDoesNotExist(idOrganizations, key, query, token) {
+  var url = "/search";
+  var description = "Verify Search does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].idOrganizations) === String(idOrganizations)) {
+            return pvg.fail("Expected Search to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Search does not exist");
+    }
+  });
 }
 
 // ---- Entity: searchMember ----
 
-function getSearchMembers(query, key, token) {
+function getSearchMembers(key, query, token) {
   var url = "/search/members";
-  var description = "Get search members results for query " + query;
+  var description = "Search members with query " + query;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function verifySearchMemberExists(query, key, token) {
-  return getSearchMembers(query, key, token);
+function verifySearchMembersExists(key, query, token) {
+  var url = "/search/members";
+  var description = "Verify SearchMembers exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].key) === String(key) && String(items[i].query) === String(query) && String(items[i].token) === String(token)) {
+            return pvg.success("SearchMembers exists");
+          }
+        }
+      }
+      return pvg.fail("Expected SearchMembers to exist but it does not");
+    }
+  });
 }
 
-function verifySearchMemberDoesNotExist(query, key, token) {
-  return getSearchMembers(query, key, token);
+function verifySearchMembersDoesNotExist(key, query, token) {
+  var url = "/search/members";
+  var description = "Verify SearchMembers does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].key) === String(key) && String(items[i].query) === String(query) && String(items[i].token) === String(token)) {
+            return pvg.fail("Expected SearchMembers to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("SearchMembers does not exist");
+    }
+  });
 }
 
 // ---- Entity: type ----
 
-function getTypeById(id) {
+function getTypesById(id, key, token) {
   var url = "/types/" + id;
   var description = "Get type with id " + id;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function verifyTypeExists(id) {
-  return getTypeById(id);
+function verifyTypeExists(id, key, token) {
+  var url = "/types";
+  var description = "Verify Type exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.success("Type exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Type to exist but it does not");
+    }
+  });
 }
 
-function verifyTypeDoesNotExist(id) {
-  return getTypeById(id);
+function verifyTypeDoesNotExist(id, key, token) {
+  var url = "/types";
+  var description = "Verify Type does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.fail("Expected Type to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Type does not exist");
+    }
+  });
 }

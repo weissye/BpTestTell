@@ -232,33 +232,24 @@
           "name": "createRepairOrder",
           "method": "POST",
           "path": "/repair-orders",
-          "descriptionTemplate": "Create repair order {roId}",
+          "descriptionTemplate": "Create repair order with roId {roId}",
           "params": [],
           "bodyTemplate": {}
         },
         "get": {
-          "name": "getRepairOrders",
-          "method": "GET",
-          "path": "/repair-orders",
-          "descriptionTemplate": "List repair orders",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "getById": {
           "name": "getRepairOrder",
           "method": "GET",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Read repair order {roId}",
+          "descriptionTemplate": "Get repair order with roId {roId}",
           "params": [
             "roId"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateRepairOrder",
           "method": "PUT",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Update repair order {roId}",
+          "descriptionTemplate": "Update repair order with roId {roId}",
           "params": [
             "roId"
           ],
@@ -268,31 +259,28 @@
           "name": "deleteRepairOrder",
           "method": "DELETE",
           "path": "/repair-orders/{roId}",
-          "descriptionTemplate": "Delete repair order {roId}",
+          "descriptionTemplate": "Delete repair order with roId {roId}",
           "params": [
             "roId"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "approve": {
           "name": "approveRepairOrder",
           "method": "POST",
           "path": "/repair-orders/{roId}/approve",
-          "descriptionTemplate": "Approve repair order {roId}",
+          "descriptionTemplate": "Approve repair order with roId {roId}",
           "params": [
             "roId"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "close": {
           "name": "closeRepairOrder",
           "method": "POST",
           "path": "/repair-orders/{roId}/close",
-          "descriptionTemplate": "Close repair order {roId}",
+          "descriptionTemplate": "Close repair order with roId {roId}",
           "params": [
             "roId"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     }

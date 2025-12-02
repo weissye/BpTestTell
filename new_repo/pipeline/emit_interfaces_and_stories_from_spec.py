@@ -80,6 +80,30 @@ def _get_raw_spec(spec):
     if "original_spec" in spec: return spec["original_spec"]
     return spec
 
+def _get_response_codes(path, method, full_spec):
+    """Robustly extract response codes from OpenAPI spec"""
+    raw_spec = full_spec.get("original_spec", full_spec)
+    if not raw_spec: return []
+    
+    paths = raw_spec.get("paths", {})
+    path_item = paths.get(path)
+    if not path_item:
+        if path.endswith("/"): path_item = paths.get(path[:-1])
+        else: path_item = paths.get(path + "/")
+            
+    if not path_item: return []
+    
+    op = path_item.get(method.lower())
+    if not op: return []
+    
+    responses = op.get("responses", {})
+    codes = []
+    for code in responses.keys():
+        if code.isdigit():
+            codes.append(int(code))
+    
+    return sorted(list(set(codes)))
+
 def _get_operation_schema(path, method, raw_spec):
     if not raw_spec or not path: return {}, []
     method = method.lower()
@@ -183,18 +207,29 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                     primary_key = matches[0]
                     break
 
-        global_params_set = set()
-        if primary_key: global_params_set.add(primary_key)
+        # --- UNIFIED PARAMETER COLLECTION ---
+        all_params_set = set()
+        if primary_key: all_params_set.add(primary_key)
+        
+        # 1. Ops Params
+        for op in ops.values():
+            for p in op.get("params", []):
+                all_params_set.add(p)
+        
+        # 2. From Entity definition
+        for p in ent.get("params", []):
+            all_params_set.add(p)
 
-        def collect(p_list):
-            for p in p_list: global_params_set.add(p)
-        
-        for op in ops.values(): collect(op.get("params", []))
-        if not global_params_set: collect(ent.get("params", []))
-        
-        # Global Params = Path Params mostly
-        global_params = sorted(list(global_params_set))
-        global_args_str = ", ".join(global_params)
+        # 3. From Schema (Add)
+        if "add" in ops:
+            schema, _ = _get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
+            props = schema.get("properties", {})
+            for k in props.keys():
+                all_params_set.add(k)
+
+        # Universal Signature for this Entity
+        sig_params = sorted(list(all_params_set))
+        sig_args_str = ", ".join(sig_params)
 
         # --- EMIT OPERATIONS ---
         for op_type, op_data in ops.items():
@@ -207,12 +242,12 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             desc_tmpl = op_data.get("descriptionTemplate", "")
             if not desc_tmpl:
                 desc_tmpl = f"{op_type.capitalize()} {name}"
-                if global_params:
-                    desc_tmpl += " with " + " ".join([f"{p} {{{p}}}" for p in global_params])
+                if sig_params:
+                    desc_tmpl += " with " + " ".join([f"{p} {{{p}}}" for p in sig_params])
 
             js_url = f'"{path_tmpl}"'
             js_desc = f'"{desc_tmpl}"'
-            for p in global_params:
+            for p in sig_params:
                 js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
                 js_desc = js_desc.replace(f'{{{p}}}', f'" + {p} + "')
             
@@ -220,7 +255,6 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             js_desc = js_desc.replace(' + ""', '')
 
             body_js = "undefined"
-            sig_params = list(global_params)
 
             if method in ["POST", "PUT", "PATCH"]:
                 b_lines = ["{"]
@@ -240,20 +274,16 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 if primary_key and primary_key not in fields_to_gen:
                     fields_to_gen.append(primary_key)
 
-                # Update signature
-                for f in fields_to_gen:
-                    if f not in sig_params:
-                        sig_params.append(f)
+                # Add ANY other params present in the operation definition
+                op_params = op_data.get("params", [])
+                for p in op_params:
+                    if p not in fields_to_gen: fields_to_gen.append(p)
+                
+                # Add Schema Props if not present
+                for p in props.keys():
+                     if p not in fields_to_gen: fields_to_gen.append(p)
 
-                seen_fields = set(sig_params)
-                clean_fields = []
-                for f in fields_to_gen:
-                    if f not in clean_fields:
-                        clean_fields.append(f)
-                        if f not in seen_fields:
-                            seen_fields.add(f)
-                            sig_params.append(f)
-                fields_to_gen = clean_fields
+                fields_to_gen = sorted(list(set(fields_to_gen)))
 
                 for field in fields_to_gen:
                     val_expr = "null"
@@ -267,38 +297,26 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                     elif field in sig_params:
                         val_expr = f'String({field})'
                     else:
-                        if f_type in ["integer", "number"]: val_expr = "String(1)"
-                        elif f_type == "boolean": val_expr = "String(true)"
-                        elif f_type == "array": val_expr = "[]"
-                        elif f_type == "object": val_expr = "{}"
-                        else:
-                            if primary_key: val_expr = f'"{field}_" + {primary_key}'
-                            else: val_expr = f'"{field}_dummy"'
+                        val_expr = f'"{field}_dummy"'
 
                     b_lines.append(f'    "{field}": {val_expr},')
                 
                 b_lines.append("  }")
                 body_js = "\n".join(b_lines)
 
-            # Sort signature
-            sig_params = sorted(list(set(sig_params)))
-            sig_args_str = ", ".join(sig_params)
-
             lines.append(f'function {fn_name}({sig_args_str}) {{')
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = {js_desc};')
             lines.append(f'  var body = {body_js};')
-            lines.append(f'  bp.log.info("[CALL] {fn_name}");')
-            if method in ["POST", "PUT", "PATCH"]:
-                 lines.append(f'  bp.log.info("[DEBUG] {fn_name} body: " + JSON.stringify(body));')
             
-            codes = "[]"
-            if op_type == "add": codes = "[200, 201, 204, 409]"
+            # STRICT RESPONSE CODES
+            codes_list = _get_response_codes(path_tmpl, method, spec)
+            codes_str = json.dumps(codes_list)
 
             if method in ["POST", "PUT", "PATCH"]:
                 lines.append(f'  svc.{method.lower()}(url, {{')
                 lines.append('    body: JSON.stringify(body),')
-                lines.append(f'    expectedResponseCodes: {codes},')
+                lines.append(f'    expectedResponseCodes: {codes_str},')
                 lines.append('    parameters: {')
                 lines.append('      description: description,')
                 if primary_key: lines.append(f'      {primary_key}: String({primary_key})')
@@ -312,7 +330,8 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
             else:
                 lines.append(f'  svc.{method.lower()}(url, {{')
-                lines.append('    parameters: { description: description }')
+                lines.append('    parameters: { description: description },')
+                lines.append(f'    expectedResponseCodes: {codes_str}')
                 lines.append('  });')
             lines.append('}')
             lines.append('')
@@ -321,29 +340,12 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         if "add" in ops:
             op_data = ops["add"]
             js_url = f'"{op_data.get("path", "")}"'
-            for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
+            for p in sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
             
-            # Calculate exact signature for Wrapper
-            schema, required_fields = _get_operation_schema(op_data.get("path"), "POST", raw_spec)
-            props = schema.get("properties", {})
-            fields_to_gen = required_fields if (required_fields or not props) else list(props.keys())
-            if not fields_to_gen:
-                fields_to_gen = op_data.get("params", [])
-            
-            wrapper_sig = sorted(list(set(global_params + fields_to_gen)))
-            wrapper_args_str = ", ".join(wrapper_sig)
-
-            lines.append(f'function tryToAddExisting{name}({wrapper_args_str}) {{')
-            lines.append(f'  var url = {js_url};')
-            lines.append(f'  var body = {body_js};')
-            lines.append(f'  var description = "Verify that we cannot add another {name}...";')
-            lines.append('  if (body === undefined) { body = {}; }')
-            lines.append('  svc.post(url, {')
-            lines.append('    body: JSON.stringify(body),')
-            lines.append('    expectedResponseCodes: [400, 409],')
-            lines.append('    parameters: { description: description }')
-            lines.append('  });')
+            # Wrapper uses same unified signature
+            lines.append(f'function tryToAddExisting{name}({sig_args_str}) {{')
+            lines.append(f'  {fn_name}({sig_args_str});')
             lines.append('}')
             lines.append('')
 
@@ -357,30 +359,30 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
         if coll_url_template:
             js_coll_url = f'"{coll_url_template}"'
-            for p in global_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {p} + "')
+            for p in sig_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_coll_url = js_coll_url.replace(' + ""', '')
 
             selected_key = primary_key
             if not selected_key:
-                for p in global_params:
+                for p in sig_params:
                     if 'id' in p.lower(): selected_key = p; break
             
             if selected_key:
                  condition_str = f'String(items[i].{selected_key}) === String({selected_key})'
             else:
                 match_conds = []
-                for p in global_params: match_conds.append(f'String(items[i].{p}) === String({p})')
+                for p in sig_params: match_conds.append(f'String(items[i].{p}) === String({p})')
                 condition_str = " && ".join(match_conds) if match_conds else "true"
 
-            desc_parts = [f'"Verify {name} "']
-            for p in global_params:
-                 desc_parts.append(f'"with {p} " + {p}')
-                 desc_parts.append('" "')
-            desc_parts.append('"exists"')
-            js_verify_desc = " + ".join(desc_parts)
-            js_verify_not_desc = js_verify_desc.replace('"exists"', '"does not exist"')
+            # Dynamic Description with PK
+            if primary_key:
+                js_verify_desc = f'"Verify {name} with {primary_key} " + {primary_key} + " exists"'
+                js_verify_not_desc = f'"Verify {name} with {primary_key} " + {primary_key} + " does not exist"'
+            else:
+                js_verify_desc = f'"Verify {name} exists"'
+                js_verify_not_desc = f'"Verify {name} does not exist"'
 
-            lines.append(f'function verify{name}Exists({global_args_str}) {{')
+            lines.append(f'function verify{name}Exists({sig_args_str}) {{')
             lines.append(f'  var url = {js_coll_url};')
             lines.append(f'  var description = {js_verify_desc};')
             lines.append('  svc.get(url, {')
@@ -401,7 +403,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('}')
             lines.append('')
 
-            lines.append(f'function verify{name}DoesNotExist({global_args_str}) {{')
+            lines.append(f'function verify{name}DoesNotExist({sig_args_str}) {{')
             lines.append(f'  var url = {js_coll_url};')
             lines.append(f'  var description = {js_verify_not_desc};')
             lines.append('  svc.get(url, {')
@@ -425,18 +427,19 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         # Delete Non Existing
         if "delete" in ops:
             op_data = ops["delete"]
-            expected_codes = op_data.get('x-negative-delete-expected-codes', [200, 400, 404])
-            expected_codes_str = json.dumps(expected_codes)
+            # STRICT: use codes from spec
+            neg_codes = _get_response_codes(op_data.get("path"), "DELETE", spec)
+            neg_codes_str = json.dumps(neg_codes)
 
             js_url = f'"{op_data.get("path", "")}"'
-            for p in global_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
+            for p in sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {p} + "')
             js_url = js_url.replace(' + ""', '')
 
-            lines.append(f'function tryToDeleteANonExisting{name}({global_args_str}) {{')
+            lines.append(f'function tryToDeleteANonExisting{name}({sig_args_str}) {{')
             lines.append(f'  var url = {js_url};')
             lines.append(f'  var description = "Verify we cannot delete non-existing {name}";')
             lines.append('  svc.delete(url, {')
-            lines.append(f'    expectedResponseCodes: {expected_codes_str},')
+            lines.append(f'    expectedResponseCodes: {neg_codes_str},')
             lines.append('    parameters: { description: description }')
             lines.append('  });')
             lines.append('}')
@@ -451,9 +454,9 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             regex, regex_params = _template_to_regex(desc_tmpl)
             
             matcher_name = f"matchAdded{name}"
-            lines.append(f'function {matcher_name}({global_args_str}) {{')
+            lines.append(f'function {matcher_name}({sig_args_str}) {{')
             js_expected_desc = f'"{desc_tmpl}"'
-            for p in global_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {p} + "')
+            for p in sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {p} + "')
             js_expected_desc = js_expected_desc.replace(' + ""', '')
             lines.append(f'  var expectedDesc = {js_expected_desc};')
             lines.append(f'  return matchSuccess(expectedDesc);')
@@ -493,7 +496,7 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('')
 
             waiter_name_specific = f"waitFor{name}Added"
-            lines.append(f'function {waiter_name_specific}({global_args_str}) {{')
+            lines.append(f'function {waiter_name_specific}({sig_args_str}) {{')
             lines.append(f'  var expectedDesc = {js_expected_desc};')
             lines.append(f'  waitFor(matchSuccess(expectedDesc));')
             lines.append('}')
@@ -506,9 +509,9 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             regex, params = _template_to_regex(desc_tmpl)
             
             matcher_name = f"matchDeleted{name}"
-            lines.append(f'function {matcher_name}({global_args_str}) {{')
+            lines.append(f'function {matcher_name}({sig_args_str}) {{')
             js_expected_desc = f'"{desc_tmpl}"'
-            for p in global_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {p} + "')
+            for p in sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {p} + "')
             js_expected_desc = js_expected_desc.replace(' + ""', '')
             lines.append(f'  var expectedDesc = {js_expected_desc};')
             lines.append(f'  return bp.EventSet("{matcher_name}", function(e) {{')
@@ -547,19 +550,27 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('')
     lines.append('')
 
-    # --- INJECTED HELPER: resolveDependencies ---
-    lines.append('function resolveDependencies(deps) {')
+    # --- INJECTED HELPER: resolveDependencies (Generic with pkMap) ---
+    lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
     lines.append('    let missingEventSets = Object.values(deps);')
-    lines.append('    bp.log.info("Guard waiting for: " + Object.keys(deps).join(", "));')
+    lines.append('    // bp.log.info("Guard waiting for: " + Object.keys(deps).join(", "));')
     lines.append('    let e = bp.sync({waitFor: missingEventSets});')
-    lines.append('    bp.log.info("Guard received event: " + e.name);')
+    lines.append('    // bp.log.info("Guard received event: " + e.name);')
     lines.append('    for (let k in deps) {')
     lines.append('      if (deps[k].contains(e)) {')
-    lines.append('        captured[k] = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));')
+    lines.append('        // 1. Try basic capture')
+    lines.append('        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));')
+    lines.append('        // 2. Try using pkMap if available')
+    lines.append('        if (!val && pkMap && pkMap[k] && e.data && e.data[pkMap[k]]) { val = e.data[pkMap[k]]; }')
+    lines.append('        // 3. Try fallback scan for any ID-like field')
+    lines.append('        if (!val && e.data) {')
+    lines.append('          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }')
+    lines.append('        }')
+    lines.append('        captured[k] = val;')
     lines.append('        delete deps[k];')
-    lines.append('        if (captured[k]) bp.log.info("Captured " + k + ": " + captured[k]);')
+    lines.append('        // if (captured[k]) bp.log.info("Captured " + k + ": " + captured[k]);')
     lines.append('      }')
     lines.append('    }')
     lines.append('  }')
@@ -601,56 +612,64 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
         ver_ne_fn = f"verify{name}DoesNotExist"
         
         wait_add_fn = f"waitForAny{name}Added"
-        wait_specific_fn = f"waitFor{name}Added"
         match_del_fn = f"matchDeleted{name}"
+        
+        # Ensure wait_specific_fn is defined
+        wait_specific_fn = f"waitFor{name}Added"
 
         primary_key = None
         if name in entity_pks_map and entity_pks_map[name]:
              primary_key = entity_pks_map[name][0]
         
+        # --- UNIFIED PARAMETER COLLECTION (Must match Interface) ---
         all_params_set = set()
         if primary_key:
             all_params_set.add(primary_key)
-            
+        
+        # 1. Ops Params
+        for op in ops.values():
+             for p in op.get("params", []): all_params_set.add(p)
+        
+        # 2. Schema Props (for add)
         param_types = {}
         if "add" in ops:
             schema, required_fields = _get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
             props = schema.get("properties", {})
-            reqs = schema.get("required", [])
-            fields_to_add = reqs if (reqs or not props) else list(props.keys())
-            
-            if not fields_to_add:
-                op_params = ops["add"].get("params", [])
-                for p in op_params: all_params_set.add(p)
-            else:
-                for p in fields_to_add:
-                    all_params_set.add(p)
-                    if p in props:
-                        param_types[p] = props[p].get("type", "string")
-            
-            for p in all_params_set:
-                if p not in param_types:
-                    param_types[p] = _infer_type(p, "string")
-
-        def collect(p_list):
-            for p in p_list:
+            fields = list(props.keys())
+            if not fields: fields = ops["add"].get("params", [])
+            for p in fields:
                 all_params_set.add(p)
-        for op in ops.values(): collect(op.get("params", []))
+            
+            # Add from ops params too
+            for p in ops["add"].get("params", []):
+                 all_params_set.add(p)
 
-        # Sorted global param list for signature construction
-        all_params_sorted = sorted(list(all_params_set))
+            for p in all_params_set:
+                if p in props:
+                     param_types[p] = props[p].get("type", "string")
+                else:
+                     param_types[p] = _infer_type(p, "string")
+
+        # 3. Entity Params
+        for p in ent.get("params", []): all_params_set.add(p)
+
+        # Deterministic Sort
+        all_params = sorted(list(all_params_set))
 
         deps = []
-        for p in all_params_sorted:
+        story_pk_map = {}
+        for p in all_params:
             for potential_ent in entities:
                 if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
                      target_pk = entity_pks_map.get(potential_ent, [""])[0]
-                     if target_pk and (target_pk in p or "id" in p.lower() or potential_ent.lower() in p.lower()):
+                     # GENERIC DEP CHECK: Name + PK OR id
+                     if target_pk and (target_pk.lower() in p.lower() or "id" in p.lower()) and potential_ent.lower() in p.lower():
                          deps.append((potential_ent, p))
+                         if target_pk: story_pk_map[p] = target_pk
 
         def get_vars(idx):
             declarations = []
-            for p in all_params_sorted:
+            for p in all_params:
                 is_captured = False
                 for _, dep_p in deps:
                     if dep_p == p: is_captured = True; break
@@ -669,49 +688,14 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
                     declarations.append(f'  let {p} = {val};')
             return "\n".join(declarations)
 
-        # --- HELPER to generate correct argument string for a specific operation ---
-        def get_op_args(op_key, base_global_params):
-            # 1. Identify parameters expected by this operation (signature)
-            # Mimic _emit_interfaces logic: Path Params + Body Params
-            if op_key not in ops: return ""
-            op_data = ops[op_key]
-            
-            # Path/Global params
-            sig = list(base_global_params)
-            
-            # Body Params
-            method = op_data.get("method", "GET").upper()
-            if method in ["POST", "PUT", "PATCH"]:
-                 schema, reqs = _get_operation_schema(op_data.get("path"), method, raw_spec)
-                 props = schema.get("properties", {})
-                 fields = list(props.keys())
-                 if not fields: fields = op_data.get("params", [])
-                 
-                 for f in fields:
-                     if f not in sig: sig.append(f)
-            
-            # Sort to match Interface
-            sig = sorted(list(set(sig)))
-            
-            # 2. Map local variables to this signature
+        def get_args(idx):
+            # FIX: USE FULL SORTED SIGNATURE FOR CALL
+            sig_params = sorted(list(all_params_set))
             args = []
-            for p in sig:
-                # We assume variable with same name exists in scope
+            for p in sig_params:
+                # Just pass variable name
                 args.append(p)
             return ", ".join(args)
-
-        # Determine base global path params (e.g. id)
-        global_path_params = set()
-        if primary_key: global_path_params.add(primary_key)
-        for op in ops.values(): 
-            for p in op.get("params", []): global_path_params.add(p)
-        global_path_params = sorted(list(global_path_params))
-
-        # Pre-calculate arg strings for each call type
-        args_add = get_op_args("add", global_path_params)
-        args_upd = get_op_args("update", global_path_params)
-        args_del = get_op_args("delete", global_path_params)
-        args_get = ", ".join(global_path_params) # Verify uses path params only
 
         barrier_code = []
         if deps:
@@ -720,20 +704,12 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             for target_ent, var_name in deps:
                  barrier_code.append(f'  deps["{var_name}"] = matchAny{target_ent}Added();')
             
-            barrier_code.append('  let captured = resolveDependencies(deps);')
+            pk_map_str = json.dumps(story_pk_map)
+            barrier_code.append(f'  let pkMap = {pk_map_str};')
+            barrier_code.append('  let captured = resolveDependencies(deps, pkMap);')
             
             for target_ent, var_name in deps:
                 barrier_code.append(f'  {var_name} = captured["{var_name}"];')
-                target_pks = entity_pks_map.get(target_ent, [])
-                for tpk in target_pks:
-                     barrier_code.append(f'  if (!{var_name}) {var_name} = captured["{tpk}"];')
-                     barrier_code.append(f'  if (!{var_name}) {{')
-                     barrier_code.append(f'      for (let key in captured) {{')
-                     barrier_code.append(f'         if (key.toLowerCase().indexOf("{target_ent.lower()}") > -1 || key.toLowerCase().indexOf("id") > -1) {{')
-                     barrier_code.append(f'             {var_name} = captured[key]; break;')
-                     barrier_code.append(f'         }}')
-                     barrier_code.append(f'      }}')
-                     barrier_code.append(f'  }}')
 
         barrier_str = "\n".join(barrier_code)
 
@@ -743,18 +719,15 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(get_vars(base_id))
             if barrier_str: lines.append(barrier_str)
             
-            lines.append(f'  {add_fn}({args_add});')
-            # Linear wait commented out
-            lines.append(f'  // {wait_specific_fn}({args_add});') 
+            lines.append(f'  {add_fn}({get_args(base_id)});')
+            lines.append(f'  // {wait_specific_fn}({get_args(base_id)});') 
             
-            lines.append(f'  {try_add_fn}({args_add});')
-            lines.append(f'  {ver_ex_fn}({args_get});')
-            
-            if upd_fn: lines.append(f'  {upd_fn}({args_upd});')
-            
-            lines.append(f'  {del_fn}({args_del});')
-            lines.append(f'  {try_del_fn}({args_del});')
-            lines.append(f'  {ver_ne_fn}({args_get});')
+            lines.append(f'  {try_add_fn}({get_args(base_id)});')
+            lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
+            if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id)});')
+            lines.append(f'  {del_fn}({get_args(base_id)});')
+            lines.append(f'  {try_del_fn}({get_args(base_id)});')
+            lines.append(f'  {ver_ne_fn}({get_args(base_id)});')
             lines.append('});')
             lines.append('')
 
@@ -763,14 +736,14 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'bthread("crud:{name}:nondet:1:2", function () {{')
             lines.append(get_vars(base_id + 1))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({args_add});')
-            lines.append(f'  // {wait_specific_fn}({args_add});')
-            lines.append(f'  {try_add_fn}({args_add});')
-            if upd_fn: lines.append(f'  {upd_fn}({args_upd});')
-            lines.append(f'  {ver_ex_fn}({args_get});')
-            lines.append(f'  {del_fn}({args_del});')
-            lines.append(f'  {try_del_fn}({args_del});')
-            lines.append(f'  {ver_ne_fn}({args_get});')
+            lines.append(f'  {add_fn}({get_args(base_id + 1)});')
+            lines.append(f'  // {wait_specific_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {try_add_fn}({get_args(base_id + 1)});')
+            if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {ver_ex_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {del_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {try_del_fn}({get_args(base_id + 1)});')
+            lines.append(f'  {ver_ne_fn}({get_args(base_id + 1)});')
             lines.append('});')
             lines.append('')
 
@@ -779,11 +752,11 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'bthread("crud:{name}:nondet:negative:dup-add", function () {{')
             lines.append(get_vars(base_id + 6))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({args_add});')
-            lines.append(f'  // {wait_specific_fn}({args_add});')
-            lines.append(f'  {ver_ex_fn}({args_get});')
-            lines.append(f'  {try_add_fn}({args_add});')
-            lines.append(f'  {ver_ex_fn}({args_get});')
+            lines.append(f'  {add_fn}({get_args(base_id + 6)});')
+            lines.append(f'  // {wait_specific_fn}({get_args(base_id + 6)});')
+            lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
+            lines.append(f'  {try_add_fn}({get_args(base_id + 6)});')
+            lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
             lines.append('});')
             lines.append('')
 
@@ -794,7 +767,7 @@ def _emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'// Story: crud:{name}:read_only')
             lines.append(f'bthread("crud:{name}:read_only", function () {{')
             lines.append(get_vars(base_id))
-            lines.append(f'  {ver_ex_fn}({args_get});')
+            lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
             lines.append('});')
             lines.append('')
 

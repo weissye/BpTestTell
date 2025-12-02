@@ -3,1149 +3,250 @@
 
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
+var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
-const svc = new RESTSession("http://localhost:8080", "provengo-client", {
+const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {
   headers: { "Content-Type": "application/json" },
 });
 
 function matchesDescriptionRegex(re) {
   return bp.EventSet("Match description", function (e) {
-    return e && e.data && e.data.parameters && typeof e.data.parameters.description === "string"
-           && re.test(e.data.parameters.description);
+    return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description));
   });
 }
 
-// ---- Entity: settings ----
-
-function getSettings(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings";
-  var description = "Get settings for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+function matchesDescription(str) {
+  return bp.EventSet("Match description", function (e) {
+    return !!(e && e.data && e.data.parameters && e.data.parameters.description === str);
   });
 }
 
-function updateSettings(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings";
-  var description = "Update settings for index " + indexUid;
-  var body = {
-    "synonyms": synonyms,
-    "stopWords": stopWords,
-    "rankingRules": rankingRules,
-    "distinctAttribute": distinctAttribute,
-    "searchableAttributes": searchableAttributes,
-    "displayedAttributes": displayedAttributes,
-    "filterableAttributes": filterableAttributes,
-    "sortableAttributes": sortableAttributes,
-    "typoTolerance": typoTolerance,
-    "pagination": pagination,
-    "faceting": faceting,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetSettings(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings";
-  var description = "Reset settings for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifySettingsExists(indexUid) {
-  return getSettings(indexUid);
-}
-
-function verifySettingsDoesNotExist(indexUid) {
-  return getSettings(indexUid);
-}
-
-function tryToDeleteANonExistingSettings(indexUid) {
-  return resetSettings(indexUid);
-}
-
-// ---- Entity: synonyms ----
-
-function getSynonyms(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/synonyms";
-  var description = "Get synonyms for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateSynonyms(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/synonyms";
-  var description = "Update synonyms for index " + indexUid;
-  var body = synonyms;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetSynonyms(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/synonyms";
-  var description = "Reset synonyms for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifySynonymsExists(indexUid) {
-  return getSynonyms(indexUid);
-}
-
-function verifySynonymsDoesNotExist(indexUid) {
-  return getSynonyms(indexUid);
-}
-
-function tryToDeleteANonExistingSynonyms(indexUid) {
-  return resetSynonyms(indexUid);
-}
-
-// ---- Entity: sortableAttributes ----
-
-function getSortableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/sortable-attributes";
-  var description = "Get sortable attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateSortableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/sortable-attributes";
-  var description = "Update sortable attributes for index " + indexUid;
-  var body = sortableAttributes;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetSortableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/sortable-attributes";
-  var description = "Reset sortable attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifySortableAttributesExists(indexUid) {
-  return getSortableAttributes(indexUid);
-}
-
-function verifySortableAttributesDoesNotExist(indexUid) {
-  return getSortableAttributes(indexUid);
-}
-
-function tryToDeleteANonExistingSortableAttributes(indexUid) {
-  return resetSortableAttributes(indexUid);
-}
-
-// ---- Entity: stopWords ----
-
-function getStopWords(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/stop-words";
-  var description = "Get stop-words for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateStopWords(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/stop-words";
-  var description = "Update stop-words for index " + indexUid;
-  var body = stopWords;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetStopWords(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/stop-words";
-  var description = "Reset stop-words for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyStopWordsExists(indexUid) {
-  return getStopWords(indexUid);
-}
-
-function verifyStopWordsDoesNotExist(indexUid) {
-  return getStopWords(indexUid);
-}
-
-function tryToDeleteANonExistingStopWords(indexUid) {
-  return resetStopWords(indexUid);
-}
-
-// ---- Entity: rankingRules ----
-
-function getRankingRules(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/ranking-rules";
-  var description = "Get ranking rules for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateRankingRules(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/ranking-rules";
-  var description = "Update ranking rules for index " + indexUid;
-  var body = rankingRules;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetRankingRules(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/ranking-rules";
-  var description = "Reset ranking rules for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyRankingRulesExists(indexUid) {
-  return getRankingRules(indexUid);
-}
-
-function verifyRankingRulesDoesNotExist(indexUid) {
-  return getRankingRules(indexUid);
-}
-
-function tryToDeleteANonExistingRankingRules(indexUid) {
-  return resetRankingRules(indexUid);
-}
-
-// ---- Entity: typoTolerance ----
-
-function getTypoTolerance(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/typo-tolerance";
-  var description = "Get typo tolerance configuration for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateTypoTolerance(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/typo-tolerance";
-  var description = "Update typo tolerance settings for index " + indexUid;
-  var body = typoTolerance;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetTypoTolerance(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/typo-tolerance";
-  var description = "Reset typo tolerance settings to the default configuration for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTypoToleranceExists(indexUid) {
-  return getTypoTolerance(indexUid);
-}
-
-function verifyTypoToleranceDoesNotExist(indexUid) {
-  return getTypoTolerance(indexUid);
-}
-
-function tryToDeleteANonExistingTypoTolerance(indexUid) {
-  return resetTypoTolerance(indexUid);
-}
-
-// ---- Entity: pagination ----
-
-function getPagination(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/pagination";
-  var description = "Get pagination configuration for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updatePagination(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/pagination";
-  var description = "Update pagination settings for index " + indexUid;
-  var body = pagination;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetPagination(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/pagination";
-  var description = "Reset pagination settings to the default configuration for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyPaginationExists(indexUid) {
-  return getPagination(indexUid);
-}
-
-function verifyPaginationDoesNotExist(indexUid) {
-  return getPagination(indexUid);
-}
-
-function tryToDeleteANonExistingPagination(indexUid) {
-  return resetPagination(indexUid);
-}
-
-// ---- Entity: faceting ----
-
-function getFaceting(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/faceting";
-  var description = "Get faceting configuration for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateFaceting(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/faceting";
-  var description = "Update faceting settings for index " + indexUid;
-  var body = faceting;
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetFaceting(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/faceting";
-  var description = "Reset faceting settings to the default configuration for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyFacetingExists(indexUid) {
-  return getFaceting(indexUid);
-}
-
-function verifyFacetingDoesNotExist(indexUid) {
-  return getFaceting(indexUid);
-}
-
-function tryToDeleteANonExistingFaceting(indexUid) {
-  return resetFaceting(indexUid);
-}
-
-// ---- Entity: filterableAttributes ----
-
-function getFilterableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/filterable-attributes";
-  var description = "Get filterable attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateFilterableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/filterable-attributes";
-  var description = "Update filterable attributes for index " + indexUid;
-  var body = filterableAttributes;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetFilterableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/filterable-attributes";
-  var description = "Reset filterable attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyFilterableAttributesExists(indexUid) {
-  return getFilterableAttributes(indexUid);
-}
-
-function verifyFilterableAttributesDoesNotExist(indexUid) {
-  return getFilterableAttributes(indexUid);
-}
-
-function tryToDeleteANonExistingFilterableAttributes(indexUid) {
-  return resetFilterableAttributes(indexUid);
-}
-
-// ---- Entity: distinctAttribute ----
-
-function getDistinctAttribute(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/distinct-attribute";
-  var description = "Get distinct attribute for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateDistinctAttribute(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/distinct-attribute";
-  var description = "Update distinct attribute for index " + indexUid;
-  var body = distinctAttribute;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetDistinctAttribute(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/distinct-attribute";
-  var description = "Reset distinct attribute for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyDistinctAttributeExists(indexUid) {
-  return getDistinctAttribute(indexUid);
-}
-
-function verifyDistinctAttributeDoesNotExist(indexUid) {
-  return getDistinctAttribute(indexUid);
-}
-
-function tryToDeleteANonExistingDistinctAttribute(indexUid) {
-  return resetDistinctAttribute(indexUid);
-}
-
-// ---- Entity: searchableAttributes ----
-
-function getSearchableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/searchable-attributes";
-  var description = "Get searchable attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateSearchableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/searchable-attributes";
-  var description = "Update searchable attributes for index " + indexUid;
-  var body = searchableAttributes;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetSearchableAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/searchable-attributes";
-  var description = "Reset searchable attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifySearchableAttributesExists(indexUid) {
-  return getSearchableAttributes(indexUid);
-}
-
-function verifySearchableAttributesDoesNotExist(indexUid) {
-  return getSearchableAttributes(indexUid);
-}
-
-function tryToDeleteANonExistingSearchableAttributes(indexUid) {
-  return resetSearchableAttributes(indexUid);
-}
-
-// ---- Entity: displayedAttributes ----
-
-function getDisplayedAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/displayed-attributes";
-  var description = "Get displayed attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateDisplayedAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/displayed-attributes";
-  var description = "Update displayed attributes for index " + indexUid;
-  var body = displayedAttributes;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function resetDisplayedAttributes(indexUid) {
-  var url = "/indexes/" + indexUid + "/settings/displayed-attributes";
-  var description = "Reset displayed attributes for index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyDisplayedAttributesExists(indexUid) {
-  return getDisplayedAttributes(indexUid);
-}
-
-function verifyDisplayedAttributesDoesNotExist(indexUid) {
-  return getDisplayedAttributes(indexUid);
-}
-
-function tryToDeleteANonExistingDisplayedAttributes(indexUid) {
-  return resetDisplayedAttributes(indexUid);
-}
-
-// ---- Entity: document ----
-
-function createDocument(indexUid) {
-  var url = "/indexes/" + indexUid + "/documents";
-  var description = "Add or replace documents in index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function deleteDocument(indexUid, documentId) {
-  var url = "/indexes/" + indexUid + "/documents/" + documentId;
-  var description = "Delete document " + documentId + " from index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function upsertDocument(indexUid) {
-  var url = "/indexes/" + indexUid + "/documents";
-  var description = "Add or update documents in index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "PUT",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function getDocument(indexUid, documentId) {
-  var url = "/indexes/" + indexUid + "/documents/" + documentId;
-  var description = "Get document " + documentId + " from index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingDocument(indexUid, documentId) {
-  return createDocument(indexUid);
-}
-
-function verifyDocumentExists(indexUid, documentId) {
-  return getDocument(indexUid, documentId);
-}
-
-function verifyDocumentDoesNotExist(indexUid, documentId) {
-  return getDocument(indexUid, documentId);
-}
-
-function tryToDeleteANonExistingDocument(indexUid, documentId) {
-  return deleteDocument(indexUid, documentId);
+function waitFor(eventSet) {
+  return bp.sync({waitFor: eventSet});
 }
 
 // ---- Entity: index ----
 
-function createIndex(uid, primaryKey) {
+function searchDocumentsGet(attributesToCrop, attributesToHighlight, attributesToRetrieve, attributesToSearchOn, cropLength, cropMarker, facets, filter, highlightPostTag, highlightPreTag, hitsPerPage, indexUid, limit, matchingStrategy, offset, page, q, showMatchesPosition, showRankingScore, showRankingScoreDetails, sort, vector) {
+  var url = "/indexes/" + indexUid + "/search";
+  var description = "Search documents in index " + indexUid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
+
+function searchDocumentsPost(attributesToCrop, attributesToHighlight, attributesToRetrieve, attributesToSearchOn, cropLength, cropMarker, facets, filter, highlightPostTag, highlightPreTag, hitsPerPage, indexUid, limit, matchingStrategy, offset, page, q, showMatchesPosition, showRankingScore, showRankingScoreDetails, sort, vector) {
+  var url = "/indexes/" + indexUid + "/search";
+  var description = "Search documents in index " + indexUid + " with query " + q;
+  var body = {
+    "indexUid": String(indexUid),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      indexUid: String(indexUid)
+    }
+  });
+}
+
+function verifyIndexExists(attributesToCrop, attributesToHighlight, attributesToRetrieve, attributesToSearchOn, cropLength, cropMarker, facets, filter, highlightPostTag, highlightPreTag, hitsPerPage, indexUid, limit, matchingStrategy, offset, page, q, showMatchesPosition, showRankingScore, showRankingScoreDetails, sort, vector) {
   var url = "/indexes";
-  var description = "Create index " + uid + " with primaryKey " + primaryKey;
-  var body = {
-    "uid": uid,
-    "primaryKey": primaryKey,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
+  var description = "Verify Index exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
     parameters: { description: description },
-    body: body
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].indexUid) === String(indexUid)) {
+            return pvg.success("Index exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Index to exist but it does not");
+    }
   });
 }
 
-function getIndex(indexUid) {
-  var url = "/indexes/" + indexUid;
-  var description = "Get index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
+function verifyIndexDoesNotExist(attributesToCrop, attributesToHighlight, attributesToRetrieve, attributesToSearchOn, cropLength, cropMarker, facets, filter, highlightPostTag, highlightPreTag, hitsPerPage, indexUid, limit, matchingStrategy, offset, page, q, showMatchesPosition, showRankingScore, showRankingScoreDetails, sort, vector) {
+  var url = "/indexes";
+  var description = "Verify Index does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
     parameters: { description: description },
-    body: body
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].indexUid) === String(indexUid)) {
+            return pvg.fail("Expected Index to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Index does not exist");
+    }
   });
 }
 
-function updateIndex(indexUid, primaryKey) {
-  var url = "/indexes/" + indexUid;
-  var description = "Update index " + indexUid + " with primaryKey " + primaryKey;
-  var body = {
-    "primaryKey": primaryKey,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
+// ---- Entity: facetSearch ----
 
-function deleteIndex(indexUid) {
-  var url = "/indexes/" + indexUid;
-  var description = "Delete index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function searchGet(indexUid, q, attributesToRetrieve, attributesToHighlight, highlightPreTag, highlightPostTag, attributesToCrop, cropMarker, cropLength, facets, filter, offset, sort, limit, page, hitsPerPage, showMatchesPosition, matchingStrategy) {
-  var url = "/indexes/" + indexUid + "/search";
-  var description = "Search in index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function search(indexUid) {
-  var url = "/indexes/" + indexUid + "/search";
-  var description = "Search in index " + indexUid;
-  var body = {
-    "q": q,
-    "offset": offset,
-    "limit": limit,
-    "filter": filter,
-    "facets": facets,
-    "attributesToRetrieve": attributesToRetrieve,
-    "attributesToHighlight": attributesToHighlight,
-    "highlightPreTag": highlightPreTag,
-    "highlightPostTag": highlightPostTag,
-    "attributesToCrop": attributesToCrop,
-    "cropMarker": cropMarker,
-    "cropLength": cropLength,
-    "sort": sort,
-    "page": page,
-    "hitsPerPage": hitsPerPage,
-    "showMatchesPosition": showMatchesPosition,
-    "matchingStrategy": matchingStrategy,
-  };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingIndex(uid, primaryKey, indexUid, q, attributesToRetrieve, attributesToHighlight, highlightPreTag, highlightPostTag, attributesToCrop, cropMarker, cropLength, facets, filter, offset, sort, limit, page, hitsPerPage, showMatchesPosition, matchingStrategy) {
-  return createIndex(uid, primaryKey);
-}
-
-function verifyIndexExists(uid, primaryKey, indexUid, q, attributesToRetrieve, attributesToHighlight, highlightPreTag, highlightPostTag, attributesToCrop, cropMarker, cropLength, facets, filter, offset, sort, limit, page, hitsPerPage, showMatchesPosition, matchingStrategy) {
-  return getIndex(indexUid);
-}
-
-function verifyIndexDoesNotExist(uid, primaryKey, indexUid, q, attributesToRetrieve, attributesToHighlight, highlightPreTag, highlightPostTag, attributesToCrop, cropMarker, cropLength, facets, filter, offset, sort, limit, page, hitsPerPage, showMatchesPosition, matchingStrategy) {
-  return getIndex(indexUid);
-}
-
-function tryToDeleteANonExistingIndex(uid, primaryKey, indexUid, q, attributesToRetrieve, attributesToHighlight, highlightPreTag, highlightPostTag, attributesToCrop, cropMarker, cropLength, facets, filter, offset, sort, limit, page, hitsPerPage, showMatchesPosition, matchingStrategy) {
-  return deleteIndex(indexUid);
-}
-
-// ---- Entity: facet search ----
-
-function facetSearch(indexUid) {
+function facetSearchPost(facetName, facetQuery, filter, indexUid, matchingStrategy, q) {
   var url = "/indexes/" + indexUid + "/facet-search";
-  var description = "Facet search in index " + indexUid;
+  var description = "Perform facet search on index " + indexUid + " for facet " + facetName;
   var body = {
-    "facetQuery": facetQuery,
-    "facetName": facetName,
-    "limit": limit,
+    "facetName": String(facetName),
+    "facetQuery": String(facetQuery),
+    "q": String(q),
+    "matchingStrategy": String(matchingStrategy),
+    "filter": String(filter),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      , indexUid: String(indexUid)
+    }
   });
 }
 
-// ---- Entity: multi search ----
+// ---- Entity: multiSearch ----
 
-function multiSearch() {
+function multiSearchPost(queries) {
   var url = "/multi-search";
-  var description = "Perform multi search with queries";
+  var description = "Perform multiple searches in one request";
   var body = {
-    "queries": [{'indexUid': '{indexUid}', 'q': '{q}', 'offset': '{offset}', 'limit': '{limit}', 'filter': '{filter}', 'facets': '{facets}', 'attributesToRetrieve': '{attributesToRetrieve}', 'attributesToCrop': '{attributesToCrop}', 'cropLength': '{cropLength}', 'attributesToHighlight': '{attributesToHighlight}', 'showMatchesPosition': '{showMatchesPosition}', 'matchingStrategy': '{matchingStrategy}'}],
+    "queries": [],
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+    }
   });
-}
-
-// ---- Entity: index stat ----
-
-function getIndexStat(indexUid) {
-  var url = "/indexes/" + indexUid + "/stats";
-  var description = "Get stat of an index " + indexUid;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyIndexStatsExists(indexUid) {
-  return getIndexStat(indexUid);
-}
-
-function verifyIndexStatsDoesNotExist(indexUid) {
-  return getIndexStat(indexUid);
-}
-
-// ---- Entity: stats ----
-
-function getAllStats() {
-  var url = "/stats";
-  var description = "Get stats of all indexes";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyStatsExists() {
-  return getAllStats();
-}
-
-function verifyStatsDoesNotExist() {
-  return getAllStats();
-}
-
-// ---- Entity: metrics ----
-
-function getMetrics() {
-  var url = "/metrics";
-  var description = "Get prometheus format metrics for observability and monitoring";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyMetricsExists() {
-  return getMetrics();
-}
-
-function verifyMetricsDoesNotExist() {
-  return getMetrics();
 }
 
 // ---- Entity: task ----
 
-function getTask(taskUid) {
+function getTask(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
   var url = "/tasks/:taskUid";
-  var description = "Get task with uid " + taskUid;
+  var description = "Get task with uid " + uid;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function listTasks(total, limit, from, taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt) {
+function listTasks(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
   var url = "/tasks";
-  var description = "List all tasks with filters";
+  var description = "List tasks with filters uid " + uid + ", indexUid " + indexUid + ", status " + status + ", type " + type + ", canceledBy " + canceledBy + ", enqueuedAt " + enqueuedAt + ", startedAt " + startedAt + ", finishedAt " + finishedAt;
   var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.get(url, {
+    parameters: { description: description }
   });
 }
 
-function deleteTasks(taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt) {
+function deleteTasks(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
   var url = "/tasks";
-  var description = "Delete tasks with filters";
+  var description = "Delete tasks with filters uid " + uid + ", indexUid " + indexUid + ", status " + status + ", type " + type + ", canceledBy " + canceledBy + ", enqueuedAt " + enqueuedAt + ", startedAt " + startedAt + ", finishedAt " + finishedAt;
   var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.delete(url, {
+    parameters: { description: description }
   });
 }
 
-function cancelTasks(taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt) {
+function cancelTasks(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
   var url = "/tasks/cancel";
-  var description = "Cancel tasks with filters";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyTaskExists(taskUid, total, limit, from, taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt) {
-  return getTask(taskUid);
-}
-
-function verifyTaskDoesNotExist(taskUid, total, limit, from, taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt) {
-  return getTask(taskUid);
-}
-
-function tryToDeleteANonExistingTask(taskUid, total, limit, from, taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt) {
-  return deleteTasks(taskFilterUids, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterCanceledBy, taskFilterBeforeEnqueuedAt, taskFilterAfterEnqueuedAt, taskFilterBeforeStartedAt, taskFilterAfterStartedAt, taskFilterBeforeFinishedAt, taskFilterAfterFinishedAt);
-}
-
-// ---- Entity: key ----
-
-function createKey(name, actions, indexes, expiresAt) {
-  var url = "/keys";
-  var description = "Create key " + name;
+  var description = "Cancel tasks with filters uid " + uid + ", indexUid " + indexUid + ", status " + status + ", type " + type + ", canceledBy " + canceledBy + ", enqueuedAt " + enqueuedAt + ", startedAt " + startedAt + ", finishedAt " + finishedAt;
   var body = {
-    "name": name,
-    "actions": actions,
-    "indexes": indexes,
-    "expiresAt": expiresAt,
+    "uid": String(uid),
+    "indexUid": String(indexUid),
+    "status": String(status),
+    "type": String(type),
+    "canceledBy": String(canceledBy),
+    "enqueuedAt": String(enqueuedAt),
+    "startedAt": String(startedAt),
+    "finishedAt": String(finishedAt),
   };
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      , indexUid: String(indexUid)
+    }
   });
 }
 
-function deleteKey(uidOrKey) {
-  var url = "/keys/" + uidOrKey;
-  var description = "Delete key " + uidOrKey;
-  var body = undefined;
-  return svc.request({
-    method: "DELETE",
-    url: url,
+function verifyTaskExists(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
+  var url = "/tasks/:taskUid";
+  var description = "Verify Task exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
     parameters: { description: description },
-    body: body
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].indexUid) === String(indexUid)) {
+            return pvg.success("Task exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Task to exist but it does not");
+    }
   });
 }
 
-function updateKey(uidOrKey, name, description) {
-  var url = "/keys/" + uidOrKey;
-  var description = "Update key " + uidOrKey + " with name " + name + " and description " + description;
-  var body = {
-    "name": name,
-    "description": description,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
+function verifyTaskDoesNotExist(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
+  var url = "/tasks/:taskUid";
+  var description = "Verify Task does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
     parameters: { description: description },
-    body: body
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].indexUid) === String(indexUid)) {
+            return pvg.fail("Expected Task to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Task does not exist");
+    }
   });
 }
 
-function getKey(uidOrKey) {
-  var url = "/keys/" + uidOrKey;
-  var description = "Get key " + uidOrKey;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+function tryToDeleteANonExistingTask(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
+  var url = "/tasks";
+  var description = "Verify we cannot delete non-existing Task";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
   });
 }
 
-function listKeys(limit, offset) {
-  var url = "/keys";
-  var description = "List keys with limit " + limit + " and offset " + offset;
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
+function matchDeletedTask(canceledBy, enqueuedAt, finishedAt, from, indexUid, limit, startedAt, status, total, type, uid) {
+  var expectedDesc = "Delete tasks with filters uid " + uid + ", indexUid " + indexUid + ", status " + status + ", type " + type + ", canceledBy " + canceledBy + ", enqueuedAt " + enqueuedAt + ", startedAt " + startedAt + ", finishedAt " + finishedAt;
+  return bp.EventSet("matchDeletedTask", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function tryToAddExistingKey(name, actions, indexes, expiresAt, uidOrKey, description, limit, offset) {
-  return createKey(name, actions, indexes, expiresAt);
-}
-
-function verifyKeyExists(name, actions, indexes, expiresAt, uidOrKey, description, limit, offset) {
-  return getKey(uidOrKey);
-}
-
-function verifyKeyDoesNotExist(name, actions, indexes, expiresAt, uidOrKey, description, limit, offset) {
-  return getKey(uidOrKey);
-}
-
-function tryToDeleteANonExistingKey(name, actions, indexes, expiresAt, uidOrKey, description, limit, offset) {
-  return deleteKey(uidOrKey);
-}
-
-// ---- Entity: dump ----
-
-function createDump() {
-  var url = "/dumps";
-  var description = "Create a dump";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingDump() {
-  return createDump();
-}
-
-// ---- Entity: snapshot ----
-
-function createSnapshot() {
-  var url = "/snapshots";
-  var description = "Create a snapshot";
-  var body = undefined;
-  return svc.request({
-    method: "POST",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function tryToAddExistingSnapshot() {
-  return createSnapshot();
-}
-
-// ---- Entity: version ----
-
-function getVersion() {
-  var url = "/version";
-  var description = "Get version of Meilisearch";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyVersionExists() {
-  return getVersion();
-}
-
-function verifyVersionDoesNotExist() {
-  return getVersion();
-}
-
-// ---- Entity: experimental feature ----
-
-function getExperimentalFeatures() {
-  var url = "/experimental-features";
-  var description = "Get the status of runtime experimental features";
-  var body = undefined;
-  return svc.request({
-    method: "GET",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function updateExperimentalFeatures() {
-  var url = "/experimental-features";
-  var description = "Set the status of runtime experimental features";
-  var body = {
-    "vectorStore": vectorStore,
-    "metrics": metrics,
-    "exportPuffinReports": exportPuffinReports,
-  };
-  return svc.request({
-    method: "PATCH",
-    url: url,
-    parameters: { description: description },
-    body: body
-  });
-}
-
-function verifyExperimentalFeaturesExists() {
-  return getExperimentalFeatures();
-}
-
-function verifyExperimentalFeaturesDoesNotExist() {
-  return getExperimentalFeatures();
+function waitForAnyTaskDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ tasks\ with\ filters\ uid\ (.+),\ indexUid\ (.+),\ status\ (.+),\ type\ (.+),\ canceledBy\ (.+),\ enqueuedAt\ (.+),\ startedAt\ (.+),\ finishedAt\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ tasks\ with\ filters\ uid\ (.+),\ indexUid\ (.+),\ status\ (.+),\ type\ (.+),\ canceledBy\ (.+),\ enqueuedAt\ (.+),\ startedAt\ (.+),\ finishedAt\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["uid", "indexUid", "status", "type", "canceledBy", "enqueuedAt", "startedAt", "finishedAt"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }

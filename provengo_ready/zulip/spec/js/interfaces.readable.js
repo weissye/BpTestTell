@@ -5,24 +5,24 @@ var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
-// Lazy initialization to ensure variables are resolved
-var _svc = null;
-function getSvc() {
-  if (!_svc) {
-    var baseURL = protocol + "://" + host + ":" + port;
-    bp.log.info("Initializing RESTSession with URL: " + baseURL);
-    _svc = new RESTSession(baseURL, "provengo-client", {
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-  return _svc;
-}
+const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {
+  headers: { "Content-Type": "application/json" },
+});
 
 function matchesDescriptionRegex(re) {
   return bp.EventSet("Match description", function (e) {
-    return e && e.data && e.data.parameters && typeof e.data.parameters.description === "string"
-           && re.test(e.data.parameters.description);
+    return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description));
   });
+}
+
+function matchesDescription(str) {
+  return bp.EventSet("Match description", function (e) {
+    return !!(e && e.data && e.data.parameters && e.data.parameters.description === str);
+  });
+}
+
+function waitFor(eventSet) {
+  return bp.sync({waitFor: eventSet});
 }
 
 // ---- Entity: attachment ----
@@ -31,140 +31,399 @@ function getAttachments(attachment_id) {
   var url = "/attachments";
   var description = "Get attachments";
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
 function removeAttachment(attachment_id) {
   var url = "/attachments/" + attachment_id;
   var description = "Delete attachment with id " + attachment_id;
   var body = undefined;
-  return getSvc().delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description }
+  });
 }
 
 function verifyAttachmentExists(attachment_id) {
-  return getAttachments(attachment_id);
+  var url = "/attachments";
+  var description = "Verify Attachment exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].attachment_id) === String(attachment_id)) {
+            return pvg.success("Attachment exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Attachment to exist but it does not");
+    }
+  });
 }
 
 function verifyAttachmentDoesNotExist(attachment_id) {
-  return getAttachments(attachment_id);
+  var url = "/attachments";
+  var description = "Verify Attachment does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].attachment_id) === String(attachment_id)) {
+            return pvg.fail("Expected Attachment to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Attachment does not exist");
+    }
+  });
 }
 
 function tryToDeleteANonExistingAttachment(attachment_id) {
-  return removeAttachment(attachment_id);
+  var url = "/attachments/" + attachment_id;
+  var description = "Verify we cannot delete non-existing Attachment";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchDeletedAttachment(attachment_id) {
+  var expectedDesc = "Delete attachment with id " + attachment_id;
+  return bp.EventSet("matchDeletedAttachment", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyAttachmentDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ attachment\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ attachment\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["attachment_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: user ----
 
-function getUser(user_id, email) {
+function createUser(email, user_id) {
+  var url = "/users";
+  var description = "Create user with email " + email + ", full_name {full_name}";
+  var body = {
+    "user_id": String(user_id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      user_id: String(user_id)
+    }
+  });
+}
+
+function getUsers(email, user_id) {
+  var url = "/users";
+  var description = "Get users";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
+
+function getUser(email, user_id) {
   var url = "/users/" + user_id;
   var description = "Get user with id " + user_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function getUserByEmail(user_id, email) {
+function getUserByEmail(email, user_id) {
   var url = "/users/" + email;
   var description = "Get user with email " + email;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function createUser(user_id, email) {
-  var url = "/users";
-  var description = "Create user with email " + email + " and full_name {full_name}";
-  var body = {
-    "email": email,
-    "password": password,
-    "full_name": full_name,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function updateUser(user_id, email) {
+function updateUser(email, user_id) {
   var url = "/users/" + user_id;
   var description = "Update user with id " + user_id;
-  var body = undefined;
-  return getSvc().patch(url, body, { description: description });
+  var body = {
+    "user_id": String(user_id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_id: String(user_id)
+    }
+  });
 }
 
-function updateUserByEmail(user_id, email) {
+function updateUserByEmail(email, user_id) {
   var url = "/users/" + email;
   var description = "Update user with email " + email;
-  var body = undefined;
-  return getSvc().patch(url, body, { description: description });
+  var body = {
+    "user_id": String(user_id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_id: String(user_id)
+    }
+  });
 }
 
-function deactivateUser(user_id, email) {
+function deactivateUser(email, user_id) {
   var url = "/users/" + user_id;
   var description = "Deactivate user with id " + user_id;
   var body = undefined;
-  return getSvc().delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description }
+  });
 }
 
-function reactivateUser(user_id, email) {
+function deactivateOwnUser(email, user_id) {
+  var url = "/users/me";
+  var description = "Deactivate own user";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function reactivateUser(email, user_id) {
   var url = "/users/" + user_id + "/reactivate";
   var description = "Reactivate user with id " + user_id;
-  var body = undefined;
-  return getSvc().post(url, body, { description: description });
+  var body = {
+    "user_id": String(user_id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_id: String(user_id)
+    }
+  });
 }
 
-function tryToAddExistingUser(user_id, email) {
-  return createUser(user_id, email);
+function tryToAddExistingUser(email, user_id) {
+  var url = "/users";
+  var body = {
+    "user_id": String(user_id)
+  };
+  var description = "Verify that we cannot add another User...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyUserExists(user_id, email) {
-  return getUser(user_id, email);
+function verifyUserExists(email, user_id) {
+  var url = "/users";
+  var description = "Verify User exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_id) === String(user_id)) {
+            return pvg.success("User exists");
+          }
+        }
+      }
+      return pvg.fail("Expected User to exist but it does not");
+    }
+  });
 }
 
-function verifyUserDoesNotExist(user_id, email) {
-  return getUser(user_id, email);
+function verifyUserDoesNotExist(email, user_id) {
+  var url = "/users";
+  var description = "Verify User does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_id) === String(user_id)) {
+            return pvg.fail("Expected User to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("User does not exist");
+    }
+  });
 }
 
-function tryToDeleteANonExistingUser(user_id, email) {
-  return deactivateUser(user_id, email);
+function tryToDeleteANonExistingUser(email, user_id) {
+  var url = "/users/" + user_id;
+  var description = "Verify we cannot delete non-existing User";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedUser(email, user_id) {
+  var expectedDesc = "Create user with email " + email + ", full_name {full_name}";
+  return bp.EventSet("matchAddedUser", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ with\ email\ (.+),\ full_name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ user\ with\ email\ (.+),\ full_name\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["email", "full_name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserAddedEvent(keyVal) {
+  return bp.EventSet("AddUser:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.user_id) === String(keyVal);
+  });
+}
+
+function matchAnyUserAdded() {
+  return bp.EventSet("matchAnyUserAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user") > -1 && e.data.parameters.user_id !== undefined);
+  });
+}
+
+function waitForUserAdded(email, user_id) {
+  var expectedDesc = "Create user with email " + email + ", full_name {full_name}";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedUser(email, user_id) {
+  var expectedDesc = "Deactivate user with id " + user_id;
+  return bp.EventSet("matchDeletedUser", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Deactivate\ user\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Deactivate\ user\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["user_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: user status ----
 
-function getUserStatus(user_id, status_text, emoji_name, emoji_code, reaction_type) {
-  var url = "/users/" + user_id + "/status";
-  var description = "Get status for user with id " + user_id;
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function updateStatusForUser(user_id, status_text, emoji_name, emoji_code, reaction_type) {
+function updateStatusForUser(user_id) {
   var url = "/users/" + user_id + "/status";
   var description = "Update status for user with id " + user_id;
   var body = {
-    "status_text": status_text,
-    "emoji_name": emoji_name,
-    "emoji_code": emoji_code,
-    "reaction_type": reaction_type,
+    "user_id": String(user_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_id: String(user_id)
+    }
+  });
 }
 
-function verifyUserStatusExists(user_id, status_text, emoji_name, emoji_code, reaction_type) {
-  return getUserStatus(user_id, status_text, emoji_name, emoji_code, reaction_type);
+function getUserStatus(user_id) {
+  var url = "/users/" + user_id + "/status";
+  var description = "Get status for user with id " + user_id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function verifyUserStatusDoesNotExist(user_id, status_text, emoji_name, emoji_code, reaction_type) {
-  return getUserStatus(user_id, status_text, emoji_name, emoji_code, reaction_type);
-}
-
-// ---- Entity: own user status ----
-
-function updateStatus(status_text, emoji_name, emoji_code, reaction_type) {
+function updateStatus(user_id) {
   var url = "/users/me/status";
-  var description = "Update own user status";
+  var description = "Update own status";
   var body = {
-    "status_text": status_text,
-    "emoji_name": emoji_name,
-    "emoji_code": emoji_code,
-    "reaction_type": reaction_type,
+    "user_id": String(user_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_id: String(user_id)
+    }
+  });
+}
+
+function verifyUserStatusExists(user_id) {
+  var url = "/users";
+  var description = "Verify UserStatus exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_id) === String(user_id)) {
+            return pvg.success("UserStatus exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserStatus to exist but it does not");
+    }
+  });
+}
+
+function verifyUserStatusDoesNotExist(user_id) {
+  var url = "/users";
+  var description = "Verify UserStatus does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_id) === String(user_id)) {
+            return pvg.fail("Expected UserStatus to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserStatus does not exist");
+    }
+  });
 }
 
 // ---- Entity: user presence ----
@@ -173,74 +432,217 @@ function getUserPresence(user_id_or_email) {
   var url = "/users/" + user_id_or_email + "/presence";
   var description = "Get presence for user " + user_id_or_email;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
+
+function updatePresence(user_id_or_email) {
+  var url = "/users/me/presence";
+  var description = "Update own presence";
+  var body = {
+    "user_id_or_email": String(user_id_or_email),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_id_or_email: String(user_id_or_email)
+    }
+  });
 }
 
 function verifyUserPresenceExists(user_id_or_email) {
-  return getUserPresence(user_id_or_email);
+  var url = "/users";
+  var description = "Verify UserPresence exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_id_or_email) === String(user_id_or_email)) {
+            return pvg.success("UserPresence exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserPresence to exist but it does not");
+    }
+  });
 }
 
 function verifyUserPresenceDoesNotExist(user_id_or_email) {
-  return getUserPresence(user_id_or_email);
-}
-
-// ---- Entity: own user presence ----
-
-function updatePresence(last_update_id, history_limit_days, new_user_input, ping_only, slim_presence, status) {
-  var url = "/users/me/presence";
-  var description = "Update own user presence";
-  var body = {
-    "last_update_id": last_update_id,
-    "history_limit_days": history_limit_days,
-    "new_user_input": new_user_input,
-    "ping_only": ping_only,
-    "slim_presence": slim_presence,
-    "status": status,
-  };
-  return getSvc().post(url, body, { description: description });
+  var url = "/users";
+  var description = "Verify UserPresence does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_id_or_email) === String(user_id_or_email)) {
+            return pvg.fail("Expected UserPresence to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserPresence does not exist");
+    }
+  });
 }
 
 // ---- Entity: alert words ----
 
-function getAlertWords(alert_words) {
+function getAlertWords() {
   var url = "/users/me/alert_words";
   var description = "Get all alert words";
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function addAlertWords(alert_words) {
+function addAlertWords() {
   var url = "/users/me/alert_words";
-  var description = "Add alert words " + alert_words;
+  var description = "Add alert words {alert_words}";
   var body = {
-    "alert_words": alert_words,
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
-function removeAlertWords(alert_words) {
+function removeAlertWords() {
   var url = "/users/me/alert_words";
-  var description = "Remove alert words " + alert_words;
+  var description = "Remove alert words {alert_words}";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingUserAlertWords() {
+  var url = "/users/me/alert_words";
   var body = {
-    "alert_words": alert_words,
   };
-  return getSvc().delete(url, { description: description });
+  var description = "Verify that we cannot add another UserAlertWords...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingAlertWords(alert_words) {
-  return addAlertWords(alert_words);
+function verifyUserAlertWordsExists() {
+  var url = "/users/me/alert_words";
+  var description = "Verify UserAlertWords exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("UserAlertWords exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserAlertWords to exist but it does not");
+    }
+  });
 }
 
-function verifyAlertWordsExists(alert_words) {
-  return getAlertWords(alert_words);
+function verifyUserAlertWordsDoesNotExist() {
+  var url = "/users/me/alert_words";
+  var description = "Verify UserAlertWords does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected UserAlertWords to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserAlertWords does not exist");
+    }
+  });
 }
 
-function verifyAlertWordsDoesNotExist(alert_words) {
-  return getAlertWords(alert_words);
+function tryToDeleteANonExistingUserAlertWords() {
+  var url = "/users/me/alert_words";
+  var description = "Verify we cannot delete non-existing UserAlertWords";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
 }
 
-function tryToDeleteANonExistingAlertWords(alert_words) {
-  return removeAlertWords(alert_words);
+function matchAddedUserAlertWords() {
+  var expectedDesc = "Add alert words {alert_words}";
+  return bp.EventSet("matchAddedUserAlertWords", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserAlertWordsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ alert\ words\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ alert\ words\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["alert_words"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserAlertWordsAddedEvent(keyVal) {
+  return bp.EventSet("AddUserAlertWords:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyUserAlertWordsAdded() {
+  return bp.EventSet("matchAnyUserAlertWordsAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create alert words") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForUserAlertWordsAdded() {
+  var expectedDesc = "Add alert words {alert_words}";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedUserAlertWords() {
+  var expectedDesc = "Remove alert words {alert_words}";
+  return bp.EventSet("matchDeletedUserAlertWords", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserAlertWordsDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ alert\ words\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ alert\ words\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["alert_words"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: muted user ----
@@ -248,787 +650,811 @@ function tryToDeleteANonExistingAlertWords(alert_words) {
 function muteUser(muted_user_id) {
   var url = "/users/me/muted_users/" + muted_user_id;
   var description = "Mute user with id " + muted_user_id;
-  var body = undefined;
-  return getSvc().post(url, body, { description: description });
+  var body = {
+    "muted_user_id": String(muted_user_id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      muted_user_id: String(muted_user_id)
+    }
+  });
 }
 
 function unmuteUser(muted_user_id) {
   var url = "/users/me/muted_users/" + muted_user_id;
   var description = "Unmute user with id " + muted_user_id;
   var body = undefined;
-  return getSvc().delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingMutedUser(muted_user_id) {
-  return muteUser(muted_user_id);
+function tryToAddExistingUserMute(muted_user_id) {
+  var url = "/users/me/muted_users/" + muted_user_id;
+  var body = {
+    "muted_user_id": String(muted_user_id)
+  };
+  var description = "Verify that we cannot add another UserMute...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function tryToDeleteANonExistingMutedUser(muted_user_id) {
-  return unmuteUser(muted_user_id);
+function verifyUserMuteExists(muted_user_id) {
+  var url = "/users/me/muted_users/" + muted_user_id;
+  var description = "Verify UserMute exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].muted_user_id) === String(muted_user_id)) {
+            return pvg.success("UserMute exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserMute to exist but it does not");
+    }
+  });
+}
+
+function verifyUserMuteDoesNotExist(muted_user_id) {
+  var url = "/users/me/muted_users/" + muted_user_id;
+  var description = "Verify UserMute does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].muted_user_id) === String(muted_user_id)) {
+            return pvg.fail("Expected UserMute to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserMute does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingUserMute(muted_user_id) {
+  var url = "/users/me/muted_users/" + muted_user_id;
+  var description = "Verify we cannot delete non-existing UserMute";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedUserMute(muted_user_id) {
+  var expectedDesc = "Mute user with id " + muted_user_id;
+  return bp.EventSet("matchAddedUserMute", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserMuteAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Mute\ user\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Mute\ user\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["muted_user_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserMuteAddedEvent(keyVal) {
+  return bp.EventSet("AddUserMute:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.muted_user_id) === String(keyVal);
+  });
+}
+
+function matchAnyUserMuteAdded() {
+  return bp.EventSet("matchAnyUserMuteAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create muted user") > -1 && e.data.parameters.muted_user_id !== undefined);
+  });
+}
+
+function waitForUserMuteAdded(muted_user_id) {
+  var expectedDesc = "Mute user with id " + muted_user_id;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedUserMute(muted_user_id) {
+  var expectedDesc = "Unmute user with id " + muted_user_id;
+  return bp.EventSet("matchDeletedUserMute", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserMuteDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Unmute\ user\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Unmute\ user\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["muted_user_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: APNs device token ----
 
-function addApnsToken(token, appid) {
+function addApnsToken() {
   var url = "/users/me/apns_device_token";
-  var description = "Add APNs device token " + token + " for appid " + appid;
+  var description = "Add APNs device token {token}";
   var body = {
-    "token": token,
-    "appid": appid,
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
-function removeApnsToken(token, appid) {
+function removeApnsToken() {
   var url = "/users/me/apns_device_token";
-  var description = "Remove APNs device token " + token;
+  var description = "Remove APNs device token {token}";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingUserApnsDeviceToken() {
+  var url = "/users/me/apns_device_token";
   var body = {
-    "token": token,
   };
-  return getSvc().delete(url, { description: description });
+  var description = "Verify that we cannot add another UserApnsDeviceToken...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingApnsDeviceToken(token, appid) {
-  return addApnsToken(token, appid);
+function verifyUserApnsDeviceTokenExists() {
+  var url = "/users/me/apns_device_token";
+  var description = "Verify UserApnsDeviceToken exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("UserApnsDeviceToken exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserApnsDeviceToken to exist but it does not");
+    }
+  });
 }
 
-function tryToDeleteANonExistingApnsDeviceToken(token, appid) {
-  return removeApnsToken(token, appid);
+function verifyUserApnsDeviceTokenDoesNotExist() {
+  var url = "/users/me/apns_device_token";
+  var description = "Verify UserApnsDeviceToken does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected UserApnsDeviceToken to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserApnsDeviceToken does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingUserApnsDeviceToken() {
+  var url = "/users/me/apns_device_token";
+  var description = "Verify we cannot delete non-existing UserApnsDeviceToken";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedUserApnsDeviceToken() {
+  var expectedDesc = "Add APNs device token {token}";
+  return bp.EventSet("matchAddedUserApnsDeviceToken", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserApnsDeviceTokenAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ APNs\ device\ token\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ APNs\ device\ token\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["token"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserApnsDeviceTokenAddedEvent(keyVal) {
+  return bp.EventSet("AddUserApnsDeviceToken:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyUserApnsDeviceTokenAdded() {
+  return bp.EventSet("matchAnyUserApnsDeviceTokenAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create APNs device token") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForUserApnsDeviceTokenAdded() {
+  var expectedDesc = "Add APNs device token {token}";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedUserApnsDeviceToken() {
+  var expectedDesc = "Remove APNs device token {token}";
+  return bp.EventSet("matchDeletedUserApnsDeviceToken", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserApnsDeviceTokenDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ APNs\ device\ token\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ APNs\ device\ token\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["token"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: FCM registration token ----
 
-function addFcmToken(token) {
+function addFcmToken() {
   var url = "/users/me/android_gcm_reg_id";
-  var description = "Add FCM registration token " + token;
+  var description = "Add FCM registration token {token}";
   var body = {
-    "token": token,
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
-function removeFcmToken(token) {
+function removeFcmToken() {
   var url = "/users/me/android_gcm_reg_id";
-  var description = "Remove FCM registration token " + token;
+  var description = "Remove FCM registration token {token}";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingUserFcmToken() {
+  var url = "/users/me/android_gcm_reg_id";
   var body = {
-    "token": token,
   };
-  return getSvc().delete(url, { description: description });
+  var description = "Verify that we cannot add another UserFcmToken...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingFcmToken(token) {
-  return addFcmToken(token);
+function verifyUserFcmTokenExists() {
+  var url = "/users/me/android_gcm_reg_id";
+  var description = "Verify UserFcmToken exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("UserFcmToken exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserFcmToken to exist but it does not");
+    }
+  });
 }
 
-function tryToDeleteANonExistingFcmToken(token) {
-  return removeFcmToken(token);
+function verifyUserFcmTokenDoesNotExist() {
+  var url = "/users/me/android_gcm_reg_id";
+  var description = "Verify UserFcmToken does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected UserFcmToken to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserFcmToken does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingUserFcmToken() {
+  var url = "/users/me/android_gcm_reg_id";
+  var description = "Verify we cannot delete non-existing UserFcmToken";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedUserFcmToken() {
+  var expectedDesc = "Add FCM registration token {token}";
+  return bp.EventSet("matchAddedUserFcmToken", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserFcmTokenAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ FCM\ registration\ token\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ FCM\ registration\ token\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["token"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserFcmTokenAddedEvent(keyVal) {
+  return bp.EventSet("AddUserFcmToken:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyUserFcmTokenAdded() {
+  return bp.EventSet("matchAnyUserFcmTokenAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create FCM registration token") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForUserFcmTokenAdded() {
+  var expectedDesc = "Add FCM registration token {token}";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedUserFcmToken() {
+  var expectedDesc = "Remove FCM registration token {token}";
+  return bp.EventSet("matchDeletedUserFcmToken", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserFcmTokenDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ FCM\ registration\ token\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ FCM\ registration\ token\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["token"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: typing status ----
 
-function setTypingStatus(op, type, to, stream_id, topic) {
+function setTypingStatus() {
   var url = "/typing";
-  var description = "Set typing status with op " + op + " and type " + type;
+  var description = "Set typing status with op {op}";
   var body = {
-    "op": op,
-    "type": type,
-    "to": to,
-    "stream_id": stream_id,
-    "topic": topic,
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
 // ---- Entity: message typing status ----
 
-function setTypingStatusForMessageEdit(message_id, op) {
+function setTypingStatusForMessageEdit(message_id) {
   var url = "/messages/" + message_id + "/typing";
-  var description = "Set typing status for message edit with message_id " + message_id + " and op " + op;
+  var description = "Set typing status for message editing with op {op} on message " + message_id;
   var body = {
-    "op": op,
+    "message_id": String(message_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      , message_id: String(message_id)
+    }
+  });
 }
 
 // ---- Entity: user group ----
 
-function createUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
+function createUserGroup(user_group_id, user_id) {
   var url = "/user_groups/create";
-  var description = "Create user group with name " + name + " and description " + description;
+  var description = "Create user group {name}";
   var body = {
-    "name": name,
-    "description": description,
-    "members": members,
-    "subgroups": subgroups,
-    "can_add_members_group": can_add_members_group,
-    "can_join_group": can_join_group,
-    "can_leave_group": can_leave_group,
-    "can_manage_group": can_manage_group,
-    "can_mention_group": can_mention_group,
-    "can_remove_members_group": can_remove_members_group,
+    "user_group_id": String(user_group_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      user_group_id: String(user_group_id)
+      , user_id: String(user_id)
+    }
+  });
 }
 
-function updateUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
-  var url = "/user_groups/" + user_group_id;
-  var description = "Update user group with id " + user_group_id;
-  var body = {
-    "name": name,
-    "description": description,
-    "can_add_members_group": can_add_members_group,
-    "can_join_group": can_join_group,
-    "can_leave_group": can_leave_group,
-    "can_manage_group": can_manage_group,
-    "can_mention_group": can_mention_group,
-    "can_remove_members_group": can_remove_members_group,
-    "deactivated": deactivated,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function deactivateUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
-  var url = "/user_groups/" + user_group_id + "/deactivate";
-  var description = "Deactivate user group with id " + user_group_id;
-  var body = undefined;
-  return getSvc().post(url, body, { description: description });
-}
-
-function getUserGroups(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
+function getUserGroups(user_group_id, user_id) {
   var url = "/user_groups";
   var description = "Get user groups";
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
-  return createUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups);
+function updateUserGroup(user_group_id, user_id) {
+  var url = "/user_groups/" + user_group_id;
+  var description = "Update user group with id " + user_group_id;
+  var body = {
+    "user_group_id": String(user_group_id),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_group_id: String(user_group_id)
+      , user_id: String(user_id)
+    }
+  });
 }
 
-function verifyUserGroupExists(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
-  return getUserGroups(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups);
+function deactivateUserGroup(user_group_id, user_id) {
+  var url = "/user_groups/" + user_group_id + "/deactivate";
+  var description = "Deactivate user group with id " + user_group_id;
+  var body = {
+    "user_group_id": String(user_group_id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_group_id: String(user_group_id)
+      , user_id: String(user_id)
+    }
+  });
 }
 
-function verifyUserGroupDoesNotExist(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
-  return getUserGroups(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups);
-}
-
-function tryToDeleteANonExistingUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups) {
-  return deactivateUserGroup(name, description, members, subgroups, can_add_members_group, can_join_group, can_leave_group, can_manage_group, can_mention_group, can_remove_members_group, user_group_id, deactivated, include_deactivated_groups);
-}
-
-// ---- Entity: user group members ----
-
-function getUserGroupMembers(user_group_id, direct_member_only, delete, add, delete_subgroups, add_subgroups) {
+function getUserGroupMembers(user_group_id, user_id) {
   var url = "/user_groups/" + user_group_id + "/members";
   var description = "Get members of user group with id " + user_group_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function updateUserGroupMembers(user_group_id, direct_member_only, delete, add, delete_subgroups, add_subgroups) {
+function updateUserGroupMembers(user_group_id, user_id) {
   var url = "/user_groups/" + user_group_id + "/members";
   var description = "Update members of user group with id " + user_group_id;
   var body = {
-    "delete": delete,
-    "add": add,
-    "delete_subgroups": delete_subgroups,
-    "add_subgroups": add_subgroups,
+    "user_group_id": String(user_group_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_group_id: String(user_group_id)
+      , user_id: String(user_id)
+    }
+  });
 }
 
-function verifyUserGroupMembersExists(user_group_id, direct_member_only, delete, add, delete_subgroups, add_subgroups) {
-  return getUserGroupMembers(user_group_id, direct_member_only, delete, add, delete_subgroups, add_subgroups);
-}
-
-function verifyUserGroupMembersDoesNotExist(user_group_id, direct_member_only, delete, add, delete_subgroups, add_subgroups) {
-  return getUserGroupMembers(user_group_id, direct_member_only, delete, add, delete_subgroups, add_subgroups);
-}
-
-// ---- Entity: user group subgroups ----
-
-function getUserGroupSubgroups(user_group_id, direct_subgroup_only, delete, add) {
+function getUserGroupSubgroups(user_group_id, user_id) {
   var url = "/user_groups/" + user_group_id + "/subgroups";
   var description = "Get subgroups of user group with id " + user_group_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function updateUserGroupSubgroups(user_group_id, direct_subgroup_only, delete, add) {
+function updateUserGroupSubgroups(user_group_id, user_id) {
   var url = "/user_groups/" + user_group_id + "/subgroups";
   var description = "Update subgroups of user group with id " + user_group_id;
   var body = {
-    "delete": delete,
-    "add": add,
+    "user_group_id": String(user_group_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      user_group_id: String(user_group_id)
+      , user_id: String(user_id)
+    }
+  });
 }
 
-function verifyUserGroupSubgroupsExists(user_group_id, direct_subgroup_only, delete, add) {
-  return getUserGroupSubgroups(user_group_id, direct_subgroup_only, delete, add);
-}
-
-function verifyUserGroupSubgroupsDoesNotExist(user_group_id, direct_subgroup_only, delete, add) {
-  return getUserGroupSubgroups(user_group_id, direct_subgroup_only, delete, add);
-}
-
-// ---- Entity: user group membership ----
-
-function getIsUserGroupMember(user_group_id, user_id, direct_member_only) {
+function getIsUserGroupMember(user_group_id, user_id) {
   var url = "/user_groups/" + user_group_id + "/members/" + user_id;
   var description = "Get membership status of user " + user_id + " in user group " + user_group_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function verifyUserGroupMembershipExists(user_group_id, user_id, direct_member_only) {
-  return getIsUserGroupMember(user_group_id, user_id, direct_member_only);
-}
-
-function verifyUserGroupMembershipDoesNotExist(user_group_id, user_id, direct_member_only) {
-  return getIsUserGroupMember(user_group_id, user_id, direct_member_only);
-}
-
-// ---- Entity: own user ----
-
-function getOwnUser() {
-  var url = "/users/me";
-  var description = "Get own user";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function deactivateOwnUser() {
-  var url = "/users/me";
-  var description = "Deactivate own user";
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function verifyOwnUserExists() {
-  return getOwnUser();
-}
-
-function verifyOwnUserDoesNotExist() {
-  return getOwnUser();
-}
-
-function tryToDeleteANonExistingOwnUser() {
-  return deactivateOwnUser();
-}
-
-// ---- Entity: settings ----
-
-function updateSettings(full_name, email, old_password, new_password, twenty_four_hour_time, web_mark_read_on_scroll_policy, web_channel_default_view, starred_message_counts, receives_typing_notifications, web_suggest_update_timezone, fluid_layout_width, high_contrast_mode, web_font_size_px, web_line_height_percent, color_scheme, enable_drafts_synchronization, translate_emoticons, display_emoji_reaction_users, web_escape_navigates_to_home_view, left_side_userlist, demote_inactive_streams, user_list_style, web_animate_image_previews, web_stream_unreads_count_display_policy, hide_ai_features, web_left_sidebar_show_channel_folders, web_left_sidebar_unreads_count_summary, timezone, enable_stream_desktop_notifications, enable_stream_email_notifications, enable_stream_push_notifications, enable_stream_audible_notifications, enable_desktop_notifications, enable_sounds, email_notifications_batching_period_seconds, enable_offline_email_notifications, enable_offline_push_notifications, enable_online_push_notifications, enable_followed_topic_desktop_notifications, enable_followed_topic_email_notifications, enable_followed_topic_push_notifications, enable_followed_topic_audible_notifications, enable_digest_emails, enable_marketing_emails, enable_login_emails, message_content_in_email_notifications, pm_content_in_desktop_notifications, wildcard_mentions_notify, enable_followed_topic_wildcard_mentions_notify, desktop_icon_count_display, realm_name_in_email_notifications_policy, automatically_follow_topics_policy, automatically_unmute_topics_in_muted_streams_policy, automatically_follow_topics_where_mentioned, resolved_topic_notice_auto_read_policy, presence_enabled, enter_sends, send_private_typing_notifications, send_stream_typing_notifications, send_read_receipts, allow_private_data_export, email_address_visibility, web_navigate_to_sent_message) {
-  var url = "/settings";
-  var description = "Update settings";
+function tryToAddExistingUserGroup(user_group_id, user_id) {
+  var url = "/user_groups/create";
   var body = {
-    "full_name": full_name,
-    "email": email,
-    "old_password": old_password,
-    "new_password": new_password,
-    "twenty_four_hour_time": twenty_four_hour_time,
-    "web_mark_read_on_scroll_policy": web_mark_read_on_scroll_policy,
-    "web_channel_default_view": web_channel_default_view,
-    "starred_message_counts": starred_message_counts,
-    "receives_typing_notifications": receives_typing_notifications,
-    "web_suggest_update_timezone": web_suggest_update_timezone,
-    "fluid_layout_width": fluid_layout_width,
-    "high_contrast_mode": high_contrast_mode,
-    "web_font_size_px": web_font_size_px,
-    "web_line_height_percent": web_line_height_percent,
-    "color_scheme": color_scheme,
-    "enable_drafts_synchronization": enable_drafts_synchronization,
-    "translate_emoticons": translate_emoticons,
-    "display_emoji_reaction_users": display_emoji_reaction_users,
-    "web_escape_navigates_to_home_view": web_escape_navigates_to_home_view,
-    "left_side_userlist": left_side_userlist,
-    "demote_inactive_streams": demote_inactive_streams,
-    "user_list_style": user_list_style,
-    "web_animate_image_previews": web_animate_image_previews,
-    "web_stream_unreads_count_display_policy": web_stream_unreads_count_display_policy,
-    "hide_ai_features": hide_ai_features,
-    "web_left_sidebar_show_channel_folders": web_left_sidebar_show_channel_folders,
-    "web_left_sidebar_unreads_count_summary": web_left_sidebar_unreads_count_summary,
-    "timezone": timezone,
-    "enable_stream_desktop_notifications": enable_stream_desktop_notifications,
-    "enable_stream_email_notifications": enable_stream_email_notifications,
-    "enable_stream_push_notifications": enable_stream_push_notifications,
-    "enable_stream_audible_notifications": enable_stream_audible_notifications,
-    "enable_desktop_notifications": enable_desktop_notifications,
-    "enable_sounds": enable_sounds,
-    "email_notifications_batching_period_seconds": email_notifications_batching_period_seconds,
-    "enable_offline_email_notifications": enable_offline_email_notifications,
-    "enable_offline_push_notifications": enable_offline_push_notifications,
-    "enable_online_push_notifications": enable_online_push_notifications,
-    "enable_followed_topic_desktop_notifications": enable_followed_topic_desktop_notifications,
-    "enable_followed_topic_email_notifications": enable_followed_topic_email_notifications,
-    "enable_followed_topic_push_notifications": enable_followed_topic_push_notifications,
-    "enable_followed_topic_audible_notifications": enable_followed_topic_audible_notifications,
-    "enable_digest_emails": enable_digest_emails,
-    "enable_marketing_emails": enable_marketing_emails,
-    "enable_login_emails": enable_login_emails,
-    "message_content_in_email_notifications": message_content_in_email_notifications,
-    "pm_content_in_desktop_notifications": pm_content_in_desktop_notifications,
-    "wildcard_mentions_notify": wildcard_mentions_notify,
-    "enable_followed_topic_wildcard_mentions_notify": enable_followed_topic_wildcard_mentions_notify,
-    "desktop_icon_count_display": desktop_icon_count_display,
-    "realm_name_in_email_notifications_policy": realm_name_in_email_notifications_policy,
-    "automatically_follow_topics_policy": automatically_follow_topics_policy,
-    "automatically_unmute_topics_in_muted_streams_policy": automatically_unmute_topics_in_muted_streams_policy,
-    "automatically_follow_topics_where_mentioned": automatically_follow_topics_where_mentioned,
-    "resolved_topic_notice_auto_read_policy": resolved_topic_notice_auto_read_policy,
-    "presence_enabled": presence_enabled,
-    "enter_sends": enter_sends,
-    "send_private_typing_notifications": send_private_typing_notifications,
-    "send_stream_typing_notifications": send_stream_typing_notifications,
-    "send_read_receipts": send_read_receipts,
-    "allow_private_data_export": allow_private_data_export,
-    "email_address_visibility": email_address_visibility,
-    "web_navigate_to_sent_message": web_navigate_to_sent_message,
+    "user_group_id": String(user_group_id)
   };
-  return getSvc().patch(url, body, { description: description });
+  var description = "Verify that we cannot add another UserGroup...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-// ---- Entity: channel ----
-
-function createChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  var url = "/channels/create";
-  var description = "Create channel " + name + " with subscribers " + subscribers;
-  var body = {
-    "name": name,
-    "subscribers": subscribers,
-    "description": description,
-    "announce": announce,
-    "invite_only": invite_only,
-    "is_web_public": is_web_public,
-    "is_default_stream": is_default_stream,
-    "folder_id": folder_id,
-    "topics_policy": topics_policy,
-    "history_public_to_subscribers": history_public_to_subscribers,
-    "message_retention_days": message_retention_days,
-    "can_add_subscribers_group": can_add_subscribers_group,
-    "can_delete_any_message_group": can_delete_any_message_group,
-    "can_delete_own_message_group": can_delete_own_message_group,
-    "can_remove_subscribers_group": can_remove_subscribers_group,
-    "can_administer_channel_group": can_administer_channel_group,
-    "can_move_messages_out_of_channel_group": can_move_messages_out_of_channel_group,
-    "can_move_messages_within_channel_group": can_move_messages_within_channel_group,
-    "can_send_message_group": can_send_message_group,
-    "can_subscribe_group": can_subscribe_group,
-    "can_resolve_topics_group": can_resolve_topics_group,
-  };
-  return getSvc().post(url, body, { description: description });
+function verifyUserGroupExists(user_group_id, user_id) {
+  var url = "/user_groups/create";
+  var description = "Verify UserGroup exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_group_id) === String(user_group_id)) {
+            return pvg.success("UserGroup exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserGroup to exist but it does not");
+    }
+  });
 }
 
-function archiveChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  var url = "/streams/" + stream_id;
-  var description = "Archive channel with id " + stream_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
+function verifyUserGroupDoesNotExist(user_group_id, user_id) {
+  var url = "/user_groups/create";
+  var description = "Verify UserGroup does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].user_group_id) === String(user_group_id)) {
+            return pvg.fail("Expected UserGroup to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserGroup does not exist");
+    }
+  });
 }
 
-function updateChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  var url = "/streams/" + stream_id;
-  var description = "Update channel " + stream_id + " with new_name {new_name}";
-  var body = {
-    "description": description,
-    "new_name": new_name,
-    "is_private": is_private,
-    "is_web_public": is_web_public,
-    "history_public_to_subscribers": history_public_to_subscribers,
-    "is_default_stream": is_default_stream,
-    "message_retention_days": message_retention_days,
-    "is_archived": is_archived,
-    "folder_id": folder_id,
-    "topics_policy": topics_policy,
-    "can_add_subscribers_group": can_add_subscribers_group,
-    "can_remove_subscribers_group": can_remove_subscribers_group,
-    "can_administer_channel_group": can_administer_channel_group,
-    "can_delete_any_message_group": can_delete_any_message_group,
-    "can_delete_own_message_group": can_delete_own_message_group,
-    "can_move_messages_out_of_channel_group": can_move_messages_out_of_channel_group,
-    "can_move_messages_within_channel_group": can_move_messages_within_channel_group,
-    "can_send_message_group": can_send_message_group,
-    "can_subscribe_group": can_subscribe_group,
-    "can_resolve_topics_group": can_resolve_topics_group,
-  };
-  return getSvc().patch(url, body, { description: description });
+function tryToDeleteANonExistingUserGroup(user_group_id, user_id) {
+  var url = "/user_groups/" + user_group_id + "/deactivate";
+  var description = "Verify we cannot delete non-existing UserGroup";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
 }
 
-function getChannelById(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  var url = "/streams/" + stream_id;
-  var description = "Get channel with id " + stream_id;
-  var body = undefined;
-  return getSvc().get(url, { description: description });
+function matchAddedUserGroup(user_group_id, user_id) {
+  var expectedDesc = "Create user group {name}";
+  return bp.EventSet("matchAddedUserGroup", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-function getChannels(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  var url = "/streams";
-  var description = "Get all channels";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
+function waitForAnyUserGroupAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ group\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ user\ group\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["name"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
-function tryToAddExistingChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  return createChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content);
+function getUserGroupAddedEvent(keyVal) {
+  return bp.EventSet("AddUserGroup:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.user_group_id) === String(keyVal);
+  });
 }
 
-function verifyChannelExists(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  return getChannelById(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content);
+function matchAnyUserGroupAdded() {
+  return bp.EventSet("matchAnyUserGroupAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user group") > -1 && e.data.parameters.user_group_id !== undefined);
+  });
 }
 
-function verifyChannelDoesNotExist(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  return getChannelById(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content);
+function waitForUserGroupAdded(user_group_id, user_id) {
+  var expectedDesc = "Create user group {name}";
+  waitFor(matchesDescription(expectedDesc));
 }
 
-function tryToDeleteANonExistingChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content) {
-  return archiveChannel(name, subscribers, stream_id, include_public, include_web_public, include_subscribed, exclude_archived, include_all_active, include_all, include_default, include_owner_subscribed, include_can_access_content);
+function matchDeletedUserGroup(user_group_id, user_id) {
+  var expectedDesc = "Deactivate user group with id " + user_group_id;
+  return bp.EventSet("matchDeletedUserGroup", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-// ---- Entity: default channel ----
-
-function addDefaultStream(stream_id) {
-  var url = "/default_streams";
-  var description = "Add default channel with id " + stream_id;
-  var body = {
-    "stream_id": stream_id,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function removeDefaultStream(stream_id) {
-  var url = "/default_streams";
-  var description = "Remove default channel with id " + stream_id;
-  var body = {
-    "stream_id": stream_id,
-  };
-  return getSvc().delete(url, { description: description });
-}
-
-function tryToAddExistingDefaultChannel(stream_id) {
-  return addDefaultStream(stream_id);
-}
-
-function tryToDeleteANonExistingDefaultChannel(stream_id) {
-  return removeDefaultStream(stream_id);
-}
-
-// ---- Entity: subscription ----
-
-function subscribe(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  var url = "/users/me/subscriptions";
-  var description = "Subscribe to channel " + name;
-  var body = {
-    "subscriptions": "[{"name": "{name}", "description": "{description}"}]",
-    "principals": principals,
-    "authorization_errors_fatal": authorization_errors_fatal,
-    "announce": announce,
-    "invite_only": invite_only,
-    "is_web_public": is_web_public,
-    "is_default_stream": is_default_stream,
-    "history_public_to_subscribers": history_public_to_subscribers,
-    "message_retention_days": message_retention_days,
-    "topics_policy": topics_policy,
-    "can_add_subscribers_group": can_add_subscribers_group,
-    "can_remove_subscribers_group": can_remove_subscribers_group,
-    "can_administer_channel_group": can_administer_channel_group,
-    "can_delete_any_message_group": can_delete_any_message_group,
-    "can_delete_own_message_group": can_delete_own_message_group,
-    "can_move_messages_out_of_channel_group": can_move_messages_out_of_channel_group,
-    "can_move_messages_within_channel_group": can_move_messages_within_channel_group,
-    "can_send_message_group": can_send_message_group,
-    "can_subscribe_group": can_subscribe_group,
-    "can_resolve_topics_group": can_resolve_topics_group,
-    "folder_id": folder_id,
-    "send_new_subscription_messages": send_new_subscription_messages,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function updateSubscriptions(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  var url = "/users/me/subscriptions";
-  var description = "Update subscriptions by adding {add} and deleting {delete}";
-  var body = {
-    "add": add,
-    "delete": delete,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function unsubscribe(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  var url = "/users/me/subscriptions";
-  var description = "Unsubscribe from channels " + subscriptions;
-  var body = {
-    "subscriptions": subscriptions,
-    "principals": principals,
-  };
-  return getSvc().delete(url, { description: description });
-}
-
-function getSubscriptions(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  var url = "/users/me/subscriptions";
-  var description = "Get subscribed channels";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function getSubscriptionStatus(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  var url = "/users/" + user_id + "/subscriptions/" + stream_id;
-  var description = "Get subscription status for user " + user_id + " and channel " + stream_id;
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function updateSubscriptionSettings(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  var url = "/users/me/subscriptions/properties";
-  var description = "Update subscription settings for stream_id " + stream_id + " property {property} to {value}";
-  var body = {
-    "subscription_data": subscription_data,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingSubscription(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  return subscribe(name, subscriptions, IncludeSubscribers, user_id, stream_id);
-}
-
-function verifySubscriptionExists(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  return getSubscriptions(name, subscriptions, IncludeSubscribers, user_id, stream_id);
-}
-
-function verifySubscriptionDoesNotExist(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  return getSubscriptions(name, subscriptions, IncludeSubscribers, user_id, stream_id);
-}
-
-function tryToDeleteANonExistingSubscription(name, subscriptions, IncludeSubscribers, user_id, stream_id) {
-  return unsubscribe(name, subscriptions, IncludeSubscribers, user_id, stream_id);
-}
-
-// ---- Entity: topic ----
-
-function getStreamTopics(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  var url = "/users/me/" + stream_id + "/topics";
-  var description = "Get topics in channel " + stream_id;
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function deleteTopic(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  var url = "/streams/" + stream_id + "/delete_topic";
-  var description = "Delete topic " + topic_name + " in channel " + stream_id;
-  var body = {
-    "topic_name": topic_name,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function muteTopic(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  var url = "/users/me/subscriptions/muted_topics";
-  var description = "Mute topic " + topic + " in channel " + stream_id + " with operation " + op;
-  var body = {
-    "stream_id": stream_id,
-    "stream": stream,
-    "topic": topic,
-    "op": op,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function updateUserTopic(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  var url = "/user_topics";
-  var description = "Update personal preferences for topic " + topic + " in channel " + stream_id + " with visibility_policy " + visibility_policy;
-  var body = {
-    "stream_id": stream_id,
-    "topic": topic,
-    "visibility_policy": visibility_policy,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function verifyTopicExists(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  return getStreamTopics(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy);
-}
-
-function verifyTopicDoesNotExist(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  return getStreamTopics(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy);
-}
-
-function tryToDeleteANonExistingTopic(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy) {
-  return deleteTopic(stream_id, allow_empty_topic_name, topic_name, topic, op, visibility_policy);
-}
-
-// ---- Entity: channel folder ----
-
-function createChannelFolder(name, include_archived, channel_folder_id) {
-  var url = "/channel_folders/create";
-  var description = "Create channel folder " + name;
-  var body = {
-    "name": name,
-    "description": description,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function getChannelFolders(name, include_archived, channel_folder_id) {
-  var url = "/channel_folders";
-  var description = "Get channel folders";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function updateChannelFolder(name, include_archived, channel_folder_id) {
-  var url = "/channel_folders/" + channel_folder_id;
-  var description = "Update channel folder " + channel_folder_id + " with name " + name;
-  var body = {
-    "name": name,
-    "description": description,
-    "is_archived": is_archived,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function patchChannelFolders(name, include_archived, channel_folder_id) {
-  var url = "/channel_folders";
-  var description = "Reorder channel folders with order {order}";
-  var body = {
-    "order": order,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function tryToAddExistingChannelFolder(name, include_archived, channel_folder_id) {
-  return createChannelFolder(name, include_archived, channel_folder_id);
-}
-
-function verifyChannelFolderExists(name, include_archived, channel_folder_id) {
-  return getChannelFolders(name, include_archived, channel_folder_id);
-}
-
-function verifyChannelFolderDoesNotExist(name, include_archived, channel_folder_id) {
-  return getChannelFolders(name, include_archived, channel_folder_id);
+function waitForAnyUserGroupDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Deactivate\ user\ group\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Deactivate\ user\ group\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["user_group_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: message ----
 
 function getMessage(message_id) {
   var url = "/messages/" + message_id;
-  var description = "Fetch message " + message_id;
+  var description = "Fetch message with id " + message_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
 function updateMessage(message_id) {
   var url = "/messages/" + message_id;
   var description = "Edit message " + message_id + " with topic {topic} and content {content}";
   var body = {
-    "topic": topic,
-    "propagate_mode": propagate_mode,
-    "send_notification_to_old_thread": send_notification_to_old_thread,
-    "send_notification_to_new_thread": send_notification_to_new_thread,
-    "content": content,
-    "prev_content_sha256": prev_content_sha256,
-    "stream_id": stream_id,
+    "message_id": String(message_id),
   };
-  return getSvc().patch(url, body, { description: description });
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+      message_id: String(message_id)
+    }
+  });
 }
 
 function deleteMessage(message_id) {
   var url = "/messages/" + message_id;
-  var description = "Delete message " + message_id;
+  var description = "Delete message with id " + message_id;
   var body = undefined;
-  return getSvc().delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description }
+  });
 }
 
 function verifyMessageExists(message_id) {
-  return getMessage(message_id);
+  var url = "/messages";
+  var description = "Verify Message exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.success("Message exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Message to exist but it does not");
+    }
+  });
 }
 
 function verifyMessageDoesNotExist(message_id) {
-  return getMessage(message_id);
+  var url = "/messages";
+  var description = "Verify Message does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.fail("Expected Message to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Message does not exist");
+    }
+  });
 }
 
 function tryToDeleteANonExistingMessage(message_id) {
-  return deleteMessage(message_id);
+  var url = "/messages/" + message_id;
+  var description = "Verify we cannot delete non-existing Message";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
 }
 
-// ---- Entity: message reaction ----
-
-function addReaction(message_id, emoji_name) {
-  var url = "/messages/" + message_id + "/reactions";
-  var description = "Add reaction " + emoji_name + " to message " + message_id;
-  var body = {
-    "emoji_name": emoji_name,
-    "emoji_code": emoji_code,
-    "reaction_type": reaction_type,
-  };
-  return getSvc().post(url, body, { description: description });
+function matchDeletedMessage(message_id) {
+  var expectedDesc = "Delete message with id " + message_id;
+  return bp.EventSet("matchDeletedMessage", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-function removeReaction(message_id, emoji_name) {
-  var url = "/messages/" + message_id + "/reactions";
-  var description = "Remove reaction " + emoji_name + " from message " + message_id;
-  var body = {
-    "emoji_name": emoji_name,
-    "emoji_code": emoji_code,
-    "reaction_type": reaction_type,
-  };
-  return getSvc().delete(url, { description: description });
-}
-
-function tryToAddExistingMessageReaction(message_id, emoji_name) {
-  return addReaction(message_id, emoji_name);
-}
-
-function tryToDeleteANonExistingMessageReaction(message_id, emoji_name) {
-  return removeReaction(message_id, emoji_name);
-}
-
-// ---- Entity: message flag ----
-
-function updateMessageFlags(messages, op, flag) {
-  var url = "/messages/flags";
-  var description = "Update message flags with operation " + op + " and flag " + flag + " on messages " + messages;
-  var body = {
-    "messages": messages,
-    "op": op,
-    "flag": flag,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-// ---- Entity: message flag narrow ----
-
-function updateMessageFlagsForNarrow(anchor, num_before, num_after, narrow, op, flag) {
-  var url = "/messages/flags/narrow";
-  var description = "Update message flags for narrow with operation " + op + " and flag " + flag + " anchored at " + anchor;
-  var body = {
-    "anchor": anchor,
-    "include_anchor": include_anchor,
-    "num_before": num_before,
-    "num_after": num_after,
-    "narrow": narrow,
-    "op": op,
-    "flag": flag,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-// ---- Entity: message report ----
-
-function reportMessage(message_id, report_type) {
-  var url = "/messages/" + message_id + "/report";
-  var description = "Report message " + message_id + " with type " + report_type;
-  var body = {
-    "report_type": report_type,
-    "description": description,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingMessageReport(message_id, report_type) {
-  return reportMessage(message_id, report_type);
+function waitForAnyMessageDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ message\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ message\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["message_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: message history ----
@@ -1037,15 +1463,235 @@ function getMessageHistory(message_id) {
   var url = "/messages/" + message_id + "/history";
   var description = "Get edit history for message " + message_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
 function verifyMessageHistoryExists(message_id) {
-  return getMessageHistory(message_id);
+  var url = "/messages";
+  var description = "Verify MessageHistory exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.success("MessageHistory exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MessageHistory to exist but it does not");
+    }
+  });
 }
 
 function verifyMessageHistoryDoesNotExist(message_id) {
-  return getMessageHistory(message_id);
+  var url = "/messages";
+  var description = "Verify MessageHistory does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.fail("Expected MessageHistory to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MessageHistory does not exist");
+    }
+  });
+}
+
+// ---- Entity: message reaction ----
+
+function addReaction(emoji_code, emoji_name, message_id, reaction_type) {
+  var url = "/messages/" + message_id + "/reactions";
+  var description = "Add reaction " + emoji_name + " to message " + message_id;
+  var body = {
+    "message_id": String(message_id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      message_id: String(message_id)
+    }
+  });
+}
+
+function removeReaction(emoji_code, emoji_name, message_id, reaction_type) {
+  var url = "/messages/" + message_id + "/reactions";
+  var description = "Remove reaction " + emoji_name + " from message " + message_id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
+}
+
+function tryToAddExistingMessageReaction(emoji_code, emoji_name, message_id, reaction_type) {
+  var url = "/messages/" + message_id + "/reactions";
+  var body = {
+    "message_id": String(message_id)
+  };
+  var description = "Verify that we cannot add another MessageReaction...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyMessageReactionExists(emoji_code, emoji_name, message_id, reaction_type) {
+  var url = "/messages/" + message_id + "/reactions";
+  var description = "Verify MessageReaction exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.success("MessageReaction exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MessageReaction to exist but it does not");
+    }
+  });
+}
+
+function verifyMessageReactionDoesNotExist(emoji_code, emoji_name, message_id, reaction_type) {
+  var url = "/messages/" + message_id + "/reactions";
+  var description = "Verify MessageReaction does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.fail("Expected MessageReaction to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MessageReaction does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingMessageReaction(emoji_code, emoji_name, message_id, reaction_type) {
+  var url = "/messages/" + message_id + "/reactions";
+  var description = "Verify we cannot delete non-existing MessageReaction";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedMessageReaction(emoji_code, emoji_name, message_id, reaction_type) {
+  var expectedDesc = "Add reaction " + emoji_name + " to message " + message_id;
+  return bp.EventSet("matchAddedMessageReaction", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMessageReactionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ reaction\ (.+)\ to\ message\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ reaction\ (.+)\ to\ message\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["emoji_name", "message_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMessageReactionAddedEvent(keyVal) {
+  return bp.EventSet("AddMessageReaction:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.message_id) === String(keyVal);
+  });
+}
+
+function matchAnyMessageReactionAdded() {
+  return bp.EventSet("matchAnyMessageReactionAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create message reaction") > -1 && e.data.parameters.message_id !== undefined);
+  });
+}
+
+function waitForMessageReactionAdded(emoji_code, emoji_name, message_id, reaction_type) {
+  var expectedDesc = "Add reaction " + emoji_name + " to message " + message_id;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedMessageReaction(emoji_code, emoji_name, message_id, reaction_type) {
+  var expectedDesc = "Remove reaction " + emoji_name + " from message " + message_id;
+  return bp.EventSet("matchDeletedMessageReaction", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMessageReactionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ reaction\ (.+)\ from\ message\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ reaction\ (.+)\ from\ message\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["emoji_name", "message_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: message flag ----
+
+function updateMessageFlags(anchor, flag, include_anchor, messages, narrow, num_after, num_before, op) {
+  var url = "/messages/flags";
+  var description = "Update flags " + flag + " with operation " + op + " on messages " + messages;
+  var body = {
+    "messages": String(messages),
+    "op": String(op),
+    "flag": String(flag),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+    }
+  });
+}
+
+function updateMessageFlagsForNarrow(anchor, flag, include_anchor, messages, narrow, num_after, num_before, op) {
+  var url = "/messages/flags/narrow";
+  var description = "Update flags " + flag + " with operation " + op + " for narrow anchored at " + anchor;
+  var body = {
+    "anchor": String(anchor),
+    "include_anchor": String(include_anchor),
+    "num_before": String(num_before),
+    "num_after": String(num_after),
+    "narrow": String(narrow),
+    "op": String(op),
+    "flag": String(flag),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
 // ---- Entity: message read receipt ----
@@ -1054,84 +1700,274 @@ function getReadReceipts(message_id) {
   var url = "/messages/" + message_id + "/read_receipts";
   var description = "Get read receipts for message " + message_id;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
 function verifyMessageReadReceiptExists(message_id) {
-  return getReadReceipts(message_id);
+  var url = "/messages";
+  var description = "Verify MessageReadReceipt exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.success("MessageReadReceipt exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MessageReadReceipt to exist but it does not");
+    }
+  });
 }
 
 function verifyMessageReadReceiptDoesNotExist(message_id) {
-  return getReadReceipts(message_id);
+  var url = "/messages";
+  var description = "Verify MessageReadReceipt does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.fail("Expected MessageReadReceipt to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MessageReadReceipt does not exist");
+    }
+  });
 }
 
-// ---- Entity: message match narrow ----
+// ---- Entity: message report ----
 
-function checkMessagesMatchNarrow(msg_ids, narrow) {
-  var url = "/messages/matches_narrow";
-  var description = "Check if messages " + msg_ids + " match narrow";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
+function reportMessage(description, message_id, report_type) {
+  var url = "/messages/" + message_id + "/report";
+  var description = "Report message " + message_id + " with type " + report_type;
+  var body = {
+    "message_id": String(message_id),
+    "report_type": String(report_type),
+    "description": String(description),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      , message_id: String(message_id)
+    }
+  });
 }
 
-function verifyMessageMatchNarrowExists(msg_ids, narrow) {
-  return checkMessagesMatchNarrow(msg_ids, narrow);
+function tryToAddExistingMessageReport(description, message_id, report_type) {
+  var url = "/messages/" + message_id + "/report";
+  var body = {
+  };
+  var description = "Verify that we cannot add another MessageReport...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyMessageMatchNarrowDoesNotExist(msg_ids, narrow) {
-  return checkMessagesMatchNarrow(msg_ids, narrow);
+function verifyMessageReportExists(description, message_id, report_type) {
+  var url = "/messages/" + message_id + "/report";
+  var description = "Verify MessageReport exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.success("MessageReport exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MessageReport to exist but it does not");
+    }
+  });
+}
+
+function verifyMessageReportDoesNotExist(description, message_id, report_type) {
+  var url = "/messages/" + message_id + "/report";
+  var description = "Verify MessageReport does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].message_id) === String(message_id)) {
+            return pvg.fail("Expected MessageReport to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MessageReport does not exist");
+    }
+  });
+}
+
+function matchAddedMessageReport(description, message_id, report_type) {
+  var expectedDesc = "Report message " + message_id + " with type " + report_type;
+  return bp.EventSet("matchAddedMessageReport", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMessageReportAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Report\ message\ (.+)\ with\ type\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Report\ message\ (.+)\ with\ type\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["message_id", "report_type"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMessageReportAddedEvent(keyVal) {
+  return bp.EventSet("AddMessageReport:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyMessageReportAdded() {
+  return bp.EventSet("matchAnyMessageReportAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create message report") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForMessageReportAdded(description, message_id, report_type) {
+  var expectedDesc = "Report message " + message_id + " with type " + report_type;
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: message ----
 
-function sendMessage(type, to, content) {
+function sendMessage(content, local_id, queue_id, read_by_sender, to, topic, type) {
   var url = "/messages";
-  var description = "Send message of type " + type + " to " + to + " with content";
+  var description = "Send message of type " + type + " to " + to + " with content " + content;
   var body = {
-    "type": type,
-    "to": to,
-    "content": content,
-    "topic": topic,
-    "queue_id": queue_id,
-    "local_id": local_id,
-    "read_by_sender": read_by_sender,
+    "type": String(type),
+    "to": String(to),
+    "content": String(content),
+    "topic": String(topic),
+    "queue_id": String(queue_id),
+    "local_id": String(local_id),
+    "read_by_sender": String(read_by_sender),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      , local_id: String(local_id)
+      , queue_id: String(queue_id)
+    }
+  });
 }
 
-function tryToAddExistingMessageSend(type, to, content) {
-  return sendMessage(type, to, content);
-}
-
-// ---- Entity: mark stream as read ----
-
-function markStreamAsRead(stream_id) {
-  var url = "/mark_stream_as_read";
-  var description = "Mark all messages in stream " + stream_id + " as read";
+function tryToAddExistingMessageSend(content, local_id, queue_id, read_by_sender, to, topic, type) {
+  var url = "/messages";
   var body = {
-    "stream_id": stream_id,
   };
-  return getSvc().post(url, body, { description: description });
+  var description = "Verify that we cannot add another MessageSend...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingMarkStreamAsRead(stream_id) {
-  return markStreamAsRead(stream_id);
+function verifyMessageSendExists(content, local_id, queue_id, read_by_sender, to, topic, type) {
+  var url = "/messages";
+  var description = "Verify MessageSend exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].local_id) === String(local_id)) {
+            return pvg.success("MessageSend exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MessageSend to exist but it does not");
+    }
+  });
 }
 
-// ---- Entity: mark topic as read ----
-
-function markTopicAsRead(stream_id, topic_name) {
-  var url = "/mark_topic_as_read";
-  var description = "Mark all messages in topic " + topic_name + " of stream " + stream_id + " as read";
-  var body = {
-    "stream_id": stream_id,
-    "topic_name": topic_name,
-  };
-  return getSvc().post(url, body, { description: description });
+function verifyMessageSendDoesNotExist(content, local_id, queue_id, read_by_sender, to, topic, type) {
+  var url = "/messages";
+  var description = "Verify MessageSend does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].local_id) === String(local_id)) {
+            return pvg.fail("Expected MessageSend to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MessageSend does not exist");
+    }
+  });
 }
 
-function tryToAddExistingMarkTopicAsRead(stream_id, topic_name) {
-  return markTopicAsRead(stream_id, topic_name);
+function matchAddedMessageSend(content, local_id, queue_id, read_by_sender, to, topic, type) {
+  var expectedDesc = "Send message of type " + type + " to " + to + " with content " + content;
+  return bp.EventSet("matchAddedMessageSend", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMessageSendAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Send\ message\ of\ type\ (.+)\ to\ (.+)\ with\ content\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Send\ message\ of\ type\ (.+)\ to\ (.+)\ with\ content\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["type", "to", "content"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMessageSendAddedEvent(keyVal) {
+  return bp.EventSet("AddMessageSend:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyMessageSendAdded() {
+  return bp.EventSet("matchAnyMessageSendAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create message") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForMessageSendAdded(content, local_id, queue_id, read_by_sender, to, topic, type) {
+  var expectedDesc = "Send message of type " + type + " to " + to + " with content " + content;
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: mark all as read ----
@@ -1139,819 +1975,1120 @@ function tryToAddExistingMarkTopicAsRead(stream_id, topic_name) {
 function markAllAsRead() {
   var url = "/mark_all_as_read";
   var description = "Mark all messages as read";
-  var body = undefined;
-  return getSvc().post(url, body, { description: description });
+  var body = {
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
 function tryToAddExistingMarkAllAsRead() {
-  return markAllAsRead();
+  var url = "/mark_all_as_read";
+  var body = {
+  };
+  var description = "Verify that we cannot add another MarkAllAsRead...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyMarkAllAsReadExists() {
+  var url = "/mark_all_as_read";
+  var description = "Verify MarkAllAsRead exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("MarkAllAsRead exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MarkAllAsRead to exist but it does not");
+    }
+  });
+}
+
+function verifyMarkAllAsReadDoesNotExist() {
+  var url = "/mark_all_as_read";
+  var description = "Verify MarkAllAsRead does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected MarkAllAsRead to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MarkAllAsRead does not exist");
+    }
+  });
+}
+
+function matchAddedMarkAllAsRead() {
+  var expectedDesc = "Mark all messages as read";
+  return bp.EventSet("matchAddedMarkAllAsRead", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMarkAllAsReadAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Mark\ all\ messages\ as\ read$/));
+  var m = ev.data.parameters.description.match(/^Mark\ all\ messages\ as\ read$/);
+  var captures = m.slice(1);
+  var names = [];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMarkAllAsReadAddedEvent(keyVal) {
+  return bp.EventSet("AddMarkAllAsRead:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyMarkAllAsReadAdded() {
+  return bp.EventSet("matchAnyMarkAllAsReadAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create mark all as read") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForMarkAllAsReadAdded() {
+  var expectedDesc = "Mark all messages as read";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+// ---- Entity: mark stream as read ----
+
+function markStreamAsRead(stream_id) {
+  var url = "/mark_stream_as_read";
+  var description = "Mark messages in stream " + stream_id + " as read";
+  var body = {
+    "stream_id": String(stream_id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      , stream_id: String(stream_id)
+    }
+  });
+}
+
+function tryToAddExistingMarkStreamAsRead(stream_id) {
+  var url = "/mark_stream_as_read";
+  var body = {
+  };
+  var description = "Verify that we cannot add another MarkStreamAsRead...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyMarkStreamAsReadExists(stream_id) {
+  var url = "/mark_stream_as_read";
+  var description = "Verify MarkStreamAsRead exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].stream_id) === String(stream_id)) {
+            return pvg.success("MarkStreamAsRead exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MarkStreamAsRead to exist but it does not");
+    }
+  });
+}
+
+function verifyMarkStreamAsReadDoesNotExist(stream_id) {
+  var url = "/mark_stream_as_read";
+  var description = "Verify MarkStreamAsRead does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].stream_id) === String(stream_id)) {
+            return pvg.fail("Expected MarkStreamAsRead to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MarkStreamAsRead does not exist");
+    }
+  });
+}
+
+function matchAddedMarkStreamAsRead(stream_id) {
+  var expectedDesc = "Mark messages in stream " + stream_id + " as read";
+  return bp.EventSet("matchAddedMarkStreamAsRead", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMarkStreamAsReadAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Mark\ messages\ in\ stream\ (.+)\ as\ read$/));
+  var m = ev.data.parameters.description.match(/^Mark\ messages\ in\ stream\ (.+)\ as\ read$/);
+  var captures = m.slice(1);
+  var names = ["stream_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMarkStreamAsReadAddedEvent(keyVal) {
+  return bp.EventSet("AddMarkStreamAsRead:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyMarkStreamAsReadAdded() {
+  return bp.EventSet("matchAnyMarkStreamAsReadAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create mark stream as read") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForMarkStreamAsReadAdded(stream_id) {
+  var expectedDesc = "Mark messages in stream " + stream_id + " as read";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+// ---- Entity: mark topic as read ----
+
+function markTopicAsRead(stream_id, topic_name) {
+  var url = "/mark_topic_as_read";
+  var description = "Mark messages in topic " + topic_name + " of stream " + stream_id + " as read";
+  var body = {
+    "stream_id": String(stream_id),
+    "topic_name": String(topic_name),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      , stream_id: String(stream_id)
+    }
+  });
+}
+
+function tryToAddExistingMarkTopicAsRead(stream_id, topic_name) {
+  var url = "/mark_topic_as_read";
+  var body = {
+  };
+  var description = "Verify that we cannot add another MarkTopicAsRead...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyMarkTopicAsReadExists(stream_id, topic_name) {
+  var url = "/mark_topic_as_read";
+  var description = "Verify MarkTopicAsRead exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].stream_id) === String(stream_id)) {
+            return pvg.success("MarkTopicAsRead exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MarkTopicAsRead to exist but it does not");
+    }
+  });
+}
+
+function verifyMarkTopicAsReadDoesNotExist(stream_id, topic_name) {
+  var url = "/mark_topic_as_read";
+  var description = "Verify MarkTopicAsRead does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].stream_id) === String(stream_id)) {
+            return pvg.fail("Expected MarkTopicAsRead to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MarkTopicAsRead does not exist");
+    }
+  });
+}
+
+function matchAddedMarkTopicAsRead(stream_id, topic_name) {
+  var expectedDesc = "Mark messages in topic " + topic_name + " of stream " + stream_id + " as read";
+  return bp.EventSet("matchAddedMarkTopicAsRead", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMarkTopicAsReadAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Mark\ messages\ in\ topic\ (.+)\ of\ stream\ (.+)\ as\ read$/));
+  var m = ev.data.parameters.description.match(/^Mark\ messages\ in\ topic\ (.+)\ of\ stream\ (.+)\ as\ read$/);
+  var captures = m.slice(1);
+  var names = ["topic_name", "stream_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMarkTopicAsReadAddedEvent(keyVal) {
+  return bp.EventSet("AddMarkTopicAsRead:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyMarkTopicAsReadAdded() {
+  return bp.EventSet("matchAnyMarkTopicAsReadAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create mark topic as read") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForMarkTopicAsReadAdded(stream_id, topic_name) {
+  var expectedDesc = "Mark messages in topic " + topic_name + " of stream " + stream_id + " as read";
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: message render ----
 
 function renderMessage(content) {
   var url = "/messages/render";
-  var description = "Render message content";
+  var description = "Render message content " + content;
   var body = {
-    "content": content,
+    "content": String(content),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
 function tryToAddExistingMessageRender(content) {
-  return renderMessage(content);
+  var url = "/messages/render";
+  var body = {
+  };
+  var description = "Verify that we cannot add another MessageRender...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyMessageRenderExists(content) {
+  var url = "/messages/render";
+  var description = "Verify MessageRender exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].content) === String(content)) {
+            return pvg.success("MessageRender exists");
+          }
+        }
+      }
+      return pvg.fail("Expected MessageRender to exist but it does not");
+    }
+  });
+}
+
+function verifyMessageRenderDoesNotExist(content) {
+  var url = "/messages/render";
+  var description = "Verify MessageRender does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].content) === String(content)) {
+            return pvg.fail("Expected MessageRender to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("MessageRender does not exist");
+    }
+  });
+}
+
+function matchAddedMessageRender(content) {
+  var expectedDesc = "Render message content " + content;
+  return bp.EventSet("matchAddedMessageRender", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyMessageRenderAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Render\ message\ content\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Render\ message\ content\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["content"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getMessageRenderAddedEvent(keyVal) {
+  return bp.EventSet("AddMessageRender:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyMessageRenderAdded() {
+  return bp.EventSet("matchAnyMessageRenderAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create message render") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForMessageRenderAdded(content) {
+  var expectedDesc = "Render message content " + content;
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: user upload ----
 
 function uploadFile(filename) {
   var url = "/user_uploads";
-  var description = "Upload file " + filename;
+  var description = "Upload a file with filename " + filename;
   var body = {
-    "filename": filename,
+    "filename": String(filename),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      , filename: String(filename)
+    }
+  });
 }
 
 function tryToAddExistingUserUpload(filename) {
-  return uploadFile(filename);
+  var url = "/user_uploads";
+  var body = {
+  };
+  var description = "Verify that we cannot add another UserUpload...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyUserUploadExists(filename) {
+  var url = "/user_uploads";
+  var description = "Verify UserUpload exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].filename) === String(filename)) {
+            return pvg.success("UserUpload exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserUpload to exist but it does not");
+    }
+  });
+}
+
+function verifyUserUploadDoesNotExist(filename) {
+  var url = "/user_uploads";
+  var description = "Verify UserUpload does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].filename) === String(filename)) {
+            return pvg.fail("Expected UserUpload to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserUpload does not exist");
+    }
+  });
+}
+
+function matchAddedUserUpload(filename) {
+  var expectedDesc = "Upload a file with filename " + filename;
+  return bp.EventSet("matchAddedUserUpload", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserUploadAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Upload\ a\ file\ with\ filename\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Upload\ a\ file\ with\ filename\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["filename"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserUploadAddedEvent(keyVal) {
+  return bp.EventSet("AddUserUpload:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyUserUploadAdded() {
+  return bp.EventSet("matchAnyUserUploadAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create user upload") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForUserUploadAdded(filename) {
+  var expectedDesc = "Upload a file with filename " + filename;
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: user upload file ----
 
-function getFileTemporaryUrl(realm_id_str, filename) {
+function getFileTemporaryUrl(filename, realm_id_str) {
   var url = "/user_uploads/" + realm_id_str + "/" + filename;
   var description = "Get temporary URL for uploaded file " + filename + " in realm " + realm_id_str;
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function verifyUserUploadFileExists(realm_id_str, filename) {
-  return getFileTemporaryUrl(realm_id_str, filename);
+function verifyUserUploadFileExists(filename, realm_id_str) {
+  var url = "/user_uploads";
+  var description = "Verify UserUploadFile exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm_id_str) === String(realm_id_str)) {
+            return pvg.success("UserUploadFile exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserUploadFile to exist but it does not");
+    }
+  });
 }
 
-function verifyUserUploadFileDoesNotExist(realm_id_str, filename) {
-  return getFileTemporaryUrl(realm_id_str, filename);
-}
-
-// ---- Entity: emoji ----
-
-function uploadCustomEmoji(emoji_name) {
-  var url = "/realm/emoji/" + emoji_name;
-  var description = "Upload custom emoji " + emoji_name + " with filename {filename}";
-  var body = {
-    "filename": filename,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function deactivateCustomEmoji(emoji_name) {
-  var url = "/realm/emoji/" + emoji_name;
-  var description = "Deactivate custom emoji " + emoji_name;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function getCustomEmoji(emoji_name) {
-  var url = "/realm/emoji";
-  var description = "Get all custom emoji";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function tryToAddExistingEmoji(emoji_name) {
-  return uploadCustomEmoji(emoji_name);
-}
-
-function verifyEmojiExists(emoji_name) {
-  return getCustomEmoji(emoji_name);
-}
-
-function verifyEmojiDoesNotExist(emoji_name) {
-  return getCustomEmoji(emoji_name);
-}
-
-function tryToDeleteANonExistingEmoji(emoji_name) {
-  return deactivateCustomEmoji(emoji_name);
-}
-
-// ---- Entity: custom profile field ----
-
-function createCustomProfileField() {
-  var url = "/realm/profile_fields";
-  var description = "Create custom profile field with field_type {field_type}";
-  var body = {
-    "field_type": field_type,
-    "name": name,
-    "hint": hint,
-    "field_data": field_data,
-    "display_in_profile_summary": display_in_profile_summary,
-    "required": required,
-    "editable_by_user": editable_by_user,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function reorderCustomProfileFields() {
-  var url = "/realm/profile_fields";
-  var description = "Reorder custom profile fields with order {order}";
-  var body = {
-    "order": order,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function getCustomProfileFields() {
-  var url = "/realm/profile_fields";
-  var description = "Get all custom profile fields";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function tryToAddExistingCustomProfileField() {
-  return createCustomProfileField();
-}
-
-function verifyCustomProfileFieldExists() {
-  return getCustomProfileFields();
-}
-
-function verifyCustomProfileFieldDoesNotExist() {
-  return getCustomProfileFields();
-}
-
-// ---- Entity: linkifier ----
-
-function addLinkifier(filter_id) {
-  var url = "/realm/filters";
-  var description = "Add linkifier with pattern {pattern} and url_template {url_template}";
-  var body = {
-    "pattern": pattern,
-    "url_template": url_template,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function removeLinkifier(filter_id) {
-  var url = "/realm/filters/" + filter_id;
-  var description = "Remove linkifier with id " + filter_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function updateLinkifier(filter_id) {
-  var url = "/realm/filters/" + filter_id;
-  var description = "Update linkifier " + filter_id + " with pattern {pattern} and url_template {url_template}";
-  var body = {
-    "pattern": pattern,
-    "url_template": url_template,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function getLinkifiers(filter_id) {
-  var url = "/realm/linkifiers";
-  var description = "Get linkifiers";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function tryToAddExistingLinkifier(filter_id) {
-  return addLinkifier(filter_id);
-}
-
-function verifyLinkifierExists(filter_id) {
-  return getLinkifiers(filter_id);
-}
-
-function verifyLinkifierDoesNotExist(filter_id) {
-  return getLinkifiers(filter_id);
-}
-
-function tryToDeleteANonExistingLinkifier(filter_id) {
-  return removeLinkifier(filter_id);
-}
-
-// ---- Entity: code playground ----
-
-function addCodePlayground(playground_id) {
-  var url = "/realm/playgrounds";
-  var description = "Add code playground {name} with language {pygments_language} and url_template {url_template}";
-  var body = {
-    "name": name,
-    "pygments_language": pygments_language,
-    "url_template": url_template,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function removeCodePlayground(playground_id) {
-  var url = "/realm/playgrounds/" + playground_id;
-  var description = "Remove code playground with id " + playground_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function tryToAddExistingCodePlayground(playground_id) {
-  return addCodePlayground(playground_id);
-}
-
-function tryToDeleteANonExistingCodePlayground(playground_id) {
-  return removeCodePlayground(playground_id);
-}
-
-// ---- Entity: realm user settings defaults ----
-
-function updateRealmUserSettingsDefaults() {
-  var url = "/realm/user_settings_defaults";
-  var description = "Update realm user settings defaults";
-  var body = {
-    "starred_message_counts": starred_message_counts,
-    "receives_typing_notifications": receives_typing_notifications,
-    "web_suggest_update_timezone": web_suggest_update_timezone,
-    "fluid_layout_width": fluid_layout_width,
-    "high_contrast_mode": high_contrast_mode,
-    "web_mark_read_on_scroll_policy": web_mark_read_on_scroll_policy,
-    "web_channel_default_view": web_channel_default_view,
-    "web_font_size_px": web_font_size_px,
-    "web_line_height_percent": web_line_height_percent,
-    "color_scheme": color_scheme,
-    "enable_drafts_synchronization": enable_drafts_synchronization,
-    "translate_emoticons": translate_emoticons,
-    "display_emoji_reaction_users": display_emoji_reaction_users,
-    "web_escape_navigates_to_home_view": web_escape_navigates_to_home_view,
-    "left_side_userlist": left_side_userlist,
-    "demote_inactive_streams": demote_inactive_streams,
-    "user_list_style": user_list_style,
-    "web_stream_unreads_count_display_policy": web_stream_unreads_count_display_policy,
-    "hide_ai_features": hide_ai_features,
-    "web_left_sidebar_show_channel_folders": web_left_sidebar_show_channel_folders,
-    "web_left_sidebar_unreads_count_summary": web_left_sidebar_unreads_count_summary,
-    "enable_stream_desktop_notifications": enable_stream_desktop_notifications,
-    "enable_stream_email_notifications": enable_stream_email_notifications,
-    "enable_stream_push_notifications": enable_stream_push_notifications,
-    "enable_stream_audible_notifications": enable_stream_audible_notifications,
-    "enable_desktop_notifications": enable_desktop_notifications,
-    "enable_sounds": enable_sounds,
-    "enable_followed_topic_desktop_notifications": enable_followed_topic_desktop_notifications,
-    "enable_followed_topic_email_notifications": enable_followed_topic_email_notifications,
-    "enable_followed_topic_push_notifications": enable_followed_topic_push_notifications,
-    "enable_followed_topic_audible_notifications": enable_followed_topic_audible_notifications,
-    "email_notifications_batching_period_seconds": email_notifications_batching_period_seconds,
-    "enable_offline_email_notifications": enable_offline_email_notifications,
-    "enable_offline_push_notifications": enable_offline_push_notifications,
-    "enable_online_push_notifications": enable_online_push_notifications,
-    "enable_digest_emails": enable_digest_emails,
-    "message_content_in_email_notifications": message_content_in_email_notifications,
-    "pm_content_in_desktop_notifications": pm_content_in_desktop_notifications,
-    "wildcard_mentions_notify": wildcard_mentions_notify,
-    "enable_followed_topic_wildcard_mentions_notify": enable_followed_topic_wildcard_mentions_notify,
-    "desktop_icon_count_display": desktop_icon_count_display,
-    "realm_name_in_email_notifications_policy": realm_name_in_email_notifications_policy,
-    "automatically_follow_topics_policy": automatically_follow_topics_policy,
-    "automatically_unmute_topics_in_muted_streams_policy": automatically_unmute_topics_in_muted_streams_policy,
-    "automatically_follow_topics_where_mentioned": automatically_follow_topics_where_mentioned,
-    "resolved_topic_notice_auto_read_policy": resolved_topic_notice_auto_read_policy,
-    "presence_enabled": presence_enabled,
-    "enter_sends": enter_sends,
-    "twenty_four_hour_time": twenty_four_hour_time,
-    "send_private_typing_notifications": send_private_typing_notifications,
-    "send_stream_typing_notifications": send_stream_typing_notifications,
-    "send_read_receipts": send_read_receipts,
-    "email_address_visibility": email_address_visibility,
-    "web_navigate_to_sent_message": web_navigate_to_sent_message,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-// ---- Entity: realm export ----
-
-function getRealmExports() {
-  var url = "/export/realm";
-  var description = "Get all data exports";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function exportRealm() {
-  var url = "/export/realm";
-  var description = "Create data export with export_type {export_type}";
-  var body = {
-    "export_type": export_type,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingRealmExport() {
-  return exportRealm();
-}
-
-function verifyRealmExportExists() {
-  return getRealmExports();
-}
-
-function verifyRealmExportDoesNotExist() {
-  return getRealmExports();
-}
-
-// ---- Entity: welcome bot custom message ----
-
-function testWelcomeBotCustomMessage() {
-  var url = "/realm/test_welcome_bot_custom_message";
-  var description = "Test welcome bot custom message with text {welcome_message_custom_text}";
-  var body = {
-    "welcome_message_custom_text": welcome_message_custom_text,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingWelcomeBotCustomMessage() {
-  return testWelcomeBotCustomMessage();
-}
-
-// ---- Entity: invite ----
-
-function getInvites(invite_id) {
-  var url = "/invites";
-  var description = "Get all invitations";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function sendInvites(invite_id) {
-  var url = "/invites";
-  var description = "Send invitations to {invitee_emails}";
-  var body = {
-    "invitee_emails": invitee_emails,
-    "stream_ids": stream_ids,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function revokeEmailInvite(invite_id) {
-  var url = "/invites/" + invite_id;
-  var description = "Revoke email invitation with id " + invite_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function otherInvite(invite_id) {
-  var url = "";
-  var description = "";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function tryToAddExistingInvite(invite_id) {
-  return sendInvites(invite_id);
-}
-
-function verifyInviteExists(invite_id) {
-  return getInvites(invite_id);
-}
-
-function verifyInviteDoesNotExist(invite_id) {
-  return getInvites(invite_id);
-}
-
-function tryToDeleteANonExistingInvite(invite_id) {
-  return revokeEmailInvite(invite_id);
-}
-
-// ---- Entity: invite link ----
-
-function createInviteLink(invite_id) {
-  var url = "/invites/multiuse";
-  var description = "Create a reusable invitation link";
-  var body = undefined;
-  return getSvc().post(url, body, { description: description });
-}
-
-function revokeInviteLink(invite_id) {
-  var url = "/invites/multiuse/" + invite_id;
-  var description = "Revoke reusable invitation link with id " + invite_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function tryToAddExistingInviteLink(invite_id) {
-  return createInviteLink(invite_id);
-}
-
-function tryToDeleteANonExistingInviteLink(invite_id) {
-  return revokeInviteLink(invite_id);
+function verifyUserUploadFileDoesNotExist(filename, realm_id_str) {
+  var url = "/user_uploads";
+  var description = "Verify UserUploadFile does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].realm_id_str) === String(realm_id_str)) {
+            return pvg.fail("Expected UserUploadFile to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserUploadFile does not exist");
+    }
+  });
 }
 
 // ---- Entity: event queue ----
 
-function getEvents(queue_id, last_event_id, dont_block) {
-  var url = "/events";
-  var description = "Get events from event queue " + queue_id + " since last_event_id " + last_event_id;
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function deleteQueue(queue_id, last_event_id, dont_block) {
-  var url = "/events";
-  var description = "Delete event queue " + queue_id;
-  var body = {
-    "queue_id": queue_id,
-  };
-  return getSvc().delete(url, { description: description });
-}
-
-function verifyEventQueueExists(queue_id, last_event_id, dont_block) {
-  return getEvents(queue_id, last_event_id, dont_block);
-}
-
-function verifyEventQueueDoesNotExist(queue_id, last_event_id, dont_block) {
-  return getEvents(queue_id, last_event_id, dont_block);
-}
-
-function tryToDeleteANonExistingEventQueue(queue_id, last_event_id, dont_block) {
-  return deleteQueue(queue_id, last_event_id, dont_block);
-}
-
-// ---- Entity: register queue ----
-
-function registerQueue() {
+function registerQueue(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
   var url = "/register";
-  var description = "Register an event queue with apply_markdown {apply_markdown}, client_gravatar {client_gravatar}, include_subscribers {include_subscribers}, slim_presence {slim_presence}, presence_history_limit_days {presence_history_limit_days}, event_types {event_types}, all_public_streams {all_public_streams}, client_capabilities {client_capabilities}, fetch_event_types {fetch_event_types}, narrow {narrow}";
+  var description = "Register an event queue with options apply_markdown " + apply_markdown + ", client_gravatar " + client_gravatar + ", include_subscribers " + include_subscribers + ", slim_presence " + slim_presence + ", presence_history_limit_days " + presence_history_limit_days + ", event_types " + event_types + ", all_public_streams " + all_public_streams + ", client_capabilities " + client_capabilities + ", fetch_event_types " + fetch_event_types + ", narrow " + narrow;
   var body = {
-    "apply_markdown": apply_markdown,
-    "client_gravatar": client_gravatar,
-    "include_subscribers": include_subscribers,
-    "slim_presence": slim_presence,
-    "presence_history_limit_days": presence_history_limit_days,
-    "event_types": event_types,
-    "all_public_streams": all_public_streams,
-    "client_capabilities": client_capabilities,
-    "fetch_event_types": fetch_event_types,
-    "narrow": narrow,
+    "apply_markdown": String(apply_markdown),
+    "client_gravatar": String(client_gravatar),
+    "include_subscribers": String(include_subscribers),
+    "slim_presence": String(slim_presence),
+    "presence_history_limit_days": String(presence_history_limit_days),
+    "event_types": String(event_types),
+    "all_public_streams": String(all_public_streams),
+    "client_capabilities": String(client_capabilities),
+    "fetch_event_types": String(fetch_event_types),
+    "narrow": String(narrow),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      , last_event_id: String(last_event_id)
+      , queue_id: String(queue_id)
+    }
+  });
 }
 
-function tryToAddExistingRegisterQueue() {
-  return registerQueue();
+function deleteQueue(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var url = "/events";
+  var description = "Delete event queue with id " + queue_id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description }
+  });
 }
 
-// ---- Entity: real time ----
+function getEvents(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var url = "/events";
+  var description = "Get events from event queue with last_event_id " + last_event_id + " and dont_block " + dont_block;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description }
+  });
+}
 
-function postRealTime() {
+function tryToAddExistingEventQueue(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var url = "/register";
+  var body = {
+  };
+  var description = "Verify that we cannot add another EventQueue...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyEventQueueExists(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var url = "/register";
+  var description = "Verify EventQueue exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].last_event_id) === String(last_event_id)) {
+            return pvg.success("EventQueue exists");
+          }
+        }
+      }
+      return pvg.fail("Expected EventQueue to exist but it does not");
+    }
+  });
+}
+
+function verifyEventQueueDoesNotExist(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var url = "/register";
+  var description = "Verify EventQueue does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].last_event_id) === String(last_event_id)) {
+            return pvg.fail("Expected EventQueue to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("EventQueue does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingEventQueue(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var url = "/events";
+  var description = "Verify we cannot delete non-existing EventQueue";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedEventQueue(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var expectedDesc = "Register an event queue with options apply_markdown " + apply_markdown + ", client_gravatar " + client_gravatar + ", include_subscribers " + include_subscribers + ", slim_presence " + slim_presence + ", presence_history_limit_days " + presence_history_limit_days + ", event_types " + event_types + ", all_public_streams " + all_public_streams + ", client_capabilities " + client_capabilities + ", fetch_event_types " + fetch_event_types + ", narrow " + narrow;
+  return bp.EventSet("matchAddedEventQueue", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyEventQueueAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Register\ an\ event\ queue\ with\ options\ apply_markdown\ (.+),\ client_gravatar\ (.+),\ include_subscribers\ (.+),\ slim_presence\ (.+),\ presence_history_limit_days\ (.+),\ event_types\ (.+),\ all_public_streams\ (.+),\ client_capabilities\ (.+),\ fetch_event_types\ (.+),\ narrow\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Register\ an\ event\ queue\ with\ options\ apply_markdown\ (.+),\ client_gravatar\ (.+),\ include_subscribers\ (.+),\ slim_presence\ (.+),\ presence_history_limit_days\ (.+),\ event_types\ (.+),\ all_public_streams\ (.+),\ client_capabilities\ (.+),\ fetch_event_types\ (.+),\ narrow\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["apply_markdown", "client_gravatar", "include_subscribers", "slim_presence", "presence_history_limit_days", "event_types", "all_public_streams", "client_capabilities", "fetch_event_types", "narrow"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getEventQueueAddedEvent(keyVal) {
+  return bp.EventSet("AddEventQueue:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyEventQueueAdded() {
+  return bp.EventSet("matchAnyEventQueueAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create event queue") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForEventQueueAdded(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var expectedDesc = "Register an event queue with options apply_markdown " + apply_markdown + ", client_gravatar " + client_gravatar + ", include_subscribers " + include_subscribers + ", slim_presence " + slim_presence + ", presence_history_limit_days " + presence_history_limit_days + ", event_types " + event_types + ", all_public_streams " + all_public_streams + ", client_capabilities " + client_capabilities + ", fetch_event_types " + fetch_event_types + ", narrow " + narrow;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedEventQueue(all_public_streams, apply_markdown, client_capabilities, client_gravatar, dont_block, event_types, fetch_event_types, include_subscribers, last_event_id, narrow, presence_history_limit_days, queue_id, slim_presence) {
+  var expectedDesc = "Delete event queue with id " + queue_id;
+  return bp.EventSet("matchDeletedEventQueue", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyEventQueueDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ event\ queue\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ event\ queue\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["queue_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: real-time events ----
+
+function postRealTimeEvents(all_public_streams, event_types, narrow) {
   var url = "/real-time";
-  var description = "Post real-time event subscription with event_types {event_types}, narrow {narrow}, all_public_streams {all_public_streams}";
+  var description = "Post real-time events with event_types " + event_types + ", narrow " + narrow + ", all_public_streams " + all_public_streams;
   var body = {
-    "event_types": event_types,
-    "narrow": narrow,
-    "all_public_streams": all_public_streams,
+    "event_types": String(event_types),
+    "narrow": String(narrow),
+    "all_public_streams": String(all_public_streams),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
-function tryToAddExistingRealTime() {
-  return postRealTime();
-}
-
-// ---- Entity: draft ----
-
-function createDrafts(draft_id) {
-  var url = "/drafts";
-  var description = "Create drafts";
+function tryToAddExistingRealTimeEvents(all_public_streams, event_types, narrow) {
+  var url = "/real-time";
   var body = {
-    "drafts": "[{type}, {to}, {topic}, {content}, {timestamp}]",
   };
-  return getSvc().post(url, body, { description: description });
+  var description = "Verify that we cannot add another RealTimeEvents...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function getDrafts(draft_id) {
-  var url = "/drafts";
-  var description = "Get drafts";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
+function verifyRealTimeEventsExists(all_public_streams, event_types, narrow) {
+  var url = "/real-time";
+  var description = "Verify RealTimeEvents exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].all_public_streams) === String(all_public_streams) && String(items[i].event_types) === String(event_types) && String(items[i].narrow) === String(narrow)) {
+            return pvg.success("RealTimeEvents exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RealTimeEvents to exist but it does not");
+    }
+  });
 }
 
-function editDraft(draft_id) {
-  var url = "/drafts/" + draft_id;
-  var description = "Edit draft " + draft_id;
+function verifyRealTimeEventsDoesNotExist(all_public_streams, event_types, narrow) {
+  var url = "/real-time";
+  var description = "Verify RealTimeEvents does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].all_public_streams) === String(all_public_streams) && String(items[i].event_types) === String(event_types) && String(items[i].narrow) === String(narrow)) {
+            return pvg.fail("Expected RealTimeEvents to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RealTimeEvents does not exist");
+    }
+  });
+}
+
+function matchAddedRealTimeEvents(all_public_streams, event_types, narrow) {
+  var expectedDesc = "Post real-time events with event_types " + event_types + ", narrow " + narrow + ", all_public_streams " + all_public_streams;
+  return bp.EventSet("matchAddedRealTimeEvents", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyRealTimeEventsAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Post\ real\-time\ events\ with\ event_types\ (.+),\ narrow\ (.+),\ all_public_streams\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Post\ real\-time\ events\ with\ event_types\ (.+),\ narrow\ (.+),\ all_public_streams\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["event_types", "narrow", "all_public_streams"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getRealTimeEventsAddedEvent(keyVal) {
+  return bp.EventSet("AddRealTimeEvents:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyRealTimeEventsAdded() {
+  return bp.EventSet("matchAnyRealTimeEventsAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create real-time events") > -1 && e.data.parameters.None !== undefined);
+  });
+}
+
+function waitForRealTimeEventsAdded(all_public_streams, event_types, narrow) {
+  var expectedDesc = "Post real-time events with event_types " + event_types + ", narrow " + narrow + ", all_public_streams " + all_public_streams;
+  waitFor(matchesDescription(expectedDesc));
+}
+
+// ---- Entity: rest error handling ----
+
+function postRestErrorHandling() {
+  var url = "/rest-error-handling";
+  var description = "Post rest error handling";
   var body = {
-    "draft": type, to, topic, content, timestamp,
   };
-  return getSvc().patch(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+    }
+  });
 }
 
-function deleteDraft(draft_id) {
-  var url = "/drafts/" + draft_id;
-  var description = "Delete draft " + draft_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function tryToAddExistingDraft(draft_id) {
-  return createDrafts(draft_id);
-}
-
-function verifyDraftExists(draft_id) {
-  return getDrafts(draft_id);
-}
-
-function verifyDraftDoesNotExist(draft_id) {
-  return getDrafts(draft_id);
-}
-
-function tryToDeleteANonExistingDraft(draft_id) {
-  return deleteDraft(draft_id);
-}
-
-// ---- Entity: saved snippet ----
-
-function createSavedSnippet(saved_snippet_id) {
-  var url = "/saved_snippets";
-  var description = "Create saved snippet {title}";
+function tryToAddExistingRestErrorHandling() {
+  var url = "/rest-error-handling";
   var body = {
-    "title": title,
-    "content": content,
   };
-  return getSvc().post(url, body, { description: description });
+  var description = "Verify that we cannot add another RestErrorHandling...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function getSavedSnippets(saved_snippet_id) {
-  var url = "/saved_snippets";
-  var description = "Get all saved snippets";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
+function verifyRestErrorHandlingExists() {
+  var url = "/rest-error-handling";
+  var description = "Verify RestErrorHandling exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("RestErrorHandling exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RestErrorHandling to exist but it does not");
+    }
+  });
 }
 
-function editSavedSnippet(saved_snippet_id) {
-  var url = "/saved_snippets/" + saved_snippet_id;
-  var description = "Edit saved snippet " + saved_snippet_id + " with title {title}";
-  var body = {
-    "title": title,
-    "content": content,
-  };
-  return getSvc().patch(url, body, { description: description });
+function verifyRestErrorHandlingDoesNotExist() {
+  var url = "/rest-error-handling";
+  var description = "Verify RestErrorHandling does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected RestErrorHandling to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RestErrorHandling does not exist");
+    }
+  });
 }
 
-function deleteSavedSnippet(saved_snippet_id) {
-  var url = "/saved_snippets/" + saved_snippet_id;
-  var description = "Delete saved snippet " + saved_snippet_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
+function matchAddedRestErrorHandling() {
+  var expectedDesc = "Post rest error handling";
+  return bp.EventSet("matchAddedRestErrorHandling", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-function tryToAddExistingSavedSnippet(saved_snippet_id) {
-  return createSavedSnippet(saved_snippet_id);
+function waitForAnyRestErrorHandlingAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Post\ rest\ error\ handling$/));
+  var m = ev.data.parameters.description.match(/^Post\ rest\ error\ handling$/);
+  var captures = m.slice(1);
+  var names = [];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
-function verifySavedSnippetExists(saved_snippet_id) {
-  return getSavedSnippets(saved_snippet_id);
+function getRestErrorHandlingAddedEvent(keyVal) {
+  return bp.EventSet("AddRestErrorHandling:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
 }
 
-function verifySavedSnippetDoesNotExist(saved_snippet_id) {
-  return getSavedSnippets(saved_snippet_id);
+function matchAnyRestErrorHandlingAdded() {
+  return bp.EventSet("matchAnyRestErrorHandlingAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create rest error handling") > -1 && e.data.parameters.None !== undefined);
+  });
 }
 
-function tryToDeleteANonExistingSavedSnippet(saved_snippet_id) {
-  return deleteSavedSnippet(saved_snippet_id);
-}
-
-// ---- Entity: mobile push test notification ----
-
-function sendTestNotification(token) {
-  var url = "/mobile_push/test_notification";
-  var description = "Send a test notification to mobile device with token " + token;
-  var body = {
-    "token": token,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingMobilePushTestNotification(token) {
-  return sendTestNotification(token);
-}
-
-// ---- Entity: mobile push e2ee test notification ----
-
-function sendE2EETestNotification(push_account_id) {
-  var url = "/mobile_push/e2ee/test_notification";
-  var description = "Send an E2EE test notification to mobile device with push_account_id " + push_account_id;
-  var body = {
-    "push_account_id": push_account_id,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingMobilePushE2EETestNotification(push_account_id) {
-  return sendE2EETestNotification(push_account_id);
-}
-
-// ---- Entity: push device registration ----
-
-function registerPushDevice(token_kind, push_account_id, push_public_key, bouncer_public_key, encrypted_push_registration) {
-  var url = "/mobile_push/register";
-  var description = "Register push device with push_account_id " + push_account_id + " and token_kind " + token_kind;
-  var body = {
-    "token_kind": token_kind,
-    "push_account_id": push_account_id,
-    "push_public_key": push_public_key,
-    "bouncer_public_key": bouncer_public_key,
-    "encrypted_push_registration": encrypted_push_registration,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingPushDeviceRegistration(token_kind, push_account_id, push_public_key, bouncer_public_key, encrypted_push_registration) {
-  return registerPushDevice(token_kind, push_account_id, push_public_key, bouncer_public_key, encrypted_push_registration);
-}
-
-// ---- Entity: remote push device registration ----
-
-function registerRemotePushDevice(realm_uuid, push_account_id, encrypted_push_registration, bouncer_public_key) {
-  var url = "/remotes/push/e2ee/register";
-  var description = "Register remote push device with push_account_id " + push_account_id + " in realm " + realm_uuid;
-  var body = {
-    "realm_uuid": realm_uuid,
-    "push_account_id": push_account_id,
-    "encrypted_push_registration": encrypted_push_registration,
-    "bouncer_public_key": bouncer_public_key,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingRemotePushDeviceRegistration(realm_uuid, push_account_id, encrypted_push_registration, bouncer_public_key) {
-  return registerRemotePushDevice(realm_uuid, push_account_id, encrypted_push_registration, bouncer_public_key);
-}
-
-// ---- Entity: api key ----
-
-function fetchApiKey(username, password) {
-  var url = "/fetch_api_key";
-  var description = "Fetch an API key for user " + username;
-  var body = {
-    "username": username,
-    "password": password,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function devFetchApiKey(username, password) {
-  var url = "/dev_fetch_api_key";
-  var description = "Fetch a development API key for user " + username;
-  var body = {
-    "username": username,
-  };
-  return getSvc().post(url, body, { description: description });
-}
-
-function tryToAddExistingApiKey(username, password) {
-  return fetchApiKey(username, password);
-}
-
-// ---- Entity: navigation view ----
-
-function addNavigationView(fragment) {
-  var url = "/navigation_views";
-  var description = "Add a navigation view";
-  var body = undefined;
-  return getSvc().post(url, body, { description: description });
-}
-
-function getNavigationViews(fragment) {
-  var url = "/navigation_views";
-  var description = "Get all navigation views";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
-}
-
-function editNavigationView(fragment) {
-  var url = "/navigation_views/" + fragment;
-  var description = "Update the navigation view " + fragment;
-  var body = {
-    "is_pinned": is_pinned,
-    "name": name,
-  };
-  return getSvc().patch(url, body, { description: description });
-}
-
-function removeNavigationView(fragment) {
-  var url = "/navigation_views/" + fragment;
-  var description = "Remove the navigation view " + fragment;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
-}
-
-function tryToAddExistingNavigationView(fragment) {
-  return addNavigationView(fragment);
-}
-
-function verifyNavigationViewExists(fragment) {
-  return getNavigationViews(fragment);
-}
-
-function verifyNavigationViewDoesNotExist(fragment) {
-  return getNavigationViews(fragment);
-}
-
-function tryToDeleteANonExistingNavigationView(fragment) {
-  return removeNavigationView(fragment);
+function waitForRestErrorHandlingAdded() {
+  var expectedDesc = "Post rest error handling";
+  waitFor(matchesDescription(expectedDesc));
 }
 
 // ---- Entity: reminder ----
 
-function createReminder(message_id, scheduled_delivery_timestamp, note, reminder_id) {
+function createMessageReminder(reminder_id) {
   var url = "/reminders";
-  var description = "Create a reminder with message_id " + message_id + " scheduled_delivery_timestamp " + scheduled_delivery_timestamp + " and note " + note;
+  var description = "Create a message reminder with message_id {message_id} scheduled for {scheduled_delivery_timestamp}";
   var body = {
-    "message_id": message_id,
-    "scheduled_delivery_timestamp": scheduled_delivery_timestamp,
-    "note": note,
+    "reminder_id": String(reminder_id),
   };
-  return getSvc().post(url, body, { description: description });
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 201, 204, 409],
+    parameters: {
+      description: description,
+      reminder_id: String(reminder_id)
+    }
+  });
 }
 
-function getReminders(message_id, scheduled_delivery_timestamp, note, reminder_id) {
+function getReminders(reminder_id) {
   var url = "/reminders";
   var description = "Get reminders";
   var body = undefined;
-  return getSvc().get(url, { description: description });
+  svc.get(url, {
+    parameters: { description: description }
+  });
 }
 
-function deleteReminder(message_id, scheduled_delivery_timestamp, note, reminder_id) {
+function deleteReminder(reminder_id) {
   var url = "/reminders/" + reminder_id;
   var description = "Delete reminder with id " + reminder_id;
   var body = undefined;
-  return getSvc().delete(url, { description: description });
+  svc.delete(url, {
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingReminder(message_id, scheduled_delivery_timestamp, note, reminder_id) {
-  return createReminder(message_id, scheduled_delivery_timestamp, note, reminder_id);
-}
-
-function verifyReminderExists(message_id, scheduled_delivery_timestamp, note, reminder_id) {
-  return getReminders(message_id, scheduled_delivery_timestamp, note, reminder_id);
-}
-
-function verifyReminderDoesNotExist(message_id, scheduled_delivery_timestamp, note, reminder_id) {
-  return getReminders(message_id, scheduled_delivery_timestamp, note, reminder_id);
-}
-
-function tryToDeleteANonExistingReminder(message_id, scheduled_delivery_timestamp, note, reminder_id) {
-  return deleteReminder(message_id, scheduled_delivery_timestamp, note, reminder_id);
-}
-
-// ---- Entity: scheduled message ----
-
-function createScheduledMessage(scheduled_message_id) {
-  var url = "/scheduled_messages";
-  var description = "Create scheduled message of type {type} to {to} scheduled at {scheduled_delivery_timestamp}";
+function tryToAddExistingReminder(reminder_id) {
+  var url = "/reminders";
   var body = {
-    "type": type,
-    "to": to,
-    "content": content,
-    "scheduled_delivery_timestamp": scheduled_delivery_timestamp,
+    "reminder_id": String(reminder_id)
   };
-  return getSvc().post(url, body, { description: description });
+  var description = "Verify that we cannot add another Reminder...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function getScheduledMessages(scheduled_message_id) {
-  var url = "/scheduled_messages";
-  var description = "Get scheduled messages";
-  var body = undefined;
-  return getSvc().get(url, { description: description });
+function verifyReminderExists(reminder_id) {
+  var url = "/reminders";
+  var description = "Verify Reminder exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].reminder_id) === String(reminder_id)) {
+            return pvg.success("Reminder exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Reminder to exist but it does not");
+    }
+  });
 }
 
-function updateScheduledMessage(scheduled_message_id) {
-  var url = "/scheduled_messages/" + scheduled_message_id;
-  var description = "Update scheduled message " + scheduled_message_id;
-  var body = {
-    "type": type,
-    "to": to,
-    "content": content,
-    "topic": topic,
-    "scheduled_delivery_timestamp": scheduled_delivery_timestamp,
-  };
-  return getSvc().patch(url, body, { description: description });
+function verifyReminderDoesNotExist(reminder_id) {
+  var url = "/reminders";
+  var description = "Verify Reminder does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].reminder_id) === String(reminder_id)) {
+            return pvg.fail("Expected Reminder to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Reminder does not exist");
+    }
+  });
 }
 
-function deleteScheduledMessage(scheduled_message_id) {
-  var url = "/scheduled_messages/" + scheduled_message_id;
-  var description = "Delete scheduled message " + scheduled_message_id;
-  var body = undefined;
-  return getSvc().delete(url, { description: description });
+function tryToDeleteANonExistingReminder(reminder_id) {
+  var url = "/reminders/" + reminder_id;
+  var description = "Verify we cannot delete non-existing Reminder";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 400, 404],
+    parameters: { description: description }
+  });
 }
 
-function tryToAddExistingScheduledMessage(scheduled_message_id) {
-  return createScheduledMessage(scheduled_message_id);
+function matchAddedReminder(reminder_id) {
+  var expectedDesc = "Create a message reminder with message_id {message_id} scheduled for {scheduled_delivery_timestamp}";
+  return bp.EventSet("matchAddedReminder", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
 }
 
-function verifyScheduledMessageExists(scheduled_message_id) {
-  return getScheduledMessages(scheduled_message_id);
+function waitForAnyReminderAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ a\ message\ reminder\ with\ message_id\ (.+)\ scheduled\ for\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ a\ message\ reminder\ with\ message_id\ (.+)\ scheduled\ for\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["message_id", "scheduled_delivery_timestamp"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
-function verifyScheduledMessageDoesNotExist(scheduled_message_id) {
-  return getScheduledMessages(scheduled_message_id);
+function getReminderAddedEvent(keyVal) {
+  return bp.EventSet("AddReminder:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.reminder_id) === String(keyVal);
+  });
 }
 
-function tryToDeleteANonExistingScheduledMessage(scheduled_message_id) {
-  return deleteScheduledMessage(scheduled_message_id);
+function matchAnyReminderAdded() {
+  return bp.EventSet("matchAnyReminderAdded", function(e) {
+    return !!(e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.indexOf("Create reminder") > -1 && e.data.parameters.reminder_id !== undefined);
+  });
+}
+
+function waitForReminderAdded(reminder_id) {
+  var expectedDesc = "Create a message reminder with message_id {message_id} scheduled for {scheduled_delivery_timestamp}";
+  waitFor(matchesDescription(expectedDesc));
+}
+
+function matchDeletedReminder(reminder_id) {
+  var expectedDesc = "Delete reminder with id " + reminder_id;
+  return bp.EventSet("matchDeletedReminder", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyReminderDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ reminder\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ reminder\ with\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["reminder_id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
