@@ -85,12 +85,23 @@ function deleteDrug(id, name) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [200, 204]
   });
 }
 
 function tryToAddExistingDrug(id, name) {
-  deleteDrug(id, name);
+  var url = "/drugs";
+  var body = {
+    "id": String(id),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another Drug...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyDrugExists(id, name) {
@@ -137,7 +148,7 @@ function tryToDeleteANonExistingDrug(id, name) {
   var url = "/drugs/" + id;
   var description = "Verify we cannot delete non-existing Drug";
   svc.delete(url, {
-    expectedResponseCodes: [200],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }
@@ -250,12 +261,23 @@ function deletePatient(id, name) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [200, 204]
   });
 }
 
 function tryToAddExistingPatient(id, name) {
-  deletePatient(id, name);
+  var url = "/patients";
+  var body = {
+    "id": String(id),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another Patient...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPatientExists(id, name) {
@@ -302,7 +324,7 @@ function tryToDeleteANonExistingPatient(id, name) {
   var url = "/patients/" + id;
   var description = "Verify we cannot delete non-existing Patient";
   svc.delete(url, {
-    expectedResponseCodes: [200],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }
@@ -413,12 +435,22 @@ function deleteOrder(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [200, 204]
   });
 }
 
 function tryToAddExistingOrder(id) {
-  deleteOrder(id);
+  var url = "/orders";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another Order...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyOrderExists(id) {
@@ -465,7 +497,7 @@ function tryToDeleteANonExistingOrder(id) {
   var url = "/orders/" + id;
   var description = "Verify we cannot delete non-existing Order";
   svc.delete(url, {
-    expectedResponseCodes: [200],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }
@@ -576,12 +608,22 @@ function deletePrescription(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [200, 204]
   });
 }
 
 function tryToAddExistingPrescription(id) {
-  deletePrescription(id);
+  var url = "/prescriptions";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another Prescription...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPrescriptionExists(id) {
@@ -628,7 +670,7 @@ function tryToDeleteANonExistingPrescription(id) {
   var url = "/prescriptions/" + id;
   var description = "Verify we cannot delete non-existing Prescription";
   svc.delete(url, {
-    expectedResponseCodes: [200],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }
@@ -739,12 +781,22 @@ function deleteInventory(ndc) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [200, 204]
   });
 }
 
 function tryToAddExistingInventory(ndc) {
-  deleteInventory(ndc);
+  var url = "/inventory";
+  var body = {
+    "ndc": String(ndc),
+  };
+  var description = "Verify that we cannot add another Inventory...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyInventoryExists(ndc) {
@@ -791,7 +843,7 @@ function tryToDeleteANonExistingInventory(ndc) {
   var url = "/inventory/" + ndc;
   var description = "Verify we cannot delete non-existing Inventory";
   svc.delete(url, {
-    expectedResponseCodes: [200],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }

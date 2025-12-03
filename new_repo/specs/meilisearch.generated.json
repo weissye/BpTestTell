@@ -428,12 +428,7 @@
             "indexUid"
           ]
         }
-      },
-      "waitForPatterns": [
-        "Get searchable attributes for index \\{indexUid\\}",
-        "Update searchable attributes for index \\{indexUid\\}",
-        "Reset searchable attributes for index \\{indexUid\\}"
-      ]
+      }
     },
     "DisplayedAttributes": {
       "displayName": "displayed attribute",
@@ -469,12 +464,7 @@
             "indexUid"
           ]
         }
-      },
-      "waitForPatterns": [
-        "Get displayed attributes for index \\{indexUid\\}",
-        "Update displayed attributes for index \\{indexUid\\}",
-        "Reset displayed attributes for index \\{indexUid\\}"
-      ]
+      }
     },
     "Document": {
       "displayName": "document",
@@ -530,8 +520,7 @@
     "Index": {
       "displayName": "index",
       "params": [
-        "indexUid",
-        "primaryKey"
+        "indexUid"
       ],
       "operations": {
         "add": {
@@ -593,7 +582,7 @@
           "name": "getIndexStat",
           "method": "GET",
           "path": "/indexes/{indexUid}/stats",
-          "descriptionTemplate": "Get stat of an index {indexUid}",
+          "descriptionTemplate": "Get stat of index {indexUid}",
           "params": [
             "indexUid"
           ],
@@ -639,7 +628,7 @@
           "name": "getTask",
           "method": "GET",
           "path": "/tasks/:taskUid",
-          "descriptionTemplate": "Get task with uid {taskUid}",
+          "descriptionTemplate": "Get task {taskUid}",
           "params": [
             "taskUid"
           ],
@@ -649,7 +638,7 @@
           "name": "listTasks",
           "method": "GET",
           "path": "/tasks",
-          "descriptionTemplate": "List all tasks with filters",
+          "descriptionTemplate": "Get all tasks",
           "params": [
             "total",
             "limit",
@@ -672,7 +661,7 @@
           "name": "deleteTasks",
           "method": "DELETE",
           "path": "/tasks",
-          "descriptionTemplate": "Delete tasks with filters",
+          "descriptionTemplate": "Delete tasks matching filters",
           "params": [
             "taskFilterUids",
             "taskFilterIndexUids",
@@ -692,7 +681,7 @@
           "name": "cancelTasks",
           "method": "POST",
           "path": "/tasks/cancel",
-          "descriptionTemplate": "Cancel tasks with filters",
+          "descriptionTemplate": "Cancel tasks matching filters",
           "params": [
             "taskFilterUids",
             "taskFilterIndexUids",
@@ -773,11 +762,8 @@
           "name": "listKeys",
           "method": "GET",
           "path": "/keys",
-          "descriptionTemplate": "List keys with limit {limit} and offset {offset}",
-          "params": [
-            "limit",
-            "offset"
-          ],
+          "descriptionTemplate": "List keys",
+          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -790,7 +776,7 @@
           "name": "createDump",
           "method": "POST",
           "path": "/dumps",
-          "descriptionTemplate": "Create a dump",
+          "descriptionTemplate": "Create dump",
           "params": [],
           "bodyTemplate": {}
         }

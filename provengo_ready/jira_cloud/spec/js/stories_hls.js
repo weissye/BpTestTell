@@ -9,7 +9,7 @@ function resolveDependencies(deps, pkMap) {
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
@@ -33,22 +33,19 @@ bthread("crud:Issue:nondet:1:1", function () {
   let historyMetadata = "historyMetadata_200";
   let id = 200;
   let issueIdOrKey = 200;
-  let issuetype = "issuetype_200";
   let key = "key_200";
-  let project = "project_200";
   let properties = "properties_200";
   let summary = "summary_200";
   let transition = "transition_200";
   let update = {};
-  let updateHistory = "updateHistory_200";
-  createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  deleteIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  createIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  editIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  deleteIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
 });
 
 // Story: crud:Issue:nondet:1:2
@@ -57,22 +54,19 @@ bthread("crud:Issue:nondet:1:2", function () {
   let historyMetadata = "historyMetadata_201";
   let id = 201;
   let issueIdOrKey = 201;
-  let issuetype = "issuetype_201";
   let key = "key_201";
-  let project = "project_201";
   let properties = "properties_201";
   let summary = "summary_201";
   let transition = "transition_201";
   let update = {};
-  let updateHistory = "updateHistory_201";
-  createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  deleteIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  createIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  editIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  deleteIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
 });
 
 // Story: crud:Issue:nondet:negative:dup-add
@@ -81,19 +75,16 @@ bthread("crud:Issue:nondet:negative:dup-add", function () {
   let historyMetadata = "historyMetadata_206";
   let id = 206;
   let issueIdOrKey = 206;
-  let issuetype = "issuetype_206";
   let key = "key_206";
-  let project = "project_206";
   let properties = "properties_206";
   let summary = "summary_206";
   let transition = "transition_206";
   let update = {};
-  let updateHistory = "updateHistory_206";
-  createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
-  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+  createIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  // waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
+  verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update);
 });
 
 // Story: crud:Event:read_only
@@ -105,24 +96,26 @@ bthread("crud:Event:read_only", function () {
 // Story: crud:IssueChangelog:read_only
 bthread("crud:IssueChangelog:read_only", function () {
   let changelogIds = "changelogIds_240";
+  let issueIdOrKey;
   verifyIssueChangelogExists(changelogIds, issueIdOrKey);
+});
+
+// Story: crud:IssueEditMeta:read_only
+bthread("crud:IssueEditMeta:read_only", function () {
+  let issueIdOrKey;
+  verifyIssueEditMetaExists(issueIdOrKey);
 });
 
 // Story: crud:IssueTransition:read_only
 bthread("crud:IssueTransition:read_only", function () {
   let fields = {};
-  let historyMetadata = "historyMetadata_260";
-  let properties = "properties_260";
-  let transition = "transition_260";
-  let transitionId = 260;
+  let historyMetadata = "historyMetadata_270";
+  let issueIdOrKey;
+  let properties = "properties_270";
+  let transition = "transition_270";
+  let transitionId = 270;
   let update = {};
   verifyIssueTransitionExists(fields, historyMetadata, issueIdOrKey, properties, transition, transitionId, update);
-});
-
-// Story: crud:IssueEditMeta:read_only
-bthread("crud:IssueEditMeta:read_only", function () {
-
-  verifyIssueEditMetaExists(issueIdOrKey);
 });
 
 // Story: crud:Workflow:nondet:1:1
@@ -131,9 +124,11 @@ bthread("crud:Workflow:nondet:1:1", function () {
   let expand = "expand_300";
   let id = 300;
   let isActive = "isActive_300";
+  let issueTypeIds;
   let maxResults = "maxResults_300";
   let name = "name_300";
   let orderBy = "orderBy_300";
+  let projectId;
   let queryString = "queryString_300";
   let scope = "scope_300";
   let startAt = "startAt_300";
@@ -150,7 +145,7 @@ bthread("crud:Workflow:nondet:1:1", function () {
   issueTypeIds = captured["issueTypeIds"];
   projectId = captured["projectId"];
   readWorkflowPreviews(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
-  // waitForWorkflowAdded(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  waitForWorkflowAdded(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
   tryToAddExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
   verifyWorkflowExists(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
   updateWorkflows(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
@@ -165,9 +160,11 @@ bthread("crud:Workflow:nondet:1:2", function () {
   let expand = "expand_301";
   let id = 301;
   let isActive = "isActive_301";
+  let issueTypeIds;
   let maxResults = "maxResults_301";
   let name = "name_301";
   let orderBy = "orderBy_301";
+  let projectId;
   let queryString = "queryString_301";
   let scope = "scope_301";
   let startAt = "startAt_301";
@@ -199,9 +196,11 @@ bthread("crud:Workflow:nondet:negative:dup-add", function () {
   let expand = "expand_306";
   let id = 306;
   let isActive = "isActive_306";
+  let issueTypeIds;
   let maxResults = "maxResults_306";
   let name = "name_306";
   let orderBy = "orderBy_306";
+  let projectId;
   let queryString = "queryString_306";
   let scope = "scope_306";
   let startAt = "startAt_306";
@@ -228,8 +227,9 @@ bthread("crud:Workflow:nondet:negative:dup-add", function () {
 bthread("crud:WorkflowsBulk:read_only", function () {
   let scope = "scope_310";
   let statuses = "statuses_310";
+  let useApprovalConfiguration = "useApprovalConfiguration_310";
   let workflows = "workflows_310";
-  verifyWorkflowsBulkExists(scope, statuses, workflows);
+  verifyWorkflowsBulkExists(scope, statuses, useApprovalConfiguration, workflows);
 });
 
 // Story: crud:IssueSecurityScheme:nondet:1:1
@@ -240,7 +240,7 @@ bthread("crud:IssueSecurityScheme:nondet:1:1", function () {
   let name = "name_320";
   let schemeId = 320;
   createIssueSecurityScheme(description, id, levels, name, schemeId);
-  // waitForIssueSecuritySchemeAdded(description, id, levels, name, schemeId);
+  waitForIssueSecuritySchemeAdded(description, id, levels, name, schemeId);
   tryToAddExistingIssueSecurityScheme(description, id, levels, name, schemeId);
   verifyIssueSecuritySchemeExists(description, id, levels, name, schemeId);
   updateIssueSecurityScheme(description, id, levels, name, schemeId);
@@ -282,47 +282,44 @@ bthread("crud:IssueSecurityScheme:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueSecurityLevel:nondet:1:1
 bthread("crud:IssueSecurityLevel:nondet:1:1", function () {
-  let id = 330;
   let levelId = 330;
   let name = "name_330";
   let schemeId = 330;
-  addSecurityLevel(id, levelId, name, schemeId);
-  // waitForIssueSecurityLevelAdded(id, levelId, name, schemeId);
-  tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId);
-  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
-  updateSecurityLevel(id, levelId, name, schemeId);
-  removeLevel(id, levelId, name, schemeId);
-  tryToDeleteANonExistingIssueSecurityLevel(id, levelId, name, schemeId);
-  verifyIssueSecurityLevelDoesNotExist(id, levelId, name, schemeId);
+  addSecurityLevel(levelId, name, schemeId);
+  waitForIssueSecurityLevelAdded(levelId, name, schemeId);
+  tryToAddExistingIssueSecurityLevel(levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(levelId, name, schemeId);
+  updateSecurityLevel(levelId, name, schemeId);
+  removeLevel(levelId, name, schemeId);
+  tryToDeleteANonExistingIssueSecurityLevel(levelId, name, schemeId);
+  verifyIssueSecurityLevelDoesNotExist(levelId, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevel:nondet:1:2
 bthread("crud:IssueSecurityLevel:nondet:1:2", function () {
-  let id = 331;
   let levelId = 331;
   let name = "name_331";
   let schemeId = 331;
-  addSecurityLevel(id, levelId, name, schemeId);
-  // waitForIssueSecurityLevelAdded(id, levelId, name, schemeId);
-  tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId);
-  updateSecurityLevel(id, levelId, name, schemeId);
-  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
-  removeLevel(id, levelId, name, schemeId);
-  tryToDeleteANonExistingIssueSecurityLevel(id, levelId, name, schemeId);
-  verifyIssueSecurityLevelDoesNotExist(id, levelId, name, schemeId);
+  addSecurityLevel(levelId, name, schemeId);
+  // waitForIssueSecurityLevelAdded(levelId, name, schemeId);
+  tryToAddExistingIssueSecurityLevel(levelId, name, schemeId);
+  updateSecurityLevel(levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(levelId, name, schemeId);
+  removeLevel(levelId, name, schemeId);
+  tryToDeleteANonExistingIssueSecurityLevel(levelId, name, schemeId);
+  verifyIssueSecurityLevelDoesNotExist(levelId, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevel:nondet:negative:dup-add
 bthread("crud:IssueSecurityLevel:nondet:negative:dup-add", function () {
-  let id = 336;
   let levelId = 336;
   let name = "name_336";
   let schemeId = 336;
-  addSecurityLevel(id, levelId, name, schemeId);
-  // waitForIssueSecurityLevelAdded(id, levelId, name, schemeId);
-  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
-  tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId);
-  verifyIssueSecurityLevelExists(id, levelId, name, schemeId);
+  addSecurityLevel(levelId, name, schemeId);
+  // waitForIssueSecurityLevelAdded(levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(levelId, name, schemeId);
+  tryToAddExistingIssueSecurityLevel(levelId, name, schemeId);
+  verifyIssueSecurityLevelExists(levelId, name, schemeId);
 });
 
 // Story: crud:IssueSecurityLevelMember:nondet:1:1
@@ -332,7 +329,7 @@ bthread("crud:IssueSecurityLevelMember:nondet:1:1", function () {
   let memberId = 340;
   let schemeId = 340;
   addSecurityLevelMembers(id, levelId, memberId, schemeId);
-  // waitForIssueSecurityLevelMemberAdded(id, levelId, memberId, schemeId);
+  waitForIssueSecurityLevelMemberAdded(id, levelId, memberId, schemeId);
   tryToAddExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId);
   verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId);
   removeMemberFromSecurityLevel(id, levelId, memberId, schemeId);
@@ -368,10 +365,11 @@ bthread("crud:IssueSecurityLevelMember:nondet:negative:dup-add", function () {
   verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId);
 });
 
-// Story: crud:IssueSecuritySchemeProjectAssociation:read_only
-bthread("crud:IssueSecuritySchemeProjectAssociation:read_only", function () {
+// Story: crud:IssueSecuritySchemeProject:read_only
+bthread("crud:IssueSecuritySchemeProject:read_only", function () {
+  let projectId;
   let schemeId = 350;
-  verifyIssueSecuritySchemeProjectAssociationExists(issueSecuritySchemeId, projectId, schemeId);
+  verifyIssueSecuritySchemeProjectExists(projectId, schemeId);
 });
 
 // Story: crud:Version:nondet:1:1
@@ -390,6 +388,7 @@ bthread("crud:Version:nondet:1:1", function () {
   let operations = "operations_370";
   let overdue = "overdue_370";
   let project = "project_370";
+  let projectId;
   let releaseDate = "releaseDate_370";
   let released = "released_370";
   let self = "self_370";
@@ -403,7 +402,7 @@ bthread("crud:Version:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   projectId = captured["projectId"];
   createVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
-  // waitForVersionAdded(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  waitForVersionAdded(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
   tryToAddExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
   verifyVersionExists(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
   updateVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
@@ -428,6 +427,7 @@ bthread("crud:Version:nondet:1:2", function () {
   let operations = "operations_371";
   let overdue = "overdue_371";
   let project = "project_371";
+  let projectId;
   let releaseDate = "releaseDate_371";
   let released = "released_371";
   let self = "self_371";
@@ -466,6 +466,7 @@ bthread("crud:Version:nondet:negative:dup-add", function () {
   let operations = "operations_376";
   let overdue = "overdue_376";
   let project = "project_376";
+  let projectId;
   let releaseDate = "releaseDate_376";
   let released = "released_376";
   let self = "self_376";
@@ -490,6 +491,7 @@ bthread("crud:ProjectVersions:read_only", function () {
   let expand = "expand_380";
   let maxResults = "maxResults_380";
   let orderBy = "orderBy_380";
+  let projectIdOrKey;
   let query = "query_380";
   let startAt = "startAt_380";
   let status = "status_380";
@@ -500,6 +502,8 @@ bthread("crud:ProjectVersions:read_only", function () {
 bthread("crud:VersionRelatedWork:read_only", function () {
   let category = "category_410";
   let id = 410;
+  let issueId;
+  let relatedWorkId;
   let title = "title_410";
   let url = "url_410";
   verifyVersionRelatedWorkExists(category, id, issueId, relatedWorkId, title, url);
@@ -525,7 +529,7 @@ bthread("crud:Dashboard:nondet:1:1", function () {
   let name = "name_460";
   let sharePermissions = "sharePermissions_460";
   createDashboard(description, editPermissions, id, name, sharePermissions);
-  // waitForDashboardAdded(description, editPermissions, id, name, sharePermissions);
+  waitForDashboardAdded(description, editPermissions, id, name, sharePermissions);
   tryToAddExistingDashboard(description, editPermissions, id, name, sharePermissions);
   verifyDashboardExists(description, editPermissions, id, name, sharePermissions);
   updateDashboard(description, editPermissions, id, name, sharePermissions);
@@ -568,6 +572,7 @@ bthread("crud:Dashboard:nondet:negative:dup-add", function () {
 // Story: crud:DashboardGadget:nondet:1:1
 bthread("crud:DashboardGadget:nondet:1:1", function () {
   let color = "color_470";
+  let dashboardId;
   let gadgetId = 470;
   let ignoreUriAndModuleKeyValidation = "ignoreUriAndModuleKeyValidation_470";
   let moduleKey = "moduleKey_470";
@@ -581,7 +586,7 @@ bthread("crud:DashboardGadget:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   dashboardId = captured["dashboardId"];
   addGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
-  // waitForDashboardGadgetAdded(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  waitForDashboardGadgetAdded(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
   tryToAddExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
   verifyDashboardGadgetExists(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
   updateGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
@@ -593,6 +598,7 @@ bthread("crud:DashboardGadget:nondet:1:1", function () {
 // Story: crud:DashboardGadget:nondet:1:2
 bthread("crud:DashboardGadget:nondet:1:2", function () {
   let color = "color_471";
+  let dashboardId;
   let gadgetId = 471;
   let ignoreUriAndModuleKeyValidation = "ignoreUriAndModuleKeyValidation_471";
   let moduleKey = "moduleKey_471";
@@ -618,6 +624,7 @@ bthread("crud:DashboardGadget:nondet:1:2", function () {
 // Story: crud:DashboardGadget:nondet:negative:dup-add
 bthread("crud:DashboardGadget:nondet:negative:dup-add", function () {
   let color = "color_476";
+  let dashboardId;
   let gadgetId = 476;
   let ignoreUriAndModuleKeyValidation = "ignoreUriAndModuleKeyValidation_476";
   let moduleKey = "moduleKey_476";
@@ -639,6 +646,7 @@ bthread("crud:DashboardGadget:nondet:negative:dup-add", function () {
 
 // Story: crud:DashboardItemProperty:read_only
 bthread("crud:DashboardItemProperty:read_only", function () {
+  let dashboardId;
   let itemId = 480;
   let propertyKey = "propertyKey_480";
   verifyDashboardItemPropertyExists(dashboardId, itemId, propertyKey);
@@ -652,8 +660,10 @@ bthread("crud:CustomFieldContext:nondet:1:1", function () {
   let id = 490;
   let isAnyIssueType = "isAnyIssueType_490";
   let isGlobalContext = "isGlobalContext_490";
+  let issueTypeIds;
   let maxResults = "maxResults_490";
   let name = "name_490";
+  let projectIds;
   let startAt = "startAt_490";
   // Dependency Barrier
   let deps = {};
@@ -666,7 +676,7 @@ bthread("crud:CustomFieldContext:nondet:1:1", function () {
   issueTypeIds = captured["issueTypeIds"];
   projectIds = captured["projectIds"];
   createCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
-  // waitForCustomFieldContextAdded(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  waitForCustomFieldContextAdded(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
   tryToAddExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
   verifyCustomFieldContextExists(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
   updateCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
@@ -683,8 +693,10 @@ bthread("crud:CustomFieldContext:nondet:1:2", function () {
   let id = 491;
   let isAnyIssueType = "isAnyIssueType_491";
   let isGlobalContext = "isGlobalContext_491";
+  let issueTypeIds;
   let maxResults = "maxResults_491";
   let name = "name_491";
+  let projectIds;
   let startAt = "startAt_491";
   // Dependency Barrier
   let deps = {};
@@ -714,8 +726,10 @@ bthread("crud:CustomFieldContext:nondet:negative:dup-add", function () {
   let id = 496;
   let isAnyIssueType = "isAnyIssueType_496";
   let isGlobalContext = "isGlobalContext_496";
+  let issueTypeIds;
   let maxResults = "maxResults_496";
   let name = "name_496";
+  let projectIds;
   let startAt = "startAt_496";
   // Dependency Barrier
   let deps = {};
@@ -761,9 +775,84 @@ bthread("crud:CustomFieldContextProjectMapping:read_only", function () {
   verifyCustomFieldContextProjectMappingExists(contextId, fieldId, maxResults, startAt);
 });
 
+// Story: crud:CustomFieldContextIssueType:nondet:1:1
+bthread("crud:CustomFieldContextIssueType:nondet:1:1", function () {
+  let contextId = 530;
+  let fieldId = 530;
+  addIssueTypesToContext(contextId, fieldId);
+  waitForCustomFieldContextIssueTypeAdded(contextId, fieldId);
+  tryToAddExistingCustomFieldContextIssueType(contextId, fieldId);
+  verifyCustomFieldContextIssueTypeExists(contextId, fieldId);
+  removeIssueTypesFromContext(contextId, fieldId);
+  tryToDeleteANonExistingCustomFieldContextIssueType(contextId, fieldId);
+  verifyCustomFieldContextIssueTypeDoesNotExist(contextId, fieldId);
+});
+
+// Story: crud:CustomFieldContextIssueType:nondet:1:2
+bthread("crud:CustomFieldContextIssueType:nondet:1:2", function () {
+  let contextId = 531;
+  let fieldId = 531;
+  addIssueTypesToContext(contextId, fieldId);
+  // waitForCustomFieldContextIssueTypeAdded(contextId, fieldId);
+  tryToAddExistingCustomFieldContextIssueType(contextId, fieldId);
+  verifyCustomFieldContextIssueTypeExists(contextId, fieldId);
+  removeIssueTypesFromContext(contextId, fieldId);
+  tryToDeleteANonExistingCustomFieldContextIssueType(contextId, fieldId);
+  verifyCustomFieldContextIssueTypeDoesNotExist(contextId, fieldId);
+});
+
+// Story: crud:CustomFieldContextIssueType:nondet:negative:dup-add
+bthread("crud:CustomFieldContextIssueType:nondet:negative:dup-add", function () {
+  let contextId = 536;
+  let fieldId = 536;
+  addIssueTypesToContext(contextId, fieldId);
+  // waitForCustomFieldContextIssueTypeAdded(contextId, fieldId);
+  verifyCustomFieldContextIssueTypeExists(contextId, fieldId);
+  tryToAddExistingCustomFieldContextIssueType(contextId, fieldId);
+  verifyCustomFieldContextIssueTypeExists(contextId, fieldId);
+});
+
+// Story: crud:CustomFieldContextProject:nondet:1:1
+bthread("crud:CustomFieldContextProject:nondet:1:1", function () {
+  let contextId = 540;
+  let fieldId = 540;
+  assignProjectsToCustomFieldContext(contextId, fieldId);
+  waitForCustomFieldContextProjectAdded(contextId, fieldId);
+  tryToAddExistingCustomFieldContextProject(contextId, fieldId);
+  verifyCustomFieldContextProjectExists(contextId, fieldId);
+  removeCustomFieldContextFromProjects(contextId, fieldId);
+  tryToDeleteANonExistingCustomFieldContextProject(contextId, fieldId);
+  verifyCustomFieldContextProjectDoesNotExist(contextId, fieldId);
+});
+
+// Story: crud:CustomFieldContextProject:nondet:1:2
+bthread("crud:CustomFieldContextProject:nondet:1:2", function () {
+  let contextId = 541;
+  let fieldId = 541;
+  assignProjectsToCustomFieldContext(contextId, fieldId);
+  // waitForCustomFieldContextProjectAdded(contextId, fieldId);
+  tryToAddExistingCustomFieldContextProject(contextId, fieldId);
+  verifyCustomFieldContextProjectExists(contextId, fieldId);
+  removeCustomFieldContextFromProjects(contextId, fieldId);
+  tryToDeleteANonExistingCustomFieldContextProject(contextId, fieldId);
+  verifyCustomFieldContextProjectDoesNotExist(contextId, fieldId);
+});
+
+// Story: crud:CustomFieldContextProject:nondet:negative:dup-add
+bthread("crud:CustomFieldContextProject:nondet:negative:dup-add", function () {
+  let contextId = 546;
+  let fieldId = 546;
+  assignProjectsToCustomFieldContext(contextId, fieldId);
+  // waitForCustomFieldContextProjectAdded(contextId, fieldId);
+  verifyCustomFieldContextProjectExists(contextId, fieldId);
+  tryToAddExistingCustomFieldContextProject(contextId, fieldId);
+  verifyCustomFieldContextProjectExists(contextId, fieldId);
+});
+
 // Story: crud:Project:nondet:1:1
 bthread("crud:Project:nondet:1:1", function () {
   let assigneeType = "assigneeType_550";
+  let avatarId;
   let categoryId = 550;
   let description = "description_550";
   let fieldConfigurationScheme = 550;
@@ -788,7 +877,7 @@ bthread("crud:Project:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   avatarId = captured["avatarId"];
   createProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
-  // waitForProjectAdded(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  waitForProjectAdded(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
   tryToAddExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
   verifyProjectExists(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
   updateProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
@@ -800,6 +889,7 @@ bthread("crud:Project:nondet:1:1", function () {
 // Story: crud:Project:nondet:1:2
 bthread("crud:Project:nondet:1:2", function () {
   let assigneeType = "assigneeType_551";
+  let avatarId;
   let categoryId = 551;
   let description = "description_551";
   let fieldConfigurationScheme = 551;
@@ -836,6 +926,7 @@ bthread("crud:Project:nondet:1:2", function () {
 // Story: crud:Project:nondet:negative:dup-add
 bthread("crud:Project:nondet:negative:dup-add", function () {
   let assigneeType = "assigneeType_556";
+  let avatarId;
   let categoryId = 556;
   let description = "description_556";
   let fieldConfigurationScheme = 556;
@@ -876,7 +967,7 @@ bthread("crud:FieldConfiguration:nondet:1:1", function () {
   let query = "query_560";
   let startAt = "startAt_560";
   createFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
-  // waitForFieldConfigurationAdded(description, id, isDefault, maxResults, name, query, startAt);
+  waitForFieldConfigurationAdded(description, id, isDefault, maxResults, name, query, startAt);
   tryToAddExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
   verifyFieldConfigurationExists(description, id, isDefault, maxResults, name, query, startAt);
   updateFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt);
@@ -936,7 +1027,7 @@ bthread("crud:FieldConfigurationScheme:nondet:1:1", function () {
   let name = "name_580";
   let startAt = "startAt_580";
   createFieldConfigurationScheme(description, id, maxResults, name, startAt);
-  // waitForFieldConfigurationSchemeAdded(description, id, maxResults, name, startAt);
+  waitForFieldConfigurationSchemeAdded(description, id, maxResults, name, startAt);
   tryToAddExistingFieldConfigurationScheme(description, id, maxResults, name, startAt);
   verifyFieldConfigurationSchemeExists(description, id, maxResults, name, startAt);
   updateFieldConfigurationScheme(description, id, maxResults, name, startAt);
@@ -978,6 +1069,7 @@ bthread("crud:FieldConfigurationScheme:nondet:negative:dup-add", function () {
 
 // Story: crud:FieldConfigurationSchemeMapping:read_only
 bthread("crud:FieldConfigurationSchemeMapping:read_only", function () {
+  let fieldConfigurationSchemeId;
   let id = 590;
   let maxResults = "maxResults_590";
   let startAt = "startAt_590";
@@ -987,6 +1079,7 @@ bthread("crud:FieldConfigurationSchemeMapping:read_only", function () {
 // Story: crud:FieldConfigurationSchemeProjectAssociation:read_only
 bthread("crud:FieldConfigurationSchemeProjectAssociation:read_only", function () {
   let maxResults = "maxResults_600";
+  let projectId;
   let startAt = "startAt_600";
   verifyFieldConfigurationSchemeProjectAssociationExists(maxResults, projectId, startAt);
 });
@@ -1002,6 +1095,7 @@ bthread("crud:User:nondet:1:1", function () {
   let exclude = "exclude_610";
   let excludeAccountIds = "excludeAccountIds_610";
   let excludeConnectUsers = "excludeConnectUsers_610";
+  let issueId;
   let issueKey = "issueKey_610";
   let key = "key_610";
   let maxResult = "maxResult_610";
@@ -1026,7 +1120,7 @@ bthread("crud:User:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   issueId = captured["issueId"];
   createUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
-  // waitForUserAdded(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  waitForUserAdded(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
   tryToAddExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
   verifyUserExists(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
   removeUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
@@ -1045,6 +1139,7 @@ bthread("crud:User:nondet:1:2", function () {
   let exclude = "exclude_611";
   let excludeAccountIds = "excludeAccountIds_611";
   let excludeConnectUsers = "excludeConnectUsers_611";
+  let issueId;
   let issueKey = "issueKey_611";
   let key = "key_611";
   let maxResult = "maxResult_611";
@@ -1088,6 +1183,7 @@ bthread("crud:User:nondet:negative:dup-add", function () {
   let exclude = "exclude_616";
   let excludeAccountIds = "excludeAccountIds_616";
   let excludeConnectUsers = "excludeConnectUsers_616";
+  let issueId;
   let issueKey = "issueKey_616";
   let key = "key_616";
   let maxResult = "maxResult_616";
@@ -1182,17 +1278,16 @@ bthread("crud:WorkflowScheme:nondet:1:1", function () {
   let name = "name_700";
   let originalDefaultWorkflow = "originalDefaultWorkflow_700";
   let originalIssueTypeMappings = {};
-  let returnDraftIfExists = "returnDraftIfExists_700";
   let self = "self_700";
   let updateDraftIfNeeded = "updateDraftIfNeeded_700";
-  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
 });
 
 // Story: crud:WorkflowScheme:nondet:1:2
@@ -1208,17 +1303,16 @@ bthread("crud:WorkflowScheme:nondet:1:2", function () {
   let name = "name_701";
   let originalDefaultWorkflow = "originalDefaultWorkflow_701";
   let originalIssueTypeMappings = {};
-  let returnDraftIfExists = "returnDraftIfExists_701";
   let self = "self_701";
   let updateDraftIfNeeded = "updateDraftIfNeeded_701";
-  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
 });
 
 // Story: crud:WorkflowScheme:nondet:negative:dup-add
@@ -1234,40 +1328,33 @@ bthread("crud:WorkflowScheme:nondet:negative:dup-add", function () {
   let name = "name_706";
   let originalDefaultWorkflow = "originalDefaultWorkflow_706";
   let originalIssueTypeMappings = {};
-  let returnDraftIfExists = "returnDraftIfExists_706";
   let self = "self_706";
   let updateDraftIfNeeded = "updateDraftIfNeeded_706";
-  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
-  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+  createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  // waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
+  verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded);
 });
 
 // Story: crud:WorkflowSchemeDefaultWorkflow:read_only
 bthread("crud:WorkflowSchemeDefaultWorkflow:read_only", function () {
   let id = 710;
-  let returnDraftIfExists = "returnDraftIfExists_710";
-  let updateDraftIfNeeded = "updateDraftIfNeeded_710";
-  verifyWorkflowSchemeDefaultWorkflowExists(id, returnDraftIfExists, updateDraftIfNeeded);
+  verifyWorkflowSchemeDefaultWorkflowExists(id);
 });
 
 // Story: crud:WorkflowSchemeIssueType:read_only
 bthread("crud:WorkflowSchemeIssueType:read_only", function () {
   let id = 720;
   let issueType = "issueType_720";
-  let returnDraftIfExists = "returnDraftIfExists_720";
-  let updateDraftIfNeeded = "updateDraftIfNeeded_720";
-  verifyWorkflowSchemeIssueTypeExists(id, issueType, returnDraftIfExists, updateDraftIfNeeded);
+  verifyWorkflowSchemeIssueTypeExists(id, issueType);
 });
 
 // Story: crud:WorkflowSchemeWorkflowMapping:read_only
 bthread("crud:WorkflowSchemeWorkflowMapping:read_only", function () {
   let id = 730;
-  let returnDraftIfExists = "returnDraftIfExists_730";
-  let updateDraftIfNeeded = "updateDraftIfNeeded_730";
   let workflowName = "workflowName_730";
-  verifyWorkflowSchemeWorkflowMappingExists(id, returnDraftIfExists, updateDraftIfNeeded, workflowName);
+  verifyWorkflowSchemeWorkflowMappingExists(id, workflowName);
 });
 
 // Story: crud:CustomField:nondet:1:1
@@ -1279,7 +1366,7 @@ bthread("crud:CustomField:nondet:1:1", function () {
   let searcherKey = "searcherKey_740";
   let type = "type_740";
   createCustomField(description, fieldId, id, name, searcherKey, type);
-  // waitForCustomFieldAdded(description, fieldId, id, name, searcherKey, type);
+  waitForCustomFieldAdded(description, fieldId, id, name, searcherKey, type);
   tryToAddExistingCustomField(description, fieldId, id, name, searcherKey, type);
   verifyCustomFieldExists(description, fieldId, id, name, searcherKey, type);
   updateCustomField(description, fieldId, id, name, searcherKey, type);
@@ -1323,23 +1410,23 @@ bthread("crud:CustomField:nondet:negative:dup-add", function () {
 
 // Story: crud:Filter:nondet:1:1
 bthread("crud:Filter:nondet:1:1", function () {
-  let approximateLastUsed = "approximateLastUsed_760";
-  let description = "description_760";
-  let editPermissions = "editPermissions_760";
-  let favourite = "favourite_760";
-  let favouritedCount = 760;
-  let id = 760;
-  let jql = "jql_760";
-  let name = "name_760";
-  let owner = "owner_760";
-  let searchUrl = "searchUrl_760";
-  let self = "self_760";
-  let sharePermissions = "sharePermissions_760";
-  let sharedUsers = "sharedUsers_760";
-  let subscriptions = "subscriptions_760";
-  let viewUrl = "viewUrl_760";
+  let approximateLastUsed = "approximateLastUsed_750";
+  let description = "description_750";
+  let editPermissions = "editPermissions_750";
+  let favourite = "favourite_750";
+  let favouritedCount = 750;
+  let id = 750;
+  let jql = "jql_750";
+  let name = "name_750";
+  let owner = "owner_750";
+  let searchUrl = "searchUrl_750";
+  let self = "self_750";
+  let sharePermissions = "sharePermissions_750";
+  let sharedUsers = "sharedUsers_750";
+  let subscriptions = "subscriptions_750";
+  let viewUrl = "viewUrl_750";
   createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
-  // waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   tryToAddExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   updateFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
@@ -1350,21 +1437,21 @@ bthread("crud:Filter:nondet:1:1", function () {
 
 // Story: crud:Filter:nondet:1:2
 bthread("crud:Filter:nondet:1:2", function () {
-  let approximateLastUsed = "approximateLastUsed_761";
-  let description = "description_761";
-  let editPermissions = "editPermissions_761";
-  let favourite = "favourite_761";
-  let favouritedCount = 761;
-  let id = 761;
-  let jql = "jql_761";
-  let name = "name_761";
-  let owner = "owner_761";
-  let searchUrl = "searchUrl_761";
-  let self = "self_761";
-  let sharePermissions = "sharePermissions_761";
-  let sharedUsers = "sharedUsers_761";
-  let subscriptions = "subscriptions_761";
-  let viewUrl = "viewUrl_761";
+  let approximateLastUsed = "approximateLastUsed_751";
+  let description = "description_751";
+  let editPermissions = "editPermissions_751";
+  let favourite = "favourite_751";
+  let favouritedCount = 751;
+  let id = 751;
+  let jql = "jql_751";
+  let name = "name_751";
+  let owner = "owner_751";
+  let searchUrl = "searchUrl_751";
+  let self = "self_751";
+  let sharePermissions = "sharePermissions_751";
+  let sharedUsers = "sharedUsers_751";
+  let subscriptions = "subscriptions_751";
+  let viewUrl = "viewUrl_751";
   createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   // waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   tryToAddExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
@@ -1377,21 +1464,21 @@ bthread("crud:Filter:nondet:1:2", function () {
 
 // Story: crud:Filter:nondet:negative:dup-add
 bthread("crud:Filter:nondet:negative:dup-add", function () {
-  let approximateLastUsed = "approximateLastUsed_766";
-  let description = "description_766";
-  let editPermissions = "editPermissions_766";
-  let favourite = "favourite_766";
-  let favouritedCount = 766;
-  let id = 766;
-  let jql = "jql_766";
-  let name = "name_766";
-  let owner = "owner_766";
-  let searchUrl = "searchUrl_766";
-  let self = "self_766";
-  let sharePermissions = "sharePermissions_766";
-  let sharedUsers = "sharedUsers_766";
-  let subscriptions = "subscriptions_766";
-  let viewUrl = "viewUrl_766";
+  let approximateLastUsed = "approximateLastUsed_756";
+  let description = "description_756";
+  let editPermissions = "editPermissions_756";
+  let favourite = "favourite_756";
+  let favouritedCount = 756;
+  let id = 756;
+  let jql = "jql_756";
+  let name = "name_756";
+  let owner = "owner_756";
+  let searchUrl = "searchUrl_756";
+  let self = "self_756";
+  let sharePermissions = "sharePermissions_756";
+  let sharedUsers = "sharedUsers_756";
+  let subscriptions = "subscriptions_756";
+  let viewUrl = "viewUrl_756";
   createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   // waitForFilterAdded(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
   verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
@@ -1401,15 +1488,15 @@ bthread("crud:Filter:nondet:negative:dup-add", function () {
 
 // Story: crud:FilterColumns:read_only
 bthread("crud:FilterColumns:read_only", function () {
-  let id = 770;
+  let id = 760;
   verifyFilterColumnsExists(id);
 });
 
 // Story: crud:FilterFavourite:nondet:1:1
 bthread("crud:FilterFavourite:nondet:1:1", function () {
-  let id = 780;
+  let id = 770;
   setFavouriteForFilter(id);
-  // waitForFilterFavouriteAdded(id);
+  waitForFilterFavouriteAdded(id);
   tryToAddExistingFilterFavourite(id);
   verifyFilterFavouriteExists(id);
   deleteFavouriteForFilter(id);
@@ -1419,7 +1506,7 @@ bthread("crud:FilterFavourite:nondet:1:1", function () {
 
 // Story: crud:FilterFavourite:nondet:1:2
 bthread("crud:FilterFavourite:nondet:1:2", function () {
-  let id = 781;
+  let id = 771;
   setFavouriteForFilter(id);
   // waitForFilterFavouriteAdded(id);
   tryToAddExistingFilterFavourite(id);
@@ -1431,7 +1518,7 @@ bthread("crud:FilterFavourite:nondet:1:2", function () {
 
 // Story: crud:FilterFavourite:nondet:negative:dup-add
 bthread("crud:FilterFavourite:nondet:negative:dup-add", function () {
-  let id = 786;
+  let id = 776;
   setFavouriteForFilter(id);
   // waitForFilterFavouriteAdded(id);
   verifyFilterFavouriteExists(id);
@@ -1441,15 +1528,16 @@ bthread("crud:FilterFavourite:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueTypeScreenScheme:nondet:1:1
 bthread("crud:IssueTypeScreenScheme:nondet:1:1", function () {
-  let description = "description_800";
-  let expand = "expand_800";
-  let id = 800;
-  let issueTypeMappings = "issueTypeMappings_800";
-  let maxResults = "maxResults_800";
-  let name = "name_800";
-  let orderBy = "orderBy_800";
-  let queryString = "queryString_800";
-  let startAt = "startAt_800";
+  let description = "description_790";
+  let expand = "expand_790";
+  let id = 790;
+  let issueTypeMappings = "issueTypeMappings_790";
+  let issueTypeScreenSchemeId;
+  let maxResults = "maxResults_790";
+  let name = "name_790";
+  let orderBy = "orderBy_790";
+  let queryString = "queryString_790";
+  let startAt = "startAt_790";
   // Dependency Barrier
   let deps = {};
   deps["issueTypeScreenSchemeId"] = matchAnyIssueAdded();
@@ -1461,7 +1549,7 @@ bthread("crud:IssueTypeScreenScheme:nondet:1:1", function () {
   issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
   issueTypeScreenSchemeId = captured["issueTypeScreenSchemeId"];
   createIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
-  // waitForIssueTypeScreenSchemeAdded(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  waitForIssueTypeScreenSchemeAdded(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
   tryToAddExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
   verifyIssueTypeScreenSchemeExists(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
   updateIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
@@ -1472,15 +1560,16 @@ bthread("crud:IssueTypeScreenScheme:nondet:1:1", function () {
 
 // Story: crud:IssueTypeScreenScheme:nondet:1:2
 bthread("crud:IssueTypeScreenScheme:nondet:1:2", function () {
-  let description = "description_801";
-  let expand = "expand_801";
-  let id = 801;
-  let issueTypeMappings = "issueTypeMappings_801";
-  let maxResults = "maxResults_801";
-  let name = "name_801";
-  let orderBy = "orderBy_801";
-  let queryString = "queryString_801";
-  let startAt = "startAt_801";
+  let description = "description_791";
+  let expand = "expand_791";
+  let id = 791;
+  let issueTypeMappings = "issueTypeMappings_791";
+  let issueTypeScreenSchemeId;
+  let maxResults = "maxResults_791";
+  let name = "name_791";
+  let orderBy = "orderBy_791";
+  let queryString = "queryString_791";
+  let startAt = "startAt_791";
   // Dependency Barrier
   let deps = {};
   deps["issueTypeScreenSchemeId"] = matchAnyIssueAdded();
@@ -1503,15 +1592,16 @@ bthread("crud:IssueTypeScreenScheme:nondet:1:2", function () {
 
 // Story: crud:IssueTypeScreenScheme:nondet:negative:dup-add
 bthread("crud:IssueTypeScreenScheme:nondet:negative:dup-add", function () {
-  let description = "description_806";
-  let expand = "expand_806";
-  let id = 806;
-  let issueTypeMappings = "issueTypeMappings_806";
-  let maxResults = "maxResults_806";
-  let name = "name_806";
-  let orderBy = "orderBy_806";
-  let queryString = "queryString_806";
-  let startAt = "startAt_806";
+  let description = "description_796";
+  let expand = "expand_796";
+  let id = 796;
+  let issueTypeMappings = "issueTypeMappings_796";
+  let issueTypeScreenSchemeId;
+  let maxResults = "maxResults_796";
+  let name = "name_796";
+  let orderBy = "orderBy_796";
+  let queryString = "queryString_796";
+  let startAt = "startAt_796";
   // Dependency Barrier
   let deps = {};
   deps["issueTypeScreenSchemeId"] = matchAnyIssueAdded();
@@ -1531,133 +1621,88 @@ bthread("crud:IssueTypeScreenScheme:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueTypeScreenSchemeMapping:read_only
 bthread("crud:IssueTypeScreenSchemeMapping:read_only", function () {
-  let maxResults = "maxResults_810";
-  let startAt = "startAt_810";
-  verifyIssueTypeScreenSchemeMappingExists(issueTypeScreenSchemeId, maxResults, startAt);
+  let issueTypeIds;
+  let issueTypeScreenSchemeId;
+  let maxResults = "maxResults_800";
+  let screenSchemeId;
+  let startAt = "startAt_800";
+  verifyIssueTypeScreenSchemeMappingExists(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt);
 });
 
 // Story: crud:IssueTypeScreenSchemeProjectAssociation:read_only
 bthread("crud:IssueTypeScreenSchemeProjectAssociation:read_only", function () {
-  let maxResults = "maxResults_820";
-  let startAt = "startAt_820";
+  let issueTypeScreenSchemeId;
+  let maxResults = "maxResults_810";
+  let projectId;
+  let startAt = "startAt_810";
   verifyIssueTypeScreenSchemeProjectAssociationExists(issueTypeScreenSchemeId, maxResults, projectId, startAt);
 });
 
 // Story: crud:IssueTypeScreenSchemeProject:read_only
 bthread("crud:IssueTypeScreenSchemeProject:read_only", function () {
-  let maxResults = "maxResults_830";
-  let query = "query_830";
-  let startAt = "startAt_830";
+  let issueTypeScreenSchemeId;
+  let maxResults = "maxResults_820";
+  let query = "query_820";
+  let startAt = "startAt_820";
   verifyIssueTypeScreenSchemeProjectExists(issueTypeScreenSchemeId, maxResults, query, startAt);
 });
 
 // Story: crud:Attachment:read_only
 bthread("crud:Attachment:read_only", function () {
-  let id = 840;
+  let id = 830;
   verifyAttachmentExists(id);
 });
 
 // Story: crud:AttachmentContent:read_only
 bthread("crud:AttachmentContent:read_only", function () {
-  let id = 850;
+  let id = 840;
   verifyAttachmentContentExists(id);
 });
 
 // Story: crud:AttachmentThumbnail:read_only
 bthread("crud:AttachmentThumbnail:read_only", function () {
-  let id = 860;
+  let id = 850;
   verifyAttachmentThumbnailExists(id);
 });
 
 // Story: crud:AttachmentExpandedHuman:read_only
 bthread("crud:AttachmentExpandedHuman:read_only", function () {
-  let id = 870;
+  let id = 860;
   verifyAttachmentExpandedHumanExists(id);
 });
 
 // Story: crud:AttachmentExpandedRaw:read_only
 bthread("crud:AttachmentExpandedRaw:read_only", function () {
-  let id = 880;
+  let id = 870;
   verifyAttachmentExpandedRawExists(id);
 });
 
-// Story: crud:IssueBulk:nondet:1:1
-bthread("crud:IssueBulk:nondet:1:1", function () {
-  let editedFieldsInput = "editedFieldsInput_900";
-  let selectedActions = "selectedActions_900";
-  let sendBulkNotification = "sendBulkNotification_900";
+// Story: crud:AttachmentMeta:read_only
+bthread("crud:AttachmentMeta:read_only", function () {
+
+  verifyAttachmentMetaExists();
+});
+
+// Story: crud:IssueBulk:read_only
+bthread("crud:IssueBulk:read_only", function () {
+  let endingBefore = "endingBefore_900";
+  let issueIdsOrKeys;
+  let searchText = "searchText_900";
+  let selectedIssueIdsOrKeys;
+  let startingAfter = "startingAfter_900";
   let taskId = 900;
   let transitionId = 900;
-  // Dependency Barrier
-  let deps = {};
-  deps["issueIdsOrKeys"] = matchAnyIssueAdded();
-  deps["selectedIssueIdsOrKeys"] = matchAnyIssueAdded();
-  let pkMap = {"issueIdsOrKeys": "issueIdOrKey", "selectedIssueIdsOrKeys": "issueIdOrKey"};
-  let captured = resolveDependencies(deps, pkMap);
-  issueIdsOrKeys = captured["issueIdsOrKeys"];
-  selectedIssueIdsOrKeys = captured["selectedIssueIdsOrKeys"];
-  submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  // waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  submitBulkMove(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  submitBulkDelete(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  tryToDeleteANonExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  verifyIssueBulkDoesNotExist(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-});
-
-// Story: crud:IssueBulk:nondet:1:2
-bthread("crud:IssueBulk:nondet:1:2", function () {
-  let editedFieldsInput = "editedFieldsInput_901";
-  let selectedActions = "selectedActions_901";
-  let sendBulkNotification = "sendBulkNotification_901";
-  let taskId = 901;
-  let transitionId = 901;
-  // Dependency Barrier
-  let deps = {};
-  deps["issueIdsOrKeys"] = matchAnyIssueAdded();
-  deps["selectedIssueIdsOrKeys"] = matchAnyIssueAdded();
-  let pkMap = {"issueIdsOrKeys": "issueIdOrKey", "selectedIssueIdsOrKeys": "issueIdOrKey"};
-  let captured = resolveDependencies(deps, pkMap);
-  issueIdsOrKeys = captured["issueIdsOrKeys"];
-  selectedIssueIdsOrKeys = captured["selectedIssueIdsOrKeys"];
-  submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  // waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  submitBulkMove(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  submitBulkDelete(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  tryToDeleteANonExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  verifyIssueBulkDoesNotExist(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-});
-
-// Story: crud:IssueBulk:nondet:negative:dup-add
-bthread("crud:IssueBulk:nondet:negative:dup-add", function () {
-  let editedFieldsInput = "editedFieldsInput_906";
-  let selectedActions = "selectedActions_906";
-  let sendBulkNotification = "sendBulkNotification_906";
-  let taskId = 906;
-  let transitionId = 906;
-  // Dependency Barrier
-  let deps = {};
-  deps["issueIdsOrKeys"] = matchAnyIssueAdded();
-  deps["selectedIssueIdsOrKeys"] = matchAnyIssueAdded();
-  let pkMap = {"issueIdsOrKeys": "issueIdOrKey", "selectedIssueIdsOrKeys": "issueIdOrKey"};
-  let captured = resolveDependencies(deps, pkMap);
-  issueIdsOrKeys = captured["issueIdsOrKeys"];
-  selectedIssueIdsOrKeys = captured["selectedIssueIdsOrKeys"];
-  submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  // waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
-  verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+  verifyIssueBulkExists(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId);
 });
 
 // Story: crud:IssueTypeScheme:nondet:1:1
 bthread("crud:IssueTypeScheme:nondet:1:1", function () {
+  let defaultIssueTypeId;
   let description = "description_910";
   let expand = "expand_910";
   let id = 910;
+  let issueTypeIds;
+  let issueTypeSchemeId;
   let maxResults = "maxResults_910";
   let name = "name_910";
   let orderBy = "orderBy_910";
@@ -1680,7 +1725,7 @@ bthread("crud:IssueTypeScheme:nondet:1:1", function () {
   issueTypeSchemeId = captured["issueTypeSchemeId"];
   issueTypeSchemeId = captured["issueTypeSchemeId"];
   createIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
-  // waitForIssueTypeSchemeAdded(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  waitForIssueTypeSchemeAdded(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
   tryToAddExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
   verifyIssueTypeSchemeExists(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
   updateIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
@@ -1691,9 +1736,12 @@ bthread("crud:IssueTypeScheme:nondet:1:1", function () {
 
 // Story: crud:IssueTypeScheme:nondet:1:2
 bthread("crud:IssueTypeScheme:nondet:1:2", function () {
+  let defaultIssueTypeId;
   let description = "description_911";
   let expand = "expand_911";
   let id = 911;
+  let issueTypeIds;
+  let issueTypeSchemeId;
   let maxResults = "maxResults_911";
   let name = "name_911";
   let orderBy = "orderBy_911";
@@ -1727,9 +1775,12 @@ bthread("crud:IssueTypeScheme:nondet:1:2", function () {
 
 // Story: crud:IssueTypeScheme:nondet:negative:dup-add
 bthread("crud:IssueTypeScheme:nondet:negative:dup-add", function () {
+  let defaultIssueTypeId;
   let description = "description_916";
   let expand = "expand_916";
   let id = 916;
+  let issueTypeIds;
+  let issueTypeSchemeId;
   let maxResults = "maxResults_916";
   let name = "name_916";
   let orderBy = "orderBy_916";
@@ -1761,12 +1812,14 @@ bthread("crud:IssueTypeScheme:nondet:negative:dup-add", function () {
 // Story: crud:IssueTypeSchemeProjectAssociation:read_only
 bthread("crud:IssueTypeSchemeProjectAssociation:read_only", function () {
   let maxResults = "maxResults_920";
+  let projectId;
   let startAt = "startAt_920";
   verifyIssueTypeSchemeProjectAssociationExists(maxResults, projectId, startAt);
 });
 
 // Story: crud:IssueTypeSchemeMapping:read_only
 bthread("crud:IssueTypeSchemeMapping:read_only", function () {
+  let issueTypeSchemeId;
   let maxResults = "maxResults_930";
   let startAt = "startAt_930";
   verifyIssueTypeSchemeMappingExists(issueTypeSchemeId, maxResults, startAt);
@@ -1774,7 +1827,8 @@ bthread("crud:IssueTypeSchemeMapping:read_only", function () {
 
 // Story: crud:IssueTypeInScheme:nondet:1:1
 bthread("crud:IssueTypeInScheme:nondet:1:1", function () {
-
+  let issueTypeId;
+  let issueTypeSchemeId;
   // Dependency Barrier
   let deps = {};
   deps["issueTypeId"] = matchAnyIssueAdded();
@@ -1790,7 +1844,7 @@ bthread("crud:IssueTypeInScheme:nondet:1:1", function () {
   issueTypeSchemeId = captured["issueTypeSchemeId"];
   issueTypeSchemeId = captured["issueTypeSchemeId"];
   addIssueTypesToIssueTypeScheme(issueTypeId, issueTypeSchemeId);
-  // waitForIssueTypeInSchemeAdded(issueTypeId, issueTypeSchemeId);
+  waitForIssueTypeInSchemeAdded(issueTypeId, issueTypeSchemeId);
   tryToAddExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId);
   verifyIssueTypeInSchemeExists(issueTypeId, issueTypeSchemeId);
   reorderIssueTypesInIssueTypeScheme(issueTypeId, issueTypeSchemeId);
@@ -1801,7 +1855,8 @@ bthread("crud:IssueTypeInScheme:nondet:1:1", function () {
 
 // Story: crud:IssueTypeInScheme:nondet:1:2
 bthread("crud:IssueTypeInScheme:nondet:1:2", function () {
-
+  let issueTypeId;
+  let issueTypeSchemeId;
   // Dependency Barrier
   let deps = {};
   deps["issueTypeId"] = matchAnyIssueAdded();
@@ -1828,7 +1883,8 @@ bthread("crud:IssueTypeInScheme:nondet:1:2", function () {
 
 // Story: crud:IssueTypeInScheme:nondet:negative:dup-add
 bthread("crud:IssueTypeInScheme:nondet:negative:dup-add", function () {
-
+  let issueTypeId;
+  let issueTypeSchemeId;
   // Dependency Barrier
   let deps = {};
   deps["issueTypeId"] = matchAnyIssueAdded();
@@ -1853,53 +1909,56 @@ bthread("crud:IssueTypeInScheme:nondet:negative:dup-add", function () {
 // Story: crud:Avatar:nondet:1:1
 bthread("crud:Avatar:nondet:1:1", function () {
   let entityId = 950;
+  let format = "format_950";
   let id = 950;
   let owningObjectId = 950;
   let size = "size_950";
   let type = 950;
   let x = "x_950";
   let y = "y_950";
-  storeAvatar(entityId, id, owningObjectId, size, type, x, y);
-  // waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y);
-  tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
-  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
-  deleteAvatar(entityId, id, owningObjectId, size, type, x, y);
-  tryToDeleteANonExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
-  verifyAvatarDoesNotExist(entityId, id, owningObjectId, size, type, x, y);
+  storeAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  waitForAvatarAdded(entityId, format, id, owningObjectId, size, type, x, y);
+  tryToAddExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, format, id, owningObjectId, size, type, x, y);
+  deleteAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  tryToDeleteANonExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  verifyAvatarDoesNotExist(entityId, format, id, owningObjectId, size, type, x, y);
 });
 
 // Story: crud:Avatar:nondet:1:2
 bthread("crud:Avatar:nondet:1:2", function () {
   let entityId = 951;
+  let format = "format_951";
   let id = 951;
   let owningObjectId = 951;
   let size = "size_951";
   let type = 951;
   let x = "x_951";
   let y = "y_951";
-  storeAvatar(entityId, id, owningObjectId, size, type, x, y);
-  // waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y);
-  tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
-  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
-  deleteAvatar(entityId, id, owningObjectId, size, type, x, y);
-  tryToDeleteANonExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
-  verifyAvatarDoesNotExist(entityId, id, owningObjectId, size, type, x, y);
+  storeAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  // waitForAvatarAdded(entityId, format, id, owningObjectId, size, type, x, y);
+  tryToAddExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, format, id, owningObjectId, size, type, x, y);
+  deleteAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  tryToDeleteANonExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  verifyAvatarDoesNotExist(entityId, format, id, owningObjectId, size, type, x, y);
 });
 
 // Story: crud:Avatar:nondet:negative:dup-add
 bthread("crud:Avatar:nondet:negative:dup-add", function () {
   let entityId = 956;
+  let format = "format_956";
   let id = 956;
   let owningObjectId = 956;
   let size = "size_956";
   let type = 956;
   let x = "x_956";
   let y = "y_956";
-  storeAvatar(entityId, id, owningObjectId, size, type, x, y);
-  // waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y);
-  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
-  tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y);
-  verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y);
+  storeAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  // waitForAvatarAdded(entityId, format, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, format, id, owningObjectId, size, type, x, y);
+  tryToAddExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y);
+  verifyAvatarExists(entityId, format, id, owningObjectId, size, type, x, y);
 });
 
 // Story: crud:SystemAvatar:read_only
@@ -1910,19 +1969,21 @@ bthread("crud:SystemAvatar:read_only", function () {
 
 // Story: crud:Worklog:nondet:1:1
 bthread("crud:Worklog:nondet:1:1", function () {
-  let author = "author_980";
-  let comment = "comment_980";
-  let created = "created_980";
-  let id = 980;
-  let properties = "properties_980";
-  let self = "self_980";
-  let since = "since_980";
-  let started = "started_980";
-  let timeSpent = "timeSpent_980";
-  let timeSpentSeconds = 980;
-  let updateAuthor = "updateAuthor_980";
-  let updated = "updated_980";
-  let visibility = "visibility_980";
+  let author = "author_970";
+  let comment = "comment_970";
+  let created = "created_970";
+  let id = 970;
+  let issueId;
+  let issueIdOrKey;
+  let properties = "properties_970";
+  let self = "self_970";
+  let since = "since_970";
+  let started = "started_970";
+  let timeSpent = "timeSpent_970";
+  let timeSpentSeconds = 970;
+  let updateAuthor = "updateAuthor_970";
+  let updated = "updated_970";
+  let visibility = "visibility_970";
   // Dependency Barrier
   let deps = {};
   deps["issueId"] = matchAnyIssueAdded();
@@ -1932,7 +1993,7 @@ bthread("crud:Worklog:nondet:1:1", function () {
   issueId = captured["issueId"];
   issueIdOrKey = captured["issueIdOrKey"];
   addWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
-  // waitForWorklogAdded(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  waitForWorklogAdded(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
   tryToAddExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
   verifyWorklogExists(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
   updateWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
@@ -1943,19 +2004,21 @@ bthread("crud:Worklog:nondet:1:1", function () {
 
 // Story: crud:Worklog:nondet:1:2
 bthread("crud:Worklog:nondet:1:2", function () {
-  let author = "author_981";
-  let comment = "comment_981";
-  let created = "created_981";
-  let id = 981;
-  let properties = "properties_981";
-  let self = "self_981";
-  let since = "since_981";
-  let started = "started_981";
-  let timeSpent = "timeSpent_981";
-  let timeSpentSeconds = 981;
-  let updateAuthor = "updateAuthor_981";
-  let updated = "updated_981";
-  let visibility = "visibility_981";
+  let author = "author_971";
+  let comment = "comment_971";
+  let created = "created_971";
+  let id = 971;
+  let issueId;
+  let issueIdOrKey;
+  let properties = "properties_971";
+  let self = "self_971";
+  let since = "since_971";
+  let started = "started_971";
+  let timeSpent = "timeSpent_971";
+  let timeSpentSeconds = 971;
+  let updateAuthor = "updateAuthor_971";
+  let updated = "updated_971";
+  let visibility = "visibility_971";
   // Dependency Barrier
   let deps = {};
   deps["issueId"] = matchAnyIssueAdded();
@@ -1976,19 +2039,21 @@ bthread("crud:Worklog:nondet:1:2", function () {
 
 // Story: crud:Worklog:nondet:negative:dup-add
 bthread("crud:Worklog:nondet:negative:dup-add", function () {
-  let author = "author_986";
-  let comment = "comment_986";
-  let created = "created_986";
-  let id = 986;
-  let properties = "properties_986";
-  let self = "self_986";
-  let since = "since_986";
-  let started = "started_986";
-  let timeSpent = "timeSpent_986";
-  let timeSpentSeconds = 986;
-  let updateAuthor = "updateAuthor_986";
-  let updated = "updated_986";
-  let visibility = "visibility_986";
+  let author = "author_976";
+  let comment = "comment_976";
+  let created = "created_976";
+  let id = 976;
+  let issueId;
+  let issueIdOrKey;
+  let properties = "properties_976";
+  let self = "self_976";
+  let since = "since_976";
+  let started = "started_976";
+  let timeSpent = "timeSpent_976";
+  let timeSpentSeconds = 976;
+  let updateAuthor = "updateAuthor_976";
+  let updated = "updated_976";
+  let visibility = "visibility_976";
   // Dependency Barrier
   let deps = {};
   deps["issueId"] = matchAnyIssueAdded();
@@ -2006,10 +2071,11 @@ bthread("crud:Worklog:nondet:negative:dup-add", function () {
 
 // Story: crud:NotificationScheme:nondet:1:1
 bthread("crud:NotificationScheme:nondet:1:1", function () {
-  let description = "description_990";
-  let id = 990;
-  let name = "name_990";
-  let notificationSchemeEvents = "notificationSchemeEvents_990";
+  let description = "description_980";
+  let id = 980;
+  let name = "name_980";
+  let notificationSchemeEvents = "notificationSchemeEvents_980";
+  let notificationSchemeId;
   // Dependency Barrier
   let deps = {};
   deps["notificationSchemeId"] = matchAnyNotificationAdded();
@@ -2017,7 +2083,7 @@ bthread("crud:NotificationScheme:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   notificationSchemeId = captured["notificationSchemeId"];
   createNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
-  // waitForNotificationSchemeAdded(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  waitForNotificationSchemeAdded(description, id, name, notificationSchemeEvents, notificationSchemeId);
   tryToAddExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
   verifyNotificationSchemeExists(description, id, name, notificationSchemeEvents, notificationSchemeId);
   updateNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
@@ -2028,10 +2094,11 @@ bthread("crud:NotificationScheme:nondet:1:1", function () {
 
 // Story: crud:NotificationScheme:nondet:1:2
 bthread("crud:NotificationScheme:nondet:1:2", function () {
-  let description = "description_991";
-  let id = 991;
-  let name = "name_991";
-  let notificationSchemeEvents = "notificationSchemeEvents_991";
+  let description = "description_981";
+  let id = 981;
+  let name = "name_981";
+  let notificationSchemeEvents = "notificationSchemeEvents_981";
+  let notificationSchemeId;
   // Dependency Barrier
   let deps = {};
   deps["notificationSchemeId"] = matchAnyNotificationAdded();
@@ -2050,10 +2117,11 @@ bthread("crud:NotificationScheme:nondet:1:2", function () {
 
 // Story: crud:NotificationScheme:nondet:negative:dup-add
 bthread("crud:NotificationScheme:nondet:negative:dup-add", function () {
-  let description = "description_996";
-  let id = 996;
-  let name = "name_996";
-  let notificationSchemeEvents = "notificationSchemeEvents_996";
+  let description = "description_986";
+  let id = 986;
+  let name = "name_986";
+  let notificationSchemeEvents = "notificationSchemeEvents_986";
+  let notificationSchemeId;
   // Dependency Barrier
   let deps = {};
   deps["notificationSchemeId"] = matchAnyNotificationAdded();
@@ -2069,16 +2137,20 @@ bthread("crud:NotificationScheme:nondet:negative:dup-add", function () {
 
 // Story: crud:PriorityScheme:nondet:1:1
 bthread("crud:PriorityScheme:nondet:1:1", function () {
-  let description = "description_1020";
-  let expand = "expand_1020";
-  let mappings = "mappings_1020";
-  let maxResults = "maxResults_1020";
-  let name = "name_1020";
-  let onlyDefault = "onlyDefault_1020";
-  let orderBy = "orderBy_1020";
-  let schemeId = 1020;
-  let schemeName = "schemeName_1020";
-  let startAt = "startAt_1020";
+  let defaultPriorityId;
+  let description = "description_1010";
+  let expand = "expand_1010";
+  let mappings = "mappings_1010";
+  let maxResults = "maxResults_1010";
+  let name = "name_1010";
+  let onlyDefault = "onlyDefault_1010";
+  let orderBy = "orderBy_1010";
+  let priorityId;
+  let priorityIds;
+  let projectIds;
+  let schemeId = 1010;
+  let schemeName = "schemeName_1010";
+  let startAt = "startAt_1010";
   // Dependency Barrier
   let deps = {};
   deps["defaultPriorityId"] = matchAnyPriorityAdded();
@@ -2092,7 +2164,7 @@ bthread("crud:PriorityScheme:nondet:1:1", function () {
   priorityIds = captured["priorityIds"];
   projectIds = captured["projectIds"];
   createPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
-  // waitForPrioritySchemeAdded(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  waitForPrioritySchemeAdded(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
   tryToAddExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
   verifyPrioritySchemeExists(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
   updatePriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
@@ -2103,16 +2175,20 @@ bthread("crud:PriorityScheme:nondet:1:1", function () {
 
 // Story: crud:PriorityScheme:nondet:1:2
 bthread("crud:PriorityScheme:nondet:1:2", function () {
-  let description = "description_1021";
-  let expand = "expand_1021";
-  let mappings = "mappings_1021";
-  let maxResults = "maxResults_1021";
-  let name = "name_1021";
-  let onlyDefault = "onlyDefault_1021";
-  let orderBy = "orderBy_1021";
-  let schemeId = 1021;
-  let schemeName = "schemeName_1021";
-  let startAt = "startAt_1021";
+  let defaultPriorityId;
+  let description = "description_1011";
+  let expand = "expand_1011";
+  let mappings = "mappings_1011";
+  let maxResults = "maxResults_1011";
+  let name = "name_1011";
+  let onlyDefault = "onlyDefault_1011";
+  let orderBy = "orderBy_1011";
+  let priorityId;
+  let priorityIds;
+  let projectIds;
+  let schemeId = 1011;
+  let schemeName = "schemeName_1011";
+  let startAt = "startAt_1011";
   // Dependency Barrier
   let deps = {};
   deps["defaultPriorityId"] = matchAnyPriorityAdded();
@@ -2137,16 +2213,20 @@ bthread("crud:PriorityScheme:nondet:1:2", function () {
 
 // Story: crud:PriorityScheme:nondet:negative:dup-add
 bthread("crud:PriorityScheme:nondet:negative:dup-add", function () {
-  let description = "description_1026";
-  let expand = "expand_1026";
-  let mappings = "mappings_1026";
-  let maxResults = "maxResults_1026";
-  let name = "name_1026";
-  let onlyDefault = "onlyDefault_1026";
-  let orderBy = "orderBy_1026";
-  let schemeId = 1026;
-  let schemeName = "schemeName_1026";
-  let startAt = "startAt_1026";
+  let defaultPriorityId;
+  let description = "description_1016";
+  let expand = "expand_1016";
+  let mappings = "mappings_1016";
+  let maxResults = "maxResults_1016";
+  let name = "name_1016";
+  let onlyDefault = "onlyDefault_1016";
+  let orderBy = "orderBy_1016";
+  let priorityId;
+  let priorityIds;
+  let projectIds;
+  let schemeId = 1016;
+  let schemeName = "schemeName_1016";
+  let startAt = "startAt_1016";
   // Dependency Barrier
   let deps = {};
   deps["defaultPriorityId"] = matchAnyPriorityAdded();
@@ -2168,81 +2248,103 @@ bthread("crud:PriorityScheme:nondet:negative:dup-add", function () {
 
 // Story: crud:PrioritySchemePriorities:read_only
 bthread("crud:PrioritySchemePriorities:read_only", function () {
-  let maxResults = "maxResults_1040";
-  let schemeId = 1040;
-  let startAt = "startAt_1040";
+  let maxResults = "maxResults_1030";
+  let schemeId = 1030;
+  let startAt = "startAt_1030";
   verifyPrioritySchemePrioritiesExists(maxResults, schemeId, startAt);
 });
 
 // Story: crud:PrioritySchemeProjects:read_only
 bthread("crud:PrioritySchemeProjects:read_only", function () {
-  let maxResults = "maxResults_1050";
-  let query = "query_1050";
-  let schemeId = 1050;
-  let startAt = "startAt_1050";
+  let maxResults = "maxResults_1040";
+  let projectId;
+  let query = "query_1040";
+  let schemeId = 1040;
+  let startAt = "startAt_1040";
   verifyPrioritySchemeProjectsExists(maxResults, projectId, query, schemeId, startAt);
 });
 
 // Story: crud:AvailablePriorities:read_only
 bthread("crud:AvailablePriorities:read_only", function () {
-  let exclude = "exclude_1060";
-  let maxResults = "maxResults_1060";
-  let query = "query_1060";
-  let schemeId = 1060;
-  let startAt = "startAt_1060";
+  let exclude = "exclude_1050";
+  let maxResults = "maxResults_1050";
+  let query = "query_1050";
+  let schemeId = 1050;
+  let startAt = "startAt_1050";
   verifyAvailablePrioritiesExists(exclude, maxResults, query, schemeId, startAt);
 });
 
 // Story: crud:Status:nondet:1:1
 bthread("crud:Status:nondet:1:1", function () {
-  let id = 1070;
-  let name = "name_1070";
-  let scope = "scope_1070";
-  let statuses = "statuses_1070";
-  createStatuses(id, name, scope, statuses);
-  // waitForStatusAdded(id, name, scope, statuses);
-  tryToAddExistingStatus(id, name, scope, statuses);
-  verifyStatusExists(id, name, scope, statuses);
-  updateStatuses(id, name, scope, statuses);
-  deleteStatusesById(id, name, scope, statuses);
-  tryToDeleteANonExistingStatus(id, name, scope, statuses);
-  verifyStatusDoesNotExist(id, name, scope, statuses);
+  let id = 1060;
+  let name = "name_1060";
+  let scope = "scope_1060";
+  let scope.project.id;
+  let statuses = "statuses_1060";
+  // Dependency Barrier
+  let deps = {};
+  deps["scope.project.id"] = matchAnyProjectAdded();
+  let pkMap = {"scope.project.id": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  scope.project.id = captured["scope.project.id"];
+  createStatuses(id, name, scope, scope.project.id, statuses);
+  waitForStatusAdded(id, name, scope, scope.project.id, statuses);
+  tryToAddExistingStatus(id, name, scope, scope.project.id, statuses);
+  verifyStatusExists(id, name, scope, scope.project.id, statuses);
+  updateStatuses(id, name, scope, scope.project.id, statuses);
+  deleteStatusesById(id, name, scope, scope.project.id, statuses);
+  tryToDeleteANonExistingStatus(id, name, scope, scope.project.id, statuses);
+  verifyStatusDoesNotExist(id, name, scope, scope.project.id, statuses);
 });
 
 // Story: crud:Status:nondet:1:2
 bthread("crud:Status:nondet:1:2", function () {
-  let id = 1071;
-  let name = "name_1071";
-  let scope = "scope_1071";
-  let statuses = "statuses_1071";
-  createStatuses(id, name, scope, statuses);
-  // waitForStatusAdded(id, name, scope, statuses);
-  tryToAddExistingStatus(id, name, scope, statuses);
-  updateStatuses(id, name, scope, statuses);
-  verifyStatusExists(id, name, scope, statuses);
-  deleteStatusesById(id, name, scope, statuses);
-  tryToDeleteANonExistingStatus(id, name, scope, statuses);
-  verifyStatusDoesNotExist(id, name, scope, statuses);
+  let id = 1061;
+  let name = "name_1061";
+  let scope = "scope_1061";
+  let scope.project.id;
+  let statuses = "statuses_1061";
+  // Dependency Barrier
+  let deps = {};
+  deps["scope.project.id"] = matchAnyProjectAdded();
+  let pkMap = {"scope.project.id": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  scope.project.id = captured["scope.project.id"];
+  createStatuses(id, name, scope, scope.project.id, statuses);
+  // waitForStatusAdded(id, name, scope, scope.project.id, statuses);
+  tryToAddExistingStatus(id, name, scope, scope.project.id, statuses);
+  updateStatuses(id, name, scope, scope.project.id, statuses);
+  verifyStatusExists(id, name, scope, scope.project.id, statuses);
+  deleteStatusesById(id, name, scope, scope.project.id, statuses);
+  tryToDeleteANonExistingStatus(id, name, scope, scope.project.id, statuses);
+  verifyStatusDoesNotExist(id, name, scope, scope.project.id, statuses);
 });
 
 // Story: crud:Status:nondet:negative:dup-add
 bthread("crud:Status:nondet:negative:dup-add", function () {
-  let id = 1076;
-  let name = "name_1076";
-  let scope = "scope_1076";
-  let statuses = "statuses_1076";
-  createStatuses(id, name, scope, statuses);
-  // waitForStatusAdded(id, name, scope, statuses);
-  verifyStatusExists(id, name, scope, statuses);
-  tryToAddExistingStatus(id, name, scope, statuses);
-  verifyStatusExists(id, name, scope, statuses);
+  let id = 1066;
+  let name = "name_1066";
+  let scope = "scope_1066";
+  let scope.project.id;
+  let statuses = "statuses_1066";
+  // Dependency Barrier
+  let deps = {};
+  deps["scope.project.id"] = matchAnyProjectAdded();
+  let pkMap = {"scope.project.id": "projectIdOrKey"};
+  let captured = resolveDependencies(deps, pkMap);
+  scope.project.id = captured["scope.project.id"];
+  createStatuses(id, name, scope, scope.project.id, statuses);
+  // waitForStatusAdded(id, name, scope, scope.project.id, statuses);
+  verifyStatusExists(id, name, scope, scope.project.id, statuses);
+  tryToAddExistingStatus(id, name, scope, scope.project.id, statuses);
+  verifyStatusExists(id, name, scope, scope.project.id, statuses);
 });
 
 // Story: crud:WorkflowSchemeDraft:nondet:1:1
 bthread("crud:WorkflowSchemeDraft:nondet:1:1", function () {
-  let id = 1080;
+  let id = 1070;
   createWorkflowSchemeDraftFromParent(id);
-  // waitForWorkflowSchemeDraftAdded(id);
+  waitForWorkflowSchemeDraftAdded(id);
   tryToAddExistingWorkflowSchemeDraft(id);
   verifyWorkflowSchemeDraftExists(id);
   updateWorkflowSchemeDraft(id);
@@ -2253,7 +2355,7 @@ bthread("crud:WorkflowSchemeDraft:nondet:1:1", function () {
 
 // Story: crud:WorkflowSchemeDraft:nondet:1:2
 bthread("crud:WorkflowSchemeDraft:nondet:1:2", function () {
-  let id = 1081;
+  let id = 1071;
   createWorkflowSchemeDraftFromParent(id);
   // waitForWorkflowSchemeDraftAdded(id);
   tryToAddExistingWorkflowSchemeDraft(id);
@@ -2266,7 +2368,7 @@ bthread("crud:WorkflowSchemeDraft:nondet:1:2", function () {
 
 // Story: crud:WorkflowSchemeDraft:nondet:negative:dup-add
 bthread("crud:WorkflowSchemeDraft:nondet:negative:dup-add", function () {
-  let id = 1086;
+  let id = 1076;
   createWorkflowSchemeDraftFromParent(id);
   // waitForWorkflowSchemeDraftAdded(id);
   verifyWorkflowSchemeDraftExists(id);
@@ -2276,42 +2378,43 @@ bthread("crud:WorkflowSchemeDraft:nondet:negative:dup-add", function () {
 
 // Story: crud:DraftDefaultWorkflow:read_only
 bthread("crud:DraftDefaultWorkflow:read_only", function () {
-  let id = 1090;
+  let id = 1080;
   verifyDraftDefaultWorkflowExists(id);
 });
 
 // Story: crud:WorkflowSchemeDraftIssueType:read_only
 bthread("crud:WorkflowSchemeDraftIssueType:read_only", function () {
-  let id = 1100;
-  let issueType = "issueType_1100";
+  let id = 1090;
+  let issueType = "issueType_1090";
   verifyWorkflowSchemeDraftIssueTypeExists(id, issueType);
 });
 
 // Story: crud:DraftWorkflowMapping:read_only
 bthread("crud:DraftWorkflowMapping:read_only", function () {
-  let id = 1120;
-  let workflowName = "workflowName_1120";
+  let id = 1110;
+  let workflowName = "workflowName_1110";
   verifyDraftWorkflowMappingExists(id, workflowName);
 });
 
 // Story: crud:Component:nondet:1:1
 bthread("crud:Component:nondet:1:1", function () {
-  let ari = "ari_1130";
-  let assignee = "assignee_1130";
-  let assigneeType = "assigneeType_1130";
-  let description = "description_1130";
-  let id = 1130;
-  let isAssigneeTypeValid = 1130;
-  let lead = "lead_1130";
-  let leadAccountId = 1130;
-  let leadUserName = "leadUserName_1130";
+  let ari = "ari_1120";
+  let assignee = "assignee_1120";
+  let assigneeType = "assigneeType_1120";
+  let description = "description_1120";
+  let id = 1120;
+  let isAssigneeTypeValid = 1120;
+  let lead = "lead_1120";
+  let leadAccountId = 1120;
+  let leadUserName = "leadUserName_1120";
   let metadata = {};
-  let moveIssuesTo = "moveIssuesTo_1130";
-  let name = "name_1130";
-  let project = "project_1130";
-  let realAssignee = "realAssignee_1130";
-  let realAssigneeType = "realAssigneeType_1130";
-  let self = "self_1130";
+  let moveIssuesTo = "moveIssuesTo_1120";
+  let name = "name_1120";
+  let project = "project_1120";
+  let projectId;
+  let realAssignee = "realAssignee_1120";
+  let realAssigneeType = "realAssigneeType_1120";
+  let self = "self_1120";
   // Dependency Barrier
   let deps = {};
   deps["projectId"] = matchAnyProjectAdded();
@@ -2319,7 +2422,7 @@ bthread("crud:Component:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   projectId = captured["projectId"];
   createComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
-  // waitForComponentAdded(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  waitForComponentAdded(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
   tryToAddExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
   verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
   updateComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
@@ -2330,22 +2433,23 @@ bthread("crud:Component:nondet:1:1", function () {
 
 // Story: crud:Component:nondet:1:2
 bthread("crud:Component:nondet:1:2", function () {
-  let ari = "ari_1131";
-  let assignee = "assignee_1131";
-  let assigneeType = "assigneeType_1131";
-  let description = "description_1131";
-  let id = 1131;
-  let isAssigneeTypeValid = 1131;
-  let lead = "lead_1131";
-  let leadAccountId = 1131;
-  let leadUserName = "leadUserName_1131";
+  let ari = "ari_1121";
+  let assignee = "assignee_1121";
+  let assigneeType = "assigneeType_1121";
+  let description = "description_1121";
+  let id = 1121;
+  let isAssigneeTypeValid = 1121;
+  let lead = "lead_1121";
+  let leadAccountId = 1121;
+  let leadUserName = "leadUserName_1121";
   let metadata = {};
-  let moveIssuesTo = "moveIssuesTo_1131";
-  let name = "name_1131";
-  let project = "project_1131";
-  let realAssignee = "realAssignee_1131";
-  let realAssigneeType = "realAssigneeType_1131";
-  let self = "self_1131";
+  let moveIssuesTo = "moveIssuesTo_1121";
+  let name = "name_1121";
+  let project = "project_1121";
+  let projectId;
+  let realAssignee = "realAssignee_1121";
+  let realAssigneeType = "realAssigneeType_1121";
+  let self = "self_1121";
   // Dependency Barrier
   let deps = {};
   deps["projectId"] = matchAnyProjectAdded();
@@ -2364,22 +2468,23 @@ bthread("crud:Component:nondet:1:2", function () {
 
 // Story: crud:Component:nondet:negative:dup-add
 bthread("crud:Component:nondet:negative:dup-add", function () {
-  let ari = "ari_1136";
-  let assignee = "assignee_1136";
-  let assigneeType = "assigneeType_1136";
-  let description = "description_1136";
-  let id = 1136;
-  let isAssigneeTypeValid = 1136;
-  let lead = "lead_1136";
-  let leadAccountId = 1136;
-  let leadUserName = "leadUserName_1136";
+  let ari = "ari_1126";
+  let assignee = "assignee_1126";
+  let assigneeType = "assigneeType_1126";
+  let description = "description_1126";
+  let id = 1126;
+  let isAssigneeTypeValid = 1126;
+  let lead = "lead_1126";
+  let leadAccountId = 1126;
+  let leadUserName = "leadUserName_1126";
   let metadata = {};
-  let moveIssuesTo = "moveIssuesTo_1136";
-  let name = "name_1136";
-  let project = "project_1136";
-  let realAssignee = "realAssignee_1136";
-  let realAssigneeType = "realAssigneeType_1136";
-  let self = "self_1136";
+  let moveIssuesTo = "moveIssuesTo_1126";
+  let name = "name_1126";
+  let project = "project_1126";
+  let projectId;
+  let realAssignee = "realAssignee_1126";
+  let realAssigneeType = "realAssigneeType_1126";
+  let self = "self_1126";
   // Dependency Barrier
   let deps = {};
   deps["projectId"] = matchAnyProjectAdded();
@@ -2393,70 +2498,76 @@ bthread("crud:Component:nondet:negative:dup-add", function () {
   verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
 });
 
-// Story: crud:CustomFieldOption:read_only
-bthread("crud:CustomFieldOption:read_only", function () {
-  let id = 1140;
-  verifyCustomFieldOptionExists(id);
+// Story: crud:CustomFieldOption:nondet:1:1
+bthread("crud:CustomFieldOption:nondet:1:1", function () {
+  let contextId = 1130;
+  let fieldId = 1130;
+  let id = 1130;
+  let maxResults = "maxResults_1130";
+  let onlyOptions = "onlyOptions_1130";
+  let optionId = 1130;
+  let options = "options_1130";
+  let startAt = "startAt_1130";
+  createCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  waitForCustomFieldOptionAdded(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  tryToAddExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  verifyCustomFieldOptionExists(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  updateCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  deleteCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  tryToDeleteANonExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  verifyCustomFieldOptionDoesNotExist(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
 });
 
-// Story: crud:CustomFieldOptionContext:nondet:1:1
-bthread("crud:CustomFieldOptionContext:nondet:1:1", function () {
-  let contextId = 1150;
-  let fieldId = 1150;
-  let optionId = 1150;
-  let options = "options_1150";
-  createCustomFieldOption(contextId, fieldId, optionId, options);
-  // waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options);
-  tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
-  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
-  updateCustomFieldOption(contextId, fieldId, optionId, options);
-  deleteCustomFieldOption(contextId, fieldId, optionId, options);
-  tryToDeleteANonExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
-  verifyCustomFieldOptionContextDoesNotExist(contextId, fieldId, optionId, options);
+// Story: crud:CustomFieldOption:nondet:1:2
+bthread("crud:CustomFieldOption:nondet:1:2", function () {
+  let contextId = 1131;
+  let fieldId = 1131;
+  let id = 1131;
+  let maxResults = "maxResults_1131";
+  let onlyOptions = "onlyOptions_1131";
+  let optionId = 1131;
+  let options = "options_1131";
+  let startAt = "startAt_1131";
+  createCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  // waitForCustomFieldOptionAdded(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  tryToAddExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  updateCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  verifyCustomFieldOptionExists(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  deleteCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  tryToDeleteANonExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  verifyCustomFieldOptionDoesNotExist(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
 });
 
-// Story: crud:CustomFieldOptionContext:nondet:1:2
-bthread("crud:CustomFieldOptionContext:nondet:1:2", function () {
-  let contextId = 1151;
-  let fieldId = 1151;
-  let optionId = 1151;
-  let options = "options_1151";
-  createCustomFieldOption(contextId, fieldId, optionId, options);
-  // waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options);
-  tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
-  updateCustomFieldOption(contextId, fieldId, optionId, options);
-  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
-  deleteCustomFieldOption(contextId, fieldId, optionId, options);
-  tryToDeleteANonExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
-  verifyCustomFieldOptionContextDoesNotExist(contextId, fieldId, optionId, options);
-});
-
-// Story: crud:CustomFieldOptionContext:nondet:negative:dup-add
-bthread("crud:CustomFieldOptionContext:nondet:negative:dup-add", function () {
-  let contextId = 1156;
-  let fieldId = 1156;
-  let optionId = 1156;
-  let options = "options_1156";
-  createCustomFieldOption(contextId, fieldId, optionId, options);
-  // waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options);
-  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
-  tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options);
-  verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options);
+// Story: crud:CustomFieldOption:nondet:negative:dup-add
+bthread("crud:CustomFieldOption:nondet:negative:dup-add", function () {
+  let contextId = 1136;
+  let fieldId = 1136;
+  let id = 1136;
+  let maxResults = "maxResults_1136";
+  let onlyOptions = "onlyOptions_1136";
+  let optionId = 1136;
+  let options = "options_1136";
+  let startAt = "startAt_1136";
+  createCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  // waitForCustomFieldOptionAdded(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  verifyCustomFieldOptionExists(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  tryToAddExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
+  verifyCustomFieldOptionExists(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt);
 });
 
 // Story: crud:Screen:nondet:1:1
 bthread("crud:Screen:nondet:1:1", function () {
-  let description = "description_1180";
-  let id = 1180;
-  let maxResults = "maxResults_1180";
-  let name = "name_1180";
-  let orderBy = "orderBy_1180";
-  let queryString = "queryString_1180";
-  let scope = "scope_1180";
-  let screenId = 1180;
-  let startAt = "startAt_1180";
+  let description = "description_1160";
+  let id = 1160;
+  let maxResults = "maxResults_1160";
+  let name = "name_1160";
+  let orderBy = "orderBy_1160";
+  let queryString = "queryString_1160";
+  let scope = "scope_1160";
+  let screenId = 1160;
+  let startAt = "startAt_1160";
   createScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
-  // waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   tryToAddExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   updateScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
@@ -2467,15 +2578,15 @@ bthread("crud:Screen:nondet:1:1", function () {
 
 // Story: crud:Screen:nondet:1:2
 bthread("crud:Screen:nondet:1:2", function () {
-  let description = "description_1181";
-  let id = 1181;
-  let maxResults = "maxResults_1181";
-  let name = "name_1181";
-  let orderBy = "orderBy_1181";
-  let queryString = "queryString_1181";
-  let scope = "scope_1181";
-  let screenId = 1181;
-  let startAt = "startAt_1181";
+  let description = "description_1161";
+  let id = 1161;
+  let maxResults = "maxResults_1161";
+  let name = "name_1161";
+  let orderBy = "orderBy_1161";
+  let queryString = "queryString_1161";
+  let scope = "scope_1161";
+  let screenId = 1161;
+  let startAt = "startAt_1161";
   createScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   // waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   tryToAddExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
@@ -2488,15 +2599,15 @@ bthread("crud:Screen:nondet:1:2", function () {
 
 // Story: crud:Screen:nondet:negative:dup-add
 bthread("crud:Screen:nondet:negative:dup-add", function () {
-  let description = "description_1186";
-  let id = 1186;
-  let maxResults = "maxResults_1186";
-  let name = "name_1186";
-  let orderBy = "orderBy_1186";
-  let queryString = "queryString_1186";
-  let scope = "scope_1186";
-  let screenId = 1186;
-  let startAt = "startAt_1186";
+  let description = "description_1166";
+  let id = 1166;
+  let maxResults = "maxResults_1166";
+  let name = "name_1166";
+  let orderBy = "orderBy_1166";
+  let queryString = "queryString_1166";
+  let scope = "scope_1166";
+  let screenId = 1166;
+  let startAt = "startAt_1166";
   createScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   // waitForScreenAdded(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
   verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
@@ -2506,28 +2617,28 @@ bthread("crud:Screen:nondet:negative:dup-add", function () {
 
 // Story: crud:FieldScreens:read_only
 bthread("crud:FieldScreens:read_only", function () {
-  let expand = "expand_1190";
-  let fieldId = 1190;
-  let maxResults = "maxResults_1190";
-  let startAt = "startAt_1190";
+  let expand = "expand_1170";
+  let fieldId = 1170;
+  let maxResults = "maxResults_1170";
+  let startAt = "startAt_1170";
   verifyFieldScreensExists(expand, fieldId, maxResults, startAt);
 });
 
 // Story: crud:AvailableScreenFields:read_only
 bthread("crud:AvailableScreenFields:read_only", function () {
-
+  let screenId;
   verifyAvailableScreenFieldsExists(screenId);
 });
 
 // Story: crud:IssueFieldOption:nondet:1:1
 bthread("crud:IssueFieldOption:nondet:1:1", function () {
-  let config = "config_1220";
-  let fieldKey = 1220;
-  let optionId = 1220;
+  let config = "config_1200";
+  let fieldKey = 1200;
+  let optionId = 1200;
   let properties = {};
-  let value = "value_1220";
+  let value = "value_1200";
   createIssueFieldOption(config, fieldKey, optionId, properties, value);
-  // waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
+  waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
   tryToAddExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
   verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value);
   updateIssueFieldOption(config, fieldKey, optionId, properties, value);
@@ -2538,11 +2649,11 @@ bthread("crud:IssueFieldOption:nondet:1:1", function () {
 
 // Story: crud:IssueFieldOption:nondet:1:2
 bthread("crud:IssueFieldOption:nondet:1:2", function () {
-  let config = "config_1221";
-  let fieldKey = 1221;
-  let optionId = 1221;
+  let config = "config_1201";
+  let fieldKey = 1201;
+  let optionId = 1201;
   let properties = {};
-  let value = "value_1221";
+  let value = "value_1201";
   createIssueFieldOption(config, fieldKey, optionId, properties, value);
   // waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
   tryToAddExistingIssueFieldOption(config, fieldKey, optionId, properties, value);
@@ -2555,11 +2666,11 @@ bthread("crud:IssueFieldOption:nondet:1:2", function () {
 
 // Story: crud:IssueFieldOption:nondet:negative:dup-add
 bthread("crud:IssueFieldOption:nondet:negative:dup-add", function () {
-  let config = "config_1226";
-  let fieldKey = 1226;
-  let optionId = 1226;
+  let config = "config_1206";
+  let fieldKey = 1206;
+  let optionId = 1206;
   let properties = {};
-  let value = "value_1226";
+  let value = "value_1206";
   createIssueFieldOption(config, fieldKey, optionId, properties, value);
   // waitForIssueFieldOptionAdded(config, fieldKey, optionId, properties, value);
   verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value);
@@ -2569,14 +2680,14 @@ bthread("crud:IssueFieldOption:nondet:negative:dup-add", function () {
 
 // Story: crud:Group:nondet:1:1
 bthread("crud:Group:nondet:1:1", function () {
-  let expand = "expand_1230";
-  let groupId = 1230;
-  let groupname = "groupname_1230";
-  let name = "name_1230";
-  let swapGroup = "swapGroup_1230";
-  let swapGroupId = 1230;
+  let expand = "expand_1210";
+  let groupId = 1210;
+  let groupname = "groupname_1210";
+  let name = "name_1210";
+  let swapGroup = "swapGroup_1210";
+  let swapGroupId = 1210;
   createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
-  // waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
   tryToAddExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
   verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
   removeGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
@@ -2586,12 +2697,12 @@ bthread("crud:Group:nondet:1:1", function () {
 
 // Story: crud:Group:nondet:1:2
 bthread("crud:Group:nondet:1:2", function () {
-  let expand = "expand_1231";
-  let groupId = 1231;
-  let groupname = "groupname_1231";
-  let name = "name_1231";
-  let swapGroup = "swapGroup_1231";
-  let swapGroupId = 1231;
+  let expand = "expand_1211";
+  let groupId = 1211;
+  let groupname = "groupname_1211";
+  let name = "name_1211";
+  let swapGroup = "swapGroup_1211";
+  let swapGroupId = 1211;
   createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
   // waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
   tryToAddExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
@@ -2603,12 +2714,12 @@ bthread("crud:Group:nondet:1:2", function () {
 
 // Story: crud:Group:nondet:negative:dup-add
 bthread("crud:Group:nondet:negative:dup-add", function () {
-  let expand = "expand_1236";
-  let groupId = 1236;
-  let groupname = "groupname_1236";
-  let name = "name_1236";
-  let swapGroup = "swapGroup_1236";
-  let swapGroupId = 1236;
+  let expand = "expand_1216";
+  let groupId = 1216;
+  let groupname = "groupname_1216";
+  let name = "name_1216";
+  let swapGroup = "swapGroup_1216";
+  let swapGroupId = 1216;
   createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
   // waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGroupId);
   verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
@@ -2616,20 +2727,33 @@ bthread("crud:Group:nondet:negative:dup-add", function () {
   verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId);
 });
 
+// Story: crud:GroupBulk:read_only
+bthread("crud:GroupBulk:read_only", function () {
+  let accessType = "accessType_1220";
+  let applicationKey = "applicationKey_1220";
+  let groupId;
+  let groupName = "groupName_1220";
+  let maxResults = "maxResults_1220";
+  let startAt = "startAt_1220";
+  verifyGroupBulkExists(accessType, applicationKey, groupId, groupName, maxResults, startAt);
+});
+
 // Story: crud:GroupMember:read_only
 bthread("crud:GroupMember:read_only", function () {
-  let groupname = "groupname_1240";
-  let includeInactiveUsers = "includeInactiveUsers_1240";
-  let maxResults = "maxResults_1240";
-  let startAt = "startAt_1240";
+  let groupId;
+  let groupname = "groupname_1230";
+  let includeInactiveUsers = "includeInactiveUsers_1230";
+  let maxResults = "maxResults_1230";
+  let startAt = "startAt_1230";
   verifyGroupMemberExists(groupId, groupname, includeInactiveUsers, maxResults, startAt);
 });
 
 // Story: crud:GroupUser:nondet:1:1
 bthread("crud:GroupUser:nondet:1:1", function () {
-  let accountId = 1250;
-  let groupname = "groupname_1250";
-  let name = "name_1250";
+  let accountId = 1240;
+  let groupId;
+  let groupname = "groupname_1240";
+  let name = "name_1240";
   // Dependency Barrier
   let deps = {};
   deps["groupId"] = matchAnyGroupAdded();
@@ -2637,7 +2761,7 @@ bthread("crud:GroupUser:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   groupId = captured["groupId"];
   addUserToGroup(accountId, groupId, groupname, name);
-  // waitForGroupUserAdded(accountId, groupId, groupname, name);
+  waitForGroupUserAdded(accountId, groupId, groupname, name);
   tryToAddExistingGroupUser(accountId, groupId, groupname, name);
   verifyGroupUserExists(accountId, groupId, groupname, name);
   removeUserFromGroup(accountId, groupId, groupname, name);
@@ -2647,9 +2771,10 @@ bthread("crud:GroupUser:nondet:1:1", function () {
 
 // Story: crud:GroupUser:nondet:1:2
 bthread("crud:GroupUser:nondet:1:2", function () {
-  let accountId = 1251;
-  let groupname = "groupname_1251";
-  let name = "name_1251";
+  let accountId = 1241;
+  let groupId;
+  let groupname = "groupname_1241";
+  let name = "name_1241";
   // Dependency Barrier
   let deps = {};
   deps["groupId"] = matchAnyGroupAdded();
@@ -2667,9 +2792,10 @@ bthread("crud:GroupUser:nondet:1:2", function () {
 
 // Story: crud:GroupUser:nondet:negative:dup-add
 bthread("crud:GroupUser:nondet:negative:dup-add", function () {
-  let accountId = 1256;
-  let groupname = "groupname_1256";
-  let name = "name_1256";
+  let accountId = 1246;
+  let groupId;
+  let groupname = "groupname_1246";
+  let name = "name_1246";
   // Dependency Barrier
   let deps = {};
   deps["groupId"] = matchAnyGroupAdded();
@@ -2683,9 +2809,69 @@ bthread("crud:GroupUser:nondet:negative:dup-add", function () {
   verifyGroupUserExists(accountId, groupId, groupname, name);
 });
 
+// Story: crud:GroupsPicker:read_only
+bthread("crud:GroupsPicker:read_only", function () {
+  let accountId = 1250;
+  let caseInsensitive = "caseInsensitive_1250";
+  let exclude = "exclude_1250";
+  let excludeId = 1250;
+  let includeTeams = "includeTeams_1250";
+  let maxResults = "maxResults_1250";
+  let query = "query_1250";
+  verifyGroupsPickerExists(accountId, caseInsensitive, exclude, excludeId, includeTeams, maxResults, query);
+});
+
+// Story: crud:IssueSearch:read_only
+bthread("crud:IssueSearch:read_only", function () {
+  let currentIssueKey = "currentIssueKey_1260";
+  let currentJQL = "currentJQL_1260";
+  let currentProjectId;
+  let expand = "expand_1260";
+  let failFast = "failFast_1260";
+  let fields = "fields_1260";
+  let fieldsByKeys = "fieldsByKeys_1260";
+  let jql = "jql_1260";
+  let maxResults = "maxResults_1260";
+  let nextPageToken = "nextPageToken_1260";
+  let properties = "properties_1260";
+  let query = "query_1260";
+  let reconcileIssues = "reconcileIssues_1260";
+  let showSubTaskParent = "showSubTaskParent_1260";
+  let showSubTasks = "showSubTasks_1260";
+  let startAt = "startAt_1260";
+  let validateQuery = "validateQuery_1260";
+  verifyIssueSearchExists(currentIssueKey, currentJQL, currentProjectId, expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, query, reconcileIssues, showSubTaskParent, showSubTasks, startAt, validateQuery);
+});
+
+// Story: crud:IssuePicker:read_only
+bthread("crud:IssuePicker:read_only", function () {
+  let currentIssueKey = "currentIssueKey_1270";
+  let currentJQL = "currentJQL_1270";
+  let currentProjectId;
+  let query = "query_1270";
+  let showSubTaskParent = "showSubTaskParent_1270";
+  let showSubTasks = "showSubTasks_1270";
+  verifyIssuePickerExists(currentIssueKey, currentJQL, currentProjectId, query, showSubTaskParent, showSubTasks);
+});
+
+// Story: crud:IssueSearchEnhanced:read_only
+bthread("crud:IssueSearchEnhanced:read_only", function () {
+  let expand = "expand_1300";
+  let failFast = "failFast_1300";
+  let fields = "fields_1300";
+  let fieldsByKeys = "fieldsByKeys_1300";
+  let jql = "jql_1300";
+  let maxResults = "maxResults_1300";
+  let nextPageToken = "nextPageToken_1300";
+  let properties = "properties_1300";
+  let reconcileIssues = "reconcileIssues_1300";
+  verifyIssueSearchEnhancedExists(expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, reconcileIssues);
+});
+
 // Story: crud:IssueProperty:nondet:1:1
 bthread("crud:IssueProperty:nondet:1:1", function () {
-  let propertyKey = "propertyKey_1260";
+  let issueIdOrKey;
+  let propertyKey = "propertyKey_1310";
   // Dependency Barrier
   let deps = {};
   deps["issueIdOrKey"] = matchAnyIssueAdded();
@@ -2693,9 +2879,10 @@ bthread("crud:IssueProperty:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   issueIdOrKey = captured["issueIdOrKey"];
   setIssueProperty(issueIdOrKey, propertyKey);
-  // waitForIssuePropertyAdded(issueIdOrKey, propertyKey);
+  waitForIssuePropertyAdded(issueIdOrKey, propertyKey);
   tryToAddExistingIssueProperty(issueIdOrKey, propertyKey);
   verifyIssuePropertyExists(issueIdOrKey, propertyKey);
+  bulkSetIssueProperty(issueIdOrKey, propertyKey);
   deleteIssueProperty(issueIdOrKey, propertyKey);
   tryToDeleteANonExistingIssueProperty(issueIdOrKey, propertyKey);
   verifyIssuePropertyDoesNotExist(issueIdOrKey, propertyKey);
@@ -2703,7 +2890,8 @@ bthread("crud:IssueProperty:nondet:1:1", function () {
 
 // Story: crud:IssueProperty:nondet:1:2
 bthread("crud:IssueProperty:nondet:1:2", function () {
-  let propertyKey = "propertyKey_1261";
+  let issueIdOrKey;
+  let propertyKey = "propertyKey_1311";
   // Dependency Barrier
   let deps = {};
   deps["issueIdOrKey"] = matchAnyIssueAdded();
@@ -2713,6 +2901,7 @@ bthread("crud:IssueProperty:nondet:1:2", function () {
   setIssueProperty(issueIdOrKey, propertyKey);
   // waitForIssuePropertyAdded(issueIdOrKey, propertyKey);
   tryToAddExistingIssueProperty(issueIdOrKey, propertyKey);
+  bulkSetIssueProperty(issueIdOrKey, propertyKey);
   verifyIssuePropertyExists(issueIdOrKey, propertyKey);
   deleteIssueProperty(issueIdOrKey, propertyKey);
   tryToDeleteANonExistingIssueProperty(issueIdOrKey, propertyKey);
@@ -2721,7 +2910,8 @@ bthread("crud:IssueProperty:nondet:1:2", function () {
 
 // Story: crud:IssueProperty:nondet:negative:dup-add
 bthread("crud:IssueProperty:nondet:negative:dup-add", function () {
-  let propertyKey = "propertyKey_1266";
+  let issueIdOrKey;
+  let propertyKey = "propertyKey_1316";
   // Dependency Barrier
   let deps = {};
   deps["issueIdOrKey"] = matchAnyIssueAdded();
@@ -2735,235 +2925,186 @@ bthread("crud:IssueProperty:nondet:negative:dup-add", function () {
   verifyIssuePropertyExists(issueIdOrKey, propertyKey);
 });
 
-// Story: crud:IssuePropertyBulk:nondet:1:1
-bthread("crud:IssuePropertyBulk:nondet:1:1", function () {
-  let propertyKey = 1290;
-  bulkSetIssueProperty(propertyKey);
-  // waitForIssuePropertyBulkAdded(propertyKey);
-  tryToAddExistingIssuePropertyBulk(propertyKey);
-  verifyIssuePropertyBulkExists(propertyKey);
-  bulkDeleteIssueProperty(propertyKey);
-  tryToDeleteANonExistingIssuePropertyBulk(propertyKey);
-  verifyIssuePropertyBulkDoesNotExist(propertyKey);
-});
-
-// Story: crud:IssuePropertyBulk:nondet:1:2
-bthread("crud:IssuePropertyBulk:nondet:1:2", function () {
-  let propertyKey = 1291;
-  bulkSetIssueProperty(propertyKey);
-  // waitForIssuePropertyBulkAdded(propertyKey);
-  tryToAddExistingIssuePropertyBulk(propertyKey);
-  verifyIssuePropertyBulkExists(propertyKey);
-  bulkDeleteIssueProperty(propertyKey);
-  tryToDeleteANonExistingIssuePropertyBulk(propertyKey);
-  verifyIssuePropertyBulkDoesNotExist(propertyKey);
-});
-
-// Story: crud:IssuePropertyBulk:nondet:negative:dup-add
-bthread("crud:IssuePropertyBulk:nondet:negative:dup-add", function () {
-  let propertyKey = 1296;
-  bulkSetIssueProperty(propertyKey);
-  // waitForIssuePropertyBulkAdded(propertyKey);
-  verifyIssuePropertyBulkExists(propertyKey);
-  tryToAddExistingIssuePropertyBulk(propertyKey);
-  verifyIssuePropertyBulkExists(propertyKey);
-});
-
 // Story: crud:IssuePropertyKeys:read_only
 bthread("crud:IssuePropertyKeys:read_only", function () {
-
+  let issueIdOrKey;
   verifyIssuePropertyKeysExists(issueIdOrKey);
 });
 
 // Story: crud:IssueType:nondet:1:1
 bthread("crud:IssueType:nondet:1:1", function () {
-  let description = "description_1310";
-  let hierarchyLevel = 1310;
-  let id = 1310;
-  let level = "level_1310";
-  let name = "name_1310";
-  let size = "size_1310";
-  let type = "type_1310";
-  let x = "x_1310";
-  let y = "y_1310";
+  let alternativeIssueTypeId;
+  let description = "description_1330";
+  let hierarchyLevel = 1330;
+  let id = 1330;
+  let level = "level_1330";
+  let name = "name_1330";
+  let projectId;
+  let size = "size_1330";
+  let type = "type_1330";
+  let x = "x_1330";
+  let y = "y_1330";
   // Dependency Barrier
   let deps = {};
   deps["alternativeIssueTypeId"] = matchAnyIssueAdded();
-  deps["avatarId"] = matchAnyAvatarAdded();
   deps["projectId"] = matchAnyProjectAdded();
-  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "avatarId": "type", "projectId": "projectIdOrKey"};
+  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "projectId": "projectIdOrKey"};
   let captured = resolveDependencies(deps, pkMap);
   alternativeIssueTypeId = captured["alternativeIssueTypeId"];
-  avatarId = captured["avatarId"];
   projectId = captured["projectId"];
-  createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  // waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  updateIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  deleteIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  tryToDeleteANonExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  verifyIssueTypeDoesNotExist(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  createIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  waitForIssueTypeAdded(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToAddExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  updateIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  deleteIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToDeleteANonExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeDoesNotExist(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
 });
 
 // Story: crud:IssueType:nondet:1:2
 bthread("crud:IssueType:nondet:1:2", function () {
-  let description = "description_1311";
-  let hierarchyLevel = 1311;
-  let id = 1311;
-  let level = "level_1311";
-  let name = "name_1311";
-  let size = "size_1311";
-  let type = "type_1311";
-  let x = "x_1311";
-  let y = "y_1311";
+  let alternativeIssueTypeId;
+  let description = "description_1331";
+  let hierarchyLevel = 1331;
+  let id = 1331;
+  let level = "level_1331";
+  let name = "name_1331";
+  let projectId;
+  let size = "size_1331";
+  let type = "type_1331";
+  let x = "x_1331";
+  let y = "y_1331";
   // Dependency Barrier
   let deps = {};
   deps["alternativeIssueTypeId"] = matchAnyIssueAdded();
-  deps["avatarId"] = matchAnyAvatarAdded();
   deps["projectId"] = matchAnyProjectAdded();
-  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "avatarId": "type", "projectId": "projectIdOrKey"};
+  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "projectId": "projectIdOrKey"};
   let captured = resolveDependencies(deps, pkMap);
   alternativeIssueTypeId = captured["alternativeIssueTypeId"];
-  avatarId = captured["avatarId"];
   projectId = captured["projectId"];
-  createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  // waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  updateIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  deleteIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  tryToDeleteANonExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  verifyIssueTypeDoesNotExist(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  createIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  // waitForIssueTypeAdded(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToAddExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  updateIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  deleteIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToDeleteANonExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeDoesNotExist(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
 });
 
 // Story: crud:IssueType:nondet:negative:dup-add
 bthread("crud:IssueType:nondet:negative:dup-add", function () {
-  let description = "description_1316";
-  let hierarchyLevel = 1316;
-  let id = 1316;
-  let level = "level_1316";
-  let name = "name_1316";
-  let size = "size_1316";
-  let type = "type_1316";
-  let x = "x_1316";
-  let y = "y_1316";
+  let alternativeIssueTypeId;
+  let description = "description_1336";
+  let hierarchyLevel = 1336;
+  let id = 1336;
+  let level = "level_1336";
+  let name = "name_1336";
+  let projectId;
+  let size = "size_1336";
+  let type = "type_1336";
+  let x = "x_1336";
+  let y = "y_1336";
   // Dependency Barrier
   let deps = {};
   deps["alternativeIssueTypeId"] = matchAnyIssueAdded();
-  deps["avatarId"] = matchAnyAvatarAdded();
   deps["projectId"] = matchAnyProjectAdded();
-  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "avatarId": "type", "projectId": "projectIdOrKey"};
+  let pkMap = {"alternativeIssueTypeId": "issueIdOrKey", "projectId": "projectIdOrKey"};
   let captured = resolveDependencies(deps, pkMap);
   alternativeIssueTypeId = captured["alternativeIssueTypeId"];
-  avatarId = captured["avatarId"];
   projectId = captured["projectId"];
-  createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  // waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
-  verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  createIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  // waitForIssueTypeAdded(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  tryToAddExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+  verifyIssueTypeExists(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
 });
 
-// Story: crud:AutoCompleteData:read_only
-bthread("crud:AutoCompleteData:read_only", function () {
-  let includeCollapsedFields = "includeCollapsedFields_1320";
-  verifyAutoCompleteDataExists(includeCollapsedFields, projectIds);
+// Story: crud:JqlAutoCompleteData:read_only
+bthread("crud:JqlAutoCompleteData:read_only", function () {
+  let includeCollapsedFields = "includeCollapsedFields_1340";
+  let projectIds;
+  verifyJqlAutoCompleteDataExists(includeCollapsedFields, projectIds);
 });
 
-// Story: crud:AutoCompleteSuggestions:read_only
-bthread("crud:AutoCompleteSuggestions:read_only", function () {
-  let fieldName = "fieldName_1330";
-  let fieldValue = "fieldValue_1330";
-  let predicateName = "predicateName_1330";
-  let predicateValue = "predicateValue_1330";
-  verifyAutoCompleteSuggestionsExists(fieldName, fieldValue, predicateName, predicateValue);
+// Story: crud:JqlAutoCompleteSuggestions:read_only
+bthread("crud:JqlAutoCompleteSuggestions:read_only", function () {
+  let fieldName = "fieldName_1350";
+  let fieldValue = "fieldValue_1350";
+  let predicateName = "predicateName_1350";
+  let predicateValue = "predicateValue_1350";
+  verifyJqlAutoCompleteSuggestionsExists(fieldName, fieldValue, predicateName, predicateValue);
 });
 
 // Story: crud:Plan:nondet:1:1
 bthread("crud:Plan:nondet:1:1", function () {
-  let crossProjectReleases = "crossProjectReleases_1370";
-  let customFields = "customFields_1370";
-  let exclusionRules = "exclusionRules_1370";
-  let issueSources = "issueSources_1370";
-  let leadAccountId = 1370;
-  let name = "name_1370";
-  let permissions = "permissions_1370";
-  let planId = 1370;
-  let scheduling = "scheduling_1370";
-  // Dependency Barrier
-  let deps = {};
-  deps["useGroupId"] = matchAnyGroupAdded();
-  let pkMap = {"useGroupId": "groupId"};
-  let captured = resolveDependencies(deps, pkMap);
-  useGroupId = captured["useGroupId"];
-  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  let crossProjectReleases = "crossProjectReleases_1390";
+  let customFields = "customFields_1390";
+  let exclusionRules = "exclusionRules_1390";
+  let issueSources = "issueSources_1390";
+  let leadAccountId = 1390;
+  let name = "name_1390";
+  let permissions = "permissions_1390";
+  let planId = 1390;
+  let scheduling = "scheduling_1390";
+  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
 });
 
 // Story: crud:Plan:nondet:1:2
 bthread("crud:Plan:nondet:1:2", function () {
-  let crossProjectReleases = "crossProjectReleases_1371";
-  let customFields = "customFields_1371";
-  let exclusionRules = "exclusionRules_1371";
-  let issueSources = "issueSources_1371";
-  let leadAccountId = 1371;
-  let name = "name_1371";
-  let permissions = "permissions_1371";
-  let planId = 1371;
-  let scheduling = "scheduling_1371";
-  // Dependency Barrier
-  let deps = {};
-  deps["useGroupId"] = matchAnyGroupAdded();
-  let pkMap = {"useGroupId": "groupId"};
-  let captured = resolveDependencies(deps, pkMap);
-  useGroupId = captured["useGroupId"];
-  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  let crossProjectReleases = "crossProjectReleases_1391";
+  let customFields = "customFields_1391";
+  let exclusionRules = "exclusionRules_1391";
+  let issueSources = "issueSources_1391";
+  let leadAccountId = 1391;
+  let name = "name_1391";
+  let permissions = "permissions_1391";
+  let planId = 1391;
+  let scheduling = "scheduling_1391";
+  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
 });
 
 // Story: crud:Plan:nondet:negative:dup-add
 bthread("crud:Plan:nondet:negative:dup-add", function () {
-  let crossProjectReleases = "crossProjectReleases_1376";
-  let customFields = "customFields_1376";
-  let exclusionRules = "exclusionRules_1376";
-  let issueSources = "issueSources_1376";
-  let leadAccountId = 1376;
-  let name = "name_1376";
-  let permissions = "permissions_1376";
-  let planId = 1376;
-  let scheduling = "scheduling_1376";
-  // Dependency Barrier
-  let deps = {};
-  deps["useGroupId"] = matchAnyGroupAdded();
-  let pkMap = {"useGroupId": "groupId"};
-  let captured = resolveDependencies(deps, pkMap);
-  useGroupId = captured["useGroupId"];
-  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
-  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+  let crossProjectReleases = "crossProjectReleases_1396";
+  let customFields = "customFields_1396";
+  let exclusionRules = "exclusionRules_1396";
+  let issueSources = "issueSources_1396";
+  let leadAccountId = 1396;
+  let name = "name_1396";
+  let permissions = "permissions_1396";
+  let planId = 1396;
+  let scheduling = "scheduling_1396";
+  createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  // waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
+  verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling);
 });
 
 // Story: crud:AtlassianTeam:nondet:1:1
 bthread("crud:AtlassianTeam:nondet:1:1", function () {
-  let capacity = 1380;
-  let id = 1380;
-  let planningStyle = "planningStyle_1380";
-  let sprintLength = 1380;
+  let capacity = 1400;
+  let id = 1400;
+  let issueSourceId;
+  let planId;
+  let planningStyle = "planningStyle_1400";
+  let sprintLength = 1400;
   // Dependency Barrier
   let deps = {};
   deps["issueSourceId"] = matchAnyIssueAdded();
@@ -2973,7 +3114,7 @@ bthread("crud:AtlassianTeam:nondet:1:1", function () {
   issueSourceId = captured["issueSourceId"];
   planId = captured["planId"];
   addAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
-  // waitForAtlassianTeamAdded(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  waitForAtlassianTeamAdded(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
   tryToAddExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
   verifyAtlassianTeamExists(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
   updateAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
@@ -2984,10 +3125,12 @@ bthread("crud:AtlassianTeam:nondet:1:1", function () {
 
 // Story: crud:AtlassianTeam:nondet:1:2
 bthread("crud:AtlassianTeam:nondet:1:2", function () {
-  let capacity = 1381;
-  let id = 1381;
-  let planningStyle = "planningStyle_1381";
-  let sprintLength = 1381;
+  let capacity = 1401;
+  let id = 1401;
+  let issueSourceId;
+  let planId;
+  let planningStyle = "planningStyle_1401";
+  let sprintLength = 1401;
   // Dependency Barrier
   let deps = {};
   deps["issueSourceId"] = matchAnyIssueAdded();
@@ -3008,10 +3151,12 @@ bthread("crud:AtlassianTeam:nondet:1:2", function () {
 
 // Story: crud:AtlassianTeam:nondet:negative:dup-add
 bthread("crud:AtlassianTeam:nondet:negative:dup-add", function () {
-  let capacity = 1386;
-  let id = 1386;
-  let planningStyle = "planningStyle_1386";
-  let sprintLength = 1386;
+  let capacity = 1406;
+  let id = 1406;
+  let issueSourceId;
+  let planId;
+  let planningStyle = "planningStyle_1406";
+  let sprintLength = 1406;
   // Dependency Barrier
   let deps = {};
   deps["issueSourceId"] = matchAnyIssueAdded();
@@ -3029,12 +3174,14 @@ bthread("crud:AtlassianTeam:nondet:negative:dup-add", function () {
 
 // Story: crud:PlanOnlyTeam:nondet:1:1
 bthread("crud:PlanOnlyTeam:nondet:1:1", function () {
-  let capacity = 1390;
-  let id = 1390;
-  let memberAccountIds = "memberAccountIds_1390";
-  let name = "name_1390";
-  let planningStyle = "planningStyle_1390";
-  let sprintLength = 1390;
+  let capacity = 1410;
+  let id = 1410;
+  let issueSourceId;
+  let memberAccountIds = "memberAccountIds_1410";
+  let name = "name_1410";
+  let planId;
+  let planningStyle = "planningStyle_1410";
+  let sprintLength = 1410;
   // Dependency Barrier
   let deps = {};
   deps["issueSourceId"] = matchAnyIssueAdded();
@@ -3044,7 +3191,7 @@ bthread("crud:PlanOnlyTeam:nondet:1:1", function () {
   issueSourceId = captured["issueSourceId"];
   planId = captured["planId"];
   createPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
-  // waitForPlanOnlyTeamAdded(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  waitForPlanOnlyTeamAdded(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
   tryToAddExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
   verifyPlanOnlyTeamExists(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
   updatePlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
@@ -3055,12 +3202,14 @@ bthread("crud:PlanOnlyTeam:nondet:1:1", function () {
 
 // Story: crud:PlanOnlyTeam:nondet:1:2
 bthread("crud:PlanOnlyTeam:nondet:1:2", function () {
-  let capacity = 1391;
-  let id = 1391;
-  let memberAccountIds = "memberAccountIds_1391";
-  let name = "name_1391";
-  let planningStyle = "planningStyle_1391";
-  let sprintLength = 1391;
+  let capacity = 1411;
+  let id = 1411;
+  let issueSourceId;
+  let memberAccountIds = "memberAccountIds_1411";
+  let name = "name_1411";
+  let planId;
+  let planningStyle = "planningStyle_1411";
+  let sprintLength = 1411;
   // Dependency Barrier
   let deps = {};
   deps["issueSourceId"] = matchAnyIssueAdded();
@@ -3081,12 +3230,14 @@ bthread("crud:PlanOnlyTeam:nondet:1:2", function () {
 
 // Story: crud:PlanOnlyTeam:nondet:negative:dup-add
 bthread("crud:PlanOnlyTeam:nondet:negative:dup-add", function () {
-  let capacity = 1396;
-  let id = 1396;
-  let memberAccountIds = "memberAccountIds_1396";
-  let name = "name_1396";
-  let planningStyle = "planningStyle_1396";
-  let sprintLength = 1396;
+  let capacity = 1416;
+  let id = 1416;
+  let issueSourceId;
+  let memberAccountIds = "memberAccountIds_1416";
+  let name = "name_1416";
+  let planId;
+  let planningStyle = "planningStyle_1416";
+  let sprintLength = 1416;
   // Dependency Barrier
   let deps = {};
   deps["issueSourceId"] = matchAnyIssueAdded();
@@ -3104,18 +3255,20 @@ bthread("crud:PlanOnlyTeam:nondet:negative:dup-add", function () {
 
 // Story: crud:Team:read_only
 bthread("crud:Team:read_only", function () {
-  let cursor = "cursor_1400";
-  let maxResults = "maxResults_1400";
+  let cursor = "cursor_1420";
+  let maxResults = "maxResults_1420";
+  let planId;
   verifyTeamExists(cursor, maxResults, planId);
 });
 
 // Story: crud:Priority:nondet:1:1
 bthread("crud:Priority:nondet:1:1", function () {
-  let description = "description_1410";
-  let iconUrl = "iconUrl_1410";
-  let id = 1410;
-  let name = "name_1410";
-  let statusColor = "statusColor_1410";
+  let avatarId;
+  let description = "description_1430";
+  let iconUrl = "iconUrl_1430";
+  let id = 1430;
+  let name = "name_1430";
+  let statusColor = "statusColor_1430";
   // Dependency Barrier
   let deps = {};
   deps["avatarId"] = matchAnyAvatarAdded();
@@ -3123,7 +3276,7 @@ bthread("crud:Priority:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   avatarId = captured["avatarId"];
   createPriority(avatarId, description, iconUrl, id, name, statusColor);
-  // waitForPriorityAdded(avatarId, description, iconUrl, id, name, statusColor);
+  waitForPriorityAdded(avatarId, description, iconUrl, id, name, statusColor);
   tryToAddExistingPriority(avatarId, description, iconUrl, id, name, statusColor);
   verifyPriorityExists(avatarId, description, iconUrl, id, name, statusColor);
   updatePriority(avatarId, description, iconUrl, id, name, statusColor);
@@ -3134,11 +3287,12 @@ bthread("crud:Priority:nondet:1:1", function () {
 
 // Story: crud:Priority:nondet:1:2
 bthread("crud:Priority:nondet:1:2", function () {
-  let description = "description_1411";
-  let iconUrl = "iconUrl_1411";
-  let id = 1411;
-  let name = "name_1411";
-  let statusColor = "statusColor_1411";
+  let avatarId;
+  let description = "description_1431";
+  let iconUrl = "iconUrl_1431";
+  let id = 1431;
+  let name = "name_1431";
+  let statusColor = "statusColor_1431";
   // Dependency Barrier
   let deps = {};
   deps["avatarId"] = matchAnyAvatarAdded();
@@ -3157,11 +3311,12 @@ bthread("crud:Priority:nondet:1:2", function () {
 
 // Story: crud:Priority:nondet:negative:dup-add
 bthread("crud:Priority:nondet:negative:dup-add", function () {
-  let description = "description_1416";
-  let iconUrl = "iconUrl_1416";
-  let id = 1416;
-  let name = "name_1416";
-  let statusColor = "statusColor_1416";
+  let avatarId;
+  let description = "description_1436";
+  let iconUrl = "iconUrl_1436";
+  let id = 1436;
+  let name = "name_1436";
+  let statusColor = "statusColor_1436";
   // Dependency Barrier
   let deps = {};
   deps["avatarId"] = matchAnyAvatarAdded();

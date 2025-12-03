@@ -49,7 +49,16 @@ function createCustomer() {
 }
 
 function tryToAddExistingCustomer() {
-  createCustomer();
+  var url = "/customers";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Customer...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCustomerExists() {
@@ -156,7 +165,16 @@ function getAccounts(accountId) {
 }
 
 function tryToAddExistingAccount(accountId) {
-  getAccounts(accountId);
+  var url = "/accounts";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Account...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyAccountExists(accountId) {
@@ -304,7 +322,16 @@ function createTransfer() {
 }
 
 function tryToAddExistingTransfer() {
-  createTransfer();
+  var url = "/transfers";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Transfer...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyTransferExists() {
@@ -400,7 +427,16 @@ function createCard() {
 }
 
 function tryToAddExistingCard() {
-  createCard();
+  var url = "/cards";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Card...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCardExists() {
@@ -506,7 +542,16 @@ function getLoans() {
 }
 
 function tryToAddExistingLoan() {
-  getLoans();
+  var url = "/loans";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Loan...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyLoanExists() {

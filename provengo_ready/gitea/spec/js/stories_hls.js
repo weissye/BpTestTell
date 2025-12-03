@@ -9,7 +9,7 @@ function resolveDependencies(deps, pkMap) {
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
@@ -40,7 +40,7 @@ bthread("crud:Repository:nondet:1:1", function () {
   let template_repo = "template_repo_200";
   let username = "username_200";
   adminCreateRepo(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
-  // waitForRepositoryAdded(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
+  waitForRepositoryAdded(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
   tryToAddExistingRepository(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
   verifyRepositoryExists(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
   editRepository(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
@@ -96,7 +96,7 @@ bthread("crud:RepositorySecret:nondet:1:1", function () {
   let repo = "repo_210";
   let secretname = "secretname_210";
   createOrUpdateRepoSecret(owner, repo, secretname);
-  // waitForRepositorySecretAdded(owner, repo, secretname);
+  waitForRepositorySecretAdded(owner, repo, secretname);
   tryToAddExistingRepositorySecret(owner, repo, secretname);
   verifyRepositorySecretExists(owner, repo, secretname);
   deleteRepoSecret(owner, repo, secretname);
@@ -136,7 +136,7 @@ bthread("crud:RepositoryVariable:nondet:1:1", function () {
   let repo = "repo_220";
   let variablename = "variablename_220";
   createRepoVariable(owner, repo, variablename);
-  // waitForRepositoryVariableAdded(owner, repo, variablename);
+  waitForRepositoryVariableAdded(owner, repo, variablename);
   tryToAddExistingRepositoryVariable(owner, repo, variablename);
   verifyRepositoryVariableExists(owner, repo, variablename);
   updateRepoVariable(owner, repo, variablename);
@@ -174,11 +174,11 @@ bthread("crud:RepositoryVariable:nondet:negative:dup-add", function () {
 
 // Story: crud:BranchProtection:nondet:1:1
 bthread("crud:BranchProtection:nondet:1:1", function () {
-  let name = "name_240";
-  let owner = 240;
-  let repo = "repo_240";
+  let name = "name_230";
+  let owner = 230;
+  let repo = "repo_230";
   createBranchProtection(name, owner, repo);
-  // waitForBranchProtectionAdded(name, owner, repo);
+  waitForBranchProtectionAdded(name, owner, repo);
   tryToAddExistingBranchProtection(name, owner, repo);
   verifyBranchProtectionExists(name, owner, repo);
   editBranchProtection(name, owner, repo);
@@ -189,9 +189,9 @@ bthread("crud:BranchProtection:nondet:1:1", function () {
 
 // Story: crud:BranchProtection:nondet:1:2
 bthread("crud:BranchProtection:nondet:1:2", function () {
-  let name = "name_241";
-  let owner = 241;
-  let repo = "repo_241";
+  let name = "name_231";
+  let owner = 231;
+  let repo = "repo_231";
   createBranchProtection(name, owner, repo);
   // waitForBranchProtectionAdded(name, owner, repo);
   tryToAddExistingBranchProtection(name, owner, repo);
@@ -204,9 +204,9 @@ bthread("crud:BranchProtection:nondet:1:2", function () {
 
 // Story: crud:BranchProtection:nondet:negative:dup-add
 bthread("crud:BranchProtection:nondet:negative:dup-add", function () {
-  let name = "name_246";
-  let owner = 246;
-  let repo = "repo_246";
+  let name = "name_236";
+  let owner = 236;
+  let repo = "repo_236";
   createBranchProtection(name, owner, repo);
   // waitForBranchProtectionAdded(name, owner, repo);
   verifyBranchProtectionExists(name, owner, repo);
@@ -216,11 +216,11 @@ bthread("crud:BranchProtection:nondet:negative:dup-add", function () {
 
 // Story: crud:Branch:nondet:1:1
 bthread("crud:Branch:nondet:1:1", function () {
-  let branch = "branch_250";
-  let owner = 250;
-  let repo = "repo_250";
+  let branch = "branch_240";
+  let owner = 240;
+  let repo = "repo_240";
   createBranch(branch, owner, repo);
-  // waitForBranchAdded(branch, owner, repo);
+  waitForBranchAdded(branch, owner, repo);
   tryToAddExistingBranch(branch, owner, repo);
   verifyBranchExists(branch, owner, repo);
   updateBranch(branch, owner, repo);
@@ -231,9 +231,9 @@ bthread("crud:Branch:nondet:1:1", function () {
 
 // Story: crud:Branch:nondet:1:2
 bthread("crud:Branch:nondet:1:2", function () {
-  let branch = "branch_251";
-  let owner = 251;
-  let repo = "repo_251";
+  let branch = "branch_241";
+  let owner = 241;
+  let repo = "repo_241";
   createBranch(branch, owner, repo);
   // waitForBranchAdded(branch, owner, repo);
   tryToAddExistingBranch(branch, owner, repo);
@@ -246,9 +246,9 @@ bthread("crud:Branch:nondet:1:2", function () {
 
 // Story: crud:Branch:nondet:negative:dup-add
 bthread("crud:Branch:nondet:negative:dup-add", function () {
-  let branch = "branch_256";
-  let owner = 256;
-  let repo = "repo_256";
+  let branch = "branch_246";
+  let owner = 246;
+  let repo = "repo_246";
   createBranch(branch, owner, repo);
   // waitForBranchAdded(branch, owner, repo);
   verifyBranchExists(branch, owner, repo);
@@ -258,11 +258,11 @@ bthread("crud:Branch:nondet:negative:dup-add", function () {
 
 // Story: crud:Collaborator:nondet:1:1
 bthread("crud:Collaborator:nondet:1:1", function () {
-  let collaborator = "collaborator_260";
-  let owner = 260;
-  let repo = "repo_260";
+  let collaborator = "collaborator_250";
+  let owner = 250;
+  let repo = "repo_250";
   addCollaborator(collaborator, owner, repo);
-  // waitForCollaboratorAdded(collaborator, owner, repo);
+  waitForCollaboratorAdded(collaborator, owner, repo);
   tryToAddExistingCollaborator(collaborator, owner, repo);
   verifyCollaboratorExists(collaborator, owner, repo);
   deleteCollaborator(collaborator, owner, repo);
@@ -272,9 +272,9 @@ bthread("crud:Collaborator:nondet:1:1", function () {
 
 // Story: crud:Collaborator:nondet:1:2
 bthread("crud:Collaborator:nondet:1:2", function () {
-  let collaborator = "collaborator_261";
-  let owner = 261;
-  let repo = "repo_261";
+  let collaborator = "collaborator_251";
+  let owner = 251;
+  let repo = "repo_251";
   addCollaborator(collaborator, owner, repo);
   // waitForCollaboratorAdded(collaborator, owner, repo);
   tryToAddExistingCollaborator(collaborator, owner, repo);
@@ -286,9 +286,9 @@ bthread("crud:Collaborator:nondet:1:2", function () {
 
 // Story: crud:Collaborator:nondet:negative:dup-add
 bthread("crud:Collaborator:nondet:negative:dup-add", function () {
-  let collaborator = "collaborator_266";
-  let owner = 266;
-  let repo = "repo_266";
+  let collaborator = "collaborator_256";
+  let owner = 256;
+  let repo = "repo_256";
   addCollaborator(collaborator, owner, repo);
   // waitForCollaboratorAdded(collaborator, owner, repo);
   verifyCollaboratorExists(collaborator, owner, repo);
@@ -298,39 +298,72 @@ bthread("crud:Collaborator:nondet:negative:dup-add", function () {
 
 // Story: crud:RepositoryCollaboratorPermission:read_only
 bthread("crud:RepositoryCollaboratorPermission:read_only", function () {
-  let collaborator = "collaborator_280";
-  let owner = 280;
-  let repo = "repo_280";
+  let collaborator = "collaborator_270";
+  let owner = 270;
+  let repo = "repo_270";
   verifyRepositoryCollaboratorPermissionExists(collaborator, owner, repo);
 });
 
 // Story: crud:Commit:read_only
 bthread("crud:Commit:read_only", function () {
-  let basehead = "basehead_290";
-  let files = "files_290";
-  let owner = 290;
-  let ref = "ref_290";
-  let repo = "repo_290";
-  let sha = "sha_290";
-  let stat = "stat_290";
-  let verification = "verification_290";
-  verifyCommitExists(basehead, files, owner, ref, repo, sha, stat, verification);
+  let files = "files_280";
+  let owner = 280;
+  let ref = "ref_280";
+  let repo = "repo_280";
+  let sha = "sha_280";
+  let stat = "stat_280";
+  let verification = "verification_280";
+  verifyCommitExists(files, owner, ref, repo, sha, stat, verification);
 });
 
 // Story: crud:CommitComparison:read_only
 bthread("crud:CommitComparison:read_only", function () {
-  let basehead = "basehead_300";
-  let owner = 300;
-  let repo = "repo_300";
+  let basehead = "basehead_290";
+  let owner = 290;
+  let repo = "repo_290";
   verifyCommitComparisonExists(basehead, owner, repo);
 });
 
-// Story: crud:RepositoryContent:read_only
-bthread("crud:RepositoryContent:read_only", function () {
+// Story: crud:RepositoryFile:nondet:1:1
+bthread("crud:RepositoryFile:nondet:1:1", function () {
   let filepath = "filepath_310";
   let owner = 310;
   let repo = "repo_310";
-  verifyRepositoryContentExists(filepath, owner, repo);
+  createFile(filepath, owner, repo);
+  waitForRepositoryFileAdded(filepath, owner, repo);
+  tryToAddExistingRepositoryFile(filepath, owner, repo);
+  verifyRepositoryFileExists(filepath, owner, repo);
+  updateFile(filepath, owner, repo);
+  deleteFile(filepath, owner, repo);
+  tryToDeleteANonExistingRepositoryFile(filepath, owner, repo);
+  verifyRepositoryFileDoesNotExist(filepath, owner, repo);
+});
+
+// Story: crud:RepositoryFile:nondet:1:2
+bthread("crud:RepositoryFile:nondet:1:2", function () {
+  let filepath = "filepath_311";
+  let owner = 311;
+  let repo = "repo_311";
+  createFile(filepath, owner, repo);
+  // waitForRepositoryFileAdded(filepath, owner, repo);
+  tryToAddExistingRepositoryFile(filepath, owner, repo);
+  updateFile(filepath, owner, repo);
+  verifyRepositoryFileExists(filepath, owner, repo);
+  deleteFile(filepath, owner, repo);
+  tryToDeleteANonExistingRepositoryFile(filepath, owner, repo);
+  verifyRepositoryFileDoesNotExist(filepath, owner, repo);
+});
+
+// Story: crud:RepositoryFile:nondet:negative:dup-add
+bthread("crud:RepositoryFile:nondet:negative:dup-add", function () {
+  let filepath = "filepath_316";
+  let owner = 316;
+  let repo = "repo_316";
+  createFile(filepath, owner, repo);
+  // waitForRepositoryFileAdded(filepath, owner, repo);
+  verifyRepositoryFileExists(filepath, owner, repo);
+  tryToAddExistingRepositoryFile(filepath, owner, repo);
+  verifyRepositoryFileExists(filepath, owner, repo);
 });
 
 // Story: crud:EditorConfig:read_only
@@ -377,27 +410,62 @@ bthread("crud:Note:read_only", function () {
   verifyNoteExists(files, owner, repo, sha, verification);
 });
 
-// Story: crud:GitRef:read_only
-bthread("crud:GitRef:read_only", function () {
+// Story: crud:Ref:read_only
+bthread("crud:Ref:read_only", function () {
   let owner = 380;
   let repo = "repo_380";
-  verifyGitRefExists(owner, repo);
+  verifyRefExists(owner, repo);
 });
 
-// Story: crud:GitRefDetail:read_only
-bthread("crud:GitRefDetail:read_only", function () {
+// Story: crud:SingleRef:read_only
+bthread("crud:SingleRef:read_only", function () {
   let owner = 390;
   let ref = "ref_390";
   let repo = "repo_390";
-  verifyGitRefDetailExists(owner, ref, repo);
+  verifySingleRefExists(owner, ref, repo);
 });
 
-// Story: crud:AnnotatedTag:read_only
-bthread("crud:AnnotatedTag:read_only", function () {
+// Story: crud:Tag:nondet:1:1
+bthread("crud:Tag:nondet:1:1", function () {
   let owner = 400;
   let repo = "repo_400";
   let sha = "sha_400";
-  verifyAnnotatedTagExists(owner, repo, sha);
+  let tag = "tag_400";
+  createTag(owner, repo, sha, tag);
+  waitForTagAdded(owner, repo, sha, tag);
+  tryToAddExistingTag(owner, repo, sha, tag);
+  verifyTagExists(owner, repo, sha, tag);
+  deleteTag(owner, repo, sha, tag);
+  tryToDeleteANonExistingTag(owner, repo, sha, tag);
+  verifyTagDoesNotExist(owner, repo, sha, tag);
+});
+
+// Story: crud:Tag:nondet:1:2
+bthread("crud:Tag:nondet:1:2", function () {
+  let owner = 401;
+  let repo = "repo_401";
+  let sha = "sha_401";
+  let tag = "tag_401";
+  createTag(owner, repo, sha, tag);
+  // waitForTagAdded(owner, repo, sha, tag);
+  tryToAddExistingTag(owner, repo, sha, tag);
+  verifyTagExists(owner, repo, sha, tag);
+  deleteTag(owner, repo, sha, tag);
+  tryToDeleteANonExistingTag(owner, repo, sha, tag);
+  verifyTagDoesNotExist(owner, repo, sha, tag);
+});
+
+// Story: crud:Tag:nondet:negative:dup-add
+bthread("crud:Tag:nondet:negative:dup-add", function () {
+  let owner = 406;
+  let repo = "repo_406";
+  let sha = "sha_406";
+  let tag = "tag_406";
+  createTag(owner, repo, sha, tag);
+  // waitForTagAdded(owner, repo, sha, tag);
+  verifyTagExists(owner, repo, sha, tag);
+  tryToAddExistingTag(owner, repo, sha, tag);
+  verifyTagExists(owner, repo, sha, tag);
 });
 
 // Story: crud:Tree:read_only
@@ -421,7 +489,7 @@ bthread("crud:Hook:nondet:1:1", function () {
   let repo = "repo_420";
   let type = "type_420";
   createHook(id, limit, org, owner, page, repo, type);
-  // waitForHookAdded(id, limit, org, owner, page, repo, type);
+  waitForHookAdded(id, limit, org, owner, page, repo, type);
   tryToAddExistingHook(id, limit, org, owner, page, repo, type);
   verifyHookExists(id, limit, org, owner, page, repo, type);
   updateHook(id, limit, org, owner, page, repo, type);
@@ -475,11 +543,11 @@ bthread("crud:GitHook:read_only", function () {
 
 // Story: crud:Key:nondet:1:1
 bthread("crud:Key:nondet:1:1", function () {
-  let id = 450;
-  let owner = 450;
-  let repo = "repo_450";
+  let id = 440;
+  let owner = 440;
+  let repo = "repo_440";
   repoCreateKey(id, owner, repo);
-  // waitForKeyAdded(id, owner, repo);
+  waitForKeyAdded(id, owner, repo);
   tryToAddExistingKey(id, owner, repo);
   verifyKeyExists(id, owner, repo);
   repoDeleteKey(id, owner, repo);
@@ -489,9 +557,9 @@ bthread("crud:Key:nondet:1:1", function () {
 
 // Story: crud:Key:nondet:1:2
 bthread("crud:Key:nondet:1:2", function () {
-  let id = 451;
-  let owner = 451;
-  let repo = "repo_451";
+  let id = 441;
+  let owner = 441;
+  let repo = "repo_441";
   repoCreateKey(id, owner, repo);
   // waitForKeyAdded(id, owner, repo);
   tryToAddExistingKey(id, owner, repo);
@@ -503,9 +571,9 @@ bthread("crud:Key:nondet:1:2", function () {
 
 // Story: crud:Key:nondet:negative:dup-add
 bthread("crud:Key:nondet:negative:dup-add", function () {
-  let id = 456;
-  let owner = 456;
-  let repo = "repo_456";
+  let id = 446;
+  let owner = 446;
+  let repo = "repo_446";
   repoCreateKey(id, owner, repo);
   // waitForKeyAdded(id, owner, repo);
   verifyKeyExists(id, owner, repo);
@@ -515,124 +583,123 @@ bthread("crud:Key:nondet:negative:dup-add", function () {
 
 // Story: crud:PullRequest:read_only
 bthread("crud:PullRequest:read_only", function () {
-  let base = "base_460";
-  let binary = "binary_460";
-  let diffType = "diffType_460";
-  let files = "files_460";
-  let head = "head_460";
+  let base = "base_450";
+  let binary = "binary_450";
+  let diffType = "diffType_450";
+  let files = "files_450";
+  let head = "head_450";
+  let index = "index_450";
+  let labels = "labels_450";
+  let limit = "limit_450";
+  let milestone = "milestone_450";
+  let owner = 450;
+  let page = "page_450";
+  let poster = "poster_450";
+  let repo = "repo_450";
+  let skip-to = "skip-to_450";
+  let sort = "sort_450";
+  let state = "state_450";
+  let verification = "verification_450";
+  let whitespace = "whitespace_450";
+  verifyPullRequestExists(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace);
+});
+
+// Story: crud:PullRequestReviewRequest:nondet:1:1
+bthread("crud:PullRequestReviewRequest:nondet:1:1", function () {
   let index = "index_460";
-  let labels = "labels_460";
-  let limit = "limit_460";
-  let milestone = "milestone_460";
   let owner = 460;
-  let page = "page_460";
-  let poster = "poster_460";
   let repo = "repo_460";
-  let skip-to = "skip-to_460";
-  let sort = "sort_460";
-  let state = "state_460";
-  let style = "style_460";
-  let verification = "verification_460";
-  let whitespace = "whitespace_460";
-  verifyPullRequestExists(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace);
+  createPullReviewRequests(index, owner, repo);
+  waitForPullRequestReviewRequestAdded(index, owner, repo);
+  tryToAddExistingPullRequestReviewRequest(index, owner, repo);
+  verifyPullRequestReviewRequestExists(index, owner, repo);
+  deletePullReviewRequests(index, owner, repo);
+  tryToDeleteANonExistingPullRequestReviewRequest(index, owner, repo);
+  verifyPullRequestReviewRequestDoesNotExist(index, owner, repo);
 });
 
-// Story: crud:PullReviewRequest:nondet:1:1
-bthread("crud:PullReviewRequest:nondet:1:1", function () {
+// Story: crud:PullRequestReviewRequest:nondet:1:2
+bthread("crud:PullRequestReviewRequest:nondet:1:2", function () {
+  let index = "index_461";
+  let owner = 461;
+  let repo = "repo_461";
+  createPullReviewRequests(index, owner, repo);
+  // waitForPullRequestReviewRequestAdded(index, owner, repo);
+  tryToAddExistingPullRequestReviewRequest(index, owner, repo);
+  verifyPullRequestReviewRequestExists(index, owner, repo);
+  deletePullReviewRequests(index, owner, repo);
+  tryToDeleteANonExistingPullRequestReviewRequest(index, owner, repo);
+  verifyPullRequestReviewRequestDoesNotExist(index, owner, repo);
+});
+
+// Story: crud:PullRequestReviewRequest:nondet:negative:dup-add
+bthread("crud:PullRequestReviewRequest:nondet:negative:dup-add", function () {
+  let index = "index_466";
+  let owner = 466;
+  let repo = "repo_466";
+  createPullReviewRequests(index, owner, repo);
+  // waitForPullRequestReviewRequestAdded(index, owner, repo);
+  verifyPullRequestReviewRequestExists(index, owner, repo);
+  tryToAddExistingPullRequestReviewRequest(index, owner, repo);
+  verifyPullRequestReviewRequestExists(index, owner, repo);
+});
+
+// Story: crud:PullRequestReview:nondet:1:1
+bthread("crud:PullRequestReview:nondet:1:1", function () {
+  let id = 470;
   let index = "index_470";
+  let limit = "limit_470";
   let owner = 470;
+  let page = "page_470";
   let repo = "repo_470";
-  createPullReviewRequests(index, owner, repo);
-  // waitForPullReviewRequestAdded(index, owner, repo);
-  tryToAddExistingPullReviewRequest(index, owner, repo);
-  verifyPullReviewRequestExists(index, owner, repo);
-  deletePullReviewRequests(index, owner, repo);
-  tryToDeleteANonExistingPullReviewRequest(index, owner, repo);
-  verifyPullReviewRequestDoesNotExist(index, owner, repo);
+  createPullReview(id, index, limit, owner, page, repo);
+  waitForPullRequestReviewAdded(id, index, limit, owner, page, repo);
+  tryToAddExistingPullRequestReview(id, index, limit, owner, page, repo);
+  verifyPullRequestReviewExists(id, index, limit, owner, page, repo);
+  deletePullReview(id, index, limit, owner, page, repo);
+  tryToDeleteANonExistingPullRequestReview(id, index, limit, owner, page, repo);
+  verifyPullRequestReviewDoesNotExist(id, index, limit, owner, page, repo);
 });
 
-// Story: crud:PullReviewRequest:nondet:1:2
-bthread("crud:PullReviewRequest:nondet:1:2", function () {
+// Story: crud:PullRequestReview:nondet:1:2
+bthread("crud:PullRequestReview:nondet:1:2", function () {
+  let id = 471;
   let index = "index_471";
+  let limit = "limit_471";
   let owner = 471;
+  let page = "page_471";
   let repo = "repo_471";
-  createPullReviewRequests(index, owner, repo);
-  // waitForPullReviewRequestAdded(index, owner, repo);
-  tryToAddExistingPullReviewRequest(index, owner, repo);
-  verifyPullReviewRequestExists(index, owner, repo);
-  deletePullReviewRequests(index, owner, repo);
-  tryToDeleteANonExistingPullReviewRequest(index, owner, repo);
-  verifyPullReviewRequestDoesNotExist(index, owner, repo);
+  createPullReview(id, index, limit, owner, page, repo);
+  // waitForPullRequestReviewAdded(id, index, limit, owner, page, repo);
+  tryToAddExistingPullRequestReview(id, index, limit, owner, page, repo);
+  verifyPullRequestReviewExists(id, index, limit, owner, page, repo);
+  deletePullReview(id, index, limit, owner, page, repo);
+  tryToDeleteANonExistingPullRequestReview(id, index, limit, owner, page, repo);
+  verifyPullRequestReviewDoesNotExist(id, index, limit, owner, page, repo);
 });
 
-// Story: crud:PullReviewRequest:nondet:negative:dup-add
-bthread("crud:PullReviewRequest:nondet:negative:dup-add", function () {
+// Story: crud:PullRequestReview:nondet:negative:dup-add
+bthread("crud:PullRequestReview:nondet:negative:dup-add", function () {
+  let id = 476;
   let index = "index_476";
+  let limit = "limit_476";
   let owner = 476;
+  let page = "page_476";
   let repo = "repo_476";
-  createPullReviewRequests(index, owner, repo);
-  // waitForPullReviewRequestAdded(index, owner, repo);
-  verifyPullReviewRequestExists(index, owner, repo);
-  tryToAddExistingPullReviewRequest(index, owner, repo);
-  verifyPullReviewRequestExists(index, owner, repo);
-});
-
-// Story: crud:PullReview:nondet:1:1
-bthread("crud:PullReview:nondet:1:1", function () {
-  let id = 480;
-  let index = "index_480";
-  let limit = "limit_480";
-  let owner = 480;
-  let page = "page_480";
-  let repo = "repo_480";
   createPullReview(id, index, limit, owner, page, repo);
-  // waitForPullReviewAdded(id, index, limit, owner, page, repo);
-  tryToAddExistingPullReview(id, index, limit, owner, page, repo);
-  verifyPullReviewExists(id, index, limit, owner, page, repo);
-  deletePullReview(id, index, limit, owner, page, repo);
-  tryToDeleteANonExistingPullReview(id, index, limit, owner, page, repo);
-  verifyPullReviewDoesNotExist(id, index, limit, owner, page, repo);
-});
-
-// Story: crud:PullReview:nondet:1:2
-bthread("crud:PullReview:nondet:1:2", function () {
-  let id = 481;
-  let index = "index_481";
-  let limit = "limit_481";
-  let owner = 481;
-  let page = "page_481";
-  let repo = "repo_481";
-  createPullReview(id, index, limit, owner, page, repo);
-  // waitForPullReviewAdded(id, index, limit, owner, page, repo);
-  tryToAddExistingPullReview(id, index, limit, owner, page, repo);
-  verifyPullReviewExists(id, index, limit, owner, page, repo);
-  deletePullReview(id, index, limit, owner, page, repo);
-  tryToDeleteANonExistingPullReview(id, index, limit, owner, page, repo);
-  verifyPullReviewDoesNotExist(id, index, limit, owner, page, repo);
-});
-
-// Story: crud:PullReview:nondet:negative:dup-add
-bthread("crud:PullReview:nondet:negative:dup-add", function () {
-  let id = 486;
-  let index = "index_486";
-  let limit = "limit_486";
-  let owner = 486;
-  let page = "page_486";
-  let repo = "repo_486";
-  createPullReview(id, index, limit, owner, page, repo);
-  // waitForPullReviewAdded(id, index, limit, owner, page, repo);
-  verifyPullReviewExists(id, index, limit, owner, page, repo);
-  tryToAddExistingPullReview(id, index, limit, owner, page, repo);
-  verifyPullReviewExists(id, index, limit, owner, page, repo);
+  // waitForPullRequestReviewAdded(id, index, limit, owner, page, repo);
+  verifyPullRequestReviewExists(id, index, limit, owner, page, repo);
+  tryToAddExistingPullRequestReview(id, index, limit, owner, page, repo);
+  verifyPullRequestReviewExists(id, index, limit, owner, page, repo);
 });
 
 // Story: crud:PushMirror:nondet:1:1
 bthread("crud:PushMirror:nondet:1:1", function () {
-  let name = "name_510";
-  let owner = 510;
-  let repo = "repo_510";
+  let name = "name_500";
+  let owner = 500;
+  let repo = "repo_500";
   repoAddPushMirror(name, owner, repo);
-  // waitForPushMirrorAdded(name, owner, repo);
+  waitForPushMirrorAdded(name, owner, repo);
   tryToAddExistingPushMirror(name, owner, repo);
   verifyPushMirrorExists(name, owner, repo);
   repoDeletePushMirror(name, owner, repo);
@@ -642,9 +709,9 @@ bthread("crud:PushMirror:nondet:1:1", function () {
 
 // Story: crud:PushMirror:nondet:1:2
 bthread("crud:PushMirror:nondet:1:2", function () {
-  let name = "name_511";
-  let owner = 511;
-  let repo = "repo_511";
+  let name = "name_501";
+  let owner = 501;
+  let repo = "repo_501";
   repoAddPushMirror(name, owner, repo);
   // waitForPushMirrorAdded(name, owner, repo);
   tryToAddExistingPushMirror(name, owner, repo);
@@ -656,9 +723,9 @@ bthread("crud:PushMirror:nondet:1:2", function () {
 
 // Story: crud:PushMirror:nondet:negative:dup-add
 bthread("crud:PushMirror:nondet:negative:dup-add", function () {
-  let name = "name_516";
-  let owner = 516;
-  let repo = "repo_516";
+  let name = "name_506";
+  let owner = 506;
+  let repo = "repo_506";
   repoAddPushMirror(name, owner, repo);
   // waitForPushMirrorAdded(name, owner, repo);
   verifyPushMirrorExists(name, owner, repo);
@@ -668,12 +735,12 @@ bthread("crud:PushMirror:nondet:negative:dup-add", function () {
 
 // Story: crud:Release:nondet:1:1
 bthread("crud:Release:nondet:1:1", function () {
-  let id = 520;
-  let owner = 520;
-  let repo = "repo_520";
-  let tag = "tag_520";
+  let id = 510;
+  let owner = 510;
+  let repo = "repo_510";
+  let tag = "tag_510";
   repoCreateRelease(id, owner, repo, tag);
-  // waitForReleaseAdded(id, owner, repo, tag);
+  waitForReleaseAdded(id, owner, repo, tag);
   tryToAddExistingRelease(id, owner, repo, tag);
   verifyReleaseExists(id, owner, repo, tag);
   repoEditRelease(id, owner, repo, tag);
@@ -684,10 +751,10 @@ bthread("crud:Release:nondet:1:1", function () {
 
 // Story: crud:Release:nondet:1:2
 bthread("crud:Release:nondet:1:2", function () {
-  let id = 521;
-  let owner = 521;
-  let repo = "repo_521";
-  let tag = "tag_521";
+  let id = 511;
+  let owner = 511;
+  let repo = "repo_511";
+  let tag = "tag_511";
   repoCreateRelease(id, owner, repo, tag);
   // waitForReleaseAdded(id, owner, repo, tag);
   tryToAddExistingRelease(id, owner, repo, tag);
@@ -700,10 +767,10 @@ bthread("crud:Release:nondet:1:2", function () {
 
 // Story: crud:Release:nondet:negative:dup-add
 bthread("crud:Release:nondet:negative:dup-add", function () {
-  let id = 526;
-  let owner = 526;
-  let repo = "repo_526";
-  let tag = "tag_526";
+  let id = 516;
+  let owner = 516;
+  let repo = "repo_516";
+  let tag = "tag_516";
   repoCreateRelease(id, owner, repo, tag);
   // waitForReleaseAdded(id, owner, repo, tag);
   verifyReleaseExists(id, owner, repo, tag);
@@ -713,13 +780,13 @@ bthread("crud:Release:nondet:negative:dup-add", function () {
 
 // Story: crud:ReleaseAttachment:nondet:1:1
 bthread("crud:ReleaseAttachment:nondet:1:1", function () {
-  let attachment_id = 530;
-  let id = 530;
-  let name = "name_530";
-  let owner = 530;
-  let repo = "repo_530";
+  let attachment_id = 520;
+  let id = 520;
+  let name = "name_520";
+  let owner = 520;
+  let repo = "repo_520";
   repoCreateReleaseAttachment(attachment_id, id, name, owner, repo);
-  // waitForReleaseAttachmentAdded(attachment_id, id, name, owner, repo);
+  waitForReleaseAttachmentAdded(attachment_id, id, name, owner, repo);
   tryToAddExistingReleaseAttachment(attachment_id, id, name, owner, repo);
   verifyReleaseAttachmentExists(attachment_id, id, name, owner, repo);
   editReleaseAttachment(attachment_id, id, name, owner, repo);
@@ -730,11 +797,11 @@ bthread("crud:ReleaseAttachment:nondet:1:1", function () {
 
 // Story: crud:ReleaseAttachment:nondet:1:2
 bthread("crud:ReleaseAttachment:nondet:1:2", function () {
-  let attachment_id = 531;
-  let id = 531;
-  let name = "name_531";
-  let owner = 531;
-  let repo = "repo_531";
+  let attachment_id = 521;
+  let id = 521;
+  let name = "name_521";
+  let owner = 521;
+  let repo = "repo_521";
   repoCreateReleaseAttachment(attachment_id, id, name, owner, repo);
   // waitForReleaseAttachmentAdded(attachment_id, id, name, owner, repo);
   tryToAddExistingReleaseAttachment(attachment_id, id, name, owner, repo);
@@ -747,11 +814,11 @@ bthread("crud:ReleaseAttachment:nondet:1:2", function () {
 
 // Story: crud:ReleaseAttachment:nondet:negative:dup-add
 bthread("crud:ReleaseAttachment:nondet:negative:dup-add", function () {
-  let attachment_id = 536;
-  let id = 536;
-  let name = "name_536";
-  let owner = 536;
-  let repo = "repo_536";
+  let attachment_id = 526;
+  let id = 526;
+  let name = "name_526";
+  let owner = 526;
+  let repo = "repo_526";
   repoCreateReleaseAttachment(attachment_id, id, name, owner, repo);
   // waitForReleaseAttachmentAdded(attachment_id, id, name, owner, repo);
   verifyReleaseAttachmentExists(attachment_id, id, name, owner, repo);
@@ -775,32 +842,24 @@ bthread("crud:SigningKey:read_only", function () {
 
 // Story: crud:Stargazer:read_only
 bthread("crud:Stargazer:read_only", function () {
-  let limit = "limit_560";
   let owner = 560;
-  let page = "page_560";
   let repo = "repo_560";
-  verifyStargazerExists(limit, owner, page, repo);
+  verifyStargazerExists(owner, repo);
 });
 
 // Story: crud:CommitStatus:read_only
 bthread("crud:CommitStatus:read_only", function () {
-  let limit = "limit_570";
   let owner = 570;
-  let page = "page_570";
   let repo = "repo_570";
   let sha = "sha_570";
-  let sort = "sort_570";
-  let state = "state_570";
-  verifyCommitStatusExists(limit, owner, page, repo, sha, sort, state);
+  verifyCommitStatusExists(owner, repo, sha);
 });
 
 // Story: crud:Subscriber:read_only
 bthread("crud:Subscriber:read_only", function () {
-  let limit = "limit_580";
   let owner = 580;
-  let page = "page_580";
   let repo = "repo_580";
-  verifySubscriberExists(limit, owner, page, repo);
+  verifySubscriberExists(owner, repo);
 });
 
 // Story: crud:Subscription:nondet:1:1
@@ -809,7 +868,7 @@ bthread("crud:Subscription:nondet:1:1", function () {
   let repo = "repo_590";
   let username = 590;
   watchRepo(owner, repo, username);
-  // waitForSubscriptionAdded(owner, repo, username);
+  waitForSubscriptionAdded(owner, repo, username);
   tryToAddExistingSubscription(owner, repo, username);
   verifySubscriptionExists(owner, repo, username);
   unwatchRepo(owner, repo, username);
@@ -849,7 +908,7 @@ bthread("crud:TagProtection:nondet:1:1", function () {
   let owner = 600;
   let repo = "repo_600";
   createTagProtection(id, owner, repo);
-  // waitForTagProtectionAdded(id, owner, repo);
+  waitForTagProtectionAdded(id, owner, repo);
   tryToAddExistingTagProtection(id, owner, repo);
   verifyTagProtectionExists(id, owner, repo);
   editTagProtection(id, owner, repo);
@@ -885,62 +944,16 @@ bthread("crud:TagProtection:nondet:negative:dup-add", function () {
   verifyTagProtectionExists(id, owner, repo);
 });
 
-// Story: crud:Tag:nondet:1:1
-bthread("crud:Tag:nondet:1:1", function () {
-  let limit = "limit_610";
-  let owner = 610;
-  let page = "page_610";
-  let repo = "repo_610";
-  let tag = "tag_610";
-  createTag(limit, owner, page, repo, tag);
-  // waitForTagAdded(limit, owner, page, repo, tag);
-  tryToAddExistingTag(limit, owner, page, repo, tag);
-  verifyTagExists(limit, owner, page, repo, tag);
-  deleteTag(limit, owner, page, repo, tag);
-  tryToDeleteANonExistingTag(limit, owner, page, repo, tag);
-  verifyTagDoesNotExist(limit, owner, page, repo, tag);
-});
-
-// Story: crud:Tag:nondet:1:2
-bthread("crud:Tag:nondet:1:2", function () {
-  let limit = "limit_611";
-  let owner = 611;
-  let page = "page_611";
-  let repo = "repo_611";
-  let tag = "tag_611";
-  createTag(limit, owner, page, repo, tag);
-  // waitForTagAdded(limit, owner, page, repo, tag);
-  tryToAddExistingTag(limit, owner, page, repo, tag);
-  verifyTagExists(limit, owner, page, repo, tag);
-  deleteTag(limit, owner, page, repo, tag);
-  tryToDeleteANonExistingTag(limit, owner, page, repo, tag);
-  verifyTagDoesNotExist(limit, owner, page, repo, tag);
-});
-
-// Story: crud:Tag:nondet:negative:dup-add
-bthread("crud:Tag:nondet:negative:dup-add", function () {
-  let limit = "limit_616";
-  let owner = 616;
-  let page = "page_616";
-  let repo = "repo_616";
-  let tag = "tag_616";
-  createTag(limit, owner, page, repo, tag);
-  // waitForTagAdded(limit, owner, page, repo, tag);
-  verifyTagExists(limit, owner, page, repo, tag);
-  tryToAddExistingTag(limit, owner, page, repo, tag);
-  verifyTagExists(limit, owner, page, repo, tag);
-});
-
 // Story: crud:Team:nondet:1:1
 bthread("crud:Team:nondet:1:1", function () {
-  let id = 620;
-  let name = "name_620";
-  let org = "org_620";
-  let owner = "owner_620";
-  let repo = "repo_620";
-  let team = "team_620";
+  let id = 610;
+  let name = "name_610";
+  let org = "org_610";
+  let owner = "owner_610";
+  let repo = "repo_610";
+  let team = "team_610";
   orgCreateTeam(id, name, org, owner, repo, team);
-  // waitForTeamAdded(id, name, org, owner, repo, team);
+  waitForTeamAdded(id, name, org, owner, repo, team);
   tryToAddExistingTeam(id, name, org, owner, repo, team);
   verifyTeamExists(id, name, org, owner, repo, team);
   orgEditTeam(id, name, org, owner, repo, team);
@@ -951,12 +964,12 @@ bthread("crud:Team:nondet:1:1", function () {
 
 // Story: crud:Team:nondet:1:2
 bthread("crud:Team:nondet:1:2", function () {
-  let id = 621;
-  let name = "name_621";
-  let org = "org_621";
-  let owner = "owner_621";
-  let repo = "repo_621";
-  let team = "team_621";
+  let id = 611;
+  let name = "name_611";
+  let org = "org_611";
+  let owner = "owner_611";
+  let repo = "repo_611";
+  let team = "team_611";
   orgCreateTeam(id, name, org, owner, repo, team);
   // waitForTeamAdded(id, name, org, owner, repo, team);
   tryToAddExistingTeam(id, name, org, owner, repo, team);
@@ -969,12 +982,12 @@ bthread("crud:Team:nondet:1:2", function () {
 
 // Story: crud:Team:nondet:negative:dup-add
 bthread("crud:Team:nondet:negative:dup-add", function () {
-  let id = 626;
-  let name = "name_626";
-  let org = "org_626";
-  let owner = "owner_626";
-  let repo = "repo_626";
-  let team = "team_626";
+  let id = 616;
+  let name = "name_616";
+  let org = "org_616";
+  let owner = "owner_616";
+  let repo = "repo_616";
+  let team = "team_616";
   orgCreateTeam(id, name, org, owner, repo, team);
   // waitForTeamAdded(id, name, org, owner, repo, team);
   verifyTeamExists(id, name, org, owner, repo, team);
@@ -984,37 +997,36 @@ bthread("crud:Team:nondet:negative:dup-add", function () {
 
 // Story: crud:Teams:read_only
 bthread("crud:Teams:read_only", function () {
-  let owner = 630;
-  let repo = "repo_630";
+  let owner = 620;
+  let repo = "repo_620";
   verifyTeamsExists(owner, repo);
 });
 
 // Story: crud:TrackedTime:read_only
 bthread("crud:TrackedTime:read_only", function () {
-  let owner = 640;
-  let repo = "repo_640";
-  let user = "user_640";
-  verifyTrackedTimeExists(owner, repo, user);
+  let owner = 630;
+  let repo = "repo_630";
+  verifyTrackedTimeExists(owner, repo);
 });
 
 // Story: crud:UserTrackedTime:read_only
 bthread("crud:UserTrackedTime:read_only", function () {
-  let owner = 650;
-  let repo = "repo_650";
-  let user = "user_650";
+  let owner = 640;
+  let repo = "repo_640";
+  let user = "user_640";
   verifyUserTrackedTimeExists(owner, repo, user);
 });
 
 // Story: crud:Topic:nondet:1:1
 bthread("crud:Topic:nondet:1:1", function () {
-  let limit = "limit_660";
-  let owner = 660;
-  let page = "page_660";
-  let q = "q_660";
-  let repo = "repo_660";
-  let topic = "topic_660";
+  let limit = "limit_650";
+  let owner = 650;
+  let page = "page_650";
+  let q = "q_650";
+  let repo = "repo_650";
+  let topic = "topic_650";
   addTopic(limit, owner, page, q, repo, topic);
-  // waitForTopicAdded(limit, owner, page, q, repo, topic);
+  waitForTopicAdded(limit, owner, page, q, repo, topic);
   tryToAddExistingTopic(limit, owner, page, q, repo, topic);
   verifyTopicExists(limit, owner, page, q, repo, topic);
   deleteTopic(limit, owner, page, q, repo, topic);
@@ -1024,12 +1036,12 @@ bthread("crud:Topic:nondet:1:1", function () {
 
 // Story: crud:Topic:nondet:1:2
 bthread("crud:Topic:nondet:1:2", function () {
-  let limit = "limit_661";
-  let owner = 661;
-  let page = "page_661";
-  let q = "q_661";
-  let repo = "repo_661";
-  let topic = "topic_661";
+  let limit = "limit_651";
+  let owner = 651;
+  let page = "page_651";
+  let q = "q_651";
+  let repo = "repo_651";
+  let topic = "topic_651";
   addTopic(limit, owner, page, q, repo, topic);
   // waitForTopicAdded(limit, owner, page, q, repo, topic);
   tryToAddExistingTopic(limit, owner, page, q, repo, topic);
@@ -1041,12 +1053,12 @@ bthread("crud:Topic:nondet:1:2", function () {
 
 // Story: crud:Topic:nondet:negative:dup-add
 bthread("crud:Topic:nondet:negative:dup-add", function () {
-  let limit = "limit_666";
-  let owner = 666;
-  let page = "page_666";
-  let q = "q_666";
-  let repo = "repo_666";
-  let topic = "topic_666";
+  let limit = "limit_656";
+  let owner = 656;
+  let page = "page_656";
+  let q = "q_656";
+  let repo = "repo_656";
+  let topic = "topic_656";
   addTopic(limit, owner, page, q, repo, topic);
   // waitForTopicAdded(limit, owner, page, q, repo, topic);
   verifyTopicExists(limit, owner, page, q, repo, topic);
@@ -1056,18 +1068,18 @@ bthread("crud:Topic:nondet:negative:dup-add", function () {
 
 // Story: crud:Topics:read_only
 bthread("crud:Topics:read_only", function () {
-  let owner = 670;
-  let repo = "repo_670";
+  let owner = 660;
+  let repo = "repo_660";
   verifyTopicsExists(owner, repo);
 });
 
 // Story: crud:WikiPage:nondet:1:1
 bthread("crud:WikiPage:nondet:1:1", function () {
-  let owner = 690;
-  let pageName = "pageName_690";
-  let repo = "repo_690";
+  let owner = 680;
+  let pageName = "pageName_680";
+  let repo = "repo_680";
   repoCreateWikiPage(owner, pageName, repo);
-  // waitForWikiPageAdded(owner, pageName, repo);
+  waitForWikiPageAdded(owner, pageName, repo);
   tryToAddExistingWikiPage(owner, pageName, repo);
   verifyWikiPageExists(owner, pageName, repo);
   repoEditWikiPage(owner, pageName, repo);
@@ -1078,9 +1090,9 @@ bthread("crud:WikiPage:nondet:1:1", function () {
 
 // Story: crud:WikiPage:nondet:1:2
 bthread("crud:WikiPage:nondet:1:2", function () {
-  let owner = 691;
-  let pageName = "pageName_691";
-  let repo = "repo_691";
+  let owner = 681;
+  let pageName = "pageName_681";
+  let repo = "repo_681";
   repoCreateWikiPage(owner, pageName, repo);
   // waitForWikiPageAdded(owner, pageName, repo);
   tryToAddExistingWikiPage(owner, pageName, repo);
@@ -1093,9 +1105,9 @@ bthread("crud:WikiPage:nondet:1:2", function () {
 
 // Story: crud:WikiPage:nondet:negative:dup-add
 bthread("crud:WikiPage:nondet:negative:dup-add", function () {
-  let owner = 696;
-  let pageName = "pageName_696";
-  let repo = "repo_696";
+  let owner = 686;
+  let pageName = "pageName_686";
+  let repo = "repo_686";
   repoCreateWikiPage(owner, pageName, repo);
   // waitForWikiPageAdded(owner, pageName, repo);
   verifyWikiPageExists(owner, pageName, repo);
@@ -1105,27 +1117,27 @@ bthread("crud:WikiPage:nondet:negative:dup-add", function () {
 
 // Story: crud:WikiPages:read_only
 bthread("crud:WikiPages:read_only", function () {
-  let limit = "limit_700";
-  let owner = 700;
-  let page = "page_700";
-  let repo = "repo_700";
+  let limit = "limit_690";
+  let owner = 690;
+  let page = "page_690";
+  let repo = "repo_690";
   verifyWikiPagesExists(limit, owner, page, repo);
 });
 
 // Story: crud:WikiPageRevisions:read_only
 bthread("crud:WikiPageRevisions:read_only", function () {
-  let owner = 710;
-  let page = "page_710";
-  let pageName = "pageName_710";
-  let repo = "repo_710";
+  let owner = 700;
+  let page = "page_700";
+  let pageName = "pageName_700";
+  let repo = "repo_700";
   verifyWikiPageRevisionsExists(owner, page, pageName, repo);
 });
 
 // Story: crud:UserSecret:nondet:1:1
 bthread("crud:UserSecret:nondet:1:1", function () {
-  let secretname = 720;
+  let secretname = 710;
   updateUserSecret(secretname);
-  // waitForUserSecretAdded(secretname);
+  waitForUserSecretAdded(secretname);
   tryToAddExistingUserSecret(secretname);
   verifyUserSecretExists(secretname);
   updateUserSecret(secretname);
@@ -1136,7 +1148,7 @@ bthread("crud:UserSecret:nondet:1:1", function () {
 
 // Story: crud:UserSecret:nondet:1:2
 bthread("crud:UserSecret:nondet:1:2", function () {
-  let secretname = 721;
+  let secretname = 711;
   updateUserSecret(secretname);
   // waitForUserSecretAdded(secretname);
   tryToAddExistingUserSecret(secretname);
@@ -1149,7 +1161,7 @@ bthread("crud:UserSecret:nondet:1:2", function () {
 
 // Story: crud:UserSecret:nondet:negative:dup-add
 bthread("crud:UserSecret:nondet:negative:dup-add", function () {
-  let secretname = 726;
+  let secretname = 716;
   updateUserSecret(secretname);
   // waitForUserSecretAdded(secretname);
   verifyUserSecretExists(secretname);
@@ -1159,9 +1171,9 @@ bthread("crud:UserSecret:nondet:negative:dup-add", function () {
 
 // Story: crud:UserVariable:nondet:1:1
 bthread("crud:UserVariable:nondet:1:1", function () {
-  let variablename = 730;
+  let variablename = 720;
   createUserVariable(variablename);
-  // waitForUserVariableAdded(variablename);
+  waitForUserVariableAdded(variablename);
   tryToAddExistingUserVariable(variablename);
   verifyUserVariableExists(variablename);
   updateUserVariable(variablename);
@@ -1172,7 +1184,7 @@ bthread("crud:UserVariable:nondet:1:1", function () {
 
 // Story: crud:UserVariable:nondet:1:2
 bthread("crud:UserVariable:nondet:1:2", function () {
-  let variablename = 731;
+  let variablename = 721;
   createUserVariable(variablename);
   // waitForUserVariableAdded(variablename);
   tryToAddExistingUserVariable(variablename);
@@ -1185,7 +1197,7 @@ bthread("crud:UserVariable:nondet:1:2", function () {
 
 // Story: crud:UserVariable:nondet:negative:dup-add
 bthread("crud:UserVariable:nondet:negative:dup-add", function () {
-  let variablename = 736;
+  let variablename = 726;
   createUserVariable(variablename);
   // waitForUserVariableAdded(variablename);
   verifyUserVariableExists(variablename);
@@ -1195,9 +1207,9 @@ bthread("crud:UserVariable:nondet:negative:dup-add", function () {
 
 // Story: crud:OAuth2Application:nondet:1:1
 bthread("crud:OAuth2Application:nondet:1:1", function () {
-  let id = 740;
+  let id = 730;
   userCreateOAuth2Application(id);
-  // waitForOAuth2ApplicationAdded(id);
+  waitForOAuth2ApplicationAdded(id);
   tryToAddExistingOAuth2Application(id);
   verifyOAuth2ApplicationExists(id);
   userUpdateOAuth2Application(id);
@@ -1208,7 +1220,7 @@ bthread("crud:OAuth2Application:nondet:1:1", function () {
 
 // Story: crud:OAuth2Application:nondet:1:2
 bthread("crud:OAuth2Application:nondet:1:2", function () {
-  let id = 741;
+  let id = 731;
   userCreateOAuth2Application(id);
   // waitForOAuth2ApplicationAdded(id);
   tryToAddExistingOAuth2Application(id);
@@ -1221,7 +1233,7 @@ bthread("crud:OAuth2Application:nondet:1:2", function () {
 
 // Story: crud:OAuth2Application:nondet:negative:dup-add
 bthread("crud:OAuth2Application:nondet:negative:dup-add", function () {
-  let id = 746;
+  let id = 736;
   userCreateOAuth2Application(id);
   // waitForOAuth2ApplicationAdded(id);
   verifyOAuth2ApplicationExists(id);
@@ -1231,9 +1243,9 @@ bthread("crud:OAuth2Application:nondet:negative:dup-add", function () {
 
 // Story: crud:UserBlock:nondet:1:1
 bthread("crud:UserBlock:nondet:1:1", function () {
-  let username = 760;
+  let username = 750;
   userBlockUser(username);
-  // waitForUserBlockAdded(username);
+  waitForUserBlockAdded(username);
   tryToAddExistingUserBlock(username);
   verifyUserBlockExists(username);
   userUnblockUser(username);
@@ -1243,7 +1255,7 @@ bthread("crud:UserBlock:nondet:1:1", function () {
 
 // Story: crud:UserBlock:nondet:1:2
 bthread("crud:UserBlock:nondet:1:2", function () {
-  let username = 761;
+  let username = 751;
   userBlockUser(username);
   // waitForUserBlockAdded(username);
   tryToAddExistingUserBlock(username);
@@ -1255,7 +1267,7 @@ bthread("crud:UserBlock:nondet:1:2", function () {
 
 // Story: crud:UserBlock:nondet:negative:dup-add
 bthread("crud:UserBlock:nondet:negative:dup-add", function () {
-  let username = 766;
+  let username = 756;
   userBlockUser(username);
   // waitForUserBlockAdded(username);
   verifyUserBlockExists(username);
@@ -1265,11 +1277,11 @@ bthread("crud:UserBlock:nondet:negative:dup-add", function () {
 
 // Story: crud:Email:nondet:1:1
 bthread("crud:Email:nondet:1:1", function () {
-  let limit = "limit_770";
-  let page = "page_770";
-  let q = "q_770";
+  let limit = "limit_760";
+  let page = "page_760";
+  let q = "q_760";
   userAddEmail(limit, page, q);
-  // waitForEmailAdded(limit, page, q);
+  waitForEmailAdded(limit, page, q);
   tryToAddExistingEmail(limit, page, q);
   verifyEmailExists(limit, page, q);
   userDeleteEmail(limit, page, q);
@@ -1279,9 +1291,9 @@ bthread("crud:Email:nondet:1:1", function () {
 
 // Story: crud:Email:nondet:1:2
 bthread("crud:Email:nondet:1:2", function () {
-  let limit = "limit_771";
-  let page = "page_771";
-  let q = "q_771";
+  let limit = "limit_761";
+  let page = "page_761";
+  let q = "q_761";
   userAddEmail(limit, page, q);
   // waitForEmailAdded(limit, page, q);
   tryToAddExistingEmail(limit, page, q);
@@ -1293,9 +1305,9 @@ bthread("crud:Email:nondet:1:2", function () {
 
 // Story: crud:Email:nondet:negative:dup-add
 bthread("crud:Email:nondet:negative:dup-add", function () {
-  let limit = "limit_776";
-  let page = "page_776";
-  let q = "q_776";
+  let limit = "limit_766";
+  let page = "page_766";
+  let q = "q_766";
   userAddEmail(limit, page, q);
   // waitForEmailAdded(limit, page, q);
   verifyEmailExists(limit, page, q);
@@ -1305,59 +1317,59 @@ bthread("crud:Email:nondet:negative:dup-add", function () {
 
 // Story: crud:Follower:read_only
 bthread("crud:Follower:read_only", function () {
-  let limit = "limit_780";
-  let page = "page_780";
+  let limit = "limit_770";
+  let page = "page_770";
   verifyFollowerExists(limit, page);
 });
 
 // Story: crud:Following:read_only
 bthread("crud:Following:read_only", function () {
-  let limit = "limit_790";
-  let page = "page_790";
+  let limit = "limit_780";
+  let page = "page_780";
   verifyFollowingExists(limit, page);
 });
 
-// Story: crud:FollowingUser:nondet:1:1
-bthread("crud:FollowingUser:nondet:1:1", function () {
-  let username = 800;
+// Story: crud:UserFollow:nondet:1:1
+bthread("crud:UserFollow:nondet:1:1", function () {
+  let username = 790;
   userCurrentPutFollow(username);
-  // waitForFollowingUserAdded(username);
-  tryToAddExistingFollowingUser(username);
-  verifyFollowingUserExists(username);
+  waitForUserFollowAdded(username);
+  tryToAddExistingUserFollow(username);
+  verifyUserFollowExists(username);
   userCurrentDeleteFollow(username);
-  tryToDeleteANonExistingFollowingUser(username);
-  verifyFollowingUserDoesNotExist(username);
+  tryToDeleteANonExistingUserFollow(username);
+  verifyUserFollowDoesNotExist(username);
 });
 
-// Story: crud:FollowingUser:nondet:1:2
-bthread("crud:FollowingUser:nondet:1:2", function () {
-  let username = 801;
+// Story: crud:UserFollow:nondet:1:2
+bthread("crud:UserFollow:nondet:1:2", function () {
+  let username = 791;
   userCurrentPutFollow(username);
-  // waitForFollowingUserAdded(username);
-  tryToAddExistingFollowingUser(username);
-  verifyFollowingUserExists(username);
+  // waitForUserFollowAdded(username);
+  tryToAddExistingUserFollow(username);
+  verifyUserFollowExists(username);
   userCurrentDeleteFollow(username);
-  tryToDeleteANonExistingFollowingUser(username);
-  verifyFollowingUserDoesNotExist(username);
+  tryToDeleteANonExistingUserFollow(username);
+  verifyUserFollowDoesNotExist(username);
 });
 
-// Story: crud:FollowingUser:nondet:negative:dup-add
-bthread("crud:FollowingUser:nondet:negative:dup-add", function () {
-  let username = 806;
+// Story: crud:UserFollow:nondet:negative:dup-add
+bthread("crud:UserFollow:nondet:negative:dup-add", function () {
+  let username = 796;
   userCurrentPutFollow(username);
-  // waitForFollowingUserAdded(username);
-  verifyFollowingUserExists(username);
-  tryToAddExistingFollowingUser(username);
-  verifyFollowingUserExists(username);
+  // waitForUserFollowAdded(username);
+  verifyUserFollowExists(username);
+  tryToAddExistingUserFollow(username);
+  verifyUserFollowExists(username);
 });
 
 // Story: crud:GPGKey:nondet:1:1
 bthread("crud:GPGKey:nondet:1:1", function () {
-  let id = 810;
-  let limit = "limit_810";
-  let page = "page_810";
+  let id = 800;
+  let limit = "limit_800";
+  let page = "page_800";
   userCurrentPostGPGKey(id, limit, page);
-  // waitForGPGKeyAdded(id, limit, page);
+  waitForGPGKeyAdded(id, limit, page);
   tryToAddExistingGPGKey(id, limit, page);
   verifyGPGKeyExists(id, limit, page);
   userCurrentDeleteGPGKey(id, limit, page);
@@ -1367,9 +1379,9 @@ bthread("crud:GPGKey:nondet:1:1", function () {
 
 // Story: crud:GPGKey:nondet:1:2
 bthread("crud:GPGKey:nondet:1:2", function () {
-  let id = 811;
-  let limit = "limit_811";
-  let page = "page_811";
+  let id = 801;
+  let limit = "limit_801";
+  let page = "page_801";
   userCurrentPostGPGKey(id, limit, page);
   // waitForGPGKeyAdded(id, limit, page);
   tryToAddExistingGPGKey(id, limit, page);
@@ -1381,9 +1393,9 @@ bthread("crud:GPGKey:nondet:1:2", function () {
 
 // Story: crud:GPGKey:nondet:negative:dup-add
 bthread("crud:GPGKey:nondet:negative:dup-add", function () {
-  let id = 816;
-  let limit = "limit_816";
-  let page = "page_816";
+  let id = 806;
+  let limit = "limit_806";
+  let page = "page_806";
   userCurrentPostGPGKey(id, limit, page);
   // waitForGPGKeyAdded(id, limit, page);
   verifyGPGKeyExists(id, limit, page);
@@ -1393,39 +1405,45 @@ bthread("crud:GPGKey:nondet:negative:dup-add", function () {
 
 // Story: crud:PublicKey:nondet:1:1
 bthread("crud:PublicKey:nondet:1:1", function () {
-  let fingerprint = "fingerprint_820";
-  let id = 820;
-  createPublicKey(fingerprint, id);
-  // waitForPublicKeyAdded(fingerprint, id);
-  tryToAddExistingPublicKey(fingerprint, id);
-  verifyPublicKeyExists(fingerprint, id);
-  deletePublicKey(fingerprint, id);
-  tryToDeleteANonExistingPublicKey(fingerprint, id);
-  verifyPublicKeyDoesNotExist(fingerprint, id);
+  let fingerprint = "fingerprint_810";
+  let id = 810;
+  let key = "key_810";
+  let title = "title_810";
+  createPublicKey(fingerprint, id, key, title);
+  waitForPublicKeyAdded(fingerprint, id, key, title);
+  tryToAddExistingPublicKey(fingerprint, id, key, title);
+  verifyPublicKeyExists(fingerprint, id, key, title);
+  deletePublicKey(fingerprint, id, key, title);
+  tryToDeleteANonExistingPublicKey(fingerprint, id, key, title);
+  verifyPublicKeyDoesNotExist(fingerprint, id, key, title);
 });
 
 // Story: crud:PublicKey:nondet:1:2
 bthread("crud:PublicKey:nondet:1:2", function () {
-  let fingerprint = "fingerprint_821";
-  let id = 821;
-  createPublicKey(fingerprint, id);
-  // waitForPublicKeyAdded(fingerprint, id);
-  tryToAddExistingPublicKey(fingerprint, id);
-  verifyPublicKeyExists(fingerprint, id);
-  deletePublicKey(fingerprint, id);
-  tryToDeleteANonExistingPublicKey(fingerprint, id);
-  verifyPublicKeyDoesNotExist(fingerprint, id);
+  let fingerprint = "fingerprint_811";
+  let id = 811;
+  let key = "key_811";
+  let title = "title_811";
+  createPublicKey(fingerprint, id, key, title);
+  // waitForPublicKeyAdded(fingerprint, id, key, title);
+  tryToAddExistingPublicKey(fingerprint, id, key, title);
+  verifyPublicKeyExists(fingerprint, id, key, title);
+  deletePublicKey(fingerprint, id, key, title);
+  tryToDeleteANonExistingPublicKey(fingerprint, id, key, title);
+  verifyPublicKeyDoesNotExist(fingerprint, id, key, title);
 });
 
 // Story: crud:PublicKey:nondet:negative:dup-add
 bthread("crud:PublicKey:nondet:negative:dup-add", function () {
-  let fingerprint = "fingerprint_826";
-  let id = 826;
-  createPublicKey(fingerprint, id);
-  // waitForPublicKeyAdded(fingerprint, id);
-  verifyPublicKeyExists(fingerprint, id);
-  tryToAddExistingPublicKey(fingerprint, id);
-  verifyPublicKeyExists(fingerprint, id);
+  let fingerprint = "fingerprint_816";
+  let id = 816;
+  let key = "key_816";
+  let title = "title_816";
+  createPublicKey(fingerprint, id, key, title);
+  // waitForPublicKeyAdded(fingerprint, id, key, title);
+  verifyPublicKeyExists(fingerprint, id, key, title);
+  tryToAddExistingPublicKey(fingerprint, id, key, title);
+  verifyPublicKeyExists(fingerprint, id, key, title);
 });
 
 // Story: crud:UserSettings:read_only
@@ -1434,53 +1452,53 @@ bthread("crud:UserSettings:read_only", function () {
   verifyUserSettingsExists();
 });
 
-// Story: crud:StarredRepo:nondet:1:1
-bthread("crud:StarredRepo:nondet:1:1", function () {
-  let owner = 840;
-  let repo = "repo_840";
+// Story: crud:Star:nondet:1:1
+bthread("crud:Star:nondet:1:1", function () {
+  let owner = 830;
+  let repo = "repo_830";
   starRepo(owner, repo);
-  // waitForStarredRepoAdded(owner, repo);
-  tryToAddExistingStarredRepo(owner, repo);
-  verifyStarredRepoExists(owner, repo);
+  waitForStarAdded(owner, repo);
+  tryToAddExistingStar(owner, repo);
+  verifyStarExists(owner, repo);
   unstarRepo(owner, repo);
-  tryToDeleteANonExistingStarredRepo(owner, repo);
-  verifyStarredRepoDoesNotExist(owner, repo);
+  tryToDeleteANonExistingStar(owner, repo);
+  verifyStarDoesNotExist(owner, repo);
 });
 
-// Story: crud:StarredRepo:nondet:1:2
-bthread("crud:StarredRepo:nondet:1:2", function () {
-  let owner = 841;
-  let repo = "repo_841";
+// Story: crud:Star:nondet:1:2
+bthread("crud:Star:nondet:1:2", function () {
+  let owner = 831;
+  let repo = "repo_831";
   starRepo(owner, repo);
-  // waitForStarredRepoAdded(owner, repo);
-  tryToAddExistingStarredRepo(owner, repo);
-  verifyStarredRepoExists(owner, repo);
+  // waitForStarAdded(owner, repo);
+  tryToAddExistingStar(owner, repo);
+  verifyStarExists(owner, repo);
   unstarRepo(owner, repo);
-  tryToDeleteANonExistingStarredRepo(owner, repo);
-  verifyStarredRepoDoesNotExist(owner, repo);
+  tryToDeleteANonExistingStar(owner, repo);
+  verifyStarDoesNotExist(owner, repo);
 });
 
-// Story: crud:StarredRepo:nondet:negative:dup-add
-bthread("crud:StarredRepo:nondet:negative:dup-add", function () {
-  let owner = 846;
-  let repo = "repo_846";
+// Story: crud:Star:nondet:negative:dup-add
+bthread("crud:Star:nondet:negative:dup-add", function () {
+  let owner = 836;
+  let repo = "repo_836";
   starRepo(owner, repo);
-  // waitForStarredRepoAdded(owner, repo);
-  verifyStarredRepoExists(owner, repo);
-  tryToAddExistingStarredRepo(owner, repo);
-  verifyStarredRepoExists(owner, repo);
+  // waitForStarAdded(owner, repo);
+  verifyStarExists(owner, repo);
+  tryToAddExistingStar(owner, repo);
+  verifyStarExists(owner, repo);
 });
 
 // Story: crud:User:nondet:1:1
 bthread("crud:User:nondet:1:1", function () {
-  let limit = "limit_850";
-  let login_name = "login_name_850";
-  let page = "page_850";
-  let purge = "purge_850";
-  let source_id = 850;
-  let username = 850;
+  let limit = "limit_840";
+  let login_name = "login_name_840";
+  let page = "page_840";
+  let purge = "purge_840";
+  let source_id = 840;
+  let username = 840;
   adminCreateUser(limit, login_name, page, purge, source_id, username);
-  // waitForUserAdded(limit, login_name, page, purge, source_id, username);
+  waitForUserAdded(limit, login_name, page, purge, source_id, username);
   tryToAddExistingUser(limit, login_name, page, purge, source_id, username);
   verifyUserExists(limit, login_name, page, purge, source_id, username);
   adminEditUser(limit, login_name, page, purge, source_id, username);
@@ -1491,12 +1509,12 @@ bthread("crud:User:nondet:1:1", function () {
 
 // Story: crud:User:nondet:1:2
 bthread("crud:User:nondet:1:2", function () {
-  let limit = "limit_851";
-  let login_name = "login_name_851";
-  let page = "page_851";
-  let purge = "purge_851";
-  let source_id = 851;
-  let username = 851;
+  let limit = "limit_841";
+  let login_name = "login_name_841";
+  let page = "page_841";
+  let purge = "purge_841";
+  let source_id = 841;
+  let username = 841;
   adminCreateUser(limit, login_name, page, purge, source_id, username);
   // waitForUserAdded(limit, login_name, page, purge, source_id, username);
   tryToAddExistingUser(limit, login_name, page, purge, source_id, username);
@@ -1509,12 +1527,12 @@ bthread("crud:User:nondet:1:2", function () {
 
 // Story: crud:User:nondet:negative:dup-add
 bthread("crud:User:nondet:negative:dup-add", function () {
-  let limit = "limit_856";
-  let login_name = "login_name_856";
-  let page = "page_856";
-  let purge = "purge_856";
-  let source_id = 856;
-  let username = 856;
+  let limit = "limit_846";
+  let login_name = "login_name_846";
+  let page = "page_846";
+  let purge = "purge_846";
+  let source_id = 846;
+  let username = 846;
   adminCreateUser(limit, login_name, page, purge, source_id, username);
   // waitForUserAdded(limit, login_name, page, purge, source_id, username);
   verifyUserExists(limit, login_name, page, purge, source_id, username);
@@ -1522,110 +1540,147 @@ bthread("crud:User:nondet:negative:dup-add", function () {
   verifyUserExists(limit, login_name, page, purge, source_id, username);
 });
 
-// Story: crud:UserFollowers:read_only
-bthread("crud:UserFollowers:read_only", function () {
+// Story: crud:UserSearch:read_only
+bthread("crud:UserSearch:read_only", function () {
+  let limit = "limit_850";
+  let page = "page_850";
+  let q = "q_850";
+  let uid = 850;
+  verifyUserSearchExists(limit, page, q, uid);
+});
+
+// Story: crud:UserActivityFeed:read_only
+bthread("crud:UserActivityFeed:read_only", function () {
+  let date = "date_860";
   let limit = "limit_860";
+  let only-performed-by = "only-performed-by_860";
   let page = "page_860";
   let username = 860;
+  verifyUserActivityFeedExists(date, limit, only-performed-by, page, username);
+});
+
+// Story: crud:UserFollowers:read_only
+bthread("crud:UserFollowers:read_only", function () {
+  let limit = "limit_870";
+  let page = "page_870";
+  let username = 870;
   verifyUserFollowersExists(limit, page, username);
 });
 
 // Story: crud:UserFollowing:read_only
 bthread("crud:UserFollowing:read_only", function () {
-  let limit = "limit_870";
-  let page = "page_870";
-  let username = 870;
+  let limit = "limit_880";
+  let page = "page_880";
+  let username = 880;
   verifyUserFollowingExists(limit, page, username);
 });
 
 // Story: crud:UserFollowingCheck:read_only
 bthread("crud:UserFollowingCheck:read_only", function () {
-  let target = "target_880";
-  let username = 880;
+  let target = "target_890";
+  let username = 890;
   verifyUserFollowingCheckExists(target, username);
 });
 
-// Story: crud:UserGPGKeys:read_only
-bthread("crud:UserGPGKeys:read_only", function () {
-  let limit = "limit_890";
-  let page = "page_890";
-  let username = 890;
-  verifyUserGPGKeysExists(limit, page, username);
+// Story: crud:UserGPGKey:read_only
+bthread("crud:UserGPGKey:read_only", function () {
+  let limit = "limit_900";
+  let page = "page_900";
+  let username = 900;
+  verifyUserGPGKeyExists(limit, page, username);
 });
 
 // Story: crud:UserHeatmap:read_only
 bthread("crud:UserHeatmap:read_only", function () {
-  let username = 900;
+  let username = 910;
   verifyUserHeatmapExists(username);
 });
 
-// Story: crud:UserKeys:read_only
-bthread("crud:UserKeys:read_only", function () {
-  let fingerprint = "fingerprint_910";
-  let limit = "limit_910";
-  let page = "page_910";
-  let username = 910;
-  verifyUserKeysExists(fingerprint, limit, page, username);
-});
-
-// Story: crud:UserRepos:read_only
-bthread("crud:UserRepos:read_only", function () {
+// Story: crud:UserPublicKey:nondet:1:1
+bthread("crud:UserPublicKey:nondet:1:1", function () {
+  let fingerprint = "fingerprint_920";
+  let id = 920;
   let limit = "limit_920";
   let page = "page_920";
   let username = 920;
-  verifyUserReposExists(limit, page, username);
+  adminCreatePublicKey(fingerprint, id, limit, page, username);
+  waitForUserPublicKeyAdded(fingerprint, id, limit, page, username);
+  tryToAddExistingUserPublicKey(fingerprint, id, limit, page, username);
+  verifyUserPublicKeyExists(fingerprint, id, limit, page, username);
+  adminDeleteUserPublicKey(fingerprint, id, limit, page, username);
+  tryToDeleteANonExistingUserPublicKey(fingerprint, id, limit, page, username);
+  verifyUserPublicKeyDoesNotExist(fingerprint, id, limit, page, username);
 });
 
-// Story: crud:UserActivitiesFeeds:read_only
-bthread("crud:UserActivitiesFeeds:read_only", function () {
-  let date = "date_930";
+// Story: crud:UserPublicKey:nondet:1:2
+bthread("crud:UserPublicKey:nondet:1:2", function () {
+  let fingerprint = "fingerprint_921";
+  let id = 921;
+  let limit = "limit_921";
+  let page = "page_921";
+  let username = 921;
+  adminCreatePublicKey(fingerprint, id, limit, page, username);
+  // waitForUserPublicKeyAdded(fingerprint, id, limit, page, username);
+  tryToAddExistingUserPublicKey(fingerprint, id, limit, page, username);
+  verifyUserPublicKeyExists(fingerprint, id, limit, page, username);
+  adminDeleteUserPublicKey(fingerprint, id, limit, page, username);
+  tryToDeleteANonExistingUserPublicKey(fingerprint, id, limit, page, username);
+  verifyUserPublicKeyDoesNotExist(fingerprint, id, limit, page, username);
+});
+
+// Story: crud:UserPublicKey:nondet:negative:dup-add
+bthread("crud:UserPublicKey:nondet:negative:dup-add", function () {
+  let fingerprint = "fingerprint_926";
+  let id = 926;
+  let limit = "limit_926";
+  let page = "page_926";
+  let username = 926;
+  adminCreatePublicKey(fingerprint, id, limit, page, username);
+  // waitForUserPublicKeyAdded(fingerprint, id, limit, page, username);
+  verifyUserPublicKeyExists(fingerprint, id, limit, page, username);
+  tryToAddExistingUserPublicKey(fingerprint, id, limit, page, username);
+  verifyUserPublicKeyExists(fingerprint, id, limit, page, username);
+});
+
+// Story: crud:UserRepo:read_only
+bthread("crud:UserRepo:read_only", function () {
   let limit = "limit_930";
-  let only-performed-by = "only-performed-by_930";
   let page = "page_930";
   let username = 930;
-  verifyUserActivitiesFeedsExists(date, limit, only-performed-by, page, username);
-});
-
-// Story: crud:UserSearch:read_only
-bthread("crud:UserSearch:read_only", function () {
-  let limit = "limit_940";
-  let page = "page_940";
-  let q = "q_940";
-  let uid = 940;
-  verifyUserSearchExists(limit, page, q, uid);
+  verifyUserRepoExists(limit, page, username);
 });
 
 // Story: crud:AccessToken:nondet:1:1
 bthread("crud:AccessToken:nondet:1:1", function () {
-  let token = "token_950";
-  let username = 950;
-  userCreateToken(token, username);
-  // waitForAccessTokenAdded(token, username);
+  let token = "token_940";
+  let username = 940;
+  createAccessToken(token, username);
+  waitForAccessTokenAdded(token, username);
   tryToAddExistingAccessToken(token, username);
   verifyAccessTokenExists(token, username);
-  userDeleteAccessToken(token, username);
+  deleteAccessToken(token, username);
   tryToDeleteANonExistingAccessToken(token, username);
   verifyAccessTokenDoesNotExist(token, username);
 });
 
 // Story: crud:AccessToken:nondet:1:2
 bthread("crud:AccessToken:nondet:1:2", function () {
-  let token = "token_951";
-  let username = 951;
-  userCreateToken(token, username);
+  let token = "token_941";
+  let username = 941;
+  createAccessToken(token, username);
   // waitForAccessTokenAdded(token, username);
   tryToAddExistingAccessToken(token, username);
   verifyAccessTokenExists(token, username);
-  userDeleteAccessToken(token, username);
+  deleteAccessToken(token, username);
   tryToDeleteANonExistingAccessToken(token, username);
   verifyAccessTokenDoesNotExist(token, username);
 });
 
 // Story: crud:AccessToken:nondet:negative:dup-add
 bthread("crud:AccessToken:nondet:negative:dup-add", function () {
-  let token = "token_956";
-  let username = 956;
-  userCreateToken(token, username);
+  let token = "token_946";
+  let username = 946;
+  createAccessToken(token, username);
   // waitForAccessTokenAdded(token, username);
   verifyAccessTokenExists(token, username);
   tryToAddExistingAccessToken(token, username);
@@ -1634,17 +1689,17 @@ bthread("crud:AccessToken:nondet:negative:dup-add", function () {
 
 // Story: crud:StarredRepository:read_only
 bthread("crud:StarredRepository:read_only", function () {
-  let username = 960;
+  let username = 950;
   verifyStarredRepositoryExists(username);
 });
 
 // Story: crud:Issue:nondet:1:1
 bthread("crud:Issue:nondet:1:1", function () {
-  let index = "index_970";
-  let owner = 970;
-  let repo = "repo_970";
+  let index = "index_960";
+  let owner = 960;
+  let repo = "repo_960";
   createIssue(index, owner, repo);
-  // waitForIssueAdded(index, owner, repo);
+  waitForIssueAdded(index, owner, repo);
   tryToAddExistingIssue(index, owner, repo);
   verifyIssueExists(index, owner, repo);
   editIssue(index, owner, repo);
@@ -1655,9 +1710,9 @@ bthread("crud:Issue:nondet:1:1", function () {
 
 // Story: crud:Issue:nondet:1:2
 bthread("crud:Issue:nondet:1:2", function () {
-  let index = "index_971";
-  let owner = 971;
-  let repo = "repo_971";
+  let index = "index_961";
+  let owner = 961;
+  let repo = "repo_961";
   createIssue(index, owner, repo);
   // waitForIssueAdded(index, owner, repo);
   tryToAddExistingIssue(index, owner, repo);
@@ -1670,9 +1725,9 @@ bthread("crud:Issue:nondet:1:2", function () {
 
 // Story: crud:Issue:nondet:negative:dup-add
 bthread("crud:Issue:nondet:negative:dup-add", function () {
-  let index = "index_976";
-  let owner = 976;
-  let repo = "repo_976";
+  let index = "index_966";
+  let owner = 966;
+  let repo = "repo_966";
   createIssue(index, owner, repo);
   // waitForIssueAdded(index, owner, repo);
   verifyIssueExists(index, owner, repo);
@@ -1682,51 +1737,51 @@ bthread("crud:Issue:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueComment:nondet:1:1
 bthread("crud:IssueComment:nondet:1:1", function () {
-  let before = "before_980";
-  let body = "body_980";
-  let id = 980;
-  let index = "index_980";
-  let owner = 980;
-  let repo = "repo_980";
-  let since = "since_980";
+  let before = "before_970";
+  let body = "body_970";
+  let id = 970;
+  let index = "index_970";
+  let owner = 970;
+  let repo = "repo_970";
+  let since = "since_970";
   createIssueComment(before, body, id, index, owner, repo, since);
-  // waitForIssueCommentAdded(before, body, id, index, owner, repo, since);
+  waitForIssueCommentAdded(before, body, id, index, owner, repo, since);
   tryToAddExistingIssueComment(before, body, id, index, owner, repo, since);
   verifyIssueCommentExists(before, body, id, index, owner, repo, since);
-  editComment(before, body, id, index, owner, repo, since);
-  deleteComment(before, body, id, index, owner, repo, since);
+  editIssueComment(before, body, id, index, owner, repo, since);
+  deleteIssueComment(before, body, id, index, owner, repo, since);
   tryToDeleteANonExistingIssueComment(before, body, id, index, owner, repo, since);
   verifyIssueCommentDoesNotExist(before, body, id, index, owner, repo, since);
 });
 
 // Story: crud:IssueComment:nondet:1:2
 bthread("crud:IssueComment:nondet:1:2", function () {
-  let before = "before_981";
-  let body = "body_981";
-  let id = 981;
-  let index = "index_981";
-  let owner = 981;
-  let repo = "repo_981";
-  let since = "since_981";
+  let before = "before_971";
+  let body = "body_971";
+  let id = 971;
+  let index = "index_971";
+  let owner = 971;
+  let repo = "repo_971";
+  let since = "since_971";
   createIssueComment(before, body, id, index, owner, repo, since);
   // waitForIssueCommentAdded(before, body, id, index, owner, repo, since);
   tryToAddExistingIssueComment(before, body, id, index, owner, repo, since);
-  editComment(before, body, id, index, owner, repo, since);
+  editIssueComment(before, body, id, index, owner, repo, since);
   verifyIssueCommentExists(before, body, id, index, owner, repo, since);
-  deleteComment(before, body, id, index, owner, repo, since);
+  deleteIssueComment(before, body, id, index, owner, repo, since);
   tryToDeleteANonExistingIssueComment(before, body, id, index, owner, repo, since);
   verifyIssueCommentDoesNotExist(before, body, id, index, owner, repo, since);
 });
 
 // Story: crud:IssueComment:nondet:negative:dup-add
 bthread("crud:IssueComment:nondet:negative:dup-add", function () {
-  let before = "before_986";
-  let body = "body_986";
-  let id = 986;
-  let index = "index_986";
-  let owner = 986;
-  let repo = "repo_986";
-  let since = "since_986";
+  let before = "before_976";
+  let body = "body_976";
+  let id = 976;
+  let index = "index_976";
+  let owner = 976;
+  let repo = "repo_976";
+  let since = "since_976";
   createIssueComment(before, body, id, index, owner, repo, since);
   // waitForIssueCommentAdded(before, body, id, index, owner, repo, since);
   verifyIssueCommentExists(before, body, id, index, owner, repo, since);
@@ -1736,13 +1791,13 @@ bthread("crud:IssueComment:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueCommentAttachment:nondet:1:1
 bthread("crud:IssueCommentAttachment:nondet:1:1", function () {
-  let attachment_id = 990;
-  let id = 990;
-  let name = "name_990";
-  let owner = 990;
-  let repo = "repo_990";
+  let attachment_id = 980;
+  let id = 980;
+  let name = "name_980";
+  let owner = 980;
+  let repo = "repo_980";
   createIssueCommentAttachment(attachment_id, id, name, owner, repo);
-  // waitForIssueCommentAttachmentAdded(attachment_id, id, name, owner, repo);
+  waitForIssueCommentAttachmentAdded(attachment_id, id, name, owner, repo);
   tryToAddExistingIssueCommentAttachment(attachment_id, id, name, owner, repo);
   verifyIssueCommentAttachmentExists(attachment_id, id, name, owner, repo);
   editIssueCommentAttachment(attachment_id, id, name, owner, repo);
@@ -1753,11 +1808,11 @@ bthread("crud:IssueCommentAttachment:nondet:1:1", function () {
 
 // Story: crud:IssueCommentAttachment:nondet:1:2
 bthread("crud:IssueCommentAttachment:nondet:1:2", function () {
-  let attachment_id = 991;
-  let id = 991;
-  let name = "name_991";
-  let owner = 991;
-  let repo = "repo_991";
+  let attachment_id = 981;
+  let id = 981;
+  let name = "name_981";
+  let owner = 981;
+  let repo = "repo_981";
   createIssueCommentAttachment(attachment_id, id, name, owner, repo);
   // waitForIssueCommentAttachmentAdded(attachment_id, id, name, owner, repo);
   tryToAddExistingIssueCommentAttachment(attachment_id, id, name, owner, repo);
@@ -1770,11 +1825,11 @@ bthread("crud:IssueCommentAttachment:nondet:1:2", function () {
 
 // Story: crud:IssueCommentAttachment:nondet:negative:dup-add
 bthread("crud:IssueCommentAttachment:nondet:negative:dup-add", function () {
-  let attachment_id = 996;
-  let id = 996;
-  let name = "name_996";
-  let owner = 996;
-  let repo = "repo_996";
+  let attachment_id = 986;
+  let id = 986;
+  let name = "name_986";
+  let owner = 986;
+  let repo = "repo_986";
   createIssueCommentAttachment(attachment_id, id, name, owner, repo);
   // waitForIssueCommentAttachmentAdded(attachment_id, id, name, owner, repo);
   verifyIssueCommentAttachmentExists(attachment_id, id, name, owner, repo);
@@ -1784,38 +1839,38 @@ bthread("crud:IssueCommentAttachment:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueCommentReaction:nondet:1:1
 bthread("crud:IssueCommentReaction:nondet:1:1", function () {
-  let id = 1000;
-  let owner = 1000;
-  let repo = "repo_1000";
-  postCommentReaction(id, owner, repo);
-  // waitForIssueCommentReactionAdded(id, owner, repo);
+  let id = 990;
+  let owner = 990;
+  let repo = "repo_990";
+  addIssueCommentReaction(id, owner, repo);
+  waitForIssueCommentReactionAdded(id, owner, repo);
   tryToAddExistingIssueCommentReaction(id, owner, repo);
   verifyIssueCommentReactionExists(id, owner, repo);
-  deleteCommentReaction(id, owner, repo);
+  deleteIssueCommentReaction(id, owner, repo);
   tryToDeleteANonExistingIssueCommentReaction(id, owner, repo);
   verifyIssueCommentReactionDoesNotExist(id, owner, repo);
 });
 
 // Story: crud:IssueCommentReaction:nondet:1:2
 bthread("crud:IssueCommentReaction:nondet:1:2", function () {
-  let id = 1001;
-  let owner = 1001;
-  let repo = "repo_1001";
-  postCommentReaction(id, owner, repo);
+  let id = 991;
+  let owner = 991;
+  let repo = "repo_991";
+  addIssueCommentReaction(id, owner, repo);
   // waitForIssueCommentReactionAdded(id, owner, repo);
   tryToAddExistingIssueCommentReaction(id, owner, repo);
   verifyIssueCommentReactionExists(id, owner, repo);
-  deleteCommentReaction(id, owner, repo);
+  deleteIssueCommentReaction(id, owner, repo);
   tryToDeleteANonExistingIssueCommentReaction(id, owner, repo);
   verifyIssueCommentReactionDoesNotExist(id, owner, repo);
 });
 
 // Story: crud:IssueCommentReaction:nondet:negative:dup-add
 bthread("crud:IssueCommentReaction:nondet:negative:dup-add", function () {
-  let id = 1006;
-  let owner = 1006;
-  let repo = "repo_1006";
-  postCommentReaction(id, owner, repo);
+  let id = 996;
+  let owner = 996;
+  let repo = "repo_996";
+  addIssueCommentReaction(id, owner, repo);
   // waitForIssueCommentReactionAdded(id, owner, repo);
   verifyIssueCommentReactionExists(id, owner, repo);
   tryToAddExistingIssueCommentReaction(id, owner, repo);
@@ -1824,13 +1879,13 @@ bthread("crud:IssueCommentReaction:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueAttachment:nondet:1:1
 bthread("crud:IssueAttachment:nondet:1:1", function () {
-  let attachment_id = 1010;
-  let index = "index_1010";
-  let name = "name_1010";
-  let owner = 1010;
-  let repo = "repo_1010";
+  let attachment_id = 1000;
+  let index = "index_1000";
+  let name = "name_1000";
+  let owner = 1000;
+  let repo = "repo_1000";
   createIssueAttachment(attachment_id, index, name, owner, repo);
-  // waitForIssueAttachmentAdded(attachment_id, index, name, owner, repo);
+  waitForIssueAttachmentAdded(attachment_id, index, name, owner, repo);
   tryToAddExistingIssueAttachment(attachment_id, index, name, owner, repo);
   verifyIssueAttachmentExists(attachment_id, index, name, owner, repo);
   editIssueAttachment(attachment_id, index, name, owner, repo);
@@ -1841,11 +1896,11 @@ bthread("crud:IssueAttachment:nondet:1:1", function () {
 
 // Story: crud:IssueAttachment:nondet:1:2
 bthread("crud:IssueAttachment:nondet:1:2", function () {
-  let attachment_id = 1011;
-  let index = "index_1011";
-  let name = "name_1011";
-  let owner = 1011;
-  let repo = "repo_1011";
+  let attachment_id = 1001;
+  let index = "index_1001";
+  let name = "name_1001";
+  let owner = 1001;
+  let repo = "repo_1001";
   createIssueAttachment(attachment_id, index, name, owner, repo);
   // waitForIssueAttachmentAdded(attachment_id, index, name, owner, repo);
   tryToAddExistingIssueAttachment(attachment_id, index, name, owner, repo);
@@ -1858,11 +1913,11 @@ bthread("crud:IssueAttachment:nondet:1:2", function () {
 
 // Story: crud:IssueAttachment:nondet:negative:dup-add
 bthread("crud:IssueAttachment:nondet:negative:dup-add", function () {
-  let attachment_id = 1016;
-  let index = "index_1016";
-  let name = "name_1016";
-  let owner = 1016;
-  let repo = "repo_1016";
+  let attachment_id = 1006;
+  let index = "index_1006";
+  let name = "name_1006";
+  let owner = 1006;
+  let repo = "repo_1006";
   createIssueAttachment(attachment_id, index, name, owner, repo);
   // waitForIssueAttachmentAdded(attachment_id, index, name, owner, repo);
   verifyIssueAttachmentExists(attachment_id, index, name, owner, repo);
@@ -1872,14 +1927,14 @@ bthread("crud:IssueAttachment:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueBlock:nondet:1:1
 bthread("crud:IssueBlock:nondet:1:1", function () {
-  let id = 1020;
-  let index = "index_1020";
-  let limit = "limit_1020";
-  let owner = 1020;
-  let page = "page_1020";
-  let repo = "repo_1020";
+  let id = 1010;
+  let index = "index_1010";
+  let limit = "limit_1010";
+  let owner = 1010;
+  let page = "page_1010";
+  let repo = "repo_1010";
   createIssueBlock(id, index, limit, owner, page, repo);
-  // waitForIssueBlockAdded(id, index, limit, owner, page, repo);
+  waitForIssueBlockAdded(id, index, limit, owner, page, repo);
   tryToAddExistingIssueBlock(id, index, limit, owner, page, repo);
   verifyIssueBlockExists(id, index, limit, owner, page, repo);
   removeIssueBlock(id, index, limit, owner, page, repo);
@@ -1889,12 +1944,12 @@ bthread("crud:IssueBlock:nondet:1:1", function () {
 
 // Story: crud:IssueBlock:nondet:1:2
 bthread("crud:IssueBlock:nondet:1:2", function () {
-  let id = 1021;
-  let index = "index_1021";
-  let limit = "limit_1021";
-  let owner = 1021;
-  let page = "page_1021";
-  let repo = "repo_1021";
+  let id = 1011;
+  let index = "index_1011";
+  let limit = "limit_1011";
+  let owner = 1011;
+  let page = "page_1011";
+  let repo = "repo_1011";
   createIssueBlock(id, index, limit, owner, page, repo);
   // waitForIssueBlockAdded(id, index, limit, owner, page, repo);
   tryToAddExistingIssueBlock(id, index, limit, owner, page, repo);
@@ -1906,12 +1961,12 @@ bthread("crud:IssueBlock:nondet:1:2", function () {
 
 // Story: crud:IssueBlock:nondet:negative:dup-add
 bthread("crud:IssueBlock:nondet:negative:dup-add", function () {
-  let id = 1026;
-  let index = "index_1026";
-  let limit = "limit_1026";
-  let owner = 1026;
-  let page = "page_1026";
-  let repo = "repo_1026";
+  let id = 1016;
+  let index = "index_1016";
+  let limit = "limit_1016";
+  let owner = 1016;
+  let page = "page_1016";
+  let repo = "repo_1016";
   createIssueBlock(id, index, limit, owner, page, repo);
   // waitForIssueBlockAdded(id, index, limit, owner, page, repo);
   verifyIssueBlockExists(id, index, limit, owner, page, repo);
@@ -1921,14 +1976,14 @@ bthread("crud:IssueBlock:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueDependency:nondet:1:1
 bthread("crud:IssueDependency:nondet:1:1", function () {
-  let id = 1050;
-  let index = "index_1050";
-  let limit = "limit_1050";
-  let owner = 1050;
-  let page = "page_1050";
-  let repo = "repo_1050";
+  let id = 1040;
+  let index = "index_1040";
+  let limit = "limit_1040";
+  let owner = 1040;
+  let page = "page_1040";
+  let repo = "repo_1040";
   createIssueDependency(id, index, limit, owner, page, repo);
-  // waitForIssueDependencyAdded(id, index, limit, owner, page, repo);
+  waitForIssueDependencyAdded(id, index, limit, owner, page, repo);
   tryToAddExistingIssueDependency(id, index, limit, owner, page, repo);
   verifyIssueDependencyExists(id, index, limit, owner, page, repo);
   removeIssueDependency(id, index, limit, owner, page, repo);
@@ -1938,12 +1993,12 @@ bthread("crud:IssueDependency:nondet:1:1", function () {
 
 // Story: crud:IssueDependency:nondet:1:2
 bthread("crud:IssueDependency:nondet:1:2", function () {
-  let id = 1051;
-  let index = "index_1051";
-  let limit = "limit_1051";
-  let owner = 1051;
-  let page = "page_1051";
-  let repo = "repo_1051";
+  let id = 1041;
+  let index = "index_1041";
+  let limit = "limit_1041";
+  let owner = 1041;
+  let page = "page_1041";
+  let repo = "repo_1041";
   createIssueDependency(id, index, limit, owner, page, repo);
   // waitForIssueDependencyAdded(id, index, limit, owner, page, repo);
   tryToAddExistingIssueDependency(id, index, limit, owner, page, repo);
@@ -1955,12 +2010,12 @@ bthread("crud:IssueDependency:nondet:1:2", function () {
 
 // Story: crud:IssueDependency:nondet:negative:dup-add
 bthread("crud:IssueDependency:nondet:negative:dup-add", function () {
-  let id = 1056;
-  let index = "index_1056";
-  let limit = "limit_1056";
-  let owner = 1056;
-  let page = "page_1056";
-  let repo = "repo_1056";
+  let id = 1046;
+  let index = "index_1046";
+  let limit = "limit_1046";
+  let owner = 1046;
+  let page = "page_1046";
+  let repo = "repo_1046";
   createIssueDependency(id, index, limit, owner, page, repo);
   // waitForIssueDependencyAdded(id, index, limit, owner, page, repo);
   verifyIssueDependencyExists(id, index, limit, owner, page, repo);
@@ -1970,12 +2025,12 @@ bthread("crud:IssueDependency:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueLabel:nondet:1:1
 bthread("crud:IssueLabel:nondet:1:1", function () {
-  let index = "index_1060";
-  let labels = "labels_1060";
-  let owner = 1060;
-  let repo = "repo_1060";
+  let index = "index_1050";
+  let labels = "labels_1050";
+  let owner = 1050;
+  let repo = "repo_1050";
   addIssueLabel(index, labels, owner, repo);
-  // waitForIssueLabelAdded(index, labels, owner, repo);
+  waitForIssueLabelAdded(index, labels, owner, repo);
   tryToAddExistingIssueLabel(index, labels, owner, repo);
   verifyIssueLabelExists(index, labels, owner, repo);
   replaceIssueLabels(index, labels, owner, repo);
@@ -1986,10 +2041,10 @@ bthread("crud:IssueLabel:nondet:1:1", function () {
 
 // Story: crud:IssueLabel:nondet:1:2
 bthread("crud:IssueLabel:nondet:1:2", function () {
-  let index = "index_1061";
-  let labels = "labels_1061";
-  let owner = 1061;
-  let repo = "repo_1061";
+  let index = "index_1051";
+  let labels = "labels_1051";
+  let owner = 1051;
+  let repo = "repo_1051";
   addIssueLabel(index, labels, owner, repo);
   // waitForIssueLabelAdded(index, labels, owner, repo);
   tryToAddExistingIssueLabel(index, labels, owner, repo);
@@ -2002,10 +2057,10 @@ bthread("crud:IssueLabel:nondet:1:2", function () {
 
 // Story: crud:IssueLabel:nondet:negative:dup-add
 bthread("crud:IssueLabel:nondet:negative:dup-add", function () {
-  let index = "index_1066";
-  let labels = "labels_1066";
-  let owner = 1066;
-  let repo = "repo_1066";
+  let index = "index_1056";
+  let labels = "labels_1056";
+  let owner = 1056;
+  let repo = "repo_1056";
   addIssueLabel(index, labels, owner, repo);
   // waitForIssueLabelAdded(index, labels, owner, repo);
   verifyIssueLabelExists(index, labels, owner, repo);
@@ -2015,11 +2070,11 @@ bthread("crud:IssueLabel:nondet:negative:dup-add", function () {
 
 // Story: crud:IssuePin:nondet:1:1
 bthread("crud:IssuePin:nondet:1:1", function () {
-  let index = "index_1080";
-  let owner = 1080;
-  let repo = "repo_1080";
+  let index = "index_1070";
+  let owner = 1070;
+  let repo = "repo_1070";
   pinIssue(index, owner, repo);
-  // waitForIssuePinAdded(index, owner, repo);
+  waitForIssuePinAdded(index, owner, repo);
   tryToAddExistingIssuePin(index, owner, repo);
   verifyIssuePinExists(index, owner, repo);
   unpinIssue(index, owner, repo);
@@ -2029,9 +2084,9 @@ bthread("crud:IssuePin:nondet:1:1", function () {
 
 // Story: crud:IssuePin:nondet:1:2
 bthread("crud:IssuePin:nondet:1:2", function () {
-  let index = "index_1081";
-  let owner = 1081;
-  let repo = "repo_1081";
+  let index = "index_1071";
+  let owner = 1071;
+  let repo = "repo_1071";
   pinIssue(index, owner, repo);
   // waitForIssuePinAdded(index, owner, repo);
   tryToAddExistingIssuePin(index, owner, repo);
@@ -2043,9 +2098,9 @@ bthread("crud:IssuePin:nondet:1:2", function () {
 
 // Story: crud:IssuePin:nondet:negative:dup-add
 bthread("crud:IssuePin:nondet:negative:dup-add", function () {
-  let index = "index_1086";
-  let owner = 1086;
-  let repo = "repo_1086";
+  let index = "index_1076";
+  let owner = 1076;
+  let repo = "repo_1076";
   pinIssue(index, owner, repo);
   // waitForIssuePinAdded(index, owner, repo);
   verifyIssuePinExists(index, owner, repo);
@@ -2055,14 +2110,14 @@ bthread("crud:IssuePin:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueReaction:nondet:1:1
 bthread("crud:IssueReaction:nondet:1:1", function () {
-  let content = "content_1100";
-  let index = "index_1100";
-  let limit = "limit_1100";
-  let owner = 1100;
-  let page = "page_1100";
-  let repo = "repo_1100";
+  let content = "content_1090";
+  let index = "index_1090";
+  let limit = "limit_1090";
+  let owner = 1090;
+  let page = "page_1090";
+  let repo = "repo_1090";
   addIssueReaction(content, index, limit, owner, page, repo);
-  // waitForIssueReactionAdded(content, index, limit, owner, page, repo);
+  waitForIssueReactionAdded(content, index, limit, owner, page, repo);
   tryToAddExistingIssueReaction(content, index, limit, owner, page, repo);
   verifyIssueReactionExists(content, index, limit, owner, page, repo);
   removeIssueReaction(content, index, limit, owner, page, repo);
@@ -2072,12 +2127,12 @@ bthread("crud:IssueReaction:nondet:1:1", function () {
 
 // Story: crud:IssueReaction:nondet:1:2
 bthread("crud:IssueReaction:nondet:1:2", function () {
-  let content = "content_1101";
-  let index = "index_1101";
-  let limit = "limit_1101";
-  let owner = 1101;
-  let page = "page_1101";
-  let repo = "repo_1101";
+  let content = "content_1091";
+  let index = "index_1091";
+  let limit = "limit_1091";
+  let owner = 1091;
+  let page = "page_1091";
+  let repo = "repo_1091";
   addIssueReaction(content, index, limit, owner, page, repo);
   // waitForIssueReactionAdded(content, index, limit, owner, page, repo);
   tryToAddExistingIssueReaction(content, index, limit, owner, page, repo);
@@ -2089,12 +2144,12 @@ bthread("crud:IssueReaction:nondet:1:2", function () {
 
 // Story: crud:IssueReaction:nondet:negative:dup-add
 bthread("crud:IssueReaction:nondet:negative:dup-add", function () {
-  let content = "content_1106";
-  let index = "index_1106";
-  let limit = "limit_1106";
-  let owner = 1106;
-  let page = "page_1106";
-  let repo = "repo_1106";
+  let content = "content_1096";
+  let index = "index_1096";
+  let limit = "limit_1096";
+  let owner = 1096;
+  let page = "page_1096";
+  let repo = "repo_1096";
   addIssueReaction(content, index, limit, owner, page, repo);
   // waitForIssueReactionAdded(content, index, limit, owner, page, repo);
   verifyIssueReactionExists(content, index, limit, owner, page, repo);
@@ -2104,40 +2159,40 @@ bthread("crud:IssueReaction:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueStopwatch:nondet:1:1
 bthread("crud:IssueStopwatch:nondet:1:1", function () {
-  let index = "index_1110";
-  let owner = 1110;
-  let repo = "repo_1110";
-  issueStartStopWatch(index, owner, repo);
-  // waitForIssueStopwatchAdded(index, owner, repo);
+  let index = "index_1100";
+  let owner = 1100;
+  let repo = "repo_1100";
+  startIssueStopwatch(index, owner, repo);
+  waitForIssueStopwatchAdded(index, owner, repo);
   tryToAddExistingIssueStopwatch(index, owner, repo);
   verifyIssueStopwatchExists(index, owner, repo);
-  issueStopStopWatch(index, owner, repo);
-  issueDeleteStopWatch(index, owner, repo);
+  stopIssueStopwatch(index, owner, repo);
+  deleteIssueStopwatch(index, owner, repo);
   tryToDeleteANonExistingIssueStopwatch(index, owner, repo);
   verifyIssueStopwatchDoesNotExist(index, owner, repo);
 });
 
 // Story: crud:IssueStopwatch:nondet:1:2
 bthread("crud:IssueStopwatch:nondet:1:2", function () {
-  let index = "index_1111";
-  let owner = 1111;
-  let repo = "repo_1111";
-  issueStartStopWatch(index, owner, repo);
+  let index = "index_1101";
+  let owner = 1101;
+  let repo = "repo_1101";
+  startIssueStopwatch(index, owner, repo);
   // waitForIssueStopwatchAdded(index, owner, repo);
   tryToAddExistingIssueStopwatch(index, owner, repo);
-  issueStopStopWatch(index, owner, repo);
+  stopIssueStopwatch(index, owner, repo);
   verifyIssueStopwatchExists(index, owner, repo);
-  issueDeleteStopWatch(index, owner, repo);
+  deleteIssueStopwatch(index, owner, repo);
   tryToDeleteANonExistingIssueStopwatch(index, owner, repo);
   verifyIssueStopwatchDoesNotExist(index, owner, repo);
 });
 
 // Story: crud:IssueStopwatch:nondet:negative:dup-add
 bthread("crud:IssueStopwatch:nondet:negative:dup-add", function () {
-  let index = "index_1116";
-  let owner = 1116;
-  let repo = "repo_1116";
-  issueStartStopWatch(index, owner, repo);
+  let index = "index_1106";
+  let owner = 1106;
+  let repo = "repo_1106";
+  startIssueStopwatch(index, owner, repo);
   // waitForIssueStopwatchAdded(index, owner, repo);
   verifyIssueStopwatchExists(index, owner, repo);
   tryToAddExistingIssueStopwatch(index, owner, repo);
@@ -2146,41 +2201,41 @@ bthread("crud:IssueStopwatch:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueSubscription:nondet:1:1
 bthread("crud:IssueSubscription:nondet:1:1", function () {
-  let index = "index_1120";
-  let owner = 1120;
-  let repo = "repo_1120";
-  let user = "user_1120";
-  issueAddSubscription(index, owner, repo, user);
-  // waitForIssueSubscriptionAdded(index, owner, repo, user);
+  let index = "index_1110";
+  let owner = 1110;
+  let repo = "repo_1110";
+  let user = "user_1110";
+  addIssueSubscription(index, owner, repo, user);
+  waitForIssueSubscriptionAdded(index, owner, repo, user);
   tryToAddExistingIssueSubscription(index, owner, repo, user);
   verifyIssueSubscriptionExists(index, owner, repo, user);
-  issueDeleteSubscription(index, owner, repo, user);
+  deleteIssueSubscription(index, owner, repo, user);
   tryToDeleteANonExistingIssueSubscription(index, owner, repo, user);
   verifyIssueSubscriptionDoesNotExist(index, owner, repo, user);
 });
 
 // Story: crud:IssueSubscription:nondet:1:2
 bthread("crud:IssueSubscription:nondet:1:2", function () {
-  let index = "index_1121";
-  let owner = 1121;
-  let repo = "repo_1121";
-  let user = "user_1121";
-  issueAddSubscription(index, owner, repo, user);
+  let index = "index_1111";
+  let owner = 1111;
+  let repo = "repo_1111";
+  let user = "user_1111";
+  addIssueSubscription(index, owner, repo, user);
   // waitForIssueSubscriptionAdded(index, owner, repo, user);
   tryToAddExistingIssueSubscription(index, owner, repo, user);
   verifyIssueSubscriptionExists(index, owner, repo, user);
-  issueDeleteSubscription(index, owner, repo, user);
+  deleteIssueSubscription(index, owner, repo, user);
   tryToDeleteANonExistingIssueSubscription(index, owner, repo, user);
   verifyIssueSubscriptionDoesNotExist(index, owner, repo, user);
 });
 
 // Story: crud:IssueSubscription:nondet:negative:dup-add
 bthread("crud:IssueSubscription:nondet:negative:dup-add", function () {
-  let index = "index_1126";
-  let owner = 1126;
-  let repo = "repo_1126";
-  let user = "user_1126";
-  issueAddSubscription(index, owner, repo, user);
+  let index = "index_1116";
+  let owner = 1116;
+  let repo = "repo_1116";
+  let user = "user_1116";
+  addIssueSubscription(index, owner, repo, user);
   // waitForIssueSubscriptionAdded(index, owner, repo, user);
   verifyIssueSubscriptionExists(index, owner, repo, user);
   tryToAddExistingIssueSubscription(index, owner, repo, user);
@@ -2189,49 +2244,49 @@ bthread("crud:IssueSubscription:nondet:negative:dup-add", function () {
 
 // Story: crud:IssueTimeline:read_only
 bthread("crud:IssueTimeline:read_only", function () {
-  let index = "index_1130";
-  let owner = 1130;
-  let repo = "repo_1130";
+  let index = "index_1120";
+  let owner = 1120;
+  let repo = "repo_1120";
   verifyIssueTimelineExists(index, owner, repo);
 });
 
 // Story: crud:IssueTrackedTime:nondet:1:1
 bthread("crud:IssueTrackedTime:nondet:1:1", function () {
-  let id = 1140;
-  let index = "index_1140";
-  let owner = 1140;
-  let repo = "repo_1140";
-  issueAddTime(id, index, owner, repo);
-  // waitForIssueTrackedTimeAdded(id, index, owner, repo);
+  let id = 1130;
+  let index = "index_1130";
+  let owner = 1130;
+  let repo = "repo_1130";
+  addIssueTrackedTime(id, index, owner, repo);
+  waitForIssueTrackedTimeAdded(id, index, owner, repo);
   tryToAddExistingIssueTrackedTime(id, index, owner, repo);
   verifyIssueTrackedTimeExists(id, index, owner, repo);
-  issueResetTime(id, index, owner, repo);
+  deleteIssueTrackedTime(id, index, owner, repo);
   tryToDeleteANonExistingIssueTrackedTime(id, index, owner, repo);
   verifyIssueTrackedTimeDoesNotExist(id, index, owner, repo);
 });
 
 // Story: crud:IssueTrackedTime:nondet:1:2
 bthread("crud:IssueTrackedTime:nondet:1:2", function () {
-  let id = 1141;
-  let index = "index_1141";
-  let owner = 1141;
-  let repo = "repo_1141";
-  issueAddTime(id, index, owner, repo);
+  let id = 1131;
+  let index = "index_1131";
+  let owner = 1131;
+  let repo = "repo_1131";
+  addIssueTrackedTime(id, index, owner, repo);
   // waitForIssueTrackedTimeAdded(id, index, owner, repo);
   tryToAddExistingIssueTrackedTime(id, index, owner, repo);
   verifyIssueTrackedTimeExists(id, index, owner, repo);
-  issueResetTime(id, index, owner, repo);
+  deleteIssueTrackedTime(id, index, owner, repo);
   tryToDeleteANonExistingIssueTrackedTime(id, index, owner, repo);
   verifyIssueTrackedTimeDoesNotExist(id, index, owner, repo);
 });
 
 // Story: crud:IssueTrackedTime:nondet:negative:dup-add
 bthread("crud:IssueTrackedTime:nondet:negative:dup-add", function () {
-  let id = 1146;
-  let index = "index_1146";
-  let owner = 1146;
-  let repo = "repo_1146";
-  issueAddTime(id, index, owner, repo);
+  let id = 1136;
+  let index = "index_1136";
+  let owner = 1136;
+  let repo = "repo_1136";
+  addIssueTrackedTime(id, index, owner, repo);
   // waitForIssueTrackedTimeAdded(id, index, owner, repo);
   verifyIssueTrackedTimeExists(id, index, owner, repo);
   tryToAddExistingIssueTrackedTime(id, index, owner, repo);
@@ -2240,12 +2295,12 @@ bthread("crud:IssueTrackedTime:nondet:negative:dup-add", function () {
 
 // Story: crud:Label:nondet:1:1
 bthread("crud:Label:nondet:1:1", function () {
-  let id = 1160;
-  let org = 1160;
-  let owner = "owner_1160";
-  let repo = "repo_1160";
+  let id = 1140;
+  let org = 1140;
+  let owner = "owner_1140";
+  let repo = "repo_1140";
   createLabel(id, org, owner, repo);
-  // waitForLabelAdded(id, org, owner, repo);
+  waitForLabelAdded(id, org, owner, repo);
   tryToAddExistingLabel(id, org, owner, repo);
   verifyLabelExists(id, org, owner, repo);
   editLabel(id, org, owner, repo);
@@ -2256,10 +2311,10 @@ bthread("crud:Label:nondet:1:1", function () {
 
 // Story: crud:Label:nondet:1:2
 bthread("crud:Label:nondet:1:2", function () {
-  let id = 1161;
-  let org = 1161;
-  let owner = "owner_1161";
-  let repo = "repo_1161";
+  let id = 1141;
+  let org = 1141;
+  let owner = "owner_1141";
+  let repo = "repo_1141";
   createLabel(id, org, owner, repo);
   // waitForLabelAdded(id, org, owner, repo);
   tryToAddExistingLabel(id, org, owner, repo);
@@ -2272,10 +2327,10 @@ bthread("crud:Label:nondet:1:2", function () {
 
 // Story: crud:Label:nondet:negative:dup-add
 bthread("crud:Label:nondet:negative:dup-add", function () {
-  let id = 1166;
-  let org = 1166;
-  let owner = "owner_1166";
-  let repo = "repo_1166";
+  let id = 1146;
+  let org = 1146;
+  let owner = "owner_1146";
+  let repo = "repo_1146";
   createLabel(id, org, owner, repo);
   // waitForLabelAdded(id, org, owner, repo);
   verifyLabelExists(id, org, owner, repo);
@@ -2285,40 +2340,40 @@ bthread("crud:Label:nondet:negative:dup-add", function () {
 
 // Story: crud:Milestone:nondet:1:1
 bthread("crud:Milestone:nondet:1:1", function () {
-  let id = 1170;
-  let owner = 1170;
-  let repo = "repo_1170";
-  createMilestone(id, owner, repo);
-  // waitForMilestoneAdded(id, owner, repo);
+  let id = 1150;
+  let owner = 1150;
+  let repo = "repo_1150";
+  issueCreateMilestone(id, owner, repo);
+  waitForMilestoneAdded(id, owner, repo);
   tryToAddExistingMilestone(id, owner, repo);
   verifyMilestoneExists(id, owner, repo);
-  editMilestone(id, owner, repo);
-  deleteMilestone(id, owner, repo);
+  issueEditMilestone(id, owner, repo);
+  issueDeleteMilestone(id, owner, repo);
   tryToDeleteANonExistingMilestone(id, owner, repo);
   verifyMilestoneDoesNotExist(id, owner, repo);
 });
 
 // Story: crud:Milestone:nondet:1:2
 bthread("crud:Milestone:nondet:1:2", function () {
-  let id = 1171;
-  let owner = 1171;
-  let repo = "repo_1171";
-  createMilestone(id, owner, repo);
+  let id = 1151;
+  let owner = 1151;
+  let repo = "repo_1151";
+  issueCreateMilestone(id, owner, repo);
   // waitForMilestoneAdded(id, owner, repo);
   tryToAddExistingMilestone(id, owner, repo);
-  editMilestone(id, owner, repo);
+  issueEditMilestone(id, owner, repo);
   verifyMilestoneExists(id, owner, repo);
-  deleteMilestone(id, owner, repo);
+  issueDeleteMilestone(id, owner, repo);
   tryToDeleteANonExistingMilestone(id, owner, repo);
   verifyMilestoneDoesNotExist(id, owner, repo);
 });
 
 // Story: crud:Milestone:nondet:negative:dup-add
 bthread("crud:Milestone:nondet:negative:dup-add", function () {
-  let id = 1176;
-  let owner = 1176;
-  let repo = "repo_1176";
-  createMilestone(id, owner, repo);
+  let id = 1156;
+  let owner = 1156;
+  let repo = "repo_1156";
+  issueCreateMilestone(id, owner, repo);
   // waitForMilestoneAdded(id, owner, repo);
   verifyMilestoneExists(id, owner, repo);
   tryToAddExistingMilestone(id, owner, repo);
@@ -2327,12 +2382,12 @@ bthread("crud:Milestone:nondet:negative:dup-add", function () {
 
 // Story: crud:Organization:nondet:1:1
 bthread("crud:Organization:nondet:1:1", function () {
-  let limit = "limit_1180";
-  let org = "org_1180";
-  let page = "page_1180";
-  let username = 1180;
+  let limit = "limit_1160";
+  let org = "org_1160";
+  let page = "page_1160";
+  let username = 1160;
   adminCreateOrg(limit, org, page, username);
-  // waitForOrganizationAdded(limit, org, page, username);
+  waitForOrganizationAdded(limit, org, page, username);
   tryToAddExistingOrganization(limit, org, page, username);
   verifyOrganizationExists(limit, org, page, username);
   editOrganization(limit, org, page, username);
@@ -2343,10 +2398,10 @@ bthread("crud:Organization:nondet:1:1", function () {
 
 // Story: crud:Organization:nondet:1:2
 bthread("crud:Organization:nondet:1:2", function () {
-  let limit = "limit_1181";
-  let org = "org_1181";
-  let page = "page_1181";
-  let username = 1181;
+  let limit = "limit_1161";
+  let org = "org_1161";
+  let page = "page_1161";
+  let username = 1161;
   adminCreateOrg(limit, org, page, username);
   // waitForOrganizationAdded(limit, org, page, username);
   tryToAddExistingOrganization(limit, org, page, username);
@@ -2359,10 +2414,10 @@ bthread("crud:Organization:nondet:1:2", function () {
 
 // Story: crud:Organization:nondet:negative:dup-add
 bthread("crud:Organization:nondet:negative:dup-add", function () {
-  let limit = "limit_1186";
-  let org = "org_1186";
-  let page = "page_1186";
-  let username = 1186;
+  let limit = "limit_1166";
+  let org = "org_1166";
+  let page = "page_1166";
+  let username = 1166;
   adminCreateOrg(limit, org, page, username);
   // waitForOrganizationAdded(limit, org, page, username);
   verifyOrganizationExists(limit, org, page, username);
@@ -2372,10 +2427,10 @@ bthread("crud:Organization:nondet:negative:dup-add", function () {
 
 // Story: crud:OrgSecret:nondet:1:1
 bthread("crud:OrgSecret:nondet:1:1", function () {
-  let org = 1190;
-  let secretname = "secretname_1190";
+  let org = 1180;
+  let secretname = "secretname_1180";
   updateOrgSecret(org, secretname);
-  // waitForOrgSecretAdded(org, secretname);
+  waitForOrgSecretAdded(org, secretname);
   tryToAddExistingOrgSecret(org, secretname);
   verifyOrgSecretExists(org, secretname);
   deleteOrgSecret(org, secretname);
@@ -2385,8 +2440,8 @@ bthread("crud:OrgSecret:nondet:1:1", function () {
 
 // Story: crud:OrgSecret:nondet:1:2
 bthread("crud:OrgSecret:nondet:1:2", function () {
-  let org = 1191;
-  let secretname = "secretname_1191";
+  let org = 1181;
+  let secretname = "secretname_1181";
   updateOrgSecret(org, secretname);
   // waitForOrgSecretAdded(org, secretname);
   tryToAddExistingOrgSecret(org, secretname);
@@ -2398,8 +2453,8 @@ bthread("crud:OrgSecret:nondet:1:2", function () {
 
 // Story: crud:OrgSecret:nondet:negative:dup-add
 bthread("crud:OrgSecret:nondet:negative:dup-add", function () {
-  let org = 1196;
-  let secretname = "secretname_1196";
+  let org = 1186;
+  let secretname = "secretname_1186";
   updateOrgSecret(org, secretname);
   // waitForOrgSecretAdded(org, secretname);
   verifyOrgSecretExists(org, secretname);
@@ -2409,10 +2464,10 @@ bthread("crud:OrgSecret:nondet:negative:dup-add", function () {
 
 // Story: crud:OrgVariable:nondet:1:1
 bthread("crud:OrgVariable:nondet:1:1", function () {
-  let org = 1200;
-  let variablename = "variablename_1200";
+  let org = 1190;
+  let variablename = "variablename_1190";
   createOrgVariable(org, variablename);
-  // waitForOrgVariableAdded(org, variablename);
+  waitForOrgVariableAdded(org, variablename);
   tryToAddExistingOrgVariable(org, variablename);
   verifyOrgVariableExists(org, variablename);
   updateOrgVariable(org, variablename);
@@ -2423,8 +2478,8 @@ bthread("crud:OrgVariable:nondet:1:1", function () {
 
 // Story: crud:OrgVariable:nondet:1:2
 bthread("crud:OrgVariable:nondet:1:2", function () {
-  let org = 1201;
-  let variablename = "variablename_1201";
+  let org = 1191;
+  let variablename = "variablename_1191";
   createOrgVariable(org, variablename);
   // waitForOrgVariableAdded(org, variablename);
   tryToAddExistingOrgVariable(org, variablename);
@@ -2437,8 +2492,8 @@ bthread("crud:OrgVariable:nondet:1:2", function () {
 
 // Story: crud:OrgVariable:nondet:negative:dup-add
 bthread("crud:OrgVariable:nondet:negative:dup-add", function () {
-  let org = 1206;
-  let variablename = "variablename_1206";
+  let org = 1196;
+  let variablename = "variablename_1196";
   createOrgVariable(org, variablename);
   // waitForOrgVariableAdded(org, variablename);
   verifyOrgVariableExists(org, variablename);
@@ -2448,11 +2503,11 @@ bthread("crud:OrgVariable:nondet:negative:dup-add", function () {
 
 // Story: crud:Block:nondet:1:1
 bthread("crud:Block:nondet:1:1", function () {
-  let note = "note_1220";
-  let org = 1220;
-  let username = "username_1220";
+  let note = "note_1210";
+  let org = 1210;
+  let username = "username_1210";
   blockUser(note, org, username);
-  // waitForBlockAdded(note, org, username);
+  waitForBlockAdded(note, org, username);
   tryToAddExistingBlock(note, org, username);
   verifyBlockExists(note, org, username);
   unblockUser(note, org, username);
@@ -2462,9 +2517,9 @@ bthread("crud:Block:nondet:1:1", function () {
 
 // Story: crud:Block:nondet:1:2
 bthread("crud:Block:nondet:1:2", function () {
-  let note = "note_1221";
-  let org = 1221;
-  let username = "username_1221";
+  let note = "note_1211";
+  let org = 1211;
+  let username = "username_1211";
   blockUser(note, org, username);
   // waitForBlockAdded(note, org, username);
   tryToAddExistingBlock(note, org, username);
@@ -2476,9 +2531,9 @@ bthread("crud:Block:nondet:1:2", function () {
 
 // Story: crud:Block:nondet:negative:dup-add
 bthread("crud:Block:nondet:negative:dup-add", function () {
-  let note = "note_1226";
-  let org = 1226;
-  let username = "username_1226";
+  let note = "note_1216";
+  let org = 1216;
+  let username = "username_1216";
   blockUser(note, org, username);
   // waitForBlockAdded(note, org, username);
   verifyBlockExists(note, org, username);
@@ -2488,17 +2543,17 @@ bthread("crud:Block:nondet:negative:dup-add", function () {
 
 // Story: crud:Member:read_only
 bthread("crud:Member:read_only", function () {
-  let org = 1230;
-  let username = "username_1230";
+  let org = 1220;
+  let username = "username_1220";
   verifyMemberExists(org, username);
 });
 
 // Story: crud:PublicMember:nondet:1:1
 bthread("crud:PublicMember:nondet:1:1", function () {
-  let org = 1240;
-  let username = "username_1240";
+  let org = 1230;
+  let username = "username_1230";
   publicizeMember(org, username);
-  // waitForPublicMemberAdded(org, username);
+  waitForPublicMemberAdded(org, username);
   tryToAddExistingPublicMember(org, username);
   verifyPublicMemberExists(org, username);
   concealMember(org, username);
@@ -2508,8 +2563,8 @@ bthread("crud:PublicMember:nondet:1:1", function () {
 
 // Story: crud:PublicMember:nondet:1:2
 bthread("crud:PublicMember:nondet:1:2", function () {
-  let org = 1241;
-  let username = "username_1241";
+  let org = 1231;
+  let username = "username_1231";
   publicizeMember(org, username);
   // waitForPublicMemberAdded(org, username);
   tryToAddExistingPublicMember(org, username);
@@ -2521,8 +2576,8 @@ bthread("crud:PublicMember:nondet:1:2", function () {
 
 // Story: crud:PublicMember:nondet:negative:dup-add
 bthread("crud:PublicMember:nondet:negative:dup-add", function () {
-  let org = 1246;
-  let username = "username_1246";
+  let org = 1236;
+  let username = "username_1236";
   publicizeMember(org, username);
   // waitForPublicMemberAdded(org, username);
   verifyPublicMemberExists(org, username);
@@ -2532,10 +2587,10 @@ bthread("crud:PublicMember:nondet:negative:dup-add", function () {
 
 // Story: crud:TeamMember:nondet:1:1
 bthread("crud:TeamMember:nondet:1:1", function () {
-  let id = 1250;
-  let username = "username_1250";
+  let id = 1240;
+  let username = "username_1240";
   orgAddTeamMember(id, username);
-  // waitForTeamMemberAdded(id, username);
+  waitForTeamMemberAdded(id, username);
   tryToAddExistingTeamMember(id, username);
   verifyTeamMemberExists(id, username);
   orgRemoveTeamMember(id, username);
@@ -2545,8 +2600,8 @@ bthread("crud:TeamMember:nondet:1:1", function () {
 
 // Story: crud:TeamMember:nondet:1:2
 bthread("crud:TeamMember:nondet:1:2", function () {
-  let id = 1251;
-  let username = "username_1251";
+  let id = 1241;
+  let username = "username_1241";
   orgAddTeamMember(id, username);
   // waitForTeamMemberAdded(id, username);
   tryToAddExistingTeamMember(id, username);
@@ -2558,8 +2613,8 @@ bthread("crud:TeamMember:nondet:1:2", function () {
 
 // Story: crud:TeamMember:nondet:negative:dup-add
 bthread("crud:TeamMember:nondet:negative:dup-add", function () {
-  let id = 1256;
-  let username = "username_1256";
+  let id = 1246;
+  let username = "username_1246";
   orgAddTeamMember(id, username);
   // waitForTeamMemberAdded(id, username);
   verifyTeamMemberExists(id, username);
@@ -2569,11 +2624,11 @@ bthread("crud:TeamMember:nondet:negative:dup-add", function () {
 
 // Story: crud:TeamRepository:nondet:1:1
 bthread("crud:TeamRepository:nondet:1:1", function () {
-  let id = 1260;
-  let org = "org_1260";
-  let repo = "repo_1260";
+  let id = 1250;
+  let org = "org_1250";
+  let repo = "repo_1250";
   orgAddTeamRepository(id, org, repo);
-  // waitForTeamRepositoryAdded(id, org, repo);
+  waitForTeamRepositoryAdded(id, org, repo);
   tryToAddExistingTeamRepository(id, org, repo);
   verifyTeamRepositoryExists(id, org, repo);
   orgRemoveTeamRepository(id, org, repo);
@@ -2583,9 +2638,9 @@ bthread("crud:TeamRepository:nondet:1:1", function () {
 
 // Story: crud:TeamRepository:nondet:1:2
 bthread("crud:TeamRepository:nondet:1:2", function () {
-  let id = 1261;
-  let org = "org_1261";
-  let repo = "repo_1261";
+  let id = 1251;
+  let org = "org_1251";
+  let repo = "repo_1251";
   orgAddTeamRepository(id, org, repo);
   // waitForTeamRepositoryAdded(id, org, repo);
   tryToAddExistingTeamRepository(id, org, repo);
@@ -2597,9 +2652,9 @@ bthread("crud:TeamRepository:nondet:1:2", function () {
 
 // Story: crud:TeamRepository:nondet:negative:dup-add
 bthread("crud:TeamRepository:nondet:negative:dup-add", function () {
-  let id = 1266;
-  let org = "org_1266";
-  let repo = "repo_1266";
+  let id = 1256;
+  let org = "org_1256";
+  let repo = "repo_1256";
   orgAddTeamRepository(id, org, repo);
   // waitForTeamRepositoryAdded(id, org, repo);
   verifyTeamRepositoryExists(id, org, repo);
@@ -2609,9 +2664,9 @@ bthread("crud:TeamRepository:nondet:negative:dup-add", function () {
 
 // Story: crud:CronTask:read_only
 bthread("crud:CronTask:read_only", function () {
-  let limit = "limit_1270";
-  let page = "page_1270";
-  let task = 1270;
+  let limit = "limit_1260";
+  let page = "page_1260";
+  let task = 1260;
   verifyCronTaskExists(limit, page, task);
 });
 
@@ -2623,13 +2678,13 @@ bthread("crud:RunnerRegistrationToken:read_only", function () {
 
 // Story: crud:UnadoptedRepository:nondet:1:1
 bthread("crud:UnadoptedRepository:nondet:1:1", function () {
-  let limit = "limit_1290";
-  let owner = 1290;
-  let page = "page_1290";
-  let pattern = "pattern_1290";
-  let repo = "repo_1290";
+  let limit = "limit_1280";
+  let owner = 1280;
+  let page = "page_1280";
+  let pattern = "pattern_1280";
+  let repo = "repo_1280";
   adoptUnadoptedRepository(limit, owner, page, pattern, repo);
-  // waitForUnadoptedRepositoryAdded(limit, owner, page, pattern, repo);
+  waitForUnadoptedRepositoryAdded(limit, owner, page, pattern, repo);
   tryToAddExistingUnadoptedRepository(limit, owner, page, pattern, repo);
   verifyUnadoptedRepositoryExists(limit, owner, page, pattern, repo);
   deleteUnadoptedRepository(limit, owner, page, pattern, repo);
@@ -2639,11 +2694,11 @@ bthread("crud:UnadoptedRepository:nondet:1:1", function () {
 
 // Story: crud:UnadoptedRepository:nondet:1:2
 bthread("crud:UnadoptedRepository:nondet:1:2", function () {
-  let limit = "limit_1291";
-  let owner = 1291;
-  let page = "page_1291";
-  let pattern = "pattern_1291";
-  let repo = "repo_1291";
+  let limit = "limit_1281";
+  let owner = 1281;
+  let page = "page_1281";
+  let pattern = "pattern_1281";
+  let repo = "repo_1281";
   adoptUnadoptedRepository(limit, owner, page, pattern, repo);
   // waitForUnadoptedRepositoryAdded(limit, owner, page, pattern, repo);
   tryToAddExistingUnadoptedRepository(limit, owner, page, pattern, repo);
@@ -2655,11 +2710,11 @@ bthread("crud:UnadoptedRepository:nondet:1:2", function () {
 
 // Story: crud:UnadoptedRepository:nondet:negative:dup-add
 bthread("crud:UnadoptedRepository:nondet:negative:dup-add", function () {
-  let limit = "limit_1296";
-  let owner = 1296;
-  let page = "page_1296";
-  let pattern = "pattern_1296";
-  let repo = "repo_1296";
+  let limit = "limit_1286";
+  let owner = 1286;
+  let page = "page_1286";
+  let pattern = "pattern_1286";
+  let repo = "repo_1286";
   adoptUnadoptedRepository(limit, owner, page, pattern, repo);
   // waitForUnadoptedRepositoryAdded(limit, owner, page, pattern, repo);
   verifyUnadoptedRepositoryExists(limit, owner, page, pattern, repo);
@@ -2669,9 +2724,9 @@ bthread("crud:UnadoptedRepository:nondet:negative:dup-add", function () {
 
 // Story: crud:UserBadge:nondet:1:1
 bthread("crud:UserBadge:nondet:1:1", function () {
-  let username = 1300;
+  let username = 1290;
   adminAddUserBadges(username);
-  // waitForUserBadgeAdded(username);
+  waitForUserBadgeAdded(username);
   tryToAddExistingUserBadge(username);
   verifyUserBadgeExists(username);
   adminDeleteUserBadges(username);
@@ -2681,7 +2736,7 @@ bthread("crud:UserBadge:nondet:1:1", function () {
 
 // Story: crud:UserBadge:nondet:1:2
 bthread("crud:UserBadge:nondet:1:2", function () {
-  let username = 1301;
+  let username = 1291;
   adminAddUserBadges(username);
   // waitForUserBadgeAdded(username);
   tryToAddExistingUserBadge(username);
@@ -2693,7 +2748,7 @@ bthread("crud:UserBadge:nondet:1:2", function () {
 
 // Story: crud:UserBadge:nondet:negative:dup-add
 bthread("crud:UserBadge:nondet:negative:dup-add", function () {
-  let username = 1306;
+  let username = 1296;
   adminAddUserBadges(username);
   // waitForUserBadgeAdded(username);
   verifyUserBadgeExists(username);
@@ -2701,61 +2756,24 @@ bthread("crud:UserBadge:nondet:negative:dup-add", function () {
   verifyUserBadgeExists(username);
 });
 
-// Story: crud:UserPublicKey:nondet:1:1
-bthread("crud:UserPublicKey:nondet:1:1", function () {
-  let id = 1310;
-  let username = 1310;
-  adminCreatePublicKey(id, username);
-  // waitForUserPublicKeyAdded(id, username);
-  tryToAddExistingUserPublicKey(id, username);
-  verifyUserPublicKeyExists(id, username);
-  adminDeleteUserPublicKey(id, username);
-  tryToDeleteANonExistingUserPublicKey(id, username);
-  verifyUserPublicKeyDoesNotExist(id, username);
-});
-
-// Story: crud:UserPublicKey:nondet:1:2
-bthread("crud:UserPublicKey:nondet:1:2", function () {
-  let id = 1311;
-  let username = 1311;
-  adminCreatePublicKey(id, username);
-  // waitForUserPublicKeyAdded(id, username);
-  tryToAddExistingUserPublicKey(id, username);
-  verifyUserPublicKeyExists(id, username);
-  adminDeleteUserPublicKey(id, username);
-  tryToDeleteANonExistingUserPublicKey(id, username);
-  verifyUserPublicKeyDoesNotExist(id, username);
-});
-
-// Story: crud:UserPublicKey:nondet:negative:dup-add
-bthread("crud:UserPublicKey:nondet:negative:dup-add", function () {
-  let id = 1316;
-  let username = 1316;
-  adminCreatePublicKey(id, username);
-  // waitForUserPublicKeyAdded(id, username);
-  verifyUserPublicKeyExists(id, username);
-  tryToAddExistingUserPublicKey(id, username);
-  verifyUserPublicKeyExists(id, username);
-});
-
 // Story: crud:Notification:read_only
 bthread("crud:Notification:read_only", function () {
-  let id = 1330;
-  let to-status = "to-status_1330";
+  let id = 1310;
+  let to-status = "to-status_1310";
   verifyNotificationExists(id, to-status);
 });
 
 // Story: crud:NotificationList:read_only
 bthread("crud:NotificationList:read_only", function () {
-  let all = "all_1340";
-  let before = "before_1340";
-  let last_read_at = "last_read_at_1340";
-  let limit = "limit_1340";
-  let page = "page_1340";
-  let since = "since_1340";
-  let status-types = "status-types_1340";
-  let subject-type = "subject-type_1340";
-  let to-status = "to-status_1340";
+  let all = "all_1320";
+  let before = "before_1320";
+  let last_read_at = "last_read_at_1320";
+  let limit = "limit_1320";
+  let page = "page_1320";
+  let since = "since_1320";
+  let status-types = "status-types_1320";
+  let subject-type = "subject-type_1320";
+  let to-status = "to-status_1320";
   verifyNotificationListExists(all, before, last_read_at, limit, page, since, status-types, subject-type, to-status);
 });
 
@@ -2767,50 +2785,50 @@ bthread("crud:NotificationNew:read_only", function () {
 
 // Story: crud:RepoNotificationList:read_only
 bthread("crud:RepoNotificationList:read_only", function () {
-  let all = "all_1360";
-  let before = "before_1360";
-  let last_read_at = "last_read_at_1360";
-  let limit = "limit_1360";
-  let owner = 1360;
-  let page = "page_1360";
-  let repo = "repo_1360";
-  let since = "since_1360";
-  let status-types = "status-types_1360";
-  let subject-type = "subject-type_1360";
-  let to-status = "to-status_1360";
+  let all = "all_1340";
+  let before = "before_1340";
+  let last_read_at = "last_read_at_1340";
+  let limit = "limit_1340";
+  let owner = 1340;
+  let page = "page_1340";
+  let repo = "repo_1340";
+  let since = "since_1340";
+  let status-types = "status-types_1340";
+  let subject-type = "subject-type_1340";
+  let to-status = "to-status_1340";
   verifyRepoNotificationListExists(all, before, last_read_at, limit, owner, page, repo, since, status-types, subject-type, to-status);
 });
 
 // Story: crud:Package:read_only
 bthread("crud:Package:read_only", function () {
-  let name = "name_1370";
-  let owner = 1370;
-  let type = "type_1370";
-  let version = "version_1370";
+  let name = "name_1350";
+  let owner = 1350;
+  let type = "type_1350";
+  let version = "version_1350";
   verifyPackageExists(name, owner, type, version);
 });
 
 // Story: crud:PackageList:read_only
 bthread("crud:PackageList:read_only", function () {
-  let limit = "limit_1380";
-  let owner = 1380;
-  let page = "page_1380";
-  let q = "q_1380";
-  let type = "type_1380";
+  let limit = "limit_1360";
+  let owner = 1360;
+  let page = "page_1360";
+  let q = "q_1360";
+  let type = "type_1360";
   verifyPackageListExists(limit, owner, page, q, type);
 });
 
 // Story: crud:PackageFileList:read_only
 bthread("crud:PackageFileList:read_only", function () {
-  let name = "name_1390";
-  let owner = 1390;
-  let type = "type_1390";
-  let version = "version_1390";
+  let name = "name_1370";
+  let owner = 1370;
+  let type = "type_1370";
+  let version = "version_1370";
   verifyPackageFileListExists(name, owner, type, version);
 });
 
 // Story: crud:Person:read_only
 bthread("crud:Person:read_only", function () {
-
+  let user-id;
   verifyPersonExists(user-id);
 });

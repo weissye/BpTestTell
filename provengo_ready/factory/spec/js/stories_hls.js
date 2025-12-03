@@ -9,7 +9,7 @@ function resolveDependencies(deps, pkMap) {
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);

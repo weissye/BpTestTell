@@ -9,7 +9,7 @@ function resolveDependencies(deps, pkMap) {
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
@@ -75,6 +75,20 @@ bthread("crud:CredentialRegistrators:read_only", function () {
   verifyCredentialRegistratorsExists(realm);
 });
 
+// Story: crud:DefaultGroup:read_only
+bthread("crud:DefaultGroup:read_only", function () {
+  let groupId;
+  let realm = 280;
+  verifyDefaultGroupExists(groupId, realm);
+});
+
+// Story: crud:DefaultOptionalClientScope:read_only
+bthread("crud:DefaultOptionalClientScope:read_only", function () {
+  let clientScopeId;
+  let realm = 290;
+  verifyDefaultOptionalClientScopeExists(clientScopeId, realm);
+});
+
 // Story: crud:Event:read_only
 bthread("crud:Event:read_only", function () {
   let client = "client_300";
@@ -95,20 +109,27 @@ bthread("crud:EventsConfig:read_only", function () {
   verifyEventsConfigExists(realm);
 });
 
+// Story: crud:GroupByPath:read_only
+bthread("crud:GroupByPath:read_only", function () {
+  let path = "path_320";
+  let realm = 320;
+  verifyGroupByPathExists(path, realm);
+});
+
 // Story: crud:UsersManagementPermissions:read_only
 bthread("crud:UsersManagementPermissions:read_only", function () {
-  let realm = 340;
+  let realm = 350;
   verifyUsersManagementPermissionsExists(realm);
 });
 
 // Story: crud:AuthenticationConfig:nondet:1:1
 bthread("crud:AuthenticationConfig:nondet:1:1", function () {
-  let alias = "alias_350";
+  let alias = "alias_360";
   let config = {};
-  let id = 350;
-  let realm = 350;
+  let id = 360;
+  let realm = 360;
   postAuthenticationConfig(alias, config, id, realm);
-  // waitForAuthenticationConfigAdded(alias, config, id, realm);
+  waitForAuthenticationConfigAdded(alias, config, id, realm);
   tryToAddExistingAuthenticationConfig(alias, config, id, realm);
   verifyAuthenticationConfigExists(alias, config, id, realm);
   putAuthenticationConfig(alias, config, id, realm);
@@ -119,10 +140,10 @@ bthread("crud:AuthenticationConfig:nondet:1:1", function () {
 
 // Story: crud:AuthenticationConfig:nondet:1:2
 bthread("crud:AuthenticationConfig:nondet:1:2", function () {
-  let alias = "alias_351";
+  let alias = "alias_361";
   let config = {};
-  let id = 351;
-  let realm = 351;
+  let id = 361;
+  let realm = 361;
   postAuthenticationConfig(alias, config, id, realm);
   // waitForAuthenticationConfigAdded(alias, config, id, realm);
   tryToAddExistingAuthenticationConfig(alias, config, id, realm);
@@ -135,10 +156,10 @@ bthread("crud:AuthenticationConfig:nondet:1:2", function () {
 
 // Story: crud:AuthenticationConfig:nondet:negative:dup-add
 bthread("crud:AuthenticationConfig:nondet:negative:dup-add", function () {
-  let alias = "alias_356";
+  let alias = "alias_366";
   let config = {};
-  let id = 356;
-  let realm = 356;
+  let id = 366;
+  let realm = 366;
   postAuthenticationConfig(alias, config, id, realm);
   // waitForAuthenticationConfigAdded(alias, config, id, realm);
   verifyAuthenticationConfigExists(alias, config, id, realm);
@@ -148,19 +169,19 @@ bthread("crud:AuthenticationConfig:nondet:negative:dup-add", function () {
 
 // Story: crud:Execution:nondet:1:1
 bthread("crud:Execution:nondet:1:1", function () {
-  let authenticator = "authenticator_360";
-  let authenticatorConfig = "authenticatorConfig_360";
-  let authenticatorFlow = "authenticatorFlow_360";
-  let autheticatorFlow = "autheticatorFlow_360";
-  let executionId = 360;
-  let flowId = 360;
-  let id = 360;
-  let parentFlow = "parentFlow_360";
-  let priority = 360;
-  let realm = 360;
-  let requirement = "requirement_360";
+  let authenticator = "authenticator_370";
+  let authenticatorConfig = "authenticatorConfig_370";
+  let authenticatorFlow = "authenticatorFlow_370";
+  let autheticatorFlow = "autheticatorFlow_370";
+  let executionId = 370;
+  let flowId = 370;
+  let id = 370;
+  let parentFlow = "parentFlow_370";
+  let priority = 370;
+  let realm = 370;
+  let requirement = "requirement_370";
   postExecutions(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
-  // waitForExecutionAdded(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
+  waitForExecutionAdded(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   tryToAddExistingExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   verifyExecutionExists(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   deleteExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
@@ -170,17 +191,17 @@ bthread("crud:Execution:nondet:1:1", function () {
 
 // Story: crud:Execution:nondet:1:2
 bthread("crud:Execution:nondet:1:2", function () {
-  let authenticator = "authenticator_361";
-  let authenticatorConfig = "authenticatorConfig_361";
-  let authenticatorFlow = "authenticatorFlow_361";
-  let autheticatorFlow = "autheticatorFlow_361";
-  let executionId = 361;
-  let flowId = 361;
-  let id = 361;
-  let parentFlow = "parentFlow_361";
-  let priority = 361;
-  let realm = 361;
-  let requirement = "requirement_361";
+  let authenticator = "authenticator_371";
+  let authenticatorConfig = "authenticatorConfig_371";
+  let authenticatorFlow = "authenticatorFlow_371";
+  let autheticatorFlow = "autheticatorFlow_371";
+  let executionId = 371;
+  let flowId = 371;
+  let id = 371;
+  let parentFlow = "parentFlow_371";
+  let priority = 371;
+  let realm = 371;
+  let requirement = "requirement_371";
   postExecutions(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   // waitForExecutionAdded(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   tryToAddExistingExecution(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
@@ -192,17 +213,17 @@ bthread("crud:Execution:nondet:1:2", function () {
 
 // Story: crud:Execution:nondet:negative:dup-add
 bthread("crud:Execution:nondet:negative:dup-add", function () {
-  let authenticator = "authenticator_366";
-  let authenticatorConfig = "authenticatorConfig_366";
-  let authenticatorFlow = "authenticatorFlow_366";
-  let autheticatorFlow = "autheticatorFlow_366";
-  let executionId = 366;
-  let flowId = 366;
-  let id = 366;
-  let parentFlow = "parentFlow_366";
-  let priority = 366;
-  let realm = 366;
-  let requirement = "requirement_366";
+  let authenticator = "authenticator_376";
+  let authenticatorConfig = "authenticatorConfig_376";
+  let authenticatorFlow = "authenticatorFlow_376";
+  let autheticatorFlow = "autheticatorFlow_376";
+  let executionId = 376;
+  let flowId = 376;
+  let id = 376;
+  let parentFlow = "parentFlow_376";
+  let priority = 376;
+  let realm = 376;
+  let requirement = "requirement_376";
   postExecutions(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   // waitForExecutionAdded(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
   verifyExecutionExists(authenticator, authenticatorConfig, authenticatorFlow, autheticatorFlow, executionId, flowId, id, parentFlow, priority, realm, requirement);
@@ -212,26 +233,27 @@ bthread("crud:Execution:nondet:negative:dup-add", function () {
 
 // Story: crud:ExecutionConfig:read_only
 bthread("crud:ExecutionConfig:read_only", function () {
-  let alias = "alias_370";
+  let alias = "alias_380";
   let config = {};
-  let id = 370;
-  let realm = 370;
+  let executionId;
+  let id = 380;
+  let realm = 380;
   verifyExecutionConfigExists(alias, config, executionId, id, realm);
 });
 
 // Story: crud:AuthenticationFlow:nondet:1:1
 bthread("crud:AuthenticationFlow:nondet:1:1", function () {
-  let alias = "alias_380";
-  let authenticationExecutions = "authenticationExecutions_380";
-  let builtIn = "builtIn_380";
-  let description = "description_380";
-  let flowAlias = "flowAlias_380";
-  let id = 380;
-  let providerId = 380;
-  let realm = 380;
-  let topLevel = "topLevel_380";
+  let alias = "alias_390";
+  let authenticationExecutions = "authenticationExecutions_390";
+  let builtIn = "builtIn_390";
+  let description = "description_390";
+  let flowAlias = "flowAlias_390";
+  let id = 390;
+  let providerId = 390;
+  let realm = 390;
+  let topLevel = "topLevel_390";
   createAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
-  // waitForAuthenticationFlowAdded(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
+  waitForAuthenticationFlowAdded(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   tryToAddExistingAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   verifyAuthenticationFlowExists(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   updateAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
@@ -242,15 +264,15 @@ bthread("crud:AuthenticationFlow:nondet:1:1", function () {
 
 // Story: crud:AuthenticationFlow:nondet:1:2
 bthread("crud:AuthenticationFlow:nondet:1:2", function () {
-  let alias = "alias_381";
-  let authenticationExecutions = "authenticationExecutions_381";
-  let builtIn = "builtIn_381";
-  let description = "description_381";
-  let flowAlias = "flowAlias_381";
-  let id = 381;
-  let providerId = 381;
-  let realm = 381;
-  let topLevel = "topLevel_381";
+  let alias = "alias_391";
+  let authenticationExecutions = "authenticationExecutions_391";
+  let builtIn = "builtIn_391";
+  let description = "description_391";
+  let flowAlias = "flowAlias_391";
+  let id = 391;
+  let providerId = 391;
+  let realm = 391;
+  let topLevel = "topLevel_391";
   createAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   // waitForAuthenticationFlowAdded(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   tryToAddExistingAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
@@ -263,15 +285,15 @@ bthread("crud:AuthenticationFlow:nondet:1:2", function () {
 
 // Story: crud:AuthenticationFlow:nondet:negative:dup-add
 bthread("crud:AuthenticationFlow:nondet:negative:dup-add", function () {
-  let alias = "alias_386";
-  let authenticationExecutions = "authenticationExecutions_386";
-  let builtIn = "builtIn_386";
-  let description = "description_386";
-  let flowAlias = "flowAlias_386";
-  let id = 386;
-  let providerId = 386;
-  let realm = 386;
-  let topLevel = "topLevel_386";
+  let alias = "alias_396";
+  let authenticationExecutions = "authenticationExecutions_396";
+  let builtIn = "builtIn_396";
+  let description = "description_396";
+  let flowAlias = "flowAlias_396";
+  let id = 396;
+  let providerId = 396;
+  let realm = 396;
+  let topLevel = "topLevel_396";
   createAuthenticationFlow(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   // waitForAuthenticationFlowAdded(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
   verifyAuthenticationFlowExists(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
@@ -279,37 +301,12 @@ bthread("crud:AuthenticationFlow:nondet:negative:dup-add", function () {
   verifyAuthenticationFlowExists(alias, authenticationExecutions, builtIn, description, flowAlias, id, providerId, realm, topLevel);
 });
 
-// Story: crud:AuthenticationExecution:read_only
-bthread("crud:AuthenticationExecution:read_only", function () {
-  let flowAlias = "flowAlias_390";
-  let realm = 390;
-  verifyAuthenticationExecutionExists(executionId, flowAlias, realm);
-});
-
-// Story: crud:FormActionProvider:read_only
-bthread("crud:FormActionProvider:read_only", function () {
-  let realm = 420;
-  verifyFormActionProviderExists(realm);
-});
-
-// Story: crud:FormProvider:read_only
-bthread("crud:FormProvider:read_only", function () {
-  let realm = 430;
-  verifyFormProviderExists(realm);
-});
-
-// Story: crud:PerClientConfigDescription:read_only
-bthread("crud:PerClientConfigDescription:read_only", function () {
-  let realm = 440;
-  verifyPerClientConfigDescriptionExists(realm);
-});
-
 // Story: crud:RequiredAction:nondet:1:1
 bthread("crud:RequiredAction:nondet:1:1", function () {
-  let alias = "alias_450";
-  let realm = 450;
+  let alias = "alias_410";
+  let realm = 410;
   postRegisterRequiredAction(alias, realm);
-  // waitForRequiredActionAdded(alias, realm);
+  waitForRequiredActionAdded(alias, realm);
   tryToAddExistingRequiredAction(alias, realm);
   verifyRequiredActionExists(alias, realm);
   putRequiredAction(alias, realm);
@@ -320,8 +317,8 @@ bthread("crud:RequiredAction:nondet:1:1", function () {
 
 // Story: crud:RequiredAction:nondet:1:2
 bthread("crud:RequiredAction:nondet:1:2", function () {
-  let alias = "alias_451";
-  let realm = 451;
+  let alias = "alias_411";
+  let realm = 411;
   postRegisterRequiredAction(alias, realm);
   // waitForRequiredActionAdded(alias, realm);
   tryToAddExistingRequiredAction(alias, realm);
@@ -334,8 +331,8 @@ bthread("crud:RequiredAction:nondet:1:2", function () {
 
 // Story: crud:RequiredAction:nondet:negative:dup-add
 bthread("crud:RequiredAction:nondet:negative:dup-add", function () {
-  let alias = "alias_456";
-  let realm = 456;
+  let alias = "alias_416";
+  let realm = 416;
   postRegisterRequiredAction(alias, realm);
   // waitForRequiredActionAdded(alias, realm);
   verifyRequiredActionExists(alias, realm);
@@ -345,11 +342,11 @@ bthread("crud:RequiredAction:nondet:negative:dup-add", function () {
 
 // Story: crud:ClientNode:nondet:1:1
 bthread("crud:ClientNode:nondet:1:1", function () {
-  let id = 470;
-  let node = "node_470";
-  let realm = 470;
+  let id = 430;
+  let node = "node_430";
+  let realm = 430;
   postNodes(id, node, realm);
-  // waitForClientNodeAdded(id, node, realm);
+  waitForClientNodeAdded(id, node, realm);
   tryToAddExistingClientNode(id, node, realm);
   verifyClientNodeExists(id, node, realm);
   deleteNode(id, node, realm);
@@ -359,9 +356,9 @@ bthread("crud:ClientNode:nondet:1:1", function () {
 
 // Story: crud:ClientNode:nondet:1:2
 bthread("crud:ClientNode:nondet:1:2", function () {
-  let id = 471;
-  let node = "node_471";
-  let realm = 471;
+  let id = 431;
+  let node = "node_431";
+  let realm = 431;
   postNodes(id, node, realm);
   // waitForClientNodeAdded(id, node, realm);
   tryToAddExistingClientNode(id, node, realm);
@@ -373,9 +370,9 @@ bthread("crud:ClientNode:nondet:1:2", function () {
 
 // Story: crud:ClientNode:nondet:negative:dup-add
 bthread("crud:ClientNode:nondet:negative:dup-add", function () {
-  let id = 476;
-  let node = "node_476";
-  let realm = 476;
+  let id = 436;
+  let node = "node_436";
+  let realm = 436;
   postNodes(id, node, realm);
   // waitForClientNodeAdded(id, node, realm);
   verifyClientNodeExists(id, node, realm);
@@ -385,9 +382,24 @@ bthread("crud:ClientNode:nondet:negative:dup-add", function () {
 
 // Story: crud:ClientManagementPermissions:read_only
 bthread("crud:ClientManagementPermissions:read_only", function () {
+  let id = 440;
+  let realm = 440;
+  verifyClientManagementPermissionsExists(id, realm);
+});
+
+// Story: crud:InstallationProvider:read_only
+bthread("crud:InstallationProvider:read_only", function () {
+  let id = 460;
+  let providerId = 460;
+  let realm = 460;
+  verifyInstallationProviderExists(id, providerId, realm);
+});
+
+// Story: crud:OptionalClientScopesList:read_only
+bthread("crud:OptionalClientScopesList:read_only", function () {
   let id = 490;
   let realm = 490;
-  verifyClientManagementPermissionsExists(id, realm);
+  verifyOptionalClientScopesListExists(id, realm);
 });
 
 // Story: crud:User:nondet:1:1
@@ -397,6 +409,8 @@ bthread("crud:User:nondet:1:1", function () {
   let attributes = {};
   let clientConsents = "clientConsents_500";
   let clientRoles = {};
+  let clientUuid;
+  let client_id;
   let createdTimestamp = 500;
   let credentials = "credentials_500";
   let disableableCredentialTypes = "disableableCredentialTypes_500";
@@ -416,6 +430,7 @@ bthread("crud:User:nondet:1:1", function () {
   let redirect_uri = "redirect_uri_500";
   let requiredActions = "requiredActions_500";
   let self = "self_500";
+  let serviceAccountClientId;
   let socialLinks = "socialLinks_500";
   let totp = "totp_500";
   let username = "username_500";
@@ -430,11 +445,11 @@ bthread("crud:User:nondet:1:1", function () {
   client_id = captured["client_id"];
   serviceAccountClientId = captured["serviceAccountClientId"];
   createUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
-  // waitForUserAdded(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
+  waitForUserAdded(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   tryToAddExistingUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   verifyUserExists(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
-  updateUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
-  deleteUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
+  putUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
+  deleteUserByRealmById(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   tryToDeleteANonExistingUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   verifyUserDoesNotExist(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
 });
@@ -446,6 +461,8 @@ bthread("crud:User:nondet:1:2", function () {
   let attributes = {};
   let clientConsents = "clientConsents_501";
   let clientRoles = {};
+  let clientUuid;
+  let client_id;
   let createdTimestamp = 501;
   let credentials = "credentials_501";
   let disableableCredentialTypes = "disableableCredentialTypes_501";
@@ -465,6 +482,7 @@ bthread("crud:User:nondet:1:2", function () {
   let redirect_uri = "redirect_uri_501";
   let requiredActions = "requiredActions_501";
   let self = "self_501";
+  let serviceAccountClientId;
   let socialLinks = "socialLinks_501";
   let totp = "totp_501";
   let username = "username_501";
@@ -481,9 +499,9 @@ bthread("crud:User:nondet:1:2", function () {
   createUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   // waitForUserAdded(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   tryToAddExistingUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
-  updateUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
+  putUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   verifyUserExists(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
-  deleteUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
+  deleteUserByRealmById(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   tryToDeleteANonExistingUser(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
   verifyUserDoesNotExist(access, applicationRoles, attributes, clientConsents, clientRoles, clientUuid, client_id, createdTimestamp, credentials, disableableCredentialTypes, email, emailVerified, enabled, federatedIdentities, federationLink, firstName, groups, id, lastName, notBefore, origin, realm, realmRoles, redirect_uri, requiredActions, self, serviceAccountClientId, socialLinks, totp, username);
 });
@@ -495,6 +513,8 @@ bthread("crud:User:nondet:negative:dup-add", function () {
   let attributes = {};
   let clientConsents = "clientConsents_506";
   let clientRoles = {};
+  let clientUuid;
+  let client_id;
   let createdTimestamp = 506;
   let credentials = "credentials_506";
   let disableableCredentialTypes = "disableableCredentialTypes_506";
@@ -514,6 +534,7 @@ bthread("crud:User:nondet:negative:dup-add", function () {
   let redirect_uri = "redirect_uri_506";
   let requiredActions = "requiredActions_506";
   let self = "self_506";
+  let serviceAccountClientId;
   let socialLinks = "socialLinks_506";
   let totp = "totp_506";
   let username = "username_506";
@@ -570,7 +591,7 @@ bthread("crud:UserFederatedIdentity:nondet:1:1", function () {
   let provider = "provider_570";
   let realm = 570;
   addUserFederatedIdentity(id, provider, realm);
-  // waitForUserFederatedIdentityAdded(id, provider, realm);
+  waitForUserFederatedIdentityAdded(id, provider, realm);
   tryToAddExistingUserFederatedIdentity(id, provider, realm);
   verifyUserFederatedIdentityExists(id, provider, realm);
   deleteUserFederatedIdentity(id, provider, realm);
@@ -608,6 +629,7 @@ bthread("crud:UserFederatedIdentity:nondet:negative:dup-add", function () {
 bthread("crud:UserGroup:nondet:1:1", function () {
   let briefRepresentation = "briefRepresentation_580";
   let first = "first_580";
+  let groupId;
   let id = 580;
   let max = "max_580";
   let realm = 580;
@@ -619,7 +641,7 @@ bthread("crud:UserGroup:nondet:1:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   groupId = captured["groupId"];
   addUserGroup(briefRepresentation, first, groupId, id, max, realm, search);
-  // waitForUserGroupAdded(briefRepresentation, first, groupId, id, max, realm, search);
+  waitForUserGroupAdded(briefRepresentation, first, groupId, id, max, realm, search);
   tryToAddExistingUserGroup(briefRepresentation, first, groupId, id, max, realm, search);
   verifyUserGroupExists(briefRepresentation, first, groupId, id, max, realm, search);
   deleteUserGroup(briefRepresentation, first, groupId, id, max, realm, search);
@@ -631,6 +653,7 @@ bthread("crud:UserGroup:nondet:1:1", function () {
 bthread("crud:UserGroup:nondet:1:2", function () {
   let briefRepresentation = "briefRepresentation_581";
   let first = "first_581";
+  let groupId;
   let id = 581;
   let max = "max_581";
   let realm = 581;
@@ -654,6 +677,7 @@ bthread("crud:UserGroup:nondet:1:2", function () {
 bthread("crud:UserGroup:nondet:negative:dup-add", function () {
   let briefRepresentation = "briefRepresentation_586";
   let first = "first_586";
+  let groupId;
   let id = 586;
   let max = "max_586";
   let realm = 586;
@@ -685,7 +709,7 @@ bthread("crud:ClientScopeScopeMappingClient:nondet:1:1", function () {
   let realm = 600;
   let scopeParamRequired = "scopeParamRequired_600";
   postClientScopeScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForClientScopeScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForClientScopeScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientScopeScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientScopeScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteClientScopeScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -765,7 +789,7 @@ bthread("crud:ClientScopeScopeMappingRealm:nondet:1:1", function () {
   let realm = 630;
   let scopeParamRequired = "scopeParamRequired_630";
   postClientScopeScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForClientScopeScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForClientScopeScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientScopeScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientScopeScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteClientScopeScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -849,7 +873,7 @@ bthread("crud:ClientTemplateScopeMappingClient:nondet:1:1", function () {
   let realm = 670;
   let scopeParamRequired = "scopeParamRequired_670";
   postClientTemplateScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForClientTemplateScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForClientTemplateScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientTemplateScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientTemplateScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteClientTemplateScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -927,7 +951,7 @@ bthread("crud:ClientTemplateScopeMappingRealm:nondet:1:1", function () {
   let realm = 700;
   let scopeParamRequired = "scopeParamRequired_700";
   postClientTemplateScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForClientTemplateScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForClientTemplateScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientTemplateScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientTemplateScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteClientTemplateScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -975,28 +999,21 @@ bthread("crud:ClientTemplateScopeMappingRealm:nondet:negative:dup-add", function
   verifyClientTemplateScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
 });
 
-// Story: crud:ClientScopeMapping:read_only
-bthread("crud:ClientScopeMapping:read_only", function () {
-  let id = 710;
-  let realm = 710;
-  verifyClientScopeMappingExists(id, realm);
-});
-
 // Story: crud:ClientScopeMappingClient:nondet:1:1
 bthread("crud:ClientScopeMappingClient:nondet:1:1", function () {
   let attributes = {};
-  let client = "client_720";
-  let clientRole = "clientRole_720";
-  let composite = "composite_720";
-  let composites = "composites_720";
-  let containerId = 720;
-  let description = "description_720";
-  let id = 720;
-  let name = "name_720";
-  let realm = 720;
-  let scopeParamRequired = "scopeParamRequired_720";
+  let client = "client_710";
+  let clientRole = "clientRole_710";
+  let composite = "composite_710";
+  let composites = "composites_710";
+  let containerId = 710;
+  let description = "description_710";
+  let id = 710;
+  let name = "name_710";
+  let realm = 710;
+  let scopeParamRequired = "scopeParamRequired_710";
   postClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForClientScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForClientScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1007,16 +1024,16 @@ bthread("crud:ClientScopeMappingClient:nondet:1:1", function () {
 // Story: crud:ClientScopeMappingClient:nondet:1:2
 bthread("crud:ClientScopeMappingClient:nondet:1:2", function () {
   let attributes = {};
-  let client = "client_721";
-  let clientRole = "clientRole_721";
-  let composite = "composite_721";
-  let composites = "composites_721";
-  let containerId = 721;
-  let description = "description_721";
-  let id = 721;
-  let name = "name_721";
-  let realm = 721;
-  let scopeParamRequired = "scopeParamRequired_721";
+  let client = "client_711";
+  let clientRole = "clientRole_711";
+  let composite = "composite_711";
+  let composites = "composites_711";
+  let containerId = 711;
+  let description = "description_711";
+  let id = 711;
+  let name = "name_711";
+  let realm = 711;
+  let scopeParamRequired = "scopeParamRequired_711";
   postClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForClientScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientScopeMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1029,16 +1046,16 @@ bthread("crud:ClientScopeMappingClient:nondet:1:2", function () {
 // Story: crud:ClientScopeMappingClient:nondet:negative:dup-add
 bthread("crud:ClientScopeMappingClient:nondet:negative:dup-add", function () {
   let attributes = {};
-  let client = "client_726";
-  let clientRole = "clientRole_726";
-  let composite = "composite_726";
-  let composites = "composites_726";
-  let containerId = 726;
-  let description = "description_726";
-  let id = 726;
-  let name = "name_726";
-  let realm = 726;
-  let scopeParamRequired = "scopeParamRequired_726";
+  let client = "client_716";
+  let clientRole = "clientRole_716";
+  let composite = "composite_716";
+  let composites = "composites_716";
+  let containerId = 716;
+  let description = "description_716";
+  let id = 716;
+  let name = "name_716";
+  let realm = 716;
+  let scopeParamRequired = "scopeParamRequired_716";
   postClientScopeMappingsClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForClientScopeMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientScopeMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1049,17 +1066,17 @@ bthread("crud:ClientScopeMappingClient:nondet:negative:dup-add", function () {
 // Story: crud:ClientScopeMappingRealm:nondet:1:1
 bthread("crud:ClientScopeMappingRealm:nondet:1:1", function () {
   let attributes = {};
-  let clientRole = "clientRole_730";
-  let composite = "composite_730";
-  let composites = "composites_730";
-  let containerId = 730;
-  let description = "description_730";
-  let id = 730;
-  let name = "name_730";
-  let realm = 730;
-  let scopeParamRequired = "scopeParamRequired_730";
+  let clientRole = "clientRole_720";
+  let composite = "composite_720";
+  let composites = "composites_720";
+  let containerId = 720;
+  let description = "description_720";
+  let id = 720;
+  let name = "name_720";
+  let realm = 720;
+  let scopeParamRequired = "scopeParamRequired_720";
   postClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForClientScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForClientScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1070,15 +1087,15 @@ bthread("crud:ClientScopeMappingRealm:nondet:1:1", function () {
 // Story: crud:ClientScopeMappingRealm:nondet:1:2
 bthread("crud:ClientScopeMappingRealm:nondet:1:2", function () {
   let attributes = {};
-  let clientRole = "clientRole_731";
-  let composite = "composite_731";
-  let composites = "composites_731";
-  let containerId = 731;
-  let description = "description_731";
-  let id = 731;
-  let name = "name_731";
-  let realm = 731;
-  let scopeParamRequired = "scopeParamRequired_731";
+  let clientRole = "clientRole_721";
+  let composite = "composite_721";
+  let composites = "composites_721";
+  let containerId = 721;
+  let description = "description_721";
+  let id = 721;
+  let name = "name_721";
+  let realm = 721;
+  let scopeParamRequired = "scopeParamRequired_721";
   postClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForClientScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingClientScopeMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1091,15 +1108,15 @@ bthread("crud:ClientScopeMappingRealm:nondet:1:2", function () {
 // Story: crud:ClientScopeMappingRealm:nondet:negative:dup-add
 bthread("crud:ClientScopeMappingRealm:nondet:negative:dup-add", function () {
   let attributes = {};
-  let clientRole = "clientRole_736";
-  let composite = "composite_736";
-  let composites = "composites_736";
-  let containerId = 736;
-  let description = "description_736";
-  let id = 736;
-  let name = "name_736";
-  let realm = 736;
-  let scopeParamRequired = "scopeParamRequired_736";
+  let clientRole = "clientRole_726";
+  let composite = "composite_726";
+  let composites = "composites_726";
+  let containerId = 726;
+  let description = "description_726";
+  let id = 726;
+  let name = "name_726";
+  let realm = 726;
+  let scopeParamRequired = "scopeParamRequired_726";
   postClientScopeMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForClientScopeMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyClientScopeMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1110,18 +1127,18 @@ bthread("crud:ClientScopeMappingRealm:nondet:negative:dup-add", function () {
 // Story: crud:ClientRole:nondet:1:1
 bthread("crud:ClientRole:nondet:1:1", function () {
   let attributes = {};
-  let clientRole = "clientRole_740";
-  let composite = "composite_740";
-  let composites = "composites_740";
-  let containerId = 740;
-  let description = "description_740";
-  let id = 740;
-  let name = "name_740";
-  let realm = 740;
-  let role-name = "role-name_740";
-  let scopeParamRequired = "scopeParamRequired_740";
+  let clientRole = "clientRole_730";
+  let composite = "composite_730";
+  let composites = "composites_730";
+  let containerId = 730;
+  let description = "description_730";
+  let id = 730;
+  let name = "name_730";
+  let realm = 730;
+  let role-name = "role-name_730";
+  let scopeParamRequired = "scopeParamRequired_730";
   createClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  // waitForClientRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  waitForClientRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   tryToAddExistingClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   verifyClientRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   updateClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1133,16 +1150,16 @@ bthread("crud:ClientRole:nondet:1:1", function () {
 // Story: crud:ClientRole:nondet:1:2
 bthread("crud:ClientRole:nondet:1:2", function () {
   let attributes = {};
-  let clientRole = "clientRole_741";
-  let composite = "composite_741";
-  let composites = "composites_741";
-  let containerId = 741;
-  let description = "description_741";
-  let id = 741;
-  let name = "name_741";
-  let realm = 741;
-  let role-name = "role-name_741";
-  let scopeParamRequired = "scopeParamRequired_741";
+  let clientRole = "clientRole_731";
+  let composite = "composite_731";
+  let composites = "composites_731";
+  let containerId = 731;
+  let description = "description_731";
+  let id = 731;
+  let name = "name_731";
+  let realm = 731;
+  let role-name = "role-name_731";
+  let scopeParamRequired = "scopeParamRequired_731";
   createClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   // waitForClientRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   tryToAddExistingClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1156,16 +1173,16 @@ bthread("crud:ClientRole:nondet:1:2", function () {
 // Story: crud:ClientRole:nondet:negative:dup-add
 bthread("crud:ClientRole:nondet:negative:dup-add", function () {
   let attributes = {};
-  let clientRole = "clientRole_746";
-  let composite = "composite_746";
-  let composites = "composites_746";
-  let containerId = 746;
-  let description = "description_746";
-  let id = 746;
-  let name = "name_746";
-  let realm = 746;
-  let role-name = "role-name_746";
-  let scopeParamRequired = "scopeParamRequired_746";
+  let clientRole = "clientRole_736";
+  let composite = "composite_736";
+  let composites = "composites_736";
+  let containerId = 736;
+  let description = "description_736";
+  let id = 736;
+  let name = "name_736";
+  let realm = 736;
+  let role-name = "role-name_736";
+  let scopeParamRequired = "scopeParamRequired_736";
   createClientRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   // waitForClientRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   verifyClientRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1173,8 +1190,15 @@ bthread("crud:ClientRole:nondet:negative:dup-add", function () {
   verifyClientRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
 });
 
-// Story: crud:RealmRole:nondet:1:1
-bthread("crud:RealmRole:nondet:1:1", function () {
+// Story: crud:ClientRoles:read_only
+bthread("crud:ClientRoles:read_only", function () {
+  let id = 740;
+  let realm = 740;
+  verifyClientRolesExists(id, realm);
+});
+
+// Story: crud:ClientRoleComposites:nondet:1:1
+bthread("crud:ClientRoleComposites:nondet:1:1", function () {
   let attributes = {};
   let clientRole = "clientRole_750";
   let composite = "composite_750";
@@ -1186,18 +1210,17 @@ bthread("crud:RealmRole:nondet:1:1", function () {
   let realm = 750;
   let role-name = "role-name_750";
   let scopeParamRequired = "scopeParamRequired_750";
-  createRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  // waitForRealmRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  tryToAddExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  verifyRealmRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  updateRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  deleteRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  tryToDeleteANonExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  verifyRealmRoleDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  addClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  waitForClientRoleCompositesAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToAddExistingClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyClientRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  deleteClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToDeleteANonExistingClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyClientRoleCompositesDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
 });
 
-// Story: crud:RealmRole:nondet:1:2
-bthread("crud:RealmRole:nondet:1:2", function () {
+// Story: crud:ClientRoleComposites:nondet:1:2
+bthread("crud:ClientRoleComposites:nondet:1:2", function () {
   let attributes = {};
   let clientRole = "clientRole_751";
   let composite = "composite_751";
@@ -1209,6 +1232,112 @@ bthread("crud:RealmRole:nondet:1:2", function () {
   let realm = 751;
   let role-name = "role-name_751";
   let scopeParamRequired = "scopeParamRequired_751";
+  addClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  // waitForClientRoleCompositesAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToAddExistingClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyClientRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  deleteClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToDeleteANonExistingClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyClientRoleCompositesDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+});
+
+// Story: crud:ClientRoleComposites:nondet:negative:dup-add
+bthread("crud:ClientRoleComposites:nondet:negative:dup-add", function () {
+  let attributes = {};
+  let clientRole = "clientRole_756";
+  let composite = "composite_756";
+  let composites = "composites_756";
+  let containerId = 756;
+  let description = "description_756";
+  let id = 756;
+  let name = "name_756";
+  let realm = 756;
+  let role-name = "role-name_756";
+  let scopeParamRequired = "scopeParamRequired_756";
+  addClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  // waitForClientRoleCompositesAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyClientRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToAddExistingClientRoleComposites(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyClientRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+});
+
+// Story: crud:ClientRoleCompositesClient:read_only
+bthread("crud:ClientRoleCompositesClient:read_only", function () {
+  let clientUuid;
+  let id = 760;
+  let realm = 760;
+  let role-name = "role-name_760";
+  verifyClientRoleCompositesClientExists(clientUuid, id, realm, role-name);
+});
+
+// Story: crud:ClientRoleCompositesRealm:read_only
+bthread("crud:ClientRoleCompositesRealm:read_only", function () {
+  let id = 770;
+  let realm = 770;
+  let role-name = "role-name_770";
+  verifyClientRoleCompositesRealmExists(id, realm, role-name);
+});
+
+// Story: crud:ClientRoleGroups:read_only
+bthread("crud:ClientRoleGroups:read_only", function () {
+  let id = 780;
+  let realm = 780;
+  let role-name = "role-name_780";
+  verifyClientRoleGroupsExists(id, realm, role-name);
+});
+
+// Story: crud:ClientRoleManagementPermissions:read_only
+bthread("crud:ClientRoleManagementPermissions:read_only", function () {
+  let id = 790;
+  let realm = 790;
+  let role-name = "role-name_790";
+  verifyClientRoleManagementPermissionsExists(id, realm, role-name);
+});
+
+// Story: crud:ClientRoleUsers:read_only
+bthread("crud:ClientRoleUsers:read_only", function () {
+  let id = 800;
+  let realm = 800;
+  let role-name = "role-name_800";
+  verifyClientRoleUsersExists(id, realm, role-name);
+});
+
+// Story: crud:RealmRole:nondet:1:1
+bthread("crud:RealmRole:nondet:1:1", function () {
+  let attributes = {};
+  let clientRole = "clientRole_810";
+  let composite = "composite_810";
+  let composites = "composites_810";
+  let containerId = 810;
+  let description = "description_810";
+  let id = 810;
+  let name = "name_810";
+  let realm = 810;
+  let role-name = "role-name_810";
+  let scopeParamRequired = "scopeParamRequired_810";
+  createRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  waitForRealmRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToAddExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyRealmRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  updateRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  deleteRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  tryToDeleteANonExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  verifyRealmRoleDoesNotExist(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+});
+
+// Story: crud:RealmRole:nondet:1:2
+bthread("crud:RealmRole:nondet:1:2", function () {
+  let attributes = {};
+  let clientRole = "clientRole_811";
+  let composite = "composite_811";
+  let composites = "composites_811";
+  let containerId = 811;
+  let description = "description_811";
+  let id = 811;
+  let name = "name_811";
+  let realm = 811;
+  let role-name = "role-name_811";
+  let scopeParamRequired = "scopeParamRequired_811";
   createRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   // waitForRealmRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   tryToAddExistingRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1222,16 +1351,16 @@ bthread("crud:RealmRole:nondet:1:2", function () {
 // Story: crud:RealmRole:nondet:negative:dup-add
 bthread("crud:RealmRole:nondet:negative:dup-add", function () {
   let attributes = {};
-  let clientRole = "clientRole_756";
-  let composite = "composite_756";
-  let composites = "composites_756";
-  let containerId = 756;
-  let description = "description_756";
-  let id = 756;
-  let name = "name_756";
-  let realm = 756;
-  let role-name = "role-name_756";
-  let scopeParamRequired = "scopeParamRequired_756";
+  let clientRole = "clientRole_816";
+  let composite = "composite_816";
+  let composites = "composites_816";
+  let containerId = 816;
+  let description = "description_816";
+  let id = 816;
+  let name = "name_816";
+  let realm = 816;
+  let role-name = "role-name_816";
+  let scopeParamRequired = "scopeParamRequired_816";
   createRealmRole(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   // waitForRealmRoleAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   verifyRealmRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1239,21 +1368,27 @@ bthread("crud:RealmRole:nondet:negative:dup-add", function () {
   verifyRealmRoleExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
 });
 
+// Story: crud:RealmRoles:read_only
+bthread("crud:RealmRoles:read_only", function () {
+  let realm = 820;
+  verifyRealmRolesExists(realm);
+});
+
 // Story: crud:RoleComposite:nondet:1:1
 bthread("crud:RoleComposite:nondet:1:1", function () {
   let attributes = {};
-  let clientRole = "clientRole_760";
-  let composite = "composite_760";
-  let composites = "composites_760";
-  let containerId = 760;
-  let description = "description_760";
-  let id = 760;
-  let name = "name_760";
-  let realm = 760;
-  let role-name = "role-name_760";
-  let scopeParamRequired = "scopeParamRequired_760";
-  postRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
-  // waitForRoleCompositeAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  let clientRole = "clientRole_830";
+  let composite = "composite_830";
+  let composites = "composites_830";
+  let containerId = 830;
+  let description = "description_830";
+  let id = 830;
+  let name = "name_830";
+  let realm = 830;
+  let role-name = "role-name_830";
+  let scopeParamRequired = "scopeParamRequired_830";
+  addRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  waitForRoleCompositeAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   tryToAddExistingRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   verifyRoleCompositeExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   deleteRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1264,17 +1399,17 @@ bthread("crud:RoleComposite:nondet:1:1", function () {
 // Story: crud:RoleComposite:nondet:1:2
 bthread("crud:RoleComposite:nondet:1:2", function () {
   let attributes = {};
-  let clientRole = "clientRole_761";
-  let composite = "composite_761";
-  let composites = "composites_761";
-  let containerId = 761;
-  let description = "description_761";
-  let id = 761;
-  let name = "name_761";
-  let realm = 761;
-  let role-name = "role-name_761";
-  let scopeParamRequired = "scopeParamRequired_761";
-  postRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  let clientRole = "clientRole_831";
+  let composite = "composite_831";
+  let composites = "composites_831";
+  let containerId = 831;
+  let description = "description_831";
+  let id = 831;
+  let name = "name_831";
+  let realm = 831;
+  let role-name = "role-name_831";
+  let scopeParamRequired = "scopeParamRequired_831";
+  addRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   // waitForRoleCompositeAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   tryToAddExistingRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   verifyRoleCompositeExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1286,17 +1421,17 @@ bthread("crud:RoleComposite:nondet:1:2", function () {
 // Story: crud:RoleComposite:nondet:negative:dup-add
 bthread("crud:RoleComposite:nondet:negative:dup-add", function () {
   let attributes = {};
-  let clientRole = "clientRole_766";
-  let composite = "composite_766";
-  let composites = "composites_766";
-  let containerId = 766;
-  let description = "description_766";
-  let id = 766;
-  let name = "name_766";
-  let realm = 766;
-  let role-name = "role-name_766";
-  let scopeParamRequired = "scopeParamRequired_766";
-  postRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
+  let clientRole = "clientRole_836";
+  let composite = "composite_836";
+  let composites = "composites_836";
+  let containerId = 836;
+  let description = "description_836";
+  let id = 836;
+  let name = "name_836";
+  let realm = 836;
+  let role-name = "role-name_836";
+  let scopeParamRequired = "scopeParamRequired_836";
+  addRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   // waitForRoleCompositeAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   verifyRoleCompositeExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
   tryToAddExistingRoleComposite(attributes, clientRole, composite, composites, containerId, description, id, name, realm, role-name, scopeParamRequired);
@@ -1305,143 +1440,146 @@ bthread("crud:RoleComposite:nondet:negative:dup-add", function () {
 
 // Story: crud:RoleCompositeClient:read_only
 bthread("crud:RoleCompositeClient:read_only", function () {
-  let realm = 770;
-  let role-name = "role-name_770";
-  verifyRoleCompositeClientExists(clientUuid, realm, role-name);
+  let clientUuid;
+  let realm = 840;
+  let role-id;
+  let role-name = "role-name_840";
+  verifyRoleCompositeClientExists(clientUuid, realm, role-id, role-name);
 });
 
 // Story: crud:RoleCompositeRealm:read_only
 bthread("crud:RoleCompositeRealm:read_only", function () {
-  let realm = 780;
-  let role-name = "role-name_780";
-  verifyRoleCompositeRealmExists(realm, role-name);
+  let realm = 850;
+  let role-id;
+  let role-name = "role-name_850";
+  verifyRoleCompositeRealmExists(realm, role-id, role-name);
 });
 
 // Story: crud:RoleGroup:read_only
 bthread("crud:RoleGroup:read_only", function () {
-  let briefRepresentation = "briefRepresentation_790";
-  let first = "first_790";
-  let max = "max_790";
-  let realm = 790;
-  let role-name = "role-name_790";
+  let briefRepresentation = "briefRepresentation_860";
+  let first = "first_860";
+  let max = "max_860";
+  let realm = 860;
+  let role-name = "role-name_860";
   verifyRoleGroupExists(briefRepresentation, first, max, realm, role-name);
 });
 
 // Story: crud:RoleManagementPermission:read_only
 bthread("crud:RoleManagementPermission:read_only", function () {
-  let realm = 800;
-  let role-name = "role-name_800";
+  let realm = 870;
+  let role-name = "role-name_870";
   verifyRoleManagementPermissionExists(realm, role-name);
 });
 
 // Story: crud:RoleUser:read_only
 bthread("crud:RoleUser:read_only", function () {
-  let first = "first_810";
-  let max = "max_810";
-  let realm = 810;
-  let role-name = "role-name_810";
+  let first = "first_880";
+  let max = "max_880";
+  let realm = 880;
+  let role-name = "role-name_880";
   verifyRoleUserExists(first, max, realm, role-name);
 });
 
 // Story: crud:ClientScopeProtocolMapper:read_only
 bthread("crud:ClientScopeProtocolMapper:read_only", function () {
-  let id1 = "id1_820";
-  let id2 = "id2_820";
-  let realm = 820;
+  let id1 = "id1_890";
+  let id2 = "id2_890";
+  let realm = 890;
   verifyClientScopeProtocolMapperExists(id1, id2, realm);
 });
 
-// Story: crud:ClientScopeProtocolMapperModels:read_only
-bthread("crud:ClientScopeProtocolMapperModels:read_only", function () {
+// Story: crud:ClientScopeProtocolMapperModel:read_only
+bthread("crud:ClientScopeProtocolMapperModel:read_only", function () {
   let config = {};
-  let consentRequired = "consentRequired_840";
-  let consentText = "consentText_840";
-  let id = 840;
-  let name = "name_840";
-  let protocol = "protocol_840";
-  let protocolMapper = "protocolMapper_840";
-  let realm = 840;
-  verifyClientScopeProtocolMapperModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
+  let consentRequired = "consentRequired_910";
+  let consentText = "consentText_910";
+  let id = 910;
+  let name = "name_910";
+  let protocol = "protocol_910";
+  let protocolMapper = "protocolMapper_910";
+  let realm = 910;
+  verifyClientScopeProtocolMapperModelExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 });
 
 // Story: crud:ClientScopeProtocolMapperProtocol:read_only
 bthread("crud:ClientScopeProtocolMapperProtocol:read_only", function () {
-  let id = 850;
-  let protocol = "protocol_850";
-  let realm = 850;
+  let id = 920;
+  let protocol = "protocol_920";
+  let realm = 920;
   verifyClientScopeProtocolMapperProtocolExists(id, protocol, realm);
 });
 
 // Story: crud:ClientTemplateProtocolMapper:read_only
 bthread("crud:ClientTemplateProtocolMapper:read_only", function () {
-  let id1 = "id1_860";
-  let id2 = "id2_860";
-  let realm = 860;
+  let id1 = "id1_930";
+  let id2 = "id2_930";
+  let realm = 930;
   verifyClientTemplateProtocolMapperExists(id1, id2, realm);
 });
 
-// Story: crud:ClientTemplateProtocolMapperModels:read_only
-bthread("crud:ClientTemplateProtocolMapperModels:read_only", function () {
+// Story: crud:ClientTemplateProtocolMapperModel:read_only
+bthread("crud:ClientTemplateProtocolMapperModel:read_only", function () {
   let config = {};
-  let consentRequired = "consentRequired_880";
-  let consentText = "consentText_880";
-  let id = 880;
-  let name = "name_880";
-  let protocol = "protocol_880";
-  let protocolMapper = "protocolMapper_880";
-  let realm = 880;
-  verifyClientTemplateProtocolMapperModelsExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
+  let consentRequired = "consentRequired_950";
+  let consentText = "consentText_950";
+  let id = 950;
+  let name = "name_950";
+  let protocol = "protocol_950";
+  let protocolMapper = "protocolMapper_950";
+  let realm = 950;
+  verifyClientTemplateProtocolMapperModelExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 });
 
 // Story: crud:ClientTemplateProtocolMapperProtocol:read_only
 bthread("crud:ClientTemplateProtocolMapperProtocol:read_only", function () {
-  let id = 890;
-  let protocol = "protocol_890";
-  let realm = 890;
+  let id = 960;
+  let protocol = "protocol_960";
+  let realm = 960;
   verifyClientTemplateProtocolMapperProtocolExists(id, protocol, realm);
 });
 
 // Story: crud:ClientProtocolMapper:read_only
 bthread("crud:ClientProtocolMapper:read_only", function () {
-  let id1 = "id1_900";
-  let id2 = "id2_900";
-  let realm = 900;
+  let id1 = "id1_970";
+  let id2 = "id2_970";
+  let realm = 970;
   verifyClientProtocolMapperExists(id1, id2, realm);
 });
 
 // Story: crud:ProtocolMapper:read_only
 bthread("crud:ProtocolMapper:read_only", function () {
   let config = {};
-  let consentRequired = "consentRequired_920";
-  let consentText = "consentText_920";
-  let id = 920;
-  let name = "name_920";
-  let protocol = "protocol_920";
-  let protocolMapper = "protocolMapper_920";
-  let realm = 920;
+  let consentRequired = "consentRequired_990";
+  let consentText = "consentText_990";
+  let id = 990;
+  let name = "name_990";
+  let protocol = "protocol_990";
+  let protocolMapper = "protocolMapper_990";
+  let realm = 990;
   verifyProtocolMapperExists(config, consentRequired, consentText, id, name, protocol, protocolMapper, realm);
 });
 
 // Story: crud:IdentityProvider:nondet:1:1
 bthread("crud:IdentityProvider:nondet:1:1", function () {
-  let addReadTokenRoleOnCreate = "addReadTokenRoleOnCreate_930";
-  let alias = "alias_930";
-  let authenticateByDefault = "authenticateByDefault_930";
+  let addReadTokenRoleOnCreate = "addReadTokenRoleOnCreate_1000";
+  let alias = "alias_1000";
+  let authenticateByDefault = "authenticateByDefault_1000";
   let config = {};
-  let displayName = "displayName_930";
-  let enabled = "enabled_930";
-  let firstBrokerLoginFlowAlias = "firstBrokerLoginFlowAlias_930";
-  let internalId = 930;
-  let linkOnly = "linkOnly_930";
-  let postBrokerLoginFlowAlias = "postBrokerLoginFlowAlias_930";
-  let providerId = 930;
-  let realm = 930;
-  let storeToken = "storeToken_930";
-  let trustEmail = "trustEmail_930";
-  let updateProfileFirstLogin = "updateProfileFirstLogin_930";
-  let updateProfileFirstLoginMode = "updateProfileFirstLoginMode_930";
+  let displayName = "displayName_1000";
+  let enabled = "enabled_1000";
+  let firstBrokerLoginFlowAlias = "firstBrokerLoginFlowAlias_1000";
+  let internalId = 1000;
+  let linkOnly = "linkOnly_1000";
+  let postBrokerLoginFlowAlias = "postBrokerLoginFlowAlias_1000";
+  let providerId = 1000;
+  let realm = 1000;
+  let storeToken = "storeToken_1000";
+  let trustEmail = "trustEmail_1000";
+  let updateProfileFirstLogin = "updateProfileFirstLogin_1000";
+  let updateProfileFirstLoginMode = "updateProfileFirstLoginMode_1000";
   createIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
-  // waitForIdentityProviderAdded(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
+  waitForIdentityProviderAdded(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   tryToAddExistingIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   verifyIdentityProviderExists(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   updateIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
@@ -1452,22 +1590,22 @@ bthread("crud:IdentityProvider:nondet:1:1", function () {
 
 // Story: crud:IdentityProvider:nondet:1:2
 bthread("crud:IdentityProvider:nondet:1:2", function () {
-  let addReadTokenRoleOnCreate = "addReadTokenRoleOnCreate_931";
-  let alias = "alias_931";
-  let authenticateByDefault = "authenticateByDefault_931";
+  let addReadTokenRoleOnCreate = "addReadTokenRoleOnCreate_1001";
+  let alias = "alias_1001";
+  let authenticateByDefault = "authenticateByDefault_1001";
   let config = {};
-  let displayName = "displayName_931";
-  let enabled = "enabled_931";
-  let firstBrokerLoginFlowAlias = "firstBrokerLoginFlowAlias_931";
-  let internalId = 931;
-  let linkOnly = "linkOnly_931";
-  let postBrokerLoginFlowAlias = "postBrokerLoginFlowAlias_931";
-  let providerId = 931;
-  let realm = 931;
-  let storeToken = "storeToken_931";
-  let trustEmail = "trustEmail_931";
-  let updateProfileFirstLogin = "updateProfileFirstLogin_931";
-  let updateProfileFirstLoginMode = "updateProfileFirstLoginMode_931";
+  let displayName = "displayName_1001";
+  let enabled = "enabled_1001";
+  let firstBrokerLoginFlowAlias = "firstBrokerLoginFlowAlias_1001";
+  let internalId = 1001;
+  let linkOnly = "linkOnly_1001";
+  let postBrokerLoginFlowAlias = "postBrokerLoginFlowAlias_1001";
+  let providerId = 1001;
+  let realm = 1001;
+  let storeToken = "storeToken_1001";
+  let trustEmail = "trustEmail_1001";
+  let updateProfileFirstLogin = "updateProfileFirstLogin_1001";
+  let updateProfileFirstLoginMode = "updateProfileFirstLoginMode_1001";
   createIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   // waitForIdentityProviderAdded(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   tryToAddExistingIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
@@ -1480,22 +1618,22 @@ bthread("crud:IdentityProvider:nondet:1:2", function () {
 
 // Story: crud:IdentityProvider:nondet:negative:dup-add
 bthread("crud:IdentityProvider:nondet:negative:dup-add", function () {
-  let addReadTokenRoleOnCreate = "addReadTokenRoleOnCreate_936";
-  let alias = "alias_936";
-  let authenticateByDefault = "authenticateByDefault_936";
+  let addReadTokenRoleOnCreate = "addReadTokenRoleOnCreate_1006";
+  let alias = "alias_1006";
+  let authenticateByDefault = "authenticateByDefault_1006";
   let config = {};
-  let displayName = "displayName_936";
-  let enabled = "enabled_936";
-  let firstBrokerLoginFlowAlias = "firstBrokerLoginFlowAlias_936";
-  let internalId = 936;
-  let linkOnly = "linkOnly_936";
-  let postBrokerLoginFlowAlias = "postBrokerLoginFlowAlias_936";
-  let providerId = 936;
-  let realm = 936;
-  let storeToken = "storeToken_936";
-  let trustEmail = "trustEmail_936";
-  let updateProfileFirstLogin = "updateProfileFirstLogin_936";
-  let updateProfileFirstLoginMode = "updateProfileFirstLoginMode_936";
+  let displayName = "displayName_1006";
+  let enabled = "enabled_1006";
+  let firstBrokerLoginFlowAlias = "firstBrokerLoginFlowAlias_1006";
+  let internalId = 1006;
+  let linkOnly = "linkOnly_1006";
+  let postBrokerLoginFlowAlias = "postBrokerLoginFlowAlias_1006";
+  let providerId = 1006;
+  let realm = 1006;
+  let storeToken = "storeToken_1006";
+  let trustEmail = "trustEmail_1006";
+  let updateProfileFirstLogin = "updateProfileFirstLogin_1006";
+  let updateProfileFirstLoginMode = "updateProfileFirstLoginMode_1006";
   createIdentityProvider(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   // waitForIdentityProviderAdded(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
   verifyIdentityProviderExists(addReadTokenRoleOnCreate, alias, authenticateByDefault, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, realm, storeToken, trustEmail, updateProfileFirstLogin, updateProfileFirstLoginMode);
@@ -1505,11 +1643,13 @@ bthread("crud:IdentityProvider:nondet:negative:dup-add", function () {
 
 // Story: crud:IdentityProviderMapper:nondet:1:1
 bthread("crud:IdentityProviderMapper:nondet:1:1", function () {
-  let alias = "alias_940";
+  let alias = "alias_1010";
   let config = {};
-  let id = 940;
-  let name = "name_940";
-  let realm = 940;
+  let id = 1010;
+  let identityProviderAlias;
+  let identityProviderMapper;
+  let name = "name_1010";
+  let realm = 1010;
   // Dependency Barrier
   let deps = {};
   deps["identityProviderAlias"] = matchAnyIdentityProviderAdded();
@@ -1519,7 +1659,7 @@ bthread("crud:IdentityProviderMapper:nondet:1:1", function () {
   identityProviderAlias = captured["identityProviderAlias"];
   identityProviderMapper = captured["identityProviderMapper"];
   createIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
-  // waitForIdentityProviderMapperAdded(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
+  waitForIdentityProviderMapperAdded(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
   tryToAddExistingIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
   verifyIdentityProviderMapperExists(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
   updateIdentityProviderMapper(alias, config, id, identityProviderAlias, identityProviderMapper, name, realm);
@@ -1530,11 +1670,13 @@ bthread("crud:IdentityProviderMapper:nondet:1:1", function () {
 
 // Story: crud:IdentityProviderMapper:nondet:1:2
 bthread("crud:IdentityProviderMapper:nondet:1:2", function () {
-  let alias = "alias_941";
+  let alias = "alias_1011";
   let config = {};
-  let id = 941;
-  let name = "name_941";
-  let realm = 941;
+  let id = 1011;
+  let identityProviderAlias;
+  let identityProviderMapper;
+  let name = "name_1011";
+  let realm = 1011;
   // Dependency Barrier
   let deps = {};
   deps["identityProviderAlias"] = matchAnyIdentityProviderAdded();
@@ -1555,11 +1697,13 @@ bthread("crud:IdentityProviderMapper:nondet:1:2", function () {
 
 // Story: crud:IdentityProviderMapper:nondet:negative:dup-add
 bthread("crud:IdentityProviderMapper:nondet:negative:dup-add", function () {
-  let alias = "alias_946";
+  let alias = "alias_1016";
   let config = {};
-  let id = 946;
-  let name = "name_946";
-  let realm = 946;
+  let id = 1016;
+  let identityProviderAlias;
+  let identityProviderMapper;
+  let name = "name_1016";
+  let realm = 1016;
   // Dependency Barrier
   let deps = {};
   deps["identityProviderAlias"] = matchAnyIdentityProviderAdded();
@@ -1577,25 +1721,25 @@ bthread("crud:IdentityProviderMapper:nondet:negative:dup-add", function () {
 
 // Story: crud:IdentityProviderManagementPermissions:read_only
 bthread("crud:IdentityProviderManagementPermissions:read_only", function () {
-  let alias = "alias_950";
-  let realm = 950;
+  let alias = "alias_1020";
+  let realm = 1020;
   verifyIdentityProviderManagementPermissionsExists(alias, realm);
 });
 
 // Story: crud:GroupRoleMappingRealm:nondet:1:1
 bthread("crud:GroupRoleMappingRealm:nondet:1:1", function () {
   let attributes = {};
-  let clientRole = "clientRole_960";
-  let composite = "composite_960";
-  let composites = "composites_960";
-  let containerId = 960;
-  let description = "description_960";
-  let id = 960;
-  let name = "name_960";
-  let realm = 960;
-  let scopeParamRequired = "scopeParamRequired_960";
+  let clientRole = "clientRole_1030";
+  let composite = "composite_1030";
+  let composites = "composites_1030";
+  let containerId = 1030;
+  let description = "description_1030";
+  let id = 1030;
+  let name = "name_1030";
+  let realm = 1030;
+  let scopeParamRequired = "scopeParamRequired_1030";
   postGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForGroupRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForGroupRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingGroupRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyGroupRoleMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1606,15 +1750,15 @@ bthread("crud:GroupRoleMappingRealm:nondet:1:1", function () {
 // Story: crud:GroupRoleMappingRealm:nondet:1:2
 bthread("crud:GroupRoleMappingRealm:nondet:1:2", function () {
   let attributes = {};
-  let clientRole = "clientRole_961";
-  let composite = "composite_961";
-  let composites = "composites_961";
-  let containerId = 961;
-  let description = "description_961";
-  let id = 961;
-  let name = "name_961";
-  let realm = 961;
-  let scopeParamRequired = "scopeParamRequired_961";
+  let clientRole = "clientRole_1031";
+  let composite = "composite_1031";
+  let composites = "composites_1031";
+  let containerId = 1031;
+  let description = "description_1031";
+  let id = 1031;
+  let name = "name_1031";
+  let realm = 1031;
+  let scopeParamRequired = "scopeParamRequired_1031";
   postGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForGroupRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingGroupRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1627,15 +1771,15 @@ bthread("crud:GroupRoleMappingRealm:nondet:1:2", function () {
 // Story: crud:GroupRoleMappingRealm:nondet:negative:dup-add
 bthread("crud:GroupRoleMappingRealm:nondet:negative:dup-add", function () {
   let attributes = {};
-  let clientRole = "clientRole_966";
-  let composite = "composite_966";
-  let composites = "composites_966";
-  let containerId = 966;
-  let description = "description_966";
-  let id = 966;
-  let name = "name_966";
-  let realm = 966;
-  let scopeParamRequired = "scopeParamRequired_966";
+  let clientRole = "clientRole_1036";
+  let composite = "composite_1036";
+  let composites = "composites_1036";
+  let containerId = 1036;
+  let description = "description_1036";
+  let id = 1036;
+  let name = "name_1036";
+  let realm = 1036;
+  let scopeParamRequired = "scopeParamRequired_1036";
   postGroupRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForGroupRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyGroupRoleMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1646,17 +1790,17 @@ bthread("crud:GroupRoleMappingRealm:nondet:negative:dup-add", function () {
 // Story: crud:UserRoleMappingRealm:nondet:1:1
 bthread("crud:UserRoleMappingRealm:nondet:1:1", function () {
   let attributes = {};
-  let clientRole = "clientRole_970";
-  let composite = "composite_970";
-  let composites = "composites_970";
-  let containerId = 970;
-  let description = "description_970";
-  let id = 970;
-  let name = "name_970";
-  let realm = 970;
-  let scopeParamRequired = "scopeParamRequired_970";
+  let clientRole = "clientRole_1040";
+  let composite = "composite_1040";
+  let composites = "composites_1040";
+  let containerId = 1040;
+  let description = "description_1040";
+  let id = 1040;
+  let name = "name_1040";
+  let realm = 1040;
+  let scopeParamRequired = "scopeParamRequired_1040";
   postUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
-  // waitForUserRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForUserRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingUserRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyUserRoleMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   deleteUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1667,15 +1811,15 @@ bthread("crud:UserRoleMappingRealm:nondet:1:1", function () {
 // Story: crud:UserRoleMappingRealm:nondet:1:2
 bthread("crud:UserRoleMappingRealm:nondet:1:2", function () {
   let attributes = {};
-  let clientRole = "clientRole_971";
-  let composite = "composite_971";
-  let composites = "composites_971";
-  let containerId = 971;
-  let description = "description_971";
-  let id = 971;
-  let name = "name_971";
-  let realm = 971;
-  let scopeParamRequired = "scopeParamRequired_971";
+  let clientRole = "clientRole_1041";
+  let composite = "composite_1041";
+  let composites = "composites_1041";
+  let containerId = 1041;
+  let description = "description_1041";
+  let id = 1041;
+  let name = "name_1041";
+  let realm = 1041;
+  let scopeParamRequired = "scopeParamRequired_1041";
   postUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForUserRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   tryToAddExistingUserRoleMappingRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1688,15 +1832,15 @@ bthread("crud:UserRoleMappingRealm:nondet:1:2", function () {
 // Story: crud:UserRoleMappingRealm:nondet:negative:dup-add
 bthread("crud:UserRoleMappingRealm:nondet:negative:dup-add", function () {
   let attributes = {};
-  let clientRole = "clientRole_976";
-  let composite = "composite_976";
-  let composites = "composites_976";
-  let containerId = 976;
-  let description = "description_976";
-  let id = 976;
-  let name = "name_976";
-  let realm = 976;
-  let scopeParamRequired = "scopeParamRequired_976";
+  let clientRole = "clientRole_1046";
+  let composite = "composite_1046";
+  let composites = "composites_1046";
+  let containerId = 1046;
+  let description = "description_1046";
+  let id = 1046;
+  let name = "name_1046";
+  let realm = 1046;
+  let scopeParamRequired = "scopeParamRequired_1046";
   postUserRoleMappingsRealm(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   // waitForUserRoleMappingRealmAdded(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
   verifyUserRoleMappingRealmExists(attributes, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
@@ -1706,9 +1850,9 @@ bthread("crud:UserRoleMappingRealm:nondet:negative:dup-add", function () {
 
 // Story: crud:ClientCertificate:read_only
 bthread("crud:ClientCertificate:read_only", function () {
-  let attr = "attr_980";
-  let id = 980;
-  let realm = 980;
+  let attr = "attr_1050";
+  let id = 1050;
+  let realm = 1050;
   verifyClientCertificateExists(attr, id, realm);
 });
 
@@ -1717,14 +1861,14 @@ bthread("crud:Group:nondet:1:1", function () {
   let access = {};
   let attributes = {};
   let clientRoles = {};
-  let id = 990;
-  let name = "name_990";
-  let path = "path_990";
-  let realm = 990;
-  let realmRoles = "realmRoles_990";
-  let subGroups = "subGroups_990";
+  let id = 1060;
+  let name = "name_1060";
+  let path = "path_1060";
+  let realm = 1060;
+  let realmRoles = "realmRoles_1060";
+  let subGroups = "subGroups_1060";
   createGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
-  // waitForGroupAdded(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
+  waitForGroupAdded(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   tryToAddExistingGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   verifyGroupExists(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   updateGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
@@ -1738,12 +1882,12 @@ bthread("crud:Group:nondet:1:2", function () {
   let access = {};
   let attributes = {};
   let clientRoles = {};
-  let id = 991;
-  let name = "name_991";
-  let path = "path_991";
-  let realm = 991;
-  let realmRoles = "realmRoles_991";
-  let subGroups = "subGroups_991";
+  let id = 1061;
+  let name = "name_1061";
+  let path = "path_1061";
+  let realm = 1061;
+  let realmRoles = "realmRoles_1061";
+  let subGroups = "subGroups_1061";
   createGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   // waitForGroupAdded(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   tryToAddExistingGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
@@ -1759,12 +1903,12 @@ bthread("crud:Group:nondet:negative:dup-add", function () {
   let access = {};
   let attributes = {};
   let clientRoles = {};
-  let id = 996;
-  let name = "name_996";
-  let path = "path_996";
-  let realm = 996;
-  let realmRoles = "realmRoles_996";
-  let subGroups = "subGroups_996";
+  let id = 1066;
+  let name = "name_1066";
+  let path = "path_1066";
+  let realm = 1066;
+  let realmRoles = "realmRoles_1066";
+  let subGroups = "subGroups_1066";
   createGroup(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   // waitForGroupAdded(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
   verifyGroupExists(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
@@ -1772,28 +1916,425 @@ bthread("crud:Group:nondet:negative:dup-add", function () {
   verifyGroupExists(access, attributes, clientRoles, id, name, path, realm, realmRoles, subGroups);
 });
 
-// Story: crud:GroupManagementPermission:read_only
-bthread("crud:GroupManagementPermission:read_only", function () {
-  let id = 1010;
-  let realm = 1010;
-  verifyGroupManagementPermissionExists(id, realm);
+// Story: crud:GroupRoleMappingClient:nondet:1:1
+bthread("crud:GroupRoleMappingClient:nondet:1:1", function () {
+  let attributes = {};
+  let client = "client_1070";
+  let clientRole = "clientRole_1070";
+  let composite = "composite_1070";
+  let composites = "composites_1070";
+  let containerId = 1070;
+  let description = "description_1070";
+  let id = 1070;
+  let name = "name_1070";
+  let realm = 1070;
+  let scopeParamRequired = "scopeParamRequired_1070";
+  addGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForGroupRoleMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToAddExistingGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyGroupRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  deleteGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToDeleteANonExistingGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyGroupRoleMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
 });
 
-// Story: crud:GroupMember:read_only
-bthread("crud:GroupMember:read_only", function () {
-  let id = 1020;
-  let realm = 1020;
-  verifyGroupMemberExists(id, realm);
+// Story: crud:GroupRoleMappingClient:nondet:1:2
+bthread("crud:GroupRoleMappingClient:nondet:1:2", function () {
+  let attributes = {};
+  let client = "client_1071";
+  let clientRole = "clientRole_1071";
+  let composite = "composite_1071";
+  let composites = "composites_1071";
+  let containerId = 1071;
+  let description = "description_1071";
+  let id = 1071;
+  let name = "name_1071";
+  let realm = 1071;
+  let scopeParamRequired = "scopeParamRequired_1071";
+  addGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  // waitForGroupRoleMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToAddExistingGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyGroupRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  deleteGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToDeleteANonExistingGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyGroupRoleMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+});
+
+// Story: crud:GroupRoleMappingClient:nondet:negative:dup-add
+bthread("crud:GroupRoleMappingClient:nondet:negative:dup-add", function () {
+  let attributes = {};
+  let client = "client_1076";
+  let clientRole = "clientRole_1076";
+  let composite = "composite_1076";
+  let composites = "composites_1076";
+  let containerId = 1076;
+  let description = "description_1076";
+  let id = 1076;
+  let name = "name_1076";
+  let realm = 1076;
+  let scopeParamRequired = "scopeParamRequired_1076";
+  addGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  // waitForGroupRoleMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyGroupRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToAddExistingGroupRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyGroupRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+});
+
+// Story: crud:UserRoleMappingClient:nondet:1:1
+bthread("crud:UserRoleMappingClient:nondet:1:1", function () {
+  let attributes = {};
+  let client = "client_1080";
+  let clientRole = "clientRole_1080";
+  let composite = "composite_1080";
+  let composites = "composites_1080";
+  let containerId = 1080;
+  let description = "description_1080";
+  let id = 1080;
+  let name = "name_1080";
+  let realm = 1080;
+  let scopeParamRequired = "scopeParamRequired_1080";
+  addUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  waitForUserRoleMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToAddExistingUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyUserRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  deleteUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToDeleteANonExistingUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyUserRoleMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+});
+
+// Story: crud:UserRoleMappingClient:nondet:1:2
+bthread("crud:UserRoleMappingClient:nondet:1:2", function () {
+  let attributes = {};
+  let client = "client_1081";
+  let clientRole = "clientRole_1081";
+  let composite = "composite_1081";
+  let composites = "composites_1081";
+  let containerId = 1081;
+  let description = "description_1081";
+  let id = 1081;
+  let name = "name_1081";
+  let realm = 1081;
+  let scopeParamRequired = "scopeParamRequired_1081";
+  addUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  // waitForUserRoleMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToAddExistingUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyUserRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  deleteUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToDeleteANonExistingUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyUserRoleMappingClientDoesNotExist(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+});
+
+// Story: crud:UserRoleMappingClient:nondet:negative:dup-add
+bthread("crud:UserRoleMappingClient:nondet:negative:dup-add", function () {
+  let attributes = {};
+  let client = "client_1086";
+  let clientRole = "clientRole_1086";
+  let composite = "composite_1086";
+  let composites = "composites_1086";
+  let containerId = 1086;
+  let description = "description_1086";
+  let id = 1086;
+  let name = "name_1086";
+  let realm = 1086;
+  let scopeParamRequired = "scopeParamRequired_1086";
+  addUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  // waitForUserRoleMappingClientAdded(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyUserRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  tryToAddExistingUserRoleMappingClient(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+  verifyUserRoleMappingClientExists(attributes, client, clientRole, composite, composites, containerId, description, id, name, realm, scopeParamRequired);
+});
+
+// Story: crud:Role:read_only
+bthread("crud:Role:read_only", function () {
+  let realm = 1090;
+  let role-id = 1090;
+  verifyRoleExists(realm, role-id);
+});
+
+// Story: crud:RoleComposites:nondet:1:1
+bthread("crud:RoleComposites:nondet:1:1", function () {
+  let attributes = {};
+  let clientRole = "clientRole_1100";
+  let composite = "composite_1100";
+  let composites = "composites_1100";
+  let containerId = 1100;
+  let description = "description_1100";
+  let first = "first_1100";
+  let id = 1100;
+  let max = "max_1100";
+  let name = "name_1100";
+  let realm = 1100;
+  let role-id;
+  let scopeParamRequired = "scopeParamRequired_1100";
+  let search = "search_1100";
+  // Dependency Barrier
+  let deps = {};
+  deps["role-id"] = matchAnyRoleAdded();
+  let pkMap = {"role-id": "realm"};
+  let captured = resolveDependencies(deps, pkMap);
+  role-id = captured["role-id"];
+  addRoleComposite(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  waitForRoleCompositesAdded(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  tryToAddExistingRoleComposites(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  verifyRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  deleteRoleComposite(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  tryToDeleteANonExistingRoleComposites(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  verifyRoleCompositesDoesNotExist(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+});
+
+// Story: crud:RoleComposites:nondet:1:2
+bthread("crud:RoleComposites:nondet:1:2", function () {
+  let attributes = {};
+  let clientRole = "clientRole_1101";
+  let composite = "composite_1101";
+  let composites = "composites_1101";
+  let containerId = 1101;
+  let description = "description_1101";
+  let first = "first_1101";
+  let id = 1101;
+  let max = "max_1101";
+  let name = "name_1101";
+  let realm = 1101;
+  let role-id;
+  let scopeParamRequired = "scopeParamRequired_1101";
+  let search = "search_1101";
+  // Dependency Barrier
+  let deps = {};
+  deps["role-id"] = matchAnyRoleAdded();
+  let pkMap = {"role-id": "realm"};
+  let captured = resolveDependencies(deps, pkMap);
+  role-id = captured["role-id"];
+  addRoleComposite(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  // waitForRoleCompositesAdded(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  tryToAddExistingRoleComposites(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  verifyRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  deleteRoleComposite(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  tryToDeleteANonExistingRoleComposites(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  verifyRoleCompositesDoesNotExist(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+});
+
+// Story: crud:RoleComposites:nondet:negative:dup-add
+bthread("crud:RoleComposites:nondet:negative:dup-add", function () {
+  let attributes = {};
+  let clientRole = "clientRole_1106";
+  let composite = "composite_1106";
+  let composites = "composites_1106";
+  let containerId = 1106;
+  let description = "description_1106";
+  let first = "first_1106";
+  let id = 1106;
+  let max = "max_1106";
+  let name = "name_1106";
+  let realm = 1106;
+  let role-id;
+  let scopeParamRequired = "scopeParamRequired_1106";
+  let search = "search_1106";
+  // Dependency Barrier
+  let deps = {};
+  deps["role-id"] = matchAnyRoleAdded();
+  let pkMap = {"role-id": "realm"};
+  let captured = resolveDependencies(deps, pkMap);
+  role-id = captured["role-id"];
+  addRoleComposite(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  // waitForRoleCompositesAdded(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  verifyRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  tryToAddExistingRoleComposites(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+  verifyRoleCompositesExists(attributes, clientRole, composite, composites, containerId, description, first, id, max, name, realm, role-id, scopeParamRequired, search);
+});
+
+// Story: crud:RoleManagementPermissions:read_only
+bthread("crud:RoleManagementPermissions:read_only", function () {
+  let realm = 1110;
+  let role-id;
+  verifyRoleManagementPermissionsExists(realm, role-id);
+});
+
+// Story: crud:ClientScope:nondet:1:1
+bthread("crud:ClientScope:nondet:1:1", function () {
+  let attributes = {};
+  let description = "description_1120";
+  let id = 1120;
+  let name = "name_1120";
+  let protocol = "protocol_1120";
+  let protocolMappers = "protocolMappers_1120";
+  let realm = 1120;
+  createClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  waitForClientScopeAdded(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToAddExistingClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientScopeExists(attributes, description, id, name, protocol, protocolMappers, realm);
+  updateClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  deleteClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToDeleteANonExistingClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientScopeDoesNotExist(attributes, description, id, name, protocol, protocolMappers, realm);
+});
+
+// Story: crud:ClientScope:nondet:1:2
+bthread("crud:ClientScope:nondet:1:2", function () {
+  let attributes = {};
+  let description = "description_1121";
+  let id = 1121;
+  let name = "name_1121";
+  let protocol = "protocol_1121";
+  let protocolMappers = "protocolMappers_1121";
+  let realm = 1121;
+  createClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  // waitForClientScopeAdded(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToAddExistingClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  updateClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientScopeExists(attributes, description, id, name, protocol, protocolMappers, realm);
+  deleteClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToDeleteANonExistingClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientScopeDoesNotExist(attributes, description, id, name, protocol, protocolMappers, realm);
+});
+
+// Story: crud:ClientScope:nondet:negative:dup-add
+bthread("crud:ClientScope:nondet:negative:dup-add", function () {
+  let attributes = {};
+  let description = "description_1126";
+  let id = 1126;
+  let name = "name_1126";
+  let protocol = "protocol_1126";
+  let protocolMappers = "protocolMappers_1126";
+  let realm = 1126;
+  createClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  // waitForClientScopeAdded(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientScopeExists(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToAddExistingClientScope(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientScopeExists(attributes, description, id, name, protocol, protocolMappers, realm);
+});
+
+// Story: crud:ClientTemplate:nondet:1:1
+bthread("crud:ClientTemplate:nondet:1:1", function () {
+  let attributes = {};
+  let description = "description_1130";
+  let id = 1130;
+  let name = "name_1130";
+  let protocol = "protocol_1130";
+  let protocolMappers = "protocolMappers_1130";
+  let realm = 1130;
+  createClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  waitForClientTemplateAdded(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToAddExistingClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientTemplateExists(attributes, description, id, name, protocol, protocolMappers, realm);
+  updateClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  deleteClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToDeleteANonExistingClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientTemplateDoesNotExist(attributes, description, id, name, protocol, protocolMappers, realm);
+});
+
+// Story: crud:ClientTemplate:nondet:1:2
+bthread("crud:ClientTemplate:nondet:1:2", function () {
+  let attributes = {};
+  let description = "description_1131";
+  let id = 1131;
+  let name = "name_1131";
+  let protocol = "protocol_1131";
+  let protocolMappers = "protocolMappers_1131";
+  let realm = 1131;
+  createClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  // waitForClientTemplateAdded(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToAddExistingClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  updateClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientTemplateExists(attributes, description, id, name, protocol, protocolMappers, realm);
+  deleteClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToDeleteANonExistingClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientTemplateDoesNotExist(attributes, description, id, name, protocol, protocolMappers, realm);
+});
+
+// Story: crud:ClientTemplate:nondet:negative:dup-add
+bthread("crud:ClientTemplate:nondet:negative:dup-add", function () {
+  let attributes = {};
+  let description = "description_1136";
+  let id = 1136;
+  let name = "name_1136";
+  let protocol = "protocol_1136";
+  let protocolMappers = "protocolMappers_1136";
+  let realm = 1136;
+  createClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  // waitForClientTemplateAdded(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientTemplateExists(attributes, description, id, name, protocol, protocolMappers, realm);
+  tryToAddExistingClientTemplate(attributes, description, id, name, protocol, protocolMappers, realm);
+  verifyClientTemplateExists(attributes, description, id, name, protocol, protocolMappers, realm);
+});
+
+// Story: crud:Component:nondet:1:1
+bthread("crud:Component:nondet:1:1", function () {
+  let config = {};
+  let id = 1140;
+  let name = "name_1140";
+  let parent = "parent_1140";
+  let parentId = 1140;
+  let providerId = 1140;
+  let providerType = "providerType_1140";
+  let realm = 1140;
+  let subType = "subType_1140";
+  let type = "type_1140";
+  createComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  waitForComponentAdded(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  tryToAddExistingComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  verifyComponentExists(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  updateComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  deleteComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  tryToDeleteANonExistingComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  verifyComponentDoesNotExist(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+});
+
+// Story: crud:Component:nondet:1:2
+bthread("crud:Component:nondet:1:2", function () {
+  let config = {};
+  let id = 1141;
+  let name = "name_1141";
+  let parent = "parent_1141";
+  let parentId = 1141;
+  let providerId = 1141;
+  let providerType = "providerType_1141";
+  let realm = 1141;
+  let subType = "subType_1141";
+  let type = "type_1141";
+  createComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  // waitForComponentAdded(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  tryToAddExistingComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  updateComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  verifyComponentExists(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  deleteComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  tryToDeleteANonExistingComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  verifyComponentDoesNotExist(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+});
+
+// Story: crud:Component:nondet:negative:dup-add
+bthread("crud:Component:nondet:negative:dup-add", function () {
+  let config = {};
+  let id = 1146;
+  let name = "name_1146";
+  let parent = "parent_1146";
+  let parentId = 1146;
+  let providerId = 1146;
+  let providerType = "providerType_1146";
+  let realm = 1146;
+  let subType = "subType_1146";
+  let type = "type_1146";
+  createComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  // waitForComponentAdded(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  verifyComponentExists(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  tryToAddExistingComponent(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+  verifyComponentExists(config, id, name, parent, parentId, providerId, providerType, realm, subType, type);
+});
+
+// Story: crud:BruteForceUser:read_only
+bthread("crud:BruteForceUser:read_only", function () {
+  let realm = 1150;
+  let userId;
+  verifyBruteForceUserExists(realm, userId);
 });
 
 // Story: crud:ClientInitialAccess:nondet:1:1
 bthread("crud:ClientInitialAccess:nondet:1:1", function () {
-  let count = 1030;
-  let expiration = 1030;
-  let id = 1030;
-  let realm = 1030;
+  let count = 1170;
+  let expiration = 1170;
+  let id = 1170;
+  let realm = 1170;
   postClientsInitialAccess(count, expiration, id, realm);
-  // waitForClientInitialAccessAdded(count, expiration, id, realm);
+  waitForClientInitialAccessAdded(count, expiration, id, realm);
   tryToAddExistingClientInitialAccess(count, expiration, id, realm);
   verifyClientInitialAccessExists(count, expiration, id, realm);
   deleteClientsInitialAcces(count, expiration, id, realm);
@@ -1803,10 +2344,10 @@ bthread("crud:ClientInitialAccess:nondet:1:1", function () {
 
 // Story: crud:ClientInitialAccess:nondet:1:2
 bthread("crud:ClientInitialAccess:nondet:1:2", function () {
-  let count = 1031;
-  let expiration = 1031;
-  let id = 1031;
-  let realm = 1031;
+  let count = 1171;
+  let expiration = 1171;
+  let id = 1171;
+  let realm = 1171;
   postClientsInitialAccess(count, expiration, id, realm);
   // waitForClientInitialAccessAdded(count, expiration, id, realm);
   tryToAddExistingClientInitialAccess(count, expiration, id, realm);
@@ -1818,10 +2359,10 @@ bthread("crud:ClientInitialAccess:nondet:1:2", function () {
 
 // Story: crud:ClientInitialAccess:nondet:negative:dup-add
 bthread("crud:ClientInitialAccess:nondet:negative:dup-add", function () {
-  let count = 1036;
-  let expiration = 1036;
-  let id = 1036;
-  let realm = 1036;
+  let count = 1176;
+  let expiration = 1176;
+  let id = 1176;
+  let realm = 1176;
   postClientsInitialAccess(count, expiration, id, realm);
   // waitForClientInitialAccessAdded(count, expiration, id, realm);
   verifyClientInitialAccessExists(count, expiration, id, realm);
@@ -1831,6 +2372,6 @@ bthread("crud:ClientInitialAccess:nondet:negative:dup-add", function () {
 
 // Story: crud:Key:read_only
 bthread("crud:Key:read_only", function () {
-  let realm = 1040;
+  let realm = 1180;
   verifyKeyExists(realm);
 });

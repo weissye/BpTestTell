@@ -59,7 +59,16 @@ function getApps() {
 }
 
 function tryToAddExistingApp() {
-  getApps();
+  var url = "/apps";
+  var body = {
+  };
+  var description = "Verify that we cannot add another App...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyAppExists() {
@@ -165,7 +174,16 @@ function getEnvs() {
 }
 
 function tryToAddExistingEnv() {
-  getEnvs();
+  var url = "/envs";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Env...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyEnvExists() {
@@ -271,7 +289,16 @@ function getConfigs() {
 }
 
 function tryToAddExistingConfig() {
-  getConfigs();
+  var url = "/configs";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Config...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyConfigExists() {
@@ -377,7 +404,16 @@ function getReleases() {
 }
 
 function tryToAddExistingRelease() {
-  getReleases();
+  var url = "/releases";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Release...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyReleaseExists() {
@@ -483,7 +519,16 @@ function getPolicies() {
 }
 
 function tryToAddExistingPolicy() {
-  getPolicies();
+  var url = "/policies";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Policy...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPolicyExists() {

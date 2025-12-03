@@ -49,7 +49,16 @@ function createPatient() {
 }
 
 function tryToAddExistingPatient() {
-  createPatient();
+  var url = "/patients";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Patient...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPatientExists() {
@@ -155,7 +164,16 @@ function createDrug() {
 }
 
 function tryToAddExistingDrug() {
-  createDrug();
+  var url = "/drugs";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Drug...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyDrugExists() {
@@ -251,7 +269,16 @@ function createPrescription() {
 }
 
 function tryToAddExistingPrescription() {
-  createPrescription();
+  var url = "/prescriptions";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Prescription...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPrescriptionExists() {
@@ -357,7 +384,16 @@ function createOrder() {
 }
 
 function tryToAddExistingOrder() {
-  createOrder();
+  var url = "/orders";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Order...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyOrderExists() {
@@ -439,7 +475,7 @@ function waitForOrderAdded() {
 
 function getInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Get inventory for ndc " + ndc;
+  var description = "Get inventory item with ndc " + ndc;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },

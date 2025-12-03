@@ -35,7 +35,7 @@ function matchSuccess(desc) {
 
 function repoGetByID(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
   var url = "/repositories/" + id;
-  var description = "Get repository by id " + id;
+  var description = "Get repository with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -49,7 +49,7 @@ function deleteRepository(filepath, id, name, org, owner, ref, repo, template_ow
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
@@ -79,9 +79,34 @@ function editRepository(filepath, id, name, org, owner, ref, repo, template_owne
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function adminCreateRepo(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
+  var url = "/admin/users/" + username + "/repos";
+  var description = "Create repository for user " + username;
+  var body = {
+    "id": String(id),
+    "username": String(username),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 403, 404, 409, 422],
+    parameters: {
+      description: description,
+      id: String(id)
+      , filepath: String(filepath)
+      , name: String(name)
+      , org: String(org)
+      , owner: String(owner)
+      , ref: String(ref)
+      , repo: String(repo)
+      , username: String(username)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
 function getRepositoryLanguages(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
   var url = "/repos/" + owner + "/" + repo + "/languages";
-  var description = "Get languages and number of bytes of code written for repo " + owner + "/" + repo;
+  var description = "Get languages and number of bytes of code written for repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -91,7 +116,7 @@ function getRepositoryLanguages(filepath, id, name, org, owner, ref, repo, templ
 
 function getRepositoryLicenses(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
   var url = "/repos/" + owner + "/" + repo + "/licenses";
-  var description = "Get licenses for repo " + owner + "/" + repo;
+  var description = "Get licenses for repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -101,7 +126,7 @@ function getRepositoryLicenses(filepath, id, name, org, owner, ref, repo, templa
 
 function getRepositoryRawFileOrLFS(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
   var url = "/repos/" + owner + "/" + repo + "/media/" + filepath;
-  var description = "Get file " + filepath + " or LFS object from repo " + owner + "/" + repo;
+  var description = "Get file " + filepath + " or LFS object from repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -111,7 +136,7 @@ function getRepositoryRawFileOrLFS(filepath, id, name, org, owner, ref, repo, te
 
 function mergeRepositoryUpstream(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
   var url = "/repos/" + owner + "/" + repo + "/merge-upstream";
-  var description = "Merge a branch from upstream into repo " + owner + "/" + repo;
+  var description = "Merge a branch from upstream into repository " + owner + "/" + repo;
   var body = {
     "id": String(id),
     "owner": String(owner),
@@ -163,37 +188,12 @@ function syncRepositoryMirror(filepath, id, name, org, owner, ref, repo, templat
 
 function isNewPinAllowed(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
   var url = "/repos/" + owner + "/" + repo + "/new_pin_allowed";
-  var description = "Check if new issue pins are allowed in repo " + owner + "/" + repo;
+  var description = "Check if new issue pins are allowed in repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
     expectedResponseCodes: [200, 404]
   });
-}
-
-function adminCreateRepo(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
-  var url = "/admin/users/" + username + "/repos";
-  var description = "Create repository for user " + username;
-  var body = {
-    "id": String(id),
-    "username": String(username),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201, 400, 403, 404, 409, 422],
-    parameters: {
-      description: description,
-      id: String(id)
-      , filepath: String(filepath)
-      , name: String(name)
-      , org: String(org)
-      , owner: String(owner)
-      , ref: String(ref)
-      , repo: String(repo)
-      , username: String(username)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function generateRepo(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
@@ -223,7 +223,18 @@ function generateRepo(filepath, id, name, org, owner, ref, repo, template_owner,
 }
 
 function tryToAddExistingRepository(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
-  generateRepo(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username);
+  var url = "/admin/users/" + username + "/repos";
+  var body = {
+    "username": String(username),
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another Repository...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyRepositoryExists(filepath, id, name, org, owner, ref, repo, template_owner, template_repo, username) {
@@ -270,7 +281,7 @@ function tryToDeleteANonExistingRepository(filepath, id, name, org, owner, ref, 
   var url = "/repos/" + owner + "/" + repo;
   var description = "Verify we cannot delete non-existing Repository";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -358,12 +369,24 @@ function deleteRepoSecret(owner, repo, secretname) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingRepositorySecret(owner, repo, secretname) {
-  deleteRepoSecret(owner, repo, secretname);
+  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secretname;
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+    "secretname": String(secretname),
+  };
+  var description = "Verify that we cannot add another RepositorySecret...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyRepositorySecretExists(owner, repo, secretname) {
@@ -410,7 +433,7 @@ function tryToDeleteANonExistingRepositorySecret(owner, repo, secretname) {
   var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secretname;
   var description = "Verify we cannot delete non-existing RepositorySecret";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -534,7 +557,19 @@ function deleteRepoVariable(owner, repo, variablename) {
 }
 
 function tryToAddExistingRepositoryVariable(owner, repo, variablename) {
-  deleteRepoVariable(owner, repo, variablename);
+  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+    "variablename": String(variablename),
+  };
+  var description = "Verify that we cannot add another RepositoryVariable...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyRepositoryVariableExists(owner, repo, variablename) {
@@ -640,102 +675,6 @@ function waitForAnyRepositoryVariableDeleted() {
   return obj;
 }
 
-// ---- Entity: repository migration ----
-
-function migrateRepository() {
-  var url = "/repos/migrate";
-  var description = "Migrate a remote git repository";
-  var body = {
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201, 403, 409, 422],
-    parameters: {
-      description: description,
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function tryToAddExistingRepositoryMigrate() {
-  migrateRepository();
-}
-
-function verifyRepositoryMigrateExists() {
-  var url = "/repos/migrate";
-  var description = "Verify RepositoryMigrate exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (true) {
-            return pvg.success("RepositoryMigrate exists");
-          }
-        }
-      }
-      return pvg.fail("Expected RepositoryMigrate to exist but it does not");
-    }
-  });
-}
-
-function verifyRepositoryMigrateDoesNotExist() {
-  var url = "/repos/migrate";
-  var description = "Verify RepositoryMigrate does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (true) {
-            return pvg.fail("Expected RepositoryMigrate to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("RepositoryMigrate does not exist");
-    }
-  });
-}
-
-function matchAddedRepositoryMigrate() {
-  var expectedDesc = "Migrate a remote git repository";
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyRepositoryMigrateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Migrate\ a\ remote\ git\ repository$/));
-  var m = ev.data.parameters.description.match(/^Migrate\ a\ remote\ git\ repository$/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getRepositoryMigrateAddedEvent(keyVal) {
-  return bp.EventSet("AddRepositoryMigrate:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyRepositoryMigrateAdded() {
-  return bp.EventSet("matchAnyRepositoryMigrateAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create repository migration") > -1;
-  });
-}
-
-function waitForRepositoryMigrateAdded() {
-  var expectedDesc = "Migrate a remote git repository";
-  waitFor(matchSuccess(expectedDesc));
-}
-
 // ---- Entity: branch protection ----
 
 function createBranchProtection(name, owner, repo) {
@@ -758,13 +697,13 @@ function createBranchProtection(name, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function getBranchProtection(name, owner, repo) {
+function deleteBranchProtection(name, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Get branch protection " + name + " in repo " + repo + " owned by " + owner;
+  var description = "Delete branch protection " + name + " in repo " + repo + " owned by " + owner;
   var body = undefined;
-  svc.get(url, {
+  svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -789,18 +728,29 @@ function editBranchProtection(name, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function deleteBranchProtection(name, owner, repo) {
+function getBranchProtection(name, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Delete branch protection " + name + " in repo " + repo + " owned by " + owner;
+  var description = "Get branch protection " + name + " in repo " + repo + " owned by " + owner;
   var body = undefined;
-  svc.delete(url, {
+  svc.get(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 404]
   });
 }
 
 function tryToAddExistingBranchProtection(name, owner, repo) {
-  deleteBranchProtection(name, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/branch_protections";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another BranchProtection...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyBranchProtectionExists(name, owner, repo) {
@@ -847,7 +797,7 @@ function tryToDeleteANonExistingBranchProtection(name, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
   var description = "Verify we cannot delete non-existing BranchProtection";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -928,13 +878,13 @@ function createBranch(branch, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function getBranch(branch, owner, repo) {
+function deleteBranch(branch, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Get branch " + branch + " in repo " + repo + " owned by " + owner;
+  var description = "Delete branch " + branch + " in repo " + repo + " owned by " + owner;
   var body = undefined;
-  svc.get(url, {
+  svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 404]
+    expectedResponseCodes: [200, 204, 403, 404, 423]
   });
 }
 
@@ -959,18 +909,29 @@ function updateBranch(branch, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function deleteBranch(branch, owner, repo) {
+function getBranch(branch, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Delete branch " + branch + " in repo " + repo + " owned by " + owner;
+  var description = "Get branch " + branch + " in repo " + repo + " owned by " + owner;
   var body = undefined;
-  svc.delete(url, {
+  svc.get(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 423]
+    expectedResponseCodes: [200, 404]
   });
 }
 
 function tryToAddExistingBranch(branch, owner, repo) {
-  deleteBranch(branch, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/branches";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Branch...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyBranchExists(branch, owner, repo) {
@@ -1017,7 +978,7 @@ function tryToDeleteANonExistingBranch(branch, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
   var description = "Verify we cannot delete non-existing Branch";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 423],
+    expectedResponseCodes: [200, 204, 403, 404, 423],
     parameters: { description: description }
   });
 }
@@ -1099,6 +1060,16 @@ function addCollaborator(collaborator, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
+function deleteCollaborator(collaborator, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
+  var description = "Delete collaborator " + collaborator + " from repo " + repo + " owned by " + owner;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 404, 422]
+  });
+}
+
 function checkCollaborator(collaborator, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
   var description = "Check collaborator " + collaborator + " in repo " + repo + " owned by " + owner;
@@ -1109,18 +1080,20 @@ function checkCollaborator(collaborator, owner, repo) {
   });
 }
 
-function deleteCollaborator(collaborator, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
-  var description = "Delete collaborator " + collaborator + " in repo " + repo + " owned by " + owner;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [204, 404, 422]
-  });
-}
-
 function tryToAddExistingCollaborator(collaborator, owner, repo) {
-  deleteCollaborator(collaborator, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
+  var body = {
+    "collaborator": String(collaborator),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Collaborator...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCollaboratorExists(collaborator, owner, repo) {
@@ -1167,7 +1140,7 @@ function tryToDeleteANonExistingCollaborator(collaborator, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
   var description = "Verify we cannot delete non-existing Collaborator";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 422],
+    expectedResponseCodes: [200, 204, 404, 422],
     parameters: { description: description }
   });
 }
@@ -1208,15 +1181,15 @@ function waitForCollaboratorAdded(collaborator, owner, repo) {
 }
 
 function matchDeletedCollaborator(collaborator, owner, repo) {
-  var expectedDesc = "Delete collaborator " + collaborator + " in repo " + repo + " owned by " + owner;
+  var expectedDesc = "Delete collaborator " + collaborator + " from repo " + repo + " owned by " + owner;
   return bp.EventSet("matchDeletedCollaborator", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyCollaboratorDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ collaborator\ (.+)\ in\ repo\ (.+)\ owned\ by\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ collaborator\ (.+)\ in\ repo\ (.+)\ owned\ by\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ collaborator\ (.+)\ from\ repo\ (.+)\ owned\ by\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ collaborator\ (.+)\ from\ repo\ (.+)\ owned\ by\ (.+)$/);
   var captures = m.slice(1);
   var names = ["collaborator", "repo", "owner"];
   var obj = {};
@@ -1253,7 +1226,7 @@ function deleteRepoAvatar(owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -1261,7 +1234,7 @@ function tryToDeleteANonExistingRepositoryAvatar(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/avatar";
   var description = "Verify we cannot delete non-existing RepositoryAvatar";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -1339,7 +1312,7 @@ function verifyRepositoryCollaboratorPermissionDoesNotExist(collaborator, owner,
 
 // ---- Entity: commit ----
 
-function getAllCommits(basehead, files, owner, ref, repo, sha, stat, verification) {
+function getAllCommits(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos/" + owner + "/" + repo + "/commits";
   var description = "Get all commits from repository " + owner + "/" + repo;
   var body = undefined;
@@ -1349,7 +1322,7 @@ function getAllCommits(basehead, files, owner, ref, repo, sha, stat, verificatio
   });
 }
 
-function getCommitCombinedStatus(basehead, files, owner, ref, repo, sha, stat, verification) {
+function getCommitCombinedStatus(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos/" + owner + "/" + repo + "/commits/" + ref + "/status";
   var description = "Get combined status of commit " + ref + " in repository " + owner + "/" + repo;
   var body = undefined;
@@ -1359,7 +1332,7 @@ function getCommitCombinedStatus(basehead, files, owner, ref, repo, sha, stat, v
   });
 }
 
-function listCommitStatuses(basehead, files, owner, ref, repo, sha, stat, verification) {
+function listCommitStatuses(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos/" + owner + "/" + repo + "/commits/" + ref + "/statuses";
   var description = "Get statuses of commit " + ref + " in repository " + owner + "/" + repo;
   var body = undefined;
@@ -1369,7 +1342,7 @@ function listCommitStatuses(basehead, files, owner, ref, repo, sha, stat, verifi
   });
 }
 
-function getCommitPullRequest(basehead, files, owner, ref, repo, sha, stat, verification) {
+function getCommitPullRequest(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos/" + owner + "/" + repo + "/commits/" + sha + "/pull";
   var description = "Get merged pull request of commit " + sha + " in repository " + owner + "/" + repo;
   var body = undefined;
@@ -1379,7 +1352,7 @@ function getCommitPullRequest(basehead, files, owner, ref, repo, sha, stat, veri
   });
 }
 
-function repoGetSingleCommit(basehead, files, owner, ref, repo, sha, stat, verification) {
+function repoGetSingleCommit(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos/" + owner + "/" + repo + "/git/commits/" + sha;
   var description = "Get commit " + sha + " from repository " + owner + "/" + repo;
   var body = undefined;
@@ -1389,7 +1362,7 @@ function repoGetSingleCommit(basehead, files, owner, ref, repo, sha, stat, verif
   });
 }
 
-function verifyCommitExists(basehead, files, owner, ref, repo, sha, stat, verification) {
+function verifyCommitExists(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos";
   var description = "Verify Commit with owner " + owner + " exists";
   svc.get(url, {
@@ -1409,7 +1382,7 @@ function verifyCommitExists(basehead, files, owner, ref, repo, sha, stat, verifi
   });
 }
 
-function verifyCommitDoesNotExist(basehead, files, owner, ref, repo, sha, stat, verification) {
+function verifyCommitDoesNotExist(files, owner, ref, repo, sha, stat, verification) {
   var url = "/repos";
   var description = "Verify Commit with owner " + owner + " does not exist";
   svc.get(url, {
@@ -1481,11 +1454,11 @@ function verifyCommitComparisonDoesNotExist(basehead, owner, repo) {
   });
 }
 
-// ---- Entity: repository content ----
+// ---- Entity: repository contents ----
 
-function getRootContents(filepath, owner, repo) {
+function listRootContents(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents";
-  var description = "Get root directory contents of repository " + owner + "/" + repo;
+  var description = "List root directory contents of repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -1493,7 +1466,7 @@ function getRootContents(filepath, owner, repo) {
   });
 }
 
-function changeFiles(filepath, owner, repo) {
+function changeFiles(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents";
   var description = "Modify multiple files in repository " + owner + "/" + repo;
   var body = {
@@ -1505,17 +1478,18 @@ function changeFiles(filepath, owner, repo) {
     expectedResponseCodes: [201, 403, 404, 422, 423],
     parameters: {
       description: description,
-      owner: String(owner)
-      , filepath: String(filepath)
+      , owner: String(owner)
       , repo: String(repo)
     }
   });
-  bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function getContent(filepath, owner, repo) {
+// ---- Entity: repository file ----
+
+function getFile(filepath, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Get content metadata of " + filepath + " in repository " + owner + "/" + repo;
+  var description = "Get file or directory metadata at " + filepath + " in repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -1525,7 +1499,7 @@ function getContent(filepath, owner, repo) {
 
 function createFile(filepath, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Create file " + filepath + " in repository " + owner + "/" + repo;
+  var description = "Create file at " + filepath + " in repository " + owner + "/" + repo;
   var body = {
     "filepath": String(filepath),
     "owner": String(owner),
@@ -1546,7 +1520,7 @@ function createFile(filepath, owner, repo) {
 
 function updateFile(filepath, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Update file " + filepath + " in repository " + owner + "/" + repo;
+  var description = "Update file at " + filepath + " in repository " + owner + "/" + repo;
   var body = {
     "filepath": String(filepath),
     "owner": String(owner),
@@ -1567,73 +1541,124 @@ function updateFile(filepath, owner, repo) {
 
 function deleteFile(filepath, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Delete file " + filepath + " in repository " + owner + "/" + repo;
+  var description = "Delete file at " + filepath + " in repository " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 400, 403, 404, 423]
+    expectedResponseCodes: [200, 204, 400, 403, 404, 423]
   });
 }
 
-function verifyRepositoryContentExists(filepath, owner, repo) {
-  var url = "/repos";
-  var description = "Verify RepositoryContent with owner " + owner + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.success("RepositoryContent exists");
-          }
-        }
-      }
-      return pvg.fail("Expected RepositoryContent to exist but it does not");
-    }
-  });
-}
-
-function verifyRepositoryContentDoesNotExist(filepath, owner, repo) {
-  var url = "/repos";
-  var description = "Verify RepositoryContent with owner " + owner + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected RepositoryContent to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("RepositoryContent does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingRepositoryContent(filepath, owner, repo) {
+function tryToAddExistingRepositoryFile(filepath, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Verify we cannot delete non-existing RepositoryContent";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 400, 403, 404, 423],
+  var body = {
+    "filepath": String(filepath),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another RepositoryFile...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
     parameters: { description: description }
   });
 }
 
-function matchDeletedRepositoryContent(filepath, owner, repo) {
-  var expectedDesc = "Delete file " + filepath + " in repository " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedRepositoryContent", function(e) {
+function verifyRepositoryFileExists(filepath, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
+  var description = "Verify RepositoryFile with owner " + owner + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.success("RepositoryFile exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RepositoryFile to exist but it does not");
+    }
+  });
+}
+
+function verifyRepositoryFileDoesNotExist(filepath, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
+  var description = "Verify RepositoryFile with owner " + owner + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.fail("Expected RepositoryFile to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RepositoryFile does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingRepositoryFile(filepath, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
+  var description = "Verify we cannot delete non-existing RepositoryFile";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 400, 403, 404, 423],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedRepositoryFile(filepath, owner, repo) {
+  var expectedDesc = "Create file at " + filepath + " in repository " + owner + "/" + repo;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyRepositoryFileAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ file\ at\ (.+)\ in\ repository\ (.+)/(.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ file\ at\ (.+)\ in\ repository\ (.+)/(.+)$/);
+  var captures = m.slice(1);
+  var names = ["filepath", "owner", "repo"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getRepositoryFileAddedEvent(keyVal) {
+  return bp.EventSet("AddRepositoryFile:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.owner) === String(keyVal);
+  });
+}
+
+function matchAnyRepositoryFileAdded() {
+  return bp.EventSet("matchAnyRepositoryFileAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create repository file") > -1;
+  });
+}
+
+function waitForRepositoryFileAdded(filepath, owner, repo) {
+  var expectedDesc = "Create file at " + filepath + " in repository " + owner + "/" + repo;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedRepositoryFile(filepath, owner, repo) {
+  var expectedDesc = "Delete file at " + filepath + " in repository " + owner + "/" + repo;
+  return bp.EventSet("matchDeletedRepositoryFile", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyRepositoryContentDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ file\ (.+)\ in\ repository\ (.+)/(.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ file\ (.+)\ in\ repository\ (.+)/(.+)$/);
+function waitForAnyRepositoryFileDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ file\ at\ (.+)\ in\ repository\ (.+)/(.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ file\ at\ (.+)\ in\ repository\ (.+)/(.+)$/);
   var captures = m.slice(1);
   var names = ["filepath", "owner", "repo"];
   var obj = {};
@@ -1748,7 +1773,18 @@ function createFork(limit, owner, page, repo) {
 }
 
 function tryToAddExistingFork(limit, owner, page, repo) {
-  createFork(limit, owner, page, repo);
+  var url = "/repos/" + owner + "/" + repo + "/forks";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Fork...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyForkExists(limit, owner, page, repo) {
@@ -1982,11 +2018,11 @@ function verifyNoteDoesNotExist(files, owner, repo, sha, verification) {
   });
 }
 
-// ---- Entity: gitRef ----
+// ---- Entity: ref ----
 
 function repoListAllGitRefs(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/git/refs";
-  var description = "List all git refs for repository " + owner + "/" + repo;
+  var description = "List all refs for repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -1994,9 +2030,9 @@ function repoListAllGitRefs(owner, repo) {
   });
 }
 
-function verifyGitRefExists(owner, repo) {
+function verifyRefExists(owner, repo) {
   var url = "/repos";
-  var description = "Verify GitRef with owner " + owner + " exists";
+  var description = "Verify Ref with owner " + owner + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2005,18 +2041,18 @@ function verifyGitRefExists(owner, repo) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].owner) === String(owner)) {
-            return pvg.success("GitRef exists");
+            return pvg.success("Ref exists");
           }
         }
       }
-      return pvg.fail("Expected GitRef to exist but it does not");
+      return pvg.fail("Expected Ref to exist but it does not");
     }
   });
 }
 
-function verifyGitRefDoesNotExist(owner, repo) {
+function verifyRefDoesNotExist(owner, repo) {
   var url = "/repos";
-  var description = "Verify GitRef with owner " + owner + " does not exist";
+  var description = "Verify Ref with owner " + owner + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2025,20 +2061,20 @@ function verifyGitRefDoesNotExist(owner, repo) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected GitRef to not exist but it does");
+            return pvg.fail("Expected Ref to not exist but it does");
           }
         }
       }
-      return pvg.success("GitRef does not exist");
+      return pvg.success("Ref does not exist");
     }
   });
 }
 
-// ---- Entity: gitRefDetail ----
+// ---- Entity: ref ----
 
 function repoListGitRefs(owner, ref, repo) {
   var url = "/repos/" + owner + "/" + repo + "/git/refs/" + ref;
-  var description = "Get git ref " + ref + " for repository " + owner + "/" + repo;
+  var description = "Get ref " + ref + " for repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2046,9 +2082,9 @@ function repoListGitRefs(owner, ref, repo) {
   });
 }
 
-function verifyGitRefDetailExists(owner, ref, repo) {
+function verifySingleRefExists(owner, ref, repo) {
   var url = "/repos";
-  var description = "Verify GitRefDetail with owner " + owner + " exists";
+  var description = "Verify SingleRef with owner " + owner + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2057,18 +2093,18 @@ function verifyGitRefDetailExists(owner, ref, repo) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].owner) === String(owner)) {
-            return pvg.success("GitRefDetail exists");
+            return pvg.success("SingleRef exists");
           }
         }
       }
-      return pvg.fail("Expected GitRefDetail to exist but it does not");
+      return pvg.fail("Expected SingleRef to exist but it does not");
     }
   });
 }
 
-function verifyGitRefDetailDoesNotExist(owner, ref, repo) {
+function verifySingleRefDoesNotExist(owner, ref, repo) {
   var url = "/repos";
-  var description = "Verify GitRefDetail with owner " + owner + " does not exist";
+  var description = "Verify SingleRef with owner " + owner + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2077,30 +2113,76 @@ function verifyGitRefDetailDoesNotExist(owner, ref, repo) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected GitRefDetail to not exist but it does");
+            return pvg.fail("Expected SingleRef to not exist but it does");
           }
         }
       }
-      return pvg.success("GitRefDetail does not exist");
+      return pvg.success("SingleRef does not exist");
     }
   });
 }
 
-// ---- Entity: annotatedTag ----
+// ---- Entity: tag ----
 
-function GetAnnotatedTag(owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/tags/" + sha;
-  var description = "Get annotated tag " + sha + " from repository " + owner + "/" + repo;
+function getTag(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
+  var description = "Get the tag " + tag + " of repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 400, 404]
+    expectedResponseCodes: [200, 404]
   });
 }
 
-function verifyAnnotatedTagExists(owner, repo, sha) {
-  var url = "/repos";
-  var description = "Verify AnnotatedTag with owner " + owner + " exists";
+function createTag(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags";
+  var description = "Create tag in repo " + owner + "/" + repo;
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 404, 405, 409, 422, 423],
+    parameters: {
+      description: description,
+      owner: String(owner)
+      , repo: String(repo)
+      , sha: String(sha)
+      , tag: String(tag)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
+}
+
+function deleteTag(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
+  var description = "Delete the tag " + tag + " from repository " + owner + "/" + repo;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 404, 405, 409, 422, 423]
+  });
+}
+
+function tryToAddExistingTag(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Tag...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyTagExists(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags";
+  var description = "Verify Tag with owner " + owner + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2109,18 +2191,18 @@ function verifyAnnotatedTagExists(owner, repo, sha) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].owner) === String(owner)) {
-            return pvg.success("AnnotatedTag exists");
+            return pvg.success("Tag exists");
           }
         }
       }
-      return pvg.fail("Expected AnnotatedTag to exist but it does not");
+      return pvg.fail("Expected Tag to exist but it does not");
     }
   });
 }
 
-function verifyAnnotatedTagDoesNotExist(owner, repo, sha) {
-  var url = "/repos";
-  var description = "Verify AnnotatedTag with owner " + owner + " does not exist";
+function verifyTagDoesNotExist(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags";
+  var description = "Verify Tag with owner " + owner + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2129,13 +2211,76 @@ function verifyAnnotatedTagDoesNotExist(owner, repo, sha) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected AnnotatedTag to not exist but it does");
+            return pvg.fail("Expected Tag to not exist but it does");
           }
         }
       }
-      return pvg.success("AnnotatedTag does not exist");
+      return pvg.success("Tag does not exist");
     }
   });
+}
+
+function tryToDeleteANonExistingTag(owner, repo, sha, tag) {
+  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
+  var description = "Verify we cannot delete non-existing Tag";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 404, 405, 409, 422, 423],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedTag(owner, repo, sha, tag) {
+  var expectedDesc = "Create tag in repo " + owner + "/" + repo;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyTagAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ tag\ in\ repo\ (.+)/(.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ tag\ in\ repo\ (.+)/(.+)$/);
+  var captures = m.slice(1);
+  var names = ["owner", "repo"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getTagAddedEvent(keyVal) {
+  return bp.EventSet("AddTag:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.owner) === String(keyVal);
+  });
+}
+
+function matchAnyTagAdded() {
+  return bp.EventSet("matchAnyTagAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create tag") > -1;
+  });
+}
+
+function waitForTagAdded(owner, repo, sha, tag) {
+  var expectedDesc = "Create tag in repo " + owner + "/" + repo;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedTag(owner, repo, sha, tag) {
+  var expectedDesc = "Delete the tag " + tag + " from repository " + owner + "/" + repo;
+  return bp.EventSet("matchDeletedTag", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyTagDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ the\ tag\ (.+)\ from\ repository\ (.+)/(.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ the\ tag\ (.+)\ from\ repository\ (.+)/(.+)$/);
+  var captures = m.slice(1);
+  var names = ["tag", "owner", "repo"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: tree ----
@@ -2229,7 +2374,7 @@ function deleteHook(id, limit, org, owner, page, repo, type) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204]
+    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -2265,7 +2410,17 @@ function listHooks(id, limit, org, owner, page, repo, type) {
 }
 
 function tryToAddExistingHook(id, limit, org, owner, page, repo, type) {
-  listHooks(id, limit, org, owner, page, repo, type);
+  var url = "/admin/hooks";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another Hook...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyHookExists(id, limit, org, owner, page, repo, type) {
@@ -2312,7 +2467,7 @@ function tryToDeleteANonExistingHook(id, limit, org, owner, page, repo, type) {
   var url = "/admin/hooks/" + id;
   var description = "Verify we cannot delete non-existing Hook";
   svc.delete(url, {
-    expectedResponseCodes: [204],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }
@@ -2389,7 +2544,7 @@ function repoDeleteGitHook(id, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -2412,16 +2567,6 @@ function repoEditGitHook(id, owner, repo) {
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
-}
-
-function repoListGitHooks(id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git";
-  var description = "List git hooks in repository " + owner + "/" + repo;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
 }
 
 function verifyGitHookExists(id, owner, repo) {
@@ -2468,7 +2613,7 @@ function tryToDeleteANonExistingGitHook(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
   var description = "Verify we cannot delete non-existing GitHook";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -2490,110 +2635,6 @@ function waitForAnyGitHookDeleted() {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
   }
   return obj;
-}
-
-// ---- Entity: hook test ----
-
-function repoTestHook(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + id + "/tests";
-  var description = "Test hook " + id + " in repository " + owner + "/" + repo + " with ref " + ref;
-  var body = {
-    "id": String(id),
-    "owner": String(owner),
-    "ref": String(ref),
-    "repo": String(repo),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [204, 404],
-    parameters: {
-      description: description,
-      , id: String(id)
-      , owner: String(owner)
-      , ref: String(ref)
-      , repo: String(repo)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function tryToAddExistingHookTest(id, owner, ref, repo) {
-  repoTestHook(id, owner, ref, repo);
-}
-
-function verifyHookTestExists(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + id + "/tests";
-  var description = "Verify HookTest exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.success("HookTest exists");
-          }
-        }
-      }
-      return pvg.fail("Expected HookTest to exist but it does not");
-    }
-  });
-}
-
-function verifyHookTestDoesNotExist(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/" + id + "/tests";
-  var description = "Verify HookTest does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected HookTest to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("HookTest does not exist");
-    }
-  });
-}
-
-function matchAddedHookTest(id, owner, ref, repo) {
-  var expectedDesc = "Test hook " + id + " in repository " + owner + "/" + repo + " with ref " + ref;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyHookTestAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Test\ hook\ (.+)\ in\ repository\ (.+)/(.+)\ with\ ref\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Test\ hook\ (.+)\ in\ repository\ (.+)/(.+)\ with\ ref\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id", "owner", "repo", "ref"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getHookTestAddedEvent(keyVal) {
-  return bp.EventSet("AddHookTest:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyHookTestAdded() {
-  return bp.EventSet("matchAnyHookTestAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create hook test") > -1;
-  });
-}
-
-function waitForHookTestAdded(id, owner, ref, repo) {
-  var expectedDesc = "Test hook " + id + " in repository " + owner + "/" + repo + " with ref " + ref;
-  waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: key ----
@@ -2634,22 +2675,23 @@ function repoDeleteKey(id, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
-  });
-}
-
-function repoListKeys(id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys";
-  var description = "List keys in repository " + owner + "/" + repo;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
 function tryToAddExistingKey(id, owner, repo) {
-  repoListKeys(id, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/keys";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Key...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyKeyExists(id, owner, repo) {
@@ -2696,7 +2738,7 @@ function tryToDeleteANonExistingKey(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/keys/" + id;
   var description = "Verify we cannot delete non-existing Key";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -2757,9 +2799,9 @@ function waitForAnyKeyDeleted() {
 
 // ---- Entity: pull request ----
 
-function listPullRequests(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function listPullRequests(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls";
-  var description = "List pull requests for repo " + owner + "/" + repo;
+  var description = "List pull requests for repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2767,9 +2809,9 @@ function listPullRequests(base, binary, diffType, files, head, index, labels, li
   });
 }
 
-function createPullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function createPullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls";
-  var description = "Create pull request in repo " + owner + "/" + repo + " with title {title} and head " + head;
+  var description = "Create pull request in repository " + owner + "/" + repo + " with title {title}";
   var body = {
     "owner": String(owner),
     "repo": String(repo),
@@ -2788,9 +2830,9 @@ function createPullRequest(base, binary, diffType, files, head, index, labels, l
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function listPinnedPullRequests(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function listPinnedPullRequests(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/pinned";
-  var description = "List pinned pull requests for repo " + owner + "/" + repo;
+  var description = "List pinned pull requests for repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2798,9 +2840,9 @@ function listPinnedPullRequests(base, binary, diffType, files, head, index, labe
   });
 }
 
-function getPullRequestByBaseHead(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function getPullRequestByBaseHead(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + base + "/" + head;
-  var description = "Get pull request by base " + base + " and head " + head + " in repo " + owner + "/" + repo;
+  var description = "Get pull request by base " + base + " and head " + head + " in repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2808,9 +2850,9 @@ function getPullRequestByBaseHead(base, binary, diffType, files, head, index, la
   });
 }
 
-function getPullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function getPullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index;
-  var description = "Get pull request " + index + " in repo " + owner + "/" + repo;
+  var description = "Get pull request " + index + " in repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2818,18 +2860,17 @@ function getPullRequest(base, binary, diffType, files, head, index, labels, limi
   });
 }
 
-function repoUpdatePullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
-  var description = "Merge PR " + index + " baseBranch into headBranch in repository " + owner + "/" + repo + " with style " + style;
+function updatePullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index;
+  var description = "Update pull request " + index + " in repository " + owner + "/" + repo;
   var body = {
     "index": String(index),
     "owner": String(owner),
     "repo": String(repo),
-    "style": String(style),
   };
-  svc.post(url, {
+  svc.patch(url, {
     body: JSON.stringify(body),
-    expectedResponseCodes: [200, 403, 404, 409, 422],
+    expectedResponseCodes: [201, 403, 404, 409, 412, 422],
     parameters: {
       description: description,
       owner: String(owner)
@@ -2841,7 +2882,7 @@ function repoUpdatePullRequest(base, binary, diffType, files, head, index, label
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function getPullRequestDiffOrPatch(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function getPullRequestDiffOrPatch(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "." + diffType;
   var description = "Get pull request " + index + " " + diffType + " for repo " + owner + "/" + repo;
   var body = undefined;
@@ -2851,7 +2892,7 @@ function getPullRequestDiffOrPatch(base, binary, diffType, files, head, index, l
   });
 }
 
-function getPullRequestCommits(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function getPullRequestCommits(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/commits";
   var description = "Get commits for pull request " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
@@ -2861,7 +2902,7 @@ function getPullRequestCommits(base, binary, diffType, files, head, index, label
   });
 }
 
-function getPullRequestFiles(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function getPullRequestFiles(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/files";
   var description = "Get changed files for pull request " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
@@ -2871,9 +2912,9 @@ function getPullRequestFiles(base, binary, diffType, files, head, index, labels,
   });
 }
 
-function checkPullRequestMerged(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function checkPullRequestMerged(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
-  var description = "Check if pull request " + index + " in repo " + owner + "/" + repo + " is merged";
+  var description = "Check if pull request " + index + " in repo " + owner + "/" + repo + " has been merged";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2881,7 +2922,7 @@ function checkPullRequestMerged(base, binary, diffType, files, head, index, labe
   });
 }
 
-function mergePullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function mergePullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
   var description = "Merge pull request " + index + " in repo " + owner + "/" + repo;
   var body = {
@@ -2903,22 +2944,18 @@ function mergePullRequest(base, binary, diffType, files, head, index, labels, li
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function cancelScheduledAutoMerge(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
+function cancelScheduledAutoMerge(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
   var description = "Cancel scheduled auto merge for pull request " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 423]
+    expectedResponseCodes: [200, 204, 403, 404, 423]
   });
 }
 
-function tryToAddExistingPullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
-  cancelScheduledAutoMerge(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace);
-}
-
-function verifyPullRequestExists(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls";
+function verifyPullRequestExists(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
+  var url = "/repos";
   var description = "Verify PullRequest with owner " + owner + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -2937,8 +2974,8 @@ function verifyPullRequestExists(base, binary, diffType, files, head, index, lab
   });
 }
 
-function verifyPullRequestDoesNotExist(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls";
+function verifyPullRequestDoesNotExist(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, verification, whitespace) {
+  var url = "/repos";
   var description = "Verify PullRequest with owner " + owner + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -2957,42 +2994,7 @@ function verifyPullRequestDoesNotExist(base, binary, diffType, files, head, inde
   });
 }
 
-function matchAddedPullRequest(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
-  var expectedDesc = "Create pull request in repo " + owner + "/" + repo + " with title {title} and head " + head;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyPullRequestAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ pull\ request\ in\ repo\ (.+)/(.+)\ with\ title\ (.+)\ and\ head\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ pull\ request\ in\ repo\ (.+)/(.+)\ with\ title\ (.+)\ and\ head\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["owner", "repo", "title", "head"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getPullRequestAddedEvent(keyVal) {
-  return bp.EventSet("AddPullRequest:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.owner) === String(keyVal);
-  });
-}
-
-function matchAnyPullRequestAdded() {
-  return bp.EventSet("matchAnyPullRequestAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create pull request") > -1;
-  });
-}
-
-function waitForPullRequestAdded(base, binary, diffType, files, head, index, labels, limit, milestone, owner, page, poster, repo, skip-to, sort, state, style, verification, whitespace) {
-  var expectedDesc = "Create pull request in repo " + owner + "/" + repo + " with title {title} and head " + head;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-// ---- Entity: pull review request ----
+// ---- Entity: pull request review request ----
 
 function createPullReviewRequests(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
@@ -3021,69 +3023,81 @@ function deletePullReviewRequests(index, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 422]
+    expectedResponseCodes: [200, 204, 403, 404, 422]
   });
 }
 
-function tryToAddExistingPullReviewRequest(index, owner, repo) {
-  deletePullReviewRequests(index, owner, repo);
-}
-
-function verifyPullReviewRequestExists(index, owner, repo) {
+function tryToAddExistingPullRequestReviewRequest(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
-  var description = "Verify PullReviewRequest with owner " + owner + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.success("PullReviewRequest exists");
-          }
-        }
-      }
-      return pvg.fail("Expected PullReviewRequest to exist but it does not");
-    }
-  });
-}
-
-function verifyPullReviewRequestDoesNotExist(index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
-  var description = "Verify PullReviewRequest with owner " + owner + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected PullReviewRequest to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("PullReviewRequest does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingPullReviewRequest(index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
-  var description = "Verify we cannot delete non-existing PullReviewRequest";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 422],
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another PullRequestReviewRequest...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
     parameters: { description: description }
   });
 }
 
-function matchAddedPullReviewRequest(index, owner, repo) {
+function verifyPullRequestReviewRequestExists(index, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
+  var description = "Verify PullRequestReviewRequest with owner " + owner + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.success("PullRequestReviewRequest exists");
+          }
+        }
+      }
+      return pvg.fail("Expected PullRequestReviewRequest to exist but it does not");
+    }
+  });
+}
+
+function verifyPullRequestReviewRequestDoesNotExist(index, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
+  var description = "Verify PullRequestReviewRequest with owner " + owner + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.fail("Expected PullRequestReviewRequest to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("PullRequestReviewRequest does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingPullRequestReviewRequest(index, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
+  var description = "Verify we cannot delete non-existing PullRequestReviewRequest";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 403, 404, 422],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedPullRequestReviewRequest(index, owner, repo) {
   var expectedDesc = "Create review requests for pull request " + index + " in repo " + owner + "/" + repo;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyPullReviewRequestAdded() {
+function waitForAnyPullRequestReviewRequestAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Create\ review\ requests\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Create\ review\ requests\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -3095,32 +3109,32 @@ function waitForAnyPullReviewRequestAdded() {
   return obj;
 }
 
-function getPullReviewRequestAddedEvent(keyVal) {
-  return bp.EventSet("AddPullReviewRequest:" + keyVal, function(e) {
+function getPullRequestReviewRequestAddedEvent(keyVal) {
+  return bp.EventSet("AddPullRequestReviewRequest:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.owner) === String(keyVal);
   });
 }
 
-function matchAnyPullReviewRequestAdded() {
-  return bp.EventSet("matchAnyPullReviewRequestAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create pull review request") > -1;
+function matchAnyPullRequestReviewRequestAdded() {
+  return bp.EventSet("matchAnyPullRequestReviewRequestAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create pull request review request") > -1;
   });
 }
 
-function waitForPullReviewRequestAdded(index, owner, repo) {
+function waitForPullRequestReviewRequestAdded(index, owner, repo) {
   var expectedDesc = "Create review requests for pull request " + index + " in repo " + owner + "/" + repo;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedPullReviewRequest(index, owner, repo) {
+function matchDeletedPullRequestReviewRequest(index, owner, repo) {
   var expectedDesc = "Cancel review requests for pull request " + index + " in repo " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedPullReviewRequest", function(e) {
+  return bp.EventSet("matchDeletedPullRequestReviewRequest", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyPullReviewRequestDeleted() {
+function waitForAnyPullRequestReviewRequestDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Cancel\ review\ requests\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Cancel\ review\ requests\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -3132,7 +3146,7 @@ function waitForAnyPullReviewRequestDeleted() {
   return obj;
 }
 
-// ---- Entity: pull review ----
+// ---- Entity: pull request review ----
 
 function listPullReviews(id, index, limit, owner, page, repo) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
@@ -3205,69 +3219,81 @@ function deletePullReview(id, index, limit, owner, page, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
-function tryToAddExistingPullReview(id, index, limit, owner, page, repo) {
-  deletePullReview(id, index, limit, owner, page, repo);
-}
-
-function verifyPullReviewExists(id, index, limit, owner, page, repo) {
+function tryToAddExistingPullRequestReview(id, index, limit, owner, page, repo) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
-  var description = "Verify PullReview with owner " + owner + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.success("PullReview exists");
-          }
-        }
-      }
-      return pvg.fail("Expected PullReview to exist but it does not");
-    }
-  });
-}
-
-function verifyPullReviewDoesNotExist(id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
-  var description = "Verify PullReview with owner " + owner + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected PullReview to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("PullReview does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingPullReview(id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Verify we cannot delete non-existing PullReview";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another PullRequestReview...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
     parameters: { description: description }
   });
 }
 
-function matchAddedPullReview(id, index, limit, owner, page, repo) {
+function verifyPullRequestReviewExists(id, index, limit, owner, page, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
+  var description = "Verify PullRequestReview with owner " + owner + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.success("PullRequestReview exists");
+          }
+        }
+      }
+      return pvg.fail("Expected PullRequestReview to exist but it does not");
+    }
+  });
+}
+
+function verifyPullRequestReviewDoesNotExist(id, index, limit, owner, page, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
+  var description = "Verify PullRequestReview with owner " + owner + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.fail("Expected PullRequestReview to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("PullRequestReview does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingPullRequestReview(id, index, limit, owner, page, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
+  var description = "Verify we cannot delete non-existing PullRequestReview";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 403, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedPullRequestReview(id, index, limit, owner, page, repo) {
   var expectedDesc = "Create a review for pull request " + index + " in repo " + owner + "/" + repo;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyPullReviewAdded() {
+function waitForAnyPullRequestReviewAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Create\ a\ review\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Create\ a\ review\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -3279,32 +3305,32 @@ function waitForAnyPullReviewAdded() {
   return obj;
 }
 
-function getPullReviewAddedEvent(keyVal) {
-  return bp.EventSet("AddPullReview:" + keyVal, function(e) {
+function getPullRequestReviewAddedEvent(keyVal) {
+  return bp.EventSet("AddPullRequestReview:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.owner) === String(keyVal);
   });
 }
 
-function matchAnyPullReviewAdded() {
-  return bp.EventSet("matchAnyPullReviewAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create pull review") > -1;
+function matchAnyPullRequestReviewAdded() {
+  return bp.EventSet("matchAnyPullRequestReviewAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create pull request review") > -1;
   });
 }
 
-function waitForPullReviewAdded(id, index, limit, owner, page, repo) {
+function waitForPullRequestReviewAdded(id, index, limit, owner, page, repo) {
   var expectedDesc = "Create a review for pull request " + index + " in repo " + owner + "/" + repo;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedPullReview(id, index, limit, owner, page, repo) {
+function matchDeletedPullRequestReview(id, index, limit, owner, page, repo) {
   var expectedDesc = "Delete review " + id + " for pull request " + index + " in repo " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedPullReview", function(e) {
+  return bp.EventSet("matchDeletedPullRequestReview", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyPullReviewDeleted() {
+function waitForAnyPullRequestReviewDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Delete\ review\ (.+)\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Delete\ review\ (.+)\ for\ pull\ request\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -3316,7 +3342,7 @@ function waitForAnyPullReviewDeleted() {
   return obj;
 }
 
-// ---- Entity: pull review comment ----
+// ---- Entity: pull request review comment ----
 
 function getPullReviewComments(id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/comments";
@@ -3328,7 +3354,7 @@ function getPullReviewComments(id, index, owner, repo) {
   });
 }
 
-// ---- Entity: pull review dismissal ----
+// ---- Entity: pull request review dismissal ----
 
 function dismissPullReview(id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/dismissals";
@@ -3400,7 +3426,7 @@ function repoAddPushMirror(name, owner, repo) {
 
 function repoGetPushMirrorByRemoteName(name, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
-  var description = "Get push mirror " + name + " of repository " + owner + "/" + repo;
+  var description = "Get push mirror " + name + " from repository " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -3414,12 +3440,23 @@ function repoDeletePushMirror(name, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingPushMirror(name, owner, repo) {
-  repoDeletePushMirror(name, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/push_mirrors";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another PushMirror...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPushMirrorExists(name, owner, repo) {
@@ -3466,7 +3503,7 @@ function tryToDeleteANonExistingPushMirror(name, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
   var description = "Verify we cannot delete non-existing PushMirror";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -3586,7 +3623,7 @@ function repoDeleteRelease(id, owner, repo, tag) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 422]
+    expectedResponseCodes: [200, 204, 404, 422]
   });
 }
 
@@ -3606,12 +3643,23 @@ function repoDeleteReleaseByTag(id, owner, repo, tag) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 422]
+    expectedResponseCodes: [200, 204, 404, 422]
   });
 }
 
 function tryToAddExistingRelease(id, owner, repo, tag) {
-  repoDeleteReleaseByTag(id, owner, repo, tag);
+  var url = "/repos/" + owner + "/" + repo + "/releases";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Release...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyReleaseExists(id, owner, repo, tag) {
@@ -3658,7 +3706,7 @@ function tryToDeleteANonExistingRelease(id, owner, repo, tag) {
   var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
   var description = "Verify we cannot delete non-existing Release";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 422],
+    expectedResponseCodes: [200, 204, 404, 422],
     parameters: { description: description }
   });
 }
@@ -3759,7 +3807,7 @@ function deleteReleaseAttachment(attachment_id, id, name, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -3788,7 +3836,20 @@ function editReleaseAttachment(attachment_id, id, name, owner, repo) {
 }
 
 function tryToAddExistingReleaseAttachment(attachment_id, id, name, owner, repo) {
-  editReleaseAttachment(attachment_id, id, name, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets";
+  var body = {
+    "id": String(id),
+    "name": String(name),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another ReleaseAttachment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyReleaseAttachmentExists(attachment_id, id, name, owner, repo) {
@@ -3835,7 +3896,7 @@ function tryToDeleteANonExistingReleaseAttachment(attachment_id, id, name, owner
   var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
   var description = "Verify we cannot delete non-existing ReleaseAttachment";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -3894,11 +3955,127 @@ function waitForAnyReleaseAttachmentDeleted() {
   return obj;
 }
 
+// ---- Entity: pull request update ----
+
+function repoUpdatePullRequest(index, owner, repo, style) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
+  var description = "Merge PR " + index + " baseBranch into headBranch in repository " + owner + "/" + repo + " with style " + style;
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+    "style": String(style),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 403, 404, 409, 422],
+    parameters: {
+      description: description,
+      , index: String(index)
+      , owner: String(owner)
+      , repo: String(repo)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingPullRequestUpdate(index, owner, repo, style) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+    "style": String(style),
+  };
+  var description = "Verify that we cannot add another PullRequestUpdate...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyPullRequestUpdateExists(index, owner, repo, style) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
+  var description = "Verify PullRequestUpdate exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].index) === String(index) && String(items[i].owner) === String(owner) && String(items[i].repo) === String(repo) && String(items[i].style) === String(style)) {
+            return pvg.success("PullRequestUpdate exists");
+          }
+        }
+      }
+      return pvg.fail("Expected PullRequestUpdate to exist but it does not");
+    }
+  });
+}
+
+function verifyPullRequestUpdateDoesNotExist(index, owner, repo, style) {
+  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
+  var description = "Verify PullRequestUpdate does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].index) === String(index) && String(items[i].owner) === String(owner) && String(items[i].repo) === String(repo) && String(items[i].style) === String(style)) {
+            return pvg.fail("Expected PullRequestUpdate to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("PullRequestUpdate does not exist");
+    }
+  });
+}
+
+function matchAddedPullRequestUpdate(index, owner, repo, style) {
+  var expectedDesc = "Merge PR " + index + " baseBranch into headBranch in repository " + owner + "/" + repo + " with style " + style;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyPullRequestUpdateAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Merge\ PR\ (.+)\ baseBranch\ into\ headBranch\ in\ repository\ (.+)/(.+)\ with\ style\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Merge\ PR\ (.+)\ baseBranch\ into\ headBranch\ in\ repository\ (.+)/(.+)\ with\ style\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["index", "owner", "repo", "style"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getPullRequestUpdateAddedEvent(keyVal) {
+  return bp.EventSet("AddPullRequestUpdate:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyPullRequestUpdateAdded() {
+  return bp.EventSet("matchAnyPullRequestUpdateAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create pull request update") > -1;
+  });
+}
+
+function waitForPullRequestUpdateAdded(index, owner, repo, style) {
+  var expectedDesc = "Merge PR " + index + " baseBranch into headBranch in repository " + owner + "/" + repo + " with style " + style;
+  waitFor(matchSuccess(expectedDesc));
+}
+
 // ---- Entity: reviewer ----
 
-function listReviewers(owner, repo) {
+function getReviewers(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/reviewers";
-  var description = "List reviewers for repo " + owner + "/" + repo;
+  var description = "Get reviewers for repo " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4000,9 +4177,9 @@ function verifySigningKeyDoesNotExist(owner, repo) {
 
 // ---- Entity: stargazer ----
 
-function listStargazers(limit, owner, page, repo) {
+function listStargazers(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/stargazers";
-  var description = "List stargazers for repo " + owner + "/" + repo + " page " + page + " limit " + limit;
+  var description = "List stargazers for repo " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4010,7 +4187,7 @@ function listStargazers(limit, owner, page, repo) {
   });
 }
 
-function verifyStargazerExists(limit, owner, page, repo) {
+function verifyStargazerExists(owner, repo) {
   var url = "/repos";
   var description = "Verify Stargazer with owner " + owner + " exists";
   svc.get(url, {
@@ -4030,7 +4207,7 @@ function verifyStargazerExists(limit, owner, page, repo) {
   });
 }
 
-function verifyStargazerDoesNotExist(limit, owner, page, repo) {
+function verifyStargazerDoesNotExist(owner, repo) {
   var url = "/repos";
   var description = "Verify Stargazer with owner " + owner + " does not exist";
   svc.get(url, {
@@ -4052,9 +4229,9 @@ function verifyStargazerDoesNotExist(limit, owner, page, repo) {
 
 // ---- Entity: commit status ----
 
-function listCommitStatuses(limit, owner, page, repo, sha, sort, state) {
+function listCommitStatuses(owner, repo, sha) {
   var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
-  var description = "List commit statuses for commit " + sha + " in repo " + owner + "/" + repo + " with sort " + sort + " and state " + state + " page " + page + " limit " + limit;
+  var description = "Get statuses for commit " + sha + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4062,7 +4239,7 @@ function listCommitStatuses(limit, owner, page, repo, sha, sort, state) {
   });
 }
 
-function createCommitStatus(limit, owner, page, repo, sha, sort, state) {
+function createCommitStatus(owner, repo, sha) {
   var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
   var description = "Create commit status for commit " + sha + " in repo " + owner + "/" + repo;
   var body = {
@@ -4083,11 +4260,23 @@ function createCommitStatus(limit, owner, page, repo, sha, sort, state) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function tryToAddExistingCommitStatus(limit, owner, page, repo, sha, sort, state) {
-  createCommitStatus(limit, owner, page, repo, sha, sort, state);
+function tryToAddExistingCommitStatus(owner, repo, sha) {
+  var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+    "sha": String(sha),
+  };
+  var description = "Verify that we cannot add another CommitStatus...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyCommitStatusExists(limit, owner, page, repo, sha, sort, state) {
+function verifyCommitStatusExists(owner, repo, sha) {
   var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
   var description = "Verify CommitStatus with owner " + owner + " exists";
   svc.get(url, {
@@ -4107,7 +4296,7 @@ function verifyCommitStatusExists(limit, owner, page, repo, sha, sort, state) {
   });
 }
 
-function verifyCommitStatusDoesNotExist(limit, owner, page, repo, sha, sort, state) {
+function verifyCommitStatusDoesNotExist(owner, repo, sha) {
   var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
   var description = "Verify CommitStatus with owner " + owner + " does not exist";
   svc.get(url, {
@@ -4127,7 +4316,7 @@ function verifyCommitStatusDoesNotExist(limit, owner, page, repo, sha, sort, sta
   });
 }
 
-function matchAddedCommitStatus(limit, owner, page, repo, sha, sort, state) {
+function matchAddedCommitStatus(owner, repo, sha) {
   var expectedDesc = "Create commit status for commit " + sha + " in repo " + owner + "/" + repo;
   return matchSuccess(expectedDesc);
 }
@@ -4157,16 +4346,16 @@ function matchAnyCommitStatusAdded() {
   });
 }
 
-function waitForCommitStatusAdded(limit, owner, page, repo, sha, sort, state) {
+function waitForCommitStatusAdded(owner, repo, sha) {
   var expectedDesc = "Create commit status for commit " + sha + " in repo " + owner + "/" + repo;
   waitFor(matchSuccess(expectedDesc));
 }
 
 // ---- Entity: subscriber ----
 
-function listSubscribers(limit, owner, page, repo) {
+function listSubscribers(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/subscribers";
-  var description = "List subscribers for repo " + owner + "/" + repo + " page " + page + " limit " + limit;
+  var description = "List subscribers for repo " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4174,7 +4363,7 @@ function listSubscribers(limit, owner, page, repo) {
   });
 }
 
-function verifySubscriberExists(limit, owner, page, repo) {
+function verifySubscriberExists(owner, repo) {
   var url = "/repos";
   var description = "Verify Subscriber with owner " + owner + " exists";
   svc.get(url, {
@@ -4194,7 +4383,7 @@ function verifySubscriberExists(limit, owner, page, repo) {
   });
 }
 
-function verifySubscriberDoesNotExist(limit, owner, page, repo) {
+function verifySubscriberDoesNotExist(owner, repo) {
   var url = "/repos";
   var description = "Verify Subscriber with owner " + owner + " does not exist";
   svc.get(url, {
@@ -4216,7 +4405,7 @@ function verifySubscriberDoesNotExist(limit, owner, page, repo) {
 
 // ---- Entity: subscription ----
 
-function userListSubscriptions(owner, repo, username) {
+function listSubscriptions(owner, repo, username) {
   var url = "/users/" + username + "/subscriptions";
   var description = "List subscriptions for user " + username;
   var body = undefined;
@@ -4253,12 +4442,24 @@ function unwatchRepo(owner, repo, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
 function tryToAddExistingSubscription(owner, repo, username) {
-  unwatchRepo(owner, repo, username);
+  var url = "/repos/" + owner + "/" + repo + "/subscription";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another Subscription...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifySubscriptionExists(owner, repo, username) {
@@ -4305,7 +4506,7 @@ function tryToDeleteANonExistingSubscription(owner, repo, username) {
   var url = "/repos/" + owner + "/" + repo + "/subscription";
   var description = "Verify we cannot delete non-existing Subscription";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -4382,7 +4583,7 @@ function deleteTagProtection(id, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -4428,7 +4629,18 @@ function createTagProtection(id, owner, repo) {
 }
 
 function tryToAddExistingTagProtection(id, owner, repo) {
-  createTagProtection(id, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/tag_protections";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another TagProtection...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyTagProtectionExists(id, owner, repo) {
@@ -4475,7 +4687,7 @@ function tryToDeleteANonExistingTagProtection(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
   var description = "Verify we cannot delete non-existing TagProtection";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -4534,155 +4746,6 @@ function waitForAnyTagProtectionDeleted() {
   return obj;
 }
 
-// ---- Entity: tag ----
-
-function getTag(limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Get the tag " + tag + " of repository " + owner + "/" + repo;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
-function createTag(limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags";
-  var description = "Create tag in repo " + owner + "/" + repo;
-  var body = {
-    "owner": String(owner),
-    "repo": String(repo),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 404, 405, 409, 422, 423],
-    parameters: {
-      description: description,
-      owner: String(owner)
-      , repo: String(repo)
-      , tag: String(tag)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
-}
-
-function deleteTag(limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Delete the tag " + tag + " from repository " + owner + "/" + repo;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [204, 404, 405, 409, 422, 423]
-  });
-}
-
-function tryToAddExistingTag(limit, owner, page, repo, tag) {
-  deleteTag(limit, owner, page, repo, tag);
-}
-
-function verifyTagExists(limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags";
-  var description = "Verify Tag with owner " + owner + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.success("Tag exists");
-          }
-        }
-      }
-      return pvg.fail("Expected Tag to exist but it does not");
-    }
-  });
-}
-
-function verifyTagDoesNotExist(limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags";
-  var description = "Verify Tag with owner " + owner + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected Tag to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("Tag does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingTag(limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Verify we cannot delete non-existing Tag";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 404, 405, 409, 422, 423],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedTag(limit, owner, page, repo, tag) {
-  var expectedDesc = "Create tag in repo " + owner + "/" + repo;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyTagAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ tag\ in\ repo\ (.+)/(.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ tag\ in\ repo\ (.+)/(.+)$/);
-  var captures = m.slice(1);
-  var names = ["owner", "repo"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getTagAddedEvent(keyVal) {
-  return bp.EventSet("AddTag:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.owner) === String(keyVal);
-  });
-}
-
-function matchAnyTagAdded() {
-  return bp.EventSet("matchAnyTagAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create tag") > -1;
-  });
-}
-
-function waitForTagAdded(limit, owner, page, repo, tag) {
-  var expectedDesc = "Create tag in repo " + owner + "/" + repo;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedTag(limit, owner, page, repo, tag) {
-  var expectedDesc = "Delete the tag " + tag + " from repository " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedTag", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyTagDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ the\ tag\ (.+)\ from\ repository\ (.+)/(.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ the\ tag\ (.+)\ from\ repository\ (.+)/(.+)$/);
-  var captures = m.slice(1);
-  var names = ["tag", "owner", "repo"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
 // ---- Entity: team ----
 
 function orgGetTeam(id, name, org, owner, repo, team) {
@@ -4724,7 +4787,7 @@ function orgDeleteTeam(id, name, org, owner, repo, team) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -4750,7 +4813,19 @@ function orgEditTeam(id, name, org, owner, repo, team) {
 }
 
 function tryToAddExistingTeam(id, name, org, owner, repo, team) {
-  orgEditTeam(id, name, org, owner, repo, team);
+  var url = "/orgs/" + org + "/teams";
+  var body = {
+    "name": String(name),
+    "org": String(org),
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another Team...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyTeamExists(id, name, org, owner, repo, team) {
@@ -4797,7 +4872,7 @@ function tryToDeleteANonExistingTeam(id, name, org, owner, repo, team) {
   var url = "/teams/" + id;
   var description = "Verify we cannot delete non-existing Team";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -4910,7 +4985,7 @@ function verifyTeamsDoesNotExist(owner, repo) {
 
 // ---- Entity: tracked time ----
 
-function listTrackedTimes(owner, repo, user) {
+function listTrackedTimes(owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/times";
   var description = "List tracked times for repository " + owner + "/" + repo;
   var body = undefined;
@@ -4920,7 +4995,7 @@ function listTrackedTimes(owner, repo, user) {
   });
 }
 
-function verifyTrackedTimeExists(owner, repo, user) {
+function verifyTrackedTimeExists(owner, repo) {
   var url = "/repos";
   var description = "Verify TrackedTime with owner " + owner + " exists";
   svc.get(url, {
@@ -4940,7 +5015,7 @@ function verifyTrackedTimeExists(owner, repo, user) {
   });
 }
 
-function verifyTrackedTimeDoesNotExist(owner, repo, user) {
+function verifyTrackedTimeDoesNotExist(owner, repo) {
   var url = "/repos";
   var description = "Verify TrackedTime with owner " + owner + " does not exist";
   svc.get(url, {
@@ -5041,7 +5116,7 @@ function deleteTopic(limit, owner, page, q, repo, topic) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 422]
+    expectedResponseCodes: [200, 204, 404, 422]
   });
 }
 
@@ -5056,7 +5131,19 @@ function topicSearch(limit, owner, page, q, repo, topic) {
 }
 
 function tryToAddExistingTopic(limit, owner, page, q, repo, topic) {
-  topicSearch(limit, owner, page, q, repo, topic);
+  var url = "/repos/" + owner + "/" + repo + "/topics/" + topic;
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+    "topic": String(topic),
+  };
+  var description = "Verify that we cannot add another Topic...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyTopicExists(limit, owner, page, q, repo, topic) {
@@ -5103,7 +5190,7 @@ function tryToDeleteANonExistingTopic(limit, owner, page, q, repo, topic) {
   var url = "/repos/" + owner + "/" + repo + "/topics/" + topic;
   var description = "Verify we cannot delete non-existing Topic";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 422],
+    expectedResponseCodes: [200, 204, 404, 422],
     parameters: { description: description }
   });
 }
@@ -5293,7 +5380,18 @@ function rejectRepoTransfer(owner, repo) {
 }
 
 function tryToAddExistingRepoTransfer(owner, repo) {
-  rejectRepoTransfer(owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/transfer";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another RepoTransfer...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyRepoTransferExists(owner, repo) {
@@ -5409,7 +5507,7 @@ function repoDeleteWikiPage(owner, pageName, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 423]
+    expectedResponseCodes: [200, 204, 403, 404, 423]
   });
 }
 
@@ -5435,7 +5533,18 @@ function repoEditWikiPage(owner, pageName, repo) {
 }
 
 function tryToAddExistingWikiPage(owner, pageName, repo) {
-  repoEditWikiPage(owner, pageName, repo);
+  var url = "/repos/" + owner + "/" + repo + "/wiki/new";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another WikiPage...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyWikiPageExists(owner, pageName, repo) {
@@ -5482,7 +5591,7 @@ function tryToDeleteANonExistingWikiPage(owner, pageName, repo) {
   var url = "/repos/" + owner + "/" + repo + "/wiki/page/" + pageName;
   var description = "Verify we cannot delete non-existing WikiPage";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 423],
+    expectedResponseCodes: [200, 204, 403, 404, 423],
     parameters: { description: description }
   });
 }
@@ -5687,12 +5796,22 @@ function deleteUserSecret(secretname) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingUserSecret(secretname) {
-  deleteUserSecret(secretname);
+  var url = "/user/actions/secrets/" + secretname;
+  var body = {
+    "secretname": String(secretname),
+  };
+  var description = "Verify that we cannot add another UserSecret...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUserSecretExists(secretname) {
@@ -5739,7 +5858,7 @@ function tryToDeleteANonExistingUserSecret(secretname) {
   var url = "/user/actions/secrets/" + secretname;
   var description = "Verify we cannot delete non-existing UserSecret";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -5850,12 +5969,22 @@ function deleteUserVariable(variablename) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [201, 204, 400, 404]
+    expectedResponseCodes: [200, 201, 204, 400, 404]
   });
 }
 
 function tryToAddExistingUserVariable(variablename) {
-  deleteUserVariable(variablename);
+  var url = "/user/actions/variables/" + variablename;
+  var body = {
+    "variablename": String(variablename),
+  };
+  var description = "Verify that we cannot add another UserVariable...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUserVariableExists(variablename) {
@@ -5902,7 +6031,7 @@ function tryToDeleteANonExistingUserVariable(variablename) {
   var url = "/user/actions/variables/" + variablename;
   var description = "Verify we cannot delete non-existing UserVariable";
   svc.delete(url, {
-    expectedResponseCodes: [201, 204, 400, 404],
+    expectedResponseCodes: [200, 201, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -5965,7 +6094,7 @@ function waitForAnyUserVariableDeleted() {
 
 function userCreateOAuth2Application(id) {
   var url = "/user/applications/oauth2";
-  var description = "Create OAuth2 application";
+  var description = "Create OAuth2 application with id " + id;
   var body = {
     "id": String(id),
   };
@@ -6013,12 +6142,22 @@ function userDeleteOAuth2Application(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
 function tryToAddExistingOAuth2Application(id) {
-  userDeleteOAuth2Application(id);
+  var url = "/user/applications/oauth2";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another OAuth2Application...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyOAuth2ApplicationExists(id) {
@@ -6065,21 +6204,21 @@ function tryToDeleteANonExistingOAuth2Application(id) {
   var url = "/user/applications/oauth2/" + id;
   var description = "Verify we cannot delete non-existing OAuth2Application";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedOAuth2Application(id) {
-  var expectedDesc = "Create OAuth2 application";
+  var expectedDesc = "Create OAuth2 application with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyOAuth2ApplicationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ OAuth2\ application$/));
-  var m = ev.data.parameters.description.match(/^Create\ OAuth2\ application$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ OAuth2\ application\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ OAuth2\ application\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -6101,7 +6240,7 @@ function matchAnyOAuth2ApplicationAdded() {
 }
 
 function waitForOAuth2ApplicationAdded(id) {
-  var expectedDesc = "Create OAuth2 application";
+  var expectedDesc = "Create OAuth2 application with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -6147,7 +6286,7 @@ function userDeleteAvatar() {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204]
+    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -6155,7 +6294,7 @@ function tryToDeleteANonExistingUserAvatar() {
   var url = "/user/avatar";
   var description = "Verify we cannot delete non-existing UserAvatar";
   svc.delete(url, {
-    expectedResponseCodes: [204],
+    expectedResponseCodes: [200, 204],
     parameters: { description: description }
   });
 }
@@ -6214,12 +6353,22 @@ function userUnblockUser(username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 422]
+    expectedResponseCodes: [200, 204, 404, 422]
   });
 }
 
 function tryToAddExistingUserBlock(username) {
-  userUnblockUser(username);
+  var url = "/user/blocks/" + username;
+  var body = {
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another UserBlock...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUserBlockExists(username) {
@@ -6266,7 +6415,7 @@ function tryToDeleteANonExistingUserBlock(username) {
   var url = "/user/blocks/" + username;
   var description = "Verify we cannot delete non-existing UserBlock";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 422],
+    expectedResponseCodes: [200, 204, 404, 422],
     parameters: { description: description }
   });
 }
@@ -6348,7 +6497,7 @@ function userDeleteEmail(limit, page, q) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -6373,7 +6522,16 @@ function searchEmails(limit, page, q) {
 }
 
 function tryToAddExistingEmail(limit, page, q) {
-  searchEmails(limit, page, q);
+  var url = "/user/emails";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Email...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyEmailExists(limit, page, q) {
@@ -6420,7 +6578,7 @@ function tryToDeleteANonExistingEmail(limit, page, q) {
   var url = "/user/emails";
   var description = "Verify we cannot delete non-existing Email";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -6583,7 +6741,7 @@ function verifyFollowingDoesNotExist(limit, page) {
   });
 }
 
-// ---- Entity: following user ----
+// ---- Entity: user follow ----
 
 function userCurrentCheckFollowing(username) {
   var url = "/user/following/" + username;
@@ -6618,69 +6776,79 @@ function userCurrentDeleteFollow(username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
-function tryToAddExistingFollowingUser(username) {
-  userCurrentDeleteFollow(username);
-}
-
-function verifyFollowingUserExists(username) {
+function tryToAddExistingUserFollow(username) {
   var url = "/user/following/" + username;
-  var description = "Verify FollowingUser with username " + username + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].username) === String(username)) {
-            return pvg.success("FollowingUser exists");
-          }
-        }
-      }
-      return pvg.fail("Expected FollowingUser to exist but it does not");
-    }
-  });
-}
-
-function verifyFollowingUserDoesNotExist(username) {
-  var url = "/user/following/" + username;
-  var description = "Verify FollowingUser with username " + username + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].username) === String(username)) {
-            return pvg.fail("Expected FollowingUser to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("FollowingUser does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingFollowingUser(username) {
-  var url = "/user/following/" + username;
-  var description = "Verify we cannot delete non-existing FollowingUser";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+  var body = {
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another UserFollow...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
     parameters: { description: description }
   });
 }
 
-function matchAddedFollowingUser(username) {
+function verifyUserFollowExists(username) {
+  var url = "/user/following/" + username;
+  var description = "Verify UserFollow with username " + username + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].username) === String(username)) {
+            return pvg.success("UserFollow exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserFollow to exist but it does not");
+    }
+  });
+}
+
+function verifyUserFollowDoesNotExist(username) {
+  var url = "/user/following/" + username;
+  var description = "Verify UserFollow with username " + username + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].username) === String(username)) {
+            return pvg.fail("Expected UserFollow to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserFollow does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingUserFollow(username) {
+  var url = "/user/following/" + username;
+  var description = "Verify we cannot delete non-existing UserFollow";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedUserFollow(username) {
   var expectedDesc = "Follow user " + username;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyFollowingUserAdded() {
+function waitForAnyUserFollowAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Follow\ user\ (.+)$/));
   var m = ev.data.parameters.description.match(/^Follow\ user\ (.+)$/);
   var captures = m.slice(1);
@@ -6692,32 +6860,32 @@ function waitForAnyFollowingUserAdded() {
   return obj;
 }
 
-function getFollowingUserAddedEvent(keyVal) {
-  return bp.EventSet("AddFollowingUser:" + keyVal, function(e) {
+function getUserFollowAddedEvent(keyVal) {
+  return bp.EventSet("AddUserFollow:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.username) === String(keyVal);
   });
 }
 
-function matchAnyFollowingUserAdded() {
-  return bp.EventSet("matchAnyFollowingUserAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.username !== undefined && e.name.indexOf("Create following user") > -1;
+function matchAnyUserFollowAdded() {
+  return bp.EventSet("matchAnyUserFollowAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.username !== undefined && e.name.indexOf("Create user follow") > -1;
   });
 }
 
-function waitForFollowingUserAdded(username) {
+function waitForUserFollowAdded(username) {
   var expectedDesc = "Follow user " + username;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedFollowingUser(username) {
+function matchDeletedUserFollow(username) {
   var expectedDesc = "Unfollow user " + username;
-  return bp.EventSet("matchDeletedFollowingUser", function(e) {
+  return bp.EventSet("matchDeletedUserFollow", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyFollowingUserDeleted() {
+function waitForAnyUserFollowDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Unfollow\ user\ (.+)$/));
   var m = ev.data.parameters.description.match(/^Unfollow\ user\ (.+)$/);
   var captures = m.slice(1);
@@ -6764,7 +6932,7 @@ function userCurrentDeleteGPGKey(id, limit, page) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
@@ -6779,7 +6947,17 @@ function userCurrentListGPGKeys(id, limit, page) {
 }
 
 function tryToAddExistingGPGKey(id, limit, page) {
-  userCurrentListGPGKeys(id, limit, page);
+  var url = "/user/gpg_keys";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another GPGKey...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyGPGKeyExists(id, limit, page) {
@@ -6826,7 +7004,7 @@ function tryToDeleteANonExistingGPGKey(id, limit, page) {
   var url = "/user/gpg_keys/" + id;
   var description = "Verify we cannot delete non-existing GPGKey";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -6887,12 +7065,14 @@ function waitForAnyGPGKeyDeleted() {
 
 // ---- Entity: public key ----
 
-function createPublicKey(fingerprint, id) {
+function createPublicKey(fingerprint, id, key, title) {
   var url = "/user/keys";
   var description = "Create public key with fingerprint " + fingerprint;
   var body = {
     "fingerprint": String(fingerprint),
     "id": String(id),
+    "key": String(key),
+    "title": String(title),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -6905,7 +7085,7 @@ function createPublicKey(fingerprint, id) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getPublicKey(fingerprint, id) {
+function getPublicKey(fingerprint, id, key, title) {
   var url = "/user/keys/" + id;
   var description = "Get public key with id " + id;
   var body = undefined;
@@ -6915,21 +7095,34 @@ function getPublicKey(fingerprint, id) {
   });
 }
 
-function deletePublicKey(fingerprint, id) {
+function deletePublicKey(fingerprint, id, key, title) {
   var url = "/user/keys/" + id;
   var description = "Delete public key with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
-function tryToAddExistingPublicKey(fingerprint, id) {
-  deletePublicKey(fingerprint, id);
+function tryToAddExistingPublicKey(fingerprint, id, key, title) {
+  var url = "/user/keys";
+  var body = {
+    "fingerprint": String(fingerprint),
+    "key": String(key),
+    "title": String(title),
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another PublicKey...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyPublicKeyExists(fingerprint, id) {
+function verifyPublicKeyExists(fingerprint, id, key, title) {
   var url = "/user/keys";
   var description = "Verify PublicKey with id " + id + " exists";
   svc.get(url, {
@@ -6949,7 +7142,7 @@ function verifyPublicKeyExists(fingerprint, id) {
   });
 }
 
-function verifyPublicKeyDoesNotExist(fingerprint, id) {
+function verifyPublicKeyDoesNotExist(fingerprint, id, key, title) {
   var url = "/user/keys";
   var description = "Verify PublicKey with id " + id + " does not exist";
   svc.get(url, {
@@ -6969,16 +7162,16 @@ function verifyPublicKeyDoesNotExist(fingerprint, id) {
   });
 }
 
-function tryToDeleteANonExistingPublicKey(fingerprint, id) {
+function tryToDeleteANonExistingPublicKey(fingerprint, id, key, title) {
   var url = "/user/keys/" + id;
   var description = "Verify we cannot delete non-existing PublicKey";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedPublicKey(fingerprint, id) {
+function matchAddedPublicKey(fingerprint, id, key, title) {
   var expectedDesc = "Create public key with fingerprint " + fingerprint;
   return matchSuccess(expectedDesc);
 }
@@ -7008,12 +7201,12 @@ function matchAnyPublicKeyAdded() {
   });
 }
 
-function waitForPublicKeyAdded(fingerprint, id) {
+function waitForPublicKeyAdded(fingerprint, id, key, title) {
   var expectedDesc = "Create public key with fingerprint " + fingerprint;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedPublicKey(fingerprint, id) {
+function matchDeletedPublicKey(fingerprint, id, key, title) {
   var expectedDesc = "Delete public key with id " + id;
   return bp.EventSet("matchDeletedPublicKey", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -7099,11 +7292,11 @@ function verifyUserSettingsDoesNotExist() {
   });
 }
 
-// ---- Entity: starred repo ----
+// ---- Entity: star ----
 
-function checkStarredRepo(owner, repo) {
+function checkStar(owner, repo) {
   var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Check if repo " + owner + "/" + repo + " is starred";
+  var description = "Check if user is starring repo " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7136,69 +7329,80 @@ function unstarRepo(owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
-function tryToAddExistingStarredRepo(owner, repo) {
-  unstarRepo(owner, repo);
-}
-
-function verifyStarredRepoExists(owner, repo) {
+function tryToAddExistingStar(owner, repo) {
   var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Verify StarredRepo with owner " + owner + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.success("StarredRepo exists");
-          }
-        }
-      }
-      return pvg.fail("Expected StarredRepo to exist but it does not");
-    }
-  });
-}
-
-function verifyStarredRepoDoesNotExist(owner, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Verify StarredRepo with owner " + owner + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].owner) === String(owner)) {
-            return pvg.fail("Expected StarredRepo to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("StarredRepo does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingStarredRepo(owner, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Verify we cannot delete non-existing StarredRepo";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Star...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
     parameters: { description: description }
   });
 }
 
-function matchAddedStarredRepo(owner, repo) {
+function verifyStarExists(owner, repo) {
+  var url = "/user/starred/" + owner + "/" + repo;
+  var description = "Verify Star with owner " + owner + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.success("Star exists");
+          }
+        }
+      }
+      return pvg.fail("Expected Star to exist but it does not");
+    }
+  });
+}
+
+function verifyStarDoesNotExist(owner, repo) {
+  var url = "/user/starred/" + owner + "/" + repo;
+  var description = "Verify Star with owner " + owner + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].owner) === String(owner)) {
+            return pvg.fail("Expected Star to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("Star does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingStar(owner, repo) {
+  var url = "/user/starred/" + owner + "/" + repo;
+  var description = "Verify we cannot delete non-existing Star";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedStar(owner, repo) {
   var expectedDesc = "Star repo " + owner + "/" + repo;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyStarredRepoAdded() {
+function waitForAnyStarAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Star\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Star\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -7210,32 +7414,32 @@ function waitForAnyStarredRepoAdded() {
   return obj;
 }
 
-function getStarredRepoAddedEvent(keyVal) {
-  return bp.EventSet("AddStarredRepo:" + keyVal, function(e) {
+function getStarAddedEvent(keyVal) {
+  return bp.EventSet("AddStar:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.owner) === String(keyVal);
   });
 }
 
-function matchAnyStarredRepoAdded() {
-  return bp.EventSet("matchAnyStarredRepoAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create starred repo") > -1;
+function matchAnyStarAdded() {
+  return bp.EventSet("matchAnyStarAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.owner !== undefined && e.name.indexOf("Create star") > -1;
   });
 }
 
-function waitForStarredRepoAdded(owner, repo) {
+function waitForStarAdded(owner, repo) {
   var expectedDesc = "Star repo " + owner + "/" + repo;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedStarredRepo(owner, repo) {
+function matchDeletedStar(owner, repo) {
   var expectedDesc = "Unstar repo " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedStarredRepo", function(e) {
+  return bp.EventSet("matchDeletedStar", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyStarredRepoDeleted() {
+function waitForAnyStarDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Unstar\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Unstar\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -7283,7 +7487,7 @@ function adminDeleteUser(limit, login_name, page, purge, source_id, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 422]
+    expectedResponseCodes: [200, 204, 403, 404, 422]
   });
 }
 
@@ -7306,7 +7510,17 @@ function adminEditUser(limit, login_name, page, purge, source_id, username) {
 }
 
 function tryToAddExistingUser(limit, login_name, page, purge, source_id, username) {
-  adminEditUser(limit, login_name, page, purge, source_id, username);
+  var url = "/admin/users";
+  var body = {
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another User...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUserExists(limit, login_name, page, purge, source_id, username) {
@@ -7353,7 +7567,7 @@ function tryToDeleteANonExistingUser(limit, login_name, page, purge, source_id, 
   var url = "/admin/users/" + username;
   var description = "Verify we cannot delete non-existing User";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 422],
+    expectedResponseCodes: [200, 204, 403, 404, 422],
     parameters: { description: description }
   });
 }
@@ -7412,11 +7626,115 @@ function waitForAnyUserDeleted() {
   return obj;
 }
 
+// ---- Entity: userSearch ----
+
+function searchUsers(limit, page, q, uid) {
+  var url = "/users/search";
+  var description = "Search users with keyword " + q + " and uid " + uid;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyUserSearchExists(limit, page, q, uid) {
+  var url = "/users/search";
+  var description = "Verify UserSearch exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].uid) === String(uid)) {
+            return pvg.success("UserSearch exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserSearch to exist but it does not");
+    }
+  });
+}
+
+function verifyUserSearchDoesNotExist(limit, page, q, uid) {
+  var url = "/users/search";
+  var description = "Verify UserSearch does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].uid) === String(uid)) {
+            return pvg.fail("Expected UserSearch to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserSearch does not exist");
+    }
+  });
+}
+
+// ---- Entity: userActivityFeed ----
+
+function listUserActivityFeeds(date, limit, only-performed-by, page, username) {
+  var url = "/users/" + username + "/activities/feeds";
+  var description = "List activity feeds for user " + username;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404]
+  });
+}
+
+function verifyUserActivityFeedExists(date, limit, only-performed-by, page, username) {
+  var url = "/users";
+  var description = "Verify UserActivityFeed with username " + username + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].username) === String(username)) {
+            return pvg.success("UserActivityFeed exists");
+          }
+        }
+      }
+      return pvg.fail("Expected UserActivityFeed to exist but it does not");
+    }
+  });
+}
+
+function verifyUserActivityFeedDoesNotExist(date, limit, only-performed-by, page, username) {
+  var url = "/users";
+  var description = "Verify UserActivityFeed with username " + username + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].username) === String(username)) {
+            return pvg.fail("Expected UserActivityFeed to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("UserActivityFeed does not exist");
+    }
+  });
+}
+
 // ---- Entity: userFollowers ----
 
 function listUserFollowers(limit, page, username) {
   var url = "/users/" + username + "/followers";
-  var description = "List followers of user " + username + " page " + page + " limit " + limit;
+  var description = "List followers of user " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7468,7 +7786,7 @@ function verifyUserFollowersDoesNotExist(limit, page, username) {
 
 function listUserFollowing(limit, page, username) {
   var url = "/users/" + username + "/following";
-  var description = "List users followed by " + username + " page " + page + " limit " + limit;
+  var description = "List users followed by " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7568,11 +7886,11 @@ function verifyUserFollowingCheckDoesNotExist(target, username) {
   });
 }
 
-// ---- Entity: userGPGKeys ----
+// ---- Entity: userGPGKey ----
 
 function listUserGPGKeys(limit, page, username) {
   var url = "/users/" + username + "/gpg_keys";
-  var description = "List GPG keys of user " + username + " page " + page + " limit " + limit;
+  var description = "List GPG keys for user " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7580,9 +7898,9 @@ function listUserGPGKeys(limit, page, username) {
   });
 }
 
-function verifyUserGPGKeysExists(limit, page, username) {
+function verifyUserGPGKeyExists(limit, page, username) {
   var url = "/users";
-  var description = "Verify UserGPGKeys with username " + username + " exists";
+  var description = "Verify UserGPGKey with username " + username + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7591,18 +7909,18 @@ function verifyUserGPGKeysExists(limit, page, username) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].username) === String(username)) {
-            return pvg.success("UserGPGKeys exists");
+            return pvg.success("UserGPGKey exists");
           }
         }
       }
-      return pvg.fail("Expected UserGPGKeys to exist but it does not");
+      return pvg.fail("Expected UserGPGKey to exist but it does not");
     }
   });
 }
 
-function verifyUserGPGKeysDoesNotExist(limit, page, username) {
+function verifyUserGPGKeyDoesNotExist(limit, page, username) {
   var url = "/users";
-  var description = "Verify UserGPGKeys with username " + username + " does not exist";
+  var description = "Verify UserGPGKey with username " + username + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7611,11 +7929,11 @@ function verifyUserGPGKeysDoesNotExist(limit, page, username) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].username) === String(username)) {
-            return pvg.fail("Expected UserGPGKeys to not exist but it does");
+            return pvg.fail("Expected UserGPGKey to not exist but it does");
           }
         }
       }
-      return pvg.success("UserGPGKeys does not exist");
+      return pvg.success("UserGPGKey does not exist");
     }
   });
 }
@@ -7624,7 +7942,7 @@ function verifyUserGPGKeysDoesNotExist(limit, page, username) {
 
 function getUserHeatmap(username) {
   var url = "/users/" + username + "/heatmap";
-  var description = "Get heatmap data for user " + username;
+  var description = "Get heatmap for user " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7672,11 +7990,11 @@ function verifyUserHeatmapDoesNotExist(username) {
   });
 }
 
-// ---- Entity: userKeys ----
+// ---- Entity: userPublicKey ----
 
-function listUserKeys(fingerprint, limit, page, username) {
+function listUserPublicKeys(fingerprint, id, limit, page, username) {
   var url = "/users/" + username + "/keys";
-  var description = "List public keys of user " + username + " with fingerprint " + fingerprint + " page " + page + " limit " + limit;
+  var description = "List public keys for user " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7684,9 +8002,51 @@ function listUserKeys(fingerprint, limit, page, username) {
   });
 }
 
-function verifyUserKeysExists(fingerprint, limit, page, username) {
-  var url = "/users";
-  var description = "Verify UserKeys with username " + username + " exists";
+function adminCreatePublicKey(fingerprint, id, limit, page, username) {
+  var url = "/admin/users/" + username + "/keys";
+  var description = "Add public key for user " + username;
+  var body = {
+    "username": String(username),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 403, 422],
+    parameters: {
+      description: description,
+      username: String(username)
+      , id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { username: String(username) }) });
+}
+
+function adminDeleteUserPublicKey(fingerprint, id, limit, page, username) {
+  var url = "/admin/users/" + username + "/keys/" + id;
+  var description = "Delete public key " + id + " for user " + username;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 403, 404]
+  });
+}
+
+function tryToAddExistingUserPublicKey(fingerprint, id, limit, page, username) {
+  var url = "/admin/users/" + username + "/keys";
+  var body = {
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another UserPublicKey...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyUserPublicKeyExists(fingerprint, id, limit, page, username) {
+  var url = "/admin/users/" + username + "/keys";
+  var description = "Verify UserPublicKey with username " + username + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7695,18 +8055,18 @@ function verifyUserKeysExists(fingerprint, limit, page, username) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].username) === String(username)) {
-            return pvg.success("UserKeys exists");
+            return pvg.success("UserPublicKey exists");
           }
         }
       }
-      return pvg.fail("Expected UserKeys to exist but it does not");
+      return pvg.fail("Expected UserPublicKey to exist but it does not");
     }
   });
 }
 
-function verifyUserKeysDoesNotExist(fingerprint, limit, page, username) {
-  var url = "/users";
-  var description = "Verify UserKeys with username " + username + " does not exist";
+function verifyUserPublicKeyDoesNotExist(fingerprint, id, limit, page, username) {
+  var url = "/admin/users/" + username + "/keys";
+  var description = "Verify UserPublicKey with username " + username + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7715,20 +8075,83 @@ function verifyUserKeysDoesNotExist(fingerprint, limit, page, username) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].username) === String(username)) {
-            return pvg.fail("Expected UserKeys to not exist but it does");
+            return pvg.fail("Expected UserPublicKey to not exist but it does");
           }
         }
       }
-      return pvg.success("UserKeys does not exist");
+      return pvg.success("UserPublicKey does not exist");
     }
   });
 }
 
-// ---- Entity: userRepos ----
+function tryToDeleteANonExistingUserPublicKey(fingerprint, id, limit, page, username) {
+  var url = "/admin/users/" + username + "/keys/" + id;
+  var description = "Verify we cannot delete non-existing UserPublicKey";
+  svc.delete(url, {
+    expectedResponseCodes: [200, 204, 403, 404],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedUserPublicKey(fingerprint, id, limit, page, username) {
+  var expectedDesc = "Add public key for user " + username;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyUserPublicKeyAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ public\ key\ for\ user\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ public\ key\ for\ user\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["username"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getUserPublicKeyAddedEvent(keyVal) {
+  return bp.EventSet("AddUserPublicKey:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.username) === String(keyVal);
+  });
+}
+
+function matchAnyUserPublicKeyAdded() {
+  return bp.EventSet("matchAnyUserPublicKeyAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.username !== undefined && e.name.indexOf("Create userPublicKey") > -1;
+  });
+}
+
+function waitForUserPublicKeyAdded(fingerprint, id, limit, page, username) {
+  var expectedDesc = "Add public key for user " + username;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedUserPublicKey(fingerprint, id, limit, page, username) {
+  var expectedDesc = "Delete public key " + id + " for user " + username;
+  return bp.EventSet("matchDeletedUserPublicKey", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyUserPublicKeyDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ public\ key\ (.+)\ for\ user\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ public\ key\ (.+)\ for\ user\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["id", "username"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: userRepo ----
 
 function listUserRepos(limit, page, username) {
   var url = "/users/" + username + "/repos";
-  var description = "List repos owned by user " + username + " page " + page + " limit " + limit;
+  var description = "List repos owned by user " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7736,9 +8159,9 @@ function listUserRepos(limit, page, username) {
   });
 }
 
-function verifyUserReposExists(limit, page, username) {
+function verifyUserRepoExists(limit, page, username) {
   var url = "/users";
-  var description = "Verify UserRepos with username " + username + " exists";
+  var description = "Verify UserRepo with username " + username + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7747,18 +8170,18 @@ function verifyUserReposExists(limit, page, username) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].username) === String(username)) {
-            return pvg.success("UserRepos exists");
+            return pvg.success("UserRepo exists");
           }
         }
       }
-      return pvg.fail("Expected UserRepos to exist but it does not");
+      return pvg.fail("Expected UserRepo to exist but it does not");
     }
   });
 }
 
-function verifyUserReposDoesNotExist(limit, page, username) {
+function verifyUserRepoDoesNotExist(limit, page, username) {
   var url = "/users";
-  var description = "Verify UserRepos with username " + username + " does not exist";
+  var description = "Verify UserRepo with username " + username + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7767,122 +8190,18 @@ function verifyUserReposDoesNotExist(limit, page, username) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].username) === String(username)) {
-            return pvg.fail("Expected UserRepos to not exist but it does");
+            return pvg.fail("Expected UserRepo to not exist but it does");
           }
         }
       }
-      return pvg.success("UserRepos does not exist");
-    }
-  });
-}
-
-// ---- Entity: userActivitiesFeeds ----
-
-function listUserActivityFeeds(date, limit, only-performed-by, page, username) {
-  var url = "/users/" + username + "/activities/feeds";
-  var description = "List activity feeds for user " + username + " filtered by only-performed-by=" + only-performed-by + " date=" + date + " page " + page + " limit " + limit;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
-function verifyUserActivitiesFeedsExists(date, limit, only-performed-by, page, username) {
-  var url = "/users";
-  var description = "Verify UserActivitiesFeeds with username " + username + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].username) === String(username)) {
-            return pvg.success("UserActivitiesFeeds exists");
-          }
-        }
-      }
-      return pvg.fail("Expected UserActivitiesFeeds to exist but it does not");
-    }
-  });
-}
-
-function verifyUserActivitiesFeedsDoesNotExist(date, limit, only-performed-by, page, username) {
-  var url = "/users";
-  var description = "Verify UserActivitiesFeeds with username " + username + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].username) === String(username)) {
-            return pvg.fail("Expected UserActivitiesFeeds to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("UserActivitiesFeeds does not exist");
-    }
-  });
-}
-
-// ---- Entity: userSearch ----
-
-function searchUsers(limit, page, q, uid) {
-  var url = "/users/search";
-  var description = "Search users with query " + q + " uid " + uid + " page " + page + " limit " + limit;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function verifyUserSearchExists(limit, page, q, uid) {
-  var url = "/users/search";
-  var description = "Verify UserSearch exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].uid) === String(uid)) {
-            return pvg.success("UserSearch exists");
-          }
-        }
-      }
-      return pvg.fail("Expected UserSearch to exist but it does not");
-    }
-  });
-}
-
-function verifyUserSearchDoesNotExist(limit, page, q, uid) {
-  var url = "/users/search";
-  var description = "Verify UserSearch does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].uid) === String(uid)) {
-            return pvg.fail("Expected UserSearch to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("UserSearch does not exist");
+      return pvg.success("UserRepo does not exist");
     }
   });
 }
 
 // ---- Entity: access token ----
 
-function userCreateToken(token, username) {
+function createAccessToken(token, username) {
   var url = "/users/" + username + "/tokens";
   var description = "Create access token for user " + username;
   var body = {
@@ -7900,19 +8219,19 @@ function userCreateToken(token, username) {
   bp.sync({ request: bp.Event("Done: " + description, { username: String(username) }) });
 }
 
-function userDeleteAccessToken(token, username) {
+function deleteAccessToken(token, username) {
   var url = "/users/" + username + "/tokens/" + token;
   var description = "Delete access token " + token + " for user " + username;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 422]
+    expectedResponseCodes: [200, 204, 403, 404, 422]
   });
 }
 
-function userGetTokens(token, username) {
+function listAccessTokens(token, username) {
   var url = "/users/" + username + "/tokens";
-  var description = "Get access tokens for user " + username;
+  var description = "List access tokens for user " + username;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7921,7 +8240,17 @@ function userGetTokens(token, username) {
 }
 
 function tryToAddExistingAccessToken(token, username) {
-  userGetTokens(token, username);
+  var url = "/users/" + username + "/tokens";
+  var body = {
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another AccessToken...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyAccessTokenExists(token, username) {
@@ -7968,7 +8297,7 @@ function tryToDeleteANonExistingAccessToken(token, username) {
   var url = "/users/" + username + "/tokens/" + token;
   var description = "Verify we cannot delete non-existing AccessToken";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 422],
+    expectedResponseCodes: [200, 204, 403, 404, 422],
     parameters: { description: description }
   });
 }
@@ -8029,7 +8358,7 @@ function waitForAnyAccessTokenDeleted() {
 
 // ---- Entity: starred repository ----
 
-function userListStarred(username) {
+function listStarredRepositories(username) {
   var url = "/users/" + username + "/starred";
   var description = "List starred repositories for user " + username;
   var body = undefined;
@@ -8083,7 +8412,7 @@ function verifyStarredRepositoryDoesNotExist(username) {
 
 function createIssue(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues";
-  var description = "Create issue in repo " + owner + "/" + repo;
+  var description = "Create issue in repo " + owner + "/" + repo + " with index " + index;
   var body = {
     "owner": String(owner),
     "repo": String(repo),
@@ -8107,7 +8436,7 @@ function deleteIssue(index, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
@@ -8143,7 +8472,18 @@ function getIssue(index, owner, repo) {
 }
 
 function tryToAddExistingIssue(index, owner, repo) {
-  getIssue(index, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Issue...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueExists(index, owner, repo) {
@@ -8190,21 +8530,21 @@ function tryToDeleteANonExistingIssue(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index;
   var description = "Verify we cannot delete non-existing Issue";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedIssue(index, owner, repo) {
-  var expectedDesc = "Create issue in repo " + owner + "/" + repo;
+  var expectedDesc = "Create issue in repo " + owner + "/" + repo + " with index " + index;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIssueAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ issue\ in\ repo\ (.+)/(.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ issue\ in\ repo\ (.+)/(.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ issue\ in\ repo\ (.+)/(.+)\ with\ index\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ issue\ in\ repo\ (.+)/(.+)\ with\ index\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["owner", "repo"];
+  var names = ["owner", "repo", "index"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8226,7 +8566,7 @@ function matchAnyIssueAdded() {
 }
 
 function waitForIssueAdded(index, owner, repo) {
-  var expectedDesc = "Create issue in repo " + owner + "/" + repo;
+  var expectedDesc = "Create issue in repo " + owner + "/" + repo + " with index " + index;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -8261,17 +8601,17 @@ function getIssueComments(before, body, id, index, owner, repo, since) {
   });
 }
 
-function deleteComment(before, body, id, index, owner, repo, since) {
+function deleteIssueComment(before, body, id, index, owner, repo, since) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
   var description = "Delete comment " + id + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
-function editComment(before, body, id, index, owner, repo, since) {
+function editIssueComment(before, body, id, index, owner, repo, since) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
   var description = "Edit comment " + id + " in repo " + owner + "/" + repo;
   var body = {
@@ -8317,7 +8657,20 @@ function createIssueComment(before, body, id, index, owner, repo, since) {
 }
 
 function tryToAddExistingIssueComment(before, body, id, index, owner, repo, since) {
-  createIssueComment(before, body, id, index, owner, repo, since);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments";
+  var body = {
+    "body": String(body),
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueComment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueCommentExists(before, body, id, index, owner, repo, since) {
@@ -8364,7 +8717,7 @@ function tryToDeleteANonExistingIssueComment(before, body, id, index, owner, rep
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
   var description = "Verify we cannot delete non-existing IssueComment";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -8465,7 +8818,7 @@ function deleteIssueCommentAttachment(attachment_id, id, name, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 423]
+    expectedResponseCodes: [200, 204, 404, 423]
   });
 }
 
@@ -8494,7 +8847,20 @@ function editIssueCommentAttachment(attachment_id, id, name, owner, repo) {
 }
 
 function tryToAddExistingIssueCommentAttachment(attachment_id, id, name, owner, repo) {
-  editIssueCommentAttachment(attachment_id, id, name, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets";
+  var body = {
+    "id": String(id),
+    "name": String(name),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueCommentAttachment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueCommentAttachmentExists(attachment_id, id, name, owner, repo) {
@@ -8541,7 +8907,7 @@ function tryToDeleteANonExistingIssueCommentAttachment(attachment_id, id, name, 
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
   var description = "Verify we cannot delete non-existing IssueCommentAttachment";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 423],
+    expectedResponseCodes: [200, 204, 404, 423],
     parameters: { description: description }
   });
 }
@@ -8602,7 +8968,7 @@ function waitForAnyIssueCommentAttachmentDeleted() {
 
 // ---- Entity: issue comment reaction ----
 
-function postCommentReaction(id, owner, repo) {
+function addIssueCommentReaction(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
   var description = "Add reaction to comment " + id + " in repo " + owner + "/" + repo;
   var body = {
@@ -8623,17 +8989,17 @@ function postCommentReaction(id, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function deleteCommentReaction(id, owner, repo) {
+function deleteIssueCommentReaction(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
   var description = "Remove reaction from comment " + id + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
-function getCommentReactions(id, owner, repo) {
+function getIssueCommentReactions(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
   var description = "Get reactions for comment " + id + " in repo " + owner + "/" + repo;
   var body = undefined;
@@ -8644,7 +9010,19 @@ function getCommentReactions(id, owner, repo) {
 }
 
 function tryToAddExistingIssueCommentReaction(id, owner, repo) {
-  getCommentReactions(id, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
+  var body = {
+    "id": String(id),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueCommentReaction...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueCommentReactionExists(id, owner, repo) {
@@ -8691,7 +9069,7 @@ function tryToDeleteANonExistingIssueCommentReaction(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
   var description = "Verify we cannot delete non-existing IssueCommentReaction";
   svc.delete(url, {
-    expectedResponseCodes: [200, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -8792,7 +9170,7 @@ function deleteIssueAttachment(attachment_id, index, name, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 423]
+    expectedResponseCodes: [200, 204, 404, 423]
   });
 }
 
@@ -8821,7 +9199,20 @@ function editIssueAttachment(attachment_id, index, name, owner, repo) {
 }
 
 function tryToAddExistingIssueAttachment(attachment_id, index, name, owner, repo) {
-  editIssueAttachment(attachment_id, index, name, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets";
+  var body = {
+    "index": String(index),
+    "name": String(name),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueAttachment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueAttachmentExists(attachment_id, index, name, owner, repo) {
@@ -8868,7 +9259,7 @@ function tryToDeleteANonExistingIssueAttachment(attachment_id, index, name, owne
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
   var description = "Verify we cannot delete non-existing IssueAttachment";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 423],
+    expectedResponseCodes: [200, 204, 404, 423],
     parameters: { description: description }
   });
 }
@@ -8968,12 +9359,25 @@ function removeIssueBlock(id, index, limit, owner, page, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
 function tryToAddExistingIssueBlock(id, index, limit, owner, page, repo) {
-  removeIssueBlock(id, index, limit, owner, page, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
+  var body = {
+    "id": String(id),
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueBlock...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueBlockExists(id, index, limit, owner, page, repo) {
@@ -9020,7 +9424,7 @@ function tryToDeleteANonExistingIssueBlock(id, index, limit, owner, page, repo) 
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
   var description = "Verify we cannot delete non-existing IssueBlock";
   svc.delete(url, {
-    expectedResponseCodes: [200, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -9079,7 +9483,7 @@ function waitForAnyIssueBlockDeleted() {
   return obj;
 }
 
-// ---- Entity: issue comment item ----
+// ---- Entity: issue comment detail ----
 
 function deleteIssueComment(body, id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
@@ -9087,7 +9491,7 @@ function deleteIssueComment(body, id, index, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
@@ -9115,23 +9519,23 @@ function editIssueComment(body, id, index, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function tryToDeleteANonExistingIssueCommentItem(body, id, index, owner, repo) {
+function tryToDeleteANonExistingIssueCommentDetail(body, id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Verify we cannot delete non-existing IssueCommentItem";
+  var description = "Verify we cannot delete non-existing IssueCommentDetail";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchDeletedIssueCommentItem(body, id, index, owner, repo) {
+function matchDeletedIssueCommentDetail(body, id, index, owner, repo) {
   var expectedDesc = "Delete comment " + id + " on issue " + index + " in repo " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedIssueCommentItem", function(e) {
+  return bp.EventSet("matchDeletedIssueCommentDetail", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyIssueCommentItemDeleted() {
+function waitForAnyIssueCommentDetailDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Delete\ comment\ (.+)\ on\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Delete\ comment\ (.+)\ on\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -9168,7 +9572,20 @@ function editIssueDeadline(deadline, index, owner, repo) {
 }
 
 function tryToAddExistingIssueDeadline(deadline, index, owner, repo) {
-  editIssueDeadline(deadline, index, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/deadline";
+  var body = {
+    "deadline": String(deadline),
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueDeadline...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueDeadlineExists(deadline, index, owner, repo) {
@@ -9287,12 +9704,25 @@ function removeIssueDependency(id, index, limit, owner, page, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 404, 423]
+    expectedResponseCodes: [200, 204, 404, 423]
   });
 }
 
 function tryToAddExistingIssueDependency(id, index, limit, owner, page, repo) {
-  removeIssueDependency(id, index, limit, owner, page, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/dependencies";
+  var body = {
+    "id": String(id),
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueDependency...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueDependencyExists(id, index, limit, owner, page, repo) {
@@ -9339,7 +9769,7 @@ function tryToDeleteANonExistingIssueDependency(id, index, limit, owner, page, r
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/dependencies";
   var description = "Verify we cannot delete non-existing IssueDependency";
   svc.delete(url, {
-    expectedResponseCodes: [200, 404, 423],
+    expectedResponseCodes: [200, 204, 404, 423],
     parameters: { description: description }
   });
 }
@@ -9460,12 +9890,25 @@ function clearIssueLabels(index, labels, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
 function tryToAddExistingIssueLabel(index, labels, owner, repo) {
-  clearIssueLabels(index, labels, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels";
+  var body = {
+    "index": String(index),
+    "labels": String(labels),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueLabel...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueLabelExists(index, labels, owner, repo) {
@@ -9512,7 +9955,7 @@ function tryToDeleteANonExistingIssueLabel(index, labels, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels";
   var description = "Verify we cannot delete non-existing IssueLabel";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9571,7 +10014,7 @@ function waitForAnyIssueLabelDeleted() {
   return obj;
 }
 
-// ---- Entity: issue label item ----
+// ---- Entity: issue label detail ----
 
 function removeIssueLabel(id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels/" + id;
@@ -9579,27 +10022,27 @@ function removeIssueLabel(id, index, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 422]
+    expectedResponseCodes: [200, 204, 403, 404, 422]
   });
 }
 
-function tryToDeleteANonExistingIssueLabelItem(id, index, owner, repo) {
+function tryToDeleteANonExistingIssueLabelDetail(id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels/" + id;
-  var description = "Verify we cannot delete non-existing IssueLabelItem";
+  var description = "Verify we cannot delete non-existing IssueLabelDetail";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 422],
+    expectedResponseCodes: [200, 204, 403, 404, 422],
     parameters: { description: description }
   });
 }
 
-function matchDeletedIssueLabelItem(id, index, owner, repo) {
+function matchDeletedIssueLabelDetail(id, index, owner, repo) {
   var expectedDesc = "Remove label " + id + " from issue " + index + " in repo " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedIssueLabelItem", function(e) {
+  return bp.EventSet("matchDeletedIssueLabelDetail", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyIssueLabelItemDeleted() {
+function waitForAnyIssueLabelDetailDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Remove\ label\ (.+)\ from\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Remove\ label\ (.+)\ from\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -9640,12 +10083,24 @@ function unpinIssue(index, owner, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
 function tryToAddExistingIssuePin(index, owner, repo) {
-  unpinIssue(index, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/pin";
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssuePin...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssuePinExists(index, owner, repo) {
@@ -9692,7 +10147,7 @@ function tryToDeleteANonExistingIssuePin(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/pin";
   var description = "Verify we cannot delete non-existing IssuePin";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9816,12 +10271,25 @@ function removeIssueReaction(content, index, limit, owner, page, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
 function tryToAddExistingIssueReaction(content, index, limit, owner, page, repo) {
-  removeIssueReaction(content, index, limit, owner, page, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/reactions";
+  var body = {
+    "content": String(content),
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueReaction...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueReactionExists(content, index, limit, owner, page, repo) {
@@ -9868,7 +10336,7 @@ function tryToDeleteANonExistingIssueReaction(content, index, limit, owner, page
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/reactions";
   var description = "Verify we cannot delete non-existing IssueReaction";
   svc.delete(url, {
-    expectedResponseCodes: [200, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9929,7 +10397,7 @@ function waitForAnyIssueReactionDeleted() {
 
 // ---- Entity: issue stopwatch ----
 
-function issueStartStopWatch(index, owner, repo) {
+function startIssueStopwatch(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/start";
   var description = "Start stopwatch on issue " + index + " in repo " + owner + "/" + repo;
   var body = {
@@ -9950,7 +10418,7 @@ function issueStartStopWatch(index, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function issueStopStopWatch(index, owner, repo) {
+function stopIssueStopwatch(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/stop";
   var description = "Stop stopwatch on issue " + index + " in repo " + owner + "/" + repo;
   var body = {
@@ -9971,18 +10439,30 @@ function issueStopStopWatch(index, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function issueDeleteStopWatch(index, owner, repo) {
+function deleteIssueStopwatch(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/delete";
   var description = "Delete stopwatch on issue " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 409]
+    expectedResponseCodes: [200, 204, 403, 404, 409]
   });
 }
 
 function tryToAddExistingIssueStopwatch(index, owner, repo) {
-  issueDeleteStopWatch(index, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/start";
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueStopwatch...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueStopwatchExists(index, owner, repo) {
@@ -10029,7 +10509,7 @@ function tryToDeleteANonExistingIssueStopwatch(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/delete";
   var description = "Verify we cannot delete non-existing IssueStopwatch";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 409],
+    expectedResponseCodes: [200, 204, 403, 404, 409],
     parameters: { description: description }
   });
 }
@@ -10090,27 +10570,7 @@ function waitForAnyIssueStopwatchDeleted() {
 
 // ---- Entity: issue subscription ----
 
-function issueSubscriptions(index, owner, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions";
-  var description = "Get users subscribed on issue " + index + " in repo " + owner + "/" + repo;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
-function issueCheckSubscription(index, owner, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/check";
-  var description = "Check subscription status for issue " + index + " in repo " + owner + "/" + repo;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
-function issueAddSubscription(index, owner, repo, user) {
+function addIssueSubscription(index, owner, repo, user) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
   var description = "Subscribe user " + user + " to issue " + index + " in repo " + owner + "/" + repo;
   var body = {
@@ -10133,18 +10593,51 @@ function issueAddSubscription(index, owner, repo, user) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function issueDeleteSubscription(index, owner, repo, user) {
+function deleteIssueSubscription(index, owner, repo, user) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
   var description = "Unsubscribe user " + user + " from issue " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 201, 304, 404]
+    expectedResponseCodes: [200, 201, 204, 304, 404]
+  });
+}
+
+function getIssueSubscriptions(index, owner, repo, user) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions";
+  var description = "Get users subscribed to issue " + index + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404]
+  });
+}
+
+function checkIssueSubscription(index, owner, repo, user) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/check";
+  var description = "Check if user is subscribed to issue " + index + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404]
   });
 }
 
 function tryToAddExistingIssueSubscription(index, owner, repo, user) {
-  issueDeleteSubscription(index, owner, repo, user);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+    "user": String(user),
+  };
+  var description = "Verify that we cannot add another IssueSubscription...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueSubscriptionExists(index, owner, repo, user) {
@@ -10191,7 +10684,7 @@ function tryToDeleteANonExistingIssueSubscription(index, owner, repo, user) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
   var description = "Verify we cannot delete non-existing IssueSubscription";
   svc.delete(url, {
-    expectedResponseCodes: [200, 201, 304, 404],
+    expectedResponseCodes: [200, 201, 204, 304, 404],
     parameters: { description: description }
   });
 }
@@ -10252,7 +10745,7 @@ function waitForAnyIssueSubscriptionDeleted() {
 
 // ---- Entity: issue timeline ----
 
-function issueGetCommentsAndTimeline(index, owner, repo) {
+function getIssueTimeline(index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/timeline";
   var description = "List all comments and events on issue " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
@@ -10304,17 +10797,7 @@ function verifyIssueTimelineDoesNotExist(index, owner, repo) {
 
 // ---- Entity: issue tracked time ----
 
-function issueTrackedTimes(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
-  var description = "List tracked times for issue " + index + " in repo " + owner + "/" + repo;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
-function issueAddTime(id, index, owner, repo) {
+function addIssueTrackedTime(id, index, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
   var description = "Add tracked time to issue " + index + " in repo " + owner + "/" + repo;
   var body = {
@@ -10336,18 +10819,50 @@ function issueAddTime(id, index, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function issueResetTime(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
-  var description = "Reset tracked time of issue " + index + " in repo " + owner + "/" + repo;
+function deleteIssueTrackedTime(id, index, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
+  var description = "Delete tracked time " + id + " from issue " + index + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 403, 404]
+  });
+}
+
+function resetIssueTrackedTime(id, index, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var description = "Reset tracked time on issue " + index + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 400, 403, 404]
+  });
+}
+
+function getIssueTrackedTimes(id, index, owner, repo) {
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var description = "List tracked times on issue " + index + " in repo " + owner + "/" + repo;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404]
   });
 }
 
 function tryToAddExistingIssueTrackedTime(id, index, owner, repo) {
-  issueResetTime(id, index, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var body = {
+    "index": String(index),
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another IssueTrackedTime...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueTrackedTimeExists(id, index, owner, repo) {
@@ -10391,10 +10906,10 @@ function verifyIssueTrackedTimeDoesNotExist(id, index, owner, repo) {
 }
 
 function tryToDeleteANonExistingIssueTrackedTime(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
   var description = "Verify we cannot delete non-existing IssueTrackedTime";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 403, 404],
     parameters: { description: description }
   });
 }
@@ -10435,53 +10950,13 @@ function waitForIssueTrackedTimeAdded(id, index, owner, repo) {
 }
 
 function matchDeletedIssueTrackedTime(id, index, owner, repo) {
-  var expectedDesc = "Reset tracked time of issue " + index + " in repo " + owner + "/" + repo;
+  var expectedDesc = "Delete tracked time " + id + " from issue " + index + " in repo " + owner + "/" + repo;
   return bp.EventSet("matchDeletedIssueTrackedTime", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyIssueTrackedTimeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Reset\ tracked\ time\ of\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/));
-  var m = ev.data.parameters.description.match(/^Reset\ tracked\ time\ of\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/);
-  var captures = m.slice(1);
-  var names = ["index", "owner", "repo"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: issue tracked time entry ----
-
-function issueDeleteTime(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
-  var description = "Delete tracked time " + id + " from issue " + index + " in repo " + owner + "/" + repo;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [204, 400, 403, 404]
-  });
-}
-
-function tryToDeleteANonExistingIssueTrackedTimeEntry(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
-  var description = "Verify we cannot delete non-existing IssueTrackedTimeEntry";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 400, 403, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchDeletedIssueTrackedTimeEntry(id, index, owner, repo) {
-  var expectedDesc = "Delete tracked time " + id + " from issue " + index + " in repo " + owner + "/" + repo;
-  return bp.EventSet("matchDeletedIssueTrackedTimeEntry", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyIssueTrackedTimeEntryDeleted() {
   var ev = waitFor(matchesDescriptionRegex(/^Delete\ tracked\ time\ (.+)\ from\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/));
   var m = ev.data.parameters.description.match(/^Delete\ tracked\ time\ (.+)\ from\ issue\ (.+)\ in\ repo\ (.+)/(.+)$/);
   var captures = m.slice(1);
@@ -10495,19 +10970,9 @@ function waitForAnyIssueTrackedTimeEntryDeleted() {
 
 // ---- Entity: label ----
 
-function getLabel(id, org, owner, repo) {
-  var url = "/orgs/" + org + "/labels/" + id;
-  var description = "Get label " + id + " for organization " + org;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
 function createLabel(id, org, owner, repo) {
   var url = "/orgs/" + org + "/labels";
-  var description = "Create label for organization " + org;
+  var description = "Create label in organization " + org;
   var body = {
     "org": String(org),
   };
@@ -10525,13 +10990,23 @@ function createLabel(id, org, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { org: String(org) }) });
 }
 
+function getLabel(id, org, owner, repo) {
+  var url = "/orgs/" + org + "/labels/" + id;
+  var description = "Get label " + id + " for organization " + org;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404]
+  });
+}
+
 function deleteLabel(id, org, owner, repo) {
   var url = "/orgs/" + org + "/labels/" + id;
-  var description = "Delete label " + id + " for organization " + org;
+  var description = "Delete label " + id + " from organization " + org;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -10557,7 +11032,17 @@ function editLabel(id, org, owner, repo) {
 }
 
 function tryToAddExistingLabel(id, org, owner, repo) {
-  editLabel(id, org, owner, repo);
+  var url = "/orgs/" + org + "/labels";
+  var body = {
+    "org": String(org),
+  };
+  var description = "Verify that we cannot add another Label...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyLabelExists(id, org, owner, repo) {
@@ -10604,19 +11089,19 @@ function tryToDeleteANonExistingLabel(id, org, owner, repo) {
   var url = "/orgs/" + org + "/labels/" + id;
   var description = "Verify we cannot delete non-existing Label";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedLabel(id, org, owner, repo) {
-  var expectedDesc = "Create label for organization " + org;
+  var expectedDesc = "Create label in organization " + org;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyLabelAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ label\ for\ organization\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ label\ for\ organization\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ label\ in\ organization\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ label\ in\ organization\ (.+)$/);
   var captures = m.slice(1);
   var names = ["org"];
   var obj = {};
@@ -10640,20 +11125,20 @@ function matchAnyLabelAdded() {
 }
 
 function waitForLabelAdded(id, org, owner, repo) {
-  var expectedDesc = "Create label for organization " + org;
+  var expectedDesc = "Create label in organization " + org;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedLabel(id, org, owner, repo) {
-  var expectedDesc = "Delete label " + id + " for organization " + org;
+  var expectedDesc = "Delete label " + id + " from organization " + org;
   return bp.EventSet("matchDeletedLabel", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyLabelDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ label\ (.+)\ for\ organization\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ label\ (.+)\ for\ organization\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ label\ (.+)\ from\ organization\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ label\ (.+)\ from\ organization\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "org"];
   var obj = {};
@@ -10665,7 +11150,7 @@ function waitForAnyLabelDeleted() {
 
 // ---- Entity: milestone ----
 
-function getMilestonesList(id, owner, repo) {
+function issueGetMilestonesList(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/milestones";
   var description = "Get all opened milestones in repo " + owner + "/" + repo;
   var body = undefined;
@@ -10675,7 +11160,7 @@ function getMilestonesList(id, owner, repo) {
   });
 }
 
-function createMilestone(id, owner, repo) {
+function issueCreateMilestone(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/milestones";
   var description = "Create milestone in repo " + owner + "/" + repo;
   var body = {
@@ -10695,7 +11180,7 @@ function createMilestone(id, owner, repo) {
   bp.sync({ request: bp.Event("Done: " + description, { owner: String(owner) }) });
 }
 
-function getMilestone(id, owner, repo) {
+function issueGetMilestone(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
   var description = "Get milestone " + id + " in repo " + owner + "/" + repo;
   var body = undefined;
@@ -10705,17 +11190,17 @@ function getMilestone(id, owner, repo) {
   });
 }
 
-function deleteMilestone(id, owner, repo) {
+function issueDeleteMilestone(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
   var description = "Delete milestone " + id + " in repo " + owner + "/" + repo;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
-function editMilestone(id, owner, repo) {
+function issueEditMilestone(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
   var description = "Update milestone " + id + " in repo " + owner + "/" + repo;
   var body = {
@@ -10737,7 +11222,18 @@ function editMilestone(id, owner, repo) {
 }
 
 function tryToAddExistingMilestone(id, owner, repo) {
-  editMilestone(id, owner, repo);
+  var url = "/repos/" + owner + "/" + repo + "/milestones";
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another Milestone...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyMilestoneExists(id, owner, repo) {
@@ -10784,7 +11280,7 @@ function tryToDeleteANonExistingMilestone(id, owner, repo) {
   var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
   var description = "Verify we cannot delete non-existing Milestone";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -10898,13 +11394,13 @@ function deleteOrganization(limit, org, page, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
-function orgGetUserPermissions(limit, org, page, username) {
+function getUserPermissionsInOrganization(limit, org, page, username) {
   var url = "/users/" + username + "/orgs/" + org + "/permissions";
-  var description = "Get permissions of user " + username + " in organization " + org;
+  var description = "Get permissions for user " + username + " in organization " + org;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -10913,7 +11409,18 @@ function orgGetUserPermissions(limit, org, page, username) {
 }
 
 function tryToAddExistingOrganization(limit, org, page, username) {
-  orgGetUserPermissions(limit, org, page, username);
+  var url = "/admin/users/" + username + "/orgs";
+  var body = {
+    "username": String(username),
+    "org": String(org),
+  };
+  var description = "Verify that we cannot add another Organization...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyOrganizationExists(limit, org, page, username) {
@@ -10960,7 +11467,7 @@ function tryToDeleteANonExistingOrganization(limit, org, page, username) {
   var url = "/orgs/" + org;
   var description = "Verify we cannot delete non-existing Organization";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -11019,7 +11526,115 @@ function waitForAnyOrganizationDeleted() {
   return obj;
 }
 
-// ---- Entity: organization secret ----
+// ---- Entity: repository ----
+
+function createOrgRepoDeprecated(org) {
+  var url = "/org/" + org + "/repos";
+  var description = "Create repository in organization " + org;
+  var body = {
+    "org": String(org),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 403, 404, 422],
+    parameters: {
+      description: description,
+      , org: String(org)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingOrgRepository(org) {
+  var url = "/org/" + org + "/repos";
+  var body = {
+    "org": String(org),
+  };
+  var description = "Verify that we cannot add another OrgRepository...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyOrgRepositoryExists(org) {
+  var url = "/org/" + org + "/repos";
+  var description = "Verify OrgRepository exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].org) === String(org)) {
+            return pvg.success("OrgRepository exists");
+          }
+        }
+      }
+      return pvg.fail("Expected OrgRepository to exist but it does not");
+    }
+  });
+}
+
+function verifyOrgRepositoryDoesNotExist(org) {
+  var url = "/org/" + org + "/repos";
+  var description = "Verify OrgRepository does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].org) === String(org)) {
+            return pvg.fail("Expected OrgRepository to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("OrgRepository does not exist");
+    }
+  });
+}
+
+function matchAddedOrgRepository(org) {
+  var expectedDesc = "Create repository in organization " + org;
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyOrgRepositoryAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ repository\ in\ organization\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ repository\ in\ organization\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["org"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getOrgRepositoryAddedEvent(keyVal) {
+  return bp.EventSet("AddOrgRepository:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyOrgRepositoryAdded() {
+  return bp.EventSet("matchAnyOrgRepositoryAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create repository") > -1;
+  });
+}
+
+function waitForOrgRepositoryAdded(org) {
+  var expectedDesc = "Create repository in organization " + org;
+  waitFor(matchSuccess(expectedDesc));
+}
+
+// ---- Entity: secret ----
 
 function updateOrgSecret(org, secretname) {
   var url = "/orgs/" + org + "/actions/secrets/" + secretname;
@@ -11046,12 +11661,23 @@ function deleteOrgSecret(org, secretname) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingOrgSecret(org, secretname) {
-  deleteOrgSecret(org, secretname);
+  var url = "/orgs/" + org + "/actions/secrets/" + secretname;
+  var body = {
+    "org": String(org),
+    "secretname": String(secretname),
+  };
+  var description = "Verify that we cannot add another OrgSecret...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyOrgSecretExists(org, secretname) {
@@ -11098,7 +11724,7 @@ function tryToDeleteANonExistingOrgSecret(org, secretname) {
   var url = "/orgs/" + org + "/actions/secrets/" + secretname;
   var description = "Verify we cannot delete non-existing OrgSecret";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -11129,7 +11755,7 @@ function getOrgSecretAddedEvent(keyVal) {
 
 function matchAnyOrgSecretAdded() {
   return bp.EventSet("matchAnyOrgSecretAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.org !== undefined && e.name.indexOf("Create organization secret") > -1;
+    return e.name.startsWith("Done: ") && e.data && e.data.org !== undefined && e.name.indexOf("Create secret") > -1;
   });
 }
 
@@ -11157,7 +11783,7 @@ function waitForAnyOrgSecretDeleted() {
   return obj;
 }
 
-// ---- Entity: organization variable ----
+// ---- Entity: variable ----
 
 function createOrgVariable(org, variablename) {
   var url = "/orgs/" + org + "/actions/variables/" + variablename;
@@ -11218,7 +11844,18 @@ function deleteOrgVariable(org, variablename) {
 }
 
 function tryToAddExistingOrgVariable(org, variablename) {
-  deleteOrgVariable(org, variablename);
+  var url = "/orgs/" + org + "/actions/variables/" + variablename;
+  var body = {
+    "org": String(org),
+    "variablename": String(variablename),
+  };
+  var description = "Verify that we cannot add another OrgVariable...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyOrgVariableExists(org, variablename) {
@@ -11296,7 +11933,7 @@ function getOrgVariableAddedEvent(keyVal) {
 
 function matchAnyOrgVariableAdded() {
   return bp.EventSet("matchAnyOrgVariableAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.org !== undefined && e.name.indexOf("Create organization variable") > -1;
+    return e.name.startsWith("Done: ") && e.data && e.data.org !== undefined && e.name.indexOf("Create variable") > -1;
   });
 }
 
@@ -11324,7 +11961,7 @@ function waitForAnyOrgVariableDeleted() {
   return obj;
 }
 
-// ---- Entity: organization avatar ----
+// ---- Entity: avatar ----
 
 function orgUpdateAvatar(org) {
   var url = "/orgs/" + org + "/avatar";
@@ -11349,7 +11986,7 @@ function orgDeleteAvatar(org) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -11357,7 +11994,7 @@ function tryToDeleteANonExistingOrgAvatar(org) {
   var url = "/orgs/" + org + "/avatar";
   var description = "Verify we cannot delete non-existing OrgAvatar";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -11419,12 +12056,24 @@ function unblockUser(note, org, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404, 422]
+    expectedResponseCodes: [200, 204, 404, 422]
   });
 }
 
 function tryToAddExistingBlock(note, org, username) {
-  unblockUser(note, org, username);
+  var url = "/orgs/" + org + "/blocks/" + username;
+  var body = {
+    "note": String(note),
+    "org": String(org),
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another Block...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyBlockExists(note, org, username) {
@@ -11471,7 +12120,7 @@ function tryToDeleteANonExistingBlock(note, org, username) {
   var url = "/orgs/" + org + "/blocks/" + username;
   var description = "Verify we cannot delete non-existing Block";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404, 422],
+    expectedResponseCodes: [200, 204, 404, 422],
     parameters: { description: description }
   });
 }
@@ -11548,7 +12197,7 @@ function deleteMember(org, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -11596,7 +12245,7 @@ function tryToDeleteANonExistingMember(org, username) {
   var url = "/orgs/" + org + "/members/" + username;
   var description = "Verify we cannot delete non-existing Member";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -11657,12 +12306,23 @@ function concealMember(org, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
 function tryToAddExistingPublicMember(org, username) {
-  concealMember(org, username);
+  var url = "/orgs/" + org + "/public_members/" + username;
+  var body = {
+    "org": String(org),
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another PublicMember...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPublicMemberExists(org, username) {
@@ -11709,7 +12369,7 @@ function tryToDeleteANonExistingPublicMember(org, username) {
   var url = "/orgs/" + org + "/public_members/" + username;
   var description = "Verify we cannot delete non-existing PublicMember";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -11805,12 +12465,23 @@ function orgRemoveTeamMember(id, username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
 function tryToAddExistingTeamMember(id, username) {
-  orgRemoveTeamMember(id, username);
+  var url = "/teams/" + id + "/members/" + username;
+  var body = {
+    "id": String(id),
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another TeamMember...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyTeamMemberExists(id, username) {
@@ -11857,7 +12528,7 @@ function tryToDeleteANonExistingTeamMember(id, username) {
   var url = "/teams/" + id + "/members/" + username;
   var description = "Verify we cannot delete non-existing TeamMember";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -11955,12 +12626,24 @@ function orgRemoveTeamRepository(id, org, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
 function tryToAddExistingTeamRepository(id, org, repo) {
-  orgRemoveTeamRepository(id, org, repo);
+  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
+  var body = {
+    "id": String(id),
+    "org": String(org),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another TeamRepository...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyTeamRepositoryExists(id, org, repo) {
@@ -12007,7 +12690,7 @@ function tryToDeleteANonExistingTeamRepository(id, org, repo) {
   var url = "/teams/" + id + "/repos/" + org + "/" + repo;
   var description = "Verify we cannot delete non-existing TeamRepository";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -12223,12 +12906,23 @@ function deleteUnadoptedRepository(limit, owner, page, pattern, repo) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403]
+    expectedResponseCodes: [200, 204, 403]
   });
 }
 
 function tryToAddExistingUnadoptedRepository(limit, owner, page, pattern, repo) {
-  deleteUnadoptedRepository(limit, owner, page, pattern, repo);
+  var url = "/admin/unadopted/" + owner + "/" + repo;
+  var body = {
+    "owner": String(owner),
+    "repo": String(repo),
+  };
+  var description = "Verify that we cannot add another UnadoptedRepository...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUnadoptedRepositoryExists(limit, owner, page, pattern, repo) {
@@ -12275,7 +12969,7 @@ function tryToDeleteANonExistingUnadoptedRepository(limit, owner, page, pattern,
   var url = "/admin/unadopted/" + owner + "/" + repo;
   var description = "Verify we cannot delete non-existing UnadoptedRepository";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403],
+    expectedResponseCodes: [200, 204, 403],
     parameters: { description: description }
   });
 }
@@ -12359,7 +13053,7 @@ function adminDeleteUserBadges(username) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 422]
+    expectedResponseCodes: [200, 204, 403, 422]
   });
 }
 
@@ -12374,7 +13068,17 @@ function adminListUserBadges(username) {
 }
 
 function tryToAddExistingUserBadge(username) {
-  adminListUserBadges(username);
+  var url = "/admin/users/" + username + "/badges";
+  var body = {
+    "username": String(username),
+  };
+  var description = "Verify that we cannot add another UserBadge...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUserBadgeExists(username) {
@@ -12421,7 +13125,7 @@ function tryToDeleteANonExistingUserBadge(username) {
   var url = "/admin/users/" + username + "/badges";
   var description = "Verify we cannot delete non-existing UserBadge";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 422],
+    expectedResponseCodes: [200, 204, 403, 422],
     parameters: { description: description }
   });
 }
@@ -12473,143 +13177,6 @@ function waitForAnyUserBadgeDeleted() {
   var m = ev.data.parameters.description.match(/^Remove\ badge\ from\ user\ (.+)$/);
   var captures = m.slice(1);
   var names = ["username"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: user public key ----
-
-function adminCreatePublicKey(id, username) {
-  var url = "/admin/users/" + username + "/keys";
-  var description = "Add public key for user " + username;
-  var body = {
-    "username": String(username),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201, 403, 422],
-    parameters: {
-      description: description,
-      username: String(username)
-      , id: String(id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { username: String(username) }) });
-}
-
-function adminDeleteUserPublicKey(id, username) {
-  var url = "/admin/users/" + username + "/keys/" + id;
-  var description = "Delete public key " + id + " for user " + username;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
-  });
-}
-
-function tryToAddExistingUserPublicKey(id, username) {
-  adminDeleteUserPublicKey(id, username);
-}
-
-function verifyUserPublicKeyExists(id, username) {
-  var url = "/admin/users/" + username + "/keys";
-  var description = "Verify UserPublicKey with username " + username + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].username) === String(username)) {
-            return pvg.success("UserPublicKey exists");
-          }
-        }
-      }
-      return pvg.fail("Expected UserPublicKey to exist but it does not");
-    }
-  });
-}
-
-function verifyUserPublicKeyDoesNotExist(id, username) {
-  var url = "/admin/users/" + username + "/keys";
-  var description = "Verify UserPublicKey with username " + username + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].username) === String(username)) {
-            return pvg.fail("Expected UserPublicKey to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("UserPublicKey does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingUserPublicKey(id, username) {
-  var url = "/admin/users/" + username + "/keys/" + id;
-  var description = "Verify we cannot delete non-existing UserPublicKey";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedUserPublicKey(id, username) {
-  var expectedDesc = "Add public key for user " + username;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyUserPublicKeyAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ public\ key\ for\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ public\ key\ for\ user\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["username"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getUserPublicKeyAddedEvent(keyVal) {
-  return bp.EventSet("AddUserPublicKey:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.username) === String(keyVal);
-  });
-}
-
-function matchAnyUserPublicKeyAdded() {
-  return bp.EventSet("matchAnyUserPublicKeyAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.username !== undefined && e.name.indexOf("Create user public key") > -1;
-  });
-}
-
-function waitForUserPublicKeyAdded(id, username) {
-  var expectedDesc = "Add public key for user " + username;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedUserPublicKey(id, username) {
-  var expectedDesc = "Delete public key " + id + " for user " + username;
-  return bp.EventSet("matchDeletedUserPublicKey", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyUserPublicKeyDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ public\ key\ (.+)\ for\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ public\ key\ (.+)\ for\ user\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["id", "username"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -12708,9 +13275,9 @@ function verifyNotificationDoesNotExist(id, to-status) {
 
 // ---- Entity: notification list ----
 
-function getNotificationList(all, before, last_read_at, limit, page, since, status-types, subject-type, to-status) {
+function listNotifications(all, before, last_read_at, limit, page, since, status-types, subject-type, to-status) {
   var url = "/notifications";
-  var description = "List users's notification threads with filters all=" + all + ", status-types=" + status-types + ", subject-type=" + subject-type + ", since=" + since + ", before=" + before + ", page=" + page + ", limit=" + limit;
+  var description = "List users's notification threads";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -12718,9 +13285,9 @@ function getNotificationList(all, before, last_read_at, limit, page, since, stat
   });
 }
 
-function updateNotificationList(all, before, last_read_at, limit, page, since, status-types, subject-type, to-status) {
+function updateNotifications(all, before, last_read_at, limit, page, since, status-types, subject-type, to-status) {
   var url = "/notifications";
-  var description = "Mark notification threads as read, pinned or unread with all=" + all + ", status-types=" + status-types + ", to-status=" + to-status + ", last_read_at=" + last_read_at;
+  var description = "Mark notification threads as read, pinned or unread";
   var body = {
     "all": String(all),
     "last_read_at": String(last_read_at),
@@ -12831,9 +13398,9 @@ function verifyNotificationNewDoesNotExist() {
 
 // ---- Entity: repo notification list ----
 
-function getRepoNotificationList(all, before, last_read_at, limit, owner, page, repo, since, status-types, subject-type, to-status) {
+function listRepoNotifications(all, before, last_read_at, limit, owner, page, repo, since, status-types, subject-type, to-status) {
   var url = "/repos/" + owner + "/" + repo + "/notifications";
-  var description = "List users's notification threads on repo " + owner + "/" + repo + " with filters all=" + all + ", status-types=" + status-types + ", subject-type=" + subject-type + ", since=" + since + ", before=" + before + ", page=" + page + ", limit=" + limit;
+  var description = "List users's notification threads on repo " + owner + "/" + repo;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -12841,9 +13408,9 @@ function getRepoNotificationList(all, before, last_read_at, limit, owner, page, 
   });
 }
 
-function updateRepoNotificationList(all, before, last_read_at, limit, owner, page, repo, since, status-types, subject-type, to-status) {
+function updateRepoNotifications(all, before, last_read_at, limit, owner, page, repo, since, status-types, subject-type, to-status) {
   var url = "/repos/" + owner + "/" + repo + "/notifications";
-  var description = "Mark notification threads as read, pinned or unread on repo " + owner + "/" + repo + " with all=" + all + ", status-types=" + status-types + ", to-status=" + to-status + ", last_read_at=" + last_read_at;
+  var description = "Mark notification threads as read, pinned or unread on repo " + owner + "/" + repo;
   var body = {
     "all": String(all),
     "last_read_at": String(last_read_at),
@@ -12908,7 +13475,7 @@ function verifyRepoNotificationListDoesNotExist(all, before, last_read_at, limit
 
 function getPackage(name, owner, type, version) {
   var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Get package " + name + " version " + version + " of type " + type + " owned by " + owner;
+  var description = "Get package " + name + " of type " + type + " version " + version + " owned by " + owner;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -12918,11 +13485,11 @@ function getPackage(name, owner, type, version) {
 
 function deletePackage(name, owner, type, version) {
   var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Delete package " + name + " version " + version + " of type " + type + " owned by " + owner;
+  var description = "Delete package " + name + " of type " + type + " version " + version + " owned by " + owner;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -12970,23 +13537,23 @@ function tryToDeleteANonExistingPackage(name, owner, type, version) {
   var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
   var description = "Verify we cannot delete non-existing Package";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
 
 function matchDeletedPackage(name, owner, type, version) {
-  var expectedDesc = "Delete package " + name + " version " + version + " of type " + type + " owned by " + owner;
+  var expectedDesc = "Delete package " + name + " of type " + type + " version " + version + " owned by " + owner;
   return bp.EventSet("matchDeletedPackage", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyPackageDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ package\ (.+)\ version\ (.+)\ of\ type\ (.+)\ owned\ by\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ package\ (.+)\ version\ (.+)\ of\ type\ (.+)\ owned\ by\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ package\ (.+)\ of\ type\ (.+)\ version\ (.+)\ owned\ by\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ package\ (.+)\ of\ type\ (.+)\ version\ (.+)\ owned\ by\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "version", "type", "owner"];
+  var names = ["name", "type", "version", "owner"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -13050,7 +13617,7 @@ function verifyPackageListDoesNotExist(limit, owner, page, q, type) {
 
 function listPackageFiles(name, owner, type, version) {
   var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version + "/files";
-  var description = "List files of package " + name + " version " + version + " of type " + type + " owned by " + owner;
+  var description = "List files of package " + name + " of type " + type + " version " + version + " owned by " + owner;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -13128,7 +13695,17 @@ function sendToInbox(user-id) {
 }
 
 function tryToAddExistingPerson(user-id) {
-  sendToInbox(user-id);
+  var url = "/activitypub/user-id/" + user-id + "/inbox";
+  var body = {
+    "user-id": String(user-id),
+  };
+  var description = "Verify that we cannot add another Person...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPersonExists(user-id) {

@@ -84,7 +84,7 @@
           "name": "getInventory",
           "method": "GET",
           "path": "/inventory/{ndc}",
-          "descriptionTemplate": "Get inventory for ndc {ndc}",
+          "descriptionTemplate": "Get inventory item with ndc {ndc}",
           "params": [
             "ndc"
           ],

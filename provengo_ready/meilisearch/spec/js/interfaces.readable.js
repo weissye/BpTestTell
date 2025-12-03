@@ -47,18 +47,18 @@ function updateSettings(indexUid) {
   var url = "/indexes/" + indexUid + "/settings";
   var description = "Update settings for index " + indexUid;
   var body = {
-    "displayedAttributes": "displayedAttributes_" + indexUid,
-    "distinctAttribute": "distinctAttribute_" + indexUid,
-    "faceting": "faceting_" + indexUid,
-    "filterableAttributes": "filterableAttributes_" + indexUid,
+    "displayedAttributes": "displayedAttributes_dummy",
+    "distinctAttribute": "distinctAttribute_dummy",
+    "faceting": "faceting_dummy",
+    "filterableAttributes": "filterableAttributes_dummy",
     "indexUid": String(indexUid),
-    "pagination": "pagination_" + indexUid,
-    "rankingRules": "rankingRules_" + indexUid,
-    "searchableAttributes": "searchableAttributes_" + indexUid,
-    "sortableAttributes": "sortableAttributes_" + indexUid,
-    "stopWords": "stopWords_" + indexUid,
-    "synonyms": "synonyms_" + indexUid,
-    "typoTolerance": "typoTolerance_" + indexUid,
+    "pagination": "pagination_dummy",
+    "rankingRules": "rankingRules_dummy",
+    "searchableAttributes": "searchableAttributes_dummy",
+    "sortableAttributes": "sortableAttributes_dummy",
+    "stopWords": "stopWords_dummy",
+    "synonyms": "synonyms_dummy",
+    "typoTolerance": "typoTolerance_dummy",
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -595,9 +595,9 @@ function updateTypoTolerance(indexUid) {
   var body = {
     "disableOnAttributes": [],
     "disableOnWords": [],
-    "enabled": String(true),
+    "enabled": true,
     "indexUid": String(indexUid),
-    "minWordSizeForTypos": minWordSizeForTypos,
+    "minWordSizeForTypos": {},
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -705,7 +705,7 @@ function updatePagination(indexUid) {
   var description = "Update pagination settings for index " + indexUid;
   var body = {
     "indexUid": String(indexUid),
-    "maxTotalHits": String(1),
+    "maxTotalHits": 1,
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -813,8 +813,8 @@ function updateFaceting(indexUid) {
   var description = "Update faceting settings for index " + indexUid;
   var body = {
     "indexUid": String(indexUid),
-    "maxValuesPerFacet": String(1),
-    "sortFacetValuesBy": sortFacetValuesBy,
+    "maxValuesPerFacet": 1,
+    "sortFacetValuesBy": {},
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -1392,7 +1392,17 @@ function getDocument(documentId, indexUid) {
 }
 
 function tryToAddExistingDocument(documentId, indexUid) {
-  getDocument(documentId, indexUid);
+  var url = "/indexes/" + indexUid + "/documents";
+  var body = {
+    "indexUid": String(indexUid),
+  };
+  var description = "Verify that we cannot add another Document...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyDocumentExists(documentId, indexUid) {
@@ -1558,7 +1568,19 @@ function deleteIndex(indexUid, primaryKey, uid) {
 }
 
 function tryToAddExistingIndex(indexUid, primaryKey, uid) {
-  deleteIndex(indexUid, primaryKey, uid);
+  var url = "/indexes";
+  var body = {
+    "indexUid": String(indexUid),
+    "primaryKey": String(primaryKey),
+    "uid": String(uid),
+  };
+  var description = "Verify that we cannot add another Index...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIndexExists(indexUid, primaryKey, uid) {
@@ -1668,7 +1690,7 @@ function waitForAnyIndexDeleted() {
 
 function getIndexStat(indexUid) {
   var url = "/indexes/" + indexUid + "/stats";
-  var description = "Get stat of an index " + indexUid;
+  var description = "Get stat of index " + indexUid;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -1824,7 +1846,7 @@ function verifyMetricsDoesNotExist() {
 
 function getTask(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinishedAt, taskFilterAfterStartedAt, taskFilterBeforeEnqueuedAt, taskFilterBeforeFinishedAt, taskFilterBeforeStartedAt, taskFilterCanceledBy, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterUids, taskUid, total) {
   var url = "/tasks/:taskUid";
-  var description = "Get task with uid " + taskUid;
+  var description = "Get task " + taskUid;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -1834,7 +1856,7 @@ function getTask(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinished
 
 function listTasks(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinishedAt, taskFilterAfterStartedAt, taskFilterBeforeEnqueuedAt, taskFilterBeforeFinishedAt, taskFilterBeforeStartedAt, taskFilterCanceledBy, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterUids, taskUid, total) {
   var url = "/tasks";
-  var description = "List all tasks with filters";
+  var description = "Get all tasks";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -1844,7 +1866,7 @@ function listTasks(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinish
 
 function deleteTasks(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinishedAt, taskFilterAfterStartedAt, taskFilterBeforeEnqueuedAt, taskFilterBeforeFinishedAt, taskFilterBeforeStartedAt, taskFilterCanceledBy, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterUids, taskUid, total) {
   var url = "/tasks";
-  var description = "Delete tasks with filters";
+  var description = "Delete tasks matching filters";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -1854,7 +1876,7 @@ function deleteTasks(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFini
 
 function cancelTasks(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinishedAt, taskFilterAfterStartedAt, taskFilterBeforeEnqueuedAt, taskFilterBeforeFinishedAt, taskFilterBeforeStartedAt, taskFilterCanceledBy, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterUids, taskUid, total) {
   var url = "/tasks/cancel";
-  var description = "Cancel tasks with filters";
+  var description = "Cancel tasks matching filters";
   var body = {
     "taskFilterAfterEnqueuedAt": String(taskFilterAfterEnqueuedAt),
     "taskFilterAfterFinishedAt": String(taskFilterAfterFinishedAt),
@@ -1928,15 +1950,15 @@ function tryToDeleteANonExistingTask(from, limit, taskFilterAfterEnqueuedAt, tas
 }
 
 function matchDeletedTask(from, limit, taskFilterAfterEnqueuedAt, taskFilterAfterFinishedAt, taskFilterAfterStartedAt, taskFilterBeforeEnqueuedAt, taskFilterBeforeFinishedAt, taskFilterBeforeStartedAt, taskFilterCanceledBy, taskFilterIndexUids, taskFilterStatuses, taskFilterTypes, taskFilterUids, taskUid, total) {
-  var expectedDesc = "Delete tasks with filters";
+  var expectedDesc = "Delete tasks matching filters";
   return bp.EventSet("matchDeletedTask", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyTaskDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ tasks\ with\ filters$/));
-  var m = ev.data.parameters.description.match(/^Delete\ tasks\ with\ filters$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ tasks\ matching\ filters$/));
+  var m = ev.data.parameters.description.match(/^Delete\ tasks\ matching\ filters$/);
   var captures = m.slice(1);
   var names = [];
   var obj = {};
@@ -1948,7 +1970,7 @@ function waitForAnyTaskDeleted() {
 
 // ---- Entity: key ----
 
-function createKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function createKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys";
   var description = "Create key " + name;
   var body = {
@@ -1974,7 +1996,7 @@ function createKey(actions, createdAt, description, expiresAt, indexes, key, lim
   bp.sync({ request: bp.Event("Done: " + description, { uidOrKey: String(uidOrKey) }) });
 }
 
-function deleteKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function deleteKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys/" + uidOrKey;
   var description = "Delete key " + uidOrKey;
   var body = undefined;
@@ -1984,7 +2006,7 @@ function deleteKey(actions, createdAt, description, expiresAt, indexes, key, lim
   });
 }
 
-function updateKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function updateKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys/" + uidOrKey;
   var description = "Update key " + uidOrKey + " with name " + name + " and description " + description;
   var body = {
@@ -2003,7 +2025,7 @@ function updateKey(actions, createdAt, description, expiresAt, indexes, key, lim
   bp.sync({ request: bp.Event("Done: " + description, { uidOrKey: String(uidOrKey) }) });
 }
 
-function getKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function getKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys/" + uidOrKey;
   var description = "Get key " + uidOrKey;
   var body = undefined;
@@ -2013,9 +2035,9 @@ function getKey(actions, createdAt, description, expiresAt, indexes, key, limit,
   });
 }
 
-function listKeys(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function listKeys(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys";
-  var description = "List keys with limit " + limit + " and offset " + offset;
+  var description = "List keys";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2023,11 +2045,30 @@ function listKeys(actions, createdAt, description, expiresAt, indexes, key, limi
   });
 }
 
-function tryToAddExistingKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
-  listKeys(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt);
+function tryToAddExistingKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
+  var url = "/keys";
+  var body = {
+    "actions": String(actions),
+    "createdAt": String(createdAt),
+    "description": String(description),
+    "expiresAt": String(expiresAt),
+    "indexes": String(indexes),
+    "key": String(key),
+    "name": String(name),
+    "uid": String(uid),
+    "uidOrKey": String(uidOrKey),
+    "updatedAt": String(updatedAt),
+  };
+  var description = "Verify that we cannot add another Key...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyKeyExists(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function verifyKeyExists(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys";
   var description = "Verify Key with uidOrKey " + uidOrKey + " exists";
   svc.get(url, {
@@ -2047,7 +2088,7 @@ function verifyKeyExists(actions, createdAt, description, expiresAt, indexes, ke
   });
 }
 
-function verifyKeyDoesNotExist(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function verifyKeyDoesNotExist(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys";
   var description = "Verify Key with uidOrKey " + uidOrKey + " does not exist";
   svc.get(url, {
@@ -2067,7 +2108,7 @@ function verifyKeyDoesNotExist(actions, createdAt, description, expiresAt, index
   });
 }
 
-function tryToDeleteANonExistingKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function tryToDeleteANonExistingKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var url = "/keys/" + uidOrKey;
   var description = "Verify we cannot delete non-existing Key";
   svc.delete(url, {
@@ -2076,7 +2117,7 @@ function tryToDeleteANonExistingKey(actions, createdAt, description, expiresAt, 
   });
 }
 
-function matchAddedKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function matchAddedKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var expectedDesc = "Create key " + name;
   return matchSuccess(expectedDesc);
 }
@@ -2106,12 +2147,12 @@ function matchAnyKeyAdded() {
   });
 }
 
-function waitForKeyAdded(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function waitForKeyAdded(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var expectedDesc = "Create key " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedKey(actions, createdAt, description, expiresAt, indexes, key, limit, name, offset, uid, uidOrKey, updatedAt) {
+function matchDeletedKey(actions, createdAt, description, expiresAt, indexes, key, name, uid, uidOrKey, updatedAt) {
   var expectedDesc = "Delete key " + uidOrKey;
   return bp.EventSet("matchDeletedKey", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -2134,7 +2175,7 @@ function waitForAnyKeyDeleted() {
 
 function createDump() {
   var url = "/dumps";
-  var description = "Create a dump";
+  var description = "Create dump";
   var body = {
   };
   svc.post(url, {
@@ -2148,7 +2189,16 @@ function createDump() {
 }
 
 function tryToAddExistingDump() {
-  createDump();
+  var url = "/dumps";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Dump...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyDumpExists() {
@@ -2192,13 +2242,13 @@ function verifyDumpDoesNotExist() {
 }
 
 function matchAddedDump() {
-  var expectedDesc = "Create a dump";
+  var expectedDesc = "Create dump";
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyDumpAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ a\ dump$/));
-  var m = ev.data.parameters.description.match(/^Create\ a\ dump$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ dump$/));
+  var m = ev.data.parameters.description.match(/^Create\ dump$/);
   var captures = m.slice(1);
   var names = [];
   var obj = {};
@@ -2222,7 +2272,7 @@ function matchAnyDumpAdded() {
 }
 
 function waitForDumpAdded() {
-  var expectedDesc = "Create a dump";
+  var expectedDesc = "Create dump";
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -2244,7 +2294,16 @@ function createSnapshot() {
 }
 
 function tryToAddExistingSnapshot() {
-  createSnapshot();
+  var url = "/snapshots";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Snapshot...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifySnapshotExists() {
@@ -2390,9 +2449,9 @@ function updateExperimentalFeatures() {
   var url = "/experimental-features";
   var description = "Set the status of runtime experimental features";
   var body = {
-    "exportPuffinReports": String(true),
-    "metrics": String(true),
-    "vectorStore": String(true),
+    "exportPuffinReports": true,
+    "metrics": true,
+    "vectorStore": true,
   };
   svc.patch(url, {
     body: JSON.stringify(body),

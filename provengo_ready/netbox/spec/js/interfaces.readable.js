@@ -87,9 +87,41 @@ function updateCableTermination(cable, cable_end, id, termination_id, terminatio
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function partialUpdateCableTermination(cable, cable_end, id, termination_id, termination_type) {
+  var url = "/api/dcim/cable-terminations/" + id + "/";
+  var description = "Partial update cable termination with id " + id;
+  var body = {
+    "cable": Number(cable),
+    "cable_end": String(cable_end),
+    "id": String(id),
+    "termination_id": Number(termination_id),
+    "termination_type": String(termination_type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , termination_id: String(termination_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
 function getCableTermination(cable, cable_end, id, termination_id, termination_type) {
   var url = "/api/dcim/cable-terminations/" + id + "/";
   var description = "Get cable termination with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listCableTerminations(cable, cable_end, id, termination_id, termination_type) {
+  var url = "/api/dcim/cable-terminations/";
+  var description = "List cable terminations";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -137,7 +169,7 @@ function verifyCableTerminationExists(cable, cable_end, id, termination_id, term
 
 function verifyCableTerminationDoesNotExist(cable, cable_end, id, termination_id, termination_type) {
   var url = "/api/dcim/cable-terminations/";
-  var description = "Verify CableTermination with id " + id + " does not exist";
+  var description = "Verify CableTermination does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -290,9 +322,49 @@ function updateCable(a_terminations, b_terminations, color, comments, custom_fie
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function partialUpdateCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
+  var url = "/api/dcim/cables/" + id + "/";
+  var description = "Partial update cable with id " + id;
+  var body = {
+    "a_terminations": String(a_terminations),
+    "b_terminations": String(b_terminations),
+    "color": String(color),
+    "comments": String(comments),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "id": String(id),
+    "label": String(label),
+    "length": Number(length),
+    "length_unit": String(length_unit),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
 function getCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
   var url = "/api/dcim/cables/" + id + "/";
   var description = "Get cable with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listCables(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
+  var url = "/api/dcim/cables/";
+  var description = "List cables";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -309,6 +381,7 @@ function tryToAddExistingCable(a_terminations, b_terminations, color, comments, 
     "comments": String(comments),
     "custom_fields": custom_fields,
     "description": String(description),
+    "id": String(id),
     "label": String(label),
     "length": Number(length),
     "length_unit": String(length_unit),
@@ -316,7 +389,6 @@ function tryToAddExistingCable(a_terminations, b_terminations, color, comments, 
     "tags": String(tags),
     "tenant": String(tenant),
     "type": String(type),
-    "id": String(id),
   };
   var description = "Verify that we cannot add another Cable...";
   if (body === undefined) { body = {}; }
@@ -349,7 +421,7 @@ function verifyCableExists(a_terminations, b_terminations, color, comments, cust
 
 function verifyCableDoesNotExist(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
   var url = "/api/dcim/cables/";
-  var description = "Verify Cable with id " + id + " does not exist";
+  var description = "Verify Cable does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -450,7 +522,6 @@ function createConsolePortTemplate(description, device_type, id, label, module_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -484,7 +555,29 @@ function updateConsolePortTemplate(description, device_type, id, label, module_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
+  var url = "/api/dcim/console-port-templates/" + id + "/";
+  var description = "Partial update console port template with id " + id;
+  var body = {
+    "description": String(description),
+    "device_type": String(device_type),
+    "id": String(id),
+    "label": String(label),
+    "module_type": String(module_type),
+    "name": String(name),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -493,6 +586,16 @@ function updateConsolePortTemplate(description, device_type, id, label, module_t
 function getConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-port-templates/" + id + "/";
   var description = "Get console port template with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listConsolePortTemplates(description, device_type, id, label, module_type, name, type) {
+  var url = "/api/dcim/console-port-templates/";
+  var description = "List console port templates";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -542,7 +645,7 @@ function verifyConsolePortTemplateExists(description, device_type, id, label, mo
 
 function verifyConsolePortTemplateDoesNotExist(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-port-templates/";
-  var description = "Verify ConsolePortTemplate with id " + id + " does not exist";
+  var description = "Verify ConsolePortTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -647,7 +750,6 @@ function createConsolePort(custom_fields, description, device, id, label, mark_c
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -685,7 +787,33 @@ function updateConsolePort(custom_fields, description, device, id, label, mark_c
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
+  var url = "/api/dcim/console-ports/" + id + "/";
+  var description = "Partial update console port with id " + id;
+  var body = {
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "device": String(device),
+    "id": String(id),
+    "label": String(label),
+    "mark_connected": mark_connected,
+    "module": String(module),
+    "name": String(name),
+    "speed": Number(speed),
+    "tags": String(tags),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -694,6 +822,16 @@ function updateConsolePort(custom_fields, description, device, id, label, mark_c
 function getConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-ports/" + id + "/";
   var description = "Get console port with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function listConsolePorts(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
+  var url = "/api/dcim/console-ports/";
+  var description = "List console ports";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -747,7 +885,7 @@ function verifyConsolePortExists(custom_fields, description, device, id, label, 
 
 function verifyConsolePortDoesNotExist(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-ports/";
-  var description = "Verify ConsolePort with id " + id + " does not exist";
+  var description = "Verify ConsolePort does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -848,7 +986,6 @@ function createConsoleServerPortTemplate(description, device_type, id, label, mo
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -882,7 +1019,6 @@ function updateConsoleServerPortTemplate(description, device_type, id, label, mo
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -940,7 +1076,7 @@ function verifyConsoleServerPortTemplateExists(description, device_type, id, lab
 
 function verifyConsoleServerPortTemplateDoesNotExist(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-server-port-templates/";
-  var description = "Verify ConsoleServerPortTemplate with id " + id + " does not exist";
+  var description = "Verify ConsoleServerPortTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1025,7 +1161,7 @@ function waitForAnyConsoleServerPortTemplateDeleted() {
 
 function createConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-server-ports/";
-  var description = "Create console server port";
+  var description = "Create console server port with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -1045,7 +1181,6 @@ function createConsoleServerPort(custom_fields, description, device, id, label, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1083,7 +1218,6 @@ function updateConsoleServerPort(custom_fields, description, device, id, label, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1145,7 +1279,7 @@ function verifyConsoleServerPortExists(custom_fields, description, device, id, l
 
 function verifyConsoleServerPortDoesNotExist(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-server-ports/";
-  var description = "Verify ConsoleServerPort with id " + id + " does not exist";
+  var description = "Verify ConsoleServerPort does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1173,15 +1307,15 @@ function tryToDeleteANonExistingConsoleServerPort(custom_fields, description, de
 }
 
 function matchAddedConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  var expectedDesc = "Create console server port";
+  var expectedDesc = "Create console server port with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyConsoleServerPortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ console\ server\ port$/));
-  var m = ev.data.parameters.description.match(/^Create\ console\ server\ port$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ console\ server\ port\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ console\ server\ port\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1203,7 +1337,7 @@ function matchAnyConsoleServerPortAdded() {
 }
 
 function waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  var expectedDesc = "Create console server port";
+  var expectedDesc = "Create console server port with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1230,7 +1364,7 @@ function waitForAnyConsoleServerPortDeleted() {
 
 function createDeviceBayTemplate(description, device_type, id, label, name) {
   var url = "/api/dcim/device-bay-templates/";
-  var description = "Create device bay template";
+  var description = "Create device bay template with id " + id;
   var body = {
     "description": String(description),
     "device_type": String(device_type),
@@ -1244,7 +1378,6 @@ function createDeviceBayTemplate(description, device_type, id, label, name) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1276,7 +1409,6 @@ function updateDeviceBayTemplate(description, device_type, id, label, name) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1332,7 +1464,7 @@ function verifyDeviceBayTemplateExists(description, device_type, id, label, name
 
 function verifyDeviceBayTemplateDoesNotExist(description, device_type, id, label, name) {
   var url = "/api/dcim/device-bay-templates/";
-  var description = "Verify DeviceBayTemplate with id " + id + " does not exist";
+  var description = "Verify DeviceBayTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1360,15 +1492,15 @@ function tryToDeleteANonExistingDeviceBayTemplate(description, device_type, id, 
 }
 
 function matchAddedDeviceBayTemplate(description, device_type, id, label, name) {
-  var expectedDesc = "Create device bay template";
+  var expectedDesc = "Create device bay template with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyDeviceBayTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay\ template$/));
-  var m = ev.data.parameters.description.match(/^Create\ device\ bay\ template$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ device\ bay\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1390,7 +1522,7 @@ function matchAnyDeviceBayTemplateAdded() {
 }
 
 function waitForDeviceBayTemplateAdded(description, device_type, id, label, name) {
-  var expectedDesc = "Create device bay template";
+  var expectedDesc = "Create device bay template with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1417,7 +1549,7 @@ function waitForAnyDeviceBayTemplateDeleted() {
 
 function createDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
   var url = "/api/dcim/device-bays/";
-  var description = "Create device bay";
+  var description = "Create device bay with id " + id;
   var body = {
     "custom_fields": custom_fields,
     "description": String(description),
@@ -1434,7 +1566,6 @@ function createDeviceBay(custom_fields, description, device, id, installed_devic
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1469,7 +1600,6 @@ function updateDeviceBay(custom_fields, description, device, id, installed_devic
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1528,7 +1658,7 @@ function verifyDeviceBayExists(custom_fields, description, device, id, installed
 
 function verifyDeviceBayDoesNotExist(custom_fields, description, device, id, installed_device, label, name, tags) {
   var url = "/api/dcim/device-bays/";
-  var description = "Verify DeviceBay with id " + id + " does not exist";
+  var description = "Verify DeviceBay does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1556,15 +1686,15 @@ function tryToDeleteANonExistingDeviceBay(custom_fields, description, device, id
 }
 
 function matchAddedDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
-  var expectedDesc = "Create device bay";
+  var expectedDesc = "Create device bay with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyDeviceBayAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay$/));
-  var m = ev.data.parameters.description.match(/^Create\ device\ bay$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ bay\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ device\ bay\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1586,7 +1716,7 @@ function matchAnyDeviceBayAdded() {
 }
 
 function waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags) {
-  var expectedDesc = "Create device bay";
+  var expectedDesc = "Create device bay with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1615,17 +1745,7 @@ function createDeviceRole(color, comments, config_template, custom_fields, descr
   var url = "/api/dcim/device-roles/";
   var description = "Create device role " + slug + " with id " + id;
   var body = {
-    "color": String(color),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
-    "vm_role": vm_role,
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -1633,7 +1753,6 @@ function createDeviceRole(color, comments, config_template, custom_fields, descr
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1652,26 +1771,13 @@ function deleteDeviceRole(color, comments, config_template, custom_fields, descr
 function updateDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
   var url = "/api/dcim/device-roles/" + id + "/";
   var description = "Update device role with id " + id;
-  var body = {
-    "color": String(color),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "parent": Number(parent),
-    "slug": String(slug),
-    "tags": String(tags),
-    "vm_role": vm_role,
-  };
+  var body = String(...);
   svc.put(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1687,29 +1793,16 @@ function getDeviceRole(color, comments, config_template, custom_fields, descript
   });
 }
 
-function patchDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
+function partialUpdateDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
   var url = "/api/dcim/device-roles/" + id + "/";
-  var description = "Patch device role with id " + id;
-  var body = {
-    "color": String(color),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "parent": Number(parent),
-    "slug": String(slug),
-    "tags": String(tags),
-    "vm_role": vm_role,
-  };
+  var description = "Partially update device role with id " + id;
+  var body = String(...);
   svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -1761,7 +1854,7 @@ function verifyDeviceRoleExists(color, comments, config_template, custom_fields,
 
 function verifyDeviceRoleDoesNotExist(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
   var url = "/api/dcim/device-roles/";
-  var description = "Verify DeviceRole with id " + id + " does not exist";
+  var description = "Verify DeviceRole does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1846,28 +1939,8 @@ function waitForAnyDeviceRoleDeleted() {
 
 function createDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
   var url = "/api/dcim/device-types/";
-  var description = "Create device type " + model + " with id " + id;
-  var body = {
-    "airflow": String(airflow),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "default_platform": String(default_platform),
-    "description": String(description),
-    "exclude_from_utilization": exclude_from_utilization,
-    "front_image": String(front_image),
-    "id": String(id),
-    "is_full_depth": is_full_depth,
-    "manufacturer": String(manufacturer),
-    "model": String(model),
-    "part_number": String(part_number),
-    "rear_image": String(rear_image),
-    "slug": String(slug),
-    "subdevice_role": String(subdevice_role),
-    "tags": String(tags),
-    "u_height": Number(u_height),
-    "weight": Number(weight),
-    "weight_unit": String(weight_unit),
-  };
+  var description = "Create device type {name} with id " + id;
+  var body = String(...);
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
@@ -1892,27 +1965,7 @@ function getDeviceType(airflow, comments, custom_fields, default_platform, descr
 function updateDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
   var url = "/api/dcim/device-types/" + id + "/";
   var description = "Update device type with id " + id;
-  var body = {
-    "airflow": String(airflow),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "default_platform": String(default_platform),
-    "description": String(description),
-    "exclude_from_utilization": exclude_from_utilization,
-    "front_image": String(front_image),
-    "id": String(id),
-    "is_full_depth": is_full_depth,
-    "manufacturer": String(manufacturer),
-    "model": String(model),
-    "part_number": String(part_number),
-    "rear_image": String(rear_image),
-    "slug": String(slug),
-    "subdevice_role": String(subdevice_role),
-    "tags": String(tags),
-    "u_height": Number(u_height),
-    "weight": Number(weight),
-    "weight_unit": String(weight_unit),
-  };
+  var body = String(...);
   svc.put(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
@@ -1924,30 +1977,10 @@ function updateDeviceType(airflow, comments, custom_fields, default_platform, de
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
+function partialUpdateDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
   var url = "/api/dcim/device-types/" + id + "/";
-  var description = "Patch device type with id " + id;
-  var body = {
-    "airflow": String(airflow),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "default_platform": String(default_platform),
-    "description": String(description),
-    "exclude_from_utilization": exclude_from_utilization,
-    "front_image": String(front_image),
-    "id": String(id),
-    "is_full_depth": is_full_depth,
-    "manufacturer": String(manufacturer),
-    "model": String(model),
-    "part_number": String(part_number),
-    "rear_image": String(rear_image),
-    "slug": String(slug),
-    "subdevice_role": String(subdevice_role),
-    "tags": String(tags),
-    "u_height": Number(u_height),
-    "weight": Number(weight),
-    "weight_unit": String(weight_unit),
-  };
+  var description = "Partially update device type with id " + id;
+  var body = String(...);
   svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
@@ -1963,6 +1996,46 @@ function deleteDeviceType(airflow, comments, custom_fields, default_platform, de
   var url = "/api/dcim/device-types/" + id + "/";
   var description = "Delete device type with id " + id;
   var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function bulkUpdateDeviceTypes(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
+  var url = "/api/dcim/device-types/";
+  var description = "Bulk update device types";
+  var body = "[{...}]";
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateDeviceTypes(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
+  var url = "/api/dcim/device-types/";
+  var description = "Bulk partial update device types";
+  var body = "[{...}]";
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteDeviceTypes(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
+  var url = "/api/dcim/device-types/";
+  var description = "Bulk delete device types";
+  var body = "[{...}]";
   svc.delete(url, {
     parameters: { description: description },
     expectedResponseCodes: [200, 204]
@@ -2023,7 +2096,7 @@ function verifyDeviceTypeExists(airflow, comments, custom_fields, default_platfo
 
 function verifyDeviceTypeDoesNotExist(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
   var url = "/api/dcim/device-types/";
-  var description = "Verify DeviceType with id " + id + " does not exist";
+  var description = "Verify DeviceType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2051,7 +2124,7 @@ function tryToDeleteANonExistingDeviceType(airflow, comments, custom_fields, def
 }
 
 function matchAddedDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
-  var expectedDesc = "Create device type " + model + " with id " + id;
+  var expectedDesc = "Create device type {name} with id " + id;
   return matchSuccess(expectedDesc);
 }
 
@@ -2059,7 +2132,7 @@ function waitForAnyDeviceTypeAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Create\ device\ type\ (.+)\ with\ id\ (.+)$/));
   var m = ev.data.parameters.description.match(/^Create\ device\ type\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["model", "id"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -2081,7 +2154,7 @@ function matchAnyDeviceTypeAdded() {
 }
 
 function waitForDeviceTypeAdded(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
-  var expectedDesc = "Create device type " + model + " with id " + id;
+  var expectedDesc = "Create device type {name} with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -2109,45 +2182,13 @@ function waitForAnyDeviceTypeDeleted() {
 function createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
   var url = "/api/dcim/devices/";
   var description = "Create device " + name + " with id " + id;
-  var body = {
-    "airflow": String(airflow),
-    "asset_tag": String(asset_tag),
-    "cluster": String(cluster),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device_type": String(device_type),
-    "face": String(face),
-    "id": String(id),
-    "latitude": Number(latitude),
-    "local_context_data": String(local_context_data),
-    "location": String(location),
-    "longitude": Number(longitude),
-    "name": String(name),
-    "oob_ip": String(oob_ip),
-    "platform": String(platform),
-    "position": Number(position),
-    "primary_ip4": String(primary_ip4),
-    "primary_ip6": String(primary_ip6),
-    "rack": String(rack),
-    "role": String(role),
-    "serial": String(serial),
-    "site": String(site),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "vc_position": Number(vc_position),
-    "vc_priority": Number(vc_priority),
-    "virtual_chassis": String(virtual_chassis),
-  };
+  var body = String(...);
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -2166,92 +2207,28 @@ function getDevice(airflow, asset_tag, cluster, comments, config_template, custo
 function updateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
   var url = "/api/dcim/devices/" + id + "/";
   var description = "Update device with id " + id;
-  var body = {
-    "airflow": String(airflow),
-    "asset_tag": String(asset_tag),
-    "cluster": String(cluster),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device_type": String(device_type),
-    "face": String(face),
-    "id": String(id),
-    "latitude": Number(latitude),
-    "local_context_data": String(local_context_data),
-    "location": String(location),
-    "longitude": Number(longitude),
-    "name": String(name),
-    "oob_ip": String(oob_ip),
-    "platform": String(platform),
-    "position": Number(position),
-    "primary_ip4": String(primary_ip4),
-    "primary_ip6": String(primary_ip6),
-    "rack": String(rack),
-    "role": String(role),
-    "serial": String(serial),
-    "site": String(site),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "vc_position": Number(vc_position),
-    "vc_priority": Number(vc_priority),
-    "virtual_chassis": String(virtual_chassis),
-  };
+  var body = String(...);
   svc.put(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
+function partialUpdateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
   var url = "/api/dcim/devices/" + id + "/";
-  var description = "Patch device with id " + id;
-  var body = {
-    "airflow": String(airflow),
-    "asset_tag": String(asset_tag),
-    "cluster": String(cluster),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device_type": String(device_type),
-    "face": String(face),
-    "id": String(id),
-    "latitude": Number(latitude),
-    "local_context_data": String(local_context_data),
-    "location": String(location),
-    "longitude": Number(longitude),
-    "name": String(name),
-    "oob_ip": String(oob_ip),
-    "platform": String(platform),
-    "position": Number(position),
-    "primary_ip4": String(primary_ip4),
-    "primary_ip6": String(primary_ip6),
-    "rack": String(rack),
-    "role": String(role),
-    "serial": String(serial),
-    "site": String(site),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "vc_position": Number(vc_position),
-    "vc_priority": Number(vc_priority),
-    "virtual_chassis": String(virtual_chassis),
-  };
+  var description = "Partially update device with id " + id;
+  var body = String(...);
   svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -2261,6 +2238,46 @@ function deleteDevice(airflow, asset_tag, cluster, comments, config_template, cu
   var url = "/api/dcim/devices/" + id + "/";
   var description = "Delete device with id " + id;
   var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function bulkUpdateDevices(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
+  var url = "/api/dcim/devices/";
+  var description = "Bulk update devices";
+  var body = "[{...}]";
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateDevices(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
+  var url = "/api/dcim/devices/";
+  var description = "Bulk partial update devices";
+  var body = "[{...}]";
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteDevices(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
+  var url = "/api/dcim/devices/";
+  var description = "Bulk delete devices";
+  var body = "[{...}]";
   svc.delete(url, {
     parameters: { description: description },
     expectedResponseCodes: [200, 204]
@@ -2332,7 +2349,7 @@ function verifyDeviceExists(airflow, asset_tag, cluster, comments, config_templa
 
 function verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
   var url = "/api/dcim/devices/";
-  var description = "Verify Device with id " + id + " does not exist";
+  var description = "Verify Device does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2418,25 +2435,13 @@ function waitForAnyDeviceDeleted() {
 function createFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
   var url = "/api/dcim/front-port-templates/";
   var description = "Create front port template with id " + id;
-  var body = {
-    "color": String(color),
-    "description": String(description),
-    "device_type": String(device_type),
-    "id": String(id),
-    "label": String(label),
-    "module_type": String(module_type),
-    "name": String(name),
-    "rear_port": String(rear_port),
-    "rear_port_position": Number(rear_port_position),
-    "type": String(type),
-  };
+  var body = String(...);
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -2455,52 +2460,28 @@ function getFrontPortTemplate(color, description, device_type, id, label, module
 function updateFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
   var url = "/api/dcim/front-port-templates/" + id + "/";
   var description = "Update front port template with id " + id;
-  var body = {
-    "color": String(color),
-    "description": String(description),
-    "device_type": String(device_type),
-    "id": String(id),
-    "label": String(label),
-    "module_type": String(module_type),
-    "name": String(name),
-    "rear_port": String(rear_port),
-    "rear_port_position": Number(rear_port_position),
-    "type": String(type),
-  };
+  var body = String(...);
   svc.put(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
+function partialUpdateFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
   var url = "/api/dcim/front-port-templates/" + id + "/";
-  var description = "Patch front port template with id " + id;
-  var body = {
-    "color": String(color),
-    "description": String(description),
-    "device_type": String(device_type),
-    "id": String(id),
-    "label": String(label),
-    "module_type": String(module_type),
-    "name": String(name),
-    "rear_port": String(rear_port),
-    "rear_port_position": Number(rear_port_position),
-    "type": String(type),
-  };
+  var description = "Partially update front port template with id " + id;
+  var body = String(...);
   svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -2510,6 +2491,46 @@ function deleteFrontPortTemplate(color, description, device_type, id, label, mod
   var url = "/api/dcim/front-port-templates/" + id + "/";
   var description = "Delete front port template with id " + id;
   var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function bulkUpdateFrontPortTemplates(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
+  var url = "/api/dcim/front-port-templates/";
+  var description = "Bulk update front port templates";
+  var body = "[{...}]";
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateFrontPortTemplates(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
+  var url = "/api/dcim/front-port-templates/";
+  var description = "Bulk partial update front port templates";
+  var body = "[{...}]";
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteFrontPortTemplates(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
+  var url = "/api/dcim/front-port-templates/";
+  var description = "Bulk delete front port templates";
+  var body = "[{...}]";
   svc.delete(url, {
     parameters: { description: description },
     expectedResponseCodes: [200, 204]
@@ -2561,7 +2582,7 @@ function verifyFrontPortTemplateExists(color, description, device_type, id, labe
 
 function verifyFrontPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
   var url = "/api/dcim/front-port-templates/";
-  var description = "Verify FrontPortTemplate with id " + id + " does not exist";
+  var description = "Verify FrontPortTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2647,28 +2668,13 @@ function waitForAnyFrontPortTemplateDeleted() {
 function createFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
   var url = "/api/dcim/front-ports/";
   var description = "Create front port with id " + id;
-  var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device": String(device),
-    "id": String(id),
-    "label": String(label),
-    "mark_connected": mark_connected,
-    "module": String(module),
-    "name": String(name),
-    "rear_port": Number(rear_port),
-    "rear_port_position": Number(rear_port_position),
-    "tags": String(tags),
-    "type": String(type),
-  };
+  var body = String(...);
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -2687,58 +2693,28 @@ function getFrontPort(color, custom_fields, description, device, id, label, mark
 function updateFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
   var url = "/api/dcim/front-ports/" + id + "/";
   var description = "Update front port with id " + id;
-  var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device": String(device),
-    "id": String(id),
-    "label": String(label),
-    "mark_connected": mark_connected,
-    "module": String(module),
-    "name": String(name),
-    "rear_port": Number(rear_port),
-    "rear_port_position": Number(rear_port_position),
-    "tags": String(tags),
-    "type": String(type),
-  };
+  var body = String(...);
   svc.put(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
+function partialUpdateFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
   var url = "/api/dcim/front-ports/" + id + "/";
-  var description = "Patch front port with id " + id;
-  var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device": String(device),
-    "id": String(id),
-    "label": String(label),
-    "mark_connected": mark_connected,
-    "module": String(module),
-    "name": String(name),
-    "rear_port": Number(rear_port),
-    "rear_port_position": Number(rear_port_position),
-    "tags": String(tags),
-    "type": String(type),
-  };
+  var description = "Partially update front port with id " + id;
+  var body = String(...);
   svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -2748,6 +2724,46 @@ function deleteFrontPort(color, custom_fields, description, device, id, label, m
   var url = "/api/dcim/front-ports/" + id + "/";
   var description = "Delete front port with id " + id;
   var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function bulkUpdateFrontPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
+  var url = "/api/dcim/front-ports/";
+  var description = "Bulk update front ports";
+  var body = "[{...}]";
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateFrontPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
+  var url = "/api/dcim/front-ports/";
+  var description = "Bulk partial update front ports";
+  var body = "[{...}]";
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteFrontPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
+  var url = "/api/dcim/front-ports/";
+  var description = "Bulk delete front ports";
+  var body = "[{...}]";
   svc.delete(url, {
     parameters: { description: description },
     expectedResponseCodes: [200, 204]
@@ -2802,7 +2818,7 @@ function verifyFrontPortExists(color, custom_fields, description, device, id, la
 
 function verifyFrontPortDoesNotExist(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
   var url = "/api/dcim/front-ports/";
-  var description = "Verify FrontPort with id " + id + " does not exist";
+  var description = "Verify FrontPort does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -2883,63 +2899,11 @@ function waitForAnyFrontPortDeleted() {
   return obj;
 }
 
-// ---- Entity: front port paths ----
-
-function getFrontPortPaths(id) {
-  var url = "/api/dcim/front-ports/" + id + "/paths/";
-  var description = "Get front port paths for front port " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function verifyFrontPortPathsExists(id) {
-  var url = "/api/dcim/front-ports";
-  var description = "Verify FrontPortPaths with id " + id + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.success("FrontPortPaths exists");
-          }
-        }
-      }
-      return pvg.fail("Expected FrontPortPaths to exist but it does not");
-    }
-  });
-}
-
-function verifyFrontPortPathsDoesNotExist(id) {
-  var url = "/api/dcim/front-ports";
-  var description = "Verify FrontPortPaths with id " + id + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected FrontPortPaths to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("FrontPortPaths does not exist");
-    }
-  });
-}
-
 // ---- Entity: interface template ----
 
 function createInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/";
-  var description = "Create interface template " + name;
+  var description = "Create interface template with id " + id;
   var body = {
     "bridge": Number(bridge),
     "description": String(description),
@@ -2961,15 +2925,14 @@ function createInterfaceTemplate(bridge, description, device_type, enabled, id, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var url = "/api/dcim/interface-templates/" + id + "/";
-  var description = "Delete interface template " + id;
+function deleteInterfaceTemplatesBulk(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/";
+  var description = "Delete interface templates in bulk";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -2979,7 +2942,7 @@ function deleteInterfaceTemplate(bridge, description, device_type, enabled, id, 
 
 function updateInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/" + id + "/";
-  var description = "Update interface template " + id + " with name " + name;
+  var description = "Update interface template " + id;
   var body = {
     "bridge": Number(bridge),
     "description": String(description),
@@ -3001,20 +2964,96 @@ function updateInterfaceTemplate(bridge, description, device_type, enabled, id, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+function partialUpdateInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/" + id + "/";
-  var description = "Get interface template " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
+  var description = "Partial update interface template " + id;
+  var body = {
+    "bridge": Number(bridge),
+    "description": String(description),
+    "device_type": String(device_type),
+    "enabled": enabled,
+    "id": String(id),
+    "label": String(label),
+    "mgmt_only": mgmt_only,
+    "module_type": String(module_type),
+    "name": String(name),
+    "poe_mode": String(poe_mode),
+    "poe_type": String(poe_type),
+    "rf_role": String(rf_role),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateInterfaceTemplates(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/";
+  var description = "Bulk update interface templates";
+  var body = {
+    "bridge": String(bridge),
+    "description": String(description),
+    "device_type": String(device_type),
+    "enabled": String(enabled),
+    "id": String(id),
+    "label": String(label),
+    "mgmt_only": String(mgmt_only),
+    "module_type": String(module_type),
+    "name": String(name),
+    "poe_mode": String(poe_mode),
+    "poe_type": String(poe_type),
+    "rf_role": String(rf_role),
+    "type": String(type),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateInterfaceTemplates(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
+  var url = "/api/dcim/interface-templates/";
+  var description = "Bulk partial update interface templates";
+  var body = {
+    "bridge": String(bridge),
+    "description": String(description),
+    "device_type": String(device_type),
+    "enabled": String(enabled),
+    "id": String(id),
+    "label": String(label),
+    "mgmt_only": String(mgmt_only),
+    "module_type": String(module_type),
+    "name": String(name),
+    "poe_mode": String(poe_mode),
+    "poe_type": String(poe_type),
+    "rf_role": String(rf_role),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function tryToAddExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
@@ -3065,7 +3104,7 @@ function verifyInterfaceTemplateExists(bridge, description, device_type, enabled
 
 function verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
   var url = "/api/dcim/interface-templates/";
-  var description = "Verify InterfaceTemplate with id " + id + " does not exist";
+  var description = "Verify InterfaceTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3084,7 +3123,7 @@ function verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, e
 }
 
 function tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var url = "/api/dcim/interface-templates/" + id + "/";
+  var url = "/api/dcim/interface-templates/";
   var description = "Verify we cannot delete non-existing InterfaceTemplate";
   svc.delete(url, {
     expectedResponseCodes: [200, 204],
@@ -3093,15 +3132,15 @@ function tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_ty
 }
 
 function matchAddedInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var expectedDesc = "Create interface template " + name;
+  var expectedDesc = "Create interface template with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyInterfaceTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ interface\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ interface\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ interface\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ interface\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3123,22 +3162,22 @@ function matchAnyInterfaceTemplateAdded() {
 }
 
 function waitForInterfaceTemplateAdded(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var expectedDesc = "Create interface template " + name;
+  var expectedDesc = "Create interface template with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type) {
-  var expectedDesc = "Delete interface template " + id;
+  var expectedDesc = "Delete interface templates in bulk";
   return bp.EventSet("matchDeletedInterfaceTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyInterfaceTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ interface\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ interface\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ interface\ templates\ in\ bulk$/));
+  var m = ev.data.parameters.description.match(/^Delete\ interface\ templates\ in\ bulk$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3176,7 +3215,6 @@ function createInterface(bridge, custom_fields, description, enabled, id, mode, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -3220,7 +3258,105 @@ function updateInterface(bridge, custom_fields, description, enabled, id, mode, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/" + id + "/";
+  var description = "Partial update interface " + id;
+  var body = {
+    "bridge": Number(bridge),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "enabled": enabled,
+    "id": String(id),
+    "mode": String(mode),
+    "mtu": Number(mtu),
+    "name": String(name),
+    "parent": Number(parent),
+    "primary_mac_address": primary_mac_address,
+    "qinq_svlan": String(qinq_svlan),
+    "tagged_vlans": String(tagged_vlans),
+    "tags": String(tags),
+    "untagged_vlan": String(untagged_vlan),
+    "virtual_machine": String(virtual_machine),
+    "vlan_translation_policy": String(vlan_translation_policy),
+    "vrf": String(vrf),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateInterfaces(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/";
+  var description = "Bulk update interfaces";
+  var body = {
+    "bridge": String(bridge),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "enabled": String(enabled),
+    "id": String(id),
+    "mode": String(mode),
+    "mtu": String(mtu),
+    "name": String(name),
+    "parent": String(parent),
+    "primary_mac_address": String(primary_mac_address),
+    "qinq_svlan": String(qinq_svlan),
+    "tagged_vlans": String(tagged_vlans),
+    "tags": String(tags),
+    "untagged_vlan": String(untagged_vlan),
+    "virtual_machine": String(virtual_machine),
+    "vlan_translation_policy": String(vlan_translation_policy),
+    "vrf": String(vrf),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateInterfaces(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
+  var url = "/api/dcim/interfaces/";
+  var description = "Bulk partial update interfaces";
+  var body = {
+    "bridge": String(bridge),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "enabled": String(enabled),
+    "id": String(id),
+    "mode": String(mode),
+    "mtu": String(mtu),
+    "name": String(name),
+    "parent": String(parent),
+    "primary_mac_address": String(primary_mac_address),
+    "qinq_svlan": String(qinq_svlan),
+    "tagged_vlans": String(tagged_vlans),
+    "tags": String(tags),
+    "untagged_vlan": String(untagged_vlan),
+    "virtual_machine": String(virtual_machine),
+    "vlan_translation_policy": String(vlan_translation_policy),
+    "vrf": String(vrf),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -3288,7 +3424,7 @@ function verifyInterfaceExists(bridge, custom_fields, description, enabled, id, 
 
 function verifyInterfaceDoesNotExist(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
   var url = "/api/virtualization/interfaces/";
-  var description = "Verify Interface with id " + id + " does not exist";
+  var description = "Verify Interface does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3373,7 +3509,7 @@ function waitForAnyInterfaceDeleted() {
 
 function createInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/inventory-item-roles/";
-  var description = "Create inventory item role " + id;
+  var description = "Create inventory item role with id " + id;
   var body = {
     "color": String(color),
     "custom_fields": custom_fields,
@@ -3389,15 +3525,14 @@ function createInventoryItemRole(color, custom_fields, description, id, name, sl
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/dcim/inventory-item-roles/" + id + "/";
-  var description = "Delete inventory item role " + id;
+function deleteInventoryItemRolesBulk(color, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/dcim/inventory-item-roles/";
+  var description = "Delete inventory item roles in bulk";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -3423,20 +3558,32 @@ function updateInventoryItemRole(color, custom_fields, description, id, name, sl
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
+function partialUpdateInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/inventory-item-roles/" + id + "/";
-  var description = "Get inventory item role " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
+  var description = "Partial update inventory item role " + id;
+  var body = {
+    "color": String(color),
+    "custom_fields": custom_fields,
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function tryToAddExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
@@ -3481,7 +3628,7 @@ function verifyInventoryItemRoleExists(color, custom_fields, description, id, na
 
 function verifyInventoryItemRoleDoesNotExist(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/inventory-item-roles/";
-  var description = "Verify InventoryItemRole with id " + id + " does not exist";
+  var description = "Verify InventoryItemRole does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3500,7 +3647,7 @@ function verifyInventoryItemRoleDoesNotExist(color, custom_fields, description, 
 }
 
 function tryToDeleteANonExistingInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/dcim/inventory-item-roles/" + id + "/";
+  var url = "/api/dcim/inventory-item-roles/";
   var description = "Verify we cannot delete non-existing InventoryItemRole";
   svc.delete(url, {
     expectedResponseCodes: [200, 204],
@@ -3509,13 +3656,13 @@ function tryToDeleteANonExistingInventoryItemRole(color, custom_fields, descript
 }
 
 function matchAddedInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create inventory item role " + id;
+  var expectedDesc = "Create inventory item role with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyInventoryItemRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ role\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ role\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ role\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ role\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -3539,22 +3686,22 @@ function matchAnyInventoryItemRoleAdded() {
 }
 
 function waitForInventoryItemRoleAdded(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create inventory item role " + id;
+  var expectedDesc = "Create inventory item role with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedInventoryItemRole(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Delete inventory item role " + id;
+  var expectedDesc = "Delete inventory item roles in bulk";
   return bp.EventSet("matchDeletedInventoryItemRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyInventoryItemRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ inventory\ item\ role\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ inventory\ item\ role\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ inventory\ item\ roles\ in\ bulk$/));
+  var m = ev.data.parameters.description.match(/^Delete\ inventory\ item\ roles\ in\ bulk$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3566,7 +3713,7 @@ function waitForAnyInventoryItemRoleDeleted() {
 
 function createInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/";
-  var description = "Create inventory item template " + name;
+  var description = "Create inventory item template with id " + id;
   var body = {
     "component_id": Number(component_id),
     "component_type": String(component_type),
@@ -3587,16 +3734,15 @@ function createInventoryItemTemplate(component_id, component_type, description, 
       description: description,
       id: String(id)
       , component_id: String(component_id)
-      , name: String(name)
       , part_id: String(part_id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var url = "/api/dcim/inventory-item-templates/" + id + "/";
-  var description = "Delete inventory item template " + id;
+function deleteInventoryItemTemplatesBulk(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+  var url = "/api/dcim/inventory-item-templates/";
+  var description = "Delete inventory item templates in bulk";
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -3606,7 +3752,7 @@ function deleteInventoryItemTemplate(component_id, component_type, description, 
 
 function updateInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/" + id + "/";
-  var description = "Update inventory item template " + id + " with name " + name;
+  var description = "Update inventory item template " + id;
   var body = {
     "component_id": Number(component_id),
     "component_type": String(component_type),
@@ -3627,21 +3773,39 @@ function updateInventoryItemTemplate(component_id, component_type, description, 
       description: description,
       id: String(id)
       , component_id: String(component_id)
-      , name: String(name)
       , part_id: String(part_id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
+function partialUpdateInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/" + id + "/";
-  var description = "Get inventory item template " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
+  var description = "Partial update inventory item template " + id;
+  var body = {
+    "component_id": Number(component_id),
+    "component_type": String(component_type),
+    "description": String(description),
+    "device_type": String(device_type),
+    "id": String(id),
+    "label": String(label),
+    "manufacturer": String(manufacturer),
+    "name": String(name),
+    "parent": Number(parent),
+    "part_id": String(part_id),
+    "role": String(role),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , component_id: String(component_id)
+      , part_id: String(part_id)
+    }
   });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function tryToAddExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
@@ -3690,7 +3854,7 @@ function verifyInventoryItemTemplateExists(component_id, component_type, descrip
 
 function verifyInventoryItemTemplateDoesNotExist(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
   var url = "/api/dcim/inventory-item-templates/";
-  var description = "Verify InventoryItemTemplate with id " + id + " does not exist";
+  var description = "Verify InventoryItemTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -3709,7 +3873,7 @@ function verifyInventoryItemTemplateDoesNotExist(component_id, component_type, d
 }
 
 function tryToDeleteANonExistingInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var url = "/api/dcim/inventory-item-templates/" + id + "/";
+  var url = "/api/dcim/inventory-item-templates/";
   var description = "Verify we cannot delete non-existing InventoryItemTemplate";
   svc.delete(url, {
     expectedResponseCodes: [200, 204],
@@ -3718,15 +3882,15 @@ function tryToDeleteANonExistingInventoryItemTemplate(component_id, component_ty
 }
 
 function matchAddedInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var expectedDesc = "Create inventory item template " + name;
+  var expectedDesc = "Create inventory item template with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyInventoryItemTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ inventory\ item\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ inventory\ item\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3748,27 +3912,79 @@ function matchAnyInventoryItemTemplateAdded() {
 }
 
 function waitForInventoryItemTemplateAdded(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var expectedDesc = "Create inventory item template " + name;
+  var expectedDesc = "Create inventory item template with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedInventoryItemTemplate(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role) {
-  var expectedDesc = "Delete inventory item template " + id;
+  var expectedDesc = "Delete inventory item templates in bulk";
   return bp.EventSet("matchDeletedInventoryItemTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyInventoryItemTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ inventory\ item\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ inventory\ item\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ inventory\ item\ templates\ in\ bulk$/));
+  var m = ev.data.parameters.description.match(/^Delete\ inventory\ item\ templates\ in\ bulk$/);
   var captures = m.slice(1);
-  var names = ["id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
   }
   return obj;
+}
+
+// ---- Entity: front port paths ----
+
+function getFrontPortPaths(id) {
+  var url = "/api/dcim/front-ports/" + id + "/paths/";
+  var description = "Get paths for front port " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyFrontPortPathsExists(id) {
+  var url = "/api/dcim/front-ports";
+  var description = "Verify FrontPortPaths with id " + id + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.success("FrontPortPaths exists");
+          }
+        }
+      }
+      return pvg.fail("Expected FrontPortPaths to exist but it does not");
+    }
+  });
+}
+
+function verifyFrontPortPathsDoesNotExist(id) {
+  var url = "/api/dcim/front-ports";
+  var description = "Verify FrontPortPaths does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.fail("Expected FrontPortPaths to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("FrontPortPaths does not exist");
+    }
+  });
 }
 
 // ---- Entity: inventory item ----
@@ -3802,7 +4018,6 @@ function createInventoryItem(asset_tag, component_id, component_type, custom_fie
       description: description,
       id: String(id)
       , component_id: String(component_id)
-      , name: String(name)
       , part_id: String(part_id)
     }
   });
@@ -3848,7 +4063,6 @@ function updateInventoryItem(asset_tag, component_id, component_type, custom_fie
       description: description,
       id: String(id)
       , component_id: String(component_id)
-      , name: String(name)
       , part_id: String(part_id)
     }
   });
@@ -3917,7 +4131,7 @@ function verifyInventoryItemExists(asset_tag, component_id, component_type, cust
 
 function verifyInventoryItemDoesNotExist(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) {
   var url = "/api/dcim/inventory-items/";
-  var description = "Verify InventoryItem with id " + id + " does not exist";
+  var description = "Verify InventoryItem does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4023,7 +4237,6 @@ function createLocation(comments, custom_fields, description, facility, id, name
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4062,7 +4275,6 @@ function updateLocation(comments, custom_fields, description, facility, id, name
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4125,7 +4337,7 @@ function verifyLocationExists(comments, custom_fields, description, facility, id
 
 function verifyLocationDoesNotExist(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) {
   var url = "/api/dcim/locations/";
-  var description = "Verify Location with id " + id + " does not exist";
+  var description = "Verify Location does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4210,7 +4422,7 @@ function waitForAnyLocationDeleted() {
 
 function createMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/";
-  var description = "Create MAC address " + mac_address + " with id " + id;
+  var description = "Create mac address " + mac_address + " with id " + id;
   var body = {
     "assigned_object_id": Number(assigned_object_id),
     "assigned_object_type": String(assigned_object_type),
@@ -4235,7 +4447,7 @@ function createMACAddress(assigned_object_id, assigned_object_type, comments, cu
 
 function deleteMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/" + id + "/";
-  var description = "Delete MAC address with id " + id;
+  var description = "Delete mac address with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -4245,7 +4457,7 @@ function deleteMACAddress(assigned_object_id, assigned_object_type, comments, cu
 
 function updateMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/" + id + "/";
-  var description = "Update MAC address with id " + id;
+  var description = "Update mac address with id " + id;
   var body = {
     "assigned_object_id": Number(assigned_object_id),
     "assigned_object_type": String(assigned_object_type),
@@ -4270,7 +4482,7 @@ function updateMACAddress(assigned_object_id, assigned_object_type, comments, cu
 
 function getMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/" + id + "/";
-  var description = "Get MAC address with id " + id;
+  var description = "Get mac address with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4321,7 +4533,7 @@ function verifyMACAddressExists(assigned_object_id, assigned_object_type, commen
 
 function verifyMACAddressDoesNotExist(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/";
-  var description = "Verify MACAddress with id " + id + " does not exist";
+  var description = "Verify MACAddress does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4349,13 +4561,13 @@ function tryToDeleteANonExistingMACAddress(assigned_object_id, assigned_object_t
 }
 
 function matchAddedMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
-  var expectedDesc = "Create MAC address " + mac_address + " with id " + id;
+  var expectedDesc = "Create mac address " + mac_address + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyMACAddressAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ MAC\ address\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ MAC\ address\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ mac\ address\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ mac\ address\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["mac_address", "id"];
   var obj = {};
@@ -4379,20 +4591,20 @@ function matchAnyMACAddressAdded() {
 }
 
 function waitForMACAddressAdded(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
-  var expectedDesc = "Create MAC address " + mac_address + " with id " + id;
+  var expectedDesc = "Create mac address " + mac_address + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
-  var expectedDesc = "Delete MAC address with id " + id;
+  var expectedDesc = "Delete mac address with id " + id;
   return bp.EventSet("matchDeletedMACAddress", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyMACAddressDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ MAC\ address\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ MAC\ address\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ mac\ address\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ mac\ address\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -4421,7 +4633,6 @@ function createManufacturer(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4454,7 +4665,6 @@ function updateManufacturer(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4511,7 +4721,7 @@ function verifyManufacturerExists(custom_fields, description, id, name, slug, ta
 
 function verifyManufacturerDoesNotExist(custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/manufacturers/";
-  var description = "Verify Manufacturer with id " + id + " does not exist";
+  var description = "Verify Manufacturer does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4612,7 +4822,6 @@ function createModuleBayTemplate(description, device_type, id, label, module_typ
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4646,7 +4855,6 @@ function updateModuleBayTemplate(description, device_type, id, label, module_typ
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4704,7 +4912,7 @@ function verifyModuleBayTemplateExists(description, device_type, id, label, modu
 
 function verifyModuleBayTemplateDoesNotExist(description, device_type, id, label, module_type, name, position) {
   var url = "/api/dcim/module-bay-templates/";
-  var description = "Verify ModuleBayTemplate with id " + id + " does not exist";
+  var description = "Verify ModuleBayTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -4808,7 +5016,6 @@ function createModuleBay(custom_fields, description, device, id, installed_modul
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4845,7 +5052,6 @@ function updateModuleBay(custom_fields, description, device, id, installed_modul
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -4906,7 +5112,7 @@ function verifyModuleBayExists(custom_fields, description, device, id, installed
 
 function verifyModuleBayDoesNotExist(custom_fields, description, device, id, installed_module, label, module, name, position, tags) {
   var url = "/api/dcim/module-bays/";
-  var description = "Verify ModuleBay with id " + id + " does not exist";
+  var description = "Verify ModuleBay does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5007,7 +5213,6 @@ function createModuleTypeProfile(comments, custom_fields, description, id, name,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -5041,7 +5246,6 @@ function updateModuleTypeProfile(comments, custom_fields, description, id, name,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -5099,7 +5303,7 @@ function verifyModuleTypeProfileExists(comments, custom_fields, description, id,
 
 function verifyModuleTypeProfileDoesNotExist(comments, custom_fields, description, id, name, schema, tags) {
   var url = "/api/dcim/module-type-profiles/";
-  var description = "Verify ModuleTypeProfile with id " + id + " does not exist";
+  var description = "Verify ModuleTypeProfile does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5308,7 +5512,7 @@ function verifyModuleTypeExists(airflow, attributes, comments, custom_fields, de
 
 function verifyModuleTypeDoesNotExist(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) {
   var url = "/api/dcim/module-types/";
-  var description = "Verify ModuleType with id " + id + " does not exist";
+  var description = "Verify ModuleType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5511,7 +5715,7 @@ function verifyModuleExists(asset_tag, comments, custom_fields, description, dev
 
 function verifyModuleDoesNotExist(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) {
   var url = "/api/dcim/modules/";
-  var description = "Verify Module with id " + id + " does not exist";
+  var description = "Verify Module does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5598,16 +5802,8 @@ function createPlatform(comments, config_template, custom_fields, description, i
   var url = "/api/dcim/platforms/";
   var description = "Create platform " + name + " with id " + id;
   var body = {
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "manufacturer": String(manufacturer),
-    "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "name": String(name),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -5615,7 +5811,6 @@ function createPlatform(comments, config_template, custom_fields, description, i
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -5652,7 +5847,6 @@ function updatePlatform(comments, config_template, custom_fields, description, i
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -5713,7 +5907,7 @@ function verifyPlatformExists(comments, config_template, custom_fields, descript
 
 function verifyPlatformDoesNotExist(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) {
   var url = "/api/dcim/platforms/";
-  var description = "Verify Platform with id " + id + " does not exist";
+  var description = "Verify Platform does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -5824,7 +6018,6 @@ function createPowerFeed(amperage, comments, custom_fields, description, id, mar
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -5868,7 +6061,6 @@ function updatePowerFeed(amperage, comments, custom_fields, description, id, mar
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -5936,7 +6128,7 @@ function verifyPowerFeedExists(amperage, comments, custom_fields, description, i
 
 function verifyPowerFeedDoesNotExist(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
   var url = "/api/dcim/power-feeds/";
-  var description = "Verify PowerFeed with id " + id + " does not exist";
+  var description = "Verify PowerFeed does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6039,7 +6231,6 @@ function createPowerOutletTemplate(description, device_type, feed_leg, id, label
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6075,7 +6266,6 @@ function updatePowerOutletTemplate(description, device_type, feed_leg, id, label
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6135,7 +6325,7 @@ function verifyPowerOutletTemplateExists(description, device_type, feed_leg, id,
 
 function verifyPowerOutletTemplateDoesNotExist(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
   var url = "/api/dcim/power-outlet-templates/";
-  var description = "Verify PowerOutletTemplate with id " + id + " does not exist";
+  var description = "Verify PowerOutletTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6243,7 +6433,6 @@ function createPowerOutlet(color, custom_fields, description, device, feed_leg, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6284,7 +6473,6 @@ function updatePowerOutlet(color, custom_fields, description, device, feed_leg, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6349,7 +6537,7 @@ function verifyPowerOutletExists(color, custom_fields, description, device, feed
 
 function verifyPowerOutletDoesNotExist(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
   var url = "/api/dcim/power-outlets/";
-  var description = "Verify PowerOutlet with id " + id + " does not exist";
+  var description = "Verify PowerOutlet does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6451,7 +6639,6 @@ function createPowerPanel(comments, custom_fields, description, id, location, na
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6486,7 +6673,6 @@ function updatePowerPanel(comments, custom_fields, description, id, location, na
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6545,7 +6731,7 @@ function verifyPowerPanelExists(comments, custom_fields, description, id, locati
 
 function verifyPowerPanelDoesNotExist(comments, custom_fields, description, id, location, name, site, tags) {
   var url = "/api/dcim/power-panels/";
-  var description = "Verify PowerPanel with id " + id + " does not exist";
+  var description = "Verify PowerPanel does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6632,15 +6818,7 @@ function createPowerPortTemplate(allocated_draw, description, device_type, id, l
   var url = "/api/dcim/power-port-templates/";
   var description = "Create power port template " + name + " with id " + id;
   var body = {
-    "allocated_draw": Number(allocated_draw),
-    "description": String(description),
-    "device_type": String(device_type),
-    "id": String(id),
-    "label": String(label),
-    "maximum_draw": Number(maximum_draw),
-    "module_type": String(module_type),
     "name": String(name),
-    "type": String(type),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -6648,7 +6826,6 @@ function createPowerPortTemplate(allocated_draw, description, device_type, id, l
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6668,15 +6845,7 @@ function updatePowerPortTemplate(allocated_draw, description, device_type, id, l
   var url = "/api/dcim/power-port-templates/" + id + "/";
   var description = "Update power port template " + name + " with id " + id;
   var body = {
-    "allocated_draw": Number(allocated_draw),
-    "description": String(description),
-    "device_type": String(device_type),
-    "id": String(id),
-    "label": String(label),
-    "maximum_draw": Number(maximum_draw),
-    "module_type": String(module_type),
     "name": String(name),
-    "type": String(type),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -6684,7 +6853,6 @@ function updatePowerPortTemplate(allocated_draw, description, device_type, id, l
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6744,7 +6912,7 @@ function verifyPowerPortTemplateExists(allocated_draw, description, device_type,
 
 function verifyPowerPortTemplateDoesNotExist(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) {
   var url = "/api/dcim/power-port-templates/";
-  var description = "Verify PowerPortTemplate with id " + id + " does not exist";
+  var description = "Verify PowerPortTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -6831,18 +6999,7 @@ function createPowerPort(allocated_draw, custom_fields, description, device, id,
   var url = "/api/dcim/power-ports/";
   var description = "Create power port " + name + " with id " + id;
   var body = {
-    "allocated_draw": Number(allocated_draw),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device": String(device),
-    "id": String(id),
-    "label": String(label),
-    "mark_connected": mark_connected,
-    "maximum_draw": Number(maximum_draw),
-    "module": String(module),
     "name": String(name),
-    "tags": String(tags),
-    "type": String(type),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -6850,7 +7007,6 @@ function createPowerPort(allocated_draw, custom_fields, description, device, id,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6870,18 +7026,7 @@ function updatePowerPort(allocated_draw, custom_fields, description, device, id,
   var url = "/api/dcim/power-ports/" + id + "/";
   var description = "Update power port " + name + " with id " + id;
   var body = {
-    "allocated_draw": Number(allocated_draw),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device": String(device),
-    "id": String(id),
-    "label": String(label),
-    "mark_connected": mark_connected,
-    "maximum_draw": Number(maximum_draw),
-    "module": String(module),
     "name": String(name),
-    "tags": String(tags),
-    "type": String(type),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -6889,7 +7034,6 @@ function updatePowerPort(allocated_draw, custom_fields, description, device, id,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -6952,7 +7096,7 @@ function verifyPowerPortExists(allocated_draw, custom_fields, description, devic
 
 function verifyPowerPortDoesNotExist(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) {
   var url = "/api/dcim/power-ports/";
-  var description = "Verify PowerPort with id " + id + " does not exist";
+  var description = "Verify PowerPort does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7039,16 +7183,7 @@ function createRackReservation(comments, custom_fields, description, id, rack, s
   var url = "/api/dcim/rack-reservations/";
   var description = "Create rack reservation with id " + id + " and description " + description;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
     "description": String(description),
-    "id": String(id),
-    "rack": String(rack),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "units": String(units),
-    "user": String(user),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -7075,16 +7210,7 @@ function updateRackReservation(comments, custom_fields, description, id, rack, s
   var url = "/api/dcim/rack-reservations/" + id + "/";
   var description = "Update rack reservation with id " + id + " and description " + description;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
     "description": String(description),
-    "id": String(id),
-    "rack": String(rack),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "units": String(units),
-    "user": String(user),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -7152,7 +7278,7 @@ function verifyRackReservationExists(comments, custom_fields, description, id, r
 
 function verifyRackReservationDoesNotExist(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) {
   var url = "/api/dcim/rack-reservations/";
-  var description = "Verify RackReservation with id " + id + " does not exist";
+  var description = "Verify RackReservation does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7237,15 +7363,10 @@ function waitForAnyRackReservationDeleted() {
 
 function createRackRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/rack-roles/";
-  var description = "Create rack role " + name + " with slug " + slug + " and id " + id;
+  var description = "Create rack role " + name + " with id " + id + " and slug " + slug;
   var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -7253,7 +7374,6 @@ function createRackRole(color, custom_fields, description, id, name, slug, tags)
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -7271,15 +7391,10 @@ function deleteRackRole(color, custom_fields, description, id, name, slug, tags)
 
 function updateRackRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/rack-roles/" + id + "/";
-  var description = "Update rack role " + name + " with slug " + slug + " and id " + id;
+  var description = "Update rack role " + name + " with id " + id + " and slug " + slug;
   var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -7287,7 +7402,6 @@ function updateRackRole(color, custom_fields, description, id, name, slug, tags)
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -7345,7 +7459,7 @@ function verifyRackRoleExists(color, custom_fields, description, id, name, slug,
 
 function verifyRackRoleDoesNotExist(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/rack-roles/";
-  var description = "Verify RackRole with id " + id + " does not exist";
+  var description = "Verify RackRole does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7373,15 +7487,15 @@ function tryToDeleteANonExistingRackRole(color, custom_fields, description, id, 
 }
 
 function matchAddedRackRole(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create rack role " + name + " with slug " + slug + " and id " + id;
+  var expectedDesc = "Create rack role " + name + " with id " + id + " and slug " + slug;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRackRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ rack\ role\ (.+)\ with\ slug\ (.+)\ and\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ rack\ role\ (.+)\ with\ slug\ (.+)\ and\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ rack\ role\ (.+)\ with\ id\ (.+)\ and\ slug\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ rack\ role\ (.+)\ with\ id\ (.+)\ and\ slug\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "slug", "id"];
+  var names = ["name", "id", "slug"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -7403,7 +7517,7 @@ function matchAnyRackRoleAdded() {
 }
 
 function waitForRackRoleAdded(color, custom_fields, description, id, name, slug, tags) {
-  var expectedDesc = "Create rack role " + name + " with slug " + slug + " and id " + id;
+  var expectedDesc = "Create rack role " + name + " with id " + id + " and slug " + slug;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -7430,30 +7544,10 @@ function waitForAnyRackRoleDeleted() {
 
 function createRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/rack-types/";
-  var description = "Create rack type " + name + " with slug " + slug + " and id " + id;
+  var description = "Create rack type " + name + " with id " + id + " and slug " + slug;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "desc_units": desc_units,
-    "description": String(description),
-    "form_factor": String(form_factor),
-    "id": String(id),
-    "manufacturer": String(manufacturer),
-    "max_weight": Number(max_weight),
-    "model": String(model),
-    "mounting_depth": Number(mounting_depth),
     "name": String(name),
-    "outer_depth": Number(outer_depth),
-    "outer_height": Number(outer_height),
-    "outer_unit": String(outer_unit),
-    "outer_width": Number(outer_width),
     "slug": String(slug),
-    "starting_unit": Number(starting_unit),
-    "tags": String(tags),
-    "u_height": Number(u_height),
-    "weight": Number(weight),
-    "weight_unit": String(weight_unit),
-    "width": Number(width),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -7461,7 +7555,6 @@ function createRackType(comments, custom_fields, desc_units, description, form_f
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -7510,7 +7603,6 @@ function updateRackType(comments, custom_fields, desc_units, description, form_f
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -7526,9 +7618,9 @@ function getRackType(comments, custom_fields, desc_units, description, form_fact
   });
 }
 
-function patchRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
+function partialUpdateRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/rack-types/" + id + "/";
-  var description = "Patch rack type with id " + id;
+  var description = "Partially update rack type with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -7540,6 +7632,7 @@ function patchRackType(comments, custom_fields, desc_units, description, form_fa
     "max_weight": Number(max_weight),
     "model": String(model),
     "mounting_depth": Number(mounting_depth),
+    "name": String(name),
     "outer_depth": Number(outer_depth),
     "outer_height": Number(outer_height),
     "outer_unit": String(outer_unit),
@@ -7558,7 +7651,6 @@ function patchRackType(comments, custom_fields, desc_units, description, form_fa
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -7621,7 +7713,7 @@ function verifyRackTypeExists(comments, custom_fields, desc_units, description, 
 
 function verifyRackTypeDoesNotExist(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/rack-types/";
-  var description = "Verify RackType with id " + id + " does not exist";
+  var description = "Verify RackType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -7649,15 +7741,15 @@ function tryToDeleteANonExistingRackType(comments, custom_fields, desc_units, de
 }
 
 function matchAddedRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
-  var expectedDesc = "Create rack type " + name + " with slug " + slug + " and id " + id;
+  var expectedDesc = "Create rack type " + name + " with id " + id + " and slug " + slug;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRackTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ rack\ type\ (.+)\ with\ slug\ (.+)\ and\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ rack\ type\ (.+)\ with\ slug\ (.+)\ and\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ rack\ type\ (.+)\ with\ id\ (.+)\ and\ slug\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ rack\ type\ (.+)\ with\ id\ (.+)\ and\ slug\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "slug", "id"];
+  var names = ["name", "id", "slug"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -7679,7 +7771,7 @@ function matchAnyRackTypeAdded() {
 }
 
 function waitForRackTypeAdded(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
-  var expectedDesc = "Create rack type " + name + " with slug " + slug + " and id " + id;
+  var expectedDesc = "Create rack type " + name + " with id " + id + " and slug " + slug;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -7703,6 +7795,16 @@ function waitForAnyRackTypeDeleted() {
 }
 
 // ---- Entity: rack ----
+
+function listRacks(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
+  var url = "/api/dcim/racks/";
+  var description = "List racks";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
 
 function createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/racks/";
@@ -7745,10 +7847,111 @@ function createRack(airflow, asset_tag, comments, custom_fields, desc_units, des
       description: description,
       id: String(id)
       , facility_id: String(facility_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateRacks(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
+  var url = "/api/dcim/racks/";
+  var description = "Bulk update racks";
+  var body = {
+    "airflow": String(airflow),
+    "asset_tag": String(asset_tag),
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "desc_units": String(desc_units),
+    "description": String(description),
+    "facility_id": String(facility_id),
+    "form_factor": String(form_factor),
+    "id": String(id),
+    "location": String(location),
+    "max_weight": String(max_weight),
+    "mounting_depth": String(mounting_depth),
+    "name": String(name),
+    "outer_depth": String(outer_depth),
+    "outer_height": String(outer_height),
+    "outer_unit": String(outer_unit),
+    "outer_width": String(outer_width),
+    "rack_type": String(rack_type),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "starting_unit": String(starting_unit),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "u_height": String(u_height),
+    "weight": String(weight),
+    "weight_unit": String(weight_unit),
+    "width": String(width),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , facility_id: String(facility_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateRacks(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
+  var url = "/api/dcim/racks/";
+  var description = "Bulk partial update racks";
+  var body = {
+    "airflow": String(airflow),
+    "asset_tag": String(asset_tag),
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "desc_units": String(desc_units),
+    "description": String(description),
+    "facility_id": String(facility_id),
+    "form_factor": String(form_factor),
+    "id": String(id),
+    "location": String(location),
+    "max_weight": String(max_weight),
+    "mounting_depth": String(mounting_depth),
+    "name": String(name),
+    "outer_depth": String(outer_depth),
+    "outer_height": String(outer_height),
+    "outer_unit": String(outer_unit),
+    "outer_width": String(outer_width),
+    "rack_type": String(rack_type),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "starting_unit": String(starting_unit),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "u_height": String(u_height),
+    "weight": String(weight),
+    "weight_unit": String(weight_unit),
+    "width": String(width),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+      , facility_id: String(facility_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteRacks(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
+  var url = "/api/dcim/racks/";
+  var description = "Bulk delete racks";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
 }
 
 function getRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
@@ -7802,15 +8005,14 @@ function updateRack(airflow, asset_tag, comments, custom_fields, desc_units, des
       description: description,
       id: String(id)
       , facility_id: String(facility_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
+function partialUpdateRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/racks/" + id + "/";
-  var description = "Patch rack with id " + id;
+  var description = "Partially update rack with id " + id;
   var body = {
     "airflow": String(airflow),
     "asset_tag": String(asset_tag),
@@ -7849,7 +8051,6 @@ function patchRack(airflow, asset_tag, comments, custom_fields, desc_units, desc
       description: description,
       id: String(id)
       , facility_id: String(facility_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -7929,7 +8130,7 @@ function verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_unit
 
 function verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/racks/";
-  var description = "Verify Rack with id " + id + " does not exist";
+  var description = "Verify Rack does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -8010,7 +8211,69 @@ function waitForAnyRackDeleted() {
   return obj;
 }
 
+// ---- Entity: rack elevation ----
+
+function getRackElevation(id) {
+  var url = "/api/dcim/racks/" + id + "/elevation/";
+  var description = "Get elevation for rack with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyRackElevationExists(id) {
+  var url = "/api/dcim/racks";
+  var description = "Verify RackElevation with id " + id + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.success("RackElevation exists");
+          }
+        }
+      }
+      return pvg.fail("Expected RackElevation to exist but it does not");
+    }
+  });
+}
+
+function verifyRackElevationDoesNotExist(id) {
+  var url = "/api/dcim/racks";
+  var description = "Verify RackElevation does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].id) === String(id)) {
+            return pvg.fail("Expected RackElevation to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("RackElevation does not exist");
+    }
+  });
+}
+
 // ---- Entity: rear port template ----
+
+function listRearPortTemplates(color, description, device_type, id, label, module_type, name, positions, type) {
+  var url = "/api/dcim/rear-port-templates/";
+  var description = "List rear port templates";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
 
 function createRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type) {
   var url = "/api/dcim/rear-port-templates/";
@@ -8032,10 +8295,69 @@ function createRearPortTemplate(color, description, device_type, id, label, modu
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateRearPortTemplates(color, description, device_type, id, label, module_type, name, positions, type) {
+  var url = "/api/dcim/rear-port-templates/";
+  var description = "Bulk update rear port templates";
+  var body = {
+    "color": String(color),
+    "description": String(description),
+    "device_type": String(device_type),
+    "id": String(id),
+    "label": String(label),
+    "module_type": String(module_type),
+    "name": String(name),
+    "positions": String(positions),
+    "type": String(type),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateRearPortTemplates(color, description, device_type, id, label, module_type, name, positions, type) {
+  var url = "/api/dcim/rear-port-templates/";
+  var description = "Bulk partial update rear port templates";
+  var body = {
+    "color": String(color),
+    "description": String(description),
+    "device_type": String(device_type),
+    "id": String(id),
+    "label": String(label),
+    "module_type": String(module_type),
+    "name": String(name),
+    "positions": String(positions),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteRearPortTemplates(color, description, device_type, id, label, module_type, name, positions, type) {
+  var url = "/api/dcim/rear-port-templates/";
+  var description = "Bulk delete rear port templates";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
 }
 
 function getRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type) {
@@ -8068,15 +8390,14 @@ function updateRearPortTemplate(color, description, device_type, id, label, modu
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type) {
+function partialUpdateRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type) {
   var url = "/api/dcim/rear-port-templates/" + id + "/";
-  var description = "Patch rear port template with id " + id;
+  var description = "Partially update rear port template with id " + id;
   var body = {
     "color": String(color),
     "description": String(description),
@@ -8094,7 +8415,6 @@ function patchRearPortTemplate(color, description, device_type, id, label, modul
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -8154,7 +8474,7 @@ function verifyRearPortTemplateExists(color, description, device_type, id, label
 
 function verifyRearPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, positions, type) {
   var url = "/api/dcim/rear-port-templates/";
-  var description = "Verify RearPortTemplate with id " + id + " does not exist";
+  var description = "Verify RearPortTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -8237,6 +8557,16 @@ function waitForAnyRearPortTemplateDeleted() {
 
 // ---- Entity: rear port ----
 
+function listRearPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
+  var url = "/api/dcim/rear-ports/";
+  var description = "List rear ports";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
   var url = "/api/dcim/rear-ports/";
   var description = "Create rear port with id " + id;
@@ -8260,10 +8590,75 @@ function createRearPort(color, custom_fields, description, device, id, label, ma
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateRearPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
+  var url = "/api/dcim/rear-ports/";
+  var description = "Bulk update rear ports";
+  var body = {
+    "color": String(color),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "device": String(device),
+    "id": String(id),
+    "label": String(label),
+    "mark_connected": String(mark_connected),
+    "module": String(module),
+    "name": String(name),
+    "positions": String(positions),
+    "tags": String(tags),
+    "type": String(type),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateRearPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
+  var url = "/api/dcim/rear-ports/";
+  var description = "Bulk partial update rear ports";
+  var body = {
+    "color": String(color),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "device": String(device),
+    "id": String(id),
+    "label": String(label),
+    "mark_connected": String(mark_connected),
+    "module": String(module),
+    "name": String(name),
+    "positions": String(positions),
+    "tags": String(tags),
+    "type": String(type),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteRearPorts(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
+  var url = "/api/dcim/rear-ports/";
+  var description = "Bulk delete rear ports";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
 }
 
 function getRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
@@ -8299,15 +8694,14 @@ function updateRearPort(color, custom_fields, description, device, id, label, ma
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function patchRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
+function partialUpdateRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
   var url = "/api/dcim/rear-ports/" + id + "/";
-  var description = "Patch rear port with id " + id;
+  var description = "Partially update rear port with id " + id;
   var body = {
     "color": String(color),
     "custom_fields": custom_fields,
@@ -8328,7 +8722,6 @@ function patchRearPort(color, custom_fields, description, device, id, label, mar
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -8391,7 +8784,7 @@ function verifyRearPortExists(color, custom_fields, description, device, id, lab
 
 function verifyRearPortDoesNotExist(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type) {
   var url = "/api/dcim/rear-ports/";
-  var description = "Verify RearPort with id " + id + " does not exist";
+  var description = "Verify RearPort does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -8474,9 +8867,19 @@ function waitForAnyRearPortDeleted() {
 
 // ---- Entity: region ----
 
+function listRegions(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/regions/";
+  var description = "List regions";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/regions/";
-  var description = "Create region";
+  var description = "Create region with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -8493,10 +8896,67 @@ function createRegion(comments, custom_fields, description, id, name, parent, sl
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateRegions(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/regions/";
+  var description = "Bulk update regions";
+  var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "parent": String(parent),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateRegions(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/regions/";
+  var description = "Bulk partial update regions";
+  var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "parent": String(parent),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteRegions(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/regions/";
+  var description = "Bulk delete regions";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
 }
 
 function getRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -8513,14 +8973,10 @@ function updateRegion(comments, custom_fields, description, id, name, parent, sl
   var url = "/api/dcim/regions/" + id + "/";
   var description = "Update region with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "parent": String(parent),
+    "description": String(description),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -8528,45 +8984,9 @@ function updateRegion(comments, custom_fields, description, id, name, parent, sl
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function patchRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/dcim/regions/" + id + "/";
-  var description = "Patch region with id " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "parent": Number(parent),
-    "slug": String(slug),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function deleteRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/dcim/regions/" + id + "/";
-  var description = "Delete region with id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
 }
 
 function partialUpdateRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -8588,7 +9008,36 @@ function partialUpdateRegion(comments, custom_fields, description, id, name, par
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/regions/" + id + "/";
+  var description = "Delete region with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function partialUpdateRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/regions/" + id + "/";
+  var description = "Partially update region with id " + id;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "parent": String(parent),
+    "description": String(description),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -8637,7 +9086,7 @@ function verifyRegionExists(comments, custom_fields, description, id, name, pare
 
 function verifyRegionDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/regions/";
-  var description = "Verify Region with id " + id + " does not exist";
+  var description = "Verify Region does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -8665,15 +9114,15 @@ function tryToDeleteANonExistingRegion(comments, custom_fields, description, id,
 }
 
 function matchAddedRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create region";
+  var expectedDesc = "Create region with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRegionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ region$/));
-  var m = ev.data.parameters.description.match(/^Create\ region$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ region\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ region\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8695,7 +9144,7 @@ function matchAnyRegionAdded() {
 }
 
 function waitForRegionAdded(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create region";
+  var expectedDesc = "Create region with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -8720,6 +9169,94 @@ function waitForAnyRegionDeleted() {
 
 // ---- Entity: site group ----
 
+function listSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "List site groups";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function createSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Create site group " + name + " with id " + id;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "parent": String(parent),
+    "description": String(description),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Bulk update site groups";
+  var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "parent": String(parent),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Bulk partial update site groups";
+  var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "parent": String(parent),
+    "slug": String(slug),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteSiteGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/dcim/site-groups/";
+  var description = "Bulk delete site groups";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
 function getSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/site-groups/" + id + "/";
   var description = "Get site group with id " + id;
@@ -8730,43 +9267,14 @@ function getSiteGroup(comments, custom_fields, description, id, name, parent, sl
   });
 }
 
-function createSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/dcim/site-groups/";
-  var description = "Create site group";
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "parent": Number(parent),
-    "slug": String(slug),
-    "tags": String(tags),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function updateSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/site-groups/" + id + "/";
   var description = "Update site group with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "parent": String(parent),
+    "description": String(description),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -8774,7 +9282,6 @@ function updateSiteGroup(comments, custom_fields, description, id, name, parent,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -8784,14 +9291,10 @@ function partialUpdateSiteGroup(comments, custom_fields, description, id, name, 
   var url = "/api/dcim/site-groups/" + id + "/";
   var description = "Partially update site group with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "parent": String(parent),
+    "description": String(description),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -8799,7 +9302,6 @@ function partialUpdateSiteGroup(comments, custom_fields, description, id, name, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -8858,7 +9360,7 @@ function verifySiteGroupExists(comments, custom_fields, description, id, name, p
 
 function verifySiteGroupDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/site-groups/";
-  var description = "Verify SiteGroup with id " + id + " does not exist";
+  var description = "Verify SiteGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -8886,15 +9388,15 @@ function tryToDeleteANonExistingSiteGroup(comments, custom_fields, description, 
 }
 
 function matchAddedSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create site group";
+  var expectedDesc = "Create site group " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnySiteGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ site\ group$/));
-  var m = ev.data.parameters.description.match(/^Create\ site\ group$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ site\ group\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ site\ group\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8916,7 +9418,7 @@ function matchAnySiteGroupAdded() {
 }
 
 function waitForSiteGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create site group";
+  var expectedDesc = "Create site group " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -8941,9 +9443,9 @@ function waitForAnySiteGroupDeleted() {
 
 // ---- Entity: site ----
 
-function getSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var url = "/api/dcim/sites/" + id + "/";
-  var description = "Get site with id " + id;
+function listSites(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "List sites";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -8953,26 +9455,25 @@ function getSite(asns, comments, custom_fields, description, facility, group, id
 
 function createSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/";
-  var description = "Create site";
+  var description = "Create site " + name + " with id " + id;
   var body = {
-    "asns": String(asns),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "facility": String(facility),
-    "group": String(group),
-    "id": String(id),
-    "latitude": Number(latitude),
-    "longitude": Number(longitude),
     "name": String(name),
-    "physical_address": physical_address,
-    "region": String(region),
-    "shipping_address": shipping_address,
     "slug": String(slug),
-    "status": String(status),
-    "tags": String(tags),
+    "region": String(region),
     "tenant": String(tenant),
+    "facility": String(facility),
+    "asn": String(asn),
     "time_zone": String(time_zone),
+    "description": String(description),
+    "physical_address": String(physical_address),
+    "shipping_address": String(shipping_address),
+    "latitude": String(latitude),
+    "longitude": String(longitude),
+    "contact_name": String(contact_name),
+    "contact_phone": String(contact_phone),
+    "contact_email": String(contact_email),
+    "comments": String(comments),
+    "status": String(status),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -8980,29 +9481,28 @@ function createSite(asns, comments, custom_fields, description, facility, group,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function updateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var url = "/api/dcim/sites/" + id + "/";
-  var description = "Update site with id " + id;
+function bulkUpdateSites(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "Bulk update sites";
   var body = {
     "asns": String(asns),
     "comments": String(comments),
-    "custom_fields": custom_fields,
+    "custom_fields": String(custom_fields),
     "description": String(description),
     "facility": String(facility),
     "group": String(group),
     "id": String(id),
-    "latitude": Number(latitude),
-    "longitude": Number(longitude),
+    "latitude": String(latitude),
+    "longitude": String(longitude),
     "name": String(name),
-    "physical_address": physical_address,
+    "physical_address": String(physical_address),
     "region": String(region),
-    "shipping_address": shipping_address,
+    "shipping_address": String(shipping_address),
     "slug": String(slug),
     "status": String(status),
     "tags": String(tags),
@@ -9015,29 +9515,28 @@ function updateSite(asns, comments, custom_fields, description, facility, group,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var url = "/api/dcim/sites/" + id + "/";
-  var description = "Partially update site with id " + id;
+function bulkPartialUpdateSites(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "Bulk partial update sites";
   var body = {
     "asns": String(asns),
     "comments": String(comments),
-    "custom_fields": custom_fields,
+    "custom_fields": String(custom_fields),
     "description": String(description),
     "facility": String(facility),
     "group": String(group),
     "id": String(id),
-    "latitude": Number(latitude),
-    "longitude": Number(longitude),
+    "latitude": String(latitude),
+    "longitude": String(longitude),
     "name": String(name),
-    "physical_address": physical_address,
+    "physical_address": String(physical_address),
     "region": String(region),
-    "shipping_address": shipping_address,
+    "shipping_address": String(shipping_address),
     "slug": String(slug),
     "status": String(status),
     "tags": String(tags),
@@ -9050,7 +9549,92 @@ function partialUpdateSite(asns, comments, custom_fields, description, facility,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteSites(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/";
+  var description = "Bulk delete sites";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function getSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/" + id + "/";
+  var description = "Get site with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/" + id + "/";
+  var description = "Update site with id " + id;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "region": String(region),
+    "tenant": String(tenant),
+    "facility": String(facility),
+    "asn": String(asn),
+    "time_zone": String(time_zone),
+    "description": String(description),
+    "physical_address": String(physical_address),
+    "shipping_address": String(shipping_address),
+    "latitude": String(latitude),
+    "longitude": String(longitude),
+    "contact_name": String(contact_name),
+    "contact_phone": String(contact_phone),
+    "contact_email": String(contact_email),
+    "comments": String(comments),
+    "status": String(status),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
+  var url = "/api/dcim/sites/" + id + "/";
+  var description = "Partially update site with id " + id;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "region": String(region),
+    "tenant": String(tenant),
+    "facility": String(facility),
+    "asn": String(asn),
+    "time_zone": String(time_zone),
+    "description": String(description),
+    "physical_address": String(physical_address),
+    "shipping_address": String(shipping_address),
+    "latitude": String(latitude),
+    "longitude": String(longitude),
+    "contact_name": String(contact_name),
+    "contact_phone": String(contact_phone),
+    "contact_email": String(contact_email),
+    "comments": String(comments),
+    "status": String(status),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9119,7 +9703,7 @@ function verifySiteExists(asns, comments, custom_fields, description, facility, 
 
 function verifySiteDoesNotExist(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/";
-  var description = "Verify Site with id " + id + " does not exist";
+  var description = "Verify Site does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -9147,15 +9731,15 @@ function tryToDeleteANonExistingSite(asns, comments, custom_fields, description,
 }
 
 function matchAddedSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var expectedDesc = "Create site";
+  var expectedDesc = "Create site " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnySiteAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ site$/));
-  var m = ev.data.parameters.description.match(/^Create\ site$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ site\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ site\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9177,7 +9761,7 @@ function matchAnySiteAdded() {
 }
 
 function waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  var expectedDesc = "Create site";
+  var expectedDesc = "Create site " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -9202,6 +9786,95 @@ function waitForAnySiteDeleted() {
 
 // ---- Entity: virtual chassis ----
 
+function listVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "List virtual chassis";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function createVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Create virtual chassis with id " + id;
+  var body = {
+    "name": String(name),
+    "domain": String(domain),
+    "description": String(description),
+    "master": String(master),
+    "tags": String(tags),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Bulk update virtual chassis";
+  var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "domain": String(domain),
+    "id": String(id),
+    "master": String(master),
+    "name": String(name),
+    "tags": String(tags),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkPartialUpdateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Bulk partial update virtual chassis";
+  var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "domain": String(domain),
+    "id": String(id),
+    "master": String(master),
+    "name": String(name),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
+  var url = "/api/dcim/virtual-chassis/";
+  var description = "Bulk delete virtual chassis";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
 function getVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
   var url = "/api/dcim/virtual-chassis/" + id + "/";
   var description = "Get virtual chassis with id " + id;
@@ -9212,42 +9885,14 @@ function getVirtualChassis(comments, custom_fields, description, domain, id, mas
   });
 }
 
-function createVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
-  var url = "/api/dcim/virtual-chassis/";
-  var description = "Create virtual chassis";
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "domain": String(domain),
-    "id": String(id),
-    "master": Number(master),
-    "name": String(name),
-    "tags": String(tags),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
 function updateVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
   var url = "/api/dcim/virtual-chassis/" + id + "/";
   var description = "Update virtual chassis with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "domain": String(domain),
-    "id": String(id),
-    "master": Number(master),
     "name": String(name),
+    "domain": String(domain),
+    "description": String(description),
+    "master": String(master),
     "tags": String(tags),
   };
   svc.put(url, {
@@ -9256,7 +9901,6 @@ function updateVirtualChassis(comments, custom_fields, description, domain, id, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9266,13 +9910,10 @@ function partialUpdateVirtualChassis(comments, custom_fields, description, domai
   var url = "/api/dcim/virtual-chassis/" + id + "/";
   var description = "Partially update virtual chassis with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "domain": String(domain),
-    "id": String(id),
-    "master": Number(master),
     "name": String(name),
+    "domain": String(domain),
+    "description": String(description),
+    "master": String(master),
     "tags": String(tags),
   };
   svc.patch(url, {
@@ -9281,7 +9922,6 @@ function partialUpdateVirtualChassis(comments, custom_fields, description, domai
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9340,7 +9980,7 @@ function verifyVirtualChassisExists(comments, custom_fields, description, domain
 
 function verifyVirtualChassisDoesNotExist(comments, custom_fields, description, domain, id, master, name, tags) {
   var url = "/api/dcim/virtual-chassis/";
-  var description = "Verify VirtualChassis with id " + id + " does not exist";
+  var description = "Verify VirtualChassis does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -9368,15 +10008,15 @@ function tryToDeleteANonExistingVirtualChassis(comments, custom_fields, descript
 }
 
 function matchAddedVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
-  var expectedDesc = "Create virtual chassis";
+  var expectedDesc = "Create virtual chassis with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualChassisAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ chassis$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ chassis$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ chassis\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ chassis\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9398,7 +10038,7 @@ function matchAnyVirtualChassisAdded() {
 }
 
 function waitForVirtualChassisAdded(comments, custom_fields, description, domain, id, master, name, tags) {
-  var expectedDesc = "Create virtual chassis";
+  var expectedDesc = "Create virtual chassis with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -9423,9 +10063,9 @@ function waitForAnyVirtualChassisDeleted() {
 
 // ---- Entity: virtual device context ----
 
-function getVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
-  var description = "Get virtual device context with id " + id;
+function listVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "List virtual device contexts";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -9435,20 +10075,12 @@ function getVirtualDeviceContext(comments, custom_fields, description, device, i
 
 function createVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
   var url = "/api/dcim/virtual-device-contexts/";
-  var description = "Create virtual device context";
+  var description = "Create virtual device context with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "device": String(device),
-    "id": String(id),
-    "identifier": Number(identifier),
     "name": String(name),
-    "primary_ip4": String(primary_ip4),
-    "primary_ip6": String(primary_ip6),
-    "status": String(status),
+    "device": String(device),
+    "description": String(description),
     "tags": String(tags),
-    "tenant": String(tenant),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -9456,22 +10088,21 @@ function createVirtualDeviceContext(comments, custom_fields, description, device
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function updateVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
-  var description = "Update virtual device context with id " + id;
+function bulkUpdateVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "Bulk update virtual device contexts";
   var body = {
     "comments": String(comments),
-    "custom_fields": custom_fields,
+    "custom_fields": String(custom_fields),
     "description": String(description),
     "device": String(device),
     "id": String(id),
-    "identifier": Number(identifier),
+    "identifier": String(identifier),
     "name": String(name),
     "primary_ip4": String(primary_ip4),
     "primary_ip6": String(primary_ip6),
@@ -9485,22 +10116,21 @@ function updateVirtualDeviceContext(comments, custom_fields, description, device
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
-  var description = "Partially update virtual device context with id " + id;
+function bulkPartialUpdateVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "Bulk partial update virtual device contexts";
   var body = {
     "comments": String(comments),
-    "custom_fields": custom_fields,
+    "custom_fields": String(custom_fields),
     "description": String(description),
     "device": String(device),
     "id": String(id),
-    "identifier": Number(identifier),
+    "identifier": String(identifier),
     "name": String(name),
     "primary_ip4": String(primary_ip4),
     "primary_ip6": String(primary_ip6),
@@ -9514,7 +10144,66 @@ function partialUpdateVirtualDeviceContext(comments, custom_fields, description,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualDeviceContexts(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/";
+  var description = "Bulk delete virtual device contexts";
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function getVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
+  var description = "Get virtual device context with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function updateVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
+  var description = "Update virtual device context with id " + id;
+  var body = {
+    "name": String(name),
+    "device": String(device),
+    "description": String(description),
+    "tags": String(tags),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
+  var url = "/api/dcim/virtual-device-contexts/" + id + "/";
+  var description = "Partially update virtual device context with id " + id;
+  var body = {
+    "name": String(name),
+    "device": String(device),
+    "description": String(description),
+    "tags": String(tags),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9577,7 +10266,7 @@ function verifyVirtualDeviceContextExists(comments, custom_fields, description, 
 
 function verifyVirtualDeviceContextDoesNotExist(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
   var url = "/api/dcim/virtual-device-contexts/";
-  var description = "Verify VirtualDeviceContext with id " + id + " does not exist";
+  var description = "Verify VirtualDeviceContext does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -9605,15 +10294,15 @@ function tryToDeleteANonExistingVirtualDeviceContext(comments, custom_fields, de
 }
 
 function matchAddedVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var expectedDesc = "Create virtual device context";
+  var expectedDesc = "Create virtual device context with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualDeviceContextAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ device\ context$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ device\ context$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ device\ context\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ device\ context\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9635,7 +10324,7 @@ function matchAnyVirtualDeviceContextAdded() {
 }
 
 function waitForVirtualDeviceContextAdded(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  var expectedDesc = "Create virtual device context";
+  var expectedDesc = "Create virtual device context with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -9782,7 +10471,7 @@ function verifyBookmarkExists(id, object_id, object_type, user) {
 
 function verifyBookmarkDoesNotExist(id, object_id, object_type, user) {
   var url = "/api/extras/bookmarks/";
-  var description = "Verify Bookmark with id " + id + " does not exist";
+  var description = "Verify Bookmark does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -9883,7 +10572,6 @@ function createConfigContextProfile(comments, data_source, description, id, name
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9917,7 +10605,6 @@ function updateConfigContextProfile(comments, data_source, description, id, name
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9941,7 +10628,6 @@ function partialUpdateConfigContextProfile(comments, data_source, description, i
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -9999,7 +10685,7 @@ function verifyConfigContextProfileExists(comments, data_source, description, id
 
 function verifyConfigContextProfileDoesNotExist(comments, data_source, description, id, name, schema, tags) {
   var url = "/api/extras/config-context-profiles/";
-  var description = "Verify ConfigContextProfile with id " + id + " does not exist";
+  var description = "Verify ConfigContextProfile does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -10114,7 +10800,6 @@ function createConfigContext(cluster_groups, cluster_types, clusters, data, data
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10162,7 +10847,6 @@ function updateConfigContext(cluster_groups, cluster_types, clusters, data, data
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10200,7 +10884,6 @@ function partialUpdateConfigContext(cluster_groups, cluster_types, clusters, dat
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10272,7 +10955,7 @@ function verifyConfigContextExists(cluster_groups, cluster_types, clusters, data
 
 function verifyConfigContextDoesNotExist(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) {
   var url = "/api/extras/config-contexts/";
-  var description = "Verify ConfigContext with id " + id + " does not exist";
+  var description = "Verify ConfigContext does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -10355,7 +11038,7 @@ function waitForAnyConfigContextDeleted() {
 
 // ---- Entity: config template ----
 
-function createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var description = "Create config template " + name + " with id " + id;
   var body = {
@@ -10365,6 +11048,7 @@ function createConfigTemplate(as_attachment, data_source, description, environme
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10377,13 +11061,12 @@ function createConfigTemplate(as_attachment, data_source, description, environme
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function deleteConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Delete config template with id " + id;
   var body = undefined;
@@ -10393,7 +11076,7 @@ function deleteConfigTemplate(as_attachment, data_source, description, environme
   });
 }
 
-function updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Update config template with id " + id;
   var body = {
@@ -10403,6 +11086,7 @@ function updateConfigTemplate(as_attachment, data_source, description, environme
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10415,13 +11099,12 @@ function updateConfigTemplate(as_attachment, data_source, description, environme
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function partialUpdateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Partially update config template with id " + id;
   var body = {
@@ -10431,6 +11114,7 @@ function partialUpdateConfigTemplate(as_attachment, data_source, description, en
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10443,13 +11127,12 @@ function partialUpdateConfigTemplate(as_attachment, data_source, description, en
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function getConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Get config template with id " + id;
   var body = undefined;
@@ -10459,7 +11142,7 @@ function getConfigTemplate(as_attachment, data_source, description, environment_
   });
 }
 
-function renderConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function renderConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/render/";
   var description = "Render config template with id " + id;
   var body = {
@@ -10469,6 +11152,7 @@ function renderConfigTemplate(as_attachment, data_source, description, environme
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10481,13 +11165,12 @@ function renderConfigTemplate(as_attachment, data_source, description, environme
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function syncConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function syncConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/sync/";
   var description = "Sync config template with id " + id;
   var body = {
@@ -10497,6 +11180,7 @@ function syncConfigTemplate(as_attachment, data_source, description, environment
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10509,13 +11193,12 @@ function syncConfigTemplate(as_attachment, data_source, description, environment
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var body = {
     "as_attachment": as_attachment,
@@ -10524,6 +11207,7 @@ function tryToAddExistingConfigTemplate(as_attachment, data_source, description,
     "environment_params": String(environment_params),
     "file_extension": String(file_extension),
     "file_name": String(file_name),
+    "format": String(format),
     "id": String(id),
     "mime_type": String(mime_type),
     "name": String(name),
@@ -10539,7 +11223,7 @@ function tryToAddExistingConfigTemplate(as_attachment, data_source, description,
   });
 }
 
-function verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
   var description = "Verify ConfigTemplate with id " + id + " exists";
   svc.get(url, {
@@ -10559,9 +11243,9 @@ function verifyConfigTemplateExists(as_attachment, data_source, description, env
   });
 }
 
-function verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function verifyConfigTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/";
-  var description = "Verify ConfigTemplate with id " + id + " does not exist";
+  var description = "Verify ConfigTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -10579,7 +11263,7 @@ function verifyConfigTemplateDoesNotExist(as_attachment, data_source, descriptio
   });
 }
 
-function tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var url = "/api/extras/config-templates/" + id + "/";
   var description = "Verify we cannot delete non-existing ConfigTemplate";
   svc.delete(url, {
@@ -10588,7 +11272,7 @@ function tryToDeleteANonExistingConfigTemplate(as_attachment, data_source, descr
   });
 }
 
-function matchAddedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function matchAddedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var expectedDesc = "Create config template " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
@@ -10618,12 +11302,12 @@ function matchAnyConfigTemplateAdded() {
   });
 }
 
-function waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var expectedDesc = "Create config template " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, tags, template_code) {
+function matchDeletedConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code) {
   var expectedDesc = "Delete config template with id " + id;
   return bp.EventSet("matchDeletedConfigTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -10646,14 +11330,17 @@ function waitForAnyConfigTemplateDeleted() {
 
 function createCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
   var url = "/api/extras/custom-field-choice-sets/";
-  var description = "Create custom field choice set " + name;
+  var description = "Create custom field choice set " + name + " with id " + id;
   var body = {
-    "base_choices": String(base_choices),
-    "description": String(description),
-    "extra_choices": String(extra_choices),
-    "id": String(id),
     "name": String(name),
-    "order_alphabetically": order_alphabetically,
+    "label": String(label),
+    "choices": String(choices),
+    "weight": String(weight),
+    "description": String(description),
+    "required": String(required),
+    "default": String(_default),
+    "group_name": String(group_name),
+    "is_cloneable": String(is_cloneable),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -10661,7 +11348,6 @@ function createCustomFieldChoiceSet(base_choices, description, extra_choices, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10679,14 +11365,17 @@ function getCustomFieldChoiceSet(base_choices, description, extra_choices, id, n
 
 function updateCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
   var url = "/api/extras/custom-field-choice-sets/" + id + "/";
-  var description = "Update custom field choice set with id " + id + " and name " + name;
+  var description = "Update custom field choice set with id " + id;
   var body = {
-    "base_choices": String(base_choices),
-    "description": String(description),
-    "extra_choices": String(extra_choices),
-    "id": String(id),
     "name": String(name),
-    "order_alphabetically": order_alphabetically,
+    "label": String(label),
+    "choices": String(choices),
+    "weight": String(weight),
+    "description": String(description),
+    "required": String(required),
+    "default": String(_default),
+    "group_name": String(group_name),
+    "is_cloneable": String(is_cloneable),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -10694,7 +11383,6 @@ function updateCustomFieldChoiceSet(base_choices, description, extra_choices, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10702,7 +11390,7 @@ function updateCustomFieldChoiceSet(base_choices, description, extra_choices, id
 
 function partialUpdateCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
   var url = "/api/extras/custom-field-choice-sets/" + id + "/";
-  var description = "Partial update custom field choice set with id " + id;
+  var description = "Partially update custom field choice set with id " + id;
   var body = {
     "base_choices": String(base_choices),
     "description": String(description),
@@ -10717,7 +11405,6 @@ function partialUpdateCustomFieldChoiceSet(base_choices, description, extra_choi
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10774,7 +11461,7 @@ function verifyCustomFieldChoiceSetExists(base_choices, description, extra_choic
 
 function verifyCustomFieldChoiceSetDoesNotExist(base_choices, description, extra_choices, id, name, order_alphabetically) {
   var url = "/api/extras/custom-field-choice-sets/";
-  var description = "Verify CustomFieldChoiceSet with id " + id + " does not exist";
+  var description = "Verify CustomFieldChoiceSet does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -10802,15 +11489,15 @@ function tryToDeleteANonExistingCustomFieldChoiceSet(base_choices, description, 
 }
 
 function matchAddedCustomFieldChoiceSet(base_choices, description, extra_choices, id, name, order_alphabetically) {
-  var expectedDesc = "Create custom field choice set " + name;
+  var expectedDesc = "Create custom field choice set " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomFieldChoiceSetAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ choice\ set\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ choice\ set\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ choice\ set\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ choice\ set\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -10832,7 +11519,7 @@ function matchAnyCustomFieldChoiceSetAdded() {
 }
 
 function waitForCustomFieldChoiceSetAdded(base_choices, description, extra_choices, id, name, order_alphabetically) {
-  var expectedDesc = "Create custom field choice set " + name;
+  var expectedDesc = "Create custom field choice set " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -10859,31 +11546,25 @@ function waitForAnyCustomFieldChoiceSetDeleted() {
 
 function createCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/";
-  var description = "Create custom field " + name;
+  var description = "Create custom field " + name + " with id " + id;
   var body = {
-    "choice_set": String(choice_set),
-    "comments": String(comments),
-    "default": String(_default),
-    "description": String(description),
-    "filter_logic": String(filter_logic),
-    "group_name": String(group_name),
-    "id": String(id),
-    "is_cloneable": is_cloneable,
-    "label": String(label),
     "name": String(name),
-    "object_types": String(object_types),
-    "related_object_filter": String(related_object_filter),
-    "related_object_type": String(related_object_type),
-    "required": required,
-    "search_weight": Number(search_weight),
+    "label": String(label),
     "type": String(type),
+    "required": String(required),
+    "default": String(_default),
+    "weight": String(weight),
+    "description": String(description),
     "ui_editable": String(ui_editable),
     "ui_visible": String(ui_visible),
-    "unique": unique,
-    "validation_maximum": Number(validation_maximum),
-    "validation_minimum": Number(validation_minimum),
+    "is_cloneable": String(is_cloneable),
+    "validation_minimum": String(validation_minimum),
+    "validation_maximum": String(validation_maximum),
     "validation_regex": String(validation_regex),
-    "weight": Number(weight),
+    "object_type": String(object_type),
+    "choice_set": String(choice_set),
+    "group_name": String(group_name),
+    "unique": String(unique),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -10891,7 +11572,6 @@ function createCustomField(choice_set, comments, _default, description, filter_l
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10909,31 +11589,25 @@ function getCustomField(choice_set, comments, _default, description, filter_logi
 
 function updateCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
-  var description = "Update custom field with id " + id + " and name " + name;
+  var description = "Update custom field with id " + id;
   var body = {
-    "choice_set": String(choice_set),
-    "comments": String(comments),
-    "default": String(_default),
-    "description": String(description),
-    "filter_logic": String(filter_logic),
-    "group_name": String(group_name),
-    "id": String(id),
-    "is_cloneable": is_cloneable,
-    "label": String(label),
     "name": String(name),
-    "object_types": String(object_types),
-    "related_object_filter": String(related_object_filter),
-    "related_object_type": String(related_object_type),
-    "required": required,
-    "search_weight": Number(search_weight),
+    "label": String(label),
     "type": String(type),
+    "required": String(required),
+    "default": String(_default),
+    "weight": String(weight),
+    "description": String(description),
     "ui_editable": String(ui_editable),
     "ui_visible": String(ui_visible),
-    "unique": unique,
-    "validation_maximum": Number(validation_maximum),
-    "validation_minimum": Number(validation_minimum),
+    "is_cloneable": String(is_cloneable),
+    "validation_minimum": String(validation_minimum),
+    "validation_maximum": String(validation_maximum),
     "validation_regex": String(validation_regex),
-    "weight": Number(weight),
+    "object_type": String(object_type),
+    "choice_set": String(choice_set),
+    "group_name": String(group_name),
+    "unique": String(unique),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -10941,7 +11615,6 @@ function updateCustomField(choice_set, comments, _default, description, filter_l
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -10949,7 +11622,7 @@ function updateCustomField(choice_set, comments, _default, description, filter_l
 
 function partialUpdateCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
-  var description = "Partial update custom field with id " + id;
+  var description = "Partially update custom field with id " + id;
   var body = {
     "choice_set": String(choice_set),
     "comments": String(comments),
@@ -10981,7 +11654,6 @@ function partialUpdateCustomField(choice_set, comments, _default, description, f
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11055,7 +11727,7 @@ function verifyCustomFieldExists(choice_set, comments, _default, description, fi
 
 function verifyCustomFieldDoesNotExist(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/";
-  var description = "Verify CustomField with id " + id + " does not exist";
+  var description = "Verify CustomField does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11083,15 +11755,15 @@ function tryToDeleteANonExistingCustomField(choice_set, comments, _default, desc
 }
 
 function matchAddedCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  var expectedDesc = "Create custom field " + name;
+  var expectedDesc = "Create custom field " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomFieldAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -11113,7 +11785,7 @@ function matchAnyCustomFieldAdded() {
 }
 
 function waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  var expectedDesc = "Create custom field " + name;
+  var expectedDesc = "Create custom field " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -11140,18 +11812,16 @@ function waitForAnyCustomFieldDeleted() {
 
 function createCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/";
-  var description = "Create custom link " + name;
+  var description = "Create custom link " + name + " with id " + id;
   var body = {
-    "button_class": String(button_class),
-    "enabled": enabled,
-    "group_name": String(group_name),
-    "id": String(id),
+    "name": String(name),
     "link_text": String(link_text),
     "link_url": String(link_url),
-    "name": String(name),
-    "new_window": new_window,
-    "object_types": String(object_types),
-    "weight": Number(weight),
+    "button_class": String(button_class),
+    "new_window": String(new_window),
+    "weight": String(weight),
+    "enabled": String(enabled),
+    "group_name": String(group_name),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -11159,7 +11829,6 @@ function createCustomLink(button_class, enabled, group_name, id, link_text, link
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11177,18 +11846,16 @@ function getCustomLink(button_class, enabled, group_name, id, link_text, link_ur
 
 function updateCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/" + id + "/";
-  var description = "Update custom link with id " + id + " and name " + name;
+  var description = "Update custom link with id " + id;
   var body = {
-    "button_class": String(button_class),
-    "enabled": enabled,
-    "group_name": String(group_name),
-    "id": String(id),
+    "name": String(name),
     "link_text": String(link_text),
     "link_url": String(link_url),
-    "name": String(name),
-    "new_window": new_window,
-    "object_types": String(object_types),
-    "weight": Number(weight),
+    "button_class": String(button_class),
+    "new_window": String(new_window),
+    "weight": String(weight),
+    "enabled": String(enabled),
+    "group_name": String(group_name),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -11196,7 +11863,6 @@ function updateCustomLink(button_class, enabled, group_name, id, link_text, link
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11204,7 +11870,7 @@ function updateCustomLink(button_class, enabled, group_name, id, link_text, link
 
 function partialUpdateCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/" + id + "/";
-  var description = "Partial update custom link with id " + id;
+  var description = "Partially update custom link with id " + id;
   var body = {
     "button_class": String(button_class),
     "enabled": enabled,
@@ -11223,7 +11889,6 @@ function partialUpdateCustomLink(button_class, enabled, group_name, id, link_tex
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11284,7 +11949,7 @@ function verifyCustomLinkExists(button_class, enabled, group_name, id, link_text
 
 function verifyCustomLinkDoesNotExist(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/";
-  var description = "Verify CustomLink with id " + id + " does not exist";
+  var description = "Verify CustomLink does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11312,15 +11977,15 @@ function tryToDeleteANonExistingCustomLink(button_class, enabled, group_name, id
 }
 
 function matchAddedCustomLink(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
-  var expectedDesc = "Create custom link " + name;
+  var expectedDesc = "Create custom link " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomLinkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ link\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ link\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ link\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ link\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -11342,7 +12007,7 @@ function matchAnyCustomLinkAdded() {
 }
 
 function waitForCustomLinkAdded(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
-  var expectedDesc = "Create custom link " + name;
+  var expectedDesc = "Create custom link " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -11381,8 +12046,6 @@ function updateDashboard() {
   var url = "/api/extras/dashboard/";
   var description = "Update dashboard";
   var body = {
-    "config": "config_dummy",
-    "layout": "layout_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -11396,10 +12059,8 @@ function updateDashboard() {
 
 function partialUpdateDashboard() {
   var url = "/api/extras/dashboard/";
-  var description = "Partial update dashboard";
+  var description = "Partially update dashboard";
   var body = {
-    "config": "config_dummy",
-    "layout": "layout_dummy",
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -11515,7 +12176,6 @@ function createEventRule(action_object_id, action_object_type, action_type, cond
       description: description,
       id: String(id)
       , action_object_id: String(action_object_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11555,7 +12215,6 @@ function updateEventRule(action_object_id, action_object_type, action_type, cond
       description: description,
       id: String(id)
       , action_object_id: String(action_object_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11585,7 +12244,6 @@ function partialUpdateEventRule(action_object_id, action_object_type, action_typ
       description: description,
       id: String(id)
       , action_object_id: String(action_object_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11648,7 +12306,7 @@ function verifyEventRuleExists(action_object_id, action_object_type, action_type
 
 function verifyEventRuleDoesNotExist(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) {
   var url = "/api/extras/event-rules/";
-  var description = "Verify EventRule with id " + id + " does not exist";
+  var description = "Verify EventRule does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11753,7 +12411,6 @@ function createExportTemplate(as_attachment, data_source, description, environme
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11791,7 +12448,6 @@ function updateExportTemplate(as_attachment, data_source, description, environme
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11819,7 +12475,6 @@ function partialUpdateExportTemplate(as_attachment, data_source, description, en
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11857,7 +12512,6 @@ function syncExportTemplate(as_attachment, data_source, description, environment
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -11909,7 +12563,7 @@ function verifyExportTemplateExists(as_attachment, data_source, description, env
 
 function verifyExportTemplateDoesNotExist(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
   var url = "/api/extras/export-templates/";
-  var description = "Verify ExportTemplate with id " + id + " does not exist";
+  var description = "Verify ExportTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12009,7 +12663,6 @@ function createImageAttachment(description, id, image, name, object_id, object_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , object_id: String(object_id)
     }
   });
@@ -12043,7 +12696,6 @@ function updateImageAttachment(description, id, image, name, object_id, object_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , object_id: String(object_id)
     }
   });
@@ -12067,7 +12719,6 @@ function partialUpdateImageAttachment(description, id, image, name, object_id, o
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , object_id: String(object_id)
     }
   });
@@ -12125,7 +12776,7 @@ function verifyImageAttachmentExists(description, id, image, name, object_id, ob
 
 function verifyImageAttachmentDoesNotExist(description, id, image, name, object_id, object_type) {
   var url = "/api/extras/image-attachments/";
-  var description = "Verify ImageAttachment with id " + id + " does not exist";
+  var description = "Verify ImageAttachment does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12346,7 +12997,7 @@ function verifyJournalEntryExists(assigned_object_id, assigned_object_type, comm
 
 function verifyJournalEntryDoesNotExist(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) {
   var url = "/api/extras/journal-entries/";
-  var description = "Verify JournalEntry with id " + id + " does not exist";
+  var description = "Verify JournalEntry does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12445,7 +13096,6 @@ function createNotificationGroup(description, groups, id, name, users) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -12465,11 +13115,10 @@ function updateNotificationGroup(description, groups, id, name, users) {
   var url = "/api/extras/notification-groups/" + id + "/";
   var description = "Update notification group " + id;
   var body = {
-    "description": String(description),
-    "groups": String(groups),
-    "id": String(id),
     "name": String(name),
-    "users": String(users),
+    "slug": String(slug),
+    "description": String(description),
+    "notifications": String(notifications),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -12477,15 +13126,14 @@ function updateNotificationGroup(description, groups, id, name, users) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function partialUpdateNotificationGroup(description, groups, id, name, users) {
-  var url = "/api/extras/notification-groups/" + id + "/";
-  var description = "Partially update notification group " + id;
+  var url = "/api/extras/notification-groups/";
+  var description = "Bulk partial update notification group(s)";
   var body = {
     "description": String(description),
     "groups": String(groups),
@@ -12499,7 +13147,6 @@ function partialUpdateNotificationGroup(description, groups, id, name, users) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -12513,6 +13160,26 @@ function getNotificationGroup(description, groups, id, name, users) {
     parameters: { description: description },
     expectedResponseCodes: [200]
   });
+}
+
+function patchNotificationGroup(description, groups, id, name, users) {
+  var url = "/api/extras/notification-groups/" + id + "/";
+  var description = "Patch notification group " + id;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "description": String(description),
+    "notifications": String(notifications),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
 function tryToAddExistingNotificationGroup(description, groups, id, name, users) {
@@ -12555,7 +13222,7 @@ function verifyNotificationGroupExists(description, groups, id, name, users) {
 
 function verifyNotificationGroupDoesNotExist(description, groups, id, name, users) {
   var url = "/api/extras/notification-groups/";
-  var description = "Verify NotificationGroup with id " + id + " does not exist";
+  var description = "Verify NotificationGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12650,14 +13317,13 @@ function listNotifications(event_type, id, object_id, object_type, read, user) {
 
 function createNotification(event_type, id, object_id, object_type, read, user) {
   var url = "/api/extras/notifications/";
-  var description = "Create notification";
+  var description = "Create notification {name} with id " + id;
   var body = {
-    "event_type": String(event_type),
-    "id": String(id),
-    "object_id": Number(object_id),
-    "object_type": String(object_type),
-    "read": String(read),
-    "user": String(user),
+    "name": String(name),
+    "slug": String(slug),
+    "type": String(type),
+    "enabled": String(enabled),
+    "config": String(config),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -12675,7 +13341,12 @@ function bulkUpdateNotifications(event_type, id, object_id, object_type, read, u
   var url = "/api/extras/notifications/";
   var description = "Bulk update notifications";
   var body = {
+    "event_type": String(event_type),
     "id": String(id),
+    "object_id": String(object_id),
+    "object_type": String(object_type),
+    "read": String(read),
+    "user": String(user),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -12689,11 +13360,16 @@ function bulkUpdateNotifications(event_type, id, object_id, object_type, read, u
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkPartialUpdateNotifications(event_type, id, object_id, object_type, read, user) {
+function bulkPatchNotifications(event_type, id, object_id, object_type, read, user) {
   var url = "/api/extras/notifications/";
-  var description = "Bulk partial update notifications";
+  var description = "Bulk patch notifications";
   var body = {
+    "event_type": String(event_type),
     "id": String(id),
+    "object_id": String(object_id),
+    "object_type": String(object_type),
+    "read": String(read),
+    "user": String(user),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -12731,12 +13407,11 @@ function updateNotification(event_type, id, object_id, object_type, read, user) 
   var url = "/api/extras/notifications/" + id + "/";
   var description = "Update notification " + id;
   var body = {
-    "event_type": String(event_type),
-    "id": String(id),
-    "object_id": Number(object_id),
-    "object_type": String(object_type),
-    "read": String(read),
-    "user": String(user),
+    "name": String(name),
+    "slug": String(slug),
+    "type": String(type),
+    "enabled": String(enabled),
+    "config": String(config),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -12750,16 +13425,15 @@ function updateNotification(event_type, id, object_id, object_type, read, user) 
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateNotification(event_type, id, object_id, object_type, read, user) {
+function patchNotification(event_type, id, object_id, object_type, read, user) {
   var url = "/api/extras/notifications/" + id + "/";
-  var description = "Partially update notification " + id;
+  var description = "Patch notification " + id;
   var body = {
-    "event_type": String(event_type),
-    "id": String(id),
-    "object_id": Number(object_id),
-    "object_type": String(object_type),
-    "read": String(read),
-    "user": String(user),
+    "name": String(name),
+    "slug": String(slug),
+    "type": String(type),
+    "enabled": String(enabled),
+    "config": String(config),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -12824,7 +13498,7 @@ function verifyNotificationExists(event_type, id, object_id, object_type, read, 
 
 function verifyNotificationDoesNotExist(event_type, id, object_id, object_type, read, user) {
   var url = "/api/extras/notifications/";
-  var description = "Verify Notification with id " + id + " does not exist";
+  var description = "Verify Notification does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12852,15 +13526,15 @@ function tryToDeleteANonExistingNotification(event_type, id, object_id, object_t
 }
 
 function matchAddedNotification(event_type, id, object_id, object_type, read, user) {
-  var expectedDesc = "Create notification";
+  var expectedDesc = "Create notification {name} with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyNotificationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ notification$/));
-  var m = ev.data.parameters.description.match(/^Create\ notification$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ notification\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ notification\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -12882,7 +13556,7 @@ function matchAnyNotificationAdded() {
 }
 
 function waitForNotificationAdded(event_type, id, object_id, object_type, read, user) {
-  var expectedDesc = "Create notification";
+  var expectedDesc = "Create notification {name} with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -12949,7 +13623,7 @@ function verifyObjectTypeExists(id) {
 
 function verifyObjectTypeDoesNotExist(id) {
   var url = "/api/core/object-types";
-  var description = "Verify ObjectType with id " + id + " does not exist";
+  var description = "Verify ObjectType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12981,18 +13655,17 @@ function listSavedFilters(description, enabled, id, name, object_types, paramete
 
 function createSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/";
-  var description = "Create saved filter";
+  var description = "Create saved filter " + name + " with id " + id;
   var body = {
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
     "name": String(name),
-    "object_types": String(object_types),
-    "parameters": String(parameters),
-    "shared": shared,
     "slug": String(slug),
-    "user": Number(user),
-    "weight": Number(weight),
+    "description": String(description),
+    "enabled": String(enabled),
+    "shared": String(shared),
+    "user": String(user),
+    "object_type": String(object_type),
+    "weight": String(weight),
+    "filters": String(filters),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -13000,7 +13673,6 @@ function createSavedFilter(description, enabled, id, name, object_types, paramet
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -13010,7 +13682,16 @@ function bulkUpdateSavedFilters(description, enabled, id, name, object_types, pa
   var url = "/api/extras/saved-filters/";
   var description = "Bulk update saved filters";
   var body = {
+    "description": String(description),
+    "enabled": String(enabled),
     "id": String(id),
+    "name": String(name),
+    "object_types": String(object_types),
+    "parameters": String(parameters),
+    "shared": String(shared),
+    "slug": String(slug),
+    "user": String(user),
+    "weight": String(weight),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -13018,17 +13699,25 @@ function bulkUpdateSavedFilters(description, enabled, id, name, object_types, pa
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkPartialUpdateSavedFilters(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
+function bulkPatchSavedFilters(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/";
-  var description = "Bulk partial update saved filters";
+  var description = "Bulk patch saved filters";
   var body = {
+    "description": String(description),
+    "enabled": String(enabled),
     "id": String(id),
+    "name": String(name),
+    "object_types": String(object_types),
+    "parameters": String(parameters),
+    "shared": String(shared),
+    "slug": String(slug),
+    "user": String(user),
+    "weight": String(weight),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -13036,7 +13725,6 @@ function bulkPartialUpdateSavedFilters(description, enabled, id, name, object_ty
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -13066,16 +13754,15 @@ function updateSavedFilter(description, enabled, id, name, object_types, paramet
   var url = "/api/extras/saved-filters/" + id + "/";
   var description = "Update saved filter " + id;
   var body = {
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
     "name": String(name),
-    "object_types": String(object_types),
-    "parameters": String(parameters),
-    "shared": shared,
     "slug": String(slug),
-    "user": Number(user),
-    "weight": Number(weight),
+    "description": String(description),
+    "enabled": String(enabled),
+    "shared": String(shared),
+    "user": String(user),
+    "object_type": String(object_type),
+    "weight": String(weight),
+    "filters": String(filters),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -13083,26 +13770,24 @@ function updateSavedFilter(description, enabled, id, name, object_types, paramet
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
+function patchSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/" + id + "/";
-  var description = "Partially update saved filter " + id;
+  var description = "Patch saved filter " + id;
   var body = {
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
     "name": String(name),
-    "object_types": String(object_types),
-    "parameters": String(parameters),
-    "shared": shared,
     "slug": String(slug),
-    "user": Number(user),
-    "weight": Number(weight),
+    "description": String(description),
+    "enabled": String(enabled),
+    "shared": String(shared),
+    "user": String(user),
+    "object_type": String(object_type),
+    "weight": String(weight),
+    "filters": String(filters),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -13110,7 +13795,6 @@ function partialUpdateSavedFilter(description, enabled, id, name, object_types, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -13171,7 +13855,7 @@ function verifySavedFilterExists(description, enabled, id, name, object_types, p
 
 function verifySavedFilterDoesNotExist(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/";
-  var description = "Verify SavedFilter with id " + id + " does not exist";
+  var description = "Verify SavedFilter does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -13199,15 +13883,15 @@ function tryToDeleteANonExistingSavedFilter(description, enabled, id, name, obje
 }
 
 function matchAddedSavedFilter(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
-  var expectedDesc = "Create saved filter";
+  var expectedDesc = "Create saved filter " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnySavedFilterAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ saved\ filter$/));
-  var m = ev.data.parameters.description.match(/^Create\ saved\ filter$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ saved\ filter\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ saved\ filter\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["name", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -13229,7 +13913,7 @@ function matchAnySavedFilterAdded() {
 }
 
 function waitForSavedFilterAdded(description, enabled, id, name, object_types, parameters, shared, slug, user, weight) {
-  var expectedDesc = "Create saved filter";
+  var expectedDesc = "Create saved filter " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -13266,7 +13950,7 @@ function listScripts(id) {
 
 function createScript(id) {
   var url = "/api/extras/scripts/";
-  var description = "Create script";
+  var description = "Create script " + id;
   var body = {
     "id": String(id),
   };
@@ -13295,11 +13979,12 @@ function updateScript(id) {
   var url = "/api/extras/scripts/" + id + "/";
   var description = "Update script " + id;
   var body = {
-    "commit": true,
-    "data": "data_dummy",
-    "id": String(id),
-    "interval": 1,
-    "schedule_at": "schedule_at_dummy",
+    "name": String(name),
+    "description": String(description),
+    "source": String(source),
+    "enabled": String(enabled),
+    "is_executable": String(is_executable),
+    "module_id": String(module_id),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -13312,15 +13997,16 @@ function updateScript(id) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateScript(id) {
+function patchScript(id) {
   var url = "/api/extras/scripts/" + id + "/";
-  var description = "Partially update script " + id;
+  var description = "Patch script " + id;
   var body = {
-    "commit": true,
-    "data": "data_dummy",
-    "id": String(id),
-    "interval": 1,
-    "schedule_at": "schedule_at_dummy",
+    "name": String(name),
+    "description": String(description),
+    "source": String(source),
+    "enabled": String(enabled),
+    "is_executable": String(is_executable),
+    "module_id": String(module_id),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -13379,7 +14065,7 @@ function verifyScriptExists(id) {
 
 function verifyScriptDoesNotExist(id) {
   var url = "/api/extras/scripts/";
-  var description = "Verify Script with id " + id + " does not exist";
+  var description = "Verify Script does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -13407,15 +14093,15 @@ function tryToDeleteANonExistingScript(id) {
 }
 
 function matchAddedScript(id) {
-  var expectedDesc = "Create script";
+  var expectedDesc = "Create script " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyScriptAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ script$/));
-  var m = ev.data.parameters.description.match(/^Create\ script$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ script\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ script\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -13437,7 +14123,7 @@ function matchAnyScriptAdded() {
 }
 
 function waitForScriptAdded(id) {
-  var expectedDesc = "Create script";
+  var expectedDesc = "Create script " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -13498,6 +14184,9 @@ function bulkUpdateSubscriptions(id, object_id, object_type, user) {
   var description = "Bulk update subscriptions";
   var body = {
     "id": String(id),
+    "object_id": String(object_id),
+    "object_type": String(object_type),
+    "user": String(user),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -13511,11 +14200,14 @@ function bulkUpdateSubscriptions(id, object_id, object_type, user) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkPartialUpdateSubscriptions(id, object_id, object_type, user) {
+function bulkPatchSubscriptions(id, object_id, object_type, user) {
   var url = "/api/extras/subscriptions/";
-  var description = "Bulk partial update subscriptions";
+  var description = "Bulk patch subscriptions";
   var body = {
     "id": String(id),
+    "object_id": String(object_id),
+    "object_type": String(object_type),
+    "user": String(user),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -13554,9 +14246,6 @@ function updateSubscription(id, object_id, object_type, user) {
   var description = "Update subscription with id " + id;
   var body = {
     "id": String(id),
-    "object_id": Number(object_id),
-    "object_type": String(object_type),
-    "user": String(user),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -13575,9 +14264,6 @@ function patchSubscription(id, object_id, object_type, user) {
   var description = "Patch subscription with id " + id;
   var body = {
     "id": String(id),
-    "object_id": Number(object_id),
-    "object_type": String(object_type),
-    "user": String(user),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -13640,7 +14326,7 @@ function verifySubscriptionExists(id, object_id, object_type, user) {
 
 function verifySubscriptionDoesNotExist(id, object_id, object_type, user) {
   var url = "/api/extras/subscriptions/";
-  var description = "Verify Subscription with id " + id + " does not exist";
+  var description = "Verify Subscription does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -13737,17 +14423,7 @@ function createTableConfig(columns, description, enabled, id, name, object_type,
   var url = "/api/extras/table-configs/";
   var description = "Create table config with name " + name;
   var body = {
-    "columns": String(columns),
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
     "name": String(name),
-    "object_type": String(object_type),
-    "ordering": String(ordering),
-    "shared": shared,
-    "table": String(table),
-    "user": Number(user),
-    "weight": Number(weight),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -13755,7 +14431,6 @@ function createTableConfig(columns, description, enabled, id, name, object_type,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -13765,17 +14440,7 @@ function updateTableConfig(columns, description, enabled, id, name, object_type,
   var url = "/api/extras/table-configs/" + id + "/";
   var description = "Update table config with id " + id;
   var body = {
-    "columns": String(columns),
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
     "name": String(name),
-    "object_type": String(object_type),
-    "ordering": String(ordering),
-    "shared": shared,
-    "table": String(table),
-    "user": Number(user),
-    "weight": Number(weight),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -13783,7 +14448,6 @@ function updateTableConfig(columns, description, enabled, id, name, object_type,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -13793,17 +14457,7 @@ function patchTableConfig(columns, description, enabled, id, name, object_type, 
   var url = "/api/extras/table-configs/" + id + "/";
   var description = "Patch table config with id " + id;
   var body = {
-    "columns": String(columns),
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
     "name": String(name),
-    "object_type": String(object_type),
-    "ordering": String(ordering),
-    "shared": shared,
-    "table": String(table),
-    "user": Number(user),
-    "weight": Number(weight),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -13811,7 +14465,6 @@ function patchTableConfig(columns, description, enabled, id, name, object_type, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -13873,7 +14526,7 @@ function verifyTableConfigExists(columns, description, enabled, id, name, object
 
 function verifyTableConfigDoesNotExist(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
   var url = "/api/extras/table-configs/";
-  var description = "Verify TableConfig with id " + id + " does not exist";
+  var description = "Verify TableConfig does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -13988,7 +14641,7 @@ function verifyTaggedObjectExists(id) {
 
 function verifyTaggedObjectDoesNotExist(id) {
   var url = "/api/extras/tagged-objects";
-  var description = "Verify TaggedObject with id " + id + " does not exist";
+  var description = "Verify TaggedObject does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -14022,13 +14675,8 @@ function createTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/";
   var description = "Create tag with name " + name + " and slug " + slug;
   var body = {
-    "color": String(color),
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "object_types": String(object_types),
     "slug": String(slug),
-    "weight": Number(weight),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -14036,7 +14684,6 @@ function createTag(color, description, id, name, object_types, slug, weight) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14046,13 +14693,8 @@ function updateTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/" + id + "/";
   var description = "Update tag with id " + id;
   var body = {
-    "color": String(color),
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "object_types": String(object_types),
     "slug": String(slug),
-    "weight": Number(weight),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -14060,7 +14702,6 @@ function updateTag(color, description, id, name, object_types, slug, weight) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14070,13 +14711,8 @@ function patchTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/" + id + "/";
   var description = "Patch tag with id " + id;
   var body = {
-    "color": String(color),
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "object_types": String(object_types),
     "slug": String(slug),
-    "weight": Number(weight),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -14084,7 +14720,6 @@ function patchTag(color, description, id, name, object_types, slug, weight) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14142,7 +14777,7 @@ function verifyTagExists(color, description, id, name, object_types, slug, weigh
 
 function verifyTagDoesNotExist(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/";
-  var description = "Verify Tag with id " + id + " does not exist";
+  var description = "Verify Tag does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -14239,19 +14874,7 @@ function createWebhook(additional_headers, body_template, ca_file_path, custom_f
   var url = "/api/extras/webhooks/";
   var description = "Create webhook with name " + name;
   var body = {
-    "additional_headers": String(additional_headers),
-    "body_template": String(body_template),
-    "ca_file_path": String(ca_file_path),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "http_content_type": String(http_content_type),
-    "http_method": String(http_method),
-    "id": String(id),
     "name": String(name),
-    "payload_url": String(payload_url),
-    "secret": String(secret),
-    "ssl_verification": ssl_verification,
-    "tags": String(tags),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -14259,7 +14882,6 @@ function createWebhook(additional_headers, body_template, ca_file_path, custom_f
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14269,19 +14891,7 @@ function updateWebhook(additional_headers, body_template, ca_file_path, custom_f
   var url = "/api/extras/webhooks/" + id + "/";
   var description = "Update webhook with id " + id;
   var body = {
-    "additional_headers": String(additional_headers),
-    "body_template": String(body_template),
-    "ca_file_path": String(ca_file_path),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "http_content_type": String(http_content_type),
-    "http_method": String(http_method),
-    "id": String(id),
     "name": String(name),
-    "payload_url": String(payload_url),
-    "secret": String(secret),
-    "ssl_verification": ssl_verification,
-    "tags": String(tags),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -14289,7 +14899,6 @@ function updateWebhook(additional_headers, body_template, ca_file_path, custom_f
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14299,19 +14908,7 @@ function patchWebhook(additional_headers, body_template, ca_file_path, custom_fi
   var url = "/api/extras/webhooks/" + id + "/";
   var description = "Patch webhook with id " + id;
   var body = {
-    "additional_headers": String(additional_headers),
-    "body_template": String(body_template),
-    "ca_file_path": String(ca_file_path),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "http_content_type": String(http_content_type),
-    "http_method": String(http_method),
-    "id": String(id),
     "name": String(name),
-    "payload_url": String(payload_url),
-    "secret": String(secret),
-    "ssl_verification": ssl_verification,
-    "tags": String(tags),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -14319,7 +14916,6 @@ function patchWebhook(additional_headers, body_template, ca_file_path, custom_fi
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14383,7 +14979,7 @@ function verifyWebhookExists(additional_headers, body_template, ca_file_path, cu
 
 function verifyWebhookDoesNotExist(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
   var url = "/api/extras/webhooks/";
-  var description = "Verify Webhook with id " + id + " does not exist";
+  var description = "Verify Webhook does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -14580,7 +15176,7 @@ function verifyAggregateExists(comments, custom_fields, date_added, description,
 
 function verifyAggregateDoesNotExist(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) {
   var url = "/api/ipam/aggregates/";
-  var description = "Verify Aggregate with id " + id + " does not exist";
+  var description = "Verify Aggregate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -14684,7 +15280,6 @@ function createASNRange(custom_fields, description, end, id, name, rir, slug, st
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14721,7 +15316,6 @@ function updateASNRange(custom_fields, description, end, id, name, rir, slug, st
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -14782,7 +15376,7 @@ function verifyASNRangeExists(custom_fields, description, end, id, name, rir, sl
 
 function verifyASNRangeDoesNotExist(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) {
   var url = "/api/ipam/asn-ranges/";
-  var description = "Verify ASNRange with id " + id + " does not exist";
+  var description = "Verify ASNRange does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -14976,7 +15570,7 @@ function verifyASNExists(asn, comments, custom_fields, description, id, rir, tag
 
 function verifyASNDoesNotExist(asn, comments, custom_fields, description, id, rir, tags, tenant) {
   var url = "/api/ipam/asns/";
-  var description = "Verify ASN with id " + id + " does not exist";
+  var description = "Verify ASN does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -15163,7 +15757,7 @@ function verifyFHRPGroupAssignmentExists(group, id, interface_id, interface_type
 
 function verifyFHRPGroupAssignmentDoesNotExist(group, id, interface_id, interface_type, priority) {
   var url = "/api/ipam/fhrp-group-assignments/";
-  var description = "Verify FHRPGroupAssignment with id " + id + " does not exist";
+  var description = "Verify FHRPGroupAssignment does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -15248,7 +15842,7 @@ function waitForAnyFHRPGroupAssignmentDeleted() {
 
 function createFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
   var url = "/api/ipam/fhrp-groups/";
-  var description = "Create fhrp group";
+  var description = "Create FHRP group with id " + id;
   var body = {
     "auth_key": String(auth_key),
     "auth_type": String(auth_type),
@@ -15268,7 +15862,6 @@ function createFHRPGroup(auth_key, auth_type, comments, custom_fields, descripti
       description: description,
       id: String(id)
       , group_id: String(group_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -15288,16 +15881,8 @@ function updateFHRPGroup(auth_key, auth_type, comments, custom_fields, descripti
   var url = "/api/ipam/fhrp-groups/" + id + "/";
   var description = "Update fhrp group with id " + id;
   var body = {
-    "auth_key": String(auth_key),
-    "auth_type": String(auth_type),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "group_id": Number(group_id),
-    "id": String(id),
     "name": String(name),
-    "protocol": String(protocol),
-    "tags": String(tags),
+    "slug": String(slug),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -15306,7 +15891,6 @@ function updateFHRPGroup(auth_key, auth_type, comments, custom_fields, descripti
       description: description,
       id: String(id)
       , group_id: String(group_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -15322,9 +15906,9 @@ function getFHRPGroup(auth_key, auth_type, comments, custom_fields, description,
   });
 }
 
-function partialUpdateFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
+function patchFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
   var url = "/api/ipam/fhrp-groups/" + id + "/";
-  var description = "Partially update fhrp group with id " + id;
+  var description = "Patch fhrp group with id " + id;
   var body = {
     "auth_key": String(auth_key),
     "auth_type": String(auth_type),
@@ -15344,7 +15928,6 @@ function partialUpdateFHRPGroup(auth_key, auth_type, comments, custom_fields, de
       description: description,
       id: String(id)
       , group_id: String(group_id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -15395,7 +15978,7 @@ function verifyFHRPGroupExists(auth_key, auth_type, comments, custom_fields, des
 
 function verifyFHRPGroupDoesNotExist(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
   var url = "/api/ipam/fhrp-groups/";
-  var description = "Verify FHRPGroup with id " + id + " does not exist";
+  var description = "Verify FHRPGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -15423,15 +16006,15 @@ function tryToDeleteANonExistingFHRPGroup(auth_key, auth_type, comments, custom_
 }
 
 function matchAddedFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
-  var expectedDesc = "Create fhrp group";
+  var expectedDesc = "Create FHRP group with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFHRPGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ fhrp\ group$/));
-  var m = ev.data.parameters.description.match(/^Create\ fhrp\ group$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ FHRP\ group\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ FHRP\ group\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -15453,7 +16036,7 @@ function matchAnyFHRPGroupAdded() {
 }
 
 function waitForFHRPGroupAdded(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags) {
-  var expectedDesc = "Create fhrp group";
+  var expectedDesc = "Create FHRP group with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -15478,34 +16061,38 @@ function waitForAnyFHRPGroupDeleted() {
 
 // ---- Entity: ip address ----
 
-function getIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
-  var url = "/api/ipam/ip-addresses/" + id + "/";
-  var description = "Get ip address with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-addresses/";
-  var description = "Create ip address";
+  var description = "Create ip address " + address;
   var body = {
-    "address": address,
-    "assigned_object_id": Number(assigned_object_id),
-    "assigned_object_type": String(assigned_object_type),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "dns_name": String(dns_name),
-    "id": String(id),
-    "nat_inside": Number(nat_inside),
-    "role": String(role),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "address": String(address),
     "vrf": String(vrf),
+    "tenant": String(tenant),
+    "status": String(status),
+    "role": String(role),
+    "description": String(description),
+    "nat_inside": String(nat_inside),
+    "dns_name": String(dns_name),
+    "interface": String(_interface),
+    "vrf_id": String(vrf_id),
+    "tenant_id": String(tenant_id),
+    "interface_id": String(interface_id),
+    "virtual_machine": String(virtual_machine),
+    "virtual_machine_id": String(virtual_machine_id),
+    "vminterface": String(vminterface),
+    "vminterface_id": String(vminterface_id),
+    "fhrpgroup": String(fhrpgroup),
+    "fhrpgroup_id": String(fhrpgroup_id),
+    "service": String(service),
+    "service_id": String(service_id),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "created_by_request": String(created_by_request),
+    "modified_by_request": String(modified_by_request),
+    "updated_by_request": String(updated_by_request),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -15519,24 +16106,48 @@ function createIPAddress(address, assigned_object_id, assigned_object_type, comm
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function getIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
+  var url = "/api/ipam/ip-addresses/" + id + "/";
+  var description = "Get ip address with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function updateIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-addresses/" + id + "/";
   var description = "Update ip address with id " + id;
   var body = {
-    "address": address,
-    "assigned_object_id": Number(assigned_object_id),
-    "assigned_object_type": String(assigned_object_type),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "dns_name": String(dns_name),
-    "id": String(id),
-    "nat_inside": Number(nat_inside),
-    "role": String(role),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "address": String(address),
     "vrf": String(vrf),
+    "tenant": String(tenant),
+    "status": String(status),
+    "role": String(role),
+    "description": String(description),
+    "nat_inside": String(nat_inside),
+    "dns_name": String(dns_name),
+    "interface": String(_interface),
+    "vrf_id": String(vrf_id),
+    "tenant_id": String(tenant_id),
+    "interface_id": String(interface_id),
+    "virtual_machine": String(virtual_machine),
+    "virtual_machine_id": String(virtual_machine_id),
+    "vminterface": String(vminterface),
+    "vminterface_id": String(vminterface_id),
+    "fhrpgroup": String(fhrpgroup),
+    "fhrpgroup_id": String(fhrpgroup_id),
+    "service": String(service),
+    "service_id": String(service_id),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "created_by_request": String(created_by_request),
+    "modified_by_request": String(modified_by_request),
+    "updated_by_request": String(updated_by_request),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -15550,9 +16161,9 @@ function updateIPAddress(address, assigned_object_id, assigned_object_type, comm
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
+function patchIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-addresses/" + id + "/";
-  var description = "Partially update ip address with id " + id;
+  var description = "Patch ip address with id " + id;
   var body = {
     "address": address,
     "assigned_object_id": Number(assigned_object_id),
@@ -15640,7 +16251,7 @@ function verifyIPAddressExists(address, assigned_object_id, assigned_object_type
 
 function verifyIPAddressDoesNotExist(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-addresses/";
-  var description = "Verify IPAddress with id " + id + " does not exist";
+  var description = "Verify IPAddress does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -15668,15 +16279,15 @@ function tryToDeleteANonExistingIPAddress(address, assigned_object_id, assigned_
 }
 
 function matchAddedIPAddress(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
-  var expectedDesc = "Create ip address";
+  var expectedDesc = "Create ip address " + address;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIPAddressAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ ip\ address$/));
-  var m = ev.data.parameters.description.match(/^Create\ ip\ address$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ ip\ address\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ ip\ address\ (.+)$/);
   var captures = m.slice(1);
-  var names = [];
+  var names = ["address"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -15698,7 +16309,7 @@ function matchAnyIPAddressAdded() {
 }
 
 function waitForIPAddressAdded(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf) {
-  var expectedDesc = "Create ip address";
+  var expectedDesc = "Create ip address " + address;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -15723,33 +16334,39 @@ function waitForAnyIPAddressDeleted() {
 
 // ---- Entity: ip range ----
 
-function getIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
-  var url = "/api/ipam/ip-ranges/" + id + "/";
-  var description = "Get ip range with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/";
   var description = "Create ip range";
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "end_address": end_address,
-    "id": String(id),
-    "mark_populated": mark_populated,
-    "mark_utilized": mark_utilized,
-    "role": String(role),
-    "start_address": start_address,
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "start_address": String(start_address),
+    "end_address": String(end_address),
     "vrf": String(vrf),
+    "tenant": String(tenant),
+    "status": String(status),
+    "role": String(role),
+    "description": String(description),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "created_by_request": String(created_by_request),
+    "modified_by_request": String(modified_by_request),
+    "updated_by_request": String(updated_by_request),
+    "site": String(site),
+    "site_group": String(site_group),
+    "location": String(location),
+    "vlan_group": String(vlan_group),
+    "vlan": String(vlan),
+    "role_id": String(role_id),
+    "tenant_id": String(tenant_id),
+    "vrf_id": String(vrf_id),
+    "site_id": String(site_id),
+    "vlan_group_id": String(vlan_group_id),
+    "vlan_id": String(vlan_id),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "location_id": String(location_id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -15762,23 +16379,49 @@ function createIPRange(comments, custom_fields, description, end_address, id, ma
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function getIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
+  var url = "/api/ipam/ip-ranges/" + id + "/";
+  var description = "Get ip range with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function updateIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/" + id + "/";
   var description = "Update ip range with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "end_address": end_address,
-    "id": String(id),
-    "mark_populated": mark_populated,
-    "mark_utilized": mark_utilized,
-    "role": String(role),
-    "start_address": start_address,
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "start_address": String(start_address),
+    "end_address": String(end_address),
     "vrf": String(vrf),
+    "tenant": String(tenant),
+    "status": String(status),
+    "role": String(role),
+    "description": String(description),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "created_by_request": String(created_by_request),
+    "modified_by_request": String(modified_by_request),
+    "updated_by_request": String(updated_by_request),
+    "site": String(site),
+    "site_group": String(site_group),
+    "location": String(location),
+    "vlan_group": String(vlan_group),
+    "vlan": String(vlan),
+    "role_id": String(role_id),
+    "tenant_id": String(tenant_id),
+    "vrf_id": String(vrf_id),
+    "site_id": String(site_id),
+    "vlan_group_id": String(vlan_group_id),
+    "vlan_id": String(vlan_id),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "location_id": String(location_id),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -15791,9 +16434,9 @@ function updateIPRange(comments, custom_fields, description, end_address, id, ma
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdateIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
+function patchIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/" + id + "/";
-  var description = "Partially update ip range with id " + id;
+  var description = "Patch ip range with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -15878,7 +16521,7 @@ function verifyIPRangeExists(comments, custom_fields, description, end_address, 
 
 function verifyIPRangeDoesNotExist(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/";
-  var description = "Verify IPRange with id " + id + " does not exist";
+  var description = "Verify IPRange does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -15961,35 +16604,42 @@ function waitForAnyIPRangeDeleted() {
 
 // ---- Entity: prefix ----
 
-function getPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
-  var url = "/api/ipam/prefixes/" + id + "/";
-  var description = "Get prefix with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function createPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/";
   var description = "Create prefix";
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "is_pool": is_pool,
-    "mark_utilized": mark_utilized,
     "prefix": String(prefix),
-    "role": String(role),
-    "scope_id": Number(scope_id),
-    "scope_type": String(scope_type),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "vlan": String(vlan),
     "vrf": String(vrf),
+    "tenant": String(tenant),
+    "status": String(status),
+    "role": String(role),
+    "description": String(description),
+    "site": String(site),
+    "site_group": String(site_group),
+    "location": String(location),
+    "vlan_group": String(vlan_group),
+    "vlan": String(vlan),
+    "is_pool": String(is_pool),
+    "mark_utilized": String(mark_utilized),
+    "mark_populated": String(mark_populated),
+    "depth": String(depth),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "created_by_request": String(created_by_request),
+    "modified_by_request": String(modified_by_request),
+    "updated_by_request": String(updated_by_request),
+    "role_id": String(role_id),
+    "tenant_id": String(tenant_id),
+    "vrf_id": String(vrf_id),
+    "site_id": String(site_id),
+    "vlan_group_id": String(vlan_group_id),
+    "vlan_id": String(vlan_id),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "location_id": String(location_id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -16003,25 +16653,52 @@ function createPrefix(comments, custom_fields, description, id, is_pool, mark_ut
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function getPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
+  var url = "/api/ipam/prefixes/" + id + "/";
+  var description = "Get prefix with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function updatePrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/" + id + "/";
   var description = "Update prefix with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "is_pool": is_pool,
-    "mark_utilized": mark_utilized,
     "prefix": String(prefix),
-    "role": String(role),
-    "scope_id": Number(scope_id),
-    "scope_type": String(scope_type),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "vlan": String(vlan),
     "vrf": String(vrf),
+    "tenant": String(tenant),
+    "status": String(status),
+    "role": String(role),
+    "description": String(description),
+    "site": String(site),
+    "site_group": String(site_group),
+    "location": String(location),
+    "vlan_group": String(vlan_group),
+    "vlan": String(vlan),
+    "is_pool": String(is_pool),
+    "mark_utilized": String(mark_utilized),
+    "mark_populated": String(mark_populated),
+    "depth": String(depth),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "created_by_request": String(created_by_request),
+    "modified_by_request": String(modified_by_request),
+    "updated_by_request": String(updated_by_request),
+    "role_id": String(role_id),
+    "tenant_id": String(tenant_id),
+    "vrf_id": String(vrf_id),
+    "site_id": String(site_id),
+    "vlan_group_id": String(vlan_group_id),
+    "vlan_id": String(vlan_id),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "location_id": String(location_id),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -16035,9 +16712,9 @@ function updatePrefix(comments, custom_fields, description, id, is_pool, mark_ut
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function partialUpdatePrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
+function patchPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/" + id + "/";
-  var description = "Partially update prefix with id " + id;
+  var description = "Patch prefix with id " + id;
   var body = {
     "comments": String(comments),
     "custom_fields": custom_fields,
@@ -16127,7 +16804,7 @@ function verifyPrefixExists(comments, custom_fields, description, id, is_pool, m
 
 function verifyPrefixDoesNotExist(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/";
-  var description = "Verify Prefix with id " + id + " does not exist";
+  var description = "Verify Prefix does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -16212,15 +16889,24 @@ function waitForAnyPrefixDeleted() {
 
 function createRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/";
-  var description = "Create RIR " + name + " with id " + id;
+  var description = "Create RIR with name " + name;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "is_private": is_private,
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
+    "is_private": String(is_private),
+    "description": String(description),
+    "rir_date": String(rir_date),
+    "rir_date_accuracy": String(rir_date_accuracy),
+    "rir_whois_server": String(rir_whois_server),
+    "rir_whois_url": String(rir_whois_url),
+    "rir_whois_email": String(rir_whois_email),
+    "rir_whois_phone": String(rir_whois_phone),
+    "rir_whois_fax": String(rir_whois_fax),
+    "rir_whois_address": String(rir_whois_address),
+    "rir_whois_city": String(rir_whois_city),
+    "rir_whois_state": String(rir_whois_state),
+    "rir_whois_postal_code": String(rir_whois_postal_code),
+    "rir_whois_country": String(rir_whois_country),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -16228,7 +16914,48 @@ function createRIR(custom_fields, description, id, is_private, name, slug, tags)
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteRIR(custom_fields, description, id, is_private, name, slug, tags) {
+  var url = "/api/ipam/rirs/" + id + "/";
+  var description = "Delete RIR with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function updateRIR(custom_fields, description, id, is_private, name, slug, tags) {
+  var url = "/api/ipam/rirs/" + id + "/";
+  var description = "Update RIR with id " + id + " and name " + name;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "is_private": String(is_private),
+    "description": String(description),
+    "rir_date": String(rir_date),
+    "rir_date_accuracy": String(rir_date_accuracy),
+    "rir_whois_server": String(rir_whois_server),
+    "rir_whois_url": String(rir_whois_url),
+    "rir_whois_email": String(rir_whois_email),
+    "rir_whois_phone": String(rir_whois_phone),
+    "rir_whois_fax": String(rir_whois_fax),
+    "rir_whois_address": String(rir_whois_address),
+    "rir_whois_city": String(rir_whois_city),
+    "rir_whois_state": String(rir_whois_state),
+    "rir_whois_postal_code": String(rir_whois_postal_code),
+    "rir_whois_country": String(rir_whois_country),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -16241,64 +16968,6 @@ function getRIR(custom_fields, description, id, is_private, name, slug, tags) {
   svc.get(url, {
     parameters: { description: description },
     expectedResponseCodes: [200]
-  });
-}
-
-function updateRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var url = "/api/ipam/rirs/" + id + "/";
-  var description = "Update RIR " + id;
-  var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "is_private": is_private,
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var url = "/api/ipam/rirs/" + id + "/";
-  var description = "Partially update RIR " + id;
-  var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "is_private": is_private,
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function deleteRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var url = "/api/ipam/rirs/" + id + "/";
-  var description = "Delete RIR " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -16344,7 +17013,7 @@ function verifyRIRExists(custom_fields, description, id, is_private, name, slug,
 
 function verifyRIRDoesNotExist(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/";
-  var description = "Verify RIR with id " + id + " does not exist";
+  var description = "Verify RIR does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -16372,15 +17041,15 @@ function tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, 
 }
 
 function matchAddedRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var expectedDesc = "Create RIR " + name + " with id " + id;
+  var expectedDesc = "Create RIR with name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRIRAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ RIR\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ RIR\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ RIR\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ RIR\ with\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -16402,20 +17071,20 @@ function matchAnyRIRAdded() {
 }
 
 function waitForRIRAdded(custom_fields, description, id, is_private, name, slug, tags) {
-  var expectedDesc = "Create RIR " + name + " with id " + id;
+  var expectedDesc = "Create RIR with name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  var expectedDesc = "Delete RIR " + id;
+  var expectedDesc = "Delete RIR with id " + id;
   return bp.EventSet("matchDeletedRIR", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRIRDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ RIR\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ RIR\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ RIR\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ RIR\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -16429,15 +17098,12 @@ function waitForAnyRIRDeleted() {
 
 function createRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/";
-  var description = "Create role " + name + " with id " + id;
+  var description = "Create role with name " + name;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
-    "weight": Number(weight),
+    "weight": String(weight),
+    "description": String(description),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -16445,7 +17111,36 @@ function createRole(custom_fields, description, id, name, slug, tags, weight) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteRole(custom_fields, description, id, name, slug, tags, weight) {
+  var url = "/api/ipam/roles/" + id + "/";
+  var description = "Delete role with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function updateRole(custom_fields, description, id, name, slug, tags, weight) {
+  var url = "/api/ipam/roles/" + id + "/";
+  var description = "Update role with id " + id + " and name " + name;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "weight": String(weight),
+    "description": String(description),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -16458,64 +17153,6 @@ function getRole(custom_fields, description, id, name, slug, tags, weight) {
   svc.get(url, {
     parameters: { description: description },
     expectedResponseCodes: [200]
-  });
-}
-
-function updateRole(custom_fields, description, id, name, slug, tags, weight) {
-  var url = "/api/ipam/roles/" + id + "/";
-  var description = "Update role " + id;
-  var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
-    "weight": Number(weight),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateRole(custom_fields, description, id, name, slug, tags, weight) {
-  var url = "/api/ipam/roles/" + id + "/";
-  var description = "Partially update role " + id;
-  var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
-    "weight": Number(weight),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function deleteRole(custom_fields, description, id, name, slug, tags, weight) {
-  var url = "/api/ipam/roles/" + id + "/";
-  var description = "Delete role " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -16561,7 +17198,7 @@ function verifyRoleExists(custom_fields, description, id, name, slug, tags, weig
 
 function verifyRoleDoesNotExist(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/";
-  var description = "Verify Role with id " + id + " does not exist";
+  var description = "Verify Role does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -16589,15 +17226,15 @@ function tryToDeleteANonExistingRole(custom_fields, description, id, name, slug,
 }
 
 function matchAddedRole(custom_fields, description, id, name, slug, tags, weight) {
-  var expectedDesc = "Create role " + name + " with id " + id;
+  var expectedDesc = "Create role with name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ role\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ role\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ role\ with\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -16619,20 +17256,20 @@ function matchAnyRoleAdded() {
 }
 
 function waitForRoleAdded(custom_fields, description, id, name, slug, tags, weight) {
-  var expectedDesc = "Create role " + name + " with id " + id;
+  var expectedDesc = "Create role with name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRole(custom_fields, description, id, name, slug, tags, weight) {
-  var expectedDesc = "Delete role " + id;
+  var expectedDesc = "Delete role with id " + id;
   return bp.EventSet("matchDeletedRole", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ role\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ role\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ role\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -16646,15 +17283,16 @@ function waitForAnyRoleDeleted() {
 
 function createRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/";
-  var description = "Create route target " + name + " with id " + id;
+  var description = "Create route target with name " + name;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "slug": String(slug),
+    "description": String(description),
+    "importing_vrf_id": String(importing_vrf_id),
+    "importing_l2vpn_id": String(importing_l2vpn_id),
+    "exporting_vrf_id": String(exporting_vrf_id),
+    "exporting_l2vpn_id": String(exporting_l2vpn_id),
+    "tenant_id": String(tenant_id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -16662,7 +17300,40 @@ function createRouteTarget(comments, custom_fields, description, id, name, tags,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
+  var url = "/api/ipam/route-targets/" + id + "/";
+  var description = "Delete route target with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function updateRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
+  var url = "/api/ipam/route-targets/" + id + "/";
+  var description = "Update route target with id " + id + " and name " + name;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "description": String(description),
+    "importing_vrf_id": String(importing_vrf_id),
+    "importing_l2vpn_id": String(importing_l2vpn_id),
+    "exporting_vrf_id": String(exporting_vrf_id),
+    "exporting_l2vpn_id": String(exporting_l2vpn_id),
+    "tenant_id": String(tenant_id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -16675,64 +17346,6 @@ function getRouteTarget(comments, custom_fields, description, id, name, tags, te
   svc.get(url, {
     parameters: { description: description },
     expectedResponseCodes: [200]
-  });
-}
-
-function updateRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var url = "/api/ipam/route-targets/" + id + "/";
-  var description = "Update route target " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "tags": String(tags),
-    "tenant": String(tenant),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var url = "/api/ipam/route-targets/" + id + "/";
-  var description = "Partially update route target " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "tags": String(tags),
-    "tenant": String(tenant),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function deleteRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var url = "/api/ipam/route-targets/" + id + "/";
-  var description = "Delete route target " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -16778,7 +17391,7 @@ function verifyRouteTargetExists(comments, custom_fields, description, id, name,
 
 function verifyRouteTargetDoesNotExist(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/";
-  var description = "Verify RouteTarget with id " + id + " does not exist";
+  var description = "Verify RouteTarget does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -16806,15 +17419,15 @@ function tryToDeleteANonExistingRouteTarget(comments, custom_fields, description
 }
 
 function matchAddedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var expectedDesc = "Create route target " + name + " with id " + id;
+  var expectedDesc = "Create route target with name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRouteTargetAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ route\ target\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ route\ target\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ route\ target\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ route\ target\ with\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -16836,20 +17449,20 @@ function matchAnyRouteTargetAdded() {
 }
 
 function waitForRouteTargetAdded(comments, custom_fields, description, id, name, tags, tenant) {
-  var expectedDesc = "Create route target " + name + " with id " + id;
+  var expectedDesc = "Create route target with name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  var expectedDesc = "Delete route target " + id;
+  var expectedDesc = "Delete route target with id " + id;
   return bp.EventSet("matchDeletedRouteTarget", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyRouteTargetDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ route\ target\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ route\ target\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ route\ target\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ route\ target\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -16863,16 +17476,13 @@ function waitForAnyRouteTargetDeleted() {
 
 function createServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/";
-  var description = "Create service template " + name + " with id " + id;
+  var description = "Create service template with name " + name;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "ports": String(ports),
+    "slug": String(slug),
     "protocol": String(protocol),
-    "tags": String(tags),
+    "port": String(port),
+    "description": String(description),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -16880,7 +17490,37 @@ function createServiceTemplate(comments, custom_fields, description, id, name, p
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
+  var url = "/api/ipam/service-templates/" + id + "/";
+  var description = "Delete service template with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function updateServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
+  var url = "/api/ipam/service-templates/" + id + "/";
+  var description = "Update service template with id " + id + " and name " + name;
+  var body = {
+    "name": String(name),
+    "slug": String(slug),
+    "protocol": String(protocol),
+    "port": String(port),
+    "description": String(description),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -16893,66 +17533,6 @@ function getServiceTemplate(comments, custom_fields, description, id, name, port
   svc.get(url, {
     parameters: { description: description },
     expectedResponseCodes: [200]
-  });
-}
-
-function updateServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var url = "/api/ipam/service-templates/" + id + "/";
-  var description = "Update service template " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "ports": String(ports),
-    "protocol": String(protocol),
-    "tags": String(tags),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var url = "/api/ipam/service-templates/" + id + "/";
-  var description = "Partially update service template " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "ports": String(ports),
-    "protocol": String(protocol),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function deleteServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var url = "/api/ipam/service-templates/" + id + "/";
-  var description = "Delete service template " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -16999,7 +17579,7 @@ function verifyServiceTemplateExists(comments, custom_fields, description, id, n
 
 function verifyServiceTemplateDoesNotExist(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/";
-  var description = "Verify ServiceTemplate with id " + id + " does not exist";
+  var description = "Verify ServiceTemplate does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -17027,15 +17607,15 @@ function tryToDeleteANonExistingServiceTemplate(comments, custom_fields, descrip
 }
 
 function matchAddedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var expectedDesc = "Create service template " + name + " with id " + id;
+  var expectedDesc = "Create service template with name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyServiceTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ template\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ service\ template\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ template\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ service\ template\ with\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -17057,20 +17637,20 @@ function matchAnyServiceTemplateAdded() {
 }
 
 function waitForServiceTemplateAdded(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var expectedDesc = "Create service template " + name + " with id " + id;
+  var expectedDesc = "Create service template with name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  var expectedDesc = "Delete service template " + id;
+  var expectedDesc = "Delete service template with id " + id;
   return bp.EventSet("matchDeletedServiceTemplate", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyServiceTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ template\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ service\ template\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ template\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ service\ template\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -17084,19 +17664,18 @@ function waitForAnyServiceTemplateDeleted() {
 
 function createService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/";
-  var description = "Create service " + name + " with id " + id;
+  var description = "Create service with name " + name;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "ipaddresses": String(ipaddresses),
     "name": String(name),
-    "parent_object_id": Number(parent_object_id),
-    "parent_object_type": String(parent_object_type),
-    "ports": String(ports),
     "protocol": String(protocol),
-    "tags": String(tags),
+    "port": String(port),
+    "description": String(description),
+    "device_id": String(device_id),
+    "virtual_machine_id": String(virtual_machine_id),
+    "ip_address_id": String(ip_address_id),
+    "fhrpgroup_id": String(fhrpgroup_id),
+    "contact": String(contact),
+    "contact_role": String(contact_role),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -17104,7 +17683,43 @@ function createService(comments, custom_fields, description, id, ipaddresses, na
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+      , parent_object_id: String(parent_object_id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
+  var url = "/api/ipam/services/" + id + "/";
+  var description = "Delete service with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204]
+  });
+}
+
+function updateService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
+  var url = "/api/ipam/services/" + id + "/";
+  var description = "Update service with id " + id + " and name " + name;
+  var body = {
+    "name": String(name),
+    "protocol": String(protocol),
+    "port": String(port),
+    "description": String(description),
+    "device_id": String(device_id),
+    "virtual_machine_id": String(virtual_machine_id),
+    "ip_address_id": String(ip_address_id),
+    "fhrpgroup_id": String(fhrpgroup_id),
+    "contact": String(contact),
+    "contact_role": String(contact_role),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
       , parent_object_id: String(parent_object_id)
     }
   });
@@ -17118,74 +17733,6 @@ function getService(comments, custom_fields, description, id, ipaddresses, name,
   svc.get(url, {
     parameters: { description: description },
     expectedResponseCodes: [200]
-  });
-}
-
-function updateService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var url = "/api/ipam/services/" + id + "/";
-  var description = "Update service " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "ipaddresses": String(ipaddresses),
-    "name": String(name),
-    "parent_object_id": Number(parent_object_id),
-    "parent_object_type": String(parent_object_type),
-    "ports": String(ports),
-    "protocol": String(protocol),
-    "tags": String(tags),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-      , parent_object_id: String(parent_object_id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var url = "/api/ipam/services/" + id + "/";
-  var description = "Partially update service " + id;
-  var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "ipaddresses": String(ipaddresses),
-    "name": String(name),
-    "parent_object_id": Number(parent_object_id),
-    "parent_object_type": String(parent_object_type),
-    "ports": String(ports),
-    "protocol": String(protocol),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-      , parent_object_id: String(parent_object_id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function deleteService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var url = "/api/ipam/services/" + id + "/";
-  var description = "Delete service " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
   });
 }
 
@@ -17235,7 +17782,7 @@ function verifyServiceExists(comments, custom_fields, description, id, ipaddress
 
 function verifyServiceDoesNotExist(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/";
-  var description = "Verify Service with id " + id + " does not exist";
+  var description = "Verify Service does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -17263,15 +17810,15 @@ function tryToDeleteANonExistingService(comments, custom_fields, description, id
 }
 
 function matchAddedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var expectedDesc = "Create service " + name + " with id " + id;
+  var expectedDesc = "Create service with name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyServiceAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ service\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ service\ with\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ service\ with\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -17293,20 +17840,20 @@ function matchAnyServiceAdded() {
 }
 
 function waitForServiceAdded(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var expectedDesc = "Create service " + name + " with id " + id;
+  var expectedDesc = "Create service with name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  var expectedDesc = "Delete service " + id;
+  var expectedDesc = "Delete service with id " + id;
   return bp.EventSet("matchDeletedService", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyServiceDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ service\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ service\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ service\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -17339,7 +17886,6 @@ function createVLANGroup(custom_fields, description, id, name, scope_id, scope_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , scope_id: String(scope_id)
     }
   });
@@ -17377,7 +17923,6 @@ function updateVLANGroup(custom_fields, description, id, name, scope_id, scope_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , scope_id: String(scope_id)
     }
   });
@@ -17439,7 +17984,7 @@ function verifyVLANGroupExists(custom_fields, description, id, name, scope_id, s
 
 function verifyVLANGroupDoesNotExist(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) {
   var url = "/api/ipam/vlan-groups/";
-  var description = "Verify VLANGroup with id " + id + " does not exist";
+  var description = "Verify VLANGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -17520,11 +18065,11 @@ function waitForAnyVLANGroupDeleted() {
   return obj;
 }
 
-// ---- Entity: vlan group available vlan ----
+// ---- Entity: vlan groups available vlan ----
 
-function createVLANGroupAvailableVlan(id) {
+function createVLANGroupsAvailableVlan(id) {
   var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Create available vlan for vlan group with id " + id;
+  var description = "Create vlan groups available vlan for vlan group id " + id;
   var body = {
     "id": String(id),
   };
@@ -17539,9 +18084,9 @@ function createVLANGroupAvailableVlan(id) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getVLANGroupAvailableVlans(id) {
+function getVLANGroupsAvailableVlan(id) {
   var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Get available vlans for vlan group with id " + id;
+  var description = "Get vlan groups available vlan for vlan group id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -17549,12 +18094,12 @@ function getVLANGroupAvailableVlans(id) {
   });
 }
 
-function tryToAddExistingVLANGroupAvailableVlan(id) {
+function tryToAddExistingVLANGroupsAvailableVlan(id) {
   var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
   var body = {
     "id": String(id),
   };
-  var description = "Verify that we cannot add another VLANGroupAvailableVlan...";
+  var description = "Verify that we cannot add another VLANGroupsAvailableVlan...";
   if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
@@ -17563,9 +18108,9 @@ function tryToAddExistingVLANGroupAvailableVlan(id) {
   });
 }
 
-function verifyVLANGroupAvailableVlanExists(id) {
+function verifyVLANGroupsAvailableVlanExists(id) {
   var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Verify VLANGroupAvailableVlan with id " + id + " exists";
+  var description = "Verify VLANGroupsAvailableVlan with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -17574,18 +18119,18 @@ function verifyVLANGroupAvailableVlanExists(id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.success("VLANGroupAvailableVlan exists");
+            return pvg.success("VLANGroupsAvailableVlan exists");
           }
         }
       }
-      return pvg.fail("Expected VLANGroupAvailableVlan to exist but it does not");
+      return pvg.fail("Expected VLANGroupsAvailableVlan to exist but it does not");
     }
   });
 }
 
-function verifyVLANGroupAvailableVlanDoesNotExist(id) {
+function verifyVLANGroupsAvailableVlanDoesNotExist(id) {
   var url = "/api/ipam/vlan-groups/" + id + "/available-vlans/";
-  var description = "Verify VLANGroupAvailableVlan with id " + id + " does not exist";
+  var description = "Verify VLANGroupsAvailableVlan does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -17594,23 +18139,23 @@ function verifyVLANGroupAvailableVlanDoesNotExist(id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected VLANGroupAvailableVlan to not exist but it does");
+            return pvg.fail("Expected VLANGroupsAvailableVlan to not exist but it does");
           }
         }
       }
-      return pvg.success("VLANGroupAvailableVlan does not exist");
+      return pvg.success("VLANGroupsAvailableVlan does not exist");
     }
   });
 }
 
-function matchAddedVLANGroupAvailableVlan(id) {
-  var expectedDesc = "Create available vlan for vlan group with id " + id;
+function matchAddedVLANGroupsAvailableVlan(id) {
+  var expectedDesc = "Create vlan groups available vlan for vlan group id " + id;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyVLANGroupAvailableVlanAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ available\ vlan\ for\ vlan\ group\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ available\ vlan\ for\ vlan\ group\ with\ id\ (.+)$/);
+function waitForAnyVLANGroupsAvailableVlanAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ vlan\ groups\ available\ vlan\ for\ vlan\ group\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ vlan\ groups\ available\ vlan\ for\ vlan\ group\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -17620,21 +18165,21 @@ function waitForAnyVLANGroupAvailableVlanAdded() {
   return obj;
 }
 
-function getVLANGroupAvailableVlanAddedEvent(keyVal) {
-  return bp.EventSet("AddVLANGroupAvailableVlan:" + keyVal, function(e) {
+function getVLANGroupsAvailableVlanAddedEvent(keyVal) {
+  return bp.EventSet("AddVLANGroupsAvailableVlan:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyVLANGroupAvailableVlanAdded() {
-  return bp.EventSet("matchAnyVLANGroupAvailableVlanAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create vlan group available vlan") > -1;
+function matchAnyVLANGroupsAvailableVlanAdded() {
+  return bp.EventSet("matchAnyVLANGroupsAvailableVlanAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create vlan groups available vlan") > -1;
   });
 }
 
-function waitForVLANGroupAvailableVlanAdded(id) {
-  var expectedDesc = "Create available vlan for vlan group with id " + id;
+function waitForVLANGroupsAvailableVlanAdded(id) {
+  var expectedDesc = "Create vlan groups available vlan for vlan group id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -17654,7 +18199,6 @@ function createVLANTranslationPolicy(description, id, name) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -17684,7 +18228,6 @@ function updateVLANTranslationPolicy(description, id, name) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -17738,7 +18281,7 @@ function verifyVLANTranslationPolicyExists(description, id, name) {
 
 function verifyVLANTranslationPolicyDoesNotExist(description, id, name) {
   var url = "/api/ipam/vlan-translation-policies/";
-  var description = "Verify VLANTranslationPolicy with id " + id + " does not exist";
+  var description = "Verify VLANTranslationPolicy does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -17923,7 +18466,7 @@ function verifyVLANTranslationRuleExists(description, id, local_vid, policy, rem
 
 function verifyVLANTranslationRuleDoesNotExist(description, id, local_vid, policy, remote_vid) {
   var url = "/api/ipam/vlan-translation-rules/";
-  var description = "Verify VLANTranslationRule with id " + id + " does not exist";
+  var description = "Verify VLANTranslationRule does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -18031,7 +18574,6 @@ function createVLAN(comments, custom_fields, description, group, id, name, qinq_
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18072,7 +18614,6 @@ function updateVLAN(comments, custom_fields, description, group, id, name, qinq_
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18137,7 +18678,7 @@ function verifyVLANExists(comments, custom_fields, description, group, id, name,
 
 function verifyVLANDoesNotExist(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid) {
   var url = "/api/ipam/vlans/";
-  var description = "Verify VLAN with id " + id + " does not exist";
+  var description = "Verify VLAN does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -18242,7 +18783,6 @@ function createVRF(comments, custom_fields, description, enforce_unique, export_
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18250,7 +18790,7 @@ function createVRF(comments, custom_fields, description, enforce_unique, export_
 
 function deleteVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Delete VRF with id " + id;
+  var description = "Delete vrf with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -18260,19 +18800,12 @@ function deleteVRF(comments, custom_fields, description, enforce_unique, export_
 
 function updateVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Update VRF with id " + id;
+  var description = "Update vrf with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "enforce_unique": enforce_unique,
-    "export_targets": String(export_targets),
-    "id": String(id),
-    "import_targets": String(import_targets),
     "name": String(name),
     "rd": String(rd),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "enforce_unique": String(enforce_unique),
+    "description": String(description),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -18280,7 +18813,6 @@ function updateVRF(comments, custom_fields, description, enforce_unique, export_
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18288,7 +18820,7 @@ function updateVRF(comments, custom_fields, description, enforce_unique, export_
 
 function getVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Retrieve VRF with id " + id;
+  var description = "Retrieve vrf with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -18298,19 +18830,12 @@ function getVRF(comments, custom_fields, description, enforce_unique, export_tar
 
 function patchVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
-  var description = "Partially update VRF with id " + id;
+  var description = "Partially update vrf with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "enforce_unique": enforce_unique,
-    "export_targets": String(export_targets),
-    "id": String(id),
-    "import_targets": String(import_targets),
     "name": String(name),
     "rd": String(rd),
-    "tags": String(tags),
-    "tenant": String(tenant),
+    "enforce_unique": String(enforce_unique),
+    "description": String(description),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -18318,7 +18843,6 @@ function patchVRF(comments, custom_fields, description, enforce_unique, export_t
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18370,7 +18894,7 @@ function verifyVRFExists(comments, custom_fields, description, enforce_unique, e
 
 function verifyVRFDoesNotExist(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
   var url = "/api/ipam/vrfs/";
-  var description = "Verify VRF with id " + id + " does not exist";
+  var description = "Verify VRF does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -18433,15 +18957,15 @@ function waitForVRFAdded(comments, custom_fields, description, enforce_unique, e
 }
 
 function matchDeletedVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant) {
-  var expectedDesc = "Delete VRF with id " + id;
+  var expectedDesc = "Delete vrf with id " + id;
   return bp.EventSet("matchDeletedVRF", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyVRFDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ VRF\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ VRF\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ vrf\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ vrf\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -18560,7 +19084,7 @@ function verifyCircuitGroupAssignmentExists(group, id, member_id, member_type, p
 
 function verifyCircuitGroupAssignmentDoesNotExist(group, id, member_id, member_type, priority, tags) {
   var url = "/api/circuits/circuit-group-assignments/";
-  var description = "Verify CircuitGroupAssignment with id " + id + " does not exist";
+  var description = "Verify CircuitGroupAssignment does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -18661,7 +19185,6 @@ function createCircuitGroup(custom_fields, description, id, name, slug, tags, te
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18695,7 +19218,6 @@ function updateCircuitGroup(custom_fields, description, id, name, slug, tags, te
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -18753,7 +19275,7 @@ function verifyCircuitGroupExists(custom_fields, description, id, name, slug, ta
 
 function verifyCircuitGroupDoesNotExist(custom_fields, description, id, name, slug, tags, tenant) {
   var url = "/api/circuits/circuit-groups/";
-  var description = "Verify CircuitGroup with id " + id + " does not exist";
+  var description = "Verify CircuitGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -18966,7 +19488,7 @@ function verifyCircuitTerminationExists(circuit, custom_fields, description, id,
 
 function verifyCircuitTerminationDoesNotExist(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) {
   var url = "/api/circuits/circuit-terminations/";
-  var description = "Verify CircuitTermination with id " + id + " does not exist";
+  var description = "Verify CircuitTermination does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -19067,7 +19589,6 @@ function createCircuitType(color, custom_fields, description, id, name, slug, ta
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -19101,7 +19622,6 @@ function updateCircuitType(color, custom_fields, description, id, name, slug, ta
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -19159,7 +19679,7 @@ function verifyCircuitTypeExists(color, custom_fields, description, id, name, sl
 
 function verifyCircuitTypeDoesNotExist(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/circuit-types/";
-  var description = "Verify CircuitType with id " + id + " does not exist";
+  var description = "Verify CircuitType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -19244,7 +19764,7 @@ function waitForAnyCircuitTypeDeleted() {
 
 function createCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
   var url = "/api/circuits/circuits/";
-  var description = "Create circuit " + cid + " with id " + id;
+  var description = "Create circuit";
   var body = {
     "assignments": String(assignments),
     "cid": String(cid),
@@ -19289,23 +19809,7 @@ function updateCircuit(assignments, cid, comments, commit_rate, custom_fields, d
   var url = "/api/circuits/circuits/" + id + "/";
   var description = "Update circuit with id " + id;
   var body = {
-    "assignments": String(assignments),
-    "cid": String(cid),
-    "comments": String(comments),
-    "commit_rate": Number(commit_rate),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "distance": Number(distance),
-    "distance_unit": String(distance_unit),
     "id": String(id),
-    "install_date": String(install_date),
-    "provider": String(provider),
-    "provider_account": String(provider_account),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "termination_date": String(termination_date),
-    "type": String(type),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -19332,23 +19836,7 @@ function patchCircuit(assignments, cid, comments, commit_rate, custom_fields, de
   var url = "/api/circuits/circuits/" + id + "/";
   var description = "Patch circuit with id " + id;
   var body = {
-    "assignments": String(assignments),
-    "cid": String(cid),
-    "comments": String(comments),
-    "commit_rate": Number(commit_rate),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "distance": Number(distance),
-    "distance_unit": String(distance_unit),
     "id": String(id),
-    "install_date": String(install_date),
-    "provider": String(provider),
-    "provider_account": String(provider_account),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "termination_date": String(termination_date),
-    "type": String(type),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -19413,7 +19901,7 @@ function verifyCircuitExists(assignments, cid, comments, commit_rate, custom_fie
 
 function verifyCircuitDoesNotExist(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
   var url = "/api/circuits/circuits/";
-  var description = "Verify Circuit with id " + id + " does not exist";
+  var description = "Verify Circuit does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -19441,15 +19929,15 @@ function tryToDeleteANonExistingCircuit(assignments, cid, comments, commit_rate,
 }
 
 function matchAddedCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
-  var expectedDesc = "Create circuit " + cid + " with id " + id;
+  var expectedDesc = "Create circuit";
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCircuitAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ circuit\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ circuit\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ circuit$/));
+  var m = ev.data.parameters.description.match(/^Create\ circuit$/);
   var captures = m.slice(1);
-  var names = ["cid", "id"];
+  var names = [];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -19471,7 +19959,7 @@ function matchAnyCircuitAdded() {
 }
 
 function waitForCircuitAdded(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
-  var expectedDesc = "Create circuit " + cid + " with id " + id;
+  var expectedDesc = "Create circuit";
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -19496,6 +19984,16 @@ function waitForAnyCircuitDeleted() {
 
 // ---- Entity: provider account ----
 
+function getProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
+  var url = "/api/circuits/provider-accounts/" + id + "/";
+  var description = "Get provider account with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
   var url = "/api/circuits/provider-accounts/";
   var description = "Create provider account";
@@ -19515,34 +20013,16 @@ function createProviderAccount(account, comments, custom_fields, description, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function getProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
-  var url = "/api/circuits/provider-accounts/" + id + "/";
-  var description = "Get provider account with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function updateProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
   var url = "/api/circuits/provider-accounts/" + id + "/";
   var description = "Update provider account with id " + id;
   var body = {
-    "account": String(account),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "name": String(name),
-    "provider": String(provider),
-    "tags": String(tags),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -19550,7 +20030,6 @@ function updateProviderAccount(account, comments, custom_fields, description, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -19560,14 +20039,7 @@ function patchProviderAccount(account, comments, custom_fields, description, id,
   var url = "/api/circuits/provider-accounts/" + id + "/";
   var description = "Patch provider account with id " + id;
   var body = {
-    "account": String(account),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "name": String(name),
-    "provider": String(provider),
-    "tags": String(tags),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -19575,7 +20047,6 @@ function patchProviderAccount(account, comments, custom_fields, description, id,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -19634,7 +20105,7 @@ function verifyProviderAccountExists(account, comments, custom_fields, descripti
 
 function verifyProviderAccountDoesNotExist(account, comments, custom_fields, description, id, name, provider, tags) {
   var url = "/api/circuits/provider-accounts/";
-  var description = "Verify ProviderAccount with id " + id + " does not exist";
+  var description = "Verify ProviderAccount does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -19717,6 +20188,16 @@ function waitForAnyProviderAccountDeleted() {
 
 // ---- Entity: provider network ----
 
+function getProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
+  var url = "/api/circuits/provider-networks/" + id + "/";
+  var description = "Get provider network with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
   var url = "/api/circuits/provider-networks/";
   var description = "Create provider network";
@@ -19736,35 +20217,17 @@ function createProviderNetwork(comments, custom_fields, description, id, name, p
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , service_id: String(service_id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
-  var url = "/api/circuits/provider-networks/" + id + "/";
-  var description = "Get provider network with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function updateProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
   var url = "/api/circuits/provider-networks/" + id + "/";
   var description = "Update provider network with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "name": String(name),
-    "provider": String(provider),
-    "service_id": String(service_id),
-    "tags": String(tags),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -19772,7 +20235,6 @@ function updateProviderNetwork(comments, custom_fields, description, id, name, p
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , service_id: String(service_id)
     }
   });
@@ -19783,14 +20245,7 @@ function patchProviderNetwork(comments, custom_fields, description, id, name, pr
   var url = "/api/circuits/provider-networks/" + id + "/";
   var description = "Patch provider network with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "name": String(name),
-    "provider": String(provider),
-    "service_id": String(service_id),
-    "tags": String(tags),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -19798,7 +20253,6 @@ function patchProviderNetwork(comments, custom_fields, description, id, name, pr
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , service_id: String(service_id)
     }
   });
@@ -19858,7 +20312,7 @@ function verifyProviderNetworkExists(comments, custom_fields, description, id, n
 
 function verifyProviderNetworkDoesNotExist(comments, custom_fields, description, id, name, provider, service_id, tags) {
   var url = "/api/circuits/provider-networks/";
-  var description = "Verify ProviderNetwork with id " + id + " does not exist";
+  var description = "Verify ProviderNetwork does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -19941,6 +20395,16 @@ function waitForAnyProviderNetworkDeleted() {
 
 // ---- Entity: provider ----
 
+function getProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
+  var url = "/api/circuits/providers/" + id + "/";
+  var description = "Get provider with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/providers/";
   var description = "Create provider";
@@ -19961,35 +20425,16 @@ function createProvider(accounts, asns, comments, custom_fields, description, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function getProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/circuits/providers/" + id + "/";
-  var description = "Get provider with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function updateProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/providers/" + id + "/";
   var description = "Update provider with id " + id;
   var body = {
-    "accounts": String(accounts),
-    "asns": String(asns),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -19997,7 +20442,6 @@ function updateProvider(accounts, asns, comments, custom_fields, description, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -20007,15 +20451,7 @@ function patchProvider(accounts, asns, comments, custom_fields, description, id,
   var url = "/api/circuits/providers/" + id + "/";
   var description = "Patch provider with id " + id;
   var body = {
-    "accounts": String(accounts),
-    "asns": String(asns),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -20023,7 +20459,6 @@ function patchProvider(accounts, asns, comments, custom_fields, description, id,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -20083,7 +20518,7 @@ function verifyProviderExists(accounts, asns, comments, custom_fields, descripti
 
 function verifyProviderDoesNotExist(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/providers/";
-  var description = "Verify Provider with id " + id + " does not exist";
+  var description = "Verify Provider does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -20166,6 +20601,16 @@ function waitForAnyProviderDeleted() {
 
 // ---- Entity: virtual circuit termination ----
 
+function getVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
+  var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
+  var description = "Get virtual circuit termination with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
 function createVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/";
   var description = "Create virtual circuit termination";
@@ -20189,27 +20634,11 @@ function createVirtualCircuitTermination(custom_fields, description, id, _interf
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
-  var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
-  var description = "Get virtual circuit termination with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function updateVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Update virtual circuit termination with id " + id;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "interface": String(_interface),
-    "role": String(role),
-    "tags": String(tags),
-    "virtual_circuit": String(virtual_circuit),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -20226,13 +20655,7 @@ function patchVirtualCircuitTermination(custom_fields, description, id, _interfa
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "Patch virtual circuit termination with id " + id;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
     "id": String(id),
-    "interface": String(_interface),
-    "role": String(role),
-    "tags": String(tags),
-    "virtual_circuit": String(virtual_circuit),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -20297,7 +20720,7 @@ function verifyVirtualCircuitTerminationExists(custom_fields, description, id, _
 
 function verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/";
-  var description = "Verify VirtualCircuitTermination with id " + id + " does not exist";
+  var description = "Verify VirtualCircuitTermination does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -20384,13 +20807,10 @@ function createVirtualCircuitType(color, custom_fields, description, id, name, s
   var url = "/api/circuits/virtual-circuit-types/";
   var description = "Create virtual circuit type with id " + id;
   var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
+    "color": String(color),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -20398,7 +20818,6 @@ function createVirtualCircuitType(color, custom_fields, description, id, name, s
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -20418,13 +20837,10 @@ function updateVirtualCircuitType(color, custom_fields, description, id, name, s
   var url = "/api/circuits/virtual-circuit-types/" + id + "/";
   var description = "Update virtual circuit type with id " + id;
   var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
+    "color": String(color),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -20432,31 +20848,6 @@ function updateVirtualCircuitType(color, custom_fields, description, id, name, s
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  var url = "/api/circuits/virtual-circuit-types/" + id + "/";
-  var description = "Partially update virtual circuit type with id " + id;
-  var body = {
-    "color": String(color),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-    "slug": String(slug),
-    "tags": String(tags),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -20514,7 +20905,7 @@ function verifyVirtualCircuitTypeExists(color, custom_fields, description, id, n
 
 function verifyVirtualCircuitTypeDoesNotExist(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/virtual-circuit-types/";
-  var description = "Verify VirtualCircuitType with id " + id + " does not exist";
+  var description = "Verify VirtualCircuitType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -20602,16 +20993,14 @@ function createVirtualCircuit(cid, comments, custom_fields, description, id, pro
   var description = "Create virtual circuit with id " + id;
   var body = {
     "cid": String(cid),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "provider_account": String(provider_account),
-    "provider_network": String(provider_network),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
     "type": String(type),
+    "provider": String(provider),
+    "provider_account": String(provider_account),
+    "provider_network_id": String(provider_network_id),
+    "status": String(status),
+    "description": String(description),
+    "tenant": String(tenant),
+    "tenant_group": String(tenant_group),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -20639,45 +21028,16 @@ function updateVirtualCircuit(cid, comments, custom_fields, description, id, pro
   var description = "Update virtual circuit with id " + id;
   var body = {
     "cid": String(cid),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "provider_account": String(provider_account),
-    "provider_network": String(provider_network),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
     "type": String(type),
+    "provider": String(provider),
+    "provider_account": String(provider_account),
+    "provider_network_id": String(provider_network_id),
+    "status": String(status),
+    "description": String(description),
+    "tenant": String(tenant),
+    "tenant_group": String(tenant_group),
   };
   svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function partialUpdateVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
-  var url = "/api/circuits/virtual-circuits/" + id + "/";
-  var description = "Partially update virtual circuit with id " + id;
-  var body = {
-    "cid": String(cid),
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
-    "provider_account": String(provider_account),
-    "provider_network": String(provider_network),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "type": String(type),
-  };
-  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -20744,7 +21104,7 @@ function verifyVirtualCircuitExists(cid, comments, custom_fields, description, i
 
 function verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type) {
   var url = "/api/circuits/virtual-circuits/";
-  var description = "Verify VirtualCircuit with id " + id + " does not exist";
+  var description = "Verify VirtualCircuit does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -20859,7 +21219,7 @@ function verifyBackgroundQueueExists(name) {
 
 function verifyBackgroundQueueDoesNotExist(name) {
   var url = "/api/core/background-queues";
-  var description = "Verify BackgroundQueue with name " + name + " does not exist";
+  var description = "Verify BackgroundQueue does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -20893,28 +21253,7 @@ function deleteBackgroundTask(id) {
   var url = "/api/core/background-tasks/" + id + "/delete/";
   var description = "Delete background task " + id;
   var body = {
-    "created_at": "created_at_dummy",
-    "description": "description_dummy",
-    "ended_at": "ended_at_dummy",
-    "enqueued_at": "enqueued_at_dummy",
-    "func_name": "func_name_dummy",
     "id": String(id),
-    "is_canceled": true,
-    "is_deferred": true,
-    "is_failed": true,
-    "is_finished": true,
-    "is_queued": true,
-    "is_scheduled": true,
-    "is_started": true,
-    "is_stopped": true,
-    "last_heartbeat": "last_heartbeat_dummy",
-    "meta": {},
-    "origin": "origin_dummy",
-    "result": "result_dummy",
-    "result_ttl": 1,
-    "started_at": "started_at_dummy",
-    "timeout": 1,
-    "worker_name": "worker_name_dummy",
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -20931,28 +21270,7 @@ function enqueueBackgroundTask(id) {
   var url = "/api/core/background-tasks/" + id + "/enqueue/";
   var description = "Enqueue background task " + id;
   var body = {
-    "created_at": "created_at_dummy",
-    "description": "description_dummy",
-    "ended_at": "ended_at_dummy",
-    "enqueued_at": "enqueued_at_dummy",
-    "func_name": "func_name_dummy",
     "id": String(id),
-    "is_canceled": true,
-    "is_deferred": true,
-    "is_failed": true,
-    "is_finished": true,
-    "is_queued": true,
-    "is_scheduled": true,
-    "is_started": true,
-    "is_stopped": true,
-    "last_heartbeat": "last_heartbeat_dummy",
-    "meta": {},
-    "origin": "origin_dummy",
-    "result": "result_dummy",
-    "result_ttl": 1,
-    "started_at": "started_at_dummy",
-    "timeout": 1,
-    "worker_name": "worker_name_dummy",
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -20969,28 +21287,7 @@ function requeueBackgroundTask(id) {
   var url = "/api/core/background-tasks/" + id + "/requeue/";
   var description = "Requeue background task " + id;
   var body = {
-    "created_at": "created_at_dummy",
-    "description": "description_dummy",
-    "ended_at": "ended_at_dummy",
-    "enqueued_at": "enqueued_at_dummy",
-    "func_name": "func_name_dummy",
     "id": String(id),
-    "is_canceled": true,
-    "is_deferred": true,
-    "is_failed": true,
-    "is_finished": true,
-    "is_queued": true,
-    "is_scheduled": true,
-    "is_started": true,
-    "is_stopped": true,
-    "last_heartbeat": "last_heartbeat_dummy",
-    "meta": {},
-    "origin": "origin_dummy",
-    "result": "result_dummy",
-    "result_ttl": 1,
-    "started_at": "started_at_dummy",
-    "timeout": 1,
-    "worker_name": "worker_name_dummy",
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -21007,28 +21304,7 @@ function stopBackgroundTask(id) {
   var url = "/api/core/background-tasks/" + id + "/stop/";
   var description = "Stop background task " + id;
   var body = {
-    "created_at": "created_at_dummy",
-    "description": "description_dummy",
-    "ended_at": "ended_at_dummy",
-    "enqueued_at": "enqueued_at_dummy",
-    "func_name": "func_name_dummy",
     "id": String(id),
-    "is_canceled": true,
-    "is_deferred": true,
-    "is_failed": true,
-    "is_finished": true,
-    "is_queued": true,
-    "is_scheduled": true,
-    "is_started": true,
-    "is_stopped": true,
-    "last_heartbeat": "last_heartbeat_dummy",
-    "meta": {},
-    "origin": "origin_dummy",
-    "result": "result_dummy",
-    "result_ttl": 1,
-    "started_at": "started_at_dummy",
-    "timeout": 1,
-    "worker_name": "worker_name_dummy",
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -21063,7 +21339,7 @@ function verifyBackgroundTaskExists(id) {
 
 function verifyBackgroundTaskDoesNotExist(id) {
   var url = "/api/core/background-tasks";
-  var description = "Verify BackgroundTask with id " + id + " does not exist";
+  var description = "Verify BackgroundTask does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21143,7 +21419,7 @@ function verifyBackgroundWorkerExists(name) {
 
 function verifyBackgroundWorkerDoesNotExist(name) {
   var url = "/api/core/background-workers";
-  var description = "Verify BackgroundWorker with name " + name + " does not exist";
+  var description = "Verify BackgroundWorker does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21205,7 +21481,7 @@ function verifyDataFileExists(id) {
 
 function verifyDataFileDoesNotExist(id) {
   var url = "/api/core/data-files";
-  var description = "Verify DataFile with id " + id + " does not exist";
+  var description = "Verify DataFile does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21229,16 +21505,14 @@ function createDataSource(comments, custom_fields, description, enabled, id, ign
   var url = "/api/core/data-sources/";
   var description = "Create data source " + name + " with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
-    "ignore_rules": String(ignore_rules),
     "name": String(name),
-    "parameters": String(parameters),
+    "description": String(description),
+    "enabled": String(enabled),
     "source_url": String(source_url),
-    "sync_interval": Number(sync_interval),
+    "status": String(status),
+    "sync_interval": String(sync_interval),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
     "type": String(type),
   };
   svc.post(url, {
@@ -21247,7 +21521,6 @@ function createDataSource(comments, custom_fields, description, enabled, id, ign
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21267,16 +21540,14 @@ function updateDataSource(comments, custom_fields, description, enabled, id, ign
   var url = "/api/core/data-sources/" + id + "/";
   var description = "Update data source with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
-    "ignore_rules": String(ignore_rules),
     "name": String(name),
-    "parameters": String(parameters),
+    "description": String(description),
+    "enabled": String(enabled),
     "source_url": String(source_url),
-    "sync_interval": Number(sync_interval),
+    "status": String(status),
+    "sync_interval": String(sync_interval),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
     "type": String(type),
   };
   svc.put(url, {
@@ -21285,7 +21556,6 @@ function updateDataSource(comments, custom_fields, description, enabled, id, ign
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21313,37 +21583,26 @@ function partialUpdateDataSource(comments, custom_fields, description, enabled, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function getDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
-  var url = "/api/core/data-sources/" + id + "/";
-  var description = "Get data source with id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function listDataSources(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
-  var url = "/api/core/data-sources/";
-  var description = "List data sources";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
 }
 
 function bulkUpdateDataSources(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
   var url = "/api/core/data-sources/";
   var description = "Bulk update data sources";
   var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "enabled": String(enabled),
     "id": String(id),
+    "ignore_rules": String(ignore_rules),
+    "name": String(name),
+    "parameters": String(parameters),
+    "source_url": String(source_url),
+    "sync_interval": String(sync_interval),
+    "type": String(type),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -21351,7 +21610,6 @@ function bulkUpdateDataSources(comments, custom_fields, description, enabled, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21361,7 +21619,17 @@ function bulkPartialUpdateDataSources(comments, custom_fields, description, enab
   var url = "/api/core/data-sources/";
   var description = "Bulk partial update data sources";
   var body = {
+    "comments": String(comments),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "enabled": String(enabled),
     "id": String(id),
+    "ignore_rules": String(ignore_rules),
+    "name": String(name),
+    "parameters": String(parameters),
+    "source_url": String(source_url),
+    "sync_interval": String(sync_interval),
+    "type": String(type),
   };
   svc.patch(url, {
     body: JSON.stringify(body),
@@ -21369,7 +21637,6 @@ function bulkPartialUpdateDataSources(comments, custom_fields, description, enab
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21385,20 +21652,28 @@ function bulkDeleteDataSources(comments, custom_fields, description, enabled, id
   });
 }
 
-function syncDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
+function getDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
+  var url = "/api/core/data-sources/" + id + "/";
+  var description = "Get data source with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function syncCreateDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
   var url = "/api/core/data-sources/" + id + "/sync/";
-  var description = "Sync data source with id " + id;
+  var description = "Sync create data source with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "enabled": enabled,
-    "id": String(id),
-    "ignore_rules": String(ignore_rules),
     "name": String(name),
-    "parameters": String(parameters),
+    "description": String(description),
+    "enabled": String(enabled),
     "source_url": String(source_url),
-    "sync_interval": Number(sync_interval),
+    "status": String(status),
+    "sync_interval": String(sync_interval),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
     "type": String(type),
   };
   svc.post(url, {
@@ -21407,7 +21682,6 @@ function syncDataSource(comments, custom_fields, description, enabled, id, ignor
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21459,7 +21733,7 @@ function verifyDataSourceExists(comments, custom_fields, description, enabled, i
 
 function verifyDataSourceDoesNotExist(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type) {
   var url = "/api/core/data-sources/";
-  var description = "Verify DataSource with id " + id + " does not exist";
+  var description = "Verify DataSource does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21584,7 +21858,7 @@ function verifyJobExists(id) {
 
 function verifyJobDoesNotExist(id) {
   var url = "/api/core/jobs";
-  var description = "Verify Job with id " + id + " does not exist";
+  var description = "Verify Job does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21646,7 +21920,7 @@ function verifyObjectChangeExists(id) {
 
 function verifyObjectChangeDoesNotExist(id) {
   var url = "/api/core/object-changes";
-  var description = "Verify ObjectChange with id " + id + " does not exist";
+  var description = "Verify ObjectChange does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21687,7 +21961,6 @@ function createIKEPolicy(comments, custom_fields, description, id, mode, name, p
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21724,7 +21997,6 @@ function updateIKEPolicy(comments, custom_fields, description, id, mode, name, p
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21751,7 +22023,6 @@ function partialUpdateIKEPolicy(comments, custom_fields, description, id, mode, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21822,7 +22093,7 @@ function verifyIKEPolicyExists(comments, custom_fields, description, id, mode, n
 
 function verifyIKEPolicyDoesNotExist(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
   var url = "/api/vpn/ike-policies/";
-  var description = "Verify IKEPolicy with id " + id + " does not exist";
+  var description = "Verify IKEPolicy does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -21927,7 +22198,6 @@ function createIKEProposal(authentication_algorithm, authentication_method, comm
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21965,7 +22235,6 @@ function updateIKEProposal(authentication_algorithm, authentication_method, comm
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -21993,7 +22262,6 @@ function partialUpdateIKEProposal(authentication_algorithm, authentication_metho
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22065,7 +22333,7 @@ function verifyIKEProposalExists(authentication_algorithm, authentication_method
 
 function verifyIKEProposalDoesNotExist(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
   var url = "/api/vpn/ike-proposals/";
-  var description = "Verify IKEProposal with id " + id + " does not exist";
+  var description = "Verify IKEProposal does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -22167,7 +22435,6 @@ function createIPSecPolicy(comments, custom_fields, description, id, name, pfs_g
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22202,7 +22469,6 @@ function updateIPSecPolicy(comments, custom_fields, description, id, name, pfs_g
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22227,7 +22493,6 @@ function partialUpdateIPSecPolicy(comments, custom_fields, description, id, name
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22296,7 +22561,7 @@ function verifyIPSecPolicyExists(comments, custom_fields, description, id, name,
 
 function verifyIPSecPolicyDoesNotExist(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
   var url = "/api/vpn/ipsec-policies/";
-  var description = "Verify IPSecPolicy with id " + id + " does not exist";
+  var description = "Verify IPSecPolicy does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -22399,7 +22664,6 @@ function createIPSecProfile(comments, custom_fields, description, id, ike_policy
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22435,7 +22699,6 @@ function updateIPSecProfile(comments, custom_fields, description, id, ike_policy
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22461,7 +22724,6 @@ function partialUpdateIPSecProfile(comments, custom_fields, description, id, ike
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22531,7 +22793,7 @@ function verifyIPSecProfileExists(comments, custom_fields, description, id, ike_
 
 function verifyIPSecProfileDoesNotExist(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
   var url = "/api/vpn/ipsec-profiles/";
-  var description = "Verify IPSecProfile with id " + id + " does not exist";
+  var description = "Verify IPSecProfile does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -22635,7 +22897,6 @@ function createIPSecProposal(authentication_algorithm, comments, custom_fields, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22672,7 +22933,6 @@ function updateIPSecProposal(authentication_algorithm, comments, custom_fields, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22699,7 +22959,6 @@ function partialUpdateIPSecProposal(authentication_algorithm, comments, custom_f
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -22770,7 +23029,7 @@ function verifyIPSecProposalExists(authentication_algorithm, comments, custom_fi
 
 function verifyIPSecProposalDoesNotExist(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
   var url = "/api/vpn/ipsec-proposals/";
-  var description = "Verify IPSecProposal with id " + id + " does not exist";
+  var description = "Verify IPSecProposal does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -22960,7 +23219,7 @@ function verifyL2VPNTerminationExists(assigned_object_id, assigned_object_type, 
 
 function verifyL2VPNTerminationDoesNotExist(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) {
   var url = "/api/vpn/l2vpn-terminations/";
-  var description = "Verify L2VPNTermination with id " + id + " does not exist";
+  var description = "Verify L2VPNTermination does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -23047,19 +23306,8 @@ function createL2VPN(comments, custom_fields, description, export_targets, id, i
   var url = "/api/vpn/l2vpns/";
   var description = "Create l2vpn " + name + " with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "export_targets": String(export_targets),
-    "id": String(id),
-    "identifier": Number(identifier),
-    "import_targets": String(import_targets),
     "name": String(name),
     "slug": String(slug),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "type": String(type),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -23067,7 +23315,6 @@ function createL2VPN(comments, custom_fields, description, export_targets, id, i
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -23087,19 +23334,8 @@ function updateL2VPN(comments, custom_fields, description, export_targets, id, i
   var url = "/api/vpn/l2vpns/" + id + "/";
   var description = "Update l2vpn with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "export_targets": String(export_targets),
-    "id": String(id),
-    "identifier": Number(identifier),
-    "import_targets": String(import_targets),
     "name": String(name),
     "slug": String(slug),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "type": String(type),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -23107,7 +23343,6 @@ function updateL2VPN(comments, custom_fields, description, export_targets, id, i
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -23171,7 +23406,7 @@ function verifyL2VPNExists(comments, custom_fields, description, export_targets,
 
 function verifyL2VPNDoesNotExist(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) {
   var url = "/api/vpn/l2vpns/";
-  var description = "Verify L2VPN with id " + id + " does not exist";
+  var description = "Verify L2VPN does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -23258,12 +23493,8 @@ function createTunnelGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/vpn/tunnel-groups/";
   var description = "Create tunnel group " + name + " with id " + id;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -23271,7 +23502,6 @@ function createTunnelGroup(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -23291,12 +23521,8 @@ function updateTunnelGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/vpn/tunnel-groups/" + id + "/";
   var description = "Update tunnel group with id " + id;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -23304,7 +23530,6 @@ function updateTunnelGroup(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -23361,7 +23586,7 @@ function verifyTunnelGroupExists(custom_fields, description, id, name, slug, tag
 
 function verifyTunnelGroupDoesNotExist(custom_fields, description, id, name, slug, tags) {
   var url = "/api/vpn/tunnel-groups/";
-  var description = "Verify TunnelGroup with id " + id + " does not exist";
+  var description = "Verify TunnelGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -23557,7 +23782,7 @@ function verifyTunnelTerminationExists(custom_fields, id, outside_ip, role, tags
 
 function verifyTunnelTerminationDoesNotExist(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) {
   var url = "/api/vpn/tunnel-terminations/";
-  var description = "Verify TunnelTermination with id " + id + " does not exist";
+  var description = "Verify TunnelTermination does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -23644,19 +23869,8 @@ function createTunnel(comments, custom_fields, description, encapsulation, group
   var url = "/api/vpn/tunnels/";
   var description = "Create tunnel " + name + " with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "encapsulation": String(encapsulation),
-    "group": String(group),
-    "id": String(id),
-    "ipsec_profile": String(ipsec_profile),
     "name": String(name),
     "slug": String(slug),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "tunnel_id": Number(tunnel_id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -23664,7 +23878,6 @@ function createTunnel(comments, custom_fields, description, encapsulation, group
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , tunnel_id: String(tunnel_id)
     }
   });
@@ -23685,19 +23898,8 @@ function updateTunnel(comments, custom_fields, description, encapsulation, group
   var url = "/api/vpn/tunnels/" + id + "/";
   var description = "Update tunnel with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "encapsulation": String(encapsulation),
-    "group": String(group),
-    "id": String(id),
-    "ipsec_profile": String(ipsec_profile),
     "name": String(name),
     "slug": String(slug),
-    "status": String(status),
-    "tags": String(tags),
-    "tenant": String(tenant),
-    "tunnel_id": Number(tunnel_id),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -23705,7 +23907,6 @@ function updateTunnel(comments, custom_fields, description, encapsulation, group
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , tunnel_id: String(tunnel_id)
     }
   });
@@ -23770,7 +23971,7 @@ function verifyTunnelExists(comments, custom_fields, description, encapsulation,
 
 function verifyTunnelDoesNotExist(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id) {
   var url = "/api/vpn/tunnels/";
-  var description = "Verify Tunnel with id " + id + " does not exist";
+  var description = "Verify Tunnel does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -23870,7 +24071,6 @@ function createClusterGroup(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -23903,7 +24103,6 @@ function updateClusterGroup(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -23960,7 +24159,7 @@ function verifyClusterGroupExists(custom_fields, description, id, name, slug, ta
 
 function verifyClusterGroupDoesNotExist(custom_fields, description, id, name, slug, tags) {
   var url = "/api/virtualization/cluster-groups/";
-  var description = "Verify ClusterGroup with id " + id + " does not exist";
+  var description = "Verify ClusterGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -24060,7 +24259,6 @@ function createClusterType(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -24093,7 +24291,6 @@ function updateClusterType(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -24150,7 +24347,7 @@ function verifyClusterTypeExists(custom_fields, description, id, name, slug, tag
 
 function verifyClusterTypeDoesNotExist(custom_fields, description, id, name, slug, tags) {
   var url = "/api/virtualization/cluster-types/";
-  var description = "Verify ClusterType with id " + id + " does not exist";
+  var description = "Verify ClusterType does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -24256,7 +24453,6 @@ function createCluster(comments, custom_fields, description, group, id, name, sc
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , scope_id: String(scope_id)
     }
   });
@@ -24296,7 +24492,6 @@ function updateCluster(comments, custom_fields, description, group, id, name, sc
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
       , scope_id: String(scope_id)
     }
   });
@@ -24360,7 +24555,7 @@ function verifyClusterExists(comments, custom_fields, description, group, id, na
 
 function verifyClusterDoesNotExist(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) {
   var url = "/api/virtualization/clusters/";
-  var description = "Verify Cluster with id " + id + " does not exist";
+  var description = "Verify Cluster does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -24461,7 +24656,6 @@ function createVirtualDisk(custom_fields, description, id, name, size, tags, vir
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -24495,7 +24689,6 @@ function updateVirtualDisk(custom_fields, description, id, name, size, tags, vir
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -24553,7 +24746,7 @@ function verifyVirtualDiskExists(custom_fields, description, id, name, size, tag
 
 function verifyVirtualDiskDoesNotExist(custom_fields, description, id, name, size, tags, virtual_machine) {
   var url = "/api/virtualization/virtual-disks/";
-  var description = "Verify VirtualDisk with id " + id + " does not exist";
+  var description = "Verify VirtualDisk does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -24636,31 +24829,50 @@ function waitForAnyVirtualDiskDeleted() {
 
 // ---- Entity: virtual machine ----
 
-function createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
-  var description = "Create virtual machine " + name + " with id " + id;
+  var description = "Create virtual machine with id " + id;
   var body = {
+    "name": String(name),
     "cluster": String(cluster),
-    "comments": String(comments),
-    "config_template": String(config_template),
-    "custom_fields": custom_fields,
+    "cluster_group": String(cluster_group),
+    "cluster_type": String(cluster_type),
+    "config_template_id": String(config_template_id),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
     "description": String(description),
     "device": String(device),
-    "disk": Number(disk),
-    "id": String(id),
+    "disk": String(disk),
+    "has_primary_ip": String(has_primary_ip),
+    "interface_count": String(interface_count),
     "local_context_data": String(local_context_data),
-    "memory": Number(memory),
-    "name": String(name),
+    "mac_address": String(mac_address),
+    "memory": String(memory),
+    "modified_by_request": String(modified_by_request),
     "platform": String(platform),
     "primary_ip4": String(primary_ip4),
+    "primary_ip4_id": String(primary_ip4_id),
     "primary_ip6": String(primary_ip6),
+    "primary_ip6_id": String(primary_ip6_id),
+    "q": String(q),
+    "region": String(region),
     "role": String(role),
     "serial": String(serial),
     "site": String(site),
+    "site_group": String(site_group),
+    "site_group_id": String(site_group_id),
+    "site_id": String(site_id),
     "status": String(status),
-    "tags": String(tags),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
     "tenant": String(tenant),
-    "vcpus": Number(vcpus),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "tenant_id": String(tenant_id),
+    "updated_by_request": String(updated_by_request),
+    "vcpus": String(vcpus),
+    "virtual_disk_count": String(virtual_disk_count),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -24668,13 +24880,12 @@ function createVirtualMachine(cluster, comments, config_template, custom_fields,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function deleteVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Delete virtual machine with id " + id;
   var body = undefined;
@@ -24684,20 +24895,133 @@ function deleteVirtualMachine(cluster, comments, config_template, custom_fields,
   });
 }
 
-function updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Update virtual machine with id " + id;
+  var body = {
+    "name": String(name),
+    "cluster": String(cluster),
+    "cluster_group": String(cluster_group),
+    "cluster_type": String(cluster_type),
+    "config_template_id": String(config_template_id),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "description": String(description),
+    "device": String(device),
+    "disk": String(disk),
+    "has_primary_ip": String(has_primary_ip),
+    "interface_count": String(interface_count),
+    "local_context_data": String(local_context_data),
+    "mac_address": String(mac_address),
+    "memory": String(memory),
+    "modified_by_request": String(modified_by_request),
+    "platform": String(platform),
+    "primary_ip4": String(primary_ip4),
+    "primary_ip4_id": String(primary_ip4_id),
+    "primary_ip6": String(primary_ip6),
+    "primary_ip6_id": String(primary_ip6_id),
+    "q": String(q),
+    "region": String(region),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "site_group": String(site_group),
+    "site_group_id": String(site_group_id),
+    "site_id": String(site_id),
+    "status": String(status),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "tenant": String(tenant),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "tenant_id": String(tenant_id),
+    "updated_by_request": String(updated_by_request),
+    "vcpus": String(vcpus),
+    "virtual_disk_count": String(virtual_disk_count),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/" + id + "/";
+  var description = "Partially update virtual machine with id " + id;
+  var body = {
+    "name": String(name),
+    "cluster": String(cluster),
+    "cluster_group": String(cluster_group),
+    "cluster_type": String(cluster_type),
+    "config_template_id": String(config_template_id),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "description": String(description),
+    "device": String(device),
+    "disk": String(disk),
+    "has_primary_ip": String(has_primary_ip),
+    "interface_count": String(interface_count),
+    "local_context_data": String(local_context_data),
+    "mac_address": String(mac_address),
+    "memory": String(memory),
+    "modified_by_request": String(modified_by_request),
+    "platform": String(platform),
+    "primary_ip4": String(primary_ip4),
+    "primary_ip4_id": String(primary_ip4_id),
+    "primary_ip6": String(primary_ip6),
+    "primary_ip6_id": String(primary_ip6_id),
+    "q": String(q),
+    "region": String(region),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "site_group": String(site_group),
+    "site_group_id": String(site_group_id),
+    "site_id": String(site_id),
+    "status": String(status),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "tenant": String(tenant),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "tenant_id": String(tenant_id),
+    "updated_by_request": String(updated_by_request),
+    "vcpus": String(vcpus),
+    "virtual_disk_count": String(virtual_disk_count),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkUpdateVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "Bulk update virtual machines";
   var body = {
     "cluster": String(cluster),
     "comments": String(comments),
     "config_template": String(config_template),
-    "custom_fields": custom_fields,
+    "custom_fields": String(custom_fields),
     "description": String(description),
     "device": String(device),
-    "disk": Number(disk),
+    "disk": String(disk),
+    "format": String(format),
     "id": String(id),
     "local_context_data": String(local_context_data),
-    "memory": Number(memory),
+    "memory": String(memory),
     "name": String(name),
     "platform": String(platform),
     "primary_ip4": String(primary_ip4),
@@ -24708,7 +25032,7 @@ function updateVirtualMachine(cluster, comments, config_template, custom_fields,
     "status": String(status),
     "tags": String(tags),
     "tenant": String(tenant),
-    "vcpus": Number(vcpus),
+    "vcpus": String(vcpus),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -24716,23 +25040,116 @@ function updateVirtualMachine(cluster, comments, config_template, custom_fields,
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
-  var url = "/api/virtualization/virtual-machines/" + id + "/";
-  var description = "Get virtual machine with id " + id;
+function bulkPartialUpdateVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "Bulk partial update virtual machines";
+  var body = {
+    "cluster": String(cluster),
+    "comments": String(comments),
+    "config_template": String(config_template),
+    "custom_fields": String(custom_fields),
+    "description": String(description),
+    "device": String(device),
+    "disk": String(disk),
+    "format": String(format),
+    "id": String(id),
+    "local_context_data": String(local_context_data),
+    "memory": String(memory),
+    "name": String(name),
+    "platform": String(platform),
+    "primary_ip4": String(primary_ip4),
+    "primary_ip6": String(primary_ip6),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "status": String(status),
+    "tags": String(tags),
+    "tenant": String(tenant),
+    "vcpus": String(vcpus),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function bulkDeleteVirtualMachines(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/";
+  var description = "Bulk delete virtual machines";
   var body = undefined;
-  svc.get(url, {
+  svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200]
+    expectedResponseCodes: [200, 204]
   });
 }
 
-function tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function createVirtualMachineRenderConfig(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var url = "/api/virtualization/virtual-machines/" + id + "/render-config/";
+  var description = "Create render config for virtual machine with id " + id;
+  var body = {
+    "name": String(name),
+    "cluster": String(cluster),
+    "cluster_group": String(cluster_group),
+    "cluster_type": String(cluster_type),
+    "config_template_id": String(config_template_id),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
+    "description": String(description),
+    "device": String(device),
+    "disk": String(disk),
+    "has_primary_ip": String(has_primary_ip),
+    "interface_count": String(interface_count),
+    "local_context_data": String(local_context_data),
+    "mac_address": String(mac_address),
+    "memory": String(memory),
+    "modified_by_request": String(modified_by_request),
+    "platform": String(platform),
+    "primary_ip4": String(primary_ip4),
+    "primary_ip4_id": String(primary_ip4_id),
+    "primary_ip6": String(primary_ip6),
+    "primary_ip6_id": String(primary_ip6_id),
+    "q": String(q),
+    "region": String(region),
+    "role": String(role),
+    "serial": String(serial),
+    "site": String(site),
+    "site_group": String(site_group),
+    "site_group_id": String(site_group_id),
+    "site_id": String(site_id),
+    "status": String(status),
+    "tag": String(tag),
+    "tag_id": String(tag_id),
+    "tenant": String(tenant),
+    "tenant_group": String(tenant_group),
+    "tenant_group_id": String(tenant_group_id),
+    "tenant_id": String(tenant_id),
+    "updated_by_request": String(updated_by_request),
+    "vcpus": String(vcpus),
+    "virtual_disk_count": String(virtual_disk_count),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
   var body = {
     "cluster": String(cluster),
@@ -24742,6 +25159,7 @@ function tryToAddExistingVirtualMachine(cluster, comments, config_template, cust
     "description": String(description),
     "device": String(device),
     "disk": Number(disk),
+    "format": String(format),
     "id": String(id),
     "local_context_data": String(local_context_data),
     "memory": Number(memory),
@@ -24766,7 +25184,7 @@ function tryToAddExistingVirtualMachine(cluster, comments, config_template, cust
   });
 }
 
-function verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
   var description = "Verify VirtualMachine with id " + id + " exists";
   svc.get(url, {
@@ -24786,9 +25204,9 @@ function verifyVirtualMachineExists(cluster, comments, config_template, custom_f
   });
 }
 
-function verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function verifyVirtualMachineDoesNotExist(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/";
-  var description = "Verify VirtualMachine with id " + id + " does not exist";
+  var description = "Verify VirtualMachine does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -24806,7 +25224,7 @@ function verifyVirtualMachineDoesNotExist(cluster, comments, config_template, cu
   });
 }
 
-function tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function tryToDeleteANonExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "Verify we cannot delete non-existing VirtualMachine";
   svc.delete(url, {
@@ -24815,16 +25233,16 @@ function tryToDeleteANonExistingVirtualMachine(cluster, comments, config_templat
   });
 }
 
-function matchAddedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
-  var expectedDesc = "Create virtual machine " + name + " with id " + id;
+function matchAddedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var expectedDesc = "Create virtual machine with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyVirtualMachineAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ machine\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ virtual\ machine\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ virtual\ machine\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ virtual\ machine\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -24845,12 +25263,12 @@ function matchAnyVirtualMachineAdded() {
   });
 }
 
-function waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
-  var expectedDesc = "Create virtual machine " + name + " with id " + id;
+function waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+  var expectedDesc = "Create virtual machine with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
+function matchDeletedVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus) {
   var expectedDesc = "Delete virtual machine with id " + id;
   return bp.EventSet("matchDeletedVirtualMachine", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -24956,55 +25374,9 @@ function partialUpdateContactAssignment(contact, custom_fields, id, object_id, o
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkUpdateContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
+function listContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
   var url = "/api/tenancy/contact-assignments/";
-  var description = "Bulk update contact assignments";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , object_id: String(object_id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/";
-  var description = "Bulk partial update contact assignments";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , object_id: String(object_id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/";
-  var description = "Bulk delete contact assignments";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/" + id + "/";
-  var description = "Get contact assignment with id " + id;
+  var description = "List contact assignments";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25012,9 +25384,9 @@ function getContactAssignment(contact, custom_fields, id, object_id, object_type
   });
 }
 
-function listContactAssignments(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  var url = "/api/tenancy/contact-assignments/";
-  var description = "List contact assignments";
+function getContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
+  var url = "/api/tenancy/contact-assignments/" + id + "/";
+  var description = "Get contact assignment with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25065,7 +25437,7 @@ function verifyContactAssignmentExists(contact, custom_fields, id, object_id, ob
 
 function verifyContactAssignmentDoesNotExist(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
   var url = "/api/tenancy/contact-assignments/";
-  var description = "Verify ContactAssignment with id " + id + " does not exist";
+  var description = "Verify ContactAssignment does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -25150,16 +25522,12 @@ function waitForAnyContactAssignmentDeleted() {
 
 function createContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/contact-groups/";
-  var description = "Create contact group " + name + " with id " + id;
+  var description = "Create contact group with id " + id + " and name " + name;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
+    "parent": String(parent),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -25167,7 +25535,6 @@ function createContactGroup(comments, custom_fields, description, id, name, pare
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -25187,14 +25554,10 @@ function updateContactGroup(comments, custom_fields, description, id, name, pare
   var url = "/api/tenancy/contact-groups/" + id + "/";
   var description = "Update contact group with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
+    "parent": String(parent),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -25202,7 +25565,6 @@ function updateContactGroup(comments, custom_fields, description, id, name, pare
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -25227,61 +25589,14 @@ function partialUpdateContactGroup(comments, custom_fields, description, id, nam
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkUpdateContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+function listContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/contact-groups/";
-  var description = "Bulk update contact groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/";
-  var description = "Bulk partial update contact groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/";
-  var description = "Bulk delete contact groups";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/" + id + "/";
-  var description = "Get contact group with id " + id;
+  var description = "List contact groups";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25289,9 +25604,9 @@ function getContactGroup(comments, custom_fields, description, id, name, parent,
   });
 }
 
-function listContactGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/contact-groups/";
-  var description = "List contact groups";
+function getContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/tenancy/contact-groups/" + id + "/";
+  var description = "Get contact group with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25342,7 +25657,7 @@ function verifyContactGroupExists(comments, custom_fields, description, id, name
 
 function verifyContactGroupDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/contact-groups/";
-  var description = "Verify ContactGroup with id " + id + " does not exist";
+  var description = "Verify ContactGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -25370,15 +25685,15 @@ function tryToDeleteANonExistingContactGroup(comments, custom_fields, descriptio
 }
 
 function matchAddedContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create contact group " + name + " with id " + id;
+  var expectedDesc = "Create contact group with id " + id + " and name " + name;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyContactGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ contact\ group\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ contact\ group\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ contact\ group\ with\ id\ (.+)\ and\ name\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ contact\ group\ with\ id\ (.+)\ and\ name\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["id", "name"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -25400,7 +25715,7 @@ function matchAnyContactGroupAdded() {
 }
 
 function waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var expectedDesc = "Create contact group " + name + " with id " + id;
+  var expectedDesc = "Create contact group with id " + id + " and name " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -25429,12 +25744,9 @@ function createContactRole(custom_fields, description, id, name, slug, tags) {
   var url = "/api/tenancy/contact-roles/";
   var description = "Create contact role " + name + " with id " + id;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -25442,7 +25754,6 @@ function createContactRole(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -25462,12 +25773,9 @@ function updateContactRole(custom_fields, description, id, name, slug, tags) {
   var url = "/api/tenancy/contact-roles/" + id + "/";
   var description = "Update contact role with id " + id;
   var body = {
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -25475,7 +25783,6 @@ function updateContactRole(custom_fields, description, id, name, slug, tags) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -25498,61 +25805,14 @@ function partialUpdateContactRole(custom_fields, description, id, name, slug, ta
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkUpdateContactRoles(custom_fields, description, id, name, slug, tags) {
+function listContactRoles(custom_fields, description, id, name, slug, tags) {
   var url = "/api/tenancy/contact-roles/";
-  var description = "Bulk update contact roles";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContactRoles(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/";
-  var description = "Bulk partial update contact roles";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContactRoles(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/";
-  var description = "Bulk delete contact roles";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContactRole(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/" + id + "/";
-  var description = "Get contact role with id " + id;
+  var description = "List contact roles";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25560,9 +25820,9 @@ function getContactRole(custom_fields, description, id, name, slug, tags) {
   });
 }
 
-function listContactRoles(custom_fields, description, id, name, slug, tags) {
-  var url = "/api/tenancy/contact-roles/";
-  var description = "List contact roles";
+function getContactRole(custom_fields, description, id, name, slug, tags) {
+  var url = "/api/tenancy/contact-roles/" + id + "/";
+  var description = "Get contact role with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25611,7 +25871,7 @@ function verifyContactRoleExists(custom_fields, description, id, name, slug, tag
 
 function verifyContactRoleDoesNotExist(custom_fields, description, id, name, slug, tags) {
   var url = "/api/tenancy/contact-roles/";
-  var description = "Verify ContactRole with id " + id + " does not exist";
+  var description = "Verify ContactRole does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -25698,18 +25958,13 @@ function createContact(address, comments, custom_fields, description, email, gro
   var url = "/api/tenancy/contacts/";
   var description = "Create contact " + name + " with id " + id;
   var body = {
-    "address": address,
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "email": String(email),
-    "groups": String(groups),
-    "id": String(id),
-    "link": String(link),
     "name": String(name),
-    "phone": String(phone),
-    "tags": String(tags),
     "title": String(title),
+    "phone": String(phone),
+    "email": String(email),
+    "address": String(address),
+    "description": String(description),
+    "group": String(group),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -25717,7 +25972,6 @@ function createContact(address, comments, custom_fields, description, email, gro
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -25737,18 +25991,13 @@ function updateContact(address, comments, custom_fields, description, email, gro
   var url = "/api/tenancy/contacts/" + id + "/";
   var description = "Update contact with id " + id;
   var body = {
-    "address": address,
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "email": String(email),
-    "groups": String(groups),
-    "id": String(id),
-    "link": String(link),
     "name": String(name),
-    "phone": String(phone),
-    "tags": String(tags),
     "title": String(title),
+    "phone": String(phone),
+    "email": String(email),
+    "address": String(address),
+    "description": String(description),
+    "group": String(group),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -25756,7 +26005,6 @@ function updateContact(address, comments, custom_fields, description, email, gro
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -25785,61 +26033,14 @@ function partialUpdateContact(address, comments, custom_fields, description, ema
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkUpdateContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
+function listContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
   var url = "/api/tenancy/contacts/";
-  var description = "Bulk update contacts";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/";
-  var description = "Bulk partial update contacts";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/";
-  var description = "Bulk delete contacts";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/" + id + "/";
-  var description = "Get contact with id " + id;
+  var description = "List contacts";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25847,9 +26048,9 @@ function getContact(address, comments, custom_fields, description, email, groups
   });
 }
 
-function listContacts(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  var url = "/api/tenancy/contacts/";
-  var description = "List contacts";
+function getContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
+  var url = "/api/tenancy/contacts/" + id + "/";
+  var description = "Get contact with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -25904,7 +26105,7 @@ function verifyContactExists(address, comments, custom_fields, description, emai
 
 function verifyContactDoesNotExist(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
   var url = "/api/tenancy/contacts/";
-  var description = "Verify Contact with id " + id + " does not exist";
+  var description = "Verify Contact does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -25991,14 +26192,10 @@ function createTenantGroup(comments, custom_fields, description, id, name, paren
   var url = "/api/tenancy/tenant-groups/";
   var description = "Create tenant group " + name + " with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
+    "parent": String(parent),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -26006,7 +26203,6 @@ function createTenantGroup(comments, custom_fields, description, id, name, paren
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26026,14 +26222,10 @@ function updateTenantGroup(comments, custom_fields, description, id, name, paren
   var url = "/api/tenancy/tenant-groups/" + id + "/";
   var description = "Update tenant group with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "id": String(id),
     "name": String(name),
-    "parent": Number(parent),
     "slug": String(slug),
-    "tags": String(tags),
+    "description": String(description),
+    "parent": String(parent),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -26041,7 +26233,6 @@ function updateTenantGroup(comments, custom_fields, description, id, name, paren
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26066,61 +26257,14 @@ function partialUpdateTenantGroup(comments, custom_fields, description, id, name
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function bulkUpdateTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
+function listTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/tenant-groups/";
-  var description = "Bulk update tenant groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkPartialUpdateTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/";
-  var description = "Bulk partial update tenant groups";
-  var body = {
-    "id": String(id),
-  };
-  svc.patch(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200],
-    parameters: {
-      description: description,
-      id: String(id)
-      , name: String(name)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
-}
-
-function bulkDeleteTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/";
-  var description = "Bulk delete tenant groups";
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 204]
-  });
-}
-
-function getTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/" + id + "/";
-  var description = "Get tenant group with id " + id;
+  var description = "List tenant groups";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -26128,9 +26272,9 @@ function getTenantGroup(comments, custom_fields, description, id, name, parent, 
   });
 }
 
-function listTenantGroups(comments, custom_fields, description, id, name, parent, slug, tags) {
-  var url = "/api/tenancy/tenant-groups/";
-  var description = "List tenant groups";
+function getTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
+  var url = "/api/tenancy/tenant-groups/" + id + "/";
+  var description = "Get tenant group with id " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -26181,7 +26325,7 @@ function verifyTenantGroupExists(comments, custom_fields, description, id, name,
 
 function verifyTenantGroupDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/tenant-groups/";
-  var description = "Verify TenantGroup with id " + id + " does not exist";
+  var description = "Verify TenantGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -26268,13 +26412,13 @@ function createTenant(comments, custom_fields, description, group, id, name, slu
   var url = "/api/tenancy/tenants/";
   var description = "Create tenant with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "group": String(group),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
+    "description": String(description),
+    "group": String(group),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
     "tags": String(tags),
   };
   svc.post(url, {
@@ -26283,7 +26427,6 @@ function createTenant(comments, custom_fields, description, group, id, name, slu
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26303,13 +26446,13 @@ function updateTenant(comments, custom_fields, description, group, id, name, slu
   var url = "/api/tenancy/tenants/" + id + "/";
   var description = "Update tenant with id " + id;
   var body = {
-    "comments": String(comments),
-    "custom_fields": custom_fields,
-    "description": String(description),
-    "group": String(group),
-    "id": String(id),
     "name": String(name),
     "slug": String(slug),
+    "description": String(description),
+    "group": String(group),
+    "contact": String(contact),
+    "contact_group": String(contact_group),
+    "contact_role": String(contact_role),
     "tags": String(tags),
   };
   svc.put(url, {
@@ -26318,7 +26461,6 @@ function updateTenant(comments, custom_fields, description, group, id, name, slu
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26377,7 +26519,7 @@ function verifyTenantExists(comments, custom_fields, description, group, id, nam
 
 function verifyTenantDoesNotExist(comments, custom_fields, description, group, id, name, slug, tags) {
   var url = "/api/tenancy/tenants/";
-  var description = "Verify Tenant with id " + id + " does not exist";
+  var description = "Verify Tenant does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -26475,7 +26617,6 @@ function createGroup(description, id, name, permissions) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26506,7 +26647,26 @@ function updateGroup(description, id, name, permissions) {
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateGroup(description, id, name, permissions) {
+  var url = "/api/users/groups/" + id + "/";
+  var description = "Partial update group with id " + id;
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "permissions": String(permissions),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26561,7 +26721,7 @@ function verifyGroupExists(description, id, name, permissions) {
 
 function verifyGroupDoesNotExist(description, id, name, permissions) {
   var url = "/api/users/groups/";
-  var description = "Verify Group with id " + id + " does not exist";
+  var description = "Verify Group does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -26664,7 +26824,6 @@ function createPermission(actions, constraints, description, enabled, groups, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26700,7 +26859,31 @@ function updatePermission(actions, constraints, description, enabled, groups, id
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdatePermission(actions, constraints, description, enabled, groups, id, name, object_types, users) {
+  var url = "/api/users/permissions/" + id + "/";
+  var description = "Partial update permission with id " + id;
+  var body = {
+    "actions": String(actions),
+    "constraints": String(constraints),
+    "description": String(description),
+    "enabled": enabled,
+    "groups": String(groups),
+    "id": String(id),
+    "name": String(name),
+    "object_types": String(object_types),
+    "users": String(users),
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -26760,7 +26943,7 @@ function verifyPermissionExists(actions, constraints, description, enabled, grou
 
 function verifyPermissionDoesNotExist(actions, constraints, description, enabled, groups, id, name, object_types, users) {
   var url = "/api/users/permissions/";
-  var description = "Verify Permission with id " + id + " does not exist";
+  var description = "Verify Permission does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -26899,6 +27082,29 @@ function updateToken(description, expires, id, key, last_used, user, write_enabl
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
+function partialUpdateToken(description, expires, id, key, last_used, user, write_enabled) {
+  var url = "/api/users/tokens/" + id + "/";
+  var description = "Partial update token with id " + id;
+  var body = {
+    "description": String(description),
+    "expires": String(expires),
+    "id": String(id),
+    "key": String(key),
+    "last_used": String(last_used),
+    "user": String(user),
+    "write_enabled": write_enabled,
+  };
+  svc.patch(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
 function getToken(description, expires, id, key, last_used, user, write_enabled) {
   var url = "/api/users/tokens/" + id + "/";
   var description = "Get token with id " + id;
@@ -26951,7 +27157,7 @@ function verifyTokenExists(description, expires, id, key, last_used, user, write
 
 function verifyTokenDoesNotExist(description, expires, id, key, last_used, user, write_enabled) {
   var url = "/api/users/tokens/";
-  var description = "Verify Token with id " + id + " does not exist";
+  var description = "Verify Token does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -27038,18 +27244,8 @@ function createUser(date_joined, email, first_name, groups, id, is_active, is_st
   var url = "/api/users/users/";
   var description = "Create user " + username + " with id " + id;
   var body = {
-    "date_joined": String(date_joined),
-    "email": String(email),
-    "first_name": String(first_name),
-    "groups": String(groups),
-    "id": String(id),
-    "is_active": is_active,
-    "is_staff": is_staff,
-    "last_login": String(last_login),
-    "last_name": String(last_name),
-    "password": String(password),
-    "permissions": String(permissions),
     "username": String(username),
+    "email": String(email),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -27090,6 +27286,34 @@ function updateUser(date_joined, email, first_name, groups, id, is_active, is_st
     "username": String(username),
   };
   svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: {
+      description: description,
+      id: String(id)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function partialUpdateUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
+  var url = "/api/users/users/" + id + "/";
+  var description = "Partial update user with id " + id;
+  var body = {
+    "date_joined": String(date_joined),
+    "email": String(email),
+    "first_name": String(first_name),
+    "groups": String(groups),
+    "id": String(id),
+    "is_active": is_active,
+    "is_staff": is_staff,
+    "last_login": String(last_login),
+    "last_name": String(last_name),
+    "password": String(password),
+    "permissions": String(permissions),
+    "username": String(username),
+  };
+  svc.patch(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [200],
     parameters: {
@@ -27157,7 +27381,7 @@ function verifyUserExists(date_joined, email, first_name, groups, id, is_active,
 
 function verifyUserDoesNotExist(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
   var url = "/api/users/users/";
-  var description = "Verify User with id " + id + " does not exist";
+  var description = "Verify User does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -27259,7 +27483,6 @@ function createWirelessLANGroup(comments, custom_fields, description, id, name, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -27294,7 +27517,6 @@ function updateWirelessLANGroup(comments, custom_fields, description, id, name, 
     parameters: {
       description: description,
       id: String(id)
-      , name: String(name)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
@@ -27353,7 +27575,7 @@ function verifyWirelessLANGroupExists(comments, custom_fields, description, id, 
 
 function verifyWirelessLANGroupDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/wireless/wireless-lan-groups/";
-  var description = "Verify WirelessLANGroup with id " + id + " does not exist";
+  var description = "Verify WirelessLANGroup does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -27570,7 +27792,7 @@ function verifyWirelessLANExists(auth_cipher, auth_psk, auth_type, comments, cus
 
 function verifyWirelessLANDoesNotExist(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
   var url = "/api/wireless/wireless-lans/";
-  var description = "Verify WirelessLAN with id " + id + " does not exist";
+  var description = "Verify WirelessLAN does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -27785,7 +28007,7 @@ function verifyWirelessLinkExists(auth_cipher, auth_psk, auth_type, comments, cu
 
 function verifyWirelessLinkDoesNotExist(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
   var url = "/api/wireless/wireless-links/";
-  var description = "Verify WirelessLink with id " + id + " does not exist";
+  var description = "Verify WirelessLink does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },

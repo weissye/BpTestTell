@@ -59,7 +59,16 @@ function getMachines() {
 }
 
 function tryToAddExistingMachine() {
-  getMachines();
+  var url = "/machines";
+  var body = {
+  };
+  var description = "Verify that we cannot add another Machine...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyMachineExists() {
@@ -165,7 +174,16 @@ function getWorkOrders() {
 }
 
 function tryToAddExistingWorkOrder() {
-  getWorkOrders();
+  var url = "/workorders";
+  var body = {
+  };
+  var description = "Verify that we cannot add another WorkOrder...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyWorkOrderExists() {
@@ -243,7 +261,7 @@ function waitForWorkOrderAdded() {
   waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: maintenance ticket ----
+// ---- Entity: maintenanceTicket ----
 
 function createMaintenanceTicket() {
   var url = "/maintenance-tickets";
@@ -271,7 +289,16 @@ function getMaintenanceTickets() {
 }
 
 function tryToAddExistingMaintenanceTicket() {
-  getMaintenanceTickets();
+  var url = "/maintenance-tickets";
+  var body = {
+  };
+  var description = "Verify that we cannot add another MaintenanceTicket...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyMaintenanceTicketExists() {
@@ -340,7 +367,7 @@ function getMaintenanceTicketAddedEvent(keyVal) {
 
 function matchAnyMaintenanceTicketAdded() {
   return bp.EventSet("matchAnyMaintenanceTicketAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create maintenance ticket") > -1;
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create maintenanceTicket") > -1;
   });
 }
 
@@ -349,7 +376,7 @@ function waitForMaintenanceTicketAdded() {
   waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: sensor reading ----
+// ---- Entity: sensorReading ----
 
 function createSensorReading() {
   var url = "/sensor-readings";
@@ -377,7 +404,16 @@ function getSensorReadings() {
 }
 
 function tryToAddExistingSensorReading() {
-  getSensorReadings();
+  var url = "/sensor-readings";
+  var body = {
+  };
+  var description = "Verify that we cannot add another SensorReading...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifySensorReadingExists() {
@@ -446,7 +482,7 @@ function getSensorReadingAddedEvent(keyVal) {
 
 function matchAnySensorReadingAdded() {
   return bp.EventSet("matchAnySensorReadingAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create sensor reading") > -1;
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create sensorReading") > -1;
   });
 }
 

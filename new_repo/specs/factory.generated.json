@@ -19,7 +19,8 @@
           "method": "GET",
           "path": "/machines",
           "descriptionTemplate": "Get machines",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
@@ -40,12 +41,13 @@
           "method": "GET",
           "path": "/workorders",
           "descriptionTemplate": "Get workorders",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
     "MaintenanceTicket": {
-      "displayName": "maintenance ticket",
+      "displayName": "maintenanceTicket",
       "params": [],
       "operations": {
         "add": {
@@ -61,12 +63,13 @@
           "method": "GET",
           "path": "/maintenance-tickets",
           "descriptionTemplate": "Get maintenance tickets",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     },
     "SensorReading": {
-      "displayName": "sensor reading",
+      "displayName": "sensorReading",
       "params": [],
       "operations": {
         "add": {
@@ -82,7 +85,8 @@
           "method": "GET",
           "path": "/sensor-readings",
           "descriptionTemplate": "Get sensor readings",
-          "params": []
+          "params": [],
+          "bodyTemplate": {}
         }
       }
     }

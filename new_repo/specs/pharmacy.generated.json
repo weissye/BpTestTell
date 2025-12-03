@@ -25,7 +25,8 @@
           "descriptionTemplate": "Get drug {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateDrug",
@@ -46,7 +47,8 @@
           "descriptionTemplate": "Delete drug {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -73,7 +75,8 @@
           "descriptionTemplate": "Get patient {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updatePatient",
@@ -94,7 +97,8 @@
           "descriptionTemplate": "Delete patient {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -121,7 +125,8 @@
           "descriptionTemplate": "Get order {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateOrder",
@@ -142,7 +147,8 @@
           "descriptionTemplate": "Delete order {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -169,7 +175,8 @@
           "descriptionTemplate": "Get prescription {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updatePrescription",
@@ -190,7 +197,8 @@
           "descriptionTemplate": "Delete prescription {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -217,7 +225,8 @@
           "descriptionTemplate": "Get inventory {ndc}",
           "params": [
             "ndc"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateInventory",
@@ -238,7 +247,8 @@
           "descriptionTemplate": "Delete inventory {ndc}",
           "params": [
             "ndc"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     }

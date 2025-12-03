@@ -37,7 +37,7 @@ function createChain(active, chainId, hqAddress, name, supportEmail) {
   var url = "/chains";
   var description = "Create chain " + chainId;
   var body = {
-    "active": String(active),
+    "active": active,
     "chainId": String(chainId),
     "hqAddress": hqAddress,
     "name": String(name),
@@ -68,7 +68,7 @@ function updateChain(active, chainId, hqAddress, name, supportEmail) {
   var url = "/chains/" + chainId;
   var description = "Update chain " + chainId;
   var body = {
-    "active": String(active),
+    "active": active,
     "chainId": String(chainId),
     "hqAddress": hqAddress,
     "name": String(name),
@@ -91,12 +91,26 @@ function deleteChain(active, chainId, hqAddress, name, supportEmail) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingChain(active, chainId, hqAddress, name, supportEmail) {
-  deleteChain(active, chainId, hqAddress, name, supportEmail);
+  var url = "/chains";
+  var body = {
+    "active": active,
+    "chainId": String(chainId),
+    "hqAddress": hqAddress,
+    "name": String(name),
+    "supportEmail": String(supportEmail),
+  };
+  var description = "Verify that we cannot add another Chain...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyChainExists(active, chainId, hqAddress, name, supportEmail) {
@@ -143,7 +157,7 @@ function tryToDeleteANonExistingChain(active, chainId, hqAddress, name, supportE
   var url = "/chains/" + chainId;
   var description = "Verify we cannot delete non-existing Chain";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -208,9 +222,9 @@ function createGarage(active, address, bayCount, chainId, garageId, name, phone,
   var url = "/garages";
   var description = "Create garage " + garageId;
   var body = {
-    "active": String(active),
+    "active": active,
     "address": address,
-    "bayCount": String(bayCount),
+    "bayCount": Number(bayCount),
     "chainId": String(chainId),
     "garageId": String(garageId),
     "name": String(name),
@@ -243,9 +257,9 @@ function updateGarage(active, address, bayCount, chainId, garageId, name, phone,
   var url = "/garages/" + garageId;
   var description = "Update garage " + garageId;
   var body = {
-    "active": String(active),
+    "active": active,
     "address": address,
-    "bayCount": String(bayCount),
+    "bayCount": Number(bayCount),
     "chainId": String(chainId),
     "garageId": String(garageId),
     "name": String(name),
@@ -270,12 +284,29 @@ function deleteGarage(active, address, bayCount, chainId, garageId, name, phone,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered) {
-  deleteGarage(active, address, bayCount, chainId, garageId, name, phone, servicesOffered);
+  var url = "/garages";
+  var body = {
+    "active": active,
+    "address": address,
+    "bayCount": Number(bayCount),
+    "chainId": String(chainId),
+    "garageId": String(garageId),
+    "name": String(name),
+    "phone": String(phone),
+    "servicesOffered": String(servicesOffered),
+  };
+  var description = "Verify that we cannot add another Garage...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyGarageExists(active, address, bayCount, chainId, garageId, name, phone, servicesOffered) {
@@ -322,7 +353,7 @@ function tryToDeleteANonExistingGarage(active, address, bayCount, chainId, garag
   var url = "/garages/" + garageId;
   var description = "Verify we cannot delete non-existing Garage";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -445,12 +476,27 @@ function deleteCustomer(customerId, email, fullName, phone, preferredGarageId, t
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingCustomer(customerId, email, fullName, phone, preferredGarageId, type) {
-  deleteCustomer(customerId, email, fullName, phone, preferredGarageId, type);
+  var url = "/customers";
+  var body = {
+    "customerId": String(customerId),
+    "email": String(email),
+    "fullName": String(fullName),
+    "phone": String(phone),
+    "preferredGarageId": String(preferredGarageId),
+    "type": String(type),
+  };
+  var description = "Verify that we cannot add another Customer...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCustomerExists(customerId, email, fullName, phone, preferredGarageId, type) {
@@ -497,7 +543,7 @@ function tryToDeleteANonExistingCustomer(customerId, email, fullName, phone, pre
   var url = "/customers/" + customerId;
   var description = "Verify we cannot delete non-existing Customer";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -564,11 +610,11 @@ function createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, yea
   var body = {
     "homeGarageId": String(homeGarageId),
     "make": String(make),
-    "mileage": String(mileage),
+    "mileage": Number(mileage),
     "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
     "vin": String(vin),
-    "year": String(year),
+    "year": Number(year),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -599,11 +645,11 @@ function updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, yea
   var body = {
     "homeGarageId": String(homeGarageId),
     "make": String(make),
-    "mileage": String(mileage),
+    "mileage": Number(mileage),
     "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
     "vin": String(vin),
-    "year": String(year),
+    "year": Number(year),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -624,12 +670,28 @@ function deleteCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, yea
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404]
   });
 }
 
 function tryToAddExistingCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year) {
-  deleteCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year);
+  var url = "/cars";
+  var body = {
+    "homeGarageId": String(homeGarageId),
+    "make": String(make),
+    "mileage": Number(mileage),
+    "model": String(model),
+    "ownerCustomerId": String(ownerCustomerId),
+    "vin": String(vin),
+    "year": Number(year),
+  };
+  var description = "Verify that we cannot add another Car...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCarExists(homeGarageId, make, mileage, model, ownerCustomerId, vin, year) {
@@ -676,7 +738,7 @@ function tryToDeleteANonExistingCar(homeGarageId, make, mileage, model, ownerCus
   var url = "/cars/" + vin;
   var description = "Verify we cannot delete non-existing Car";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 404],
+    expectedResponseCodes: [200, 204, 400, 404],
     parameters: { description: description }
   });
 }
@@ -743,8 +805,8 @@ function createPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths,
   var body = {
     "carVin": String(carVin),
     "garageId": String(garageId),
-    "intervalKm": String(intervalKm),
-    "intervalMonths": String(intervalMonths),
+    "intervalKm": Number(intervalKm),
+    "intervalMonths": Number(intervalMonths),
     "planType": String(planType),
     "pmId": String(pmId),
     "status": String(status),
@@ -778,8 +840,8 @@ function updatePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths,
   var body = {
     "carVin": String(carVin),
     "garageId": String(garageId),
-    "intervalKm": String(intervalKm),
-    "intervalMonths": String(intervalMonths),
+    "intervalKm": Number(intervalKm),
+    "intervalMonths": Number(intervalMonths),
     "planType": String(planType),
     "pmId": String(pmId),
     "status": String(status),
@@ -803,12 +865,29 @@ function deletePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
 function tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
-  deletePeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  var url = "/periodic-maintenance";
+  var body = {
+    "carVin": String(carVin),
+    "garageId": String(garageId),
+    "intervalKm": Number(intervalKm),
+    "intervalMonths": Number(intervalMonths),
+    "planType": String(planType),
+    "pmId": String(pmId),
+    "status": String(status),
+    "tasks": String(tasks),
+  };
+  var description = "Verify that we cannot add another PeriodicMaintenance...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
@@ -855,7 +934,7 @@ function tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm
   var url = "/periodic-maintenance/" + pmId;
   var description = "Verify we cannot delete non-existing PeriodicMaintenance";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
@@ -918,7 +997,7 @@ function waitForAnyPeriodicMaintenanceDeleted() {
 
 function createRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders";
-  var description = "Create repair order " + roId;
+  var description = "Create repair order with roId " + roId;
   var body = {
     "carVin": String(carVin),
     "complaint": String(complaint),
@@ -990,7 +1069,7 @@ function deleteRepairOrder(carVin, complaint, customerId, garageId, roId, status
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 404]
+    expectedResponseCodes: [200, 204, 404]
   });
 }
 
@@ -1033,7 +1112,22 @@ function closeRepairOrder(carVin, complaint, customerId, garageId, roId, status)
 }
 
 function tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
-  closeRepairOrder(carVin, complaint, customerId, garageId, roId, status);
+  var url = "/repair-orders";
+  var body = {
+    "carVin": String(carVin),
+    "complaint": String(complaint),
+    "customerId": String(customerId),
+    "garageId": String(garageId),
+    "roId": String(roId),
+    "status": String(status),
+  };
+  var description = "Verify that we cannot add another RepairOrder...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyRepairOrderExists(carVin, complaint, customerId, garageId, roId, status) {
@@ -1080,19 +1174,19 @@ function tryToDeleteANonExistingRepairOrder(carVin, complaint, customerId, garag
   var url = "/repair-orders/" + roId;
   var description = "Verify we cannot delete non-existing RepairOrder";
   svc.delete(url, {
-    expectedResponseCodes: [204, 404],
+    expectedResponseCodes: [200, 204, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
-  var expectedDesc = "Create repair order " + roId;
+  var expectedDesc = "Create repair order with roId " + roId;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyRepairOrderAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ repair\ order\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ repair\ order\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ repair\ order\ with\ roId\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ repair\ order\ with\ roId\ (.+)$/);
   var captures = m.slice(1);
   var names = ["roId"];
   var obj = {};
@@ -1116,7 +1210,7 @@ function matchAnyRepairOrderAdded() {
 }
 
 function waitForRepairOrderAdded(carVin, complaint, customerId, garageId, roId, status) {
-  var expectedDesc = "Create repair order " + roId;
+  var expectedDesc = "Create repair order with roId " + roId;
   waitFor(matchSuccess(expectedDesc));
 }
 

@@ -5,38 +5,16 @@
     "User": {
       "displayName": "user",
       "params": [
-        "id",
-        "name",
-        "email",
-        "password"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createUser",
           "method": "POST",
           "path": "/users",
-          "descriptionTemplate": "Create user {name} with id {id}",
-          "params": [
-            "id",
-            "name",
-            "email",
-            "password"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}",
-            "email": "{email}",
-            "password": "{password}"
-          }
-        },
-        "delete": {
-          "name": "deleteUser",
-          "method": "DELETE",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Delete user with id {id}",
-          "params": [
-            "id"
-          ]
+          "descriptionTemplate": "Create user {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "listUsers",
@@ -46,41 +24,46 @@
           "params": [
             "q"
           ]
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "descriptionTemplate": "Delete user {id}",
+          "params": [
+            "id"
+          ]
         }
       }
     },
     "Book": {
       "displayName": "book",
       "params": [
-        "id",
-        "title",
-        "author",
-        "isbn"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createBook",
           "method": "POST",
           "path": "/books",
-          "descriptionTemplate": "Create book {title} with id {id}",
-          "params": [
-            "id",
-            "title",
-            "author",
-            "isbn"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "title": "{title}",
-            "author": "{author}",
-            "isbn": "{isbn}"
-          }
+          "descriptionTemplate": "Create book {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
+          "name": "listBooks",
+          "method": "GET",
+          "path": "/books",
+          "descriptionTemplate": "List/search books with query {q}",
+          "params": [
+            "q"
+          ]
+        },
+        "getById": {
           "name": "getBook",
           "method": "GET",
           "path": "/books/{id}",
-          "descriptionTemplate": "Get book with id {id}",
+          "descriptionTemplate": "Get book by id {id}",
           "params": [
             "id"
           ]
@@ -89,18 +72,9 @@
           "name": "deleteBook",
           "method": "DELETE",
           "path": "/books/{id}",
-          "descriptionTemplate": "Delete book with id {id}",
+          "descriptionTemplate": "Delete book {id}",
           "params": [
             "id"
-          ]
-        },
-        "list": {
-          "name": "listBooks",
-          "method": "GET",
-          "path": "/books",
-          "descriptionTemplate": "List/search books with query {q}",
-          "params": [
-            "q"
           ]
         }
       }
@@ -109,9 +83,7 @@
       "displayName": "loan",
       "params": [
         "userId",
-        "bookId",
-        "loanDate",
-        "dueDate"
+        "bookId"
       ],
       "operations": {
         "add": {
@@ -119,18 +91,18 @@
           "method": "POST",
           "path": "/loans",
           "descriptionTemplate": "Create loan for user {userId} and book {bookId}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "listLoans",
+          "method": "GET",
+          "path": "/loans",
+          "descriptionTemplate": "List/search loans with userId {userId} and bookId {bookId}",
           "params": [
             "userId",
-            "bookId",
-            "loanDate",
-            "dueDate"
-          ],
-          "bodyTemplate": {
-            "userId": "{userId}",
-            "bookId": "{bookId}",
-            "loanDate": "{loanDate}",
-            "dueDate": "{dueDate}"
-          }
+            "bookId"
+          ]
         },
         "delete": {
           "name": "deleteLoan",
@@ -141,54 +113,22 @@
             "userId",
             "bookId"
           ]
-        },
-        "get": {
-          "name": "listLoans",
-          "method": "GET",
-          "path": "/loans",
-          "descriptionTemplate": "List/search loans for user {userId} and book {bookId}",
-          "params": [
-            "userId",
-            "bookId"
-          ]
         }
       }
     },
     "Hold": {
       "displayName": "hold",
       "params": [
-        "id",
-        "userId",
-        "bookId",
-        "holdDate"
+        "id"
       ],
       "operations": {
         "add": {
           "name": "createHold",
           "method": "POST",
           "path": "/holds",
-          "descriptionTemplate": "Create hold with id {id}",
-          "params": [
-            "id",
-            "userId",
-            "bookId",
-            "holdDate"
-          ],
-          "bodyTemplate": {
-            "id": "{id}",
-            "userId": "{userId}",
-            "bookId": "{bookId}",
-            "holdDate": "{holdDate}"
-          }
-        },
-        "delete": {
-          "name": "deleteHold",
-          "method": "DELETE",
-          "path": "/holds/{id}",
-          "descriptionTemplate": "Delete hold with id {id}",
-          "params": [
-            "id"
-          ]
+          "descriptionTemplate": "Create hold {id}",
+          "params": [],
+          "bodyTemplate": {}
         },
         "get": {
           "name": "listHolds",
@@ -196,6 +136,15 @@
           "path": "/holds",
           "descriptionTemplate": "List holds",
           "params": []
+        },
+        "delete": {
+          "name": "deleteHold",
+          "method": "DELETE",
+          "path": "/holds/{id}",
+          "descriptionTemplate": "Delete hold {id}",
+          "params": [
+            "id"
+          ]
         }
       }
     }

@@ -33,17 +33,18 @@ function matchSuccess(desc) {
 
 // ---- Entity: issue ----
 
-function createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function createIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue";
-  var description = "Create issue " + summary + " in project " + project + " with issue type " + issuetype;
+  var description = "Create issue " + summary + " with id " + id;
   var body = {
     "fields": fields,
     "historyMetadata": historyMetadata,
+    "id": String(id),
     "issueIdOrKey": String(issueIdOrKey),
     "properties": String(properties),
+    "summary": String(summary),
     "transition": String(transition),
     "update": update,
-    "updateHistory": String(updateHistory),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -57,7 +58,7 @@ function createIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, 
   bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
 }
 
-function createIssues(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function createIssues(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/bulk";
   var description = "Bulk create issues";
   var body = {
@@ -76,13 +77,13 @@ function createIssues(fields, historyMetadata, id, issueIdOrKey, issuetype, key,
   bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
 }
 
-function bulkFetchIssues(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function bulkFetchIssues(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/bulkfetch";
-  var description = "Bulk fetch issues by IDs or keys";
+  var description = "Bulk fetch issues by ids or keys";
   var body = {
     "expand": [],
     "fields": String(fields),
-    "fieldsByKeys": String(true),
+    "fieldsByKeys": true,
     "issueIdOrKey": String(issueIdOrKey),
     "issueIdsOrKeys": [],
     "properties": String(properties),
@@ -99,12 +100,12 @@ function bulkFetchIssues(fields, historyMetadata, id, issueIdOrKey, issuetype, k
   bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
 }
 
-function archiveIssuesAsync(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function archiveIssuesAsync(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/archive";
-  var description = "Archive issues matching JQL {jql}";
+  var description = "Archive issues by JQL query";
   var body = {
     "issueIdOrKey": String(issueIdOrKey),
-    "jql": "jql_" + issueIdOrKey,
+    "jql": "jql_dummy",
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -118,9 +119,9 @@ function archiveIssuesAsync(fields, historyMetadata, id, issueIdOrKey, issuetype
   bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
 }
 
-function archiveIssues(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function archiveIssues(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/archive";
-  var description = "Archive issues by IDs or keys {issueIdsOrKeys}";
+  var description = "Archive issues by issue IDs or keys";
   var body = {
     "issueIdOrKey": String(issueIdOrKey),
     "issueIdsOrKeys": [],
@@ -137,7 +138,7 @@ function archiveIssues(fields, historyMetadata, id, issueIdOrKey, issuetype, key
   bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
 }
 
-function getIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function getIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/" + issueIdOrKey;
   var description = "Get issue " + issueIdOrKey;
   var body = undefined;
@@ -147,17 +148,17 @@ function getIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, pro
   });
 }
 
-function deleteIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function deleteIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/" + issueIdOrKey;
   var description = "Delete issue " + issueIdOrKey;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
-function editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function editIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/" + issueIdOrKey;
   var description = "Edit issue " + issueIdOrKey;
   var body = {
@@ -180,11 +181,28 @@ function editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, pr
   bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
 }
 
-function tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
-  editIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory);
+function tryToAddExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
+  var url = "/rest/api/3/issue";
+  var body = {
+    "fields": fields,
+    "historyMetadata": historyMetadata,
+    "id": String(id),
+    "properties": String(properties),
+    "summary": String(summary),
+    "transition": String(transition),
+    "update": update,
+    "issueIdOrKey": String(issueIdOrKey),
+  };
+  var description = "Verify that we cannot add another Issue...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue";
   var description = "Verify Issue with issueIdOrKey " + issueIdOrKey + " exists";
   svc.get(url, {
@@ -204,7 +222,7 @@ function verifyIssueExists(fields, historyMetadata, id, issueIdOrKey, issuetype,
   });
 }
 
-function verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue";
   var description = "Verify Issue with issueIdOrKey " + issueIdOrKey + " does not exist";
   svc.get(url, {
@@ -224,25 +242,25 @@ function verifyIssueDoesNotExist(fields, historyMetadata, id, issueIdOrKey, issu
   });
 }
 
-function tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function tryToDeleteANonExistingIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var url = "/rest/api/3/issue/" + issueIdOrKey;
   var description = "Verify we cannot delete non-existing Issue";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
-  var expectedDesc = "Create issue " + summary + " in project " + project + " with issue type " + issuetype;
+function matchAddedIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
+  var expectedDesc = "Create issue " + summary + " with id " + id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIssueAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ issue\ (.+)\ in\ project\ (.+)\ with\ issue\ type\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ issue\ (.+)\ in\ project\ (.+)\ with\ issue\ type\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ issue\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ issue\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["summary", "project", "issuetype"];
+  var names = ["summary", "id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -263,12 +281,12 @@ function matchAnyIssueAdded() {
   });
 }
 
-function waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
-  var expectedDesc = "Create issue " + summary + " in project " + project + " with issue type " + issuetype;
+function waitForIssueAdded(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
+  var expectedDesc = "Create issue " + summary + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedIssue(fields, historyMetadata, id, issueIdOrKey, issuetype, key, project, properties, summary, transition, update, updateHistory) {
+function matchDeletedIssue(fields, historyMetadata, id, issueIdOrKey, key, properties, summary, transition, update) {
   var expectedDesc = "Delete issue " + issueIdOrKey;
   return bp.EventSet("matchDeletedIssue", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -291,11 +309,11 @@ function waitForAnyIssueDeleted() {
 
 function getBulkChangelogs() {
   var url = "/rest/api/3/changelog/bulkfetch";
-  var description = "Bulk fetch changelogs for issues {issueIds}";
+  var description = "Bulk fetch changelogs";
   var body = {
     "fieldIds": [],
     "issueIdsOrKeys": [],
-    "maxResults": String(1),
+    "maxResults": 1,
     "nextPageToken": "nextPageToken_dummy",
   };
   svc.post(url, {
@@ -367,20 +385,20 @@ function assignIssue(accountId, issueIdOrKey) {
   var description = "Assign issue " + issueIdOrKey + " to accountId " + accountId;
   var body = {
     "accountId": String(accountId),
-    "accountType": "accountType_" + issueIdOrKey,
-    "active": String(true),
-    "applicationRoles": "applicationRoles_" + issueIdOrKey,
-    "avatarUrls": "avatarUrls_" + issueIdOrKey,
-    "displayName": "displayName_" + issueIdOrKey,
-    "emailAddress": emailAddress,
-    "expand": "expand_" + issueIdOrKey,
-    "groups": "groups_" + issueIdOrKey,
+    "accountType": "accountType_dummy",
+    "active": true,
+    "applicationRoles": "applicationRoles_dummy",
+    "avatarUrls": "avatarUrls_dummy",
+    "displayName": "displayName_dummy",
+    "emailAddress": {},
+    "expand": "expand_dummy",
+    "groups": "groups_dummy",
     "issueIdOrKey": String(issueIdOrKey),
-    "key": "key_" + issueIdOrKey,
-    "locale": "locale_" + issueIdOrKey,
-    "name": "name_" + issueIdOrKey,
-    "self": "self_" + issueIdOrKey,
-    "timeZone": "timeZone_" + issueIdOrKey,
+    "key": "key_dummy",
+    "locale": "locale_dummy",
+    "name": "name_dummy",
+    "self": "self_dummy",
+    "timeZone": "timeZone_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -425,7 +443,18 @@ function getChangeLogsByIds(changelogIds, issueIdOrKey) {
 }
 
 function tryToAddExistingIssueChangelog(changelogIds, issueIdOrKey) {
-  getChangeLogsByIds(changelogIds, issueIdOrKey);
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/changelog/list";
+  var body = {
+    "changelogIds": String(changelogIds),
+    "issueIdOrKey": String(issueIdOrKey),
+  };
+  var description = "Verify that we cannot add another IssueChangelog...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueChangelogExists(changelogIds, issueIdOrKey) {
@@ -503,6 +532,58 @@ function waitForIssueChangelogAdded(changelogIds, issueIdOrKey) {
   waitFor(matchSuccess(expectedDesc));
 }
 
+// ---- Entity: issue edit metadata ----
+
+function getEditIssueMeta(issueIdOrKey) {
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/editmeta";
+  var description = "Get edit metadata for issue " + issueIdOrKey;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 403, 404]
+  });
+}
+
+function verifyIssueEditMetaExists(issueIdOrKey) {
+  var url = "/rest/api/3/issue";
+  var description = "Verify IssueEditMeta with issueIdOrKey " + issueIdOrKey + " exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].issueIdOrKey) === String(issueIdOrKey)) {
+            return pvg.success("IssueEditMeta exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IssueEditMeta to exist but it does not");
+    }
+  });
+}
+
+function verifyIssueEditMetaDoesNotExist(issueIdOrKey) {
+  var url = "/rest/api/3/issue";
+  var description = "Verify IssueEditMeta with issueIdOrKey " + issueIdOrKey + " does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].issueIdOrKey) === String(issueIdOrKey)) {
+            return pvg.fail("Expected IssueEditMeta to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IssueEditMeta does not exist");
+    }
+  });
+}
+
 // ---- Entity: issue notification ----
 
 function notify(htmlBody, issueIdOrKey, restrict, subject, textBody, to) {
@@ -528,7 +609,22 @@ function notify(htmlBody, issueIdOrKey, restrict, subject, textBody, to) {
 }
 
 function tryToAddExistingIssueNotification(htmlBody, issueIdOrKey, restrict, subject, textBody, to) {
-  notify(htmlBody, issueIdOrKey, restrict, subject, textBody, to);
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/notify";
+  var body = {
+    "htmlBody": String(htmlBody),
+    "issueIdOrKey": String(issueIdOrKey),
+    "restrict": String(restrict),
+    "subject": String(subject),
+    "textBody": String(textBody),
+    "to": String(to),
+  };
+  var description = "Verify that we cannot add another IssueNotification...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueNotificationExists(htmlBody, issueIdOrKey, restrict, subject, textBody, to) {
@@ -643,7 +739,23 @@ function doTransition(fields, historyMetadata, issueIdOrKey, properties, transit
 }
 
 function tryToAddExistingIssueTransition(fields, historyMetadata, issueIdOrKey, properties, transition, transitionId, update) {
-  doTransition(fields, historyMetadata, issueIdOrKey, properties, transition, transitionId, update);
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/transitions";
+  var body = {
+    "fields": fields,
+    "historyMetadata": historyMetadata,
+    "issueIdOrKey": String(issueIdOrKey),
+    "properties": String(properties),
+    "transition": String(transition),
+    "transitionId": String(transitionId),
+    "update": update,
+  };
+  var description = "Verify that we cannot add another IssueTransition...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueTransitionExists(fields, historyMetadata, issueIdOrKey, properties, transition, transitionId, update) {
@@ -721,58 +833,6 @@ function waitForIssueTransitionAdded(fields, historyMetadata, issueIdOrKey, prop
   waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: issue edit metadata ----
-
-function getEditIssueMeta(issueIdOrKey) {
-  var url = "/rest/api/3/issue/" + issueIdOrKey + "/editmeta";
-  var description = "Get edit issue metadata for issue " + issueIdOrKey;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 401, 403, 404]
-  });
-}
-
-function verifyIssueEditMetaExists(issueIdOrKey) {
-  var url = "/rest/api/3/issue";
-  var description = "Verify IssueEditMeta with issueIdOrKey " + issueIdOrKey + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].issueIdOrKey) === String(issueIdOrKey)) {
-            return pvg.success("IssueEditMeta exists");
-          }
-        }
-      }
-      return pvg.fail("Expected IssueEditMeta to exist but it does not");
-    }
-  });
-}
-
-function verifyIssueEditMetaDoesNotExist(issueIdOrKey) {
-  var url = "/rest/api/3/issue";
-  var description = "Verify IssueEditMeta with issueIdOrKey " + issueIdOrKey + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].issueIdOrKey) === String(issueIdOrKey)) {
-            return pvg.fail("Expected IssueEditMeta to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("IssueEditMeta does not exist");
-    }
-  });
-}
-
 // ---- Entity: issue archival ----
 
 function unarchiveIssues(issueIdsOrKeys) {
@@ -845,7 +905,7 @@ function deleteInactiveWorkflow(entityId, expand, id, isActive, issueTypeIds, ma
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -895,8 +955,8 @@ function validateUpdateWorkflows(entityId, expand, id, isActive, issueTypeIds, m
   var description = "Validate update workflows with payload containing workflows and statuses";
   var body = {
     "entityId": String(entityId),
-    "payload": "payload_" + entityId,
-    "validationOptions": "validationOptions_" + entityId,
+    "payload": "payload_dummy",
+    "validationOptions": "validationOptions_dummy",
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -912,7 +972,21 @@ function validateUpdateWorkflows(entityId, expand, id, isActive, issueTypeIds, m
 }
 
 function tryToAddExistingWorkflow(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames) {
-  validateUpdateWorkflows(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames);
+  var url = "/rest/api/3/workflows/preview";
+  var body = {
+    "entityId": String(entityId),
+    "issueTypeIds": String(issueTypeIds),
+    "projectId": String(projectId),
+    "workflowIds": String(workflowIds),
+    "workflowNames": String(workflowNames),
+  };
+  var description = "Verify that we cannot add another Workflow...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyWorkflowExists(entityId, expand, id, isActive, issueTypeIds, maxResults, name, orderBy, projectId, queryString, scope, startAt, workflowIds, workflowNames) {
@@ -959,7 +1033,7 @@ function tryToDeleteANonExistingWorkflow(entityId, expand, id, isActive, issueTy
   var url = "/rest/api/3/workflow/" + entityId;
   var description = "Verify we cannot delete non-existing Workflow";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -1020,7 +1094,7 @@ function waitForAnyWorkflowDeleted() {
 
 // ---- Entity: workflowsBulk ----
 
-function createWorkflows(scope, statuses, workflows) {
+function createWorkflows(scope, statuses, useApprovalConfiguration, workflows) {
   var url = "/rest/api/3/workflows/create";
   var description = "Bulk create workflows";
   var body = {
@@ -1038,11 +1112,12 @@ function createWorkflows(scope, statuses, workflows) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function readWorkflows(scope, statuses, workflows) {
+function readWorkflows(scope, statuses, useApprovalConfiguration, workflows) {
   var url = "/rest/api/3/workflows";
   var description = "Bulk get workflows";
   var body = {
     "projectAndIssueTypes": [],
+    "useApprovalConfiguration": String(useApprovalConfiguration),
     "workflowIds": [],
     "workflowNames": [],
   };
@@ -1056,11 +1131,23 @@ function readWorkflows(scope, statuses, workflows) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingWorkflowsBulk(scope, statuses, workflows) {
-  readWorkflows(scope, statuses, workflows);
+function tryToAddExistingWorkflowsBulk(scope, statuses, useApprovalConfiguration, workflows) {
+  var url = "/rest/api/3/workflows/create";
+  var body = {
+    "scope": String(scope),
+    "statuses": String(statuses),
+    "workflows": String(workflows),
+  };
+  var description = "Verify that we cannot add another WorkflowsBulk...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyWorkflowsBulkExists(scope, statuses, workflows) {
+function verifyWorkflowsBulkExists(scope, statuses, useApprovalConfiguration, workflows) {
   var url = "/rest/api/3/workflows/create";
   var description = "Verify WorkflowsBulk exists";
   svc.get(url, {
@@ -1070,7 +1157,7 @@ function verifyWorkflowsBulkExists(scope, statuses, workflows) {
       var items = JSON.parse(response.body);
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].scope) === String(scope) && String(items[i].statuses) === String(statuses) && String(items[i].workflows) === String(workflows)) {
+          if (String(items[i].scope) === String(scope) && String(items[i].statuses) === String(statuses) && String(items[i].useApprovalConfiguration) === String(useApprovalConfiguration) && String(items[i].workflows) === String(workflows)) {
             return pvg.success("WorkflowsBulk exists");
           }
         }
@@ -1080,7 +1167,7 @@ function verifyWorkflowsBulkExists(scope, statuses, workflows) {
   });
 }
 
-function verifyWorkflowsBulkDoesNotExist(scope, statuses, workflows) {
+function verifyWorkflowsBulkDoesNotExist(scope, statuses, useApprovalConfiguration, workflows) {
   var url = "/rest/api/3/workflows/create";
   var description = "Verify WorkflowsBulk does not exist";
   svc.get(url, {
@@ -1090,7 +1177,7 @@ function verifyWorkflowsBulkDoesNotExist(scope, statuses, workflows) {
       var items = JSON.parse(response.body);
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].scope) === String(scope) && String(items[i].statuses) === String(statuses) && String(items[i].workflows) === String(workflows)) {
+          if (String(items[i].scope) === String(scope) && String(items[i].statuses) === String(statuses) && String(items[i].useApprovalConfiguration) === String(useApprovalConfiguration) && String(items[i].workflows) === String(workflows)) {
             return pvg.fail("Expected WorkflowsBulk to not exist but it does");
           }
         }
@@ -1100,7 +1187,7 @@ function verifyWorkflowsBulkDoesNotExist(scope, statuses, workflows) {
   });
 }
 
-function matchAddedWorkflowsBulk(scope, statuses, workflows) {
+function matchAddedWorkflowsBulk(scope, statuses, useApprovalConfiguration, workflows) {
   var expectedDesc = "Bulk create workflows";
   return matchSuccess(expectedDesc);
 }
@@ -1130,7 +1217,7 @@ function matchAnyWorkflowsBulkAdded() {
   });
 }
 
-function waitForWorkflowsBulkAdded(scope, statuses, workflows) {
+function waitForWorkflowsBulkAdded(scope, statuses, useApprovalConfiguration, workflows) {
   var expectedDesc = "Bulk create workflows";
   waitFor(matchSuccess(expectedDesc));
 }
@@ -1194,12 +1281,25 @@ function deleteSecurityScheme(description, id, levels, name, schemeId) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function tryToAddExistingIssueSecurityScheme(description, id, levels, name, schemeId) {
-  deleteSecurityScheme(description, id, levels, name, schemeId);
+  var url = "/rest/api/3/issuesecurityschemes";
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "levels": String(levels),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another IssueSecurityScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueSecuritySchemeExists(description, id, levels, name, schemeId) {
@@ -1246,7 +1346,7 @@ function tryToDeleteANonExistingIssueSecurityScheme(description, id, levels, nam
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId;
   var description = "Verify we cannot delete non-existing IssueSecurityScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -1307,7 +1407,7 @@ function waitForAnyIssueSecuritySchemeDeleted() {
 
 // ---- Entity: issue security level ----
 
-function addSecurityLevel(id, levelId, name, schemeId) {
+function addSecurityLevel(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level";
   var description = "Add issue security levels to scheme " + schemeId;
   var body = {
@@ -1320,14 +1420,13 @@ function addSecurityLevel(id, levelId, name, schemeId) {
     parameters: {
       description: description,
       schemeId: String(schemeId)
-      , id: String(id)
       , levelId: String(levelId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { schemeId: String(schemeId) }) });
 }
 
-function getSecurityLevels(id, levelId, name, schemeId) {
+function getSecurityLevels(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/level";
   var description = "Get issue security levels";
   var body = undefined;
@@ -1337,11 +1436,11 @@ function getSecurityLevels(id, levelId, name, schemeId) {
   });
 }
 
-function updateSecurityLevel(id, levelId, name, schemeId) {
+function updateSecurityLevel(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level/" + levelId;
   var description = "Update issue security level " + levelId + " in scheme " + schemeId + " with name " + name;
   var body = {
-    "description": "description_" + schemeId,
+    "description": "description_dummy",
     "levelId": String(levelId),
     "name": String(name),
     "schemeId": String(schemeId),
@@ -1352,14 +1451,13 @@ function updateSecurityLevel(id, levelId, name, schemeId) {
     parameters: {
       description: description,
       schemeId: String(schemeId)
-      , id: String(id)
       , levelId: String(levelId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { schemeId: String(schemeId) }) });
 }
 
-function removeLevel(id, levelId, name, schemeId) {
+function removeLevel(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level/" + levelId;
   var description = "Remove issue security level " + levelId + " from scheme " + schemeId;
   var body = undefined;
@@ -1369,11 +1467,21 @@ function removeLevel(id, levelId, name, schemeId) {
   });
 }
 
-function tryToAddExistingIssueSecurityLevel(id, levelId, name, schemeId) {
-  removeLevel(id, levelId, name, schemeId);
+function tryToAddExistingIssueSecurityLevel(levelId, name, schemeId) {
+  var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level";
+  var body = {
+    "schemeId": String(schemeId),
+  };
+  var description = "Verify that we cannot add another IssueSecurityLevel...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyIssueSecurityLevelExists(id, levelId, name, schemeId) {
+function verifyIssueSecurityLevelExists(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level";
   var description = "Verify IssueSecurityLevel with schemeId " + schemeId + " exists";
   svc.get(url, {
@@ -1393,7 +1501,7 @@ function verifyIssueSecurityLevelExists(id, levelId, name, schemeId) {
   });
 }
 
-function verifyIssueSecurityLevelDoesNotExist(id, levelId, name, schemeId) {
+function verifyIssueSecurityLevelDoesNotExist(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level";
   var description = "Verify IssueSecurityLevel with schemeId " + schemeId + " does not exist";
   svc.get(url, {
@@ -1413,7 +1521,7 @@ function verifyIssueSecurityLevelDoesNotExist(id, levelId, name, schemeId) {
   });
 }
 
-function tryToDeleteANonExistingIssueSecurityLevel(id, levelId, name, schemeId) {
+function tryToDeleteANonExistingIssueSecurityLevel(levelId, name, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level/" + levelId;
   var description = "Verify we cannot delete non-existing IssueSecurityLevel";
   svc.delete(url, {
@@ -1422,7 +1530,7 @@ function tryToDeleteANonExistingIssueSecurityLevel(id, levelId, name, schemeId) 
   });
 }
 
-function matchAddedIssueSecurityLevel(id, levelId, name, schemeId) {
+function matchAddedIssueSecurityLevel(levelId, name, schemeId) {
   var expectedDesc = "Add issue security levels to scheme " + schemeId;
   return matchSuccess(expectedDesc);
 }
@@ -1452,12 +1560,12 @@ function matchAnyIssueSecurityLevelAdded() {
   });
 }
 
-function waitForIssueSecurityLevelAdded(id, levelId, name, schemeId) {
+function waitForIssueSecurityLevelAdded(levelId, name, schemeId) {
   var expectedDesc = "Add issue security levels to scheme " + schemeId;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedIssueSecurityLevel(id, levelId, name, schemeId) {
+function matchDeletedIssueSecurityLevel(levelId, name, schemeId) {
   var expectedDesc = "Remove issue security level " + levelId + " from scheme " + schemeId;
   return bp.EventSet("matchDeletedIssueSecurityLevel", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -1490,12 +1598,12 @@ function getSecurityLevelMembers(id, levelId, memberId, schemeId) {
 
 function addSecurityLevelMembers(id, levelId, memberId, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level/" + levelId + "/member";
-  var description = "Add issue security level members to scheme " + schemeId + " level " + levelId;
+  var description = "Add members to issue security level " + levelId + " in scheme " + schemeId;
   var body = {
     "levelId": String(levelId),
     "members": [],
     "schemeId": String(schemeId),
-    "securitySchemeLevelMembers": "securitySchemeLevelMembers_" + schemeId,
+    "securitySchemeLevelMembers": "securitySchemeLevelMembers_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -1517,12 +1625,23 @@ function removeMemberFromSecurityLevel(id, levelId, memberId, schemeId) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function tryToAddExistingIssueSecurityLevelMember(id, levelId, memberId, schemeId) {
-  removeMemberFromSecurityLevel(id, levelId, memberId, schemeId);
+  var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level/" + levelId + "/member";
+  var body = {
+    "levelId": String(levelId),
+    "schemeId": String(schemeId),
+  };
+  var description = "Verify that we cannot add another IssueSecurityLevelMember...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueSecurityLevelMemberExists(id, levelId, memberId, schemeId) {
@@ -1569,21 +1688,21 @@ function tryToDeleteANonExistingIssueSecurityLevelMember(id, levelId, memberId, 
   var url = "/rest/api/3/issuesecurityschemes/" + schemeId + "/level/" + levelId + "/member/" + memberId;
   var description = "Verify we cannot delete non-existing IssueSecurityLevelMember";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedIssueSecurityLevelMember(id, levelId, memberId, schemeId) {
-  var expectedDesc = "Add issue security level members to scheme " + schemeId + " level " + levelId;
+  var expectedDesc = "Add members to issue security level " + levelId + " in scheme " + schemeId;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyIssueSecurityLevelMemberAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ issue\ security\ level\ members\ to\ scheme\ (.+)\ level\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ issue\ security\ level\ members\ to\ scheme\ (.+)\ level\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ members\ to\ issue\ security\ level\ (.+)\ in\ scheme\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ members\ to\ issue\ security\ level\ (.+)\ in\ scheme\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["schemeId", "levelId"];
+  var names = ["levelId", "schemeId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -1605,7 +1724,7 @@ function matchAnyIssueSecurityLevelMemberAdded() {
 }
 
 function waitForIssueSecurityLevelMemberAdded(id, levelId, memberId, schemeId) {
-  var expectedDesc = "Add issue security level members to scheme " + schemeId + " level " + levelId;
+  var expectedDesc = "Add members to issue security level " + levelId + " in scheme " + schemeId;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -1630,7 +1749,7 @@ function waitForAnyIssueSecurityLevelMemberDeleted() {
 
 // ---- Entity: issue security scheme project association ----
 
-function searchProjectsUsingSecuritySchemes(issueSecuritySchemeId, projectId, schemeId) {
+function searchProjectsUsingSecuritySchemes(projectId, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/project";
   var description = "Get projects using issue security schemes";
   var body = undefined;
@@ -1640,7 +1759,7 @@ function searchProjectsUsingSecuritySchemes(issueSecuritySchemeId, projectId, sc
   });
 }
 
-function associateSchemesToProjects(issueSecuritySchemeId, projectId, schemeId) {
+function associateSchemesToProjects(projectId, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/project";
   var description = "Associate security scheme " + schemeId + " to project " + projectId;
   var body = {
@@ -1653,7 +1772,6 @@ function associateSchemesToProjects(issueSecuritySchemeId, projectId, schemeId) 
     expectedResponseCodes: [303, 400, 401, 403, 404, 409],
     parameters: {
       description: description,
-      , issueSecuritySchemeId: String(issueSecuritySchemeId)
       , projectId: String(projectId)
       , schemeId: String(schemeId)
     }
@@ -1661,9 +1779,9 @@ function associateSchemesToProjects(issueSecuritySchemeId, projectId, schemeId) 
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function verifyIssueSecuritySchemeProjectAssociationExists(issueSecuritySchemeId, projectId, schemeId) {
+function verifyIssueSecuritySchemeProjectExists(projectId, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/project";
-  var description = "Verify IssueSecuritySchemeProjectAssociation exists";
+  var description = "Verify IssueSecuritySchemeProject exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1671,19 +1789,19 @@ function verifyIssueSecuritySchemeProjectAssociationExists(issueSecuritySchemeId
       var items = JSON.parse(response.body);
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].issueSecuritySchemeId) === String(issueSecuritySchemeId)) {
-            return pvg.success("IssueSecuritySchemeProjectAssociation exists");
+          if (String(items[i].projectId) === String(projectId)) {
+            return pvg.success("IssueSecuritySchemeProject exists");
           }
         }
       }
-      return pvg.fail("Expected IssueSecuritySchemeProjectAssociation to exist but it does not");
+      return pvg.fail("Expected IssueSecuritySchemeProject to exist but it does not");
     }
   });
 }
 
-function verifyIssueSecuritySchemeProjectAssociationDoesNotExist(issueSecuritySchemeId, projectId, schemeId) {
+function verifyIssueSecuritySchemeProjectDoesNotExist(projectId, schemeId) {
   var url = "/rest/api/3/issuesecurityschemes/project";
-  var description = "Verify IssueSecuritySchemeProjectAssociation does not exist";
+  var description = "Verify IssueSecuritySchemeProject does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -1691,17 +1809,17 @@ function verifyIssueSecuritySchemeProjectAssociationDoesNotExist(issueSecuritySc
       var items = JSON.parse(response.body);
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].issueSecuritySchemeId) === String(issueSecuritySchemeId)) {
-            return pvg.fail("Expected IssueSecuritySchemeProjectAssociation to not exist but it does");
+          if (String(items[i].projectId) === String(projectId)) {
+            return pvg.fail("Expected IssueSecuritySchemeProject to not exist but it does");
           }
         }
       }
-      return pvg.success("IssueSecuritySchemeProjectAssociation does not exist");
+      return pvg.success("IssueSecuritySchemeProject does not exist");
     }
   });
 }
 
-// ---- Entity: issue security level default ----
+// ---- Entity: issue security scheme default level ----
 
 function setDefaultLevels() {
   var url = "/rest/api/3/issuesecurityschemes/level/default";
@@ -1726,7 +1844,7 @@ function createVersion(approvers, archived, description, driver, expand, id, iss
   var description = "Create version " + name + " with projectId " + projectId;
   var body = {
     "approvers": String(approvers),
-    "archived": String(archived),
+    "archived": archived,
     "description": String(description),
     "driver": String(driver),
     "expand": String(expand),
@@ -1735,11 +1853,11 @@ function createVersion(approvers, archived, description, driver, expand, id, iss
     "moveUnfixedIssuesTo": String(moveUnfixedIssuesTo),
     "name": String(name),
     "operations": String(operations),
-    "overdue": String(overdue),
+    "overdue": overdue,
     "project": String(project),
-    "projectId": String(projectId),
+    "projectId": Number(projectId),
     "releaseDate": String(releaseDate),
-    "released": String(released),
+    "released": released,
     "self": String(self),
     "startDate": String(startDate),
     "userReleaseDate": String(userReleaseDate),
@@ -1763,7 +1881,7 @@ function deleteVersion(approvers, archived, description, driver, expand, id, iss
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 404]
   });
 }
 
@@ -1772,7 +1890,7 @@ function updateVersion(approvers, archived, description, driver, expand, id, iss
   var description = "Update version " + name + " with id " + id;
   var body = {
     "approvers": String(approvers),
-    "archived": String(archived),
+    "archived": archived,
     "description": String(description),
     "driver": String(driver),
     "expand": String(expand),
@@ -1781,11 +1899,11 @@ function updateVersion(approvers, archived, description, driver, expand, id, iss
     "moveUnfixedIssuesTo": String(moveUnfixedIssuesTo),
     "name": String(name),
     "operations": String(operations),
-    "overdue": String(overdue),
+    "overdue": overdue,
     "project": String(project),
-    "projectId": String(projectId),
+    "projectId": Number(projectId),
     "releaseDate": String(releaseDate),
-    "released": String(released),
+    "released": released,
     "self": String(self),
     "startDate": String(startDate),
     "userReleaseDate": String(userReleaseDate),
@@ -1814,7 +1932,35 @@ function getVersion(approvers, archived, description, driver, expand, id, issues
 }
 
 function tryToAddExistingVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate) {
-  getVersion(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate);
+  var url = "/rest/api/3/version";
+  var body = {
+    "approvers": String(approvers),
+    "archived": archived,
+    "description": String(description),
+    "driver": String(driver),
+    "expand": String(expand),
+    "id": String(id),
+    "issuesStatusForFixVersion": String(issuesStatusForFixVersion),
+    "moveUnfixedIssuesTo": String(moveUnfixedIssuesTo),
+    "name": String(name),
+    "operations": String(operations),
+    "overdue": overdue,
+    "project": String(project),
+    "projectId": Number(projectId),
+    "releaseDate": String(releaseDate),
+    "released": released,
+    "self": String(self),
+    "startDate": String(startDate),
+    "userReleaseDate": String(userReleaseDate),
+    "userStartDate": String(userStartDate),
+  };
+  var description = "Verify that we cannot add another Version...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyVersionExists(approvers, archived, description, driver, expand, id, issuesStatusForFixVersion, moveAffectedIssuesTo, moveFixIssuesTo, moveUnfixedIssuesTo, name, operations, overdue, project, projectId, releaseDate, released, self, startDate, userReleaseDate, userStartDate) {
@@ -1861,7 +2007,7 @@ function tryToDeleteANonExistingVersion(approvers, archived, description, driver
   var url = "/rest/api/3/version/" + id;
   var description = "Verify we cannot delete non-existing Version";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 404],
     parameters: { description: description }
   });
 }
@@ -2025,7 +2171,19 @@ function moveVersion(after, id, position) {
 }
 
 function tryToAddExistingVersionMove(after, id, position) {
-  moveVersion(after, id, position);
+  var url = "/rest/api/3/version/" + id + "/move";
+  var body = {
+    "after": String(after),
+    "id": String(id),
+    "position": String(position),
+  };
+  var description = "Verify that we cannot add another VersionMove...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyVersionMoveExists(after, id, position) {
@@ -2121,7 +2279,7 @@ function createRelatedWork(category, id, issueId, relatedWorkId, title, url) {
   var body = {
     "category": String(category),
     "id": String(id),
-    "issueId": String(issueId),
+    "issueId": Number(issueId),
     "relatedWorkId": String(relatedWorkId),
     "title": String(title),
     "url": String(url),
@@ -2141,11 +2299,11 @@ function createRelatedWork(category, id, issueId, relatedWorkId, title, url) {
 
 function updateRelatedWork(category, id, issueId, relatedWorkId, title, url) {
   var url = "/rest/api/3/version/" + id + "/relatedwork";
-  var description = "Update related work " + relatedWorkId + " for version " + id;
+  var description = "Update related work for version " + id + " with relatedWorkId " + relatedWorkId;
   var body = {
     "category": String(category),
     "id": String(id),
-    "issueId": String(issueId),
+    "issueId": Number(issueId),
     "relatedWorkId": String(relatedWorkId),
     "title": String(title),
     "url": String(url),
@@ -2164,7 +2322,22 @@ function updateRelatedWork(category, id, issueId, relatedWorkId, title, url) {
 }
 
 function tryToAddExistingVersionRelatedWork(category, id, issueId, relatedWorkId, title, url) {
-  updateRelatedWork(category, id, issueId, relatedWorkId, title, url);
+  var url = "/rest/api/3/version/" + id + "/relatedwork";
+  var body = {
+    "category": String(category),
+    "id": String(id),
+    "issueId": Number(issueId),
+    "relatedWorkId": String(relatedWorkId),
+    "title": String(title),
+    "url": String(url),
+  };
+  var description = "Verify that we cannot add another VersionRelatedWork...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyVersionRelatedWorkExists(category, id, issueId, relatedWorkId, title, url) {
@@ -2250,8 +2423,8 @@ function deleteAndReplaceVersion(customFieldReplacementList, id, moveAffectedIss
   var body = {
     "customFieldReplacementList": String(customFieldReplacementList),
     "id": String(id),
-    "moveAffectedIssuesTo": String(moveAffectedIssuesTo),
-    "moveFixIssuesTo": String(moveFixIssuesTo),
+    "moveAffectedIssuesTo": Number(moveAffectedIssuesTo),
+    "moveFixIssuesTo": Number(moveFixIssuesTo),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -2265,7 +2438,20 @@ function deleteAndReplaceVersion(customFieldReplacementList, id, moveAffectedIss
 }
 
 function tryToAddExistingVersionDeleteAndReplace(customFieldReplacementList, id, moveAffectedIssuesTo, moveFixIssuesTo) {
-  deleteAndReplaceVersion(customFieldReplacementList, id, moveAffectedIssuesTo, moveFixIssuesTo);
+  var url = "/rest/api/3/version/" + id + "/removeAndSwap";
+  var body = {
+    "customFieldReplacementList": String(customFieldReplacementList),
+    "id": String(id),
+    "moveAffectedIssuesTo": Number(moveAffectedIssuesTo),
+    "moveFixIssuesTo": Number(moveFixIssuesTo),
+  };
+  var description = "Verify that we cannot add another VersionDeleteAndReplace...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyVersionDeleteAndReplaceExists(customFieldReplacementList, id, moveAffectedIssuesTo, moveFixIssuesTo) {
@@ -2455,7 +2641,7 @@ function deleteRelatedWork(relatedWorkId, versionId) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -2463,7 +2649,7 @@ function tryToDeleteANonExistingRelatedWork(relatedWorkId, versionId) {
   var url = "/rest/api/3/version/" + versionId + "/relatedwork/" + relatedWorkId;
   var description = "Verify we cannot delete non-existing RelatedWork";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -2516,7 +2702,7 @@ function deleteDashboard(description, editPermissions, id, name, sharePermission
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401]
+    expectedResponseCodes: [200, 204, 400, 401]
   });
 }
 
@@ -2552,7 +2738,21 @@ function getDashboard(description, editPermissions, id, name, sharePermissions) 
 }
 
 function tryToAddExistingDashboard(description, editPermissions, id, name, sharePermissions) {
-  getDashboard(description, editPermissions, id, name, sharePermissions);
+  var url = "/rest/api/3/dashboard";
+  var body = {
+    "description": String(description),
+    "editPermissions": String(editPermissions),
+    "id": String(id),
+    "name": String(name),
+    "sharePermissions": String(sharePermissions),
+  };
+  var description = "Verify that we cannot add another Dashboard...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyDashboardExists(description, editPermissions, id, name, sharePermissions) {
@@ -2599,7 +2799,7 @@ function tryToDeleteANonExistingDashboard(description, editPermissions, id, name
   var url = "/rest/api/3/dashboard/" + id;
   var description = "Verify we cannot delete non-existing Dashboard";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401],
+    expectedResponseCodes: [200, 204, 400, 401],
     parameters: { description: description }
   });
 }
@@ -2666,7 +2866,7 @@ function addGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation
   var body = {
     "color": String(color),
     "dashboardId": String(dashboardId),
-    "ignoreUriAndModuleKeyValidation": String(ignoreUriAndModuleKeyValidation),
+    "ignoreUriAndModuleKeyValidation": ignoreUriAndModuleKeyValidation,
     "moduleKey": String(moduleKey),
     "position": String(position),
     "title": String(title),
@@ -2690,7 +2890,7 @@ function removeGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidat
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 404]
+    expectedResponseCodes: [200, 204, 401, 404]
   });
 }
 
@@ -2727,7 +2927,23 @@ function getAllGadgets(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValida
 }
 
 function tryToAddExistingDashboardGadget(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri) {
-  getAllGadgets(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri);
+  var url = "/rest/api/3/dashboard/" + dashboardId + "/gadget";
+  var body = {
+    "color": String(color),
+    "dashboardId": String(dashboardId),
+    "ignoreUriAndModuleKeyValidation": ignoreUriAndModuleKeyValidation,
+    "moduleKey": String(moduleKey),
+    "position": String(position),
+    "title": String(title),
+    "uri": String(uri),
+  };
+  var description = "Verify that we cannot add another DashboardGadget...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyDashboardGadgetExists(color, dashboardId, gadgetId, ignoreUriAndModuleKeyValidation, moduleKey, position, title, uri) {
@@ -2774,7 +2990,7 @@ function tryToDeleteANonExistingDashboardGadget(color, dashboardId, gadgetId, ig
   var url = "/rest/api/3/dashboard/" + dashboardId + "/gadget/" + gadgetId;
   var description = "Verify we cannot delete non-existing DashboardGadget";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 404],
+    expectedResponseCodes: [200, 204, 401, 404],
     parameters: { description: description }
   });
 }
@@ -2837,7 +3053,7 @@ function waitForAnyDashboardGadgetDeleted() {
 
 function getDashboardItemProperty(dashboardId, itemId, propertyKey) {
   var url = "/rest/api/3/dashboard/" + dashboardId + "/items/" + itemId + "/properties/" + propertyKey;
-  var description = "Get property " + propertyKey + " of dashboard item " + itemId + " on dashboard " + dashboardId;
+  var description = "Get property " + propertyKey + " of dashboard item " + itemId + " in dashboard " + dashboardId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -2847,17 +3063,17 @@ function getDashboardItemProperty(dashboardId, itemId, propertyKey) {
 
 function deleteDashboardItemProperty(dashboardId, itemId, propertyKey) {
   var url = "/rest/api/3/dashboard/" + dashboardId + "/items/" + itemId + "/properties/" + propertyKey;
-  var description = "Delete property " + propertyKey + " of dashboard item " + itemId + " on dashboard " + dashboardId;
+  var description = "Delete property " + propertyKey + " of dashboard item " + itemId + " in dashboard " + dashboardId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function setDashboardItemProperty(dashboardId, itemId, propertyKey) {
   var url = "/rest/api/3/dashboard/" + dashboardId + "/items/" + itemId + "/properties/" + propertyKey;
-  var description = "Set property " + propertyKey + " of dashboard item " + itemId + " on dashboard " + dashboardId;
+  var description = "Set property " + propertyKey + " of dashboard item " + itemId + " in dashboard " + dashboardId;
   var body = {
     "dashboardId": String(dashboardId),
     "itemId": String(itemId),
@@ -2874,6 +3090,16 @@ function setDashboardItemProperty(dashboardId, itemId, propertyKey) {
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { dashboardId: String(dashboardId) }) });
+}
+
+function getDashboardItemPropertyKeys(dashboardId, itemId, propertyKey) {
+  var url = "/rest/api/3/dashboard/" + dashboardId + "/items/" + itemId + "/properties";
+  var description = "Get property keys of dashboard item " + itemId + " in dashboard " + dashboardId;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
+  });
 }
 
 function verifyDashboardItemPropertyExists(dashboardId, itemId, propertyKey) {
@@ -2920,21 +3146,21 @@ function tryToDeleteANonExistingDashboardItemProperty(dashboardId, itemId, prope
   var url = "/rest/api/3/dashboard/" + dashboardId + "/items/" + itemId + "/properties/" + propertyKey;
   var description = "Verify we cannot delete non-existing DashboardItemProperty";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchDeletedDashboardItemProperty(dashboardId, itemId, propertyKey) {
-  var expectedDesc = "Delete property " + propertyKey + " of dashboard item " + itemId + " on dashboard " + dashboardId;
+  var expectedDesc = "Delete property " + propertyKey + " of dashboard item " + itemId + " in dashboard " + dashboardId;
   return bp.EventSet("matchDeletedDashboardItemProperty", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyDashboardItemPropertyDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ property\ (.+)\ of\ dashboard\ item\ (.+)\ on\ dashboard\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ property\ (.+)\ of\ dashboard\ item\ (.+)\ on\ dashboard\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ property\ (.+)\ of\ dashboard\ item\ (.+)\ in\ dashboard\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ property\ (.+)\ of\ dashboard\ item\ (.+)\ in\ dashboard\ (.+)$/);
   var captures = m.slice(1);
   var names = ["propertyKey", "itemId", "dashboardId"];
   var obj = {};
@@ -2976,7 +3202,7 @@ function deleteCustomFieldContext(contextId, description, fieldId, id, isAnyIssu
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -3013,7 +3239,22 @@ function getContextsForField(contextId, description, fieldId, id, isAnyIssueType
 }
 
 function tryToAddExistingCustomFieldContext(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt) {
-  getContextsForField(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt);
+  var url = "/rest/api/3/field/" + fieldId + "/context";
+  var body = {
+    "description": String(description),
+    "fieldId": String(fieldId),
+    "id": String(id),
+    "issueTypeIds": String(issueTypeIds),
+    "name": String(name),
+    "projectIds": String(projectIds),
+  };
+  var description = "Verify that we cannot add another CustomFieldContext...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCustomFieldContextExists(contextId, description, fieldId, id, isAnyIssueType, isGlobalContext, issueTypeIds, maxResults, name, projectIds, startAt) {
@@ -3060,7 +3301,7 @@ function tryToDeleteANonExistingCustomFieldContext(contextId, description, field
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId;
   var description = "Verify we cannot delete non-existing CustomFieldContext";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -3296,13 +3537,13 @@ function verifyCustomFieldContextProjectMappingDoesNotExist(contextId, fieldId, 
 
 // ---- Entity: custom field context issue type ----
 
-function addIssueTypesToContext(contextId, fieldId, issueTypeIds) {
+function addIssueTypesToContext(contextId, fieldId) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype";
   var description = "Add issue types to context " + contextId + " for field " + fieldId;
   var body = {
     "contextId": String(contextId),
     "fieldId": String(fieldId),
-    "issueTypeIds": String(issueTypeIds),
+    "issueTypeIds": [],
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -3316,13 +3557,13 @@ function addIssueTypesToContext(contextId, fieldId, issueTypeIds) {
   bp.sync({ request: bp.Event("Done: " + description, { fieldId: String(fieldId) }) });
 }
 
-function removeIssueTypesFromContext(contextId, fieldId, issueTypeIds) {
+function removeIssueTypesFromContext(contextId, fieldId) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype/remove";
   var description = "Remove issue types from context " + contextId + " for field " + fieldId;
   var body = {
     "contextId": String(contextId),
     "fieldId": String(fieldId),
-    "issueTypeIds": String(issueTypeIds),
+    "issueTypeIds": [],
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -3336,12 +3577,23 @@ function removeIssueTypesFromContext(contextId, fieldId, issueTypeIds) {
   bp.sync({ request: bp.Event("Done: " + description, { fieldId: String(fieldId) }) });
 }
 
-function tryToAddExistingCustomFieldContextIssueType(contextId, fieldId, issueTypeIds) {
-  removeIssueTypesFromContext(contextId, fieldId, issueTypeIds);
+function tryToAddExistingCustomFieldContextIssueType(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype";
+  var body = {
+    "contextId": String(contextId),
+    "fieldId": String(fieldId),
+  };
+  var description = "Verify that we cannot add another CustomFieldContextIssueType...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyCustomFieldContextIssueTypeExists(contextId, fieldId, issueTypeIds) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype/remove";
+function verifyCustomFieldContextIssueTypeExists(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype";
   var description = "Verify CustomFieldContextIssueType with fieldId " + fieldId + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -3360,8 +3612,8 @@ function verifyCustomFieldContextIssueTypeExists(contextId, fieldId, issueTypeId
   });
 }
 
-function verifyCustomFieldContextIssueTypeDoesNotExist(contextId, fieldId, issueTypeIds) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype/remove";
+function verifyCustomFieldContextIssueTypeDoesNotExist(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype";
   var description = "Verify CustomFieldContextIssueType with fieldId " + fieldId + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -3380,14 +3632,23 @@ function verifyCustomFieldContextIssueTypeDoesNotExist(contextId, fieldId, issue
   });
 }
 
-function matchAddedCustomFieldContextIssueType(contextId, fieldId, issueTypeIds) {
-  var expectedDesc = "Remove issue types from context " + contextId + " for field " + fieldId;
+function tryToDeleteANonExistingCustomFieldContextIssueType(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/issuetype/remove";
+  var description = "Verify we cannot delete non-existing CustomFieldContextIssueType";
+  svc.delete(url, {
+    expectedResponseCodes: [],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCustomFieldContextIssueType(contextId, fieldId) {
+  var expectedDesc = "Add issue types to context " + contextId + " for field " + fieldId;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomFieldContextIssueTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Remove\ issue\ types\ from\ context\ (.+)\ for\ field\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Remove\ issue\ types\ from\ context\ (.+)\ for\ field\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ issue\ types\ to\ context\ (.+)\ for\ field\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ issue\ types\ to\ context\ (.+)\ for\ field\ (.+)$/);
   var captures = m.slice(1);
   var names = ["contextId", "fieldId"];
   var obj = {};
@@ -3410,20 +3671,39 @@ function matchAnyCustomFieldContextIssueTypeAdded() {
   });
 }
 
-function waitForCustomFieldContextIssueTypeAdded(contextId, fieldId, issueTypeIds) {
-  var expectedDesc = "Remove issue types from context " + contextId + " for field " + fieldId;
+function waitForCustomFieldContextIssueTypeAdded(contextId, fieldId) {
+  var expectedDesc = "Add issue types to context " + contextId + " for field " + fieldId;
   waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedCustomFieldContextIssueType(contextId, fieldId) {
+  var expectedDesc = "Remove issue types from context " + contextId + " for field " + fieldId;
+  return bp.EventSet("matchDeletedCustomFieldContextIssueType", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCustomFieldContextIssueTypeDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ issue\ types\ from\ context\ (.+)\ for\ field\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ issue\ types\ from\ context\ (.+)\ for\ field\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["contextId", "fieldId"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: custom field context project ----
 
-function assignProjectsToCustomFieldContext(contextId, fieldId, projectIds) {
+function assignProjectsToCustomFieldContext(contextId, fieldId) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project";
-  var description = "Assign projects to custom field context " + contextId + " for field " + fieldId;
+  var description = "Assign projects to context " + contextId + " for field " + fieldId;
   var body = {
     "contextId": String(contextId),
     "fieldId": String(fieldId),
-    "projectIds": String(projectIds),
+    "projectIds": [],
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -3437,13 +3717,13 @@ function assignProjectsToCustomFieldContext(contextId, fieldId, projectIds) {
   bp.sync({ request: bp.Event("Done: " + description, { fieldId: String(fieldId) }) });
 }
 
-function removeCustomFieldContextFromProjects(contextId, fieldId, projectIds) {
+function removeCustomFieldContextFromProjects(contextId, fieldId) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project/remove";
-  var description = "Remove projects from custom field context " + contextId + " for field " + fieldId;
+  var description = "Remove projects from context " + contextId + " for field " + fieldId;
   var body = {
     "contextId": String(contextId),
     "fieldId": String(fieldId),
-    "projectIds": String(projectIds),
+    "projectIds": [],
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -3457,12 +3737,23 @@ function removeCustomFieldContextFromProjects(contextId, fieldId, projectIds) {
   bp.sync({ request: bp.Event("Done: " + description, { fieldId: String(fieldId) }) });
 }
 
-function tryToAddExistingCustomFieldContextProject(contextId, fieldId, projectIds) {
-  removeCustomFieldContextFromProjects(contextId, fieldId, projectIds);
+function tryToAddExistingCustomFieldContextProject(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project";
+  var body = {
+    "contextId": String(contextId),
+    "fieldId": String(fieldId),
+  };
+  var description = "Verify that we cannot add another CustomFieldContextProject...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyCustomFieldContextProjectExists(contextId, fieldId, projectIds) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project/remove";
+function verifyCustomFieldContextProjectExists(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project";
   var description = "Verify CustomFieldContextProject with fieldId " + fieldId + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -3481,8 +3772,8 @@ function verifyCustomFieldContextProjectExists(contextId, fieldId, projectIds) {
   });
 }
 
-function verifyCustomFieldContextProjectDoesNotExist(contextId, fieldId, projectIds) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project/remove";
+function verifyCustomFieldContextProjectDoesNotExist(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project";
   var description = "Verify CustomFieldContextProject with fieldId " + fieldId + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -3501,14 +3792,23 @@ function verifyCustomFieldContextProjectDoesNotExist(contextId, fieldId, project
   });
 }
 
-function matchAddedCustomFieldContextProject(contextId, fieldId, projectIds) {
-  var expectedDesc = "Remove projects from custom field context " + contextId + " for field " + fieldId;
+function tryToDeleteANonExistingCustomFieldContextProject(contextId, fieldId) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/project/remove";
+  var description = "Verify we cannot delete non-existing CustomFieldContextProject";
+  svc.delete(url, {
+    expectedResponseCodes: [],
+    parameters: { description: description }
+  });
+}
+
+function matchAddedCustomFieldContextProject(contextId, fieldId) {
+  var expectedDesc = "Assign projects to context " + contextId + " for field " + fieldId;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyCustomFieldContextProjectAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Remove\ projects\ from\ custom\ field\ context\ (.+)\ for\ field\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Remove\ projects\ from\ custom\ field\ context\ (.+)\ for\ field\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Assign\ projects\ to\ context\ (.+)\ for\ field\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Assign\ projects\ to\ context\ (.+)\ for\ field\ (.+)$/);
   var captures = m.slice(1);
   var names = ["contextId", "fieldId"];
   var obj = {};
@@ -3531,9 +3831,28 @@ function matchAnyCustomFieldContextProjectAdded() {
   });
 }
 
-function waitForCustomFieldContextProjectAdded(contextId, fieldId, projectIds) {
-  var expectedDesc = "Remove projects from custom field context " + contextId + " for field " + fieldId;
+function waitForCustomFieldContextProjectAdded(contextId, fieldId) {
+  var expectedDesc = "Assign projects to context " + contextId + " for field " + fieldId;
   waitFor(matchSuccess(expectedDesc));
+}
+
+function matchDeletedCustomFieldContextProject(contextId, fieldId) {
+  var expectedDesc = "Remove projects from context " + contextId + " for field " + fieldId;
+  return bp.EventSet("matchDeletedCustomFieldContextProject", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyCustomFieldContextProjectDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ projects\ from\ context\ (.+)\ for\ field\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ projects\ from\ context\ (.+)\ for\ field\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["contextId", "fieldId"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
 }
 
 // ---- Entity: project ----
@@ -3543,24 +3862,24 @@ function createProject(assigneeType, avatarId, categoryId, description, fieldCon
   var description = "Create project " + key + " with name " + name;
   var body = {
     "assigneeType": String(assigneeType),
-    "avatarId": String(avatarId),
-    "categoryId": String(categoryId),
+    "avatarId": Number(avatarId),
+    "categoryId": Number(categoryId),
     "description": String(description),
-    "fieldConfigurationScheme": String(fieldConfigurationScheme),
-    "issueSecurityScheme": String(issueSecurityScheme),
-    "issueTypeScheme": String(issueTypeScheme),
-    "issueTypeScreenScheme": String(issueTypeScreenScheme),
+    "fieldConfigurationScheme": Number(fieldConfigurationScheme),
+    "issueSecurityScheme": Number(issueSecurityScheme),
+    "issueTypeScheme": Number(issueTypeScheme),
+    "issueTypeScreenScheme": Number(issueTypeScreenScheme),
     "key": String(key),
     "lead": String(lead),
     "leadAccountId": String(leadAccountId),
     "name": String(name),
-    "notificationScheme": String(notificationScheme),
-    "permissionScheme": String(permissionScheme),
+    "notificationScheme": Number(notificationScheme),
+    "permissionScheme": Number(permissionScheme),
     "projectIdOrKey": String(projectIdOrKey),
     "projectTemplateKey": String(projectTemplateKey),
     "projectTypeKey": String(projectTypeKey),
     "url": String(url),
-    "workflowScheme": String(workflowScheme),
+    "workflowScheme": Number(workflowScheme),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -3582,7 +3901,7 @@ function deleteProject(assigneeType, avatarId, categoryId, description, fieldCon
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 404]
+    expectedResponseCodes: [200, 204, 401, 404]
   });
 }
 
@@ -3591,16 +3910,16 @@ function updateProject(assigneeType, avatarId, categoryId, description, fieldCon
   var description = "Update project " + projectIdOrKey + " with name " + name;
   var body = {
     "assigneeType": String(assigneeType),
-    "avatarId": String(avatarId),
-    "categoryId": String(categoryId),
+    "avatarId": Number(avatarId),
+    "categoryId": Number(categoryId),
     "description": String(description),
-    "issueSecurityScheme": String(issueSecurityScheme),
+    "issueSecurityScheme": Number(issueSecurityScheme),
     "key": String(key),
     "lead": String(lead),
     "leadAccountId": String(leadAccountId),
     "name": String(name),
-    "notificationScheme": String(notificationScheme),
-    "permissionScheme": String(permissionScheme),
+    "notificationScheme": Number(notificationScheme),
+    "permissionScheme": Number(permissionScheme),
     "projectIdOrKey": String(projectIdOrKey),
     "releasedProjectKeys": [],
     "url": String(url),
@@ -3630,7 +3949,35 @@ function getProject(assigneeType, avatarId, categoryId, description, fieldConfig
 }
 
 function tryToAddExistingProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme) {
-  getProject(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme);
+  var url = "/rest/api/3/project";
+  var body = {
+    "assigneeType": String(assigneeType),
+    "avatarId": Number(avatarId),
+    "categoryId": Number(categoryId),
+    "description": String(description),
+    "fieldConfigurationScheme": Number(fieldConfigurationScheme),
+    "issueSecurityScheme": Number(issueSecurityScheme),
+    "issueTypeScheme": Number(issueTypeScheme),
+    "issueTypeScreenScheme": Number(issueTypeScreenScheme),
+    "key": String(key),
+    "lead": String(lead),
+    "leadAccountId": String(leadAccountId),
+    "name": String(name),
+    "notificationScheme": Number(notificationScheme),
+    "permissionScheme": Number(permissionScheme),
+    "projectIdOrKey": String(projectIdOrKey),
+    "projectTemplateKey": String(projectTemplateKey),
+    "projectTypeKey": String(projectTypeKey),
+    "url": String(url),
+    "workflowScheme": Number(workflowScheme),
+  };
+  var description = "Verify that we cannot add another Project...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyProjectExists(assigneeType, avatarId, categoryId, description, fieldConfigurationScheme, issueSecurityScheme, issueTypeScheme, issueTypeScreenScheme, key, lead, leadAccountId, name, notificationScheme, permissionScheme, projectIdOrKey, projectTemplateKey, projectTypeKey, url, workflowScheme) {
@@ -3677,7 +4024,7 @@ function tryToDeleteANonExistingProject(assigneeType, avatarId, categoryId, desc
   var url = "/rest/api/3/project/" + projectIdOrKey;
   var description = "Verify we cannot delete non-existing Project";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 404],
+    expectedResponseCodes: [200, 204, 401, 404],
     parameters: { description: description }
   });
 }
@@ -3740,7 +4087,7 @@ function waitForAnyProjectDeleted() {
 
 function createFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt) {
   var url = "/rest/api/3/fieldconfiguration";
-  var description = "Create field configuration " + name;
+  var description = "Create field configuration " + name + " with description " + description;
   var body = {
     "description": String(description),
     "id": String(id),
@@ -3759,17 +4106,17 @@ function createFieldConfiguration(description, id, isDefault, maxResults, name, 
 
 function deleteFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt) {
   var url = "/rest/api/3/fieldconfiguration/" + id;
-  var description = "Delete field configuration " + id;
+  var description = "Delete field configuration with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function updateFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt) {
   var url = "/rest/api/3/fieldconfiguration/" + id;
-  var description = "Update field configuration " + id + " with name " + name;
+  var description = "Update field configuration " + name + " with id " + id + " and description " + description;
   var body = {
     "description": String(description),
     "id": String(id),
@@ -3797,7 +4144,19 @@ function getAllFieldConfigurations(description, id, isDefault, maxResults, name,
 }
 
 function tryToAddExistingFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt) {
-  getAllFieldConfigurations(description, id, isDefault, maxResults, name, query, startAt);
+  var url = "/rest/api/3/fieldconfiguration";
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another FieldConfiguration...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyFieldConfigurationExists(description, id, isDefault, maxResults, name, query, startAt) {
@@ -3844,21 +4203,21 @@ function tryToDeleteANonExistingFieldConfiguration(description, id, isDefault, m
   var url = "/rest/api/3/fieldconfiguration/" + id;
   var description = "Verify we cannot delete non-existing FieldConfiguration";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt) {
-  var expectedDesc = "Create field configuration " + name;
+  var expectedDesc = "Create field configuration " + name + " with description " + description;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFieldConfigurationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ field\ configuration\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ field\ configuration\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ field\ configuration\ (.+)\ with\ description\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ field\ configuration\ (.+)\ with\ description\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "description"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -3880,20 +4239,20 @@ function matchAnyFieldConfigurationAdded() {
 }
 
 function waitForFieldConfigurationAdded(description, id, isDefault, maxResults, name, query, startAt) {
-  var expectedDesc = "Create field configuration " + name;
+  var expectedDesc = "Create field configuration " + name + " with description " + description;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedFieldConfiguration(description, id, isDefault, maxResults, name, query, startAt) {
-  var expectedDesc = "Delete field configuration " + id;
+  var expectedDesc = "Delete field configuration with id " + id;
   return bp.EventSet("matchDeletedFieldConfiguration", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyFieldConfigurationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ field\ configuration\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ field\ configuration\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ field\ configuration\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ field\ configuration\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -3905,19 +4264,9 @@ function waitForAnyFieldConfigurationDeleted() {
 
 // ---- Entity: field configuration items ----
 
-function getFieldConfigurationItems(id, maxResults, startAt) {
-  var url = "/rest/api/3/fieldconfiguration/" + id + "/fields";
-  var description = "Get field configuration items for field configuration " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 401, 403, 404]
-  });
-}
-
 function updateFieldConfigurationItems(id, maxResults, startAt) {
   var url = "/rest/api/3/fieldconfiguration/" + id + "/fields";
-  var description = "Update field configuration items for field configuration " + id;
+  var description = "Update field configuration items for field configuration id " + id;
   var body = {
     "fieldConfigurationItems": [],
     "id": String(id),
@@ -3931,6 +4280,16 @@ function updateFieldConfigurationItems(id, maxResults, startAt) {
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getFieldConfigurationItems(id, maxResults, startAt) {
+  var url = "/rest/api/3/fieldconfiguration/" + id + "/fields";
+  var description = "Get field configuration items for field configuration id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 403, 404]
+  });
 }
 
 function verifyFieldConfigurationItemsExists(id, maxResults, startAt) {
@@ -3977,7 +4336,7 @@ function verifyFieldConfigurationItemsDoesNotExist(id, maxResults, startAt) {
 
 function createFieldConfigurationScheme(description, id, maxResults, name, startAt) {
   var url = "/rest/api/3/fieldconfigurationscheme";
-  var description = "Create field configuration scheme " + name;
+  var description = "Create field configuration scheme " + name + " with description " + description;
   var body = {
     "description": String(description),
     "id": String(id),
@@ -3996,17 +4355,17 @@ function createFieldConfigurationScheme(description, id, maxResults, name, start
 
 function deleteFieldConfigurationScheme(description, id, maxResults, name, startAt) {
   var url = "/rest/api/3/fieldconfigurationscheme/" + id;
-  var description = "Delete field configuration scheme " + id;
+  var description = "Delete field configuration scheme with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function updateFieldConfigurationScheme(description, id, maxResults, name, startAt) {
   var url = "/rest/api/3/fieldconfigurationscheme/" + id;
-  var description = "Update field configuration scheme " + id + " with name " + name;
+  var description = "Update field configuration scheme " + name + " with id " + id + " and description " + description;
   var body = {
     "description": String(description),
     "id": String(id),
@@ -4034,7 +4393,19 @@ function getAllFieldConfigurationSchemes(description, id, maxResults, name, star
 }
 
 function tryToAddExistingFieldConfigurationScheme(description, id, maxResults, name, startAt) {
-  getAllFieldConfigurationSchemes(description, id, maxResults, name, startAt);
+  var url = "/rest/api/3/fieldconfigurationscheme";
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another FieldConfigurationScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyFieldConfigurationSchemeExists(description, id, maxResults, name, startAt) {
@@ -4081,21 +4452,21 @@ function tryToDeleteANonExistingFieldConfigurationScheme(description, id, maxRes
   var url = "/rest/api/3/fieldconfigurationscheme/" + id;
   var description = "Verify we cannot delete non-existing FieldConfigurationScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedFieldConfigurationScheme(description, id, maxResults, name, startAt) {
-  var expectedDesc = "Create field configuration scheme " + name;
+  var expectedDesc = "Create field configuration scheme " + name + " with description " + description;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyFieldConfigurationSchemeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ field\ configuration\ scheme\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ field\ configuration\ scheme\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ field\ configuration\ scheme\ (.+)\ with\ description\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ field\ configuration\ scheme\ (.+)\ with\ description\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["name", "description"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -4117,20 +4488,20 @@ function matchAnyFieldConfigurationSchemeAdded() {
 }
 
 function waitForFieldConfigurationSchemeAdded(description, id, maxResults, name, startAt) {
-  var expectedDesc = "Create field configuration scheme " + name;
+  var expectedDesc = "Create field configuration scheme " + name + " with description " + description;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedFieldConfigurationScheme(description, id, maxResults, name, startAt) {
-  var expectedDesc = "Delete field configuration scheme " + id;
+  var expectedDesc = "Delete field configuration scheme with id " + id;
   return bp.EventSet("matchDeletedFieldConfigurationScheme", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyFieldConfigurationSchemeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ field\ configuration\ scheme\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ field\ configuration\ scheme\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ field\ configuration\ scheme\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ field\ configuration\ scheme\ with\ id\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var obj = {};
@@ -4142,19 +4513,9 @@ function waitForAnyFieldConfigurationSchemeDeleted() {
 
 // ---- Entity: field configuration scheme mapping ----
 
-function getFieldConfigurationSchemeMappings(fieldConfigurationSchemeId, id, maxResults, startAt) {
-  var url = "/rest/api/3/fieldconfigurationscheme/mapping";
-  var description = "Get field configuration scheme mappings";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
 function setFieldConfigurationSchemeMapping(fieldConfigurationSchemeId, id, maxResults, startAt) {
   var url = "/rest/api/3/fieldconfigurationscheme/" + id + "/mapping";
-  var description = "Assign issue types to field configuration scheme " + id;
+  var description = "Assign issue types to field configuration scheme id " + id;
   var body = {
     "id": String(id),
     "mappings": [],
@@ -4173,7 +4534,7 @@ function setFieldConfigurationSchemeMapping(fieldConfigurationSchemeId, id, maxR
 
 function removeIssueTypesFromGlobalFieldConfigurationScheme(fieldConfigurationSchemeId, id, maxResults, startAt) {
   var url = "/rest/api/3/fieldconfigurationscheme/" + id + "/mapping/delete";
-  var description = "Remove issue types from field configuration scheme " + id;
+  var description = "Remove issue types from field configuration scheme id " + id;
   var body = {
     "id": String(id),
     "issueTypeIds": [],
@@ -4188,6 +4549,16 @@ function removeIssueTypesFromGlobalFieldConfigurationScheme(fieldConfigurationSc
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getFieldConfigurationSchemeMappings(fieldConfigurationSchemeId, id, maxResults, startAt) {
+  var url = "/rest/api/3/fieldconfigurationscheme/mapping";
+  var description = "Get field configuration issue type items";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403, 404]
+  });
 }
 
 function verifyFieldConfigurationSchemeMappingExists(fieldConfigurationSchemeId, id, maxResults, startAt) {
@@ -4230,17 +4601,35 @@ function verifyFieldConfigurationSchemeMappingDoesNotExist(fieldConfigurationSch
   });
 }
 
-// ---- Entity: field configuration scheme project association ----
-
-function getFieldConfigurationSchemeProjectMapping(maxResults, projectId, startAt) {
-  var url = "/rest/api/3/fieldconfigurationscheme/project";
-  var description = "Get field configuration schemes for projects";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403]
+function tryToDeleteANonExistingFieldConfigurationSchemeMapping(fieldConfigurationSchemeId, id, maxResults, startAt) {
+  var url = "/rest/api/3/fieldconfigurationscheme/" + id + "/mapping/delete";
+  var description = "Verify we cannot delete non-existing FieldConfigurationSchemeMapping";
+  svc.delete(url, {
+    expectedResponseCodes: [],
+    parameters: { description: description }
   });
 }
+
+function matchDeletedFieldConfigurationSchemeMapping(fieldConfigurationSchemeId, id, maxResults, startAt) {
+  var expectedDesc = "Remove issue types from field configuration scheme id " + id;
+  return bp.EventSet("matchDeletedFieldConfigurationSchemeMapping", function(e) {
+      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
+  });
+}
+
+function waitForAnyFieldConfigurationSchemeMappingDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ issue\ types\ from\ field\ configuration\ scheme\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ issue\ types\ from\ field\ configuration\ scheme\ id\ (.+)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+// ---- Entity: field configuration scheme project association ----
 
 function assignFieldConfigurationSchemeToProject(maxResults, projectId, startAt) {
   var url = "/rest/api/3/fieldconfigurationscheme/project";
@@ -4258,6 +4647,16 @@ function assignFieldConfigurationSchemeToProject(maxResults, projectId, startAt)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getFieldConfigurationSchemeProjectMapping(maxResults, projectId, startAt) {
+  var url = "/rest/api/3/fieldconfigurationscheme/project";
+  var description = "Get field configuration schemes for projects";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403]
+  });
 }
 
 function verifyFieldConfigurationSchemeProjectAssociationExists(maxResults, projectId, startAt) {
@@ -4334,13 +4733,13 @@ function removeUser(accountId, actionDescriptorId, applicationKeys, avatarSize, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function findUsers(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
   var url = "/rest/api/3/user/search";
-  var description = "Find users with query " + query + " or accountId " + accountId;
+  var description = "Find users matching query " + query + " or accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4350,7 +4749,7 @@ function findUsers(accountId, actionDescriptorId, applicationKeys, avatarSize, d
 
 function findBulkAssignableUsers(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
   var url = "/rest/api/3/user/assignable/multiProjectSearch";
-  var description = "Find users assignable to projects with projectKeys " + projectKeys + " and query " + query + " or accountId " + accountId;
+  var description = "Find users assignable to projects " + projectKeys + " matching query " + query + " or accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4360,7 +4759,7 @@ function findBulkAssignableUsers(accountId, actionDescriptorId, applicationKeys,
 
 function findAssignableUsers(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
   var url = "/rest/api/3/user/assignable/search";
-  var description = "Find users assignable to issues with project " + project + ", issueKey " + issueKey + ", issueId " + issueId + ", query " + query + " or accountId " + accountId;
+  var description = "Find users assignable to issues in project " + project + " or issueKey " + issueKey + " or issueId " + issueId + " matching query " + query + " or accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4370,7 +4769,7 @@ function findAssignableUsers(accountId, actionDescriptorId, applicationKeys, ava
 
 function findUsersWithAllPermissions(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
   var url = "/rest/api/3/user/permission/search";
-  var description = "Find users with permissions " + permissions + " and query " + query + " or accountId " + accountId;
+  var description = "Find users with permissions " + permissions + " matching query " + query + " or accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4380,7 +4779,7 @@ function findUsersWithAllPermissions(accountId, actionDescriptorId, applicationK
 
 function findUsersForPicker(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
   var url = "/rest/api/3/user/picker";
-  var description = "Find users for picker with query " + query;
+  var description = "Find users for picker matching query " + query;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4410,7 +4809,7 @@ function findUserKeysByQuery(accountId, actionDescriptorId, applicationKeys, ava
 
 function findUsersWithBrowsePermission(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
   var url = "/rest/api/3/user/viewissue/search";
-  var description = "Find users with browse permission with query " + query + " or accountId " + accountId + " for issueKey " + issueKey + " or projectKey " + projectKey;
+  var description = "Find users with browse permission matching query " + query + " or accountId " + accountId + " for issueKey " + issueKey + " or projectKey " + projectKey;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4419,7 +4818,24 @@ function findUsersWithBrowsePermission(accountId, actionDescriptorId, applicatio
 }
 
 function tryToAddExistingUser(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
-  findUsersWithBrowsePermission(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt);
+  var url = "/rest/api/3/user";
+  var body = {
+    "applicationKeys": String(applicationKeys),
+    "displayName": String(displayName),
+    "emailAddress": emailAddress,
+    "key": String(key),
+    "name": String(name),
+    "password": String(password),
+    "products": String(products),
+    "self": String(self),
+  };
+  var description = "Verify that we cannot add another User...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyUserExists(accountId, actionDescriptorId, applicationKeys, avatarSize, displayName, emailAddress, exclude, excludeAccountIds, excludeConnectUsers, issueId, issueKey, key, maxResult, maxResults, name, password, permissions, products, project, projectKey, projectKeys, property, query, recommend, self, showAvatar, startAt) {
@@ -4466,7 +4882,7 @@ function tryToDeleteANonExistingUser(accountId, actionDescriptorId, applicationK
   var url = "/rest/api/3/user";
   var description = "Verify we cannot delete non-existing User";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -4529,7 +4945,7 @@ function waitForAnyUserDeleted() {
 
 function getUserDefaultColumns(accountId) {
   var url = "/rest/api/3/user/columns";
-  var description = "Get user default columns for user with accountId " + accountId;
+  var description = "Get user default columns for accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4539,7 +4955,7 @@ function getUserDefaultColumns(accountId) {
 
 function setUserColumns(accountId) {
   var url = "/rest/api/3/user/columns";
-  var description = "Set user default columns for user with accountId " + accountId;
+  var description = "Set user default columns for accountId " + accountId;
   var body = {
     "accountId": String(accountId),
   };
@@ -4556,11 +4972,11 @@ function setUserColumns(accountId) {
 
 function resetUserColumns(accountId) {
   var url = "/rest/api/3/user/columns";
-  var description = "Reset user default columns for user with accountId " + accountId;
+  var description = "Reset user default columns for accountId " + accountId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 403]
+    expectedResponseCodes: [200, 204, 401, 403]
   });
 }
 
@@ -4608,21 +5024,21 @@ function tryToDeleteANonExistingUserColumns(accountId) {
   var url = "/rest/api/3/user/columns";
   var description = "Verify we cannot delete non-existing UserColumns";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 403],
+    expectedResponseCodes: [200, 204, 401, 403],
     parameters: { description: description }
   });
 }
 
 function matchDeletedUserColumns(accountId) {
-  var expectedDesc = "Reset user default columns for user with accountId " + accountId;
+  var expectedDesc = "Reset user default columns for accountId " + accountId;
   return bp.EventSet("matchDeletedUserColumns", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyUserColumnsDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Reset\ user\ default\ columns\ for\ user\ with\ accountId\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Reset\ user\ default\ columns\ for\ user\ with\ accountId\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Reset\ user\ default\ columns\ for\ accountId\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Reset\ user\ default\ columns\ for\ accountId\ (.+)$/);
   var captures = m.slice(1);
   var names = ["accountId"];
   var obj = {};
@@ -4636,7 +5052,7 @@ function waitForAnyUserColumnsDeleted() {
 
 function getUserEmail(accountId) {
   var url = "/rest/api/3/user/email";
-  var description = "Get user email for user with accountId " + accountId;
+  var description = "Get user email for accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4688,7 +5104,7 @@ function verifyUserEmailDoesNotExist(accountId) {
 
 function getUserEmailBulk(accountId) {
   var url = "/rest/api/3/user/email/bulk";
-  var description = "Get user emails in bulk for accountIds " + accountId;
+  var description = "Get user emails for accountIds " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4740,7 +5156,7 @@ function verifyUserEmailBulkDoesNotExist(accountId) {
 
 function getUserGroups(accountId) {
   var url = "/rest/api/3/user/groups";
-  var description = "Get user groups for user with accountId " + accountId;
+  var description = "Get user groups for accountId " + accountId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -4998,14 +5414,14 @@ function verifyUsersDefaultDoesNotExist(maxResults, startAt) {
 
 // ---- Entity: workflow scheme ----
 
-function createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function createWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Create workflow scheme " + name + " with id " + id;
   var body = {
     "defaultWorkflow": String(defaultWorkflow),
     "description": String(description),
-    "draft": String(draft),
-    "id": String(id),
+    "draft": draft,
+    "id": Number(id),
     "issueTypeMappings": issueTypeMappings,
     "issueTypes": issueTypes,
     "lastModified": String(lastModified),
@@ -5014,7 +5430,7 @@ function createWorkflowScheme(defaultWorkflow, description, draft, id, issueType
     "originalDefaultWorkflow": String(originalDefaultWorkflow),
     "originalIssueTypeMappings": originalIssueTypeMappings,
     "self": String(self),
-    "updateDraftIfNeeded": String(updateDraftIfNeeded),
+    "updateDraftIfNeeded": updateDraftIfNeeded,
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -5027,24 +5443,24 @@ function createWorkflowScheme(defaultWorkflow, description, draft, id, issueType
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function deleteWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme/" + id;
   var description = "Delete workflow scheme with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
-function updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function updateWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme/" + id;
   var description = "Update workflow scheme " + name + " with id " + id;
   var body = {
     "defaultWorkflow": String(defaultWorkflow),
     "description": String(description),
-    "draft": String(draft),
-    "id": String(id),
+    "draft": draft,
+    "id": Number(id),
     "issueTypeMappings": issueTypeMappings,
     "issueTypes": issueTypes,
     "lastModified": String(lastModified),
@@ -5053,7 +5469,7 @@ function updateWorkflowScheme(defaultWorkflow, description, draft, id, issueType
     "originalDefaultWorkflow": String(originalDefaultWorkflow),
     "originalIssueTypeMappings": originalIssueTypeMappings,
     "self": String(self),
-    "updateDraftIfNeeded": String(updateDraftIfNeeded),
+    "updateDraftIfNeeded": updateDraftIfNeeded,
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -5066,7 +5482,7 @@ function updateWorkflowScheme(defaultWorkflow, description, draft, id, issueType
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function getWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme/" + id;
   var description = "Get workflow scheme with id " + id;
   var body = undefined;
@@ -5076,11 +5492,33 @@ function getWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMap
   });
 }
 
-function tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
-  getWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded);
+function tryToAddExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
+  var url = "/rest/api/3/workflowscheme";
+  var body = {
+    "defaultWorkflow": String(defaultWorkflow),
+    "description": String(description),
+    "draft": draft,
+    "id": Number(id),
+    "issueTypeMappings": issueTypeMappings,
+    "issueTypes": issueTypes,
+    "lastModified": String(lastModified),
+    "lastModifiedUser": String(lastModifiedUser),
+    "name": String(name),
+    "originalDefaultWorkflow": String(originalDefaultWorkflow),
+    "originalIssueTypeMappings": originalIssueTypeMappings,
+    "self": String(self),
+    "updateDraftIfNeeded": updateDraftIfNeeded,
+  };
+  var description = "Verify that we cannot add another WorkflowScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowScheme with id " + id + " exists";
   svc.get(url, {
@@ -5100,7 +5538,7 @@ function verifyWorkflowSchemeExists(defaultWorkflow, description, draft, id, iss
   });
 }
 
-function verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowScheme with id " + id + " does not exist";
   svc.get(url, {
@@ -5120,16 +5558,16 @@ function verifyWorkflowSchemeDoesNotExist(defaultWorkflow, description, draft, i
   });
 }
 
-function tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function tryToDeleteANonExistingWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var url = "/rest/api/3/workflowscheme/" + id;
   var description = "Verify we cannot delete non-existing WorkflowScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function matchAddedWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var expectedDesc = "Create workflow scheme " + name + " with id " + id;
   return matchSuccess(expectedDesc);
 }
@@ -5159,12 +5597,12 @@ function matchAnyWorkflowSchemeAdded() {
   });
 }
 
-function waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function waitForWorkflowSchemeAdded(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var expectedDesc = "Create workflow scheme " + name + " with id " + id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, returnDraftIfExists, self, updateDraftIfNeeded) {
+function matchDeletedWorkflowScheme(defaultWorkflow, description, draft, id, issueTypeMappings, issueTypes, lastModified, lastModifiedUser, name, originalDefaultWorkflow, originalIssueTypeMappings, self, updateDraftIfNeeded) {
   var expectedDesc = "Delete workflow scheme with id " + id;
   return bp.EventSet("matchDeletedWorkflowScheme", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -5185,23 +5623,13 @@ function waitForAnyWorkflowSchemeDeleted() {
 
 // ---- Entity: default workflow ----
 
-function deleteDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
-  var url = "/rest/api/3/workflowscheme/" + id + "/default";
-  var description = "Delete default workflow for workflow scheme with id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
-function updateDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
+function updateDefaultWorkflow(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/default";
   var description = "Update default workflow for workflow scheme with id " + id;
   var body = {
     "id": String(id),
-    "updateDraftIfNeeded": String(updateDraftIfNeeded),
-    "workflow": "workflow_" + id,
+    "updateDraftIfNeeded": true,
+    "workflow": "workflow_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -5214,7 +5642,17 @@ function updateDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
+function deleteDefaultWorkflow(id) {
+  var url = "/rest/api/3/workflowscheme/" + id + "/default";
+  var description = "Delete default workflow for workflow scheme with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
+  });
+}
+
+function getDefaultWorkflow(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/default";
   var description = "Get default workflow for workflow scheme with id " + id;
   var body = undefined;
@@ -5224,7 +5662,7 @@ function getDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
   });
 }
 
-function verifyWorkflowSchemeDefaultWorkflowExists(id, returnDraftIfExists, updateDraftIfNeeded) {
+function verifyWorkflowSchemeDefaultWorkflowExists(id) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowSchemeDefaultWorkflow with id " + id + " exists";
   svc.get(url, {
@@ -5244,7 +5682,7 @@ function verifyWorkflowSchemeDefaultWorkflowExists(id, returnDraftIfExists, upda
   });
 }
 
-function verifyWorkflowSchemeDefaultWorkflowDoesNotExist(id, returnDraftIfExists, updateDraftIfNeeded) {
+function verifyWorkflowSchemeDefaultWorkflowDoesNotExist(id) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowSchemeDefaultWorkflow with id " + id + " does not exist";
   svc.get(url, {
@@ -5264,16 +5702,16 @@ function verifyWorkflowSchemeDefaultWorkflowDoesNotExist(id, returnDraftIfExists
   });
 }
 
-function tryToDeleteANonExistingWorkflowSchemeDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
+function tryToDeleteANonExistingWorkflowSchemeDefaultWorkflow(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/default";
   var description = "Verify we cannot delete non-existing WorkflowSchemeDefaultWorkflow";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchDeletedWorkflowSchemeDefaultWorkflow(id, returnDraftIfExists, updateDraftIfNeeded) {
+function matchDeletedWorkflowSchemeDefaultWorkflow(id) {
   var expectedDesc = "Delete default workflow for workflow scheme with id " + id;
   return bp.EventSet("matchDeletedWorkflowSchemeDefaultWorkflow", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -5294,24 +5732,14 @@ function waitForAnyWorkflowSchemeDefaultWorkflowDeleted() {
 
 // ---- Entity: workflow scheme issue type ----
 
-function deleteWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
-  var url = "/rest/api/3/workflowscheme/" + id + "/issuetype/" + issueType;
-  var description = "Delete workflow for issue type " + issueType + " in workflow scheme with id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
-function setWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
+function setWorkflowSchemeIssueType(id, issueType) {
   var url = "/rest/api/3/workflowscheme/" + id + "/issuetype/" + issueType;
   var description = "Set workflow for issue type " + issueType + " in workflow scheme with id " + id;
   var body = {
     "id": String(id),
     "issueType": String(issueType),
-    "updateDraftIfNeeded": String(updateDraftIfNeeded),
-    "workflow": "workflow_" + id,
+    "updateDraftIfNeeded": true,
+    "workflow": "workflow_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -5325,7 +5753,17 @@ function setWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDr
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
+function deleteWorkflowSchemeIssueType(id, issueType) {
+  var url = "/rest/api/3/workflowscheme/" + id + "/issuetype/" + issueType;
+  var description = "Delete workflow for issue type " + issueType + " in workflow scheme with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
+  });
+}
+
+function getWorkflowSchemeIssueType(id, issueType) {
   var url = "/rest/api/3/workflowscheme/" + id + "/issuetype/" + issueType;
   var description = "Get workflow for issue type " + issueType + " in workflow scheme with id " + id;
   var body = undefined;
@@ -5335,7 +5773,7 @@ function getWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDr
   });
 }
 
-function verifyWorkflowSchemeIssueTypeExists(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
+function verifyWorkflowSchemeIssueTypeExists(id, issueType) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowSchemeIssueType with id " + id + " exists";
   svc.get(url, {
@@ -5355,7 +5793,7 @@ function verifyWorkflowSchemeIssueTypeExists(id, issueType, returnDraftIfExists,
   });
 }
 
-function verifyWorkflowSchemeIssueTypeDoesNotExist(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
+function verifyWorkflowSchemeIssueTypeDoesNotExist(id, issueType) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowSchemeIssueType with id " + id + " does not exist";
   svc.get(url, {
@@ -5375,16 +5813,16 @@ function verifyWorkflowSchemeIssueTypeDoesNotExist(id, issueType, returnDraftIfE
   });
 }
 
-function tryToDeleteANonExistingWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
+function tryToDeleteANonExistingWorkflowSchemeIssueType(id, issueType) {
   var url = "/rest/api/3/workflowscheme/" + id + "/issuetype/" + issueType;
   var description = "Verify we cannot delete non-existing WorkflowSchemeIssueType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchDeletedWorkflowSchemeIssueType(id, issueType, returnDraftIfExists, updateDraftIfNeeded) {
+function matchDeletedWorkflowSchemeIssueType(id, issueType) {
   var expectedDesc = "Delete workflow for issue type " + issueType + " in workflow scheme with id " + id;
   return bp.EventSet("matchDeletedWorkflowSchemeIssueType", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -5405,25 +5843,15 @@ function waitForAnyWorkflowSchemeIssueTypeDeleted() {
 
 // ---- Entity: workflow scheme workflow mapping ----
 
-function deleteWorkflowMapping(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
+function updateWorkflowMapping(id, workflowName) {
   var url = "/rest/api/3/workflowscheme/" + id + "/workflow";
-  var description = "Delete issue types for workflow " + workflowName + " in workflow scheme with id " + id;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
-function updateWorkflowMapping(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
-  var url = "/rest/api/3/workflowscheme/" + id + "/workflow";
-  var description = "Set issue types for workflow " + workflowName + " in workflow scheme with id " + id;
+  var description = "Set issue types for workflow {workflow} in workflow scheme with id " + id;
   var body = {
-    "defaultMapping": String(true),
+    "defaultMapping": true,
     "id": String(id),
     "issueTypes": [],
-    "updateDraftIfNeeded": String(updateDraftIfNeeded),
-    "workflow": "workflow_" + id,
+    "updateDraftIfNeeded": true,
+    "workflow": "workflow_dummy",
     "workflowName": String(workflowName),
   };
   svc.put(url, {
@@ -5437,7 +5865,17 @@ function updateWorkflowMapping(id, returnDraftIfExists, updateDraftIfNeeded, wor
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getWorkflow(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
+function deleteWorkflowMapping(id, workflowName) {
+  var url = "/rest/api/3/workflowscheme/" + id + "/workflow";
+  var description = "Delete issue types for workflow " + workflowName + " in workflow scheme with id " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
+  });
+}
+
+function getWorkflow(id, workflowName) {
   var url = "/rest/api/3/workflowscheme/" + id + "/workflow";
   var description = "Get issue types for workflow " + workflowName + " in workflow scheme with id " + id;
   var body = undefined;
@@ -5447,7 +5885,7 @@ function getWorkflow(id, returnDraftIfExists, updateDraftIfNeeded, workflowName)
   });
 }
 
-function verifyWorkflowSchemeWorkflowMappingExists(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
+function verifyWorkflowSchemeWorkflowMappingExists(id, workflowName) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowSchemeWorkflowMapping with id " + id + " exists";
   svc.get(url, {
@@ -5467,7 +5905,7 @@ function verifyWorkflowSchemeWorkflowMappingExists(id, returnDraftIfExists, upda
   });
 }
 
-function verifyWorkflowSchemeWorkflowMappingDoesNotExist(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
+function verifyWorkflowSchemeWorkflowMappingDoesNotExist(id, workflowName) {
   var url = "/rest/api/3/workflowscheme";
   var description = "Verify WorkflowSchemeWorkflowMapping with id " + id + " does not exist";
   svc.get(url, {
@@ -5487,16 +5925,16 @@ function verifyWorkflowSchemeWorkflowMappingDoesNotExist(id, returnDraftIfExists
   });
 }
 
-function tryToDeleteANonExistingWorkflowSchemeWorkflowMapping(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
+function tryToDeleteANonExistingWorkflowSchemeWorkflowMapping(id, workflowName) {
   var url = "/rest/api/3/workflowscheme/" + id + "/workflow";
   var description = "Verify we cannot delete non-existing WorkflowSchemeWorkflowMapping";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchDeletedWorkflowSchemeWorkflowMapping(id, returnDraftIfExists, updateDraftIfNeeded, workflowName) {
+function matchDeletedWorkflowSchemeWorkflowMapping(id, workflowName) {
   var expectedDesc = "Delete issue types for workflow " + workflowName + " in workflow scheme with id " + id;
   return bp.EventSet("matchDeletedWorkflowSchemeWorkflowMapping", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -5542,7 +5980,7 @@ function createCustomField(description, fieldId, id, name, searcherKey, type) {
 
 function getFields(description, fieldId, id, name, searcherKey, type) {
   var url = "/rest/api/3/field";
-  var description = "Get all custom fields";
+  var description = "Get custom fields";
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -5583,8 +6021,60 @@ function deleteCustomField(description, fieldId, id, name, searcherKey, type) {
   });
 }
 
+function trashCustomField(description, fieldId, id, name, searcherKey, type) {
+  var url = "/rest/api/3/field/" + id + "/trash";
+  var description = "Move custom field " + id + " to trash";
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401, 403, 404],
+    parameters: {
+      description: description,
+      id: String(id)
+      , fieldId: String(fieldId)
+      , type: String(type)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function restoreCustomField(description, fieldId, id, name, searcherKey, type) {
+  var url = "/rest/api/3/field/" + id + "/restore";
+  var description = "Restore custom field " + id + " from trash";
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401, 403, 404],
+    parameters: {
+      description: description,
+      id: String(id)
+      , fieldId: String(fieldId)
+      , type: String(type)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
 function tryToAddExistingCustomField(description, fieldId, id, name, searcherKey, type) {
-  deleteCustomField(description, fieldId, id, name, searcherKey, type);
+  var url = "/rest/api/3/field";
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "searcherKey": String(searcherKey),
+    "type": String(type),
+  };
+  var description = "Verify that we cannot add another CustomField...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyCustomFieldExists(description, fieldId, id, name, searcherKey, type) {
@@ -5690,42 +6180,6 @@ function waitForAnyCustomFieldDeleted() {
   return obj;
 }
 
-// ---- Entity: custom field trash ----
-
-function restoreCustomField(id) {
-  var url = "/rest/api/3/field/" + id + "/restore";
-  var description = "Restore custom field " + id + " from trash";
-  var body = {
-    "id": String(id),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 400, 401, 403, 404],
-    parameters: {
-      description: description,
-      , id: String(id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function trashCustomField(id) {
-  var url = "/rest/api/3/field/" + id + "/trash";
-  var description = "Move custom field " + id + " to trash";
-  var body = {
-    "id": String(id),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 400, 401, 403, 404],
-    parameters: {
-      description: description,
-      , id: String(id)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
 // ---- Entity: filter ----
 
 function createFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl) {
@@ -5735,8 +6189,8 @@ function createFilter(approximateLastUsed, description, editPermissions, favouri
     "approximateLastUsed": String(approximateLastUsed),
     "description": String(description),
     "editPermissions": String(editPermissions),
-    "favourite": String(favourite),
-    "favouritedCount": String(favouritedCount),
+    "favourite": favourite,
+    "favouritedCount": Number(favouritedCount),
     "id": String(id),
     "jql": String(jql),
     "name": String(name),
@@ -5765,7 +6219,7 @@ function deleteFilter(approximateLastUsed, description, editPermissions, favouri
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401]
+    expectedResponseCodes: [200, 204, 400, 401]
   });
 }
 
@@ -5776,8 +6230,8 @@ function updateFilter(approximateLastUsed, description, editPermissions, favouri
     "approximateLastUsed": String(approximateLastUsed),
     "description": String(description),
     "editPermissions": String(editPermissions),
-    "favourite": String(favourite),
-    "favouritedCount": String(favouritedCount),
+    "favourite": favourite,
+    "favouritedCount": Number(favouritedCount),
     "id": String(id),
     "jql": String(jql),
     "name": String(name),
@@ -5811,7 +6265,31 @@ function getFilter(approximateLastUsed, description, editPermissions, favourite,
 }
 
 function tryToAddExistingFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl) {
-  getFilter(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl);
+  var url = "/rest/api/3/filter";
+  var body = {
+    "approximateLastUsed": String(approximateLastUsed),
+    "description": String(description),
+    "editPermissions": String(editPermissions),
+    "favourite": favourite,
+    "favouritedCount": Number(favouritedCount),
+    "id": String(id),
+    "jql": String(jql),
+    "name": String(name),
+    "owner": String(owner),
+    "searchUrl": String(searchUrl),
+    "self": String(self),
+    "sharePermissions": String(sharePermissions),
+    "sharedUsers": String(sharedUsers),
+    "subscriptions": String(subscriptions),
+    "viewUrl": String(viewUrl),
+  };
+  var description = "Verify that we cannot add another Filter...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyFilterExists(approximateLastUsed, description, editPermissions, favourite, favouritedCount, id, jql, name, owner, searchUrl, self, sharePermissions, sharedUsers, subscriptions, viewUrl) {
@@ -5858,7 +6336,7 @@ function tryToDeleteANonExistingFilter(approximateLastUsed, description, editPer
   var url = "/rest/api/3/filter/" + id;
   var description = "Verify we cannot delete non-existing Filter";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401],
+    expectedResponseCodes: [200, 204, 400, 401],
     parameters: { description: description }
   });
 }
@@ -5953,7 +6431,7 @@ function resetColumns(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401]
+    expectedResponseCodes: [200, 204, 400, 401]
   });
 }
 
@@ -6001,7 +6479,7 @@ function tryToDeleteANonExistingFilterColumns(id) {
   var url = "/rest/api/3/filter/" + id + "/columns";
   var description = "Verify we cannot delete non-existing FilterColumns";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401],
+    expectedResponseCodes: [200, 204, 400, 401],
     parameters: { description: description }
   });
 }
@@ -6050,12 +6528,22 @@ function deleteFavouriteForFilter(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 400]
+    expectedResponseCodes: [200, 204, 400]
   });
 }
 
 function tryToAddExistingFilterFavourite(id) {
-  deleteFavouriteForFilter(id);
+  var url = "/rest/api/3/filter/" + id + "/favourite";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another FilterFavourite...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyFilterFavouriteExists(id) {
@@ -6102,7 +6590,7 @@ function tryToDeleteANonExistingFilterFavourite(id) {
   var url = "/rest/api/3/filter/" + id + "/favourite";
   var description = "Verify we cannot delete non-existing FilterFavourite";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400],
+    expectedResponseCodes: [200, 204, 400],
     parameters: { description: description }
   });
 }
@@ -6167,7 +6655,7 @@ function changeFilterOwner(id) {
   var url = "/rest/api/3/filter/" + id + "/owner";
   var description = "Change owner of filter with id " + id + " to accountId {accountId}";
   var body = {
-    "accountId": "accountId_" + id,
+    "accountId": "accountId_dummy",
     "id": String(id),
   };
   svc.put(url, {
@@ -6210,7 +6698,7 @@ function deleteIssueTypeScreenScheme(description, expand, id, issueTypeMappings,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -6245,7 +6733,20 @@ function getIssueTypeScreenSchemes(description, expand, id, issueTypeMappings, i
 }
 
 function tryToAddExistingIssueTypeScreenScheme(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt) {
-  getIssueTypeScreenSchemes(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt);
+  var url = "/rest/api/3/issuetypescreenscheme";
+  var body = {
+    "description": String(description),
+    "issueTypeMappings": String(issueTypeMappings),
+    "issueTypeScreenSchemeId": String(issueTypeScreenSchemeId),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another IssueTypeScreenScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueTypeScreenSchemeExists(description, expand, id, issueTypeMappings, issueTypeScreenSchemeId, maxResults, name, orderBy, queryString, startAt) {
@@ -6292,7 +6793,7 @@ function tryToDeleteANonExistingIssueTypeScreenScheme(description, expand, id, i
   var url = "/rest/api/3/issuetypescreenscheme/" + issueTypeScreenSchemeId;
   var description = "Verify we cannot delete non-existing IssueTypeScreenScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -6353,7 +6854,7 @@ function waitForAnyIssueTypeScreenSchemeDeleted() {
 
 // ---- Entity: issue type screen scheme mapping ----
 
-function getIssueTypeScreenSchemeMappings(issueTypeScreenSchemeId, maxResults, startAt) {
+function getIssueTypeScreenSchemeMappings(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt) {
   var url = "/rest/api/3/issuetypescreenscheme/mapping";
   var description = "Get issue type screen scheme mappings for scheme id " + issueTypeScreenSchemeId;
   var body = undefined;
@@ -6363,7 +6864,7 @@ function getIssueTypeScreenSchemeMappings(issueTypeScreenSchemeId, maxResults, s
   });
 }
 
-function appendMappingsForIssueTypeScreenScheme(issueTypeScreenSchemeId, maxResults, startAt) {
+function appendMappingsForIssueTypeScreenScheme(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt) {
   var url = "/rest/api/3/issuetypescreenscheme/" + issueTypeScreenSchemeId + "/mapping";
   var description = "Append mappings to issue type screen scheme with id " + issueTypeScreenSchemeId;
   var body = {
@@ -6376,17 +6877,18 @@ function appendMappingsForIssueTypeScreenScheme(issueTypeScreenSchemeId, maxResu
     parameters: {
       description: description,
       issueTypeScreenSchemeId: String(issueTypeScreenSchemeId)
+      , screenSchemeId: String(screenSchemeId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { issueTypeScreenSchemeId: String(issueTypeScreenSchemeId) }) });
 }
 
-function updateDefaultScreenScheme(issueTypeScreenSchemeId, maxResults, startAt) {
+function updateDefaultScreenScheme(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt) {
   var url = "/rest/api/3/issuetypescreenscheme/" + issueTypeScreenSchemeId + "/mapping/default";
-  var description = "Update issue type screen scheme default screen scheme for id " + issueTypeScreenSchemeId;
+  var description = "Update issue type screen scheme default screen scheme for scheme id " + issueTypeScreenSchemeId;
   var body = {
     "issueTypeScreenSchemeId": String(issueTypeScreenSchemeId),
-    "screenSchemeId": "screenSchemeId_" + issueTypeScreenSchemeId,
+    "screenSchemeId": String(screenSchemeId),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -6394,18 +6896,19 @@ function updateDefaultScreenScheme(issueTypeScreenSchemeId, maxResults, startAt)
     parameters: {
       description: description,
       issueTypeScreenSchemeId: String(issueTypeScreenSchemeId)
+      , screenSchemeId: String(screenSchemeId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { issueTypeScreenSchemeId: String(issueTypeScreenSchemeId) }) });
 }
 
-function removeMappingsFromIssueTypeScreenScheme(issueTypeScreenSchemeId, maxResults, startAt) {
+function removeMappingsFromIssueTypeScreenScheme(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt) {
   var url = "/rest/api/3/issuetypescreenscheme/" + issueTypeScreenSchemeId + "/mapping/remove";
   var description = "Remove mappings from issue type screen scheme with id " + issueTypeScreenSchemeId;
   var body = {
-    "contextId": "contextId_" + issueTypeScreenSchemeId,
-    "fieldId": "fieldId_" + issueTypeScreenSchemeId,
-    "issueTypeIds": [],
+    "contextId": "contextId_dummy",
+    "fieldId": "fieldId_dummy",
+    "issueTypeIds": String(issueTypeIds),
     "issueTypeScreenSchemeId": String(issueTypeScreenSchemeId),
   };
   svc.post(url, {
@@ -6414,12 +6917,13 @@ function removeMappingsFromIssueTypeScreenScheme(issueTypeScreenSchemeId, maxRes
     parameters: {
       description: description,
       issueTypeScreenSchemeId: String(issueTypeScreenSchemeId)
+      , screenSchemeId: String(screenSchemeId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { issueTypeScreenSchemeId: String(issueTypeScreenSchemeId) }) });
 }
 
-function verifyIssueTypeScreenSchemeMappingExists(issueTypeScreenSchemeId, maxResults, startAt) {
+function verifyIssueTypeScreenSchemeMappingExists(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt) {
   var url = "/rest/api/3/issuetypescreenscheme/mapping";
   var description = "Verify IssueTypeScreenSchemeMapping with issueTypeScreenSchemeId " + issueTypeScreenSchemeId + " exists";
   svc.get(url, {
@@ -6439,7 +6943,7 @@ function verifyIssueTypeScreenSchemeMappingExists(issueTypeScreenSchemeId, maxRe
   });
 }
 
-function verifyIssueTypeScreenSchemeMappingDoesNotExist(issueTypeScreenSchemeId, maxResults, startAt) {
+function verifyIssueTypeScreenSchemeMappingDoesNotExist(issueTypeIds, issueTypeScreenSchemeId, maxResults, screenSchemeId, startAt) {
   var url = "/rest/api/3/issuetypescreenscheme/mapping";
   var description = "Verify IssueTypeScreenSchemeMapping with issueTypeScreenSchemeId " + issueTypeScreenSchemeId + " does not exist";
   svc.get(url, {
@@ -6600,7 +7104,7 @@ function removeAttachment(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404]
+    expectedResponseCodes: [200, 204, 403, 404]
   });
 }
 
@@ -6648,7 +7152,7 @@ function tryToDeleteANonExistingAttachment(id) {
   var url = "/rest/api/3/attachment/" + id;
   var description = "Verify we cannot delete non-existing Attachment";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404],
+    expectedResponseCodes: [200, 204, 403, 404],
     parameters: { description: description }
   });
 }
@@ -6880,6 +7384,58 @@ function verifyAttachmentExpandedRawDoesNotExist(id) {
   });
 }
 
+// ---- Entity: attachment meta ----
+
+function getAttachmentMeta() {
+  var url = "/rest/api/3/attachment/meta";
+  var description = "Get Jira attachment settings";
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
+  });
+}
+
+function verifyAttachmentMetaExists() {
+  var url = "/rest/api/3/attachment/meta";
+  var description = "Verify AttachmentMeta exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.success("AttachmentMeta exists");
+          }
+        }
+      }
+      return pvg.fail("Expected AttachmentMeta to exist but it does not");
+    }
+  });
+}
+
+function verifyAttachmentMetaDoesNotExist() {
+  var url = "/rest/api/3/attachment/meta";
+  var description = "Verify AttachmentMeta does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (true) {
+            return pvg.fail("Expected AttachmentMeta to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("AttachmentMeta does not exist");
+    }
+  });
+}
+
 // ---- Entity: issue attachment ----
 
 function addAttachment(issueIdOrKey) {
@@ -6900,7 +7456,17 @@ function addAttachment(issueIdOrKey) {
 }
 
 function tryToAddExistingIssueAttachment(issueIdOrKey) {
-  addAttachment(issueIdOrKey);
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/attachments";
+  var body = {
+    "issueIdOrKey": String(issueIdOrKey),
+  };
+  var description = "Verify that we cannot add another IssueAttachment...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueAttachmentExists(issueIdOrKey) {
@@ -6980,33 +7546,12 @@ function waitForIssueAttachmentAdded(issueIdOrKey) {
 
 // ---- Entity: issue bulk operation ----
 
-function submitBulkEdit(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  var url = "/rest/api/3/bulk/issues/fields";
-  var description = "Bulk edit issues with keys " + selectedIssueIdsOrKeys;
-  var body = {
-    "editedFieldsInput": String(editedFieldsInput),
-    "selectedActions": String(selectedActions),
-    "selectedIssueIdsOrKeys": String(selectedIssueIdsOrKeys),
-    "sendBulkNotification": String(sendBulkNotification),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [201, 400, 401],
-    parameters: {
-      description: description,
-      , taskId: String(taskId)
-      , transitionId: String(transitionId)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function submitBulkDelete(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
+function submitBulkDelete(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
   var url = "/rest/api/3/bulk/issues/delete";
-  var description = "Bulk delete issues with keys " + selectedIssueIdsOrKeys;
+  var description = "Bulk delete issues with ids or keys " + selectedIssueIdsOrKeys;
   var body = {
     "selectedIssueIdsOrKeys": String(selectedIssueIdsOrKeys),
-    "sendBulkNotification": String(sendBulkNotification),
+    "sendBulkNotification": true,
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -7020,14 +7565,24 @@ function submitBulkDelete(editedFieldsInput, issueIdsOrKeys, selectedActions, se
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function submitBulkMove(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  var url = "/rest/api/3/bulk/issues/move";
-  var description = "Bulk move issues with keys " + selectedIssueIdsOrKeys;
+function getBulkEditableFields(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/fields";
+  var description = "Get bulk editable fields for issues " + issueIdsOrKeys;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403, 404]
+  });
+}
+
+function submitBulkEdit(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/fields";
+  var description = "Bulk edit issues with fields for issues " + selectedIssueIdsOrKeys;
   var body = {
+    "editedFieldsInput": "editedFieldsInput_dummy",
+    "selectedActions": [],
     "selectedIssueIdsOrKeys": String(selectedIssueIdsOrKeys),
-    "sendBulkNotification": String(sendBulkNotification),
-    "targetToMultipleSourceMapping": "targetToMultipleSourceMapping_dummy",
-    "targetToSourcesMapping": targetToSourcesMapping,
+    "sendBulkNotification": true,
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -7041,21 +7596,104 @@ function submitBulkMove(editedFieldsInput, issueIdsOrKeys, selectedActions, sele
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function getBulkEditableFields(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  var url = "/rest/api/3/bulk/issues/fields";
-  var description = "Get bulk editable fields for issues " + issueIdsOrKeys;
+function submitBulkMove(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/move";
+  var description = "Bulk move issues with mapping {targetToSourcesMapping}";
+  var body = {
+    "sendBulkNotification": true,
+    "targetToMultipleSourceMapping": "targetToMultipleSourceMapping_dummy",
+    "targetToSourcesMapping": {},
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 401],
+    parameters: {
+      description: description,
+      , taskId: String(taskId)
+      , transitionId: String(transitionId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getAvailableTransitions(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/transition";
+  var description = "Get available transitions for issues " + issueIdsOrKeys;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 400, 401, 403]
   });
 }
 
-function tryToAddExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  getBulkEditableFields(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId);
+function submitBulkTransition(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/transition";
+  var description = "Bulk transition issues " + selectedIssueIdsOrKeys + " to transition " + transitionId;
+  var body = {
+    "bulkTransitionInputs": [],
+    "selectedIssueIdsOrKeys": String(selectedIssueIdsOrKeys),
+    "sendBulkNotification": true,
+    "transitionId": String(transitionId),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 401, 403],
+    parameters: {
+      description: description,
+      , taskId: String(taskId)
+      , transitionId: String(transitionId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
+function submitBulkUnwatch(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/unwatch";
+  var description = "Bulk unwatch issues " + selectedIssueIdsOrKeys;
+  var body = {
+    "selectedIssueIdsOrKeys": String(selectedIssueIdsOrKeys),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 401, 403],
+    parameters: {
+      description: description,
+      , taskId: String(taskId)
+      , transitionId: String(transitionId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function submitBulkWatch(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/issues/watch";
+  var description = "Bulk watch issues " + selectedIssueIdsOrKeys;
+  var body = {
+    "selectedIssueIdsOrKeys": String(selectedIssueIdsOrKeys),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 401, 403],
+    parameters: {
+      description: description,
+      , taskId: String(taskId)
+      , transitionId: String(transitionId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function getBulkOperationProgress(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var url = "/rest/api/3/bulk/queue/" + taskId;
+  var description = "Get bulk issue operation progress for task " + taskId;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401]
+  });
+}
+
+function verifyIssueBulkExists(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
   var url = "/rest/api/3/bulk/issues/fields";
   var description = "Verify IssueBulk exists";
   svc.get(url, {
@@ -7075,7 +7713,7 @@ function verifyIssueBulkExists(editedFieldsInput, issueIdsOrKeys, selectedAction
   });
 }
 
-function verifyIssueBulkDoesNotExist(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
+function verifyIssueBulkDoesNotExist(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
   var url = "/rest/api/3/bulk/issues/fields";
   var description = "Verify IssueBulk does not exist";
   svc.get(url, {
@@ -7095,7 +7733,7 @@ function verifyIssueBulkDoesNotExist(editedFieldsInput, issueIdsOrKeys, selected
   });
 }
 
-function tryToDeleteANonExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
+function tryToDeleteANonExistingIssueBulk(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
   var url = "/rest/api/3/bulk/issues/delete";
   var description = "Verify we cannot delete non-existing IssueBulk";
   svc.delete(url, {
@@ -7104,51 +7742,16 @@ function tryToDeleteANonExistingIssueBulk(editedFieldsInput, issueIdsOrKeys, sel
   });
 }
 
-function matchAddedIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  var expectedDesc = "Bulk edit issues with keys " + selectedIssueIdsOrKeys;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyIssueBulkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ edit\ issues\ with\ keys\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Bulk\ edit\ issues\ with\ keys\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["selectedIssueIdsOrKeys"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getIssueBulkAddedEvent(keyVal) {
-  return bp.EventSet("AddIssueBulk:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyIssueBulkAdded() {
-  return bp.EventSet("matchAnyIssueBulkAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create issue bulk operation") > -1;
-  });
-}
-
-function waitForIssueBulkAdded(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  var expectedDesc = "Bulk edit issues with keys " + selectedIssueIdsOrKeys;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedIssueBulk(editedFieldsInput, issueIdsOrKeys, selectedActions, selectedIssueIdsOrKeys, sendBulkNotification, taskId, transitionId) {
-  var expectedDesc = "Bulk delete issues with keys " + selectedIssueIdsOrKeys;
+function matchDeletedIssueBulk(endingBefore, issueIdsOrKeys, searchText, selectedIssueIdsOrKeys, startingAfter, taskId, transitionId) {
+  var expectedDesc = "Bulk delete issues with ids or keys " + selectedIssueIdsOrKeys;
   return bp.EventSet("matchDeletedIssueBulk", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyIssueBulkDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ delete\ issues\ with\ keys\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Bulk\ delete\ issues\ with\ keys\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ delete\ issues\ with\ ids\ or\ keys\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Bulk\ delete\ issues\ with\ ids\ or\ keys\ (.+)$/);
   var captures = m.slice(1);
   var names = ["selectedIssueIdsOrKeys"];
   var obj = {};
@@ -7189,7 +7792,7 @@ function deleteIssueTypeScheme(defaultIssueTypeId, description, expand, id, issu
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -7226,7 +7829,21 @@ function getAllIssueTypeSchemes(defaultIssueTypeId, description, expand, id, iss
 }
 
 function tryToAddExistingIssueTypeScheme(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt) {
-  getAllIssueTypeSchemes(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt);
+  var url = "/rest/api/3/issuetypescheme";
+  var body = {
+    "defaultIssueTypeId": String(defaultIssueTypeId),
+    "description": String(description),
+    "issueTypeIds": String(issueTypeIds),
+    "issueTypeSchemeId": String(issueTypeSchemeId),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another IssueTypeScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueTypeSchemeExists(defaultIssueTypeId, description, expand, id, issueTypeIds, issueTypeSchemeId, maxResults, name, orderBy, queryString, startAt) {
@@ -7273,7 +7890,7 @@ function tryToDeleteANonExistingIssueTypeScheme(defaultIssueTypeId, description,
   var url = "/rest/api/3/issuetypescheme/" + issueTypeSchemeId;
   var description = "Verify we cannot delete non-existing IssueTypeScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -7354,7 +7971,7 @@ function assignIssueTypeSchemeToProject(maxResults, projectId, startAt) {
 
 function getIssueTypeSchemeForProjects(maxResults, projectId, startAt) {
   var url = "/rest/api/3/issuetypescheme/project";
-  var description = "Get issue type schemes for projects with project IDs " + projectId;
+  var description = "Get issue type schemes for projects with projectIds " + projectId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7406,7 +8023,7 @@ function verifyIssueTypeSchemeProjectAssociationDoesNotExist(maxResults, project
 
 function getIssueTypeSchemesMapping(issueTypeSchemeId, maxResults, startAt) {
   var url = "/rest/api/3/issuetypescheme/mapping";
-  var description = "Get issue type scheme items for issue type scheme IDs " + issueTypeSchemeId;
+  var description = "Get issue type scheme items for issueTypeSchemeIds " + issueTypeSchemeId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -7460,11 +8077,11 @@ function addIssueTypesToIssueTypeScheme(issueTypeId, issueTypeSchemeId) {
   var url = "/rest/api/3/issuetypescheme/" + issueTypeSchemeId + "/issuetype";
   var description = "Add issue types {issueTypeIds} to issue type scheme " + issueTypeSchemeId;
   var body = {
-    "contextId": "contextId_" + issueTypeSchemeId,
-    "fieldId": "fieldId_" + issueTypeSchemeId,
+    "contextId": "contextId_dummy",
+    "fieldId": "fieldId_dummy",
     "issueTypeIds": [],
     "issueTypeSchemeId": String(issueTypeSchemeId),
-    "issueTypeScreenSchemeId": "issueTypeScreenSchemeId_" + issueTypeSchemeId,
+    "issueTypeScreenSchemeId": "issueTypeScreenSchemeId_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -7484,7 +8101,7 @@ function removeIssueTypeFromIssueTypeScheme(issueTypeId, issueTypeSchemeId) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -7492,10 +8109,10 @@ function reorderIssueTypesInIssueTypeScheme(issueTypeId, issueTypeSchemeId) {
   var url = "/rest/api/3/issuetypescheme/" + issueTypeSchemeId + "/issuetype/move";
   var description = "Change order of issue types in issue type scheme " + issueTypeSchemeId + " after {after}";
   var body = {
-    "after": "after_" + issueTypeSchemeId,
+    "after": "after_dummy",
     "issueTypeIds": [],
     "issueTypeSchemeId": String(issueTypeSchemeId),
-    "position": "position_" + issueTypeSchemeId,
+    "position": "position_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -7510,7 +8127,17 @@ function reorderIssueTypesInIssueTypeScheme(issueTypeId, issueTypeSchemeId) {
 }
 
 function tryToAddExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId) {
-  reorderIssueTypesInIssueTypeScheme(issueTypeId, issueTypeSchemeId);
+  var url = "/rest/api/3/issuetypescheme/" + issueTypeSchemeId + "/issuetype";
+  var body = {
+    "issueTypeSchemeId": String(issueTypeSchemeId),
+  };
+  var description = "Verify that we cannot add another IssueTypeInScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueTypeInSchemeExists(issueTypeId, issueTypeSchemeId) {
@@ -7557,7 +8184,7 @@ function tryToDeleteANonExistingIssueTypeInScheme(issueTypeId, issueTypeSchemeId
   var url = "/rest/api/3/issuetypescheme/" + issueTypeSchemeId + "/issuetype/" + issueTypeId;
   var description = "Verify we cannot delete non-existing IssueTypeInScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -7618,9 +8245,19 @@ function waitForAnyIssueTypeInSchemeDeleted() {
 
 // ---- Entity: avatar ----
 
-function storeAvatar(entityId, id, owningObjectId, size, type, x, y) {
+function getAvatars(entityId, format, id, owningObjectId, size, type, x, y) {
   var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + entityId;
-  var description = "Load avatar for " + type + " with entityId " + entityId + " and crop size " + size;
+  var description = "Get avatars of type " + type + " for entity " + entityId;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401, 404]
+  });
+}
+
+function storeAvatar(entityId, format, id, owningObjectId, size, type, x, y) {
+  var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + entityId;
+  var description = "Load avatar of type " + type + " for entity " + entityId + " with crop size " + size;
   var body = {
     "entityId": String(entityId),
     "size": String(size),
@@ -7642,31 +8279,65 @@ function storeAvatar(entityId, id, owningObjectId, size, type, x, y) {
   bp.sync({ request: bp.Event("Done: " + description, { type: String(type) }) });
 }
 
-function deleteAvatar(entityId, id, owningObjectId, size, type, x, y) {
+function deleteAvatar(entityId, format, id, owningObjectId, size, type, x, y) {
   var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + owningObjectId + "/avatar/" + id;
-  var description = "Delete avatar " + id + " for " + type + " with owningObjectId " + owningObjectId;
+  var description = "Delete avatar " + id + " of type " + type + " for owning object " + owningObjectId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 403, 404]
   });
 }
 
-function getAvatars(entityId, id, owningObjectId, size, type, x, y) {
-  var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + entityId;
-  var description = "Get avatars for " + type + " with entityId " + entityId;
+function getAvatarImageByType(entityId, format, id, owningObjectId, size, type, x, y) {
+  var url = "/rest/api/3/universal_avatar/view/type/" + type;
+  var description = "Get avatar image by type " + type + " with size " + size + " and format " + format;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 401, 404]
+    expectedResponseCodes: [200, 401, 403, 404]
   });
 }
 
-function tryToAddExistingAvatar(entityId, id, owningObjectId, size, type, x, y) {
-  getAvatars(entityId, id, owningObjectId, size, type, x, y);
+function getAvatarImageByID(entityId, format, id, owningObjectId, size, type, x, y) {
+  var url = "/rest/api/3/universal_avatar/view/type/" + type + "/avatar/" + id;
+  var description = "Get avatar image " + id + " of type " + type + " with size " + size + " and format " + format;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403, 404]
+  });
 }
 
-function verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y) {
+function getAvatarImageByOwner(entityId, format, id, owningObjectId, size, type, x, y) {
+  var url = "/rest/api/3/universal_avatar/view/type/" + type + "/owner/" + entityId;
+  var description = "Get avatar image of type " + type + " for owner " + entityId + " with size " + size + " and format " + format;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403, 404]
+  });
+}
+
+function tryToAddExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y) {
+  var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + entityId;
+  var body = {
+    "entityId": String(entityId),
+    "size": String(size),
+    "type": String(type),
+    "x": String(x),
+    "y": String(y),
+  };
+  var description = "Verify that we cannot add another Avatar...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyAvatarExists(entityId, format, id, owningObjectId, size, type, x, y) {
   var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + entityId;
   var description = "Verify Avatar with type " + type + " exists";
   svc.get(url, {
@@ -7686,7 +8357,7 @@ function verifyAvatarExists(entityId, id, owningObjectId, size, type, x, y) {
   });
 }
 
-function verifyAvatarDoesNotExist(entityId, id, owningObjectId, size, type, x, y) {
+function verifyAvatarDoesNotExist(entityId, format, id, owningObjectId, size, type, x, y) {
   var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + entityId;
   var description = "Verify Avatar with type " + type + " does not exist";
   svc.get(url, {
@@ -7706,23 +8377,23 @@ function verifyAvatarDoesNotExist(entityId, id, owningObjectId, size, type, x, y
   });
 }
 
-function tryToDeleteANonExistingAvatar(entityId, id, owningObjectId, size, type, x, y) {
+function tryToDeleteANonExistingAvatar(entityId, format, id, owningObjectId, size, type, x, y) {
   var url = "/rest/api/3/universal_avatar/type/" + type + "/owner/" + owningObjectId + "/avatar/" + id;
   var description = "Verify we cannot delete non-existing Avatar";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedAvatar(entityId, id, owningObjectId, size, type, x, y) {
-  var expectedDesc = "Load avatar for " + type + " with entityId " + entityId + " and crop size " + size;
+function matchAddedAvatar(entityId, format, id, owningObjectId, size, type, x, y) {
+  var expectedDesc = "Load avatar of type " + type + " for entity " + entityId + " with crop size " + size;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyAvatarAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Load\ avatar\ for\ (.+)\ with\ entityId\ (.+)\ and\ crop\ size\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Load\ avatar\ for\ (.+)\ with\ entityId\ (.+)\ and\ crop\ size\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Load\ avatar\ of\ type\ (.+)\ for\ entity\ (.+)\ with\ crop\ size\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Load\ avatar\ of\ type\ (.+)\ for\ entity\ (.+)\ with\ crop\ size\ (.+)$/);
   var captures = m.slice(1);
   var names = ["type", "entityId", "size"];
   var obj = {};
@@ -7745,21 +8416,21 @@ function matchAnyAvatarAdded() {
   });
 }
 
-function waitForAvatarAdded(entityId, id, owningObjectId, size, type, x, y) {
-  var expectedDesc = "Load avatar for " + type + " with entityId " + entityId + " and crop size " + size;
+function waitForAvatarAdded(entityId, format, id, owningObjectId, size, type, x, y) {
+  var expectedDesc = "Load avatar of type " + type + " for entity " + entityId + " with crop size " + size;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedAvatar(entityId, id, owningObjectId, size, type, x, y) {
-  var expectedDesc = "Delete avatar " + id + " for " + type + " with owningObjectId " + owningObjectId;
+function matchDeletedAvatar(entityId, format, id, owningObjectId, size, type, x, y) {
+  var expectedDesc = "Delete avatar " + id + " of type " + type + " for owning object " + owningObjectId;
   return bp.EventSet("matchDeletedAvatar", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyAvatarDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ avatar\ (.+)\ for\ (.+)\ with\ owningObjectId\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ avatar\ (.+)\ for\ (.+)\ with\ owningObjectId\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ avatar\ (.+)\ of\ type\ (.+)\ for\ owning\ object\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ avatar\ (.+)\ of\ type\ (.+)\ for\ owning\ object\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "type", "owningObjectId"];
   var obj = {};
@@ -7821,38 +8492,6 @@ function verifySystemAvatarDoesNotExist(type) {
   });
 }
 
-// ---- Entity: avatar image ----
-
-function getAvatarImageByType(entityId, format, id, size, type) {
-  var url = "/rest/api/3/universal_avatar/view/type/" + type;
-  var description = "Get avatar image by type " + type + " with size " + size + " and format " + format;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 401, 403, 404]
-  });
-}
-
-function getAvatarImageByID(entityId, format, id, size, type) {
-  var url = "/rest/api/3/universal_avatar/view/type/" + type + "/avatar/" + id;
-  var description = "Get avatar image by ID " + id + " for type " + type + " with size " + size + " and format " + format;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
-function getAvatarImageByOwner(entityId, format, id, size, type) {
-  var url = "/rest/api/3/universal_avatar/view/type/" + type + "/owner/" + entityId;
-  var description = "Get avatar image by owner " + entityId + " for type " + type + " with size " + size + " and format " + format;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
 // ---- Entity: worklog ----
 
 function addWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
@@ -7869,7 +8508,7 @@ function addWorklog(author, comment, created, id, issueId, issueIdOrKey, propert
     "self": String(self),
     "started": String(started),
     "timeSpent": String(timeSpent),
-    "timeSpentSeconds": String(timeSpentSeconds),
+    "timeSpentSeconds": Number(timeSpentSeconds),
     "updateAuthor": String(updateAuthor),
     "updated": String(updated),
     "visibility": String(visibility),
@@ -7893,7 +8532,7 @@ function deleteWorklog(author, comment, created, id, issueId, issueIdOrKey, prop
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 404]
   });
 }
 
@@ -7911,7 +8550,7 @@ function updateWorklog(author, comment, created, id, issueId, issueIdOrKey, prop
     "self": String(self),
     "started": String(started),
     "timeSpent": String(timeSpent),
-    "timeSpentSeconds": String(timeSpentSeconds),
+    "timeSpentSeconds": Number(timeSpentSeconds),
     "updateAuthor": String(updateAuthor),
     "updated": String(updated),
     "visibility": String(visibility),
@@ -7951,7 +8590,7 @@ function bulkDeleteWorklogs(author, comment, created, id, issueId, issueIdOrKey,
 
 function bulkMoveWorklogs(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
   var url = "/rest/api/3/issue/" + issueIdOrKey + "/worklog/move";
-  var description = "Bulk move worklogs {ids} from issue " + issueIdOrKey + " to issue {destinationIssueIdOrKey}";
+  var description = "Bulk move worklogs {ids} from issue " + issueIdOrKey + " to issue " + issueIdOrKey;
   var body = {
     "ids": [],
     "issueIdOrKey": String(issueIdOrKey),
@@ -7991,7 +8630,7 @@ function getWorklogsForIds(author, comment, created, id, issueId, issueIdOrKey, 
 
 function getIdsOfWorklogsDeletedSince(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
   var url = "/rest/api/3/worklog/deleted";
-  var description = "Get IDs of worklogs deleted since " + since;
+  var description = "Get IDs of deleted worklogs since " + since;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -8001,7 +8640,7 @@ function getIdsOfWorklogsDeletedSince(author, comment, created, id, issueId, iss
 
 function getIdsOfWorklogsModifiedSince(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
   var url = "/rest/api/3/worklog/updated";
-  var description = "Get IDs of worklogs updated since " + since;
+  var description = "Get IDs of updated worklogs since " + since;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -8009,18 +8648,31 @@ function getIdsOfWorklogsModifiedSince(author, comment, created, id, issueId, is
   });
 }
 
-function getIssueWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
-  var url = "/rest/api/3/issue/" + issueIdOrKey + "/worklog";
-  var description = "Get worklogs for issue " + issueIdOrKey;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 401, 404]
-  });
-}
-
 function tryToAddExistingWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
-  getIssueWorklog(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility);
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/worklog";
+  var body = {
+    "author": String(author),
+    "comment": String(comment),
+    "created": String(created),
+    "id": String(id),
+    "issueId": String(issueId),
+    "issueIdOrKey": String(issueIdOrKey),
+    "properties": String(properties),
+    "self": String(self),
+    "started": String(started),
+    "timeSpent": String(timeSpent),
+    "timeSpentSeconds": Number(timeSpentSeconds),
+    "updateAuthor": String(updateAuthor),
+    "updated": String(updated),
+    "visibility": String(visibility),
+  };
+  var description = "Verify that we cannot add another Worklog...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyWorklogExists(author, comment, created, id, issueId, issueIdOrKey, properties, self, since, started, timeSpent, timeSpentSeconds, updateAuthor, updated, visibility) {
@@ -8067,7 +8719,7 @@ function tryToDeleteANonExistingWorklog(author, comment, created, id, issueId, i
   var url = "/rest/api/3/issue/" + issueIdOrKey + "/worklog/" + id;
   var description = "Verify we cannot delete non-existing Worklog";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 404],
     parameters: { description: description }
   });
 }
@@ -8130,7 +8782,7 @@ function waitForAnyWorklogDeleted() {
 
 function createNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId) {
   var url = "/rest/api/3/notificationscheme";
-  var description = "Create notification scheme " + name + " with id " + id;
+  var description = "Create notification scheme " + name + " with description " + description;
   var body = {
     "description": String(description),
     "id": String(id),
@@ -8155,13 +8807,13 @@ function deleteNotificationScheme(description, id, name, notificationSchemeEvent
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function updateNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId) {
   var url = "/rest/api/3/notificationscheme/" + id;
-  var description = "Update notification scheme " + id + " with name " + name;
+  var description = "Update notification scheme " + id + " with name " + name + " and description " + description;
   var body = {
     "description": String(description),
     "id": String(id),
@@ -8190,7 +8842,20 @@ function getNotificationScheme(description, id, name, notificationSchemeEvents, 
 }
 
 function tryToAddExistingNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId) {
-  getNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId);
+  var url = "/rest/api/3/notificationscheme";
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "name": String(name),
+    "notificationSchemeEvents": String(notificationSchemeEvents),
+  };
+  var description = "Verify that we cannot add another NotificationScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyNotificationSchemeExists(description, id, name, notificationSchemeEvents, notificationSchemeId) {
@@ -8237,21 +8902,21 @@ function tryToDeleteANonExistingNotificationScheme(description, id, name, notifi
   var url = "/rest/api/3/notificationscheme/" + notificationSchemeId;
   var description = "Verify we cannot delete non-existing NotificationScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedNotificationScheme(description, id, name, notificationSchemeEvents, notificationSchemeId) {
-  var expectedDesc = "Create notification scheme " + name + " with id " + id;
+  var expectedDesc = "Create notification scheme " + name + " with description " + description;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyNotificationSchemeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ notification\ scheme\ (.+)\ with\ id\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ notification\ scheme\ (.+)\ with\ id\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ notification\ scheme\ (.+)\ with\ description\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ notification\ scheme\ (.+)\ with\ description\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name", "id"];
+  var names = ["name", "description"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8273,7 +8938,7 @@ function matchAnyNotificationSchemeAdded() {
 }
 
 function waitForNotificationSchemeAdded(description, id, name, notificationSchemeEvents, notificationSchemeId) {
-  var expectedDesc = "Create notification scheme " + name + " with id " + id;
+  var expectedDesc = "Create notification scheme " + name + " with description " + description;
   waitFor(matchSuccess(expectedDesc));
 }
 
@@ -8304,7 +8969,7 @@ function removeNotificationFromNotificationScheme(notificationId, notificationSc
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -8312,7 +8977,7 @@ function tryToDeleteANonExistingNotification(notificationId, notificationSchemeI
   var url = "/rest/api/3/notificationscheme/" + notificationSchemeId + "/notification/" + notificationId;
   var description = "Verify we cannot delete non-existing Notification";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -8362,7 +9027,7 @@ function createPriorityScheme(defaultPriorityId, description, expand, mappings, 
   var url = "/rest/api/3/priorityscheme";
   var description = "Create priority scheme " + name + " with id " + schemeId;
   var body = {
-    "defaultPriorityId": String(defaultPriorityId),
+    "defaultPriorityId": Number(defaultPriorityId),
     "description": String(description),
     "mappings": String(mappings),
     "name": String(name),
@@ -8389,7 +9054,7 @@ function deletePriorityScheme(defaultPriorityId, description, expand, mappings, 
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403]
+    expectedResponseCodes: [200, 204, 400, 401, 403]
   });
 }
 
@@ -8397,12 +9062,12 @@ function updatePriorityScheme(defaultPriorityId, description, expand, mappings, 
   var url = "/rest/api/3/priorityscheme/" + schemeId;
   var description = "Update priority scheme " + name + " with id " + schemeId;
   var body = {
-    "defaultPriorityId": String(defaultPriorityId),
+    "defaultPriorityId": Number(defaultPriorityId),
     "description": String(description),
     "mappings": String(mappings),
     "name": String(name),
-    "priorities": "priorities_" + schemeId,
-    "projects": "projects_" + schemeId,
+    "priorities": "priorities_dummy",
+    "projects": "projects_dummy",
     "schemeId": String(schemeId),
   };
   svc.put(url, {
@@ -8429,7 +9094,23 @@ function getPrioritySchemes(defaultPriorityId, description, expand, mappings, ma
 }
 
 function tryToAddExistingPriorityScheme(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt) {
-  getPrioritySchemes(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt);
+  var url = "/rest/api/3/priorityscheme";
+  var body = {
+    "defaultPriorityId": Number(defaultPriorityId),
+    "description": String(description),
+    "mappings": String(mappings),
+    "name": String(name),
+    "priorityIds": String(priorityIds),
+    "projectIds": String(projectIds),
+    "schemeId": String(schemeId),
+  };
+  var description = "Verify that we cannot add another PriorityScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPrioritySchemeExists(defaultPriorityId, description, expand, mappings, maxResults, name, onlyDefault, orderBy, priorityId, priorityIds, projectIds, schemeId, schemeName, startAt) {
@@ -8476,7 +9157,7 @@ function tryToDeleteANonExistingPriorityScheme(defaultPriorityId, description, e
   var url = "/rest/api/3/priorityscheme/" + schemeId;
   var description = "Verify we cannot delete non-existing PriorityScheme";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403],
+    expectedResponseCodes: [200, 204, 400, 401, 403],
     parameters: { description: description }
   });
 }
@@ -8541,11 +9222,11 @@ function suggestedPrioritiesForMappings(maxResults, priorities, projects, scheme
   var url = "/rest/api/3/priorityscheme/mappings";
   var description = "Suggest priorities for mappings in scheme " + schemeId;
   var body = {
-    "maxResults": String(maxResults),
+    "maxResults": Number(maxResults),
     "priorities": String(priorities),
     "projects": String(projects),
-    "schemeId": String(schemeId),
-    "startAt": String(startAt),
+    "schemeId": Number(schemeId),
+    "startAt": Number(startAt),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -8559,7 +9240,21 @@ function suggestedPrioritiesForMappings(maxResults, priorities, projects, scheme
 }
 
 function tryToAddExistingPrioritySchemeMappings(maxResults, priorities, projects, schemeId, startAt) {
-  suggestedPrioritiesForMappings(maxResults, priorities, projects, schemeId, startAt);
+  var url = "/rest/api/3/priorityscheme/mappings";
+  var body = {
+    "maxResults": Number(maxResults),
+    "priorities": String(priorities),
+    "projects": String(projects),
+    "schemeId": Number(schemeId),
+    "startAt": Number(startAt),
+  };
+  var description = "Verify that we cannot add another PrioritySchemeMappings...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPrioritySchemeMappingsExists(maxResults, priorities, projects, schemeId, startAt) {
@@ -8795,11 +9490,12 @@ function verifyAvailablePrioritiesDoesNotExist(exclude, maxResults, query, schem
 
 // ---- Entity: status ----
 
-function createStatuses(id, name, scope, statuses) {
+function createStatuses(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
-  var description = "Create statuses with names " + name;
+  var description = "Create statuses in scope project " + scope.project.id;
   var body = {
     "scope": String(scope),
+    "scope.project.id": String(scope.project.id),
     "statuses": String(statuses),
   };
   svc.post(url, {
@@ -8813,19 +9509,19 @@ function createStatuses(id, name, scope, statuses) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function deleteStatusesById(id, name, scope, statuses) {
+function deleteStatusesById(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
   var description = "Bulk delete statuses with ids " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401]
+    expectedResponseCodes: [200, 204, 400, 401]
   });
 }
 
-function updateStatuses(id, name, scope, statuses) {
+function updateStatuses(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
-  var description = "Bulk update statuses with ids " + id + " and names " + name;
+  var description = "Bulk update statuses with ids {statuses.id}";
   var body = {
     "statuses": String(statuses),
   };
@@ -8840,7 +9536,7 @@ function updateStatuses(id, name, scope, statuses) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function getStatusesById(id, name, scope, statuses) {
+function getStatusesById(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
   var description = "Bulk get statuses with ids " + id;
   var body = undefined;
@@ -8850,11 +9546,23 @@ function getStatusesById(id, name, scope, statuses) {
   });
 }
 
-function tryToAddExistingStatus(id, name, scope, statuses) {
-  getStatusesById(id, name, scope, statuses);
+function tryToAddExistingStatus(id, name, scope, scope.project.id, statuses) {
+  var url = "/rest/api/3/statuses";
+  var body = {
+    "scope": String(scope),
+    "scope.project.id": String(scope.project.id),
+    "statuses": String(statuses),
+  };
+  var description = "Verify that we cannot add another Status...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyStatusExists(id, name, scope, statuses) {
+function verifyStatusExists(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
   var description = "Verify Status exists";
   svc.get(url, {
@@ -8874,7 +9582,7 @@ function verifyStatusExists(id, name, scope, statuses) {
   });
 }
 
-function verifyStatusDoesNotExist(id, name, scope, statuses) {
+function verifyStatusDoesNotExist(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
   var description = "Verify Status does not exist";
   svc.get(url, {
@@ -8894,25 +9602,25 @@ function verifyStatusDoesNotExist(id, name, scope, statuses) {
   });
 }
 
-function tryToDeleteANonExistingStatus(id, name, scope, statuses) {
+function tryToDeleteANonExistingStatus(id, name, scope, scope.project.id, statuses) {
   var url = "/rest/api/3/statuses";
   var description = "Verify we cannot delete non-existing Status";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401],
+    expectedResponseCodes: [200, 204, 400, 401],
     parameters: { description: description }
   });
 }
 
-function matchAddedStatus(id, name, scope, statuses) {
-  var expectedDesc = "Create statuses with names " + name;
+function matchAddedStatus(id, name, scope, scope.project.id, statuses) {
+  var expectedDesc = "Create statuses in scope project " + scope.project.id;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyStatusAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ statuses\ with\ names\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ statuses\ with\ names\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ statuses\ in\ scope\ project\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ statuses\ in\ scope\ project\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["name"];
+  var names = ["scope.project.id"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -8933,12 +9641,12 @@ function matchAnyStatusAdded() {
   });
 }
 
-function waitForStatusAdded(id, name, scope, statuses) {
-  var expectedDesc = "Create statuses with names " + name;
+function waitForStatusAdded(id, name, scope, scope.project.id, statuses) {
+  var expectedDesc = "Create statuses in scope project " + scope.project.id;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedStatus(id, name, scope, statuses) {
+function matchDeletedStatus(id, name, scope, scope.project.id, statuses) {
   var expectedDesc = "Bulk delete statuses with ids " + id;
   return bp.EventSet("matchDeletedStatus", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -8982,7 +9690,7 @@ function deleteWorkflowSchemeDraft(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 401, 403, 404]
   });
 }
 
@@ -9000,19 +9708,19 @@ function updateWorkflowSchemeDraft(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft";
   var description = "Update draft workflow scheme " + id + " with name {name}";
   var body = {
-    "defaultWorkflow": "defaultWorkflow_" + id,
-    "description": "description_" + id,
-    "draft": String(true),
-    "id": String(id),
-    "issueTypeMappings": issueTypeMappings,
-    "issueTypes": issueTypes,
-    "lastModified": "lastModified_" + id,
-    "lastModifiedUser": "lastModifiedUser_" + id,
-    "name": "name_" + id,
-    "originalDefaultWorkflow": "originalDefaultWorkflow_" + id,
-    "originalIssueTypeMappings": originalIssueTypeMappings,
-    "self": "self_" + id,
-    "updateDraftIfNeeded": String(true),
+    "defaultWorkflow": "defaultWorkflow_dummy",
+    "description": "description_dummy",
+    "draft": true,
+    "id": Number(id),
+    "issueTypeMappings": {},
+    "issueTypes": {},
+    "lastModified": "lastModified_dummy",
+    "lastModifiedUser": "lastModifiedUser_dummy",
+    "name": "name_dummy",
+    "originalDefaultWorkflow": "originalDefaultWorkflow_dummy",
+    "originalIssueTypeMappings": {},
+    "self": "self_dummy",
+    "updateDraftIfNeeded": true,
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -9026,7 +9734,17 @@ function updateWorkflowSchemeDraft(id) {
 }
 
 function tryToAddExistingWorkflowSchemeDraft(id) {
-  updateWorkflowSchemeDraft(id);
+  var url = "/rest/api/3/workflowscheme/" + id + "/createdraft";
+  var body = {
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another WorkflowSchemeDraft...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyWorkflowSchemeDraftExists(id) {
@@ -9073,7 +9791,7 @@ function tryToDeleteANonExistingWorkflowSchemeDraft(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft";
   var description = "Verify we cannot delete non-existing WorkflowSchemeDraft";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9140,7 +9858,7 @@ function deleteDraftDefaultWorkflow(id) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 401, 403, 404]
   });
 }
 
@@ -9156,11 +9874,11 @@ function getDraftDefaultWorkflow(id) {
 
 function updateDraftDefaultWorkflow(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft/default";
-  var description = "Update draft default workflow {workflow} in workflow scheme " + id;
+  var description = "Update draft default workflow {workflow} for workflow scheme " + id;
   var body = {
     "id": String(id),
-    "updateDraftIfNeeded": String(true),
-    "workflow": "workflow_" + id,
+    "updateDraftIfNeeded": true,
+    "workflow": "workflow_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -9217,7 +9935,7 @@ function tryToDeleteANonExistingDraftDefaultWorkflow(id) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft/default";
   var description = "Verify we cannot delete non-existing DraftDefaultWorkflow";
   svc.delete(url, {
-    expectedResponseCodes: [200, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9249,7 +9967,7 @@ function deleteWorkflowSchemeDraftIssueType(id, issueType) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 401, 403, 404]
   });
 }
 
@@ -9269,8 +9987,8 @@ function setWorkflowSchemeDraftIssueType(id, issueType) {
   var body = {
     "id": String(id),
     "issueType": String(issueType),
-    "updateDraftIfNeeded": String(true),
-    "workflow": "workflow_" + id,
+    "updateDraftIfNeeded": true,
+    "workflow": "workflow_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -9328,7 +10046,7 @@ function tryToDeleteANonExistingWorkflowSchemeDraftIssueType(id, issueType) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft/issuetype/" + issueType;
   var description = "Verify we cannot delete non-existing WorkflowSchemeDraftIssueType";
   svc.delete(url, {
-    expectedResponseCodes: [200, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9374,7 +10092,19 @@ function publishDraftWorkflowScheme(id, statusMappings, validateOnly) {
 }
 
 function tryToAddExistingPublishDraftWorkflowScheme(id, statusMappings, validateOnly) {
-  publishDraftWorkflowScheme(id, statusMappings, validateOnly);
+  var url = "/rest/api/3/workflowscheme/" + id + "/draft/publish";
+  var body = {
+    "id": String(id),
+    "statusMappings": String(statusMappings),
+    "validateOnly": String(validateOnly),
+  };
+  var description = "Verify that we cannot add another PublishDraftWorkflowScheme...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPublishDraftWorkflowSchemeExists(id, statusMappings, validateOnly) {
@@ -9460,7 +10190,7 @@ function deleteDraftWorkflowMapping(id, workflowName) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 401, 403, 404]
   });
 }
 
@@ -9476,13 +10206,13 @@ function getDraftWorkflow(id, workflowName) {
 
 function updateDraftWorkflowMapping(id, workflowName) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft/workflow";
-  var description = "Set issue types for workflow {workflow} in draft workflow scheme " + id;
+  var description = "Set issue types {issueTypes} for workflow {workflow} in draft workflow scheme " + id;
   var body = {
-    "defaultMapping": String(true),
+    "defaultMapping": true,
     "id": String(id),
     "issueTypes": [],
-    "updateDraftIfNeeded": String(true),
-    "workflow": "workflow_" + id,
+    "updateDraftIfNeeded": true,
+    "workflow": "workflow_dummy",
     "workflowName": String(workflowName),
   };
   svc.put(url, {
@@ -9540,7 +10270,7 @@ function tryToDeleteANonExistingDraftWorkflowMapping(id, workflowName) {
   var url = "/rest/api/3/workflowscheme/" + id + "/draft/workflow";
   var description = "Verify we cannot delete non-existing DraftWorkflowMapping";
   svc.delete(url, {
-    expectedResponseCodes: [200, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9575,14 +10305,14 @@ function createComponent(ari, assignee, assigneeType, description, id, isAssigne
     "assigneeType": String(assigneeType),
     "description": String(description),
     "id": String(id),
-    "isAssigneeTypeValid": String(isAssigneeTypeValid),
+    "isAssigneeTypeValid": isAssigneeTypeValid,
     "lead": String(lead),
     "leadAccountId": String(leadAccountId),
     "leadUserName": String(leadUserName),
     "metadata": metadata,
     "name": String(name),
     "project": String(project),
-    "projectId": String(projectId),
+    "projectId": Number(projectId),
     "realAssignee": String(realAssignee),
     "realAssigneeType": String(realAssigneeType),
     "self": String(self),
@@ -9607,7 +10337,7 @@ function deleteComponent(ari, assignee, assigneeType, description, id, isAssigne
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 401, 403, 404]
   });
 }
 
@@ -9620,14 +10350,14 @@ function updateComponent(ari, assignee, assigneeType, description, id, isAssigne
     "assigneeType": String(assigneeType),
     "description": String(description),
     "id": String(id),
-    "isAssigneeTypeValid": String(isAssigneeTypeValid),
+    "isAssigneeTypeValid": isAssigneeTypeValid,
     "lead": String(lead),
     "leadAccountId": String(leadAccountId),
     "leadUserName": String(leadUserName),
     "metadata": metadata,
     "name": String(name),
     "project": String(project),
-    "projectId": String(projectId),
+    "projectId": Number(projectId),
     "realAssignee": String(realAssignee),
     "realAssigneeType": String(realAssigneeType),
     "self": String(self),
@@ -9657,7 +10387,32 @@ function getComponent(ari, assignee, assigneeType, description, id, isAssigneeTy
 }
 
 function tryToAddExistingComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self) {
-  getComponent(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self);
+  var url = "/rest/api/3/component";
+  var body = {
+    "ari": String(ari),
+    "assignee": String(assignee),
+    "assigneeType": String(assigneeType),
+    "description": String(description),
+    "id": String(id),
+    "isAssigneeTypeValid": isAssigneeTypeValid,
+    "lead": String(lead),
+    "leadAccountId": String(leadAccountId),
+    "leadUserName": String(leadUserName),
+    "metadata": metadata,
+    "name": String(name),
+    "project": String(project),
+    "projectId": Number(projectId),
+    "realAssignee": String(realAssignee),
+    "realAssigneeType": String(realAssigneeType),
+    "self": String(self),
+  };
+  var description = "Verify that we cannot add another Component...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyComponentExists(ari, assignee, assigneeType, description, id, isAssigneeTypeValid, lead, leadAccountId, leadUserName, metadata, moveIssuesTo, name, project, projectId, realAssignee, realAssigneeType, self) {
@@ -9704,7 +10459,7 @@ function tryToDeleteANonExistingComponent(ari, assignee, assigneeType, descripti
   var url = "/rest/api/3/component/" + id;
   var description = "Verify we cannot delete non-existing Component";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -9765,9 +10520,65 @@ function waitForAnyComponentDeleted() {
 
 // ---- Entity: custom field option ----
 
-function getCustomFieldOption(id) {
+function createCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
+  var description = "Create custom field options in context " + contextId + " for field " + fieldId;
+  var body = {
+    "contextId": String(contextId),
+    "fieldId": String(fieldId),
+    "id": String(id),
+    "options": String(options),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401, 403, 404],
+    parameters: {
+      description: description,
+      id: String(id)
+      , contextId: String(contextId)
+      , fieldId: String(fieldId)
+      , optionId: String(optionId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deleteCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option/" + optionId;
+  var description = "Delete custom field option " + optionId + " in context " + contextId + " for field " + fieldId;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
+  });
+}
+
+function updateCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
+  var description = "Update custom field options in context " + contextId + " for field " + fieldId;
+  var body = {
+    "contextId": String(contextId),
+    "fieldId": String(fieldId),
+    "id": String(id),
+    "options": String(options),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401, 403, 404],
+    parameters: {
+      description: description,
+      id: String(id)
+      , contextId: String(contextId)
+      , fieldId: String(fieldId)
+      , optionId: String(optionId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
   var url = "/rest/api/3/customFieldOption/" + id;
-  var description = "Get custom field option with id " + id;
+  var description = "Get custom field option " + id;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -9775,8 +10586,35 @@ function getCustomFieldOption(id) {
   });
 }
 
-function verifyCustomFieldOptionExists(id) {
-  var url = "/rest/api/3/customFieldOption";
+function getOptionsForContext(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
+  var description = "Get custom field options in context " + contextId + " for field " + fieldId;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403, 404]
+  });
+}
+
+function tryToAddExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
+  var body = {
+    "contextId": String(contextId),
+    "fieldId": String(fieldId),
+    "options": String(options),
+    "id": String(id),
+  };
+  var description = "Verify that we cannot add another CustomFieldOption...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyCustomFieldOptionExists(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
   var description = "Verify CustomFieldOption with id " + id + " exists";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -9795,8 +10633,8 @@ function verifyCustomFieldOptionExists(id) {
   });
 }
 
-function verifyCustomFieldOptionDoesNotExist(id) {
-  var url = "/rest/api/3/customFieldOption";
+function verifyCustomFieldOptionDoesNotExist(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
   var description = "Verify CustomFieldOption with id " + id + " does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
@@ -9815,133 +10653,25 @@ function verifyCustomFieldOptionDoesNotExist(id) {
   });
 }
 
-// ---- Entity: custom field option context ----
-
-function getOptionsForContext(contextId, fieldId, optionId, options) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
-  var description = "Get custom field options for field " + fieldId + " and context " + contextId;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
-  });
-}
-
-function createCustomFieldOption(contextId, fieldId, optionId, options) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
-  var description = "Create custom field options for field " + fieldId + " and context " + contextId;
-  var body = {
-    "contextId": String(contextId),
-    "fieldId": String(fieldId),
-    "options": String(options),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 400, 401, 403, 404],
-    parameters: {
-      description: description,
-      fieldId: String(fieldId)
-      , contextId: String(contextId)
-      , optionId: String(optionId)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { fieldId: String(fieldId) }) });
-}
-
-function updateCustomFieldOption(contextId, fieldId, optionId, options) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
-  var description = "Update custom field options for field " + fieldId + " and context " + contextId;
-  var body = {
-    "contextId": String(contextId),
-    "fieldId": String(fieldId),
-    "options": String(options),
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 400, 401, 403, 404],
-    parameters: {
-      description: description,
-      fieldId: String(fieldId)
-      , contextId: String(contextId)
-      , optionId: String(optionId)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { fieldId: String(fieldId) }) });
-}
-
-function deleteCustomFieldOption(contextId, fieldId, optionId, options) {
+function tryToDeleteANonExistingCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option/" + optionId;
-  var description = "Delete custom field option " + optionId + " for field " + fieldId + " and context " + contextId;
-  var body = undefined;
+  var description = "Verify we cannot delete non-existing CustomFieldOption";
   svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
-  });
-}
-
-function tryToAddExistingCustomFieldOptionContext(contextId, fieldId, optionId, options) {
-  deleteCustomFieldOption(contextId, fieldId, optionId, options);
-}
-
-function verifyCustomFieldOptionContextExists(contextId, fieldId, optionId, options) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
-  var description = "Verify CustomFieldOptionContext with fieldId " + fieldId + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].fieldId) === String(fieldId)) {
-            return pvg.success("CustomFieldOptionContext exists");
-          }
-        }
-      }
-      return pvg.fail("Expected CustomFieldOptionContext to exist but it does not");
-    }
-  });
-}
-
-function verifyCustomFieldOptionContextDoesNotExist(contextId, fieldId, optionId, options) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option";
-  var description = "Verify CustomFieldOptionContext with fieldId " + fieldId + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].fieldId) === String(fieldId)) {
-            return pvg.fail("Expected CustomFieldOptionContext to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("CustomFieldOptionContext does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingCustomFieldOptionContext(contextId, fieldId, optionId, options) {
-  var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option/" + optionId;
-  var description = "Verify we cannot delete non-existing CustomFieldOptionContext";
-  svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
-function matchAddedCustomFieldOptionContext(contextId, fieldId, optionId, options) {
-  var expectedDesc = "Create custom field options for field " + fieldId + " and context " + contextId;
+function matchAddedCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var expectedDesc = "Create custom field options in context " + contextId + " for field " + fieldId;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyCustomFieldOptionContextAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ options\ for\ field\ (.+)\ and\ context\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ options\ for\ field\ (.+)\ and\ context\ (.+)$/);
+function waitForAnyCustomFieldOptionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Create\ custom\ field\ options\ in\ context\ (.+)\ for\ field\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Create\ custom\ field\ options\ in\ context\ (.+)\ for\ field\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["fieldId", "contextId"];
+  var names = ["contextId", "fieldId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9949,36 +10679,36 @@ function waitForAnyCustomFieldOptionContextAdded() {
   return obj;
 }
 
-function getCustomFieldOptionContextAddedEvent(keyVal) {
-  return bp.EventSet("AddCustomFieldOptionContext:" + keyVal, function(e) {
+function getCustomFieldOptionAddedEvent(keyVal) {
+  return bp.EventSet("AddCustomFieldOption:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.fieldId) === String(keyVal);
+    return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyCustomFieldOptionContextAdded() {
-  return bp.EventSet("matchAnyCustomFieldOptionContextAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.fieldId !== undefined && e.name.indexOf("Create custom field option context") > -1;
+function matchAnyCustomFieldOptionAdded() {
+  return bp.EventSet("matchAnyCustomFieldOptionAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create custom field option") > -1;
   });
 }
 
-function waitForCustomFieldOptionContextAdded(contextId, fieldId, optionId, options) {
-  var expectedDesc = "Create custom field options for field " + fieldId + " and context " + contextId;
+function waitForCustomFieldOptionAdded(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var expectedDesc = "Create custom field options in context " + contextId + " for field " + fieldId;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedCustomFieldOptionContext(contextId, fieldId, optionId, options) {
-  var expectedDesc = "Delete custom field option " + optionId + " for field " + fieldId + " and context " + contextId;
-  return bp.EventSet("matchDeletedCustomFieldOptionContext", function(e) {
+function matchDeletedCustomFieldOption(contextId, fieldId, id, maxResults, onlyOptions, optionId, options, startAt) {
+  var expectedDesc = "Delete custom field option " + optionId + " in context " + contextId + " for field " + fieldId;
+  return bp.EventSet("matchDeletedCustomFieldOption", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
-function waitForAnyCustomFieldOptionContextDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ custom\ field\ option\ (.+)\ for\ field\ (.+)\ and\ context\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ custom\ field\ option\ (.+)\ for\ field\ (.+)\ and\ context\ (.+)$/);
+function waitForAnyCustomFieldOptionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ custom\ field\ option\ (.+)\ in\ context\ (.+)\ for\ field\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ custom\ field\ option\ (.+)\ in\ context\ (.+)\ for\ field\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["optionId", "fieldId", "contextId"];
+  var names = ["optionId", "contextId", "fieldId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -9986,17 +10716,17 @@ function waitForAnyCustomFieldOptionContextDeleted() {
   return obj;
 }
 
-// ---- Entity: custom field option reorder ----
+// ---- Entity: custom field option order ----
 
 function reorderCustomFieldOptions(contextId, fieldId) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option/move";
-  var description = "Reorder custom field options for field " + fieldId + " and context " + contextId;
+  var description = "Reorder custom field options in context " + contextId + " for field " + fieldId;
   var body = {
-    "after": "after_" + fieldId,
+    "after": "after_dummy",
     "contextId": String(contextId),
     "customFieldOptionIds": [],
     "fieldId": String(fieldId),
-    "position": "position_" + fieldId,
+    "position": "position_dummy",
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -10014,7 +10744,7 @@ function reorderCustomFieldOptions(contextId, fieldId) {
 
 function replaceCustomFieldOption(contextId, fieldId, jql, optionId, replaceWith) {
   var url = "/rest/api/3/field/" + fieldId + "/context/" + contextId + "/option/" + optionId + "/issue";
-  var description = "Replace custom field option " + optionId + " with " + replaceWith + " for field " + fieldId + " and context " + contextId + " using JQL " + jql;
+  var description = "Replace custom field option " + optionId + " in context " + contextId + " for field " + fieldId + " with " + replaceWith;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
@@ -10032,17 +10762,17 @@ function tryToDeleteANonExistingCustomFieldOptionReplacement(contextId, fieldId,
 }
 
 function matchDeletedCustomFieldOptionReplacement(contextId, fieldId, jql, optionId, replaceWith) {
-  var expectedDesc = "Replace custom field option " + optionId + " with " + replaceWith + " for field " + fieldId + " and context " + contextId + " using JQL " + jql;
+  var expectedDesc = "Replace custom field option " + optionId + " in context " + contextId + " for field " + fieldId + " with " + replaceWith;
   return bp.EventSet("matchDeletedCustomFieldOptionReplacement", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyCustomFieldOptionReplacementDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Replace\ custom\ field\ option\ (.+)\ with\ (.+)\ for\ field\ (.+)\ and\ context\ (.+)\ using\ JQL\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Replace\ custom\ field\ option\ (.+)\ with\ (.+)\ for\ field\ (.+)\ and\ context\ (.+)\ using\ JQL\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Replace\ custom\ field\ option\ (.+)\ in\ context\ (.+)\ for\ field\ (.+)\ with\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Replace\ custom\ field\ option\ (.+)\ in\ context\ (.+)\ for\ field\ (.+)\ with\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["optionId", "replaceWith", "fieldId", "contextId", "jql"];
+  var names = ["optionId", "contextId", "fieldId", "replaceWith"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -10078,7 +10808,7 @@ function deleteScreen(description, id, maxResults, name, orderBy, queryString, s
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
@@ -10113,7 +10843,19 @@ function getScreens(description, id, maxResults, name, orderBy, queryString, sco
 }
 
 function tryToAddExistingScreen(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt) {
-  getScreens(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt);
+  var url = "/rest/api/3/screens";
+  var body = {
+    "description": String(description),
+    "name": String(name),
+    "screenId": String(screenId),
+  };
+  var description = "Verify that we cannot add another Screen...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyScreenExists(description, id, maxResults, name, orderBy, queryString, scope, screenId, startAt) {
@@ -10160,7 +10902,7 @@ function tryToDeleteANonExistingScreen(description, id, maxResults, name, orderB
   var url = "/rest/api/3/screens/" + screenId;
   var description = "Verify we cannot delete non-existing Screen";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -10271,11 +11013,119 @@ function verifyFieldScreensDoesNotExist(expand, fieldId, maxResults, startAt) {
   });
 }
 
+// ---- Entity: fieldDefaultScreen ----
+
+function addFieldToDefaultScreen(fieldId) {
+  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
+  var description = "Add field " + fieldId + " to default screen";
+  var body = {
+    "fieldId": String(fieldId),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401, 403, 404],
+    parameters: {
+      description: description,
+      , fieldId: String(fieldId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function tryToAddExistingFieldDefaultScreen(fieldId) {
+  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
+  var body = {
+    "fieldId": String(fieldId),
+  };
+  var description = "Verify that we cannot add another FieldDefaultScreen...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyFieldDefaultScreenExists(fieldId) {
+  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
+  var description = "Verify FieldDefaultScreen exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].fieldId) === String(fieldId)) {
+            return pvg.success("FieldDefaultScreen exists");
+          }
+        }
+      }
+      return pvg.fail("Expected FieldDefaultScreen to exist but it does not");
+    }
+  });
+}
+
+function verifyFieldDefaultScreenDoesNotExist(fieldId) {
+  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
+  var description = "Verify FieldDefaultScreen does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].fieldId) === String(fieldId)) {
+            return pvg.fail("Expected FieldDefaultScreen to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("FieldDefaultScreen does not exist");
+    }
+  });
+}
+
+function matchAddedFieldDefaultScreen(fieldId) {
+  var expectedDesc = "Add field " + fieldId + " to default screen";
+  return matchSuccess(expectedDesc);
+}
+
+function waitForAnyFieldDefaultScreenAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ field\ (.+)\ to\ default\ screen$/));
+  var m = ev.data.parameters.description.match(/^Add\ field\ (.+)\ to\ default\ screen$/);
+  var captures = m.slice(1);
+  var names = ["fieldId"];
+  var obj = {};
+  for (var i = 0; i < names.length; i++) {
+    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
+  }
+  return obj;
+}
+
+function getFieldDefaultScreenAddedEvent(keyVal) {
+  return bp.EventSet("AddFieldDefaultScreen:" + keyVal, function(e) {
+    if (!e.data || !e.data.parameters) return false;
+    return String(e.data.parameters.id) === String(keyVal);
+  });
+}
+
+function matchAnyFieldDefaultScreenAdded() {
+  return bp.EventSet("matchAnyFieldDefaultScreenAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create fieldDefaultScreen") > -1;
+  });
+}
+
+function waitForFieldDefaultScreenAdded(fieldId) {
+  var expectedDesc = "Add field " + fieldId + " to default screen";
+  waitFor(matchSuccess(expectedDesc));
+}
+
 // ---- Entity: availableScreenFields ----
 
 function getAvailableScreenFields(screenId) {
   var url = "/rest/api/3/screens/" + screenId + "/availableFields";
-  var description = "Get available screen fields for screen " + screenId;
+  var description = "Get available fields for screen " + screenId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -10323,104 +11173,6 @@ function verifyAvailableScreenFieldsDoesNotExist(screenId) {
   });
 }
 
-// ---- Entity: screenFieldDefault ----
-
-function addFieldToDefaultScreen(fieldId) {
-  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
-  var description = "Add field " + fieldId + " to default screen";
-  var body = {
-    "fieldId": String(fieldId),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [200, 400, 401, 403, 404],
-    parameters: {
-      description: description,
-      , fieldId: String(fieldId)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function tryToAddExistingScreenFieldDefault(fieldId) {
-  addFieldToDefaultScreen(fieldId);
-}
-
-function verifyScreenFieldDefaultExists(fieldId) {
-  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
-  var description = "Verify ScreenFieldDefault exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].fieldId) === String(fieldId)) {
-            return pvg.success("ScreenFieldDefault exists");
-          }
-        }
-      }
-      return pvg.fail("Expected ScreenFieldDefault to exist but it does not");
-    }
-  });
-}
-
-function verifyScreenFieldDefaultDoesNotExist(fieldId) {
-  var url = "/rest/api/3/screens/addToDefault/" + fieldId;
-  var description = "Verify ScreenFieldDefault does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].fieldId) === String(fieldId)) {
-            return pvg.fail("Expected ScreenFieldDefault to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("ScreenFieldDefault does not exist");
-    }
-  });
-}
-
-function matchAddedScreenFieldDefault(fieldId) {
-  var expectedDesc = "Add field " + fieldId + " to default screen";
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyScreenFieldDefaultAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ field\ (.+)\ to\ default\ screen$/));
-  var m = ev.data.parameters.description.match(/^Add\ field\ (.+)\ to\ default\ screen$/);
-  var captures = m.slice(1);
-  var names = ["fieldId"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getScreenFieldDefaultAddedEvent(keyVal) {
-  return bp.EventSet("AddScreenFieldDefault:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyScreenFieldDefaultAdded() {
-  return bp.EventSet("matchAnyScreenFieldDefaultAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create screenFieldDefault") > -1;
-  });
-}
-
-function waitForScreenFieldDefaultAdded(fieldId) {
-  var expectedDesc = "Add field " + fieldId + " to default screen";
-  waitFor(matchSuccess(expectedDesc));
-}
-
 // ---- Entity: issue field option ----
 
 function createIssueFieldOption(config, fieldKey, optionId, properties, value) {
@@ -10450,7 +11202,7 @@ function deleteIssueFieldOption(config, fieldKey, optionId, properties, value) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 403, 404, 409]
+    expectedResponseCodes: [200, 204, 403, 404, 409]
   });
 }
 
@@ -10460,7 +11212,7 @@ function updateIssueFieldOption(config, fieldKey, optionId, properties, value) {
   var body = {
     "config": String(config),
     "fieldKey": String(fieldKey),
-    "id": String(1),
+    "id": 1,
     "optionId": String(optionId),
     "properties": properties,
     "value": String(value),
@@ -10488,7 +11240,20 @@ function getIssueFieldOption(config, fieldKey, optionId, properties, value) {
 }
 
 function tryToAddExistingIssueFieldOption(config, fieldKey, optionId, properties, value) {
-  getIssueFieldOption(config, fieldKey, optionId, properties, value);
+  var url = "/rest/api/3/field/" + fieldKey + "/option";
+  var body = {
+    "config": String(config),
+    "fieldKey": String(fieldKey),
+    "properties": properties,
+    "value": String(value),
+  };
+  var description = "Verify that we cannot add another IssueFieldOption...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssueFieldOptionExists(config, fieldKey, optionId, properties, value) {
@@ -10535,7 +11300,7 @@ function tryToDeleteANonExistingIssueFieldOption(config, fieldKey, optionId, pro
   var url = "/rest/api/3/field/" + fieldKey + "/option/" + optionId;
   var description = "Verify we cannot delete non-existing IssueFieldOption";
   svc.delete(url, {
-    expectedResponseCodes: [204, 403, 404, 409],
+    expectedResponseCodes: [200, 204, 403, 404, 409],
     parameters: { description: description }
   });
 }
@@ -10616,17 +11381,17 @@ function createGroup(expand, groupId, groupname, name, swapGroup, swapGroupId) {
 
 function removeGroup(expand, groupId, groupname, name, swapGroup, swapGroupId) {
   var url = "/rest/api/3/group";
-  var description = "Remove group " + groupId;
+  var description = "Remove group " + groupname + " with id " + groupId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function getGroup(expand, groupId, groupname, name, swapGroup, swapGroupId) {
   var url = "/rest/api/3/group";
-  var description = "Get group " + groupId;
+  var description = "Get group " + groupname + " with id " + groupId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -10635,7 +11400,17 @@ function getGroup(expand, groupId, groupname, name, swapGroup, swapGroupId) {
 }
 
 function tryToAddExistingGroup(expand, groupId, groupname, name, swapGroup, swapGroupId) {
-  getGroup(expand, groupId, groupname, name, swapGroup, swapGroupId);
+  var url = "/rest/api/3/group";
+  var body = {
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another Group...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyGroupExists(expand, groupId, groupname, name, swapGroup, swapGroupId) {
@@ -10682,7 +11457,7 @@ function tryToDeleteANonExistingGroup(expand, groupId, groupname, name, swapGrou
   var url = "/rest/api/3/group";
   var description = "Verify we cannot delete non-existing Group";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
@@ -10723,17 +11498,17 @@ function waitForGroupAdded(expand, groupId, groupname, name, swapGroup, swapGrou
 }
 
 function matchDeletedGroup(expand, groupId, groupname, name, swapGroup, swapGroupId) {
-  var expectedDesc = "Remove group " + groupId;
+  var expectedDesc = "Remove group " + groupname + " with id " + groupId;
   return bp.EventSet("matchDeletedGroup", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Remove\ group\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Remove\ group\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ group\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ group\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["groupId"];
+  var names = ["groupname", "groupId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -10741,11 +11516,63 @@ function waitForAnyGroupDeleted() {
   return obj;
 }
 
+// ---- Entity: group bulk ----
+
+function bulkGetGroups(accessType, applicationKey, groupId, groupName, maxResults, startAt) {
+  var url = "/rest/api/3/group/bulk";
+  var description = "Bulk get groups with ids " + groupId + " and names " + groupName;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401, 403, 500]
+  });
+}
+
+function verifyGroupBulkExists(accessType, applicationKey, groupId, groupName, maxResults, startAt) {
+  var url = "/rest/api/3/group/bulk";
+  var description = "Verify GroupBulk exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].groupId) === String(groupId)) {
+            return pvg.success("GroupBulk exists");
+          }
+        }
+      }
+      return pvg.fail("Expected GroupBulk to exist but it does not");
+    }
+  });
+}
+
+function verifyGroupBulkDoesNotExist(accessType, applicationKey, groupId, groupName, maxResults, startAt) {
+  var url = "/rest/api/3/group/bulk";
+  var description = "Verify GroupBulk does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].groupId) === String(groupId)) {
+            return pvg.fail("Expected GroupBulk to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("GroupBulk does not exist");
+    }
+  });
+}
+
 // ---- Entity: group member ----
 
 function getUsersFromGroup(groupId, groupname, includeInactiveUsers, maxResults, startAt) {
   var url = "/rest/api/3/group/member";
-  var description = "Get users from group " + groupId;
+  var description = "Get users from group " + groupname + " with id " + groupId;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -10797,7 +11624,7 @@ function verifyGroupMemberDoesNotExist(groupId, groupname, includeInactiveUsers,
 
 function addUserToGroup(accountId, groupId, groupname, name) {
   var url = "/rest/api/3/group/user";
-  var description = "Add user " + accountId + " to group " + groupId;
+  var description = "Add user with accountId " + accountId + " to group " + groupname + " with id " + groupId;
   var body = {
     "accountId": String(accountId),
     "groupId": String(groupId),
@@ -10818,16 +11645,29 @@ function addUserToGroup(accountId, groupId, groupname, name) {
 
 function removeUserFromGroup(accountId, groupId, groupname, name) {
   var url = "/rest/api/3/group/user";
-  var description = "Remove user " + accountId + " from group " + groupId;
+  var description = "Remove user with accountId " + accountId + " from group " + groupname + " with id " + groupId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 400, 401, 403, 404]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404]
   });
 }
 
 function tryToAddExistingGroupUser(accountId, groupId, groupname, name) {
-  removeUserFromGroup(accountId, groupId, groupname, name);
+  var url = "/rest/api/3/group/user";
+  var body = {
+    "accountId": String(accountId),
+    "groupId": String(groupId),
+    "groupname": String(groupname),
+    "name": String(name),
+  };
+  var description = "Verify that we cannot add another GroupUser...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyGroupUserExists(accountId, groupId, groupname, name) {
@@ -10874,21 +11714,21 @@ function tryToDeleteANonExistingGroupUser(accountId, groupId, groupname, name) {
   var url = "/rest/api/3/group/user";
   var description = "Verify we cannot delete non-existing GroupUser";
   svc.delete(url, {
-    expectedResponseCodes: [200, 400, 401, 403, 404],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404],
     parameters: { description: description }
   });
 }
 
 function matchAddedGroupUser(accountId, groupId, groupname, name) {
-  var expectedDesc = "Add user " + accountId + " to group " + groupId;
+  var expectedDesc = "Add user with accountId " + accountId + " to group " + groupname + " with id " + groupId;
   return matchSuccess(expectedDesc);
 }
 
 function waitForAnyGroupUserAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Add\ user\ (.+)\ to\ group\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Add\ user\ (.+)\ to\ group\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Add\ user\ with\ accountId\ (.+)\ to\ group\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Add\ user\ with\ accountId\ (.+)\ to\ group\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["accountId", "groupId"];
+  var names = ["accountId", "groupname", "groupId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -10910,27 +11750,319 @@ function matchAnyGroupUserAdded() {
 }
 
 function waitForGroupUserAdded(accountId, groupId, groupname, name) {
-  var expectedDesc = "Add user " + accountId + " to group " + groupId;
+  var expectedDesc = "Add user with accountId " + accountId + " to group " + groupname + " with id " + groupId;
   waitFor(matchSuccess(expectedDesc));
 }
 
 function matchDeletedGroupUser(accountId, groupId, groupname, name) {
-  var expectedDesc = "Remove user " + accountId + " from group " + groupId;
+  var expectedDesc = "Remove user with accountId " + accountId + " from group " + groupname + " with id " + groupId;
   return bp.EventSet("matchDeletedGroupUser", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyGroupUserDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Remove\ user\ (.+)\ from\ group\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Remove\ user\ (.+)\ from\ group\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Remove\ user\ with\ accountId\ (.+)\ from\ group\ (.+)\ with\ id\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Remove\ user\ with\ accountId\ (.+)\ from\ group\ (.+)\ with\ id\ (.+)$/);
   var captures = m.slice(1);
-  var names = ["accountId", "groupId"];
+  var names = ["accountId", "groupname", "groupId"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
   }
   return obj;
+}
+
+// ---- Entity: groups picker ----
+
+function findGroups(accountId, caseInsensitive, exclude, excludeId, includeTeams, maxResults, query) {
+  var url = "/rest/api/3/groups/picker";
+  var description = "Find groups matching query " + query;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200]
+  });
+}
+
+function verifyGroupsPickerExists(accountId, caseInsensitive, exclude, excludeId, includeTeams, maxResults, query) {
+  var url = "/rest/api/3/groups/picker";
+  var description = "Verify GroupsPicker exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].accountId) === String(accountId)) {
+            return pvg.success("GroupsPicker exists");
+          }
+        }
+      }
+      return pvg.fail("Expected GroupsPicker to exist but it does not");
+    }
+  });
+}
+
+function verifyGroupsPickerDoesNotExist(accountId, caseInsensitive, exclude, excludeId, includeTeams, maxResults, query) {
+  var url = "/rest/api/3/groups/picker";
+  var description = "Verify GroupsPicker does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].accountId) === String(accountId)) {
+            return pvg.fail("Expected GroupsPicker to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("GroupsPicker does not exist");
+    }
+  });
+}
+
+// ---- Entity: issue search ----
+
+function getIssueSearch(currentIssueKey, currentJQL, currentProjectId, expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, query, reconcileIssues, showSubTaskParent, showSubTasks, startAt, validateQuery) {
+  var url = "/rest/api/3/search";
+  var description = "Get issues using JQL " + jql + " starting at " + startAt + " with max results " + maxResults;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401]
+  });
+}
+
+function searchIssuesUsingJqlPost(currentIssueKey, currentJQL, currentProjectId, expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, query, reconcileIssues, showSubTaskParent, showSubTasks, startAt, validateQuery) {
+  var url = "/rest/api/3/search";
+  var description = "Search issues using JQL POST";
+  var body = {
+    "expand": String(expand),
+    "fields": String(fields),
+    "fieldsByKeys": fieldsByKeys,
+    "jql": String(jql),
+    "maxResults": Number(maxResults),
+    "properties": String(properties),
+    "startAt": Number(startAt),
+    "validateQuery": String(validateQuery),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401],
+    parameters: {
+      description: description,
+      , currentProjectId: String(currentProjectId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function verifyIssueSearchExists(currentIssueKey, currentJQL, currentProjectId, expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, query, reconcileIssues, showSubTaskParent, showSubTasks, startAt, validateQuery) {
+  var url = "/rest/api/3/search";
+  var description = "Verify IssueSearch exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].currentProjectId) === String(currentProjectId)) {
+            return pvg.success("IssueSearch exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IssueSearch to exist but it does not");
+    }
+  });
+}
+
+function verifyIssueSearchDoesNotExist(currentIssueKey, currentJQL, currentProjectId, expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, query, reconcileIssues, showSubTaskParent, showSubTasks, startAt, validateQuery) {
+  var url = "/rest/api/3/search";
+  var description = "Verify IssueSearch does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].currentProjectId) === String(currentProjectId)) {
+            return pvg.fail("Expected IssueSearch to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IssueSearch does not exist");
+    }
+  });
+}
+
+// ---- Entity: issue picker ----
+
+function getIssuePickerSuggestions(currentIssueKey, currentJQL, currentProjectId, query, showSubTaskParent, showSubTasks) {
+  var url = "/rest/api/3/issue/picker";
+  var description = "Get issue picker suggestions for query " + query;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 401]
+  });
+}
+
+function verifyIssuePickerExists(currentIssueKey, currentJQL, currentProjectId, query, showSubTaskParent, showSubTasks) {
+  var url = "/rest/api/3/issue/picker";
+  var description = "Verify IssuePicker exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].currentProjectId) === String(currentProjectId)) {
+            return pvg.success("IssuePicker exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IssuePicker to exist but it does not");
+    }
+  });
+}
+
+function verifyIssuePickerDoesNotExist(currentIssueKey, currentJQL, currentProjectId, query, showSubTaskParent, showSubTasks) {
+  var url = "/rest/api/3/issue/picker";
+  var description = "Verify IssuePicker does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].currentProjectId) === String(currentProjectId)) {
+            return pvg.fail("Expected IssuePicker to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IssuePicker does not exist");
+    }
+  });
+}
+
+// ---- Entity: JQL match ----
+
+function matchIssues() {
+  var url = "/rest/api/3/jql/match";
+  var description = "Match issues against JQL queries";
+  var body = {
+    "issueIds": [],
+    "jqls": [],
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+// ---- Entity: issue count ----
+
+function countIssues() {
+  var url = "/rest/api/3/search/approximate-count";
+  var description = "Count issues using JQL {jql}";
+  var body = {
+    "jql": "jql_dummy",
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+// ---- Entity: issue search enhanced ----
+
+function searchAndReconsileIssuesUsingJql(expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, reconcileIssues) {
+  var url = "/rest/api/3/search/jql";
+  var description = "Search and reconcile issues using JQL " + jql + " with max results " + maxResults;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 400, 401]
+  });
+}
+
+function searchAndReconsileIssuesUsingJqlPost(expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, reconcileIssues) {
+  var url = "/rest/api/3/search/jql";
+  var description = "Search and reconcile issues using JQL POST";
+  var body = {
+    "expand": String(expand),
+    "fields": String(fields),
+    "fieldsByKeys": fieldsByKeys,
+    "jql": String(jql),
+    "maxResults": Number(maxResults),
+    "nextPageToken": String(nextPageToken),
+    "properties": String(properties),
+    "reconcileIssues": String(reconcileIssues),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200, 400, 401],
+    parameters: {
+      description: description,
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
+}
+
+function verifyIssueSearchEnhancedExists(expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, reconcileIssues) {
+  var url = "/rest/api/3/search/jql";
+  var description = "Verify IssueSearchEnhanced exists";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].expand) === String(expand) && String(items[i].failFast) === String(failFast) && String(items[i].fields) === String(fields) && String(items[i].fieldsByKeys) === String(fieldsByKeys) && String(items[i].jql) === String(jql) && String(items[i].maxResults) === String(maxResults) && String(items[i].nextPageToken) === String(nextPageToken) && String(items[i].properties) === String(properties) && String(items[i].reconcileIssues) === String(reconcileIssues)) {
+            return pvg.success("IssueSearchEnhanced exists");
+          }
+        }
+      }
+      return pvg.fail("Expected IssueSearchEnhanced to exist but it does not");
+    }
+  });
+}
+
+function verifyIssueSearchEnhancedDoesNotExist(expand, failFast, fields, fieldsByKeys, jql, maxResults, nextPageToken, properties, reconcileIssues) {
+  var url = "/rest/api/3/search/jql";
+  var description = "Verify IssueSearchEnhanced does not exist";
+  svc.get(url, {
+    expectedResponseCodes: [200],
+    parameters: { description: description },
+    callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          if (String(items[i].expand) === String(expand) && String(items[i].failFast) === String(failFast) && String(items[i].fields) === String(fields) && String(items[i].fieldsByKeys) === String(fieldsByKeys) && String(items[i].jql) === String(jql) && String(items[i].maxResults) === String(maxResults) && String(items[i].nextPageToken) === String(nextPageToken) && String(items[i].properties) === String(properties) && String(items[i].reconcileIssues) === String(reconcileIssues)) {
+            return pvg.fail("Expected IssueSearchEnhanced to not exist but it does");
+          }
+        }
+      }
+      return pvg.success("IssueSearchEnhanced does not exist");
+    }
+  });
 }
 
 // ---- Entity: issue property ----
@@ -10960,13 +12092,13 @@ function deleteIssueProperty(issueIdOrKey, propertyKey) {
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 404]
+    expectedResponseCodes: [200, 204, 401, 404]
   });
 }
 
 function getIssueProperty(issueIdOrKey, propertyKey) {
   var url = "/rest/api/3/issue/" + issueIdOrKey + "/properties/" + propertyKey;
-  var description = "Get issue property " + propertyKey + " from issue " + issueIdOrKey;
+  var description = "Get issue property " + propertyKey + " for issue " + issueIdOrKey;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -10974,8 +12106,90 @@ function getIssueProperty(issueIdOrKey, propertyKey) {
   });
 }
 
+function bulkSetIssueProperty(issueIdOrKey, propertyKey) {
+  var url = "/rest/api/3/issue/properties/" + propertyKey;
+  var description = "Bulk set issue property " + propertyKey;
+  var body = {
+    "expression": "expression_dummy",
+    "filter": "filter_dummy",
+    "issueIdOrKey": String(issueIdOrKey),
+    "propertyKey": String(propertyKey),
+    "value": "value_dummy",
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [303, 400, 401],
+    parameters: {
+      description: description,
+      issueIdOrKey: String(issueIdOrKey)
+      , propertyKey: String(propertyKey)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
+}
+
+function bulkDeleteIssueProperty(issueIdOrKey, propertyKey) {
+  var url = "/rest/api/3/issue/properties/" + propertyKey;
+  var description = "Bulk delete issue property " + propertyKey;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [303, 400, 401]
+  });
+}
+
+function bulkSetIssuesPropertiesList(issueIdOrKey, propertyKey) {
+  var url = "/rest/api/3/issue/properties";
+  var description = "Bulk set issues properties by list";
+  var body = {
+    "entitiesIds": [],
+    "issueIdOrKey": String(issueIdOrKey),
+    "properties": {},
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [303, 400, 401],
+    parameters: {
+      description: description,
+      issueIdOrKey: String(issueIdOrKey)
+      , propertyKey: String(propertyKey)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
+}
+
+function bulkSetIssuePropertiesByIssue(issueIdOrKey, propertyKey) {
+  var url = "/rest/api/3/issue/properties/multi";
+  var description = "Bulk set issue properties by issue";
+  var body = {
+    "issueIdOrKey": String(issueIdOrKey),
+    "issues": [],
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [303, 400, 401, 403],
+    parameters: {
+      description: description,
+      issueIdOrKey: String(issueIdOrKey)
+      , propertyKey: String(propertyKey)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { issueIdOrKey: String(issueIdOrKey) }) });
+}
+
 function tryToAddExistingIssueProperty(issueIdOrKey, propertyKey) {
-  getIssueProperty(issueIdOrKey, propertyKey);
+  var url = "/rest/api/3/issue/" + issueIdOrKey + "/properties/" + propertyKey;
+  var body = {
+    "issueIdOrKey": String(issueIdOrKey),
+    "propertyKey": String(propertyKey),
+  };
+  var description = "Verify that we cannot add another IssueProperty...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyIssuePropertyExists(issueIdOrKey, propertyKey) {
@@ -11022,7 +12236,7 @@ function tryToDeleteANonExistingIssueProperty(issueIdOrKey, propertyKey) {
   var url = "/rest/api/3/issue/" + issueIdOrKey + "/properties/" + propertyKey;
   var description = "Verify we cannot delete non-existing IssueProperty";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 404],
+    expectedResponseCodes: [200, 204, 401, 404],
     parameters: { description: description }
   });
 }
@@ -11074,340 +12288,6 @@ function waitForAnyIssuePropertyDeleted() {
   var m = ev.data.parameters.description.match(/^Delete\ issue\ property\ (.+)\ from\ issue\ (.+)$/);
   var captures = m.slice(1);
   var names = ["propertyKey", "issueIdOrKey"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-// ---- Entity: bulk issue properties ----
-
-function bulkSetIssuesPropertiesList(entitiesIds, properties) {
-  var url = "/rest/api/3/issue/properties";
-  var description = "Bulk set issues properties by list";
-  var body = {
-    "entitiesIds": String(entitiesIds),
-    "properties": properties,
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [303, 400, 401],
-    parameters: {
-      description: description,
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function tryToAddExistingIssuePropertiesBulk(entitiesIds, properties) {
-  bulkSetIssuesPropertiesList(entitiesIds, properties);
-}
-
-function verifyIssuePropertiesBulkExists(entitiesIds, properties) {
-  var url = "/rest/api/3/issue/properties";
-  var description = "Verify IssuePropertiesBulk exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].entitiesIds) === String(entitiesIds)) {
-            return pvg.success("IssuePropertiesBulk exists");
-          }
-        }
-      }
-      return pvg.fail("Expected IssuePropertiesBulk to exist but it does not");
-    }
-  });
-}
-
-function verifyIssuePropertiesBulkDoesNotExist(entitiesIds, properties) {
-  var url = "/rest/api/3/issue/properties";
-  var description = "Verify IssuePropertiesBulk does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].entitiesIds) === String(entitiesIds)) {
-            return pvg.fail("Expected IssuePropertiesBulk to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("IssuePropertiesBulk does not exist");
-    }
-  });
-}
-
-function matchAddedIssuePropertiesBulk(entitiesIds, properties) {
-  var expectedDesc = "Bulk set issues properties by list";
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyIssuePropertiesBulkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ set\ issues\ properties\ by\ list$/));
-  var m = ev.data.parameters.description.match(/^Bulk\ set\ issues\ properties\ by\ list$/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getIssuePropertiesBulkAddedEvent(keyVal) {
-  return bp.EventSet("AddIssuePropertiesBulk:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyIssuePropertiesBulkAdded() {
-  return bp.EventSet("matchAnyIssuePropertiesBulkAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create bulk issue properties") > -1;
-  });
-}
-
-function waitForIssuePropertiesBulkAdded(entitiesIds, properties) {
-  var expectedDesc = "Bulk set issues properties by list";
-  waitFor(matchSuccess(expectedDesc));
-}
-
-// ---- Entity: bulk issue properties by issue ----
-
-function bulkSetIssuePropertiesByIssue(issues) {
-  var url = "/rest/api/3/issue/properties/multi";
-  var description = "Bulk set issue properties by issue";
-  var body = {
-    "issues": String(issues),
-  };
-  svc.post(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [303, 400, 401, 403],
-    parameters: {
-      description: description,
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
-}
-
-function tryToAddExistingIssuePropertiesBulkByIssue(issues) {
-  bulkSetIssuePropertiesByIssue(issues);
-}
-
-function verifyIssuePropertiesBulkByIssueExists(issues) {
-  var url = "/rest/api/3/issue/properties/multi";
-  var description = "Verify IssuePropertiesBulkByIssue exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].issues) === String(issues)) {
-            return pvg.success("IssuePropertiesBulkByIssue exists");
-          }
-        }
-      }
-      return pvg.fail("Expected IssuePropertiesBulkByIssue to exist but it does not");
-    }
-  });
-}
-
-function verifyIssuePropertiesBulkByIssueDoesNotExist(issues) {
-  var url = "/rest/api/3/issue/properties/multi";
-  var description = "Verify IssuePropertiesBulkByIssue does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].issues) === String(issues)) {
-            return pvg.fail("Expected IssuePropertiesBulkByIssue to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("IssuePropertiesBulkByIssue does not exist");
-    }
-  });
-}
-
-function matchAddedIssuePropertiesBulkByIssue(issues) {
-  var expectedDesc = "Bulk set issue properties by issue";
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyIssuePropertiesBulkByIssueAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ set\ issue\ properties\ by\ issue$/));
-  var m = ev.data.parameters.description.match(/^Bulk\ set\ issue\ properties\ by\ issue$/);
-  var captures = m.slice(1);
-  var names = [];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getIssuePropertiesBulkByIssueAddedEvent(keyVal) {
-  return bp.EventSet("AddIssuePropertiesBulkByIssue:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
-
-function matchAnyIssuePropertiesBulkByIssueAdded() {
-  return bp.EventSet("matchAnyIssuePropertiesBulkByIssueAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create bulk issue properties by issue") > -1;
-  });
-}
-
-function waitForIssuePropertiesBulkByIssueAdded(issues) {
-  var expectedDesc = "Bulk set issue properties by issue";
-  waitFor(matchSuccess(expectedDesc));
-}
-
-// ---- Entity: bulk issue property ----
-
-function bulkSetIssueProperty(propertyKey) {
-  var url = "/rest/api/3/issue/properties/" + propertyKey;
-  var description = "Bulk set issue property " + propertyKey;
-  var body = {
-    "expression": "expression_" + propertyKey,
-    "filter": "filter_" + propertyKey,
-    "propertyKey": String(propertyKey),
-    "value": "value_" + propertyKey,
-  };
-  svc.put(url, {
-    body: JSON.stringify(body),
-    expectedResponseCodes: [303, 400, 401],
-    parameters: {
-      description: description,
-      propertyKey: String(propertyKey)
-    }
-  });
-  bp.sync({ request: bp.Event("Done: " + description, { propertyKey: String(propertyKey) }) });
-}
-
-function bulkDeleteIssueProperty(propertyKey) {
-  var url = "/rest/api/3/issue/properties/" + propertyKey;
-  var description = "Bulk delete issue property " + propertyKey;
-  var body = undefined;
-  svc.delete(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [303, 400, 401]
-  });
-}
-
-function tryToAddExistingIssuePropertyBulk(propertyKey) {
-  bulkDeleteIssueProperty(propertyKey);
-}
-
-function verifyIssuePropertyBulkExists(propertyKey) {
-  var url = "/rest/api/3/issue/properties/" + propertyKey;
-  var description = "Verify IssuePropertyBulk with propertyKey " + propertyKey + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].propertyKey) === String(propertyKey)) {
-            return pvg.success("IssuePropertyBulk exists");
-          }
-        }
-      }
-      return pvg.fail("Expected IssuePropertyBulk to exist but it does not");
-    }
-  });
-}
-
-function verifyIssuePropertyBulkDoesNotExist(propertyKey) {
-  var url = "/rest/api/3/issue/properties/" + propertyKey;
-  var description = "Verify IssuePropertyBulk with propertyKey " + propertyKey + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
-      var items = JSON.parse(response.body);
-      if (Array.isArray(items)) {
-        for (var i = 0; i < items.length; i++) {
-          if (String(items[i].propertyKey) === String(propertyKey)) {
-            return pvg.fail("Expected IssuePropertyBulk to not exist but it does");
-          }
-        }
-      }
-      return pvg.success("IssuePropertyBulk does not exist");
-    }
-  });
-}
-
-function tryToDeleteANonExistingIssuePropertyBulk(propertyKey) {
-  var url = "/rest/api/3/issue/properties/" + propertyKey;
-  var description = "Verify we cannot delete non-existing IssuePropertyBulk";
-  svc.delete(url, {
-    expectedResponseCodes: [303, 400, 401],
-    parameters: { description: description }
-  });
-}
-
-function matchAddedIssuePropertyBulk(propertyKey) {
-  var expectedDesc = "Bulk set issue property " + propertyKey;
-  return matchSuccess(expectedDesc);
-}
-
-function waitForAnyIssuePropertyBulkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ set\ issue\ property\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Bulk\ set\ issue\ property\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["propertyKey"];
-  var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
-  return obj;
-}
-
-function getIssuePropertyBulkAddedEvent(keyVal) {
-  return bp.EventSet("AddIssuePropertyBulk:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.propertyKey) === String(keyVal);
-  });
-}
-
-function matchAnyIssuePropertyBulkAdded() {
-  return bp.EventSet("matchAnyIssuePropertyBulkAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.propertyKey !== undefined && e.name.indexOf("Create bulk issue property") > -1;
-  });
-}
-
-function waitForIssuePropertyBulkAdded(propertyKey) {
-  var expectedDesc = "Bulk set issue property " + propertyKey;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedIssuePropertyBulk(propertyKey) {
-  var expectedDesc = "Bulk delete issue property " + propertyKey;
-  return bp.EventSet("matchDeletedIssuePropertyBulk", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
-}
-
-function waitForAnyIssuePropertyBulkDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Bulk\ delete\ issue\ property\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Bulk\ delete\ issue\ property\ (.+)$/);
-  var captures = m.slice(1);
-  var names = ["propertyKey"];
   var obj = {};
   for (var i = 0; i < names.length; i++) {
     obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
@@ -11469,12 +12349,12 @@ function verifyIssuePropertyKeysDoesNotExist(issueIdOrKey) {
 
 // ---- Entity: issue type ----
 
-function createIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function createIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype";
   var description = "Create issue type " + name;
   var body = {
     "description": String(description),
-    "hierarchyLevel": String(hierarchyLevel),
+    "hierarchyLevel": Number(hierarchyLevel),
     "id": String(id),
     "name": String(name),
     "type": String(type),
@@ -11486,7 +12366,6 @@ function createIssueType(alternativeIssueTypeId, avatarId, description, hierarch
       description: description,
       id: String(id)
       , alternativeIssueTypeId: String(alternativeIssueTypeId)
-      , avatarId: String(avatarId)
       , projectId: String(projectId)
       , type: String(type)
     }
@@ -11494,21 +12373,21 @@ function createIssueType(alternativeIssueTypeId, avatarId, description, hierarch
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function deleteIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/" + id;
   var description = "Delete issue type " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 400, 401, 403, 404, 409, 423]
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404, 409, 423]
   });
 }
 
-function updateIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function updateIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/" + id;
   var description = "Update issue type " + id + " with name " + name;
   var body = {
-    "avatarId": String(avatarId),
+    "avatarId": 1,
     "description": String(description),
     "id": String(id),
     "name": String(name),
@@ -11520,7 +12399,6 @@ function updateIssueType(alternativeIssueTypeId, avatarId, description, hierarch
       description: description,
       id: String(id)
       , alternativeIssueTypeId: String(alternativeIssueTypeId)
-      , avatarId: String(avatarId)
       , projectId: String(projectId)
       , type: String(type)
     }
@@ -11528,7 +12406,7 @@ function updateIssueType(alternativeIssueTypeId, avatarId, description, hierarch
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function getIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/" + id;
   var description = "Get issue type " + id;
   var body = undefined;
@@ -11538,7 +12416,7 @@ function getIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLe
   });
 }
 
-function getIssueAllTypes(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function getIssueAllTypes(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype";
   var description = "Get all issue types";
   var body = undefined;
@@ -11548,7 +12426,7 @@ function getIssueAllTypes(alternativeIssueTypeId, avatarId, description, hierarc
   });
 }
 
-function getIssueTypesForProject(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function getIssueTypesForProject(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/project";
   var description = "Get issue types for project " + projectId + " at level " + level;
   var body = undefined;
@@ -11558,7 +12436,7 @@ function getIssueTypesForProject(alternativeIssueTypeId, avatarId, description, 
   });
 }
 
-function getAlternativeIssueTypes(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function getAlternativeIssueTypes(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/" + id + "/alternatives";
   var description = "Get alternative issue types for " + id;
   var body = undefined;
@@ -11568,9 +12446,9 @@ function getAlternativeIssueTypes(alternativeIssueTypeId, avatarId, description,
   });
 }
 
-function createIssueTypeAvatar(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function createIssueTypeAvatar(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/" + id + "/avatar2";
-  var description = "Load issue type avatar for " + id + " with crop x=" + x + ", y=" + y + ", size=" + size;
+  var description = "Load issue type avatar for " + id + " with crop size " + size + " at (" + x + "," + y + ")";
   var body = {
     "id": String(id),
     "size": String(size),
@@ -11584,7 +12462,6 @@ function createIssueTypeAvatar(alternativeIssueTypeId, avatarId, description, hi
       description: description,
       id: String(id)
       , alternativeIssueTypeId: String(alternativeIssueTypeId)
-      , avatarId: String(avatarId)
       , projectId: String(projectId)
       , type: String(type)
     }
@@ -11592,11 +12469,25 @@ function createIssueTypeAvatar(alternativeIssueTypeId, avatarId, description, hi
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function tryToAddExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
-  createIssueTypeAvatar(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y);
+function tryToAddExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+  var url = "/rest/api/3/issuetype";
+  var body = {
+    "description": String(description),
+    "hierarchyLevel": Number(hierarchyLevel),
+    "id": String(id),
+    "name": String(name),
+    "type": String(type),
+  };
+  var description = "Verify that we cannot add another IssueType...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function verifyIssueTypeExists(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype";
   var description = "Verify IssueType with id " + id + " exists";
   svc.get(url, {
@@ -11616,7 +12507,7 @@ function verifyIssueTypeExists(alternativeIssueTypeId, avatarId, description, hi
   });
 }
 
-function verifyIssueTypeDoesNotExist(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function verifyIssueTypeDoesNotExist(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype";
   var description = "Verify IssueType with id " + id + " does not exist";
   svc.get(url, {
@@ -11636,16 +12527,16 @@ function verifyIssueTypeDoesNotExist(alternativeIssueTypeId, avatarId, descripti
   });
 }
 
-function tryToDeleteANonExistingIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function tryToDeleteANonExistingIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var url = "/rest/api/3/issuetype/" + id;
   var description = "Verify we cannot delete non-existing IssueType";
   svc.delete(url, {
-    expectedResponseCodes: [204, 400, 401, 403, 404, 409, 423],
+    expectedResponseCodes: [200, 204, 400, 401, 403, 404, 409, 423],
     parameters: { description: description }
   });
 }
 
-function matchAddedIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function matchAddedIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var expectedDesc = "Create issue type " + name;
   return matchSuccess(expectedDesc);
 }
@@ -11675,12 +12566,12 @@ function matchAnyIssueTypeAdded() {
   });
 }
 
-function waitForIssueTypeAdded(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function waitForIssueTypeAdded(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var expectedDesc = "Create issue type " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedIssueType(alternativeIssueTypeId, avatarId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
+function matchDeletedIssueType(alternativeIssueTypeId, description, hierarchyLevel, id, level, name, projectId, size, type, x, y) {
   var expectedDesc = "Delete issue type " + id;
   return bp.EventSet("matchDeletedIssueType", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -11699,7 +12590,7 @@ function waitForAnyIssueTypeDeleted() {
   return obj;
 }
 
-// ---- Entity: autoCompleteData ----
+// ---- Entity: jqlAutoCompleteData ----
 
 function getAutoComplete(includeCollapsedFields, projectIds) {
   var url = "/rest/api/3/jql/autocompletedata";
@@ -11715,7 +12606,7 @@ function getAutoCompletePost(includeCollapsedFields, projectIds) {
   var url = "/rest/api/3/jql/autocompletedata";
   var description = "Get field reference data with includeCollapsedFields " + includeCollapsedFields + " and projectIds " + projectIds;
   var body = {
-    "includeCollapsedFields": String(includeCollapsedFields),
+    "includeCollapsedFields": includeCollapsedFields,
     "projectIds": String(projectIds),
   };
   svc.post(url, {
@@ -11728,13 +12619,24 @@ function getAutoCompletePost(includeCollapsedFields, projectIds) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingAutoCompleteData(includeCollapsedFields, projectIds) {
-  getAutoCompletePost(includeCollapsedFields, projectIds);
+function tryToAddExistingJqlAutoCompleteData(includeCollapsedFields, projectIds) {
+  var url = "/rest/api/3/jql/autocompletedata";
+  var body = {
+    "includeCollapsedFields": includeCollapsedFields,
+    "projectIds": String(projectIds),
+  };
+  var description = "Verify that we cannot add another JqlAutoCompleteData...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyAutoCompleteDataExists(includeCollapsedFields, projectIds) {
+function verifyJqlAutoCompleteDataExists(includeCollapsedFields, projectIds) {
   var url = "/rest/api/3/jql/autocompletedata";
-  var description = "Verify AutoCompleteData exists";
+  var description = "Verify JqlAutoCompleteData exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11743,18 +12645,18 @@ function verifyAutoCompleteDataExists(includeCollapsedFields, projectIds) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].projectIds) === String(projectIds)) {
-            return pvg.success("AutoCompleteData exists");
+            return pvg.success("JqlAutoCompleteData exists");
           }
         }
       }
-      return pvg.fail("Expected AutoCompleteData to exist but it does not");
+      return pvg.fail("Expected JqlAutoCompleteData to exist but it does not");
     }
   });
 }
 
-function verifyAutoCompleteDataDoesNotExist(includeCollapsedFields, projectIds) {
+function verifyJqlAutoCompleteDataDoesNotExist(includeCollapsedFields, projectIds) {
   var url = "/rest/api/3/jql/autocompletedata";
-  var description = "Verify AutoCompleteData does not exist";
+  var description = "Verify JqlAutoCompleteData does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11763,21 +12665,21 @@ function verifyAutoCompleteDataDoesNotExist(includeCollapsedFields, projectIds) 
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].projectIds) === String(projectIds)) {
-            return pvg.fail("Expected AutoCompleteData to not exist but it does");
+            return pvg.fail("Expected JqlAutoCompleteData to not exist but it does");
           }
         }
       }
-      return pvg.success("AutoCompleteData does not exist");
+      return pvg.success("JqlAutoCompleteData does not exist");
     }
   });
 }
 
-function matchAddedAutoCompleteData(includeCollapsedFields, projectIds) {
+function matchAddedJqlAutoCompleteData(includeCollapsedFields, projectIds) {
   var expectedDesc = "Get field reference data with includeCollapsedFields " + includeCollapsedFields + " and projectIds " + projectIds;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyAutoCompleteDataAdded() {
+function waitForAnyJqlAutoCompleteDataAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Get\ field\ reference\ data\ with\ includeCollapsedFields\ (.+)\ and\ projectIds\ (.+)$/));
   var m = ev.data.parameters.description.match(/^Get\ field\ reference\ data\ with\ includeCollapsedFields\ (.+)\ and\ projectIds\ (.+)$/);
   var captures = m.slice(1);
@@ -11789,25 +12691,25 @@ function waitForAnyAutoCompleteDataAdded() {
   return obj;
 }
 
-function getAutoCompleteDataAddedEvent(keyVal) {
-  return bp.EventSet("AddAutoCompleteData:" + keyVal, function(e) {
+function getJqlAutoCompleteDataAddedEvent(keyVal) {
+  return bp.EventSet("AddJqlAutoCompleteData:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyAutoCompleteDataAdded() {
-  return bp.EventSet("matchAnyAutoCompleteDataAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create autoCompleteData") > -1;
+function matchAnyJqlAutoCompleteDataAdded() {
+  return bp.EventSet("matchAnyJqlAutoCompleteDataAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create jqlAutoCompleteData") > -1;
   });
 }
 
-function waitForAutoCompleteDataAdded(includeCollapsedFields, projectIds) {
+function waitForJqlAutoCompleteDataAdded(includeCollapsedFields, projectIds) {
   var expectedDesc = "Get field reference data with includeCollapsedFields " + includeCollapsedFields + " and projectIds " + projectIds;
   waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: autoCompleteSuggestions ----
+// ---- Entity: jqlAutoCompleteSuggestions ----
 
 function getFieldAutoCompleteForQueryString(fieldName, fieldValue, predicateName, predicateValue) {
   var url = "/rest/api/3/jql/autocompletedata/suggestions";
@@ -11819,9 +12721,9 @@ function getFieldAutoCompleteForQueryString(fieldName, fieldValue, predicateName
   });
 }
 
-function verifyAutoCompleteSuggestionsExists(fieldName, fieldValue, predicateName, predicateValue) {
+function verifyJqlAutoCompleteSuggestionsExists(fieldName, fieldValue, predicateName, predicateValue) {
   var url = "/rest/api/3/jql/autocompletedata/suggestions";
-  var description = "Verify AutoCompleteSuggestions exists";
+  var description = "Verify JqlAutoCompleteSuggestions exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11830,18 +12732,18 @@ function verifyAutoCompleteSuggestionsExists(fieldName, fieldValue, predicateNam
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].fieldName) === String(fieldName) && String(items[i].fieldValue) === String(fieldValue) && String(items[i].predicateName) === String(predicateName) && String(items[i].predicateValue) === String(predicateValue)) {
-            return pvg.success("AutoCompleteSuggestions exists");
+            return pvg.success("JqlAutoCompleteSuggestions exists");
           }
         }
       }
-      return pvg.fail("Expected AutoCompleteSuggestions to exist but it does not");
+      return pvg.fail("Expected JqlAutoCompleteSuggestions to exist but it does not");
     }
   });
 }
 
-function verifyAutoCompleteSuggestionsDoesNotExist(fieldName, fieldValue, predicateName, predicateValue) {
+function verifyJqlAutoCompleteSuggestionsDoesNotExist(fieldName, fieldValue, predicateName, predicateValue) {
   var url = "/rest/api/3/jql/autocompletedata/suggestions";
-  var description = "Verify AutoCompleteSuggestions does not exist";
+  var description = "Verify JqlAutoCompleteSuggestions does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11850,16 +12752,16 @@ function verifyAutoCompleteSuggestionsDoesNotExist(fieldName, fieldValue, predic
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].fieldName) === String(fieldName) && String(items[i].fieldValue) === String(fieldValue) && String(items[i].predicateName) === String(predicateName) && String(items[i].predicateValue) === String(predicateValue)) {
-            return pvg.fail("Expected AutoCompleteSuggestions to not exist but it does");
+            return pvg.fail("Expected JqlAutoCompleteSuggestions to not exist but it does");
           }
         }
       }
-      return pvg.success("AutoCompleteSuggestions does not exist");
+      return pvg.success("JqlAutoCompleteSuggestions does not exist");
     }
   });
 }
 
-// ---- Entity: jqlQuery ----
+// ---- Entity: jqlParse ----
 
 function parseJqlQueries(queries, validation) {
   var url = "/rest/api/3/jql/parse";
@@ -11878,13 +12780,24 @@ function parseJqlQueries(queries, validation) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingJqlQuery(queries, validation) {
-  parseJqlQueries(queries, validation);
+function tryToAddExistingJqlParse(queries, validation) {
+  var url = "/rest/api/3/jql/parse";
+  var body = {
+    "queries": String(queries),
+    "validation": String(validation),
+  };
+  var description = "Verify that we cannot add another JqlParse...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyJqlQueryExists(queries, validation) {
+function verifyJqlParseExists(queries, validation) {
   var url = "/rest/api/3/jql/parse";
-  var description = "Verify JqlQuery exists";
+  var description = "Verify JqlParse exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11893,18 +12806,18 @@ function verifyJqlQueryExists(queries, validation) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].validation) === String(validation)) {
-            return pvg.success("JqlQuery exists");
+            return pvg.success("JqlParse exists");
           }
         }
       }
-      return pvg.fail("Expected JqlQuery to exist but it does not");
+      return pvg.fail("Expected JqlParse to exist but it does not");
     }
   });
 }
 
-function verifyJqlQueryDoesNotExist(queries, validation) {
+function verifyJqlParseDoesNotExist(queries, validation) {
   var url = "/rest/api/3/jql/parse";
-  var description = "Verify JqlQuery does not exist";
+  var description = "Verify JqlParse does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11913,21 +12826,21 @@ function verifyJqlQueryDoesNotExist(queries, validation) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].validation) === String(validation)) {
-            return pvg.fail("Expected JqlQuery to not exist but it does");
+            return pvg.fail("Expected JqlParse to not exist but it does");
           }
         }
       }
-      return pvg.success("JqlQuery does not exist");
+      return pvg.success("JqlParse does not exist");
     }
   });
 }
 
-function matchAddedJqlQuery(queries, validation) {
+function matchAddedJqlParse(queries, validation) {
   var expectedDesc = "Parse JQL queries with validation " + validation + " and queries " + queries;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyJqlQueryAdded() {
+function waitForAnyJqlParseAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Parse\ JQL\ queries\ with\ validation\ (.+)\ and\ queries\ (.+)$/));
   var m = ev.data.parameters.description.match(/^Parse\ JQL\ queries\ with\ validation\ (.+)\ and\ queries\ (.+)$/);
   var captures = m.slice(1);
@@ -11939,25 +12852,25 @@ function waitForAnyJqlQueryAdded() {
   return obj;
 }
 
-function getJqlQueryAddedEvent(keyVal) {
-  return bp.EventSet("AddJqlQuery:" + keyVal, function(e) {
+function getJqlParseAddedEvent(keyVal) {
+  return bp.EventSet("AddJqlParse:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyJqlQueryAdded() {
-  return bp.EventSet("matchAnyJqlQueryAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create jqlQuery") > -1;
+function matchAnyJqlParseAdded() {
+  return bp.EventSet("matchAnyJqlParseAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create jqlParse") > -1;
   });
 }
 
-function waitForJqlQueryAdded(queries, validation) {
+function waitForJqlParseAdded(queries, validation) {
   var expectedDesc = "Parse JQL queries with validation " + validation + " and queries " + queries;
   waitFor(matchSuccess(expectedDesc));
 }
 
-// ---- Entity: jqlPersonalDataMigration ----
+// ---- Entity: jqlPdCleaner ----
 
 function migrateQueries(queryStrings) {
   var url = "/rest/api/3/jql/pdcleaner";
@@ -11975,13 +12888,23 @@ function migrateQueries(queryStrings) {
   bp.sync({ request: bp.Event("Done: " + description, { None: String(None) }) });
 }
 
-function tryToAddExistingJqlPersonalDataMigration(queryStrings) {
-  migrateQueries(queryStrings);
+function tryToAddExistingJqlPdCleaner(queryStrings) {
+  var url = "/rest/api/3/jql/pdcleaner";
+  var body = {
+    "queryStrings": String(queryStrings),
+  };
+  var description = "Verify that we cannot add another JqlPdCleaner...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
-function verifyJqlPersonalDataMigrationExists(queryStrings) {
+function verifyJqlPdCleanerExists(queryStrings) {
   var url = "/rest/api/3/jql/pdcleaner";
-  var description = "Verify JqlPersonalDataMigration exists";
+  var description = "Verify JqlPdCleaner exists";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -11990,18 +12913,18 @@ function verifyJqlPersonalDataMigrationExists(queryStrings) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].queryStrings) === String(queryStrings)) {
-            return pvg.success("JqlPersonalDataMigration exists");
+            return pvg.success("JqlPdCleaner exists");
           }
         }
       }
-      return pvg.fail("Expected JqlPersonalDataMigration to exist but it does not");
+      return pvg.fail("Expected JqlPdCleaner to exist but it does not");
     }
   });
 }
 
-function verifyJqlPersonalDataMigrationDoesNotExist(queryStrings) {
+function verifyJqlPdCleanerDoesNotExist(queryStrings) {
   var url = "/rest/api/3/jql/pdcleaner";
-  var description = "Verify JqlPersonalDataMigration does not exist";
+  var description = "Verify JqlPdCleaner does not exist";
   svc.get(url, {
     expectedResponseCodes: [200],
     parameters: { description: description },
@@ -12010,21 +12933,21 @@ function verifyJqlPersonalDataMigrationDoesNotExist(queryStrings) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           if (String(items[i].queryStrings) === String(queryStrings)) {
-            return pvg.fail("Expected JqlPersonalDataMigration to not exist but it does");
+            return pvg.fail("Expected JqlPdCleaner to not exist but it does");
           }
         }
       }
-      return pvg.success("JqlPersonalDataMigration does not exist");
+      return pvg.success("JqlPdCleaner does not exist");
     }
   });
 }
 
-function matchAddedJqlPersonalDataMigration(queryStrings) {
+function matchAddedJqlPdCleaner(queryStrings) {
   var expectedDesc = "Convert user identifiers to account IDs in JQL queries with queryStrings " + queryStrings;
   return matchSuccess(expectedDesc);
 }
 
-function waitForAnyJqlPersonalDataMigrationAdded() {
+function waitForAnyJqlPdCleanerAdded() {
   var ev = waitFor(matchesDescriptionRegex(/^Convert\ user\ identifiers\ to\ account\ IDs\ in\ JQL\ queries\ with\ queryStrings\ (.+)$/));
   var m = ev.data.parameters.description.match(/^Convert\ user\ identifiers\ to\ account\ IDs\ in\ JQL\ queries\ with\ queryStrings\ (.+)$/);
   var captures = m.slice(1);
@@ -12036,20 +12959,20 @@ function waitForAnyJqlPersonalDataMigrationAdded() {
   return obj;
 }
 
-function getJqlPersonalDataMigrationAddedEvent(keyVal) {
-  return bp.EventSet("AddJqlPersonalDataMigration:" + keyVal, function(e) {
+function getJqlPdCleanerAddedEvent(keyVal) {
+  return bp.EventSet("AddJqlPdCleaner:" + keyVal, function(e) {
     if (!e.data || !e.data.parameters) return false;
     return String(e.data.parameters.id) === String(keyVal);
   });
 }
 
-function matchAnyJqlPersonalDataMigrationAdded() {
-  return bp.EventSet("matchAnyJqlPersonalDataMigrationAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create jqlPersonalDataMigration") > -1;
+function matchAnyJqlPdCleanerAdded() {
+  return bp.EventSet("matchAnyJqlPdCleanerAdded", function(e) {
+    return e.name.startsWith("Done: ") && e.data && e.data.None !== undefined && e.name.indexOf("Create jqlPdCleaner") > -1;
   });
 }
 
-function waitForJqlPersonalDataMigrationAdded(queryStrings) {
+function waitForJqlPdCleanerAdded(queryStrings) {
   var expectedDesc = "Convert user identifiers to account IDs in JQL queries with queryStrings " + queryStrings;
   waitFor(matchSuccess(expectedDesc));
 }
@@ -12073,7 +12996,17 @@ function sanitiseJqlQueries(queries) {
 }
 
 function tryToAddExistingJqlSanitize(queries) {
-  sanitiseJqlQueries(queries);
+  var url = "/rest/api/3/jql/sanitize";
+  var body = {
+    "queries": String(queries),
+  };
+  var description = "Verify that we cannot add another JqlSanitize...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyJqlSanitizeExists(queries) {
@@ -12153,7 +13086,7 @@ function waitForJqlSanitizeAdded(queries) {
 
 // ---- Entity: plan ----
 
-function createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function createPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan";
   var description = "Create plan " + name;
   var body = {
@@ -12166,7 +13099,6 @@ function createPlan(crossProjectReleases, customFields, exclusionRules, issueSou
     "permissions": String(permissions),
     "planId": String(planId),
     "scheduling": String(scheduling),
-    "useGroupId": String(useGroupId),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -12175,13 +13107,12 @@ function createPlan(crossProjectReleases, customFields, exclusionRules, issueSou
       description: description,
       planId: String(planId)
       , leadAccountId: String(leadAccountId)
-      , useGroupId: String(useGroupId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { planId: String(planId) }) });
 }
 
-function getPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function getPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan/" + planId;
   var description = "Get plan " + planId;
   var body = undefined;
@@ -12191,12 +13122,11 @@ function getPlan(crossProjectReleases, customFields, exclusionRules, issueSource
   });
 }
 
-function updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function updatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan/" + planId;
   var description = "Update plan " + planId;
   var body = {
     "planId": String(planId),
-    "useGroupId": String(useGroupId),
   };
   svc.put(url, {
     body: JSON.stringify(body),
@@ -12205,13 +13135,12 @@ function updatePlan(crossProjectReleases, customFields, exclusionRules, issueSou
       description: description,
       planId: String(planId)
       , leadAccountId: String(leadAccountId)
-      , useGroupId: String(useGroupId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { planId: String(planId) }) });
 }
 
-function trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan/" + planId + "/trash";
   var description = "Trash plan " + planId;
   var body = {
@@ -12224,17 +13153,71 @@ function trashPlan(crossProjectReleases, customFields, exclusionRules, issueSour
       description: description,
       planId: String(planId)
       , leadAccountId: String(leadAccountId)
-      , useGroupId: String(useGroupId)
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { planId: String(planId) }) });
 }
 
-function tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
-  trashPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId);
+function archivePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
+  var url = "/rest/api/3/plans/plan/" + planId + "/archive";
+  var description = "Archive plan " + planId;
+  var body = {
+    "planId": String(planId),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [204, 401, 403, 404, 409],
+    parameters: {
+      description: description,
+      planId: String(planId)
+      , leadAccountId: String(leadAccountId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { planId: String(planId) }) });
 }
 
-function verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function duplicatePlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
+  var url = "/rest/api/3/plans/plan/" + planId + "/duplicate";
+  var description = "Duplicate plan " + planId + " with name " + name;
+  var body = {
+    "name": String(name),
+    "planId": String(planId),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 401, 403, 404, 409],
+    parameters: {
+      description: description,
+      planId: String(planId)
+      , leadAccountId: String(leadAccountId)
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { planId: String(planId) }) });
+}
+
+function tryToAddExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
+  var url = "/rest/api/3/plans/plan";
+  var body = {
+    "crossProjectReleases": String(crossProjectReleases),
+    "customFields": String(customFields),
+    "exclusionRules": String(exclusionRules),
+    "issueSources": String(issueSources),
+    "leadAccountId": String(leadAccountId),
+    "name": String(name),
+    "permissions": String(permissions),
+    "planId": String(planId),
+    "scheduling": String(scheduling),
+  };
+  var description = "Verify that we cannot add another Plan...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
+}
+
+function verifyPlanExists(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan";
   var description = "Verify Plan with planId " + planId + " exists";
   svc.get(url, {
@@ -12254,7 +13237,7 @@ function verifyPlanExists(crossProjectReleases, customFields, exclusionRules, is
   });
 }
 
-function verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan";
   var description = "Verify Plan with planId " + planId + " does not exist";
   svc.get(url, {
@@ -12274,7 +13257,7 @@ function verifyPlanDoesNotExist(crossProjectReleases, customFields, exclusionRul
   });
 }
 
-function tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var url = "/rest/api/3/plans/plan/" + planId + "/trash";
   var description = "Verify we cannot delete non-existing Plan";
   svc.delete(url, {
@@ -12283,7 +13266,7 @@ function tryToDeleteANonExistingPlan(crossProjectReleases, customFields, exclusi
   });
 }
 
-function matchAddedPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function matchAddedPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var expectedDesc = "Create plan " + name;
   return matchSuccess(expectedDesc);
 }
@@ -12313,12 +13296,12 @@ function matchAnyPlanAdded() {
   });
 }
 
-function waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function waitForPlanAdded(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var expectedDesc = "Create plan " + name;
   waitFor(matchSuccess(expectedDesc));
 }
 
-function matchDeletedPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling, useGroupId) {
+function matchDeletedPlan(crossProjectReleases, customFields, exclusionRules, issueSources, leadAccountId, name, permissions, planId, scheduling) {
   var expectedDesc = "Trash plan " + planId;
   return bp.EventSet("matchDeletedPlan", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
@@ -12343,12 +13326,12 @@ function addAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sp
   var url = "/rest/api/3/plans/plan/" + planId + "/team/atlassian";
   var description = "Add Atlassian team with id " + id + " to plan " + planId;
   var body = {
-    "capacity": String(capacity),
+    "capacity": Number(capacity),
     "id": String(id),
-    "issueSourceId": String(issueSourceId),
+    "issueSourceId": Number(issueSourceId),
     "planId": String(planId),
     "planningStyle": String(planningStyle),
-    "sprintLength": String(sprintLength),
+    "sprintLength": Number(sprintLength),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -12369,7 +13352,7 @@ function removeAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle,
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 403, 404, 409]
+    expectedResponseCodes: [200, 204, 401, 403, 404, 409]
   });
 }
 
@@ -12404,7 +13387,22 @@ function getAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sp
 }
 
 function tryToAddExistingAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength) {
-  getAtlassianTeam(capacity, id, issueSourceId, planId, planningStyle, sprintLength);
+  var url = "/rest/api/3/plans/plan/" + planId + "/team/atlassian";
+  var body = {
+    "capacity": Number(capacity),
+    "id": String(id),
+    "issueSourceId": Number(issueSourceId),
+    "planId": String(planId),
+    "planningStyle": String(planningStyle),
+    "sprintLength": Number(sprintLength),
+  };
+  var description = "Verify that we cannot add another AtlassianTeam...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyAtlassianTeamExists(capacity, id, issueSourceId, planId, planningStyle, sprintLength) {
@@ -12451,7 +13449,7 @@ function tryToDeleteANonExistingAtlassianTeam(capacity, id, issueSourceId, planI
   var url = "/rest/api/3/plans/plan/" + planId + "/team/atlassian/{atlassianTeamId}";
   var description = "Verify we cannot delete non-existing AtlassianTeam";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 403, 404, 409],
+    expectedResponseCodes: [200, 204, 401, 403, 404, 409],
     parameters: { description: description }
   });
 }
@@ -12516,13 +13514,13 @@ function createPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name,
   var url = "/rest/api/3/plans/plan/" + planId + "/team/planonly";
   var description = "Create plan-only team " + name + " in plan " + planId;
   var body = {
-    "capacity": String(capacity),
-    "issueSourceId": String(issueSourceId),
+    "capacity": Number(capacity),
+    "issueSourceId": Number(issueSourceId),
     "memberAccountIds": String(memberAccountIds),
     "name": String(name),
     "planId": String(planId),
     "planningStyle": String(planningStyle),
-    "sprintLength": String(sprintLength),
+    "sprintLength": Number(sprintLength),
   };
   svc.post(url, {
     body: JSON.stringify(body),
@@ -12539,11 +13537,11 @@ function createPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name,
 
 function deletePlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength) {
   var url = "/rest/api/3/plans/plan/" + planId + "/team/planonly/{planOnlyTeamId}";
-  var description = "Delete plan-only team " + id + " in plan " + planId;
+  var description = "Delete plan-only team " + id + " from plan " + planId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [204, 401, 403, 404, 409]
+    expectedResponseCodes: [200, 204, 401, 403, 404, 409]
   });
 }
 
@@ -12578,7 +13576,23 @@ function getPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, pl
 }
 
 function tryToAddExistingPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength) {
-  getPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength);
+  var url = "/rest/api/3/plans/plan/" + planId + "/team/planonly";
+  var body = {
+    "capacity": Number(capacity),
+    "issueSourceId": Number(issueSourceId),
+    "memberAccountIds": String(memberAccountIds),
+    "name": String(name),
+    "planId": String(planId),
+    "planningStyle": String(planningStyle),
+    "sprintLength": Number(sprintLength),
+  };
+  var description = "Verify that we cannot add another PlanOnlyTeam...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPlanOnlyTeamExists(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength) {
@@ -12625,7 +13639,7 @@ function tryToDeleteANonExistingPlanOnlyTeam(capacity, id, issueSourceId, member
   var url = "/rest/api/3/plans/plan/" + planId + "/team/planonly/{planOnlyTeamId}";
   var description = "Verify we cannot delete non-existing PlanOnlyTeam";
   svc.delete(url, {
-    expectedResponseCodes: [204, 401, 403, 404, 409],
+    expectedResponseCodes: [200, 204, 401, 403, 404, 409],
     parameters: { description: description }
   });
 }
@@ -12666,15 +13680,15 @@ function waitForPlanOnlyTeamAdded(capacity, id, issueSourceId, memberAccountIds,
 }
 
 function matchDeletedPlanOnlyTeam(capacity, id, issueSourceId, memberAccountIds, name, planId, planningStyle, sprintLength) {
-  var expectedDesc = "Delete plan-only team " + id + " in plan " + planId;
+  var expectedDesc = "Delete plan-only team " + id + " from plan " + planId;
   return bp.EventSet("matchDeletedPlanOnlyTeam", function(e) {
       return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
   });
 }
 
 function waitForAnyPlanOnlyTeamDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ plan\-only\ team\ (.+)\ in\ plan\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ plan\-only\ team\ (.+)\ in\ plan\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^Delete\ plan\-only\ team\ (.+)\ from\ plan\ (.+)$/));
+  var m = ev.data.parameters.description.match(/^Delete\ plan\-only\ team\ (.+)\ from\ plan\ (.+)$/);
   var captures = m.slice(1);
   var names = ["id", "planId"];
   var obj = {};
@@ -12688,7 +13702,7 @@ function waitForAnyPlanOnlyTeamDeleted() {
 
 function getTeams(cursor, maxResults, planId) {
   var url = "/rest/api/3/plans/plan/" + planId + "/team";
-  var description = "Get teams in plan " + planId + " paginated";
+  var description = "Get teams in plan " + planId + " paginated with cursor " + cursor + " and maxResults " + maxResults;
   var body = undefined;
   svc.get(url, {
     parameters: { description: description },
@@ -12742,7 +13756,7 @@ function createPriority(avatarId, description, iconUrl, id, name, statusColor) {
   var url = "/rest/api/3/priority";
   var description = "Create priority " + name;
   var body = {
-    "avatarId": String(avatarId),
+    "avatarId": Number(avatarId),
     "description": String(description),
     "iconUrl": String(iconUrl),
     "id": String(id),
@@ -12775,7 +13789,7 @@ function updatePriority(avatarId, description, iconUrl, id, name, statusColor) {
   var url = "/rest/api/3/priority/" + id;
   var description = "Update priority " + id + " with name " + name;
   var body = {
-    "avatarId": String(avatarId),
+    "avatarId": Number(avatarId),
     "description": String(description),
     "iconUrl": String(iconUrl),
     "id": String(id),
@@ -12804,18 +13818,23 @@ function getPriority(avatarId, description, iconUrl, id, name, statusColor) {
   });
 }
 
-function getPriorities(avatarId, description, iconUrl, id, name, statusColor) {
-  var url = "/rest/api/3/priority";
-  var description = "Get priorities";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 401]
-  });
-}
-
 function tryToAddExistingPriority(avatarId, description, iconUrl, id, name, statusColor) {
-  getPriorities(avatarId, description, iconUrl, id, name, statusColor);
+  var url = "/rest/api/3/priority";
+  var body = {
+    "avatarId": Number(avatarId),
+    "description": String(description),
+    "iconUrl": String(iconUrl),
+    "id": String(id),
+    "name": String(name),
+    "statusColor": String(statusColor),
+  };
+  var description = "Verify that we cannot add another Priority...";
+  if (body === undefined) { body = {}; }
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description }
+  });
 }
 
 function verifyPriorityExists(avatarId, description, iconUrl, id, name, statusColor) {

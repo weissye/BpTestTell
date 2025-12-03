@@ -232,7 +232,7 @@
           "name": "createRepairOrder",
           "method": "POST",
           "path": "/repair-orders",
-          "descriptionTemplate": "Create repair order {roId}",
+          "descriptionTemplate": "Create repair order with roId {roId}",
           "params": [],
           "bodyTemplate": {}
         },

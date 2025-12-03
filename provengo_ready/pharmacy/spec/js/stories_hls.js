@@ -9,7 +9,7 @@ function resolveDependencies(deps, pkMap) {
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
@@ -32,7 +32,7 @@ bthread("crud:Drug:nondet:1:1", function () {
   let id = 200;
   let name = "name_200";
   createDrug(id, name);
-  // waitForDrugAdded(id, name);
+  waitForDrugAdded(id, name);
   tryToAddExistingDrug(id, name);
   verifyDrugExists(id, name);
   updateDrug(id, name);
@@ -71,7 +71,7 @@ bthread("crud:Patient:nondet:1:1", function () {
   let id = 210;
   let name = "name_210";
   createPatient(id, name);
-  // waitForPatientAdded(id, name);
+  waitForPatientAdded(id, name);
   tryToAddExistingPatient(id, name);
   verifyPatientExists(id, name);
   updatePatient(id, name);
@@ -109,7 +109,7 @@ bthread("crud:Patient:nondet:negative:dup-add", function () {
 bthread("crud:Order:nondet:1:1", function () {
   let id = 220;
   createOrder(id);
-  // waitForOrderAdded(id);
+  waitForOrderAdded(id);
   tryToAddExistingOrder(id);
   verifyOrderExists(id);
   updateOrder(id);
@@ -145,7 +145,7 @@ bthread("crud:Order:nondet:negative:dup-add", function () {
 bthread("crud:Prescription:nondet:1:1", function () {
   let id = 230;
   createPrescription(id);
-  // waitForPrescriptionAdded(id);
+  waitForPrescriptionAdded(id);
   tryToAddExistingPrescription(id);
   verifyPrescriptionExists(id);
   updatePrescription(id);
@@ -181,7 +181,7 @@ bthread("crud:Prescription:nondet:negative:dup-add", function () {
 bthread("crud:Inventory:nondet:1:1", function () {
   let ndc = 240;
   createInventory(ndc);
-  // waitForInventoryAdded(ndc);
+  waitForInventoryAdded(ndc);
   tryToAddExistingInventory(ndc);
   verifyInventoryExists(ndc);
   updateInventory(ndc);

@@ -5,19 +5,19 @@
     "Repository": {
       "displayName": "repository",
       "params": [
-        "id",
-        "owner",
-        "username",
-        "repo",
         "org",
-        "name"
+        "username",
+        "id",
+        "name",
+        "repo",
+        "owner"
       ],
       "operations": {
         "get": {
           "name": "repoGetByID",
           "method": "GET",
           "path": "/repositories/{id}",
-          "descriptionTemplate": "Get repository by id {id}",
+          "descriptionTemplate": "Get repository with id {id}",
           "params": [
             "id"
           ],
@@ -43,35 +43,62 @@
             "owner",
             "repo"
           ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "private": "{private}",
+            "template": "{template}",
+            "archived": "{archived}",
+            "default_branch": "{default_branch}",
+            "allow_merge_commits": "{allow_merge_commits}",
+            "allow_rebase": "{allow_rebase}",
+            "allow_rebase_explicit": "{allow_rebase_explicit}",
+            "allow_squash_merge": "{allow_squash_merge}",
+            "webhook_token": "{webhook_token}",
+            "trust_model": "{trust_model}",
+            "enable_issues": "{enable_issues}",
+            "enable_wiki": "{enable_wiki}",
+            "enable_pull_requests": "{enable_pull_requests}",
+            "allow_auto_merge": "{allow_auto_merge}",
+            "allow_update_branch": "{allow_update_branch}",
+            "ignore_whitespace_conflicts": "{ignore_whitespace_conflicts}"
+          }
+        },
+        "add": {
+          "name": "adminCreateRepo",
+          "method": "POST",
+          "path": "/admin/users/{username}/repos",
+          "descriptionTemplate": "Create repository for user {username}",
+          "params": [
+            "username"
+          ],
           "bodyTemplate": {}
         },
         "getLanguages": {
           "name": "getRepositoryLanguages",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/languages",
-          "descriptionTemplate": "Get languages and number of bytes of code written for repo {owner}/{repo}",
+          "descriptionTemplate": "Get languages and number of bytes of code written for repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "getLicenses": {
           "name": "getRepositoryLicenses",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/licenses",
-          "descriptionTemplate": "Get licenses for repo {owner}/{repo}",
+          "descriptionTemplate": "Get licenses for repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "getRawFileOrLFS": {
           "name": "getRepositoryRawFileOrLFS",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/media/{filepath}",
-          "descriptionTemplate": "Get file {filepath} or LFS object from repo {owner}/{repo}",
+          "descriptionTemplate": "Get file {filepath} or LFS object from repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -84,15 +111,13 @@
           "name": "mergeRepositoryUpstream",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/merge-upstream",
-          "descriptionTemplate": "Merge a branch from upstream into repo {owner}/{repo}",
+          "descriptionTemplate": "Merge a branch from upstream into repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
           ],
           "bodyTemplate": {
-            "head_branch": "{head_branch}",
-            "branch": "{branch}",
-            "mode": "{mode}"
+            "body": "{body}"
           }
         },
         "mirrorSync": {
@@ -103,29 +128,17 @@
           "params": [
             "owner",
             "repo"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "newPinAllowed": {
           "name": "isNewPinAllowed",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/new_pin_allowed",
-          "descriptionTemplate": "Check if new issue pins are allowed in repo {owner}/{repo}",
+          "descriptionTemplate": "Check if new issue pins are allowed in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
-          ],
-          "bodyTemplate": {}
-        },
-        "add": {
-          "name": "adminCreateRepo",
-          "method": "POST",
-          "path": "/admin/users/{username}/repos",
-          "descriptionTemplate": "Create repository for user {username}",
-          "params": [
-            "username"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "addFromTemplate": {
           "name": "generateRepo",
@@ -158,7 +171,10 @@
             "repo",
             "secretname"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "encrypted_value": "{encrypted_value}",
+            "key_id": "{key_id}"
+          }
         },
         "delete": {
           "name": "deleteRepoSecret",
@@ -192,7 +208,11 @@
             "repo",
             "variablename"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "value": "{value}",
+            "masked": "{masked}",
+            "name": "{name}"
+          }
         },
         "get": {
           "name": "getRepoVariable",
@@ -216,7 +236,10 @@
             "repo",
             "variablename"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "value": "{value}",
+            "masked": "{masked}"
+          }
         },
         "delete": {
           "name": "deleteRepoVariable",
@@ -228,20 +251,6 @@
             "repo",
             "variablename"
           ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "RepositoryMigrate": {
-      "displayName": "repository migration",
-      "params": [],
-      "operations": {
-        "add": {
-          "name": "migrateRepository",
-          "method": "POST",
-          "path": "/repos/migrate",
-          "descriptionTemplate": "Migrate a remote git repository",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -265,16 +274,17 @@
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getBranchProtection",
-          "method": "GET",
+        "delete": {
+          "name": "deleteBranchProtection",
+          "method": "DELETE",
           "path": "/repos/{owner}/{repo}/branch_protections/{name}",
-          "descriptionTemplate": "Get branch protection {name} in repo {repo} owned by {owner}",
+          "descriptionTemplate": "Delete branch protection {name} in repo {repo} owned by {owner}",
           "params": [
             "owner",
             "repo",
             "name"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "editBranchProtection",
@@ -288,16 +298,17 @@
           ],
           "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteBranchProtection",
-          "method": "DELETE",
+        "get": {
+          "name": "getBranchProtection",
+          "method": "GET",
           "path": "/repos/{owner}/{repo}/branch_protections/{name}",
-          "descriptionTemplate": "Delete branch protection {name} in repo {repo} owned by {owner}",
+          "descriptionTemplate": "Get branch protection {name} in repo {repo} owned by {owner}",
           "params": [
             "owner",
             "repo",
             "name"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -320,16 +331,17 @@
           ],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "getBranch",
-          "method": "GET",
+        "delete": {
+          "name": "deleteBranch",
+          "method": "DELETE",
           "path": "/repos/{owner}/{repo}/branches/{branch}",
-          "descriptionTemplate": "Get branch {branch} in repo {repo} owned by {owner}",
+          "descriptionTemplate": "Delete branch {branch} in repo {repo} owned by {owner}",
           "params": [
             "owner",
             "repo",
             "branch"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateBranch",
@@ -343,16 +355,17 @@
           ],
           "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteBranch",
-          "method": "DELETE",
+        "get": {
+          "name": "getBranch",
+          "method": "GET",
           "path": "/repos/{owner}/{repo}/branches/{branch}",
-          "descriptionTemplate": "Delete branch {branch} in repo {repo} owned by {owner}",
+          "descriptionTemplate": "Get branch {branch} in repo {repo} owned by {owner}",
           "params": [
             "owner",
             "repo",
             "branch"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -376,6 +389,18 @@
           ],
           "bodyTemplate": {}
         },
+        "delete": {
+          "name": "deleteCollaborator",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/collaborators/{collaborator}",
+          "descriptionTemplate": "Delete collaborator {collaborator} from repo {repo} owned by {owner}",
+          "params": [
+            "owner",
+            "repo",
+            "collaborator"
+          ],
+          "bodyTemplate": {}
+        },
         "get": {
           "name": "checkCollaborator",
           "method": "GET",
@@ -385,18 +410,8 @@
             "owner",
             "repo",
             "collaborator"
-          ]
-        },
-        "delete": {
-          "name": "deleteCollaborator",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/collaborators/{collaborator}",
-          "descriptionTemplate": "Delete collaborator {collaborator} in repo {repo} owned by {owner}",
-          "params": [
-            "owner",
-            "repo",
-            "collaborator"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -426,7 +441,8 @@
           "params": [
             "owner",
             "repo"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -455,10 +471,8 @@
       "displayName": "commit",
       "params": [
         "sha",
-        "basehead",
-        "owner",
-        "ref",
-        "repo"
+        "repo",
+        "owner"
       ],
       "operations": {
         "getAll": {
@@ -542,19 +556,18 @@
         }
       }
     },
-    "RepositoryContent": {
-      "displayName": "repository content",
+    "RepositoryContents": {
+      "displayName": "repository contents",
       "params": [
         "owner",
-        "repo",
-        "filepath"
+        "repo"
       ],
       "operations": {
         "listRoot": {
-          "name": "getRootContents",
+          "name": "listRootContents",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/contents",
-          "descriptionTemplate": "Get root directory contents of repository {owner}/{repo}",
+          "descriptionTemplate": "List root directory contents of repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
@@ -570,23 +583,33 @@
             "repo"
           ],
           "bodyTemplate": {}
-        },
+        }
+      }
+    },
+    "RepositoryFile": {
+      "displayName": "repository file",
+      "params": [
+        "owner",
+        "repo",
+        "filepath"
+      ],
+      "operations": {
         "get": {
-          "name": "getContent",
+          "name": "getFile",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/contents/{filepath}",
-          "descriptionTemplate": "Get content metadata of {filepath} in repository {owner}/{repo}",
+          "descriptionTemplate": "Get file or directory metadata at {filepath} in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
             "filepath"
           ]
         },
-        "create": {
+        "add": {
           "name": "createFile",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/contents/{filepath}",
-          "descriptionTemplate": "Create file {filepath} in repository {owner}/{repo}",
+          "descriptionTemplate": "Create file at {filepath} in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -598,7 +621,7 @@
           "name": "updateFile",
           "method": "PUT",
           "path": "/repos/{owner}/{repo}/contents/{filepath}",
-          "descriptionTemplate": "Update file {filepath} in repository {owner}/{repo}",
+          "descriptionTemplate": "Update file at {filepath} in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -610,7 +633,7 @@
           "name": "deleteFile",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/contents/{filepath}",
-          "descriptionTemplate": "Delete file {filepath} in repository {owner}/{repo}",
+          "descriptionTemplate": "Delete file at {filepath} in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -764,8 +787,8 @@
         }
       }
     },
-    "GitRef": {
-      "displayName": "gitRef",
+    "Ref": {
+      "displayName": "ref",
       "params": [
         "owner",
         "repo"
@@ -775,7 +798,7 @@
           "name": "repoListAllGitRefs",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/git/refs",
-          "descriptionTemplate": "List all git refs for repository {owner}/{repo}",
+          "descriptionTemplate": "List all refs for repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
@@ -784,8 +807,8 @@
         }
       }
     },
-    "GitRefDetail": {
-      "displayName": "gitRefDetail",
+    "SingleRef": {
+      "displayName": "ref",
       "params": [
         "owner",
         "repo",
@@ -796,7 +819,7 @@
           "name": "repoListGitRefs",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/git/refs/{ref}",
-          "descriptionTemplate": "Get git ref {ref} for repository {owner}/{repo}",
+          "descriptionTemplate": "Get ref {ref} for repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -806,23 +829,49 @@
         }
       }
     },
-    "AnnotatedTag": {
-      "displayName": "annotatedTag",
+    "Tag": {
+      "displayName": "tag",
       "params": [
-        "owner",
+        "sha",
         "repo",
-        "sha"
+        "owner",
+        "tag"
       ],
       "operations": {
         "get": {
-          "name": "GetAnnotatedTag",
+          "name": "getTag",
           "method": "GET",
-          "path": "/repos/{owner}/{repo}/git/tags/{sha}",
-          "descriptionTemplate": "Get annotated tag {sha} from repository {owner}/{repo}",
+          "path": "/repos/{owner}/{repo}/tags/{tag}",
+          "descriptionTemplate": "Get the tag {tag} of repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
-            "sha"
+            "tag"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createTag",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/tags",
+          "descriptionTemplate": "Create tag in repo {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          }
+        },
+        "delete": {
+          "name": "deleteTag",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/tags/{tag}",
+          "descriptionTemplate": "Delete the tag {tag} from repository {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "tag"
           ],
           "bodyTemplate": {}
         }
@@ -856,10 +905,10 @@
     "Hook": {
       "displayName": "hook",
       "params": [
+        "org",
         "id",
-        "owner",
         "repo",
-        "org"
+        "owner"
       ],
       "operations": {
         "get": {
@@ -957,41 +1006,6 @@
             "id"
           ],
           "bodyTemplate": {}
-        },
-        "list": {
-          "name": "repoListGitHooks",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/hooks/git",
-          "descriptionTemplate": "List git hooks in repository {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "HookTest": {
-      "displayName": "hook test",
-      "params": [
-        "owner",
-        "repo",
-        "id",
-        "ref"
-      ],
-      "operations": {
-        "add": {
-          "name": "repoTestHook",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/hooks/{id}/tests",
-          "descriptionTemplate": "Test hook {id} in repository {owner}/{repo} with ref {ref}",
-          "params": [
-            "owner",
-            "repo",
-            "id",
-            "ref"
-          ],
-          "bodyTemplate": {}
         }
       }
     },
@@ -1037,36 +1051,24 @@
             "id"
           ],
           "bodyTemplate": {}
-        },
-        "list": {
-          "name": "repoListKeys",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/keys",
-          "descriptionTemplate": "List keys in repository {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {}
         }
       }
     },
     "PullRequest": {
       "displayName": "pull request",
       "params": [
-        "head",
-        "base",
-        "repo",
-        "owner",
         "index",
-        "style"
+        "repo",
+        "base",
+        "owner",
+        "head"
       ],
       "operations": {
         "list": {
           "name": "listPullRequests",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/pulls",
-          "descriptionTemplate": "List pull requests for repo {owner}/{repo}",
+          "descriptionTemplate": "List pull requests for repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -1077,80 +1079,67 @@
             "poster",
             "page",
             "limit"
-          ],
-          "bodyTemplate": {}
+          ]
         },
-        "add": {
+        "create": {
           "name": "createPullRequest",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/pulls",
-          "descriptionTemplate": "Create pull request in repo {owner}/{repo} with title {title} and head {head}",
+          "descriptionTemplate": "Create pull request in repository {owner}/{repo} with title {title}",
           "params": [
             "owner",
             "repo"
           ],
           "bodyTemplate": {
-            "title": "{title}",
-            "head": "{head}",
-            "base": "{base}",
-            "body": "{body}",
-            "assignee": "{assignee}",
-            "milestone": "{milestone}",
-            "labels": "{labels}",
-            "reviewers": "{reviewers}",
-            "team_reviewers": "{team_reviewers}",
-            "draft": "{draft}",
-            "maintainer_can_modify": "{maintainer_can_modify}"
+            "body": "{body}"
           }
         },
         "listPinned": {
           "name": "listPinnedPullRequests",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/pulls/pinned",
-          "descriptionTemplate": "List pinned pull requests for repo {owner}/{repo}",
+          "descriptionTemplate": "List pinned pull requests for repository {owner}/{repo}",
           "params": [
             "owner",
             "repo"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "getByBaseHead": {
           "name": "getPullRequestByBaseHead",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/pulls/{base}/{head}",
-          "descriptionTemplate": "Get pull request by base {base} and head {head} in repo {owner}/{repo}",
+          "descriptionTemplate": "Get pull request by base {base} and head {head} in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
             "base",
             "head"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "get": {
           "name": "getPullRequest",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/pulls/{index}",
-          "descriptionTemplate": "Get pull request {index} in repo {owner}/{repo}",
+          "descriptionTemplate": "Get pull request {index} in repository {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ]
+        },
+        "update": {
+          "name": "updatePullRequest",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}/pulls/{index}",
+          "descriptionTemplate": "Update pull request {index} in repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
             "index"
           ],
-          "bodyTemplate": {}
-        },
-        "update": {
-          "name": "repoUpdatePullRequest",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/pulls/{index}/update",
-          "descriptionTemplate": "Merge PR {index} baseBranch into headBranch in repository {owner}/{repo} with style {style}",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "style"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "body": "{body}"
+          }
         },
         "getDiffOrPatch": {
           "name": "getPullRequestDiffOrPatch",
@@ -1202,7 +1191,7 @@
           "name": "checkPullRequestMerged",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/pulls/{index}/merge",
-          "descriptionTemplate": "Check if pull request {index} in repo {owner}/{repo} is merged",
+          "descriptionTemplate": "Check if pull request {index} in repo {owner}/{repo} has been merged",
           "params": [
             "owner",
             "repo",
@@ -1238,8 +1227,8 @@
         }
       }
     },
-    "PullReviewRequest": {
-      "displayName": "pull review request",
+    "PullRequestReviewRequest": {
+      "displayName": "pull request review request",
       "params": [
         "owner",
         "repo",
@@ -1276,8 +1265,8 @@
         }
       }
     },
-    "PullReview": {
-      "displayName": "pull review",
+    "PullRequestReview": {
+      "displayName": "pull request review",
       "params": [
         "owner",
         "repo",
@@ -1356,8 +1345,8 @@
         }
       }
     },
-    "PullReviewComment": {
-      "displayName": "pull review comment",
+    "PullRequestReviewComment": {
+      "displayName": "pull request review comment",
       "params": [
         "owner",
         "repo",
@@ -1380,8 +1369,8 @@
         }
       }
     },
-    "PullReviewDismissal": {
-      "displayName": "pull review dismissal",
+    "PullRequestReviewDismissal": {
+      "displayName": "pull request review dismissal",
       "params": [
         "owner",
         "repo",
@@ -1442,7 +1431,7 @@
           "name": "repoGetPushMirrorByRemoteName",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/push_mirrors/{name}",
-          "descriptionTemplate": "Get push mirror {name} of repository {owner}/{repo}",
+          "descriptionTemplate": "Get push mirror {name} from repository {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -1549,9 +1538,9 @@
     "ReleaseAttachment": {
       "displayName": "release attachment",
       "params": [
+        "id",
         "attachment_id",
         "repo",
-        "id",
         "owner",
         "name"
       ],
@@ -1606,6 +1595,32 @@
             "id",
             "attachment_id"
           ],
+          "bodyTemplate": {
+            "body": "{body}"
+          }
+        }
+      }
+    },
+    "PullRequestUpdate": {
+      "displayName": "pull request update",
+      "params": [
+        "owner",
+        "repo",
+        "index",
+        "style"
+      ],
+      "operations": {
+        "add": {
+          "name": "repoUpdatePullRequest",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/pulls/{index}/update",
+          "descriptionTemplate": "Merge PR {index} baseBranch into headBranch in repository {owner}/{repo} with style {style}",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "style"
+          ],
           "bodyTemplate": {}
         }
       }
@@ -1618,10 +1633,10 @@
       ],
       "operations": {
         "get": {
-          "name": "listReviewers",
+          "name": "getReviewers",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/reviewers",
-          "descriptionTemplate": "List reviewers for repo {owner}/{repo}",
+          "descriptionTemplate": "Get reviewers for repo {owner}/{repo}",
           "params": [
             "owner",
             "repo"
@@ -1654,21 +1669,17 @@
       "displayName": "stargazer",
       "params": [
         "owner",
-        "repo",
-        "page",
-        "limit"
+        "repo"
       ],
       "operations": {
         "get": {
           "name": "listStargazers",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/stargazers",
-          "descriptionTemplate": "List stargazers for repo {owner}/{repo} page {page} limit {limit}",
+          "descriptionTemplate": "List stargazers for repo {owner}/{repo}",
           "params": [
             "owner",
-            "repo",
-            "page",
-            "limit"
+            "repo"
           ],
           "bodyTemplate": {}
         }
@@ -1679,26 +1690,18 @@
       "params": [
         "owner",
         "repo",
-        "sha",
-        "sort",
-        "state",
-        "page",
-        "limit"
+        "sha"
       ],
       "operations": {
         "get": {
           "name": "listCommitStatuses",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/statuses/{sha}",
-          "descriptionTemplate": "List commit statuses for commit {sha} in repo {owner}/{repo} with sort {sort} and state {state} page {page} limit {limit}",
+          "descriptionTemplate": "Get statuses for commit {sha} in repo {owner}/{repo}",
           "params": [
             "owner",
             "repo",
-            "sha",
-            "sort",
-            "state",
-            "page",
-            "limit"
+            "sha"
           ],
           "bodyTemplate": {}
         },
@@ -1712,7 +1715,9 @@
             "repo",
             "sha"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "body": "{body}"
+          }
         }
       }
     },
@@ -1720,21 +1725,17 @@
       "displayName": "subscriber",
       "params": [
         "owner",
-        "repo",
-        "page",
-        "limit"
+        "repo"
       ],
       "operations": {
         "get": {
           "name": "listSubscribers",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/subscribers",
-          "descriptionTemplate": "List subscribers for repo {owner}/{repo} page {page} limit {limit}",
+          "descriptionTemplate": "List subscribers for repo {owner}/{repo}",
           "params": [
             "owner",
-            "repo",
-            "page",
-            "limit"
+            "repo"
           ],
           "bodyTemplate": {}
         }
@@ -1743,19 +1744,20 @@
     "Subscription": {
       "displayName": "subscription",
       "params": [
+        "username",
         "repo",
-        "owner",
-        "username"
+        "owner"
       ],
       "operations": {
         "get": {
-          "name": "userListSubscriptions",
+          "name": "listSubscriptions",
           "method": "GET",
           "path": "/users/{username}/subscriptions",
           "descriptionTemplate": "List subscriptions for user {username}",
           "params": [
             "username"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "add": {
           "name": "watchRepo",
@@ -1823,7 +1825,9 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "body": "{body}"
+          }
         },
         "add": {
           "name": "createTagProtection",
@@ -1834,66 +1838,21 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "Tag": {
-      "displayName": "tag",
-      "params": [
-        "repo",
-        "limit",
-        "owner",
-        "tag",
-        "page"
-      ],
-      "operations": {
-        "get": {
-          "name": "getTag",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/tags/{tag}",
-          "descriptionTemplate": "Get the tag {tag} of repository {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo",
-            "tag"
-          ],
-          "bodyTemplate": {}
-        },
-        "add": {
-          "name": "createTag",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/tags",
-          "descriptionTemplate": "Create tag in repo {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {}
-        },
-        "delete": {
-          "name": "deleteTag",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/tags/{tag}",
-          "descriptionTemplate": "Delete the tag {tag} from repository {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo",
-            "tag"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "body": "{body}"
+          }
         }
       }
     },
     "Team": {
       "displayName": "team",
       "params": [
-        "id",
-        "owner",
         "team",
-        "repo",
         "org",
-        "name"
+        "id",
+        "name",
+        "repo",
+        "owner"
       ],
       "operations": {
         "get": {
@@ -1963,8 +1922,7 @@
       "displayName": "tracked time",
       "params": [
         "owner",
-        "repo",
-        "user"
+        "repo"
       ],
       "operations": {
         "get": {
@@ -2005,12 +1963,12 @@
     "Topic": {
       "displayName": "topic",
       "params": [
-        "topic",
         "limit",
-        "owner",
         "q",
-        "page",
-        "repo"
+        "owner",
+        "repo",
+        "topic",
+        "page"
       ],
       "operations": {
         "add": {
@@ -2247,7 +2205,9 @@
           "params": [
             "secretname"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "secretname": "{secretname}"
+          }
         },
         "update": {
           "name": "updateUserSecret",
@@ -2257,7 +2217,9 @@
           "params": [
             "secretname"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "secretname": "{secretname}"
+          }
         },
         "delete": {
           "name": "deleteUserSecret",
@@ -2266,8 +2228,7 @@
           "descriptionTemplate": "Delete user secret {secretname}",
           "params": [
             "secretname"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -2285,7 +2246,9 @@
           "params": [
             "variablename"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "variablename": "{variablename}"
+          }
         },
         "get": {
           "name": "getUserVariable",
@@ -2294,8 +2257,7 @@
           "descriptionTemplate": "Get user variable {variablename}",
           "params": [
             "variablename"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateUserVariable",
@@ -2305,7 +2267,9 @@
           "params": [
             "variablename"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "variablename": "{variablename}"
+          }
         },
         "delete": {
           "name": "deleteUserVariable",
@@ -2314,8 +2278,7 @@
           "descriptionTemplate": "Delete user variable {variablename}",
           "params": [
             "variablename"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -2329,7 +2292,7 @@
           "name": "userCreateOAuth2Application",
           "method": "POST",
           "path": "/user/applications/oauth2",
-          "descriptionTemplate": "Create OAuth2 application",
+          "descriptionTemplate": "Create OAuth2 application with id {id}",
           "params": [],
           "bodyTemplate": {}
         },
@@ -2340,8 +2303,7 @@
           "descriptionTemplate": "Get OAuth2 application {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "userUpdateOAuth2Application",
@@ -2360,8 +2322,7 @@
           "descriptionTemplate": "Delete OAuth2 application {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -2382,8 +2343,7 @@
           "method": "DELETE",
           "path": "/user/avatar",
           "descriptionTemplate": "Delete user avatar",
-          "params": [],
-          "bodyTemplate": {}
+          "params": []
         }
       }
     },
@@ -2410,8 +2370,7 @@
           "descriptionTemplate": "Check if user {username} is blocked",
           "params": [
             "username"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "delete": {
           "name": "userUnblockUser",
@@ -2420,8 +2379,7 @@
           "descriptionTemplate": "Unblock user {username}",
           "params": [
             "username"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -2510,8 +2468,8 @@
         }
       }
     },
-    "FollowingUser": {
-      "displayName": "following user",
+    "UserFollow": {
+      "displayName": "user follow",
       "params": [
         "username"
       ],
@@ -2607,10 +2565,14 @@
           "path": "/user/keys",
           "descriptionTemplate": "Create public key with fingerprint {fingerprint}",
           "params": [
-            "fingerprint"
+            "fingerprint",
+            "key",
+            "title"
           ],
           "bodyTemplate": {
-            "fingerprint": "{fingerprint}"
+            "fingerprint": "{fingerprint}",
+            "key": "{key}",
+            "title": "{title}"
           }
         },
         "get": {
@@ -2653,22 +2615,75 @@
           "path": "/user/settings",
           "descriptionTemplate": "Update user settings",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "prohibit_login": "{prohibit_login}",
+            "diff_view_style": "{diff_view_style}",
+            "theme": "{theme}",
+            "language": "{language}",
+            "external_tracker": "{external_tracker}",
+            "external_tracker_format": "{external_tracker_format}",
+            "external_tracker_style": "{external_tracker_style}",
+            "time_zone": "{time_zone}",
+            "last_git_hook_received": "{last_git_hook_received}",
+            "last_login": "{last_login}",
+            "keep_email_private": "{keep_email_private}",
+            "allow_create_organization": "{allow_create_organization}",
+            "allow_create_repository": "{allow_create_repository}",
+            "allow_create_team": "{allow_create_team}",
+            "allow_create_gpg_key": "{allow_create_gpg_key}",
+            "default_branch": "{default_branch}",
+            "show_full_commit_message": "{show_full_commit_message}",
+            "show_untracked_files": "{show_untracked_files}",
+            "show_whitespace_in_diff": "{show_whitespace_in_diff}",
+            "hide_email": "{hide_email}",
+            "hide_activity": "{hide_activity}",
+            "hide_own_repositories": "{hide_own_repositories}",
+            "hide_own_teams": "{hide_own_teams}",
+            "hide_own_organizations": "{hide_own_organizations}",
+            "hide_own_issues": "{hide_own_issues}",
+            "hide_own_pull_requests": "{hide_own_pull_requests}",
+            "hide_own_releases": "{hide_own_releases}",
+            "hide_own_wikis": "{hide_own_wikis}",
+            "hide_own_projects": "{hide_own_projects}",
+            "hide_own_milestones": "{hide_own_milestones}",
+            "hide_own_labels": "{hide_own_labels}",
+            "hide_own_webhooks": "{hide_own_webhooks}",
+            "hide_own_hooks": "{hide_own_hooks}",
+            "hide_own_actions": "{hide_own_actions}",
+            "hide_own_notifications": "{hide_own_notifications}",
+            "hide_own_events": "{hide_own_events}",
+            "hide_own_comments": "{hide_own_comments}",
+            "hide_own_reactions": "{hide_own_reactions}",
+            "hide_own_mentions": "{hide_own_mentions}",
+            "hide_own_mentions_in_comments": "{hide_own_mentions_in_comments}",
+            "hide_own_mentions_in_issues": "{hide_own_mentions_in_issues}",
+            "hide_own_mentions_in_pull_requests": "{hide_own_mentions_in_pull_requests}",
+            "hide_own_mentions_in_releases": "{hide_own_mentions_in_releases}",
+            "hide_own_mentions_in_wikis": "{hide_own_mentions_in_wikis}",
+            "hide_own_mentions_in_projects": "{hide_own_mentions_in_projects}",
+            "hide_own_mentions_in_milestones": "{hide_own_mentions_in_milestones}",
+            "hide_own_mentions_in_labels": "{hide_own_mentions_in_labels}",
+            "hide_own_mentions_in_webhooks": "{hide_own_mentions_in_webhooks}",
+            "hide_own_mentions_in_hooks": "{hide_own_mentions_in_hooks}",
+            "hide_own_mentions_in_actions": "{hide_own_mentions_in_actions}",
+            "hide_own_mentions_in_notifications": "{hide_own_mentions_in_notifications}",
+            "hide_own_mentions_in_events": "{hide_own_mentions_in_events}"
+          }
         }
       }
     },
-    "StarredRepo": {
-      "displayName": "starred repo",
+    "Star": {
+      "displayName": "star",
       "params": [
         "owner",
         "repo"
       ],
       "operations": {
         "get": {
-          "name": "checkStarredRepo",
+          "name": "checkStar",
           "method": "GET",
           "path": "/user/starred/{owner}/{repo}",
-          "descriptionTemplate": "Check if repo {owner}/{repo} is starred",
+          "descriptionTemplate": "Check if user is starring repo {owner}/{repo}",
           "params": [
             "owner",
             "repo"
@@ -2749,6 +2764,56 @@
         }
       }
     },
+    "UserSearch": {
+      "displayName": "userSearch",
+      "params": [
+        "q",
+        "uid",
+        "page",
+        "limit"
+      ],
+      "operations": {
+        "get": {
+          "name": "searchUsers",
+          "method": "GET",
+          "path": "/users/search",
+          "descriptionTemplate": "Search users with keyword {q} and uid {uid}",
+          "params": [
+            "q",
+            "uid",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "UserActivityFeed": {
+      "displayName": "userActivityFeed",
+      "params": [
+        "username",
+        "only-performed-by",
+        "date",
+        "page",
+        "limit"
+      ],
+      "operations": {
+        "get": {
+          "name": "listUserActivityFeeds",
+          "method": "GET",
+          "path": "/users/{username}/activities/feeds",
+          "descriptionTemplate": "List activity feeds for user {username}",
+          "params": [
+            "username",
+            "only-performed-by",
+            "date",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
     "UserFollowers": {
       "displayName": "userFollowers",
       "params": [
@@ -2761,7 +2826,7 @@
           "name": "listUserFollowers",
           "method": "GET",
           "path": "/users/{username}/followers",
-          "descriptionTemplate": "List followers of user {username} page {page} limit {limit}",
+          "descriptionTemplate": "List followers of user {username}",
           "params": [
             "username",
             "page",
@@ -2783,7 +2848,7 @@
           "name": "listUserFollowing",
           "method": "GET",
           "path": "/users/{username}/following",
-          "descriptionTemplate": "List users followed by {username} page {page} limit {limit}",
+          "descriptionTemplate": "List users followed by {username}",
           "params": [
             "username",
             "page",
@@ -2813,8 +2878,8 @@
         }
       }
     },
-    "UserGPGKeys": {
-      "displayName": "userGPGKeys",
+    "UserGPGKey": {
+      "displayName": "userGPGKey",
       "params": [
         "username",
         "page",
@@ -2825,7 +2890,7 @@
           "name": "listUserGPGKeys",
           "method": "GET",
           "path": "/users/{username}/gpg_keys",
-          "descriptionTemplate": "List GPG keys of user {username} page {page} limit {limit}",
+          "descriptionTemplate": "List GPG keys for user {username}",
           "params": [
             "username",
             "page",
@@ -2845,7 +2910,7 @@
           "name": "getUserHeatmap",
           "method": "GET",
           "path": "/users/{username}/heatmap",
-          "descriptionTemplate": "Get heatmap data for user {username}",
+          "descriptionTemplate": "Get heatmap for user {username}",
           "params": [
             "username"
           ],
@@ -2853,20 +2918,21 @@
         }
       }
     },
-    "UserKeys": {
-      "displayName": "userKeys",
+    "UserPublicKey": {
+      "displayName": "userPublicKey",
       "params": [
         "username",
+        "limit",
+        "id",
         "fingerprint",
-        "page",
-        "limit"
+        "page"
       ],
       "operations": {
         "get": {
-          "name": "listUserKeys",
+          "name": "listUserPublicKeys",
           "method": "GET",
           "path": "/users/{username}/keys",
-          "descriptionTemplate": "List public keys of user {username} with fingerprint {fingerprint} page {page} limit {limit}",
+          "descriptionTemplate": "List public keys for user {username}",
           "params": [
             "username",
             "fingerprint",
@@ -2874,11 +2940,32 @@
             "limit"
           ],
           "bodyTemplate": {}
+        },
+        "add": {
+          "name": "adminCreatePublicKey",
+          "method": "POST",
+          "path": "/admin/users/{username}/keys",
+          "descriptionTemplate": "Add public key for user {username}",
+          "params": [
+            "username"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "adminDeleteUserPublicKey",
+          "method": "DELETE",
+          "path": "/admin/users/{username}/keys/{id}",
+          "descriptionTemplate": "Delete public key {id} for user {username}",
+          "params": [
+            "username",
+            "id"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
-    "UserRepos": {
-      "displayName": "userRepos",
+    "UserRepo": {
+      "displayName": "userRepo",
       "params": [
         "username",
         "page",
@@ -2889,59 +2976,9 @@
           "name": "listUserRepos",
           "method": "GET",
           "path": "/users/{username}/repos",
-          "descriptionTemplate": "List repos owned by user {username} page {page} limit {limit}",
+          "descriptionTemplate": "List repos owned by user {username}",
           "params": [
             "username",
-            "page",
-            "limit"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "UserActivitiesFeeds": {
-      "displayName": "userActivitiesFeeds",
-      "params": [
-        "username",
-        "only-performed-by",
-        "date",
-        "page",
-        "limit"
-      ],
-      "operations": {
-        "get": {
-          "name": "listUserActivityFeeds",
-          "method": "GET",
-          "path": "/users/{username}/activities/feeds",
-          "descriptionTemplate": "List activity feeds for user {username} filtered by only-performed-by={only-performed-by} date={date} page {page} limit {limit}",
-          "params": [
-            "username",
-            "only-performed-by",
-            "date",
-            "page",
-            "limit"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "UserSearch": {
-      "displayName": "userSearch",
-      "params": [
-        "q",
-        "uid",
-        "page",
-        "limit"
-      ],
-      "operations": {
-        "get": {
-          "name": "searchUsers",
-          "method": "GET",
-          "path": "/users/search",
-          "descriptionTemplate": "Search users with query {q} uid {uid} page {page} limit {limit}",
-          "params": [
-            "q",
-            "uid",
             "page",
             "limit"
           ],
@@ -2957,7 +2994,7 @@
       ],
       "operations": {
         "add": {
-          "name": "userCreateToken",
+          "name": "createAccessToken",
           "method": "POST",
           "path": "/users/{username}/tokens",
           "descriptionTemplate": "Create access token for user {username}",
@@ -2967,23 +3004,25 @@
           "bodyTemplate": {}
         },
         "delete": {
-          "name": "userDeleteAccessToken",
+          "name": "deleteAccessToken",
           "method": "DELETE",
           "path": "/users/{username}/tokens/{token}",
           "descriptionTemplate": "Delete access token {token} for user {username}",
           "params": [
             "username",
             "token"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "get": {
-          "name": "userGetTokens",
+          "name": "listAccessTokens",
           "method": "GET",
           "path": "/users/{username}/tokens",
-          "descriptionTemplate": "Get access tokens for user {username}",
+          "descriptionTemplate": "List access tokens for user {username}",
           "params": [
             "username"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -2994,13 +3033,14 @@
       ],
       "operations": {
         "get": {
-          "name": "userListStarred",
+          "name": "listStarredRepositories",
           "method": "GET",
           "path": "/users/{username}/starred",
           "descriptionTemplate": "List starred repositories for user {username}",
           "params": [
             "username"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -3016,12 +3056,19 @@
           "name": "createIssue",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/issues",
-          "descriptionTemplate": "Create issue in repo {owner}/{repo}",
+          "descriptionTemplate": "Create issue in repo {owner}/{repo} with index {index}",
           "params": [
             "owner",
             "repo"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "title": "{title}",
+            "body": "{body}",
+            "assignee": "{assignee}",
+            "milestone": "{milestone}",
+            "labels": "{labels}",
+            "deadline": "{deadline}"
+          }
         },
         "delete": {
           "name": "deleteIssue",
@@ -3032,8 +3079,7 @@
             "owner",
             "repo",
             "index"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "editIssue",
@@ -3045,7 +3091,14 @@
             "repo",
             "index"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "title": "{title}",
+            "body": "{body}",
+            "assignee": "{assignee}",
+            "milestone": "{milestone}",
+            "labels": "{labels}",
+            "deadline": "{deadline}"
+          }
         },
         "get": {
           "name": "getIssue",
@@ -3056,8 +3109,7 @@
             "owner",
             "repo",
             "index"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -3065,9 +3117,9 @@
       "displayName": "issue comment",
       "params": [
         "id",
-        "owner",
         "index",
-        "repo"
+        "repo",
+        "owner"
       ],
       "operations": {
         "get": {
@@ -3085,7 +3137,7 @@
           "bodyTemplate": {}
         },
         "delete": {
-          "name": "deleteComment",
+          "name": "deleteIssueComment",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/issues/comments/{id}",
           "descriptionTemplate": "Delete comment {id} in repo {owner}/{repo}",
@@ -3093,11 +3145,10 @@
             "owner",
             "repo",
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
-          "name": "editComment",
+          "name": "editIssueComment",
           "method": "PATCH",
           "path": "/repos/{owner}/{repo}/issues/comments/{id}",
           "descriptionTemplate": "Edit comment {id} in repo {owner}/{repo}",
@@ -3106,7 +3157,9 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "body": "{body}"
+          }
         },
         "add": {
           "name": "createIssueComment",
@@ -3159,8 +3212,7 @@
             "repo",
             "id",
             "attachment_id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "delete": {
           "name": "deleteIssueCommentAttachment",
@@ -3172,8 +3224,7 @@
             "repo",
             "id",
             "attachment_id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "editIssueCommentAttachment",
@@ -3186,7 +3237,10 @@
             "id",
             "attachment_id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "desc": "{desc}"
+          }
         }
       }
     },
@@ -3199,7 +3253,7 @@
       ],
       "operations": {
         "add": {
-          "name": "postCommentReaction",
+          "name": "addIssueCommentReaction",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions",
           "descriptionTemplate": "Add reaction to comment {id} in repo {owner}/{repo}",
@@ -3208,10 +3262,12 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "content": "{content}"
+          }
         },
         "delete": {
-          "name": "deleteCommentReaction",
+          "name": "deleteIssueCommentReaction",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions",
           "descriptionTemplate": "Remove reaction from comment {id} in repo {owner}/{repo}",
@@ -3220,10 +3276,12 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "content": "{content}"
+          }
         },
         "get": {
-          "name": "getCommentReactions",
+          "name": "getIssueCommentReactions",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions",
           "descriptionTemplate": "Get reactions for comment {id} in repo {owner}/{repo}",
@@ -3231,8 +3289,7 @@
             "owner",
             "repo",
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -3270,8 +3327,7 @@
             "repo",
             "index",
             "attachment_id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "delete": {
           "name": "deleteIssueAttachment",
@@ -3283,8 +3339,7 @@
             "repo",
             "index",
             "attachment_id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "editIssueAttachment",
@@ -3297,7 +3352,10 @@
             "index",
             "attachment_id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "desc": "{desc}"
+          }
         }
       }
     },
@@ -3355,8 +3413,8 @@
         }
       }
     },
-    "IssueCommentItem": {
-      "displayName": "issue comment item",
+    "IssueCommentDetail": {
+      "displayName": "issue comment detail",
       "params": [
         "owner",
         "repo",
@@ -3538,8 +3596,8 @@
         }
       }
     },
-    "IssueLabelItem": {
-      "displayName": "issue label item",
+    "IssueLabelDetail": {
+      "displayName": "issue label detail",
       "params": [
         "owner",
         "repo",
@@ -3683,7 +3741,7 @@
       ],
       "operations": {
         "add": {
-          "name": "issueStartStopWatch",
+          "name": "startIssueStopwatch",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
           "descriptionTemplate": "Start stopwatch on issue {index} in repo {owner}/{repo}",
@@ -3695,7 +3753,7 @@
           "bodyTemplate": {}
         },
         "update": {
-          "name": "issueStopStopWatch",
+          "name": "stopIssueStopwatch",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop",
           "descriptionTemplate": "Stop stopwatch on issue {index} in repo {owner}/{repo}",
@@ -3707,7 +3765,7 @@
           "bodyTemplate": {}
         },
         "delete": {
-          "name": "issueDeleteStopWatch",
+          "name": "deleteIssueStopwatch",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/delete",
           "descriptionTemplate": "Delete stopwatch on issue {index} in repo {owner}/{repo}",
@@ -3729,32 +3787,8 @@
         "user"
       ],
       "operations": {
-        "get": {
-          "name": "issueSubscriptions",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions",
-          "descriptionTemplate": "Get users subscribed on issue {index} in repo {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo",
-            "index"
-          ],
-          "bodyTemplate": {}
-        },
-        "check": {
-          "name": "issueCheckSubscription",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/check",
-          "descriptionTemplate": "Check subscription status for issue {index} in repo {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo",
-            "index"
-          ],
-          "bodyTemplate": {}
-        },
         "add": {
-          "name": "issueAddSubscription",
+          "name": "addIssueSubscription",
           "method": "PUT",
           "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
           "descriptionTemplate": "Subscribe user {user} to issue {index} in repo {owner}/{repo}",
@@ -3767,7 +3801,7 @@
           "bodyTemplate": {}
         },
         "delete": {
-          "name": "issueDeleteSubscription",
+          "name": "deleteIssueSubscription",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
           "descriptionTemplate": "Unsubscribe user {user} from issue {index} in repo {owner}/{repo}",
@@ -3776,6 +3810,30 @@
             "repo",
             "index",
             "user"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIssueSubscriptions",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions",
+          "descriptionTemplate": "Get users subscribed to issue {index} in repo {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {}
+        },
+        "check": {
+          "name": "checkIssueSubscription",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/check",
+          "descriptionTemplate": "Check if user is subscribed to issue {index} in repo {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "index"
           ],
           "bodyTemplate": {}
         }
@@ -3790,7 +3848,7 @@
       ],
       "operations": {
         "get": {
-          "name": "issueGetCommentsAndTimeline",
+          "name": "getIssueTimeline",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/issues/{index}/timeline",
           "descriptionTemplate": "List all comments and events on issue {index} in repo {owner}/{repo}",
@@ -3812,20 +3870,8 @@
         "id"
       ],
       "operations": {
-        "get": {
-          "name": "issueTrackedTimes",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/issues/{index}/times",
-          "descriptionTemplate": "List tracked times for issue {index} in repo {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo",
-            "index"
-          ],
-          "bodyTemplate": {}
-        },
         "add": {
-          "name": "issueAddTime",
+          "name": "addIssueTrackedTime",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/issues/{index}/times",
           "descriptionTemplate": "Add tracked time to issue {index} in repo {owner}/{repo}",
@@ -3839,30 +3885,7 @@
           }
         },
         "delete": {
-          "name": "issueResetTime",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/times",
-          "descriptionTemplate": "Reset tracked time of issue {index} in repo {owner}/{repo}",
-          "params": [
-            "owner",
-            "repo",
-            "index"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "IssueTrackedTimeEntry": {
-      "displayName": "issue tracked time entry",
-      "params": [
-        "owner",
-        "repo",
-        "index",
-        "id"
-      ],
-      "operations": {
-        "delete": {
-          "name": "issueDeleteTime",
+          "name": "deleteIssueTrackedTime",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/issues/{index}/times/{id}",
           "descriptionTemplate": "Delete tracked time {id} from issue {index} in repo {owner}/{repo}",
@@ -3873,18 +3896,52 @@
             "id"
           ],
           "bodyTemplate": {}
+        },
+        "reset": {
+          "name": "resetIssueTrackedTime",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/times",
+          "descriptionTemplate": "Reset tracked time on issue {index} in repo {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIssueTrackedTimes",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/issues/{index}/times",
+          "descriptionTemplate": "List tracked times on issue {index} in repo {owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "Label": {
       "displayName": "label",
       "params": [
+        "org",
         "id",
-        "owner",
         "repo",
-        "org"
+        "owner"
       ],
       "operations": {
+        "add": {
+          "name": "createLabel",
+          "method": "POST",
+          "path": "/orgs/{org}/labels",
+          "descriptionTemplate": "Create label in organization {org}",
+          "params": [
+            "org"
+          ],
+          "bodyTemplate": "{CreateLabelOption}"
+        },
         "get": {
           "name": "getLabel",
           "method": "GET",
@@ -3896,21 +3953,11 @@
           ],
           "bodyTemplate": {}
         },
-        "add": {
-          "name": "createLabel",
-          "method": "POST",
-          "path": "/orgs/{org}/labels",
-          "descriptionTemplate": "Create label for organization {org}",
-          "params": [
-            "org"
-          ],
-          "bodyTemplate": "{CreateLabelOption}"
-        },
         "delete": {
           "name": "deleteLabel",
           "method": "DELETE",
           "path": "/orgs/{org}/labels/{id}",
-          "descriptionTemplate": "Delete label {id} for organization {org}",
+          "descriptionTemplate": "Delete label {id} from organization {org}",
           "params": [
             "org",
             "id"
@@ -3939,7 +3986,7 @@
       ],
       "operations": {
         "getList": {
-          "name": "getMilestonesList",
+          "name": "issueGetMilestonesList",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/milestones",
           "descriptionTemplate": "Get all opened milestones in repo {owner}/{repo}",
@@ -3950,7 +3997,7 @@
           "bodyTemplate": {}
         },
         "add": {
-          "name": "createMilestone",
+          "name": "issueCreateMilestone",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/milestones",
           "descriptionTemplate": "Create milestone in repo {owner}/{repo}",
@@ -3961,7 +4008,7 @@
           "bodyTemplate": {}
         },
         "get": {
-          "name": "getMilestone",
+          "name": "issueGetMilestone",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/milestones/{id}",
           "descriptionTemplate": "Get milestone {id} in repo {owner}/{repo}",
@@ -3973,7 +4020,7 @@
           "bodyTemplate": {}
         },
         "delete": {
-          "name": "deleteMilestone",
+          "name": "issueDeleteMilestone",
           "method": "DELETE",
           "path": "/repos/{owner}/{repo}/milestones/{id}",
           "descriptionTemplate": "Delete milestone {id} in repo {owner}/{repo}",
@@ -3985,7 +4032,7 @@
           "bodyTemplate": {}
         },
         "update": {
-          "name": "editMilestone",
+          "name": "issueEditMilestone",
           "method": "PATCH",
           "path": "/repos/{owner}/{repo}/milestones/{id}",
           "descriptionTemplate": "Update milestone {id} in repo {owner}/{repo}",
@@ -4043,13 +4090,14 @@
           "descriptionTemplate": "Delete organization {org}",
           "params": [
             "org"
-          ]
+          ],
+          "bodyTemplate": {}
         },
-        "getPermissions": {
-          "name": "orgGetUserPermissions",
+        "getUserPermissions": {
+          "name": "getUserPermissionsInOrganization",
           "method": "GET",
           "path": "/users/{username}/orgs/{org}/permissions",
-          "descriptionTemplate": "Get permissions of user {username} in organization {org}",
+          "descriptionTemplate": "Get permissions for user {username} in organization {org}",
           "params": [
             "username",
             "org"
@@ -4058,8 +4106,26 @@
         }
       }
     },
+    "OrgRepository": {
+      "displayName": "repository",
+      "params": [
+        "org"
+      ],
+      "operations": {
+        "add": {
+          "name": "createOrgRepoDeprecated",
+          "method": "POST",
+          "path": "/org/{org}/repos",
+          "descriptionTemplate": "Create repository in organization {org}",
+          "params": [
+            "org"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
     "OrgSecret": {
-      "displayName": "organization secret",
+      "displayName": "secret",
       "params": [
         "org",
         "secretname"
@@ -4084,12 +4150,13 @@
           "params": [
             "org",
             "secretname"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "OrgVariable": {
-      "displayName": "organization variable",
+      "displayName": "variable",
       "params": [
         "org",
         "variablename"
@@ -4114,7 +4181,8 @@
           "params": [
             "org",
             "variablename"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "update": {
           "name": "updateOrgVariable",
@@ -4135,12 +4203,13 @@
           "params": [
             "org",
             "variablename"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
     "OrgAvatar": {
-      "displayName": "organization avatar",
+      "displayName": "avatar",
       "params": [
         "org"
       ],
@@ -4162,7 +4231,8 @@
           "descriptionTemplate": "Delete avatar for organization {org}",
           "params": [
             "org"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -4488,36 +4558,6 @@
         }
       }
     },
-    "UserPublicKey": {
-      "displayName": "user public key",
-      "params": [
-        "username",
-        "id"
-      ],
-      "operations": {
-        "add": {
-          "name": "adminCreatePublicKey",
-          "method": "POST",
-          "path": "/admin/users/{username}/keys",
-          "descriptionTemplate": "Add public key for user {username}",
-          "params": [
-            "username"
-          ],
-          "bodyTemplate": {}
-        },
-        "delete": {
-          "name": "adminDeleteUserPublicKey",
-          "method": "DELETE",
-          "path": "/admin/users/{username}/keys/{id}",
-          "descriptionTemplate": "Delete public key {id} for user {username}",
-          "params": [
-            "username",
-            "id"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
     "UserRename": {
       "displayName": "user rename",
       "params": [
@@ -4567,21 +4607,13 @@
     },
     "NotificationList": {
       "displayName": "notification list",
-      "params": [
-        "all",
-        "status-types",
-        "subject-type",
-        "since",
-        "before",
-        "page",
-        "limit"
-      ],
+      "params": [],
       "operations": {
         "get": {
-          "name": "getNotificationList",
+          "name": "listNotifications",
           "method": "GET",
           "path": "/notifications",
-          "descriptionTemplate": "List users's notification threads with filters all={all}, status-types={status-types}, subject-type={subject-type}, since={since}, before={before}, page={page}, limit={limit}",
+          "descriptionTemplate": "List users's notification threads",
           "params": [
             "all",
             "status-types",
@@ -4594,15 +4626,15 @@
           "bodyTemplate": {}
         },
         "update": {
-          "name": "updateNotificationList",
+          "name": "updateNotifications",
           "method": "PUT",
           "path": "/notifications",
-          "descriptionTemplate": "Mark notification threads as read, pinned or unread with all={all}, status-types={status-types}, to-status={to-status}, last_read_at={last_read_at}",
+          "descriptionTemplate": "Mark notification threads as read, pinned or unread",
           "params": [
+            "last_read_at",
             "all",
             "status-types",
-            "to-status",
-            "last_read_at"
+            "to-status"
           ],
           "bodyTemplate": {}
         }
@@ -4626,21 +4658,14 @@
       "displayName": "repo notification list",
       "params": [
         "owner",
-        "repo",
-        "all",
-        "status-types",
-        "subject-type",
-        "since",
-        "before",
-        "page",
-        "limit"
+        "repo"
       ],
       "operations": {
         "get": {
-          "name": "getRepoNotificationList",
+          "name": "listRepoNotifications",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/notifications",
-          "descriptionTemplate": "List users's notification threads on repo {owner}/{repo} with filters all={all}, status-types={status-types}, subject-type={subject-type}, since={since}, before={before}, page={page}, limit={limit}",
+          "descriptionTemplate": "List users's notification threads on repo {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -4655,10 +4680,10 @@
           "bodyTemplate": {}
         },
         "update": {
-          "name": "updateRepoNotificationList",
+          "name": "updateRepoNotifications",
           "method": "PUT",
           "path": "/repos/{owner}/{repo}/notifications",
-          "descriptionTemplate": "Mark notification threads as read, pinned or unread on repo {owner}/{repo} with all={all}, status-types={status-types}, to-status={to-status}, last_read_at={last_read_at}",
+          "descriptionTemplate": "Mark notification threads as read, pinned or unread on repo {owner}/{repo}",
           "params": [
             "owner",
             "repo",
@@ -4684,7 +4709,7 @@
           "name": "getPackage",
           "method": "GET",
           "path": "/packages/{owner}/{type}/{name}/{version}",
-          "descriptionTemplate": "Get package {name} version {version} of type {type} owned by {owner}",
+          "descriptionTemplate": "Get package {name} of type {type} version {version} owned by {owner}",
           "params": [
             "owner",
             "type",
@@ -4697,7 +4722,7 @@
           "name": "deletePackage",
           "method": "DELETE",
           "path": "/packages/{owner}/{type}/{name}/{version}",
-          "descriptionTemplate": "Delete package {name} version {version} of type {type} owned by {owner}",
+          "descriptionTemplate": "Delete package {name} of type {type} version {version} owned by {owner}",
           "params": [
             "owner",
             "type",
@@ -4747,7 +4772,7 @@
           "name": "listPackageFiles",
           "method": "GET",
           "path": "/packages/{owner}/{type}/{name}/{version}/files",
-          "descriptionTemplate": "List files of package {name} version {version} of type {type} owned by {owner}",
+          "descriptionTemplate": "List files of package {name} of type {type} version {version} owned by {owner}",
           "params": [
             "owner",
             "type",
