@@ -1,6 +1,7 @@
 // Auto-generated HLS stories
 //@provengo summon rest
 
+const bthread = bp.registerBThread;
 
 function resolveDependencies(deps, pkMap) {
   let captured = {};
@@ -73,6 +74,20 @@ bthread("crud:CableTermination:nondet:negative:dup-add", function () {
   verifyCableTerminationExists(cable, cable_end, id, termination_id, termination_type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CableTermination:nondet:existing:update
+bthread("crud:CableTermination:nondet:existing:update", function () {
+  let ev = waitForAnyCableTerminationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCableTermination.apply(null, args), function () {
+    verifyCableTerminationExists.apply(null, args);
+    updateCableTermination.apply(null, args);
+    verifyCableTerminationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CableTermination:add
 bthread("monitor:CableTermination:add", function () {
   while (true) {
@@ -166,6 +181,20 @@ bthread("crud:Cable:nondet:negative:dup-add", function () {
   verifyCableExists(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Cable:nondet:existing:update
+bthread("crud:Cable:nondet:existing:update", function () {
+  let ev = waitForAnyCableAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCable.apply(null, args), function () {
+    verifyCableExists.apply(null, args);
+    updateCable.apply(null, args);
+    verifyCableExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Cable:add
 bthread("monitor:Cable:add", function () {
   while (true) {
@@ -238,6 +267,20 @@ bthread("crud:ConsolePortTemplate:nondet:negative:dup-add", function () {
   verifyConsolePortTemplateExists(description, device_type, id, label, module_type, name, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ConsolePortTemplate:nondet:existing:update
+bthread("crud:ConsolePortTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyConsolePortTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConsolePortTemplate.apply(null, args), function () {
+    verifyConsolePortTemplateExists.apply(null, args);
+    updateConsolePortTemplate.apply(null, args);
+    verifyConsolePortTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ConsolePortTemplate:add
 bthread("monitor:ConsolePortTemplate:add", function () {
   while (true) {
@@ -322,6 +365,20 @@ bthread("crud:ConsolePort:nondet:negative:dup-add", function () {
   verifyConsolePortExists(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ConsolePort:nondet:existing:update
+bthread("crud:ConsolePort:nondet:existing:update", function () {
+  let ev = waitForAnyConsolePortAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConsolePort.apply(null, args), function () {
+    verifyConsolePortExists.apply(null, args);
+    updateConsolePort.apply(null, args);
+    verifyConsolePortExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ConsolePort:add
 bthread("monitor:ConsolePort:add", function () {
   while (true) {
@@ -346,30 +403,43 @@ bthread("monitor:ConsolePort:deletion", function () {
 bthread("crud:ConsoleServerPortTemplate:nondet:1:1", function () {
   let description = "description_240";
   let device_type = "device_type_240";
+  let device_type_id;
   let id = 240;
   let label = "label_240";
   let module_type = "module_type_240";
+  let module_type_id;
   let name = "name_240";
   let type = "type_240";
-  createConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
-  waitForConsoleServerPortTemplateAdded(description, device_type, id, label, module_type, name, type);
-  tryToAddExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
-  verifyConsoleServerPortTemplateExists(description, device_type, id, label, module_type, name, type);
-  updateConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
-  deleteConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
-  tryToDeleteANonExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
-  verifyConsoleServerPortTemplateDoesNotExist(description, device_type, id, label, module_type, name, type);
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  deps["module_type_id"] = matchAnyModuleAdded();
+  let pkMap = {"device_type_id": "id", "module_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  module_type_id = captured["module_type_id"];
+  createConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  waitForConsoleServerPortTemplateAdded(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  tryToAddExistingConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  verifyConsoleServerPortTemplateExists(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  updateConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  deleteConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  tryToDeleteANonExistingConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  verifyConsoleServerPortTemplateDoesNotExist(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
 });
 
 // Story: crud:ConsoleServerPortTemplate:nondet:1:2
 bthread("crud:ConsoleServerPortTemplate:nondet:1:2", function () {
   let description = "description_241";
   let device_type = "device_type_241";
+  let device_type_id;
   let id = 241;
   let label = "label_241";
   let module_type = "module_type_241";
+  let module_type_id;
   let name = "name_241";
   let type = "type_241";
+<<<<<<< HEAD
   createConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   tryToAddExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   updateConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
@@ -377,21 +447,86 @@ bthread("crud:ConsoleServerPortTemplate:nondet:1:2", function () {
   deleteConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   tryToDeleteANonExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   verifyConsoleServerPortTemplateDoesNotExist(description, device_type, id, label, module_type, name, type);
+=======
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  deps["module_type_id"] = matchAnyModuleAdded();
+  let pkMap = {"device_type_id": "id", "module_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  module_type_id = captured["module_type_id"];
+  createConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  tryToAddExistingConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  updateConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  verifyConsoleServerPortTemplateExists(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  deleteConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  tryToDeleteANonExistingConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  verifyConsoleServerPortTemplateDoesNotExist(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:ConsoleServerPortTemplate:nondet:negative:dup-add
 bthread("crud:ConsoleServerPortTemplate:nondet:negative:dup-add", function () {
   let description = "description_246";
   let device_type = "device_type_246";
+  let device_type_id;
   let id = 246;
   let label = "label_246";
   let module_type = "module_type_246";
+  let module_type_id;
   let name = "name_246";
   let type = "type_246";
+<<<<<<< HEAD
   createConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   verifyConsoleServerPortTemplateExists(description, device_type, id, label, module_type, name, type);
   tryToAddExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type);
   verifyConsoleServerPortTemplateExists(description, device_type, id, label, module_type, name, type);
+=======
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  deps["module_type_id"] = matchAnyModuleAdded();
+  let pkMap = {"device_type_id": "id", "module_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  module_type_id = captured["module_type_id"];
+  createConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  verifyConsoleServerPortTemplateExists(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  tryToAddExistingConsoleServerPortTemplate(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+  verifyConsoleServerPortTemplateExists(description, device_type, device_type_id, id, label, module_type, module_type_id, name, type);
+});
+
+// Story: crud:ConsoleServerPortTemplate:nondet:existing:update
+bthread("crud:ConsoleServerPortTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyConsoleServerPortTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConsoleServerPortTemplate.apply(null, args), function () {
+    verifyConsoleServerPortTemplateExists.apply(null, args);
+    updateConsoleServerPortTemplate.apply(null, args);
+    verifyConsoleServerPortTemplateExists.apply(null, args);
+  });
+});
+
+// Story: monitor:ConsoleServerPortTemplate:add
+bthread("monitor:ConsoleServerPortTemplate:add", function () {
+  while (true) {
+    let ev = waitForAnyConsoleServerPortTemplateAdded();
+    block(matchDeletedConsoleServerPortTemplate(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.module_type, ev.module_type_id, ev.name, ev.type), function () {
+      verifyConsoleServerPortTemplateExists(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.module_type, ev.module_type_id, ev.name, ev.type);
+    });
+  }
+});
+
+// Story: monitor:ConsoleServerPortTemplate:deletion
+bthread("monitor:ConsoleServerPortTemplate:deletion", function () {
+  while (true) {
+    let ev = waitForAnyConsoleServerPortTemplateDeleted();
+    block(matchAddedConsoleServerPortTemplate(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.module_type, ev.module_type_id, ev.name, ev.type), function () {
+      verifyConsoleServerPortTemplateDoesNotExist(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.module_type, ev.module_type_id, ev.name, ev.type);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:ConsoleServerPortTemplate:add
@@ -416,40 +551,86 @@ bthread("monitor:ConsoleServerPortTemplate:deletion", function () {
 
 // Story: crud:ConsoleServerPort:nondet:1:1
 bthread("crud:ConsoleServerPort:nondet:1:1", function () {
+  let cable_end = "cable_end_250";
+  let cable_id;
   let custom_fields = {};
   let description = "description_250";
   let device = "device_250";
+  let device_id;
+  let device_role_id;
   let id = 250;
   let label = "label_250";
+<<<<<<< HEAD
   let mark_connected = true;
+=======
+  let location_id;
+  let mark_connected = "mark_connected_250";
+>>>>>>> 1302d9a (Fix emitter bugs)
   let module = "module_250";
+  let module_id;
   let name = "name_250";
+  let rack_id;
   let speed = 250;
+  let tag_id;
   let tags = "tags_250";
   let type = "type_250";
-  createConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  tryToAddExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  verifyConsoleServerPortExists(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  updateConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  deleteConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  tryToDeleteANonExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
-  verifyConsoleServerPortDoesNotExist(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
+  let virtual_chassis_id = 250;
+  // Dependency Barrier
+  let deps = {};
+  deps["cable_id"] = matchAnyCableAdded();
+  deps["device_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyRoleAdded();
+  deps["location_id"] = matchAnyLocationAdded();
+  deps["module_id"] = matchAnyModuleAdded();
+  deps["rack_id"] = matchAnyRackAdded();
+  deps["tag_id"] = matchAnyTagAdded();
+  let pkMap = {"cable_id": "id", "device_id": "id", "device_role_id": "id", "location_id": "id", "module_id": "id", "rack_id": "id", "tag_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  cable_id = captured["cable_id"];
+  device_id = captured["device_id"];
+  device_role_id = captured["device_role_id"];
+  device_role_id = captured["device_role_id"];
+  location_id = captured["location_id"];
+  module_id = captured["module_id"];
+  rack_id = captured["rack_id"];
+  tag_id = captured["tag_id"];
+  createConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  waitForConsoleServerPortAdded(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  tryToAddExistingConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  verifyConsoleServerPortExists(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  updateConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  deleteConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  tryToDeleteANonExistingConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  verifyConsoleServerPortDoesNotExist(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
 });
 
 // Story: crud:ConsoleServerPort:nondet:1:2
 bthread("crud:ConsoleServerPort:nondet:1:2", function () {
+  let cable_end = "cable_end_251";
+  let cable_id;
   let custom_fields = {};
   let description = "description_251";
   let device = "device_251";
+  let device_id;
+  let device_role_id;
   let id = 251;
   let label = "label_251";
+<<<<<<< HEAD
   let mark_connected = true;
+=======
+  let location_id;
+  let mark_connected = "mark_connected_251";
+>>>>>>> 1302d9a (Fix emitter bugs)
   let module = "module_251";
+  let module_id;
   let name = "name_251";
+  let rack_id;
   let speed = 251;
+  let tag_id;
   let tags = "tags_251";
   let type = "type_251";
+<<<<<<< HEAD
   createConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   tryToAddExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   updateConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
@@ -457,25 +638,126 @@ bthread("crud:ConsoleServerPort:nondet:1:2", function () {
   deleteConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   tryToDeleteANonExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   verifyConsoleServerPortDoesNotExist(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
+=======
+  let virtual_chassis_id = 251;
+  // Dependency Barrier
+  let deps = {};
+  deps["cable_id"] = matchAnyCableAdded();
+  deps["device_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyRoleAdded();
+  deps["location_id"] = matchAnyLocationAdded();
+  deps["module_id"] = matchAnyModuleAdded();
+  deps["rack_id"] = matchAnyRackAdded();
+  deps["tag_id"] = matchAnyTagAdded();
+  let pkMap = {"cable_id": "id", "device_id": "id", "device_role_id": "id", "location_id": "id", "module_id": "id", "rack_id": "id", "tag_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  cable_id = captured["cable_id"];
+  device_id = captured["device_id"];
+  device_role_id = captured["device_role_id"];
+  device_role_id = captured["device_role_id"];
+  location_id = captured["location_id"];
+  module_id = captured["module_id"];
+  rack_id = captured["rack_id"];
+  tag_id = captured["tag_id"];
+  createConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  tryToAddExistingConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  updateConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  verifyConsoleServerPortExists(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  deleteConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  tryToDeleteANonExistingConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  verifyConsoleServerPortDoesNotExist(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:ConsoleServerPort:nondet:negative:dup-add
 bthread("crud:ConsoleServerPort:nondet:negative:dup-add", function () {
+  let cable_end = "cable_end_256";
+  let cable_id;
   let custom_fields = {};
   let description = "description_256";
   let device = "device_256";
+  let device_id;
+  let device_role_id;
   let id = 256;
   let label = "label_256";
+<<<<<<< HEAD
   let mark_connected = true;
+=======
+  let location_id;
+  let mark_connected = "mark_connected_256";
+>>>>>>> 1302d9a (Fix emitter bugs)
   let module = "module_256";
+  let module_id;
   let name = "name_256";
+  let rack_id;
   let speed = 256;
+  let tag_id;
   let tags = "tags_256";
   let type = "type_256";
+<<<<<<< HEAD
   createConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   verifyConsoleServerPortExists(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   tryToAddExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
   verifyConsoleServerPortExists(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type);
+=======
+  let virtual_chassis_id = 256;
+  // Dependency Barrier
+  let deps = {};
+  deps["cable_id"] = matchAnyCableAdded();
+  deps["device_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyRoleAdded();
+  deps["location_id"] = matchAnyLocationAdded();
+  deps["module_id"] = matchAnyModuleAdded();
+  deps["rack_id"] = matchAnyRackAdded();
+  deps["tag_id"] = matchAnyTagAdded();
+  let pkMap = {"cable_id": "id", "device_id": "id", "device_role_id": "id", "location_id": "id", "module_id": "id", "rack_id": "id", "tag_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  cable_id = captured["cable_id"];
+  device_id = captured["device_id"];
+  device_role_id = captured["device_role_id"];
+  device_role_id = captured["device_role_id"];
+  location_id = captured["location_id"];
+  module_id = captured["module_id"];
+  rack_id = captured["rack_id"];
+  tag_id = captured["tag_id"];
+  createConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  verifyConsoleServerPortExists(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  tryToAddExistingConsoleServerPort(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+  verifyConsoleServerPortExists(cable_end, cable_id, custom_fields, description, device, device_id, device_role_id, id, label, location_id, mark_connected, module, module_id, name, rack_id, speed, tag_id, tags, type, virtual_chassis_id);
+});
+
+// Story: crud:ConsoleServerPort:nondet:existing:update
+bthread("crud:ConsoleServerPort:nondet:existing:update", function () {
+  let ev = waitForAnyConsoleServerPortAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConsoleServerPort.apply(null, args), function () {
+    verifyConsoleServerPortExists.apply(null, args);
+    updateConsoleServerPort.apply(null, args);
+    verifyConsoleServerPortExists.apply(null, args);
+  });
+});
+
+// Story: monitor:ConsoleServerPort:add
+bthread("monitor:ConsoleServerPort:add", function () {
+  while (true) {
+    let ev = waitForAnyConsoleServerPortAdded();
+    block(matchDeletedConsoleServerPort(ev.cable_end, ev.cable_id, ev.custom_fields, ev.description, ev.device, ev.device_id, ev.device_role_id, ev.id, ev.label, ev.location_id, ev.mark_connected, ev.module, ev.module_id, ev.name, ev.rack_id, ev.speed, ev.tag_id, ev.tags, ev.type, ev.virtual_chassis_id), function () {
+      verifyConsoleServerPortExists(ev.cable_end, ev.cable_id, ev.custom_fields, ev.description, ev.device, ev.device_id, ev.device_role_id, ev.id, ev.label, ev.location_id, ev.mark_connected, ev.module, ev.module_id, ev.name, ev.rack_id, ev.speed, ev.tag_id, ev.tags, ev.type, ev.virtual_chassis_id);
+    });
+  }
+});
+
+// Story: monitor:ConsoleServerPort:deletion
+bthread("monitor:ConsoleServerPort:deletion", function () {
+  while (true) {
+    let ev = waitForAnyConsoleServerPortDeleted();
+    block(matchAddedConsoleServerPort(ev.cable_end, ev.cable_id, ev.custom_fields, ev.description, ev.device, ev.device_id, ev.device_role_id, ev.id, ev.label, ev.location_id, ev.mark_connected, ev.module, ev.module_id, ev.name, ev.rack_id, ev.speed, ev.tag_id, ev.tags, ev.type, ev.virtual_chassis_id), function () {
+      verifyConsoleServerPortDoesNotExist(ev.cable_end, ev.cable_id, ev.custom_fields, ev.description, ev.device, ev.device_id, ev.device_role_id, ev.id, ev.label, ev.location_id, ev.mark_connected, ev.module, ev.module_id, ev.name, ev.rack_id, ev.speed, ev.tag_id, ev.tags, ev.type, ev.virtual_chassis_id);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:ConsoleServerPort:add
@@ -502,26 +784,35 @@ bthread("monitor:ConsoleServerPort:deletion", function () {
 bthread("crud:DeviceBayTemplate:nondet:1:1", function () {
   let description = "description_260";
   let device_type = "device_type_260";
+  let device_type_id;
   let id = 260;
   let label = "label_260";
   let name = "name_260";
-  createDeviceBayTemplate(description, device_type, id, label, name);
-  waitForDeviceBayTemplateAdded(description, device_type, id, label, name);
-  tryToAddExistingDeviceBayTemplate(description, device_type, id, label, name);
-  verifyDeviceBayTemplateExists(description, device_type, id, label, name);
-  updateDeviceBayTemplate(description, device_type, id, label, name);
-  deleteDeviceBayTemplate(description, device_type, id, label, name);
-  tryToDeleteANonExistingDeviceBayTemplate(description, device_type, id, label, name);
-  verifyDeviceBayTemplateDoesNotExist(description, device_type, id, label, name);
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  let pkMap = {"device_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  createDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  waitForDeviceBayTemplateAdded(description, device_type, device_type_id, id, label, name);
+  tryToAddExistingDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  verifyDeviceBayTemplateExists(description, device_type, device_type_id, id, label, name);
+  updateDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  deleteDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  tryToDeleteANonExistingDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  verifyDeviceBayTemplateDoesNotExist(description, device_type, device_type_id, id, label, name);
 });
 
 // Story: crud:DeviceBayTemplate:nondet:1:2
 bthread("crud:DeviceBayTemplate:nondet:1:2", function () {
   let description = "description_261";
   let device_type = "device_type_261";
+  let device_type_id;
   let id = 261;
   let label = "label_261";
   let name = "name_261";
+<<<<<<< HEAD
   createDeviceBayTemplate(description, device_type, id, label, name);
   tryToAddExistingDeviceBayTemplate(description, device_type, id, label, name);
   updateDeviceBayTemplate(description, device_type, id, label, name);
@@ -529,19 +820,79 @@ bthread("crud:DeviceBayTemplate:nondet:1:2", function () {
   deleteDeviceBayTemplate(description, device_type, id, label, name);
   tryToDeleteANonExistingDeviceBayTemplate(description, device_type, id, label, name);
   verifyDeviceBayTemplateDoesNotExist(description, device_type, id, label, name);
+=======
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  let pkMap = {"device_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  createDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  tryToAddExistingDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  updateDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  verifyDeviceBayTemplateExists(description, device_type, device_type_id, id, label, name);
+  deleteDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  tryToDeleteANonExistingDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  verifyDeviceBayTemplateDoesNotExist(description, device_type, device_type_id, id, label, name);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DeviceBayTemplate:nondet:negative:dup-add
 bthread("crud:DeviceBayTemplate:nondet:negative:dup-add", function () {
   let description = "description_266";
   let device_type = "device_type_266";
+  let device_type_id;
   let id = 266;
   let label = "label_266";
   let name = "name_266";
+<<<<<<< HEAD
   createDeviceBayTemplate(description, device_type, id, label, name);
   verifyDeviceBayTemplateExists(description, device_type, id, label, name);
   tryToAddExistingDeviceBayTemplate(description, device_type, id, label, name);
   verifyDeviceBayTemplateExists(description, device_type, id, label, name);
+=======
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  let pkMap = {"device_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  createDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  verifyDeviceBayTemplateExists(description, device_type, device_type_id, id, label, name);
+  tryToAddExistingDeviceBayTemplate(description, device_type, device_type_id, id, label, name);
+  verifyDeviceBayTemplateExists(description, device_type, device_type_id, id, label, name);
+});
+
+// Story: crud:DeviceBayTemplate:nondet:existing:update
+bthread("crud:DeviceBayTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyDeviceBayTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedDeviceBayTemplate.apply(null, args), function () {
+    verifyDeviceBayTemplateExists.apply(null, args);
+    updateDeviceBayTemplate.apply(null, args);
+    verifyDeviceBayTemplateExists.apply(null, args);
+  });
+});
+
+// Story: monitor:DeviceBayTemplate:add
+bthread("monitor:DeviceBayTemplate:add", function () {
+  while (true) {
+    let ev = waitForAnyDeviceBayTemplateAdded();
+    block(matchDeletedDeviceBayTemplate(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.name), function () {
+      verifyDeviceBayTemplateExists(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.name);
+    });
+  }
+});
+
+// Story: monitor:DeviceBayTemplate:deletion
+bthread("monitor:DeviceBayTemplate:deletion", function () {
+  while (true) {
+    let ev = waitForAnyDeviceBayTemplateDeleted();
+    block(matchAddedDeviceBayTemplate(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.name), function () {
+      verifyDeviceBayTemplateDoesNotExist(ev.description, ev.device_type, ev.device_type_id, ev.id, ev.label, ev.name);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:DeviceBayTemplate:add
@@ -569,19 +920,50 @@ bthread("crud:DeviceBay:nondet:1:1", function () {
   let custom_fields = {};
   let description = "description_270";
   let device = "device_270";
+  let device_bay_template_id;
+  let device_id;
+  let device_role_id;
   let id = 270;
   let installed_device = "installed_device_270";
+  let installed_device_id;
   let label = "label_270";
+  let location_id;
   let name = "name_270";
+  let rack_id;
+  let site_id;
+  let tag_id;
   let tags = "tags_270";
-  createDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
-  waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags);
-  tryToAddExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
-  verifyDeviceBayExists(custom_fields, description, device, id, installed_device, label, name, tags);
-  updateDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
-  deleteDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
-  tryToDeleteANonExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
-  verifyDeviceBayDoesNotExist(custom_fields, description, device, id, installed_device, label, name, tags);
+  let virtual_chassis_id = 270;
+  // Dependency Barrier
+  let deps = {};
+  deps["device_bay_template_id"] = matchAnyDeviceAdded();
+  deps["device_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyRoleAdded();
+  deps["installed_device_id"] = matchAnyDeviceAdded();
+  deps["location_id"] = matchAnyLocationAdded();
+  deps["rack_id"] = matchAnyRackAdded();
+  deps["site_id"] = matchAnySiteAdded();
+  deps["tag_id"] = matchAnyTagAdded();
+  let pkMap = {"device_bay_template_id": "id", "device_id": "id", "device_role_id": "id", "installed_device_id": "id", "location_id": "id", "rack_id": "id", "site_id": "id", "tag_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_bay_template_id = captured["device_bay_template_id"];
+  device_id = captured["device_id"];
+  device_role_id = captured["device_role_id"];
+  device_role_id = captured["device_role_id"];
+  installed_device_id = captured["installed_device_id"];
+  location_id = captured["location_id"];
+  rack_id = captured["rack_id"];
+  site_id = captured["site_id"];
+  tag_id = captured["tag_id"];
+  createDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  waitForDeviceBayAdded(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  tryToAddExistingDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  verifyDeviceBayExists(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  updateDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  deleteDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  tryToDeleteANonExistingDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  verifyDeviceBayDoesNotExist(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
 });
 
 // Story: crud:DeviceBay:nondet:1:2
@@ -589,11 +971,20 @@ bthread("crud:DeviceBay:nondet:1:2", function () {
   let custom_fields = {};
   let description = "description_271";
   let device = "device_271";
+  let device_bay_template_id;
+  let device_id;
+  let device_role_id;
   let id = 271;
   let installed_device = "installed_device_271";
+  let installed_device_id;
   let label = "label_271";
+  let location_id;
   let name = "name_271";
+  let rack_id;
+  let site_id;
+  let tag_id;
   let tags = "tags_271";
+<<<<<<< HEAD
   createDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   tryToAddExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   updateDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
@@ -601,6 +992,38 @@ bthread("crud:DeviceBay:nondet:1:2", function () {
   deleteDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   tryToDeleteANonExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   verifyDeviceBayDoesNotExist(custom_fields, description, device, id, installed_device, label, name, tags);
+=======
+  let virtual_chassis_id = 271;
+  // Dependency Barrier
+  let deps = {};
+  deps["device_bay_template_id"] = matchAnyDeviceAdded();
+  deps["device_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyRoleAdded();
+  deps["installed_device_id"] = matchAnyDeviceAdded();
+  deps["location_id"] = matchAnyLocationAdded();
+  deps["rack_id"] = matchAnyRackAdded();
+  deps["site_id"] = matchAnySiteAdded();
+  deps["tag_id"] = matchAnyTagAdded();
+  let pkMap = {"device_bay_template_id": "id", "device_id": "id", "device_role_id": "id", "installed_device_id": "id", "location_id": "id", "rack_id": "id", "site_id": "id", "tag_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_bay_template_id = captured["device_bay_template_id"];
+  device_id = captured["device_id"];
+  device_role_id = captured["device_role_id"];
+  device_role_id = captured["device_role_id"];
+  installed_device_id = captured["installed_device_id"];
+  location_id = captured["location_id"];
+  rack_id = captured["rack_id"];
+  site_id = captured["site_id"];
+  tag_id = captured["tag_id"];
+  createDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  tryToAddExistingDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  updateDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  verifyDeviceBayExists(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  deleteDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  tryToDeleteANonExistingDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  verifyDeviceBayDoesNotExist(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DeviceBay:nondet:negative:dup-add
@@ -608,15 +1031,84 @@ bthread("crud:DeviceBay:nondet:negative:dup-add", function () {
   let custom_fields = {};
   let description = "description_276";
   let device = "device_276";
+  let device_bay_template_id;
+  let device_id;
+  let device_role_id;
   let id = 276;
   let installed_device = "installed_device_276";
+  let installed_device_id;
   let label = "label_276";
+  let location_id;
   let name = "name_276";
+  let rack_id;
+  let site_id;
+  let tag_id;
   let tags = "tags_276";
+<<<<<<< HEAD
   createDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   verifyDeviceBayExists(custom_fields, description, device, id, installed_device, label, name, tags);
   tryToAddExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags);
   verifyDeviceBayExists(custom_fields, description, device, id, installed_device, label, name, tags);
+=======
+  let virtual_chassis_id = 276;
+  // Dependency Barrier
+  let deps = {};
+  deps["device_bay_template_id"] = matchAnyDeviceAdded();
+  deps["device_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyDeviceAdded();
+  deps["device_role_id"] = matchAnyRoleAdded();
+  deps["installed_device_id"] = matchAnyDeviceAdded();
+  deps["location_id"] = matchAnyLocationAdded();
+  deps["rack_id"] = matchAnyRackAdded();
+  deps["site_id"] = matchAnySiteAdded();
+  deps["tag_id"] = matchAnyTagAdded();
+  let pkMap = {"device_bay_template_id": "id", "device_id": "id", "device_role_id": "id", "installed_device_id": "id", "location_id": "id", "rack_id": "id", "site_id": "id", "tag_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_bay_template_id = captured["device_bay_template_id"];
+  device_id = captured["device_id"];
+  device_role_id = captured["device_role_id"];
+  device_role_id = captured["device_role_id"];
+  installed_device_id = captured["installed_device_id"];
+  location_id = captured["location_id"];
+  rack_id = captured["rack_id"];
+  site_id = captured["site_id"];
+  tag_id = captured["tag_id"];
+  createDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  verifyDeviceBayExists(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  tryToAddExistingDeviceBay(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+  verifyDeviceBayExists(custom_fields, description, device, device_bay_template_id, device_id, device_role_id, id, installed_device, installed_device_id, label, location_id, name, rack_id, site_id, tag_id, tags, virtual_chassis_id);
+});
+
+// Story: crud:DeviceBay:nondet:existing:update
+bthread("crud:DeviceBay:nondet:existing:update", function () {
+  let ev = waitForAnyDeviceBayAdded();
+  let args = Object.values(ev);
+  block(matchDeletedDeviceBay.apply(null, args), function () {
+    verifyDeviceBayExists.apply(null, args);
+    updateDeviceBay.apply(null, args);
+    verifyDeviceBayExists.apply(null, args);
+  });
+});
+
+// Story: monitor:DeviceBay:add
+bthread("monitor:DeviceBay:add", function () {
+  while (true) {
+    let ev = waitForAnyDeviceBayAdded();
+    block(matchDeletedDeviceBay(ev.custom_fields, ev.description, ev.device, ev.device_bay_template_id, ev.device_id, ev.device_role_id, ev.id, ev.installed_device, ev.installed_device_id, ev.label, ev.location_id, ev.name, ev.rack_id, ev.site_id, ev.tag_id, ev.tags, ev.virtual_chassis_id), function () {
+      verifyDeviceBayExists(ev.custom_fields, ev.description, ev.device, ev.device_bay_template_id, ev.device_id, ev.device_role_id, ev.id, ev.installed_device, ev.installed_device_id, ev.label, ev.location_id, ev.name, ev.rack_id, ev.site_id, ev.tag_id, ev.tags, ev.virtual_chassis_id);
+    });
+  }
+});
+
+// Story: monitor:DeviceBay:deletion
+bthread("monitor:DeviceBay:deletion", function () {
+  while (true) {
+    let ev = waitForAnyDeviceBayDeleted();
+    block(matchAddedDeviceBay(ev.custom_fields, ev.description, ev.device, ev.device_bay_template_id, ev.device_id, ev.device_role_id, ev.id, ev.installed_device, ev.installed_device_id, ev.label, ev.location_id, ev.name, ev.rack_id, ev.site_id, ev.tag_id, ev.tags, ev.virtual_chassis_id), function () {
+      verifyDeviceBayDoesNotExist(ev.custom_fields, ev.description, ev.device, ev.device_bay_template_id, ev.device_id, ev.device_role_id, ev.id, ev.installed_device, ev.installed_device_id, ev.label, ev.location_id, ev.name, ev.rack_id, ev.site_id, ev.tag_id, ev.tags, ev.virtual_chassis_id);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:DeviceBay:add
@@ -644,13 +1136,17 @@ bthread("crud:DeviceRole:nondet:1:1", function () {
   let color = "color_280";
   let comments = "comments_280";
   let config_template = "config_template_280";
+  let config_template_id = 280;
+  let content_types = "content_types_280";
   let custom_fields = {};
   let description = "description_280";
   let id = 280;
   let name = "name_280";
   let parent = 280;
+  let parent_id = 280;
   let slug = "slug_280";
   let tags = "tags_280";
+<<<<<<< HEAD
   let vm_role = true;
   createDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   waitForDeviceRoleAdded(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
@@ -660,6 +1156,17 @@ bthread("crud:DeviceRole:nondet:1:1", function () {
   deleteDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   tryToDeleteANonExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   verifyDeviceRoleDoesNotExist(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
+=======
+  let vm_role = "vm_role_280";
+  createDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  waitForDeviceRoleAdded(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  tryToAddExistingDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  verifyDeviceRoleExists(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  updateDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  deleteDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  tryToDeleteANonExistingDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  verifyDeviceRoleDoesNotExist(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DeviceRole:nondet:1:2
@@ -667,13 +1174,17 @@ bthread("crud:DeviceRole:nondet:1:2", function () {
   let color = "color_281";
   let comments = "comments_281";
   let config_template = "config_template_281";
+  let config_template_id = 281;
+  let content_types = "content_types_281";
   let custom_fields = {};
   let description = "description_281";
   let id = 281;
   let name = "name_281";
   let parent = 281;
+  let parent_id = 281;
   let slug = "slug_281";
   let tags = "tags_281";
+<<<<<<< HEAD
   let vm_role = true;
   createDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   tryToAddExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
@@ -682,6 +1193,16 @@ bthread("crud:DeviceRole:nondet:1:2", function () {
   deleteDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   tryToDeleteANonExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   verifyDeviceRoleDoesNotExist(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
+=======
+  let vm_role = "vm_role_281";
+  createDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  tryToAddExistingDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  updateDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  verifyDeviceRoleExists(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  deleteDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  tryToDeleteANonExistingDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  verifyDeviceRoleDoesNotExist(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DeviceRole:nondet:negative:dup-add
@@ -689,18 +1210,60 @@ bthread("crud:DeviceRole:nondet:negative:dup-add", function () {
   let color = "color_286";
   let comments = "comments_286";
   let config_template = "config_template_286";
+  let config_template_id = 286;
+  let content_types = "content_types_286";
   let custom_fields = {};
   let description = "description_286";
   let id = 286;
   let name = "name_286";
   let parent = 286;
+  let parent_id = 286;
   let slug = "slug_286";
   let tags = "tags_286";
+<<<<<<< HEAD
   let vm_role = true;
   createDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   verifyDeviceRoleExists(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   tryToAddExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
   verifyDeviceRoleExists(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role);
+=======
+  let vm_role = "vm_role_286";
+  createDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  verifyDeviceRoleExists(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  tryToAddExistingDeviceRole(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+  verifyDeviceRoleExists(color, comments, config_template, config_template_id, content_types, custom_fields, description, id, name, parent, parent_id, slug, tags, vm_role);
+});
+
+// Story: crud:DeviceRole:nondet:existing:update
+bthread("crud:DeviceRole:nondet:existing:update", function () {
+  let ev = waitForAnyDeviceRoleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedDeviceRole.apply(null, args), function () {
+    verifyDeviceRoleExists.apply(null, args);
+    updateDeviceRole.apply(null, args);
+    verifyDeviceRoleExists.apply(null, args);
+  });
+});
+
+// Story: monitor:DeviceRole:add
+bthread("monitor:DeviceRole:add", function () {
+  while (true) {
+    let ev = waitForAnyDeviceRoleAdded();
+    block(matchDeletedDeviceRole(ev.color, ev.comments, ev.config_template, ev.config_template_id, ev.content_types, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.parent_id, ev.slug, ev.tags, ev.vm_role), function () {
+      verifyDeviceRoleExists(ev.color, ev.comments, ev.config_template, ev.config_template_id, ev.content_types, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.parent_id, ev.slug, ev.tags, ev.vm_role);
+    });
+  }
+});
+
+// Story: monitor:DeviceRole:deletion
+bthread("monitor:DeviceRole:deletion", function () {
+  while (true) {
+    let ev = waitForAnyDeviceRoleDeleted();
+    block(matchAddedDeviceRole(ev.color, ev.comments, ev.config_template, ev.config_template_id, ev.content_types, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.parent_id, ev.slug, ev.tags, ev.vm_role), function () {
+      verifyDeviceRoleDoesNotExist(ev.color, ev.comments, ev.config_template, ev.config_template_id, ev.content_types, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.parent_id, ev.slug, ev.tags, ev.vm_role);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:DeviceRole:add
@@ -727,6 +1290,7 @@ bthread("monitor:DeviceRole:deletion", function () {
 bthread("crud:DeviceType:nondet:1:1", function () {
   let airflow = "airflow_290";
   let comments = "comments_290";
+  let config_template = "config_template_290";
   let custom_fields = {};
   let default_platform = "default_platform_290";
   let description = "description_290";
@@ -744,20 +1308,21 @@ bthread("crud:DeviceType:nondet:1:1", function () {
   let u_height = 290;
   let weight = 290;
   let weight_unit = "weight_unit_290";
-  createDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  waitForDeviceTypeAdded(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  tryToAddExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  verifyDeviceTypeExists(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  updateDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  deleteDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  tryToDeleteANonExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
-  verifyDeviceTypeDoesNotExist(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  createDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  waitForDeviceTypeAdded(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  tryToAddExistingDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  verifyDeviceTypeExists(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  updateDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  deleteDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  tryToDeleteANonExistingDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  verifyDeviceTypeDoesNotExist(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
 });
 
 // Story: crud:DeviceType:nondet:1:2
 bthread("crud:DeviceType:nondet:1:2", function () {
   let airflow = "airflow_291";
   let comments = "comments_291";
+  let config_template = "config_template_291";
   let custom_fields = {};
   let default_platform = "default_platform_291";
   let description = "description_291";
@@ -775,6 +1340,7 @@ bthread("crud:DeviceType:nondet:1:2", function () {
   let u_height = 291;
   let weight = 291;
   let weight_unit = "weight_unit_291";
+<<<<<<< HEAD
   createDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   tryToAddExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   updateDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
@@ -782,12 +1348,22 @@ bthread("crud:DeviceType:nondet:1:2", function () {
   deleteDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   tryToDeleteANonExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   verifyDeviceTypeDoesNotExist(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+=======
+  createDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  tryToAddExistingDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  updateDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  verifyDeviceTypeExists(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  deleteDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  tryToDeleteANonExistingDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  verifyDeviceTypeDoesNotExist(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DeviceType:nondet:negative:dup-add
 bthread("crud:DeviceType:nondet:negative:dup-add", function () {
   let airflow = "airflow_296";
   let comments = "comments_296";
+  let config_template = "config_template_296";
   let custom_fields = {};
   let default_platform = "default_platform_296";
   let description = "description_296";
@@ -805,10 +1381,48 @@ bthread("crud:DeviceType:nondet:negative:dup-add", function () {
   let u_height = 296;
   let weight = 296;
   let weight_unit = "weight_unit_296";
+<<<<<<< HEAD
   createDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   verifyDeviceTypeExists(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   tryToAddExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
   verifyDeviceTypeExists(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+=======
+  createDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  verifyDeviceTypeExists(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  tryToAddExistingDeviceType(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+  verifyDeviceTypeExists(airflow, comments, config_template, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit);
+});
+
+// Story: crud:DeviceType:nondet:existing:update
+bthread("crud:DeviceType:nondet:existing:update", function () {
+  let ev = waitForAnyDeviceTypeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedDeviceType.apply(null, args), function () {
+    verifyDeviceTypeExists.apply(null, args);
+    updateDeviceType.apply(null, args);
+    verifyDeviceTypeExists.apply(null, args);
+  });
+});
+
+// Story: monitor:DeviceType:add
+bthread("monitor:DeviceType:add", function () {
+  while (true) {
+    let ev = waitForAnyDeviceTypeAdded();
+    block(matchDeletedDeviceType(ev.airflow, ev.comments, ev.config_template, ev.custom_fields, ev.default_platform, ev.description, ev.exclude_from_utilization, ev.front_image, ev.id, ev.is_full_depth, ev.manufacturer, ev.model, ev.part_number, ev.rear_image, ev.slug, ev.subdevice_role, ev.tags, ev.u_height, ev.weight, ev.weight_unit), function () {
+      verifyDeviceTypeExists(ev.airflow, ev.comments, ev.config_template, ev.custom_fields, ev.default_platform, ev.description, ev.exclude_from_utilization, ev.front_image, ev.id, ev.is_full_depth, ev.manufacturer, ev.model, ev.part_number, ev.rear_image, ev.slug, ev.subdevice_role, ev.tags, ev.u_height, ev.weight, ev.weight_unit);
+    });
+  }
+});
+
+// Story: monitor:DeviceType:deletion
+bthread("monitor:DeviceType:deletion", function () {
+  while (true) {
+    let ev = waitForAnyDeviceTypeDeleted();
+    block(matchAddedDeviceType(ev.airflow, ev.comments, ev.config_template, ev.custom_fields, ev.default_platform, ev.description, ev.exclude_from_utilization, ev.front_image, ev.id, ev.is_full_depth, ev.manufacturer, ev.model, ev.part_number, ev.rear_image, ev.slug, ev.subdevice_role, ev.tags, ev.u_height, ev.weight, ev.weight_unit), function () {
+      verifyDeviceTypeDoesNotExist(ev.airflow, ev.comments, ev.config_template, ev.custom_fields, ev.default_platform, ev.description, ev.exclude_from_utilization, ev.front_image, ev.id, ev.is_full_depth, ev.manufacturer, ev.model, ev.part_number, ev.rear_image, ev.slug, ev.subdevice_role, ev.tags, ev.u_height, ev.weight, ev.weight_unit);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:DeviceType:add
@@ -840,6 +1454,7 @@ bthread("crud:Device:nondet:1:1", function () {
   let config_template = "config_template_300";
   let custom_fields = {};
   let description = "description_300";
+  let device_role = "device_role_300";
   let device_type = "device_type_300";
   let face = "face_300";
   let id = 300;
@@ -849,6 +1464,8 @@ bthread("crud:Device:nondet:1:1", function () {
   let longitude = 300;
   let name = "name_300";
   let oob_ip = "oob_ip_300";
+  let parent_bay = "parent_bay_300";
+  let parent_device = "parent_device_300";
   let platform = "platform_300";
   let position = 300;
   let primary_ip4 = "primary_ip4_300";
@@ -863,14 +1480,14 @@ bthread("crud:Device:nondet:1:1", function () {
   let vc_position = 300;
   let vc_priority = 300;
   let virtual_chassis = "virtual_chassis_300";
-  createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  waitForDeviceAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  updateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  deleteDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
-  verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  waitForDeviceAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  updateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  deleteDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
 });
 
 // Story: crud:Device:nondet:1:2
@@ -882,6 +1499,7 @@ bthread("crud:Device:nondet:1:2", function () {
   let config_template = "config_template_301";
   let custom_fields = {};
   let description = "description_301";
+  let device_role = "device_role_301";
   let device_type = "device_type_301";
   let face = "face_301";
   let id = 301;
@@ -891,6 +1509,8 @@ bthread("crud:Device:nondet:1:2", function () {
   let longitude = 301;
   let name = "name_301";
   let oob_ip = "oob_ip_301";
+  let parent_bay = "parent_bay_301";
+  let parent_device = "parent_device_301";
   let platform = "platform_301";
   let position = 301;
   let primary_ip4 = "primary_ip4_301";
@@ -905,6 +1525,7 @@ bthread("crud:Device:nondet:1:2", function () {
   let vc_position = 301;
   let vc_priority = 301;
   let virtual_chassis = "virtual_chassis_301";
+<<<<<<< HEAD
   createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   updateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
@@ -912,6 +1533,15 @@ bthread("crud:Device:nondet:1:2", function () {
   deleteDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+=======
+  createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  updateDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  deleteDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Device:nondet:negative:dup-add
@@ -923,6 +1553,7 @@ bthread("crud:Device:nondet:negative:dup-add", function () {
   let config_template = "config_template_306";
   let custom_fields = {};
   let description = "description_306";
+  let device_role = "device_role_306";
   let device_type = "device_type_306";
   let face = "face_306";
   let id = 306;
@@ -932,6 +1563,8 @@ bthread("crud:Device:nondet:negative:dup-add", function () {
   let longitude = 306;
   let name = "name_306";
   let oob_ip = "oob_ip_306";
+  let parent_bay = "parent_bay_306";
+  let parent_device = "parent_device_306";
   let platform = "platform_306";
   let position = 306;
   let primary_ip4 = "primary_ip4_306";
@@ -946,10 +1579,48 @@ bthread("crud:Device:nondet:negative:dup-add", function () {
   let vc_position = 306;
   let vc_priority = 306;
   let virtual_chassis = "virtual_chassis_306";
+<<<<<<< HEAD
   createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
   verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+=======
+  createDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  tryToAddExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+  verifyDeviceExists(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_role, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, parent_bay, parent_device, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis);
+});
+
+// Story: crud:Device:nondet:existing:update
+bthread("crud:Device:nondet:existing:update", function () {
+  let ev = waitForAnyDeviceAdded();
+  let args = Object.values(ev);
+  block(matchDeletedDevice.apply(null, args), function () {
+    verifyDeviceExists.apply(null, args);
+    updateDevice.apply(null, args);
+    verifyDeviceExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Device:add
+bthread("monitor:Device:add", function () {
+  while (true) {
+    let ev = waitForAnyDeviceAdded();
+    block(matchDeletedDevice(ev.airflow, ev.asset_tag, ev.cluster, ev.comments, ev.config_template, ev.custom_fields, ev.description, ev.device_role, ev.device_type, ev.face, ev.id, ev.latitude, ev.local_context_data, ev.location, ev.longitude, ev.name, ev.oob_ip, ev.parent_bay, ev.parent_device, ev.platform, ev.position, ev.primary_ip4, ev.primary_ip6, ev.rack, ev.role, ev.serial, ev.site, ev.status, ev.tags, ev.tenant, ev.vc_position, ev.vc_priority, ev.virtual_chassis), function () {
+      verifyDeviceExists(ev.airflow, ev.asset_tag, ev.cluster, ev.comments, ev.config_template, ev.custom_fields, ev.description, ev.device_role, ev.device_type, ev.face, ev.id, ev.latitude, ev.local_context_data, ev.location, ev.longitude, ev.name, ev.oob_ip, ev.parent_bay, ev.parent_device, ev.platform, ev.position, ev.primary_ip4, ev.primary_ip6, ev.rack, ev.role, ev.serial, ev.site, ev.status, ev.tags, ev.tenant, ev.vc_position, ev.vc_priority, ev.virtual_chassis);
+    });
+  }
+});
+
+// Story: monitor:Device:deletion
+bthread("monitor:Device:deletion", function () {
+  while (true) {
+    let ev = waitForAnyDeviceDeleted();
+    block(matchAddedDevice(ev.airflow, ev.asset_tag, ev.cluster, ev.comments, ev.config_template, ev.custom_fields, ev.description, ev.device_role, ev.device_type, ev.face, ev.id, ev.latitude, ev.local_context_data, ev.location, ev.longitude, ev.name, ev.oob_ip, ev.parent_bay, ev.parent_device, ev.platform, ev.position, ev.primary_ip4, ev.primary_ip6, ev.rack, ev.role, ev.serial, ev.site, ev.status, ev.tags, ev.tenant, ev.vc_position, ev.vc_priority, ev.virtual_chassis), function () {
+      verifyDeviceDoesNotExist(ev.airflow, ev.asset_tag, ev.cluster, ev.comments, ev.config_template, ev.custom_fields, ev.description, ev.device_role, ev.device_type, ev.face, ev.id, ev.latitude, ev.local_context_data, ev.location, ev.longitude, ev.name, ev.oob_ip, ev.parent_bay, ev.parent_device, ev.platform, ev.position, ev.primary_ip4, ev.primary_ip6, ev.rack, ev.role, ev.serial, ev.site, ev.status, ev.tags, ev.tenant, ev.vc_position, ev.vc_priority, ev.virtual_chassis);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Device:add
@@ -975,6 +1646,7 @@ bthread("monitor:Device:deletion", function () {
 // Story: crud:FrontPortTemplate:nondet:1:1
 bthread("crud:FrontPortTemplate:nondet:1:1", function () {
   let color = "color_310";
+  let custom_fields = "custom_fields_310";
   let description = "description_310";
   let device_type = "device_type_310";
   let id = 310;
@@ -983,20 +1655,22 @@ bthread("crud:FrontPortTemplate:nondet:1:1", function () {
   let name = "name_310";
   let rear_port = "rear_port_310";
   let rear_port_position = 310;
+  let tags = "tags_310";
   let type = "type_310";
-  createFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  waitForFrontPortTemplateAdded(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  tryToAddExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  verifyFrontPortTemplateExists(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  updateFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  deleteFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  tryToDeleteANonExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
-  verifyFrontPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
+  createFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  waitForFrontPortTemplateAdded(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  tryToAddExistingFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortTemplateExists(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  updateFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  deleteFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  tryToDeleteANonExistingFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortTemplateDoesNotExist(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
 });
 
 // Story: crud:FrontPortTemplate:nondet:1:2
 bthread("crud:FrontPortTemplate:nondet:1:2", function () {
   let color = "color_311";
+  let custom_fields = "custom_fields_311";
   let description = "description_311";
   let device_type = "device_type_311";
   let id = 311;
@@ -1005,7 +1679,9 @@ bthread("crud:FrontPortTemplate:nondet:1:2", function () {
   let name = "name_311";
   let rear_port = "rear_port_311";
   let rear_port_position = 311;
+  let tags = "tags_311";
   let type = "type_311";
+<<<<<<< HEAD
   createFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   tryToAddExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   updateFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
@@ -1013,11 +1689,21 @@ bthread("crud:FrontPortTemplate:nondet:1:2", function () {
   deleteFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   tryToDeleteANonExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   verifyFrontPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
+=======
+  createFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  tryToAddExistingFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  updateFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortTemplateExists(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  deleteFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  tryToDeleteANonExistingFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortTemplateDoesNotExist(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:FrontPortTemplate:nondet:negative:dup-add
 bthread("crud:FrontPortTemplate:nondet:negative:dup-add", function () {
   let color = "color_316";
+  let custom_fields = "custom_fields_316";
   let description = "description_316";
   let device_type = "device_type_316";
   let id = 316;
@@ -1026,11 +1712,50 @@ bthread("crud:FrontPortTemplate:nondet:negative:dup-add", function () {
   let name = "name_316";
   let rear_port = "rear_port_316";
   let rear_port_position = 316;
+  let tags = "tags_316";
   let type = "type_316";
+<<<<<<< HEAD
   createFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   verifyFrontPortTemplateExists(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   tryToAddExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
   verifyFrontPortTemplateExists(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type);
+=======
+  createFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortTemplateExists(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  tryToAddExistingFrontPortTemplate(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortTemplateExists(color, custom_fields, description, device_type, id, label, module_type, name, rear_port, rear_port_position, tags, type);
+});
+
+// Story: crud:FrontPortTemplate:nondet:existing:update
+bthread("crud:FrontPortTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyFrontPortTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedFrontPortTemplate.apply(null, args), function () {
+    verifyFrontPortTemplateExists.apply(null, args);
+    updateFrontPortTemplate.apply(null, args);
+    verifyFrontPortTemplateExists.apply(null, args);
+  });
+});
+
+// Story: monitor:FrontPortTemplate:add
+bthread("monitor:FrontPortTemplate:add", function () {
+  while (true) {
+    let ev = waitForAnyFrontPortTemplateAdded();
+    block(matchDeletedFrontPortTemplate(ev.color, ev.custom_fields, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type), function () {
+      verifyFrontPortTemplateExists(ev.color, ev.custom_fields, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type);
+    });
+  }
+});
+
+// Story: monitor:FrontPortTemplate:deletion
+bthread("monitor:FrontPortTemplate:deletion", function () {
+  while (true) {
+    let ev = waitForAnyFrontPortTemplateDeleted();
+    block(matchAddedFrontPortTemplate(ev.color, ev.custom_fields, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type), function () {
+      verifyFrontPortTemplateDoesNotExist(ev.color, ev.custom_fields, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:FrontPortTemplate:add
@@ -1055,6 +1780,8 @@ bthread("monitor:FrontPortTemplate:deletion", function () {
 
 // Story: crud:FrontPort:nondet:1:1
 bthread("crud:FrontPort:nondet:1:1", function () {
+  let cable = "cable_320";
+  let cable_end = "cable_end_320";
   let color = "color_320";
   let custom_fields = {};
   let description = "description_320";
@@ -1068,18 +1795,20 @@ bthread("crud:FrontPort:nondet:1:1", function () {
   let rear_port_position = 320;
   let tags = "tags_320";
   let type = "type_320";
-  createFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  waitForFrontPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  tryToAddExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  verifyFrontPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  updateFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  deleteFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  tryToDeleteANonExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
-  verifyFrontPortDoesNotExist(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  createFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  waitForFrontPortAdded(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  tryToAddExistingFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortExists(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  updateFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  deleteFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  tryToDeleteANonExistingFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortDoesNotExist(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
 });
 
 // Story: crud:FrontPort:nondet:1:2
 bthread("crud:FrontPort:nondet:1:2", function () {
+  let cable = "cable_321";
+  let cable_end = "cable_end_321";
   let color = "color_321";
   let custom_fields = {};
   let description = "description_321";
@@ -1093,6 +1822,7 @@ bthread("crud:FrontPort:nondet:1:2", function () {
   let rear_port_position = 321;
   let tags = "tags_321";
   let type = "type_321";
+<<<<<<< HEAD
   createFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   tryToAddExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   updateFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
@@ -1100,10 +1830,21 @@ bthread("crud:FrontPort:nondet:1:2", function () {
   deleteFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   tryToDeleteANonExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   verifyFrontPortDoesNotExist(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+=======
+  createFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  tryToAddExistingFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  updateFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortExists(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  deleteFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  tryToDeleteANonExistingFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortDoesNotExist(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:FrontPort:nondet:negative:dup-add
 bthread("crud:FrontPort:nondet:negative:dup-add", function () {
+  let cable = "cable_326";
+  let cable_end = "cable_end_326";
   let color = "color_326";
   let custom_fields = {};
   let description = "description_326";
@@ -1117,10 +1858,48 @@ bthread("crud:FrontPort:nondet:negative:dup-add", function () {
   let rear_port_position = 326;
   let tags = "tags_326";
   let type = "type_326";
+<<<<<<< HEAD
   createFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   verifyFrontPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   tryToAddExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
   verifyFrontPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+=======
+  createFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortExists(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  tryToAddExistingFrontPort(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+  verifyFrontPortExists(cable, cable_end, color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type);
+});
+
+// Story: crud:FrontPort:nondet:existing:update
+bthread("crud:FrontPort:nondet:existing:update", function () {
+  let ev = waitForAnyFrontPortAdded();
+  let args = Object.values(ev);
+  block(matchDeletedFrontPort.apply(null, args), function () {
+    verifyFrontPortExists.apply(null, args);
+    updateFrontPort.apply(null, args);
+    verifyFrontPortExists.apply(null, args);
+  });
+});
+
+// Story: monitor:FrontPort:add
+bthread("monitor:FrontPort:add", function () {
+  while (true) {
+    let ev = waitForAnyFrontPortAdded();
+    block(matchDeletedFrontPort(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type), function () {
+      verifyFrontPortExists(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type);
+    });
+  }
+});
+
+// Story: monitor:FrontPort:deletion
+bthread("monitor:FrontPort:deletion", function () {
+  while (true) {
+    let ev = waitForAnyFrontPortDeleted();
+    block(matchAddedFrontPort(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type), function () {
+      verifyFrontPortDoesNotExist(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.rear_port, ev.rear_port_position, ev.tags, ev.type);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:FrontPort:add
@@ -1145,6 +1924,7 @@ bthread("monitor:FrontPort:deletion", function () {
 
 // Story: crud:InterfaceTemplate:nondet:1:1
 bthread("crud:InterfaceTemplate:nondet:1:1", function () {
+<<<<<<< HEAD
   let bridge = 330;
   let description = "description_330";
   let device_type = "device_type_330";
@@ -1166,10 +1946,47 @@ bthread("crud:InterfaceTemplate:nondet:1:1", function () {
   deleteInterfaceTemplatesBulk(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+=======
+  let bridge = 340;
+  let created_by_request = "created_by_request_340";
+  let description = "description_340";
+  let device_type = "device_type_340";
+  let device_type_id;
+  let enabled = "enabled_340";
+  let id = 340;
+  let label = "label_340";
+  let mgmt_only = "mgmt_only_340";
+  let modified_by_request = "modified_by_request_340";
+  let module_type = "module_type_340";
+  let module_type_id;
+  let name = "name_340";
+  let poe_mode = "poe_mode_340";
+  let poe_type = "poe_type_340";
+  let rf_role = "rf_role_340";
+  let type = "type_340";
+  let updated_by_request = "updated_by_request_340";
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  deps["module_type_id"] = matchAnyModuleAdded();
+  let pkMap = {"device_type_id": "id", "module_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  module_type_id = captured["module_type_id"];
+  createInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  waitForInterfaceTemplateAdded(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  tryToAddExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  verifyInterfaceTemplateExists(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  updateInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  deleteInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  tryToDeleteANonExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  verifyInterfaceTemplateDoesNotExist(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:InterfaceTemplate:nondet:1:2
 bthread("crud:InterfaceTemplate:nondet:1:2", function () {
+<<<<<<< HEAD
   let bridge = 331;
   let description = "description_331";
   let device_type = "device_type_331";
@@ -1190,10 +2007,46 @@ bthread("crud:InterfaceTemplate:nondet:1:2", function () {
   deleteInterfaceTemplatesBulk(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToDeleteANonExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateDoesNotExist(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+=======
+  let bridge = 341;
+  let created_by_request = "created_by_request_341";
+  let description = "description_341";
+  let device_type = "device_type_341";
+  let device_type_id;
+  let enabled = "enabled_341";
+  let id = 341;
+  let label = "label_341";
+  let mgmt_only = "mgmt_only_341";
+  let modified_by_request = "modified_by_request_341";
+  let module_type = "module_type_341";
+  let module_type_id;
+  let name = "name_341";
+  let poe_mode = "poe_mode_341";
+  let poe_type = "poe_type_341";
+  let rf_role = "rf_role_341";
+  let type = "type_341";
+  let updated_by_request = "updated_by_request_341";
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  deps["module_type_id"] = matchAnyModuleAdded();
+  let pkMap = {"device_type_id": "id", "module_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  module_type_id = captured["module_type_id"];
+  createInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  tryToAddExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  updateInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  verifyInterfaceTemplateExists(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  deleteInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  tryToDeleteANonExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  verifyInterfaceTemplateDoesNotExist(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:InterfaceTemplate:nondet:negative:dup-add
 bthread("crud:InterfaceTemplate:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let bridge = 336;
   let description = "description_336";
   let device_type = "device_type_336";
@@ -1211,6 +2064,69 @@ bthread("crud:InterfaceTemplate:nondet:negative:dup-add", function () {
   verifyInterfaceTemplateExists(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   tryToAddExistingInterfaceTemplate(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
   verifyInterfaceTemplateExists(bridge, description, device_type, enabled, id, label, mgmt_only, module_type, name, poe_mode, poe_type, rf_role, type);
+=======
+  let bridge = 346;
+  let created_by_request = "created_by_request_346";
+  let description = "description_346";
+  let device_type = "device_type_346";
+  let device_type_id;
+  let enabled = "enabled_346";
+  let id = 346;
+  let label = "label_346";
+  let mgmt_only = "mgmt_only_346";
+  let modified_by_request = "modified_by_request_346";
+  let module_type = "module_type_346";
+  let module_type_id;
+  let name = "name_346";
+  let poe_mode = "poe_mode_346";
+  let poe_type = "poe_type_346";
+  let rf_role = "rf_role_346";
+  let type = "type_346";
+  let updated_by_request = "updated_by_request_346";
+  // Dependency Barrier
+  let deps = {};
+  deps["device_type_id"] = matchAnyDeviceAdded();
+  deps["module_type_id"] = matchAnyModuleAdded();
+  let pkMap = {"device_type_id": "id", "module_type_id": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  device_type_id = captured["device_type_id"];
+  module_type_id = captured["module_type_id"];
+  createInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  verifyInterfaceTemplateExists(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  tryToAddExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+  verifyInterfaceTemplateExists(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request);
+});
+
+// Story: crud:InterfaceTemplate:nondet:existing:update
+bthread("crud:InterfaceTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyInterfaceTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedInterfaceTemplate.apply(null, args), function () {
+    verifyInterfaceTemplateExists.apply(null, args);
+    updateInterfaceTemplate.apply(null, args);
+    verifyInterfaceTemplateExists.apply(null, args);
+  });
+});
+
+// Story: monitor:InterfaceTemplate:add
+bthread("monitor:InterfaceTemplate:add", function () {
+  while (true) {
+    let ev = waitForAnyInterfaceTemplateAdded();
+    block(matchDeletedInterfaceTemplate(ev.bridge, ev.created_by_request, ev.description, ev.device_type, ev.device_type_id, ev.enabled, ev.id, ev.label, ev.mgmt_only, ev.modified_by_request, ev.module_type, ev.module_type_id, ev.name, ev.poe_mode, ev.poe_type, ev.rf_role, ev.type, ev.updated_by_request), function () {
+      verifyInterfaceTemplateExists(ev.bridge, ev.created_by_request, ev.description, ev.device_type, ev.device_type_id, ev.enabled, ev.id, ev.label, ev.mgmt_only, ev.modified_by_request, ev.module_type, ev.module_type_id, ev.name, ev.poe_mode, ev.poe_type, ev.rf_role, ev.type, ev.updated_by_request);
+    });
+  }
+});
+
+// Story: monitor:InterfaceTemplate:deletion
+bthread("monitor:InterfaceTemplate:deletion", function () {
+  while (true) {
+    let ev = waitForAnyInterfaceTemplateDeleted();
+    block(matchAddedInterfaceTemplate(ev.bridge, ev.created_by_request, ev.description, ev.device_type, ev.device_type_id, ev.enabled, ev.id, ev.label, ev.mgmt_only, ev.modified_by_request, ev.module_type, ev.module_type_id, ev.name, ev.poe_mode, ev.poe_type, ev.rf_role, ev.type, ev.updated_by_request), function () {
+      verifyInterfaceTemplateDoesNotExist(ev.bridge, ev.created_by_request, ev.description, ev.device_type, ev.device_type_id, ev.enabled, ev.id, ev.label, ev.mgmt_only, ev.modified_by_request, ev.module_type, ev.module_type_id, ev.name, ev.poe_mode, ev.poe_type, ev.rf_role, ev.type, ev.updated_by_request);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:InterfaceTemplate:add
@@ -1315,6 +2231,20 @@ bthread("crud:Interface:nondet:negative:dup-add", function () {
   verifyInterfaceExists(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Interface:nondet:existing:update
+bthread("crud:Interface:nondet:existing:update", function () {
+  let ev = waitForAnyInterfaceAdded();
+  let args = Object.values(ev);
+  block(matchDeletedInterface.apply(null, args), function () {
+    verifyInterfaceExists.apply(null, args);
+    updateInterface.apply(null, args);
+    verifyInterfaceExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Interface:add
 bthread("monitor:Interface:add", function () {
   while (true) {
@@ -1387,6 +2317,20 @@ bthread("crud:InventoryItemRole:nondet:negative:dup-add", function () {
   verifyInventoryItemRoleExists(color, custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:InventoryItemRole:nondet:existing:update
+bthread("crud:InventoryItemRole:nondet:existing:update", function () {
+  let ev = waitForAnyInventoryItemRoleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedInventoryItemRole.apply(null, args), function () {
+    verifyInventoryItemRoleExists.apply(null, args);
+    updateInventoryItemRole.apply(null, args);
+    verifyInventoryItemRoleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:InventoryItemRole:add
 bthread("monitor:InventoryItemRole:add", function () {
   while (true) {
@@ -1471,6 +2415,20 @@ bthread("crud:InventoryItemTemplate:nondet:negative:dup-add", function () {
   verifyInventoryItemTemplateExists(component_id, component_type, description, device_type, id, label, manufacturer, name, parent, part_id, role);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:InventoryItemTemplate:nondet:existing:update
+bthread("crud:InventoryItemTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyInventoryItemTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedInventoryItemTemplate.apply(null, args), function () {
+    verifyInventoryItemTemplateExists.apply(null, args);
+    updateInventoryItemTemplate.apply(null, args);
+    verifyInventoryItemTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:InventoryItemTemplate:add
 bthread("monitor:InventoryItemTemplate:add", function () {
   while (true) {
@@ -1491,12 +2449,15 @@ bthread("monitor:InventoryItemTemplate:deletion", function () {
   }
 });
 
+<<<<<<< HEAD
 // Story: crud:FrontPortPaths:read_only
 bthread("crud:FrontPortPaths:read_only", function () {
   let id = 370;
   verifyFrontPortPathsExists(id);
 });
 
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: crud:InventoryItem:nondet:1:1
 bthread("crud:InventoryItem:nondet:1:1", function () {
   let asset_tag = "asset_tag_380";
@@ -1579,6 +2540,20 @@ bthread("crud:InventoryItem:nondet:negative:dup-add", function () {
   verifyInventoryItemExists(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:InventoryItem:nondet:existing:update
+bthread("crud:InventoryItem:nondet:existing:update", function () {
+  let ev = waitForAnyInventoryItemAdded();
+  let args = Object.values(ev);
+  block(matchDeletedInventoryItem.apply(null, args), function () {
+    verifyInventoryItemExists.apply(null, args);
+    updateInventoryItem.apply(null, args);
+    verifyInventoryItemExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:InventoryItem:add
 bthread("monitor:InventoryItem:add", function () {
   while (true) {
@@ -1666,6 +2641,20 @@ bthread("crud:Location:nondet:negative:dup-add", function () {
   verifyLocationExists(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Location:nondet:existing:update
+bthread("crud:Location:nondet:existing:update", function () {
+  let ev = waitForAnyLocationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedLocation.apply(null, args), function () {
+    verifyLocationExists.apply(null, args);
+    updateLocation.apply(null, args);
+    verifyLocationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Location:add
 bthread("monitor:Location:add", function () {
   while (true) {
@@ -1741,6 +2730,20 @@ bthread("crud:MACAddress:nondet:negative:dup-add", function () {
   verifyMACAddressExists(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:MACAddress:nondet:existing:update
+bthread("crud:MACAddress:nondet:existing:update", function () {
+  let ev = waitForAnyMACAddressAdded();
+  let args = Object.values(ev);
+  block(matchDeletedMACAddress.apply(null, args), function () {
+    verifyMACAddressExists.apply(null, args);
+    updateMACAddress.apply(null, args);
+    verifyMACAddressExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:MACAddress:add
 bthread("monitor:MACAddress:add", function () {
   while (true) {
@@ -1810,6 +2813,20 @@ bthread("crud:Manufacturer:nondet:negative:dup-add", function () {
   verifyManufacturerExists(custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Manufacturer:nondet:existing:update
+bthread("crud:Manufacturer:nondet:existing:update", function () {
+  let ev = waitForAnyManufacturerAdded();
+  let args = Object.values(ev);
+  block(matchDeletedManufacturer.apply(null, args), function () {
+    verifyManufacturerExists.apply(null, args);
+    updateManufacturer.apply(null, args);
+    verifyManufacturerExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Manufacturer:add
 bthread("monitor:Manufacturer:add", function () {
   while (true) {
@@ -1882,6 +2899,20 @@ bthread("crud:ModuleBayTemplate:nondet:negative:dup-add", function () {
   verifyModuleBayTemplateExists(description, device_type, id, label, module_type, name, position);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ModuleBayTemplate:nondet:existing:update
+bthread("crud:ModuleBayTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyModuleBayTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedModuleBayTemplate.apply(null, args), function () {
+    verifyModuleBayTemplateExists.apply(null, args);
+    updateModuleBayTemplate.apply(null, args);
+    verifyModuleBayTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ModuleBayTemplate:add
 bthread("monitor:ModuleBayTemplate:add", function () {
   while (true) {
@@ -1963,6 +2994,20 @@ bthread("crud:ModuleBay:nondet:negative:dup-add", function () {
   verifyModuleBayExists(custom_fields, description, device, id, installed_module, label, module, name, position, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ModuleBay:nondet:existing:update
+bthread("crud:ModuleBay:nondet:existing:update", function () {
+  let ev = waitForAnyModuleBayAdded();
+  let args = Object.values(ev);
+  block(matchDeletedModuleBay.apply(null, args), function () {
+    verifyModuleBayExists.apply(null, args);
+    updateModuleBay.apply(null, args);
+    verifyModuleBayExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ModuleBay:add
 bthread("monitor:ModuleBay:add", function () {
   while (true) {
@@ -2035,6 +3080,20 @@ bthread("crud:ModuleTypeProfile:nondet:negative:dup-add", function () {
   verifyModuleTypeProfileExists(comments, custom_fields, description, id, name, schema, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ModuleTypeProfile:nondet:existing:update
+bthread("crud:ModuleTypeProfile:nondet:existing:update", function () {
+  let ev = waitForAnyModuleTypeProfileAdded();
+  let args = Object.values(ev);
+  block(matchDeletedModuleTypeProfile.apply(null, args), function () {
+    verifyModuleTypeProfileExists.apply(null, args);
+    updateModuleTypeProfile.apply(null, args);
+    verifyModuleTypeProfileExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ModuleTypeProfile:add
 bthread("monitor:ModuleTypeProfile:add", function () {
   while (true) {
@@ -2125,6 +3184,20 @@ bthread("crud:ModuleType:nondet:negative:dup-add", function () {
   verifyModuleTypeExists(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ModuleType:nondet:existing:update
+bthread("crud:ModuleType:nondet:existing:update", function () {
+  let ev = waitForAnyModuleTypeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedModuleType.apply(null, args), function () {
+    verifyModuleTypeExists.apply(null, args);
+    updateModuleType.apply(null, args);
+    verifyModuleTypeExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ModuleType:add
 bthread("monitor:ModuleType:add", function () {
   while (true) {
@@ -2209,6 +3282,20 @@ bthread("crud:Module:nondet:negative:dup-add", function () {
   verifyModuleExists(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Module:nondet:existing:update
+bthread("crud:Module:nondet:existing:update", function () {
+  let ev = waitForAnyModuleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedModule.apply(null, args), function () {
+    verifyModuleExists.apply(null, args);
+    updateModule.apply(null, args);
+    verifyModuleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Module:add
 bthread("monitor:Module:add", function () {
   while (true) {
@@ -2290,6 +3377,20 @@ bthread("crud:Platform:nondet:negative:dup-add", function () {
   verifyPlatformExists(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Platform:nondet:existing:update
+bthread("crud:Platform:nondet:existing:update", function () {
+  let ev = waitForAnyPlatformAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPlatform.apply(null, args), function () {
+    verifyPlatformExists.apply(null, args);
+    updatePlatform.apply(null, args);
+    verifyPlatformExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Platform:add
 bthread("monitor:Platform:add", function () {
   while (true) {
@@ -2392,6 +3493,20 @@ bthread("crud:PowerFeed:nondet:negative:dup-add", function () {
   verifyPowerFeedExists(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:PowerFeed:nondet:existing:update
+bthread("crud:PowerFeed:nondet:existing:update", function () {
+  let ev = waitForAnyPowerFeedAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPowerFeed.apply(null, args), function () {
+    verifyPowerFeedExists.apply(null, args);
+    updatePowerFeed.apply(null, args);
+    verifyPowerFeedExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:PowerFeed:add
 bthread("monitor:PowerFeed:add", function () {
   while (true) {
@@ -2470,6 +3585,20 @@ bthread("crud:PowerOutletTemplate:nondet:negative:dup-add", function () {
   verifyPowerOutletTemplateExists(description, device_type, feed_leg, id, label, module_type, name, power_port, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:PowerOutletTemplate:nondet:existing:update
+bthread("crud:PowerOutletTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyPowerOutletTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPowerOutletTemplate.apply(null, args), function () {
+    verifyPowerOutletTemplateExists.apply(null, args);
+    updatePowerOutletTemplate.apply(null, args);
+    verifyPowerOutletTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:PowerOutletTemplate:add
 bthread("monitor:PowerOutletTemplate:add", function () {
   while (true) {
@@ -2563,6 +3692,20 @@ bthread("crud:PowerOutlet:nondet:negative:dup-add", function () {
   verifyPowerOutletExists(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:PowerOutlet:nondet:existing:update
+bthread("crud:PowerOutlet:nondet:existing:update", function () {
+  let ev = waitForAnyPowerOutletAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPowerOutlet.apply(null, args), function () {
+    verifyPowerOutletExists.apply(null, args);
+    updatePowerOutlet.apply(null, args);
+    verifyPowerOutletExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:PowerOutlet:add
 bthread("monitor:PowerOutlet:add", function () {
   while (true) {
@@ -2638,6 +3781,20 @@ bthread("crud:PowerPanel:nondet:negative:dup-add", function () {
   verifyPowerPanelExists(comments, custom_fields, description, id, location, name, site, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:PowerPanel:nondet:existing:update
+bthread("crud:PowerPanel:nondet:existing:update", function () {
+  let ev = waitForAnyPowerPanelAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPowerPanel.apply(null, args), function () {
+    verifyPowerPanelExists.apply(null, args);
+    updatePowerPanel.apply(null, args);
+    verifyPowerPanelExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:PowerPanel:add
 bthread("monitor:PowerPanel:add", function () {
   while (true) {
@@ -2716,6 +3873,20 @@ bthread("crud:PowerPortTemplate:nondet:negative:dup-add", function () {
   verifyPowerPortTemplateExists(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:PowerPortTemplate:nondet:existing:update
+bthread("crud:PowerPortTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyPowerPortTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPowerPortTemplate.apply(null, args), function () {
+    verifyPowerPortTemplateExists.apply(null, args);
+    updatePowerPortTemplate.apply(null, args);
+    verifyPowerPortTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:PowerPortTemplate:add
 bthread("monitor:PowerPortTemplate:add", function () {
   while (true) {
@@ -2803,6 +3974,20 @@ bthread("crud:PowerPort:nondet:negative:dup-add", function () {
   verifyPowerPortExists(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:PowerPort:nondet:existing:update
+bthread("crud:PowerPort:nondet:existing:update", function () {
+  let ev = waitForAnyPowerPortAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPowerPort.apply(null, args), function () {
+    verifyPowerPortExists.apply(null, args);
+    updatePowerPort.apply(null, args);
+    verifyPowerPortExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:PowerPort:add
 bthread("monitor:PowerPort:add", function () {
   while (true) {
@@ -2884,6 +4069,20 @@ bthread("crud:RackReservation:nondet:negative:dup-add", function () {
   verifyRackReservationExists(comments, custom_fields, description, id, rack, status, tags, tenant, units, user);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:RackReservation:nondet:existing:update
+bthread("crud:RackReservation:nondet:existing:update", function () {
+  let ev = waitForAnyRackReservationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRackReservation.apply(null, args), function () {
+    verifyRackReservationExists.apply(null, args);
+    updateRackReservation.apply(null, args);
+    verifyRackReservationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:RackReservation:add
 bthread("monitor:RackReservation:add", function () {
   while (true) {
@@ -2956,6 +4155,20 @@ bthread("crud:RackRole:nondet:negative:dup-add", function () {
   verifyRackRoleExists(color, custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:RackRole:nondet:existing:update
+bthread("crud:RackRole:nondet:existing:update", function () {
+  let ev = waitForAnyRackRoleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRackRole.apply(null, args), function () {
+    verifyRackRoleExists.apply(null, args);
+    updateRackRole.apply(null, args);
+    verifyRackRoleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:RackRole:add
 bthread("monitor:RackRole:add", function () {
   while (true) {
@@ -2978,6 +4191,7 @@ bthread("monitor:RackRole:deletion", function () {
 
 // Story: crud:RackType:nondet:1:1
 bthread("crud:RackType:nondet:1:1", function () {
+  let color = "color_560";
   let comments = "comments_560";
   let custom_fields = {};
   let desc_units = true;
@@ -3000,18 +4214,19 @@ bthread("crud:RackType:nondet:1:1", function () {
   let weight = 560;
   let weight_unit = "weight_unit_560";
   let width = 560;
-  createRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  waitForRackTypeAdded(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  tryToAddExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  verifyRackTypeExists(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  updateRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  deleteRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  tryToDeleteANonExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
-  verifyRackTypeDoesNotExist(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  createRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  waitForRackTypeAdded(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  tryToAddExistingRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  verifyRackTypeExists(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  updateRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  deleteRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  tryToDeleteANonExistingRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  verifyRackTypeDoesNotExist(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
 });
 
 // Story: crud:RackType:nondet:1:2
 bthread("crud:RackType:nondet:1:2", function () {
+  let color = "color_561";
   let comments = "comments_561";
   let custom_fields = {};
   let desc_units = true;
@@ -3034,6 +4249,7 @@ bthread("crud:RackType:nondet:1:2", function () {
   let weight = 561;
   let weight_unit = "weight_unit_561";
   let width = 561;
+<<<<<<< HEAD
   createRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   tryToAddExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   updateRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
@@ -3041,10 +4257,20 @@ bthread("crud:RackType:nondet:1:2", function () {
   deleteRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   tryToDeleteANonExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   verifyRackTypeDoesNotExist(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+=======
+  createRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  tryToAddExistingRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  updateRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  verifyRackTypeExists(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  deleteRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  tryToDeleteANonExistingRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  verifyRackTypeDoesNotExist(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RackType:nondet:negative:dup-add
 bthread("crud:RackType:nondet:negative:dup-add", function () {
+  let color = "color_566";
   let comments = "comments_566";
   let custom_fields = {};
   let desc_units = true;
@@ -3067,10 +4293,48 @@ bthread("crud:RackType:nondet:negative:dup-add", function () {
   let weight = 566;
   let weight_unit = "weight_unit_566";
   let width = 566;
+<<<<<<< HEAD
   createRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   verifyRackTypeExists(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   tryToAddExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
   verifyRackTypeExists(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+=======
+  createRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  verifyRackTypeExists(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  tryToAddExistingRackType(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+  verifyRackTypeExists(color, comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width);
+});
+
+// Story: crud:RackType:nondet:existing:update
+bthread("crud:RackType:nondet:existing:update", function () {
+  let ev = waitForAnyRackTypeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRackType.apply(null, args), function () {
+    verifyRackTypeExists.apply(null, args);
+    updateRackType.apply(null, args);
+    verifyRackTypeExists.apply(null, args);
+  });
+});
+
+// Story: monitor:RackType:add
+bthread("monitor:RackType:add", function () {
+  while (true) {
+    let ev = waitForAnyRackTypeAdded();
+    block(matchDeletedRackType(ev.color, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.form_factor, ev.id, ev.manufacturer, ev.max_weight, ev.model, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.slug, ev.starting_unit, ev.tags, ev.u_height, ev.weight, ev.weight_unit, ev.width), function () {
+      verifyRackTypeExists(ev.color, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.form_factor, ev.id, ev.manufacturer, ev.max_weight, ev.model, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.slug, ev.starting_unit, ev.tags, ev.u_height, ev.weight, ev.weight_unit, ev.width);
+    });
+  }
+});
+
+// Story: monitor:RackType:deletion
+bthread("monitor:RackType:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRackTypeDeleted();
+    block(matchAddedRackType(ev.color, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.form_factor, ev.id, ev.manufacturer, ev.max_weight, ev.model, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.slug, ev.starting_unit, ev.tags, ev.u_height, ev.weight, ev.weight_unit, ev.width), function () {
+      verifyRackTypeDoesNotExist(ev.color, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.form_factor, ev.id, ev.manufacturer, ev.max_weight, ev.model, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.slug, ev.starting_unit, ev.tags, ev.u_height, ev.weight, ev.weight_unit, ev.width);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:RackType:add
@@ -3120,18 +4384,19 @@ bthread("crud:Rack:nondet:1:1", function () {
   let status = "status_570";
   let tags = "tags_570";
   let tenant = "tenant_570";
+  let tenant_group = "tenant_group_570";
   let u_height = 570;
   let weight = 570;
   let weight_unit = "weight_unit_570";
   let width = 570;
-  createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  waitForRackAdded(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  updateRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  deleteRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
-  verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
+  createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  waitForRackAdded(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  updateRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  deleteRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
 });
 
 // Story: crud:Rack:nondet:1:2
@@ -3161,10 +4426,12 @@ bthread("crud:Rack:nondet:1:2", function () {
   let status = "status_571";
   let tags = "tags_571";
   let tenant = "tenant_571";
+  let tenant_group = "tenant_group_571";
   let u_height = 571;
   let weight = 571;
   let weight_unit = "weight_unit_571";
   let width = 571;
+<<<<<<< HEAD
   createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   updateRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
@@ -3172,6 +4439,15 @@ bthread("crud:Rack:nondet:1:2", function () {
   deleteRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
+=======
+  createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  updateRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  deleteRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Rack:nondet:negative:dup-add
@@ -3201,14 +4477,53 @@ bthread("crud:Rack:nondet:negative:dup-add", function () {
   let status = "status_576";
   let tags = "tags_576";
   let tenant = "tenant_576";
+  let tenant_group = "tenant_group_576";
   let u_height = 576;
   let weight = 576;
   let weight_unit = "weight_unit_576";
   let width = 576;
+<<<<<<< HEAD
   createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
   verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width);
+=======
+  createRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  tryToAddExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+  verifyRackExists(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, tenant_group, u_height, weight, weight_unit, width);
+});
+
+// Story: crud:Rack:nondet:existing:update
+bthread("crud:Rack:nondet:existing:update", function () {
+  let ev = waitForAnyRackAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRack.apply(null, args), function () {
+    verifyRackExists.apply(null, args);
+    updateRack.apply(null, args);
+    verifyRackExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Rack:add
+bthread("monitor:Rack:add", function () {
+  while (true) {
+    let ev = waitForAnyRackAdded();
+    block(matchDeletedRack(ev.airflow, ev.asset_tag, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.facility_id, ev.form_factor, ev.id, ev.location, ev.max_weight, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.rack_type, ev.role, ev.serial, ev.site, ev.starting_unit, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.u_height, ev.weight, ev.weight_unit, ev.width), function () {
+      verifyRackExists(ev.airflow, ev.asset_tag, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.facility_id, ev.form_factor, ev.id, ev.location, ev.max_weight, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.rack_type, ev.role, ev.serial, ev.site, ev.starting_unit, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.u_height, ev.weight, ev.weight_unit, ev.width);
+    });
+  }
+});
+
+// Story: monitor:Rack:deletion
+bthread("monitor:Rack:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRackDeleted();
+    block(matchAddedRack(ev.airflow, ev.asset_tag, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.facility_id, ev.form_factor, ev.id, ev.location, ev.max_weight, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.rack_type, ev.role, ev.serial, ev.site, ev.starting_unit, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.u_height, ev.weight, ev.weight_unit, ev.width), function () {
+      verifyRackDoesNotExist(ev.airflow, ev.asset_tag, ev.comments, ev.custom_fields, ev.desc_units, ev.description, ev.facility_id, ev.form_factor, ev.id, ev.location, ev.max_weight, ev.mounting_depth, ev.name, ev.outer_depth, ev.outer_height, ev.outer_unit, ev.outer_width, ev.rack_type, ev.role, ev.serial, ev.site, ev.starting_unit, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.u_height, ev.weight, ev.weight_unit, ev.width);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Rack:add
@@ -3239,6 +4554,7 @@ bthread("crud:RackElevation:read_only", function () {
 
 // Story: crud:RearPortTemplate:nondet:1:1
 bthread("crud:RearPortTemplate:nondet:1:1", function () {
+<<<<<<< HEAD
   let color = "color_590";
   let description = "description_590";
   let device_type = "device_type_590";
@@ -3256,10 +4572,31 @@ bthread("crud:RearPortTemplate:nondet:1:1", function () {
   deleteRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
   tryToDeleteANonExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
   verifyRearPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, positions, type);
+=======
+  let color = "color_580";
+  let description = "description_580";
+  let device_type = "device_type_580";
+  let id = 580;
+  let label = "label_580";
+  let module_type = "module_type_580";
+  let name = "name_580";
+  let positions = 580;
+  let rear_port = "rear_port_580";
+  let type = "type_580";
+  createRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  waitForRearPortTemplateAdded(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  tryToAddExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  updateRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  deleteRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  tryToDeleteANonExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  verifyRearPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RearPortTemplate:nondet:1:2
 bthread("crud:RearPortTemplate:nondet:1:2", function () {
+<<<<<<< HEAD
   let color = "color_591";
   let description = "description_591";
   let device_type = "device_type_591";
@@ -3276,10 +4613,30 @@ bthread("crud:RearPortTemplate:nondet:1:2", function () {
   deleteRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
   tryToDeleteANonExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
   verifyRearPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, positions, type);
+=======
+  let color = "color_581";
+  let description = "description_581";
+  let device_type = "device_type_581";
+  let id = 581;
+  let label = "label_581";
+  let module_type = "module_type_581";
+  let name = "name_581";
+  let positions = 581;
+  let rear_port = "rear_port_581";
+  let type = "type_581";
+  createRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  tryToAddExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  updateRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  deleteRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  tryToDeleteANonExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  verifyRearPortTemplateDoesNotExist(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RearPortTemplate:nondet:negative:dup-add
 bthread("crud:RearPortTemplate:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let color = "color_596";
   let description = "description_596";
   let device_type = "device_type_596";
@@ -3293,6 +4650,53 @@ bthread("crud:RearPortTemplate:nondet:negative:dup-add", function () {
   verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, type);
   tryToAddExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, type);
   verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, type);
+=======
+  let color = "color_586";
+  let description = "description_586";
+  let device_type = "device_type_586";
+  let id = 586;
+  let label = "label_586";
+  let module_type = "module_type_586";
+  let name = "name_586";
+  let positions = 586;
+  let rear_port = "rear_port_586";
+  let type = "type_586";
+  createRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  tryToAddExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+  verifyRearPortTemplateExists(color, description, device_type, id, label, module_type, name, positions, rear_port, type);
+});
+
+// Story: crud:RearPortTemplate:nondet:existing:update
+bthread("crud:RearPortTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyRearPortTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRearPortTemplate.apply(null, args), function () {
+    verifyRearPortTemplateExists.apply(null, args);
+    updateRearPortTemplate.apply(null, args);
+    verifyRearPortTemplateExists.apply(null, args);
+  });
+});
+
+// Story: monitor:RearPortTemplate:add
+bthread("monitor:RearPortTemplate:add", function () {
+  while (true) {
+    let ev = waitForAnyRearPortTemplateAdded();
+    block(matchDeletedRearPortTemplate(ev.color, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.positions, ev.rear_port, ev.type), function () {
+      verifyRearPortTemplateExists(ev.color, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.positions, ev.rear_port, ev.type);
+    });
+  }
+});
+
+// Story: monitor:RearPortTemplate:deletion
+bthread("monitor:RearPortTemplate:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRearPortTemplateDeleted();
+    block(matchAddedRearPortTemplate(ev.color, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.positions, ev.rear_port, ev.type), function () {
+      verifyRearPortTemplateDoesNotExist(ev.color, ev.description, ev.device_type, ev.id, ev.label, ev.module_type, ev.name, ev.positions, ev.rear_port, ev.type);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:RearPortTemplate:add
@@ -3317,6 +4721,7 @@ bthread("monitor:RearPortTemplate:deletion", function () {
 
 // Story: crud:RearPort:nondet:1:1
 bthread("crud:RearPort:nondet:1:1", function () {
+<<<<<<< HEAD
   let color = "color_600";
   let custom_fields = {};
   let description = "description_600";
@@ -3337,10 +4742,40 @@ bthread("crud:RearPort:nondet:1:1", function () {
   deleteRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   tryToDeleteANonExistingRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   verifyRearPortDoesNotExist(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
+=======
+  let cable = "cable_590";
+  let cable_end = "cable_end_590";
+  let color = "color_590";
+  let custom_fields = {};
+  let description = "description_590";
+  let device = "device_590";
+  let device_role = "device_role_590";
+  let device_type = "device_type_590";
+  let id = 590;
+  let label = "label_590";
+  let mark_connected = "mark_connected_590";
+  let module = "module_590";
+  let name = "name_590";
+  let positions = 590;
+  let rack = "rack_590";
+  let status = "status_590";
+  let tags = "tags_590";
+  let type = "type_590";
+  let virtual_chassis = "virtual_chassis_590";
+  createRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  waitForRearPortAdded(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  tryToAddExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  verifyRearPortExists(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  updateRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  deleteRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  tryToDeleteANonExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  verifyRearPortDoesNotExist(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RearPort:nondet:1:2
 bthread("crud:RearPort:nondet:1:2", function () {
+<<<<<<< HEAD
   let color = "color_601";
   let custom_fields = {};
   let description = "description_601";
@@ -3360,10 +4795,39 @@ bthread("crud:RearPort:nondet:1:2", function () {
   deleteRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   tryToDeleteANonExistingRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   verifyRearPortDoesNotExist(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
+=======
+  let cable = "cable_591";
+  let cable_end = "cable_end_591";
+  let color = "color_591";
+  let custom_fields = {};
+  let description = "description_591";
+  let device = "device_591";
+  let device_role = "device_role_591";
+  let device_type = "device_type_591";
+  let id = 591;
+  let label = "label_591";
+  let mark_connected = "mark_connected_591";
+  let module = "module_591";
+  let name = "name_591";
+  let positions = 591;
+  let rack = "rack_591";
+  let status = "status_591";
+  let tags = "tags_591";
+  let type = "type_591";
+  let virtual_chassis = "virtual_chassis_591";
+  createRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  tryToAddExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  updateRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  verifyRearPortExists(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  deleteRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  tryToDeleteANonExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  verifyRearPortDoesNotExist(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RearPort:nondet:negative:dup-add
 bthread("crud:RearPort:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let color = "color_606";
   let custom_fields = {};
   let description = "description_606";
@@ -3380,6 +4844,62 @@ bthread("crud:RearPort:nondet:negative:dup-add", function () {
   verifyRearPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   tryToAddExistingRearPort(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
   verifyRearPortExists(color, custom_fields, description, device, id, label, mark_connected, module, name, positions, tags, type);
+=======
+  let cable = "cable_596";
+  let cable_end = "cable_end_596";
+  let color = "color_596";
+  let custom_fields = {};
+  let description = "description_596";
+  let device = "device_596";
+  let device_role = "device_role_596";
+  let device_type = "device_type_596";
+  let id = 596;
+  let label = "label_596";
+  let mark_connected = "mark_connected_596";
+  let module = "module_596";
+  let name = "name_596";
+  let positions = 596;
+  let rack = "rack_596";
+  let status = "status_596";
+  let tags = "tags_596";
+  let type = "type_596";
+  let virtual_chassis = "virtual_chassis_596";
+  createRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  verifyRearPortExists(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  tryToAddExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+  verifyRearPortExists(cable, cable_end, color, custom_fields, description, device, device_role, device_type, id, label, mark_connected, module, name, positions, rack, status, tags, type, virtual_chassis);
+});
+
+// Story: crud:RearPort:nondet:existing:update
+bthread("crud:RearPort:nondet:existing:update", function () {
+  let ev = waitForAnyRearPortAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRearPort.apply(null, args), function () {
+    verifyRearPortExists.apply(null, args);
+    updateRearPort.apply(null, args);
+    verifyRearPortExists.apply(null, args);
+  });
+});
+
+// Story: monitor:RearPort:add
+bthread("monitor:RearPort:add", function () {
+  while (true) {
+    let ev = waitForAnyRearPortAdded();
+    block(matchDeletedRearPort(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.device_role, ev.device_type, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.positions, ev.rack, ev.status, ev.tags, ev.type, ev.virtual_chassis), function () {
+      verifyRearPortExists(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.device_role, ev.device_type, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.positions, ev.rack, ev.status, ev.tags, ev.type, ev.virtual_chassis);
+    });
+  }
+});
+
+// Story: monitor:RearPort:deletion
+bthread("monitor:RearPort:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRearPortDeleted();
+    block(matchAddedRearPort(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.device_role, ev.device_type, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.positions, ev.rack, ev.status, ev.tags, ev.type, ev.virtual_chassis), function () {
+      verifyRearPortDoesNotExist(ev.cable, ev.cable_end, ev.color, ev.custom_fields, ev.description, ev.device, ev.device_role, ev.device_type, ev.id, ev.label, ev.mark_connected, ev.module, ev.name, ev.positions, ev.rack, ev.status, ev.tags, ev.type, ev.virtual_chassis);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:RearPort:add
@@ -3404,6 +4924,7 @@ bthread("monitor:RearPort:deletion", function () {
 
 // Story: crud:Region:nondet:1:1
 bthread("crud:Region:nondet:1:1", function () {
+<<<<<<< HEAD
   let comments = "comments_610";
   let custom_fields = {};
   let description = "description_610";
@@ -3420,10 +4941,32 @@ bthread("crud:Region:nondet:1:1", function () {
   deleteRegion(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToDeleteANonExistingRegion(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyRegionDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags);
+=======
+  let comments = "comments_600";
+  let contact = "contact_600";
+  let contact_group = "contact_group_600";
+  let contact_role = "contact_role_600";
+  let custom_fields = {};
+  let description = "description_600";
+  let id = 600;
+  let name = "name_600";
+  let parent = 600;
+  let slug = "slug_600";
+  let tags = "tags_600";
+  createRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  waitForRegionAdded(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  tryToAddExistingRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  verifyRegionExists(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  updateRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  deleteRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  tryToDeleteANonExistingRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  verifyRegionDoesNotExist(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Region:nondet:1:2
 bthread("crud:Region:nondet:1:2", function () {
+<<<<<<< HEAD
   let comments = "comments_611";
   let custom_fields = {};
   let description = "description_611";
@@ -3439,10 +4982,31 @@ bthread("crud:Region:nondet:1:2", function () {
   deleteRegion(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToDeleteANonExistingRegion(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyRegionDoesNotExist(comments, custom_fields, description, id, name, parent, slug, tags);
+=======
+  let comments = "comments_601";
+  let contact = "contact_601";
+  let contact_group = "contact_group_601";
+  let contact_role = "contact_role_601";
+  let custom_fields = {};
+  let description = "description_601";
+  let id = 601;
+  let name = "name_601";
+  let parent = 601;
+  let slug = "slug_601";
+  let tags = "tags_601";
+  createRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  tryToAddExistingRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  updateRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  verifyRegionExists(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  deleteRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  tryToDeleteANonExistingRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  verifyRegionDoesNotExist(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Region:nondet:negative:dup-add
 bthread("crud:Region:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let comments = "comments_616";
   let custom_fields = {};
   let description = "description_616";
@@ -3455,6 +5019,54 @@ bthread("crud:Region:nondet:negative:dup-add", function () {
   verifyRegionExists(comments, custom_fields, description, id, name, parent, slug, tags);
   tryToAddExistingRegion(comments, custom_fields, description, id, name, parent, slug, tags);
   verifyRegionExists(comments, custom_fields, description, id, name, parent, slug, tags);
+=======
+  let comments = "comments_606";
+  let contact = "contact_606";
+  let contact_group = "contact_group_606";
+  let contact_role = "contact_role_606";
+  let custom_fields = {};
+  let description = "description_606";
+  let id = 606;
+  let name = "name_606";
+  let parent = 606;
+  let slug = "slug_606";
+  let tags = "tags_606";
+  createRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  verifyRegionExists(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  tryToAddExistingRegion(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+  verifyRegionExists(comments, contact, contact_group, contact_role, custom_fields, description, id, name, parent, slug, tags);
+});
+
+// Story: crud:Region:nondet:existing:update
+bthread("crud:Region:nondet:existing:update", function () {
+  let ev = waitForAnyRegionAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRegion.apply(null, args), function () {
+    verifyRegionExists.apply(null, args);
+    updateRegion.apply(null, args);
+    verifyRegionExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Region:add
+bthread("monitor:Region:add", function () {
+  while (true) {
+    let ev = waitForAnyRegionAdded();
+    block(matchDeletedRegion(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.slug, ev.tags), function () {
+      verifyRegionExists(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.slug, ev.tags);
+    });
+  }
+});
+
+// Story: monitor:Region:deletion
+bthread("monitor:Region:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRegionDeleted();
+    block(matchAddedRegion(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.slug, ev.tags), function () {
+      verifyRegionDoesNotExist(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.id, ev.name, ev.parent, ev.slug, ev.tags);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Region:add
@@ -3532,6 +5144,20 @@ bthread("crud:SiteGroup:nondet:negative:dup-add", function () {
   verifySiteGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:SiteGroup:nondet:existing:update
+bthread("crud:SiteGroup:nondet:existing:update", function () {
+  let ev = waitForAnySiteGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedSiteGroup.apply(null, args), function () {
+    verifySiteGroupExists.apply(null, args);
+    updateSiteGroup.apply(null, args);
+    verifySiteGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:SiteGroup:add
 bthread("monitor:SiteGroup:add", function () {
   while (true) {
@@ -3554,6 +5180,7 @@ bthread("monitor:SiteGroup:deletion", function () {
 
 // Story: crud:Site:nondet:1:1
 bthread("crud:Site:nondet:1:1", function () {
+<<<<<<< HEAD
   let asns = "asns_630";
   let comments = "comments_630";
   let custom_fields = {};
@@ -3580,10 +5207,40 @@ bthread("crud:Site:nondet:1:1", function () {
   deleteSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
   tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
   verifySiteDoesNotExist(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+=======
+  let asn = "asn_620";
+  let asns = "asns_620";
+  let comments = "comments_620";
+  let custom_fields = {};
+  let description = "description_620";
+  let facility = "facility_620";
+  let group = "group_620";
+  let id = 620;
+  let latitude = 620;
+  let longitude = 620;
+  let name = "name_620";
+  let physical_address = "physical_address_620";
+  let region = "region_620";
+  let shipping_address = "shipping_address_620";
+  let slug = "slug_620";
+  let status = "status_620";
+  let tags = "tags_620";
+  let tenant = "tenant_620";
+  let time_zone = "time_zone_620";
+  createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  waitForSiteAdded(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  updateSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  deleteSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToDeleteANonExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteDoesNotExist(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Site:nondet:1:2
 bthread("crud:Site:nondet:1:2", function () {
+<<<<<<< HEAD
   let asns = "asns_631";
   let comments = "comments_631";
   let custom_fields = {};
@@ -3609,10 +5266,39 @@ bthread("crud:Site:nondet:1:2", function () {
   deleteSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
   tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
   verifySiteDoesNotExist(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+=======
+  let asn = "asn_621";
+  let asns = "asns_621";
+  let comments = "comments_621";
+  let custom_fields = {};
+  let description = "description_621";
+  let facility = "facility_621";
+  let group = "group_621";
+  let id = 621;
+  let latitude = 621;
+  let longitude = 621;
+  let name = "name_621";
+  let physical_address = "physical_address_621";
+  let region = "region_621";
+  let shipping_address = "shipping_address_621";
+  let slug = "slug_621";
+  let status = "status_621";
+  let tags = "tags_621";
+  let tenant = "tenant_621";
+  let time_zone = "time_zone_621";
+  createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  updateSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  deleteSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToDeleteANonExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteDoesNotExist(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Site:nondet:negative:dup-add
 bthread("crud:Site:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let asns = "asns_636";
   let comments = "comments_636";
   let custom_fields = {};
@@ -3635,6 +5321,62 @@ bthread("crud:Site:nondet:negative:dup-add", function () {
   verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
   tryToAddExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
   verifySiteExists(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+=======
+  let asn = "asn_626";
+  let asns = "asns_626";
+  let comments = "comments_626";
+  let custom_fields = {};
+  let description = "description_626";
+  let facility = "facility_626";
+  let group = "group_626";
+  let id = 626;
+  let latitude = 626;
+  let longitude = 626;
+  let name = "name_626";
+  let physical_address = "physical_address_626";
+  let region = "region_626";
+  let shipping_address = "shipping_address_626";
+  let slug = "slug_626";
+  let status = "status_626";
+  let tags = "tags_626";
+  let tenant = "tenant_626";
+  let time_zone = "time_zone_626";
+  createSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  tryToAddExistingSite(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+  verifySiteExists(asn, asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone);
+});
+
+// Story: crud:Site:nondet:existing:update
+bthread("crud:Site:nondet:existing:update", function () {
+  let ev = waitForAnySiteAdded();
+  let args = Object.values(ev);
+  block(matchDeletedSite.apply(null, args), function () {
+    verifySiteExists.apply(null, args);
+    updateSite.apply(null, args);
+    verifySiteExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Site:add
+bthread("monitor:Site:add", function () {
+  while (true) {
+    let ev = waitForAnySiteAdded();
+    block(matchDeletedSite(ev.asn, ev.asns, ev.comments, ev.custom_fields, ev.description, ev.facility, ev.group, ev.id, ev.latitude, ev.longitude, ev.name, ev.physical_address, ev.region, ev.shipping_address, ev.slug, ev.status, ev.tags, ev.tenant, ev.time_zone), function () {
+      verifySiteExists(ev.asn, ev.asns, ev.comments, ev.custom_fields, ev.description, ev.facility, ev.group, ev.id, ev.latitude, ev.longitude, ev.name, ev.physical_address, ev.region, ev.shipping_address, ev.slug, ev.status, ev.tags, ev.tenant, ev.time_zone);
+    });
+  }
+});
+
+// Story: monitor:Site:deletion
+bthread("monitor:Site:deletion", function () {
+  while (true) {
+    let ev = waitForAnySiteDeleted();
+    block(matchAddedSite(ev.asn, ev.asns, ev.comments, ev.custom_fields, ev.description, ev.facility, ev.group, ev.id, ev.latitude, ev.longitude, ev.name, ev.physical_address, ev.region, ev.shipping_address, ev.slug, ev.status, ev.tags, ev.tenant, ev.time_zone), function () {
+      verifySiteDoesNotExist(ev.asn, ev.asns, ev.comments, ev.custom_fields, ev.description, ev.facility, ev.group, ev.id, ev.latitude, ev.longitude, ev.name, ev.physical_address, ev.region, ev.shipping_address, ev.slug, ev.status, ev.tags, ev.tenant, ev.time_zone);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Site:add
@@ -3712,6 +5454,20 @@ bthread("crud:VirtualChassis:nondet:negative:dup-add", function () {
   verifyVirtualChassisExists(comments, custom_fields, description, domain, id, master, name, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VirtualChassis:nondet:existing:update
+bthread("crud:VirtualChassis:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualChassisAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualChassis.apply(null, args), function () {
+    verifyVirtualChassisExists.apply(null, args);
+    updateVirtualChassis.apply(null, args);
+    verifyVirtualChassisExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VirtualChassis:add
 bthread("monitor:VirtualChassis:add", function () {
   while (true) {
@@ -3799,6 +5555,20 @@ bthread("crud:VirtualDeviceContext:nondet:negative:dup-add", function () {
   verifyVirtualDeviceContextExists(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VirtualDeviceContext:nondet:existing:update
+bthread("crud:VirtualDeviceContext:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualDeviceContextAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualDeviceContext.apply(null, args), function () {
+    verifyVirtualDeviceContextExists.apply(null, args);
+    updateVirtualDeviceContext.apply(null, args);
+    verifyVirtualDeviceContextExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VirtualDeviceContext:add
 bthread("monitor:VirtualDeviceContext:add", function () {
   while (true) {
@@ -3862,6 +5632,20 @@ bthread("crud:Bookmark:nondet:negative:dup-add", function () {
   verifyBookmarkExists(id, object_id, object_type, user);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Bookmark:nondet:existing:update
+bthread("crud:Bookmark:nondet:existing:update", function () {
+  let ev = waitForAnyBookmarkAdded();
+  let args = Object.values(ev);
+  block(matchDeletedBookmark.apply(null, args), function () {
+    verifyBookmarkExists.apply(null, args);
+    updateBookmark.apply(null, args);
+    verifyBookmarkExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Bookmark:add
 bthread("monitor:Bookmark:add", function () {
   while (true) {
@@ -3934,6 +5718,20 @@ bthread("crud:ConfigContextProfile:nondet:negative:dup-add", function () {
   verifyConfigContextProfileExists(comments, data_source, description, id, name, schema, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ConfigContextProfile:nondet:existing:update
+bthread("crud:ConfigContextProfile:nondet:existing:update", function () {
+  let ev = waitForAnyConfigContextProfileAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConfigContextProfile.apply(null, args), function () {
+    verifyConfigContextProfileExists.apply(null, args);
+    updateConfigContextProfile.apply(null, args);
+    verifyConfigContextProfileExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ConfigContextProfile:add
 bthread("monitor:ConfigContextProfile:add", function () {
   while (true) {
@@ -4048,6 +5846,20 @@ bthread("crud:ConfigContext:nondet:negative:dup-add", function () {
   verifyConfigContextExists(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ConfigContext:nondet:existing:update
+bthread("crud:ConfigContext:nondet:existing:update", function () {
+  let ev = waitForAnyConfigContextAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConfigContext.apply(null, args), function () {
+    verifyConfigContextExists.apply(null, args);
+    updateConfigContext.apply(null, args);
+    verifyConfigContextExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ConfigContext:add
 bthread("monitor:ConfigContext:add", function () {
   while (true) {
@@ -4070,6 +5882,7 @@ bthread("monitor:ConfigContext:deletion", function () {
 
 // Story: crud:ConfigTemplate:nondet:1:1
 bthread("crud:ConfigTemplate:nondet:1:1", function () {
+<<<<<<< HEAD
   let as_attachment = true;
   let data_source = "data_source_690";
   let description = "description_690";
@@ -4082,6 +5895,20 @@ bthread("crud:ConfigTemplate:nondet:1:1", function () {
   let name = "name_690";
   let tags = "tags_690";
   let template_code = "template_code_690";
+=======
+  let as_attachment = "as_attachment_680";
+  let data_source = "data_source_680";
+  let description = "description_680";
+  let environment_params = "environment_params_680";
+  let file_extension = "file_extension_680";
+  let file_name = "file_name_680";
+  let format = "format_680";
+  let id = 680;
+  let mime_type = "mime_type_680";
+  let name = "name_680";
+  let tags = "tags_680";
+  let template_code = "template_code_680";
+>>>>>>> 1302d9a (Fix emitter bugs)
   createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   waitForConfigTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
@@ -4094,6 +5921,7 @@ bthread("crud:ConfigTemplate:nondet:1:1", function () {
 
 // Story: crud:ConfigTemplate:nondet:1:2
 bthread("crud:ConfigTemplate:nondet:1:2", function () {
+<<<<<<< HEAD
   let as_attachment = true;
   let data_source = "data_source_691";
   let description = "description_691";
@@ -4106,6 +5934,20 @@ bthread("crud:ConfigTemplate:nondet:1:2", function () {
   let name = "name_691";
   let tags = "tags_691";
   let template_code = "template_code_691";
+=======
+  let as_attachment = "as_attachment_681";
+  let data_source = "data_source_681";
+  let description = "description_681";
+  let environment_params = "environment_params_681";
+  let file_extension = "file_extension_681";
+  let file_name = "file_name_681";
+  let format = "format_681";
+  let id = 681;
+  let mime_type = "mime_type_681";
+  let name = "name_681";
+  let tags = "tags_681";
+  let template_code = "template_code_681";
+>>>>>>> 1302d9a (Fix emitter bugs)
   createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   updateConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
@@ -4117,6 +5959,7 @@ bthread("crud:ConfigTemplate:nondet:1:2", function () {
 
 // Story: crud:ConfigTemplate:nondet:negative:dup-add
 bthread("crud:ConfigTemplate:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let as_attachment = true;
   let data_source = "data_source_696";
   let description = "description_696";
@@ -4129,12 +5972,40 @@ bthread("crud:ConfigTemplate:nondet:negative:dup-add", function () {
   let name = "name_696";
   let tags = "tags_696";
   let template_code = "template_code_696";
+=======
+  let as_attachment = "as_attachment_686";
+  let data_source = "data_source_686";
+  let description = "description_686";
+  let environment_params = "environment_params_686";
+  let file_extension = "file_extension_686";
+  let file_name = "file_name_686";
+  let format = "format_686";
+  let id = 686;
+  let mime_type = "mime_type_686";
+  let name = "name_686";
+  let tags = "tags_686";
+  let template_code = "template_code_686";
+>>>>>>> 1302d9a (Fix emitter bugs)
   createConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   tryToAddExistingConfigTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
   verifyConfigTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, format, id, mime_type, name, tags, template_code);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ConfigTemplate:nondet:existing:update
+bthread("crud:ConfigTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyConfigTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedConfigTemplate.apply(null, args), function () {
+    verifyConfigTemplateExists.apply(null, args);
+    updateConfigTemplate.apply(null, args);
+    verifyConfigTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ConfigTemplate:add
 bthread("monitor:ConfigTemplate:add", function () {
   while (true) {
@@ -4204,6 +6075,20 @@ bthread("crud:CustomFieldChoiceSet:nondet:negative:dup-add", function () {
   verifyCustomFieldChoiceSetExists(base_choices, description, extra_choices, id, name, order_alphabetically);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CustomFieldChoiceSet:nondet:existing:update
+bthread("crud:CustomFieldChoiceSet:nondet:existing:update", function () {
+  let ev = waitForAnyCustomFieldChoiceSetAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCustomFieldChoiceSet.apply(null, args), function () {
+    verifyCustomFieldChoiceSetExists.apply(null, args);
+    updateCustomFieldChoiceSet.apply(null, args);
+    verifyCustomFieldChoiceSetExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CustomFieldChoiceSet:add
 bthread("monitor:CustomFieldChoiceSet:add", function () {
   while (true) {
@@ -4324,6 +6209,20 @@ bthread("crud:CustomField:nondet:negative:dup-add", function () {
   verifyCustomFieldExists(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CustomField:nondet:existing:update
+bthread("crud:CustomField:nondet:existing:update", function () {
+  let ev = waitForAnyCustomFieldAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCustomField.apply(null, args), function () {
+    verifyCustomFieldExists.apply(null, args);
+    updateCustomField.apply(null, args);
+    verifyCustomFieldExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CustomField:add
 bthread("monitor:CustomField:add", function () {
   while (true) {
@@ -4405,6 +6304,20 @@ bthread("crud:CustomLink:nondet:negative:dup-add", function () {
   verifyCustomLinkExists(button_class, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CustomLink:nondet:existing:update
+bthread("crud:CustomLink:nondet:existing:update", function () {
+  let ev = waitForAnyCustomLinkAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCustomLink.apply(null, args), function () {
+    verifyCustomLinkExists.apply(null, args);
+    updateCustomLink.apply(null, args);
+    verifyCustomLinkExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CustomLink:add
 bthread("monitor:CustomLink:add", function () {
   while (true) {
@@ -4498,6 +6411,20 @@ bthread("crud:EventRule:nondet:negative:dup-add", function () {
   verifyEventRuleExists(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:EventRule:nondet:existing:update
+bthread("crud:EventRule:nondet:existing:update", function () {
+  let ev = waitForAnyEventRuleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedEventRule.apply(null, args), function () {
+    verifyEventRuleExists.apply(null, args);
+    updateEventRule.apply(null, args);
+    verifyEventRuleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:EventRule:add
 bthread("monitor:EventRule:add", function () {
   while (true) {
@@ -4582,6 +6509,20 @@ bthread("crud:ExportTemplate:nondet:negative:dup-add", function () {
   verifyExportTemplateExists(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ExportTemplate:nondet:existing:update
+bthread("crud:ExportTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyExportTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedExportTemplate.apply(null, args), function () {
+    verifyExportTemplateExists.apply(null, args);
+    updateExportTemplate.apply(null, args);
+    verifyExportTemplateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ExportTemplate:add
 bthread("monitor:ExportTemplate:add", function () {
   while (true) {
@@ -4651,6 +6592,20 @@ bthread("crud:ImageAttachment:nondet:negative:dup-add", function () {
   verifyImageAttachmentExists(description, id, image, name, object_id, object_type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ImageAttachment:nondet:existing:update
+bthread("crud:ImageAttachment:nondet:existing:update", function () {
+  let ev = waitForAnyImageAttachmentAdded();
+  let args = Object.values(ev);
+  block(matchDeletedImageAttachment.apply(null, args), function () {
+    verifyImageAttachmentExists.apply(null, args);
+    updateImageAttachment.apply(null, args);
+    verifyImageAttachmentExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ImageAttachment:add
 bthread("monitor:ImageAttachment:add", function () {
   while (true) {
@@ -4726,6 +6681,20 @@ bthread("crud:JournalEntry:nondet:negative:dup-add", function () {
   verifyJournalEntryExists(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:JournalEntry:nondet:existing:update
+bthread("crud:JournalEntry:nondet:existing:update", function () {
+  let ev = waitForAnyJournalEntryAdded();
+  let args = Object.values(ev);
+  block(matchDeletedJournalEntry.apply(null, args), function () {
+    verifyJournalEntryExists.apply(null, args);
+    updateJournalEntry.apply(null, args);
+    verifyJournalEntryExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:JournalEntry:add
 bthread("monitor:JournalEntry:add", function () {
   while (true) {
@@ -4792,6 +6761,20 @@ bthread("crud:NotificationGroup:nondet:negative:dup-add", function () {
   verifyNotificationGroupExists(description, groups, id, name, users);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:NotificationGroup:nondet:existing:update
+bthread("crud:NotificationGroup:nondet:existing:update", function () {
+  let ev = waitForAnyNotificationGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedNotificationGroup.apply(null, args), function () {
+    verifyNotificationGroupExists.apply(null, args);
+    updateNotificationGroup.apply(null, args);
+    verifyNotificationGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:NotificationGroup:add
 bthread("monitor:NotificationGroup:add", function () {
   while (true) {
@@ -4861,6 +6844,20 @@ bthread("crud:Notification:nondet:negative:dup-add", function () {
   verifyNotificationExists(event_type, id, object_id, object_type, read, user);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Notification:nondet:existing:update
+bthread("crud:Notification:nondet:existing:update", function () {
+  let ev = waitForAnyNotificationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedNotification.apply(null, args), function () {
+    verifyNotificationExists.apply(null, args);
+    updateNotification.apply(null, args);
+    verifyNotificationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Notification:add
 bthread("monitor:Notification:add", function () {
   while (true) {
@@ -4948,6 +6945,20 @@ bthread("crud:SavedFilter:nondet:negative:dup-add", function () {
   verifySavedFilterExists(description, enabled, id, name, object_types, parameters, shared, slug, user, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:SavedFilter:nondet:existing:update
+bthread("crud:SavedFilter:nondet:existing:update", function () {
+  let ev = waitForAnySavedFilterAdded();
+  let args = Object.values(ev);
+  block(matchDeletedSavedFilter.apply(null, args), function () {
+    verifySavedFilterExists.apply(null, args);
+    updateSavedFilter.apply(null, args);
+    verifySavedFilterExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:SavedFilter:add
 bthread("monitor:SavedFilter:add", function () {
   while (true) {
@@ -4970,6 +6981,7 @@ bthread("monitor:SavedFilter:deletion", function () {
 
 // Story: crud:Script:nondet:1:1
 bthread("crud:Script:nondet:1:1", function () {
+<<<<<<< HEAD
   let id = 820;
   createScript(id);
   waitForScriptAdded(id);
@@ -4979,10 +6991,23 @@ bthread("crud:Script:nondet:1:1", function () {
   deleteScript(id);
   tryToDeleteANonExistingScript(id);
   verifyScriptDoesNotExist(id);
+=======
+  let id = 810;
+  let name = "name_810";
+  createScript(id, name);
+  waitForScriptAdded(id, name);
+  tryToAddExistingScript(id, name);
+  verifyScriptExists(id, name);
+  updateScript(id, name);
+  deleteScript(id, name);
+  tryToDeleteANonExistingScript(id, name);
+  verifyScriptDoesNotExist(id, name);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Script:nondet:1:2
 bthread("crud:Script:nondet:1:2", function () {
+<<<<<<< HEAD
   let id = 821;
   createScript(id);
   tryToAddExistingScript(id);
@@ -4991,15 +7016,66 @@ bthread("crud:Script:nondet:1:2", function () {
   deleteScript(id);
   tryToDeleteANonExistingScript(id);
   verifyScriptDoesNotExist(id);
+=======
+  let id = 811;
+  let name = "name_811";
+  createScript(id, name);
+  tryToAddExistingScript(id, name);
+  updateScript(id, name);
+  verifyScriptExists(id, name);
+  deleteScript(id, name);
+  tryToDeleteANonExistingScript(id, name);
+  verifyScriptDoesNotExist(id, name);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Script:nondet:negative:dup-add
 bthread("crud:Script:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let id = 826;
   createScript(id);
   verifyScriptExists(id);
   tryToAddExistingScript(id);
   verifyScriptExists(id);
+=======
+  let id = 816;
+  let name = "name_816";
+  createScript(id, name);
+  verifyScriptExists(id, name);
+  tryToAddExistingScript(id, name);
+  verifyScriptExists(id, name);
+});
+
+// Story: crud:Script:nondet:existing:update
+bthread("crud:Script:nondet:existing:update", function () {
+  let ev = waitForAnyScriptAdded();
+  let args = Object.values(ev);
+  block(matchDeletedScript.apply(null, args), function () {
+    verifyScriptExists.apply(null, args);
+    updateScript.apply(null, args);
+    verifyScriptExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Script:add
+bthread("monitor:Script:add", function () {
+  while (true) {
+    let ev = waitForAnyScriptAdded();
+    block(matchDeletedScript(ev.id, ev.name), function () {
+      verifyScriptExists(ev.id, ev.name);
+    });
+  }
+});
+
+// Story: monitor:Script:deletion
+bthread("monitor:Script:deletion", function () {
+  while (true) {
+    let ev = waitForAnyScriptDeleted();
+    block(matchAddedScript(ev.id, ev.name), function () {
+      verifyScriptDoesNotExist(ev.id, ev.name);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Script:add
@@ -5065,6 +7141,20 @@ bthread("crud:Subscription:nondet:negative:dup-add", function () {
   verifySubscriptionExists(id, object_id, object_type, user);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Subscription:nondet:existing:update
+bthread("crud:Subscription:nondet:existing:update", function () {
+  let ev = waitForAnySubscriptionAdded();
+  let args = Object.values(ev);
+  block(matchDeletedSubscription.apply(null, args), function () {
+    verifySubscriptionExists.apply(null, args);
+    updateSubscription.apply(null, args);
+    verifySubscriptionExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Subscription:add
 bthread("monitor:Subscription:add", function () {
   while (true) {
@@ -5149,6 +7239,20 @@ bthread("crud:TableConfig:nondet:negative:dup-add", function () {
   verifyTableConfigExists(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:TableConfig:nondet:existing:update
+bthread("crud:TableConfig:nondet:existing:update", function () {
+  let ev = waitForAnyTableConfigAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTableConfig.apply(null, args), function () {
+    verifyTableConfigExists.apply(null, args);
+    updateTableConfig.apply(null, args);
+    verifyTableConfigExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:TableConfig:add
 bthread("monitor:TableConfig:add", function () {
   while (true) {
@@ -5227,6 +7331,20 @@ bthread("crud:Tag:nondet:negative:dup-add", function () {
   verifyTagExists(color, description, id, name, object_types, slug, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Tag:nondet:existing:update
+bthread("crud:Tag:nondet:existing:update", function () {
+  let ev = waitForAnyTagAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTag.apply(null, args), function () {
+    verifyTagExists.apply(null, args);
+    updateTag.apply(null, args);
+    verifyTagExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Tag:add
 bthread("monitor:Tag:add", function () {
   while (true) {
@@ -5317,6 +7435,20 @@ bthread("crud:Webhook:nondet:negative:dup-add", function () {
   verifyWebhookExists(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Webhook:nondet:existing:update
+bthread("crud:Webhook:nondet:existing:update", function () {
+  let ev = waitForAnyWebhookAdded();
+  let args = Object.values(ev);
+  block(matchDeletedWebhook.apply(null, args), function () {
+    verifyWebhookExists.apply(null, args);
+    updateWebhook.apply(null, args);
+    verifyWebhookExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Webhook:add
 bthread("monitor:Webhook:add", function () {
   while (true) {
@@ -5395,6 +7527,20 @@ bthread("crud:Aggregate:nondet:negative:dup-add", function () {
   verifyAggregateExists(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Aggregate:nondet:existing:update
+bthread("crud:Aggregate:nondet:existing:update", function () {
+  let ev = waitForAnyAggregateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedAggregate.apply(null, args), function () {
+    verifyAggregateExists.apply(null, args);
+    updateAggregate.apply(null, args);
+    verifyAggregateExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Aggregate:add
 bthread("monitor:Aggregate:add", function () {
   while (true) {
@@ -5476,6 +7622,20 @@ bthread("crud:ASNRange:nondet:negative:dup-add", function () {
   verifyASNRangeExists(custom_fields, description, end, id, name, rir, slug, start, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ASNRange:nondet:existing:update
+bthread("crud:ASNRange:nondet:existing:update", function () {
+  let ev = waitForAnyASNRangeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedASNRange.apply(null, args), function () {
+    verifyASNRangeExists.apply(null, args);
+    updateASNRange.apply(null, args);
+    verifyASNRangeExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ASNRange:add
 bthread("monitor:ASNRange:add", function () {
   while (true) {
@@ -5551,6 +7711,20 @@ bthread("crud:ASN:nondet:negative:dup-add", function () {
   verifyASNExists(asn, comments, custom_fields, description, id, rir, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ASN:nondet:existing:update
+bthread("crud:ASN:nondet:existing:update", function () {
+  let ev = waitForAnyASNAdded();
+  let args = Object.values(ev);
+  block(matchDeletedASN.apply(null, args), function () {
+    verifyASNExists.apply(null, args);
+    updateASN.apply(null, args);
+    verifyASNExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ASN:add
 bthread("monitor:ASN:add", function () {
   while (true) {
@@ -5635,6 +7809,20 @@ bthread("crud:FHRPGroupAssignment:nondet:negative:dup-add", function () {
   verifyFHRPGroupAssignmentExists(group, id, interface_id, interface_type, priority);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:FHRPGroupAssignment:nondet:existing:update
+bthread("crud:FHRPGroupAssignment:nondet:existing:update", function () {
+  let ev = waitForAnyFHRPGroupAssignmentAdded();
+  let args = Object.values(ev);
+  block(matchDeletedFHRPGroupAssignment.apply(null, args), function () {
+    verifyFHRPGroupAssignmentExists.apply(null, args);
+    updateFHRPGroupAssignment.apply(null, args);
+    verifyFHRPGroupAssignmentExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:FHRPGroupAssignment:add
 bthread("monitor:FHRPGroupAssignment:add", function () {
   while (true) {
@@ -5734,6 +7922,20 @@ bthread("crud:FHRPGroup:nondet:negative:dup-add", function () {
   verifyFHRPGroupExists(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:FHRPGroup:nondet:existing:update
+bthread("crud:FHRPGroup:nondet:existing:update", function () {
+  let ev = waitForAnyFHRPGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedFHRPGroup.apply(null, args), function () {
+    verifyFHRPGroupExists.apply(null, args);
+    updateFHRPGroup.apply(null, args);
+    verifyFHRPGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:FHRPGroup:add
 bthread("monitor:FHRPGroup:add", function () {
   while (true) {
@@ -5827,6 +8029,20 @@ bthread("crud:IPAddress:nondet:negative:dup-add", function () {
   verifyIPAddressExists(address, assigned_object_id, assigned_object_type, comments, custom_fields, description, dns_name, id, nat_inside, role, status, tags, tenant, vrf);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IPAddress:nondet:existing:update
+bthread("crud:IPAddress:nondet:existing:update", function () {
+  let ev = waitForAnyIPAddressAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIPAddress.apply(null, args), function () {
+    verifyIPAddressExists.apply(null, args);
+    updateIPAddress.apply(null, args);
+    verifyIPAddressExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IPAddress:add
 bthread("monitor:IPAddress:add", function () {
   while (true) {
@@ -5917,6 +8133,20 @@ bthread("crud:IPRange:nondet:negative:dup-add", function () {
   verifyIPRangeExists(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IPRange:nondet:existing:update
+bthread("crud:IPRange:nondet:existing:update", function () {
+  let ev = waitForAnyIPRangeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIPRange.apply(null, args), function () {
+    verifyIPRangeExists.apply(null, args);
+    updateIPRange.apply(null, args);
+    verifyIPRangeExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IPRange:add
 bthread("monitor:IPRange:add", function () {
   while (true) {
@@ -6013,6 +8243,20 @@ bthread("crud:Prefix:nondet:negative:dup-add", function () {
   verifyPrefixExists(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Prefix:nondet:existing:update
+bthread("crud:Prefix:nondet:existing:update", function () {
+  let ev = waitForAnyPrefixAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPrefix.apply(null, args), function () {
+    verifyPrefixExists.apply(null, args);
+    updatePrefix.apply(null, args);
+    verifyPrefixExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Prefix:add
 bthread("monitor:Prefix:add", function () {
   while (true) {
@@ -6036,6 +8280,7 @@ bthread("monitor:Prefix:deletion", function () {
 // Story: crud:RIR:nondet:1:1
 bthread("crud:RIR:nondet:1:1", function () {
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_960";
   let id = 960;
   let is_private = true;
@@ -6050,11 +8295,69 @@ bthread("crud:RIR:nondet:1:1", function () {
   deleteRIR(custom_fields, description, id, is_private, name, slug, tags);
   tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, name, slug, tags);
   verifyRIRDoesNotExist(custom_fields, description, id, is_private, name, slug, tags);
+=======
+  let description = "description_950";
+  let id = 950;
+  let is_private = "is_private_950";
+  let name = "name_950";
+  let rir_date = "rir_date_950";
+  let rir_date_accuracy = "rir_date_accuracy_950";
+  let rir_date_comment = "rir_date_comment_950";
+  let rir_date_source = "rir_date_source_950";
+  let rir_date_source_comment = "rir_date_source_comment_950";
+  let rir_date_source_url = "rir_date_source_url_950";
+  let rir_date_source_url_comment = "rir_date_source_url_comment_950";
+  let rir_date_source_url_date = "rir_date_source_url_date_950";
+  let rir_date_source_url_date_comment = "rir_date_source_url_date_comment_950";
+  let rir_date_source_url_date_source = "rir_date_source_url_date_source_950";
+  let rir_date_source_url_date_source_comment = "rir_date_source_url_date_source_comment_950";
+  let rir_date_source_url_date_source_url = "rir_date_source_url_date_source_url_950";
+  let rir_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_comment_950";
+  let rir_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_950";
+  let rir_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_comment_950";
+  let rir_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_950";
+  let rir_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_950";
+  let rir_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_950";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_950";
+  let slug = "slug_950";
+  let tags = "tags_950";
+  createRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  waitForRIRAdded(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  tryToAddExistingRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  verifyRIRExists(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  updateRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  deleteRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  verifyRIRDoesNotExist(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RIR:nondet:1:2
 bthread("crud:RIR:nondet:1:2", function () {
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_961";
   let id = 961;
   let is_private = true;
@@ -6068,11 +8371,68 @@ bthread("crud:RIR:nondet:1:2", function () {
   deleteRIR(custom_fields, description, id, is_private, name, slug, tags);
   tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, name, slug, tags);
   verifyRIRDoesNotExist(custom_fields, description, id, is_private, name, slug, tags);
+=======
+  let description = "description_951";
+  let id = 951;
+  let is_private = "is_private_951";
+  let name = "name_951";
+  let rir_date = "rir_date_951";
+  let rir_date_accuracy = "rir_date_accuracy_951";
+  let rir_date_comment = "rir_date_comment_951";
+  let rir_date_source = "rir_date_source_951";
+  let rir_date_source_comment = "rir_date_source_comment_951";
+  let rir_date_source_url = "rir_date_source_url_951";
+  let rir_date_source_url_comment = "rir_date_source_url_comment_951";
+  let rir_date_source_url_date = "rir_date_source_url_date_951";
+  let rir_date_source_url_date_comment = "rir_date_source_url_date_comment_951";
+  let rir_date_source_url_date_source = "rir_date_source_url_date_source_951";
+  let rir_date_source_url_date_source_comment = "rir_date_source_url_date_source_comment_951";
+  let rir_date_source_url_date_source_url = "rir_date_source_url_date_source_url_951";
+  let rir_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_comment_951";
+  let rir_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_951";
+  let rir_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_comment_951";
+  let rir_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_951";
+  let rir_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_951";
+  let rir_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_951";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_951";
+  let slug = "slug_951";
+  let tags = "tags_951";
+  createRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  tryToAddExistingRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  updateRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  verifyRIRExists(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  deleteRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  verifyRIRDoesNotExist(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RIR:nondet:negative:dup-add
 bthread("crud:RIR:nondet:negative:dup-add", function () {
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_966";
   let id = 966;
   let is_private = true;
@@ -6083,6 +8443,90 @@ bthread("crud:RIR:nondet:negative:dup-add", function () {
   verifyRIRExists(custom_fields, description, id, is_private, name, slug, tags);
   tryToAddExistingRIR(custom_fields, description, id, is_private, name, slug, tags);
   verifyRIRExists(custom_fields, description, id, is_private, name, slug, tags);
+=======
+  let description = "description_956";
+  let id = 956;
+  let is_private = "is_private_956";
+  let name = "name_956";
+  let rir_date = "rir_date_956";
+  let rir_date_accuracy = "rir_date_accuracy_956";
+  let rir_date_comment = "rir_date_comment_956";
+  let rir_date_source = "rir_date_source_956";
+  let rir_date_source_comment = "rir_date_source_comment_956";
+  let rir_date_source_url = "rir_date_source_url_956";
+  let rir_date_source_url_comment = "rir_date_source_url_comment_956";
+  let rir_date_source_url_date = "rir_date_source_url_date_956";
+  let rir_date_source_url_date_comment = "rir_date_source_url_date_comment_956";
+  let rir_date_source_url_date_source = "rir_date_source_url_date_source_956";
+  let rir_date_source_url_date_source_comment = "rir_date_source_url_date_source_comment_956";
+  let rir_date_source_url_date_source_url = "rir_date_source_url_date_source_url_956";
+  let rir_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_comment_956";
+  let rir_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_956";
+  let rir_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_comment_956";
+  let rir_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_956";
+  let rir_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_956";
+  let rir_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_956";
+  let rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment = "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment_956";
+  let slug = "slug_956";
+  let tags = "tags_956";
+  createRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  verifyRIRExists(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  tryToAddExistingRIR(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+  verifyRIRExists(custom_fields, description, id, is_private, name, rir_date, rir_date_accuracy, rir_date_comment, rir_date_source, rir_date_source_comment, rir_date_source_url, rir_date_source_url_comment, rir_date_source_url_date, rir_date_source_url_date_comment, rir_date_source_url_date_source, rir_date_source_url_date_source_comment, rir_date_source_url_date_source_url, rir_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, slug, tags);
+});
+
+// Story: crud:RIR:nondet:existing:update
+bthread("crud:RIR:nondet:existing:update", function () {
+  let ev = waitForAnyRIRAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRIR.apply(null, args), function () {
+    verifyRIRExists.apply(null, args);
+    updateRIR.apply(null, args);
+    verifyRIRExists.apply(null, args);
+  });
+});
+
+// Story: monitor:RIR:add
+bthread("monitor:RIR:add", function () {
+  while (true) {
+    let ev = waitForAnyRIRAdded();
+    block(matchDeletedRIR(ev.custom_fields, ev.description, ev.id, ev.is_private, ev.name, ev.rir_date, ev.rir_date_accuracy, ev.rir_date_comment, ev.rir_date_source, ev.rir_date_source_comment, ev.rir_date_source_url, ev.rir_date_source_url_comment, ev.rir_date_source_url_date, ev.rir_date_source_url_date_comment, ev.rir_date_source_url_date_source, ev.rir_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.slug, ev.tags), function () {
+      verifyRIRExists(ev.custom_fields, ev.description, ev.id, ev.is_private, ev.name, ev.rir_date, ev.rir_date_accuracy, ev.rir_date_comment, ev.rir_date_source, ev.rir_date_source_comment, ev.rir_date_source_url, ev.rir_date_source_url_comment, ev.rir_date_source_url_date, ev.rir_date_source_url_date_comment, ev.rir_date_source_url_date_source, ev.rir_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.slug, ev.tags);
+    });
+  }
+});
+
+// Story: monitor:RIR:deletion
+bthread("monitor:RIR:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRIRDeleted();
+    block(matchAddedRIR(ev.custom_fields, ev.description, ev.id, ev.is_private, ev.name, ev.rir_date, ev.rir_date_accuracy, ev.rir_date_comment, ev.rir_date_source, ev.rir_date_source_comment, ev.rir_date_source_url, ev.rir_date_source_url_comment, ev.rir_date_source_url_date, ev.rir_date_source_url_date_comment, ev.rir_date_source_url_date_source, ev.rir_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.slug, ev.tags), function () {
+      verifyRIRDoesNotExist(ev.custom_fields, ev.description, ev.id, ev.is_private, ev.name, ev.rir_date, ev.rir_date_accuracy, ev.rir_date_comment, ev.rir_date_source, ev.rir_date_source_comment, ev.rir_date_source_url, ev.rir_date_source_url_comment, ev.rir_date_source_url_date, ev.rir_date_source_url_date_comment, ev.rir_date_source_url_date_source, ev.rir_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source, ev.rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment, ev.slug, ev.tags);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:RIR:add
@@ -6157,6 +8601,20 @@ bthread("crud:Role:nondet:negative:dup-add", function () {
   verifyRoleExists(custom_fields, description, id, name, slug, tags, weight);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Role:nondet:existing:update
+bthread("crud:Role:nondet:existing:update", function () {
+  let ev = waitForAnyRoleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRole.apply(null, args), function () {
+    verifyRoleExists.apply(null, args);
+    updateRole.apply(null, args);
+    verifyRoleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Role:add
 bthread("monitor:Role:add", function () {
   while (true) {
@@ -6181,6 +8639,7 @@ bthread("monitor:Role:deletion", function () {
 bthread("crud:RouteTarget:nondet:1:1", function () {
   let comments = "comments_980";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_980";
   let id = 980;
   let name = "name_980";
@@ -6194,12 +8653,34 @@ bthread("crud:RouteTarget:nondet:1:1", function () {
   deleteRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
   tryToDeleteANonExistingRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
   verifyRouteTargetDoesNotExist(comments, custom_fields, description, id, name, tags, tenant);
+=======
+  let description = "description_970";
+  let exporting_l2vpn = "exporting_l2vpn_970";
+  let exporting_vrf = "exporting_vrf_970";
+  let id = 970;
+  let importing_l2vpn = "importing_l2vpn_970";
+  let importing_vrf = "importing_vrf_970";
+  let name = "name_970";
+  let slug = "slug_970";
+  let tags = "tags_970";
+  let tenant = "tenant_970";
+  let tenant_group = "tenant_group_970";
+  createRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  waitForRouteTargetAdded(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  tryToAddExistingRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  verifyRouteTargetExists(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  updateRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  deleteRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  tryToDeleteANonExistingRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  verifyRouteTargetDoesNotExist(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RouteTarget:nondet:1:2
 bthread("crud:RouteTarget:nondet:1:2", function () {
   let comments = "comments_981";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_981";
   let id = 981;
   let name = "name_981";
@@ -6212,12 +8693,33 @@ bthread("crud:RouteTarget:nondet:1:2", function () {
   deleteRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
   tryToDeleteANonExistingRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
   verifyRouteTargetDoesNotExist(comments, custom_fields, description, id, name, tags, tenant);
+=======
+  let description = "description_971";
+  let exporting_l2vpn = "exporting_l2vpn_971";
+  let exporting_vrf = "exporting_vrf_971";
+  let id = 971;
+  let importing_l2vpn = "importing_l2vpn_971";
+  let importing_vrf = "importing_vrf_971";
+  let name = "name_971";
+  let slug = "slug_971";
+  let tags = "tags_971";
+  let tenant = "tenant_971";
+  let tenant_group = "tenant_group_971";
+  createRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  tryToAddExistingRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  updateRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  verifyRouteTargetExists(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  deleteRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  tryToDeleteANonExistingRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  verifyRouteTargetDoesNotExist(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:RouteTarget:nondet:negative:dup-add
 bthread("crud:RouteTarget:nondet:negative:dup-add", function () {
   let comments = "comments_986";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_986";
   let id = 986;
   let name = "name_986";
@@ -6227,6 +8729,54 @@ bthread("crud:RouteTarget:nondet:negative:dup-add", function () {
   verifyRouteTargetExists(comments, custom_fields, description, id, name, tags, tenant);
   tryToAddExistingRouteTarget(comments, custom_fields, description, id, name, tags, tenant);
   verifyRouteTargetExists(comments, custom_fields, description, id, name, tags, tenant);
+=======
+  let description = "description_976";
+  let exporting_l2vpn = "exporting_l2vpn_976";
+  let exporting_vrf = "exporting_vrf_976";
+  let id = 976;
+  let importing_l2vpn = "importing_l2vpn_976";
+  let importing_vrf = "importing_vrf_976";
+  let name = "name_976";
+  let slug = "slug_976";
+  let tags = "tags_976";
+  let tenant = "tenant_976";
+  let tenant_group = "tenant_group_976";
+  createRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  verifyRouteTargetExists(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  tryToAddExistingRouteTarget(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+  verifyRouteTargetExists(comments, custom_fields, description, exporting_l2vpn, exporting_vrf, id, importing_l2vpn, importing_vrf, name, slug, tags, tenant, tenant_group);
+});
+
+// Story: crud:RouteTarget:nondet:existing:update
+bthread("crud:RouteTarget:nondet:existing:update", function () {
+  let ev = waitForAnyRouteTargetAdded();
+  let args = Object.values(ev);
+  block(matchDeletedRouteTarget.apply(null, args), function () {
+    verifyRouteTargetExists.apply(null, args);
+    updateRouteTarget.apply(null, args);
+    verifyRouteTargetExists.apply(null, args);
+  });
+});
+
+// Story: monitor:RouteTarget:add
+bthread("monitor:RouteTarget:add", function () {
+  while (true) {
+    let ev = waitForAnyRouteTargetAdded();
+    block(matchDeletedRouteTarget(ev.comments, ev.custom_fields, ev.description, ev.exporting_l2vpn, ev.exporting_vrf, ev.id, ev.importing_l2vpn, ev.importing_vrf, ev.name, ev.slug, ev.tags, ev.tenant, ev.tenant_group), function () {
+      verifyRouteTargetExists(ev.comments, ev.custom_fields, ev.description, ev.exporting_l2vpn, ev.exporting_vrf, ev.id, ev.importing_l2vpn, ev.importing_vrf, ev.name, ev.slug, ev.tags, ev.tenant, ev.tenant_group);
+    });
+  }
+});
+
+// Story: monitor:RouteTarget:deletion
+bthread("monitor:RouteTarget:deletion", function () {
+  while (true) {
+    let ev = waitForAnyRouteTargetDeleted();
+    block(matchAddedRouteTarget(ev.comments, ev.custom_fields, ev.description, ev.exporting_l2vpn, ev.exporting_vrf, ev.id, ev.importing_l2vpn, ev.importing_vrf, ev.name, ev.slug, ev.tags, ev.tenant, ev.tenant_group), function () {
+      verifyRouteTargetDoesNotExist(ev.comments, ev.custom_fields, ev.description, ev.exporting_l2vpn, ev.exporting_vrf, ev.id, ev.importing_l2vpn, ev.importing_vrf, ev.name, ev.slug, ev.tags, ev.tenant, ev.tenant_group);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:RouteTarget:add
@@ -6253,6 +8803,7 @@ bthread("monitor:RouteTarget:deletion", function () {
 bthread("crud:ServiceTemplate:nondet:1:1", function () {
   let comments = "comments_990";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_990";
   let id = 990;
   let name = "name_990";
@@ -6267,12 +8818,31 @@ bthread("crud:ServiceTemplate:nondet:1:1", function () {
   deleteServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
   tryToDeleteANonExistingServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
   verifyServiceTemplateDoesNotExist(comments, custom_fields, description, id, name, ports, protocol, tags);
+=======
+  let description = "description_980";
+  let id = 980;
+  let name = "name_980";
+  let port = "port_980";
+  let ports = "ports_980";
+  let protocol = "protocol_980";
+  let slug = "slug_980";
+  let tags = "tags_980";
+  createServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  waitForServiceTemplateAdded(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  tryToAddExistingServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  verifyServiceTemplateExists(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  updateServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  deleteServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  tryToDeleteANonExistingServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  verifyServiceTemplateDoesNotExist(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:ServiceTemplate:nondet:1:2
 bthread("crud:ServiceTemplate:nondet:1:2", function () {
   let comments = "comments_991";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_991";
   let id = 991;
   let name = "name_991";
@@ -6286,12 +8856,30 @@ bthread("crud:ServiceTemplate:nondet:1:2", function () {
   deleteServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
   tryToDeleteANonExistingServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
   verifyServiceTemplateDoesNotExist(comments, custom_fields, description, id, name, ports, protocol, tags);
+=======
+  let description = "description_981";
+  let id = 981;
+  let name = "name_981";
+  let port = "port_981";
+  let ports = "ports_981";
+  let protocol = "protocol_981";
+  let slug = "slug_981";
+  let tags = "tags_981";
+  createServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  tryToAddExistingServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  updateServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  verifyServiceTemplateExists(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  deleteServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  tryToDeleteANonExistingServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  verifyServiceTemplateDoesNotExist(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:ServiceTemplate:nondet:negative:dup-add
 bthread("crud:ServiceTemplate:nondet:negative:dup-add", function () {
   let comments = "comments_996";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_996";
   let id = 996;
   let name = "name_996";
@@ -6302,6 +8890,51 @@ bthread("crud:ServiceTemplate:nondet:negative:dup-add", function () {
   verifyServiceTemplateExists(comments, custom_fields, description, id, name, ports, protocol, tags);
   tryToAddExistingServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags);
   verifyServiceTemplateExists(comments, custom_fields, description, id, name, ports, protocol, tags);
+=======
+  let description = "description_986";
+  let id = 986;
+  let name = "name_986";
+  let port = "port_986";
+  let ports = "ports_986";
+  let protocol = "protocol_986";
+  let slug = "slug_986";
+  let tags = "tags_986";
+  createServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  verifyServiceTemplateExists(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  tryToAddExistingServiceTemplate(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+  verifyServiceTemplateExists(comments, custom_fields, description, id, name, port, ports, protocol, slug, tags);
+});
+
+// Story: crud:ServiceTemplate:nondet:existing:update
+bthread("crud:ServiceTemplate:nondet:existing:update", function () {
+  let ev = waitForAnyServiceTemplateAdded();
+  let args = Object.values(ev);
+  block(matchDeletedServiceTemplate.apply(null, args), function () {
+    verifyServiceTemplateExists.apply(null, args);
+    updateServiceTemplate.apply(null, args);
+    verifyServiceTemplateExists.apply(null, args);
+  });
+});
+
+// Story: monitor:ServiceTemplate:add
+bthread("monitor:ServiceTemplate:add", function () {
+  while (true) {
+    let ev = waitForAnyServiceTemplateAdded();
+    block(matchDeletedServiceTemplate(ev.comments, ev.custom_fields, ev.description, ev.id, ev.name, ev.port, ev.ports, ev.protocol, ev.slug, ev.tags), function () {
+      verifyServiceTemplateExists(ev.comments, ev.custom_fields, ev.description, ev.id, ev.name, ev.port, ev.ports, ev.protocol, ev.slug, ev.tags);
+    });
+  }
+});
+
+// Story: monitor:ServiceTemplate:deletion
+bthread("monitor:ServiceTemplate:deletion", function () {
+  while (true) {
+    let ev = waitForAnyServiceTemplateDeleted();
+    block(matchAddedServiceTemplate(ev.comments, ev.custom_fields, ev.description, ev.id, ev.name, ev.port, ev.ports, ev.protocol, ev.slug, ev.tags), function () {
+      verifyServiceTemplateDoesNotExist(ev.comments, ev.custom_fields, ev.description, ev.id, ev.name, ev.port, ev.ports, ev.protocol, ev.slug, ev.tags);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:ServiceTemplate:add
@@ -6326,6 +8959,7 @@ bthread("monitor:ServiceTemplate:deletion", function () {
 
 // Story: crud:Service:nondet:1:1
 bthread("crud:Service:nondet:1:1", function () {
+<<<<<<< HEAD
   let comments = "comments_1000";
   let custom_fields = {};
   let description = "description_1000";
@@ -6345,10 +8979,40 @@ bthread("crud:Service:nondet:1:1", function () {
   deleteService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   tryToDeleteANonExistingService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   verifyServiceDoesNotExist(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
+=======
+  let comments = "comments_990";
+  let contact = "contact_990";
+  let contact_group = "contact_group_990";
+  let contact_role = "contact_role_990";
+  let custom_fields = {};
+  let description = "description_990";
+  let device = "device_990";
+  let fhrpgroup = "fhrpgroup_990";
+  let id = 990;
+  let ip_address = {};
+  let ipaddresses = "ipaddresses_990";
+  let name = "name_990";
+  let parent_object_id = 990;
+  let parent_object_type = "parent_object_type_990";
+  let port = "port_990";
+  let ports = "ports_990";
+  let protocol = "protocol_990";
+  let tags = "tags_990";
+  let virtual_machine = "virtual_machine_990";
+  createService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  waitForServiceAdded(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  tryToAddExistingService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  verifyServiceExists(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  updateService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  deleteService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  tryToDeleteANonExistingService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  verifyServiceDoesNotExist(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Service:nondet:1:2
 bthread("crud:Service:nondet:1:2", function () {
+<<<<<<< HEAD
   let comments = "comments_1001";
   let custom_fields = {};
   let description = "description_1001";
@@ -6367,10 +9031,39 @@ bthread("crud:Service:nondet:1:2", function () {
   deleteService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   tryToDeleteANonExistingService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   verifyServiceDoesNotExist(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
+=======
+  let comments = "comments_991";
+  let contact = "contact_991";
+  let contact_group = "contact_group_991";
+  let contact_role = "contact_role_991";
+  let custom_fields = {};
+  let description = "description_991";
+  let device = "device_991";
+  let fhrpgroup = "fhrpgroup_991";
+  let id = 991;
+  let ip_address = {};
+  let ipaddresses = "ipaddresses_991";
+  let name = "name_991";
+  let parent_object_id = 991;
+  let parent_object_type = "parent_object_type_991";
+  let port = "port_991";
+  let ports = "ports_991";
+  let protocol = "protocol_991";
+  let tags = "tags_991";
+  let virtual_machine = "virtual_machine_991";
+  createService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  tryToAddExistingService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  updateService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  verifyServiceExists(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  deleteService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  tryToDeleteANonExistingService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  verifyServiceDoesNotExist(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Service:nondet:negative:dup-add
 bthread("crud:Service:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let comments = "comments_1006";
   let custom_fields = {};
   let description = "description_1006";
@@ -6386,6 +9079,62 @@ bthread("crud:Service:nondet:negative:dup-add", function () {
   verifyServiceExists(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   tryToAddExistingService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
   verifyServiceExists(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags);
+=======
+  let comments = "comments_996";
+  let contact = "contact_996";
+  let contact_group = "contact_group_996";
+  let contact_role = "contact_role_996";
+  let custom_fields = {};
+  let description = "description_996";
+  let device = "device_996";
+  let fhrpgroup = "fhrpgroup_996";
+  let id = 996;
+  let ip_address = {};
+  let ipaddresses = "ipaddresses_996";
+  let name = "name_996";
+  let parent_object_id = 996;
+  let parent_object_type = "parent_object_type_996";
+  let port = "port_996";
+  let ports = "ports_996";
+  let protocol = "protocol_996";
+  let tags = "tags_996";
+  let virtual_machine = "virtual_machine_996";
+  createService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  verifyServiceExists(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  tryToAddExistingService(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+  verifyServiceExists(comments, contact, contact_group, contact_role, custom_fields, description, device, fhrpgroup, id, ip_address, ipaddresses, name, parent_object_id, parent_object_type, port, ports, protocol, tags, virtual_machine);
+});
+
+// Story: crud:Service:nondet:existing:update
+bthread("crud:Service:nondet:existing:update", function () {
+  let ev = waitForAnyServiceAdded();
+  let args = Object.values(ev);
+  block(matchDeletedService.apply(null, args), function () {
+    verifyServiceExists.apply(null, args);
+    updateService.apply(null, args);
+    verifyServiceExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Service:add
+bthread("monitor:Service:add", function () {
+  while (true) {
+    let ev = waitForAnyServiceAdded();
+    block(matchDeletedService(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.device, ev.fhrpgroup, ev.id, ev.ip_address, ev.ipaddresses, ev.name, ev.parent_object_id, ev.parent_object_type, ev.port, ev.ports, ev.protocol, ev.tags, ev.virtual_machine), function () {
+      verifyServiceExists(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.device, ev.fhrpgroup, ev.id, ev.ip_address, ev.ipaddresses, ev.name, ev.parent_object_id, ev.parent_object_type, ev.port, ev.ports, ev.protocol, ev.tags, ev.virtual_machine);
+    });
+  }
+});
+
+// Story: monitor:Service:deletion
+bthread("monitor:Service:deletion", function () {
+  while (true) {
+    let ev = waitForAnyServiceDeleted();
+    block(matchAddedService(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.device, ev.fhrpgroup, ev.id, ev.ip_address, ev.ipaddresses, ev.name, ev.parent_object_id, ev.parent_object_type, ev.port, ev.ports, ev.protocol, ev.tags, ev.virtual_machine), function () {
+      verifyServiceDoesNotExist(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.device, ev.fhrpgroup, ev.id, ev.ip_address, ev.ipaddresses, ev.name, ev.parent_object_id, ev.parent_object_type, ev.port, ev.ports, ev.protocol, ev.tags, ev.virtual_machine);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Service:add
@@ -6469,6 +9218,20 @@ bthread("crud:VLANGroup:nondet:negative:dup-add", function () {
   verifyVLANGroupExists(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VLANGroup:nondet:existing:update
+bthread("crud:VLANGroup:nondet:existing:update", function () {
+  let ev = waitForAnyVLANGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVLANGroup.apply(null, args), function () {
+    verifyVLANGroupExists.apply(null, args);
+    updateVLANGroup.apply(null, args);
+    verifyVLANGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VLANGroup:add
 bthread("monitor:VLANGroup:add", function () {
   while (true) {
@@ -6489,10 +9252,17 @@ bthread("monitor:VLANGroup:deletion", function () {
   }
 });
 
+<<<<<<< HEAD
 // Story: crud:VLANGroupsAvailableVlan:read_only
 bthread("crud:VLANGroupsAvailableVlan:read_only", function () {
   let id = 1020;
   verifyVLANGroupsAvailableVlanExists(id);
+=======
+// Story: crud:AvailableVlan:read_only
+bthread("crud:AvailableVlan:read_only", function () {
+  let id = 1010;
+  verifyAvailableVlanExists(id);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:VLANTranslationPolicy:nondet:1:1
@@ -6535,6 +9305,20 @@ bthread("crud:VLANTranslationPolicy:nondet:negative:dup-add", function () {
   verifyVLANTranslationPolicyExists(description, id, name);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VLANTranslationPolicy:nondet:existing:update
+bthread("crud:VLANTranslationPolicy:nondet:existing:update", function () {
+  let ev = waitForAnyVLANTranslationPolicyAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVLANTranslationPolicy.apply(null, args), function () {
+    verifyVLANTranslationPolicyExists.apply(null, args);
+    updateVLANTranslationPolicy.apply(null, args);
+    verifyVLANTranslationPolicyExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VLANTranslationPolicy:add
 bthread("monitor:VLANTranslationPolicy:add", function () {
   while (true) {
@@ -6601,6 +9385,20 @@ bthread("crud:VLANTranslationRule:nondet:negative:dup-add", function () {
   verifyVLANTranslationRuleExists(description, id, local_vid, policy, remote_vid);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VLANTranslationRule:nondet:existing:update
+bthread("crud:VLANTranslationRule:nondet:existing:update", function () {
+  let ev = waitForAnyVLANTranslationRuleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVLANTranslationRule.apply(null, args), function () {
+    verifyVLANTranslationRuleExists.apply(null, args);
+    updateVLANTranslationRule.apply(null, args);
+    verifyVLANTranslationRuleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VLANTranslationRule:add
 bthread("monitor:VLANTranslationRule:add", function () {
   while (true) {
@@ -6694,6 +9492,20 @@ bthread("crud:VLAN:nondet:negative:dup-add", function () {
   verifyVLANExists(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, status, tags, tenant, vid);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VLAN:nondet:existing:update
+bthread("crud:VLAN:nondet:existing:update", function () {
+  let ev = waitForAnyVLANAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVLAN.apply(null, args), function () {
+    verifyVLANExists.apply(null, args);
+    updateVLAN.apply(null, args);
+    verifyVLANExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VLAN:add
 bthread("monitor:VLAN:add", function () {
   while (true) {
@@ -6778,6 +9590,20 @@ bthread("crud:VRF:nondet:negative:dup-add", function () {
   verifyVRFExists(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VRF:nondet:existing:update
+bthread("crud:VRF:nondet:existing:update", function () {
+  let ev = waitForAnyVRFAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVRF.apply(null, args), function () {
+    verifyVRFExists.apply(null, args);
+    updateVRF.apply(null, args);
+    verifyVRFExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VRF:add
 bthread("monitor:VRF:add", function () {
   while (true) {
@@ -6847,6 +9673,20 @@ bthread("crud:CircuitGroupAssignment:nondet:negative:dup-add", function () {
   verifyCircuitGroupAssignmentExists(group, id, member_id, member_type, priority, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CircuitGroupAssignment:nondet:existing:update
+bthread("crud:CircuitGroupAssignment:nondet:existing:update", function () {
+  let ev = waitForAnyCircuitGroupAssignmentAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCircuitGroupAssignment.apply(null, args), function () {
+    verifyCircuitGroupAssignmentExists.apply(null, args);
+    updateCircuitGroupAssignment.apply(null, args);
+    verifyCircuitGroupAssignmentExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CircuitGroupAssignment:add
 bthread("monitor:CircuitGroupAssignment:add", function () {
   while (true) {
@@ -6919,6 +9759,20 @@ bthread("crud:CircuitGroup:nondet:negative:dup-add", function () {
   verifyCircuitGroupExists(custom_fields, description, id, name, slug, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CircuitGroup:nondet:existing:update
+bthread("crud:CircuitGroup:nondet:existing:update", function () {
+  let ev = waitForAnyCircuitGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCircuitGroup.apply(null, args), function () {
+    verifyCircuitGroupExists.apply(null, args);
+    updateCircuitGroup.apply(null, args);
+    verifyCircuitGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CircuitGroup:add
 bthread("monitor:CircuitGroup:add", function () {
   while (true) {
@@ -7009,6 +9863,20 @@ bthread("crud:CircuitTermination:nondet:negative:dup-add", function () {
   verifyCircuitTerminationExists(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CircuitTermination:nondet:existing:update
+bthread("crud:CircuitTermination:nondet:existing:update", function () {
+  let ev = waitForAnyCircuitTerminationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCircuitTermination.apply(null, args), function () {
+    verifyCircuitTerminationExists.apply(null, args);
+    updateCircuitTermination.apply(null, args);
+    verifyCircuitTerminationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CircuitTermination:add
 bthread("monitor:CircuitTermination:add", function () {
   while (true) {
@@ -7081,6 +9949,20 @@ bthread("crud:CircuitType:nondet:negative:dup-add", function () {
   verifyCircuitTypeExists(color, custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:CircuitType:nondet:existing:update
+bthread("crud:CircuitType:nondet:existing:update", function () {
+  let ev = waitForAnyCircuitTypeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCircuitType.apply(null, args), function () {
+    verifyCircuitTypeExists.apply(null, args);
+    updateCircuitType.apply(null, args);
+    verifyCircuitTypeExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:CircuitType:add
 bthread("monitor:CircuitType:add", function () {
   while (true) {
@@ -7207,6 +10089,20 @@ bthread("crud:Circuit:nondet:negative:dup-add", function () {
   verifyCircuitExists(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Circuit:nondet:existing:update
+bthread("crud:Circuit:nondet:existing:update", function () {
+  let ev = waitForAnyCircuitAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCircuit.apply(null, args), function () {
+    verifyCircuitExists.apply(null, args);
+    updateCircuit.apply(null, args);
+    verifyCircuitExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Circuit:add
 bthread("monitor:Circuit:add", function () {
   while (true) {
@@ -7300,6 +10196,20 @@ bthread("crud:ProviderAccount:nondet:negative:dup-add", function () {
   verifyProviderAccountExists(account, comments, custom_fields, description, id, name, provider, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ProviderAccount:nondet:existing:update
+bthread("crud:ProviderAccount:nondet:existing:update", function () {
+  let ev = waitForAnyProviderAccountAdded();
+  let args = Object.values(ev);
+  block(matchDeletedProviderAccount.apply(null, args), function () {
+    verifyProviderAccountExists.apply(null, args);
+    updateProviderAccount.apply(null, args);
+    verifyProviderAccountExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ProviderAccount:add
 bthread("monitor:ProviderAccount:add", function () {
   while (true) {
@@ -7399,6 +10309,20 @@ bthread("crud:ProviderNetwork:nondet:negative:dup-add", function () {
   verifyProviderNetworkExists(comments, custom_fields, description, id, name, provider, service_id, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ProviderNetwork:nondet:existing:update
+bthread("crud:ProviderNetwork:nondet:existing:update", function () {
+  let ev = waitForAnyProviderNetworkAdded();
+  let args = Object.values(ev);
+  block(matchDeletedProviderNetwork.apply(null, args), function () {
+    verifyProviderNetworkExists.apply(null, args);
+    updateProviderNetwork.apply(null, args);
+    verifyProviderNetworkExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ProviderNetwork:add
 bthread("monitor:ProviderNetwork:add", function () {
   while (true) {
@@ -7477,6 +10401,20 @@ bthread("crud:Provider:nondet:negative:dup-add", function () {
   verifyProviderExists(accounts, asns, comments, custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Provider:nondet:existing:update
+bthread("crud:Provider:nondet:existing:update", function () {
+  let ev = waitForAnyProviderAdded();
+  let args = Object.values(ev);
+  block(matchDeletedProvider.apply(null, args), function () {
+    verifyProviderExists.apply(null, args);
+    updateProvider.apply(null, args);
+    verifyProviderExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Provider:add
 bthread("monitor:Provider:add", function () {
   while (true) {
@@ -7549,6 +10487,20 @@ bthread("crud:VirtualCircuitTermination:nondet:negative:dup-add", function () {
   verifyVirtualCircuitTerminationExists(custom_fields, description, id, _interface, role, tags, virtual_circuit);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VirtualCircuitTermination:nondet:existing:update
+bthread("crud:VirtualCircuitTermination:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualCircuitTerminationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualCircuitTermination.apply(null, args), function () {
+    verifyVirtualCircuitTerminationExists.apply(null, args);
+    updateVirtualCircuitTermination.apply(null, args);
+    verifyVirtualCircuitTerminationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VirtualCircuitTermination:add
 bthread("monitor:VirtualCircuitTermination:add", function () {
   while (true) {
@@ -7621,6 +10573,20 @@ bthread("crud:VirtualCircuitType:nondet:negative:dup-add", function () {
   verifyVirtualCircuitTypeExists(color, custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VirtualCircuitType:nondet:existing:update
+bthread("crud:VirtualCircuitType:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualCircuitTypeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualCircuitType.apply(null, args), function () {
+    verifyVirtualCircuitTypeExists.apply(null, args);
+    updateVirtualCircuitType.apply(null, args);
+    verifyVirtualCircuitTypeExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VirtualCircuitType:add
 bthread("monitor:VirtualCircuitType:add", function () {
   while (true) {
@@ -7646,6 +10612,7 @@ bthread("crud:VirtualCircuit:nondet:1:1", function () {
   let cid = 1170;
   let comments = "comments_1170";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1170";
   let id = 1170;
   let provider_account;
@@ -7654,22 +10621,39 @@ bthread("crud:VirtualCircuit:nondet:1:1", function () {
   let tags = "tags_1170";
   let tenant = "tenant_1170";
   let type = "type_1170";
+=======
+  let description = "description_1160";
+  let id = 1160;
+  let provider;
+  let provider_account;
+  let provider_network;
+  let provider_network_id;
+  let status = "status_1160";
+  let tags = "tags_1160";
+  let tenant = "tenant_1160";
+  let tenant_group = "tenant_group_1160";
+  let type = "type_1160";
+>>>>>>> 1302d9a (Fix emitter bugs)
   // Dependency Barrier
   let deps = {};
+  deps["provider"] = matchAnyProviderAdded();
   deps["provider_account"] = matchAnyProviderAdded();
   deps["provider_network"] = matchAnyProviderAdded();
-  let pkMap = {"provider_account": "id", "provider_network": "id"};
+  deps["provider_network_id"] = matchAnyProviderAdded();
+  let pkMap = {"provider": "id", "provider_account": "id", "provider_network": "id", "provider_network_id": "id"};
   let captured = resolveDependencies(deps, pkMap);
+  provider = captured["provider"];
   provider_account = captured["provider_account"];
   provider_network = captured["provider_network"];
-  createVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  updateVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  deleteVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
-  verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
+  provider_network_id = captured["provider_network_id"];
+  createVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  updateVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  deleteVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
 });
 
 // Story: crud:VirtualCircuit:nondet:1:2
@@ -7677,6 +10661,7 @@ bthread("crud:VirtualCircuit:nondet:1:2", function () {
   let cid = 1171;
   let comments = "comments_1171";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1171";
   let id = 1171;
   let provider_account;
@@ -7685,14 +10670,31 @@ bthread("crud:VirtualCircuit:nondet:1:2", function () {
   let tags = "tags_1171";
   let tenant = "tenant_1171";
   let type = "type_1171";
+=======
+  let description = "description_1161";
+  let id = 1161;
+  let provider;
+  let provider_account;
+  let provider_network;
+  let provider_network_id;
+  let status = "status_1161";
+  let tags = "tags_1161";
+  let tenant = "tenant_1161";
+  let tenant_group = "tenant_group_1161";
+  let type = "type_1161";
+>>>>>>> 1302d9a (Fix emitter bugs)
   // Dependency Barrier
   let deps = {};
+  deps["provider"] = matchAnyProviderAdded();
   deps["provider_account"] = matchAnyProviderAdded();
   deps["provider_network"] = matchAnyProviderAdded();
-  let pkMap = {"provider_account": "id", "provider_network": "id"};
+  deps["provider_network_id"] = matchAnyProviderAdded();
+  let pkMap = {"provider": "id", "provider_account": "id", "provider_network": "id", "provider_network_id": "id"};
   let captured = resolveDependencies(deps, pkMap);
+  provider = captured["provider"];
   provider_account = captured["provider_account"];
   provider_network = captured["provider_network"];
+<<<<<<< HEAD
   createVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   updateVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
@@ -7700,6 +10702,16 @@ bthread("crud:VirtualCircuit:nondet:1:2", function () {
   deleteVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
+=======
+  provider_network_id = captured["provider_network_id"];
+  createVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  updateVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  deleteVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:VirtualCircuit:nondet:negative:dup-add
@@ -7707,6 +10719,7 @@ bthread("crud:VirtualCircuit:nondet:negative:dup-add", function () {
   let cid = 1176;
   let comments = "comments_1176";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1176";
   let id = 1176;
   let provider_account;
@@ -7715,18 +10728,73 @@ bthread("crud:VirtualCircuit:nondet:negative:dup-add", function () {
   let tags = "tags_1176";
   let tenant = "tenant_1176";
   let type = "type_1176";
+=======
+  let description = "description_1166";
+  let id = 1166;
+  let provider;
+  let provider_account;
+  let provider_network;
+  let provider_network_id;
+  let status = "status_1166";
+  let tags = "tags_1166";
+  let tenant = "tenant_1166";
+  let tenant_group = "tenant_group_1166";
+  let type = "type_1166";
+>>>>>>> 1302d9a (Fix emitter bugs)
   // Dependency Barrier
   let deps = {};
+  deps["provider"] = matchAnyProviderAdded();
   deps["provider_account"] = matchAnyProviderAdded();
   deps["provider_network"] = matchAnyProviderAdded();
-  let pkMap = {"provider_account": "id", "provider_network": "id"};
+  deps["provider_network_id"] = matchAnyProviderAdded();
+  let pkMap = {"provider": "id", "provider_account": "id", "provider_network": "id", "provider_network_id": "id"};
   let captured = resolveDependencies(deps, pkMap);
+  provider = captured["provider"];
   provider_account = captured["provider_account"];
   provider_network = captured["provider_network"];
+<<<<<<< HEAD
   createVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
   verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider_account, provider_network, status, tags, tenant, type);
+=======
+  provider_network_id = captured["provider_network_id"];
+  createVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  tryToAddExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+  verifyVirtualCircuitExists(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type);
+});
+
+// Story: crud:VirtualCircuit:nondet:existing:update
+bthread("crud:VirtualCircuit:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualCircuitAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualCircuit.apply(null, args), function () {
+    verifyVirtualCircuitExists.apply(null, args);
+    updateVirtualCircuit.apply(null, args);
+    verifyVirtualCircuitExists.apply(null, args);
+  });
+});
+
+// Story: monitor:VirtualCircuit:add
+bthread("monitor:VirtualCircuit:add", function () {
+  while (true) {
+    let ev = waitForAnyVirtualCircuitAdded();
+    block(matchDeletedVirtualCircuit(ev.cid, ev.comments, ev.custom_fields, ev.description, ev.id, ev.provider, ev.provider_account, ev.provider_network, ev.provider_network_id, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.type), function () {
+      verifyVirtualCircuitExists(ev.cid, ev.comments, ev.custom_fields, ev.description, ev.id, ev.provider, ev.provider_account, ev.provider_network, ev.provider_network_id, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.type);
+    });
+  }
+});
+
+// Story: monitor:VirtualCircuit:deletion
+bthread("monitor:VirtualCircuit:deletion", function () {
+  while (true) {
+    let ev = waitForAnyVirtualCircuitDeleted();
+    block(matchAddedVirtualCircuit(ev.cid, ev.comments, ev.custom_fields, ev.description, ev.id, ev.provider, ev.provider_account, ev.provider_network, ev.provider_network_id, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.type), function () {
+      verifyVirtualCircuitDoesNotExist(ev.cid, ev.comments, ev.custom_fields, ev.description, ev.id, ev.provider, ev.provider_account, ev.provider_network, ev.provider_network_id, ev.status, ev.tags, ev.tenant, ev.tenant_group, ev.type);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:VirtualCircuit:add
@@ -7777,6 +10845,7 @@ bthread("crud:DataFile:read_only", function () {
 bthread("crud:DataSource:nondet:1:1", function () {
   let comments = "comments_1220";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1220";
   let enabled = true;
   let id = 1220;
@@ -7794,12 +10863,34 @@ bthread("crud:DataSource:nondet:1:1", function () {
   deleteDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   tryToDeleteANonExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   verifyDataSourceDoesNotExist(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
+=======
+  let description = "description_1210";
+  let enabled = "enabled_1210";
+  let id = 1210;
+  let ignore_rules = "ignore_rules_1210";
+  let name = "name_1210";
+  let parameters = "parameters_1210";
+  let source_url = "source_url_1210";
+  let status = "status_1210";
+  let sync_interval = 1210;
+  let tag = "tag_1210";
+  let type = "type_1210";
+  createDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  tryToAddExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  updateDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  deleteDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  tryToDeleteANonExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  verifyDataSourceDoesNotExist(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DataSource:nondet:1:2
 bthread("crud:DataSource:nondet:1:2", function () {
   let comments = "comments_1221";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1221";
   let enabled = true;
   let id = 1221;
@@ -7816,12 +10907,33 @@ bthread("crud:DataSource:nondet:1:2", function () {
   deleteDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   tryToDeleteANonExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   verifyDataSourceDoesNotExist(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
+=======
+  let description = "description_1211";
+  let enabled = "enabled_1211";
+  let id = 1211;
+  let ignore_rules = "ignore_rules_1211";
+  let name = "name_1211";
+  let parameters = "parameters_1211";
+  let source_url = "source_url_1211";
+  let status = "status_1211";
+  let sync_interval = 1211;
+  let tag = "tag_1211";
+  let type = "type_1211";
+  createDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  tryToAddExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  updateDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  deleteDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  tryToDeleteANonExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  verifyDataSourceDoesNotExist(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:DataSource:nondet:negative:dup-add
 bthread("crud:DataSource:nondet:negative:dup-add", function () {
   let comments = "comments_1226";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1226";
   let enabled = true;
   let id = 1226;
@@ -7835,6 +10947,54 @@ bthread("crud:DataSource:nondet:negative:dup-add", function () {
   verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   tryToAddExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
   verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, sync_interval, type);
+=======
+  let description = "description_1216";
+  let enabled = "enabled_1216";
+  let id = 1216;
+  let ignore_rules = "ignore_rules_1216";
+  let name = "name_1216";
+  let parameters = "parameters_1216";
+  let source_url = "source_url_1216";
+  let status = "status_1216";
+  let sync_interval = 1216;
+  let tag = "tag_1216";
+  let type = "type_1216";
+  createDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  tryToAddExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+  verifyDataSourceExists(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type);
+});
+
+// Story: crud:DataSource:nondet:existing:update
+bthread("crud:DataSource:nondet:existing:update", function () {
+  let ev = waitForAnyDataSourceAdded();
+  let args = Object.values(ev);
+  block(matchDeletedDataSource.apply(null, args), function () {
+    verifyDataSourceExists.apply(null, args);
+    updateDataSource.apply(null, args);
+    verifyDataSourceExists.apply(null, args);
+  });
+});
+
+// Story: monitor:DataSource:add
+bthread("monitor:DataSource:add", function () {
+  while (true) {
+    let ev = waitForAnyDataSourceAdded();
+    block(matchDeletedDataSource(ev.comments, ev.custom_fields, ev.description, ev.enabled, ev.id, ev.ignore_rules, ev.name, ev.parameters, ev.source_url, ev.status, ev.sync_interval, ev.tag, ev.type), function () {
+      verifyDataSourceExists(ev.comments, ev.custom_fields, ev.description, ev.enabled, ev.id, ev.ignore_rules, ev.name, ev.parameters, ev.source_url, ev.status, ev.sync_interval, ev.tag, ev.type);
+    });
+  }
+});
+
+// Story: monitor:DataSource:deletion
+bthread("monitor:DataSource:deletion", function () {
+  while (true) {
+    let ev = waitForAnyDataSourceDeleted();
+    block(matchAddedDataSource(ev.comments, ev.custom_fields, ev.description, ev.enabled, ev.id, ev.ignore_rules, ev.name, ev.parameters, ev.source_url, ev.status, ev.sync_interval, ev.tag, ev.type), function () {
+      verifyDataSourceDoesNotExist(ev.comments, ev.custom_fields, ev.description, ev.enabled, ev.id, ev.ignore_rules, ev.name, ev.parameters, ev.source_url, ev.status, ev.sync_interval, ev.tag, ev.type);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:DataSource:add
@@ -7859,8 +11019,14 @@ bthread("monitor:DataSource:deletion", function () {
 
 // Story: crud:Job:read_only
 bthread("crud:Job:read_only", function () {
+<<<<<<< HEAD
   let id = 1230;
   verifyJobExists(id);
+=======
+  let id = 1220;
+  let name = "name_1220";
+  verifyJobExists(id, name);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:ObjectChange:read_only
@@ -7930,6 +11096,20 @@ bthread("crud:IKEPolicy:nondet:negative:dup-add", function () {
   verifyIKEPolicyExists(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IKEPolicy:nondet:existing:update
+bthread("crud:IKEPolicy:nondet:existing:update", function () {
+  let ev = waitForAnyIKEPolicyAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIKEPolicy.apply(null, args), function () {
+    verifyIKEPolicyExists.apply(null, args);
+    updateIKEPolicy.apply(null, args);
+    verifyIKEPolicyExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IKEPolicy:add
 bthread("monitor:IKEPolicy:add", function () {
   while (true) {
@@ -8014,6 +11194,20 @@ bthread("crud:IKEProposal:nondet:negative:dup-add", function () {
   verifyIKEProposalExists(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IKEProposal:nondet:existing:update
+bthread("crud:IKEProposal:nondet:existing:update", function () {
+  let ev = waitForAnyIKEProposalAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIKEProposal.apply(null, args), function () {
+    verifyIKEProposalExists.apply(null, args);
+    updateIKEProposal.apply(null, args);
+    verifyIKEProposalExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IKEProposal:add
 bthread("monitor:IKEProposal:add", function () {
   while (true) {
@@ -8089,6 +11283,20 @@ bthread("crud:IPSecPolicy:nondet:negative:dup-add", function () {
   verifyIPSecPolicyExists(comments, custom_fields, description, id, name, pfs_group, proposals, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IPSecPolicy:nondet:existing:update
+bthread("crud:IPSecPolicy:nondet:existing:update", function () {
+  let ev = waitForAnyIPSecPolicyAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIPSecPolicy.apply(null, args), function () {
+    verifyIPSecPolicyExists.apply(null, args);
+    updateIPSecPolicy.apply(null, args);
+    verifyIPSecPolicyExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IPSecPolicy:add
 bthread("monitor:IPSecPolicy:add", function () {
   while (true) {
@@ -8167,6 +11375,20 @@ bthread("crud:IPSecProfile:nondet:negative:dup-add", function () {
   verifyIPSecProfileExists(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IPSecProfile:nondet:existing:update
+bthread("crud:IPSecProfile:nondet:existing:update", function () {
+  let ev = waitForAnyIPSecProfileAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIPSecProfile.apply(null, args), function () {
+    verifyIPSecProfileExists.apply(null, args);
+    updateIPSecProfile.apply(null, args);
+    verifyIPSecProfileExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IPSecProfile:add
 bthread("monitor:IPSecProfile:add", function () {
   while (true) {
@@ -8248,6 +11470,20 @@ bthread("crud:IPSecProposal:nondet:negative:dup-add", function () {
   verifyIPSecProposalExists(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:IPSecProposal:nondet:existing:update
+bthread("crud:IPSecProposal:nondet:existing:update", function () {
+  let ev = waitForAnyIPSecProposalAdded();
+  let args = Object.values(ev);
+  block(matchDeletedIPSecProposal.apply(null, args), function () {
+    verifyIPSecProposalExists.apply(null, args);
+    updateIPSecProposal.apply(null, args);
+    verifyIPSecProposalExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:IPSecProposal:add
 bthread("monitor:IPSecProposal:add", function () {
   while (true) {
@@ -8317,6 +11553,20 @@ bthread("crud:L2VPNTermination:nondet:negative:dup-add", function () {
   verifyL2VPNTerminationExists(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:L2VPNTermination:nondet:existing:update
+bthread("crud:L2VPNTermination:nondet:existing:update", function () {
+  let ev = waitForAnyL2VPNTerminationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedL2VPNTermination.apply(null, args), function () {
+    verifyL2VPNTerminationExists.apply(null, args);
+    updateL2VPNTermination.apply(null, args);
+    verifyL2VPNTerminationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:L2VPNTermination:add
 bthread("monitor:L2VPNTermination:add", function () {
   while (true) {
@@ -8407,6 +11657,20 @@ bthread("crud:L2VPN:nondet:negative:dup-add", function () {
   verifyL2VPNExists(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:L2VPN:nondet:existing:update
+bthread("crud:L2VPN:nondet:existing:update", function () {
+  let ev = waitForAnyL2VPNAdded();
+  let args = Object.values(ev);
+  block(matchDeletedL2VPN.apply(null, args), function () {
+    verifyL2VPNExists.apply(null, args);
+    updateL2VPN.apply(null, args);
+    verifyL2VPNExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:L2VPN:add
 bthread("monitor:L2VPN:add", function () {
   while (true) {
@@ -8476,6 +11740,20 @@ bthread("crud:TunnelGroup:nondet:negative:dup-add", function () {
   verifyTunnelGroupExists(custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:TunnelGroup:nondet:existing:update
+bthread("crud:TunnelGroup:nondet:existing:update", function () {
+  let ev = waitForAnyTunnelGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTunnelGroup.apply(null, args), function () {
+    verifyTunnelGroupExists.apply(null, args);
+    updateTunnelGroup.apply(null, args);
+    verifyTunnelGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:TunnelGroup:add
 bthread("monitor:TunnelGroup:add", function () {
   while (true) {
@@ -8551,6 +11829,20 @@ bthread("crud:TunnelTermination:nondet:negative:dup-add", function () {
   verifyTunnelTerminationExists(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:TunnelTermination:nondet:existing:update
+bthread("crud:TunnelTermination:nondet:existing:update", function () {
+  let ev = waitForAnyTunnelTerminationAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTunnelTermination.apply(null, args), function () {
+    verifyTunnelTerminationExists.apply(null, args);
+    updateTunnelTermination.apply(null, args);
+    verifyTunnelTerminationExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:TunnelTermination:add
 bthread("monitor:TunnelTermination:add", function () {
   while (true) {
@@ -8641,6 +11933,20 @@ bthread("crud:Tunnel:nondet:negative:dup-add", function () {
   verifyTunnelExists(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, slug, status, tags, tenant, tunnel_id);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Tunnel:nondet:existing:update
+bthread("crud:Tunnel:nondet:existing:update", function () {
+  let ev = waitForAnyTunnelAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTunnel.apply(null, args), function () {
+    verifyTunnelExists.apply(null, args);
+    updateTunnel.apply(null, args);
+    verifyTunnelExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Tunnel:add
 bthread("monitor:Tunnel:add", function () {
   while (true) {
@@ -8710,6 +12016,20 @@ bthread("crud:ClusterGroup:nondet:negative:dup-add", function () {
   verifyClusterGroupExists(custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ClusterGroup:nondet:existing:update
+bthread("crud:ClusterGroup:nondet:existing:update", function () {
+  let ev = waitForAnyClusterGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedClusterGroup.apply(null, args), function () {
+    verifyClusterGroupExists.apply(null, args);
+    updateClusterGroup.apply(null, args);
+    verifyClusterGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ClusterGroup:add
 bthread("monitor:ClusterGroup:add", function () {
   while (true) {
@@ -8779,6 +12099,20 @@ bthread("crud:ClusterType:nondet:negative:dup-add", function () {
   verifyClusterTypeExists(custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ClusterType:nondet:existing:update
+bthread("crud:ClusterType:nondet:existing:update", function () {
+  let ev = waitForAnyClusterTypeAdded();
+  let args = Object.values(ev);
+  block(matchDeletedClusterType.apply(null, args), function () {
+    verifyClusterTypeExists.apply(null, args);
+    updateClusterType.apply(null, args);
+    verifyClusterTypeExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ClusterType:add
 bthread("monitor:ClusterType:add", function () {
   while (true) {
@@ -8866,6 +12200,20 @@ bthread("crud:Cluster:nondet:negative:dup-add", function () {
   verifyClusterExists(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Cluster:nondet:existing:update
+bthread("crud:Cluster:nondet:existing:update", function () {
+  let ev = waitForAnyClusterAdded();
+  let args = Object.values(ev);
+  block(matchDeletedCluster.apply(null, args), function () {
+    verifyClusterExists.apply(null, args);
+    updateCluster.apply(null, args);
+    verifyClusterExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Cluster:add
 bthread("monitor:Cluster:add", function () {
   while (true) {
@@ -8938,6 +12286,20 @@ bthread("crud:VirtualDisk:nondet:negative:dup-add", function () {
   verifyVirtualDiskExists(custom_fields, description, id, name, size, tags, virtual_machine);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VirtualDisk:nondet:existing:update
+bthread("crud:VirtualDisk:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualDiskAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualDisk.apply(null, args), function () {
+    verifyVirtualDiskExists.apply(null, args);
+    updateVirtualDisk.apply(null, args);
+    verifyVirtualDiskExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VirtualDisk:add
 bthread("monitor:VirtualDisk:add", function () {
   while (true) {
@@ -8964,6 +12326,7 @@ bthread("crud:VirtualMachine:nondet:1:1", function () {
   let comments = "comments_1390";
   let config_template = "config_template_1390";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1390";
   let device = "device_1390";
   let disk = 1390;
@@ -8982,6 +12345,26 @@ bthread("crud:VirtualMachine:nondet:1:1", function () {
   let tags = "tags_1390";
   let tenant = "tenant_1390";
   let vcpus = 1390;
+=======
+  let description = "description_1380";
+  let device = "device_1380";
+  let disk = 1380;
+  let format = "format_1380";
+  let id = 1380;
+  let local_context_data = "local_context_data_1380";
+  let memory = 1380;
+  let name = "name_1380";
+  let platform = "platform_1380";
+  let primary_ip4 = "primary_ip4_1380";
+  let primary_ip6 = "primary_ip6_1380";
+  let role = "role_1380";
+  let serial = "serial_1380";
+  let site = "site_1380";
+  let status = "status_1380";
+  let tags = "tags_1380";
+  let tenant = "tenant_1380";
+  let vcpus = 1380;
+>>>>>>> 1302d9a (Fix emitter bugs)
   createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   waitForVirtualMachineAdded(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
@@ -8998,6 +12381,7 @@ bthread("crud:VirtualMachine:nondet:1:2", function () {
   let comments = "comments_1391";
   let config_template = "config_template_1391";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1391";
   let device = "device_1391";
   let disk = 1391;
@@ -9016,6 +12400,26 @@ bthread("crud:VirtualMachine:nondet:1:2", function () {
   let tags = "tags_1391";
   let tenant = "tenant_1391";
   let vcpus = 1391;
+=======
+  let description = "description_1381";
+  let device = "device_1381";
+  let disk = 1381;
+  let format = "format_1381";
+  let id = 1381;
+  let local_context_data = "local_context_data_1381";
+  let memory = 1381;
+  let name = "name_1381";
+  let platform = "platform_1381";
+  let primary_ip4 = "primary_ip4_1381";
+  let primary_ip6 = "primary_ip6_1381";
+  let role = "role_1381";
+  let serial = "serial_1381";
+  let site = "site_1381";
+  let status = "status_1381";
+  let tags = "tags_1381";
+  let tenant = "tenant_1381";
+  let vcpus = 1381;
+>>>>>>> 1302d9a (Fix emitter bugs)
   createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   updateVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
@@ -9031,6 +12435,7 @@ bthread("crud:VirtualMachine:nondet:negative:dup-add", function () {
   let comments = "comments_1396";
   let config_template = "config_template_1396";
   let custom_fields = {};
+<<<<<<< HEAD
   let description = "description_1396";
   let device = "device_1396";
   let disk = 1396;
@@ -9049,12 +12454,46 @@ bthread("crud:VirtualMachine:nondet:negative:dup-add", function () {
   let tags = "tags_1396";
   let tenant = "tenant_1396";
   let vcpus = 1396;
+=======
+  let description = "description_1386";
+  let device = "device_1386";
+  let disk = 1386;
+  let format = "format_1386";
+  let id = 1386;
+  let local_context_data = "local_context_data_1386";
+  let memory = 1386;
+  let name = "name_1386";
+  let platform = "platform_1386";
+  let primary_ip4 = "primary_ip4_1386";
+  let primary_ip6 = "primary_ip6_1386";
+  let role = "role_1386";
+  let serial = "serial_1386";
+  let site = "site_1386";
+  let status = "status_1386";
+  let tags = "tags_1386";
+  let tenant = "tenant_1386";
+  let vcpus = 1386;
+>>>>>>> 1302d9a (Fix emitter bugs)
   createVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   tryToAddExistingVirtualMachine(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
   verifyVirtualMachineExists(cluster, comments, config_template, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tags, tenant, vcpus);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:VirtualMachine:nondet:existing:update
+bthread("crud:VirtualMachine:nondet:existing:update", function () {
+  let ev = waitForAnyVirtualMachineAdded();
+  let args = Object.values(ev);
+  block(matchDeletedVirtualMachine.apply(null, args), function () {
+    verifyVirtualMachineExists.apply(null, args);
+    updateVirtualMachine.apply(null, args);
+    verifyVirtualMachineExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:VirtualMachine:add
 bthread("monitor:VirtualMachine:add", function () {
   while (true) {
@@ -9130,6 +12569,20 @@ bthread("crud:ContactAssignment:nondet:negative:dup-add", function () {
   verifyContactAssignmentExists(contact, custom_fields, id, object_id, object_type, priority, role, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ContactAssignment:nondet:existing:update
+bthread("crud:ContactAssignment:nondet:existing:update", function () {
+  let ev = waitForAnyContactAssignmentAdded();
+  let args = Object.values(ev);
+  block(matchDeletedContactAssignment.apply(null, args), function () {
+    verifyContactAssignmentExists.apply(null, args);
+    updateContactAssignment.apply(null, args);
+    verifyContactAssignmentExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ContactAssignment:add
 bthread("monitor:ContactAssignment:add", function () {
   while (true) {
@@ -9205,6 +12658,20 @@ bthread("crud:ContactGroup:nondet:negative:dup-add", function () {
   verifyContactGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ContactGroup:nondet:existing:update
+bthread("crud:ContactGroup:nondet:existing:update", function () {
+  let ev = waitForAnyContactGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedContactGroup.apply(null, args), function () {
+    verifyContactGroupExists.apply(null, args);
+    updateContactGroup.apply(null, args);
+    verifyContactGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ContactGroup:add
 bthread("monitor:ContactGroup:add", function () {
   while (true) {
@@ -9274,6 +12741,20 @@ bthread("crud:ContactRole:nondet:negative:dup-add", function () {
   verifyContactRoleExists(custom_fields, description, id, name, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:ContactRole:nondet:existing:update
+bthread("crud:ContactRole:nondet:existing:update", function () {
+  let ev = waitForAnyContactRoleAdded();
+  let args = Object.values(ev);
+  block(matchDeletedContactRole.apply(null, args), function () {
+    verifyContactRoleExists.apply(null, args);
+    updateContactRole.apply(null, args);
+    verifyContactRoleExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:ContactRole:add
 bthread("monitor:ContactRole:add", function () {
   while (true) {
@@ -9361,6 +12842,20 @@ bthread("crud:Contact:nondet:negative:dup-add", function () {
   verifyContactExists(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Contact:nondet:existing:update
+bthread("crud:Contact:nondet:existing:update", function () {
+  let ev = waitForAnyContactAdded();
+  let args = Object.values(ev);
+  block(matchDeletedContact.apply(null, args), function () {
+    verifyContactExists.apply(null, args);
+    updateContact.apply(null, args);
+    verifyContactExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Contact:add
 bthread("monitor:Contact:add", function () {
   while (true) {
@@ -9436,6 +12931,20 @@ bthread("crud:TenantGroup:nondet:negative:dup-add", function () {
   verifyTenantGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:TenantGroup:nondet:existing:update
+bthread("crud:TenantGroup:nondet:existing:update", function () {
+  let ev = waitForAnyTenantGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTenantGroup.apply(null, args), function () {
+    verifyTenantGroupExists.apply(null, args);
+    updateTenantGroup.apply(null, args);
+    verifyTenantGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:TenantGroup:add
 bthread("monitor:TenantGroup:add", function () {
   while (true) {
@@ -9458,6 +12967,7 @@ bthread("monitor:TenantGroup:deletion", function () {
 
 // Story: crud:Tenant:nondet:1:1
 bthread("crud:Tenant:nondet:1:1", function () {
+<<<<<<< HEAD
   let comments = "comments_1450";
   let custom_fields = {};
   let description = "description_1450";
@@ -9474,10 +12984,32 @@ bthread("crud:Tenant:nondet:1:1", function () {
   deleteTenant(comments, custom_fields, description, group, id, name, slug, tags);
   tryToDeleteANonExistingTenant(comments, custom_fields, description, group, id, name, slug, tags);
   verifyTenantDoesNotExist(comments, custom_fields, description, group, id, name, slug, tags);
+=======
+  let comments = "comments_1440";
+  let contact = "contact_1440";
+  let contact_group = "contact_group_1440";
+  let contact_role = "contact_role_1440";
+  let custom_fields = {};
+  let description = "description_1440";
+  let group = "group_1440";
+  let id = 1440;
+  let name = "name_1440";
+  let slug = "slug_1440";
+  let tags = "tags_1440";
+  createTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  waitForTenantAdded(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  tryToAddExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  verifyTenantExists(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  updateTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  deleteTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  tryToDeleteANonExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  verifyTenantDoesNotExist(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Tenant:nondet:1:2
 bthread("crud:Tenant:nondet:1:2", function () {
+<<<<<<< HEAD
   let comments = "comments_1451";
   let custom_fields = {};
   let description = "description_1451";
@@ -9493,10 +13025,31 @@ bthread("crud:Tenant:nondet:1:2", function () {
   deleteTenant(comments, custom_fields, description, group, id, name, slug, tags);
   tryToDeleteANonExistingTenant(comments, custom_fields, description, group, id, name, slug, tags);
   verifyTenantDoesNotExist(comments, custom_fields, description, group, id, name, slug, tags);
+=======
+  let comments = "comments_1441";
+  let contact = "contact_1441";
+  let contact_group = "contact_group_1441";
+  let contact_role = "contact_role_1441";
+  let custom_fields = {};
+  let description = "description_1441";
+  let group = "group_1441";
+  let id = 1441;
+  let name = "name_1441";
+  let slug = "slug_1441";
+  let tags = "tags_1441";
+  createTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  tryToAddExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  updateTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  verifyTenantExists(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  deleteTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  tryToDeleteANonExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  verifyTenantDoesNotExist(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: crud:Tenant:nondet:negative:dup-add
 bthread("crud:Tenant:nondet:negative:dup-add", function () {
+<<<<<<< HEAD
   let comments = "comments_1456";
   let custom_fields = {};
   let description = "description_1456";
@@ -9509,6 +13062,54 @@ bthread("crud:Tenant:nondet:negative:dup-add", function () {
   verifyTenantExists(comments, custom_fields, description, group, id, name, slug, tags);
   tryToAddExistingTenant(comments, custom_fields, description, group, id, name, slug, tags);
   verifyTenantExists(comments, custom_fields, description, group, id, name, slug, tags);
+=======
+  let comments = "comments_1446";
+  let contact = "contact_1446";
+  let contact_group = "contact_group_1446";
+  let contact_role = "contact_role_1446";
+  let custom_fields = {};
+  let description = "description_1446";
+  let group = "group_1446";
+  let id = 1446;
+  let name = "name_1446";
+  let slug = "slug_1446";
+  let tags = "tags_1446";
+  createTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  verifyTenantExists(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  tryToAddExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+  verifyTenantExists(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags);
+});
+
+// Story: crud:Tenant:nondet:existing:update
+bthread("crud:Tenant:nondet:existing:update", function () {
+  let ev = waitForAnyTenantAdded();
+  let args = Object.values(ev);
+  block(matchDeletedTenant.apply(null, args), function () {
+    verifyTenantExists.apply(null, args);
+    updateTenant.apply(null, args);
+    verifyTenantExists.apply(null, args);
+  });
+});
+
+// Story: monitor:Tenant:add
+bthread("monitor:Tenant:add", function () {
+  while (true) {
+    let ev = waitForAnyTenantAdded();
+    block(matchDeletedTenant(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.group, ev.id, ev.name, ev.slug, ev.tags), function () {
+      verifyTenantExists(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.group, ev.id, ev.name, ev.slug, ev.tags);
+    });
+  }
+});
+
+// Story: monitor:Tenant:deletion
+bthread("monitor:Tenant:deletion", function () {
+  while (true) {
+    let ev = waitForAnyTenantDeleted();
+    block(matchAddedTenant(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.group, ev.id, ev.name, ev.slug, ev.tags), function () {
+      verifyTenantDoesNotExist(ev.comments, ev.contact, ev.contact_group, ev.contact_role, ev.custom_fields, ev.description, ev.group, ev.id, ev.name, ev.slug, ev.tags);
+    });
+  }
+>>>>>>> 1302d9a (Fix emitter bugs)
 });
 
 // Story: monitor:Tenant:add
@@ -9574,6 +13175,20 @@ bthread("crud:Group:nondet:negative:dup-add", function () {
   verifyGroupExists(description, id, name, permissions);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Group:nondet:existing:update
+bthread("crud:Group:nondet:existing:update", function () {
+  let ev = waitForAnyGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedGroup.apply(null, args), function () {
+    verifyGroupExists.apply(null, args);
+    updateGroup.apply(null, args);
+    verifyGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Group:add
 bthread("monitor:Group:add", function () {
   while (true) {
@@ -9652,6 +13267,20 @@ bthread("crud:Permission:nondet:negative:dup-add", function () {
   verifyPermissionExists(actions, constraints, description, enabled, groups, id, name, object_types, users);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Permission:nondet:existing:update
+bthread("crud:Permission:nondet:existing:update", function () {
+  let ev = waitForAnyPermissionAdded();
+  let args = Object.values(ev);
+  block(matchDeletedPermission.apply(null, args), function () {
+    verifyPermissionExists.apply(null, args);
+    updatePermission.apply(null, args);
+    verifyPermissionExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Permission:add
 bthread("monitor:Permission:add", function () {
   while (true) {
@@ -9724,6 +13353,20 @@ bthread("crud:Token:nondet:negative:dup-add", function () {
   verifyTokenExists(description, expires, id, key, last_used, user, write_enabled);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:Token:nondet:existing:update
+bthread("crud:Token:nondet:existing:update", function () {
+  let ev = waitForAnyTokenAdded();
+  let args = Object.values(ev);
+  block(matchDeletedToken.apply(null, args), function () {
+    verifyTokenExists.apply(null, args);
+    updateToken.apply(null, args);
+    verifyTokenExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:Token:add
 bthread("monitor:Token:add", function () {
   while (true) {
@@ -9811,6 +13454,20 @@ bthread("crud:User:nondet:negative:dup-add", function () {
   verifyUserExists(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:User:nondet:existing:update
+bthread("crud:User:nondet:existing:update", function () {
+  let ev = waitForAnyUserAdded();
+  let args = Object.values(ev);
+  block(matchDeletedUser.apply(null, args), function () {
+    verifyUserExists.apply(null, args);
+    updateUser.apply(null, args);
+    verifyUserExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:User:add
 bthread("monitor:User:add", function () {
   while (true) {
@@ -9886,6 +13543,20 @@ bthread("crud:WirelessLANGroup:nondet:negative:dup-add", function () {
   verifyWirelessLANGroupExists(comments, custom_fields, description, id, name, parent, slug, tags);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:WirelessLANGroup:nondet:existing:update
+bthread("crud:WirelessLANGroup:nondet:existing:update", function () {
+  let ev = waitForAnyWirelessLANGroupAdded();
+  let args = Object.values(ev);
+  block(matchDeletedWirelessLANGroup.apply(null, args), function () {
+    verifyWirelessLANGroupExists.apply(null, args);
+    updateWirelessLANGroup.apply(null, args);
+    verifyWirelessLANGroupExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:WirelessLANGroup:add
 bthread("monitor:WirelessLANGroup:add", function () {
   while (true) {
@@ -9982,6 +13653,20 @@ bthread("crud:WirelessLAN:nondet:negative:dup-add", function () {
   verifyWirelessLANExists(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:WirelessLAN:nondet:existing:update
+bthread("crud:WirelessLAN:nondet:existing:update", function () {
+  let ev = waitForAnyWirelessLANAdded();
+  let args = Object.values(ev);
+  block(matchDeletedWirelessLAN.apply(null, args), function () {
+    verifyWirelessLANExists.apply(null, args);
+    updateWirelessLAN.apply(null, args);
+    verifyWirelessLANExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:WirelessLAN:add
 bthread("monitor:WirelessLAN:add", function () {
   while (true) {
@@ -10078,6 +13763,20 @@ bthread("crud:WirelessLink:nondet:negative:dup-add", function () {
   verifyWirelessLinkExists(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant);
 });
 
+<<<<<<< HEAD
+=======
+// Story: crud:WirelessLink:nondet:existing:update
+bthread("crud:WirelessLink:nondet:existing:update", function () {
+  let ev = waitForAnyWirelessLinkAdded();
+  let args = Object.values(ev);
+  block(matchDeletedWirelessLink.apply(null, args), function () {
+    verifyWirelessLinkExists.apply(null, args);
+    updateWirelessLink.apply(null, args);
+    verifyWirelessLinkExists.apply(null, args);
+  });
+});
+
+>>>>>>> 1302d9a (Fix emitter bugs)
 // Story: monitor:WirelessLink:add
 bthread("monitor:WirelessLink:add", function () {
   while (true) {

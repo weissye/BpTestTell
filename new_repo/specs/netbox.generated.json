@@ -40,12 +40,43 @@
           "name": "partialUpdateCableTermination",
           "method": "PATCH",
           "path": "/api/dcim/cable-terminations/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update cable termination with id {id}",
+=======
+          "descriptionTemplate": "Partially update cable termination with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateCableTerminations",
+          "method": "PUT",
+          "path": "/api/dcim/cable-terminations/",
+          "descriptionTemplate": "Bulk update cable terminations",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateCableTerminations",
+          "method": "PATCH",
+          "path": "/api/dcim/cable-terminations/",
+          "descriptionTemplate": "Bulk partial update cable terminations",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteCableTerminations",
+          "method": "DELETE",
+          "path": "/api/dcim/cable-terminations/",
+          "descriptionTemplate": "Bulk delete cable terminations",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getCableTermination",
           "method": "GET",
@@ -104,12 +135,43 @@
           "name": "partialUpdateCable",
           "method": "PATCH",
           "path": "/api/dcim/cables/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update cable with id {id}",
+=======
+          "descriptionTemplate": "Partially update cable with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateCables",
+          "method": "PUT",
+          "path": "/api/dcim/cables/",
+          "descriptionTemplate": "Bulk update cables",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateCables",
+          "method": "PATCH",
+          "path": "/api/dcim/cables/",
+          "descriptionTemplate": "Bulk partial update cables",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteCables",
+          "method": "DELETE",
+          "path": "/api/dcim/cables/",
+          "descriptionTemplate": "Bulk delete cables",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getCable",
           "method": "GET",
@@ -168,12 +230,43 @@
           "name": "partialUpdateConsolePortTemplate",
           "method": "PATCH",
           "path": "/api/dcim/console-port-templates/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update console port template with id {id}",
+=======
+          "descriptionTemplate": "Partially update console port template with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateConsolePortTemplates",
+          "method": "PUT",
+          "path": "/api/dcim/console-port-templates/",
+          "descriptionTemplate": "Bulk update console port templates",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateConsolePortTemplates",
+          "method": "PATCH",
+          "path": "/api/dcim/console-port-templates/",
+          "descriptionTemplate": "Bulk partial update console port templates",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteConsolePortTemplates",
+          "method": "DELETE",
+          "path": "/api/dcim/console-port-templates/",
+          "descriptionTemplate": "Bulk delete console port templates",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getConsolePortTemplate",
           "method": "GET",
@@ -232,12 +325,43 @@
           "name": "partialUpdateConsolePort",
           "method": "PATCH",
           "path": "/api/dcim/console-ports/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update console port with id {id}",
+=======
+          "descriptionTemplate": "Partially update console port with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateConsolePorts",
+          "method": "PUT",
+          "path": "/api/dcim/console-ports/",
+          "descriptionTemplate": "Bulk update console ports",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateConsolePorts",
+          "method": "PATCH",
+          "path": "/api/dcim/console-ports/",
+          "descriptionTemplate": "Bulk partial update console ports",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteConsolePorts",
+          "method": "DELETE",
+          "path": "/api/dcim/console-ports/",
+          "descriptionTemplate": "Bulk delete console ports",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getConsolePort",
           "method": "GET",
@@ -270,7 +394,14 @@
           "path": "/api/dcim/console-server-port-templates/",
           "descriptionTemplate": "Create console server port template with id {id}",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "description": "{description}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}"
+          }
         },
         "delete": {
           "name": "deleteConsoleServerPortTemplate",
@@ -290,7 +421,31 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "description": "{description}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateConsoleServerPortTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/console-server-port-templates/{id}/",
+          "descriptionTemplate": "Partially update console server port template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "description": "{description}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}"
+          }
         },
         "get": {
           "name": "getConsoleServerPortTemplate",
@@ -316,7 +471,22 @@
           "path": "/api/dcim/console-server-ports/",
           "descriptionTemplate": "Create console server port with id {id}",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "description": "{description}",
+            "device_id": "{device_id}",
+            "device_role_id": "{device_role_id}",
+            "cable_id": "{cable_id}",
+            "cable_end": "{cable_end}",
+            "speed": "{speed}",
+            "virtual_chassis_id": "{virtual_chassis_id}",
+            "module_id": "{module_id}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "tag_id": "{tag_id}"
+          }
         },
         "delete": {
           "name": "deleteConsoleServerPort",
@@ -336,7 +506,47 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "description": "{description}",
+            "device_id": "{device_id}",
+            "device_role_id": "{device_role_id}",
+            "cable_id": "{cable_id}",
+            "cable_end": "{cable_end}",
+            "speed": "{speed}",
+            "virtual_chassis_id": "{virtual_chassis_id}",
+            "module_id": "{module_id}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "tag_id": "{tag_id}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateConsoleServerPort",
+          "method": "PATCH",
+          "path": "/api/dcim/console-server-ports/{id}/",
+          "descriptionTemplate": "Partially update console server port with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "description": "{description}",
+            "device_id": "{device_id}",
+            "device_role_id": "{device_role_id}",
+            "cable_id": "{cable_id}",
+            "cable_end": "{cable_end}",
+            "speed": "{speed}",
+            "virtual_chassis_id": "{virtual_chassis_id}",
+            "module_id": "{module_id}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "tag_id": "{tag_id}"
+          }
         },
         "get": {
           "name": "getConsoleServerPort",
@@ -362,7 +572,12 @@
           "path": "/api/dcim/device-bay-templates/",
           "descriptionTemplate": "Create device bay template with id {id}",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "description": "{description}",
+            "device_type_id": "{device_type_id}"
+          }
         },
         "delete": {
           "name": "deleteDeviceBayTemplate",
@@ -382,7 +597,27 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "description": "{description}",
+            "device_type_id": "{device_type_id}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateDeviceBayTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/device-bay-templates/{id}/",
+          "descriptionTemplate": "Partially update device bay template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "description": "{description}",
+            "device_type_id": "{device_type_id}"
+          }
         },
         "get": {
           "name": "getDeviceBayTemplate",
@@ -408,7 +643,20 @@
           "path": "/api/dcim/device-bays/",
           "descriptionTemplate": "Create device bay with id {id}",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "description": "{description}",
+            "device_id": "{device_id}",
+            "device_role_id": "{device_role_id}",
+            "device_bay_template_id": "{device_bay_template_id}",
+            "installed_device_id": "{installed_device_id}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "site_id": "{site_id}",
+            "tag_id": "{tag_id}",
+            "virtual_chassis_id": "{virtual_chassis_id}"
+          }
         },
         "delete": {
           "name": "deleteDeviceBay",
@@ -428,7 +676,43 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "description": "{description}",
+            "device_id": "{device_id}",
+            "device_role_id": "{device_role_id}",
+            "device_bay_template_id": "{device_bay_template_id}",
+            "installed_device_id": "{installed_device_id}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "site_id": "{site_id}",
+            "tag_id": "{tag_id}",
+            "virtual_chassis_id": "{virtual_chassis_id}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateDeviceBay",
+          "method": "PATCH",
+          "path": "/api/dcim/device-bays/{id}/",
+          "descriptionTemplate": "Partially update device bay with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "description": "{description}",
+            "device_id": "{device_id}",
+            "device_role_id": "{device_role_id}",
+            "device_bay_template_id": "{device_bay_template_id}",
+            "installed_device_id": "{installed_device_id}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "site_id": "{site_id}",
+            "tag_id": "{tag_id}",
+            "virtual_chassis_id": "{virtual_chassis_id}"
+          }
         },
         "get": {
           "name": "getDeviceBay",
@@ -454,11 +738,15 @@
           "method": "POST",
           "path": "/api/dcim/device-roles/",
           "descriptionTemplate": "Create device role {slug} with id {id}",
-          "params": [
-            "slug"
-          ],
+          "params": [],
           "bodyTemplate": {
-            "slug": "{slug}"
+            "name": "{name}",
+            "slug": "{slug}",
+            "color": "{color}",
+            "description": "{description}",
+            "vm_role": "{vm_role}",
+            "config_template_id": "{config_template_id}",
+            "parent_id": "{parent_id}"
           }
         },
         "delete": {
@@ -478,7 +766,36 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "color": "{color}",
+            "vm_role": "{vm_role}",
+            "description": "{description}",
+            "content_types": "{content_types}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateDeviceRole",
+          "method": "PATCH",
+          "path": "/api/dcim/device-roles/{id}/",
+          "descriptionTemplate": "Partially update device role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "color": "{color}",
+            "description": "{description}",
+            "vm_role": "{vm_role}",
+            "config_template_id": "{config_template_id}",
+            "parent_id": "{parent_id}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getDeviceRole",
@@ -497,7 +814,18 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "color": "{color}",
+            "vm_role": "{vm_role}",
+            "description": "{description}",
+            "content_types": "{content_types}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -507,13 +835,58 @@
         "id"
       ],
       "operations": {
+        "list": {
+          "name": "listDeviceTypes",
+          "method": "GET",
+          "path": "/api/dcim/device-types/",
+          "descriptionTemplate": "List device types"
+        },
         "add": {
           "name": "createDeviceType",
           "method": "POST",
           "path": "/api/dcim/device-types/",
           "descriptionTemplate": "Create device type {name} with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "manufacturer": "{manufacturer}",
+            "model": "{model}",
+            "slug": "{slug}",
+            "part_number": "{part_number}",
+            "u_height": "{u_height}",
+            "is_full_depth": "{is_full_depth}",
+            "subdevice_role": "{subdevice_role}",
+            "front_image": "{front_image}",
+            "rear_image": "{rear_image}",
+            "comments": "{comments}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}",
+            "config_template": "{config_template}",
+            "default_platform": "{default_platform}",
+            "weight": "{weight}",
+            "weight_unit": "{weight_unit}"
+          }
+        },
+        "bulk_update": {
+          "name": "bulkUpdateDeviceTypes",
+          "method": "PUT",
+          "path": "/api/dcim/device-types/",
+          "descriptionTemplate": "Bulk update device types"
+        },
+        "bulk_partial_update": {
+          "name": "bulkPartialUpdateDeviceTypes",
+          "method": "PATCH",
+          "path": "/api/dcim/device-types/",
+          "descriptionTemplate": "Bulk partial update device types"
+        },
+        "bulk_delete": {
+          "name": "bulkDeleteDeviceTypes",
+          "method": "DELETE",
+          "path": "/api/dcim/device-types/",
+          "descriptionTemplate": "Bulk delete device types"
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getDeviceType",
@@ -532,7 +905,28 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "manufacturer": "{manufacturer}",
+            "model": "{model}",
+            "slug": "{slug}",
+            "part_number": "{part_number}",
+            "u_height": "{u_height}",
+            "is_full_depth": "{is_full_depth}",
+            "subdevice_role": "{subdevice_role}",
+            "front_image": "{front_image}",
+            "rear_image": "{rear_image}",
+            "comments": "{comments}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}",
+            "config_template": "{config_template}",
+            "default_platform": "{default_platform}",
+            "weight": "{weight}",
+            "weight_unit": "{weight_unit}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partial_update": {
           "name": "partialUpdateDeviceType",
@@ -542,7 +936,28 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "manufacturer": "{manufacturer}",
+            "model": "{model}",
+            "slug": "{slug}",
+            "part_number": "{part_number}",
+            "u_height": "{u_height}",
+            "is_full_depth": "{is_full_depth}",
+            "subdevice_role": "{subdevice_role}",
+            "front_image": "{front_image}",
+            "rear_image": "{rear_image}",
+            "comments": "{comments}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}",
+            "config_template": "{config_template}",
+            "default_platform": "{default_platform}",
+            "weight": "{weight}",
+            "weight_unit": "{weight_unit}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteDeviceType",
@@ -585,13 +1000,67 @@
         "id"
       ],
       "operations": {
+        "list": {
+          "name": "listDevices",
+          "method": "GET",
+          "path": "/api/dcim/devices/",
+          "descriptionTemplate": "List devices"
+        },
         "add": {
           "name": "createDevice",
           "method": "POST",
           "path": "/api/dcim/devices/",
           "descriptionTemplate": "Create device {name} with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type": "{device_type}",
+            "device_role": "{device_role}",
+            "tenant": "{tenant}",
+            "platform": "{platform}",
+            "serial": "{serial}",
+            "asset_tag": "{asset_tag}",
+            "site": "{site}",
+            "rack": "{rack}",
+            "position": "{position}",
+            "face": "{face}",
+            "parent_device": "{parent_device}",
+            "parent_bay": "{parent_bay}",
+            "status": "{status}",
+            "primary_ip4": "{primary_ip4}",
+            "primary_ip6": "{primary_ip6}",
+            "cluster": "{cluster}",
+            "virtual_chassis": "{virtual_chassis}",
+            "vc_position": "{vc_position}",
+            "vc_priority": "{vc_priority}",
+            "comments": "{comments}",
+            "local_context_data": "{local_context_data}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}",
+            "config_template": "{config_template}"
+          }
+        },
+        "bulk_update": {
+          "name": "bulkUpdateDevices",
+          "method": "PUT",
+          "path": "/api/dcim/devices/",
+          "descriptionTemplate": "Bulk update devices"
+        },
+        "bulk_partial_update": {
+          "name": "bulkPartialUpdateDevices",
+          "method": "PATCH",
+          "path": "/api/dcim/devices/",
+          "descriptionTemplate": "Bulk partial update devices"
+        },
+        "bulk_delete": {
+          "name": "bulkDeleteDevices",
+          "method": "DELETE",
+          "path": "/api/dcim/devices/",
+          "descriptionTemplate": "Bulk delete devices"
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getDevice",
@@ -610,7 +1079,37 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type": "{device_type}",
+            "device_role": "{device_role}",
+            "tenant": "{tenant}",
+            "platform": "{platform}",
+            "serial": "{serial}",
+            "asset_tag": "{asset_tag}",
+            "site": "{site}",
+            "rack": "{rack}",
+            "position": "{position}",
+            "face": "{face}",
+            "parent_device": "{parent_device}",
+            "parent_bay": "{parent_bay}",
+            "status": "{status}",
+            "primary_ip4": "{primary_ip4}",
+            "primary_ip6": "{primary_ip6}",
+            "cluster": "{cluster}",
+            "virtual_chassis": "{virtual_chassis}",
+            "vc_position": "{vc_position}",
+            "vc_priority": "{vc_priority}",
+            "comments": "{comments}",
+            "local_context_data": "{local_context_data}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}",
+            "config_template": "{config_template}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partial_update": {
           "name": "partialUpdateDevice",
@@ -620,7 +1119,37 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type": "{device_type}",
+            "device_role": "{device_role}",
+            "tenant": "{tenant}",
+            "platform": "{platform}",
+            "serial": "{serial}",
+            "asset_tag": "{asset_tag}",
+            "site": "{site}",
+            "rack": "{rack}",
+            "position": "{position}",
+            "face": "{face}",
+            "parent_device": "{parent_device}",
+            "parent_bay": "{parent_bay}",
+            "status": "{status}",
+            "primary_ip4": "{primary_ip4}",
+            "primary_ip6": "{primary_ip6}",
+            "cluster": "{cluster}",
+            "virtual_chassis": "{virtual_chassis}",
+            "vc_position": "{vc_position}",
+            "vc_priority": "{vc_priority}",
+            "comments": "{comments}",
+            "local_context_data": "{local_context_data}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}",
+            "config_template": "{config_template}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteDevice",
@@ -663,13 +1192,49 @@
         "id"
       ],
       "operations": {
+        "list": {
+          "name": "listFrontPortTemplates",
+          "method": "GET",
+          "path": "/api/dcim/front-port-templates/",
+          "descriptionTemplate": "List front port templates"
+        },
         "add": {
           "name": "createFrontPortTemplate",
           "method": "POST",
           "path": "/api/dcim/front-port-templates/",
           "descriptionTemplate": "Create front port template with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "device_type": "{device_type}",
+            "name": "{name}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}"
+          }
+        },
+        "bulk_update": {
+          "name": "bulkUpdateFrontPortTemplates",
+          "method": "PUT",
+          "path": "/api/dcim/front-port-templates/",
+          "descriptionTemplate": "Bulk update front port templates"
+        },
+        "bulk_partial_update": {
+          "name": "bulkPartialUpdateFrontPortTemplates",
+          "method": "PATCH",
+          "path": "/api/dcim/front-port-templates/",
+          "descriptionTemplate": "Bulk partial update front port templates"
+        },
+        "bulk_delete": {
+          "name": "bulkDeleteFrontPortTemplates",
+          "method": "DELETE",
+          "path": "/api/dcim/front-port-templates/",
+          "descriptionTemplate": "Bulk delete front port templates"
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getFrontPortTemplate",
@@ -688,7 +1253,19 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "device_type": "{device_type}",
+            "name": "{name}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partial_update": {
           "name": "partialUpdateFrontPortTemplate",
@@ -698,7 +1275,19 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "device_type": "{device_type}",
+            "name": "{name}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteFrontPortTemplate",
@@ -741,13 +1330,51 @@
         "id"
       ],
       "operations": {
+        "list": {
+          "name": "listFrontPorts",
+          "method": "GET",
+          "path": "/api/dcim/front-ports/",
+          "descriptionTemplate": "List front ports"
+        },
         "add": {
           "name": "createFrontPort",
           "method": "POST",
           "path": "/api/dcim/front-ports/",
           "descriptionTemplate": "Create front port with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "device": "{device}",
+            "name": "{name}",
+            "type": "{type}",
+            "cable": "{cable}",
+            "cable_end": "{cable_end}",
+            "color": "{color}",
+            "description": "{description}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}"
+          }
+        },
+        "bulk_update": {
+          "name": "bulkUpdateFrontPorts",
+          "method": "PUT",
+          "path": "/api/dcim/front-ports/",
+          "descriptionTemplate": "Bulk update front ports"
+        },
+        "bulk_partial_update": {
+          "name": "bulkPartialUpdateFrontPorts",
+          "method": "PATCH",
+          "path": "/api/dcim/front-ports/",
+          "descriptionTemplate": "Bulk partial update front ports"
+        },
+        "bulk_delete": {
+          "name": "bulkDeleteFrontPorts",
+          "method": "DELETE",
+          "path": "/api/dcim/front-ports/",
+          "descriptionTemplate": "Bulk delete front ports"
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getFrontPort",
@@ -766,7 +1393,21 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "device": "{device}",
+            "name": "{name}",
+            "type": "{type}",
+            "cable": "{cable}",
+            "cable_end": "{cable_end}",
+            "color": "{color}",
+            "description": "{description}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partial_update": {
           "name": "partialUpdateFrontPort",
@@ -776,7 +1417,21 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": "{...}"
+=======
+          "bodyTemplate": {
+            "device": "{device}",
+            "name": "{name}",
+            "type": "{type}",
+            "cable": "{cable}",
+            "cable_end": "{cable_end}",
+            "color": "{color}",
+            "description": "{description}",
+            "tags": "{tags}",
+            "custom_fields": "{custom_fields}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteFrontPort",
@@ -786,6 +1441,7 @@
           "params": [
             "id"
           ]
+<<<<<<< HEAD
         },
         "bulk_update": {
           "name": "bulkUpdateFrontPorts",
@@ -810,6 +1466,25 @@
           "descriptionTemplate": "Bulk delete front ports",
           "params": [],
           "bodyTemplate": "[{...}]"
+=======
+        }
+      }
+    },
+    "FrontPortPaths": {
+      "displayName": "front port paths",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFrontPortPaths",
+          "method": "GET",
+          "path": "/api/dcim/front-ports/{id}/paths/",
+          "descriptionTemplate": "Get paths for front port with id {id}",
+          "params": [
+            "id"
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -823,22 +1498,51 @@
           "name": "createInterfaceTemplate",
           "method": "POST",
           "path": "/api/dcim/interface-templates/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create interface template with id {id}",
           "params": [],
           "bodyTemplate": {}
+=======
+          "descriptionTemplate": "Create interface template {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "updated_by_request": "{updated_by_request}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteInterfaceTemplatesBulk",
           "method": "DELETE",
+<<<<<<< HEAD
           "path": "/api/dcim/interface-templates/",
           "descriptionTemplate": "Delete interface templates in bulk",
           "params": [],
           "bodyTemplate": {}
+=======
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Delete interface template with id {id}",
+          "params": [
+            "id"
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateInterfaceTemplate",
           "method": "PUT",
           "path": "/api/dcim/interface-templates/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Update interface template {id}",
           "params": [
             "id"
@@ -850,6 +1554,43 @@
           "method": "PATCH",
           "path": "/api/dcim/interface-templates/{id}/",
           "descriptionTemplate": "Partial update interface template {id}",
+=======
+          "descriptionTemplate": "Update interface template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "updated_by_request": "{updated_by_request}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}"
+          }
+        },
+        "partial_update": {
+          "name": "partialUpdateInterfaceTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Partially update interface template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getInterfaceTemplate",
+          "method": "GET",
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Get interface template with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -907,16 +1648,25 @@
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
         "partialUpdate": {
           "name": "partialUpdateInterface",
           "method": "PATCH",
           "path": "/api/dcim/interfaces/{id}/",
           "descriptionTemplate": "Partial update interface {id}",
+=======
+        "partial_update": {
+          "name": "partialUpdateInterface",
+          "method": "PATCH",
+          "path": "/api/dcim/interfaces/{id}/",
+          "descriptionTemplate": "Partially update interface with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
         "bulkUpdate": {
           "name": "bulkUpdateInterfaces",
           "method": "PUT",
@@ -933,6 +1683,8 @@
           "params": [],
           "bodyTemplate": {}
         },
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getInterface",
           "method": "GET",
@@ -962,26 +1714,51 @@
         "delete": {
           "name": "deleteInventoryItemRolesBulk",
           "method": "DELETE",
+<<<<<<< HEAD
           "path": "/api/dcim/inventory-item-roles/",
           "descriptionTemplate": "Delete inventory item roles in bulk",
           "params": [],
           "bodyTemplate": {}
+=======
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Delete inventory item role with id {id}",
+          "params": [
+            "id"
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateInventoryItemRole",
           "method": "PUT",
           "path": "/api/dcim/inventory-item-roles/{id}/",
-          "descriptionTemplate": "Update inventory item role {id}",
+          "descriptionTemplate": "Update inventory item role with id {id}",
           "params": [
             "id"
           ],
           "bodyTemplate": {}
+<<<<<<< HEAD
+=======
+        },
+        "partial_update": {
+          "name": "partialUpdateInventoryItemRole",
+          "method": "PATCH",
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Partially update inventory item role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partialUpdate": {
           "name": "partialUpdateInventoryItemRole",
           "method": "PATCH",
           "path": "/api/dcim/inventory-item-roles/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update inventory item role {id}",
+=======
+          "descriptionTemplate": "Get inventory item role with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -1006,26 +1783,55 @@
         "delete": {
           "name": "deleteInventoryItemTemplatesBulk",
           "method": "DELETE",
+<<<<<<< HEAD
           "path": "/api/dcim/inventory-item-templates/",
           "descriptionTemplate": "Delete inventory item templates in bulk",
           "params": [],
           "bodyTemplate": {}
+=======
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Delete inventory item template with id {id}",
+          "params": [
+            "id"
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateInventoryItemTemplate",
           "method": "PUT",
           "path": "/api/dcim/inventory-item-templates/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Update inventory item template {id}",
+=======
+          "descriptionTemplate": "Update inventory item template with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
+<<<<<<< HEAD
+=======
+        },
+        "partial_update": {
+          "name": "partialUpdateInventoryItemTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Partially update inventory item template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partialUpdate": {
           "name": "partialUpdateInventoryItemTemplate",
           "method": "PATCH",
           "path": "/api/dcim/inventory-item-templates/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update inventory item template {id}",
+=======
+          "descriptionTemplate": "Get inventory item template with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -1559,6 +2365,16 @@
           ],
           "bodyTemplate": {}
         },
+        "partialUpdate": {
+          "name": "partialUpdatePowerFeed",
+          "method": "PATCH",
+          "path": "/api/dcim/power-feeds/{id}/",
+          "descriptionTemplate": "Partially update power feed with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
         "get": {
           "name": "getPowerFeed",
           "method": "GET",
@@ -1600,6 +2416,16 @@
           "method": "PUT",
           "path": "/api/dcim/power-outlet-templates/{id}/",
           "descriptionTemplate": "Update power outlet template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdatePowerOutletTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/power-outlet-templates/{id}/",
+          "descriptionTemplate": "Partially update power outlet template with id {id}",
           "params": [
             "id"
           ],
@@ -1651,6 +2477,16 @@
           ],
           "bodyTemplate": {}
         },
+        "partialUpdate": {
+          "name": "partialUpdatePowerOutlet",
+          "method": "PATCH",
+          "path": "/api/dcim/power-outlets/{id}/",
+          "descriptionTemplate": "Partially update power outlet with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
         "get": {
           "name": "getPowerOutlet",
           "method": "GET",
@@ -1697,6 +2533,16 @@
           ],
           "bodyTemplate": {}
         },
+        "partialUpdate": {
+          "name": "partialUpdatePowerPanel",
+          "method": "PATCH",
+          "path": "/api/dcim/power-panels/{id}/",
+          "descriptionTemplate": "Partially update power panel with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
         "get": {
           "name": "getPowerPanel",
           "method": "GET",
@@ -1736,14 +2582,26 @@
           "descriptionTemplate": "Delete power port template with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updatePowerPortTemplate",
           "method": "PUT",
           "path": "/api/dcim/power-port-templates/{id}/",
           "descriptionTemplate": "Update power port template {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdatePowerPortTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/power-port-templates/{id}/",
+          "descriptionTemplate": "Partially update power port template {name} with id {id}",
           "params": [
             "id",
             "name"
@@ -1759,8 +2617,7 @@
           "descriptionTemplate": "Get power port template with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -1791,14 +2648,26 @@
           "descriptionTemplate": "Delete power port with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updatePowerPort",
           "method": "PUT",
           "path": "/api/dcim/power-ports/{id}/",
           "descriptionTemplate": "Update power port {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdatePowerPort",
+          "method": "PATCH",
+          "path": "/api/dcim/power-ports/{id}/",
+          "descriptionTemplate": "Partially update power port {name} with id {id}",
           "params": [
             "id",
             "name"
@@ -1814,8 +2683,7 @@
           "descriptionTemplate": "Get power port with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -1846,14 +2714,26 @@
           "descriptionTemplate": "Delete rack reservation with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateRackReservation",
           "method": "PUT",
           "path": "/api/dcim/rack-reservations/{id}/",
           "descriptionTemplate": "Update rack reservation with id {id} and description {description}",
+          "params": [
+            "id",
+            "description"
+          ],
+          "bodyTemplate": {
+            "description": "{description}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateRackReservation",
+          "method": "PATCH",
+          "path": "/api/dcim/rack-reservations/{id}/",
+          "descriptionTemplate": "Partially update rack reservation with id {id} and description {description}",
           "params": [
             "id",
             "description"
@@ -1869,8 +2749,7 @@
           "descriptionTemplate": "Get rack reservation with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -1904,14 +2783,31 @@
           "descriptionTemplate": "Delete rack role with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateRackRole",
           "method": "PUT",
           "path": "/api/dcim/rack-roles/{id}/",
           "descriptionTemplate": "Update rack role {name} with id {id} and slug {slug}",
+<<<<<<< HEAD
+=======
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "partialUpdate": {
+          "name": "partialUpdateRackRole",
+          "method": "PATCH",
+          "path": "/api/dcim/rack-roles/{id}/",
+          "descriptionTemplate": "Partially update rack role {name} with id {id} and slug {slug}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id",
             "name",
@@ -1929,17 +2825,16 @@
           "descriptionTemplate": "Get rack role with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
     "RackType": {
       "displayName": "rack type",
       "params": [
-        "name",
         "slug",
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
@@ -1976,6 +2871,21 @@
           ],
           "bodyTemplate": {}
         },
+        "partialUpdate": {
+          "name": "partialUpdateRackType",
+          "method": "PATCH",
+          "path": "/api/dcim/rack-types/{id}/",
+          "descriptionTemplate": "Partially update rack type {name} with id {id} and slug {slug}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
         "get": {
           "name": "getRackType",
           "method": "GET",
@@ -1985,7 +2895,11 @@
             "id"
           ]
         },
+<<<<<<< HEAD
         "partialUpdate": {
+=======
+        "partial_update": {
+>>>>>>> 1302d9a (Fix emitter bugs)
           "name": "partialUpdateRackType",
           "method": "PATCH",
           "path": "/api/dcim/rack-types/{id}/",
@@ -2015,6 +2929,7 @@
           "path": "/api/dcim/racks/",
           "descriptionTemplate": "Create rack {name} with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": {}
         },
         "bulkUpdate": {
@@ -2034,15 +2949,32 @@
           "method": "DELETE",
           "path": "/api/dcim/racks/",
           "descriptionTemplate": "Bulk delete racks"
-        },
-        "get": {
-          "name": "getRack",
-          "method": "GET",
-          "path": "/api/dcim/racks/{id}/",
-          "descriptionTemplate": "Get rack with id {id}",
-          "params": [
-            "id"
-          ]
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "facility_id": "{facility_id}",
+            "site": "{site}",
+            "rack_type": "{rack_type}",
+            "serial": "{serial}",
+            "asset_tag": "{asset_tag}",
+            "u_height": "{u_height}",
+            "desc_units": "{desc_units}",
+            "outer_width": "{outer_width}",
+            "outer_depth": "{outer_depth}",
+            "outer_height": "{outer_height}",
+            "outer_unit": "{outer_unit}",
+            "weight": "{weight}",
+            "weight_unit": "{weight_unit}",
+            "max_weight": "{max_weight}",
+            "comments": "{comments}",
+            "tenant": "{tenant}",
+            "tenant_group": "{tenant_group}",
+            "role": "{role}",
+            "location": "{location}",
+            "status": "{status}",
+            "tags": "{tags}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateRack",
@@ -2052,9 +2984,38 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
         },
         "partialUpdate": {
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "facility_id": "{facility_id}",
+            "site": "{site}",
+            "rack_type": "{rack_type}",
+            "serial": "{serial}",
+            "asset_tag": "{asset_tag}",
+            "u_height": "{u_height}",
+            "desc_units": "{desc_units}",
+            "outer_width": "{outer_width}",
+            "outer_depth": "{outer_depth}",
+            "outer_height": "{outer_height}",
+            "outer_unit": "{outer_unit}",
+            "weight": "{weight}",
+            "weight_unit": "{weight_unit}",
+            "max_weight": "{max_weight}",
+            "comments": "{comments}",
+            "tenant": "{tenant}",
+            "tenant_group": "{tenant_group}",
+            "role": "{role}",
+            "location": "{location}",
+            "status": "{status}",
+            "tags": "{tags}"
+          }
+        },
+        "partial_update": {
+>>>>>>> 1302d9a (Fix emitter bugs)
           "name": "partialUpdateRack",
           "method": "PATCH",
           "path": "/api/dcim/racks/{id}/",
@@ -2062,7 +3023,34 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "facility_id": "{facility_id}",
+            "site": "{site}",
+            "rack_type": "{rack_type}",
+            "serial": "{serial}",
+            "asset_tag": "{asset_tag}",
+            "u_height": "{u_height}",
+            "desc_units": "{desc_units}",
+            "outer_width": "{outer_width}",
+            "outer_depth": "{outer_depth}",
+            "outer_height": "{outer_height}",
+            "outer_unit": "{outer_unit}",
+            "weight": "{weight}",
+            "weight_unit": "{weight_unit}",
+            "max_weight": "{max_weight}",
+            "comments": "{comments}",
+            "tenant": "{tenant}",
+            "tenant_group": "{tenant_group}",
+            "role": "{role}",
+            "location": "{location}",
+            "status": "{status}",
+            "tags": "{tags}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteRack",
@@ -2098,6 +3086,7 @@
         "id"
       ],
       "operations": {
+<<<<<<< HEAD
         "list": {
           "name": "listRearPortTemplates",
           "method": "GET",
@@ -2130,6 +3119,8 @@
           "path": "/api/dcim/rear-port-templates/",
           "descriptionTemplate": "Bulk delete rear port templates"
         },
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getRearPortTemplate",
           "method": "GET",
@@ -2139,6 +3130,23 @@
             "id"
           ]
         },
+        "add": {
+          "name": "createRearPortTemplate",
+          "method": "POST",
+          "path": "/api/dcim/rear-port-templates/",
+          "descriptionTemplate": "Create rear port template with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "positions": "{positions}",
+            "rear_port": "{rear_port}",
+            "device_type": "{device_type}"
+          }
+        },
         "update": {
           "name": "updateRearPortTemplate",
           "method": "PUT",
@@ -2147,9 +3155,24 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
         },
         "partialUpdate": {
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "positions": "{positions}",
+            "rear_port": "{rear_port}",
+            "device_type": "{device_type}"
+          }
+        },
+        "partial_update": {
+>>>>>>> 1302d9a (Fix emitter bugs)
           "name": "partialUpdateRearPortTemplate",
           "method": "PATCH",
           "path": "/api/dcim/rear-port-templates/{id}/",
@@ -2157,7 +3180,20 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "positions": "{positions}",
+            "rear_port": "{rear_port}",
+            "device_type": "{device_type}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteRearPortTemplate",
@@ -2176,11 +3212,22 @@
         "id"
       ],
       "operations": {
+<<<<<<< HEAD
         "list": {
           "name": "listRearPorts",
           "method": "GET",
           "path": "/api/dcim/rear-ports/",
           "descriptionTemplate": "List rear ports"
+=======
+        "get": {
+          "name": "getRearPort",
+          "method": "GET",
+          "path": "/api/dcim/rear-ports/{id}/",
+          "descriptionTemplate": "Get rear port with id {id}",
+          "params": [
+            "id"
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "add": {
           "name": "createRearPort",
@@ -2188,6 +3235,7 @@
           "path": "/api/dcim/rear-ports/",
           "descriptionTemplate": "Create rear port with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": {}
         },
         "bulkUpdate": {
@@ -2207,15 +3255,26 @@
           "method": "DELETE",
           "path": "/api/dcim/rear-ports/",
           "descriptionTemplate": "Bulk delete rear ports"
-        },
-        "get": {
-          "name": "getRearPort",
-          "method": "GET",
-          "path": "/api/dcim/rear-ports/{id}/",
-          "descriptionTemplate": "Get rear port with id {id}",
-          "params": [
-            "id"
-          ]
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "cable_end": "{cable_end}",
+            "cable": "{cable}",
+            "device": "{device}",
+            "device_type": "{device_type}",
+            "device_role": "{device_role}",
+            "module": "{module}",
+            "positions": "{positions}",
+            "rack": "{rack}",
+            "virtual_chassis": "{virtual_chassis}",
+            "status": "{status}",
+            "tags": "{tags}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateRearPort",
@@ -2225,9 +3284,32 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
         },
         "partialUpdate": {
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "cable_end": "{cable_end}",
+            "cable": "{cable}",
+            "device": "{device}",
+            "device_type": "{device_type}",
+            "device_role": "{device_role}",
+            "module": "{module}",
+            "positions": "{positions}",
+            "rack": "{rack}",
+            "virtual_chassis": "{virtual_chassis}",
+            "status": "{status}",
+            "tags": "{tags}"
+          }
+        },
+        "partial_update": {
+>>>>>>> 1302d9a (Fix emitter bugs)
           "name": "partialUpdateRearPort",
           "method": "PATCH",
           "path": "/api/dcim/rear-ports/{id}/",
@@ -2235,7 +3317,28 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "label": "{label}",
+            "type": "{type}",
+            "color": "{color}",
+            "description": "{description}",
+            "cable_end": "{cable_end}",
+            "cable": "{cable}",
+            "device": "{device}",
+            "device_type": "{device_type}",
+            "device_role": "{device_role}",
+            "module": "{module}",
+            "positions": "{positions}",
+            "rack": "{rack}",
+            "virtual_chassis": "{virtual_chassis}",
+            "status": "{status}",
+            "tags": "{tags}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteRearPort",
@@ -2254,6 +3357,7 @@
         "id"
       ],
       "operations": {
+<<<<<<< HEAD
         "list": {
           "name": "listRegions",
           "method": "GET",
@@ -2286,6 +3390,8 @@
           "path": "/api/dcim/regions/",
           "descriptionTemplate": "Bulk delete regions"
         },
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getRegion",
           "method": "GET",
@@ -2293,7 +3399,25 @@
           "descriptionTemplate": "Get region with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createRegion",
+          "method": "POST",
+          "path": "/api/dcim/regions/",
+          "descriptionTemplate": "Create region {slug} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "parent": "{parent}",
+            "description": "{description}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
+            "contact_role": "{contact_role}",
+            "tags": "{tags}"
+          }
         },
         "update": {
           "name": "updateRegion",
@@ -2310,6 +3434,7 @@
             "description": "{description}"
           }
         },
+<<<<<<< HEAD
         "partialUpdate": {
           "name": "partialUpdateRegion",
           "method": "PATCH",
@@ -2329,6 +3454,8 @@
             "id"
           ]
         },
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         "partial_update": {
           "name": "partialUpdateRegion",
           "method": "PATCH",
@@ -2337,12 +3464,26 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "name": "{name}",
             "slug": "{slug}",
             "parent": "{parent}",
             "description": "{description}"
           }
+=======
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRegion",
+          "method": "DELETE",
+          "path": "/api/dcim/regions/{id}/",
+          "descriptionTemplate": "Delete region with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -2357,13 +3498,22 @@
           "method": "GET",
           "path": "/api/dcim/site-groups/",
           "descriptionTemplate": "List site groups",
+<<<<<<< HEAD
           "params": []
+=======
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "add": {
           "name": "createSiteGroup",
           "method": "POST",
           "path": "/api/dcim/site-groups/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create site group {name} with id {id}",
+=======
+          "descriptionTemplate": "Create site group {name}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -2376,19 +3526,37 @@
           "name": "bulkUpdateSiteGroups",
           "method": "PUT",
           "path": "/api/dcim/site-groups/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk update site groups"
+=======
+          "descriptionTemplate": "Bulk update site groups",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_partial_update": {
           "name": "bulkPartialUpdateSiteGroups",
           "method": "PATCH",
           "path": "/api/dcim/site-groups/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk partial update site groups"
+=======
+          "descriptionTemplate": "Bulk partial update site groups",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_delete": {
           "name": "bulkDeleteSiteGroups",
           "method": "DELETE",
           "path": "/api/dcim/site-groups/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk delete site groups"
+=======
+          "descriptionTemplate": "Bulk delete site groups",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getSiteGroup",
@@ -2397,7 +3565,12 @@
           "descriptionTemplate": "Get site group with id {id}",
           "params": [
             "id"
+<<<<<<< HEAD
           ]
+=======
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateSiteGroup",
@@ -2436,7 +3609,8 @@
           "descriptionTemplate": "Delete site group with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -2451,13 +3625,22 @@
           "method": "GET",
           "path": "/api/dcim/sites/",
           "descriptionTemplate": "List sites",
+<<<<<<< HEAD
           "params": []
+=======
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "add": {
           "name": "createSite",
           "method": "POST",
           "path": "/api/dcim/sites/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create site {name} with id {id}",
+=======
+          "descriptionTemplate": "Create site {name}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -2467,6 +3650,7 @@
             "facility": "{facility}",
             "asn": "{asn}",
             "time_zone": "{time_zone}",
+<<<<<<< HEAD
             "description": "{description}",
             "physical_address": "{physical_address}",
             "shipping_address": "{shipping_address}",
@@ -2477,25 +3661,46 @@
             "contact_email": "{contact_email}",
             "comments": "{comments}",
             "status": "{status}"
+=======
+            "description": "{description}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "bulk_update": {
           "name": "bulkUpdateSites",
           "method": "PUT",
           "path": "/api/dcim/sites/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk update sites"
+=======
+          "descriptionTemplate": "Bulk update sites",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_partial_update": {
           "name": "bulkPartialUpdateSites",
           "method": "PATCH",
           "path": "/api/dcim/sites/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk partial update sites"
+=======
+          "descriptionTemplate": "Bulk partial update sites",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_delete": {
           "name": "bulkDeleteSites",
           "method": "DELETE",
           "path": "/api/dcim/sites/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk delete sites"
+=======
+          "descriptionTemplate": "Bulk delete sites",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getSite",
@@ -2504,7 +3709,12 @@
           "descriptionTemplate": "Get site with id {id}",
           "params": [
             "id"
+<<<<<<< HEAD
           ]
+=======
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateSite",
@@ -2522,6 +3732,7 @@
             "facility": "{facility}",
             "asn": "{asn}",
             "time_zone": "{time_zone}",
+<<<<<<< HEAD
             "description": "{description}",
             "physical_address": "{physical_address}",
             "shipping_address": "{shipping_address}",
@@ -2532,6 +3743,9 @@
             "contact_email": "{contact_email}",
             "comments": "{comments}",
             "status": "{status}"
+=======
+            "description": "{description}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "partial_update": {
@@ -2569,7 +3783,8 @@
           "descriptionTemplate": "Delete site with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -2584,39 +3799,70 @@
           "method": "GET",
           "path": "/api/dcim/virtual-chassis/",
           "descriptionTemplate": "List virtual chassis",
+<<<<<<< HEAD
           "params": []
+=======
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "add": {
           "name": "createVirtualChassis",
           "method": "POST",
           "path": "/api/dcim/virtual-chassis/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create virtual chassis with id {id}",
+=======
+          "descriptionTemplate": "Create virtual chassis {name}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
             "domain": "{domain}",
+<<<<<<< HEAD
             "description": "{description}",
             "master": "{master}",
             "tags": "{tags}"
+=======
+            "description": "{description}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "bulk_update": {
           "name": "bulkUpdateVirtualChassis",
           "method": "PUT",
           "path": "/api/dcim/virtual-chassis/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk update virtual chassis"
+=======
+          "descriptionTemplate": "Bulk update virtual chassis",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_partial_update": {
           "name": "bulkPartialUpdateVirtualChassis",
           "method": "PATCH",
           "path": "/api/dcim/virtual-chassis/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk partial update virtual chassis"
+=======
+          "descriptionTemplate": "Bulk partial update virtual chassis",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_delete": {
           "name": "bulkDeleteVirtualChassis",
           "method": "DELETE",
           "path": "/api/dcim/virtual-chassis/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk delete virtual chassis"
+=======
+          "descriptionTemplate": "Bulk delete virtual chassis",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getVirtualChassis",
@@ -2625,7 +3871,12 @@
           "descriptionTemplate": "Get virtual chassis with id {id}",
           "params": [
             "id"
+<<<<<<< HEAD
           ]
+=======
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateVirtualChassis",
@@ -2638,9 +3889,13 @@
           "bodyTemplate": {
             "name": "{name}",
             "domain": "{domain}",
+<<<<<<< HEAD
             "description": "{description}",
             "master": "{master}",
             "tags": "{tags}"
+=======
+            "description": "{description}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "partial_update": {
@@ -2666,7 +3921,8 @@
           "descriptionTemplate": "Delete virtual chassis with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -2681,38 +3937,69 @@
           "method": "GET",
           "path": "/api/dcim/virtual-device-contexts/",
           "descriptionTemplate": "List virtual device contexts",
+<<<<<<< HEAD
           "params": []
+=======
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "add": {
           "name": "createVirtualDeviceContext",
           "method": "POST",
           "path": "/api/dcim/virtual-device-contexts/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create virtual device context with id {id}",
+=======
+          "descriptionTemplate": "Create virtual device context {name}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
             "device": "{device}",
+<<<<<<< HEAD
             "description": "{description}",
             "tags": "{tags}"
+=======
+            "description": "{description}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "bulk_update": {
           "name": "bulkUpdateVirtualDeviceContexts",
           "method": "PUT",
           "path": "/api/dcim/virtual-device-contexts/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk update virtual device contexts"
+=======
+          "descriptionTemplate": "Bulk update virtual device contexts",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_partial_update": {
           "name": "bulkPartialUpdateVirtualDeviceContexts",
           "method": "PATCH",
           "path": "/api/dcim/virtual-device-contexts/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk partial update virtual device contexts"
+=======
+          "descriptionTemplate": "Bulk partial update virtual device contexts",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulk_delete": {
           "name": "bulkDeleteVirtualDeviceContexts",
           "method": "DELETE",
           "path": "/api/dcim/virtual-device-contexts/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk delete virtual device contexts"
+=======
+          "descriptionTemplate": "Bulk delete virtual device contexts",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getVirtualDeviceContext",
@@ -2721,7 +4008,12 @@
           "descriptionTemplate": "Get virtual device context with id {id}",
           "params": [
             "id"
+<<<<<<< HEAD
           ]
+=======
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateVirtualDeviceContext",
@@ -2734,8 +4026,12 @@
           "bodyTemplate": {
             "name": "{name}",
             "device": "{device}",
+<<<<<<< HEAD
             "description": "{description}",
             "tags": "{tags}"
+=======
+            "description": "{description}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "partial_update": {
@@ -2760,7 +4056,8 @@
           "descriptionTemplate": "Delete virtual device context with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         }
       }
     },
@@ -2937,8 +4234,8 @@
     "ConfigTemplate": {
       "displayName": "config template",
       "params": [
-        "name",
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
@@ -3023,7 +4320,14 @@
           "method": "POST",
           "path": "/api/extras/custom-field-choice-sets/",
           "descriptionTemplate": "Create custom field choice set {name} with id {id}",
+<<<<<<< HEAD
           "params": [],
+=======
+          "params": [
+            "id",
+            "name"
+          ],
+>>>>>>> 1302d9a (Fix emitter bugs)
           "bodyTemplate": {
             "name": "{name}",
             "label": "{label}",
@@ -3036,11 +4340,11 @@
             "is_cloneable": "{is_cloneable}"
           }
         },
-        "get": {
-          "name": "getCustomFieldChoiceSet",
-          "method": "GET",
+        "delete": {
+          "name": "deleteCustomFieldChoiceSet",
+          "method": "DELETE",
           "path": "/api/extras/custom-field-choice-sets/{id}/",
-          "descriptionTemplate": "Get custom field choice set with id {id}",
+          "descriptionTemplate": "Delete custom field choice set with id {id}",
           "params": [
             "id"
           ],
@@ -3076,11 +4380,11 @@
           ],
           "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteCustomFieldChoiceSet",
-          "method": "DELETE",
+        "get": {
+          "name": "getCustomFieldChoiceSet",
+          "method": "GET",
           "path": "/api/extras/custom-field-choice-sets/{id}/",
-          "descriptionTemplate": "Delete custom field choice set with id {id}",
+          "descriptionTemplate": "Get custom field choice set with id {id}",
           "params": [
             "id"
           ],
@@ -3099,7 +4403,14 @@
           "method": "POST",
           "path": "/api/extras/custom-fields/",
           "descriptionTemplate": "Create custom field {name} with id {id}",
+<<<<<<< HEAD
           "params": [],
+=======
+          "params": [
+            "id",
+            "name"
+          ],
+>>>>>>> 1302d9a (Fix emitter bugs)
           "bodyTemplate": {
             "name": "{name}",
             "label": "{label}",
@@ -3120,11 +4431,11 @@
             "unique": "{unique}"
           }
         },
-        "get": {
-          "name": "getCustomField",
-          "method": "GET",
+        "delete": {
+          "name": "deleteCustomField",
+          "method": "DELETE",
           "path": "/api/extras/custom-fields/{id}/",
-          "descriptionTemplate": "Get custom field with id {id}",
+          "descriptionTemplate": "Delete custom field with id {id}",
           "params": [
             "id"
           ],
@@ -3168,11 +4479,11 @@
           ],
           "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteCustomField",
-          "method": "DELETE",
+        "get": {
+          "name": "getCustomField",
+          "method": "GET",
           "path": "/api/extras/custom-fields/{id}/",
-          "descriptionTemplate": "Delete custom field with id {id}",
+          "descriptionTemplate": "Get custom field with id {id}",
           "params": [
             "id"
           ],
@@ -3191,7 +4502,14 @@
           "method": "POST",
           "path": "/api/extras/custom-links/",
           "descriptionTemplate": "Create custom link {name} with id {id}",
+<<<<<<< HEAD
           "params": [],
+=======
+          "params": [
+            "id",
+            "name"
+          ],
+>>>>>>> 1302d9a (Fix emitter bugs)
           "bodyTemplate": {
             "name": "{name}",
             "link_text": "{link_text}",
@@ -3203,11 +4521,11 @@
             "group_name": "{group_name}"
           }
         },
-        "get": {
-          "name": "getCustomLink",
-          "method": "GET",
+        "delete": {
+          "name": "deleteCustomLink",
+          "method": "DELETE",
           "path": "/api/extras/custom-links/{id}/",
-          "descriptionTemplate": "Get custom link with id {id}",
+          "descriptionTemplate": "Delete custom link with id {id}",
           "params": [
             "id"
           ],
@@ -3242,11 +4560,11 @@
           ],
           "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteCustomLink",
-          "method": "DELETE",
+        "get": {
+          "name": "getCustomLink",
+          "method": "GET",
           "path": "/api/extras/custom-links/{id}/",
-          "descriptionTemplate": "Delete custom link with id {id}",
+          "descriptionTemplate": "Get custom link with id {id}",
           "params": [
             "id"
           ],
@@ -3536,7 +4854,7 @@
           "name": "createNotificationGroup",
           "method": "POST",
           "path": "/api/extras/notification-groups/",
-          "descriptionTemplate": "Create notification group",
+          "descriptionTemplate": "Create notification group with id {id}",
           "params": [],
           "bodyTemplate": {}
         },
@@ -3544,7 +4862,7 @@
           "name": "deleteNotificationGroup",
           "method": "DELETE",
           "path": "/api/extras/notification-groups/{id}/",
-          "descriptionTemplate": "Delete notification group {id}",
+          "descriptionTemplate": "Delete notification group with id {id}",
           "params": [
             "id"
           ]
@@ -3553,7 +4871,7 @@
           "name": "updateNotificationGroup",
           "method": "PUT",
           "path": "/api/extras/notification-groups/{id}/",
-          "descriptionTemplate": "Update notification group {id}",
+          "descriptionTemplate": "Update notification group with id {id}",
           "params": [
             "id"
           ],
@@ -3567,16 +4885,27 @@
         "partialUpdate": {
           "name": "partialUpdateNotificationGroup",
           "method": "PATCH",
+<<<<<<< HEAD
           "path": "/api/extras/notification-groups/",
           "descriptionTemplate": "Bulk partial update notification group(s)",
           "params": [],
           "bodyTemplate": {}
+=======
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Partially update notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getNotificationGroup",
           "method": "GET",
           "path": "/api/extras/notification-groups/{id}/",
-          "descriptionTemplate": "Get notification group {id}",
+          "descriptionTemplate": "Get notification group with id {id}",
           "params": [
             "id"
           ]
@@ -3614,6 +4943,7 @@
           "name": "createNotification",
           "method": "POST",
           "path": "/api/extras/notifications/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create notification {name} with id {id}",
           "params": [],
           "bodyTemplate": {
@@ -3622,6 +4952,12 @@
             "type": "{type}",
             "enabled": "{enabled}",
             "config": "{config}"
+=======
+          "descriptionTemplate": "Create notification with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "id": "{id}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "bulkUpdate": {
@@ -3634,7 +4970,13 @@
           "name": "bulkPatchNotifications",
           "method": "PATCH",
           "path": "/api/extras/notifications/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk patch notifications"
+=======
+          "descriptionTemplate": "Bulk partially update notifications",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulkDelete": {
           "name": "bulkDeleteNotifications",
@@ -3646,7 +4988,7 @@
           "name": "getNotification",
           "method": "GET",
           "path": "/api/extras/notifications/{id}/",
-          "descriptionTemplate": "Get notification {id}",
+          "descriptionTemplate": "Get notification with id {id}",
           "params": [
             "id"
           ]
@@ -3655,7 +4997,7 @@
           "name": "updateNotification",
           "method": "PUT",
           "path": "/api/extras/notifications/{id}/",
-          "descriptionTemplate": "Update notification {id}",
+          "descriptionTemplate": "Update notification with id {id}",
           "params": [
             "id"
           ],
@@ -3671,7 +5013,11 @@
           "name": "patchNotification",
           "method": "PATCH",
           "path": "/api/extras/notifications/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Patch notification {id}",
+=======
+          "descriptionTemplate": "Partially update notification with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -3687,7 +5033,7 @@
           "name": "deleteNotification",
           "method": "DELETE",
           "path": "/api/extras/notifications/{id}/",
-          "descriptionTemplate": "Delete notification {id}",
+          "descriptionTemplate": "Delete notification with id {id}",
           "params": [
             "id"
           ]
@@ -3720,7 +5066,8 @@
     "SavedFilter": {
       "displayName": "saved filter",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "list": {
@@ -3733,6 +5080,7 @@
           "name": "createSavedFilter",
           "method": "POST",
           "path": "/api/extras/saved-filters/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create saved filter {name} with id {id}",
           "params": [],
           "bodyTemplate": {
@@ -3745,6 +5093,12 @@
             "object_type": "{object_type}",
             "weight": "{weight}",
             "filters": "{filters}"
+=======
+          "descriptionTemplate": "Create saved filter with name {name} and id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "bulkUpdate": {
@@ -3757,7 +5111,13 @@
           "name": "bulkPatchSavedFilters",
           "method": "PATCH",
           "path": "/api/extras/saved-filters/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk patch saved filters"
+=======
+          "descriptionTemplate": "Bulk partially update saved filters",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulkDelete": {
           "name": "bulkDeleteSavedFilters",
@@ -3769,7 +5129,7 @@
           "name": "getSavedFilter",
           "method": "GET",
           "path": "/api/extras/saved-filters/{id}/",
-          "descriptionTemplate": "Get saved filter {id}",
+          "descriptionTemplate": "Get saved filter with id {id}",
           "params": [
             "id"
           ]
@@ -3778,7 +5138,7 @@
           "name": "updateSavedFilter",
           "method": "PUT",
           "path": "/api/extras/saved-filters/{id}/",
-          "descriptionTemplate": "Update saved filter {id}",
+          "descriptionTemplate": "Update saved filter with id {id}",
           "params": [
             "id"
           ],
@@ -3798,7 +5158,11 @@
           "name": "patchSavedFilter",
           "method": "PATCH",
           "path": "/api/extras/saved-filters/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Patch saved filter {id}",
+=======
+          "descriptionTemplate": "Partially update saved filter with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -3818,7 +5182,7 @@
           "name": "deleteSavedFilter",
           "method": "DELETE",
           "path": "/api/extras/saved-filters/{id}/",
-          "descriptionTemplate": "Delete saved filter {id}",
+          "descriptionTemplate": "Delete saved filter with id {id}",
           "params": [
             "id"
           ]
@@ -3828,7 +5192,8 @@
     "Script": {
       "displayName": "script",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "list": {
@@ -3841,7 +5206,11 @@
           "name": "createScript",
           "method": "POST",
           "path": "/api/extras/scripts/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create script {id}",
+=======
+          "descriptionTemplate": "Create script with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [],
           "bodyTemplate": {}
         },
@@ -3849,7 +5218,7 @@
           "name": "getScript",
           "method": "GET",
           "path": "/api/extras/scripts/{id}/",
-          "descriptionTemplate": "Get script {id}",
+          "descriptionTemplate": "Get script with id {id}",
           "params": [
             "id"
           ]
@@ -3858,7 +5227,7 @@
           "name": "updateScript",
           "method": "PUT",
           "path": "/api/extras/scripts/{id}/",
-          "descriptionTemplate": "Update script {id}",
+          "descriptionTemplate": "Update script with id {id}",
           "params": [
             "id"
           ],
@@ -3875,7 +5244,11 @@
           "name": "patchScript",
           "method": "PATCH",
           "path": "/api/extras/scripts/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Patch script {id}",
+=======
+          "descriptionTemplate": "Partially update script with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -3892,7 +5265,7 @@
           "name": "deleteScript",
           "method": "DELETE",
           "path": "/api/extras/scripts/{id}/",
-          "descriptionTemplate": "Delete script {id}",
+          "descriptionTemplate": "Delete script with id {id}",
           "params": [
             "id"
           ]
@@ -3929,7 +5302,13 @@
           "name": "bulkPatchSubscriptions",
           "method": "PATCH",
           "path": "/api/extras/subscriptions/",
+<<<<<<< HEAD
           "descriptionTemplate": "Bulk patch subscriptions"
+=======
+          "descriptionTemplate": "Bulk partially update subscriptions",
+          "params": [],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "bulkDelete": {
           "name": "bulkDeleteSubscriptions",
@@ -3959,10 +5338,10 @@
           }
         },
         "patch": {
-          "name": "patchSubscription",
+          "name": "partialUpdateSubscription",
           "method": "PATCH",
           "path": "/api/extras/subscriptions/{id}/",
-          "descriptionTemplate": "Patch subscription with id {id}",
+          "descriptionTemplate": "Partially update subscription with id {id}",
           "params": [
             "id"
           ],
@@ -4020,10 +5399,10 @@
           }
         },
         "patch": {
-          "name": "patchTableConfig",
+          "name": "partialUpdateTableConfig",
           "method": "PATCH",
           "path": "/api/extras/table-configs/{id}/",
-          "descriptionTemplate": "Patch table config with id {id}",
+          "descriptionTemplate": "Partially update table config with id {id}",
           "params": [
             "id"
           ],
@@ -4101,10 +5480,10 @@
           }
         },
         "patch": {
-          "name": "patchTag",
+          "name": "partialUpdateTag",
           "method": "PATCH",
           "path": "/api/extras/tags/{id}/",
-          "descriptionTemplate": "Patch tag with id {id}",
+          "descriptionTemplate": "Partially update tag with id {id}",
           "params": [
             "id"
           ],
@@ -4163,10 +5542,10 @@
           }
         },
         "patch": {
-          "name": "patchWebhook",
+          "name": "partialUpdateWebhook",
           "method": "PATCH",
           "path": "/api/extras/webhooks/{id}/",
-          "descriptionTemplate": "Patch webhook with id {id}",
+          "descriptionTemplate": "Partially update webhook with id {id}",
           "params": [
             "id"
           ],
@@ -4401,10 +5780,14 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "name": "{name}",
             "slug": "{slug}"
           }
+=======
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "get": {
           "name": "getFHRPGroup",
@@ -4489,6 +5872,7 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "address": "{address}",
             "vrf": "{vrf}",
@@ -4519,6 +5903,9 @@
             "modified_by_request": "{modified_by_request}",
             "updated_by_request": "{updated_by_request}"
           }
+=======
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "patch": {
           "name": "patchIPAddress",
@@ -4604,6 +5991,7 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "start_address": "{start_address}",
             "end_address": "{end_address}",
@@ -4635,6 +6023,9 @@
             "tenant_group_id": "{tenant_group_id}",
             "location_id": "{location_id}"
           }
+=======
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "patch": {
           "name": "patchIPRange",
@@ -4723,6 +6114,7 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "prefix": "{prefix}",
             "vrf": "{vrf}",
@@ -4757,6 +6149,9 @@
             "tenant_group_id": "{tenant_group_id}",
             "location_id": "{location_id}"
           }
+=======
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "patch": {
           "name": "patchPrefix",
@@ -4799,6 +6194,7 @@
             "description": "{description}",
             "rir_date": "{rir_date}",
             "rir_date_accuracy": "{rir_date_accuracy}",
+<<<<<<< HEAD
             "rir_whois_server": "{rir_whois_server}",
             "rir_whois_url": "{rir_whois_url}",
             "rir_whois_email": "{rir_whois_email}",
@@ -4846,6 +6242,82 @@
             "rir_whois_state": "{rir_whois_state}",
             "rir_whois_postal_code": "{rir_whois_postal_code}",
             "rir_whois_country": "{rir_whois_country}"
+=======
+            "rir_date_comment": "{rir_date_comment}",
+            "rir_date_source": "{rir_date_source}",
+            "rir_date_source_comment": "{rir_date_source_comment}",
+            "rir_date_source_url": "{rir_date_source_url}",
+            "rir_date_source_url_comment": "{rir_date_source_url_comment}",
+            "rir_date_source_url_date": "{rir_date_source_url_date}",
+            "rir_date_source_url_date_comment": "{rir_date_source_url_date_comment}",
+            "rir_date_source_url_date_source": "{rir_date_source_url_date_source}",
+            "rir_date_source_url_date_source_comment": "{rir_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url": "{rir_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_comment}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source}",
+            "rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment": "{rir_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_url_date_source_comment}"
+>>>>>>> 1302d9a (Fix emitter bugs)
+          }
+        },
+        "delete": {
+          "name": "deleteRIR",
+          "method": "DELETE",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Delete RIR with id {id}",
+          "params": [
+            "id"
+<<<<<<< HEAD
+          ],
+          "bodyTemplate": {}
+=======
+          ]
+        },
+        "update": {
+          "name": "updateRIR",
+          "method": "PUT",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Update RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "is_private": "{is_private}",
+            "description": "{description}",
+            "rir_date": "{rir_date}",
+            "rir_date_accuracy": "{rir_date_accuracy}",
+            "rir_date_comment": "{rir_date_comment}",
+            "rir_date_source": "{rir_date_source}",
+            "rir_date_source_comment": "{rir_date_source_comment}",
+            "rir_date_source_url": "{rir_date_source_url}",
+            "rir_date_source_url_comment": "{rir_date_source_url_comment}"
           }
         },
         "get": {
@@ -4855,8 +6327,8 @@
           "descriptionTemplate": "Get RIR with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -4882,6 +6354,7 @@
         "delete": {
           "name": "deleteRole",
           "method": "DELETE",
+<<<<<<< HEAD
           "path": "/api/ipam/roles/{id}/",
           "descriptionTemplate": "Delete role with id {id}",
           "params": [
@@ -4907,12 +6380,42 @@
         "get": {
           "name": "getRole",
           "method": "GET",
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Delete role with id {id}",
+          "params": [
+            "id"
+<<<<<<< HEAD
+          ],
+          "bodyTemplate": {}
+=======
+          ]
+        },
+        "update": {
+          "name": "updateRole",
+          "method": "PUT",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Update role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "weight": "{weight}",
+            "description": "{description}"
+          }
+        },
+        "get": {
+          "name": "getRole",
+          "method": "GET",
           "path": "/api/ipam/roles/{id}/",
           "descriptionTemplate": "Get role with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -4968,6 +6471,39 @@
             "tenant_id": "{tenant_id}"
           }
         },
+        "delete": {
+          "name": "deleteRouteTarget",
+          "method": "DELETE",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Delete route target with id {id}",
+          "params": [
+            "id"
+<<<<<<< HEAD
+          ],
+          "bodyTemplate": {}
+=======
+          ]
+        },
+        "update": {
+          "name": "updateRouteTarget",
+          "method": "PUT",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Update route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "tenant": "{tenant}",
+            "tenant_group": "{tenant_group}",
+            "importing_l2vpn": "{importing_l2vpn}",
+            "importing_vrf": "{importing_vrf}",
+            "exporting_l2vpn": "{exporting_l2vpn}",
+            "exporting_vrf": "{exporting_vrf}"
+          }
+        },
         "get": {
           "name": "getRouteTarget",
           "method": "GET",
@@ -4975,8 +6511,8 @@
           "descriptionTemplate": "Get route target with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -4998,6 +6534,7 @@
             "protocol": "{protocol}",
             "port": "{port}",
             "description": "{description}"
+<<<<<<< HEAD
           }
         },
         "delete": {
@@ -5024,6 +6561,37 @@
             "protocol": "{protocol}",
             "port": "{port}",
             "description": "{description}"
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
+          }
+        },
+        "delete": {
+          "name": "deleteServiceTemplate",
+          "method": "DELETE",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Delete service template with id {id}",
+          "params": [
+            "id"
+<<<<<<< HEAD
+          ],
+          "bodyTemplate": {}
+=======
+          ]
+        },
+        "update": {
+          "name": "updateServiceTemplate",
+          "method": "PUT",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Update service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "protocol": "{protocol}",
+            "port": "{port}",
+            "description": "{description}"
           }
         },
         "get": {
@@ -5033,8 +6601,8 @@
           "descriptionTemplate": "Get service template with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -5055,6 +6623,7 @@
             "protocol": "{protocol}",
             "port": "{port}",
             "description": "{description}",
+<<<<<<< HEAD
             "device_id": "{device_id}",
             "virtual_machine_id": "{virtual_machine_id}",
             "ip_address_id": "{ip_address_id}",
@@ -5091,6 +6660,49 @@
             "ip_address_id": "{ip_address_id}",
             "fhrpgroup_id": "{fhrpgroup_id}",
             "contact": "{contact}",
+=======
+            "device": "{device}",
+            "virtual_machine": "{virtual_machine}",
+            "ip_address": "{ip_address}",
+            "fhrpgroup": "{fhrpgroup}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
+>>>>>>> 1302d9a (Fix emitter bugs)
+            "contact_role": "{contact_role}"
+          }
+        },
+        "delete": {
+          "name": "deleteService",
+          "method": "DELETE",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Delete service with id {id}",
+          "params": [
+            "id"
+<<<<<<< HEAD
+          ],
+          "bodyTemplate": {}
+=======
+          ]
+        },
+        "update": {
+          "name": "updateService",
+          "method": "PUT",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Update service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "protocol": "{protocol}",
+            "port": "{port}",
+            "description": "{description}",
+            "device": "{device}",
+            "virtual_machine": "{virtual_machine}",
+            "ip_address": "{ip_address}",
+            "fhrpgroup": "{fhrpgroup}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
             "contact_role": "{contact_role}"
           }
         },
@@ -5101,8 +6713,8 @@
           "descriptionTemplate": "Get service with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -5152,27 +6764,46 @@
         }
       }
     },
+<<<<<<< HEAD
     "VLANGroupsAvailableVlan": {
       "displayName": "vlan groups available vlan",
+=======
+    "AvailableVlan": {
+      "displayName": "available vlan",
+>>>>>>> 1302d9a (Fix emitter bugs)
       "params": [
         "id"
       ],
       "operations": {
         "add": {
+<<<<<<< HEAD
           "name": "createVLANGroupsAvailableVlan",
           "method": "POST",
           "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
           "descriptionTemplate": "Create vlan groups available vlan for vlan group id {id}",
+=======
+          "name": "createAvailableVlan",
+          "method": "POST",
+          "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
+          "descriptionTemplate": "Create available vlan for vlan group id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
         "get": {
+<<<<<<< HEAD
           "name": "getVLANGroupsAvailableVlan",
           "method": "GET",
           "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
           "descriptionTemplate": "Get vlan groups available vlan for vlan group id {id}",
+=======
+          "name": "getAvailableVlans",
+          "method": "GET",
+          "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
+          "descriptionTemplate": "Get available vlans for vlan group id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
@@ -5352,8 +6983,14 @@
           "bodyTemplate": {
             "name": "{name}",
             "rd": "{rd}",
+<<<<<<< HEAD
             "enforce_unique": "{enforce_unique}",
             "description": "{description}"
+=======
+            "description": "{description}",
+            "tenant": "{tenant}",
+            "tags": "{tags}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         },
         "get": {
@@ -5376,8 +7013,14 @@
           "bodyTemplate": {
             "name": "{name}",
             "rd": "{rd}",
+<<<<<<< HEAD
             "enforce_unique": "{enforce_unique}",
             "description": "{description}"
+=======
+            "description": "{description}",
+            "tenant": "{tenant}",
+            "tags": "{tags}"
+>>>>>>> 1302d9a (Fix emitter bugs)
           }
         }
       }
@@ -5573,8 +7216,8 @@
     "Circuit": {
       "displayName": "circuit",
       "params": [
-        "cid",
-        "id"
+        "id",
+        "cid"
       ],
       "operations": {
         "add": {
@@ -5637,6 +7280,17 @@
         "id"
       ],
       "operations": {
+<<<<<<< HEAD
+=======
+        "add": {
+          "name": "createProviderAccount",
+          "method": "POST",
+          "path": "/api/circuits/provider-accounts/",
+          "descriptionTemplate": "Create provider account",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getProviderAccount",
           "method": "GET",
@@ -5646,6 +7300,7 @@
             "id"
           ],
           "bodyTemplate": {}
+<<<<<<< HEAD
         },
         "add": {
           "name": "createProviderAccount",
@@ -5654,6 +7309,8 @@
           "descriptionTemplate": "Create provider account",
           "params": [],
           "bodyTemplate": {}
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateProviderAccount",
@@ -5697,6 +7354,17 @@
         "id"
       ],
       "operations": {
+<<<<<<< HEAD
+=======
+        "add": {
+          "name": "createProviderNetwork",
+          "method": "POST",
+          "path": "/api/circuits/provider-networks/",
+          "descriptionTemplate": "Create provider network",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getProviderNetwork",
           "method": "GET",
@@ -5706,6 +7374,7 @@
             "id"
           ],
           "bodyTemplate": {}
+<<<<<<< HEAD
         },
         "add": {
           "name": "createProviderNetwork",
@@ -5714,6 +7383,8 @@
           "descriptionTemplate": "Create provider network",
           "params": [],
           "bodyTemplate": {}
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateProviderNetwork",
@@ -5758,6 +7429,17 @@
         "slug"
       ],
       "operations": {
+<<<<<<< HEAD
+=======
+        "add": {
+          "name": "createProvider",
+          "method": "POST",
+          "path": "/api/circuits/providers/",
+          "descriptionTemplate": "Create provider",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getProvider",
           "method": "GET",
@@ -5767,6 +7449,7 @@
             "id"
           ],
           "bodyTemplate": {}
+<<<<<<< HEAD
         },
         "add": {
           "name": "createProvider",
@@ -5775,6 +7458,8 @@
           "descriptionTemplate": "Create provider",
           "params": [],
           "bodyTemplate": {}
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateProvider",
@@ -5818,6 +7503,17 @@
         "id"
       ],
       "operations": {
+<<<<<<< HEAD
+=======
+        "add": {
+          "name": "createVirtualCircuitTermination",
+          "method": "POST",
+          "path": "/api/circuits/virtual-circuit-terminations/",
+          "descriptionTemplate": "Create virtual circuit termination",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getVirtualCircuitTermination",
           "method": "GET",
@@ -5827,6 +7523,7 @@
             "id"
           ],
           "bodyTemplate": {}
+<<<<<<< HEAD
         },
         "add": {
           "name": "createVirtualCircuitTermination",
@@ -5835,6 +7532,8 @@
           "descriptionTemplate": "Create virtual circuit termination",
           "params": [],
           "bodyTemplate": {}
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "update": {
           "name": "updateVirtualCircuitTermination",
@@ -6128,7 +7827,6 @@
             "status": "{status}",
             "sync_interval": "{sync_interval}",
             "tag": "{tag}",
-            "tag_id": "{tag_id}",
             "type": "{type}"
           }
         },
@@ -6157,7 +7855,6 @@
             "status": "{status}",
             "sync_interval": "{sync_interval}",
             "tag": "{tag}",
-            "tag_id": "{tag_id}",
             "type": "{type}"
           }
         },
@@ -6200,6 +7897,7 @@
           "method": "GET",
           "path": "/api/core/data-sources/{id}/",
           "descriptionTemplate": "Get data source with id {id}",
+<<<<<<< HEAD
           "params": [
             "id"
           ]
@@ -6212,6 +7910,21 @@
           "params": [
             "id"
           ],
+=======
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "syncCreate": {
+          "name": "syncCreateDataSource",
+          "method": "POST",
+          "path": "/api/core/data-sources/{id}/sync/",
+          "descriptionTemplate": "Sync create data source with id {id}",
+          "params": [
+            "id"
+          ],
+>>>>>>> 1302d9a (Fix emitter bugs)
           "bodyTemplate": {
             "name": "{name}",
             "description": "{description}",
@@ -6220,7 +7933,10 @@
             "status": "{status}",
             "sync_interval": "{sync_interval}",
             "tag": "{tag}",
+<<<<<<< HEAD
             "tag_id": "{tag_id}",
+=======
+>>>>>>> 1302d9a (Fix emitter bugs)
             "type": "{type}"
           }
         }
@@ -6229,7 +7945,8 @@
     "Job": {
       "displayName": "job",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "get": {
@@ -6275,16 +7992,23 @@
     "IKEPolicy": {
       "displayName": "ike policy",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createIKEPolicy",
           "method": "POST",
           "path": "/api/vpn/ike-policies/",
-          "descriptionTemplate": "Create ike policy with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Create ike policy {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "delete": {
           "name": "deleteIKEPolicy",
@@ -6300,38 +8024,25 @@
           "name": "updateIKEPolicy",
           "method": "PUT",
           "path": "/api/vpn/ike-policies/{id}/",
-          "descriptionTemplate": "Update ike policy with id {id}",
+          "descriptionTemplate": "Update ike policy {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "partialUpdate": {
-          "name": "partialUpdateIKEPolicy",
-          "method": "PATCH",
-          "path": "/api/vpn/ike-policies/{id}/",
-          "descriptionTemplate": "Partially update ike policy with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "get": {
           "name": "getIKEPolicy",
           "method": "GET",
           "path": "/api/vpn/ike-policies/{id}/",
-          "descriptionTemplate": "Get ike policy with id {id}",
+          "descriptionTemplate": "Get ike policy {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listIKEPolicies",
-          "method": "GET",
-          "path": "/api/vpn/ike-policies/",
-          "descriptionTemplate": "List ike policies",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -6339,16 +8050,23 @@
     "IKEProposal": {
       "displayName": "ike proposal",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createIKEProposal",
           "method": "POST",
           "path": "/api/vpn/ike-proposals/",
-          "descriptionTemplate": "Create ike proposal with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Create ike proposal {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "delete": {
           "name": "deleteIKEProposal",
@@ -6364,38 +8082,25 @@
           "name": "updateIKEProposal",
           "method": "PUT",
           "path": "/api/vpn/ike-proposals/{id}/",
-          "descriptionTemplate": "Update ike proposal with id {id}",
+          "descriptionTemplate": "Update ike proposal {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "partialUpdate": {
-          "name": "partialUpdateIKEProposal",
-          "method": "PATCH",
-          "path": "/api/vpn/ike-proposals/{id}/",
-          "descriptionTemplate": "Partially update ike proposal with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "get": {
           "name": "getIKEProposal",
           "method": "GET",
           "path": "/api/vpn/ike-proposals/{id}/",
-          "descriptionTemplate": "Get ike proposal with id {id}",
+          "descriptionTemplate": "Get ike proposal {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listIKEProposals",
-          "method": "GET",
-          "path": "/api/vpn/ike-proposals/",
-          "descriptionTemplate": "List ike proposals",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -6403,16 +8108,23 @@
     "IPSecPolicy": {
       "displayName": "ipsec policy",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createIPSecPolicy",
           "method": "POST",
           "path": "/api/vpn/ipsec-policies/",
-          "descriptionTemplate": "Create ipsec policy with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Create ipsec policy {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "delete": {
           "name": "deleteIPSecPolicy",
@@ -6428,38 +8140,25 @@
           "name": "updateIPSecPolicy",
           "method": "PUT",
           "path": "/api/vpn/ipsec-policies/{id}/",
-          "descriptionTemplate": "Update ipsec policy with id {id}",
+          "descriptionTemplate": "Update ipsec policy {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "partialUpdate": {
-          "name": "partialUpdateIPSecPolicy",
-          "method": "PATCH",
-          "path": "/api/vpn/ipsec-policies/{id}/",
-          "descriptionTemplate": "Partially update ipsec policy with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "get": {
           "name": "getIPSecPolicy",
           "method": "GET",
           "path": "/api/vpn/ipsec-policies/{id}/",
-          "descriptionTemplate": "Get ipsec policy with id {id}",
+          "descriptionTemplate": "Get ipsec policy {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listIPSecPolicies",
-          "method": "GET",
-          "path": "/api/vpn/ipsec-policies/",
-          "descriptionTemplate": "List ipsec policies",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -6467,16 +8166,23 @@
     "IPSecProfile": {
       "displayName": "ipsec profile",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createIPSecProfile",
           "method": "POST",
           "path": "/api/vpn/ipsec-profiles/",
-          "descriptionTemplate": "Create ipsec profile with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Create ipsec profile {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "delete": {
           "name": "deleteIPSecProfile",
@@ -6492,38 +8198,25 @@
           "name": "updateIPSecProfile",
           "method": "PUT",
           "path": "/api/vpn/ipsec-profiles/{id}/",
-          "descriptionTemplate": "Update ipsec profile with id {id}",
+          "descriptionTemplate": "Update ipsec profile {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "partialUpdate": {
-          "name": "partialUpdateIPSecProfile",
-          "method": "PATCH",
-          "path": "/api/vpn/ipsec-profiles/{id}/",
-          "descriptionTemplate": "Partially update ipsec profile with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "get": {
           "name": "getIPSecProfile",
           "method": "GET",
           "path": "/api/vpn/ipsec-profiles/{id}/",
-          "descriptionTemplate": "Get ipsec profile with id {id}",
+          "descriptionTemplate": "Get ipsec profile {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listIPSecProfiles",
-          "method": "GET",
-          "path": "/api/vpn/ipsec-profiles/",
-          "descriptionTemplate": "List ipsec profiles",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -6531,16 +8224,23 @@
     "IPSecProposal": {
       "displayName": "ipsec proposal",
       "params": [
-        "id"
+        "id",
+        "name"
       ],
       "operations": {
         "add": {
           "name": "createIPSecProposal",
           "method": "POST",
           "path": "/api/vpn/ipsec-proposals/",
-          "descriptionTemplate": "Create ipsec proposal with id {id}",
-          "params": [],
-          "bodyTemplate": {}
+          "descriptionTemplate": "Create ipsec proposal {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "delete": {
           "name": "deleteIPSecProposal",
@@ -6556,38 +8256,25 @@
           "name": "updateIPSecProposal",
           "method": "PUT",
           "path": "/api/vpn/ipsec-proposals/{id}/",
-          "descriptionTemplate": "Update ipsec proposal with id {id}",
+          "descriptionTemplate": "Update ipsec proposal {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "partialUpdate": {
-          "name": "partialUpdateIPSecProposal",
-          "method": "PATCH",
-          "path": "/api/vpn/ipsec-proposals/{id}/",
-          "descriptionTemplate": "Partially update ipsec proposal with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
         },
         "get": {
           "name": "getIPSecProposal",
           "method": "GET",
           "path": "/api/vpn/ipsec-proposals/{id}/",
-          "descriptionTemplate": "Get ipsec proposal with id {id}",
+          "descriptionTemplate": "Get ipsec proposal {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "listIPSecProposals",
-          "method": "GET",
-          "path": "/api/vpn/ipsec-proposals/",
-          "descriptionTemplate": "List ipsec proposals",
-          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -6651,14 +8338,8 @@
           "method": "POST",
           "path": "/api/vpn/l2vpns/",
           "descriptionTemplate": "Create l2vpn {name} with id {id}",
-          "params": [
-            "name",
-            "slug"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteL2VPN",
@@ -6678,10 +8359,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getL2VPN",
@@ -6708,14 +8386,8 @@
           "method": "POST",
           "path": "/api/vpn/tunnel-groups/",
           "descriptionTemplate": "Create tunnel group {name} with id {id}",
-          "params": [
-            "name",
-            "slug"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteTunnelGroup",
@@ -6735,10 +8407,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getTunnelGroup",
@@ -6811,14 +8480,8 @@
           "method": "POST",
           "path": "/api/vpn/tunnels/",
           "descriptionTemplate": "Create tunnel {name} with id {id}",
-          "params": [
-            "name",
-            "slug"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "params": [],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteTunnel",
@@ -6838,10 +8501,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "bodyTemplate": {}
         },
         "get": {
           "name": "getTunnel",
@@ -7051,6 +8711,7 @@
           "path": "/api/virtualization/virtual-machines/",
           "descriptionTemplate": "Create virtual machine with id {id}",
           "params": [],
+<<<<<<< HEAD
           "bodyTemplate": {
             "name": "{name}",
             "cluster": "{cluster}",
@@ -7093,6 +8754,9 @@
             "vcpus": "{vcpus}",
             "virtual_disk_count": "{virtual_disk_count}"
           }
+=======
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "delete": {
           "name": "deleteVirtualMachine",
@@ -7112,6 +8776,7 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "name": "{name}",
             "cluster": "{cluster}",
@@ -7154,6 +8819,19 @@
             "vcpus": "{vcpus}",
             "virtual_disk_count": "{virtual_disk_count}"
           }
+=======
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateVirtualMachine",
+          "method": "PATCH",
+          "path": "/api/virtualization/virtual-machines/{id}/",
+          "descriptionTemplate": "Partially update virtual machine with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "partial_update": {
           "name": "partialUpdateVirtualMachine",
@@ -7214,7 +8892,27 @@
           "params": [],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
         "bulk_partial_update": {
+=======
+        "list": {
+          "name": "listVirtualMachines",
+          "method": "GET",
+          "path": "/api/virtualization/virtual-machines/",
+          "descriptionTemplate": "List virtual machines",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkUpdate": {
+          "name": "bulkUpdateVirtualMachines",
+          "method": "PUT",
+          "path": "/api/virtualization/virtual-machines/",
+          "descriptionTemplate": "Bulk update virtual machines",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+>>>>>>> 1302d9a (Fix emitter bugs)
           "name": "bulkPartialUpdateVirtualMachines",
           "method": "PATCH",
           "path": "/api/virtualization/virtual-machines/",
@@ -7222,7 +8920,11 @@
           "params": [],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
         "bulk_delete": {
+=======
+        "bulkDelete": {
+>>>>>>> 1302d9a (Fix emitter bugs)
           "name": "bulkDeleteVirtualMachines",
           "method": "DELETE",
           "path": "/api/virtualization/virtual-machines/",
@@ -7230,15 +8932,24 @@
           "params": [],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
         "render_config_create": {
           "name": "createVirtualMachineRenderConfig",
           "method": "POST",
           "path": "/api/virtualization/virtual-machines/{id}/render-config/",
           "descriptionTemplate": "Create render config for virtual machine with id {id}",
+=======
+        "renderConfig": {
+          "name": "renderConfigVirtualMachine",
+          "method": "POST",
+          "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+          "descriptionTemplate": "Render config for virtual machine with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id",
             "format"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {
             "name": "{name}",
             "cluster": "{cluster}",
@@ -7281,6 +8992,9 @@
             "vcpus": "{vcpus}",
             "virtual_disk_count": "{virtual_disk_count}"
           }
+=======
+          "bodyTemplate": {}
+>>>>>>> 1302d9a (Fix emitter bugs)
         }
       }
     },
@@ -7358,7 +9072,11 @@
           "name": "createContactGroup",
           "method": "POST",
           "path": "/api/tenancy/contact-groups/",
+<<<<<<< HEAD
           "descriptionTemplate": "Create contact group with id {id} and name {name}",
+=======
+          "descriptionTemplate": "Create contact group {name} with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -7400,7 +9118,14 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "list": {
           "name": "listContactGroups",
@@ -7474,7 +9199,14 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "list": {
           "name": "listContactRoles",
@@ -7555,7 +9287,13 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "list": {
           "name": "listContacts",
@@ -7631,7 +9369,14 @@
           "params": [
             "id"
           ],
+<<<<<<< HEAD
           "bodyTemplate": {}
+=======
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+>>>>>>> 1302d9a (Fix emitter bugs)
         },
         "list": {
           "name": "listTenantGroups",
@@ -7663,7 +9408,7 @@
           "name": "createTenant",
           "method": "POST",
           "path": "/api/tenancy/tenants/",
-          "descriptionTemplate": "Create tenant with id {id}",
+          "descriptionTemplate": "Create tenant {name} with id {id}",
           "params": [],
           "bodyTemplate": {
             "name": "{name}",
@@ -7690,7 +9435,7 @@
           "name": "updateTenant",
           "method": "PUT",
           "path": "/api/tenancy/tenants/{id}/",
-          "descriptionTemplate": "Update tenant with id {id}",
+          "descriptionTemplate": "Update tenant {name} with id {id}",
           "params": [
             "id"
           ],
@@ -7755,12 +9500,43 @@
           "name": "partialUpdateGroup",
           "method": "PATCH",
           "path": "/api/users/groups/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update group with id {id}",
+=======
+          "descriptionTemplate": "Partially update group with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateGroups",
+          "method": "PUT",
+          "path": "/api/users/groups/",
+          "descriptionTemplate": "Bulk update groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateGroups",
+          "method": "PATCH",
+          "path": "/api/users/groups/",
+          "descriptionTemplate": "Bulk partial update groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteGroups",
+          "method": "DELETE",
+          "path": "/api/users/groups/",
+          "descriptionTemplate": "Bulk delete groups",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getGroup",
           "method": "GET",
@@ -7769,6 +9545,14 @@
           "params": [
             "id"
           ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listGroups",
+          "method": "GET",
+          "path": "/api/users/groups/",
+          "descriptionTemplate": "List groups",
+          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -7811,12 +9595,43 @@
           "name": "partialUpdatePermission",
           "method": "PATCH",
           "path": "/api/users/permissions/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update permission with id {id}",
+=======
+          "descriptionTemplate": "Partially update permission with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdatePermissions",
+          "method": "PUT",
+          "path": "/api/users/permissions/",
+          "descriptionTemplate": "Bulk update permissions",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdatePermissions",
+          "method": "PATCH",
+          "path": "/api/users/permissions/",
+          "descriptionTemplate": "Bulk partial update permissions",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeletePermissions",
+          "method": "DELETE",
+          "path": "/api/users/permissions/",
+          "descriptionTemplate": "Bulk delete permissions",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getPermission",
           "method": "GET",
@@ -7825,6 +9640,14 @@
           "params": [
             "id"
           ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listPermissions",
+          "method": "GET",
+          "path": "/api/users/permissions/",
+          "descriptionTemplate": "List permissions",
+          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -7841,7 +9664,9 @@
           "method": "POST",
           "path": "/api/users/tokens/",
           "descriptionTemplate": "Create token with key {key}",
-          "params": [],
+          "params": [
+            "key"
+          ],
           "bodyTemplate": {}
         },
         "delete": {
@@ -7868,12 +9693,43 @@
           "name": "partialUpdateToken",
           "method": "PATCH",
           "path": "/api/users/tokens/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update token with id {id}",
+=======
+          "descriptionTemplate": "Partially update token with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateTokens",
+          "method": "PUT",
+          "path": "/api/users/tokens/",
+          "descriptionTemplate": "Bulk update tokens",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateTokens",
+          "method": "PATCH",
+          "path": "/api/users/tokens/",
+          "descriptionTemplate": "Bulk partial update tokens",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteTokens",
+          "method": "DELETE",
+          "path": "/api/users/tokens/",
+          "descriptionTemplate": "Bulk delete tokens",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getToken",
           "method": "GET",
@@ -7882,6 +9738,22 @@
           "params": [
             "id"
           ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listTokens",
+          "method": "GET",
+          "path": "/api/users/tokens/",
+          "descriptionTemplate": "List tokens",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "provision": {
+          "name": "provisionToken",
+          "method": "POST",
+          "path": "/api/users/tokens/provision/",
+          "descriptionTemplate": "Provision token",
+          "params": [],
           "bodyTemplate": {}
         }
       }
@@ -7903,10 +9775,7 @@
             "username",
             "email"
           ],
-          "bodyTemplate": {
-            "username": "{username}",
-            "email": "{email}"
-          }
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteUser",
@@ -7932,12 +9801,43 @@
           "name": "partialUpdateUser",
           "method": "PATCH",
           "path": "/api/users/users/{id}/",
+<<<<<<< HEAD
           "descriptionTemplate": "Partial update user with id {id}",
+=======
+          "descriptionTemplate": "Partially update user with id {id}",
+>>>>>>> 1302d9a (Fix emitter bugs)
           "params": [
             "id"
           ],
           "bodyTemplate": {}
         },
+<<<<<<< HEAD
+=======
+        "bulkUpdate": {
+          "name": "bulkUpdateUsers",
+          "method": "PUT",
+          "path": "/api/users/users/",
+          "descriptionTemplate": "Bulk update users",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkPartialUpdate": {
+          "name": "bulkPartialUpdateUsers",
+          "method": "PATCH",
+          "path": "/api/users/users/",
+          "descriptionTemplate": "Bulk partial update users",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "bulkDelete": {
+          "name": "bulkDeleteUsers",
+          "method": "DELETE",
+          "path": "/api/users/users/",
+          "descriptionTemplate": "Bulk delete users",
+          "params": [],
+          "bodyTemplate": {}
+        },
+>>>>>>> 1302d9a (Fix emitter bugs)
         "get": {
           "name": "getUser",
           "method": "GET",
@@ -7946,6 +9846,14 @@
           "params": [
             "id"
           ],
+          "bodyTemplate": {}
+        },
+        "list": {
+          "name": "listUsers",
+          "method": "GET",
+          "path": "/api/users/users/",
+          "descriptionTemplate": "List users",
+          "params": [],
           "bodyTemplate": {}
         }
       }
