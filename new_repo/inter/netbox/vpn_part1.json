@@ -1,0 +1,234 @@
+{
+  "entities": {
+    "IKEPolicy": {
+      "displayName": "ike policy",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIKEPolicy",
+          "method": "POST",
+          "path": "/api/vpn/ike-policies/",
+          "descriptionTemplate": "Create ike policy with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIKEPolicy",
+          "method": "DELETE",
+          "path": "/api/vpn/ike-policies/{id}/",
+          "descriptionTemplate": "Delete ike policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIKEPolicy",
+          "method": "PUT",
+          "path": "/api/vpn/ike-policies/{id}/",
+          "descriptionTemplate": "Update ike policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIKEPolicy",
+          "method": "GET",
+          "path": "/api/vpn/ike-policies/{id}/",
+          "descriptionTemplate": "Get ike policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IKEProposal": {
+      "displayName": "ike proposal",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIKEProposal",
+          "method": "POST",
+          "path": "/api/vpn/ike-proposals/",
+          "descriptionTemplate": "Create ike proposal with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIKEProposal",
+          "method": "DELETE",
+          "path": "/api/vpn/ike-proposals/{id}/",
+          "descriptionTemplate": "Delete ike proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIKEProposal",
+          "method": "PUT",
+          "path": "/api/vpn/ike-proposals/{id}/",
+          "descriptionTemplate": "Update ike proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIKEProposal",
+          "method": "GET",
+          "path": "/api/vpn/ike-proposals/{id}/",
+          "descriptionTemplate": "Get ike proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPSecPolicy": {
+      "displayName": "ipsec policy",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPSecPolicy",
+          "method": "POST",
+          "path": "/api/vpn/ipsec-policies/",
+          "descriptionTemplate": "Create ipsec policy with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIPSecPolicy",
+          "method": "DELETE",
+          "path": "/api/vpn/ipsec-policies/{id}/",
+          "descriptionTemplate": "Delete ipsec policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPSecPolicy",
+          "method": "PUT",
+          "path": "/api/vpn/ipsec-policies/{id}/",
+          "descriptionTemplate": "Update ipsec policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIPSecPolicy",
+          "method": "GET",
+          "path": "/api/vpn/ipsec-policies/{id}/",
+          "descriptionTemplate": "Get ipsec policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPSecProfile": {
+      "displayName": "ipsec profile",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPSecProfile",
+          "method": "POST",
+          "path": "/api/vpn/ipsec-profiles/",
+          "descriptionTemplate": "Create ipsec profile with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIPSecProfile",
+          "method": "DELETE",
+          "path": "/api/vpn/ipsec-profiles/{id}/",
+          "descriptionTemplate": "Delete ipsec profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPSecProfile",
+          "method": "PUT",
+          "path": "/api/vpn/ipsec-profiles/{id}/",
+          "descriptionTemplate": "Update ipsec profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIPSecProfile",
+          "method": "GET",
+          "path": "/api/vpn/ipsec-profiles/{id}/",
+          "descriptionTemplate": "Get ipsec profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "IPSecProposal": {
+      "displayName": "ipsec proposal",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIPSecProposal",
+          "method": "POST",
+          "path": "/api/vpn/ipsec-proposals/",
+          "descriptionTemplate": "Create ipsec proposal with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteIPSecProposal",
+          "method": "DELETE",
+          "path": "/api/vpn/ipsec-proposals/{id}/",
+          "descriptionTemplate": "Delete ipsec proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateIPSecProposal",
+          "method": "PUT",
+          "path": "/api/vpn/ipsec-proposals/{id}/",
+          "descriptionTemplate": "Update ipsec proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getIPSecProposal",
+          "method": "GET",
+          "path": "/api/vpn/ipsec-proposals/{id}/",
+          "descriptionTemplate": "Get ipsec proposal with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

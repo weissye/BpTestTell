@@ -1,0 +1,239 @@
+{
+  "entities": {
+    "CircuitGroupAssignment": {
+      "displayName": "circuit group assignment",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuitGroupAssignment",
+          "method": "POST",
+          "path": "/api/circuits/circuit-group-assignments/",
+          "descriptionTemplate": "Create circuit group assignment with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCircuitGroupAssignment",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-group-assignments/{id}/",
+          "descriptionTemplate": "Delete circuit group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitGroupAssignment",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-group-assignments/{id}/",
+          "descriptionTemplate": "Update circuit group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuitGroupAssignment",
+          "method": "GET",
+          "path": "/api/circuits/circuit-group-assignments/{id}/",
+          "descriptionTemplate": "Get circuit group assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CircuitGroup": {
+      "displayName": "circuit group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuitGroup",
+          "method": "POST",
+          "path": "/api/circuits/circuit-groups/",
+          "descriptionTemplate": "Create circuit group {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCircuitGroup",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-groups/{id}/",
+          "descriptionTemplate": "Delete circuit group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitGroup",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-groups/{id}/",
+          "descriptionTemplate": "Update circuit group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuitGroup",
+          "method": "GET",
+          "path": "/api/circuits/circuit-groups/{id}/",
+          "descriptionTemplate": "Get circuit group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CircuitTermination": {
+      "displayName": "circuit termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuitTermination",
+          "method": "POST",
+          "path": "/api/circuits/circuit-terminations/",
+          "descriptionTemplate": "Create circuit termination with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCircuitTermination",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-terminations/{id}/",
+          "descriptionTemplate": "Delete circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitTermination",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-terminations/{id}/",
+          "descriptionTemplate": "Update circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuitTermination",
+          "method": "GET",
+          "path": "/api/circuits/circuit-terminations/{id}/",
+          "descriptionTemplate": "Get circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "CircuitType": {
+      "displayName": "circuit type",
+      "params": [
+        "id",
+        "slug",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuitType",
+          "method": "POST",
+          "path": "/api/circuits/circuit-types/",
+          "descriptionTemplate": "Create circuit type {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCircuitType",
+          "method": "DELETE",
+          "path": "/api/circuits/circuit-types/{id}/",
+          "descriptionTemplate": "Delete circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuitType",
+          "method": "PUT",
+          "path": "/api/circuits/circuit-types/{id}/",
+          "descriptionTemplate": "Update circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuitType",
+          "method": "GET",
+          "path": "/api/circuits/circuit-types/{id}/",
+          "descriptionTemplate": "Get circuit type with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Circuit": {
+      "displayName": "circuit",
+      "params": [
+        "id",
+        "cid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createCircuit",
+          "method": "POST",
+          "path": "/api/circuits/circuits/",
+          "descriptionTemplate": "Create circuit {cid} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteCircuit",
+          "method": "DELETE",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Delete circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuit",
+          "method": "PUT",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Update circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getCircuit",
+          "method": "GET",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Get circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

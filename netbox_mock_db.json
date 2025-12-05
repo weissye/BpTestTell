@@ -1,0 +1,738 @@
+{
+  "circuits/providers": [
+    {
+      "accounts": "accounts_270",
+      "asns": "asns_270",
+      "comments": "comments_270",
+      "custom_fields": {},
+      "description": "Create provider with id 270",
+      "id": "270",
+      "name": "name_270",
+      "slug": "slug_270",
+      "tags": "tags_270"
+    }
+  ],
+  "dcim/rear-port-templates": [
+    {
+      "name": "name_786",
+      "label": "label_786",
+      "type": "type_786",
+      "color": "color_786",
+      "positions": "786",
+      "description": "Create rear port template name_786 with id 786",
+      "tags": "tags_786",
+      "device_type": "device_type_786",
+      "id": 786
+    }
+  ],
+  "dcim/manufacturers": [
+    {
+      "custom_fields": {},
+      "description": "Create manufacturer name_610 with id 610",
+      "id": "610",
+      "name": "name_610",
+      "slug": "slug_610",
+      "tags": "tags_610"
+    }
+  ],
+  "vpn/tunnels": [
+    {
+      "name": "name_1481",
+      "id": 1481
+    }
+  ],
+  "vpn/l2vpn-terminations": [
+    {
+      "id": "1440"
+    },
+    {
+      "id": "1441"
+    }
+  ],
+  "dcim/cable-terminations": [
+    {
+      "cable": 391,
+      "cable_end": "cable_end_391",
+      "id": "391",
+      "termination_id": 391,
+      "termination_type": "termination_type_391"
+    },
+    {
+      "cable": 396,
+      "cable_end": "cable_end_396",
+      "id": "396",
+      "termination_id": 396,
+      "termination_type": "termination_type_396"
+    }
+  ],
+  "dcim/regions": [
+    {
+      "comments": "comments_800",
+      "custom_fields": {},
+      "description": "Create region with id 800",
+      "id": "800",
+      "name": "name_800",
+      "parent": 800,
+      "slug": "slug_800",
+      "tags": "tags_800"
+    }
+  ],
+  "dcim/power-feeds": [
+    {
+      "amperage": 681,
+      "comments": "comments_681",
+      "custom_fields": {},
+      "description": "Create power feed with id 681",
+      "id": "681",
+      "mark_connected": "mark_connected_681",
+      "max_utilization": 681,
+      "name": "name_681",
+      "phase": "phase_681",
+      "power_panel": "power_panel_681",
+      "rack": "rack_681",
+      "status": "status_681",
+      "supply": "supply_681",
+      "tags": "tags_681",
+      "tenant": "tenant_681",
+      "type": "type_681",
+      "voltage": 681
+    }
+  ],
+  "circuits/virtual-circuit-types": [
+    {
+      "name": "name_296",
+      "slug": "slug_296",
+      "description": "Create virtual circuit type with id 296",
+      "color": "color_296",
+      "id": 296
+    },
+    {
+      "name": "name_290",
+      "slug": "slug_290",
+      "description": "Create virtual circuit type with id 290",
+      "color": "color_290",
+      "id": 290
+    }
+  ],
+  "core/data-sources": [
+    {
+      "name": "name_350",
+      "description": "Create data source with id 350",
+      "enabled": "enabled_350",
+      "source_url": "source_url_350",
+      "status": "status_350",
+      "sync_interval": "350",
+      "tag": "tag_350",
+      "type": "type_350",
+      "id": 350
+    }
+  ],
+  "dcim/module-bays": [
+    {
+      "custom_fields": {},
+      "description": "Create module bay with id 630",
+      "device": "device_630",
+      "id": "630",
+      "installed_module": "installed_module_630",
+      "label": "label_630",
+      "module": "module_630",
+      "name": "name_630",
+      "position": "position_630",
+      "tags": "tags_630"
+    }
+  ],
+  "dcim/console-server-ports": [
+    {
+      "custom_fields": {},
+      "description": "Create console server port with id 441",
+      "device": "device_441",
+      "id": "441",
+      "label": "label_441",
+      "mark_connected": "mark_connected_441",
+      "module": "module_441",
+      "name": "name_441",
+      "speed": 441,
+      "tags": "tags_441",
+      "type": "type_441"
+    }
+  ],
+  "dcim/racks": [
+    {
+      "name": "name_770",
+      "facility_id": "770",
+      "site": "site_770",
+      "location": "location_770",
+      "rack_type": "rack_type_770",
+      "serial": "serial_770",
+      "asset_tag": "asset_tag_770",
+      "u_height": "770",
+      "desc_units": "desc_units_770",
+      "outer_width": "770",
+      "outer_depth": "770",
+      "outer_height": "770",
+      "outer_unit": "outer_unit_770",
+      "weight": "770",
+      "weight_unit": "weight_unit_770",
+      "max_weight": "770",
+      "comments": "comments_770",
+      "tags": "tags_770",
+      "tenant": "tenant_770",
+      "role": "role_770",
+      "status": "status_770",
+      "manufacturer": "manufacturer_770",
+      "mounting_depth": "770",
+      "starting_unit": "770",
+      "id": 770
+    }
+  ],
+  "dcim/power-port-templates": [
+    {
+      "allocated_draw": 726,
+      "description": "Create power port template 726",
+      "device_type": "device_type_726",
+      "id": "726",
+      "label": "label_726",
+      "maximum_draw": 726,
+      "module_type": "module_type_726",
+      "name": "name_726",
+      "type": "type_726"
+    }
+  ],
+  "extras/config-context-profiles": [
+    {
+      "comments": "comments_860",
+      "data_source": "data_source_860",
+      "description": "Create config context profile with id 860",
+      "id": "860",
+      "name": "name_860",
+      "schema": "schema_860",
+      "tags": "tags_860"
+    }
+  ],
+  "extras/journal-entries": [
+    {
+      "assigned_object_id": 960,
+      "assigned_object_type": "assigned_object_type_960",
+      "comments": "comments_960",
+      "created_by": 960,
+      "custom_fields": {},
+      "id": "960",
+      "kind": "kind_960",
+      "tags": "tags_960"
+    },
+    {
+      "assigned_object_id": 966,
+      "assigned_object_type": "assigned_object_type_966",
+      "comments": "comments_966",
+      "created_by": 966,
+      "custom_fields": {},
+      "id": "966",
+      "kind": "kind_966",
+      "tags": "tags_966"
+    }
+  ],
+  "vpn/tunnel-groups": [
+    {
+      "name": "name_1466",
+      "id": 1466
+    }
+  ],
+  "dcim/power-outlets": [
+    {
+      "color": "color_701",
+      "custom_fields": {},
+      "description": "Create power outlet with id 701",
+      "device": "device_701",
+      "feed_leg": "feed_leg_701",
+      "id": "701",
+      "label": "label_701",
+      "mark_connected": "mark_connected_701",
+      "module": "module_701",
+      "name": "name_701",
+      "power_port": "power_port_701",
+      "status": "status_701",
+      "tags": "tags_701",
+      "type": "type_701"
+    },
+    {
+      "color": "color_700",
+      "custom_fields": {},
+      "description": "Create power outlet with id 700",
+      "device": "device_700",
+      "feed_leg": "feed_leg_700",
+      "id": "700",
+      "label": "label_700",
+      "mark_connected": "mark_connected_700",
+      "module": "module_700",
+      "name": "name_700",
+      "power_port": "power_port_700",
+      "status": "status_700",
+      "tags": "tags_700",
+      "type": "type_700"
+    }
+  ],
+  "virtualization/virtual-disks": [
+    {
+      "custom_fields": {},
+      "description": "Create virtual disk with id 1371",
+      "id": "1371",
+      "name": "name_1371",
+      "size": 1371,
+      "tags": "tags_1371",
+      "virtual_machine": "virtual_machine_1371"
+    },
+    {
+      "custom_fields": {},
+      "description": "Create virtual disk with id 1376",
+      "id": "1376",
+      "name": "name_1376",
+      "size": 1376,
+      "tags": "tags_1376",
+      "virtual_machine": "virtual_machine_1376"
+    },
+    {
+      "custom_fields": {},
+      "description": "Create virtual disk with id 1370",
+      "id": "1370",
+      "name": "name_1370",
+      "size": 1370,
+      "tags": "tags_1370",
+      "virtual_machine": "virtual_machine_1370"
+    }
+  ],
+  "extras/export-templates": [
+    {
+      "as_attachment": "as_attachment_940",
+      "data_source": "data_source_940",
+      "description": "Create export template with id 940",
+      "environment_params": "environment_params_940",
+      "file_extension": "file_extension_940",
+      "file_name": "file_name_940",
+      "id": "940",
+      "mime_type": "mime_type_940",
+      "name": "name_940",
+      "object_types": "object_types_940",
+      "template_code": "template_code_940"
+    }
+  ],
+  "extras/notifications": [
+    {
+      "name": "name_980",
+      "group": "group_980",
+      "status": "status_980",
+      "level": "level_980",
+      "assigned_object_type": "assigned_object_type_980",
+      "assigned_object_id": "980",
+      "user": "user_980",
+      "url": "/api/extras/notifications/",
+      "created": "created_980",
+      "last_updated": "last_updated_980",
+      "description": "Create notification with name name_980 with id 980",
+      "read": "read_980",
+      "id": 980
+    }
+  ],
+  "users/tokens": [
+    {
+      "id": "1326",
+      "key": "key_1326"
+    }
+  ],
+  "ipam/services": [
+    {
+      "comments": "comments_1186",
+      "custom_fields": {},
+      "description": "Create service with id 1186",
+      "id": "1186",
+      "ipaddresses": "ipaddresses_1186",
+      "name": "name_1186",
+      "parent_object_id": 1186,
+      "parent_object_type": "parent_object_type_1186",
+      "ports": "ports_1186",
+      "protocol": "protocol_1186",
+      "tags": "tags_1186"
+    }
+  ],
+  "vpn/ipsec-policies": [
+    {
+      "comments": "comments_1416",
+      "custom_fields": {},
+      "description": "Create ipsec policy with id 1416",
+      "id": "1416",
+      "name": "name_1416",
+      "pfs_group": 1416,
+      "proposals": "proposals_1416",
+      "tags": "tags_1416"
+    }
+  ],
+  "virtualization/interfaces": [
+    {
+      "bridge": 556,
+      "custom_fields": {},
+      "description": "Create interface with id 556",
+      "enabled": "enabled_556",
+      "id": "556",
+      "mode": "mode_556",
+      "mtu": 556,
+      "name": "name_556",
+      "parent": 556,
+      "primary_mac_address": "primary_mac_address_556",
+      "qinq_svlan": "qinq_svlan_556",
+      "tagged_vlans": "tagged_vlans_556",
+      "tags": "tags_556",
+      "untagged_vlan": "untagged_vlan_556",
+      "virtual_machine": "virtual_machine_556",
+      "vlan_translation_policy": "vlan_translation_policy_556",
+      "vrf": "vrf_556"
+    }
+  ],
+  "extras/webhooks": [
+    {
+      "name": "name_1051",
+      "id": 1051
+    }
+  ],
+  "ipam/vlan-translation-policies": [
+    {
+      "name": "name_1211",
+      "slug": "slug_1211",
+      "id": 1211
+    }
+  ],
+  "ipam/ip-ranges": [
+    {
+      "start_address": "start_address_1120",
+      "end_address": "end_address_1120",
+      "vrf": "vrf_1120",
+      "tenant": "tenant_1120",
+      "status": "status_1120",
+      "role": "role_1120",
+      "description": "Create ip range start_address_1120 - end_address_1120 with id 1120",
+      "tags": "tags_1120",
+      "id": 1120
+    }
+  ],
+  "dcim/virtual-device-contexts": [
+    {
+      "comments": "comments_846",
+      "custom_fields": {},
+      "description": "Create virtual device context with id 846",
+      "device": "device_846",
+      "id": "846",
+      "identifier": 846,
+      "name": "name_846",
+      "primary_ip4": "primary_ip4_846",
+      "primary_ip6": "primary_ip6_846",
+      "status": "status_846",
+      "tags": "tags_846",
+      "tenant": "tenant_846"
+    }
+  ],
+  "dcim/power-outlet-templates": [
+    {
+      "description": "Create power outlet template with id 696",
+      "device_type": "device_type_696",
+      "feed_leg": "feed_leg_696",
+      "id": "696",
+      "label": "label_696",
+      "module_type": "module_type_696",
+      "name": "name_696",
+      "power_port": "power_port_696",
+      "type": "type_696"
+    }
+  ],
+  "extras/scripts": [
+    {
+      "id": "1000"
+    }
+  ],
+  "wireless/wireless-links": [
+    {
+      "auth_cipher": "auth_cipher_1510",
+      "auth_psk": "auth_psk_1510",
+      "auth_type": "auth_type_1510",
+      "comments": "comments_1510",
+      "custom_fields": {},
+      "description": "Create wireless link with id 1510",
+      "distance": 1510,
+      "distance_unit": "distance_unit_1510",
+      "id": "1510",
+      "interface_a": "interface_a_1510",
+      "interface_b": "interface_b_1510",
+      "ssid": "1510",
+      "status": "status_1510",
+      "tags": "tags_1510",
+      "tenant": "tenant_1510"
+    }
+  ],
+  "dcim/power-ports": [
+    {
+      "allocated_draw": 730,
+      "custom_fields": {},
+      "description": "Create power port 730",
+      "device": "device_730",
+      "id": "730",
+      "label": "label_730",
+      "mark_connected": "mark_connected_730",
+      "maximum_draw": 730,
+      "module": "module_730",
+      "name": "name_730",
+      "tags": "tags_730",
+      "type": "type_730"
+    }
+  ],
+  "extras/event-rules": [
+    {
+      "action_object_id": 930,
+      "action_object_type": "action_object_type_930",
+      "action_type": "action_type_930",
+      "conditions": "conditions_930",
+      "custom_fields": {},
+      "description": "Create event rule with id 930",
+      "enabled": "enabled_930",
+      "event_types": "event_types_930",
+      "id": "930",
+      "name": "name_930",
+      "object_types": "object_types_930",
+      "tags": "tags_930"
+    }
+  ],
+  "dcim/console-ports": [
+    {
+      "custom_fields": {},
+      "description": "Create console port with id 426",
+      "device": "device_426",
+      "id": "426",
+      "label": "label_426",
+      "mark_connected": "mark_connected_426",
+      "module": "module_426",
+      "name": "name_426",
+      "speed": 426,
+      "tags": "tags_426",
+      "type": "type_426"
+    }
+  ],
+  "tenancy/tenant-groups": [
+    {
+      "comments": "comments_1280",
+      "custom_fields": {},
+      "description": "Create tenant group name_1280 with id 1280",
+      "id": "1280",
+      "name": "name_1280",
+      "parent": 1280,
+      "slug": "slug_1280",
+      "tags": "tags_1280"
+    }
+  ],
+  "ipam/roles": [
+    {
+      "custom_fields": {},
+      "description": "Create role with id 1151",
+      "id": "1151",
+      "name": "name_1151",
+      "slug": "slug_1151",
+      "tags": "tags_1151",
+      "weight": 1151
+    }
+  ],
+  "extras/custom-field-choice-sets": [
+    {
+      "name": "name_890",
+      "label": "label_890",
+      "choices": "choices_890",
+      "weight": "weight_890",
+      "description": "Create custom field choice set name_890 with id 890",
+      "required": "required_890",
+      "default": "default_890",
+      "group_name": "group_name_890",
+      "ui_visible": "ui_visible_890",
+      "ui_editable": "ui_editable_890",
+      "is_cloneable": "is_cloneable_890",
+      "validation_minimum": "validation_minimum_890",
+      "validation_maximum": "validation_maximum_890",
+      "validation_regex": "validation_regex_890",
+      "unique": "unique_890",
+      "id": 890
+    }
+  ],
+  "wireless/wireless-lan-groups": [
+    {
+      "comments": "comments_1490",
+      "custom_fields": {},
+      "description": "Create wireless LAN group with id 1490",
+      "id": "1490",
+      "name": "name_1490",
+      "parent": 1490,
+      "slug": "slug_1490",
+      "tags": "tags_1490"
+    }
+  ],
+  "dcim/rack-reservations": [
+    {
+      "comments": "comments_740",
+      "custom_fields": {},
+      "description": "Create rack reservation 740",
+      "id": "740",
+      "rack": "rack_740",
+      "status": "status_740",
+      "tags": "tags_740",
+      "tenant": "tenant_740",
+      "units": "units_740",
+      "user": "user_740"
+    }
+  ],
+  "dcim/rear-ports": [
+    {
+      "name": "name_791",
+      "label": "label_791",
+      "type": "type_791",
+      "color": "color_791",
+      "cable_end": "cable_end_791",
+      "cable": "cable_791",
+      "device": "device_791",
+      "device_type": "device_type_791",
+      "device_role": "device_role_791",
+      "device_status": "device_status_791",
+      "module": "module_791",
+      "rack": "rack_791",
+      "region": "region_791",
+      "site": "site_791",
+      "virtual_chassis": "virtual_chassis_791",
+      "description": "Create rear port name_791 with id 791",
+      "tags": "tags_791",
+      "occupied": "occupied_791",
+      "mark_connected": "mark_connected_791",
+      "id": 791
+    }
+  ],
+  "ipam/route-targets": [
+    {
+      "comments": "comments_1166",
+      "custom_fields": {},
+      "description": "Create route target with id 1166",
+      "id": "1166",
+      "name": "name_1166",
+      "tags": "tags_1166",
+      "tenant": "tenant_1166"
+    }
+  ],
+  "dcim/device-bay-templates": [
+    {
+      "description": "Create device bay template with id 450",
+      "device_type": "device_type_450",
+      "id": "450",
+      "label": "label_450",
+      "name": "name_450"
+    }
+  ],
+  "ipam/vlan-translation-rules": [
+    {
+      "policy_id": "1226",
+      "local_vid": "1226",
+      "remote_vid": "1226",
+      "id": 1226
+    }
+  ],
+  "extras/image-attachments": [
+    {
+      "description": "Create image attachment with id 956",
+      "id": "956",
+      "image": "image_956",
+      "name": "name_956",
+      "object_id": 956,
+      "object_type": "object_type_956"
+    }
+  ],
+  "tenancy/tenants": [
+    {
+      "name": "name_1296",
+      "slug": "slug_1296",
+      "description": "Create tenant with id 1296",
+      "group": "group_1296",
+      "contact": "contact_1296",
+      "contact_group": "contact_group_1296",
+      "contact_role": "contact_role_1296",
+      "id": 1296
+    }
+  ],
+  "circuits/circuit-group-assignments": [
+    {
+      "group": "group_200",
+      "id": "200",
+      "member_id": 200,
+      "member_type": "member_type_200",
+      "priority": "priority_200",
+      "tags": "tags_200"
+    }
+  ],
+  "users/users": [
+    {
+      "id": "1331",
+      "username": "username_1331",
+      "email": "email_1331"
+    }
+  ],
+  "dcim/virtual-chassis": [
+    {
+      "comments": "comments_836",
+      "custom_fields": {},
+      "description": "Create virtual chassis with id 836",
+      "domain": "domain_836",
+      "id": "836",
+      "master": 836,
+      "name": "name_836",
+      "tags": "tags_836"
+    }
+  ],
+  "dcim/locations": [
+    {
+      "comments": "comments_590",
+      "custom_fields": {},
+      "description": "Create location name_590 with id 590",
+      "facility": "facility_590",
+      "id": "590",
+      "name": "name_590",
+      "parent": 590,
+      "site": "site_590",
+      "slug": "slug_590",
+      "status": "status_590",
+      "tags": "tags_590",
+      "tenant": "tenant_590"
+    }
+  ],
+  "dcim/module-type-profiles": [
+    {
+      "comments": "comments_646",
+      "custom_fields": {},
+      "description": "Create module type profile with id 646",
+      "id": "646",
+      "name": "name_646",
+      "schema": "schema_646",
+      "tags": "tags_646"
+    }
+  ],
+  "virtualization/cluster-groups": [
+    {
+      "custom_fields": {},
+      "description": "Create cluster group with id 1340",
+      "id": "1340",
+      "name": "name_1340",
+      "slug": "slug_1340",
+      "tags": "tags_1340"
+    }
+  ],
+  "dcim/rack-roles": [
+    {
+      "name": "name_756",
+      "slug": "slug_756",
+      "id": 756
+    }
+  ],
+  "ipam/vlan-groups": [
+    {
+      "name": "name_1196",
+      "slug": "slug_1196",
+      "id": 1196
+    }
+  ]
+}

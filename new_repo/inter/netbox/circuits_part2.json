@@ -1,0 +1,304 @@
+{
+  "entities": {
+    "Circuit": {
+      "displayName": "circuit",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getCircuit",
+          "method": "GET",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Get circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createCircuit",
+          "method": "POST",
+          "path": "/api/circuits/circuits/",
+          "descriptionTemplate": "Create circuit",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateCircuit",
+          "method": "PUT",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Update circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "patch": {
+          "name": "patchCircuit",
+          "method": "PATCH",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Patch circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteCircuit",
+          "method": "DELETE",
+          "path": "/api/circuits/circuits/{id}/",
+          "descriptionTemplate": "Delete circuit with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ProviderAccount": {
+      "displayName": "provider account",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getProviderAccount",
+          "method": "GET",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Get provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createProviderAccount",
+          "method": "POST",
+          "path": "/api/circuits/provider-accounts/",
+          "descriptionTemplate": "Create provider account",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProviderAccount",
+          "method": "PUT",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Update provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "patch": {
+          "name": "patchProviderAccount",
+          "method": "PATCH",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Patch provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteProviderAccount",
+          "method": "DELETE",
+          "path": "/api/circuits/provider-accounts/{id}/",
+          "descriptionTemplate": "Delete provider account with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ProviderNetwork": {
+      "displayName": "provider network",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getProviderNetwork",
+          "method": "GET",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Get provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createProviderNetwork",
+          "method": "POST",
+          "path": "/api/circuits/provider-networks/",
+          "descriptionTemplate": "Create provider network",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProviderNetwork",
+          "method": "PUT",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Update provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "patch": {
+          "name": "patchProviderNetwork",
+          "method": "PATCH",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Patch provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteProviderNetwork",
+          "method": "DELETE",
+          "path": "/api/circuits/provider-networks/{id}/",
+          "descriptionTemplate": "Delete provider network with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Provider": {
+      "displayName": "provider",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getProvider",
+          "method": "GET",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Get provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createProvider",
+          "method": "POST",
+          "path": "/api/circuits/providers/",
+          "descriptionTemplate": "Create provider",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateProvider",
+          "method": "PUT",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Update provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "patch": {
+          "name": "patchProvider",
+          "method": "PATCH",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Patch provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteProvider",
+          "method": "DELETE",
+          "path": "/api/circuits/providers/{id}/",
+          "descriptionTemplate": "Delete provider with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VirtualCircuitTermination": {
+      "displayName": "virtual circuit termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getVirtualCircuitTermination",
+          "method": "GET",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Get virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createVirtualCircuitTermination",
+          "method": "POST",
+          "path": "/api/circuits/virtual-circuit-terminations/",
+          "descriptionTemplate": "Create virtual circuit termination",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVirtualCircuitTermination",
+          "method": "PUT",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Update virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "patch": {
+          "name": "patchVirtualCircuitTermination",
+          "method": "PATCH",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Patch virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteVirtualCircuitTermination",
+          "method": "DELETE",
+          "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+          "descriptionTemplate": "Delete virtual circuit termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,399 @@
+{
+  "entities": {
+    "FrontPortPaths": {
+      "displayName": "front port paths",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getFrontPortPaths",
+          "method": "GET",
+          "path": "/api/dcim/front-ports/{id}/paths/",
+          "descriptionTemplate": "Get paths for front port with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "InterfaceTemplate": {
+      "displayName": "interface template",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInterfaceTemplate",
+          "method": "POST",
+          "path": "/api/dcim/interface-templates/",
+          "descriptionTemplate": "Create interface template {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}"
+          }
+        },
+        "get": {
+          "name": "getInterfaceTemplate",
+          "method": "GET",
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Get interface template with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateInterfaceTemplate",
+          "method": "PUT",
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Update interface template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_type_id": "{device_type_id}",
+            "module_type_id": "{module_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}"
+          }
+        },
+        "partial_update": {
+          "name": "partialUpdateInterfaceTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Partially update interface template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteInterfaceTemplate",
+          "method": "DELETE",
+          "path": "/api/dcim/interface-templates/{id}/",
+          "descriptionTemplate": "Delete interface template with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "Interface": {
+      "displayName": "interface",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInterface",
+          "method": "POST",
+          "path": "/api/dcim/interfaces/",
+          "descriptionTemplate": "Create interface {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_id": "{device_id}",
+            "device_type_id": "{device_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}",
+            "mac_address": "{mac_address}",
+            "speed": "{speed}",
+            "duplex": "{duplex}",
+            "mtu": "{mtu}",
+            "cable_id": "{cable_id}",
+            "cable_end": "{cable_end}",
+            "parent_id": "{parent_id}",
+            "lag_id": "{lag_id}",
+            "device_role_id": "{device_role_id}",
+            "device_status": "{device_status}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "region_id": "{region_id}",
+            "site_id": "{site_id}",
+            "virtual_chassis_id": "{virtual_chassis_id}",
+            "virtual_chassis_member_id": "{virtual_chassis_member_id}",
+            "virtual_chassis_member_or_master_id": "{virtual_chassis_member_or_master_id}",
+            "virtual_circuit_id": "{virtual_circuit_id}",
+            "virtual_circuit_termination_id": "{virtual_circuit_termination_id}",
+            "vdc_id": "{vdc_id}",
+            "vdc_identifier": "{vdc_identifier}",
+            "wireless_lan_id": "{wireless_lan_id}",
+            "wireless_link_id": "{wireless_link_id}",
+            "tx_power": "{tx_power}",
+            "rf_channel": "{rf_channel}",
+            "rf_channel_frequency": "{rf_channel_frequency}",
+            "rf_channel_width": "{rf_channel_width}",
+            "tag_id": "{tag_id}",
+            "label": "{label}",
+            "kind": "{kind}",
+            "occupied": "{occupied}",
+            "mark_connected": "{mark_connected}",
+            "role_id": "{role_id}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getInterface",
+          "method": "GET",
+          "path": "/api/dcim/interfaces/{id}/",
+          "descriptionTemplate": "Get interface with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateInterface",
+          "method": "PUT",
+          "path": "/api/dcim/interfaces/{id}/",
+          "descriptionTemplate": "Update interface with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "device_id": "{device_id}",
+            "device_type_id": "{device_type_id}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "poe_mode": "{poe_mode}",
+            "poe_type": "{poe_type}",
+            "rf_role": "{rf_role}",
+            "type": "{type}",
+            "mgmt_only": "{mgmt_only}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}",
+            "mac_address": "{mac_address}",
+            "speed": "{speed}",
+            "duplex": "{duplex}",
+            "mtu": "{mtu}",
+            "cable_id": "{cable_id}",
+            "cable_end": "{cable_end}",
+            "parent_id": "{parent_id}",
+            "lag_id": "{lag_id}",
+            "device_role_id": "{device_role_id}",
+            "device_status": "{device_status}",
+            "location_id": "{location_id}",
+            "rack_id": "{rack_id}",
+            "region_id": "{region_id}",
+            "site_id": "{site_id}",
+            "virtual_chassis_id": "{virtual_chassis_id}",
+            "virtual_chassis_member_id": "{virtual_chassis_member_id}",
+            "virtual_chassis_member_or_master_id": "{virtual_chassis_member_or_master_id}",
+            "virtual_circuit_id": "{virtual_circuit_id}",
+            "virtual_circuit_termination_id": "{virtual_circuit_termination_id}",
+            "vdc_id": "{vdc_id}",
+            "vdc_identifier": "{vdc_identifier}",
+            "wireless_lan_id": "{wireless_lan_id}",
+            "wireless_link_id": "{wireless_link_id}",
+            "tx_power": "{tx_power}",
+            "rf_channel": "{rf_channel}",
+            "rf_channel_frequency": "{rf_channel_frequency}",
+            "rf_channel_width": "{rf_channel_width}",
+            "tag_id": "{tag_id}",
+            "label": "{label}",
+            "kind": "{kind}",
+            "occupied": "{occupied}",
+            "mark_connected": "{mark_connected}",
+            "role_id": "{role_id}",
+            "slug": "{slug}"
+          }
+        },
+        "partial_update": {
+          "name": "partialUpdateInterface",
+          "method": "PATCH",
+          "path": "/api/dcim/interfaces/{id}/",
+          "descriptionTemplate": "Partially update interface with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteInterface",
+          "method": "DELETE",
+          "path": "/api/dcim/interfaces/{id}/",
+          "descriptionTemplate": "Delete interface with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "InventoryItemRole": {
+      "displayName": "inventory item role",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInventoryItemRole",
+          "method": "POST",
+          "path": "/api/dcim/inventory-item-roles/",
+          "descriptionTemplate": "Create inventory item role {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "color": "{color}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}"
+          }
+        },
+        "get": {
+          "name": "getInventoryItemRole",
+          "method": "GET",
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Get inventory item role with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateInventoryItemRole",
+          "method": "PUT",
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Update inventory item role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "color": "{color}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}"
+          }
+        },
+        "partial_update": {
+          "name": "partialUpdateInventoryItemRole",
+          "method": "PATCH",
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Partially update inventory item role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteInventoryItemRole",
+          "method": "DELETE",
+          "path": "/api/dcim/inventory-item-roles/{id}/",
+          "descriptionTemplate": "Delete inventory item role with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "InventoryItemTemplate": {
+      "displayName": "inventory item template",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createInventoryItemTemplate",
+          "method": "POST",
+          "path": "/api/dcim/inventory-item-templates/",
+          "descriptionTemplate": "Create inventory item template {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "component_id": "{component_id}",
+            "component_type": "{component_type}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}",
+            "parent_id": "{parent_id}",
+            "part_id": "{part_id}",
+            "role_id": "{role_id}",
+            "manufacturer_id": "{manufacturer_id}"
+          }
+        },
+        "get": {
+          "name": "getInventoryItemTemplate",
+          "method": "GET",
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Get inventory item template with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateInventoryItemTemplate",
+          "method": "PUT",
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Update inventory item template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "component_id": "{component_id}",
+            "component_type": "{component_type}",
+            "description": "{description}",
+            "created_by_request": "{created_by_request}",
+            "modified_by_request": "{modified_by_request}",
+            "updated_by_request": "{updated_by_request}",
+            "parent_id": "{parent_id}",
+            "part_id": "{part_id}",
+            "role_id": "{role_id}",
+            "manufacturer_id": "{manufacturer_id}"
+          }
+        },
+        "partial_update": {
+          "name": "partialUpdateInventoryItemTemplate",
+          "method": "PATCH",
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Partially update inventory item template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteInventoryItemTemplate",
+          "method": "DELETE",
+          "path": "/api/dcim/inventory-item-templates/{id}/",
+          "descriptionTemplate": "Delete inventory item template with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    }
+  }
+}

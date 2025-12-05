@@ -1,0 +1,257 @@
+{
+  "entities": {
+    "Subscription": {
+      "displayName": "subscription",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getSubscription",
+          "method": "GET",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Get subscription with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "add": {
+          "name": "createSubscription",
+          "method": "POST",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "Create subscription",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateSubscription",
+          "method": "PUT",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Update subscription with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "patch": {
+          "name": "patchSubscription",
+          "method": "PATCH",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Patch subscription with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteSubscription",
+          "method": "DELETE",
+          "path": "/api/extras/subscriptions/{id}/",
+          "descriptionTemplate": "Delete subscription with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "TableConfig": {
+      "displayName": "table config",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTableConfig",
+          "method": "GET",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Get table config with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "add": {
+          "name": "createTableConfig",
+          "method": "POST",
+          "path": "/api/extras/table-configs/",
+          "descriptionTemplate": "Create table config with name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "update": {
+          "name": "updateTableConfig",
+          "method": "PUT",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Update table config with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "patch": {
+          "name": "patchTableConfig",
+          "method": "PATCH",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Patch table config with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteTableConfig",
+          "method": "DELETE",
+          "path": "/api/extras/table-configs/{id}/",
+          "descriptionTemplate": "Delete table config with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "TaggedObject": {
+      "displayName": "tagged object",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTaggedObject",
+          "method": "GET",
+          "path": "/api/extras/tagged-objects/{id}/",
+          "descriptionTemplate": "Get tagged object with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "Tag": {
+      "displayName": "tag",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "get": {
+          "name": "getTag",
+          "method": "GET",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Get tag with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "add": {
+          "name": "createTag",
+          "method": "POST",
+          "path": "/api/extras/tags/",
+          "descriptionTemplate": "Create tag with name {name} and slug {slug}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "update": {
+          "name": "updateTag",
+          "method": "PUT",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Update tag with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "patch": {
+          "name": "patchTag",
+          "method": "PATCH",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Patch tag with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteTag",
+          "method": "DELETE",
+          "path": "/api/extras/tags/{id}/",
+          "descriptionTemplate": "Delete tag with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "webhook",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getWebhook",
+          "method": "GET",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Get webhook with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "add": {
+          "name": "createWebhook",
+          "method": "POST",
+          "path": "/api/extras/webhooks/",
+          "descriptionTemplate": "Create webhook with name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "update": {
+          "name": "updateWebhook",
+          "method": "PUT",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Update webhook with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "patch": {
+          "name": "patchWebhook",
+          "method": "PATCH",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Patch webhook with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteWebhook",
+          "method": "DELETE",
+          "path": "/api/extras/webhooks/{id}/",
+          "descriptionTemplate": "Delete webhook with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    }
+  }
+}

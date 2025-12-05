@@ -1,0 +1,260 @@
+{
+  "entities": {
+    "L2VPNTermination": {
+      "displayName": "l2vpn termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createL2VPNTermination",
+          "method": "POST",
+          "path": "/api/vpn/l2vpn-terminations/",
+          "descriptionTemplate": "Create l2vpn termination with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteL2VPNTermination",
+          "method": "DELETE",
+          "path": "/api/vpn/l2vpn-terminations/{id}/",
+          "descriptionTemplate": "Delete l2vpn termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateL2VPNTermination",
+          "method": "PUT",
+          "path": "/api/vpn/l2vpn-terminations/{id}/",
+          "descriptionTemplate": "Update l2vpn termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "get": {
+          "name": "getL2VPNTermination",
+          "method": "GET",
+          "path": "/api/vpn/l2vpn-terminations/{id}/",
+          "descriptionTemplate": "Get l2vpn termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "L2VPN": {
+      "displayName": "l2vpn",
+      "params": [
+        "id",
+        "slug",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createL2VPN",
+          "method": "POST",
+          "path": "/api/vpn/l2vpns/",
+          "descriptionTemplate": "Create l2vpn {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "slug": "{slug}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteL2VPN",
+          "method": "DELETE",
+          "path": "/api/vpn/l2vpns/{id}/",
+          "descriptionTemplate": "Delete l2vpn with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateL2VPN",
+          "method": "PUT",
+          "path": "/api/vpn/l2vpns/{id}/",
+          "descriptionTemplate": "Update l2vpn with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "slug": "{slug}",
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getL2VPN",
+          "method": "GET",
+          "path": "/api/vpn/l2vpns/{id}/",
+          "descriptionTemplate": "Get l2vpn with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TunnelGroup": {
+      "displayName": "tunnel group",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTunnelGroup",
+          "method": "POST",
+          "path": "/api/vpn/tunnel-groups/",
+          "descriptionTemplate": "Create tunnel group {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteTunnelGroup",
+          "method": "DELETE",
+          "path": "/api/vpn/tunnel-groups/{id}/",
+          "descriptionTemplate": "Delete tunnel group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTunnelGroup",
+          "method": "PUT",
+          "path": "/api/vpn/tunnel-groups/{id}/",
+          "descriptionTemplate": "Update tunnel group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getTunnelGroup",
+          "method": "GET",
+          "path": "/api/vpn/tunnel-groups/{id}/",
+          "descriptionTemplate": "Get tunnel group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TunnelTermination": {
+      "displayName": "tunnel termination",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTunnelTermination",
+          "method": "POST",
+          "path": "/api/vpn/tunnel-terminations/",
+          "descriptionTemplate": "Create tunnel termination with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteTunnelTermination",
+          "method": "DELETE",
+          "path": "/api/vpn/tunnel-terminations/{id}/",
+          "descriptionTemplate": "Delete tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTunnelTermination",
+          "method": "PUT",
+          "path": "/api/vpn/tunnel-terminations/{id}/",
+          "descriptionTemplate": "Update tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "get": {
+          "name": "getTunnelTermination",
+          "method": "GET",
+          "path": "/api/vpn/tunnel-terminations/{id}/",
+          "descriptionTemplate": "Get tunnel termination with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Tunnel": {
+      "displayName": "tunnel",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTunnel",
+          "method": "POST",
+          "path": "/api/vpn/tunnels/",
+          "descriptionTemplate": "Create tunnel {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteTunnel",
+          "method": "DELETE",
+          "path": "/api/vpn/tunnels/{id}/",
+          "descriptionTemplate": "Delete tunnel with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTunnel",
+          "method": "PUT",
+          "path": "/api/vpn/tunnels/{id}/",
+          "descriptionTemplate": "Update tunnel with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "get": {
+          "name": "getTunnel",
+          "method": "GET",
+          "path": "/api/vpn/tunnels/{id}/",
+          "descriptionTemplate": "Get tunnel with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

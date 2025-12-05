@@ -1,0 +1,324 @@
+{
+  "entities": {
+    "VLANGroup": {
+      "displayName": "vlan group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLANGroup",
+          "method": "POST",
+          "path": "/api/ipam/vlan-groups/",
+          "descriptionTemplate": "Create vlan group {name} with id {id}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteVLANGroup",
+          "method": "DELETE",
+          "path": "/api/ipam/vlan-groups/{id}/",
+          "descriptionTemplate": "Delete vlan group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLANGroup",
+          "method": "PUT",
+          "path": "/api/ipam/vlan-groups/{id}/",
+          "descriptionTemplate": "Update vlan group {name} with id {id}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getVLANGroup",
+          "method": "GET",
+          "path": "/api/ipam/vlan-groups/{id}/",
+          "descriptionTemplate": "Get vlan group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLAN": {
+      "displayName": "vlan",
+      "params": [
+        "id",
+        "vid",
+        "name",
+        "status",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLAN",
+          "method": "POST",
+          "path": "/api/ipam/vlans/",
+          "descriptionTemplate": "Create vlan {name} with id {id} and vid {vid}",
+          "params": [
+            "id",
+            "vid",
+            "name",
+            "status",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "vid": "{vid}",
+            "name": "{name}",
+            "status": "{status}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteVLAN",
+          "method": "DELETE",
+          "path": "/api/ipam/vlans/{id}/",
+          "descriptionTemplate": "Delete vlan with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLAN",
+          "method": "PUT",
+          "path": "/api/ipam/vlans/{id}/",
+          "descriptionTemplate": "Update vlan {name} with id {id} and vid {vid}",
+          "params": [
+            "id",
+            "vid",
+            "name",
+            "status",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "vid": "{vid}",
+            "name": "{name}",
+            "status": "{status}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getVLAN",
+          "method": "GET",
+          "path": "/api/ipam/vlans/{id}/",
+          "descriptionTemplate": "Get vlan with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLANTranslationPolicy": {
+      "displayName": "vlan translation policy",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLANTranslationPolicy",
+          "method": "POST",
+          "path": "/api/ipam/vlan-translation-policies/",
+          "descriptionTemplate": "Create vlan translation policy {name} with id {id}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteVLANTranslationPolicy",
+          "method": "DELETE",
+          "path": "/api/ipam/vlan-translation-policies/{id}/",
+          "descriptionTemplate": "Delete vlan translation policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLANTranslationPolicy",
+          "method": "PUT",
+          "path": "/api/ipam/vlan-translation-policies/{id}/",
+          "descriptionTemplate": "Update vlan translation policy {name} with id {id}",
+          "params": [
+            "id",
+            "name",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getVLANTranslationPolicy",
+          "method": "GET",
+          "path": "/api/ipam/vlan-translation-policies/{id}/",
+          "descriptionTemplate": "Get vlan translation policy with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VLANTranslationRule": {
+      "displayName": "vlan translation rule",
+      "params": [
+        "id",
+        "policy_id",
+        "local_vid",
+        "remote_vid"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVLANTranslationRule",
+          "method": "POST",
+          "path": "/api/ipam/vlan-translation-rules/",
+          "descriptionTemplate": "Create vlan translation rule with id {id} for policy {policy_id}",
+          "params": [
+            "id",
+            "policy_id",
+            "local_vid",
+            "remote_vid"
+          ],
+          "bodyTemplate": {
+            "policy_id": "{policy_id}",
+            "local_vid": "{local_vid}",
+            "remote_vid": "{remote_vid}"
+          }
+        },
+        "delete": {
+          "name": "deleteVLANTranslationRule",
+          "method": "DELETE",
+          "path": "/api/ipam/vlan-translation-rules/{id}/",
+          "descriptionTemplate": "Delete vlan translation rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVLANTranslationRule",
+          "method": "PUT",
+          "path": "/api/ipam/vlan-translation-rules/{id}/",
+          "descriptionTemplate": "Update vlan translation rule with id {id} for policy {policy_id}",
+          "params": [
+            "id",
+            "policy_id",
+            "local_vid",
+            "remote_vid"
+          ],
+          "bodyTemplate": {
+            "policy_id": "{policy_id}",
+            "local_vid": "{local_vid}",
+            "remote_vid": "{remote_vid}"
+          }
+        },
+        "get": {
+          "name": "getVLANTranslationRule",
+          "method": "GET",
+          "path": "/api/ipam/vlan-translation-rules/{id}/",
+          "descriptionTemplate": "Get vlan translation rule with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "VRF": {
+      "displayName": "vrf",
+      "params": [
+        "id",
+        "name",
+        "rd",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createVRF",
+          "method": "POST",
+          "path": "/api/ipam/vrfs/",
+          "descriptionTemplate": "Create vrf {name} with id {id} and rd {rd}",
+          "params": [
+            "id",
+            "name",
+            "rd",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "rd": "{rd}",
+            "slug": "{slug}"
+          }
+        },
+        "delete": {
+          "name": "deleteVRF",
+          "method": "DELETE",
+          "path": "/api/ipam/vrfs/{id}/",
+          "descriptionTemplate": "Delete vrf with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateVRF",
+          "method": "PUT",
+          "path": "/api/ipam/vrfs/{id}/",
+          "descriptionTemplate": "Update vrf {name} with id {id} and rd {rd}",
+          "params": [
+            "id",
+            "name",
+            "rd",
+            "slug"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "rd": "{rd}",
+            "slug": "{slug}"
+          }
+        },
+        "get": {
+          "name": "getVRF",
+          "method": "GET",
+          "path": "/api/ipam/vrfs/{id}/",
+          "descriptionTemplate": "Get vrf with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

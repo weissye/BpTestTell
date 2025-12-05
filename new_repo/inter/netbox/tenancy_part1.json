@@ -1,0 +1,291 @@
+{
+  "entities": {
+    "ContactAssignment": {
+      "displayName": "contact assignment",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContactAssignment",
+          "method": "POST",
+          "path": "/api/tenancy/contact-assignments/",
+          "descriptionTemplate": "Create contact assignment with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteContactAssignment",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Delete contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContactAssignment",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Update contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContactAssignment",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Partially update contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactAssignment",
+          "method": "GET",
+          "path": "/api/tenancy/contact-assignments/{id}/",
+          "descriptionTemplate": "Get contact assignment with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ContactGroup": {
+      "displayName": "contact group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContactGroup",
+          "method": "POST",
+          "path": "/api/tenancy/contact-groups/",
+          "descriptionTemplate": "Create contact group {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteContactGroup",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Delete contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContactGroup",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Update contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContactGroup",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Partially update contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactGroup",
+          "method": "GET",
+          "path": "/api/tenancy/contact-groups/{id}/",
+          "descriptionTemplate": "Get contact group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ContactRole": {
+      "displayName": "contact role",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContactRole",
+          "method": "POST",
+          "path": "/api/tenancy/contact-roles/",
+          "descriptionTemplate": "Create contact role {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteContactRole",
+          "method": "DELETE",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Delete contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContactRole",
+          "method": "PUT",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Update contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContactRole",
+          "method": "PATCH",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Partially update contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContactRole",
+          "method": "GET",
+          "path": "/api/tenancy/contact-roles/{id}/",
+          "descriptionTemplate": "Get contact role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Contact": {
+      "displayName": "contact",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "createContact",
+          "method": "POST",
+          "path": "/api/tenancy/contacts/",
+          "descriptionTemplate": "Create contact {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteContact",
+          "method": "DELETE",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Delete contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateContact",
+          "method": "PUT",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Update contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateContact",
+          "method": "PATCH",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Partially update contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getContact",
+          "method": "GET",
+          "path": "/api/tenancy/contacts/{id}/",
+          "descriptionTemplate": "Get contact with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "TenantGroup": {
+      "displayName": "tenant group",
+      "params": [
+        "id",
+        "name",
+        "slug"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTenantGroup",
+          "method": "POST",
+          "path": "/api/tenancy/tenant-groups/",
+          "descriptionTemplate": "Create tenant group {name} with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteTenantGroup",
+          "method": "DELETE",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Delete tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTenantGroup",
+          "method": "PUT",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Update tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "partialUpdate": {
+          "name": "partialUpdateTenantGroup",
+          "method": "PATCH",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Partially update tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getTenantGroup",
+          "method": "GET",
+          "path": "/api/tenancy/tenant-groups/{id}/",
+          "descriptionTemplate": "Get tenant group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

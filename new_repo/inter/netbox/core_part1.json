@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "BackgroundQueue": {
+      "displayName": "background queue",
+      "params": [
+        "name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBackgroundQueue",
+          "method": "GET",
+          "path": "/api/core/background-queues/{name}/",
+          "descriptionTemplate": "Get background queue {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "BackgroundTask": {
+      "displayName": "background task",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBackgroundTask",
+          "method": "GET",
+          "path": "/api/core/background-tasks/{id}/",
+          "descriptionTemplate": "Get background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/delete/",
+          "descriptionTemplate": "Delete background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "enqueue": {
+          "name": "enqueueBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/enqueue/",
+          "descriptionTemplate": "Enqueue background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "requeue": {
+          "name": "requeueBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/requeue/",
+          "descriptionTemplate": "Requeue background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "stop": {
+          "name": "stopBackgroundTask",
+          "method": "POST",
+          "path": "/api/core/background-tasks/{id}/stop/",
+          "descriptionTemplate": "Stop background task {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        }
+      }
+    },
+    "BackgroundWorker": {
+      "displayName": "background worker",
+      "params": [
+        "name"
+      ],
+      "operations": {
+        "get": {
+          "name": "getBackgroundWorker",
+          "method": "GET",
+          "path": "/api/core/background-workers/{name}/",
+          "descriptionTemplate": "Get background worker {name}",
+          "params": [
+            "name"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

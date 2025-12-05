@@ -1,0 +1,374 @@
+{
+  "entities": {
+    "NotificationGroup": {
+      "displayName": "notification group",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "get": {
+          "name": "getNotificationGroup",
+          "method": "GET",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Get notification group with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateNotificationGroup",
+          "method": "PUT",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Update notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "notifications": "{notifications}"
+          }
+        },
+        "patch": {
+          "name": "patchNotificationGroup",
+          "method": "PATCH",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Patch notification group with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "notifications": "{notifications}"
+          }
+        },
+        "delete": {
+          "name": "deleteNotificationGroup",
+          "method": "DELETE",
+          "path": "/api/extras/notification-groups/{id}/",
+          "descriptionTemplate": "Delete notification group with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "Notification": {
+      "displayName": "notification",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "list": {
+          "name": "listNotifications",
+          "method": "GET",
+          "path": "/api/extras/notifications/",
+          "descriptionTemplate": "List notifications"
+        },
+        "add": {
+          "name": "createNotification",
+          "method": "POST",
+          "path": "/api/extras/notifications/",
+          "descriptionTemplate": "Create notification with name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "group": "{group}",
+            "status": "{status}",
+            "level": "{level}",
+            "assigned_object_type": "{assigned_object_type}",
+            "assigned_object_id": "{assigned_object_id}",
+            "user": "{user}",
+            "url": "{url}",
+            "created": "{created}",
+            "last_updated": "{last_updated}",
+            "description": "{description}",
+            "read": "{read}"
+          }
+        },
+        "update": {
+          "name": "updateNotification",
+          "method": "PUT",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Update notification with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "group": "{group}",
+            "status": "{status}",
+            "level": "{level}",
+            "assigned_object_type": "{assigned_object_type}",
+            "assigned_object_id": "{assigned_object_id}",
+            "user": "{user}",
+            "url": "{url}",
+            "created": "{created}",
+            "last_updated": "{last_updated}",
+            "description": "{description}",
+            "read": "{read}"
+          }
+        },
+        "patch": {
+          "name": "patchNotification",
+          "method": "PATCH",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Patch notification with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "group": "{group}",
+            "status": "{status}",
+            "level": "{level}",
+            "assigned_object_type": "{assigned_object_type}",
+            "assigned_object_id": "{assigned_object_id}",
+            "user": "{user}",
+            "url": "{url}",
+            "created": "{created}",
+            "last_updated": "{last_updated}",
+            "description": "{description}",
+            "read": "{read}"
+          }
+        },
+        "delete": {
+          "name": "deleteNotification",
+          "method": "DELETE",
+          "path": "/api/extras/notifications/{id}/",
+          "descriptionTemplate": "Delete notification with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "ObjectType": {
+      "displayName": "object type",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "list": {
+          "name": "listObjectTypes",
+          "method": "GET",
+          "path": "/api/extras/object-types/",
+          "descriptionTemplate": "List object types"
+        },
+        "get": {
+          "name": "getObjectType",
+          "method": "GET",
+          "path": "/api/extras/object-types/{id}/",
+          "descriptionTemplate": "Get object type with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "SavedFilter": {
+      "displayName": "saved filter",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "list": {
+          "name": "listSavedFilters",
+          "method": "GET",
+          "path": "/api/extras/saved-filters/",
+          "descriptionTemplate": "List saved filters"
+        },
+        "add": {
+          "name": "createSavedFilter",
+          "method": "POST",
+          "path": "/api/extras/saved-filters/",
+          "descriptionTemplate": "Create saved filter with name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "shared": "{shared}",
+            "user": "{user}",
+            "object_type": "{object_type}",
+            "weight": "{weight}",
+            "filters": "{filters}"
+          }
+        },
+        "update": {
+          "name": "updateSavedFilter",
+          "method": "PUT",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Update saved filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "shared": "{shared}",
+            "user": "{user}",
+            "object_type": "{object_type}",
+            "weight": "{weight}",
+            "filters": "{filters}"
+          }
+        },
+        "patch": {
+          "name": "patchSavedFilter",
+          "method": "PATCH",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Patch saved filter with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "enabled": "{enabled}",
+            "shared": "{shared}",
+            "user": "{user}",
+            "object_type": "{object_type}",
+            "weight": "{weight}",
+            "filters": "{filters}"
+          }
+        },
+        "delete": {
+          "name": "deleteSavedFilter",
+          "method": "DELETE",
+          "path": "/api/extras/saved-filters/{id}/",
+          "descriptionTemplate": "Delete saved filter with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "Script": {
+      "displayName": "script",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "list": {
+          "name": "listScripts",
+          "method": "GET",
+          "path": "/api/extras/scripts/",
+          "descriptionTemplate": "List scripts"
+        },
+        "add": {
+          "name": "createScript",
+          "method": "POST",
+          "path": "/api/extras/scripts/",
+          "descriptionTemplate": "Create script"
+        },
+        "get": {
+          "name": "getScript",
+          "method": "GET",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Get script with id {id}",
+          "params": [
+            "id"
+          ]
+        },
+        "update": {
+          "name": "updateScript",
+          "method": "PUT",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Update script with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "module": "{module}",
+            "source": "{source}",
+            "is_executable": "{is_executable}",
+            "enabled": "{enabled}"
+          }
+        },
+        "patch": {
+          "name": "patchScript",
+          "method": "PATCH",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Patch script with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "description": "{description}",
+            "module": "{module}",
+            "source": "{source}",
+            "is_executable": "{is_executable}",
+            "enabled": "{enabled}"
+          }
+        },
+        "delete": {
+          "name": "deleteScript",
+          "method": "DELETE",
+          "path": "/api/extras/scripts/{id}/",
+          "descriptionTemplate": "Delete script with id {id}",
+          "params": [
+            "id"
+          ]
+        }
+      }
+    },
+    "Subscription": {
+      "displayName": "subscription",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "list": {
+          "name": "listSubscriptions",
+          "method": "GET",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "List subscriptions"
+        },
+        "add": {
+          "name": "createSubscription",
+          "method": "POST",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "Create subscription with name {name}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "user": "{user}",
+            "group": "{group}",
+            "enabled": "{enabled}",
+            "object_type": "{object_type}",
+            "filters": "{filters}",
+            "weight": "{weight}"
+          }
+        },
+        "update": {
+          "name": "updateSubscription",
+          "method": "PUT",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "Bulk update subscriptions"
+        },
+        "patch": {
+          "name": "patchSubscription",
+          "method": "PATCH",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "Bulk patch subscriptions"
+        },
+        "delete": {
+          "name": "deleteSubscription",
+          "method": "DELETE",
+          "path": "/api/extras/subscriptions/",
+          "descriptionTemplate": "Bulk delete subscriptions"
+        }
+      }
+    }
+  }
+}

@@ -1,218 +1,357 @@
-from pathlib import Path
-import json
 import re
-from typing import Dict, Any, List, Tuple, Optional
+import json
+from pathlib import Path
+from urllib.parse import urlparse
+from typing import Dict, Any
 
-# --- JavaScript Reserved Words ---
-JS_RESERVED = {
-    "abstract", "arguments", "await", "boolean", "break", "byte", "case", "catch",
-    "char", "class", "const", "continue", "debugger", "default", "delete", "do",
-    "double", "else", "enum", "eval", "export", "extends", "false", "final",
-    "finally", "float", "for", "function", "goto", "if", "implements", "import",
-    "in", "instanceof", "int", "interface", "let", "long", "native", "new",
-    "null", "package", "private", "protected", "public", "return", "short",
-    "static", "super", "switch", "synchronized", "this", "throw", "throws",
-    "transient", "true", "try", "typeof", "var", "void", "volatile", "while",
-    "with", "yield"
-}
+# Import shared utils
+from new_repo.pipeline.emitter_utils import (
+    ensure_dir, sanitize_param, render_body_js, 
+    get_raw_spec, get_response_codes, get_operation_schema, 
+    infer_type, collect_entity_params
+)
 
-def ensure_dir(path: Path):
-    path.mkdir(parents=True, exist_ok=True)
+def _is_valid_js_identifier(name: str) -> bool:
+    if not name or not isinstance(name, str): return False
+    if "..." in name or "…" in name or name.strip() == "": return False
+    return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
 
-def sanitize_param(name: str) -> str:
+def _generate_strict_regex(template: str):
     """
-    Sanitizes a parameter name for use as a JS variable.
+    Generates a STRICT regex from a template string.
+    Escapes static parts and uses non-greedy captures.
     """
-    # FIX: Handle "..." specifically to avoid syntax errors
-    if name == "..." or name == "…":
-        return "_ellipsis"
-        
-    # Standard sanitization
-    clean_name = re.sub(r'[^a-zA-Z0-9_$]', '_', name)
+    # Extract parameter names
+    params = re.findall(r'\{([a-zA-Z0-9_]+)\}', template)
+    # Split by params
+    parts = re.split(r'\{[a-zA-Z0-9_]+\}', template)
     
-    if clean_name in JS_RESERVED:
-        return f"_{clean_name}"
-    return clean_name
-
-def render_body_js(template: Any, indent=4) -> str:
-    if not template: return "undefined"
-    if isinstance(template, dict):
-        lines = ["{"]
-        for k, v in template.items():
-            # Skip invalid keys
-            if k == "..." or not k: continue
-            
-            val_str = render_body_js(v, indent + 2)
-            lines.append(f'{" " * indent}"{k}": {val_str},')
-        lines.append(f'{" " * (indent-2)}}}')
-        return "\n".join(lines)
-    if isinstance(template, str):
-        if template.startswith("{") and template.endswith("}"):
-            var_name = template.strip("{}")
-            # FIX: Prevent String(...) generation for ellipsis
-            if var_name == "..." or var_name == "…": return '"..."'
-            return f'String({sanitize_param(var_name)})'
-        return f'"{template}"'
-    return str(template)
-
-def template_to_regex(template: str):
-    parts = re.split(r'\{([^}]+)\}', template)
-    regex_parts = []
-    param_names = []
+    regex_str = "^"
     for i, part in enumerate(parts):
-        if i % 2 == 0:
-            if part: regex_parts.append(re.escape(part))
+        # Escape static text
+        regex_str += re.escape(part)
+        if i < len(params):
+            # Capture group
+            regex_str += "(.*?)"
+            
+    regex_str += "$"
+    return regex_str, params
+
+def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
+    lines = []
+    method = (method_override or op_data.get("method", "GET")).upper()
+    path_tmpl = op_data.get("path", "")
+    
+    # Extract clean entity name for disambiguation (e.g. RearPort)
+    ent_display = fn_name.replace("create", "").replace("update", "").replace("delete", "").replace("get", "").replace("verify", "").replace("Exists", "")
+    
+    # --- 1. ROBUST DESCRIPTION GENERATION ---
+    desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
+    
+    # If no template, generate standard one
+    if not desc_tmpl:
+        desc_tmpl = f"{method} {ent_display}"
+
+    # Prefix with [EntityName] to prevent regex collisions (e.g. RearPort vs RearPortTemplate)
+    if not desc_tmpl.startswith(f"[{ent_display}]"):
+        desc_tmpl = f"[{ent_display}] {desc_tmpl}"
+
+    # Ensure ID is present
+    if primary_key and primary_key in sig_params:
+        if f"{{{primary_key}}}" not in desc_tmpl:
+             desc_tmpl += f" with {primary_key} {{{primary_key}}}"
+
+    js_url = f'"{path_tmpl}"'
+    js_desc = f'"{desc_tmpl}"'
+    
+    for p in sig_params:
+        safe_p = sanitize_param(p)
+        js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
+    js_url = js_url.replace(' + ""', '')
+    js_desc = js_desc.replace(' + ""', '')
+
+    body_js = "undefined"
+    if method in ["POST", "PUT", "PATCH"]:
+        use_template = False
+        if "bodyTemplate" in op_data and isinstance(op_data["bodyTemplate"], dict) and op_data["bodyTemplate"]:
+            if all(_is_valid_js_identifier(k) for k in op_data["bodyTemplate"].keys()):
+                use_template = True
+        if use_template:
+            body_js = render_body_js(op_data["bodyTemplate"])
         else:
-            param_names.append(part)
-            regex_parts.append("(.+)")
-    return "^" + "".join(regex_parts) + "$", param_names
+            b_lines = ["{"]
+            schema, required_fields = get_operation_schema(path_tmpl, method, raw_spec)
+            props = schema.get("properties", {})
+            candidates = []
+            if required_fields: candidates.extend(required_fields)
+            if props: candidates.extend(props.keys())
+            candidates.extend(op_data.get("params", []))
+            if primary_key: candidates.append(primary_key)
+            candidates = sorted(list(set(candidates)))
+            valid_fields = [f for f in candidates if _is_valid_js_identifier(f)]
+            for field in valid_fields:
+                val_expr = "null"
+                f_type = props.get(field, {}).get("type", "string")
+                f_type = infer_type(field, f_type)
+                sanitized = sanitize_param(field)
+                if field in sig_params:
+                    if f_type in ["integer", "number"]: val_expr = f'Number({sanitized})'
+                    elif f_type == "boolean": val_expr = f'{sanitized}'
+                    elif f_type == "object": val_expr = f'{sanitized}'
+                    else: val_expr = f'String({sanitized})'
+                elif field == primary_key and primary_key in sig_params:
+                     val_expr = f'String({sanitize_param(primary_key)})'
+                else:
+                    if f_type in ["integer", "number"]: val_expr = "1"
+                    elif f_type == "boolean": val_expr = "true"
+                    elif f_type == "array": val_expr = "[]"
+                    elif f_type == "object": val_expr = "{}"
+                    else: val_expr = f'"{field}_dummy"'
+                b_lines.append(f'    "{field}": {val_expr},')
+            b_lines.append("  }")
+            body_js = "\n".join(b_lines)
 
-def resolve_schema(schema, full_spec):
-    if not schema: return {}
+    if "..." in body_js or body_js.strip().startswith("String("): body_js = "{}" 
+
+    sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+    lines.append(f'function {fn_name}({sig_args_str}) {{')
+    lines.append(f'  var url = {js_url};')
+    lines.append(f'  var description = {js_desc};')
+    if method in ["POST", "PUT", "PATCH"]: lines.append(f'  var body = {body_js};')
+    else: lines.append(f'  var body = undefined;')
     
-    def get_components(obj):
-        if "components" in obj: return obj["components"]
-        if "original_spec" in obj and "components" in obj["original_spec"]:
-             return obj["original_spec"]["components"]
-        return {}
+    if codes_override: codes_str = json.dumps(codes_override)
+    else:
+        codes_list = get_response_codes(path_tmpl, method, spec)
+        codes_str = json.dumps(codes_list)
 
-    comps = get_components(full_spec)
+    if method in ["POST", "PUT", "PATCH"]:
+        lines.append(f'  svc.{method.lower()}(url, {{')
+        lines.append('    body: JSON.stringify(body),')
+        lines.append(f'    expectedResponseCodes: {codes_str},')
+        lines.append('    parameters: { description: description,')
+        if primary_key and primary_key in sig_params: lines.append(f'      {primary_key}: String({sanitize_param(primary_key)}),')
+        for p in sig_params:
+            if p != primary_key and (p.endswith("Id") or p.endswith("_id")):
+                    lines.append(f'      {p}: String({sanitize_param(p)}),')
+        lines.append('    }')
+        lines.append('  });')
+        if not codes_override:
+             if primary_key and primary_key in sig_params:
+                 lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ {primary_key}: String({sanitize_param(primary_key)}) }}) }});')
+             else:
+                 lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ id: String(id) }}) }});')
+    else:
+        lines.append(f'  svc.{method.lower()}(url, {{')
+        lines.append('    parameters: { description: description },')
+        lines.append(f'    expectedResponseCodes: {codes_str},')
+        lines.append('    callback: function(response) {')
+        lines.append('      if (response.statusCode >= 200 && response.statusCode < 300) {')
+        lines.append('          try {')
+        lines.append('              var items = JSON.parse(response.body);')
+        lines.append('              if(items.results) items = items.results;')
+        lines.append('              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));')
+        lines.append('          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }')
+        lines.append('      }')
+        lines.append('    }')
+        lines.append('  });')
+    lines.append('}')
+    return lines
 
-    if "$ref" in schema:
-        ref_path = schema["$ref"].split("/")
-        if len(ref_path) > 3 and ref_path[1] == "components" and ref_path[2] == "schemas":
-            schema_name = ref_path[3]
-            resolved = comps.get("schemas", {}).get(schema_name, {})
-            if resolved:
-                return resolve_schema(resolved, full_spec)
-
-    if "allOf" in schema:
-        merged_props = {}
-        merged_required = []
-        for sub_schema in schema["allOf"]:
-            resolved_sub = resolve_schema(sub_schema, full_spec)
-            if "properties" in resolved_sub:
-                merged_props.update(resolved_sub["properties"])
-            if "required" in resolved_sub:
-                merged_required.extend(resolved_sub["required"])
-        return {
-            "type": "object",
-            "properties": merged_props,
-            "required": list(set(merged_required))
-        }
+def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
+    base_url = spec.get("base_url", "http://localhost:8080")
+    parsed = urlparse(base_url)
+    default_scheme = parsed.scheme or "http"
+    default_host = parsed.hostname or "localhost"
+    default_port = parsed.port or (80 if default_scheme == "http" else 443)
+    entities = spec.get("entities", {})
+    raw_spec = get_raw_spec(spec)
     
-    if schema.get("type") == "object" and "properties" in schema:
-        return schema
+    lines = []
+    lines.append('//@provengo summon rest')
+    lines.append('// === Auto-generated interfaces.readable.js ===')
+    lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
+    lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
+    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
+    lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });')
+    lines.append('function matchesDescriptionRegex(re) { return bp.EventSet("Match description", function (e) { return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description)); }); }')
+    lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
+    lines.append('function matchSuccess(desc) { return bp.EventSet("Success Event", function(e) { return e.name === "Done: " + desc; }); }')
 
-    return schema
+    for name, ent in entities.items():
+        displayName = ent.get("displayName", name)
+        # Use clean name for prefixes
+        cleanName = name.replace(" ", "") 
+        lines.append(f'// ---- Entity: {displayName} ----')
+        primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+        sig_params = [p for p in sig_params if _is_valid_js_identifier(p)]
+        sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+        ops = ent.get("operations", {})
 
-def get_raw_spec(spec):
-    if "paths" in spec: return spec
-    if "original_spec" in spec: return spec["original_spec"]
-    return spec
+        for op_type, op_data in ops.items():
+            if not op_type == "verifyExists" and (not op_data or not isinstance(op_data, dict)): continue
+            fn_name = op_data.get("name", f"{op_type}{name}")
+            op_lines = _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec)
+            lines.extend(op_lines)
+            lines.append('')
 
-def get_response_codes(path, method, full_spec):
-    raw_spec = full_spec.get("original_spec", full_spec)
-    if not raw_spec: return []
-    
-    paths = raw_spec.get("paths", {})
-    path_item = paths.get(path)
-    if not path_item:
-        if path.endswith("/"): path_item = paths.get(path[:-1])
-        else: path_item = paths.get(path + "/")
+        if "add" in ops and isinstance(ops["add"], dict):
+            wrapper_lines = _generate_js_operation(ops["add"], f"tryToAddExisting{name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"[{cleanName}] Try Add Existing")
+            lines.extend(wrapper_lines)
+            lines.append('')
+
+        coll_url_template = ""
+        if "add" in ops and isinstance(ops["add"], dict): coll_url_template = ops["add"].get("path", "")
+        elif "get" in ops and isinstance(ops["get"], dict):
+             tmp = ops["get"].get("path", "")
+             if "/{" in tmp: coll_url_template = tmp.split("/{")[0]
+             else: coll_url_template = tmp
+
+        if coll_url_template:
+            js_coll_url = f'"{coll_url_template}"'
+            for p in sig_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_coll_url = js_coll_url.replace(' + ""', '')
+
+            verify_logic = ""
+            if primary_key and primary_key in sig_params:
+                 sanitized_pk = sanitize_param(primary_key)
+                 verify_logic = f'if (String(items[i].{primary_key}) === String({sanitized_pk})) match = true;'
+                 js_verify_desc = f'"[{cleanName}] Verify {name} with {primary_key} " + {sanitized_pk} + " exists"'
+            else:
+                 verify_logic = "match = true;"
+                 js_verify_desc = f'"[{cleanName}] Verify {name} exists"'
+
+            lines.append(f'function verify{name}Exists({sig_args_str}) {{')
+            lines.append(f'  var url = {js_coll_url};')
+            lines.append(f'  bp.log.info("DEBUG VERIFIER for {name}: Arguments=" + JSON.stringify(arguments));')
+            lines.append(f'  var description = {js_verify_desc};')
+            lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {')
+            lines.append('      var items = JSON.parse(response.body);')
+            lines.append('      if (items.results && Array.isArray(items.results)) { items = items.results; }')
+            lines.append('      if (!Array.isArray(items)) items = [items];') 
+            lines.append('      if (Array.isArray(items)) {')
+            lines.append('        for (var i = 0; i < items.length; i++) {')
+            lines.append('          var match = false;')
+            lines.append(f'          {verify_logic}')
+            lines.append('          if (match) return pvg.success("Entity exists");')
+            lines.append('        }')
+            lines.append('      }')
+            lines.append(f'      return pvg.fail("Expected {name} to exist but it does not");')
+            lines.append('    }')
+            lines.append('  });')
+            lines.append('}')
+            lines.append('')
             
-    if not path_item: return []
-    
-    op = path_item.get(method.lower())
-    if not op: return []
-    
-    responses = op.get("responses", {})
-    codes = []
-    for code in responses.keys():
-        if code.isdigit():
-            codes.append(int(code))
-    
-    if method.upper() == "DELETE":
-        if 204 in codes and 200 not in codes:
-            codes.append(200)
-        elif 200 in codes and 204 not in codes:
-            codes.append(204)
-    
-    return sorted(list(set(codes)))
+            lines.append(f'function verify{name}DoesNotExist({sig_args_str}) {{')
+            lines.append(f'  var url = {js_coll_url};')
+            lines.append(f'  var description = "[{cleanName}] Verify {name} does not exist";')
+            lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {')
+            lines.append('      var items = JSON.parse(response.body);')
+            lines.append('      if (items.results && Array.isArray(items.results)) { items = items.results; }')
+            lines.append('      if (!Array.isArray(items)) items = [items];')
+            lines.append('      if (Array.isArray(items)) {')
+            lines.append('        for (var i = 0; i < items.length; i++) {')
+            lines.append('          var match = false;')
+            lines.append(f'          {verify_logic}')
+            lines.append('          if (match) return pvg.fail("Expected Entity to not exist but it does");')
+            lines.append('        }')
+            lines.append('      }')
+            lines.append(f'      return pvg.success("{name} does not exist");')
+            lines.append('    }')
+            lines.append('  });')
+            lines.append('}')
+            lines.append('')
 
-def get_operation_schema(path, method, raw_spec):
-    if not raw_spec or not path: return {}, []
-    method = method.lower()
-    paths = raw_spec.get("paths", {})
-    path_item = paths.get(path)
-    if not path_item: return {}, []
-    op = path_item.get(method)
-    if not op: return {}, []
-    
-    req_body = op.get("requestBody", {})
-    content = req_body.get("content", {})
-    json_media = content.get("application/json", {})
-    schema_ref = json_media.get("schema", {})
-    
-    resolved_schema = resolve_schema(schema_ref, raw_spec)
-    required = resolved_schema.get("required", [])
-    return resolved_schema, required
+        if "delete" in ops and isinstance(ops["delete"], dict):
+            op_data = ops["delete"]
+            neg_codes = get_response_codes(op_data.get("path"), "DELETE", spec)
+            neg_codes_str = json.dumps(neg_codes)
+            js_url = f'"{op_data.get("path", "")}"'
+            for p in sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_url = js_url.replace(' + ""', '')
+            lines.append(f'function tryToDeleteANonExisting{name}({sig_args_str}) {{')
+            lines.append(f'  var url = {js_url};')
+            lines.append(f'  var description = "[{cleanName}] Verify we cannot delete non-existing {name}";')
+            lines.append(f'  svc.delete(url, {{ expectedResponseCodes: {neg_codes_str}, parameters: {{ description: description }} }});')
+            lines.append('}')
+            lines.append('')
 
-def infer_type(param_name, known_type="string"):
-    if known_type != "string": return known_type
-    lower = param_name.lower()
-    if "address" in lower or "meta" in lower: return "object"
-    if lower in ["year", "mileage", "age", "count", "amount", "quantity", "baycount", "intervalkm", "intervalmonths"]: return "integer"
-    if lower in ["active", "enabled", "visible"]: return "boolean"
-    return "string"
-
-def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, Any]) -> Tuple[str, List[str]]:
-    """
-    Collects all parameters for an entity from its operations and schema.
-    Returns (primary_key, sorted_list_of_params)
-    """
-    ops = ent.get("operations", {})
-    
-    # Detect Primary Key
-    primary_key = None
-    check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
-    for op in check_ops:
-        if op and isinstance(op, dict) and '{' in op.get('path', ''):
-            matches = re.findall(r'\{([^}]+)\}', op['path'])
-            if matches:
-                primary_key = matches[0]
-                break
-    
-    all_params_set = set()
-    if primary_key: all_params_set.add(primary_key)
-    
-    # 1. Ops Params & Body Template Vars
-    for op in ops.values():
-        if isinstance(op, dict):
-            for p in op.get("params", []):
-                # FIX: Filter out "..."
-                if p and p != "..." and p != "…":
-                    all_params_set.add(p)
+        if "add" in ops and isinstance(ops["add"], dict):
+            op = ops["add"]
+            desc_tmpl = op.get("descriptionTemplate", "")
+            if not desc_tmpl: desc_tmpl = f"{displayName}"
             
-            if "bodyTemplate" in op and isinstance(op["bodyTemplate"], dict):
-                for v in op["bodyTemplate"].values():
-                    if isinstance(v, str) and v.startswith("{") and v.endswith("}"):
-                        clean = v.strip("{}")
-                        if clean and clean != "..." and clean != "…":
-                            all_params_set.add(clean)
-    
-    # 2. Entity Params
-    for p in ent.get("params", []):
-        if p and p != "..." and p != "…":
-            all_params_set.add(p)
+            # --- FORCE PREFIX [EntityName] ---
+            if not desc_tmpl.startswith(f"[{cleanName}]"):
+                desc_tmpl = f"[{cleanName}] Create {desc_tmpl}"
 
-    # 3. Schema Params (for ADD)
-    if "add" in ops and isinstance(ops["add"], dict):
-        schema, required_fields = get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
-        props = schema.get("properties", {})
-        for k in props.keys(): 
-            if k and k != "..." and k != "…": all_params_set.add(k)
-        for k in required_fields:
-            if k and k != "..." and k != "…": all_params_set.add(k)
-        
-    return primary_key, sorted(list(all_params_set))
+            if primary_key and primary_key in sig_params:
+                if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
+            
+            regex, regex_params = _generate_strict_regex(desc_tmpl)
+            
+            matcher_name = f"matchAdded{name}"
+            lines.append(f'function {matcher_name}({sig_args_str}) {{')
+            js_expected_desc = f'"{desc_tmpl}"'
+            for p in sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_expected_desc = js_expected_desc.replace(' + ""', '')
+            lines.append(f'  return matchSuccess({js_expected_desc});')
+            lines.append('}')
+            lines.append('')
+
+            lines.append(f'function waitForAny{name}Added() {{')
+            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
+            lines.append(f'  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) {{ bp.log.info("DEBUG MATCHER for {name}: Matched event: " + ev.data.parameters.description); }}')
+            lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
+            lines.append('  var captures = m.slice(1);')
+            lines.append(f'  var names = {json.dumps(regex_params)};')
+            lines.append('  var capturedMap = {};')
+            lines.append('  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }')
+            lines.append('  var obj = {};')
+            for param in sig_params: lines.append(f'  obj["{param}"] = capturedMap["{param}"];')
+            lines.append('  return obj;')
+            lines.append('}')
+            lines.append('')
+
+            lines.append(f'function matchAny{name}Added() {{ return bp.EventSet("matchAny{name}Added", function(e) {{ return e.name.startsWith("Done: ") && e.name.indexOf("[{cleanName}]") > -1; }}); }}')
+            lines.append(f'function waitFor{name}Added({sig_args_str}) {{ var expectedDesc = {js_expected_desc}; waitFor(matchSuccess(expectedDesc)); }}')
+            lines.append('')
+
+        if "delete" in ops and isinstance(ops["delete"], dict):
+            op = ops["delete"]
+            desc_tmpl = op.get("descriptionTemplate", "")
+            if not desc_tmpl: desc_tmpl = f"{displayName}"
+            
+            if not desc_tmpl.startswith(f"[{cleanName}]"):
+                desc_tmpl = f"[{cleanName}] Delete {desc_tmpl}"
+
+            if primary_key and primary_key in sig_params:
+                if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
+            
+            regex, params = _generate_strict_regex(desc_tmpl)
+
+            matcher_name = f"matchDeleted{name}"
+            lines.append(f'function {matcher_name}({sig_args_str}) {{')
+            js_expected_desc = f'"{desc_tmpl}"'
+            for p in sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_expected_desc = js_expected_desc.replace(' + ""', '')
+            lines.append(f'  return bp.EventSet("matchDeleted{name}", function(e) {{ return !!(e.data && e.data.parameters && e.data.parameters.description === {js_expected_desc}); }});')
+            lines.append('}')
+            lines.append('')
+            
+            lines.append(f'function waitForAny{name}Deleted() {{')
+            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
+            lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
+            lines.append('  var captures = m.slice(1);')
+            lines.append(f'  var names = {json.dumps(params)};')
+            lines.append('  var capturedMap = {};')
+            lines.append('  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }')
+            lines.append('  var obj = {};')
+            for param in sig_params: lines.append(f'  obj["{param}"] = capturedMap["{param}"];')
+            lines.append('  return obj;')
+            lines.append('}')
+            lines.append('')
+
+    ensure_dir(out_dir)
+    (out_dir / "interfaces.readable.js").write_text("\n".join(lines), encoding="utf-8")

@@ -1,0 +1,188 @@
+{
+  "entities": {
+    "Bookmark": {
+      "displayName": "bookmark",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createBookmark",
+          "method": "POST",
+          "path": "/api/extras/bookmarks/",
+          "descriptionTemplate": "Create bookmark with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteBookmark",
+          "method": "DELETE",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Delete bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateBookmark",
+          "method": "PUT",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Update bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getBookmark",
+          "method": "GET",
+          "path": "/api/extras/bookmarks/{id}/",
+          "descriptionTemplate": "Get bookmark with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConfigContextProfile": {
+      "displayName": "config context profile",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createConfigContextProfile",
+          "method": "POST",
+          "path": "/api/extras/config-context-profiles/",
+          "descriptionTemplate": "Create config context profile with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteConfigContextProfile",
+          "method": "DELETE",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Delete config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConfigContextProfile",
+          "method": "PUT",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Update config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getConfigContextProfile",
+          "method": "GET",
+          "path": "/api/extras/config-context-profiles/{id}/",
+          "descriptionTemplate": "Get config context profile with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConfigContext": {
+      "displayName": "config context",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createConfigContext",
+          "method": "POST",
+          "path": "/api/extras/config-contexts/",
+          "descriptionTemplate": "Create config context with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteConfigContext",
+          "method": "DELETE",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Delete config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConfigContext",
+          "method": "PUT",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Update config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getConfigContext",
+          "method": "GET",
+          "path": "/api/extras/config-contexts/{id}/",
+          "descriptionTemplate": "Get config context with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ConfigTemplate": {
+      "displayName": "config template",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createConfigTemplate",
+          "method": "POST",
+          "path": "/api/extras/config-templates/",
+          "descriptionTemplate": "Create config template with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteConfigTemplate",
+          "method": "DELETE",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Delete config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateConfigTemplate",
+          "method": "PUT",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Update config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getConfigTemplate",
+          "method": "GET",
+          "path": "/api/extras/config-templates/{id}/",
+          "descriptionTemplate": "Get config template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

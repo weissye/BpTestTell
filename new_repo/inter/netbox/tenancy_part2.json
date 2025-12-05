@@ -1,0 +1,66 @@
+{
+  "entities": {
+    "Tenant": {
+      "displayName": "tenant",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createTenant",
+          "method": "POST",
+          "path": "/api/tenancy/tenants/",
+          "descriptionTemplate": "Create tenant with id {id}",
+          "params": [],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "group": "{group}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
+            "contact_role": "{contact_role}"
+          }
+        },
+        "delete": {
+          "name": "deleteTenant",
+          "method": "DELETE",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Delete tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateTenant",
+          "method": "PUT",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Update tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "slug": "{slug}",
+            "description": "{description}",
+            "group": "{group}",
+            "contact": "{contact}",
+            "contact_group": "{contact_group}",
+            "contact_role": "{contact_role}"
+          }
+        },
+        "get": {
+          "name": "getTenant",
+          "method": "GET",
+          "path": "/api/tenancy/tenants/{id}/",
+          "descriptionTemplate": "Get tenant with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}

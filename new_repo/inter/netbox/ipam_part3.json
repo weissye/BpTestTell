@@ -1,0 +1,234 @@
+{
+  "entities": {
+    "RIR": {
+      "displayName": "rir",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRIR",
+          "method": "POST",
+          "path": "/api/ipam/rirs/",
+          "descriptionTemplate": "Create RIR with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRIR",
+          "method": "DELETE",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Delete RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRIR",
+          "method": "PUT",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Update RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getRIR",
+          "method": "GET",
+          "path": "/api/ipam/rirs/{id}/",
+          "descriptionTemplate": "Get RIR with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Role": {
+      "displayName": "role",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRole",
+          "method": "POST",
+          "path": "/api/ipam/roles/",
+          "descriptionTemplate": "Create role with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRole",
+          "method": "DELETE",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Delete role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRole",
+          "method": "PUT",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Update role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getRole",
+          "method": "GET",
+          "path": "/api/ipam/roles/{id}/",
+          "descriptionTemplate": "Get role with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "RouteTarget": {
+      "displayName": "route target",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRouteTarget",
+          "method": "POST",
+          "path": "/api/ipam/route-targets/",
+          "descriptionTemplate": "Create route target with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteRouteTarget",
+          "method": "DELETE",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Delete route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateRouteTarget",
+          "method": "PUT",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Update route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getRouteTarget",
+          "method": "GET",
+          "path": "/api/ipam/route-targets/{id}/",
+          "descriptionTemplate": "Get route target with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "ServiceTemplate": {
+      "displayName": "service template",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createServiceTemplate",
+          "method": "POST",
+          "path": "/api/ipam/service-templates/",
+          "descriptionTemplate": "Create service template with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteServiceTemplate",
+          "method": "DELETE",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Delete service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateServiceTemplate",
+          "method": "PUT",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Update service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getServiceTemplate",
+          "method": "GET",
+          "path": "/api/ipam/service-templates/{id}/",
+          "descriptionTemplate": "Get service template with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Service": {
+      "displayName": "service",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "createService",
+          "method": "POST",
+          "path": "/api/ipam/services/",
+          "descriptionTemplate": "Create service with id {id}",
+          "params": [],
+          "bodyTemplate": {}
+        },
+        "delete": {
+          "name": "deleteService",
+          "method": "DELETE",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Delete service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "update": {
+          "name": "updateService",
+          "method": "PUT",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Update service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        },
+        "get": {
+          "name": "getService",
+          "method": "GET",
+          "path": "/api/ipam/services/{id}/",
+          "descriptionTemplate": "Get service with id {id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    }
+  }
+}
