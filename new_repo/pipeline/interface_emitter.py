@@ -17,23 +17,13 @@ def _is_valid_js_identifier(name: str) -> bool:
     return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
 
 def _generate_strict_regex(template: str):
-    """
-    Generates a STRICT regex from a template string.
-    Escapes static parts and uses non-greedy captures.
-    """
-    # Extract parameter names
     params = re.findall(r'\{([a-zA-Z0-9_]+)\}', template)
-    # Split by params
     parts = re.split(r'\{[a-zA-Z0-9_]+\}', template)
-    
     regex_str = "^"
     for i, part in enumerate(parts):
-        # Escape static text
         regex_str += re.escape(part)
         if i < len(params):
-            # Capture group
             regex_str += "(.*?)"
-            
     regex_str += "$"
     return regex_str, params
 
@@ -42,21 +32,15 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     method = (method_override or op_data.get("method", "GET")).upper()
     path_tmpl = op_data.get("path", "")
     
-    # Extract clean entity name for disambiguation (e.g. RearPort)
     ent_display = fn_name.replace("create", "").replace("update", "").replace("delete", "").replace("get", "").replace("verify", "").replace("Exists", "")
     
-    # --- 1. ROBUST DESCRIPTION GENERATION ---
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
-    
-    # If no template, generate standard one
     if not desc_tmpl:
         desc_tmpl = f"{method} {ent_display}"
 
-    # Prefix with [EntityName] to prevent regex collisions (e.g. RearPort vs RearPortTemplate)
     if not desc_tmpl.startswith(f"[{ent_display}]"):
         desc_tmpl = f"[{ent_display}] {desc_tmpl}"
 
-    # Ensure ID is present
     if primary_key and primary_key in sig_params:
         if f"{{{primary_key}}}" not in desc_tmpl:
              desc_tmpl += f" with {primary_key} {{{primary_key}}}"
@@ -181,7 +165,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
     for name, ent in entities.items():
         displayName = ent.get("displayName", name)
-        # Use clean name for prefixes
         cleanName = name.replace(" ", "") 
         lines.append(f'// ---- Entity: {displayName} ----')
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
@@ -265,8 +248,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
         if "delete" in ops and isinstance(ops["delete"], dict):
             op_data = ops["delete"]
-            neg_codes = get_response_codes(op_data.get("path"), "DELETE", spec)
-            neg_codes_str = json.dumps(neg_codes)
+            # FIX: Explicitly set 404 for negative tests
+            neg_codes_str = "[404]"
             js_url = f'"{op_data.get("path", "")}"'
             for p in sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
             js_url = js_url.replace(' + ""', '')
@@ -280,12 +263,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         if "add" in ops and isinstance(ops["add"], dict):
             op = ops["add"]
             desc_tmpl = op.get("descriptionTemplate", "")
-            if not desc_tmpl: desc_tmpl = f"{displayName}"
-            
-            # --- FORCE PREFIX [EntityName] ---
-            if not desc_tmpl.startswith(f"[{cleanName}]"):
-                desc_tmpl = f"[{cleanName}] Create {desc_tmpl}"
-
+            if not desc_tmpl: desc_tmpl = f"Create {displayName}"
+            if not desc_tmpl.startswith(f"[{cleanName}]"): desc_tmpl = f"[{cleanName}] {desc_tmpl}"
             if primary_key and primary_key in sig_params:
                 if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
             
@@ -321,11 +300,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         if "delete" in ops and isinstance(ops["delete"], dict):
             op = ops["delete"]
             desc_tmpl = op.get("descriptionTemplate", "")
-            if not desc_tmpl: desc_tmpl = f"{displayName}"
-            
-            if not desc_tmpl.startswith(f"[{cleanName}]"):
-                desc_tmpl = f"[{cleanName}] Delete {desc_tmpl}"
-
+            if not desc_tmpl: desc_tmpl = f"Delete {displayName}"
+            if not desc_tmpl.startswith(f"[{cleanName}]"): desc_tmpl = f"[{cleanName}] {desc_tmpl}"
             if primary_key and primary_key in sig_params:
                 if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
             

@@ -153,17 +153,17 @@ function verifyCircuitGroupAssignmentDoesNotExist(group, id, member_id, member_t
 function tryToDeleteANonExistingCircuitGroupAssignment(group, id, member_id, member_type, priority, tags) {
   var url = "/api/circuits/circuit-group-assignments/" + id + "/";
   var description = "[CircuitGroupAssignment] Verify we cannot delete non-existing CircuitGroupAssignment";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCircuitGroupAssignment(group, id, member_id, member_type, priority, tags) {
-  return matchSuccess("[CircuitGroupAssignment] Create Create circuit group assignment with id " + id);
+  return matchSuccess("[CircuitGroupAssignment] Create circuit group assignment with id " + id);
 }
 
 function waitForAnyCircuitGroupAssignmentAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroupAssignment\]\ Create\ Create\ circuit\ group\ assignment\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroupAssignment\]\ Create\ circuit\ group\ assignment\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CircuitGroupAssignment: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CircuitGroupAssignment\]\ Create\ Create\ circuit\ group\ assignment\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CircuitGroupAssignment\]\ Create\ circuit\ group\ assignment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -179,15 +179,15 @@ function waitForAnyCircuitGroupAssignmentAdded() {
 }
 
 function matchAnyCircuitGroupAssignmentAdded() { return bp.EventSet("matchAnyCircuitGroupAssignmentAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CircuitGroupAssignment]") > -1; }); }
-function waitForCircuitGroupAssignmentAdded(group, id, member_id, member_type, priority, tags) { var expectedDesc = "[CircuitGroupAssignment] Create Create circuit group assignment with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCircuitGroupAssignmentAdded(group, id, member_id, member_type, priority, tags) { var expectedDesc = "[CircuitGroupAssignment] Create circuit group assignment with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCircuitGroupAssignment(group, id, member_id, member_type, priority, tags) {
-  return bp.EventSet("matchDeletedCircuitGroupAssignment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitGroupAssignment] Delete Delete circuit group assignment with id " + id); });
+  return bp.EventSet("matchDeletedCircuitGroupAssignment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitGroupAssignment] Delete circuit group assignment with id " + id); });
 }
 
 function waitForAnyCircuitGroupAssignmentDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroupAssignment\]\ Delete\ Delete\ circuit\ group\ assignment\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CircuitGroupAssignment\]\ Delete\ Delete\ circuit\ group\ assignment\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroupAssignment\]\ Delete\ circuit\ group\ assignment\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CircuitGroupAssignment\]\ Delete\ circuit\ group\ assignment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -348,17 +348,17 @@ function verifyCircuitGroupDoesNotExist(custom_fields, description, id, name, sl
 function tryToDeleteANonExistingCircuitGroup(custom_fields, description, id, name, slug, tags, tenant) {
   var url = "/api/circuits/circuit-groups/" + id + "/";
   var description = "[CircuitGroup] Verify we cannot delete non-existing CircuitGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCircuitGroup(custom_fields, description, id, name, slug, tags, tenant) {
-  return matchSuccess("[CircuitGroup] Create Create circuit group " + name + " with id " + id);
+  return matchSuccess("[CircuitGroup] Create circuit group " + name + " with id " + id);
 }
 
 function waitForAnyCircuitGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroup\]\ Create\ Create\ circuit\ group\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroup\]\ Create\ circuit\ group\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CircuitGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CircuitGroup\]\ Create\ Create\ circuit\ group\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CircuitGroup\]\ Create\ circuit\ group\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -375,15 +375,15 @@ function waitForAnyCircuitGroupAdded() {
 }
 
 function matchAnyCircuitGroupAdded() { return bp.EventSet("matchAnyCircuitGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CircuitGroup]") > -1; }); }
-function waitForCircuitGroupAdded(custom_fields, description, id, name, slug, tags, tenant) { var expectedDesc = "[CircuitGroup] Create Create circuit group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCircuitGroupAdded(custom_fields, description, id, name, slug, tags, tenant) { var expectedDesc = "[CircuitGroup] Create circuit group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCircuitGroup(custom_fields, description, id, name, slug, tags, tenant) {
-  return bp.EventSet("matchDeletedCircuitGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitGroup] Delete Delete circuit group with id " + id); });
+  return bp.EventSet("matchDeletedCircuitGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitGroup] Delete circuit group with id " + id); });
 }
 
 function waitForAnyCircuitGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroup\]\ Delete\ Delete\ circuit\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CircuitGroup\]\ Delete\ Delete\ circuit\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitGroup\]\ Delete\ circuit\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CircuitGroup\]\ Delete\ circuit\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -569,17 +569,17 @@ function verifyCircuitTerminationDoesNotExist(circuit, custom_fields, descriptio
 function tryToDeleteANonExistingCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) {
   var url = "/api/circuits/circuit-terminations/" + id + "/";
   var description = "[CircuitTermination] Verify we cannot delete non-existing CircuitTermination";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) {
-  return matchSuccess("[CircuitTermination] Create Create circuit termination with id " + id);
+  return matchSuccess("[CircuitTermination] Create circuit termination with id " + id);
 }
 
 function waitForAnyCircuitTerminationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitTermination\]\ Create\ Create\ circuit\ termination\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitTermination\]\ Create\ circuit\ termination\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CircuitTermination: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CircuitTermination\]\ Create\ Create\ circuit\ termination\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CircuitTermination\]\ Create\ circuit\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -602,15 +602,15 @@ function waitForAnyCircuitTerminationAdded() {
 }
 
 function matchAnyCircuitTerminationAdded() { return bp.EventSet("matchAnyCircuitTerminationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CircuitTermination]") > -1; }); }
-function waitForCircuitTerminationAdded(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) { var expectedDesc = "[CircuitTermination] Create Create circuit termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCircuitTerminationAdded(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) { var expectedDesc = "[CircuitTermination] Create circuit termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) {
-  return bp.EventSet("matchDeletedCircuitTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitTermination] Delete Delete circuit termination with id " + id); });
+  return bp.EventSet("matchDeletedCircuitTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitTermination] Delete circuit termination with id " + id); });
 }
 
 function waitForAnyCircuitTerminationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitTermination\]\ Delete\ Delete\ circuit\ termination\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CircuitTermination\]\ Delete\ Delete\ circuit\ termination\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitTermination\]\ Delete\ circuit\ termination\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CircuitTermination\]\ Delete\ circuit\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -778,17 +778,17 @@ function verifyCircuitTypeDoesNotExist(color, custom_fields, description, id, na
 function tryToDeleteANonExistingCircuitType(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/circuit-types/" + id + "/";
   var description = "[CircuitType] Verify we cannot delete non-existing CircuitType";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[CircuitType] Create Create circuit type " + name + " with id " + id);
+  return matchSuccess("[CircuitType] Create circuit type " + name + " with id " + id);
 }
 
 function waitForAnyCircuitTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitType\]\ Create\ Create\ circuit\ type\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitType\]\ Create\ circuit\ type\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CircuitType: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CircuitType\]\ Create\ Create\ circuit\ type\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CircuitType\]\ Create\ circuit\ type\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -805,15 +805,15 @@ function waitForAnyCircuitTypeAdded() {
 }
 
 function matchAnyCircuitTypeAdded() { return bp.EventSet("matchAnyCircuitTypeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CircuitType]") > -1; }); }
-function waitForCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[CircuitType] Create Create circuit type " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[CircuitType] Create circuit type " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedCircuitType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitType] Delete Delete circuit type with id " + id); });
+  return bp.EventSet("matchDeletedCircuitType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CircuitType] Delete circuit type with id " + id); });
 }
 
 function waitForAnyCircuitTypeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitType\]\ Delete\ Delete\ circuit\ type\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CircuitType\]\ Delete\ Delete\ circuit\ type\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CircuitType\]\ Delete\ circuit\ type\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CircuitType\]\ Delete\ circuit\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1005,17 +1005,17 @@ function verifyCircuitDoesNotExist(assignments, cid, comments, commit_rate, cust
 function tryToDeleteANonExistingCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
   var url = "/api/circuits/circuits/" + id + "/";
   var description = "[Circuit] Verify we cannot delete non-existing Circuit";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
-  return matchSuccess("[Circuit] Create Create circuit with id " + id);
+  return matchSuccess("[Circuit] Create circuit with id " + id);
 }
 
 function waitForAnyCircuitAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Circuit\]\ Create\ Create\ circuit\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Circuit\]\ Create\ circuit\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Circuit: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Circuit\]\ Create\ Create\ circuit\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Circuit\]\ Create\ circuit\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1042,15 +1042,15 @@ function waitForAnyCircuitAdded() {
 }
 
 function matchAnyCircuitAdded() { return bp.EventSet("matchAnyCircuitAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Circuit]") > -1; }); }
-function waitForCircuitAdded(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) { var expectedDesc = "[Circuit] Create Create circuit with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCircuitAdded(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) { var expectedDesc = "[Circuit] Create circuit with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
-  return bp.EventSet("matchDeletedCircuit", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Circuit] Delete Delete circuit with id " + id); });
+  return bp.EventSet("matchDeletedCircuit", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Circuit] Delete circuit with id " + id); });
 }
 
 function waitForAnyCircuitDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Circuit\]\ Delete\ Delete\ circuit\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Circuit\]\ Delete\ Delete\ circuit\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Circuit\]\ Delete\ circuit\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Circuit\]\ Delete\ circuit\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1234,17 +1234,17 @@ function verifyProviderAccountDoesNotExist(account, comments, custom_fields, des
 function tryToDeleteANonExistingProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
   var url = "/api/circuits/provider-accounts/" + id + "/";
   var description = "[ProviderAccount] Verify we cannot delete non-existing ProviderAccount";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
-  return matchSuccess("[ProviderAccount] Create Create provider account with id " + id);
+  return matchSuccess("[ProviderAccount] Create provider account with id " + id);
 }
 
 function waitForAnyProviderAccountAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderAccount\]\ Create\ Create\ provider\ account\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderAccount\]\ Create\ provider\ account\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ProviderAccount: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ProviderAccount\]\ Create\ Create\ provider\ account\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ProviderAccount\]\ Create\ provider\ account\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1262,15 +1262,15 @@ function waitForAnyProviderAccountAdded() {
 }
 
 function matchAnyProviderAccountAdded() { return bp.EventSet("matchAnyProviderAccountAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ProviderAccount]") > -1; }); }
-function waitForProviderAccountAdded(account, comments, custom_fields, description, id, name, provider, tags) { var expectedDesc = "[ProviderAccount] Create Create provider account with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForProviderAccountAdded(account, comments, custom_fields, description, id, name, provider, tags) { var expectedDesc = "[ProviderAccount] Create provider account with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
-  return bp.EventSet("matchDeletedProviderAccount", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ProviderAccount] Delete Delete provider account with id " + id); });
+  return bp.EventSet("matchDeletedProviderAccount", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ProviderAccount] Delete provider account with id " + id); });
 }
 
 function waitForAnyProviderAccountDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderAccount\]\ Delete\ Delete\ provider\ account\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ProviderAccount\]\ Delete\ Delete\ provider\ account\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderAccount\]\ Delete\ provider\ account\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ProviderAccount\]\ Delete\ provider\ account\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1449,17 +1449,17 @@ function verifyProviderNetworkDoesNotExist(comments, custom_fields, description,
 function tryToDeleteANonExistingProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
   var url = "/api/circuits/provider-networks/" + id + "/";
   var description = "[ProviderNetwork] Verify we cannot delete non-existing ProviderNetwork";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
-  return matchSuccess("[ProviderNetwork] Create Create provider network with id " + id);
+  return matchSuccess("[ProviderNetwork] Create provider network with id " + id);
 }
 
 function waitForAnyProviderNetworkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderNetwork\]\ Create\ Create\ provider\ network\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderNetwork\]\ Create\ provider\ network\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ProviderNetwork: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ProviderNetwork\]\ Create\ Create\ provider\ network\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ProviderNetwork\]\ Create\ provider\ network\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1477,15 +1477,15 @@ function waitForAnyProviderNetworkAdded() {
 }
 
 function matchAnyProviderNetworkAdded() { return bp.EventSet("matchAnyProviderNetworkAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ProviderNetwork]") > -1; }); }
-function waitForProviderNetworkAdded(comments, custom_fields, description, id, name, provider, service_id, tags) { var expectedDesc = "[ProviderNetwork] Create Create provider network with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForProviderNetworkAdded(comments, custom_fields, description, id, name, provider, service_id, tags) { var expectedDesc = "[ProviderNetwork] Create provider network with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
-  return bp.EventSet("matchDeletedProviderNetwork", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ProviderNetwork] Delete Delete provider network with id " + id); });
+  return bp.EventSet("matchDeletedProviderNetwork", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ProviderNetwork] Delete provider network with id " + id); });
 }
 
 function waitForAnyProviderNetworkDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderNetwork\]\ Delete\ Delete\ provider\ network\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ProviderNetwork\]\ Delete\ Delete\ provider\ network\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ProviderNetwork\]\ Delete\ provider\ network\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ProviderNetwork\]\ Delete\ provider\ network\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1662,17 +1662,17 @@ function verifyProviderDoesNotExist(accounts, asns, comments, custom_fields, des
 function tryToDeleteANonExistingProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/providers/" + id + "/";
   var description = "[Provider] Verify we cannot delete non-existing Provider";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[Provider] Create Create provider with id " + id);
+  return matchSuccess("[Provider] Create provider with id " + id);
 }
 
 function waitForAnyProviderAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Provider\]\ Create\ Create\ provider\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Provider\]\ Create\ provider\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Provider: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Provider\]\ Create\ Create\ provider\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Provider\]\ Create\ provider\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1691,15 +1691,15 @@ function waitForAnyProviderAdded() {
 }
 
 function matchAnyProviderAdded() { return bp.EventSet("matchAnyProviderAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Provider]") > -1; }); }
-function waitForProviderAdded(accounts, asns, comments, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[Provider] Create Create provider with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForProviderAdded(accounts, asns, comments, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[Provider] Create provider with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedProvider", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Provider] Delete Delete provider with id " + id); });
+  return bp.EventSet("matchDeletedProvider", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Provider] Delete provider with id " + id); });
 }
 
 function waitForAnyProviderDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Provider\]\ Delete\ Delete\ provider\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Provider\]\ Delete\ Delete\ provider\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Provider\]\ Delete\ provider\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Provider\]\ Delete\ provider\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1873,17 +1873,17 @@ function verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description,
 function tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "[VirtualCircuitTermination] Verify we cannot delete non-existing VirtualCircuitTermination";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
-  return matchSuccess("[VirtualCircuitTermination] Create Create virtual circuit termination with id " + id);
+  return matchSuccess("[VirtualCircuitTermination] Create virtual circuit termination with id " + id);
 }
 
 function waitForAnyVirtualCircuitTerminationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitTermination\]\ Create\ Create\ virtual\ circuit\ termination\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitTermination\]\ Create\ virtual\ circuit\ termination\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualCircuitTermination: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualCircuitTermination\]\ Create\ Create\ virtual\ circuit\ termination\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualCircuitTermination\]\ Create\ virtual\ circuit\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -1900,15 +1900,15 @@ function waitForAnyVirtualCircuitTerminationAdded() {
 }
 
 function matchAnyVirtualCircuitTerminationAdded() { return bp.EventSet("matchAnyVirtualCircuitTerminationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualCircuitTermination]") > -1; }); }
-function waitForVirtualCircuitTerminationAdded(custom_fields, description, id, _interface, role, tags, virtual_circuit) { var expectedDesc = "[VirtualCircuitTermination] Create Create virtual circuit termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualCircuitTerminationAdded(custom_fields, description, id, _interface, role, tags, virtual_circuit) { var expectedDesc = "[VirtualCircuitTermination] Create virtual circuit termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
-  return bp.EventSet("matchDeletedVirtualCircuitTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualCircuitTermination] Delete Delete virtual circuit termination with id " + id); });
+  return bp.EventSet("matchDeletedVirtualCircuitTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualCircuitTermination] Delete virtual circuit termination with id " + id); });
 }
 
 function waitForAnyVirtualCircuitTerminationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitTermination\]\ Delete\ Delete\ virtual\ circuit\ termination\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualCircuitTermination\]\ Delete\ Delete\ virtual\ circuit\ termination\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitTermination\]\ Delete\ virtual\ circuit\ termination\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualCircuitTermination\]\ Delete\ virtual\ circuit\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2061,17 +2061,17 @@ function verifyVirtualCircuitTypeDoesNotExist(color, custom_fields, description,
 function tryToDeleteANonExistingVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/virtual-circuit-types/" + id + "/";
   var description = "[VirtualCircuitType] Verify we cannot delete non-existing VirtualCircuitType";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[VirtualCircuitType] Create Create virtual circuit type with id " + id);
+  return matchSuccess("[VirtualCircuitType] Create virtual circuit type with id " + id);
 }
 
 function waitForAnyVirtualCircuitTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitType\]\ Create\ Create\ virtual\ circuit\ type\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitType\]\ Create\ virtual\ circuit\ type\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualCircuitType: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualCircuitType\]\ Create\ Create\ virtual\ circuit\ type\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualCircuitType\]\ Create\ virtual\ circuit\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2088,15 +2088,15 @@ function waitForAnyVirtualCircuitTypeAdded() {
 }
 
 function matchAnyVirtualCircuitTypeAdded() { return bp.EventSet("matchAnyVirtualCircuitTypeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualCircuitType]") > -1; }); }
-function waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[VirtualCircuitType] Create Create virtual circuit type with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualCircuitTypeAdded(color, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[VirtualCircuitType] Create virtual circuit type with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedVirtualCircuitType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualCircuitType] Delete Delete virtual circuit type with id " + id); });
+  return bp.EventSet("matchDeletedVirtualCircuitType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualCircuitType] Delete virtual circuit type with id " + id); });
 }
 
 function waitForAnyVirtualCircuitTypeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitType\]\ Delete\ Delete\ virtual\ circuit\ type\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualCircuitType\]\ Delete\ Delete\ virtual\ circuit\ type\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuitType\]\ Delete\ virtual\ circuit\ type\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualCircuitType\]\ Delete\ virtual\ circuit\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2267,17 +2267,17 @@ function verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, descript
 function tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) {
   var url = "/api/circuits/virtual-circuits/" + id + "/";
   var description = "[VirtualCircuit] Verify we cannot delete non-existing VirtualCircuit";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) {
-  return matchSuccess("[VirtualCircuit] Create Create virtual circuit with id " + id);
+  return matchSuccess("[VirtualCircuit] Create virtual circuit with id " + id);
 }
 
 function waitForAnyVirtualCircuitAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuit\]\ Create\ Create\ virtual\ circuit\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuit\]\ Create\ virtual\ circuit\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualCircuit: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualCircuit\]\ Create\ Create\ virtual\ circuit\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualCircuit\]\ Create\ virtual\ circuit\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2301,15 +2301,15 @@ function waitForAnyVirtualCircuitAdded() {
 }
 
 function matchAnyVirtualCircuitAdded() { return bp.EventSet("matchAnyVirtualCircuitAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualCircuit]") > -1; }); }
-function waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) { var expectedDesc = "[VirtualCircuit] Create Create virtual circuit with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualCircuitAdded(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) { var expectedDesc = "[VirtualCircuit] Create virtual circuit with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) {
-  return bp.EventSet("matchDeletedVirtualCircuit", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualCircuit] Delete Delete virtual circuit with id " + id); });
+  return bp.EventSet("matchDeletedVirtualCircuit", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualCircuit] Delete virtual circuit with id " + id); });
 }
 
 function waitForAnyVirtualCircuitDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuit\]\ Delete\ Delete\ virtual\ circuit\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualCircuit\]\ Delete\ Delete\ virtual\ circuit\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualCircuit\]\ Delete\ virtual\ circuit\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualCircuit\]\ Delete\ virtual\ circuit\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2517,16 +2517,16 @@ function verifyBackgroundTaskDoesNotExist(id) {
 function tryToDeleteANonExistingBackgroundTask(id) {
   var url = "/api/core/background-tasks/" + id + "/delete/";
   var description = "[BackgroundTask] Verify we cannot delete non-existing BackgroundTask";
-  svc.delete(url, { expectedResponseCodes: [], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchDeletedBackgroundTask(id) {
-  return bp.EventSet("matchDeletedBackgroundTask", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[BackgroundTask] Delete Delete background task " + id); });
+  return bp.EventSet("matchDeletedBackgroundTask", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[BackgroundTask] Delete background task " + id); });
 }
 
 function waitForAnyBackgroundTaskDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[BackgroundTask\]\ Delete\ Delete\ background\ task\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[BackgroundTask\]\ Delete\ Delete\ background\ task\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[BackgroundTask\]\ Delete\ background\ task\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[BackgroundTask\]\ Delete\ background\ task\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2941,17 +2941,17 @@ function verifyDataSourceDoesNotExist(comments, custom_fields, description, enab
 function tryToDeleteANonExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) {
   var url = "/api/core/data-sources/" + id + "/";
   var description = "[DataSource] Verify we cannot delete non-existing DataSource";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) {
-  return matchSuccess("[DataSource] Create Create data source with id " + id);
+  return matchSuccess("[DataSource] Create data source with id " + id);
 }
 
 function waitForAnyDataSourceAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DataSource\]\ Create\ Create\ data\ source\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[DataSource\]\ Create\ data\ source\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for DataSource: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[DataSource\]\ Create\ Create\ data\ source\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[DataSource\]\ Create\ data\ source\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -2974,15 +2974,15 @@ function waitForAnyDataSourceAdded() {
 }
 
 function matchAnyDataSourceAdded() { return bp.EventSet("matchAnyDataSourceAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[DataSource]") > -1; }); }
-function waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) { var expectedDesc = "[DataSource] Create Create data source with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDataSourceAdded(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) { var expectedDesc = "[DataSource] Create data source with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) {
-  return bp.EventSet("matchDeletedDataSource", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DataSource] Delete Delete data source with id " + id); });
+  return bp.EventSet("matchDeletedDataSource", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DataSource] Delete data source with id " + id); });
 }
 
 function waitForAnyDataSourceDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DataSource\]\ Delete\ Delete\ data\ source\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[DataSource\]\ Delete\ Delete\ data\ source\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[DataSource\]\ Delete\ data\ source\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[DataSource\]\ Delete\ data\ source\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -3402,17 +3402,17 @@ function verifyCableTerminationDoesNotExist(cable, cable_end, id, termination_id
 function tryToDeleteANonExistingCableTermination(cable, cable_end, id, termination_id, termination_type) {
   var url = "/api/dcim/cable-terminations/" + id + "/";
   var description = "[CableTermination] Verify we cannot delete non-existing CableTermination";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCableTermination(cable, cable_end, id, termination_id, termination_type) {
-  return matchSuccess("[CableTermination] Create Create cable termination with id " + id);
+  return matchSuccess("[CableTermination] Create cable termination with id " + id);
 }
 
 function waitForAnyCableTerminationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CableTermination\]\ Create\ Create\ cable\ termination\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CableTermination\]\ Create\ cable\ termination\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CableTermination: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CableTermination\]\ Create\ Create\ cable\ termination\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CableTermination\]\ Create\ cable\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -3427,15 +3427,15 @@ function waitForAnyCableTerminationAdded() {
 }
 
 function matchAnyCableTerminationAdded() { return bp.EventSet("matchAnyCableTerminationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CableTermination]") > -1; }); }
-function waitForCableTerminationAdded(cable, cable_end, id, termination_id, termination_type) { var expectedDesc = "[CableTermination] Create Create cable termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCableTerminationAdded(cable, cable_end, id, termination_id, termination_type) { var expectedDesc = "[CableTermination] Create cable termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCableTermination(cable, cable_end, id, termination_id, termination_type) {
-  return bp.EventSet("matchDeletedCableTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CableTermination] Delete Delete cable termination with id " + id); });
+  return bp.EventSet("matchDeletedCableTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CableTermination] Delete cable termination with id " + id); });
 }
 
 function waitForAnyCableTerminationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CableTermination\]\ Delete\ Delete\ cable\ termination\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CableTermination\]\ Delete\ Delete\ cable\ termination\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CableTermination\]\ Delete\ cable\ termination\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CableTermination\]\ Delete\ cable\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -3645,17 +3645,17 @@ function verifyCableDoesNotExist(a_terminations, b_terminations, color, comments
 function tryToDeleteANonExistingCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
   var url = "/api/dcim/cables/" + id + "/";
   var description = "[Cable] Verify we cannot delete non-existing Cable";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
-  return matchSuccess("[Cable] Create Create cable with id " + id);
+  return matchSuccess("[Cable] Create cable with id " + id);
 }
 
 function waitForAnyCableAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Cable\]\ Create\ Create\ cable\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Cable\]\ Create\ cable\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Cable: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Cable\]\ Create\ Create\ cable\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Cable\]\ Create\ cable\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -3679,15 +3679,15 @@ function waitForAnyCableAdded() {
 }
 
 function matchAnyCableAdded() { return bp.EventSet("matchAnyCableAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Cable]") > -1; }); }
-function waitForCableAdded(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) { var expectedDesc = "[Cable] Create Create cable with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCableAdded(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) { var expectedDesc = "[Cable] Create cable with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
-  return bp.EventSet("matchDeletedCable", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Cable] Delete Delete cable with id " + id); });
+  return bp.EventSet("matchDeletedCable", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Cable] Delete cable with id " + id); });
 }
 
 function waitForAnyCableDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Cable\]\ Delete\ Delete\ cable\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Cable\]\ Delete\ Delete\ cable\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Cable\]\ Delete\ cable\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Cable\]\ Delete\ cable\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -3878,17 +3878,17 @@ function verifyConsolePortTemplateDoesNotExist(description, device_type, id, lab
 function tryToDeleteANonExistingConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-port-templates/" + id + "/";
   var description = "[ConsolePortTemplate] Verify we cannot delete non-existing ConsolePortTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
-  return matchSuccess("[ConsolePortTemplate] Create Create console port template with id " + id);
+  return matchSuccess("[ConsolePortTemplate] Create console port template with id " + id);
 }
 
 function waitForAnyConsolePortTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePortTemplate\]\ Create\ Create\ console\ port\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePortTemplate\]\ Create\ console\ port\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ConsolePortTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ConsolePortTemplate\]\ Create\ Create\ console\ port\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ConsolePortTemplate\]\ Create\ console\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -3905,15 +3905,15 @@ function waitForAnyConsolePortTemplateAdded() {
 }
 
 function matchAnyConsolePortTemplateAdded() { return bp.EventSet("matchAnyConsolePortTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ConsolePortTemplate]") > -1; }); }
-function waitForConsolePortTemplateAdded(description, device_type, id, label, module_type, name, type) { var expectedDesc = "[ConsolePortTemplate] Create Create console port template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForConsolePortTemplateAdded(description, device_type, id, label, module_type, name, type) { var expectedDesc = "[ConsolePortTemplate] Create console port template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
-  return bp.EventSet("matchDeletedConsolePortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsolePortTemplate] Delete Delete console port template with id " + id); });
+  return bp.EventSet("matchDeletedConsolePortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsolePortTemplate] Delete console port template with id " + id); });
 }
 
 function waitForAnyConsolePortTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePortTemplate\]\ Delete\ Delete\ console\ port\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ConsolePortTemplate\]\ Delete\ Delete\ console\ port\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePortTemplate\]\ Delete\ console\ port\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ConsolePortTemplate\]\ Delete\ console\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4113,17 +4113,17 @@ function verifyConsolePortDoesNotExist(custom_fields, description, device, id, l
 function tryToDeleteANonExistingConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-ports/" + id + "/";
   var description = "[ConsolePort] Verify we cannot delete non-existing ConsolePort";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  return matchSuccess("[ConsolePort] Create Create console port with id " + id);
+  return matchSuccess("[ConsolePort] Create console port with id " + id);
 }
 
 function waitForAnyConsolePortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePort\]\ Create\ Create\ console\ port\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePort\]\ Create\ console\ port\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ConsolePort: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ConsolePort\]\ Create\ Create\ console\ port\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ConsolePort\]\ Create\ console\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4144,15 +4144,15 @@ function waitForAnyConsolePortAdded() {
 }
 
 function matchAnyConsolePortAdded() { return bp.EventSet("matchAnyConsolePortAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ConsolePort]") > -1; }); }
-function waitForConsolePortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) { var expectedDesc = "[ConsolePort] Create Create console port with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForConsolePortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) { var expectedDesc = "[ConsolePort] Create console port with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  return bp.EventSet("matchDeletedConsolePort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsolePort] Delete Delete console port with id " + id); });
+  return bp.EventSet("matchDeletedConsolePort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsolePort] Delete console port with id " + id); });
 }
 
 function waitForAnyConsolePortDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePort\]\ Delete\ Delete\ console\ port\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ConsolePort\]\ Delete\ Delete\ console\ port\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsolePort\]\ Delete\ console\ port\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ConsolePort\]\ Delete\ console\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4318,17 +4318,17 @@ function verifyConsoleServerPortTemplateDoesNotExist(description, device_type, i
 function tryToDeleteANonExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-server-port-templates/" + id + "/";
   var description = "[ConsoleServerPortTemplate] Verify we cannot delete non-existing ConsoleServerPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type) {
-  return matchSuccess("[ConsoleServerPortTemplate] Create Create console server port template with id " + id);
+  return matchSuccess("[ConsoleServerPortTemplate] Create console server port template with id " + id);
 }
 
 function waitForAnyConsoleServerPortTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPortTemplate\]\ Create\ Create\ console\ server\ port\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPortTemplate\]\ Create\ console\ server\ port\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ConsoleServerPortTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ConsoleServerPortTemplate\]\ Create\ Create\ console\ server\ port\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ConsoleServerPortTemplate\]\ Create\ console\ server\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4345,15 +4345,15 @@ function waitForAnyConsoleServerPortTemplateAdded() {
 }
 
 function matchAnyConsoleServerPortTemplateAdded() { return bp.EventSet("matchAnyConsoleServerPortTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ConsoleServerPortTemplate]") > -1; }); }
-function waitForConsoleServerPortTemplateAdded(description, device_type, id, label, module_type, name, type) { var expectedDesc = "[ConsoleServerPortTemplate] Create Create console server port template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForConsoleServerPortTemplateAdded(description, device_type, id, label, module_type, name, type) { var expectedDesc = "[ConsoleServerPortTemplate] Create console server port template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type) {
-  return bp.EventSet("matchDeletedConsoleServerPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsoleServerPortTemplate] Delete Delete console server port template with id " + id); });
+  return bp.EventSet("matchDeletedConsoleServerPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsoleServerPortTemplate] Delete console server port template with id " + id); });
 }
 
 function waitForAnyConsoleServerPortTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPortTemplate\]\ Delete\ Delete\ console\ server\ port\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ConsoleServerPortTemplate\]\ Delete\ Delete\ console\ server\ port\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPortTemplate\]\ Delete\ console\ server\ port\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ConsoleServerPortTemplate\]\ Delete\ console\ server\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4527,17 +4527,17 @@ function verifyConsoleServerPortDoesNotExist(custom_fields, description, device,
 function tryToDeleteANonExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-server-ports/" + id + "/";
   var description = "[ConsoleServerPort] Verify we cannot delete non-existing ConsoleServerPort";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  return matchSuccess("[ConsoleServerPort] Create Create console server port with id " + id);
+  return matchSuccess("[ConsoleServerPort] Create console server port with id " + id);
 }
 
 function waitForAnyConsoleServerPortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPort\]\ Create\ Create\ console\ server\ port\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPort\]\ Create\ console\ server\ port\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ConsoleServerPort: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ConsoleServerPort\]\ Create\ Create\ console\ server\ port\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ConsoleServerPort\]\ Create\ console\ server\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4558,15 +4558,15 @@ function waitForAnyConsoleServerPortAdded() {
 }
 
 function matchAnyConsoleServerPortAdded() { return bp.EventSet("matchAnyConsoleServerPortAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ConsoleServerPort]") > -1; }); }
-function waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) { var expectedDesc = "[ConsoleServerPort] Create Create console server port with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForConsoleServerPortAdded(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) { var expectedDesc = "[ConsoleServerPort] Create console server port with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
-  return bp.EventSet("matchDeletedConsoleServerPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsoleServerPort] Delete Delete console server port with id " + id); });
+  return bp.EventSet("matchDeletedConsoleServerPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConsoleServerPort] Delete console server port with id " + id); });
 }
 
 function waitForAnyConsoleServerPortDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPort\]\ Delete\ Delete\ console\ server\ port\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ConsoleServerPort\]\ Delete\ Delete\ console\ server\ port\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConsoleServerPort\]\ Delete\ console\ server\ port\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ConsoleServerPort\]\ Delete\ console\ server\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4726,17 +4726,17 @@ function verifyDeviceBayTemplateDoesNotExist(description, device_type, id, label
 function tryToDeleteANonExistingDeviceBayTemplate(description, device_type, id, label, name) {
   var url = "/api/dcim/device-bay-templates/" + id + "/";
   var description = "[DeviceBayTemplate] Verify we cannot delete non-existing DeviceBayTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedDeviceBayTemplate(description, device_type, id, label, name) {
-  return matchSuccess("[DeviceBayTemplate] Create Create device bay template with id " + id);
+  return matchSuccess("[DeviceBayTemplate] Create device bay template with id " + id);
 }
 
 function waitForAnyDeviceBayTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBayTemplate\]\ Create\ Create\ device\ bay\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBayTemplate\]\ Create\ device\ bay\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for DeviceBayTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[DeviceBayTemplate\]\ Create\ Create\ device\ bay\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[DeviceBayTemplate\]\ Create\ device\ bay\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4751,15 +4751,15 @@ function waitForAnyDeviceBayTemplateAdded() {
 }
 
 function matchAnyDeviceBayTemplateAdded() { return bp.EventSet("matchAnyDeviceBayTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[DeviceBayTemplate]") > -1; }); }
-function waitForDeviceBayTemplateAdded(description, device_type, id, label, name) { var expectedDesc = "[DeviceBayTemplate] Create Create device bay template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDeviceBayTemplateAdded(description, device_type, id, label, name) { var expectedDesc = "[DeviceBayTemplate] Create device bay template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedDeviceBayTemplate(description, device_type, id, label, name) {
-  return bp.EventSet("matchDeletedDeviceBayTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceBayTemplate] Delete Delete device bay template with id " + id); });
+  return bp.EventSet("matchDeletedDeviceBayTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceBayTemplate] Delete device bay template with id " + id); });
 }
 
 function waitForAnyDeviceBayTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBayTemplate\]\ Delete\ Delete\ device\ bay\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[DeviceBayTemplate\]\ Delete\ Delete\ device\ bay\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBayTemplate\]\ Delete\ device\ bay\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[DeviceBayTemplate\]\ Delete\ device\ bay\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4922,17 +4922,17 @@ function verifyDeviceBayDoesNotExist(custom_fields, description, device, id, ins
 function tryToDeleteANonExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
   var url = "/api/dcim/device-bays/" + id + "/";
   var description = "[DeviceBay] Verify we cannot delete non-existing DeviceBay";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
-  return matchSuccess("[DeviceBay] Create Create device bay with id " + id);
+  return matchSuccess("[DeviceBay] Create device bay with id " + id);
 }
 
 function waitForAnyDeviceBayAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBay\]\ Create\ Create\ device\ bay\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBay\]\ Create\ device\ bay\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for DeviceBay: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[DeviceBay\]\ Create\ Create\ device\ bay\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[DeviceBay\]\ Create\ device\ bay\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -4950,15 +4950,15 @@ function waitForAnyDeviceBayAdded() {
 }
 
 function matchAnyDeviceBayAdded() { return bp.EventSet("matchAnyDeviceBayAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[DeviceBay]") > -1; }); }
-function waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags) { var expectedDesc = "[DeviceBay] Create Create device bay with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDeviceBayAdded(custom_fields, description, device, id, installed_device, label, name, tags) { var expectedDesc = "[DeviceBay] Create device bay with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
-  return bp.EventSet("matchDeletedDeviceBay", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceBay] Delete Delete device bay with id " + id); });
+  return bp.EventSet("matchDeletedDeviceBay", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceBay] Delete device bay with id " + id); });
 }
 
 function waitForAnyDeviceBayDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBay\]\ Delete\ Delete\ device\ bay\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[DeviceBay\]\ Delete\ Delete\ device\ bay\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceBay\]\ Delete\ device\ bay\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[DeviceBay\]\ Delete\ device\ bay\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -5141,17 +5141,17 @@ function verifyDeviceRoleDoesNotExist(color, comments, config_template, custom_f
 function tryToDeleteANonExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
   var url = "/api/dcim/device-roles/" + id + "/";
   var description = "[DeviceRole] Verify we cannot delete non-existing DeviceRole";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
-  return matchSuccess("[DeviceRole] Create Create device role " + name + " with id " + id);
+  return matchSuccess("[DeviceRole] Create device role " + name + " with id " + id);
 }
 
 function waitForAnyDeviceRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceRole\]\ Create\ Create\ device\ role\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceRole\]\ Create\ device\ role\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for DeviceRole: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[DeviceRole\]\ Create\ Create\ device\ role\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[DeviceRole\]\ Create\ device\ role\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -5172,15 +5172,15 @@ function waitForAnyDeviceRoleAdded() {
 }
 
 function matchAnyDeviceRoleAdded() { return bp.EventSet("matchAnyDeviceRoleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[DeviceRole]") > -1; }); }
-function waitForDeviceRoleAdded(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) { var expectedDesc = "[DeviceRole] Create Create device role " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDeviceRoleAdded(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) { var expectedDesc = "[DeviceRole] Create device role " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
-  return bp.EventSet("matchDeletedDeviceRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceRole] Delete Delete device role with id " + id); });
+  return bp.EventSet("matchDeletedDeviceRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceRole] Delete device role with id " + id); });
 }
 
 function waitForAnyDeviceRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceRole\]\ Delete\ Delete\ device\ role\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[DeviceRole\]\ Delete\ Delete\ device\ role\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceRole\]\ Delete\ device\ role\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[DeviceRole\]\ Delete\ device\ role\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -5467,17 +5467,17 @@ function verifyDeviceTypeDoesNotExist(airflow, comments, custom_fields, default_
 function tryToDeleteANonExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
   var url = "/api/dcim/device-types/" + id + "/";
   var description = "[DeviceType] Verify we cannot delete non-existing DeviceType";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
-  return matchSuccess("[DeviceType] Create Create device type with id " + id);
+  return matchSuccess("[DeviceType] Create device type with id " + id);
 }
 
 function waitForAnyDeviceTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceType\]\ Create\ Create\ device\ type\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceType\]\ Create\ device\ type\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for DeviceType: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[DeviceType\]\ Create\ Create\ device\ type\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[DeviceType\]\ Create\ device\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -5506,15 +5506,15 @@ function waitForAnyDeviceTypeAdded() {
 }
 
 function matchAnyDeviceTypeAdded() { return bp.EventSet("matchAnyDeviceTypeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[DeviceType]") > -1; }); }
-function waitForDeviceTypeAdded(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) { var expectedDesc = "[DeviceType] Create Create device type with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDeviceTypeAdded(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) { var expectedDesc = "[DeviceType] Create device type with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
-  return bp.EventSet("matchDeletedDeviceType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceType] Delete Delete device type with id " + id); });
+  return bp.EventSet("matchDeletedDeviceType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[DeviceType] Delete device type with id " + id); });
 }
 
 function waitForAnyDeviceTypeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceType\]\ Delete\ Delete\ device\ type\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[DeviceType\]\ Delete\ Delete\ device\ type\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceType\]\ Delete\ device\ type\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[DeviceType\]\ Delete\ device\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -5853,17 +5853,17 @@ function verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_
 function tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
   var url = "/api/dcim/devices/" + id + "/";
   var description = "[Device] Verify we cannot delete non-existing Device";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
-  return matchSuccess("[Device] Create Create device with id " + id);
+  return matchSuccess("[Device] Create device with id " + id);
 }
 
 function waitForAnyDeviceAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Device\]\ Create\ Create\ device\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Device\]\ Create\ device\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Device: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Device\]\ Create\ Create\ device\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Device\]\ Create\ device\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -5903,15 +5903,15 @@ function waitForAnyDeviceAdded() {
 }
 
 function matchAnyDeviceAdded() { return bp.EventSet("matchAnyDeviceAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Device]") > -1; }); }
-function waitForDeviceAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) { var expectedDesc = "[Device] Create Create device with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDeviceAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) { var expectedDesc = "[Device] Create device with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
-  return bp.EventSet("matchDeletedDevice", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Device] Delete Delete device with id " + id); });
+  return bp.EventSet("matchDeletedDevice", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Device] Delete device with id " + id); });
 }
 
 function waitForAnyDeviceDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Device\]\ Delete\ Delete\ device\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Device\]\ Delete\ Delete\ device\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Device\]\ Delete\ device\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Device\]\ Delete\ device\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -6078,13 +6078,13 @@ function verifyDeviceRenderConfigDoesNotExist(airflow, asset_tag, cluster, comme
 }
 
 function matchAddedDeviceRenderConfig(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
-  return matchSuccess("[DeviceRenderConfig] Create Render config for device with id " + id);
+  return matchSuccess("[DeviceRenderConfig] Render config for device with id " + id);
 }
 
 function waitForAnyDeviceRenderConfigAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceRenderConfig\]\ Create\ Render\ config\ for\ device\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[DeviceRenderConfig\]\ Render\ config\ for\ device\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for DeviceRenderConfig: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[DeviceRenderConfig\]\ Create\ Render\ config\ for\ device\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[DeviceRenderConfig\]\ Render\ config\ for\ device\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -6124,7 +6124,7 @@ function waitForAnyDeviceRenderConfigAdded() {
 }
 
 function matchAnyDeviceRenderConfigAdded() { return bp.EventSet("matchAnyDeviceRenderConfigAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[DeviceRenderConfig]") > -1; }); }
-function waitForDeviceRenderConfigAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) { var expectedDesc = "[DeviceRenderConfig] Create Render config for device with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForDeviceRenderConfigAdded(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) { var expectedDesc = "[DeviceRenderConfig] Render config for device with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 // ---- Entity: front port template ----
 function createFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
@@ -6357,17 +6357,17 @@ function verifyFrontPortTemplateDoesNotExist(color, description, device_type, id
 function tryToDeleteANonExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
   var url = "/api/dcim/front-port-templates/" + id + "/";
   var description = "[FrontPortTemplate] Verify we cannot delete non-existing FrontPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
-  return matchSuccess("[FrontPortTemplate] Create Create front port template with id " + id);
+  return matchSuccess("[FrontPortTemplate] Create front port template with id " + id);
 }
 
 function waitForAnyFrontPortTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPortTemplate\]\ Create\ Create\ front\ port\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPortTemplate\]\ Create\ front\ port\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for FrontPortTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[FrontPortTemplate\]\ Create\ Create\ front\ port\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[FrontPortTemplate\]\ Create\ front\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -6387,15 +6387,15 @@ function waitForAnyFrontPortTemplateAdded() {
 }
 
 function matchAnyFrontPortTemplateAdded() { return bp.EventSet("matchAnyFrontPortTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[FrontPortTemplate]") > -1; }); }
-function waitForFrontPortTemplateAdded(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) { var expectedDesc = "[FrontPortTemplate] Create Create front port template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForFrontPortTemplateAdded(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) { var expectedDesc = "[FrontPortTemplate] Create front port template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
-  return bp.EventSet("matchDeletedFrontPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FrontPortTemplate] Delete Delete front port template with id " + id); });
+  return bp.EventSet("matchDeletedFrontPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FrontPortTemplate] Delete front port template with id " + id); });
 }
 
 function waitForAnyFrontPortTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPortTemplate\]\ Delete\ Delete\ front\ port\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[FrontPortTemplate\]\ Delete\ Delete\ front\ port\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPortTemplate\]\ Delete\ front\ port\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[FrontPortTemplate\]\ Delete\ front\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -6657,17 +6657,17 @@ function verifyFrontPortDoesNotExist(color, custom_fields, description, device, 
 function tryToDeleteANonExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
   var url = "/api/dcim/front-ports/" + id + "/";
   var description = "[FrontPort] Verify we cannot delete non-existing FrontPort";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
-  return matchSuccess("[FrontPort] Create Create front port with id " + id);
+  return matchSuccess("[FrontPort] Create front port with id " + id);
 }
 
 function waitForAnyFrontPortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPort\]\ Create\ Create\ front\ port\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPort\]\ Create\ front\ port\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for FrontPort: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[FrontPort\]\ Create\ Create\ front\ port\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[FrontPort\]\ Create\ front\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -6690,15 +6690,15 @@ function waitForAnyFrontPortAdded() {
 }
 
 function matchAnyFrontPortAdded() { return bp.EventSet("matchAnyFrontPortAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[FrontPort]") > -1; }); }
-function waitForFrontPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) { var expectedDesc = "[FrontPort] Create Create front port with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForFrontPortAdded(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) { var expectedDesc = "[FrontPort] Create front port with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
-  return bp.EventSet("matchDeletedFrontPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FrontPort] Delete Delete front port with id " + id); });
+  return bp.EventSet("matchDeletedFrontPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FrontPort] Delete front port with id " + id); });
 }
 
 function waitForAnyFrontPortDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPort\]\ Delete\ Delete\ front\ port\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[FrontPort\]\ Delete\ Delete\ front\ port\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[FrontPort\]\ Delete\ front\ port\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[FrontPort\]\ Delete\ front\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -6979,17 +6979,17 @@ function verifyInterfaceTemplateDoesNotExist(bridge, created_by_request, descrip
 function tryToDeleteANonExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) {
   var url = "/api/dcim/interface-templates/" + id + "/";
   var description = "[InterfaceTemplate] Verify we cannot delete non-existing InterfaceTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) {
-  return matchSuccess("[InterfaceTemplate] Create Create interface template " + name + " with id " + id);
+  return matchSuccess("[InterfaceTemplate] Create interface template " + name + " with id " + id);
 }
 
 function waitForAnyInterfaceTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InterfaceTemplate\]\ Create\ Create\ interface\ template\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[InterfaceTemplate\]\ Create\ interface\ template\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for InterfaceTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[InterfaceTemplate\]\ Create\ Create\ interface\ template\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[InterfaceTemplate\]\ Create\ interface\ template\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -7017,15 +7017,15 @@ function waitForAnyInterfaceTemplateAdded() {
 }
 
 function matchAnyInterfaceTemplateAdded() { return bp.EventSet("matchAnyInterfaceTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[InterfaceTemplate]") > -1; }); }
-function waitForInterfaceTemplateAdded(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) { var expectedDesc = "[InterfaceTemplate] Create Create interface template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForInterfaceTemplateAdded(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) { var expectedDesc = "[InterfaceTemplate] Create interface template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) {
-  return bp.EventSet("matchDeletedInterfaceTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InterfaceTemplate] Delete Delete interface template with id " + id); });
+  return bp.EventSet("matchDeletedInterfaceTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InterfaceTemplate] Delete interface template with id " + id); });
 }
 
 function waitForAnyInterfaceTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InterfaceTemplate\]\ Delete\ Delete\ interface\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[InterfaceTemplate\]\ Delete\ Delete\ interface\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[InterfaceTemplate\]\ Delete\ interface\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[InterfaceTemplate\]\ Delete\ interface\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -7278,17 +7278,17 @@ function verifyInterfaceDoesNotExist(bridge, custom_fields, description, enabled
 function tryToDeleteANonExistingInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
   var url = "/api/virtualization/interfaces/" + id + "/";
   var description = "[Interface] Verify we cannot delete non-existing Interface";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
-  return matchSuccess("[Interface] Create Create interface with id " + id);
+  return matchSuccess("[Interface] Create interface with id " + id);
 }
 
 function waitForAnyInterfaceAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Interface\]\ Create\ Create\ interface\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Interface\]\ Create\ interface\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Interface: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Interface\]\ Create\ Create\ interface\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Interface\]\ Create\ interface\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -7315,15 +7315,15 @@ function waitForAnyInterfaceAdded() {
 }
 
 function matchAnyInterfaceAdded() { return bp.EventSet("matchAnyInterfaceAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Interface]") > -1; }); }
-function waitForInterfaceAdded(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) { var expectedDesc = "[Interface] Create Create interface with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForInterfaceAdded(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) { var expectedDesc = "[Interface] Create interface with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
-  return bp.EventSet("matchDeletedInterface", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Interface] Delete Delete interface with id " + id); });
+  return bp.EventSet("matchDeletedInterface", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Interface] Delete interface with id " + id); });
 }
 
 function waitForAnyInterfaceDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Interface\]\ Delete\ Delete\ interface\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Interface\]\ Delete\ Delete\ interface\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Interface\]\ Delete\ interface\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Interface\]\ Delete\ interface\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -7514,17 +7514,17 @@ function verifyInventoryItemRoleDoesNotExist(color, created_by_request, custom_f
 function tryToDeleteANonExistingInventoryItemRole(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) {
   var url = "/api/dcim/inventory-item-roles/" + id + "/";
   var description = "[InventoryItemRole] Verify we cannot delete non-existing InventoryItemRole";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedInventoryItemRole(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) {
-  return matchSuccess("[InventoryItemRole] Create Create inventory item role " + name + " with id " + id);
+  return matchSuccess("[InventoryItemRole] Create inventory item role " + name + " with id " + id);
 }
 
 function waitForAnyInventoryItemRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemRole\]\ Create\ Create\ inventory\ item\ role\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemRole\]\ Create\ inventory\ item\ role\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for InventoryItemRole: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[InventoryItemRole\]\ Create\ Create\ inventory\ item\ role\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[InventoryItemRole\]\ Create\ inventory\ item\ role\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -7544,15 +7544,15 @@ function waitForAnyInventoryItemRoleAdded() {
 }
 
 function matchAnyInventoryItemRoleAdded() { return bp.EventSet("matchAnyInventoryItemRoleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[InventoryItemRole]") > -1; }); }
-function waitForInventoryItemRoleAdded(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) { var expectedDesc = "[InventoryItemRole] Create Create inventory item role " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForInventoryItemRoleAdded(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) { var expectedDesc = "[InventoryItemRole] Create inventory item role " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedInventoryItemRole(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) {
-  return bp.EventSet("matchDeletedInventoryItemRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InventoryItemRole] Delete Delete inventory item role with id " + id); });
+  return bp.EventSet("matchDeletedInventoryItemRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InventoryItemRole] Delete inventory item role with id " + id); });
 }
 
 function waitForAnyInventoryItemRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemRole\]\ Delete\ Delete\ inventory\ item\ role\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[InventoryItemRole\]\ Delete\ Delete\ inventory\ item\ role\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemRole\]\ Delete\ inventory\ item\ role\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[InventoryItemRole\]\ Delete\ inventory\ item\ role\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -7775,17 +7775,17 @@ function verifyInventoryItemTemplateDoesNotExist(component_id, component_type, c
 function tryToDeleteANonExistingInventoryItemTemplate(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) {
   var url = "/api/dcim/inventory-item-templates/" + id + "/";
   var description = "[InventoryItemTemplate] Verify we cannot delete non-existing InventoryItemTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedInventoryItemTemplate(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) {
-  return matchSuccess("[InventoryItemTemplate] Create Create inventory item template " + name + " with id " + id);
+  return matchSuccess("[InventoryItemTemplate] Create inventory item template " + name + " with id " + id);
 }
 
 function waitForAnyInventoryItemTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemTemplate\]\ Create\ Create\ inventory\ item\ template\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemTemplate\]\ Create\ inventory\ item\ template\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for InventoryItemTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[InventoryItemTemplate\]\ Create\ Create\ inventory\ item\ template\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[InventoryItemTemplate\]\ Create\ inventory\ item\ template\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -7812,15 +7812,15 @@ function waitForAnyInventoryItemTemplateAdded() {
 }
 
 function matchAnyInventoryItemTemplateAdded() { return bp.EventSet("matchAnyInventoryItemTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[InventoryItemTemplate]") > -1; }); }
-function waitForInventoryItemTemplateAdded(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) { var expectedDesc = "[InventoryItemTemplate] Create Create inventory item template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForInventoryItemTemplateAdded(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) { var expectedDesc = "[InventoryItemTemplate] Create inventory item template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedInventoryItemTemplate(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) {
-  return bp.EventSet("matchDeletedInventoryItemTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InventoryItemTemplate] Delete Delete inventory item template with id " + id); });
+  return bp.EventSet("matchDeletedInventoryItemTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InventoryItemTemplate] Delete inventory item template with id " + id); });
 }
 
 function waitForAnyInventoryItemTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemTemplate\]\ Delete\ Delete\ inventory\ item\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[InventoryItemTemplate\]\ Delete\ Delete\ inventory\ item\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItemTemplate\]\ Delete\ inventory\ item\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[InventoryItemTemplate\]\ Delete\ inventory\ item\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -8028,17 +8028,17 @@ function verifyInventoryItemDoesNotExist(asset_tag, component_id, component_type
 function tryToDeleteANonExistingInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) {
   var url = "/api/dcim/inventory-items/" + id + "/";
   var description = "[InventoryItem] Verify we cannot delete non-existing InventoryItem";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) {
-  return matchSuccess("[InventoryItem] Create Create inventory item with id " + id);
+  return matchSuccess("[InventoryItem] Create inventory item with id " + id);
 }
 
 function waitForAnyInventoryItemAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItem\]\ Create\ Create\ inventory\ item\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItem\]\ Create\ inventory\ item\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for InventoryItem: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[InventoryItem\]\ Create\ Create\ inventory\ item\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[InventoryItem\]\ Create\ inventory\ item\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -8065,15 +8065,15 @@ function waitForAnyInventoryItemAdded() {
 }
 
 function matchAnyInventoryItemAdded() { return bp.EventSet("matchAnyInventoryItemAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[InventoryItem]") > -1; }); }
-function waitForInventoryItemAdded(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) { var expectedDesc = "[InventoryItem] Create Create inventory item with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForInventoryItemAdded(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) { var expectedDesc = "[InventoryItem] Create inventory item with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) {
-  return bp.EventSet("matchDeletedInventoryItem", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InventoryItem] Delete Delete inventory item with id " + id); });
+  return bp.EventSet("matchDeletedInventoryItem", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[InventoryItem] Delete inventory item with id " + id); });
 }
 
 function waitForAnyInventoryItemDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItem\]\ Delete\ Delete\ inventory\ item\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[InventoryItem\]\ Delete\ Delete\ inventory\ item\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[InventoryItem\]\ Delete\ inventory\ item\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[InventoryItem\]\ Delete\ inventory\ item\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -8260,17 +8260,17 @@ function verifyLocationDoesNotExist(comments, custom_fields, description, facili
 function tryToDeleteANonExistingLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) {
   var url = "/api/dcim/locations/" + id + "/";
   var description = "[Location] Verify we cannot delete non-existing Location";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) {
-  return matchSuccess("[Location] Create Create location " + name + " with id " + id);
+  return matchSuccess("[Location] Create location " + name + " with id " + id);
 }
 
 function waitForAnyLocationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Location\]\ Create\ Create\ location\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Location\]\ Create\ location\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Location: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Location\]\ Create\ Create\ location\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Location\]\ Create\ location\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -8292,15 +8292,15 @@ function waitForAnyLocationAdded() {
 }
 
 function matchAnyLocationAdded() { return bp.EventSet("matchAnyLocationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Location]") > -1; }); }
-function waitForLocationAdded(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) { var expectedDesc = "[Location] Create Create location " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForLocationAdded(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) { var expectedDesc = "[Location] Create location " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) {
-  return bp.EventSet("matchDeletedLocation", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Location] Delete Delete location with id " + id); });
+  return bp.EventSet("matchDeletedLocation", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Location] Delete location with id " + id); });
 }
 
 function waitForAnyLocationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Location\]\ Delete\ Delete\ location\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Location\]\ Delete\ Delete\ location\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Location\]\ Delete\ location\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Location\]\ Delete\ location\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -8473,17 +8473,17 @@ function verifyMACAddressDoesNotExist(assigned_object_id, assigned_object_type, 
 function tryToDeleteANonExistingMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/" + id + "/";
   var description = "[MACAddress] Verify we cannot delete non-existing MACAddress";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
-  return matchSuccess("[MACAddress] Create Create MAC address " + mac_address + " with id " + id);
+  return matchSuccess("[MACAddress] Create MAC address " + mac_address + " with id " + id);
 }
 
 function waitForAnyMACAddressAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[MACAddress\]\ Create\ Create\ MAC\ address\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[MACAddress\]\ Create\ MAC\ address\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for MACAddress: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[MACAddress\]\ Create\ Create\ MAC\ address\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[MACAddress\]\ Create\ MAC\ address\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["mac_address", "id"];
   var capturedMap = {};
@@ -8501,15 +8501,15 @@ function waitForAnyMACAddressAdded() {
 }
 
 function matchAnyMACAddressAdded() { return bp.EventSet("matchAnyMACAddressAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[MACAddress]") > -1; }); }
-function waitForMACAddressAdded(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) { var expectedDesc = "[MACAddress] Create Create MAC address " + mac_address + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForMACAddressAdded(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) { var expectedDesc = "[MACAddress] Create MAC address " + mac_address + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
-  return bp.EventSet("matchDeletedMACAddress", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[MACAddress] Delete Delete MAC address with id " + id); });
+  return bp.EventSet("matchDeletedMACAddress", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[MACAddress] Delete MAC address with id " + id); });
 }
 
 function waitForAnyMACAddressDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[MACAddress\]\ Delete\ Delete\ MAC\ address\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[MACAddress\]\ Delete\ Delete\ MAC\ address\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[MACAddress\]\ Delete\ MAC\ address\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[MACAddress\]\ Delete\ MAC\ address\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -8669,17 +8669,17 @@ function verifyManufacturerDoesNotExist(custom_fields, description, id, name, sl
 function tryToDeleteANonExistingManufacturer(custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/manufacturers/" + id + "/";
   var description = "[Manufacturer] Verify we cannot delete non-existing Manufacturer";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedManufacturer(custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[Manufacturer] Create Create manufacturer " + name + " with id " + id);
+  return matchSuccess("[Manufacturer] Create manufacturer " + name + " with id " + id);
 }
 
 function waitForAnyManufacturerAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Manufacturer\]\ Create\ Create\ manufacturer\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Manufacturer\]\ Create\ manufacturer\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Manufacturer: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Manufacturer\]\ Create\ Create\ manufacturer\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Manufacturer\]\ Create\ manufacturer\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -8695,15 +8695,15 @@ function waitForAnyManufacturerAdded() {
 }
 
 function matchAnyManufacturerAdded() { return bp.EventSet("matchAnyManufacturerAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Manufacturer]") > -1; }); }
-function waitForManufacturerAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[Manufacturer] Create Create manufacturer " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForManufacturerAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[Manufacturer] Create manufacturer " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedManufacturer(custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedManufacturer", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Manufacturer] Delete Delete manufacturer with id " + id); });
+  return bp.EventSet("matchDeletedManufacturer", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Manufacturer] Delete manufacturer with id " + id); });
 }
 
 function waitForAnyManufacturerDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Manufacturer\]\ Delete\ Delete\ manufacturer\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Manufacturer\]\ Delete\ Delete\ manufacturer\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Manufacturer\]\ Delete\ manufacturer\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Manufacturer\]\ Delete\ manufacturer\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -8864,17 +8864,17 @@ function verifyModuleBayTemplateDoesNotExist(description, device_type, id, label
 function tryToDeleteANonExistingModuleBayTemplate(description, device_type, id, label, module_type, name, position) {
   var url = "/api/dcim/module-bay-templates/" + id + "/";
   var description = "[ModuleBayTemplate] Verify we cannot delete non-existing ModuleBayTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedModuleBayTemplate(description, device_type, id, label, module_type, name, position) {
-  return matchSuccess("[ModuleBayTemplate] Create Create module bay template " + name + " with id " + id);
+  return matchSuccess("[ModuleBayTemplate] Create module bay template " + name + " with id " + id);
 }
 
 function waitForAnyModuleBayTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBayTemplate\]\ Create\ Create\ module\ bay\ template\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBayTemplate\]\ Create\ module\ bay\ template\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ModuleBayTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ModuleBayTemplate\]\ Create\ Create\ module\ bay\ template\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ModuleBayTemplate\]\ Create\ module\ bay\ template\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -8891,15 +8891,15 @@ function waitForAnyModuleBayTemplateAdded() {
 }
 
 function matchAnyModuleBayTemplateAdded() { return bp.EventSet("matchAnyModuleBayTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ModuleBayTemplate]") > -1; }); }
-function waitForModuleBayTemplateAdded(description, device_type, id, label, module_type, name, position) { var expectedDesc = "[ModuleBayTemplate] Create Create module bay template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForModuleBayTemplateAdded(description, device_type, id, label, module_type, name, position) { var expectedDesc = "[ModuleBayTemplate] Create module bay template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedModuleBayTemplate(description, device_type, id, label, module_type, name, position) {
-  return bp.EventSet("matchDeletedModuleBayTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleBayTemplate] Delete Delete module bay template with id " + id); });
+  return bp.EventSet("matchDeletedModuleBayTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleBayTemplate] Delete module bay template with id " + id); });
 }
 
 function waitForAnyModuleBayTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBayTemplate\]\ Delete\ Delete\ module\ bay\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ModuleBayTemplate\]\ Delete\ Delete\ module\ bay\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBayTemplate\]\ Delete\ module\ bay\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ModuleBayTemplate\]\ Delete\ module\ bay\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9070,17 +9070,17 @@ function verifyModuleBayDoesNotExist(custom_fields, description, device, id, ins
 function tryToDeleteANonExistingModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags) {
   var url = "/api/dcim/module-bays/" + id + "/";
   var description = "[ModuleBay] Verify we cannot delete non-existing ModuleBay";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags) {
-  return matchSuccess("[ModuleBay] Create Create module bay with id " + id);
+  return matchSuccess("[ModuleBay] Create module bay with id " + id);
 }
 
 function waitForAnyModuleBayAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBay\]\ Create\ Create\ module\ bay\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBay\]\ Create\ module\ bay\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ModuleBay: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ModuleBay\]\ Create\ Create\ module\ bay\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ModuleBay\]\ Create\ module\ bay\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9100,15 +9100,15 @@ function waitForAnyModuleBayAdded() {
 }
 
 function matchAnyModuleBayAdded() { return bp.EventSet("matchAnyModuleBayAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ModuleBay]") > -1; }); }
-function waitForModuleBayAdded(custom_fields, description, device, id, installed_module, label, module, name, position, tags) { var expectedDesc = "[ModuleBay] Create Create module bay with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForModuleBayAdded(custom_fields, description, device, id, installed_module, label, module, name, position, tags) { var expectedDesc = "[ModuleBay] Create module bay with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags) {
-  return bp.EventSet("matchDeletedModuleBay", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleBay] Delete Delete module bay with id " + id); });
+  return bp.EventSet("matchDeletedModuleBay", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleBay] Delete module bay with id " + id); });
 }
 
 function waitForAnyModuleBayDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBay\]\ Delete\ Delete\ module\ bay\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ModuleBay\]\ Delete\ Delete\ module\ bay\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleBay\]\ Delete\ module\ bay\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ModuleBay\]\ Delete\ module\ bay\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9273,17 +9273,17 @@ function verifyModuleTypeProfileDoesNotExist(comments, custom_fields, descriptio
 function tryToDeleteANonExistingModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags) {
   var url = "/api/dcim/module-type-profiles/" + id + "/";
   var description = "[ModuleTypeProfile] Verify we cannot delete non-existing ModuleTypeProfile";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags) {
-  return matchSuccess("[ModuleTypeProfile] Create Create module type profile with id " + id);
+  return matchSuccess("[ModuleTypeProfile] Create module type profile with id " + id);
 }
 
 function waitForAnyModuleTypeProfileAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleTypeProfile\]\ Create\ Create\ module\ type\ profile\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleTypeProfile\]\ Create\ module\ type\ profile\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ModuleTypeProfile: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ModuleTypeProfile\]\ Create\ Create\ module\ type\ profile\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ModuleTypeProfile\]\ Create\ module\ type\ profile\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9300,15 +9300,15 @@ function waitForAnyModuleTypeProfileAdded() {
 }
 
 function matchAnyModuleTypeProfileAdded() { return bp.EventSet("matchAnyModuleTypeProfileAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ModuleTypeProfile]") > -1; }); }
-function waitForModuleTypeProfileAdded(comments, custom_fields, description, id, name, schema, tags) { var expectedDesc = "[ModuleTypeProfile] Create Create module type profile with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForModuleTypeProfileAdded(comments, custom_fields, description, id, name, schema, tags) { var expectedDesc = "[ModuleTypeProfile] Create module type profile with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags) {
-  return bp.EventSet("matchDeletedModuleTypeProfile", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleTypeProfile] Delete Delete module type profile with id " + id); });
+  return bp.EventSet("matchDeletedModuleTypeProfile", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleTypeProfile] Delete module type profile with id " + id); });
 }
 
 function waitForAnyModuleTypeProfileDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleTypeProfile\]\ Delete\ Delete\ module\ type\ profile\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ModuleTypeProfile\]\ Delete\ Delete\ module\ type\ profile\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleTypeProfile\]\ Delete\ module\ type\ profile\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ModuleTypeProfile\]\ Delete\ module\ type\ profile\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9488,17 +9488,17 @@ function verifyModuleTypeDoesNotExist(airflow, attributes, comments, custom_fiel
 function tryToDeleteANonExistingModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) {
   var url = "/api/dcim/module-types/" + id + "/";
   var description = "[ModuleType] Verify we cannot delete non-existing ModuleType";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) {
-  return matchSuccess("[ModuleType] Create Create module type with id " + id);
+  return matchSuccess("[ModuleType] Create module type with id " + id);
 }
 
 function waitForAnyModuleTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleType\]\ Create\ Create\ module\ type\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleType\]\ Create\ module\ type\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ModuleType: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ModuleType\]\ Create\ Create\ module\ type\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ModuleType\]\ Create\ module\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9521,15 +9521,15 @@ function waitForAnyModuleTypeAdded() {
 }
 
 function matchAnyModuleTypeAdded() { return bp.EventSet("matchAnyModuleTypeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ModuleType]") > -1; }); }
-function waitForModuleTypeAdded(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) { var expectedDesc = "[ModuleType] Create Create module type with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForModuleTypeAdded(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) { var expectedDesc = "[ModuleType] Create module type with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) {
-  return bp.EventSet("matchDeletedModuleType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleType] Delete Delete module type with id " + id); });
+  return bp.EventSet("matchDeletedModuleType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ModuleType] Delete module type with id " + id); });
 }
 
 function waitForAnyModuleTypeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleType\]\ Delete\ Delete\ module\ type\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ModuleType\]\ Delete\ Delete\ module\ type\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ModuleType\]\ Delete\ module\ type\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ModuleType\]\ Delete\ module\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9709,17 +9709,17 @@ function verifyModuleDoesNotExist(asset_tag, comments, custom_fields, descriptio
 function tryToDeleteANonExistingModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) {
   var url = "/api/dcim/modules/" + id + "/";
   var description = "[Module] Verify we cannot delete non-existing Module";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) {
-  return matchSuccess("[Module] Create Create module with id " + id);
+  return matchSuccess("[Module] Create module with id " + id);
 }
 
 function waitForAnyModuleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Module\]\ Create\ Create\ module\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Module\]\ Create\ module\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Module: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Module\]\ Create\ Create\ module\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Module\]\ Create\ module\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9740,15 +9740,15 @@ function waitForAnyModuleAdded() {
 }
 
 function matchAnyModuleAdded() { return bp.EventSet("matchAnyModuleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Module]") > -1; }); }
-function waitForModuleAdded(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) { var expectedDesc = "[Module] Create Create module with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForModuleAdded(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) { var expectedDesc = "[Module] Create module with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) {
-  return bp.EventSet("matchDeletedModule", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Module] Delete Delete module with id " + id); });
+  return bp.EventSet("matchDeletedModule", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Module] Delete module with id " + id); });
 }
 
 function waitForAnyModuleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Module\]\ Delete\ Delete\ module\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Module\]\ Delete\ Delete\ module\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Module\]\ Delete\ module\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Module\]\ Delete\ module\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9923,17 +9923,17 @@ function verifyPlatformDoesNotExist(comments, config_template, custom_fields, de
 function tryToDeleteANonExistingPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) {
   var url = "/api/dcim/platforms/" + id + "/";
   var description = "[Platform] Verify we cannot delete non-existing Platform";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) {
-  return matchSuccess("[Platform] Create Create platform with id " + id);
+  return matchSuccess("[Platform] Create platform with id " + id);
 }
 
 function waitForAnyPlatformAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Platform\]\ Create\ Create\ platform\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Platform\]\ Create\ platform\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Platform: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Platform\]\ Create\ Create\ platform\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Platform\]\ Create\ platform\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -9953,15 +9953,15 @@ function waitForAnyPlatformAdded() {
 }
 
 function matchAnyPlatformAdded() { return bp.EventSet("matchAnyPlatformAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Platform]") > -1; }); }
-function waitForPlatformAdded(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) { var expectedDesc = "[Platform] Create Create platform with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPlatformAdded(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) { var expectedDesc = "[Platform] Create platform with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) {
-  return bp.EventSet("matchDeletedPlatform", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Platform] Delete Delete platform with id " + id); });
+  return bp.EventSet("matchDeletedPlatform", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Platform] Delete platform with id " + id); });
 }
 
 function waitForAnyPlatformDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Platform\]\ Delete\ Delete\ platform\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Platform\]\ Delete\ Delete\ platform\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Platform\]\ Delete\ platform\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Platform\]\ Delete\ platform\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10156,17 +10156,17 @@ function verifyPowerFeedDoesNotExist(amperage, comments, custom_fields, descript
 function tryToDeleteANonExistingPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
   var url = "/api/dcim/power-feeds/" + id + "/";
   var description = "[PowerFeed] Verify we cannot delete non-existing PowerFeed";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
-  return matchSuccess("[PowerFeed] Create Create power feed with id " + id);
+  return matchSuccess("[PowerFeed] Create power feed with id " + id);
 }
 
 function waitForAnyPowerFeedAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerFeed\]\ Create\ Create\ power\ feed\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerFeed\]\ Create\ power\ feed\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for PowerFeed: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[PowerFeed\]\ Create\ Create\ power\ feed\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[PowerFeed\]\ Create\ power\ feed\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10193,15 +10193,15 @@ function waitForAnyPowerFeedAdded() {
 }
 
 function matchAnyPowerFeedAdded() { return bp.EventSet("matchAnyPowerFeedAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[PowerFeed]") > -1; }); }
-function waitForPowerFeedAdded(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) { var expectedDesc = "[PowerFeed] Create Create power feed with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPowerFeedAdded(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) { var expectedDesc = "[PowerFeed] Create power feed with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
-  return bp.EventSet("matchDeletedPowerFeed", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerFeed] Delete Delete power feed with id " + id); });
+  return bp.EventSet("matchDeletedPowerFeed", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerFeed] Delete power feed with id " + id); });
 }
 
 function waitForAnyPowerFeedDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerFeed\]\ Delete\ Delete\ power\ feed\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[PowerFeed\]\ Delete\ Delete\ power\ feed\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerFeed\]\ Delete\ power\ feed\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[PowerFeed\]\ Delete\ power\ feed\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10379,17 +10379,17 @@ function verifyPowerOutletTemplateDoesNotExist(description, device_type, feed_le
 function tryToDeleteANonExistingPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
   var url = "/api/dcim/power-outlet-templates/" + id + "/";
   var description = "[PowerOutletTemplate] Verify we cannot delete non-existing PowerOutletTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
-  return matchSuccess("[PowerOutletTemplate] Create Create power outlet template with id " + id);
+  return matchSuccess("[PowerOutletTemplate] Create power outlet template with id " + id);
 }
 
 function waitForAnyPowerOutletTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutletTemplate\]\ Create\ Create\ power\ outlet\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutletTemplate\]\ Create\ power\ outlet\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for PowerOutletTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[PowerOutletTemplate\]\ Create\ Create\ power\ outlet\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[PowerOutletTemplate\]\ Create\ power\ outlet\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10408,15 +10408,15 @@ function waitForAnyPowerOutletTemplateAdded() {
 }
 
 function matchAnyPowerOutletTemplateAdded() { return bp.EventSet("matchAnyPowerOutletTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[PowerOutletTemplate]") > -1; }); }
-function waitForPowerOutletTemplateAdded(description, device_type, feed_leg, id, label, module_type, name, power_port, type) { var expectedDesc = "[PowerOutletTemplate] Create Create power outlet template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPowerOutletTemplateAdded(description, device_type, feed_leg, id, label, module_type, name, power_port, type) { var expectedDesc = "[PowerOutletTemplate] Create power outlet template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
-  return bp.EventSet("matchDeletedPowerOutletTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerOutletTemplate] Delete Delete power outlet template with id " + id); });
+  return bp.EventSet("matchDeletedPowerOutletTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerOutletTemplate] Delete power outlet template with id " + id); });
 }
 
 function waitForAnyPowerOutletTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutletTemplate\]\ Delete\ Delete\ power\ outlet\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[PowerOutletTemplate\]\ Delete\ Delete\ power\ outlet\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutletTemplate\]\ Delete\ power\ outlet\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[PowerOutletTemplate\]\ Delete\ power\ outlet\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10601,17 +10601,17 @@ function verifyPowerOutletDoesNotExist(color, custom_fields, description, device
 function tryToDeleteANonExistingPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
   var url = "/api/dcim/power-outlets/" + id + "/";
   var description = "[PowerOutlet] Verify we cannot delete non-existing PowerOutlet";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
-  return matchSuccess("[PowerOutlet] Create Create power outlet with id " + id);
+  return matchSuccess("[PowerOutlet] Create power outlet with id " + id);
 }
 
 function waitForAnyPowerOutletAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutlet\]\ Create\ Create\ power\ outlet\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutlet\]\ Create\ power\ outlet\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for PowerOutlet: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[PowerOutlet\]\ Create\ Create\ power\ outlet\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[PowerOutlet\]\ Create\ power\ outlet\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10635,15 +10635,15 @@ function waitForAnyPowerOutletAdded() {
 }
 
 function matchAnyPowerOutletAdded() { return bp.EventSet("matchAnyPowerOutletAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[PowerOutlet]") > -1; }); }
-function waitForPowerOutletAdded(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) { var expectedDesc = "[PowerOutlet] Create Create power outlet with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPowerOutletAdded(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) { var expectedDesc = "[PowerOutlet] Create power outlet with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
-  return bp.EventSet("matchDeletedPowerOutlet", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerOutlet] Delete Delete power outlet with id " + id); });
+  return bp.EventSet("matchDeletedPowerOutlet", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerOutlet] Delete power outlet with id " + id); });
 }
 
 function waitForAnyPowerOutletDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutlet\]\ Delete\ Delete\ power\ outlet\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[PowerOutlet\]\ Delete\ Delete\ power\ outlet\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerOutlet\]\ Delete\ power\ outlet\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[PowerOutlet\]\ Delete\ power\ outlet\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10815,17 +10815,17 @@ function verifyPowerPanelDoesNotExist(comments, custom_fields, description, id, 
 function tryToDeleteANonExistingPowerPanel(comments, custom_fields, description, id, location, name, site, tags) {
   var url = "/api/dcim/power-panels/" + id + "/";
   var description = "[PowerPanel] Verify we cannot delete non-existing PowerPanel";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPowerPanel(comments, custom_fields, description, id, location, name, site, tags) {
-  return matchSuccess("[PowerPanel] Create Create power panel with id " + id);
+  return matchSuccess("[PowerPanel] Create power panel with id " + id);
 }
 
 function waitForAnyPowerPanelAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPanel\]\ Create\ Create\ power\ panel\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPanel\]\ Create\ power\ panel\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for PowerPanel: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[PowerPanel\]\ Create\ Create\ power\ panel\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[PowerPanel\]\ Create\ power\ panel\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -10843,15 +10843,15 @@ function waitForAnyPowerPanelAdded() {
 }
 
 function matchAnyPowerPanelAdded() { return bp.EventSet("matchAnyPowerPanelAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[PowerPanel]") > -1; }); }
-function waitForPowerPanelAdded(comments, custom_fields, description, id, location, name, site, tags) { var expectedDesc = "[PowerPanel] Create Create power panel with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPowerPanelAdded(comments, custom_fields, description, id, location, name, site, tags) { var expectedDesc = "[PowerPanel] Create power panel with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPowerPanel(comments, custom_fields, description, id, location, name, site, tags) {
-  return bp.EventSet("matchDeletedPowerPanel", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerPanel] Delete Delete power panel with id " + id); });
+  return bp.EventSet("matchDeletedPowerPanel", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerPanel] Delete power panel with id " + id); });
 }
 
 function waitForAnyPowerPanelDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPanel\]\ Delete\ Delete\ power\ panel\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[PowerPanel\]\ Delete\ Delete\ power\ panel\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPanel\]\ Delete\ power\ panel\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[PowerPanel\]\ Delete\ power\ panel\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11020,17 +11020,17 @@ function verifyPowerPortTemplateDoesNotExist(allocated_draw, description, device
 function tryToDeleteANonExistingPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) {
   var url = "/api/dcim/power-port-templates/" + id + "/";
   var description = "[PowerPortTemplate] Verify we cannot delete non-existing PowerPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) {
-  return matchSuccess("[PowerPortTemplate] Create Create power port template " + id);
+  return matchSuccess("[PowerPortTemplate] Create power port template " + id);
 }
 
 function waitForAnyPowerPortTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPortTemplate\]\ Create\ Create\ power\ port\ template\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPortTemplate\]\ Create\ power\ port\ template\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for PowerPortTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[PowerPortTemplate\]\ Create\ Create\ power\ port\ template\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[PowerPortTemplate\]\ Create\ power\ port\ template\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11049,15 +11049,15 @@ function waitForAnyPowerPortTemplateAdded() {
 }
 
 function matchAnyPowerPortTemplateAdded() { return bp.EventSet("matchAnyPowerPortTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[PowerPortTemplate]") > -1; }); }
-function waitForPowerPortTemplateAdded(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) { var expectedDesc = "[PowerPortTemplate] Create Create power port template " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPowerPortTemplateAdded(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) { var expectedDesc = "[PowerPortTemplate] Create power port template " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) {
-  return bp.EventSet("matchDeletedPowerPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerPortTemplate] Delete Delete power port template " + id); });
+  return bp.EventSet("matchDeletedPowerPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerPortTemplate] Delete power port template " + id); });
 }
 
 function waitForAnyPowerPortTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPortTemplate\]\ Delete\ Delete\ power\ port\ template\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[PowerPortTemplate\]\ Delete\ Delete\ power\ port\ template\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPortTemplate\]\ Delete\ power\ port\ template\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[PowerPortTemplate\]\ Delete\ power\ port\ template\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11236,17 +11236,17 @@ function verifyPowerPortDoesNotExist(allocated_draw, custom_fields, description,
 function tryToDeleteANonExistingPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) {
   var url = "/api/dcim/power-ports/" + id + "/";
   var description = "[PowerPort] Verify we cannot delete non-existing PowerPort";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) {
-  return matchSuccess("[PowerPort] Create Create power port " + id);
+  return matchSuccess("[PowerPort] Create power port " + id);
 }
 
 function waitForAnyPowerPortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPort\]\ Create\ Create\ power\ port\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPort\]\ Create\ power\ port\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for PowerPort: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[PowerPort\]\ Create\ Create\ power\ port\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[PowerPort\]\ Create\ power\ port\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11268,15 +11268,15 @@ function waitForAnyPowerPortAdded() {
 }
 
 function matchAnyPowerPortAdded() { return bp.EventSet("matchAnyPowerPortAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[PowerPort]") > -1; }); }
-function waitForPowerPortAdded(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) { var expectedDesc = "[PowerPort] Create Create power port " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPowerPortAdded(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) { var expectedDesc = "[PowerPort] Create power port " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) {
-  return bp.EventSet("matchDeletedPowerPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerPort] Delete Delete power port " + id); });
+  return bp.EventSet("matchDeletedPowerPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[PowerPort] Delete power port " + id); });
 }
 
 function waitForAnyPowerPortDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPort\]\ Delete\ Delete\ power\ port\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[PowerPort\]\ Delete\ Delete\ power\ port\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[PowerPort\]\ Delete\ power\ port\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[PowerPort\]\ Delete\ power\ port\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11452,17 +11452,17 @@ function verifyRackReservationDoesNotExist(comments, custom_fields, description,
 function tryToDeleteANonExistingRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) {
   var url = "/api/dcim/rack-reservations/" + id + "/";
   var description = "[RackReservation] Verify we cannot delete non-existing RackReservation";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) {
-  return matchSuccess("[RackReservation] Create Create rack reservation " + id);
+  return matchSuccess("[RackReservation] Create rack reservation " + id);
 }
 
 function waitForAnyRackReservationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RackReservation\]\ Create\ Create\ rack\ reservation\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RackReservation\]\ Create\ rack\ reservation\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RackReservation: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RackReservation\]\ Create\ Create\ rack\ reservation\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RackReservation\]\ Create\ rack\ reservation\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11482,15 +11482,15 @@ function waitForAnyRackReservationAdded() {
 }
 
 function matchAnyRackReservationAdded() { return bp.EventSet("matchAnyRackReservationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RackReservation]") > -1; }); }
-function waitForRackReservationAdded(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) { var expectedDesc = "[RackReservation] Create Create rack reservation " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRackReservationAdded(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) { var expectedDesc = "[RackReservation] Create rack reservation " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) {
-  return bp.EventSet("matchDeletedRackReservation", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RackReservation] Delete Delete rack reservation " + id); });
+  return bp.EventSet("matchDeletedRackReservation", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RackReservation] Delete rack reservation " + id); });
 }
 
 function waitForAnyRackReservationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RackReservation\]\ Delete\ Delete\ rack\ reservation\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RackReservation\]\ Delete\ Delete\ rack\ reservation\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RackReservation\]\ Delete\ rack\ reservation\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RackReservation\]\ Delete\ rack\ reservation\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11645,17 +11645,17 @@ function verifyRackRoleDoesNotExist(color, custom_fields, description, id, name,
 function tryToDeleteANonExistingRackRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/rack-roles/" + id + "/";
   var description = "[RackRole] Verify we cannot delete non-existing RackRole";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRackRole(color, custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[RackRole] Create Create rack role " + name + " with slug " + slug + " with id " + id);
+  return matchSuccess("[RackRole] Create rack role " + name + " with slug " + slug + " with id " + id);
 }
 
 function waitForAnyRackRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RackRole\]\ Create\ Create\ rack\ role\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RackRole\]\ Create\ rack\ role\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RackRole: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RackRole\]\ Create\ Create\ rack\ role\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RackRole\]\ Create\ rack\ role\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "slug", "id"];
   var capturedMap = {};
@@ -11672,15 +11672,15 @@ function waitForAnyRackRoleAdded() {
 }
 
 function matchAnyRackRoleAdded() { return bp.EventSet("matchAnyRackRoleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RackRole]") > -1; }); }
-function waitForRackRoleAdded(color, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[RackRole] Create Create rack role " + name + " with slug " + slug + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRackRoleAdded(color, custom_fields, description, id, name, slug, tags) { var expectedDesc = "[RackRole] Create rack role " + name + " with slug " + slug + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRackRole(color, custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedRackRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RackRole] Delete Delete rack role " + id); });
+  return bp.EventSet("matchDeletedRackRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RackRole] Delete rack role " + id); });
 }
 
 function waitForAnyRackRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RackRole\]\ Delete\ Delete\ rack\ role\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RackRole\]\ Delete\ Delete\ rack\ role\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RackRole\]\ Delete\ rack\ role\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RackRole\]\ Delete\ rack\ role\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -11854,17 +11854,17 @@ function verifyRackTypeDoesNotExist(comments, custom_fields, desc_units, descrip
 function tryToDeleteANonExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/rack-types/" + id + "/";
   var description = "[RackType] Verify we cannot delete non-existing RackType";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
-  return matchSuccess("[RackType] Create Create rack type " + name + " with slug " + slug + " with id " + id);
+  return matchSuccess("[RackType] Create rack type " + name + " with slug " + slug + " with id " + id);
 }
 
 function waitForAnyRackTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RackType\]\ Create\ Create\ rack\ type\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RackType\]\ Create\ rack\ type\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RackType: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RackType\]\ Create\ Create\ rack\ type\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RackType\]\ Create\ rack\ type\ (.*?)\ with\ slug\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "slug", "id"];
   var capturedMap = {};
@@ -11896,15 +11896,15 @@ function waitForAnyRackTypeAdded() {
 }
 
 function matchAnyRackTypeAdded() { return bp.EventSet("matchAnyRackTypeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RackType]") > -1; }); }
-function waitForRackTypeAdded(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) { var expectedDesc = "[RackType] Create Create rack type " + name + " with slug " + slug + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRackTypeAdded(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) { var expectedDesc = "[RackType] Create rack type " + name + " with slug " + slug + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
-  return bp.EventSet("matchDeletedRackType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RackType] Delete Delete rack type with id " + id); });
+  return bp.EventSet("matchDeletedRackType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RackType] Delete rack type with id " + id); });
 }
 
 function waitForAnyRackTypeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RackType\]\ Delete\ Delete\ rack\ type\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RackType\]\ Delete\ Delete\ rack\ type\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RackType\]\ Delete\ rack\ type\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RackType\]\ Delete\ rack\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -12175,17 +12175,17 @@ function verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, des
 function tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/racks/" + id + "/";
   var description = "[Rack] Verify we cannot delete non-existing Rack";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
-  return matchSuccess("[Rack] Create Create rack " + name + " with id " + id);
+  return matchSuccess("[Rack] Create rack " + name + " with id " + id);
 }
 
 function waitForAnyRackAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Rack\]\ Create\ Create\ rack\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Rack\]\ Create\ rack\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Rack: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Rack\]\ Create\ Create\ rack\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Rack\]\ Create\ rack\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -12225,15 +12225,15 @@ function waitForAnyRackAdded() {
 }
 
 function matchAnyRackAdded() { return bp.EventSet("matchAnyRackAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Rack]") > -1; }); }
-function waitForRackAdded(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) { var expectedDesc = "[Rack] Create Create rack " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRackAdded(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) { var expectedDesc = "[Rack] Create rack " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
-  return bp.EventSet("matchDeletedRack", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Rack] Delete Delete rack with id " + id); });
+  return bp.EventSet("matchDeletedRack", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Rack] Delete rack with id " + id); });
 }
 
 function waitForAnyRackDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Rack\]\ Delete\ Delete\ rack\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Rack\]\ Delete\ Delete\ rack\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Rack\]\ Delete\ rack\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Rack\]\ Delete\ rack\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -12444,17 +12444,17 @@ function verifyRearPortTemplateDoesNotExist(color, description, device_type, id,
 function tryToDeleteANonExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, tags, type) {
   var url = "/api/dcim/rear-port-templates/" + id + "/";
   var description = "[RearPortTemplate] Verify we cannot delete non-existing RearPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, tags, type) {
-  return matchSuccess("[RearPortTemplate] Create Create rear port template " + name + " with id " + id);
+  return matchSuccess("[RearPortTemplate] Create rear port template " + name + " with id " + id);
 }
 
 function waitForAnyRearPortTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RearPortTemplate\]\ Create\ Create\ rear\ port\ template\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RearPortTemplate\]\ Create\ rear\ port\ template\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RearPortTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RearPortTemplate\]\ Create\ Create\ rear\ port\ template\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RearPortTemplate\]\ Create\ rear\ port\ template\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -12474,15 +12474,15 @@ function waitForAnyRearPortTemplateAdded() {
 }
 
 function matchAnyRearPortTemplateAdded() { return bp.EventSet("matchAnyRearPortTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RearPortTemplate]") > -1; }); }
-function waitForRearPortTemplateAdded(color, description, device_type, id, label, module_type, name, positions, tags, type) { var expectedDesc = "[RearPortTemplate] Create Create rear port template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRearPortTemplateAdded(color, description, device_type, id, label, module_type, name, positions, tags, type) { var expectedDesc = "[RearPortTemplate] Create rear port template " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, tags, type) {
-  return bp.EventSet("matchDeletedRearPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RearPortTemplate] Delete Delete rear port template with id " + id); });
+  return bp.EventSet("matchDeletedRearPortTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RearPortTemplate] Delete rear port template with id " + id); });
 }
 
 function waitForAnyRearPortTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RearPortTemplate\]\ Delete\ Delete\ rear\ port\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RearPortTemplate\]\ Delete\ Delete\ rear\ port\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RearPortTemplate\]\ Delete\ rear\ port\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RearPortTemplate\]\ Delete\ rear\ port\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -12717,17 +12717,17 @@ function verifyRearPortDoesNotExist(cable, cable_end, color, custom_fields, desc
 function tryToDeleteANonExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) {
   var url = "/api/dcim/rear-ports/" + id + "/";
   var description = "[RearPort] Verify we cannot delete non-existing RearPort";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) {
-  return matchSuccess("[RearPort] Create Create rear port " + name + " with id " + id);
+  return matchSuccess("[RearPort] Create rear port " + name + " with id " + id);
 }
 
 function waitForAnyRearPortAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RearPort\]\ Create\ Create\ rear\ port\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RearPort\]\ Create\ rear\ port\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RearPort: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RearPort\]\ Create\ Create\ rear\ port\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RearPort\]\ Create\ rear\ port\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -12759,15 +12759,15 @@ function waitForAnyRearPortAdded() {
 }
 
 function matchAnyRearPortAdded() { return bp.EventSet("matchAnyRearPortAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RearPort]") > -1; }); }
-function waitForRearPortAdded(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) { var expectedDesc = "[RearPort] Create Create rear port " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRearPortAdded(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) { var expectedDesc = "[RearPort] Create rear port " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) {
-  return bp.EventSet("matchDeletedRearPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RearPort] Delete Delete rear port with id " + id); });
+  return bp.EventSet("matchDeletedRearPort", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RearPort] Delete rear port with id " + id); });
 }
 
 function waitForAnyRearPortDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RearPort\]\ Delete\ Delete\ rear\ port\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RearPort\]\ Delete\ Delete\ rear\ port\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RearPort\]\ Delete\ rear\ port\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RearPort\]\ Delete\ rear\ port\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -12970,17 +12970,17 @@ function verifyRegionDoesNotExist(comments, custom_fields, description, id, name
 function tryToDeleteANonExistingRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/regions/" + id + "/";
   var description = "[Region] Verify we cannot delete non-existing Region";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return matchSuccess("[Region] Create Create region with id " + id);
+  return matchSuccess("[Region] Create region with id " + id);
 }
 
 function waitForAnyRegionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Region\]\ Create\ Create\ region\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Region\]\ Create\ region\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Region: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Region\]\ Create\ Create\ region\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Region\]\ Create\ region\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -12998,15 +12998,15 @@ function waitForAnyRegionAdded() {
 }
 
 function matchAnyRegionAdded() { return bp.EventSet("matchAnyRegionAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Region]") > -1; }); }
-function waitForRegionAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[Region] Create Create region with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRegionAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[Region] Create region with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return bp.EventSet("matchDeletedRegion", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Region] Delete Delete region with id " + id); });
+  return bp.EventSet("matchDeletedRegion", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Region] Delete region with id " + id); });
 }
 
 function waitForAnyRegionDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Region\]\ Delete\ Delete\ region\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Region\]\ Delete\ Delete\ region\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Region\]\ Delete\ region\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Region\]\ Delete\ region\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -13246,17 +13246,17 @@ function verifySiteGroupDoesNotExist(comments, custom_fields, description, id, n
 function tryToDeleteANonExistingSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/site-groups/" + id + "/";
   var description = "[SiteGroup] Verify we cannot delete non-existing SiteGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return matchSuccess("[SiteGroup] Create Create site group with id " + id);
+  return matchSuccess("[SiteGroup] Create site group with id " + id);
 }
 
 function waitForAnySiteGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[SiteGroup\]\ Create\ Create\ site\ group\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[SiteGroup\]\ Create\ site\ group\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for SiteGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[SiteGroup\]\ Create\ Create\ site\ group\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[SiteGroup\]\ Create\ site\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -13274,15 +13274,15 @@ function waitForAnySiteGroupAdded() {
 }
 
 function matchAnySiteGroupAdded() { return bp.EventSet("matchAnySiteGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[SiteGroup]") > -1; }); }
-function waitForSiteGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[SiteGroup] Create Create site group with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForSiteGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[SiteGroup] Create site group with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return bp.EventSet("matchDeletedSiteGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[SiteGroup] Delete Delete site group with id " + id); });
+  return bp.EventSet("matchDeletedSiteGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[SiteGroup] Delete site group with id " + id); });
 }
 
 function waitForAnySiteGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[SiteGroup\]\ Delete\ Delete\ site\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[SiteGroup\]\ Delete\ Delete\ site\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[SiteGroup\]\ Delete\ site\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[SiteGroup\]\ Delete\ site\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -13562,17 +13562,17 @@ function verifySiteDoesNotExist(asns, comments, custom_fields, description, faci
 function tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/" + id + "/";
   var description = "[Site] Verify we cannot delete non-existing Site";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  return matchSuccess("[Site] Create Create site with id " + id);
+  return matchSuccess("[Site] Create site with id " + id);
 }
 
 function waitForAnySiteAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Site\]\ Create\ Create\ site\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Site\]\ Create\ site\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Site: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Site\]\ Create\ Create\ site\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Site\]\ Create\ site\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -13600,15 +13600,15 @@ function waitForAnySiteAdded() {
 }
 
 function matchAnySiteAdded() { return bp.EventSet("matchAnySiteAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Site]") > -1; }); }
-function waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) { var expectedDesc = "[Site] Create Create site with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForSiteAdded(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) { var expectedDesc = "[Site] Create site with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
-  return bp.EventSet("matchDeletedSite", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Site] Delete Delete site with id " + id); });
+  return bp.EventSet("matchDeletedSite", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Site] Delete site with id " + id); });
 }
 
 function waitForAnySiteDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Site\]\ Delete\ Delete\ site\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Site\]\ Delete\ Delete\ site\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Site\]\ Delete\ site\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Site\]\ Delete\ site\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -13858,17 +13858,17 @@ function verifyVirtualChassisDoesNotExist(comments, custom_fields, description, 
 function tryToDeleteANonExistingVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
   var url = "/api/dcim/virtual-chassis/" + id + "/";
   var description = "[VirtualChassis] Verify we cannot delete non-existing VirtualChassis";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
-  return matchSuccess("[VirtualChassis] Create Create virtual chassis with id " + id);
+  return matchSuccess("[VirtualChassis] Create virtual chassis with id " + id);
 }
 
 function waitForAnyVirtualChassisAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualChassis\]\ Create\ Create\ virtual\ chassis\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualChassis\]\ Create\ virtual\ chassis\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualChassis: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualChassis\]\ Create\ Create\ virtual\ chassis\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualChassis\]\ Create\ virtual\ chassis\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -13886,15 +13886,15 @@ function waitForAnyVirtualChassisAdded() {
 }
 
 function matchAnyVirtualChassisAdded() { return bp.EventSet("matchAnyVirtualChassisAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualChassis]") > -1; }); }
-function waitForVirtualChassisAdded(comments, custom_fields, description, domain, id, master, name, tags) { var expectedDesc = "[VirtualChassis] Create Create virtual chassis with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualChassisAdded(comments, custom_fields, description, domain, id, master, name, tags) { var expectedDesc = "[VirtualChassis] Create virtual chassis with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
-  return bp.EventSet("matchDeletedVirtualChassis", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualChassis] Delete Delete virtual chassis with id " + id); });
+  return bp.EventSet("matchDeletedVirtualChassis", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualChassis] Delete virtual chassis with id " + id); });
 }
 
 function waitForAnyVirtualChassisDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualChassis\]\ Delete\ Delete\ virtual\ chassis\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualChassis\]\ Delete\ Delete\ virtual\ chassis\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualChassis\]\ Delete\ virtual\ chassis\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualChassis\]\ Delete\ virtual\ chassis\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14150,17 +14150,17 @@ function verifyVirtualDeviceContextDoesNotExist(comments, custom_fields, descrip
 function tryToDeleteANonExistingVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
   var url = "/api/dcim/virtual-device-contexts/" + id + "/";
   var description = "[VirtualDeviceContext] Verify we cannot delete non-existing VirtualDeviceContext";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  return matchSuccess("[VirtualDeviceContext] Create Create virtual device context with id " + id);
+  return matchSuccess("[VirtualDeviceContext] Create virtual device context with id " + id);
 }
 
 function waitForAnyVirtualDeviceContextAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDeviceContext\]\ Create\ Create\ virtual\ device\ context\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDeviceContext\]\ Create\ virtual\ device\ context\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualDeviceContext: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualDeviceContext\]\ Create\ Create\ virtual\ device\ context\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualDeviceContext\]\ Create\ virtual\ device\ context\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14182,15 +14182,15 @@ function waitForAnyVirtualDeviceContextAdded() {
 }
 
 function matchAnyVirtualDeviceContextAdded() { return bp.EventSet("matchAnyVirtualDeviceContextAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualDeviceContext]") > -1; }); }
-function waitForVirtualDeviceContextAdded(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) { var expectedDesc = "[VirtualDeviceContext] Create Create virtual device context with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualDeviceContextAdded(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) { var expectedDesc = "[VirtualDeviceContext] Create virtual device context with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
-  return bp.EventSet("matchDeletedVirtualDeviceContext", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualDeviceContext] Delete Delete virtual device context with id " + id); });
+  return bp.EventSet("matchDeletedVirtualDeviceContext", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualDeviceContext] Delete virtual device context with id " + id); });
 }
 
 function waitForAnyVirtualDeviceContextDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDeviceContext\]\ Delete\ Delete\ virtual\ device\ context\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualDeviceContext\]\ Delete\ Delete\ virtual\ device\ context\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDeviceContext\]\ Delete\ virtual\ device\ context\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualDeviceContext\]\ Delete\ virtual\ device\ context\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14351,17 +14351,17 @@ function verifyBookmarkDoesNotExist(id, object_id, object_type, user) {
 function tryToDeleteANonExistingBookmark(id, object_id, object_type, user) {
   var url = "/api/extras/bookmarks/" + id + "/";
   var description = "[Bookmark] Verify we cannot delete non-existing Bookmark";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedBookmark(id, object_id, object_type, user) {
-  return matchSuccess("[Bookmark] Create Create bookmark with id " + id);
+  return matchSuccess("[Bookmark] Create bookmark with id " + id);
 }
 
 function waitForAnyBookmarkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Bookmark\]\ Create\ Create\ bookmark\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Bookmark\]\ Create\ bookmark\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Bookmark: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Bookmark\]\ Create\ Create\ bookmark\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Bookmark\]\ Create\ bookmark\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14375,15 +14375,15 @@ function waitForAnyBookmarkAdded() {
 }
 
 function matchAnyBookmarkAdded() { return bp.EventSet("matchAnyBookmarkAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Bookmark]") > -1; }); }
-function waitForBookmarkAdded(id, object_id, object_type, user) { var expectedDesc = "[Bookmark] Create Create bookmark with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForBookmarkAdded(id, object_id, object_type, user) { var expectedDesc = "[Bookmark] Create bookmark with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedBookmark(id, object_id, object_type, user) {
-  return bp.EventSet("matchDeletedBookmark", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Bookmark] Delete Delete bookmark with id " + id); });
+  return bp.EventSet("matchDeletedBookmark", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Bookmark] Delete bookmark with id " + id); });
 }
 
 function waitForAnyBookmarkDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Bookmark\]\ Delete\ Delete\ bookmark\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Bookmark\]\ Delete\ Delete\ bookmark\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Bookmark\]\ Delete\ bookmark\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Bookmark\]\ Delete\ bookmark\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14542,17 +14542,17 @@ function verifyConfigContextProfileDoesNotExist(comments, data_source, descripti
 function tryToDeleteANonExistingConfigContextProfile(comments, data_source, description, id, name, schema, tags) {
   var url = "/api/extras/config-context-profiles/" + id + "/";
   var description = "[ConfigContextProfile] Verify we cannot delete non-existing ConfigContextProfile";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedConfigContextProfile(comments, data_source, description, id, name, schema, tags) {
-  return matchSuccess("[ConfigContextProfile] Create Create config context profile with id " + id);
+  return matchSuccess("[ConfigContextProfile] Create config context profile with id " + id);
 }
 
 function waitForAnyConfigContextProfileAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContextProfile\]\ Create\ Create\ config\ context\ profile\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContextProfile\]\ Create\ config\ context\ profile\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ConfigContextProfile: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ConfigContextProfile\]\ Create\ Create\ config\ context\ profile\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ConfigContextProfile\]\ Create\ config\ context\ profile\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14569,15 +14569,15 @@ function waitForAnyConfigContextProfileAdded() {
 }
 
 function matchAnyConfigContextProfileAdded() { return bp.EventSet("matchAnyConfigContextProfileAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ConfigContextProfile]") > -1; }); }
-function waitForConfigContextProfileAdded(comments, data_source, description, id, name, schema, tags) { var expectedDesc = "[ConfigContextProfile] Create Create config context profile with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForConfigContextProfileAdded(comments, data_source, description, id, name, schema, tags) { var expectedDesc = "[ConfigContextProfile] Create config context profile with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedConfigContextProfile(comments, data_source, description, id, name, schema, tags) {
-  return bp.EventSet("matchDeletedConfigContextProfile", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConfigContextProfile] Delete Delete config context profile with id " + id); });
+  return bp.EventSet("matchDeletedConfigContextProfile", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConfigContextProfile] Delete config context profile with id " + id); });
 }
 
 function waitForAnyConfigContextProfileDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContextProfile\]\ Delete\ Delete\ config\ context\ profile\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ConfigContextProfile\]\ Delete\ Delete\ config\ context\ profile\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContextProfile\]\ Delete\ config\ context\ profile\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ConfigContextProfile\]\ Delete\ config\ context\ profile\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14781,17 +14781,17 @@ function verifyConfigContextDoesNotExist(cluster_groups, cluster_types, clusters
 function tryToDeleteANonExistingConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) {
   var url = "/api/extras/config-contexts/" + id + "/";
   var description = "[ConfigContext] Verify we cannot delete non-existing ConfigContext";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) {
-  return matchSuccess("[ConfigContext] Create Create config context with id " + id);
+  return matchSuccess("[ConfigContext] Create config context with id " + id);
 }
 
 function waitForAnyConfigContextAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContext\]\ Create\ Create\ config\ context\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContext\]\ Create\ config\ context\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ConfigContext: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ConfigContext\]\ Create\ Create\ config\ context\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ConfigContext\]\ Create\ config\ context\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -14822,15 +14822,15 @@ function waitForAnyConfigContextAdded() {
 }
 
 function matchAnyConfigContextAdded() { return bp.EventSet("matchAnyConfigContextAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ConfigContext]") > -1; }); }
-function waitForConfigContextAdded(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) { var expectedDesc = "[ConfigContext] Create Create config context with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForConfigContextAdded(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) { var expectedDesc = "[ConfigContext] Create config context with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) {
-  return bp.EventSet("matchDeletedConfigContext", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConfigContext] Delete Delete config context with id " + id); });
+  return bp.EventSet("matchDeletedConfigContext", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ConfigContext] Delete config context with id " + id); });
 }
 
 function waitForAnyConfigContextDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContext\]\ Delete\ Delete\ config\ context\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ConfigContext\]\ Delete\ Delete\ config\ context\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ConfigContext\]\ Delete\ config\ context\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ConfigContext\]\ Delete\ config\ context\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -15154,17 +15154,17 @@ function verifyCustomFieldChoiceSetDoesNotExist(base_choices, choices, _default,
 function tryToDeleteANonExistingCustomFieldChoiceSet(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-field-choice-sets/" + id + "/";
   var description = "[CustomFieldChoiceSet] Verify we cannot delete non-existing CustomFieldChoiceSet";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCustomFieldChoiceSet(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  return matchSuccess("[CustomFieldChoiceSet] Create Create custom field choice set " + name + " with id " + id);
+  return matchSuccess("[CustomFieldChoiceSet] Create custom field choice set " + name + " with id " + id);
 }
 
 function waitForAnyCustomFieldChoiceSetAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CustomFieldChoiceSet\]\ Create\ Create\ custom\ field\ choice\ set\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CustomFieldChoiceSet\]\ Create\ custom\ field\ choice\ set\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CustomFieldChoiceSet: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CustomFieldChoiceSet\]\ Create\ Create\ custom\ field\ choice\ set\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CustomFieldChoiceSet\]\ Create\ custom\ field\ choice\ set\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -15193,15 +15193,15 @@ function waitForAnyCustomFieldChoiceSetAdded() {
 }
 
 function matchAnyCustomFieldChoiceSetAdded() { return bp.EventSet("matchAnyCustomFieldChoiceSetAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CustomFieldChoiceSet]") > -1; }); }
-function waitForCustomFieldChoiceSetAdded(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) { var expectedDesc = "[CustomFieldChoiceSet] Create Create custom field choice set " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCustomFieldChoiceSetAdded(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) { var expectedDesc = "[CustomFieldChoiceSet] Create custom field choice set " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCustomFieldChoiceSet(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  return bp.EventSet("matchDeletedCustomFieldChoiceSet", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CustomFieldChoiceSet] Delete Delete custom field choice set with id " + id); });
+  return bp.EventSet("matchDeletedCustomFieldChoiceSet", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CustomFieldChoiceSet] Delete custom field choice set with id " + id); });
 }
 
 function waitForAnyCustomFieldChoiceSetDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CustomFieldChoiceSet\]\ Delete\ Delete\ custom\ field\ choice\ set\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CustomFieldChoiceSet\]\ Delete\ Delete\ custom\ field\ choice\ set\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CustomFieldChoiceSet\]\ Delete\ custom\ field\ choice\ set\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CustomFieldChoiceSet\]\ Delete\ custom\ field\ choice\ set\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -15500,17 +15500,17 @@ function verifyCustomFieldDoesNotExist(choice_set, comments, _default, descripti
 function tryToDeleteANonExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
   var description = "[CustomField] Verify we cannot delete non-existing CustomField";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  return matchSuccess("[CustomField] Create Create custom field " + name + " with id " + id);
+  return matchSuccess("[CustomField] Create custom field " + name + " with id " + id);
 }
 
 function waitForAnyCustomFieldAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CustomField\]\ Create\ Create\ custom\ field\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CustomField\]\ Create\ custom\ field\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CustomField: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CustomField\]\ Create\ Create\ custom\ field\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CustomField\]\ Create\ custom\ field\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -15544,15 +15544,15 @@ function waitForAnyCustomFieldAdded() {
 }
 
 function matchAnyCustomFieldAdded() { return bp.EventSet("matchAnyCustomFieldAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CustomField]") > -1; }); }
-function waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) { var expectedDesc = "[CustomField] Create Create custom field " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCustomFieldAdded(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) { var expectedDesc = "[CustomField] Create custom field " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
-  return bp.EventSet("matchDeletedCustomField", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CustomField] Delete Delete custom field with id " + id); });
+  return bp.EventSet("matchDeletedCustomField", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CustomField] Delete custom field with id " + id); });
 }
 
 function waitForAnyCustomFieldDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CustomField\]\ Delete\ Delete\ custom\ field\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CustomField\]\ Delete\ Delete\ custom\ field\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CustomField\]\ Delete\ custom\ field\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CustomField\]\ Delete\ custom\ field\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -15813,17 +15813,17 @@ function verifyCustomLinkDoesNotExist(button_class, description, enabled, group_
 function tryToDeleteANonExistingCustomLink(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/" + id + "/";
   var description = "[CustomLink] Verify we cannot delete non-existing CustomLink";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCustomLink(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
-  return matchSuccess("[CustomLink] Create Create custom link " + name + " with id " + id);
+  return matchSuccess("[CustomLink] Create custom link " + name + " with id " + id);
 }
 
 function waitForAnyCustomLinkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CustomLink\]\ Create\ Create\ custom\ link\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[CustomLink\]\ Create\ custom\ link\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for CustomLink: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[CustomLink\]\ Create\ Create\ custom\ link\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[CustomLink\]\ Create\ custom\ link\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -15844,15 +15844,15 @@ function waitForAnyCustomLinkAdded() {
 }
 
 function matchAnyCustomLinkAdded() { return bp.EventSet("matchAnyCustomLinkAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[CustomLink]") > -1; }); }
-function waitForCustomLinkAdded(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) { var expectedDesc = "[CustomLink] Create Create custom link " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForCustomLinkAdded(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) { var expectedDesc = "[CustomLink] Create custom link " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCustomLink(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
-  return bp.EventSet("matchDeletedCustomLink", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CustomLink] Delete Delete custom link with id " + id); });
+  return bp.EventSet("matchDeletedCustomLink", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[CustomLink] Delete custom link with id " + id); });
 }
 
 function waitForAnyCustomLinkDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[CustomLink\]\ Delete\ Delete\ custom\ link\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[CustomLink\]\ Delete\ Delete\ custom\ link\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[CustomLink\]\ Delete\ custom\ link\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[CustomLink\]\ Delete\ custom\ link\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -15985,16 +15985,16 @@ function verifyDashboardDoesNotExist() {
 function tryToDeleteANonExistingDashboard() {
   var url = "/api/extras/dashboard/";
   var description = "[Dashboard] Verify we cannot delete non-existing Dashboard";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchDeletedDashboard() {
-  return bp.EventSet("matchDeletedDashboard", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Dashboard] Delete Delete dashboard"); });
+  return bp.EventSet("matchDeletedDashboard", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Dashboard] Delete dashboard"); });
 }
 
 function waitForAnyDashboardDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Dashboard\]\ Delete\ Delete\ dashboard$/));
-  var m = ev.data.parameters.description.match(/^\[Dashboard\]\ Delete\ Delete\ dashboard$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Dashboard\]\ Delete\ dashboard$/));
+  var m = ev.data.parameters.description.match(/^\[Dashboard\]\ Delete\ dashboard$/);
   var captures = m.slice(1);
   var names = [];
   var capturedMap = {};
@@ -16195,17 +16195,17 @@ function verifyEventRuleDoesNotExist(action_object_id, action_object_type, actio
 function tryToDeleteANonExistingEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) {
   var url = "/api/extras/event-rules/" + id + "/";
   var description = "[EventRule] Verify we cannot delete non-existing EventRule";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) {
-  return matchSuccess("[EventRule] Create Create event rule with id " + id);
+  return matchSuccess("[EventRule] Create event rule with id " + id);
 }
 
 function waitForAnyEventRuleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[EventRule\]\ Create\ Create\ event\ rule\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[EventRule\]\ Create\ event\ rule\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for EventRule: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[EventRule\]\ Create\ Create\ event\ rule\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[EventRule\]\ Create\ event\ rule\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16227,15 +16227,15 @@ function waitForAnyEventRuleAdded() {
 }
 
 function matchAnyEventRuleAdded() { return bp.EventSet("matchAnyEventRuleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[EventRule]") > -1; }); }
-function waitForEventRuleAdded(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) { var expectedDesc = "[EventRule] Create Create event rule with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForEventRuleAdded(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) { var expectedDesc = "[EventRule] Create event rule with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) {
-  return bp.EventSet("matchDeletedEventRule", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[EventRule] Delete Delete event rule with id " + id); });
+  return bp.EventSet("matchDeletedEventRule", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[EventRule] Delete event rule with id " + id); });
 }
 
 function waitForAnyEventRuleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[EventRule\]\ Delete\ Delete\ event\ rule\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[EventRule\]\ Delete\ Delete\ event\ rule\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[EventRule\]\ Delete\ event\ rule\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[EventRule\]\ Delete\ event\ rule\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16466,17 +16466,17 @@ function verifyExportTemplateDoesNotExist(as_attachment, data_source, descriptio
 function tryToDeleteANonExistingExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
   var url = "/api/extras/export-templates/" + id + "/";
   var description = "[ExportTemplate] Verify we cannot delete non-existing ExportTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
-  return matchSuccess("[ExportTemplate] Create Create export template with id " + id);
+  return matchSuccess("[ExportTemplate] Create export template with id " + id);
 }
 
 function waitForAnyExportTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ExportTemplate\]\ Create\ Create\ export\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ExportTemplate\]\ Create\ export\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ExportTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ExportTemplate\]\ Create\ Create\ export\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ExportTemplate\]\ Create\ export\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16497,15 +16497,15 @@ function waitForAnyExportTemplateAdded() {
 }
 
 function matchAnyExportTemplateAdded() { return bp.EventSet("matchAnyExportTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ExportTemplate]") > -1; }); }
-function waitForExportTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) { var expectedDesc = "[ExportTemplate] Create Create export template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForExportTemplateAdded(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) { var expectedDesc = "[ExportTemplate] Create export template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
-  return bp.EventSet("matchDeletedExportTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ExportTemplate] Delete Delete export template with id " + id); });
+  return bp.EventSet("matchDeletedExportTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ExportTemplate] Delete export template with id " + id); });
 }
 
 function waitForAnyExportTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ExportTemplate\]\ Delete\ Delete\ export\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ExportTemplate\]\ Delete\ Delete\ export\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ExportTemplate\]\ Delete\ export\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ExportTemplate\]\ Delete\ export\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16693,17 +16693,17 @@ function verifyImageAttachmentDoesNotExist(description, id, image, name, object_
 function tryToDeleteANonExistingImageAttachment(description, id, image, name, object_id, object_type) {
   var url = "/api/extras/image-attachments/" + id + "/";
   var description = "[ImageAttachment] Verify we cannot delete non-existing ImageAttachment";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedImageAttachment(description, id, image, name, object_id, object_type) {
-  return matchSuccess("[ImageAttachment] Create Create image attachment with id " + id);
+  return matchSuccess("[ImageAttachment] Create image attachment with id " + id);
 }
 
 function waitForAnyImageAttachmentAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ImageAttachment\]\ Create\ Create\ image\ attachment\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ImageAttachment\]\ Create\ image\ attachment\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ImageAttachment: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ImageAttachment\]\ Create\ Create\ image\ attachment\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ImageAttachment\]\ Create\ image\ attachment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16719,15 +16719,15 @@ function waitForAnyImageAttachmentAdded() {
 }
 
 function matchAnyImageAttachmentAdded() { return bp.EventSet("matchAnyImageAttachmentAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ImageAttachment]") > -1; }); }
-function waitForImageAttachmentAdded(description, id, image, name, object_id, object_type) { var expectedDesc = "[ImageAttachment] Create Create image attachment with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForImageAttachmentAdded(description, id, image, name, object_id, object_type) { var expectedDesc = "[ImageAttachment] Create image attachment with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedImageAttachment(description, id, image, name, object_id, object_type) {
-  return bp.EventSet("matchDeletedImageAttachment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ImageAttachment] Delete Delete image attachment with id " + id); });
+  return bp.EventSet("matchDeletedImageAttachment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ImageAttachment] Delete image attachment with id " + id); });
 }
 
 function waitForAnyImageAttachmentDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ImageAttachment\]\ Delete\ Delete\ image\ attachment\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ImageAttachment\]\ Delete\ Delete\ image\ attachment\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ImageAttachment\]\ Delete\ image\ attachment\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ImageAttachment\]\ Delete\ image\ attachment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16918,17 +16918,17 @@ function verifyJournalEntryDoesNotExist(assigned_object_id, assigned_object_type
 function tryToDeleteANonExistingJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) {
   var url = "/api/extras/journal-entries/" + id + "/";
   var description = "[JournalEntry] Verify we cannot delete non-existing JournalEntry";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) {
-  return matchSuccess("[JournalEntry] Create Create journal entry with id " + id);
+  return matchSuccess("[JournalEntry] Create journal entry with id " + id);
 }
 
 function waitForAnyJournalEntryAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[JournalEntry\]\ Create\ Create\ journal\ entry\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[JournalEntry\]\ Create\ journal\ entry\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for JournalEntry: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[JournalEntry\]\ Create\ Create\ journal\ entry\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[JournalEntry\]\ Create\ journal\ entry\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -16946,15 +16946,15 @@ function waitForAnyJournalEntryAdded() {
 }
 
 function matchAnyJournalEntryAdded() { return bp.EventSet("matchAnyJournalEntryAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[JournalEntry]") > -1; }); }
-function waitForJournalEntryAdded(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) { var expectedDesc = "[JournalEntry] Create Create journal entry with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForJournalEntryAdded(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) { var expectedDesc = "[JournalEntry] Create journal entry with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) {
-  return bp.EventSet("matchDeletedJournalEntry", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[JournalEntry] Delete Delete journal entry with id " + id); });
+  return bp.EventSet("matchDeletedJournalEntry", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[JournalEntry] Delete journal entry with id " + id); });
 }
 
 function waitForAnyJournalEntryDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[JournalEntry\]\ Delete\ Delete\ journal\ entry\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[JournalEntry\]\ Delete\ Delete\ journal\ entry\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[JournalEntry\]\ Delete\ journal\ entry\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[JournalEntry\]\ Delete\ journal\ entry\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -17145,17 +17145,17 @@ function verifyNotificationGroupDoesNotExist(description, groups, id, name, noti
 function tryToDeleteANonExistingNotificationGroup(description, groups, id, name, notifications, slug, users) {
   var url = "/api/extras/notification-groups/" + id + "/";
   var description = "[NotificationGroup] Verify we cannot delete non-existing NotificationGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedNotificationGroup(description, groups, id, name, notifications, slug, users) {
-  return matchSuccess("[NotificationGroup] Create Create notification group with id " + id);
+  return matchSuccess("[NotificationGroup] Create notification group with id " + id);
 }
 
 function waitForAnyNotificationGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[NotificationGroup\]\ Create\ Create\ notification\ group\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[NotificationGroup\]\ Create\ notification\ group\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for NotificationGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[NotificationGroup\]\ Create\ Create\ notification\ group\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[NotificationGroup\]\ Create\ notification\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -17172,15 +17172,15 @@ function waitForAnyNotificationGroupAdded() {
 }
 
 function matchAnyNotificationGroupAdded() { return bp.EventSet("matchAnyNotificationGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[NotificationGroup]") > -1; }); }
-function waitForNotificationGroupAdded(description, groups, id, name, notifications, slug, users) { var expectedDesc = "[NotificationGroup] Create Create notification group with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForNotificationGroupAdded(description, groups, id, name, notifications, slug, users) { var expectedDesc = "[NotificationGroup] Create notification group with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedNotificationGroup(description, groups, id, name, notifications, slug, users) {
-  return bp.EventSet("matchDeletedNotificationGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[NotificationGroup] Delete Delete notification group with id " + id); });
+  return bp.EventSet("matchDeletedNotificationGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[NotificationGroup] Delete notification group with id " + id); });
 }
 
 function waitForAnyNotificationGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[NotificationGroup\]\ Delete\ Delete\ notification\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[NotificationGroup\]\ Delete\ Delete\ notification\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[NotificationGroup\]\ Delete\ notification\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[NotificationGroup\]\ Delete\ notification\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -17392,17 +17392,17 @@ function verifyNotificationDoesNotExist(assigned_object_id, assigned_object_type
 function tryToDeleteANonExistingNotification(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) {
   var url = "/api/extras/notifications/" + id + "/";
   var description = "[Notification] Verify we cannot delete non-existing Notification";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedNotification(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) {
-  return matchSuccess("[Notification] Create Create notification with name " + name + " with id " + id);
+  return matchSuccess("[Notification] Create notification with name " + name + " with id " + id);
 }
 
 function waitForAnyNotificationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Notification\]\ Create\ Create\ notification\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Notification\]\ Create\ notification\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Notification: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Notification\]\ Create\ Create\ notification\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Notification\]\ Create\ notification\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -17428,15 +17428,15 @@ function waitForAnyNotificationAdded() {
 }
 
 function matchAnyNotificationAdded() { return bp.EventSet("matchAnyNotificationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Notification]") > -1; }); }
-function waitForNotificationAdded(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) { var expectedDesc = "[Notification] Create Create notification with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForNotificationAdded(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) { var expectedDesc = "[Notification] Create notification with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedNotification(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) {
-  return bp.EventSet("matchDeletedNotification", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Notification] Delete Delete notification with id " + id); });
+  return bp.EventSet("matchDeletedNotification", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Notification] Delete notification with id " + id); });
 }
 
 function waitForAnyNotificationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Notification\]\ Delete\ Delete\ notification\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Notification\]\ Delete\ Delete\ notification\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Notification\]\ Delete\ notification\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Notification\]\ Delete\ notification\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -17637,17 +17637,17 @@ function verifySavedFilterDoesNotExist(description, enabled, filters, id, name, 
 function tryToDeleteANonExistingSavedFilter(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/" + id + "/";
   var description = "[SavedFilter] Verify we cannot delete non-existing SavedFilter";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedSavedFilter(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) {
-  return matchSuccess("[SavedFilter] Create Create saved filter with name " + name + " with id " + id);
+  return matchSuccess("[SavedFilter] Create saved filter with name " + name + " with id " + id);
 }
 
 function waitForAnySavedFilterAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[SavedFilter\]\ Create\ Create\ saved\ filter\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[SavedFilter\]\ Create\ saved\ filter\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for SavedFilter: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[SavedFilter\]\ Create\ Create\ saved\ filter\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[SavedFilter\]\ Create\ saved\ filter\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -17669,15 +17669,15 @@ function waitForAnySavedFilterAdded() {
 }
 
 function matchAnySavedFilterAdded() { return bp.EventSet("matchAnySavedFilterAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[SavedFilter]") > -1; }); }
-function waitForSavedFilterAdded(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) { var expectedDesc = "[SavedFilter] Create Create saved filter with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForSavedFilterAdded(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) { var expectedDesc = "[SavedFilter] Create saved filter with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedSavedFilter(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) {
-  return bp.EventSet("matchDeletedSavedFilter", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[SavedFilter] Delete Delete saved filter with id " + id); });
+  return bp.EventSet("matchDeletedSavedFilter", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[SavedFilter] Delete saved filter with id " + id); });
 }
 
 function waitForAnySavedFilterDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[SavedFilter\]\ Delete\ Delete\ saved\ filter\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[SavedFilter\]\ Delete\ Delete\ saved\ filter\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[SavedFilter\]\ Delete\ saved\ filter\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[SavedFilter\]\ Delete\ saved\ filter\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -17871,17 +17871,17 @@ function verifyScriptDoesNotExist(description, enabled, id, is_executable, modul
 function tryToDeleteANonExistingScript(description, enabled, id, is_executable, module, name, source) {
   var url = "/api/extras/scripts/" + id + "/";
   var description = "[Script] Verify we cannot delete non-existing Script";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedScript(description, enabled, id, is_executable, module, name, source) {
-  return matchSuccess("[Script] Create Create script with id " + id);
+  return matchSuccess("[Script] Create script with id " + id);
 }
 
 function waitForAnyScriptAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Script\]\ Create\ Create\ script\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Script\]\ Create\ script\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Script: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Script\]\ Create\ Create\ script\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Script\]\ Create\ script\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -17898,15 +17898,15 @@ function waitForAnyScriptAdded() {
 }
 
 function matchAnyScriptAdded() { return bp.EventSet("matchAnyScriptAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Script]") > -1; }); }
-function waitForScriptAdded(description, enabled, id, is_executable, module, name, source) { var expectedDesc = "[Script] Create Create script with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForScriptAdded(description, enabled, id, is_executable, module, name, source) { var expectedDesc = "[Script] Create script with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedScript(description, enabled, id, is_executable, module, name, source) {
-  return bp.EventSet("matchDeletedScript", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Script] Delete Delete script with id " + id); });
+  return bp.EventSet("matchDeletedScript", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Script] Delete script with id " + id); });
 }
 
 function waitForAnyScriptDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Script\]\ Delete\ Delete\ script\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Script\]\ Delete\ Delete\ script\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Script\]\ Delete\ script\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Script\]\ Delete\ script\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -18098,17 +18098,17 @@ function verifySubscriptionDoesNotExist(id, object_id, object_type, user) {
 function tryToDeleteANonExistingSubscription(id, object_id, object_type, user) {
   var url = "/api/extras/subscriptions/" + id + "/";
   var description = "[Subscription] Verify we cannot delete non-existing Subscription";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedSubscription(id, object_id, object_type, user) {
-  return matchSuccess("[Subscription] Create Create subscription with id " + id);
+  return matchSuccess("[Subscription] Create subscription with id " + id);
 }
 
 function waitForAnySubscriptionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Subscription\]\ Create\ Create\ subscription\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Subscription\]\ Create\ subscription\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Subscription: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Subscription\]\ Create\ Create\ subscription\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Subscription\]\ Create\ subscription\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -18122,15 +18122,15 @@ function waitForAnySubscriptionAdded() {
 }
 
 function matchAnySubscriptionAdded() { return bp.EventSet("matchAnySubscriptionAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Subscription]") > -1; }); }
-function waitForSubscriptionAdded(id, object_id, object_type, user) { var expectedDesc = "[Subscription] Create Create subscription with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForSubscriptionAdded(id, object_id, object_type, user) { var expectedDesc = "[Subscription] Create subscription with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedSubscription(id, object_id, object_type, user) {
-  return bp.EventSet("matchDeletedSubscription", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Subscription] Delete Delete subscription with id " + id); });
+  return bp.EventSet("matchDeletedSubscription", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Subscription] Delete subscription with id " + id); });
 }
 
 function waitForAnySubscriptionDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Subscription\]\ Delete\ Delete\ subscription\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Subscription\]\ Delete\ Delete\ subscription\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Subscription\]\ Delete\ subscription\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Subscription\]\ Delete\ subscription\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -18297,17 +18297,17 @@ function verifyTableConfigDoesNotExist(columns, description, enabled, id, name, 
 function tryToDeleteANonExistingTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
   var url = "/api/extras/table-configs/" + id + "/";
   var description = "[TableConfig] Verify we cannot delete non-existing TableConfig";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
-  return matchSuccess("[TableConfig] Create Create table config with name " + name + " with id " + id);
+  return matchSuccess("[TableConfig] Create table config with name " + name + " with id " + id);
 }
 
 function waitForAnyTableConfigAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TableConfig\]\ Create\ Create\ table\ config\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[TableConfig\]\ Create\ table\ config\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for TableConfig: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[TableConfig\]\ Create\ Create\ table\ config\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[TableConfig\]\ Create\ table\ config\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -18328,15 +18328,15 @@ function waitForAnyTableConfigAdded() {
 }
 
 function matchAnyTableConfigAdded() { return bp.EventSet("matchAnyTableConfigAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[TableConfig]") > -1; }); }
-function waitForTableConfigAdded(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) { var expectedDesc = "[TableConfig] Create Create table config with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTableConfigAdded(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) { var expectedDesc = "[TableConfig] Create table config with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
-  return bp.EventSet("matchDeletedTableConfig", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TableConfig] Delete Delete table config with id " + id); });
+  return bp.EventSet("matchDeletedTableConfig", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TableConfig] Delete table config with id " + id); });
 }
 
 function waitForAnyTableConfigDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TableConfig\]\ Delete\ Delete\ table\ config\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[TableConfig\]\ Delete\ Delete\ table\ config\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[TableConfig\]\ Delete\ table\ config\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[TableConfig\]\ Delete\ table\ config\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -18568,17 +18568,17 @@ function verifyTagDoesNotExist(color, description, id, name, object_types, slug,
 function tryToDeleteANonExistingTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/" + id + "/";
   var description = "[Tag] Verify we cannot delete non-existing Tag";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTag(color, description, id, name, object_types, slug, weight) {
-  return matchSuccess("[Tag] Create Create tag with name " + name + " and slug " + slug + " with id " + id);
+  return matchSuccess("[Tag] Create tag with name " + name + " and slug " + slug + " with id " + id);
 }
 
 function waitForAnyTagAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Tag\]\ Create\ Create\ tag\ with\ name\ (.*?)\ and\ slug\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Tag\]\ Create\ tag\ with\ name\ (.*?)\ and\ slug\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Tag: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Tag\]\ Create\ Create\ tag\ with\ name\ (.*?)\ and\ slug\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Tag\]\ Create\ tag\ with\ name\ (.*?)\ and\ slug\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "slug", "id"];
   var capturedMap = {};
@@ -18595,15 +18595,15 @@ function waitForAnyTagAdded() {
 }
 
 function matchAnyTagAdded() { return bp.EventSet("matchAnyTagAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Tag]") > -1; }); }
-function waitForTagAdded(color, description, id, name, object_types, slug, weight) { var expectedDesc = "[Tag] Create Create tag with name " + name + " and slug " + slug + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTagAdded(color, description, id, name, object_types, slug, weight) { var expectedDesc = "[Tag] Create tag with name " + name + " and slug " + slug + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTag(color, description, id, name, object_types, slug, weight) {
-  return bp.EventSet("matchDeletedTag", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Tag] Delete Delete tag with id " + id); });
+  return bp.EventSet("matchDeletedTag", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Tag] Delete tag with id " + id); });
 }
 
 function waitForAnyTagDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Tag\]\ Delete\ Delete\ tag\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Tag\]\ Delete\ Delete\ tag\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Tag\]\ Delete\ tag\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Tag\]\ Delete\ tag\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -18775,17 +18775,17 @@ function verifyWebhookDoesNotExist(additional_headers, body_template, ca_file_pa
 function tryToDeleteANonExistingWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
   var url = "/api/extras/webhooks/" + id + "/";
   var description = "[Webhook] Verify we cannot delete non-existing Webhook";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
-  return matchSuccess("[Webhook] Create Create webhook with name " + name + " with id " + id);
+  return matchSuccess("[Webhook] Create webhook with name " + name + " with id " + id);
 }
 
 function waitForAnyWebhookAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Webhook\]\ Create\ Create\ webhook\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Webhook\]\ Create\ webhook\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Webhook: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Webhook\]\ Create\ Create\ webhook\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Webhook\]\ Create\ webhook\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -18808,15 +18808,15 @@ function waitForAnyWebhookAdded() {
 }
 
 function matchAnyWebhookAdded() { return bp.EventSet("matchAnyWebhookAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Webhook]") > -1; }); }
-function waitForWebhookAdded(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) { var expectedDesc = "[Webhook] Create Create webhook with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForWebhookAdded(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) { var expectedDesc = "[Webhook] Create webhook with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
-  return bp.EventSet("matchDeletedWebhook", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Webhook] Delete Delete webhook with id " + id); });
+  return bp.EventSet("matchDeletedWebhook", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Webhook] Delete webhook with id " + id); });
 }
 
 function waitForAnyWebhookDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Webhook\]\ Delete\ Delete\ webhook\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Webhook\]\ Delete\ Delete\ webhook\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Webhook\]\ Delete\ webhook\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Webhook\]\ Delete\ webhook\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -18990,17 +18990,17 @@ function verifyAggregateDoesNotExist(comments, custom_fields, date_added, descri
 function tryToDeleteANonExistingAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) {
   var url = "/api/ipam/aggregates/" + id + "/";
   var description = "[Aggregate] Verify we cannot delete non-existing Aggregate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) {
-  return matchSuccess("[Aggregate] Create Create aggregate with id " + id);
+  return matchSuccess("[Aggregate] Create aggregate with id " + id);
 }
 
 function waitForAnyAggregateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Aggregate\]\ Create\ Create\ aggregate\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Aggregate\]\ Create\ aggregate\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Aggregate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Aggregate\]\ Create\ Create\ aggregate\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Aggregate\]\ Create\ aggregate\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19019,15 +19019,15 @@ function waitForAnyAggregateAdded() {
 }
 
 function matchAnyAggregateAdded() { return bp.EventSet("matchAnyAggregateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Aggregate]") > -1; }); }
-function waitForAggregateAdded(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) { var expectedDesc = "[Aggregate] Create Create aggregate with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForAggregateAdded(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) { var expectedDesc = "[Aggregate] Create aggregate with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) {
-  return bp.EventSet("matchDeletedAggregate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Aggregate] Delete Delete aggregate with id " + id); });
+  return bp.EventSet("matchDeletedAggregate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Aggregate] Delete aggregate with id " + id); });
 }
 
 function waitForAnyAggregateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Aggregate\]\ Delete\ Delete\ aggregate\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Aggregate\]\ Delete\ Delete\ aggregate\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Aggregate\]\ Delete\ aggregate\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Aggregate\]\ Delete\ aggregate\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19200,17 +19200,17 @@ function verifyASNRangeDoesNotExist(custom_fields, description, end, id, name, r
 function tryToDeleteANonExistingASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) {
   var url = "/api/ipam/asn-ranges/" + id + "/";
   var description = "[ASNRange] Verify we cannot delete non-existing ASNRange";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) {
-  return matchSuccess("[ASNRange] Create Create ASN range with id " + id);
+  return matchSuccess("[ASNRange] Create ASN range with id " + id);
 }
 
 function waitForAnyASNRangeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ASNRange\]\ Create\ Create\ ASN\ range\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ASNRange\]\ Create\ ASN\ range\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ASNRange: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ASNRange\]\ Create\ Create\ ASN\ range\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ASNRange\]\ Create\ ASN\ range\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19230,15 +19230,15 @@ function waitForAnyASNRangeAdded() {
 }
 
 function matchAnyASNRangeAdded() { return bp.EventSet("matchAnyASNRangeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ASNRange]") > -1; }); }
-function waitForASNRangeAdded(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) { var expectedDesc = "[ASNRange] Create Create ASN range with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForASNRangeAdded(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) { var expectedDesc = "[ASNRange] Create ASN range with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) {
-  return bp.EventSet("matchDeletedASNRange", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ASNRange] Delete Delete ASN range with id " + id); });
+  return bp.EventSet("matchDeletedASNRange", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ASNRange] Delete ASN range with id " + id); });
 }
 
 function waitForAnyASNRangeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ASNRange\]\ Delete\ Delete\ ASN\ range\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ASNRange\]\ Delete\ Delete\ ASN\ range\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ASNRange\]\ Delete\ ASN\ range\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ASNRange\]\ Delete\ ASN\ range\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19406,17 +19406,17 @@ function verifyASNDoesNotExist(asn, comments, custom_fields, description, id, ri
 function tryToDeleteANonExistingASN(asn, comments, custom_fields, description, id, rir, tags, tenant) {
   var url = "/api/ipam/asns/" + id + "/";
   var description = "[ASN] Verify we cannot delete non-existing ASN";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedASN(asn, comments, custom_fields, description, id, rir, tags, tenant) {
-  return matchSuccess("[ASN] Create Create ASN with id " + id);
+  return matchSuccess("[ASN] Create ASN with id " + id);
 }
 
 function waitForAnyASNAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ASN\]\ Create\ Create\ ASN\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ASN\]\ Create\ ASN\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ASN: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ASN\]\ Create\ Create\ ASN\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ASN\]\ Create\ ASN\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19434,15 +19434,15 @@ function waitForAnyASNAdded() {
 }
 
 function matchAnyASNAdded() { return bp.EventSet("matchAnyASNAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ASN]") > -1; }); }
-function waitForASNAdded(asn, comments, custom_fields, description, id, rir, tags, tenant) { var expectedDesc = "[ASN] Create Create ASN with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForASNAdded(asn, comments, custom_fields, description, id, rir, tags, tenant) { var expectedDesc = "[ASN] Create ASN with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedASN(asn, comments, custom_fields, description, id, rir, tags, tenant) {
-  return bp.EventSet("matchDeletedASN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ASN] Delete Delete ASN with id " + id); });
+  return bp.EventSet("matchDeletedASN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ASN] Delete ASN with id " + id); });
 }
 
 function waitForAnyASNDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ASN\]\ Delete\ Delete\ ASN\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ASN\]\ Delete\ Delete\ ASN\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ASN\]\ Delete\ ASN\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ASN\]\ Delete\ ASN\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19602,17 +19602,17 @@ function verifyFHRPGroupAssignmentDoesNotExist(group, id, interface_id, interfac
 function tryToDeleteANonExistingFHRPGroupAssignment(group, id, interface_id, interface_type, priority) {
   var url = "/api/ipam/fhrp-group-assignments/" + id + "/";
   var description = "[FHRPGroupAssignment] Verify we cannot delete non-existing FHRPGroupAssignment";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedFHRPGroupAssignment(group, id, interface_id, interface_type, priority) {
-  return matchSuccess("[FHRPGroupAssignment] Create Create FHRP group assignment with id " + id);
+  return matchSuccess("[FHRPGroupAssignment] Create FHRP group assignment with id " + id);
 }
 
 function waitForAnyFHRPGroupAssignmentAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroupAssignment\]\ Create\ Create\ FHRP\ group\ assignment\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroupAssignment\]\ Create\ FHRP\ group\ assignment\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for FHRPGroupAssignment: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[FHRPGroupAssignment\]\ Create\ Create\ FHRP\ group\ assignment\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[FHRPGroupAssignment\]\ Create\ FHRP\ group\ assignment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19627,15 +19627,15 @@ function waitForAnyFHRPGroupAssignmentAdded() {
 }
 
 function matchAnyFHRPGroupAssignmentAdded() { return bp.EventSet("matchAnyFHRPGroupAssignmentAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[FHRPGroupAssignment]") > -1; }); }
-function waitForFHRPGroupAssignmentAdded(group, id, interface_id, interface_type, priority) { var expectedDesc = "[FHRPGroupAssignment] Create Create FHRP group assignment with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForFHRPGroupAssignmentAdded(group, id, interface_id, interface_type, priority) { var expectedDesc = "[FHRPGroupAssignment] Create FHRP group assignment with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedFHRPGroupAssignment(group, id, interface_id, interface_type, priority) {
-  return bp.EventSet("matchDeletedFHRPGroupAssignment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FHRPGroupAssignment] Delete Delete FHRP group assignment with id " + id); });
+  return bp.EventSet("matchDeletedFHRPGroupAssignment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FHRPGroupAssignment] Delete FHRP group assignment with id " + id); });
 }
 
 function waitForAnyFHRPGroupAssignmentDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroupAssignment\]\ Delete\ Delete\ FHRP\ group\ assignment\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[FHRPGroupAssignment\]\ Delete\ Delete\ FHRP\ group\ assignment\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroupAssignment\]\ Delete\ FHRP\ group\ assignment\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[FHRPGroupAssignment\]\ Delete\ FHRP\ group\ assignment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19825,17 +19825,17 @@ function verifyFHRPGroupDoesNotExist(auth_key, auth_type, comments, custom_field
 function tryToDeleteANonExistingFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) {
   var url = "/api/ipam/fhrp-groups/" + id + "/";
   var description = "[FHRPGroup] Verify we cannot delete non-existing FHRPGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) {
-  return matchSuccess("[FHRPGroup] Create Create FHRP group with id " + id);
+  return matchSuccess("[FHRPGroup] Create FHRP group with id " + id);
 }
 
 function waitForAnyFHRPGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroup\]\ Create\ Create\ FHRP\ group\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroup\]\ Create\ FHRP\ group\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for FHRPGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[FHRPGroup\]\ Create\ Create\ FHRP\ group\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[FHRPGroup\]\ Create\ FHRP\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -19856,15 +19856,15 @@ function waitForAnyFHRPGroupAdded() {
 }
 
 function matchAnyFHRPGroupAdded() { return bp.EventSet("matchAnyFHRPGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[FHRPGroup]") > -1; }); }
-function waitForFHRPGroupAdded(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) { var expectedDesc = "[FHRPGroup] Create Create FHRP group with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForFHRPGroupAdded(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) { var expectedDesc = "[FHRPGroup] Create FHRP group with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) {
-  return bp.EventSet("matchDeletedFHRPGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FHRPGroup] Delete Delete fhrp group with id " + id); });
+  return bp.EventSet("matchDeletedFHRPGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[FHRPGroup] Delete fhrp group with id " + id); });
 }
 
 function waitForAnyFHRPGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroup\]\ Delete\ Delete\ fhrp\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[FHRPGroup\]\ Delete\ Delete\ fhrp\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[FHRPGroup\]\ Delete\ fhrp\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[FHRPGroup\]\ Delete\ fhrp\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -20100,17 +20100,17 @@ function verifyIPAddressDoesNotExist(address, assigned_object_id, assigned_objec
 function tryToDeleteANonExistingIPAddress(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) {
   var url = "/api/ipam/ip-addresses/" + id + "/";
   var description = "[IPAddress] Verify we cannot delete non-existing IPAddress";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIPAddress(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) {
-  return matchSuccess("[IPAddress] Create Create ip address " + address + " with id " + id);
+  return matchSuccess("[IPAddress] Create ip address " + address + " with id " + id);
 }
 
 function waitForAnyIPAddressAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPAddress\]\ Create\ Create\ ip\ address\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPAddress\]\ Create\ ip\ address\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IPAddress: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IPAddress\]\ Create\ Create\ ip\ address\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IPAddress\]\ Create\ ip\ address\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["address", "id"];
   var capturedMap = {};
@@ -20139,15 +20139,15 @@ function waitForAnyIPAddressAdded() {
 }
 
 function matchAnyIPAddressAdded() { return bp.EventSet("matchAnyIPAddressAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IPAddress]") > -1; }); }
-function waitForIPAddressAdded(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) { var expectedDesc = "[IPAddress] Create Create ip address " + address + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIPAddressAdded(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) { var expectedDesc = "[IPAddress] Create ip address " + address + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIPAddress(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) {
-  return bp.EventSet("matchDeletedIPAddress", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPAddress] Delete Delete ip address with id " + id); });
+  return bp.EventSet("matchDeletedIPAddress", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPAddress] Delete ip address with id " + id); });
 }
 
 function waitForAnyIPAddressDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPAddress\]\ Delete\ Delete\ ip\ address\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IPAddress\]\ Delete\ Delete\ ip\ address\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPAddress\]\ Delete\ ip\ address\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IPAddress\]\ Delete\ ip\ address\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -20347,17 +20347,17 @@ function verifyIPRangeDoesNotExist(comments, custom_fields, description, end_add
 function tryToDeleteANonExistingIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/" + id + "/";
   var description = "[IPRange] Verify we cannot delete non-existing IPRange";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
-  return matchSuccess("[IPRange] Create Create ip range " + start_address + " - " + end_address + " with id " + id);
+  return matchSuccess("[IPRange] Create ip range " + start_address + " - " + end_address + " with id " + id);
 }
 
 function waitForAnyIPRangeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPRange\]\ Create\ Create\ ip\ range\ (.*?)\ \-\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPRange\]\ Create\ ip\ range\ (.*?)\ \-\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IPRange: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IPRange\]\ Create\ Create\ ip\ range\ (.*?)\ \-\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IPRange\]\ Create\ ip\ range\ (.*?)\ \-\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["start_address", "end_address", "id"];
   var capturedMap = {};
@@ -20380,15 +20380,15 @@ function waitForAnyIPRangeAdded() {
 }
 
 function matchAnyIPRangeAdded() { return bp.EventSet("matchAnyIPRangeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IPRange]") > -1; }); }
-function waitForIPRangeAdded(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) { var expectedDesc = "[IPRange] Create Create ip range " + start_address + " - " + end_address + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIPRangeAdded(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) { var expectedDesc = "[IPRange] Create ip range " + start_address + " - " + end_address + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
-  return bp.EventSet("matchDeletedIPRange", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPRange] Delete Delete ip range with id " + id); });
+  return bp.EventSet("matchDeletedIPRange", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPRange] Delete ip range with id " + id); });
 }
 
 function waitForAnyIPRangeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPRange\]\ Delete\ Delete\ ip\ range\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IPRange\]\ Delete\ Delete\ ip\ range\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPRange\]\ Delete\ ip\ range\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IPRange\]\ Delete\ ip\ range\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -20582,17 +20582,17 @@ function verifyPrefixDoesNotExist(comments, custom_fields, description, id, is_p
 function tryToDeleteANonExistingPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/" + id + "/";
   var description = "[Prefix] Verify we cannot delete non-existing Prefix";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
-  return matchSuccess("[Prefix] Create Create prefix " + prefix + " with id " + id);
+  return matchSuccess("[Prefix] Create prefix " + prefix + " with id " + id);
 }
 
 function waitForAnyPrefixAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Prefix\]\ Create\ Create\ prefix\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Prefix\]\ Create\ prefix\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Prefix: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Prefix\]\ Create\ Create\ prefix\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Prefix\]\ Create\ prefix\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["prefix", "id"];
   var capturedMap = {};
@@ -20617,15 +20617,15 @@ function waitForAnyPrefixAdded() {
 }
 
 function matchAnyPrefixAdded() { return bp.EventSet("matchAnyPrefixAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Prefix]") > -1; }); }
-function waitForPrefixAdded(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) { var expectedDesc = "[Prefix] Create Create prefix " + prefix + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPrefixAdded(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) { var expectedDesc = "[Prefix] Create prefix " + prefix + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
-  return bp.EventSet("matchDeletedPrefix", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Prefix] Delete Delete prefix with id " + id); });
+  return bp.EventSet("matchDeletedPrefix", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Prefix] Delete prefix with id " + id); });
 }
 
 function waitForAnyPrefixDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Prefix\]\ Delete\ Delete\ prefix\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Prefix\]\ Delete\ Delete\ prefix\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Prefix\]\ Delete\ prefix\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Prefix\]\ Delete\ prefix\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -20795,17 +20795,17 @@ function verifyRIRDoesNotExist(custom_fields, description, id, is_private, name,
 function tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/" + id + "/";
   var description = "[RIR] Verify we cannot delete non-existing RIR";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  return matchSuccess("[RIR] Create Create RIR with id " + id);
+  return matchSuccess("[RIR] Create RIR with id " + id);
 }
 
 function waitForAnyRIRAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RIR\]\ Create\ Create\ RIR\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RIR\]\ Create\ RIR\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RIR: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RIR\]\ Create\ Create\ RIR\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RIR\]\ Create\ RIR\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -20822,15 +20822,15 @@ function waitForAnyRIRAdded() {
 }
 
 function matchAnyRIRAdded() { return bp.EventSet("matchAnyRIRAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RIR]") > -1; }); }
-function waitForRIRAdded(custom_fields, description, id, is_private, name, slug, tags) { var expectedDesc = "[RIR] Create Create RIR with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRIRAdded(custom_fields, description, id, is_private, name, slug, tags) { var expectedDesc = "[RIR] Create RIR with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRIR(custom_fields, description, id, is_private, name, slug, tags) {
-  return bp.EventSet("matchDeletedRIR", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RIR] Delete Delete RIR with id " + id); });
+  return bp.EventSet("matchDeletedRIR", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RIR] Delete RIR with id " + id); });
 }
 
 function waitForAnyRIRDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RIR\]\ Delete\ Delete\ RIR\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RIR\]\ Delete\ Delete\ RIR\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RIR\]\ Delete\ RIR\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RIR\]\ Delete\ RIR\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -20992,17 +20992,17 @@ function verifyRoleDoesNotExist(custom_fields, description, id, name, slug, tags
 function tryToDeleteANonExistingRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/" + id + "/";
   var description = "[Role] Verify we cannot delete non-existing Role";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRole(custom_fields, description, id, name, slug, tags, weight) {
-  return matchSuccess("[Role] Create Create role with id " + id);
+  return matchSuccess("[Role] Create role with id " + id);
 }
 
 function waitForAnyRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Role\]\ Create\ Create\ role\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Role\]\ Create\ role\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Role: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Role\]\ Create\ Create\ role\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Role\]\ Create\ role\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21019,15 +21019,15 @@ function waitForAnyRoleAdded() {
 }
 
 function matchAnyRoleAdded() { return bp.EventSet("matchAnyRoleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Role]") > -1; }); }
-function waitForRoleAdded(custom_fields, description, id, name, slug, tags, weight) { var expectedDesc = "[Role] Create Create role with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRoleAdded(custom_fields, description, id, name, slug, tags, weight) { var expectedDesc = "[Role] Create role with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRole(custom_fields, description, id, name, slug, tags, weight) {
-  return bp.EventSet("matchDeletedRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Role] Delete Delete role with id " + id); });
+  return bp.EventSet("matchDeletedRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Role] Delete role with id " + id); });
 }
 
 function waitForAnyRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Role\]\ Delete\ Delete\ role\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Role\]\ Delete\ Delete\ role\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Role\]\ Delete\ role\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Role\]\ Delete\ role\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21189,17 +21189,17 @@ function verifyRouteTargetDoesNotExist(comments, custom_fields, description, id,
 function tryToDeleteANonExistingRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/" + id + "/";
   var description = "[RouteTarget] Verify we cannot delete non-existing RouteTarget";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  return matchSuccess("[RouteTarget] Create Create route target with id " + id);
+  return matchSuccess("[RouteTarget] Create route target with id " + id);
 }
 
 function waitForAnyRouteTargetAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RouteTarget\]\ Create\ Create\ route\ target\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[RouteTarget\]\ Create\ route\ target\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for RouteTarget: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[RouteTarget\]\ Create\ Create\ route\ target\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[RouteTarget\]\ Create\ route\ target\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21216,15 +21216,15 @@ function waitForAnyRouteTargetAdded() {
 }
 
 function matchAnyRouteTargetAdded() { return bp.EventSet("matchAnyRouteTargetAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[RouteTarget]") > -1; }); }
-function waitForRouteTargetAdded(comments, custom_fields, description, id, name, tags, tenant) { var expectedDesc = "[RouteTarget] Create Create route target with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForRouteTargetAdded(comments, custom_fields, description, id, name, tags, tenant) { var expectedDesc = "[RouteTarget] Create route target with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
-  return bp.EventSet("matchDeletedRouteTarget", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RouteTarget] Delete Delete route target with id " + id); });
+  return bp.EventSet("matchDeletedRouteTarget", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[RouteTarget] Delete route target with id " + id); });
 }
 
 function waitForAnyRouteTargetDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[RouteTarget\]\ Delete\ Delete\ route\ target\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[RouteTarget\]\ Delete\ Delete\ route\ target\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[RouteTarget\]\ Delete\ route\ target\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[RouteTarget\]\ Delete\ route\ target\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21389,17 +21389,17 @@ function verifyServiceTemplateDoesNotExist(comments, custom_fields, description,
 function tryToDeleteANonExistingServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/" + id + "/";
   var description = "[ServiceTemplate] Verify we cannot delete non-existing ServiceTemplate";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  return matchSuccess("[ServiceTemplate] Create Create service template with id " + id);
+  return matchSuccess("[ServiceTemplate] Create service template with id " + id);
 }
 
 function waitForAnyServiceTemplateAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ServiceTemplate\]\ Create\ Create\ service\ template\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ServiceTemplate\]\ Create\ service\ template\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ServiceTemplate: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ServiceTemplate\]\ Create\ Create\ service\ template\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ServiceTemplate\]\ Create\ service\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21417,15 +21417,15 @@ function waitForAnyServiceTemplateAdded() {
 }
 
 function matchAnyServiceTemplateAdded() { return bp.EventSet("matchAnyServiceTemplateAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ServiceTemplate]") > -1; }); }
-function waitForServiceTemplateAdded(comments, custom_fields, description, id, name, ports, protocol, tags) { var expectedDesc = "[ServiceTemplate] Create Create service template with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForServiceTemplateAdded(comments, custom_fields, description, id, name, ports, protocol, tags) { var expectedDesc = "[ServiceTemplate] Create service template with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
-  return bp.EventSet("matchDeletedServiceTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ServiceTemplate] Delete Delete service template with id " + id); });
+  return bp.EventSet("matchDeletedServiceTemplate", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ServiceTemplate] Delete service template with id " + id); });
 }
 
 function waitForAnyServiceTemplateDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ServiceTemplate\]\ Delete\ Delete\ service\ template\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ServiceTemplate\]\ Delete\ Delete\ service\ template\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ServiceTemplate\]\ Delete\ service\ template\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ServiceTemplate\]\ Delete\ service\ template\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21603,17 +21603,17 @@ function verifyServiceDoesNotExist(comments, custom_fields, description, id, ipa
 function tryToDeleteANonExistingService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/" + id + "/";
   var description = "[Service] Verify we cannot delete non-existing Service";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  return matchSuccess("[Service] Create Create service with id " + id);
+  return matchSuccess("[Service] Create service with id " + id);
 }
 
 function waitForAnyServiceAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Service\]\ Create\ Create\ service\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Service\]\ Create\ service\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Service: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Service\]\ Create\ Create\ service\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Service\]\ Create\ service\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21634,15 +21634,15 @@ function waitForAnyServiceAdded() {
 }
 
 function matchAnyServiceAdded() { return bp.EventSet("matchAnyServiceAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Service]") > -1; }); }
-function waitForServiceAdded(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) { var expectedDesc = "[Service] Create Create service with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForServiceAdded(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) { var expectedDesc = "[Service] Create service with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
-  return bp.EventSet("matchDeletedService", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Service] Delete Delete service with id " + id); });
+  return bp.EventSet("matchDeletedService", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Service] Delete service with id " + id); });
 }
 
 function waitForAnyServiceDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Service\]\ Delete\ Delete\ service\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Service\]\ Delete\ Delete\ service\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Service\]\ Delete\ service\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Service\]\ Delete\ service\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21796,17 +21796,17 @@ function verifyVLANGroupDoesNotExist(custom_fields, description, id, name, scope
 function tryToDeleteANonExistingVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) {
   var url = "/api/ipam/vlan-groups/" + id + "/";
   var description = "[VLANGroup] Verify we cannot delete non-existing VLANGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) {
-  return matchSuccess("[VLANGroup] Create Create vlan group " + name + " with id " + id);
+  return matchSuccess("[VLANGroup] Create vlan group " + name + " with id " + id);
 }
 
 function waitForAnyVLANGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLANGroup\]\ Create\ Create\ vlan\ group\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLANGroup\]\ Create\ vlan\ group\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VLANGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VLANGroup\]\ Create\ Create\ vlan\ group\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VLANGroup\]\ Create\ vlan\ group\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -21826,15 +21826,15 @@ function waitForAnyVLANGroupAdded() {
 }
 
 function matchAnyVLANGroupAdded() { return bp.EventSet("matchAnyVLANGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VLANGroup]") > -1; }); }
-function waitForVLANGroupAdded(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) { var expectedDesc = "[VLANGroup] Create Create vlan group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVLANGroupAdded(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) { var expectedDesc = "[VLANGroup] Create vlan group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) {
-  return bp.EventSet("matchDeletedVLANGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLANGroup] Delete Delete vlan group with id " + id); });
+  return bp.EventSet("matchDeletedVLANGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLANGroup] Delete vlan group with id " + id); });
 }
 
 function waitForAnyVLANGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLANGroup\]\ Delete\ Delete\ vlan\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VLANGroup\]\ Delete\ Delete\ vlan\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLANGroup\]\ Delete\ vlan\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VLANGroup\]\ Delete\ vlan\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -21990,17 +21990,17 @@ function verifyVLANDoesNotExist(comments, custom_fields, description, group, id,
 function tryToDeleteANonExistingVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) {
   var url = "/api/ipam/vlans/" + id + "/";
   var description = "[VLAN] Verify we cannot delete non-existing VLAN";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) {
-  return matchSuccess("[VLAN] Create Create vlan " + name + " with id " + id + " and vid " + vid);
+  return matchSuccess("[VLAN] Create vlan " + name + " with id " + id + " and vid " + vid);
 }
 
 function waitForAnyVLANAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLAN\]\ Create\ Create\ vlan\ (.*?)\ with\ id\ (.*?)\ and\ vid\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLAN\]\ Create\ vlan\ (.*?)\ with\ id\ (.*?)\ and\ vid\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VLAN: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VLAN\]\ Create\ Create\ vlan\ (.*?)\ with\ id\ (.*?)\ and\ vid\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VLAN\]\ Create\ vlan\ (.*?)\ with\ id\ (.*?)\ and\ vid\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id", "vid"];
   var capturedMap = {};
@@ -22025,15 +22025,15 @@ function waitForAnyVLANAdded() {
 }
 
 function matchAnyVLANAdded() { return bp.EventSet("matchAnyVLANAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VLAN]") > -1; }); }
-function waitForVLANAdded(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) { var expectedDesc = "[VLAN] Create Create vlan " + name + " with id " + id + " and vid " + vid; waitFor(matchSuccess(expectedDesc)); }
+function waitForVLANAdded(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) { var expectedDesc = "[VLAN] Create vlan " + name + " with id " + id + " and vid " + vid; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) {
-  return bp.EventSet("matchDeletedVLAN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLAN] Delete Delete vlan with id " + id); });
+  return bp.EventSet("matchDeletedVLAN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLAN] Delete vlan with id " + id); });
 }
 
 function waitForAnyVLANDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLAN\]\ Delete\ Delete\ vlan\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VLAN\]\ Delete\ Delete\ vlan\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLAN\]\ Delete\ vlan\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VLAN\]\ Delete\ vlan\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -22188,17 +22188,17 @@ function verifyVLANTranslationPolicyDoesNotExist(description, id, name, slug) {
 function tryToDeleteANonExistingVLANTranslationPolicy(description, id, name, slug) {
   var url = "/api/ipam/vlan-translation-policies/" + id + "/";
   var description = "[VLANTranslationPolicy] Verify we cannot delete non-existing VLANTranslationPolicy";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVLANTranslationPolicy(description, id, name, slug) {
-  return matchSuccess("[VLANTranslationPolicy] Create Create vlan translation policy " + name + " with id " + id);
+  return matchSuccess("[VLANTranslationPolicy] Create vlan translation policy " + name + " with id " + id);
 }
 
 function waitForAnyVLANTranslationPolicyAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationPolicy\]\ Create\ Create\ vlan\ translation\ policy\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationPolicy\]\ Create\ vlan\ translation\ policy\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VLANTranslationPolicy: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VLANTranslationPolicy\]\ Create\ Create\ vlan\ translation\ policy\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VLANTranslationPolicy\]\ Create\ vlan\ translation\ policy\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -22212,15 +22212,15 @@ function waitForAnyVLANTranslationPolicyAdded() {
 }
 
 function matchAnyVLANTranslationPolicyAdded() { return bp.EventSet("matchAnyVLANTranslationPolicyAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VLANTranslationPolicy]") > -1; }); }
-function waitForVLANTranslationPolicyAdded(description, id, name, slug) { var expectedDesc = "[VLANTranslationPolicy] Create Create vlan translation policy " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVLANTranslationPolicyAdded(description, id, name, slug) { var expectedDesc = "[VLANTranslationPolicy] Create vlan translation policy " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVLANTranslationPolicy(description, id, name, slug) {
-  return bp.EventSet("matchDeletedVLANTranslationPolicy", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLANTranslationPolicy] Delete Delete vlan translation policy with id " + id); });
+  return bp.EventSet("matchDeletedVLANTranslationPolicy", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLANTranslationPolicy] Delete vlan translation policy with id " + id); });
 }
 
 function waitForAnyVLANTranslationPolicyDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationPolicy\]\ Delete\ Delete\ vlan\ translation\ policy\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VLANTranslationPolicy\]\ Delete\ Delete\ vlan\ translation\ policy\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationPolicy\]\ Delete\ vlan\ translation\ policy\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VLANTranslationPolicy\]\ Delete\ vlan\ translation\ policy\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -22370,17 +22370,17 @@ function verifyVLANTranslationRuleDoesNotExist(description, id, local_vid, polic
 function tryToDeleteANonExistingVLANTranslationRule(description, id, local_vid, policy, policy_id, remote_vid) {
   var url = "/api/ipam/vlan-translation-rules/" + id + "/";
   var description = "[VLANTranslationRule] Verify we cannot delete non-existing VLANTranslationRule";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVLANTranslationRule(description, id, local_vid, policy, policy_id, remote_vid) {
-  return matchSuccess("[VLANTranslationRule] Create Create vlan translation rule with id " + id + " for policy " + policy_id);
+  return matchSuccess("[VLANTranslationRule] Create vlan translation rule with id " + id + " for policy " + policy_id);
 }
 
 function waitForAnyVLANTranslationRuleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationRule\]\ Create\ Create\ vlan\ translation\ rule\ with\ id\ (.*?)\ for\ policy\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationRule\]\ Create\ vlan\ translation\ rule\ with\ id\ (.*?)\ for\ policy\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VLANTranslationRule: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VLANTranslationRule\]\ Create\ Create\ vlan\ translation\ rule\ with\ id\ (.*?)\ for\ policy\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VLANTranslationRule\]\ Create\ vlan\ translation\ rule\ with\ id\ (.*?)\ for\ policy\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id", "policy_id"];
   var capturedMap = {};
@@ -22396,15 +22396,15 @@ function waitForAnyVLANTranslationRuleAdded() {
 }
 
 function matchAnyVLANTranslationRuleAdded() { return bp.EventSet("matchAnyVLANTranslationRuleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VLANTranslationRule]") > -1; }); }
-function waitForVLANTranslationRuleAdded(description, id, local_vid, policy, policy_id, remote_vid) { var expectedDesc = "[VLANTranslationRule] Create Create vlan translation rule with id " + id + " for policy " + policy_id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVLANTranslationRuleAdded(description, id, local_vid, policy, policy_id, remote_vid) { var expectedDesc = "[VLANTranslationRule] Create vlan translation rule with id " + id + " for policy " + policy_id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVLANTranslationRule(description, id, local_vid, policy, policy_id, remote_vid) {
-  return bp.EventSet("matchDeletedVLANTranslationRule", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLANTranslationRule] Delete Delete vlan translation rule with id " + id); });
+  return bp.EventSet("matchDeletedVLANTranslationRule", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VLANTranslationRule] Delete vlan translation rule with id " + id); });
 }
 
 function waitForAnyVLANTranslationRuleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationRule\]\ Delete\ Delete\ vlan\ translation\ rule\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VLANTranslationRule\]\ Delete\ Delete\ vlan\ translation\ rule\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VLANTranslationRule\]\ Delete\ vlan\ translation\ rule\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VLANTranslationRule\]\ Delete\ vlan\ translation\ rule\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -22573,17 +22573,17 @@ function verifyVRFDoesNotExist(comments, custom_fields, description, enforce_uni
 function tryToDeleteANonExistingVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
   var description = "[VRF] Verify we cannot delete non-existing VRF";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) {
-  return matchSuccess("[VRF] Create Create VRF with name " + name + " with id " + id);
+  return matchSuccess("[VRF] Create VRF with name " + name + " with id " + id);
 }
 
 function waitForAnyVRFAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VRF\]\ Create\ Create\ VRF\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VRF\]\ Create\ VRF\ with\ name\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VRF: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VRF\]\ Create\ Create\ VRF\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VRF\]\ Create\ VRF\ with\ name\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -22605,15 +22605,15 @@ function waitForAnyVRFAdded() {
 }
 
 function matchAnyVRFAdded() { return bp.EventSet("matchAnyVRFAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VRF]") > -1; }); }
-function waitForVRFAdded(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) { var expectedDesc = "[VRF] Create Create VRF with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVRFAdded(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) { var expectedDesc = "[VRF] Create VRF with name " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) {
-  return bp.EventSet("matchDeletedVRF", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VRF] Delete Delete VRF with id " + id); });
+  return bp.EventSet("matchDeletedVRF", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VRF] Delete VRF with id " + id); });
 }
 
 function waitForAnyVRFDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VRF\]\ Delete\ Delete\ VRF\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VRF\]\ Delete\ Delete\ VRF\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VRF\]\ Delete\ VRF\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VRF\]\ Delete\ VRF\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -22810,17 +22810,17 @@ function verifyContactAssignmentDoesNotExist(contact, custom_fields, id, object_
 function tryToDeleteANonExistingContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
   var url = "/api/tenancy/contact-assignments/" + id + "/";
   var description = "[ContactAssignment] Verify we cannot delete non-existing ContactAssignment";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  return matchSuccess("[ContactAssignment] Create Create contact assignment with id " + id);
+  return matchSuccess("[ContactAssignment] Create contact assignment with id " + id);
 }
 
 function waitForAnyContactAssignmentAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ContactAssignment\]\ Create\ Create\ contact\ assignment\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ContactAssignment\]\ Create\ contact\ assignment\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ContactAssignment: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ContactAssignment\]\ Create\ Create\ contact\ assignment\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ContactAssignment\]\ Create\ contact\ assignment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -22838,15 +22838,15 @@ function waitForAnyContactAssignmentAdded() {
 }
 
 function matchAnyContactAssignmentAdded() { return bp.EventSet("matchAnyContactAssignmentAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ContactAssignment]") > -1; }); }
-function waitForContactAssignmentAdded(contact, custom_fields, id, object_id, object_type, priority, role, tags) { var expectedDesc = "[ContactAssignment] Create Create contact assignment with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForContactAssignmentAdded(contact, custom_fields, id, object_id, object_type, priority, role, tags) { var expectedDesc = "[ContactAssignment] Create contact assignment with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
-  return bp.EventSet("matchDeletedContactAssignment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ContactAssignment] Delete Delete contact assignment with id " + id); });
+  return bp.EventSet("matchDeletedContactAssignment", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ContactAssignment] Delete contact assignment with id " + id); });
 }
 
 function waitForAnyContactAssignmentDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ContactAssignment\]\ Delete\ Delete\ contact\ assignment\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ContactAssignment\]\ Delete\ Delete\ contact\ assignment\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ContactAssignment\]\ Delete\ contact\ assignment\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ContactAssignment\]\ Delete\ contact\ assignment\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -23035,17 +23035,17 @@ function verifyContactGroupDoesNotExist(comments, custom_fields, description, id
 function tryToDeleteANonExistingContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/contact-groups/" + id + "/";
   var description = "[ContactGroup] Verify we cannot delete non-existing ContactGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return matchSuccess("[ContactGroup] Create Create contact group " + name + " with id " + id);
+  return matchSuccess("[ContactGroup] Create contact group " + name + " with id " + id);
 }
 
 function waitForAnyContactGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ContactGroup\]\ Create\ Create\ contact\ group\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ContactGroup\]\ Create\ contact\ group\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ContactGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ContactGroup\]\ Create\ Create\ contact\ group\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ContactGroup\]\ Create\ contact\ group\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -23063,15 +23063,15 @@ function waitForAnyContactGroupAdded() {
 }
 
 function matchAnyContactGroupAdded() { return bp.EventSet("matchAnyContactGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ContactGroup]") > -1; }); }
-function waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[ContactGroup] Create Create contact group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForContactGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[ContactGroup] Create contact group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return bp.EventSet("matchDeletedContactGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ContactGroup] Delete Delete contact group with id " + id); });
+  return bp.EventSet("matchDeletedContactGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ContactGroup] Delete contact group with id " + id); });
 }
 
 function waitForAnyContactGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ContactGroup\]\ Delete\ Delete\ contact\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ContactGroup\]\ Delete\ Delete\ contact\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ContactGroup\]\ Delete\ contact\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ContactGroup\]\ Delete\ contact\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -23252,17 +23252,17 @@ function verifyContactRoleDoesNotExist(custom_fields, description, id, name, slu
 function tryToDeleteANonExistingContactRole(custom_fields, description, id, name, slug, tags) {
   var url = "/api/tenancy/contact-roles/" + id + "/";
   var description = "[ContactRole] Verify we cannot delete non-existing ContactRole";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedContactRole(custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[ContactRole] Create Create contact role " + name + " with id " + id);
+  return matchSuccess("[ContactRole] Create contact role " + name + " with id " + id);
 }
 
 function waitForAnyContactRoleAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ContactRole\]\ Create\ Create\ contact\ role\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ContactRole\]\ Create\ contact\ role\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ContactRole: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ContactRole\]\ Create\ Create\ contact\ role\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ContactRole\]\ Create\ contact\ role\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -23278,15 +23278,15 @@ function waitForAnyContactRoleAdded() {
 }
 
 function matchAnyContactRoleAdded() { return bp.EventSet("matchAnyContactRoleAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ContactRole]") > -1; }); }
-function waitForContactRoleAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[ContactRole] Create Create contact role " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForContactRoleAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[ContactRole] Create contact role " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedContactRole(custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedContactRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ContactRole] Delete Delete contact role with id " + id); });
+  return bp.EventSet("matchDeletedContactRole", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ContactRole] Delete contact role with id " + id); });
 }
 
 function waitForAnyContactRoleDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ContactRole\]\ Delete\ Delete\ contact\ role\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ContactRole\]\ Delete\ Delete\ contact\ role\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ContactRole\]\ Delete\ contact\ role\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ContactRole\]\ Delete\ contact\ role\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -23489,17 +23489,17 @@ function verifyContactDoesNotExist(address, comments, custom_fields, description
 function tryToDeleteANonExistingContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
   var url = "/api/tenancy/contacts/" + id + "/";
   var description = "[Contact] Verify we cannot delete non-existing Contact";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  return matchSuccess("[Contact] Create Create contact " + name + " with id " + id);
+  return matchSuccess("[Contact] Create contact " + name + " with id " + id);
 }
 
 function waitForAnyContactAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Contact\]\ Create\ Create\ contact\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Contact\]\ Create\ contact\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Contact: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Contact\]\ Create\ Create\ contact\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Contact\]\ Create\ contact\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -23521,15 +23521,15 @@ function waitForAnyContactAdded() {
 }
 
 function matchAnyContactAdded() { return bp.EventSet("matchAnyContactAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Contact]") > -1; }); }
-function waitForContactAdded(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) { var expectedDesc = "[Contact] Create Create contact " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForContactAdded(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) { var expectedDesc = "[Contact] Create contact " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
-  return bp.EventSet("matchDeletedContact", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Contact] Delete Delete contact with id " + id); });
+  return bp.EventSet("matchDeletedContact", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Contact] Delete contact with id " + id); });
 }
 
 function waitForAnyContactDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Contact\]\ Delete\ Delete\ contact\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Contact\]\ Delete\ Delete\ contact\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Contact\]\ Delete\ contact\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Contact\]\ Delete\ contact\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -23722,17 +23722,17 @@ function verifyTenantGroupDoesNotExist(comments, custom_fields, description, id,
 function tryToDeleteANonExistingTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/tenant-groups/" + id + "/";
   var description = "[TenantGroup] Verify we cannot delete non-existing TenantGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return matchSuccess("[TenantGroup] Create Create tenant group " + name + " with id " + id);
+  return matchSuccess("[TenantGroup] Create tenant group " + name + " with id " + id);
 }
 
 function waitForAnyTenantGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TenantGroup\]\ Create\ Create\ tenant\ group\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[TenantGroup\]\ Create\ tenant\ group\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for TenantGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[TenantGroup\]\ Create\ Create\ tenant\ group\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[TenantGroup\]\ Create\ tenant\ group\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -23750,15 +23750,15 @@ function waitForAnyTenantGroupAdded() {
 }
 
 function matchAnyTenantGroupAdded() { return bp.EventSet("matchAnyTenantGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[TenantGroup]") > -1; }); }
-function waitForTenantGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[TenantGroup] Create Create tenant group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTenantGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[TenantGroup] Create tenant group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return bp.EventSet("matchDeletedTenantGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TenantGroup] Delete Delete tenant group with id " + id); });
+  return bp.EventSet("matchDeletedTenantGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TenantGroup] Delete tenant group with id " + id); });
 }
 
 function waitForAnyTenantGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TenantGroup\]\ Delete\ Delete\ tenant\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[TenantGroup\]\ Delete\ Delete\ tenant\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[TenantGroup\]\ Delete\ tenant\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[TenantGroup\]\ Delete\ tenant\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -23921,17 +23921,17 @@ function verifyTenantDoesNotExist(comments, contact, contact_group, contact_role
 function tryToDeleteANonExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) {
   var url = "/api/tenancy/tenants/" + id + "/";
   var description = "[Tenant] Verify we cannot delete non-existing Tenant";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) {
-  return matchSuccess("[Tenant] Create Create tenant with id " + id);
+  return matchSuccess("[Tenant] Create tenant with id " + id);
 }
 
 function waitForAnyTenantAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Tenant\]\ Create\ Create\ tenant\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Tenant\]\ Create\ tenant\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Tenant: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Tenant\]\ Create\ Create\ tenant\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Tenant\]\ Create\ tenant\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -23952,15 +23952,15 @@ function waitForAnyTenantAdded() {
 }
 
 function matchAnyTenantAdded() { return bp.EventSet("matchAnyTenantAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Tenant]") > -1; }); }
-function waitForTenantAdded(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) { var expectedDesc = "[Tenant] Create Create tenant with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTenantAdded(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) { var expectedDesc = "[Tenant] Create tenant with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedTenant", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Tenant] Delete Delete tenant with id " + id); });
+  return bp.EventSet("matchDeletedTenant", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Tenant] Delete tenant with id " + id); });
 }
 
 function waitForAnyTenantDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Tenant\]\ Delete\ Delete\ tenant\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Tenant\]\ Delete\ Delete\ tenant\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Tenant\]\ Delete\ tenant\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Tenant\]\ Delete\ tenant\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -24178,17 +24178,17 @@ function verifyGroupDoesNotExist(description, id, name, permissions) {
 function tryToDeleteANonExistingGroup(description, id, name, permissions) {
   var url = "/api/users/groups/";
   var description = "[Group] Verify we cannot delete non-existing Group";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedGroup(description, id, name, permissions) {
-  return matchSuccess("[Group] Create Create group with id " + id);
+  return matchSuccess("[Group] Create group with id " + id);
 }
 
 function waitForAnyGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Group\]\ Create\ Create\ group\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Group\]\ Create\ group\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Group: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Group\]\ Create\ Create\ group\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Group\]\ Create\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -24202,15 +24202,15 @@ function waitForAnyGroupAdded() {
 }
 
 function matchAnyGroupAdded() { return bp.EventSet("matchAnyGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Group]") > -1; }); }
-function waitForGroupAdded(description, id, name, permissions) { var expectedDesc = "[Group] Create Create group with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForGroupAdded(description, id, name, permissions) { var expectedDesc = "[Group] Create group with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedGroup(description, id, name, permissions) {
-  return bp.EventSet("matchDeletedGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Group] Delete Delete groups in bulk with id " + id); });
+  return bp.EventSet("matchDeletedGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Group] Delete groups in bulk with id " + id); });
 }
 
 function waitForAnyGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Group\]\ Delete\ Delete\ groups\ in\ bulk\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Group\]\ Delete\ Delete\ groups\ in\ bulk\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Group\]\ Delete\ groups\ in\ bulk\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Group\]\ Delete\ groups\ in\ bulk\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -24426,17 +24426,17 @@ function verifyPermissionDoesNotExist(actions, constraints, description, enabled
 function tryToDeleteANonExistingPermission(actions, constraints, description, enabled, groups, id, name, object_types, users) {
   var url = "/api/users/permissions/";
   var description = "[Permission] Verify we cannot delete non-existing Permission";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedPermission(actions, constraints, description, enabled, groups, id, name, object_types, users) {
-  return matchSuccess("[Permission] Create Create permission with id " + id);
+  return matchSuccess("[Permission] Create permission with id " + id);
 }
 
 function waitForAnyPermissionAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Permission\]\ Create\ Create\ permission\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Permission\]\ Create\ permission\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Permission: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Permission\]\ Create\ Create\ permission\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Permission\]\ Create\ permission\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -24455,15 +24455,15 @@ function waitForAnyPermissionAdded() {
 }
 
 function matchAnyPermissionAdded() { return bp.EventSet("matchAnyPermissionAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Permission]") > -1; }); }
-function waitForPermissionAdded(actions, constraints, description, enabled, groups, id, name, object_types, users) { var expectedDesc = "[Permission] Create Create permission with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForPermissionAdded(actions, constraints, description, enabled, groups, id, name, object_types, users) { var expectedDesc = "[Permission] Create permission with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedPermission(actions, constraints, description, enabled, groups, id, name, object_types, users) {
-  return bp.EventSet("matchDeletedPermission", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Permission] Delete Delete permissions in bulk with id " + id); });
+  return bp.EventSet("matchDeletedPermission", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Permission] Delete permissions in bulk with id " + id); });
 }
 
 function waitForAnyPermissionDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Permission\]\ Delete\ Delete\ permissions\ in\ bulk\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Permission\]\ Delete\ Delete\ permissions\ in\ bulk\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Permission\]\ Delete\ permissions\ in\ bulk\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Permission\]\ Delete\ permissions\ in\ bulk\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -24705,17 +24705,17 @@ function verifyTokenDoesNotExist(description, expires, id, key, last_used, user,
 function tryToDeleteANonExistingToken(description, expires, id, key, last_used, user, write_enabled) {
   var url = "/api/users/tokens/";
   var description = "[Token] Verify we cannot delete non-existing Token";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedToken(description, expires, id, key, last_used, user, write_enabled) {
-  return matchSuccess("[Token] Create Create token with id " + id + " and key " + key);
+  return matchSuccess("[Token] Create token with id " + id + " and key " + key);
 }
 
 function waitForAnyTokenAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Token\]\ Create\ Create\ token\ with\ id\ (.*?)\ and\ key\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Token\]\ Create\ token\ with\ id\ (.*?)\ and\ key\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Token: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Token\]\ Create\ Create\ token\ with\ id\ (.*?)\ and\ key\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Token\]\ Create\ token\ with\ id\ (.*?)\ and\ key\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id", "key"];
   var capturedMap = {};
@@ -24732,15 +24732,15 @@ function waitForAnyTokenAdded() {
 }
 
 function matchAnyTokenAdded() { return bp.EventSet("matchAnyTokenAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Token]") > -1; }); }
-function waitForTokenAdded(description, expires, id, key, last_used, user, write_enabled) { var expectedDesc = "[Token] Create Create token with id " + id + " and key " + key; waitFor(matchSuccess(expectedDesc)); }
+function waitForTokenAdded(description, expires, id, key, last_used, user, write_enabled) { var expectedDesc = "[Token] Create token with id " + id + " and key " + key; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedToken(description, expires, id, key, last_used, user, write_enabled) {
-  return bp.EventSet("matchDeletedToken", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Token] Delete Delete tokens in bulk with id " + id); });
+  return bp.EventSet("matchDeletedToken", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Token] Delete tokens in bulk with id " + id); });
 }
 
 function waitForAnyTokenDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Token\]\ Delete\ Delete\ tokens\ in\ bulk\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Token\]\ Delete\ Delete\ tokens\ in\ bulk\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Token\]\ Delete\ tokens\ in\ bulk\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Token\]\ Delete\ tokens\ in\ bulk\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -24966,17 +24966,17 @@ function verifyUserDoesNotExist(date_joined, email, first_name, groups, id, is_a
 function tryToDeleteANonExistingUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
   var url = "/api/users/users/";
   var description = "[User] Verify we cannot delete non-existing User";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
-  return matchSuccess("[User] Create Create user " + username + " with id " + id + " and email " + email);
+  return matchSuccess("[User] Create user " + username + " with id " + id + " and email " + email);
 }
 
 function waitForAnyUserAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[User\]\ Create\ Create\ user\ (.*?)\ with\ id\ (.*?)\ and\ email\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[User\]\ Create\ user\ (.*?)\ with\ id\ (.*?)\ and\ email\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for User: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[User\]\ Create\ Create\ user\ (.*?)\ with\ id\ (.*?)\ and\ email\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[User\]\ Create\ user\ (.*?)\ with\ id\ (.*?)\ and\ email\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["username", "id", "email"];
   var capturedMap = {};
@@ -24998,15 +24998,15 @@ function waitForAnyUserAdded() {
 }
 
 function matchAnyUserAdded() { return bp.EventSet("matchAnyUserAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[User]") > -1; }); }
-function waitForUserAdded(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) { var expectedDesc = "[User] Create Create user " + username + " with id " + id + " and email " + email; waitFor(matchSuccess(expectedDesc)); }
+function waitForUserAdded(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) { var expectedDesc = "[User] Create user " + username + " with id " + id + " and email " + email; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
-  return bp.EventSet("matchDeletedUser", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[User] Delete Delete users in bulk with id " + id); });
+  return bp.EventSet("matchDeletedUser", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[User] Delete users in bulk with id " + id); });
 }
 
 function waitForAnyUserDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[User\]\ Delete\ Delete\ users\ in\ bulk\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[User\]\ Delete\ Delete\ users\ in\ bulk\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[User\]\ Delete\ users\ in\ bulk\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[User\]\ Delete\ users\ in\ bulk\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25170,17 +25170,17 @@ function verifyClusterGroupDoesNotExist(custom_fields, description, id, name, sl
 function tryToDeleteANonExistingClusterGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/virtualization/cluster-groups/" + id + "/";
   var description = "[ClusterGroup] Verify we cannot delete non-existing ClusterGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedClusterGroup(custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[ClusterGroup] Create Create cluster group with id " + id);
+  return matchSuccess("[ClusterGroup] Create cluster group with id " + id);
 }
 
 function waitForAnyClusterGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterGroup\]\ Create\ Create\ cluster\ group\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterGroup\]\ Create\ cluster\ group\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ClusterGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ClusterGroup\]\ Create\ Create\ cluster\ group\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ClusterGroup\]\ Create\ cluster\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25196,15 +25196,15 @@ function waitForAnyClusterGroupAdded() {
 }
 
 function matchAnyClusterGroupAdded() { return bp.EventSet("matchAnyClusterGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ClusterGroup]") > -1; }); }
-function waitForClusterGroupAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[ClusterGroup] Create Create cluster group with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForClusterGroupAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[ClusterGroup] Create cluster group with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedClusterGroup(custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedClusterGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ClusterGroup] Delete Delete cluster group with id " + id); });
+  return bp.EventSet("matchDeletedClusterGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ClusterGroup] Delete cluster group with id " + id); });
 }
 
 function waitForAnyClusterGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterGroup\]\ Delete\ Delete\ cluster\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ClusterGroup\]\ Delete\ Delete\ cluster\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterGroup\]\ Delete\ cluster\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ClusterGroup\]\ Delete\ cluster\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25362,17 +25362,17 @@ function verifyClusterTypeDoesNotExist(custom_fields, description, id, name, slu
 function tryToDeleteANonExistingClusterType(custom_fields, description, id, name, slug, tags) {
   var url = "/api/virtualization/cluster-types/" + id + "/";
   var description = "[ClusterType] Verify we cannot delete non-existing ClusterType";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedClusterType(custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[ClusterType] Create Create cluster type with id " + id);
+  return matchSuccess("[ClusterType] Create cluster type with id " + id);
 }
 
 function waitForAnyClusterTypeAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterType\]\ Create\ Create\ cluster\ type\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterType\]\ Create\ cluster\ type\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for ClusterType: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[ClusterType\]\ Create\ Create\ cluster\ type\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[ClusterType\]\ Create\ cluster\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25388,15 +25388,15 @@ function waitForAnyClusterTypeAdded() {
 }
 
 function matchAnyClusterTypeAdded() { return bp.EventSet("matchAnyClusterTypeAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[ClusterType]") > -1; }); }
-function waitForClusterTypeAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[ClusterType] Create Create cluster type with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForClusterTypeAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[ClusterType] Create cluster type with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedClusterType(custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedClusterType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ClusterType] Delete Delete cluster type with id " + id); });
+  return bp.EventSet("matchDeletedClusterType", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[ClusterType] Delete cluster type with id " + id); });
 }
 
 function waitForAnyClusterTypeDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterType\]\ Delete\ Delete\ cluster\ type\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[ClusterType\]\ Delete\ Delete\ cluster\ type\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[ClusterType\]\ Delete\ cluster\ type\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[ClusterType\]\ Delete\ cluster\ type\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25575,17 +25575,17 @@ function verifyClusterDoesNotExist(comments, custom_fields, description, group, 
 function tryToDeleteANonExistingCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) {
   var url = "/api/virtualization/clusters/" + id + "/";
   var description = "[Cluster] Verify we cannot delete non-existing Cluster";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) {
-  return matchSuccess("[Cluster] Create Create cluster with id " + id);
+  return matchSuccess("[Cluster] Create cluster with id " + id);
 }
 
 function waitForAnyClusterAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Cluster\]\ Create\ Create\ cluster\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Cluster\]\ Create\ cluster\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Cluster: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Cluster\]\ Create\ Create\ cluster\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Cluster\]\ Create\ cluster\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25607,15 +25607,15 @@ function waitForAnyClusterAdded() {
 }
 
 function matchAnyClusterAdded() { return bp.EventSet("matchAnyClusterAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Cluster]") > -1; }); }
-function waitForClusterAdded(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) { var expectedDesc = "[Cluster] Create Create cluster with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForClusterAdded(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) { var expectedDesc = "[Cluster] Create cluster with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) {
-  return bp.EventSet("matchDeletedCluster", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Cluster] Delete Delete cluster with id " + id); });
+  return bp.EventSet("matchDeletedCluster", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Cluster] Delete cluster with id " + id); });
 }
 
 function waitForAnyClusterDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Cluster\]\ Delete\ Delete\ cluster\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Cluster\]\ Delete\ Delete\ cluster\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Cluster\]\ Delete\ cluster\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Cluster\]\ Delete\ cluster\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25782,17 +25782,17 @@ function verifyVirtualDiskDoesNotExist(custom_fields, description, id, name, siz
 function tryToDeleteANonExistingVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine) {
   var url = "/api/virtualization/virtual-disks/" + id + "/";
   var description = "[VirtualDisk] Verify we cannot delete non-existing VirtualDisk";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine) {
-  return matchSuccess("[VirtualDisk] Create Create virtual disk with id " + id);
+  return matchSuccess("[VirtualDisk] Create virtual disk with id " + id);
 }
 
 function waitForAnyVirtualDiskAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDisk\]\ Create\ Create\ virtual\ disk\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDisk\]\ Create\ virtual\ disk\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualDisk: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualDisk\]\ Create\ Create\ virtual\ disk\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualDisk\]\ Create\ virtual\ disk\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -25809,15 +25809,15 @@ function waitForAnyVirtualDiskAdded() {
 }
 
 function matchAnyVirtualDiskAdded() { return bp.EventSet("matchAnyVirtualDiskAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualDisk]") > -1; }); }
-function waitForVirtualDiskAdded(custom_fields, description, id, name, size, tags, virtual_machine) { var expectedDesc = "[VirtualDisk] Create Create virtual disk with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualDiskAdded(custom_fields, description, id, name, size, tags, virtual_machine) { var expectedDesc = "[VirtualDisk] Create virtual disk with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine) {
-  return bp.EventSet("matchDeletedVirtualDisk", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualDisk] Delete Delete virtual disk with id " + id); });
+  return bp.EventSet("matchDeletedVirtualDisk", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualDisk] Delete virtual disk with id " + id); });
 }
 
 function waitForAnyVirtualDiskDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDisk\]\ Delete\ Delete\ virtual\ disk\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualDisk\]\ Delete\ Delete\ virtual\ disk\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualDisk\]\ Delete\ virtual\ disk\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualDisk\]\ Delete\ virtual\ disk\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26165,17 +26165,17 @@ function verifyVirtualMachineDoesNotExist(cluster, cluster_group, cluster_type, 
 function tryToDeleteANonExistingVirtualMachine(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "[VirtualMachine] Verify we cannot delete non-existing VirtualMachine";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedVirtualMachine(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) {
-  return matchSuccess("[VirtualMachine] Create Create virtual machine with id " + id);
+  return matchSuccess("[VirtualMachine] Create virtual machine with id " + id);
 }
 
 function waitForAnyVirtualMachineAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualMachine\]\ Create\ Create\ virtual\ machine\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualMachine\]\ Create\ virtual\ machine\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for VirtualMachine: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[VirtualMachine\]\ Create\ Create\ virtual\ machine\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[VirtualMachine\]\ Create\ virtual\ machine\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26213,15 +26213,15 @@ function waitForAnyVirtualMachineAdded() {
 }
 
 function matchAnyVirtualMachineAdded() { return bp.EventSet("matchAnyVirtualMachineAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[VirtualMachine]") > -1; }); }
-function waitForVirtualMachineAdded(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) { var expectedDesc = "[VirtualMachine] Create Create virtual machine with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForVirtualMachineAdded(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) { var expectedDesc = "[VirtualMachine] Create virtual machine with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedVirtualMachine(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) {
-  return bp.EventSet("matchDeletedVirtualMachine", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualMachine] Delete Delete virtual machine with id " + id); });
+  return bp.EventSet("matchDeletedVirtualMachine", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[VirtualMachine] Delete virtual machine with id " + id); });
 }
 
 function waitForAnyVirtualMachineDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualMachine\]\ Delete\ Delete\ virtual\ machine\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[VirtualMachine\]\ Delete\ Delete\ virtual\ machine\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[VirtualMachine\]\ Delete\ virtual\ machine\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[VirtualMachine\]\ Delete\ virtual\ machine\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26413,17 +26413,17 @@ function verifyIKEPolicyDoesNotExist(comments, custom_fields, description, id, m
 function tryToDeleteANonExistingIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
   var url = "/api/vpn/ike-policies/" + id + "/";
   var description = "[IKEPolicy] Verify we cannot delete non-existing IKEPolicy";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
-  return matchSuccess("[IKEPolicy] Create Create ike policy with id " + id);
+  return matchSuccess("[IKEPolicy] Create ike policy with id " + id);
 }
 
 function waitForAnyIKEPolicyAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IKEPolicy\]\ Create\ Create\ ike\ policy\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IKEPolicy\]\ Create\ ike\ policy\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IKEPolicy: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IKEPolicy\]\ Create\ Create\ ike\ policy\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IKEPolicy\]\ Create\ ike\ policy\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26443,15 +26443,15 @@ function waitForAnyIKEPolicyAdded() {
 }
 
 function matchAnyIKEPolicyAdded() { return bp.EventSet("matchAnyIKEPolicyAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IKEPolicy]") > -1; }); }
-function waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) { var expectedDesc = "[IKEPolicy] Create Create ike policy with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIKEPolicyAdded(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) { var expectedDesc = "[IKEPolicy] Create ike policy with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
-  return bp.EventSet("matchDeletedIKEPolicy", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IKEPolicy] Delete Delete ike policy with id " + id); });
+  return bp.EventSet("matchDeletedIKEPolicy", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IKEPolicy] Delete ike policy with id " + id); });
 }
 
 function waitForAnyIKEPolicyDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IKEPolicy\]\ Delete\ Delete\ ike\ policy\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IKEPolicy\]\ Delete\ Delete\ ike\ policy\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IKEPolicy\]\ Delete\ ike\ policy\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IKEPolicy\]\ Delete\ ike\ policy\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26628,17 +26628,17 @@ function verifyIKEProposalDoesNotExist(authentication_algorithm, authentication_
 function tryToDeleteANonExistingIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
   var url = "/api/vpn/ike-proposals/" + id + "/";
   var description = "[IKEProposal] Verify we cannot delete non-existing IKEProposal";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
-  return matchSuccess("[IKEProposal] Create Create ike proposal with id " + id);
+  return matchSuccess("[IKEProposal] Create ike proposal with id " + id);
 }
 
 function waitForAnyIKEProposalAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IKEProposal\]\ Create\ Create\ ike\ proposal\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IKEProposal\]\ Create\ ike\ proposal\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IKEProposal: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IKEProposal\]\ Create\ Create\ ike\ proposal\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IKEProposal\]\ Create\ ike\ proposal\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26659,15 +26659,15 @@ function waitForAnyIKEProposalAdded() {
 }
 
 function matchAnyIKEProposalAdded() { return bp.EventSet("matchAnyIKEProposalAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IKEProposal]") > -1; }); }
-function waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) { var expectedDesc = "[IKEProposal] Create Create ike proposal with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIKEProposalAdded(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) { var expectedDesc = "[IKEProposal] Create ike proposal with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
-  return bp.EventSet("matchDeletedIKEProposal", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IKEProposal] Delete Delete ike proposal with id " + id); });
+  return bp.EventSet("matchDeletedIKEProposal", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IKEProposal] Delete ike proposal with id " + id); });
 }
 
 function waitForAnyIKEProposalDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IKEProposal\]\ Delete\ Delete\ ike\ proposal\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IKEProposal\]\ Delete\ Delete\ ike\ proposal\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IKEProposal\]\ Delete\ ike\ proposal\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IKEProposal\]\ Delete\ ike\ proposal\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26836,17 +26836,17 @@ function verifyIPSecPolicyDoesNotExist(comments, custom_fields, description, id,
 function tryToDeleteANonExistingIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
   var url = "/api/vpn/ipsec-policies/" + id + "/";
   var description = "[IPSecPolicy] Verify we cannot delete non-existing IPSecPolicy";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
-  return matchSuccess("[IPSecPolicy] Create Create ipsec policy with id " + id);
+  return matchSuccess("[IPSecPolicy] Create ipsec policy with id " + id);
 }
 
 function waitForAnyIPSecPolicyAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecPolicy\]\ Create\ Create\ ipsec\ policy\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecPolicy\]\ Create\ ipsec\ policy\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IPSecPolicy: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IPSecPolicy\]\ Create\ Create\ ipsec\ policy\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IPSecPolicy\]\ Create\ ipsec\ policy\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -26864,15 +26864,15 @@ function waitForAnyIPSecPolicyAdded() {
 }
 
 function matchAnyIPSecPolicyAdded() { return bp.EventSet("matchAnyIPSecPolicyAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IPSecPolicy]") > -1; }); }
-function waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags) { var expectedDesc = "[IPSecPolicy] Create Create ipsec policy with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIPSecPolicyAdded(comments, custom_fields, description, id, name, pfs_group, proposals, tags) { var expectedDesc = "[IPSecPolicy] Create ipsec policy with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
-  return bp.EventSet("matchDeletedIPSecPolicy", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPSecPolicy] Delete Delete ipsec policy with id " + id); });
+  return bp.EventSet("matchDeletedIPSecPolicy", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPSecPolicy] Delete ipsec policy with id " + id); });
 }
 
 function waitForAnyIPSecPolicyDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecPolicy\]\ Delete\ Delete\ ipsec\ policy\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IPSecPolicy\]\ Delete\ Delete\ ipsec\ policy\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecPolicy\]\ Delete\ ipsec\ policy\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IPSecPolicy\]\ Delete\ ipsec\ policy\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27041,17 +27041,17 @@ function verifyIPSecProfileDoesNotExist(comments, custom_fields, description, id
 function tryToDeleteANonExistingIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
   var url = "/api/vpn/ipsec-profiles/" + id + "/";
   var description = "[IPSecProfile] Verify we cannot delete non-existing IPSecProfile";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
-  return matchSuccess("[IPSecProfile] Create Create ipsec profile with id " + id);
+  return matchSuccess("[IPSecProfile] Create ipsec profile with id " + id);
 }
 
 function waitForAnyIPSecProfileAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProfile\]\ Create\ Create\ ipsec\ profile\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProfile\]\ Create\ ipsec\ profile\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IPSecProfile: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IPSecProfile\]\ Create\ Create\ ipsec\ profile\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IPSecProfile\]\ Create\ ipsec\ profile\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27070,15 +27070,15 @@ function waitForAnyIPSecProfileAdded() {
 }
 
 function matchAnyIPSecProfileAdded() { return bp.EventSet("matchAnyIPSecProfileAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IPSecProfile]") > -1; }); }
-function waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) { var expectedDesc = "[IPSecProfile] Create Create ipsec profile with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIPSecProfileAdded(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) { var expectedDesc = "[IPSecProfile] Create ipsec profile with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
-  return bp.EventSet("matchDeletedIPSecProfile", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPSecProfile] Delete Delete ipsec profile with id " + id); });
+  return bp.EventSet("matchDeletedIPSecProfile", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPSecProfile] Delete ipsec profile with id " + id); });
 }
 
 function waitForAnyIPSecProfileDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProfile\]\ Delete\ Delete\ ipsec\ profile\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IPSecProfile\]\ Delete\ Delete\ ipsec\ profile\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProfile\]\ Delete\ ipsec\ profile\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IPSecProfile\]\ Delete\ ipsec\ profile\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27251,17 +27251,17 @@ function verifyIPSecProposalDoesNotExist(authentication_algorithm, comments, cus
 function tryToDeleteANonExistingIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
   var url = "/api/vpn/ipsec-proposals/" + id + "/";
   var description = "[IPSecProposal] Verify we cannot delete non-existing IPSecProposal";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
-  return matchSuccess("[IPSecProposal] Create Create ipsec proposal with id " + id);
+  return matchSuccess("[IPSecProposal] Create ipsec proposal with id " + id);
 }
 
 function waitForAnyIPSecProposalAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProposal\]\ Create\ Create\ ipsec\ proposal\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProposal\]\ Create\ ipsec\ proposal\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for IPSecProposal: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[IPSecProposal\]\ Create\ Create\ ipsec\ proposal\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[IPSecProposal\]\ Create\ ipsec\ proposal\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27281,15 +27281,15 @@ function waitForAnyIPSecProposalAdded() {
 }
 
 function matchAnyIPSecProposalAdded() { return bp.EventSet("matchAnyIPSecProposalAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[IPSecProposal]") > -1; }); }
-function waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) { var expectedDesc = "[IPSecProposal] Create Create ipsec proposal with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForIPSecProposalAdded(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) { var expectedDesc = "[IPSecProposal] Create ipsec proposal with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
-  return bp.EventSet("matchDeletedIPSecProposal", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPSecProposal] Delete Delete ipsec proposal with id " + id); });
+  return bp.EventSet("matchDeletedIPSecProposal", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[IPSecProposal] Delete ipsec proposal with id " + id); });
 }
 
 function waitForAnyIPSecProposalDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProposal\]\ Delete\ Delete\ ipsec\ proposal\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[IPSecProposal\]\ Delete\ Delete\ ipsec\ proposal\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[IPSecProposal\]\ Delete\ ipsec\ proposal\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[IPSecProposal\]\ Delete\ ipsec\ proposal\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27439,17 +27439,17 @@ function verifyL2VPNTerminationDoesNotExist(assigned_object_id, assigned_object_
 function tryToDeleteANonExistingL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) {
   var url = "/api/vpn/l2vpn-terminations/" + id + "/";
   var description = "[L2VPNTermination] Verify we cannot delete non-existing L2VPNTermination";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) {
-  return matchSuccess("[L2VPNTermination] Create Create l2vpn termination with id " + id);
+  return matchSuccess("[L2VPNTermination] Create l2vpn termination with id " + id);
 }
 
 function waitForAnyL2VPNTerminationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPNTermination\]\ Create\ Create\ l2vpn\ termination\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPNTermination\]\ Create\ l2vpn\ termination\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for L2VPNTermination: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[L2VPNTermination\]\ Create\ Create\ l2vpn\ termination\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[L2VPNTermination\]\ Create\ l2vpn\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27465,15 +27465,15 @@ function waitForAnyL2VPNTerminationAdded() {
 }
 
 function matchAnyL2VPNTerminationAdded() { return bp.EventSet("matchAnyL2VPNTerminationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[L2VPNTermination]") > -1; }); }
-function waitForL2VPNTerminationAdded(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) { var expectedDesc = "[L2VPNTermination] Create Create l2vpn termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForL2VPNTerminationAdded(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) { var expectedDesc = "[L2VPNTermination] Create l2vpn termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) {
-  return bp.EventSet("matchDeletedL2VPNTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[L2VPNTermination] Delete Delete l2vpn termination with id " + id); });
+  return bp.EventSet("matchDeletedL2VPNTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[L2VPNTermination] Delete l2vpn termination with id " + id); });
 }
 
 function waitForAnyL2VPNTerminationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPNTermination\]\ Delete\ Delete\ l2vpn\ termination\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[L2VPNTermination\]\ Delete\ Delete\ l2vpn\ termination\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPNTermination\]\ Delete\ l2vpn\ termination\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[L2VPNTermination\]\ Delete\ l2vpn\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27619,17 +27619,17 @@ function verifyL2VPNDoesNotExist(comments, custom_fields, description, export_ta
 function tryToDeleteANonExistingL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) {
   var url = "/api/vpn/l2vpns/" + id + "/";
   var description = "[L2VPN] Verify we cannot delete non-existing L2VPN";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) {
-  return matchSuccess("[L2VPN] Create Create l2vpn " + name + " with id " + id);
+  return matchSuccess("[L2VPN] Create l2vpn " + name + " with id " + id);
 }
 
 function waitForAnyL2VPNAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPN\]\ Create\ Create\ l2vpn\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPN\]\ Create\ l2vpn\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for L2VPN: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[L2VPN\]\ Create\ Create\ l2vpn\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[L2VPN\]\ Create\ l2vpn\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -27652,15 +27652,15 @@ function waitForAnyL2VPNAdded() {
 }
 
 function matchAnyL2VPNAdded() { return bp.EventSet("matchAnyL2VPNAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[L2VPN]") > -1; }); }
-function waitForL2VPNAdded(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) { var expectedDesc = "[L2VPN] Create Create l2vpn " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForL2VPNAdded(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) { var expectedDesc = "[L2VPN] Create l2vpn " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) {
-  return bp.EventSet("matchDeletedL2VPN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[L2VPN] Delete Delete l2vpn with id " + id); });
+  return bp.EventSet("matchDeletedL2VPN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[L2VPN] Delete l2vpn with id " + id); });
 }
 
 function waitForAnyL2VPNDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPN\]\ Delete\ Delete\ l2vpn\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[L2VPN\]\ Delete\ Delete\ l2vpn\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[L2VPN\]\ Delete\ l2vpn\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[L2VPN\]\ Delete\ l2vpn\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27810,17 +27810,17 @@ function verifyTunnelGroupDoesNotExist(custom_fields, description, id, name, slu
 function tryToDeleteANonExistingTunnelGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/vpn/tunnel-groups/" + id + "/";
   var description = "[TunnelGroup] Verify we cannot delete non-existing TunnelGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTunnelGroup(custom_fields, description, id, name, slug, tags) {
-  return matchSuccess("[TunnelGroup] Create Create tunnel group " + name + " with id " + id);
+  return matchSuccess("[TunnelGroup] Create tunnel group " + name + " with id " + id);
 }
 
 function waitForAnyTunnelGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelGroup\]\ Create\ Create\ tunnel\ group\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelGroup\]\ Create\ tunnel\ group\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for TunnelGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[TunnelGroup\]\ Create\ Create\ tunnel\ group\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[TunnelGroup\]\ Create\ tunnel\ group\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -27836,15 +27836,15 @@ function waitForAnyTunnelGroupAdded() {
 }
 
 function matchAnyTunnelGroupAdded() { return bp.EventSet("matchAnyTunnelGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[TunnelGroup]") > -1; }); }
-function waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[TunnelGroup] Create Create tunnel group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTunnelGroupAdded(custom_fields, description, id, name, slug, tags) { var expectedDesc = "[TunnelGroup] Create tunnel group " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTunnelGroup(custom_fields, description, id, name, slug, tags) {
-  return bp.EventSet("matchDeletedTunnelGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TunnelGroup] Delete Delete tunnel group with id " + id); });
+  return bp.EventSet("matchDeletedTunnelGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TunnelGroup] Delete tunnel group with id " + id); });
 }
 
 function waitForAnyTunnelGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelGroup\]\ Delete\ Delete\ tunnel\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[TunnelGroup\]\ Delete\ Delete\ tunnel\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelGroup\]\ Delete\ tunnel\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[TunnelGroup\]\ Delete\ tunnel\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -27990,17 +27990,17 @@ function verifyTunnelTerminationDoesNotExist(custom_fields, id, outside_ip, role
 function tryToDeleteANonExistingTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) {
   var url = "/api/vpn/tunnel-terminations/" + id + "/";
   var description = "[TunnelTermination] Verify we cannot delete non-existing TunnelTermination";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) {
-  return matchSuccess("[TunnelTermination] Create Create tunnel termination with id " + id);
+  return matchSuccess("[TunnelTermination] Create tunnel termination with id " + id);
 }
 
 function waitForAnyTunnelTerminationAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelTermination\]\ Create\ Create\ tunnel\ termination\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelTermination\]\ Create\ tunnel\ termination\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for TunnelTermination: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[TunnelTermination\]\ Create\ Create\ tunnel\ termination\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[TunnelTermination\]\ Create\ tunnel\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28018,15 +28018,15 @@ function waitForAnyTunnelTerminationAdded() {
 }
 
 function matchAnyTunnelTerminationAdded() { return bp.EventSet("matchAnyTunnelTerminationAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[TunnelTermination]") > -1; }); }
-function waitForTunnelTerminationAdded(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) { var expectedDesc = "[TunnelTermination] Create Create tunnel termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTunnelTerminationAdded(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) { var expectedDesc = "[TunnelTermination] Create tunnel termination with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) {
-  return bp.EventSet("matchDeletedTunnelTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TunnelTermination] Delete Delete tunnel termination with id " + id); });
+  return bp.EventSet("matchDeletedTunnelTermination", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[TunnelTermination] Delete tunnel termination with id " + id); });
 }
 
 function waitForAnyTunnelTerminationDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelTermination\]\ Delete\ Delete\ tunnel\ termination\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[TunnelTermination\]\ Delete\ Delete\ tunnel\ termination\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[TunnelTermination\]\ Delete\ tunnel\ termination\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[TunnelTermination\]\ Delete\ tunnel\ termination\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28174,17 +28174,17 @@ function verifyTunnelDoesNotExist(comments, custom_fields, description, encapsul
 function tryToDeleteANonExistingTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) {
   var url = "/api/vpn/tunnels/" + id + "/";
   var description = "[Tunnel] Verify we cannot delete non-existing Tunnel";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) {
-  return matchSuccess("[Tunnel] Create Create tunnel " + name + " with id " + id);
+  return matchSuccess("[Tunnel] Create tunnel " + name + " with id " + id);
 }
 
 function waitForAnyTunnelAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Tunnel\]\ Create\ Create\ tunnel\ (.*?)\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[Tunnel\]\ Create\ tunnel\ (.*?)\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Tunnel: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[Tunnel\]\ Create\ Create\ tunnel\ (.*?)\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[Tunnel\]\ Create\ tunnel\ (.*?)\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["name", "id"];
   var capturedMap = {};
@@ -28206,15 +28206,15 @@ function waitForAnyTunnelAdded() {
 }
 
 function matchAnyTunnelAdded() { return bp.EventSet("matchAnyTunnelAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Tunnel]") > -1; }); }
-function waitForTunnelAdded(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) { var expectedDesc = "[Tunnel] Create Create tunnel " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForTunnelAdded(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) { var expectedDesc = "[Tunnel] Create tunnel " + name + " with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) {
-  return bp.EventSet("matchDeletedTunnel", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Tunnel] Delete Delete tunnel with id " + id); });
+  return bp.EventSet("matchDeletedTunnel", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Tunnel] Delete tunnel with id " + id); });
 }
 
 function waitForAnyTunnelDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[Tunnel\]\ Delete\ Delete\ tunnel\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[Tunnel\]\ Delete\ Delete\ tunnel\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Tunnel\]\ Delete\ tunnel\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Tunnel\]\ Delete\ tunnel\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28384,17 +28384,17 @@ function verifyWirelessLANGroupDoesNotExist(comments, custom_fields, description
 function tryToDeleteANonExistingWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/wireless/wireless-lan-groups/" + id + "/";
   var description = "[WirelessLANGroup] Verify we cannot delete non-existing WirelessLANGroup";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return matchSuccess("[WirelessLANGroup] Create Create wireless LAN group with id " + id);
+  return matchSuccess("[WirelessLANGroup] Create wireless LAN group with id " + id);
 }
 
 function waitForAnyWirelessLANGroupAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLANGroup\]\ Create\ Create\ wireless\ LAN\ group\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLANGroup\]\ Create\ wireless\ LAN\ group\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for WirelessLANGroup: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[WirelessLANGroup\]\ Create\ Create\ wireless\ LAN\ group\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[WirelessLANGroup\]\ Create\ wireless\ LAN\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28412,15 +28412,15 @@ function waitForAnyWirelessLANGroupAdded() {
 }
 
 function matchAnyWirelessLANGroupAdded() { return bp.EventSet("matchAnyWirelessLANGroupAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[WirelessLANGroup]") > -1; }); }
-function waitForWirelessLANGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[WirelessLANGroup] Create Create wireless LAN group with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForWirelessLANGroupAdded(comments, custom_fields, description, id, name, parent, slug, tags) { var expectedDesc = "[WirelessLANGroup] Create wireless LAN group with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
-  return bp.EventSet("matchDeletedWirelessLANGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[WirelessLANGroup] Delete Delete wireless LAN group with id " + id); });
+  return bp.EventSet("matchDeletedWirelessLANGroup", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[WirelessLANGroup] Delete wireless LAN group with id " + id); });
 }
 
 function waitForAnyWirelessLANGroupDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLANGroup\]\ Delete\ Delete\ wireless\ LAN\ group\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[WirelessLANGroup\]\ Delete\ Delete\ wireless\ LAN\ group\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLANGroup\]\ Delete\ wireless\ LAN\ group\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[WirelessLANGroup\]\ Delete\ wireless\ LAN\ group\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28610,17 +28610,17 @@ function verifyWirelessLANDoesNotExist(auth_cipher, auth_psk, auth_type, comment
 function tryToDeleteANonExistingWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
   var url = "/api/wireless/wireless-lans/" + id + "/";
   var description = "[WirelessLAN] Verify we cannot delete non-existing WirelessLAN";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
-  return matchSuccess("[WirelessLAN] Create Create wireless LAN with id " + id);
+  return matchSuccess("[WirelessLAN] Create wireless LAN with id " + id);
 }
 
 function waitForAnyWirelessLANAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLAN\]\ Create\ Create\ wireless\ LAN\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLAN\]\ Create\ wireless\ LAN\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for WirelessLAN: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[WirelessLAN\]\ Create\ Create\ wireless\ LAN\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[WirelessLAN\]\ Create\ wireless\ LAN\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28645,15 +28645,15 @@ function waitForAnyWirelessLANAdded() {
 }
 
 function matchAnyWirelessLANAdded() { return bp.EventSet("matchAnyWirelessLANAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[WirelessLAN]") > -1; }); }
-function waitForWirelessLANAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) { var expectedDesc = "[WirelessLAN] Create Create wireless LAN with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForWirelessLANAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) { var expectedDesc = "[WirelessLAN] Create wireless LAN with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
-  return bp.EventSet("matchDeletedWirelessLAN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[WirelessLAN] Delete Delete wireless LAN with id " + id); });
+  return bp.EventSet("matchDeletedWirelessLAN", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[WirelessLAN] Delete wireless LAN with id " + id); });
 }
 
 function waitForAnyWirelessLANDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLAN\]\ Delete\ Delete\ wireless\ LAN\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[WirelessLAN\]\ Delete\ Delete\ wireless\ LAN\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLAN\]\ Delete\ wireless\ LAN\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[WirelessLAN\]\ Delete\ wireless\ LAN\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28847,17 +28847,17 @@ function verifyWirelessLinkDoesNotExist(auth_cipher, auth_psk, auth_type, commen
 function tryToDeleteANonExistingWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
   var url = "/api/wireless/wireless-links/" + id + "/";
   var description = "[WirelessLink] Verify we cannot delete non-existing WirelessLink";
-  svc.delete(url, { expectedResponseCodes: [200, 204], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
 function matchAddedWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
-  return matchSuccess("[WirelessLink] Create Create wireless link with id " + id);
+  return matchSuccess("[WirelessLink] Create wireless link with id " + id);
 }
 
 function waitForAnyWirelessLinkAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLink\]\ Create\ Create\ wireless\ link\ with\ id\ (.*?)$/));
+  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLink\]\ Create\ wireless\ link\ with\ id\ (.*?)$/));
   if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for WirelessLink: Matched event: " + ev.data.parameters.description); }
-  var m = ev.data.parameters.description.match(/^\[WirelessLink\]\ Create\ Create\ wireless\ link\ with\ id\ (.*?)$/);
+  var m = ev.data.parameters.description.match(/^\[WirelessLink\]\ Create\ wireless\ link\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
@@ -28882,15 +28882,15 @@ function waitForAnyWirelessLinkAdded() {
 }
 
 function matchAnyWirelessLinkAdded() { return bp.EventSet("matchAnyWirelessLinkAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[WirelessLink]") > -1; }); }
-function waitForWirelessLinkAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) { var expectedDesc = "[WirelessLink] Create Create wireless link with id " + id; waitFor(matchSuccess(expectedDesc)); }
+function waitForWirelessLinkAdded(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) { var expectedDesc = "[WirelessLink] Create wireless link with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
-  return bp.EventSet("matchDeletedWirelessLink", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[WirelessLink] Delete Delete wireless link with id " + id); });
+  return bp.EventSet("matchDeletedWirelessLink", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[WirelessLink] Delete wireless link with id " + id); });
 }
 
 function waitForAnyWirelessLinkDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLink\]\ Delete\ Delete\ wireless\ link\ with\ id\ (.*?)$/));
-  var m = ev.data.parameters.description.match(/^\[WirelessLink\]\ Delete\ Delete\ wireless\ link\ with\ id\ (.*?)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[WirelessLink\]\ Delete\ wireless\ link\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[WirelessLink\]\ Delete\ wireless\ link\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
   var capturedMap = {};
