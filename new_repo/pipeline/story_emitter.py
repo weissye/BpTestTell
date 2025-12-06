@@ -2,7 +2,6 @@ from pathlib import Path
 import json
 from typing import Dict, Any
 
-# Import shared utils
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
     get_operation_schema, infer_type, collect_entity_params
@@ -18,7 +17,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('')
     lines.append('')
 
-    # --- INJECTED HELPER ---
     lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
@@ -26,10 +24,12 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('    let e = bp.sync({waitFor: missingEventSets});')
     lines.append('    for (let k in deps) {')
     lines.append('      if (deps[k].contains(e)) {')
+    lines.append('        bp.log.info("DEBUG RESOLVE: Caught event for " + k + ". Event Data: " + JSON.stringify(e.data));')
     lines.append('        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));')
     lines.append('        if (!val && pkMap && pkMap[k]) {')
     lines.append('            let mappedKey = pkMap[k];')
     lines.append('            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);')
+    lines.append('            bp.log.info("DEBUG RESOLVE: Mapped " + k + " to " + mappedKey + " -> Value: " + val);')
     lines.append('        }')
     lines.append('        if (!val && e.data) {')
     lines.append('          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }')
@@ -37,7 +37,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('        if (val) {')
     lines.append('            captured[k] = val;')
     lines.append('            delete deps[k];')
-    lines.append('        }')
+    lines.append('        } else { bp.log.info("DEBUG RESOLVE: Failed to extract value for " + k); }')
     lines.append('      }')
     lines.append('    }')
     lines.append('  }')
@@ -47,11 +47,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
 
     base_id = 200 
 
-    # Build key map
     entity_pks_map = {}
     for name, ent in entities.items():
         pk, _ = collect_entity_params(name, ent, raw_spec)
         if pk: entity_pks_map[name] = [pk]
+        else: entity_pks_map[name] = ["id"] # Force ID if detection fails
 
     for name, ent in entities.items():
         ops = ent.get("operations", {})
@@ -59,7 +59,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         add_fn = ops.get("add", {}).get("name") if isinstance(ops.get("add"), dict) else None
         del_fn = ops.get("delete", {}).get("name") if isinstance(ops.get("delete"), dict) else None
         upd_fn = ops.get("update", {}).get("name") if isinstance(ops.get("update"), dict) else None
-        get_fn = ops.get("get", {}).get("name") if isinstance(ops.get("get"), dict) else None
         
         try_add_fn = f"tryToAddExisting{name}"
         try_del_fn = f"tryToDeleteANonExisting{name}"
@@ -72,10 +71,8 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         wait_specific_fn = f"waitFor{name}Added"
         wait_del_any = f"waitForAny{name}Deleted"
 
-        # --- Use Shared Param Collection ---
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
-
-        # Schema Props (for types)
+        
         param_types = {}
         if "add" in ops and isinstance(ops["add"], dict):
             schema, required_fields = get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
@@ -84,16 +81,15 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
                 if p in props: param_types[p] = props[p].get("type", "string")
                 else: param_types[p] = infer_type(p, "string")
 
-        # Deps
         deps = []
         story_pk_map = {}
         for p in sig_params:
             for potential_ent in entities:
                 if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
-                     target_pk = entity_pks_map.get(potential_ent, [""])[0]
-                     if target_pk and (target_pk.lower() in p.lower() or "id" in p.lower()) and potential_ent.lower() in p.lower():
-                         deps.append((potential_ent, p))
-                         if target_pk: story_pk_map[p] = target_pk
+                     # FIX: More robust dependency detection
+                     target_pk = entity_pks_map.get(potential_ent, ["id"])[0]
+                     deps.append((potential_ent, p))
+                     story_pk_map[p] = target_pk
 
         def get_vars(idx):
             declarations = []
@@ -210,8 +206,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('  }')
             lines.append('});')
             lines.append('')
-
-        # READ-ONLY STORIES ARE NOW EXCLUDED
 
         base_id += 10
 

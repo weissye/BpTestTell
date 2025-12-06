@@ -1353,8 +1353,8 @@
       "displayName": "device role",
       "params": [
         "name",
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
         "add": {
@@ -2888,8 +2888,8 @@
       "displayName": "rack type",
       "params": [
         "name",
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
         "add": {
@@ -3286,8 +3286,8 @@
     "Region": {
       "displayName": "region",
       "params": [
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
         "get": {
@@ -5995,10 +5995,10 @@
     "VRF": {
       "displayName": "vrf",
       "params": [
-        "name",
-        "rd",
         "slug",
-        "id"
+        "id",
+        "name",
+        "rd"
       ],
       "operations": {
         "add": {

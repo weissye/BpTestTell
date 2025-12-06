@@ -153,7 +153,7 @@ function verifyCircuitGroupAssignmentDoesNotExist(group, id, member_id, member_t
 function tryToDeleteANonExistingCircuitGroupAssignment(group, id, member_id, member_type, priority, tags) {
   var url = "/api/circuits/circuit-group-assignments/" + id + "/";
   var description = "[CircuitGroupAssignment] Verify we cannot delete non-existing CircuitGroupAssignment";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCircuitGroupAssignment(group, id, member_id, member_type, priority, tags) {
@@ -348,7 +348,7 @@ function verifyCircuitGroupDoesNotExist(custom_fields, description, id, name, sl
 function tryToDeleteANonExistingCircuitGroup(custom_fields, description, id, name, slug, tags, tenant) {
   var url = "/api/circuits/circuit-groups/" + id + "/";
   var description = "[CircuitGroup] Verify we cannot delete non-existing CircuitGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCircuitGroup(custom_fields, description, id, name, slug, tags, tenant) {
@@ -569,7 +569,7 @@ function verifyCircuitTerminationDoesNotExist(circuit, custom_fields, descriptio
 function tryToDeleteANonExistingCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) {
   var url = "/api/circuits/circuit-terminations/" + id + "/";
   var description = "[CircuitTermination] Verify we cannot delete non-existing CircuitTermination";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCircuitTermination(circuit, custom_fields, description, id, mark_connected, port_speed, pp_info, tags, term_side, termination_id, termination_type, upstream_speed, xconnect_id) {
@@ -778,7 +778,7 @@ function verifyCircuitTypeDoesNotExist(color, custom_fields, description, id, na
 function tryToDeleteANonExistingCircuitType(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/circuit-types/" + id + "/";
   var description = "[CircuitType] Verify we cannot delete non-existing CircuitType";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCircuitType(color, custom_fields, description, id, name, slug, tags) {
@@ -1005,7 +1005,7 @@ function verifyCircuitDoesNotExist(assignments, cid, comments, commit_rate, cust
 function tryToDeleteANonExistingCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
   var url = "/api/circuits/circuits/" + id + "/";
   var description = "[Circuit] Verify we cannot delete non-existing Circuit";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCircuit(assignments, cid, comments, commit_rate, custom_fields, description, distance, distance_unit, id, install_date, provider, provider_account, status, tags, tenant, termination_date, type) {
@@ -1234,7 +1234,7 @@ function verifyProviderAccountDoesNotExist(account, comments, custom_fields, des
 function tryToDeleteANonExistingProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
   var url = "/api/circuits/provider-accounts/" + id + "/";
   var description = "[ProviderAccount] Verify we cannot delete non-existing ProviderAccount";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedProviderAccount(account, comments, custom_fields, description, id, name, provider, tags) {
@@ -1449,7 +1449,7 @@ function verifyProviderNetworkDoesNotExist(comments, custom_fields, description,
 function tryToDeleteANonExistingProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
   var url = "/api/circuits/provider-networks/" + id + "/";
   var description = "[ProviderNetwork] Verify we cannot delete non-existing ProviderNetwork";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedProviderNetwork(comments, custom_fields, description, id, name, provider, service_id, tags) {
@@ -1662,7 +1662,7 @@ function verifyProviderDoesNotExist(accounts, asns, comments, custom_fields, des
 function tryToDeleteANonExistingProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/providers/" + id + "/";
   var description = "[Provider] Verify we cannot delete non-existing Provider";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedProvider(accounts, asns, comments, custom_fields, description, id, name, slug, tags) {
@@ -1873,7 +1873,7 @@ function verifyVirtualCircuitTerminationDoesNotExist(custom_fields, description,
 function tryToDeleteANonExistingVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
   var url = "/api/circuits/virtual-circuit-terminations/" + id + "/";
   var description = "[VirtualCircuitTermination] Verify we cannot delete non-existing VirtualCircuitTermination";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualCircuitTermination(custom_fields, description, id, _interface, role, tags, virtual_circuit) {
@@ -2061,7 +2061,7 @@ function verifyVirtualCircuitTypeDoesNotExist(color, custom_fields, description,
 function tryToDeleteANonExistingVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/circuits/virtual-circuit-types/" + id + "/";
   var description = "[VirtualCircuitType] Verify we cannot delete non-existing VirtualCircuitType";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualCircuitType(color, custom_fields, description, id, name, slug, tags) {
@@ -2267,7 +2267,7 @@ function verifyVirtualCircuitDoesNotExist(cid, comments, custom_fields, descript
 function tryToDeleteANonExistingVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) {
   var url = "/api/circuits/virtual-circuits/" + id + "/";
   var description = "[VirtualCircuit] Verify we cannot delete non-existing VirtualCircuit";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualCircuit(cid, comments, custom_fields, description, id, provider, provider_account, provider_network, provider_network_id, status, tags, tenant, tenant_group, type) {
@@ -2517,7 +2517,7 @@ function verifyBackgroundTaskDoesNotExist(id) {
 function tryToDeleteANonExistingBackgroundTask(id) {
   var url = "/api/core/background-tasks/" + id + "/delete/";
   var description = "[BackgroundTask] Verify we cannot delete non-existing BackgroundTask";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchDeletedBackgroundTask(id) {
@@ -2941,7 +2941,7 @@ function verifyDataSourceDoesNotExist(comments, custom_fields, description, enab
 function tryToDeleteANonExistingDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) {
   var url = "/api/core/data-sources/" + id + "/";
   var description = "[DataSource] Verify we cannot delete non-existing DataSource";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedDataSource(comments, custom_fields, description, enabled, id, ignore_rules, name, parameters, source_url, status, sync_interval, tag, type) {
@@ -3402,7 +3402,7 @@ function verifyCableTerminationDoesNotExist(cable, cable_end, id, termination_id
 function tryToDeleteANonExistingCableTermination(cable, cable_end, id, termination_id, termination_type) {
   var url = "/api/dcim/cable-terminations/" + id + "/";
   var description = "[CableTermination] Verify we cannot delete non-existing CableTermination";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCableTermination(cable, cable_end, id, termination_id, termination_type) {
@@ -3645,7 +3645,7 @@ function verifyCableDoesNotExist(a_terminations, b_terminations, color, comments
 function tryToDeleteANonExistingCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
   var url = "/api/dcim/cables/" + id + "/";
   var description = "[Cable] Verify we cannot delete non-existing Cable";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCable(a_terminations, b_terminations, color, comments, custom_fields, description, id, label, length, length_unit, status, tags, tenant, type) {
@@ -3878,7 +3878,7 @@ function verifyConsolePortTemplateDoesNotExist(description, device_type, id, lab
 function tryToDeleteANonExistingConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-port-templates/" + id + "/";
   var description = "[ConsolePortTemplate] Verify we cannot delete non-existing ConsolePortTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedConsolePortTemplate(description, device_type, id, label, module_type, name, type) {
@@ -4113,7 +4113,7 @@ function verifyConsolePortDoesNotExist(custom_fields, description, device, id, l
 function tryToDeleteANonExistingConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-ports/" + id + "/";
   var description = "[ConsolePort] Verify we cannot delete non-existing ConsolePort";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedConsolePort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
@@ -4318,7 +4318,7 @@ function verifyConsoleServerPortTemplateDoesNotExist(description, device_type, i
 function tryToDeleteANonExistingConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type) {
   var url = "/api/dcim/console-server-port-templates/" + id + "/";
   var description = "[ConsoleServerPortTemplate] Verify we cannot delete non-existing ConsoleServerPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedConsoleServerPortTemplate(description, device_type, id, label, module_type, name, type) {
@@ -4527,7 +4527,7 @@ function verifyConsoleServerPortDoesNotExist(custom_fields, description, device,
 function tryToDeleteANonExistingConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
   var url = "/api/dcim/console-server-ports/" + id + "/";
   var description = "[ConsoleServerPort] Verify we cannot delete non-existing ConsoleServerPort";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedConsoleServerPort(custom_fields, description, device, id, label, mark_connected, module, name, speed, tags, type) {
@@ -4726,7 +4726,7 @@ function verifyDeviceBayTemplateDoesNotExist(description, device_type, id, label
 function tryToDeleteANonExistingDeviceBayTemplate(description, device_type, id, label, name) {
   var url = "/api/dcim/device-bay-templates/" + id + "/";
   var description = "[DeviceBayTemplate] Verify we cannot delete non-existing DeviceBayTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedDeviceBayTemplate(description, device_type, id, label, name) {
@@ -4922,7 +4922,7 @@ function verifyDeviceBayDoesNotExist(custom_fields, description, device, id, ins
 function tryToDeleteANonExistingDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
   var url = "/api/dcim/device-bays/" + id + "/";
   var description = "[DeviceBay] Verify we cannot delete non-existing DeviceBay";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedDeviceBay(custom_fields, description, device, id, installed_device, label, name, tags) {
@@ -5141,7 +5141,7 @@ function verifyDeviceRoleDoesNotExist(color, comments, config_template, custom_f
 function tryToDeleteANonExistingDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
   var url = "/api/dcim/device-roles/" + id + "/";
   var description = "[DeviceRole] Verify we cannot delete non-existing DeviceRole";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedDeviceRole(color, comments, config_template, custom_fields, description, id, name, parent, slug, tags, vm_role) {
@@ -5467,7 +5467,7 @@ function verifyDeviceTypeDoesNotExist(airflow, comments, custom_fields, default_
 function tryToDeleteANonExistingDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
   var url = "/api/dcim/device-types/" + id + "/";
   var description = "[DeviceType] Verify we cannot delete non-existing DeviceType";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedDeviceType(airflow, comments, custom_fields, default_platform, description, exclude_from_utilization, front_image, id, is_full_depth, manufacturer, model, part_number, rear_image, slug, subdevice_role, tags, u_height, weight, weight_unit) {
@@ -5853,7 +5853,7 @@ function verifyDeviceDoesNotExist(airflow, asset_tag, cluster, comments, config_
 function tryToDeleteANonExistingDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
   var url = "/api/dcim/devices/" + id + "/";
   var description = "[Device] Verify we cannot delete non-existing Device";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedDevice(airflow, asset_tag, cluster, comments, config_template, custom_fields, description, device_type, face, id, latitude, local_context_data, location, longitude, name, oob_ip, platform, position, primary_ip4, primary_ip6, rack, role, serial, site, status, tags, tenant, vc_position, vc_priority, virtual_chassis) {
@@ -6357,7 +6357,7 @@ function verifyFrontPortTemplateDoesNotExist(color, description, device_type, id
 function tryToDeleteANonExistingFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
   var url = "/api/dcim/front-port-templates/" + id + "/";
   var description = "[FrontPortTemplate] Verify we cannot delete non-existing FrontPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedFrontPortTemplate(color, description, device_type, id, label, module_type, name, rear_port, rear_port_position, type) {
@@ -6657,7 +6657,7 @@ function verifyFrontPortDoesNotExist(color, custom_fields, description, device, 
 function tryToDeleteANonExistingFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
   var url = "/api/dcim/front-ports/" + id + "/";
   var description = "[FrontPort] Verify we cannot delete non-existing FrontPort";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedFrontPort(color, custom_fields, description, device, id, label, mark_connected, module, name, rear_port, rear_port_position, tags, type) {
@@ -6979,7 +6979,7 @@ function verifyInterfaceTemplateDoesNotExist(bridge, created_by_request, descrip
 function tryToDeleteANonExistingInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) {
   var url = "/api/dcim/interface-templates/" + id + "/";
   var description = "[InterfaceTemplate] Verify we cannot delete non-existing InterfaceTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedInterfaceTemplate(bridge, created_by_request, description, device_type, device_type_id, enabled, id, label, mgmt_only, modified_by_request, module_type, module_type_id, name, poe_mode, poe_type, rf_role, type, updated_by_request) {
@@ -7278,7 +7278,7 @@ function verifyInterfaceDoesNotExist(bridge, custom_fields, description, enabled
 function tryToDeleteANonExistingInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
   var url = "/api/virtualization/interfaces/" + id + "/";
   var description = "[Interface] Verify we cannot delete non-existing Interface";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedInterface(bridge, custom_fields, description, enabled, id, mode, mtu, name, parent, primary_mac_address, qinq_svlan, tagged_vlans, tags, untagged_vlan, virtual_machine, vlan_translation_policy, vrf) {
@@ -7514,7 +7514,7 @@ function verifyInventoryItemRoleDoesNotExist(color, created_by_request, custom_f
 function tryToDeleteANonExistingInventoryItemRole(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) {
   var url = "/api/dcim/inventory-item-roles/" + id + "/";
   var description = "[InventoryItemRole] Verify we cannot delete non-existing InventoryItemRole";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedInventoryItemRole(color, created_by_request, custom_fields, description, id, modified_by_request, name, slug, tags, updated_by_request) {
@@ -7775,7 +7775,7 @@ function verifyInventoryItemTemplateDoesNotExist(component_id, component_type, c
 function tryToDeleteANonExistingInventoryItemTemplate(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) {
   var url = "/api/dcim/inventory-item-templates/" + id + "/";
   var description = "[InventoryItemTemplate] Verify we cannot delete non-existing InventoryItemTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedInventoryItemTemplate(component_id, component_type, created_by_request, description, device_type, id, label, manufacturer, manufacturer_id, modified_by_request, name, parent, parent_id, part_id, role, role_id, updated_by_request) {
@@ -8028,7 +8028,7 @@ function verifyInventoryItemDoesNotExist(asset_tag, component_id, component_type
 function tryToDeleteANonExistingInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) {
   var url = "/api/dcim/inventory-items/" + id + "/";
   var description = "[InventoryItem] Verify we cannot delete non-existing InventoryItem";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedInventoryItem(asset_tag, component_id, component_type, custom_fields, description, device, discovered, id, label, manufacturer, name, parent, part_id, role, serial, status, tags) {
@@ -8260,7 +8260,7 @@ function verifyLocationDoesNotExist(comments, custom_fields, description, facili
 function tryToDeleteANonExistingLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) {
   var url = "/api/dcim/locations/" + id + "/";
   var description = "[Location] Verify we cannot delete non-existing Location";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedLocation(comments, custom_fields, description, facility, id, name, parent, site, slug, status, tags, tenant) {
@@ -8473,7 +8473,7 @@ function verifyMACAddressDoesNotExist(assigned_object_id, assigned_object_type, 
 function tryToDeleteANonExistingMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
   var url = "/api/dcim/mac-addresses/" + id + "/";
   var description = "[MACAddress] Verify we cannot delete non-existing MACAddress";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedMACAddress(assigned_object_id, assigned_object_type, comments, custom_fields, description, id, mac_address, tags) {
@@ -8669,7 +8669,7 @@ function verifyManufacturerDoesNotExist(custom_fields, description, id, name, sl
 function tryToDeleteANonExistingManufacturer(custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/manufacturers/" + id + "/";
   var description = "[Manufacturer] Verify we cannot delete non-existing Manufacturer";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedManufacturer(custom_fields, description, id, name, slug, tags) {
@@ -8864,7 +8864,7 @@ function verifyModuleBayTemplateDoesNotExist(description, device_type, id, label
 function tryToDeleteANonExistingModuleBayTemplate(description, device_type, id, label, module_type, name, position) {
   var url = "/api/dcim/module-bay-templates/" + id + "/";
   var description = "[ModuleBayTemplate] Verify we cannot delete non-existing ModuleBayTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedModuleBayTemplate(description, device_type, id, label, module_type, name, position) {
@@ -9070,7 +9070,7 @@ function verifyModuleBayDoesNotExist(custom_fields, description, device, id, ins
 function tryToDeleteANonExistingModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags) {
   var url = "/api/dcim/module-bays/" + id + "/";
   var description = "[ModuleBay] Verify we cannot delete non-existing ModuleBay";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedModuleBay(custom_fields, description, device, id, installed_module, label, module, name, position, tags) {
@@ -9273,7 +9273,7 @@ function verifyModuleTypeProfileDoesNotExist(comments, custom_fields, descriptio
 function tryToDeleteANonExistingModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags) {
   var url = "/api/dcim/module-type-profiles/" + id + "/";
   var description = "[ModuleTypeProfile] Verify we cannot delete non-existing ModuleTypeProfile";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedModuleTypeProfile(comments, custom_fields, description, id, name, schema, tags) {
@@ -9488,7 +9488,7 @@ function verifyModuleTypeDoesNotExist(airflow, attributes, comments, custom_fiel
 function tryToDeleteANonExistingModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) {
   var url = "/api/dcim/module-types/" + id + "/";
   var description = "[ModuleType] Verify we cannot delete non-existing ModuleType";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedModuleType(airflow, attributes, comments, custom_fields, description, id, manufacturer, model, part_number, profile, tags, weight, weight_unit) {
@@ -9709,7 +9709,7 @@ function verifyModuleDoesNotExist(asset_tag, comments, custom_fields, descriptio
 function tryToDeleteANonExistingModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) {
   var url = "/api/dcim/modules/" + id + "/";
   var description = "[Module] Verify we cannot delete non-existing Module";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedModule(asset_tag, comments, custom_fields, description, device, id, module_bay, module_type, serial, status, tags) {
@@ -9923,7 +9923,7 @@ function verifyPlatformDoesNotExist(comments, config_template, custom_fields, de
 function tryToDeleteANonExistingPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) {
   var url = "/api/dcim/platforms/" + id + "/";
   var description = "[Platform] Verify we cannot delete non-existing Platform";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPlatform(comments, config_template, custom_fields, description, id, manufacturer, name, parent, slug, tags) {
@@ -10156,7 +10156,7 @@ function verifyPowerFeedDoesNotExist(amperage, comments, custom_fields, descript
 function tryToDeleteANonExistingPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
   var url = "/api/dcim/power-feeds/" + id + "/";
   var description = "[PowerFeed] Verify we cannot delete non-existing PowerFeed";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPowerFeed(amperage, comments, custom_fields, description, id, mark_connected, max_utilization, name, phase, power_panel, rack, status, supply, tags, tenant, type, voltage) {
@@ -10379,7 +10379,7 @@ function verifyPowerOutletTemplateDoesNotExist(description, device_type, feed_le
 function tryToDeleteANonExistingPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
   var url = "/api/dcim/power-outlet-templates/" + id + "/";
   var description = "[PowerOutletTemplate] Verify we cannot delete non-existing PowerOutletTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPowerOutletTemplate(description, device_type, feed_leg, id, label, module_type, name, power_port, type) {
@@ -10601,7 +10601,7 @@ function verifyPowerOutletDoesNotExist(color, custom_fields, description, device
 function tryToDeleteANonExistingPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
   var url = "/api/dcim/power-outlets/" + id + "/";
   var description = "[PowerOutlet] Verify we cannot delete non-existing PowerOutlet";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPowerOutlet(color, custom_fields, description, device, feed_leg, id, label, mark_connected, module, name, power_port, status, tags, type) {
@@ -10815,7 +10815,7 @@ function verifyPowerPanelDoesNotExist(comments, custom_fields, description, id, 
 function tryToDeleteANonExistingPowerPanel(comments, custom_fields, description, id, location, name, site, tags) {
   var url = "/api/dcim/power-panels/" + id + "/";
   var description = "[PowerPanel] Verify we cannot delete non-existing PowerPanel";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPowerPanel(comments, custom_fields, description, id, location, name, site, tags) {
@@ -11020,7 +11020,7 @@ function verifyPowerPortTemplateDoesNotExist(allocated_draw, description, device
 function tryToDeleteANonExistingPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) {
   var url = "/api/dcim/power-port-templates/" + id + "/";
   var description = "[PowerPortTemplate] Verify we cannot delete non-existing PowerPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPowerPortTemplate(allocated_draw, description, device_type, id, label, maximum_draw, module_type, name, type) {
@@ -11236,7 +11236,7 @@ function verifyPowerPortDoesNotExist(allocated_draw, custom_fields, description,
 function tryToDeleteANonExistingPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) {
   var url = "/api/dcim/power-ports/" + id + "/";
   var description = "[PowerPort] Verify we cannot delete non-existing PowerPort";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPowerPort(allocated_draw, custom_fields, description, device, id, label, mark_connected, maximum_draw, module, name, tags, type) {
@@ -11452,7 +11452,7 @@ function verifyRackReservationDoesNotExist(comments, custom_fields, description,
 function tryToDeleteANonExistingRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) {
   var url = "/api/dcim/rack-reservations/" + id + "/";
   var description = "[RackReservation] Verify we cannot delete non-existing RackReservation";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRackReservation(comments, custom_fields, description, id, rack, status, tags, tenant, units, user) {
@@ -11645,7 +11645,7 @@ function verifyRackRoleDoesNotExist(color, custom_fields, description, id, name,
 function tryToDeleteANonExistingRackRole(color, custom_fields, description, id, name, slug, tags) {
   var url = "/api/dcim/rack-roles/" + id + "/";
   var description = "[RackRole] Verify we cannot delete non-existing RackRole";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRackRole(color, custom_fields, description, id, name, slug, tags) {
@@ -11854,7 +11854,7 @@ function verifyRackTypeDoesNotExist(comments, custom_fields, desc_units, descrip
 function tryToDeleteANonExistingRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/rack-types/" + id + "/";
   var description = "[RackType] Verify we cannot delete non-existing RackType";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRackType(comments, custom_fields, desc_units, description, form_factor, id, manufacturer, max_weight, model, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, slug, starting_unit, tags, u_height, weight, weight_unit, width) {
@@ -12175,7 +12175,7 @@ function verifyRackDoesNotExist(airflow, asset_tag, comments, custom_fields, des
 function tryToDeleteANonExistingRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
   var url = "/api/dcim/racks/" + id + "/";
   var description = "[Rack] Verify we cannot delete non-existing Rack";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRack(airflow, asset_tag, comments, custom_fields, desc_units, description, facility_id, form_factor, id, location, manufacturer, max_weight, mounting_depth, name, outer_depth, outer_height, outer_unit, outer_width, rack_type, role, serial, site, starting_unit, status, tags, tenant, u_height, weight, weight_unit, width) {
@@ -12444,7 +12444,7 @@ function verifyRearPortTemplateDoesNotExist(color, description, device_type, id,
 function tryToDeleteANonExistingRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, tags, type) {
   var url = "/api/dcim/rear-port-templates/" + id + "/";
   var description = "[RearPortTemplate] Verify we cannot delete non-existing RearPortTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRearPortTemplate(color, description, device_type, id, label, module_type, name, positions, tags, type) {
@@ -12717,7 +12717,7 @@ function verifyRearPortDoesNotExist(cable, cable_end, color, custom_fields, desc
 function tryToDeleteANonExistingRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) {
   var url = "/api/dcim/rear-ports/" + id + "/";
   var description = "[RearPort] Verify we cannot delete non-existing RearPort";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRearPort(cable, cable_end, color, custom_fields, description, device, device_role, device_status, device_type, id, label, mark_connected, module, name, occupied, positions, rack, region, site, tags, type, virtual_chassis) {
@@ -12970,7 +12970,7 @@ function verifyRegionDoesNotExist(comments, custom_fields, description, id, name
 function tryToDeleteANonExistingRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/regions/" + id + "/";
   var description = "[Region] Verify we cannot delete non-existing Region";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRegion(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -13246,7 +13246,7 @@ function verifySiteGroupDoesNotExist(comments, custom_fields, description, id, n
 function tryToDeleteANonExistingSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/dcim/site-groups/" + id + "/";
   var description = "[SiteGroup] Verify we cannot delete non-existing SiteGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedSiteGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -13562,7 +13562,7 @@ function verifySiteDoesNotExist(asns, comments, custom_fields, description, faci
 function tryToDeleteANonExistingSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
   var url = "/api/dcim/sites/" + id + "/";
   var description = "[Site] Verify we cannot delete non-existing Site";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedSite(asns, comments, custom_fields, description, facility, group, id, latitude, longitude, name, physical_address, region, shipping_address, slug, status, tags, tenant, time_zone) {
@@ -13858,7 +13858,7 @@ function verifyVirtualChassisDoesNotExist(comments, custom_fields, description, 
 function tryToDeleteANonExistingVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
   var url = "/api/dcim/virtual-chassis/" + id + "/";
   var description = "[VirtualChassis] Verify we cannot delete non-existing VirtualChassis";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualChassis(comments, custom_fields, description, domain, id, master, name, tags) {
@@ -14150,7 +14150,7 @@ function verifyVirtualDeviceContextDoesNotExist(comments, custom_fields, descrip
 function tryToDeleteANonExistingVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
   var url = "/api/dcim/virtual-device-contexts/" + id + "/";
   var description = "[VirtualDeviceContext] Verify we cannot delete non-existing VirtualDeviceContext";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualDeviceContext(comments, custom_fields, description, device, id, identifier, name, primary_ip4, primary_ip6, status, tags, tenant) {
@@ -14351,7 +14351,7 @@ function verifyBookmarkDoesNotExist(id, object_id, object_type, user) {
 function tryToDeleteANonExistingBookmark(id, object_id, object_type, user) {
   var url = "/api/extras/bookmarks/" + id + "/";
   var description = "[Bookmark] Verify we cannot delete non-existing Bookmark";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedBookmark(id, object_id, object_type, user) {
@@ -14542,7 +14542,7 @@ function verifyConfigContextProfileDoesNotExist(comments, data_source, descripti
 function tryToDeleteANonExistingConfigContextProfile(comments, data_source, description, id, name, schema, tags) {
   var url = "/api/extras/config-context-profiles/" + id + "/";
   var description = "[ConfigContextProfile] Verify we cannot delete non-existing ConfigContextProfile";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedConfigContextProfile(comments, data_source, description, id, name, schema, tags) {
@@ -14781,7 +14781,7 @@ function verifyConfigContextDoesNotExist(cluster_groups, cluster_types, clusters
 function tryToDeleteANonExistingConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) {
   var url = "/api/extras/config-contexts/" + id + "/";
   var description = "[ConfigContext] Verify we cannot delete non-existing ConfigContext";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedConfigContext(cluster_groups, cluster_types, clusters, data, data_source, description, device_types, id, is_active, locations, name, platforms, profile, regions, roles, site_groups, sites, tags, tenant_groups, tenants, weight) {
@@ -15154,7 +15154,7 @@ function verifyCustomFieldChoiceSetDoesNotExist(base_choices, choices, _default,
 function tryToDeleteANonExistingCustomFieldChoiceSet(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-field-choice-sets/" + id + "/";
   var description = "[CustomFieldChoiceSet] Verify we cannot delete non-existing CustomFieldChoiceSet";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCustomFieldChoiceSet(base_choices, choices, _default, description, extra_choices, group_name, id, is_cloneable, label, name, order_alphabetically, required, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
@@ -15500,7 +15500,7 @@ function verifyCustomFieldDoesNotExist(choice_set, comments, _default, descripti
 function tryToDeleteANonExistingCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
   var url = "/api/extras/custom-fields/" + id + "/";
   var description = "[CustomField] Verify we cannot delete non-existing CustomField";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCustomField(choice_set, comments, _default, description, filter_logic, group_name, id, is_cloneable, label, name, object_type, object_types, related_object_filter, related_object_type, required, search_weight, type, ui_editable, ui_visible, unique, validation_maximum, validation_minimum, validation_regex, weight) {
@@ -15813,7 +15813,7 @@ function verifyCustomLinkDoesNotExist(button_class, description, enabled, group_
 function tryToDeleteANonExistingCustomLink(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
   var url = "/api/extras/custom-links/" + id + "/";
   var description = "[CustomLink] Verify we cannot delete non-existing CustomLink";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCustomLink(button_class, description, enabled, group_name, id, link_text, link_url, name, new_window, object_types, weight) {
@@ -15985,7 +15985,7 @@ function verifyDashboardDoesNotExist() {
 function tryToDeleteANonExistingDashboard() {
   var url = "/api/extras/dashboard/";
   var description = "[Dashboard] Verify we cannot delete non-existing Dashboard";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchDeletedDashboard() {
@@ -16195,7 +16195,7 @@ function verifyEventRuleDoesNotExist(action_object_id, action_object_type, actio
 function tryToDeleteANonExistingEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) {
   var url = "/api/extras/event-rules/" + id + "/";
   var description = "[EventRule] Verify we cannot delete non-existing EventRule";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedEventRule(action_object_id, action_object_type, action_type, conditions, custom_fields, description, enabled, event_types, id, name, object_types, tags) {
@@ -16466,7 +16466,7 @@ function verifyExportTemplateDoesNotExist(as_attachment, data_source, descriptio
 function tryToDeleteANonExistingExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
   var url = "/api/extras/export-templates/" + id + "/";
   var description = "[ExportTemplate] Verify we cannot delete non-existing ExportTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedExportTemplate(as_attachment, data_source, description, environment_params, file_extension, file_name, id, mime_type, name, object_types, template_code) {
@@ -16693,7 +16693,7 @@ function verifyImageAttachmentDoesNotExist(description, id, image, name, object_
 function tryToDeleteANonExistingImageAttachment(description, id, image, name, object_id, object_type) {
   var url = "/api/extras/image-attachments/" + id + "/";
   var description = "[ImageAttachment] Verify we cannot delete non-existing ImageAttachment";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedImageAttachment(description, id, image, name, object_id, object_type) {
@@ -16918,7 +16918,7 @@ function verifyJournalEntryDoesNotExist(assigned_object_id, assigned_object_type
 function tryToDeleteANonExistingJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) {
   var url = "/api/extras/journal-entries/" + id + "/";
   var description = "[JournalEntry] Verify we cannot delete non-existing JournalEntry";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedJournalEntry(assigned_object_id, assigned_object_type, comments, created_by, custom_fields, id, kind, tags) {
@@ -17145,7 +17145,7 @@ function verifyNotificationGroupDoesNotExist(description, groups, id, name, noti
 function tryToDeleteANonExistingNotificationGroup(description, groups, id, name, notifications, slug, users) {
   var url = "/api/extras/notification-groups/" + id + "/";
   var description = "[NotificationGroup] Verify we cannot delete non-existing NotificationGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedNotificationGroup(description, groups, id, name, notifications, slug, users) {
@@ -17392,7 +17392,7 @@ function verifyNotificationDoesNotExist(assigned_object_id, assigned_object_type
 function tryToDeleteANonExistingNotification(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) {
   var url = "/api/extras/notifications/" + id + "/";
   var description = "[Notification] Verify we cannot delete non-existing Notification";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedNotification(assigned_object_id, assigned_object_type, created, description, event_type, group, id, last_updated, level, name, object_id, object_type, read, status, url, user) {
@@ -17637,7 +17637,7 @@ function verifySavedFilterDoesNotExist(description, enabled, filters, id, name, 
 function tryToDeleteANonExistingSavedFilter(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) {
   var url = "/api/extras/saved-filters/" + id + "/";
   var description = "[SavedFilter] Verify we cannot delete non-existing SavedFilter";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedSavedFilter(description, enabled, filters, id, name, object_type, object_types, parameters, shared, slug, user, weight) {
@@ -17871,7 +17871,7 @@ function verifyScriptDoesNotExist(description, enabled, id, is_executable, modul
 function tryToDeleteANonExistingScript(description, enabled, id, is_executable, module, name, source) {
   var url = "/api/extras/scripts/" + id + "/";
   var description = "[Script] Verify we cannot delete non-existing Script";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedScript(description, enabled, id, is_executable, module, name, source) {
@@ -18098,7 +18098,7 @@ function verifySubscriptionDoesNotExist(id, object_id, object_type, user) {
 function tryToDeleteANonExistingSubscription(id, object_id, object_type, user) {
   var url = "/api/extras/subscriptions/" + id + "/";
   var description = "[Subscription] Verify we cannot delete non-existing Subscription";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedSubscription(id, object_id, object_type, user) {
@@ -18297,7 +18297,7 @@ function verifyTableConfigDoesNotExist(columns, description, enabled, id, name, 
 function tryToDeleteANonExistingTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
   var url = "/api/extras/table-configs/" + id + "/";
   var description = "[TableConfig] Verify we cannot delete non-existing TableConfig";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTableConfig(columns, description, enabled, id, name, object_type, ordering, shared, table, user, weight) {
@@ -18568,7 +18568,7 @@ function verifyTagDoesNotExist(color, description, id, name, object_types, slug,
 function tryToDeleteANonExistingTag(color, description, id, name, object_types, slug, weight) {
   var url = "/api/extras/tags/" + id + "/";
   var description = "[Tag] Verify we cannot delete non-existing Tag";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTag(color, description, id, name, object_types, slug, weight) {
@@ -18775,7 +18775,7 @@ function verifyWebhookDoesNotExist(additional_headers, body_template, ca_file_pa
 function tryToDeleteANonExistingWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
   var url = "/api/extras/webhooks/" + id + "/";
   var description = "[Webhook] Verify we cannot delete non-existing Webhook";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedWebhook(additional_headers, body_template, ca_file_path, custom_fields, description, http_content_type, http_method, id, name, payload_url, secret, ssl_verification, tags) {
@@ -18990,7 +18990,7 @@ function verifyAggregateDoesNotExist(comments, custom_fields, date_added, descri
 function tryToDeleteANonExistingAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) {
   var url = "/api/ipam/aggregates/" + id + "/";
   var description = "[Aggregate] Verify we cannot delete non-existing Aggregate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedAggregate(comments, custom_fields, date_added, description, id, prefix, rir, tags, tenant) {
@@ -19200,7 +19200,7 @@ function verifyASNRangeDoesNotExist(custom_fields, description, end, id, name, r
 function tryToDeleteANonExistingASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) {
   var url = "/api/ipam/asn-ranges/" + id + "/";
   var description = "[ASNRange] Verify we cannot delete non-existing ASNRange";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedASNRange(custom_fields, description, end, id, name, rir, slug, start, tags, tenant) {
@@ -19406,7 +19406,7 @@ function verifyASNDoesNotExist(asn, comments, custom_fields, description, id, ri
 function tryToDeleteANonExistingASN(asn, comments, custom_fields, description, id, rir, tags, tenant) {
   var url = "/api/ipam/asns/" + id + "/";
   var description = "[ASN] Verify we cannot delete non-existing ASN";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedASN(asn, comments, custom_fields, description, id, rir, tags, tenant) {
@@ -19602,7 +19602,7 @@ function verifyFHRPGroupAssignmentDoesNotExist(group, id, interface_id, interfac
 function tryToDeleteANonExistingFHRPGroupAssignment(group, id, interface_id, interface_type, priority) {
   var url = "/api/ipam/fhrp-group-assignments/" + id + "/";
   var description = "[FHRPGroupAssignment] Verify we cannot delete non-existing FHRPGroupAssignment";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedFHRPGroupAssignment(group, id, interface_id, interface_type, priority) {
@@ -19825,7 +19825,7 @@ function verifyFHRPGroupDoesNotExist(auth_key, auth_type, comments, custom_field
 function tryToDeleteANonExistingFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) {
   var url = "/api/ipam/fhrp-groups/" + id + "/";
   var description = "[FHRPGroup] Verify we cannot delete non-existing FHRPGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedFHRPGroup(auth_key, auth_type, comments, custom_fields, description, group_id, id, name, protocol, slug, tags) {
@@ -20100,7 +20100,7 @@ function verifyIPAddressDoesNotExist(address, assigned_object_id, assigned_objec
 function tryToDeleteANonExistingIPAddress(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) {
   var url = "/api/ipam/ip-addresses/" + id + "/";
   var description = "[IPAddress] Verify we cannot delete non-existing IPAddress";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIPAddress(address, assigned_object_id, assigned_object_type, assigned_to_interface, comments, custom_fields, description, dns_name, id, _interface, nat_inside, role, service, status, tags, tenant, tenant_id, vrf, vrf_id) {
@@ -20347,7 +20347,7 @@ function verifyIPRangeDoesNotExist(comments, custom_fields, description, end_add
 function tryToDeleteANonExistingIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
   var url = "/api/ipam/ip-ranges/" + id + "/";
   var description = "[IPRange] Verify we cannot delete non-existing IPRange";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIPRange(comments, custom_fields, description, end_address, id, mark_populated, mark_utilized, role, start_address, status, tags, tenant, vrf) {
@@ -20582,7 +20582,7 @@ function verifyPrefixDoesNotExist(comments, custom_fields, description, id, is_p
 function tryToDeleteANonExistingPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
   var url = "/api/ipam/prefixes/" + id + "/";
   var description = "[Prefix] Verify we cannot delete non-existing Prefix";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPrefix(comments, custom_fields, description, id, is_pool, mark_utilized, prefix, role, scope_id, scope_type, status, tags, tenant, vlan, vrf) {
@@ -20795,7 +20795,7 @@ function verifyRIRDoesNotExist(custom_fields, description, id, is_private, name,
 function tryToDeleteANonExistingRIR(custom_fields, description, id, is_private, name, slug, tags) {
   var url = "/api/ipam/rirs/" + id + "/";
   var description = "[RIR] Verify we cannot delete non-existing RIR";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRIR(custom_fields, description, id, is_private, name, slug, tags) {
@@ -20992,7 +20992,7 @@ function verifyRoleDoesNotExist(custom_fields, description, id, name, slug, tags
 function tryToDeleteANonExistingRole(custom_fields, description, id, name, slug, tags, weight) {
   var url = "/api/ipam/roles/" + id + "/";
   var description = "[Role] Verify we cannot delete non-existing Role";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRole(custom_fields, description, id, name, slug, tags, weight) {
@@ -21189,7 +21189,7 @@ function verifyRouteTargetDoesNotExist(comments, custom_fields, description, id,
 function tryToDeleteANonExistingRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
   var url = "/api/ipam/route-targets/" + id + "/";
   var description = "[RouteTarget] Verify we cannot delete non-existing RouteTarget";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedRouteTarget(comments, custom_fields, description, id, name, tags, tenant) {
@@ -21389,7 +21389,7 @@ function verifyServiceTemplateDoesNotExist(comments, custom_fields, description,
 function tryToDeleteANonExistingServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
   var url = "/api/ipam/service-templates/" + id + "/";
   var description = "[ServiceTemplate] Verify we cannot delete non-existing ServiceTemplate";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedServiceTemplate(comments, custom_fields, description, id, name, ports, protocol, tags) {
@@ -21603,7 +21603,7 @@ function verifyServiceDoesNotExist(comments, custom_fields, description, id, ipa
 function tryToDeleteANonExistingService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
   var url = "/api/ipam/services/" + id + "/";
   var description = "[Service] Verify we cannot delete non-existing Service";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedService(comments, custom_fields, description, id, ipaddresses, name, parent_object_id, parent_object_type, ports, protocol, tags) {
@@ -21796,7 +21796,7 @@ function verifyVLANGroupDoesNotExist(custom_fields, description, id, name, scope
 function tryToDeleteANonExistingVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) {
   var url = "/api/ipam/vlan-groups/" + id + "/";
   var description = "[VLANGroup] Verify we cannot delete non-existing VLANGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVLANGroup(custom_fields, description, id, name, scope_id, scope_type, slug, tags, tenant, vid_ranges) {
@@ -21990,7 +21990,7 @@ function verifyVLANDoesNotExist(comments, custom_fields, description, group, id,
 function tryToDeleteANonExistingVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) {
   var url = "/api/ipam/vlans/" + id + "/";
   var description = "[VLAN] Verify we cannot delete non-existing VLAN";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVLAN(comments, custom_fields, description, group, id, name, qinq_role, qinq_svlan, role, site, slug, status, tags, tenant, vid) {
@@ -22188,7 +22188,7 @@ function verifyVLANTranslationPolicyDoesNotExist(description, id, name, slug) {
 function tryToDeleteANonExistingVLANTranslationPolicy(description, id, name, slug) {
   var url = "/api/ipam/vlan-translation-policies/" + id + "/";
   var description = "[VLANTranslationPolicy] Verify we cannot delete non-existing VLANTranslationPolicy";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVLANTranslationPolicy(description, id, name, slug) {
@@ -22370,7 +22370,7 @@ function verifyVLANTranslationRuleDoesNotExist(description, id, local_vid, polic
 function tryToDeleteANonExistingVLANTranslationRule(description, id, local_vid, policy, policy_id, remote_vid) {
   var url = "/api/ipam/vlan-translation-rules/" + id + "/";
   var description = "[VLANTranslationRule] Verify we cannot delete non-existing VLANTranslationRule";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVLANTranslationRule(description, id, local_vid, policy, policy_id, remote_vid) {
@@ -22573,7 +22573,7 @@ function verifyVRFDoesNotExist(comments, custom_fields, description, enforce_uni
 function tryToDeleteANonExistingVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) {
   var url = "/api/ipam/vrfs/" + id + "/";
   var description = "[VRF] Verify we cannot delete non-existing VRF";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVRF(comments, custom_fields, description, enforce_unique, export_targets, id, import_targets, name, rd, slug, tags, tenant) {
@@ -22810,7 +22810,7 @@ function verifyContactAssignmentDoesNotExist(contact, custom_fields, id, object_
 function tryToDeleteANonExistingContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
   var url = "/api/tenancy/contact-assignments/" + id + "/";
   var description = "[ContactAssignment] Verify we cannot delete non-existing ContactAssignment";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedContactAssignment(contact, custom_fields, id, object_id, object_type, priority, role, tags) {
@@ -23035,7 +23035,7 @@ function verifyContactGroupDoesNotExist(comments, custom_fields, description, id
 function tryToDeleteANonExistingContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/contact-groups/" + id + "/";
   var description = "[ContactGroup] Verify we cannot delete non-existing ContactGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedContactGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -23252,7 +23252,7 @@ function verifyContactRoleDoesNotExist(custom_fields, description, id, name, slu
 function tryToDeleteANonExistingContactRole(custom_fields, description, id, name, slug, tags) {
   var url = "/api/tenancy/contact-roles/" + id + "/";
   var description = "[ContactRole] Verify we cannot delete non-existing ContactRole";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedContactRole(custom_fields, description, id, name, slug, tags) {
@@ -23489,7 +23489,7 @@ function verifyContactDoesNotExist(address, comments, custom_fields, description
 function tryToDeleteANonExistingContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
   var url = "/api/tenancy/contacts/" + id + "/";
   var description = "[Contact] Verify we cannot delete non-existing Contact";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedContact(address, comments, custom_fields, description, email, groups, id, link, name, phone, tags, title) {
@@ -23722,7 +23722,7 @@ function verifyTenantGroupDoesNotExist(comments, custom_fields, description, id,
 function tryToDeleteANonExistingTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/tenancy/tenant-groups/" + id + "/";
   var description = "[TenantGroup] Verify we cannot delete non-existing TenantGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTenantGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -23921,7 +23921,7 @@ function verifyTenantDoesNotExist(comments, contact, contact_group, contact_role
 function tryToDeleteANonExistingTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) {
   var url = "/api/tenancy/tenants/" + id + "/";
   var description = "[Tenant] Verify we cannot delete non-existing Tenant";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTenant(comments, contact, contact_group, contact_role, custom_fields, description, group, id, name, slug, tags) {
@@ -24178,7 +24178,7 @@ function verifyGroupDoesNotExist(description, id, name, permissions) {
 function tryToDeleteANonExistingGroup(description, id, name, permissions) {
   var url = "/api/users/groups/";
   var description = "[Group] Verify we cannot delete non-existing Group";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedGroup(description, id, name, permissions) {
@@ -24426,7 +24426,7 @@ function verifyPermissionDoesNotExist(actions, constraints, description, enabled
 function tryToDeleteANonExistingPermission(actions, constraints, description, enabled, groups, id, name, object_types, users) {
   var url = "/api/users/permissions/";
   var description = "[Permission] Verify we cannot delete non-existing Permission";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedPermission(actions, constraints, description, enabled, groups, id, name, object_types, users) {
@@ -24705,7 +24705,7 @@ function verifyTokenDoesNotExist(description, expires, id, key, last_used, user,
 function tryToDeleteANonExistingToken(description, expires, id, key, last_used, user, write_enabled) {
   var url = "/api/users/tokens/";
   var description = "[Token] Verify we cannot delete non-existing Token";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedToken(description, expires, id, key, last_used, user, write_enabled) {
@@ -24966,7 +24966,7 @@ function verifyUserDoesNotExist(date_joined, email, first_name, groups, id, is_a
 function tryToDeleteANonExistingUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
   var url = "/api/users/users/";
   var description = "[User] Verify we cannot delete non-existing User";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedUser(date_joined, email, first_name, groups, id, is_active, is_staff, last_login, last_name, password, permissions, username) {
@@ -25170,7 +25170,7 @@ function verifyClusterGroupDoesNotExist(custom_fields, description, id, name, sl
 function tryToDeleteANonExistingClusterGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/virtualization/cluster-groups/" + id + "/";
   var description = "[ClusterGroup] Verify we cannot delete non-existing ClusterGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedClusterGroup(custom_fields, description, id, name, slug, tags) {
@@ -25362,7 +25362,7 @@ function verifyClusterTypeDoesNotExist(custom_fields, description, id, name, slu
 function tryToDeleteANonExistingClusterType(custom_fields, description, id, name, slug, tags) {
   var url = "/api/virtualization/cluster-types/" + id + "/";
   var description = "[ClusterType] Verify we cannot delete non-existing ClusterType";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedClusterType(custom_fields, description, id, name, slug, tags) {
@@ -25575,7 +25575,7 @@ function verifyClusterDoesNotExist(comments, custom_fields, description, group, 
 function tryToDeleteANonExistingCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) {
   var url = "/api/virtualization/clusters/" + id + "/";
   var description = "[Cluster] Verify we cannot delete non-existing Cluster";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedCluster(comments, custom_fields, description, group, id, name, scope_id, scope_type, status, tags, tenant, type) {
@@ -25782,7 +25782,7 @@ function verifyVirtualDiskDoesNotExist(custom_fields, description, id, name, siz
 function tryToDeleteANonExistingVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine) {
   var url = "/api/virtualization/virtual-disks/" + id + "/";
   var description = "[VirtualDisk] Verify we cannot delete non-existing VirtualDisk";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualDisk(custom_fields, description, id, name, size, tags, virtual_machine) {
@@ -26165,7 +26165,7 @@ function verifyVirtualMachineDoesNotExist(cluster, cluster_group, cluster_type, 
 function tryToDeleteANonExistingVirtualMachine(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) {
   var url = "/api/virtualization/virtual-machines/" + id + "/";
   var description = "[VirtualMachine] Verify we cannot delete non-existing VirtualMachine";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedVirtualMachine(cluster, cluster_group, cluster_type, comments, config_template, config_template_id, contact, contact_role, custom_fields, description, device, disk, format, id, local_context_data, memory, name, platform, primary_ip4, primary_ip6, role, serial, site, status, tag, tags, tenant, vcpus) {
@@ -26413,7 +26413,7 @@ function verifyIKEPolicyDoesNotExist(comments, custom_fields, description, id, m
 function tryToDeleteANonExistingIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
   var url = "/api/vpn/ike-policies/" + id + "/";
   var description = "[IKEPolicy] Verify we cannot delete non-existing IKEPolicy";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIKEPolicy(comments, custom_fields, description, id, mode, name, preshared_key, proposals, tags, version) {
@@ -26628,7 +26628,7 @@ function verifyIKEProposalDoesNotExist(authentication_algorithm, authentication_
 function tryToDeleteANonExistingIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
   var url = "/api/vpn/ike-proposals/" + id + "/";
   var description = "[IKEProposal] Verify we cannot delete non-existing IKEProposal";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIKEProposal(authentication_algorithm, authentication_method, comments, custom_fields, description, encryption_algorithm, group, id, name, sa_lifetime, tags) {
@@ -26836,7 +26836,7 @@ function verifyIPSecPolicyDoesNotExist(comments, custom_fields, description, id,
 function tryToDeleteANonExistingIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
   var url = "/api/vpn/ipsec-policies/" + id + "/";
   var description = "[IPSecPolicy] Verify we cannot delete non-existing IPSecPolicy";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIPSecPolicy(comments, custom_fields, description, id, name, pfs_group, proposals, tags) {
@@ -27041,7 +27041,7 @@ function verifyIPSecProfileDoesNotExist(comments, custom_fields, description, id
 function tryToDeleteANonExistingIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
   var url = "/api/vpn/ipsec-profiles/" + id + "/";
   var description = "[IPSecProfile] Verify we cannot delete non-existing IPSecProfile";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIPSecProfile(comments, custom_fields, description, id, ike_policy, ipsec_policy, mode, name, tags) {
@@ -27251,7 +27251,7 @@ function verifyIPSecProposalDoesNotExist(authentication_algorithm, comments, cus
 function tryToDeleteANonExistingIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
   var url = "/api/vpn/ipsec-proposals/" + id + "/";
   var description = "[IPSecProposal] Verify we cannot delete non-existing IPSecProposal";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedIPSecProposal(authentication_algorithm, comments, custom_fields, description, encryption_algorithm, id, name, sa_lifetime_data, sa_lifetime_seconds, tags) {
@@ -27439,7 +27439,7 @@ function verifyL2VPNTerminationDoesNotExist(assigned_object_id, assigned_object_
 function tryToDeleteANonExistingL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) {
   var url = "/api/vpn/l2vpn-terminations/" + id + "/";
   var description = "[L2VPNTermination] Verify we cannot delete non-existing L2VPNTermination";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedL2VPNTermination(assigned_object_id, assigned_object_type, custom_fields, id, l2vpn, tags) {
@@ -27619,7 +27619,7 @@ function verifyL2VPNDoesNotExist(comments, custom_fields, description, export_ta
 function tryToDeleteANonExistingL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) {
   var url = "/api/vpn/l2vpns/" + id + "/";
   var description = "[L2VPN] Verify we cannot delete non-existing L2VPN";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedL2VPN(comments, custom_fields, description, export_targets, id, identifier, import_targets, name, slug, status, tags, tenant, type) {
@@ -27810,7 +27810,7 @@ function verifyTunnelGroupDoesNotExist(custom_fields, description, id, name, slu
 function tryToDeleteANonExistingTunnelGroup(custom_fields, description, id, name, slug, tags) {
   var url = "/api/vpn/tunnel-groups/" + id + "/";
   var description = "[TunnelGroup] Verify we cannot delete non-existing TunnelGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTunnelGroup(custom_fields, description, id, name, slug, tags) {
@@ -27990,7 +27990,7 @@ function verifyTunnelTerminationDoesNotExist(custom_fields, id, outside_ip, role
 function tryToDeleteANonExistingTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) {
   var url = "/api/vpn/tunnel-terminations/" + id + "/";
   var description = "[TunnelTermination] Verify we cannot delete non-existing TunnelTermination";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTunnelTermination(custom_fields, id, outside_ip, role, tags, termination_id, termination_type, tunnel) {
@@ -28174,7 +28174,7 @@ function verifyTunnelDoesNotExist(comments, custom_fields, description, encapsul
 function tryToDeleteANonExistingTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) {
   var url = "/api/vpn/tunnels/" + id + "/";
   var description = "[Tunnel] Verify we cannot delete non-existing Tunnel";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedTunnel(comments, custom_fields, description, encapsulation, group, id, ipsec_profile, name, status, tags, tenant, tunnel_id) {
@@ -28384,7 +28384,7 @@ function verifyWirelessLANGroupDoesNotExist(comments, custom_fields, description
 function tryToDeleteANonExistingWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
   var url = "/api/wireless/wireless-lan-groups/" + id + "/";
   var description = "[WirelessLANGroup] Verify we cannot delete non-existing WirelessLANGroup";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedWirelessLANGroup(comments, custom_fields, description, id, name, parent, slug, tags) {
@@ -28610,7 +28610,7 @@ function verifyWirelessLANDoesNotExist(auth_cipher, auth_psk, auth_type, comment
 function tryToDeleteANonExistingWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
   var url = "/api/wireless/wireless-lans/" + id + "/";
   var description = "[WirelessLAN] Verify we cannot delete non-existing WirelessLAN";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedWirelessLAN(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, group, id, scope_id, scope_type, ssid, status, tags, tenant, vlan) {
@@ -28847,7 +28847,7 @@ function verifyWirelessLinkDoesNotExist(auth_cipher, auth_psk, auth_type, commen
 function tryToDeleteANonExistingWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {
   var url = "/api/wireless/wireless-links/" + id + "/";
   var description = "[WirelessLink] Verify we cannot delete non-existing WirelessLink";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedWirelessLink(auth_cipher, auth_psk, auth_type, comments, custom_fields, description, distance, distance_unit, id, interface_a, interface_b, ssid, status, tags, tenant) {

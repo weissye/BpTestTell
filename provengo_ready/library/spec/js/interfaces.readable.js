@@ -1,104 +1,99 @@
 //@provengo summon rest
 // === Auto-generated interfaces.readable.js ===
-
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
-
-const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", {
-  headers: { "Content-Type": "application/json" },
-});
-
-function matchesDescriptionRegex(re) {
-  return bp.EventSet("Match description", function (e) {
-    return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description));
-  });
-}
-
-function matchesDescription(str) {
-  return bp.EventSet("Match description", function (e) {
-    return !!(e && e.data && e.data.parameters && e.data.parameters.description === str);
-  });
-}
-
-function waitFor(eventSet) {
-  return bp.sync({waitFor: eventSet});
-}
-
-function matchSuccess(desc) {
-  return bp.EventSet("Success Event", function(e) {
-    return e.name === "Done: " + desc;
-  });
-}
-
+const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
+function matchesDescriptionRegex(re) { return bp.EventSet("Match description", function (e) { return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description)); }); }
+function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
+function matchSuccess(desc) { return bp.EventSet("Success Event", function(e) { return e.name === "Done: " + desc; }); }
 // ---- Entity: user ----
-
-function createUser(id, name, q) {
+function createUser(id, name) {
+  bp.log.info("DEBUG INTERFACE createUser: called with args=" + JSON.stringify(arguments));
   var url = "/users";
-  var description = "Create user " + id;
+  var description = "[User] Create a user with id " + id;
   var body = {
-    "id": Number(id),
-    "name": String(name),
+    "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
-    parameters: {
-      description: description,
-      id: String(id)
+    parameters: { description: description,
+      id: String(id),
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function listUsers(id, name, q) {
-  var url = "/users";
-  var description = "List/search users with query " + q;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function deleteUser(id, name, q) {
+function deleteUser(id) {
+  bp.log.info("DEBUG INTERFACE deleteUser: called with args=" + JSON.stringify(arguments));
   var url = "/users/" + id;
-  var description = "Delete user " + id;
+  var description = "[User] Delete user with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
   });
 }
 
-function tryToAddExistingUser(id, name, q) {
+function listUsers(id) {
+  bp.log.info("DEBUG INTERFACE listUsers: called with args=" + JSON.stringify(arguments));
   var url = "/users";
+  var description = "[listUsers] List/search users with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function tryToAddExistingUser(id, name) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingUser: called with args=" + JSON.stringify(arguments));
+  var url = "/users";
+  var description = "[tryToAddExistingUser] [User] Try Add Existing with id " + id;
   var body = {
-    "id": Number(id),
-    "name": String(name),
+    "id": String(id),
   };
-  var description = "Verify that we cannot add another User...";
-  if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    parameters: { description: description,
+      id: String(id),
+    }
   });
 }
 
-function verifyUserExists(id, name, q) {
+function verifyUserExists(id, name) {
   var url = "/users";
-  var description = "Verify User with id " + id + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  bp.log.info("DEBUG VERIFIER for User: Arguments=" + JSON.stringify(arguments));
+  var description = "[User] Verify User with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.success("User exists");
-          }
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          if (match) return pvg.success("Entity exists");
         }
       }
       return pvg.fail("Expected User to exist but it does not");
@@ -106,19 +101,20 @@ function verifyUserExists(id, name, q) {
   });
 }
 
-function verifyUserDoesNotExist(id, name, q) {
+function verifyUserDoesNotExist(id, name) {
   var url = "/users";
-  var description = "Verify User with id " + id + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  var description = "[User] Verify User does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected User to not exist but it does");
-          }
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
       return pvg.success("User does not exist");
@@ -126,147 +122,156 @@ function verifyUserDoesNotExist(id, name, q) {
   });
 }
 
-function tryToDeleteANonExistingUser(id, name, q) {
+function tryToDeleteANonExistingUser(id) {
   var url = "/users/" + id;
-  var description = "Verify we cannot delete non-existing User";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 204, 400, 404],
-    parameters: { description: description }
-  });
+  var description = "[User] Verify we cannot delete non-existing User";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
-function matchAddedUser(id, name, q) {
-  var expectedDesc = "Create user " + id;
-  return matchSuccess(expectedDesc);
+function matchAddedUser(id, name) {
+  return matchSuccess("[User] Create a user with id " + id);
 }
 
 function waitForAnyUserAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ user\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[User\]\ Create\ a\ user\ with\ id\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for User: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[User\]\ Create\ a\ user\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["id"] = capturedMap["id"];
+  obj["name"] = capturedMap["name"];
   return obj;
 }
 
-function getUserAddedEvent(keyVal) {
-  return bp.EventSet("AddUser:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
+function matchAnyUserAdded() { return bp.EventSet("matchAnyUserAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[User]") > -1; }); }
+function waitForUserAdded(id, name) { var expectedDesc = "[User] Create a user with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
-function matchAnyUserAdded() {
-  return bp.EventSet("matchAnyUserAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create user") > -1;
-  });
-}
-
-function waitForUserAdded(id, name, q) {
-  var expectedDesc = "Create user " + id;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedUser(id, name, q) {
-  var expectedDesc = "Delete user " + id;
-  return bp.EventSet("matchDeletedUser", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchDeletedUser(id) {
+  return bp.EventSet("matchDeletedUser", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[User] Delete user with id " + id); });
 }
 
 function waitForAnyUserDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ user\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ user\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[User\]\ Delete\ user\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[User\]\ Delete\ user\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["id"] = capturedMap["id"];
+  obj["name"] = capturedMap["name"];
   return obj;
 }
 
 // ---- Entity: book ----
-
-function createBook(id, q, title) {
+function createBook(id, title) {
+  bp.log.info("DEBUG INTERFACE createBook: called with args=" + JSON.stringify(arguments));
   var url = "/books";
-  var description = "Create book " + id;
+  var description = "[Book] Create a book with id " + id;
   var body = {
-    "id": Number(id),
-    "title": String(title),
+    "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
-    parameters: {
-      description: description,
-      id: String(id)
+    parameters: { description: description,
+      id: String(id),
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function listBooks(id, q, title) {
-  var url = "/books";
-  var description = "List/search books with query " + q;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function getBook(id, q, title) {
+function deleteBook(id) {
+  bp.log.info("DEBUG INTERFACE deleteBook: called with args=" + JSON.stringify(arguments));
   var url = "/books/" + id;
-  var description = "Get book by id " + id;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200, 404]
-  });
-}
-
-function deleteBook(id, q, title) {
-  var url = "/books/" + id;
-  var description = "Delete book " + id;
+  var description = "[Book] Delete book with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204, 400, 404]
+    expectedResponseCodes: [200, 204, 400, 404],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
   });
 }
 
-function tryToAddExistingBook(id, q, title) {
+function getBook(id) {
+  bp.log.info("DEBUG INTERFACE getBook: called with args=" + JSON.stringify(arguments));
+  var url = "/books/" + id;
+  var description = "[Book] Get book with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 404],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function listBooks(id) {
+  bp.log.info("DEBUG INTERFACE listBooks: called with args=" + JSON.stringify(arguments));
   var url = "/books";
+  var description = "[listBooks] List/search books with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function tryToAddExistingBook(id, title) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingBook: called with args=" + JSON.stringify(arguments));
+  var url = "/books";
+  var description = "[tryToAddExistingBook] [Book] Try Add Existing with id " + id;
   var body = {
-    "id": Number(id),
-    "title": String(title),
+    "id": String(id),
   };
-  var description = "Verify that we cannot add another Book...";
-  if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    parameters: { description: description,
+      id: String(id),
+    }
   });
 }
 
-function verifyBookExists(id, q, title) {
+function verifyBookExists(id, title) {
   var url = "/books";
-  var description = "Verify Book with id " + id + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  bp.log.info("DEBUG VERIFIER for Book: Arguments=" + JSON.stringify(arguments));
+  var description = "[Book] Verify Book with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.success("Book exists");
-          }
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof title !== "undefined" && String(items[i].title) !== String(title)) match = false;
+          if (match) return pvg.success("Entity exists");
         }
       }
       return pvg.fail("Expected Book to exist but it does not");
@@ -274,19 +279,20 @@ function verifyBookExists(id, q, title) {
   });
 }
 
-function verifyBookDoesNotExist(id, q, title) {
+function verifyBookDoesNotExist(id, title) {
   var url = "/books";
-  var description = "Verify Book with id " + id + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  var description = "[Book] Verify Book does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected Book to not exist but it does");
-          }
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof title !== "undefined" && String(items[i].title) !== String(title)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
       return pvg.success("Book does not exist");
@@ -294,138 +300,142 @@ function verifyBookDoesNotExist(id, q, title) {
   });
 }
 
-function tryToDeleteANonExistingBook(id, q, title) {
+function tryToDeleteANonExistingBook(id) {
   var url = "/books/" + id;
-  var description = "Verify we cannot delete non-existing Book";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 204, 400, 404],
-    parameters: { description: description }
-  });
+  var description = "[Book] Verify we cannot delete non-existing Book";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
-function matchAddedBook(id, q, title) {
-  var expectedDesc = "Create book " + id;
-  return matchSuccess(expectedDesc);
+function matchAddedBook(id, title) {
+  return matchSuccess("[Book] Create a book with id " + id);
 }
 
 function waitForAnyBookAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ book\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ book\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Book\]\ Create\ a\ book\ with\ id\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Book: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Book\]\ Create\ a\ book\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["id"] = capturedMap["id"];
+  obj["title"] = capturedMap["title"];
   return obj;
 }
 
-function getBookAddedEvent(keyVal) {
-  return bp.EventSet("AddBook:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
+function matchAnyBookAdded() { return bp.EventSet("matchAnyBookAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Book]") > -1; }); }
+function waitForBookAdded(id, title) { var expectedDesc = "[Book] Create a book with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
-function matchAnyBookAdded() {
-  return bp.EventSet("matchAnyBookAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create book") > -1;
-  });
-}
-
-function waitForBookAdded(id, q, title) {
-  var expectedDesc = "Create book " + id;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedBook(id, q, title) {
-  var expectedDesc = "Delete book " + id;
-  return bp.EventSet("matchDeletedBook", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchDeletedBook(id) {
+  return bp.EventSet("matchDeletedBook", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Book] Delete book with id " + id); });
 }
 
 function waitForAnyBookDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ book\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ book\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Book\]\ Delete\ book\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Book\]\ Delete\ book\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["id"] = capturedMap["id"];
+  obj["title"] = capturedMap["title"];
   return obj;
 }
 
 // ---- Entity: loan ----
-
-function createLoan(bookId, userId) {
+function createLoan(bookId, loanedAt, userId) {
+  bp.log.info("DEBUG INTERFACE createLoan: called with args=" + JSON.stringify(arguments));
   var url = "/loans";
-  var description = "Create loan for user " + userId + " and book " + bookId;
+  var description = "[Loan] Create a loan with userId " + userId + " and bookId " + bookId;
   var body = {
-    "bookId": Number(bookId),
-    "userId": Number(userId),
+    "userId": String(userId),
+    "bookId": String(bookId),
   };
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201, 400],
-    parameters: {
-      description: description,
-      userId: String(userId)
-      , bookId: String(bookId)
+    parameters: { description: description,
+      userId: String(userId),
+      bookId: String(bookId),
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { userId: String(userId) }) });
 }
 
-function listLoans(bookId, userId) {
-  var url = "/loans";
-  var description = "List/search loans with userId " + userId + " and bookId " + bookId;
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
 function deleteLoan(bookId, userId) {
+  bp.log.info("DEBUG INTERFACE deleteLoan: called with args=" + JSON.stringify(arguments));
   var url = "/loans/" + userId + "/" + bookId;
-  var description = "Delete loan for user " + userId + " and book " + bookId;
+  var description = "[Loan] Delete loan with userId " + userId + " and bookId " + bookId;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204, 404]
+    expectedResponseCodes: [200, 204, 404],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
   });
 }
 
-function tryToAddExistingLoan(bookId, userId) {
+function listLoans(userId) {
+  bp.log.info("DEBUG INTERFACE listLoans: called with args=" + JSON.stringify(arguments));
   var url = "/loans";
+  var description = "[listLoans] List/search loans with userId " + userId;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function tryToAddExistingLoan(bookId, loanedAt, userId) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingLoan: called with args=" + JSON.stringify(arguments));
+  var url = "/loans";
+  var description = "[tryToAddExistingLoan] [Loan] Try Add Existing with userId " + userId;
   var body = {
-    "bookId": Number(bookId),
-    "userId": Number(userId),
+    "userId": String(userId),
+    "bookId": String(bookId),
   };
-  var description = "Verify that we cannot add another Loan...";
-  if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    parameters: { description: description,
+      userId: String(userId),
+      bookId: String(bookId),
+    }
   });
 }
 
-function verifyLoanExists(bookId, userId) {
+function verifyLoanExists(bookId, loanedAt, userId) {
   var url = "/loans";
-  var description = "Verify Loan with userId " + userId + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  bp.log.info("DEBUG VERIFIER for Loan: Arguments=" + JSON.stringify(arguments));
+  var description = "[Loan] Verify Loan with userId " + userId + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].userId) === String(userId)) {
-            return pvg.success("Loan exists");
-          }
+          var match = false;
+          match = true;
+          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
+          if (typeof loanedAt !== "undefined" && String(items[i].loanedAt) !== String(loanedAt)) match = false;
+          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          if (match) return pvg.success("Entity exists");
         }
       }
       return pvg.fail("Expected Loan to exist but it does not");
@@ -433,19 +443,21 @@ function verifyLoanExists(bookId, userId) {
   });
 }
 
-function verifyLoanDoesNotExist(bookId, userId) {
+function verifyLoanDoesNotExist(bookId, loanedAt, userId) {
   var url = "/loans";
-  var description = "Verify Loan with userId " + userId + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  var description = "[Loan] Verify Loan does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].userId) === String(userId)) {
-            return pvg.fail("Expected Loan to not exist but it does");
-          }
+          var match = false;
+          match = true;
+          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
+          if (typeof loanedAt !== "undefined" && String(items[i].loanedAt) !== String(loanedAt)) match = false;
+          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
       return pvg.success("Loan does not exist");
@@ -455,139 +467,142 @@ function verifyLoanDoesNotExist(bookId, userId) {
 
 function tryToDeleteANonExistingLoan(bookId, userId) {
   var url = "/loans/" + userId + "/" + bookId;
-  var description = "Verify we cannot delete non-existing Loan";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 204, 404],
-    parameters: { description: description }
-  });
+  var description = "[Loan] Verify we cannot delete non-existing Loan";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
-function matchAddedLoan(bookId, userId) {
-  var expectedDesc = "Create loan for user " + userId + " and book " + bookId;
-  return matchSuccess(expectedDesc);
+function matchAddedLoan(bookId, loanedAt, userId) {
+  return matchSuccess("[Loan] Create a loan with userId " + userId + " and bookId " + bookId);
 }
 
 function waitForAnyLoanAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ loan\ for\ user\ (.+)\ and\ book\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ loan\ for\ user\ (.+)\ and\ book\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Loan\]\ Create\ a\ loan\ with\ userId\ (.*?)\ and\ bookId\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Loan: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Loan\]\ Create\ a\ loan\ with\ userId\ (.*?)\ and\ bookId\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["userId", "bookId"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["bookId"] = capturedMap["bookId"];
+  obj["loanedAt"] = capturedMap["loanedAt"];
+  obj["userId"] = capturedMap["userId"];
   return obj;
 }
 
-function getLoanAddedEvent(keyVal) {
-  return bp.EventSet("AddLoan:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.userId) === String(keyVal);
-  });
-}
-
-function matchAnyLoanAdded() {
-  return bp.EventSet("matchAnyLoanAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.userId !== undefined && e.name.indexOf("Create loan") > -1;
-  });
-}
-
-function waitForLoanAdded(bookId, userId) {
-  var expectedDesc = "Create loan for user " + userId + " and book " + bookId;
-  waitFor(matchSuccess(expectedDesc));
-}
+function matchAnyLoanAdded() { return bp.EventSet("matchAnyLoanAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Loan]") > -1; }); }
+function waitForLoanAdded(bookId, loanedAt, userId) { var expectedDesc = "[Loan] Create a loan with userId " + userId + " and bookId " + bookId; waitFor(matchSuccess(expectedDesc)); }
 
 function matchDeletedLoan(bookId, userId) {
-  var expectedDesc = "Delete loan for user " + userId + " and book " + bookId;
-  return bp.EventSet("matchDeletedLoan", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+  return bp.EventSet("matchDeletedLoan", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Loan] Delete loan with userId " + userId + " and bookId " + bookId); });
 }
 
 function waitForAnyLoanDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ loan\ for\ user\ (.+)\ and\ book\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ loan\ for\ user\ (.+)\ and\ book\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Loan\]\ Delete\ loan\ with\ userId\ (.*?)\ and\ bookId\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Loan\]\ Delete\ loan\ with\ userId\ (.*?)\ and\ bookId\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["userId", "bookId"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["bookId"] = capturedMap["bookId"];
+  obj["loanedAt"] = capturedMap["loanedAt"];
+  obj["userId"] = capturedMap["userId"];
   return obj;
 }
 
 // ---- Entity: hold ----
-
 function createHold(bookId, id, userId) {
+  bp.log.info("DEBUG INTERFACE createHold: called with args=" + JSON.stringify(arguments));
   var url = "/holds";
-  var description = "Create hold " + id;
+  var description = "[Hold] Create a hold with id " + id;
   var body = {
-    "bookId": Number(bookId),
-    "id": Number(id),
-    "userId": Number(userId),
+    "id": String(id),
   };
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
-    parameters: {
-      description: description,
-      id: String(id)
-      , bookId: String(bookId)
-      , userId: String(userId)
+    parameters: { description: description,
+      id: String(id),
+      bookId: String(bookId),
+      userId: String(userId),
     }
   });
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function listHolds(bookId, id, userId) {
-  var url = "/holds";
-  var description = "List holds";
-  var body = undefined;
-  svc.get(url, {
-    parameters: { description: description },
-    expectedResponseCodes: [200]
-  });
-}
-
-function deleteHold(bookId, id, userId) {
+function deleteHold(id) {
+  bp.log.info("DEBUG INTERFACE deleteHold: called with args=" + JSON.stringify(arguments));
   var url = "/holds/" + id;
-  var description = "Delete hold " + id;
+  var description = "[Hold] Delete hold with id " + id;
   var body = undefined;
   svc.delete(url, {
     parameters: { description: description },
-    expectedResponseCodes: [200, 204]
+    expectedResponseCodes: [200, 204],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function listHolds(id) {
+  bp.log.info("DEBUG INTERFACE listHolds: called with args=" + JSON.stringify(arguments));
+  var url = "/holds";
+  var description = "[listHolds] List holds with id " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
   });
 }
 
 function tryToAddExistingHold(bookId, id, userId) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingHold: called with args=" + JSON.stringify(arguments));
   var url = "/holds";
+  var description = "[tryToAddExistingHold] [Hold] Try Add Existing with id " + id;
   var body = {
-    "bookId": Number(bookId),
-    "id": Number(id),
-    "userId": Number(userId),
+    "id": String(id),
   };
-  var description = "Verify that we cannot add another Hold...";
-  if (body === undefined) { body = {}; }
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
-    parameters: { description: description }
+    parameters: { description: description,
+      id: String(id),
+      bookId: String(bookId),
+      userId: String(userId),
+    }
   });
 }
 
 function verifyHoldExists(bookId, id, userId) {
   var url = "/holds";
-  var description = "Verify Hold with id " + id + " exists";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  bp.log.info("DEBUG VERIFIER for Hold: Arguments=" + JSON.stringify(arguments));
+  var description = "[Hold] Verify Hold with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.success("Hold exists");
-          }
+          var match = false;
+          match = true;
+          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          if (match) return pvg.success("Entity exists");
         }
       }
       return pvg.fail("Expected Hold to exist but it does not");
@@ -597,17 +612,19 @@ function verifyHoldExists(bookId, id, userId) {
 
 function verifyHoldDoesNotExist(bookId, id, userId) {
   var url = "/holds";
-  var description = "Verify Hold with id " + id + " does not exist";
-  svc.get(url, {
-    expectedResponseCodes: [200],
-    parameters: { description: description },
-    callback: function(response) {
+  var description = "[Hold] Verify Hold does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
       var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
-          if (String(items[i].id) === String(id)) {
-            return pvg.fail("Expected Hold to not exist but it does");
-          }
+          var match = false;
+          match = true;
+          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
       return pvg.success("Hold does not exist");
@@ -615,65 +632,48 @@ function verifyHoldDoesNotExist(bookId, id, userId) {
   });
 }
 
-function tryToDeleteANonExistingHold(bookId, id, userId) {
+function tryToDeleteANonExistingHold(id) {
   var url = "/holds/" + id;
-  var description = "Verify we cannot delete non-existing Hold";
-  svc.delete(url, {
-    expectedResponseCodes: [200, 204],
-    parameters: { description: description }
-  });
+  var description = "[Hold] Verify we cannot delete non-existing Hold";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
 }
 
 function matchAddedHold(bookId, id, userId) {
-  var expectedDesc = "Create hold " + id;
-  return matchSuccess(expectedDesc);
+  return matchSuccess("[Hold] Create a hold with id " + id);
 }
 
 function waitForAnyHoldAdded() {
-  var ev = waitFor(matchesDescriptionRegex(/^Create\ hold\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Create\ hold\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Hold\]\ Create\ a\ hold\ with\ id\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Hold: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Hold\]\ Create\ a\ hold\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["bookId"] = capturedMap["bookId"];
+  obj["id"] = capturedMap["id"];
+  obj["userId"] = capturedMap["userId"];
   return obj;
 }
 
-function getHoldAddedEvent(keyVal) {
-  return bp.EventSet("AddHold:" + keyVal, function(e) {
-    if (!e.data || !e.data.parameters) return false;
-    return String(e.data.parameters.id) === String(keyVal);
-  });
-}
+function matchAnyHoldAdded() { return bp.EventSet("matchAnyHoldAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Hold]") > -1; }); }
+function waitForHoldAdded(bookId, id, userId) { var expectedDesc = "[Hold] Create a hold with id " + id; waitFor(matchSuccess(expectedDesc)); }
 
-function matchAnyHoldAdded() {
-  return bp.EventSet("matchAnyHoldAdded", function(e) {
-    return e.name.startsWith("Done: ") && e.data && e.data.id !== undefined && e.name.indexOf("Create hold") > -1;
-  });
-}
-
-function waitForHoldAdded(bookId, id, userId) {
-  var expectedDesc = "Create hold " + id;
-  waitFor(matchSuccess(expectedDesc));
-}
-
-function matchDeletedHold(bookId, id, userId) {
-  var expectedDesc = "Delete hold " + id;
-  return bp.EventSet("matchDeletedHold", function(e) {
-      return !!(e.data && e.data.parameters && e.data.parameters.description === expectedDesc);
-  });
+function matchDeletedHold(id) {
+  return bp.EventSet("matchDeletedHold", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Hold] Delete hold with id " + id); });
 }
 
 function waitForAnyHoldDeleted() {
-  var ev = waitFor(matchesDescriptionRegex(/^Delete\ hold\ (.+)$/));
-  var m = ev.data.parameters.description.match(/^Delete\ hold\ (.+)$/);
+  var ev = waitFor(matchesDescriptionRegex(/^\[Hold\]\ Delete\ hold\ with\ id\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Hold\]\ Delete\ hold\ with\ id\ (.*?)$/);
   var captures = m.slice(1);
   var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
   var obj = {};
-  for (var i = 0; i < names.length; i++) {
-    obj[names[i]] = (i < captures.length) ? captures[i] : undefined;
-  }
+  obj["bookId"] = capturedMap["bookId"];
+  obj["id"] = capturedMap["id"];
+  obj["userId"] = capturedMap["userId"];
   return obj;
 }
