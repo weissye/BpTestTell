@@ -193,8 +193,8 @@
     "Circuit": {
       "displayName": "circuit",
       "params": [
-        "id",
-        "cid"
+        "cid",
+        "id"
       ],
       "operations": {
         "add": {
@@ -1352,9 +1352,9 @@
     "DeviceRole": {
       "displayName": "device role",
       "params": [
+        "slug",
         "name",
-        "id",
-        "slug"
+        "id"
       ],
       "operations": {
         "add": {
@@ -2887,9 +2887,9 @@
     "RackType": {
       "displayName": "rack type",
       "params": [
+        "slug",
         "name",
-        "id",
-        "slug"
+        "id"
       ],
       "operations": {
         "add": {
@@ -3286,8 +3286,8 @@
     "Region": {
       "displayName": "region",
       "params": [
-        "id",
-        "slug"
+        "slug",
+        "id"
       ],
       "operations": {
         "get": {
@@ -5995,9 +5995,9 @@
     "VRF": {
       "displayName": "vrf",
       "params": [
-        "name",
         "rd",
         "slug",
+        "name",
         "id"
       ],
       "operations": {

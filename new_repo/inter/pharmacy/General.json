@@ -1,6 +1,4 @@
 {
-  "sut": "pharmacy",
-  "base_url": "http://localhost:8080",
   "entities": {
     "Drug": {
       "displayName": "drug",
@@ -252,6 +250,5 @@
         }
       }
     }
-  },
-  "stories": []
+  }
 }

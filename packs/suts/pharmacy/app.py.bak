@@ -30,13 +30,6 @@ def create_app():
     def list_drugs():
         return jsonify(_as_list('drugs')), 200
 
-    @app.get('/drugs/<id>')
-    def get_drug(id):
-        did = str(id)
-        if did not in stores['drugs']:
-            return jsonify({'error': 'not found'}), 404
-        return jsonify(stores['drugs'][did]), 200
-
     @app.post('/drugs')
     def add_drug():
         payload = request.get_json(force=True, silent=True) or {}
@@ -65,13 +58,6 @@ def create_app():
     @app.get('/patients')
     def list_patients():
         return jsonify(_as_list('patients')), 200
-
-    @app.get('/patients/<id>')
-    def get_patient(id):
-        pid = str(id)
-        if pid not in stores['patients']:
-            return jsonify({'error': 'not found'}), 404
-        return jsonify(stores['patients'][pid]), 200
 
     @app.post('/patients')
     def add_patient():
@@ -102,13 +88,6 @@ def create_app():
     def list_orders():
         return jsonify(_as_list('orders')), 200
 
-    @app.get('/orders/<id>')
-    def get_order(id):
-        oid = str(id)
-        if oid not in stores['orders']:
-            return jsonify({'error': 'not found'}), 404
-        return jsonify(stores['orders'][oid]), 200
-
     @app.post('/orders')
     def add_order():
         payload = request.get_json(force=True, silent=True) or {}
@@ -138,13 +117,6 @@ def create_app():
     def list_prescriptions():
         return jsonify(_as_list('prescriptions')), 200
 
-    @app.get('/prescriptions/<id>')
-    def get_prescription(id):
-        rxid = str(id)
-        if rxid not in stores['prescriptions']:
-            return jsonify({'error': 'not found'}), 404
-        return jsonify(stores['prescriptions'][rxid]), 200
-
     @app.post('/prescriptions')
     def add_prescription():
         payload = request.get_json(force=True, silent=True) or {}
@@ -173,13 +145,6 @@ def create_app():
     @app.get('/inventory')
     def list_inventory():
         return jsonify(_as_list('inventory')), 200
-
-    @app.get('/inventory/<ndc>')
-    def get_inventory(ndc):
-        key = str(ndc)
-        if key not in stores['inventory']:
-            return jsonify({'error': 'not found'}), 404
-        return jsonify(stores['inventory'][key]), 200
 
     @app.post('/inventory')
     def add_inventory():
