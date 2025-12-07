@@ -16,6 +16,9 @@ JS_RESERVED = {
     "with", "yield"
 }
 
+# --- PARAMS TO IGNORE ---
+IGNORED_PARAMS = {"loanedAt", "booksRemaining"}
+
 def ensure_dir(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
@@ -117,7 +120,6 @@ def infer_type(param_name, known_type="string"):
 def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, Any]) -> Tuple[str, List[str]]:
     ops = ent.get("operations", {})
     
-    # Detect Primary Key
     primary_key = None
     check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
     for op in check_ops:
@@ -132,35 +134,39 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
     all_params_set = set()
     if primary_key: all_params_set.add(primary_key)
     
+    # 1. Ops Params
     for op in ops.values():
         if isinstance(op, dict):
             for p in op.get("params", []):
-                if p and p != "..." and p != "…": all_params_set.add(p)
+                if p and p not in IGNORED_PARAMS and p != "..." and p != "…": all_params_set.add(p)
             if "bodyTemplate" in op and isinstance(op["bodyTemplate"], dict):
                 for v in op["bodyTemplate"].values():
                     if isinstance(v, str) and v.startswith("{") and v.endswith("}"):
                         clean = v.strip("{}")
-                        if clean and clean != "..." and clean != "…": all_params_set.add(clean)
+                        if clean and clean not in IGNORED_PARAMS and clean != "..." and clean != "…": all_params_set.add(clean)
     
+    # 2. Entity Params
     for p in ent.get("params", []):
-        if p and p != "..." and p != "…": all_params_set.add(p)
+        if p and p not in IGNORED_PARAMS and p != "..." and p != "…": all_params_set.add(p)
 
+    # 3. Schema Params
     if "add" in ops and isinstance(ops["add"], dict):
         schema, required_fields = get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
         props = schema.get("properties", {})
         for k in props.keys(): 
-            if k and k != "..." and k != "…": all_params_set.add(k)
+            if k and k not in IGNORED_PARAMS and k != "..." and k != "…": all_params_set.add(k)
         for k in required_fields:
-            if k and k != "..." and k != "…": all_params_set.add(k)
+            if k and k not in IGNORED_PARAMS and k != "..." and k != "…": all_params_set.add(k)
             
-    # --- HEURISTIC FALLBACK (Centralized) ---
-    candidates = [name, name.capitalize(), name.upper(), name + "Create", name.capitalize() + "Create"]
+    # 4. HEURISTIC FALLBACK (Fixed)
+    candidates = [name, name.capitalize(), name.upper(), name+"Create", name.capitalize()+"Create"]
     schemas = raw_spec.get("components", {}).get("schemas", {})
     for cand in candidates:
         if cand in schemas:
             resolved = resolve_schema(schemas[cand], raw_spec)
             if "properties" in resolved:
                 for k in resolved["properties"].keys():
-                     if k and k != "..." and k != "…": all_params_set.add(k)
+                     # FIX: Explicitly check IGNORED_PARAMS
+                     if k and k not in IGNORED_PARAMS and k != "..." and k != "…": all_params_set.add(k)
         
     return primary_key, sorted(list(all_params_set))

@@ -9,6 +9,7 @@ function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Success Event", function(e) { return e.name === "Done: " + desc; }); }
 // ---- Entity: drug ----
 function createDrug(id, name) {
+  bp.log.info("DEBUG INTERFACE createDrug: called with args=" + JSON.stringify(arguments));
   var url = "/drugs";
   var description = "[Drug] Create drug " + id;
   var body = {
@@ -24,7 +25,8 @@ function createDrug(id, name) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getDrug(id, name) {
+function getDrug(id) {
+  bp.log.info("DEBUG INTERFACE getDrug: called with args=" + JSON.stringify(arguments));
   var url = "/drugs/" + id;
   var description = "[Drug] Get drug " + id;
   var body = undefined;
@@ -44,6 +46,7 @@ function getDrug(id, name) {
 }
 
 function updateDrug(id, name) {
+  bp.log.info("DEBUG INTERFACE updateDrug: called with args=" + JSON.stringify(arguments));
   var url = "/drugs/" + id;
   var description = "[Drug] Update drug " + id;
   var body = {
@@ -59,7 +62,8 @@ function updateDrug(id, name) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deleteDrug(id, name) {
+function deleteDrug(id) {
+  bp.log.info("DEBUG INTERFACE deleteDrug: called with args=" + JSON.stringify(arguments));
   var url = "/drugs/" + id;
   var description = "[Drug] Delete drug " + id;
   var body = undefined;
@@ -79,6 +83,7 @@ function deleteDrug(id, name) {
 }
 
 function tryToAddExistingDrug(id, name) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingDrug: called with args=" + JSON.stringify(arguments));
   var url = "/drugs";
   var description = "[tryToAddExistingDrug] [Drug] Try Add Existing with id " + id;
   var body = {
@@ -104,7 +109,9 @@ function verifyDrugExists(id, name) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -123,7 +130,9 @@ function verifyDrugDoesNotExist(id, name) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -132,7 +141,7 @@ function verifyDrugDoesNotExist(id, name) {
   });
 }
 
-function tryToDeleteANonExistingDrug(id, name) {
+function tryToDeleteANonExistingDrug(id) {
   var url = "/drugs/" + id;
   var description = "[Drug] Verify we cannot delete non-existing Drug";
   svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
@@ -159,7 +168,7 @@ function waitForAnyDrugAdded() {
 function matchAnyDrugAdded() { return bp.EventSet("matchAnyDrugAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Drug]") > -1; }); }
 function waitForDrugAdded(id, name) { var expectedDesc = "[Drug] Create drug " + id; waitFor(matchSuccess(expectedDesc)); }
 
-function matchDeletedDrug(id, name) {
+function matchDeletedDrug(id) {
   return bp.EventSet("matchDeletedDrug", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Drug] Delete drug " + id); });
 }
 
@@ -178,6 +187,7 @@ function waitForAnyDrugDeleted() {
 
 // ---- Entity: patient ----
 function createPatient(id, name) {
+  bp.log.info("DEBUG INTERFACE createPatient: called with args=" + JSON.stringify(arguments));
   var url = "/patients";
   var description = "[Patient] Create patient " + id;
   var body = {
@@ -193,7 +203,8 @@ function createPatient(id, name) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function getPatient(id, name) {
+function getPatient(id) {
+  bp.log.info("DEBUG INTERFACE getPatient: called with args=" + JSON.stringify(arguments));
   var url = "/patients/" + id;
   var description = "[Patient] Get patient " + id;
   var body = undefined;
@@ -213,6 +224,7 @@ function getPatient(id, name) {
 }
 
 function updatePatient(id, name) {
+  bp.log.info("DEBUG INTERFACE updatePatient: called with args=" + JSON.stringify(arguments));
   var url = "/patients/" + id;
   var description = "[Patient] Update patient " + id;
   var body = {
@@ -228,7 +240,8 @@ function updatePatient(id, name) {
   bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
 }
 
-function deletePatient(id, name) {
+function deletePatient(id) {
+  bp.log.info("DEBUG INTERFACE deletePatient: called with args=" + JSON.stringify(arguments));
   var url = "/patients/" + id;
   var description = "[Patient] Delete patient " + id;
   var body = undefined;
@@ -248,6 +261,7 @@ function deletePatient(id, name) {
 }
 
 function tryToAddExistingPatient(id, name) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingPatient: called with args=" + JSON.stringify(arguments));
   var url = "/patients";
   var description = "[tryToAddExistingPatient] [Patient] Try Add Existing with id " + id;
   var body = {
@@ -273,7 +287,9 @@ function verifyPatientExists(id, name) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -292,7 +308,9 @@ function verifyPatientDoesNotExist(id, name) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -301,7 +319,7 @@ function verifyPatientDoesNotExist(id, name) {
   });
 }
 
-function tryToDeleteANonExistingPatient(id, name) {
+function tryToDeleteANonExistingPatient(id) {
   var url = "/patients/" + id;
   var description = "[Patient] Verify we cannot delete non-existing Patient";
   svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
@@ -328,7 +346,7 @@ function waitForAnyPatientAdded() {
 function matchAnyPatientAdded() { return bp.EventSet("matchAnyPatientAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Patient]") > -1; }); }
 function waitForPatientAdded(id, name) { var expectedDesc = "[Patient] Create patient " + id; waitFor(matchSuccess(expectedDesc)); }
 
-function matchDeletedPatient(id, name) {
+function matchDeletedPatient(id) {
   return bp.EventSet("matchDeletedPatient", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Patient] Delete patient " + id); });
 }
 
@@ -347,6 +365,7 @@ function waitForAnyPatientDeleted() {
 
 // ---- Entity: order ----
 function createOrder(id) {
+  bp.log.info("DEBUG INTERFACE createOrder: called with args=" + JSON.stringify(arguments));
   var url = "/orders";
   var description = "[Order] Create order " + id;
   var body = {
@@ -363,6 +382,7 @@ function createOrder(id) {
 }
 
 function getOrder(id) {
+  bp.log.info("DEBUG INTERFACE getOrder: called with args=" + JSON.stringify(arguments));
   var url = "/orders/" + id;
   var description = "[Order] Get order " + id;
   var body = undefined;
@@ -382,6 +402,7 @@ function getOrder(id) {
 }
 
 function updateOrder(id) {
+  bp.log.info("DEBUG INTERFACE updateOrder: called with args=" + JSON.stringify(arguments));
   var url = "/orders/" + id;
   var description = "[Order] Update order " + id;
   var body = {
@@ -398,6 +419,7 @@ function updateOrder(id) {
 }
 
 function deleteOrder(id) {
+  bp.log.info("DEBUG INTERFACE deleteOrder: called with args=" + JSON.stringify(arguments));
   var url = "/orders/" + id;
   var description = "[Order] Delete order " + id;
   var body = undefined;
@@ -417,6 +439,7 @@ function deleteOrder(id) {
 }
 
 function tryToAddExistingOrder(id) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingOrder: called with args=" + JSON.stringify(arguments));
   var url = "/orders";
   var description = "[tryToAddExistingOrder] [Order] Try Add Existing with id " + id;
   var body = {
@@ -442,7 +465,8 @@ function verifyOrderExists(id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -461,7 +485,8 @@ function verifyOrderDoesNotExist(id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -514,6 +539,7 @@ function waitForAnyOrderDeleted() {
 
 // ---- Entity: prescription ----
 function createPrescription(id) {
+  bp.log.info("DEBUG INTERFACE createPrescription: called with args=" + JSON.stringify(arguments));
   var url = "/prescriptions";
   var description = "[Prescription] Create prescription " + id;
   var body = {
@@ -530,6 +556,7 @@ function createPrescription(id) {
 }
 
 function getPrescription(id) {
+  bp.log.info("DEBUG INTERFACE getPrescription: called with args=" + JSON.stringify(arguments));
   var url = "/prescriptions/" + id;
   var description = "[Prescription] Get prescription " + id;
   var body = undefined;
@@ -549,6 +576,7 @@ function getPrescription(id) {
 }
 
 function updatePrescription(id) {
+  bp.log.info("DEBUG INTERFACE updatePrescription: called with args=" + JSON.stringify(arguments));
   var url = "/prescriptions/" + id;
   var description = "[Prescription] Update prescription " + id;
   var body = {
@@ -565,6 +593,7 @@ function updatePrescription(id) {
 }
 
 function deletePrescription(id) {
+  bp.log.info("DEBUG INTERFACE deletePrescription: called with args=" + JSON.stringify(arguments));
   var url = "/prescriptions/" + id;
   var description = "[Prescription] Delete prescription " + id;
   var body = undefined;
@@ -584,6 +613,7 @@ function deletePrescription(id) {
 }
 
 function tryToAddExistingPrescription(id) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingPrescription: called with args=" + JSON.stringify(arguments));
   var url = "/prescriptions";
   var description = "[tryToAddExistingPrescription] [Prescription] Try Add Existing with id " + id;
   var body = {
@@ -609,7 +639,8 @@ function verifyPrescriptionExists(id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -628,7 +659,8 @@ function verifyPrescriptionDoesNotExist(id) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].id) === String(id)) match = true;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -681,6 +713,7 @@ function waitForAnyPrescriptionDeleted() {
 
 // ---- Entity: inventory ----
 function createInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE createInventory: called with args=" + JSON.stringify(arguments));
   var url = "/inventory";
   var description = "[Inventory] Create inventory " + ndc;
   var body = {
@@ -697,6 +730,7 @@ function createInventory(ndc) {
 }
 
 function getInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE getInventory: called with args=" + JSON.stringify(arguments));
   var url = "/inventory/" + ndc;
   var description = "[Inventory] Get inventory " + ndc;
   var body = undefined;
@@ -716,6 +750,7 @@ function getInventory(ndc) {
 }
 
 function updateInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE updateInventory: called with args=" + JSON.stringify(arguments));
   var url = "/inventory/" + ndc;
   var description = "[Inventory] Update inventory " + ndc;
   var body = {
@@ -732,6 +767,7 @@ function updateInventory(ndc) {
 }
 
 function deleteInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE deleteInventory: called with args=" + JSON.stringify(arguments));
   var url = "/inventory/" + ndc;
   var description = "[Inventory] Delete inventory " + ndc;
   var body = undefined;
@@ -751,6 +787,7 @@ function deleteInventory(ndc) {
 }
 
 function tryToAddExistingInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingInventory: called with args=" + JSON.stringify(arguments));
   var url = "/inventory";
   var description = "[tryToAddExistingInventory] [Inventory] Try Add Existing with ndc " + ndc;
   var body = {
@@ -776,7 +813,8 @@ function verifyInventoryExists(ndc) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].ndc) === String(ndc)) match = true;
+          match = true;
+          if (typeof ndc !== "undefined" && String(items[i].ndc) !== String(ndc)) match = false;
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -795,7 +833,8 @@ function verifyInventoryDoesNotExist(ndc) {
       if (Array.isArray(items)) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
-          if (String(items[i].ndc) === String(ndc)) match = true;
+          match = true;
+          if (typeof ndc !== "undefined" && String(items[i].ndc) !== String(ndc)) match = false;
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }

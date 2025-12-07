@@ -15,6 +15,7 @@ function createUser(id, name) {
   var body = {
     "id": String(id),
   };
+  bp.log.info("DEBUG INTERFACE createUser: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
@@ -70,6 +71,7 @@ function tryToAddExistingUser(id, name) {
   var body = {
     "id": String(id),
   };
+  bp.log.info("DEBUG INTERFACE tryToAddExistingUser: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
@@ -91,8 +93,13 @@ function verifyUserExists(id, name) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
-          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof id !== "undefined") {
+             if (String(items[i].id) !== String(id)) { match = false; bp.log.info("  Mismatch id: " + items[i].id + " != " + id); }
+          }
+          if (typeof name !== "undefined") {
+             if (String(items[i].name) !== String(name)) { match = false; bp.log.info("  Mismatch name: " + items[i].name + " != " + name); }
+          }
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -112,8 +119,13 @@ function verifyUserDoesNotExist(id, name) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
-          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof id !== "undefined") {
+             if (String(items[i].id) !== String(id)) { match = false; bp.log.info("  Mismatch id: " + items[i].id + " != " + id); }
+          }
+          if (typeof name !== "undefined") {
+             if (String(items[i].name) !== String(name)) { match = false; bp.log.info("  Mismatch name: " + items[i].name + " != " + name); }
+          }
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -174,6 +186,7 @@ function createBook(id, title) {
   var body = {
     "id": String(id),
   };
+  bp.log.info("DEBUG INTERFACE createBook: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
@@ -248,6 +261,7 @@ function tryToAddExistingBook(id, title) {
   var body = {
     "id": String(id),
   };
+  bp.log.info("DEBUG INTERFACE tryToAddExistingBook: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
@@ -269,8 +283,13 @@ function verifyBookExists(id, title) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
-          if (typeof title !== "undefined" && String(items[i].title) !== String(title)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof id !== "undefined") {
+             if (String(items[i].id) !== String(id)) { match = false; bp.log.info("  Mismatch id: " + items[i].id + " != " + id); }
+          }
+          if (typeof title !== "undefined") {
+             if (String(items[i].title) !== String(title)) { match = false; bp.log.info("  Mismatch title: " + items[i].title + " != " + title); }
+          }
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -290,8 +309,13 @@ function verifyBookDoesNotExist(id, title) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
-          if (typeof title !== "undefined" && String(items[i].title) !== String(title)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof id !== "undefined") {
+             if (String(items[i].id) !== String(id)) { match = false; bp.log.info("  Mismatch id: " + items[i].id + " != " + id); }
+          }
+          if (typeof title !== "undefined") {
+             if (String(items[i].title) !== String(title)) { match = false; bp.log.info("  Mismatch title: " + items[i].title + " != " + title); }
+          }
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -353,6 +377,7 @@ function createLoan(bookId, loanedAt, userId) {
     "userId": String(userId),
     "bookId": String(bookId),
   };
+  bp.log.info("DEBUG INTERFACE createLoan: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201, 400],
@@ -410,6 +435,7 @@ function tryToAddExistingLoan(bookId, loanedAt, userId) {
     "userId": String(userId),
     "bookId": String(bookId),
   };
+  bp.log.info("DEBUG INTERFACE tryToAddExistingLoan: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
@@ -432,9 +458,16 @@ function verifyLoanExists(bookId, loanedAt, userId) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
-          if (typeof loanedAt !== "undefined" && String(items[i].loanedAt) !== String(loanedAt)) match = false;
-          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof bookId !== "undefined") {
+             if (String(items[i].bookId) !== String(bookId)) { match = false; bp.log.info("  Mismatch bookId: " + items[i].bookId + " != " + bookId); }
+          }
+          if (typeof loanedAt !== "undefined") {
+             if (String(items[i].loanedAt) !== String(loanedAt)) { match = false; bp.log.info("  Mismatch loanedAt: " + items[i].loanedAt + " != " + loanedAt); }
+          }
+          if (typeof userId !== "undefined") {
+             if (String(items[i].userId) !== String(userId)) { match = false; bp.log.info("  Mismatch userId: " + items[i].userId + " != " + userId); }
+          }
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -454,9 +487,16 @@ function verifyLoanDoesNotExist(bookId, loanedAt, userId) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
-          if (typeof loanedAt !== "undefined" && String(items[i].loanedAt) !== String(loanedAt)) match = false;
-          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof bookId !== "undefined") {
+             if (String(items[i].bookId) !== String(bookId)) { match = false; bp.log.info("  Mismatch bookId: " + items[i].bookId + " != " + bookId); }
+          }
+          if (typeof loanedAt !== "undefined") {
+             if (String(items[i].loanedAt) !== String(loanedAt)) { match = false; bp.log.info("  Mismatch loanedAt: " + items[i].loanedAt + " != " + loanedAt); }
+          }
+          if (typeof userId !== "undefined") {
+             if (String(items[i].userId) !== String(userId)) { match = false; bp.log.info("  Mismatch userId: " + items[i].userId + " != " + userId); }
+          }
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }
@@ -519,6 +559,7 @@ function createHold(bookId, id, userId) {
   var body = {
     "id": String(id),
   };
+  bp.log.info("DEBUG INTERFACE createHold: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [201],
@@ -576,6 +617,7 @@ function tryToAddExistingHold(bookId, id, userId) {
   var body = {
     "id": String(id),
   };
+  bp.log.info("DEBUG INTERFACE tryToAddExistingHold: Sending Body=" + JSON.stringify(body));
   svc.post(url, {
     body: JSON.stringify(body),
     expectedResponseCodes: [400, 409],
@@ -599,9 +641,16 @@ function verifyHoldExists(bookId, id, userId) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
-          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
-          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof bookId !== "undefined") {
+             if (String(items[i].bookId) !== String(bookId)) { match = false; bp.log.info("  Mismatch bookId: " + items[i].bookId + " != " + bookId); }
+          }
+          if (typeof id !== "undefined") {
+             if (String(items[i].id) !== String(id)) { match = false; bp.log.info("  Mismatch id: " + items[i].id + " != " + id); }
+          }
+          if (typeof userId !== "undefined") {
+             if (String(items[i].userId) !== String(userId)) { match = false; bp.log.info("  Mismatch userId: " + items[i].userId + " != " + userId); }
+          }
           if (match) return pvg.success("Entity exists");
         }
       }
@@ -621,9 +670,16 @@ function verifyHoldDoesNotExist(bookId, id, userId) {
         for (var i = 0; i < items.length; i++) {
           var match = false;
           match = true;
-          if (typeof bookId !== "undefined" && String(items[i].bookId) !== String(bookId)) match = false;
-          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
-          if (typeof userId !== "undefined" && String(items[i].userId) !== String(userId)) match = false;
+          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));
+          if (typeof bookId !== "undefined") {
+             if (String(items[i].bookId) !== String(bookId)) { match = false; bp.log.info("  Mismatch bookId: " + items[i].bookId + " != " + bookId); }
+          }
+          if (typeof id !== "undefined") {
+             if (String(items[i].id) !== String(id)) { match = false; bp.log.info("  Mismatch id: " + items[i].id + " != " + id); }
+          }
+          if (typeof userId !== "undefined") {
+             if (String(items[i].userId) !== String(userId)) { match = false; bp.log.info("  Mismatch userId: " + items[i].userId + " != " + userId); }
+          }
           if (match) return pvg.fail("Expected Entity to not exist but it does");
         }
       }

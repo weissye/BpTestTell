@@ -17,6 +17,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('')
     lines.append('')
 
+    # --- INJECTED HELPER WITH DEBUG ---
     lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
@@ -47,6 +48,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
 
     base_id = 200 
 
+    # Build key map (using updated collect logic from utils)
     entity_pks_map = {}
     for name, ent in entities.items():
         pk, _ = collect_entity_params(name, ent, raw_spec)
@@ -85,7 +87,9 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         story_pk_map = {}
         for p in sig_params:
             for potential_ent in entities:
-                if potential_ent.lower() in p.lower() and "id" in p.lower() and potential_ent != name:
+                name_match = potential_ent.lower() in p.lower()
+                id_match = "id" in p.lower()
+                if name_match and id_match and potential_ent != name:
                      # FIX: More robust dependency detection
                      target_pk = entity_pks_map.get(potential_ent, ["id"])[0]
                      deps.append((potential_ent, p))
@@ -133,43 +137,52 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         barrier_str = "\n".join(barrier_code)
 
         if add_fn and del_fn:
+            # STORY 1:1
             lines.append(f'// Story: crud:{name}:nondet:1:1')
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({get_args(base_id)});')
-            lines.append(f'  {wait_specific_fn}({get_args(base_id)});')
-            lines.append(f'  {try_add_fn}({get_args(base_id)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id)});')
-            if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id)});')
-            lines.append(f'  {del_fn}({get_args(base_id)});')
-            lines.append(f'  {try_del_fn}({get_args(base_id)});')
-            lines.append(f'  {ver_ne_fn}({get_args(base_id)});')
+            args = get_args(base_id)
+            lines.append(f'  bp.log.info("DEBUG STORY {name}: calling create with " + JSON.stringify({{ {args} }}));')
+            lines.append(f'  {add_fn}({args});')
+            lines.append(f'  {wait_specific_fn}({args});')
+            lines.append(f'  {try_add_fn}({args});')
+            lines.append(f'  {ver_ex_fn}({args});')
+            if upd_fn: lines.append(f'  {upd_fn}({args});')
+            lines.append(f'  {del_fn}({args});')
+            lines.append(f'  {try_del_fn}({args});')
+            lines.append(f'  {ver_ne_fn}({args});')
             lines.append('});')
             lines.append('')
 
+            # STORY 1:2
             lines.append(f'// Story: crud:{name}:nondet:1:2')
             lines.append(f'bthread("crud:{name}:nondet:1:2", function () {{')
             lines.append(get_vars(base_id + 1))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {try_add_fn}({get_args(base_id + 1)});')
-            if upd_fn: lines.append(f'  {upd_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {del_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {try_del_fn}({get_args(base_id + 1)});')
-            lines.append(f'  {ver_ne_fn}({get_args(base_id + 1)});')
+            args_next = get_args(base_id + 1)
+            lines.append(f'  bp.log.info("DEBUG STORY {name}: calling create (1:2) with " + JSON.stringify({{ {args_next} }}));')
+            lines.append(f'  {add_fn}({args_next});')
+            lines.append(f'  {try_add_fn}({args_next});')
+            if upd_fn: lines.append(f'  {upd_fn}({args_next});')
+            lines.append(f'  {ver_ex_fn}({args_next});')
+            lines.append(f'  {del_fn}({args_next});')
+            lines.append(f'  {try_del_fn}({args_next});')
+            lines.append(f'  {ver_ne_fn}({args_next});')
             lines.append('});')
             lines.append('')
 
+            # STORY Negative
             lines.append(f'// Story: crud:{name}:nondet:negative:dup-add')
             lines.append(f'bthread("crud:{name}:nondet:negative:dup-add", function () {{')
             lines.append(get_vars(base_id + 6))
             if barrier_str: lines.append(barrier_str)
-            lines.append(f'  {add_fn}({get_args(base_id + 6)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
-            lines.append(f'  {try_add_fn}({get_args(base_id + 6)});')
-            lines.append(f'  {ver_ex_fn}({get_args(base_id + 6)});')
+            args_neg = get_args(base_id + 6)
+            lines.append(f'  bp.log.info("DEBUG STORY {name}: calling create (neg) with " + JSON.stringify({{ {args_neg} }}));')
+            lines.append(f'  {add_fn}({args_neg});')
+            lines.append(f'  {ver_ex_fn}({args_neg});')
+            lines.append(f'  {try_add_fn}({args_neg});')
+            lines.append(f'  {ver_ex_fn}({args_neg});')
             lines.append('});')
             lines.append('')
 

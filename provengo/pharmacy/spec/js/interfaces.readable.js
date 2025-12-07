@@ -1,384 +1,886 @@
-import re
-import json
-from pathlib import Path
-from urllib.parse import urlparse
-from typing import Dict, Any
+//@provengo summon rest
+// === Auto-generated interfaces.readable.js ===
+var host = (typeof host !== 'undefined') ? host : '192.168.225.28';
+var port = (typeof port !== 'undefined') ? port : 5014;
+var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
+const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
+function matchesDescriptionRegex(re) { return bp.EventSet("Match description", function (e) { return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description)); }); }
+function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
+function matchSuccess(desc) { return bp.EventSet("Success Event", function(e) { return e.name === "Done: " + desc; }); }
+// ---- Entity: drug ----
+function createDrug(id, name) {
+  bp.log.info("DEBUG INTERFACE createDrug: called with args=" + JSON.stringify(arguments));
+  var url = "/drugs";
+  var description = "[Drug] Create drug " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
 
-# Import shared utils
-from new_repo.pipeline.emitter_utils import (
-    ensure_dir, sanitize_param, render_body_js, 
-    get_raw_spec, get_response_codes, get_operation_schema, 
-    infer_type, collect_entity_params
-)
+function getDrug(id) {
+  bp.log.info("DEBUG INTERFACE getDrug: called with args=" + JSON.stringify(arguments));
+  var url = "/drugs/" + id;
+  var description = "[Drug] Get drug " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
 
-def _is_valid_js_identifier(name: str) -> bool:
-    if not name or not isinstance(name, str): return False
-    if "..." in name or "…" in name or name.strip() == "": return False
-    return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
+function updateDrug(id, name) {
+  bp.log.info("DEBUG INTERFACE updateDrug: called with args=" + JSON.stringify(arguments));
+  var url = "/drugs/" + id;
+  var description = "[Drug] Update drug " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
 
-def _generate_strict_regex(template: str):
-    params = re.findall(r'\{([a-zA-Z0-9_]+)\}', template)
-    parts = re.split(r'\{[a-zA-Z0-9_]+\}', template)
-    regex_str = "^"
-    for i, part in enumerate(parts):
-        regex_str += re.escape(part)
-        if i < len(params):
-            regex_str += "(.*?)"
-    regex_str += "$"
-    return regex_str, params
+function deleteDrug(id) {
+  bp.log.info("DEBUG INTERFACE deleteDrug: called with args=" + JSON.stringify(arguments));
+  var url = "/drugs/" + id;
+  var description = "[Drug] Delete drug " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
 
-def _get_op_specific_params(op, op_type, primary_key, raw_spec):
-    local_params = []
-    local_params.extend(op.get("params", []))
-    if "bodyTemplate" in op and isinstance(op["bodyTemplate"], dict):
-        local_params.extend(op["bodyTemplate"].keys())
-    elif op_type in ["add", "update"] and "path" in op:
-        method = "POST" if op_type == "add" else "PUT"
-        schema, req = get_operation_schema(op["path"], method, raw_spec)
-        local_params.extend(schema.get("properties", {}).keys())
-    
-    if primary_key: local_params.append(primary_key)
-    return sorted(list(set([p for p in local_params if _is_valid_js_identifier(p)])))
+function tryToAddExistingDrug(id, name) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingDrug: called with args=" + JSON.stringify(arguments));
+  var url = "/drugs";
+  var description = "[tryToAddExistingDrug] [Drug] Try Add Existing with id " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+}
 
-def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
-    lines = []
-    method = (method_override or op_data.get("method", "GET")).upper()
-    path_tmpl = op_data.get("path", "")
-    
-    # --- DEBUG PRINT ---
-    print(f"DEBUG GEN [Interface] {fn_name}: sig_params={sig_params}")
+function verifyDrugExists(id, name) {
+  var url = "/drugs";
+  bp.log.info("DEBUG VERIFIER for Drug: Arguments=" + JSON.stringify(arguments));
+  var description = "[Drug] Verify Drug with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          if (match) return pvg.success("Entity exists");
+        }
+      }
+      return pvg.fail("Expected Drug to exist but it does not");
+    }
+  });
+}
 
-    ent_display = fn_name.replace("create", "").replace("update", "").replace("delete", "").replace("get", "").replace("verify", "").replace("Exists", "")
-    
-    desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
-    if not desc_tmpl:
-        desc_tmpl = f"{method} {ent_display}"
+function verifyDrugDoesNotExist(id, name) {
+  var url = "/drugs";
+  var description = "[Drug] Verify Drug does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
+        }
+      }
+      return pvg.success("Drug does not exist");
+    }
+  });
+}
 
-    if not desc_tmpl.startswith(f"[{ent_display}]"):
-        desc_tmpl = f"[{ent_display}] {desc_tmpl}"
+function tryToDeleteANonExistingDrug(id) {
+  var url = "/drugs/" + id;
+  var description = "[Drug] Verify we cannot delete non-existing Drug";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
+}
 
-    if primary_key and primary_key in sig_params:
-        if f"{{{primary_key}}}" not in desc_tmpl:
-             desc_tmpl += f" with {primary_key} {{{primary_key}}}"
+function matchAddedDrug(id, name) {
+  return matchSuccess("[Drug] Create drug " + id);
+}
 
-    js_url = f'"{path_tmpl}"'
-    js_desc = f'"{desc_tmpl}"'
-    
-    for p in sig_params:
-        safe_p = sanitize_param(p)
-        js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
-        js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
-    js_url = js_url.replace(' + ""', '')
-    js_desc = js_desc.replace(' + ""', '')
+function waitForAnyDrugAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Drug\]\ Create\ drug\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Drug: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Drug\]\ Create\ drug\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  obj["name"] = capturedMap["name"];
+  return obj;
+}
 
-    body_js = "undefined"
-    if method in ["POST", "PUT", "PATCH"]:
-        use_template = False
-        if "bodyTemplate" in op_data and isinstance(op_data["bodyTemplate"], dict) and op_data["bodyTemplate"]:
-            if all(_is_valid_js_identifier(k) for k in op_data["bodyTemplate"].keys()):
-                use_template = True
-        if use_template:
-            body_js = render_body_js(op_data["bodyTemplate"])
-        else:
-            b_lines = ["{"]
-            schema, required_fields = get_operation_schema(path_tmpl, method, raw_spec)
-            props = schema.get("properties", {})
-            candidates = []
-            if required_fields: candidates.extend(required_fields)
-            if props: candidates.extend(props.keys())
-            candidates.extend(op_data.get("params", []))
-            if primary_key: candidates.append(primary_key)
-            
-            # --- FIX: Trust sig_params! ---
-            candidates.extend(sig_params)
-            
-            candidates = sorted(list(set(candidates)))
-            
-            # --- DEBUG PRINT ---
-            print(f"DEBUG GEN [Interface] {fn_name}: candidates (before valid check)={candidates}")
-            
-            valid_fields = [f for f in candidates if _is_valid_js_identifier(f)]
-            
-            # --- DEBUG PRINT ---
-            print(f"DEBUG GEN [Interface] {fn_name}: valid_fields (final body keys)={valid_fields}")
+function matchAnyDrugAdded() { return bp.EventSet("matchAnyDrugAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Drug]") > -1; }); }
+function waitForDrugAdded(id, name) { var expectedDesc = "[Drug] Create drug " + id; waitFor(matchSuccess(expectedDesc)); }
 
-            for field in valid_fields:
-                val_expr = "null"
-                f_type = props.get(field, {}).get("type", "string")
-                f_type = infer_type(field, f_type)
-                sanitized = sanitize_param(field)
-                
-                if field in sig_params:
-                    if f_type in ["integer", "number"]: val_expr = f'Number({sanitized})'
-                    elif f_type == "boolean": val_expr = f'{sanitized}'
-                    elif f_type == "object": val_expr = f'{sanitized}'
-                    else: val_expr = f'String({sanitized})'
-                elif field == primary_key and primary_key in sig_params:
-                     val_expr = f'String({sanitize_param(primary_key)})'
-                else:
-                    continue 
+function matchDeletedDrug(id) {
+  return bp.EventSet("matchDeletedDrug", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Drug] Delete drug " + id); });
+}
 
-                b_lines.append(f'    "{field}": {val_expr},')
-            b_lines.append("  }")
-            body_js = "\n".join(b_lines)
+function waitForAnyDrugDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Drug\]\ Delete\ drug\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Drug\]\ Delete\ drug\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  obj["name"] = capturedMap["name"];
+  return obj;
+}
 
-    if "..." in body_js or body_js.strip().startswith("String("): body_js = "{}" 
+// ---- Entity: patient ----
+function createPatient(id, name) {
+  bp.log.info("DEBUG INTERFACE createPatient: called with args=" + JSON.stringify(arguments));
+  var url = "/patients";
+  var description = "[Patient] Create patient " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
 
-    sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
-    lines.append(f'function {fn_name}({sig_args_str}) {{')
-    lines.append(f'  var url = {js_url};')
-    lines.append(f'  var description = {js_desc};')
-    if method in ["POST", "PUT", "PATCH"]: lines.append(f'  var body = {body_js};')
-    else: lines.append(f'  var body = undefined;')
-    
-    if codes_override: codes_str = json.dumps(codes_override)
-    else:
-        codes_list = get_response_codes(path_tmpl, method, spec)
-        codes_str = json.dumps(codes_list)
+function getPatient(id) {
+  bp.log.info("DEBUG INTERFACE getPatient: called with args=" + JSON.stringify(arguments));
+  var url = "/patients/" + id;
+  var description = "[Patient] Get patient " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
 
-    if method in ["POST", "PUT", "PATCH"]:
-        lines.append(f'  svc.{method.lower()}(url, {{')
-        lines.append('    body: JSON.stringify(body),')
-        lines.append(f'    expectedResponseCodes: {codes_str},')
-        lines.append('    parameters: { description: description,')
-        if primary_key and primary_key in sig_params: lines.append(f'      {primary_key}: String({sanitize_param(primary_key)}),')
-        for p in sig_params:
-            if p != primary_key and (p.endswith("Id") or p.endswith("_id")):
-                    lines.append(f'      {p}: String({sanitize_param(p)}),')
-        lines.append('    }')
-        lines.append('  });')
-        if not codes_override:
-             if primary_key and primary_key in sig_params:
-                 lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ {primary_key}: String({sanitize_param(primary_key)}) }}) }});')
-             else:
-                 lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ id: String(id) }}) }});')
-    else:
-        lines.append(f'  svc.{method.lower()}(url, {{')
-        lines.append('    parameters: { description: description },')
-        lines.append(f'    expectedResponseCodes: {codes_str},')
-        lines.append('    callback: function(response) {')
-        lines.append('      if (response.statusCode >= 200 && response.statusCode < 300) {')
-        lines.append('          try {')
-        lines.append('              var items = JSON.parse(response.body);')
-        lines.append('              if(items.results) items = items.results;')
-        lines.append('              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));')
-        lines.append('          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }')
-        lines.append('      }')
-        lines.append('    }')
-        lines.append('  });')
-    lines.append('}')
-    return lines
+function updatePatient(id, name) {
+  bp.log.info("DEBUG INTERFACE updatePatient: called with args=" + JSON.stringify(arguments));
+  var url = "/patients/" + id;
+  var description = "[Patient] Update patient " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
 
-def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
-    base_url = spec.get("base_url", "http://localhost:8080")
-    parsed = urlparse(base_url)
-    default_scheme = parsed.scheme or "http"
-    default_host = parsed.hostname or "localhost"
-    default_port = parsed.port or (80 if default_scheme == "http" else 443)
-    entities = spec.get("entities", {})
-    raw_spec = get_raw_spec(spec)
-    
-    lines = []
-    lines.append('//@provengo summon rest')
-    lines.append('// === Auto-generated interfaces.readable.js ===')
-    lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
-    lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
-    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
-    lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });')
-    lines.append('function matchesDescriptionRegex(re) { return bp.EventSet("Match description", function (e) { return !!(e && e.data && e.data.parameters && typeof e.data.parameters.description === "string" && re.test(e.data.parameters.description)); }); }')
-    lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
-    lines.append('function matchSuccess(desc) { return bp.EventSet("Success Event", function(e) { return e.name === "Done: " + desc; }); }')
+function deletePatient(id) {
+  bp.log.info("DEBUG INTERFACE deletePatient: called with args=" + JSON.stringify(arguments));
+  var url = "/patients/" + id;
+  var description = "[Patient] Delete patient " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
 
-    for name, ent in entities.items():
-        displayName = ent.get("displayName", name)
-        cleanName = name.replace(" ", "") 
-        lines.append(f'// ---- Entity: {displayName} ----')
-        
-        primary_key, all_entity_params = collect_entity_params(name, ent, raw_spec)
-        all_entity_params = [p for p in all_entity_params if _is_valid_js_identifier(p)]
-        
-        ops = ent.get("operations", {})
+function tryToAddExistingPatient(id, name) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingPatient: called with args=" + JSON.stringify(arguments));
+  var url = "/patients";
+  var description = "[tryToAddExistingPatient] [Patient] Try Add Existing with id " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+}
 
-        for op_type, op_data in ops.items():
-            if not op_type == "verifyExists" and (not op_data or not isinstance(op_data, dict)): continue
-            fn_name = op_data.get("name", f"{op_type}{name}")
-            
-            local_sig_params = _get_op_specific_params(op_data, op_type, primary_key, raw_spec)
-            
-            op_lines = _generate_js_operation(op_data, fn_name, local_sig_params, primary_key, spec, raw_spec)
-            lines.extend(op_lines)
-            lines.append('')
+function verifyPatientExists(id, name) {
+  var url = "/patients";
+  bp.log.info("DEBUG VERIFIER for Patient: Arguments=" + JSON.stringify(arguments));
+  var description = "[Patient] Verify Patient with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          if (match) return pvg.success("Entity exists");
+        }
+      }
+      return pvg.fail("Expected Patient to exist but it does not");
+    }
+  });
+}
 
-        if "add" in ops and isinstance(ops["add"], dict):
-            # Wrapper Add
-            local_sig_params = _get_op_specific_params(ops["add"], "add", primary_key, raw_spec)
-            wrapper_lines = _generate_js_operation(ops["add"], f"tryToAddExisting{name}", local_sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"[{cleanName}] Try Add Existing")
-            lines.extend(wrapper_lines)
-            lines.append('')
+function verifyPatientDoesNotExist(id, name) {
+  var url = "/patients";
+  var description = "[Patient] Verify Patient does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (typeof name !== "undefined" && String(items[i].name) !== String(name)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
+        }
+      }
+      return pvg.success("Patient does not exist");
+    }
+  });
+}
 
-        coll_url_template = ""
-        if "add" in ops and isinstance(ops["add"], dict): coll_url_template = ops["add"].get("path", "")
-        elif "get" in ops and isinstance(ops["get"], dict):
-             tmp = ops["get"].get("path", "")
-             if "/{" in tmp: coll_url_template = tmp.split("/{")[0]
-             else: coll_url_template = tmp
+function tryToDeleteANonExistingPatient(id) {
+  var url = "/patients/" + id;
+  var description = "[Patient] Verify we cannot delete non-existing Patient";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
+}
 
-        if coll_url_template:
-            js_coll_url = f'"{coll_url_template}"'
-            for p in all_entity_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_coll_url = js_coll_url.replace(' + ""', '')
+function matchAddedPatient(id, name) {
+  return matchSuccess("[Patient] Create patient " + id);
+}
 
-            # Verify Logic
-            verify_logic = "match = true;"
-            for p in all_entity_params:
-                safe_p = sanitize_param(p)
-                verify_logic += f'\n          if (typeof {safe_p} !== "undefined" && String(items[i].{p}) !== String({safe_p})) match = false;'
-            
-            verify_sig_str = ", ".join([sanitize_param(p) for p in all_entity_params])
+function waitForAnyPatientAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Patient\]\ Create\ patient\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Patient: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Patient\]\ Create\ patient\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  obj["name"] = capturedMap["name"];
+  return obj;
+}
 
-            if primary_key and primary_key in all_entity_params:
-                 sanitized_pk = sanitize_param(primary_key)
-                 js_verify_desc = f'"[{cleanName}] Verify {name} with {primary_key} " + {sanitized_pk} + " exists"'
-            else:
-                 desc_parts = [f'{p} " + {sanitize_param(p)} + "' for p in all_entity_params]
-                 desc_str = " and ".join(desc_parts)
-                 js_verify_desc = f'"[{cleanName}] Verify {name} with {desc_str} exists"'
+function matchAnyPatientAdded() { return bp.EventSet("matchAnyPatientAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Patient]") > -1; }); }
+function waitForPatientAdded(id, name) { var expectedDesc = "[Patient] Create patient " + id; waitFor(matchSuccess(expectedDesc)); }
 
-            lines.append(f'function verify{name}Exists({verify_sig_str}) {{')
-            lines.append(f'  var url = {js_coll_url};')
-            lines.append(f'  bp.log.info("DEBUG VERIFIER for {name}: Arguments=" + JSON.stringify(arguments));')
-            lines.append(f'  var description = {js_verify_desc};')
-            lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {')
-            lines.append('      var items = JSON.parse(response.body);')
-            lines.append('      if (items.results && Array.isArray(items.results)) { items = items.results; }')
-            lines.append('      if (!Array.isArray(items)) items = [items];') 
-            lines.append('      if (Array.isArray(items)) {')
-            lines.append('        for (var i = 0; i < items.length; i++) {')
-            lines.append('          var match = false;')
-            lines.append(f'          {verify_logic}')
-            lines.append('          if (match) return pvg.success("Entity exists");')
-            lines.append('        }')
-            lines.append('      }')
-            lines.append(f'      return pvg.fail("Expected {name} to exist but it does not");')
-            lines.append('    }')
-            lines.append('  });')
-            lines.append('}')
-            lines.append('')
-            
-            lines.append(f'function verify{name}DoesNotExist({verify_sig_str}) {{')
-            lines.append(f'  var url = {js_coll_url};')
-            lines.append(f'  var description = "[{cleanName}] Verify {name} does not exist";')
-            lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {')
-            lines.append('      var items = JSON.parse(response.body);')
-            lines.append('      if (items.results && Array.isArray(items.results)) { items = items.results; }')
-            lines.append('      if (!Array.isArray(items)) items = [items];')
-            lines.append('      if (Array.isArray(items)) {')
-            lines.append('        for (var i = 0; i < items.length; i++) {')
-            lines.append('          var match = false;')
-            lines.append(f'          {verify_logic}')
-            lines.append('          if (match) return pvg.fail("Expected Entity to not exist but it does");')
-            lines.append('        }')
-            lines.append('      }')
-            lines.append(f'      return pvg.success("{name} does not exist");')
-            lines.append('    }')
-            lines.append('  });')
-            lines.append('}')
-            lines.append('')
+function matchDeletedPatient(id) {
+  return bp.EventSet("matchDeletedPatient", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Patient] Delete patient " + id); });
+}
 
-        if "delete" in ops and isinstance(ops["delete"], dict):
-            op_data = ops["delete"]
-            responses = op_data.get("responses", {})
-            success_codes = [int(k) for k in responses.keys() if k.startswith("2")]
-            accepted_codes = sorted(list(set(success_codes + [200, 204, 404])))
-            neg_codes_str = json.dumps(accepted_codes)
-            
-            local_sig_params = _get_op_specific_params(op_data, "delete", primary_key, raw_spec)
-            sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
-            
-            js_url = f'"{op_data.get("path", "")}"'
-            for p in local_sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_url = js_url.replace(' + ""', '')
-            lines.append(f'function tryToDeleteANonExisting{name}({sig_args_str}) {{')
-            lines.append(f'  var url = {js_url};')
-            lines.append(f'  var description = "[{cleanName}] Verify we cannot delete non-existing {name}";')
-            lines.append(f'  svc.delete(url, {{ expectedResponseCodes: {neg_codes_str}, parameters: {{ description: description }} }});')
-            lines.append('}')
-            lines.append('')
+function waitForAnyPatientDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Patient\]\ Delete\ patient\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Patient\]\ Delete\ patient\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  obj["name"] = capturedMap["name"];
+  return obj;
+}
 
-        if "add" in ops and isinstance(ops["add"], dict):
-            op = ops["add"]
-            desc_tmpl = op.get("descriptionTemplate", "")
-            if not desc_tmpl: desc_tmpl = f"Create {displayName}"
-            if not desc_tmpl.startswith(f"[{cleanName}]"): desc_tmpl = f"[{cleanName}] {desc_tmpl}"
-            if primary_key and primary_key in all_entity_params:
-                if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
-            
-            regex, regex_params = _generate_strict_regex(desc_tmpl)
-            
-            local_sig_params = _get_op_specific_params(op, "add", primary_key, raw_spec)
-            sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
+// ---- Entity: order ----
+function createOrder(id) {
+  bp.log.info("DEBUG INTERFACE createOrder: called with args=" + JSON.stringify(arguments));
+  var url = "/orders";
+  var description = "[Order] Create order " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
 
-            matcher_name = f"matchAdded{name}"
-            lines.append(f'function {matcher_name}({sig_args_str}) {{')
-            js_expected_desc = f'"{desc_tmpl}"'
-            for p in local_sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_expected_desc = js_expected_desc.replace(' + ""', '')
-            lines.append(f'  return matchSuccess({js_expected_desc});')
-            lines.append('}')
-            lines.append('')
+function getOrder(id) {
+  bp.log.info("DEBUG INTERFACE getOrder: called with args=" + JSON.stringify(arguments));
+  var url = "/orders/" + id;
+  var description = "[Order] Get order " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
 
-            lines.append(f'function waitForAny{name}Added() {{')
-            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
-            lines.append(f'  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) {{ bp.log.info("DEBUG MATCHER for {name}: Matched event: " + ev.data.parameters.description); }}')
-            lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
-            lines.append('  var captures = m.slice(1);')
-            lines.append(f'  var names = {json.dumps(regex_params)};')
-            lines.append('  var capturedMap = {};')
-            lines.append('  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }')
-            lines.append('  var obj = {};')
-            for param in all_entity_params: lines.append(f'  obj["{param}"] = capturedMap["{param}"];')
-            lines.append('  return obj;')
-            lines.append('}')
-            lines.append('')
+function updateOrder(id) {
+  bp.log.info("DEBUG INTERFACE updateOrder: called with args=" + JSON.stringify(arguments));
+  var url = "/orders/" + id;
+  var description = "[Order] Update order " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
 
-            lines.append(f'function matchAny{name}Added() {{ return bp.EventSet("matchAny{name}Added", function(e) {{ return e.name.startsWith("Done: ") && e.name.indexOf("[{cleanName}]") > -1; }}); }}')
-            lines.append(f'function waitFor{name}Added({sig_args_str}) {{ var expectedDesc = {js_expected_desc}; waitFor(matchSuccess(expectedDesc)); }}')
-            lines.append('')
+function deleteOrder(id) {
+  bp.log.info("DEBUG INTERFACE deleteOrder: called with args=" + JSON.stringify(arguments));
+  var url = "/orders/" + id;
+  var description = "[Order] Delete order " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
 
-        if "delete" in ops and isinstance(ops["delete"], dict):
-            op = ops["delete"]
-            desc_tmpl = op.get("descriptionTemplate", "")
-            if not desc_tmpl: desc_tmpl = f"Delete {displayName}"
-            if not desc_tmpl.startswith(f"[{cleanName}]"): desc_tmpl = f"[{cleanName}] {desc_tmpl}"
-            if primary_key and primary_key in all_entity_params:
-                if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
-            
-            regex, params = _generate_strict_regex(desc_tmpl)
-            
-            local_sig_params = _get_op_specific_params(op, "delete", primary_key, raw_spec)
-            sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
+function tryToAddExistingOrder(id) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingOrder: called with args=" + JSON.stringify(arguments));
+  var url = "/orders";
+  var description = "[tryToAddExistingOrder] [Order] Try Add Existing with id " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+}
 
-            matcher_name = f"matchDeleted{name}"
-            lines.append(f'function {matcher_name}({sig_args_str}) {{')
-            js_expected_desc = f'"{desc_tmpl}"'
-            for p in local_sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_expected_desc = js_expected_desc.replace(' + ""', '')
-            lines.append(f'  return bp.EventSet("matchDeleted{name}", function(e) {{ return !!(e.data && e.data.parameters && e.data.parameters.description === {js_expected_desc}); }});')
-            lines.append('}')
-            lines.append('')
-            
-            lines.append(f'function waitForAny{name}Deleted() {{')
-            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
-            lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
-            lines.append('  var captures = m.slice(1);')
-            lines.append(f'  var names = {json.dumps(params)};')
-            lines.append('  var capturedMap = {};')
-            lines.append('  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }')
-            lines.append('  var obj = {};')
-            for param in all_entity_params: lines.append(f'  obj["{param}"] = capturedMap["{param}"];')
-            lines.append('  return obj;')
-            lines.append('}')
-            lines.append('')
+function verifyOrderExists(id) {
+  var url = "/orders";
+  bp.log.info("DEBUG VERIFIER for Order: Arguments=" + JSON.stringify(arguments));
+  var description = "[Order] Verify Order with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (match) return pvg.success("Entity exists");
+        }
+      }
+      return pvg.fail("Expected Order to exist but it does not");
+    }
+  });
+}
 
-    ensure_dir(out_dir)
-    (out_dir / "interfaces.readable.js").write_text("\n".join(lines), encoding="utf-8")
+function verifyOrderDoesNotExist(id) {
+  var url = "/orders";
+  var description = "[Order] Verify Order does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
+        }
+      }
+      return pvg.success("Order does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingOrder(id) {
+  var url = "/orders/" + id;
+  var description = "[Order] Verify we cannot delete non-existing Order";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
+}
+
+function matchAddedOrder(id) {
+  return matchSuccess("[Order] Create order " + id);
+}
+
+function waitForAnyOrderAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Order\]\ Create\ order\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Order: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Order\]\ Create\ order\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  return obj;
+}
+
+function matchAnyOrderAdded() { return bp.EventSet("matchAnyOrderAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Order]") > -1; }); }
+function waitForOrderAdded(id) { var expectedDesc = "[Order] Create order " + id; waitFor(matchSuccess(expectedDesc)); }
+
+function matchDeletedOrder(id) {
+  return bp.EventSet("matchDeletedOrder", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Order] Delete order " + id); });
+}
+
+function waitForAnyOrderDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Order\]\ Delete\ order\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Order\]\ Delete\ order\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  return obj;
+}
+
+// ---- Entity: prescription ----
+function createPrescription(id) {
+  bp.log.info("DEBUG INTERFACE createPrescription: called with args=" + JSON.stringify(arguments));
+  var url = "/prescriptions";
+  var description = "[Prescription] Create prescription " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function getPrescription(id) {
+  bp.log.info("DEBUG INTERFACE getPrescription: called with args=" + JSON.stringify(arguments));
+  var url = "/prescriptions/" + id;
+  var description = "[Prescription] Get prescription " + id;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function updatePrescription(id) {
+  bp.log.info("DEBUG INTERFACE updatePrescription: called with args=" + JSON.stringify(arguments));
+  var url = "/prescriptions/" + id;
+  var description = "[Prescription] Update prescription " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { id: String(id) }) });
+}
+
+function deletePrescription(id) {
+  bp.log.info("DEBUG INTERFACE deletePrescription: called with args=" + JSON.stringify(arguments));
+  var url = "/prescriptions/" + id;
+  var description = "[Prescription] Delete prescription " + id;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function tryToAddExistingPrescription(id) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingPrescription: called with args=" + JSON.stringify(arguments));
+  var url = "/prescriptions";
+  var description = "[tryToAddExistingPrescription] [Prescription] Try Add Existing with id " + id;
+  var body = {
+    "id": String(id),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description,
+      id: String(id),
+    }
+  });
+}
+
+function verifyPrescriptionExists(id) {
+  var url = "/prescriptions";
+  bp.log.info("DEBUG VERIFIER for Prescription: Arguments=" + JSON.stringify(arguments));
+  var description = "[Prescription] Verify Prescription with id " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (match) return pvg.success("Entity exists");
+        }
+      }
+      return pvg.fail("Expected Prescription to exist but it does not");
+    }
+  });
+}
+
+function verifyPrescriptionDoesNotExist(id) {
+  var url = "/prescriptions";
+  var description = "[Prescription] Verify Prescription does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof id !== "undefined" && String(items[i].id) !== String(id)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
+        }
+      }
+      return pvg.success("Prescription does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingPrescription(id) {
+  var url = "/prescriptions/" + id;
+  var description = "[Prescription] Verify we cannot delete non-existing Prescription";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
+}
+
+function matchAddedPrescription(id) {
+  return matchSuccess("[Prescription] Create prescription " + id);
+}
+
+function waitForAnyPrescriptionAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Prescription\]\ Create\ prescription\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Prescription: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Prescription\]\ Create\ prescription\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  return obj;
+}
+
+function matchAnyPrescriptionAdded() { return bp.EventSet("matchAnyPrescriptionAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Prescription]") > -1; }); }
+function waitForPrescriptionAdded(id) { var expectedDesc = "[Prescription] Create prescription " + id; waitFor(matchSuccess(expectedDesc)); }
+
+function matchDeletedPrescription(id) {
+  return bp.EventSet("matchDeletedPrescription", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Prescription] Delete prescription " + id); });
+}
+
+function waitForAnyPrescriptionDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Prescription\]\ Delete\ prescription\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Prescription\]\ Delete\ prescription\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["id"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["id"] = capturedMap["id"];
+  return obj;
+}
+
+// ---- Entity: inventory ----
+function createInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE createInventory: called with args=" + JSON.stringify(arguments));
+  var url = "/inventory";
+  var description = "[Inventory] Create inventory " + ndc;
+  var body = {
+    "ndc": String(ndc),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [201, 400, 409],
+    parameters: { description: description,
+      ndc: String(ndc),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { ndc: String(ndc) }) });
+}
+
+function getInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE getInventory: called with args=" + JSON.stringify(arguments));
+  var url = "/inventory/" + ndc;
+  var description = "[Inventory] Get inventory " + ndc;
+  var body = undefined;
+  svc.get(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function updateInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE updateInventory: called with args=" + JSON.stringify(arguments));
+  var url = "/inventory/" + ndc;
+  var description = "[Inventory] Update inventory " + ndc;
+  var body = {
+    "ndc": String(ndc),
+  };
+  svc.put(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [200],
+    parameters: { description: description,
+      ndc: String(ndc),
+    }
+  });
+  bp.sync({ request: bp.Event("Done: " + description, { ndc: String(ndc) }) });
+}
+
+function deleteInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE deleteInventory: called with args=" + JSON.stringify(arguments));
+  var url = "/inventory/" + ndc;
+  var description = "[Inventory] Delete inventory " + ndc;
+  var body = undefined;
+  svc.delete(url, {
+    parameters: { description: description },
+    expectedResponseCodes: [200, 204],
+    callback: function(response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+          try {
+              var items = JSON.parse(response.body);
+              if(items.results) items = items.results;
+              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));
+          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }
+      }
+    }
+  });
+}
+
+function tryToAddExistingInventory(ndc) {
+  bp.log.info("DEBUG INTERFACE tryToAddExistingInventory: called with args=" + JSON.stringify(arguments));
+  var url = "/inventory";
+  var description = "[tryToAddExistingInventory] [Inventory] Try Add Existing with ndc " + ndc;
+  var body = {
+    "ndc": String(ndc),
+  };
+  svc.post(url, {
+    body: JSON.stringify(body),
+    expectedResponseCodes: [400, 409],
+    parameters: { description: description,
+      ndc: String(ndc),
+    }
+  });
+}
+
+function verifyInventoryExists(ndc) {
+  var url = "/inventory";
+  bp.log.info("DEBUG VERIFIER for Inventory: Arguments=" + JSON.stringify(arguments));
+  var description = "[Inventory] Verify Inventory with ndc " + ndc + " exists";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof ndc !== "undefined" && String(items[i].ndc) !== String(ndc)) match = false;
+          if (match) return pvg.success("Entity exists");
+        }
+      }
+      return pvg.fail("Expected Inventory to exist but it does not");
+    }
+  });
+}
+
+function verifyInventoryDoesNotExist(ndc) {
+  var url = "/inventory";
+  var description = "[Inventory] Verify Inventory does not exist";
+  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {
+      var items = JSON.parse(response.body);
+      if (items.results && Array.isArray(items.results)) { items = items.results; }
+      if (!Array.isArray(items)) items = [items];
+      if (Array.isArray(items)) {
+        for (var i = 0; i < items.length; i++) {
+          var match = false;
+          match = true;
+          if (typeof ndc !== "undefined" && String(items[i].ndc) !== String(ndc)) match = false;
+          if (match) return pvg.fail("Expected Entity to not exist but it does");
+        }
+      }
+      return pvg.success("Inventory does not exist");
+    }
+  });
+}
+
+function tryToDeleteANonExistingInventory(ndc) {
+  var url = "/inventory/" + ndc;
+  var description = "[Inventory] Verify we cannot delete non-existing Inventory";
+  svc.delete(url, { expectedResponseCodes: [200, 204, 404], parameters: { description: description } });
+}
+
+function matchAddedInventory(ndc) {
+  return matchSuccess("[Inventory] Create inventory " + ndc);
+}
+
+function waitForAnyInventoryAdded() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Inventory\]\ Create\ inventory\ (.*?)$/));
+  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) { bp.log.info("DEBUG MATCHER for Inventory: Matched event: " + ev.data.parameters.description); }
+  var m = ev.data.parameters.description.match(/^\[Inventory\]\ Create\ inventory\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["ndc"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["ndc"] = capturedMap["ndc"];
+  return obj;
+}
+
+function matchAnyInventoryAdded() { return bp.EventSet("matchAnyInventoryAdded", function(e) { return e.name.startsWith("Done: ") && e.name.indexOf("[Inventory]") > -1; }); }
+function waitForInventoryAdded(ndc) { var expectedDesc = "[Inventory] Create inventory " + ndc; waitFor(matchSuccess(expectedDesc)); }
+
+function matchDeletedInventory(ndc) {
+  return bp.EventSet("matchDeletedInventory", function(e) { return !!(e.data && e.data.parameters && e.data.parameters.description === "[Inventory] Delete inventory " + ndc); });
+}
+
+function waitForAnyInventoryDeleted() {
+  var ev = waitFor(matchesDescriptionRegex(/^\[Inventory\]\ Delete\ inventory\ (.*?)$/));
+  var m = ev.data.parameters.description.match(/^\[Inventory\]\ Delete\ inventory\ (.*?)$/);
+  var captures = m.slice(1);
+  var names = ["ndc"];
+  var capturedMap = {};
+  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }
+  var obj = {};
+  obj["ndc"] = capturedMap["ndc"];
+  return obj;
+}

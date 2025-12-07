@@ -4,29 +4,14 @@ from pathlib import Path
 from urllib.parse import urlparse
 from typing import Dict, Any
 
-# Import shared utils
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, render_body_js, 
     get_raw_spec, get_response_codes, 
     infer_type, collect_entity_params
 )
 
-# --- LOCAL UTILS ---
-def _is_valid_js_identifier(name: str) -> bool:
-    if not name or not isinstance(name, str): return False
-    if "..." in name or "…" in name or name.strip() == "": return False
-    return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
-
-def _generate_strict_regex(template: str):
-    params = re.findall(r'\{([a-zA-Z0-9_]+)\}', template)
-    parts = re.split(r'\{[a-zA-Z0-9_]+\}', template)
-    regex_str = "^"
-    for i, part in enumerate(parts):
-        regex_str += re.escape(part)
-        if i < len(params):
-            regex_str += "(.*?)"
-    regex_str += "$"
-    return regex_str, params
+# ... (Keep Local Utils: _local_resolve_schema, _local_get_operation_schema, _is_valid_js_identifier, _generate_strict_regex, _get_op_specific_params) ...
+# (I am repeating them for completeness to ensure you have a working file)
 
 def _local_resolve_schema(schema, full_spec):
     if not schema: return {}
@@ -69,6 +54,21 @@ def _local_get_operation_schema(path, method, raw_spec):
     required = resolved_schema.get("required", [])
     return resolved_schema, required
 
+def _is_valid_js_identifier(name: str) -> bool:
+    if not name or not isinstance(name, str): return False
+    if "..." in name or "…" in name or name.strip() == "": return False
+    return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
+
+def _generate_strict_regex(template: str):
+    params = re.findall(r'\{([a-zA-Z0-9_]+)\}', template)
+    parts = re.split(r'\{[a-zA-Z0-9_]+\}', template)
+    regex_str = "^"
+    for i, part in enumerate(parts):
+        regex_str += re.escape(part)
+        if i < len(params): regex_str += "(.*?)"
+    regex_str += "$"
+    return regex_str, params
+
 def _get_op_specific_params(op, op_type, primary_key):
     local_params = []
     local_params.extend(op.get("params", []))
@@ -110,32 +110,28 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         else:
             b_lines = ["{"]
             
-            # --- FOOLPROOF BODY GENERATION ---
-            # Instead of complex candidate merging, we iterate SIG_PARAMS directly.
-            # If it's in the signature, put it in the body.
-            
-            # 1. Get Schema Props for Type Inference
+            # --- NUCLEAR FIX: Iterate sig_params DIRECTLY ---
+            # Helper schema lookup just for types
             schema, _ = _local_get_operation_schema(path_tmpl, method, raw_spec)
             props = schema.get("properties", {})
             
-            # 2. Add extra candidates that might be hardcoded in schema but not in sig (optional)
-            # For simplicity and robustness, we focus on what the function receives.
-            
-            # 3. Build Body from Signature
             for field in sig_params:
                 if not _is_valid_js_identifier(field): continue
                 
-                val_expr = "null"
-                f_type = props.get(field, {}).get("type", "string")
-                f_type = infer_type(field, f_type)
                 sanitized = sanitize_param(field)
                 
+                # Determine type
+                f_type = props.get(field, {}).get("type", "string")
+                f_type = infer_type(field, f_type)
+                
+                val_expr = ""
                 if f_type in ["integer", "number"]: val_expr = f'Number({sanitized})'
                 elif f_type == "boolean": val_expr = f'{sanitized}'
                 elif f_type == "object": val_expr = f'{sanitized}'
                 else: val_expr = f'String({sanitized})'
 
                 b_lines.append(f'    "{field}": {val_expr},')
+            
             b_lines.append("  }")
             body_js = "\n".join(b_lines)
 
@@ -146,8 +142,13 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     lines.append(f'  bp.log.info("DEBUG INTERFACE {fn_name}: called with args=" + JSON.stringify(arguments));')
     lines.append(f'  var url = {js_url};')
     lines.append(f'  var description = {js_desc};')
-    if method in ["POST", "PUT", "PATCH"]: lines.append(f'  var body = {body_js};')
-    else: lines.append(f'  var body = undefined;')
+    
+    if method in ["POST", "PUT", "PATCH"]: 
+        lines.append(f'  var body = {body_js};')
+        # --- RUNTIME DEBUG: Print Body ---
+        lines.append(f'  bp.log.info("DEBUG INTERFACE {fn_name}: Sending Body=" + JSON.stringify(body));')
+    else: 
+        lines.append(f'  var body = undefined;')
     
     if codes_override: codes_str = json.dumps(codes_override)
     else:
@@ -179,6 +180,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append('          try {')
         lines.append('              var items = JSON.parse(response.body);')
         lines.append('              if(items.results) items = items.results;')
+        # lines.append('              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));')
         lines.append('          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }')
         lines.append('      }')
         lines.append('    }')
@@ -187,7 +189,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
-    print("DEBUG: Generating Interfaces with FOOLPROOF Logic")
+    print("DEBUG: Running interface_emitter.py VERSION DEBUG_BODY")
     base_url = spec.get("base_url", "http://localhost:8080")
     parsed = urlparse(base_url)
     default_scheme = parsed.scheme or "http"
@@ -215,7 +217,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
         primary_key, all_entity_params = collect_entity_params(name, ent, raw_spec)
         all_entity_params = [p for p in all_entity_params if _is_valid_js_identifier(p)]
         
-        # HEURISTIC: Force add params from potential schemas
         candidates = [name, name.capitalize(), name.upper(), name+"Create", name.capitalize()+"Create"]
         comps = raw_spec.get("components", {}).get("schemas", {})
         for cand in candidates:
@@ -226,6 +227,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                          all_entity_params.append(k)
 
         all_entity_params = sorted(list(set(all_entity_params)))
+        print(f"DEBUG GEN: Entity {name} params: {all_entity_params}")
         
         ops = ent.get("operations", {})
 
@@ -233,8 +235,10 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             if not op_type == "verifyExists" and (not op_data or not isinstance(op_data, dict)): continue
             fn_name = op_data.get("name", f"{op_type}{name}")
             
-            # FIX: Create/Update uses ALL params
-            if op_type in ["add", "update"]:
+            is_create = str(op_type).lower() in ["add", "create", "post", "update", "put"]
+            if not is_create and ("create" in fn_name.lower() or "add" in fn_name.lower()): is_create = True
+            
+            if is_create:
                 local_sig_params = all_entity_params
             else:
                 local_sig_params = _get_op_specific_params(op_data, op_type, primary_key)
@@ -262,10 +266,14 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             for p in all_entity_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
             js_coll_url = js_coll_url.replace(' + ""', '')
 
+            # --- ROBUST VERIFY LOGIC ---
             verify_logic = "match = true;"
+            verify_logic += f'\n          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));'
             for p in all_entity_params:
                 safe_p = sanitize_param(p)
-                verify_logic += f'\n          if (typeof {safe_p} !== "undefined" && String(items[i].{p}) !== String({safe_p})) match = false;'
+                verify_logic += f'\n          if (typeof {safe_p} !== "undefined") {{'
+                verify_logic += f'\n             if (String(items[i].{p}) !== String({safe_p})) {{ match = false; bp.log.info("  Mismatch {p}: " + items[i].{p} + " != " + {safe_p}); }}'
+                verify_logic += f'\n          }}'
             
             verify_sig_str = ", ".join([sanitize_param(p) for p in all_entity_params])
 
@@ -320,12 +328,15 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
 
         if "delete" in ops and isinstance(ops["delete"], dict):
             op_data = ops["delete"]
+            # --- FIX: UNIVERSAL NEGATIVE TEST ---
             responses = op_data.get("responses", {})
             success_codes = [int(k) for k in responses.keys() if k.startswith("2")]
             accepted_codes = sorted(list(set(success_codes + [200, 204, 404])))
             neg_codes_str = json.dumps(accepted_codes)
+            
             local_sig_params = _get_op_specific_params(op_data, "delete", primary_key)
             sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
+            
             js_url = f'"{op_data.get("path", "")}"'
             for p in local_sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
             js_url = js_url.replace(' + ""', '')
