@@ -1,7 +1,7 @@
 from pathlib import Path
 import json
 import re
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple, Set
 
 # --- JavaScript Reserved Words ---
 JS_RESERVED = {
@@ -117,24 +117,41 @@ def infer_type(param_name, known_type="string"):
     if lower in ["active", "enabled", "visible"]: return "boolean"
     return "string"
 
-def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, Any]) -> Tuple[str, List[str]]:
+def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, Any]) -> Tuple[List[str], List[str]]:
+    """
+    Collects parameters and structurally identifies keys.
+    Returns: (list_of_keys, list_of_all_params)
+    """
     ops = ent.get("operations", {})
     
-    primary_key = None
-    check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
-    for op in check_ops:
-        if op and isinstance(op, dict) and '{' in op.get('path', ''):
-            matches = re.findall(r'\{([^}]+)\}', op['path'])
-            if matches:
-                primary_key = matches[0]
-                break
+    # 1. STRUCTURAL KEY DETECTION
+    # We look for path parameters in DELETE or GET operations.
+    # e.g., DELETE /loans/{userId}/{bookId} implies keys are [userId, bookId]
+    keys = []
     
-    if not primary_key: primary_key = "id"
+    # Prioritize DELETE (usually operates on specific instance)
+    if "delete" in ops and isinstance(ops["delete"], dict):
+        path = ops["delete"].get("path", "")
+        # Find all content inside {braces}
+        found = re.findall(r'\{([^\}]+)\}', path)
+        if found:
+            keys = found
     
+    # Fallback to GET if DELETE didn't yield keys
+    if not keys and "get" in ops and isinstance(ops["get"], dict):
+         path = ops["get"].get("path", "")
+         found = re.findall(r'\{([^\}]+)\}', path)
+         if found:
+             keys = found
+             
+    # Fallback default if nothing found (rare in REST, but safety net)
+    if not keys:
+        keys = ["id"]
+
     all_params_set = set()
-    if primary_key: all_params_set.add(primary_key)
+    for k in keys: all_params_set.add(k)
     
-    # 1. Ops Params
+    # 2. Collect Ops Params
     for op in ops.values():
         if isinstance(op, dict):
             for p in op.get("params", []):
@@ -145,11 +162,11 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
                         clean = v.strip("{}")
                         if clean and clean not in IGNORED_PARAMS and clean != "..." and clean != "…": all_params_set.add(clean)
     
-    # 2. Entity Params
+    # 3. Collect Entity Params
     for p in ent.get("params", []):
         if p and p not in IGNORED_PARAMS and p != "..." and p != "…": all_params_set.add(p)
 
-    # 3. Schema Params
+    # 4. Collect Schema Params (Strict)
     if "add" in ops and isinstance(ops["add"], dict):
         schema, required_fields = get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
         props = schema.get("properties", {})
@@ -158,15 +175,14 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
         for k in required_fields:
             if k and k not in IGNORED_PARAMS and k != "..." and k != "…": all_params_set.add(k)
             
-    # 4. HEURISTIC FALLBACK (Fixed)
-    candidates = [name, name.capitalize(), name.upper(), name+"Create", name.capitalize()+"Create"]
+    # 5. HEURISTIC FALLBACK (Schema Scanning)
+    candidates = [name, name.capitalize(), name.upper(), name + "Create", name.capitalize() + "Create"]
     schemas = raw_spec.get("components", {}).get("schemas", {})
     for cand in candidates:
         if cand in schemas:
             resolved = resolve_schema(schemas[cand], raw_spec)
             if "properties" in resolved:
                 for k in resolved["properties"].keys():
-                     # FIX: Explicitly check IGNORED_PARAMS
                      if k and k not in IGNORED_PARAMS and k != "..." and k != "…": all_params_set.add(k)
         
-    return primary_key, sorted(list(all_params_set))
+    return keys, sorted(list(all_params_set))

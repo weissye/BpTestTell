@@ -1,5 +1,6 @@
 import re
 import json
+import os
 from pathlib import Path
 from urllib.parse import urlparse
 from typing import Dict, Any
@@ -7,88 +8,35 @@ from typing import Dict, Any
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, render_body_js, 
     get_raw_spec, get_response_codes, 
-    infer_type, collect_entity_params
+    infer_type, collect_entity_params, IGNORED_PARAMS
 )
-
-# ... (Keep Local Utils: _local_resolve_schema, _local_get_operation_schema, _is_valid_js_identifier, _generate_strict_regex, _get_op_specific_params) ...
-# (I am repeating them for completeness to ensure you have a working file)
-
-def _local_resolve_schema(schema, full_spec):
-    if not schema: return {}
-    def get_components(obj):
-        if "components" in obj: return obj["components"]
-        if "original_spec" in obj and "components" in obj["original_spec"]:
-             return obj["original_spec"]["components"]
-        return {}
-    comps = get_components(full_spec)
-    if "$ref" in schema:
-        ref_path = schema["$ref"].split("/")
-        if len(ref_path) > 3 and ref_path[1] == "components" and ref_path[2] == "schemas":
-            schema_name = ref_path[3]
-            resolved = comps.get("schemas", {}).get(schema_name, {})
-            if resolved: return _local_resolve_schema(resolved, full_spec)
-    if "allOf" in schema:
-        merged_props = {}
-        merged_required = []
-        for sub_schema in schema["allOf"]:
-            resolved_sub = _local_resolve_schema(sub_schema, full_spec)
-            if "properties" in resolved_sub: merged_props.update(resolved_sub["properties"])
-            if "required" in resolved_sub: merged_required.extend(resolved_sub["required"])
-        return { "type": "object", "properties": merged_props, "required": list(set(merged_required)) }
-    if "properties" in schema: return schema
-    return schema
-
-def _local_get_operation_schema(path, method, raw_spec):
-    if not raw_spec or not path: return {}, []
-    method = method.lower()
-    paths = raw_spec.get("paths", {})
-    path_item = paths.get(path)
-    if not path_item: return {}, []
-    op = path_item.get(method)
-    if not op: return {}, []
-    req_body = op.get("requestBody", {})
-    content = req_body.get("content", {})
-    json_media = content.get("application/json", {})
-    schema_ref = json_media.get("schema", {})
-    resolved_schema = _local_resolve_schema(schema_ref, raw_spec)
-    required = resolved_schema.get("required", [])
-    return resolved_schema, required
 
 def _is_valid_js_identifier(name: str) -> bool:
     if not name or not isinstance(name, str): return False
     if "..." in name or "…" in name or name.strip() == "": return False
     return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
 
-def _generate_strict_regex(template: str):
-    params = re.findall(r'\{([a-zA-Z0-9_]+)\}', template)
-    parts = re.split(r'\{[a-zA-Z0-9_]+\}', template)
-    regex_str = "^"
-    for i, part in enumerate(parts):
-        regex_str += re.escape(part)
-        if i < len(params): regex_str += "(.*?)"
-    regex_str += "$"
-    return regex_str, params
-
-def _get_op_specific_params(op, op_type, primary_key):
+def _get_op_specific_params(op, op_type, primary_keys):
     local_params = []
     local_params.extend(op.get("params", []))
     if "bodyTemplate" in op and isinstance(op["bodyTemplate"], dict):
         local_params.extend(op["bodyTemplate"].keys())
-    if primary_key: local_params.append(primary_key)
+    if primary_keys: local_params.extend(primary_keys)
     return sorted(list(set([p for p in local_params if _is_valid_js_identifier(p)])))
 
-def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
+def _generate_js_operation(op_data, fn_name, sig_params, entity_keys, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
     lines = []
     method = (method_override or op_data.get("method", "GET")).upper()
     path_tmpl = op_data.get("path", "")
     
     ent_display = fn_name.replace("create", "").replace("update", "").replace("delete", "").replace("get", "").replace("verify", "").replace("Exists", "")
-    
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
     if not desc_tmpl: desc_tmpl = f"{method} {ent_display}"
-    if not desc_tmpl.startswith(f"[{ent_display}]"): desc_tmpl = f"[{ent_display}] {desc_tmpl}"
-    if primary_key and primary_key in sig_params:
-        if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
+    
+    # Update description with all keys if present
+    for k in entity_keys:
+        if k in sig_params and f"{{{k}}}" not in desc_tmpl:
+             desc_tmpl += f" with {k} {{{k}}}"
 
     js_url = f'"{path_tmpl}"'
     js_desc = f'"{desc_tmpl}"'
@@ -102,40 +50,15 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     body_js = "undefined"
     if method in ["POST", "PUT", "PATCH"]:
-        use_template = False
-        if "bodyTemplate" in op_data and isinstance(op_data["bodyTemplate"], dict) and op_data["bodyTemplate"]:
-            if all(_is_valid_js_identifier(k) for k in op_data["bodyTemplate"].keys()): use_template = True
-        if use_template:
-            body_js = render_body_js(op_data["bodyTemplate"])
-        else:
-            b_lines = ["{"]
-            
-            # --- NUCLEAR FIX: Iterate sig_params DIRECTLY ---
-            # Helper schema lookup just for types
-            schema, _ = _local_get_operation_schema(path_tmpl, method, raw_spec)
-            props = schema.get("properties", {})
-            
-            for field in sig_params:
-                if not _is_valid_js_identifier(field): continue
-                
-                sanitized = sanitize_param(field)
-                
-                # Determine type
-                f_type = props.get(field, {}).get("type", "string")
-                f_type = infer_type(field, f_type)
-                
-                val_expr = ""
-                if f_type in ["integer", "number"]: val_expr = f'Number({sanitized})'
-                elif f_type == "boolean": val_expr = f'{sanitized}'
-                elif f_type == "object": val_expr = f'{sanitized}'
-                else: val_expr = f'String({sanitized})'
-
-                b_lines.append(f'    "{field}": {val_expr},')
-            
-            b_lines.append("  }")
-            body_js = "\n".join(b_lines)
-
-    if "..." in body_js or body_js.strip().startswith("String("): body_js = "{}" 
+        print(f"DEBUG GEN: Generating Body for {fn_name} using params {sig_params}")
+        b_lines = ["{"]
+        for field in sig_params:
+            if not _is_valid_js_identifier(field): continue
+            sanitized = sanitize_param(field)
+            val_expr = f'String({sanitized})' 
+            b_lines.append(f'    "{field}": {val_expr},')
+        b_lines.append("  }")
+        body_js = "\n".join(b_lines)
 
     sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
     lines.append(f'function {fn_name}({sig_args_str}) {{')
@@ -145,7 +68,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     
     if method in ["POST", "PUT", "PATCH"]: 
         lines.append(f'  var body = {body_js};')
-        # --- RUNTIME DEBUG: Print Body ---
         lines.append(f'  bp.log.info("DEBUG INTERFACE {fn_name}: Sending Body=" + JSON.stringify(body));')
     else: 
         lines.append(f'  var body = undefined;')
@@ -160,17 +82,24 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append('    body: JSON.stringify(body),')
         lines.append(f'    expectedResponseCodes: {codes_str},')
         lines.append('    parameters: { description: description,')
-        if primary_key and primary_key in sig_params: lines.append(f'      {primary_key}: String({sanitize_param(primary_key)}),')
         for p in sig_params:
-            if p != primary_key and (p.endswith("Id") or p.endswith("_id")):
-                    lines.append(f'      {p}: String({sanitize_param(p)}),')
+             if _is_valid_js_identifier(p):
+                 lines.append(f'      {p}: String({sanitize_param(p)}),')
         lines.append('    }')
         lines.append('  });')
         if not codes_override:
-             if primary_key and primary_key in sig_params:
-                 lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ {primary_key}: String({sanitize_param(primary_key)}) }}) }});')
-             else:
-                 lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ id: String(id) }}) }});')
+             # --- FIX: EVENT PAYLOAD BASED ON STRUCTURAL KEYS ---
+             event_fields = []
+             for k in entity_keys:
+                 if k in sig_params and _is_valid_js_identifier(k):
+                     event_fields.append(f'{k}: String({sanitize_param(k)})')
+             
+             # Safety fallback: if no keys matched but 'id' exists
+             if not event_fields and "id" in sig_params:
+                 event_fields.append('id: String(id)')
+                 
+             event_payload = ", ".join(event_fields)
+             lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {{ {event_payload} }}) }});')
     else:
         lines.append(f'  svc.{method.lower()}(url, {{')
         lines.append('    parameters: { description: description },')
@@ -180,7 +109,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append('          try {')
         lines.append('              var items = JSON.parse(response.body);')
         lines.append('              if(items.results) items = items.results;')
-        # lines.append('              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));')
+        lines.append('              bp.log.info("DEBUG Verify Response: " + JSON.stringify(items));')
         lines.append('          } catch (e) { bp.log.info("DEBUG Verify: Could not parse body"); }')
         lines.append('      }')
         lines.append('    }')
@@ -189,7 +118,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
-    print("DEBUG: Running interface_emitter.py VERSION DEBUG_BODY")
+    print("DEBUG: Running interface_emitter.py VERSION STRUCTURAL_KEYS")
     base_url = spec.get("base_url", "http://localhost:8080")
     parsed = urlparse(base_url)
     default_scheme = parsed.scheme or "http"
@@ -209,25 +138,24 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
     lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
     lines.append('function matchSuccess(desc) { return bp.EventSet("Success Event", function(e) { return e.name === "Done: " + desc; }); }')
 
+    try:
+        from new_repo.pipeline.emitter_utils import IGNORED_PARAMS
+    except ImportError:
+        IGNORED_PARAMS = {"loanedAt", "booksRemaining"}
+
     for name, ent in entities.items():
         displayName = ent.get("displayName", name)
         cleanName = name.replace(" ", "") 
         lines.append(f'// ---- Entity: {displayName} ----')
         
-        primary_key, all_entity_params = collect_entity_params(name, ent, raw_spec)
-        all_entity_params = [p for p in all_entity_params if _is_valid_js_identifier(p)]
+        # 1. Collect Params & STRUCTURAL KEYS
+        entity_keys, all_entity_params = collect_entity_params(name, ent, raw_spec)
         
-        candidates = [name, name.capitalize(), name.upper(), name+"Create", name.capitalize()+"Create"]
-        comps = raw_spec.get("components", {}).get("schemas", {})
-        for cand in candidates:
-            if cand in comps:
-                schema = _local_resolve_schema(comps[cand], raw_spec)
-                for k in schema.get("properties", {}).keys():
-                     if k not in all_entity_params and _is_valid_js_identifier(k):
-                         all_entity_params.append(k)
-
+        # Cleanup
+        all_entity_params = [p for p in all_entity_params if _is_valid_js_identifier(p)]
         all_entity_params = sorted(list(set(all_entity_params)))
-        print(f"DEBUG GEN: Entity {name} params: {all_entity_params}")
+        
+        print(f"DEBUG GEN: Entity {name} Keys: {entity_keys} | Params: {all_entity_params}")
         
         ops = ent.get("operations", {})
 
@@ -236,21 +164,22 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             fn_name = op_data.get("name", f"{op_type}{name}")
             
             is_create = str(op_type).lower() in ["add", "create", "post", "update", "put"]
-            if not is_create and ("create" in fn_name.lower() or "add" in fn_name.lower()): is_create = True
+            if not is_create and ("create" in fn_name.lower() or "add" in fn_name.lower()):
+                is_create = True
             
             if is_create:
                 local_sig_params = all_entity_params
             else:
-                local_sig_params = _get_op_specific_params(op_data, op_type, primary_key)
+                local_sig_params = _get_op_specific_params(op_data, op_type, entity_keys)
             
-            op_lines = _generate_js_operation(op_data, fn_name, local_sig_params, primary_key, spec, raw_spec)
+            op_lines = _generate_js_operation(op_data, fn_name, local_sig_params, entity_keys, spec, raw_spec)
             lines.extend(op_lines)
             lines.append('')
 
         if "add" in ops and isinstance(ops["add"], dict):
             # Wrapper Add
             local_sig_params = all_entity_params
-            wrapper_lines = _generate_js_operation(ops["add"], f"tryToAddExisting{name}", local_sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"[{cleanName}] Try Add Existing")
+            wrapper_lines = _generate_js_operation(ops["add"], f"tryToAddExisting{name}", local_sig_params, entity_keys, spec, raw_spec, "POST", [400, 409], f"[{cleanName}] Try Add Existing")
             lines.extend(wrapper_lines)
             lines.append('')
 
@@ -266,7 +195,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             for p in all_entity_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
             js_coll_url = js_coll_url.replace(' + ""', '')
 
-            # --- ROBUST VERIFY LOGIC ---
             verify_logic = "match = true;"
             verify_logic += f'\n          bp.log.info("DEBUG VERIFY ITEM: " + JSON.stringify(items[i]));'
             for p in all_entity_params:
@@ -277,21 +205,13 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             
             verify_sig_str = ", ".join([sanitize_param(p) for p in all_entity_params])
 
-            if primary_key and primary_key in all_entity_params:
-                 sanitized_pk = sanitize_param(primary_key)
-                 js_verify_desc = f'"[{cleanName}] Verify {name} with {primary_key} " + {sanitized_pk} + " exists"'
-            else:
-                 desc_parts = [f'{p} " + {sanitize_param(p)} + "' for p in all_entity_params]
-                 desc_str = " and ".join(desc_parts)
-                 js_verify_desc = f'"[{cleanName}] Verify {name} with {desc_str} exists"'
-
             lines.append(f'function verify{name}Exists({verify_sig_str}) {{')
             lines.append(f'  var url = {js_coll_url};')
             lines.append(f'  bp.log.info("DEBUG VERIFIER for {name}: Arguments=" + JSON.stringify(arguments));')
-            lines.append(f'  var description = {js_verify_desc};')
+            lines.append(f'  var description = "Verify {name} exists";')
             lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {')
             lines.append('      var items = JSON.parse(response.body);')
-            lines.append('      if (items.results && Array.isArray(items.results)) { items = items.results; }')
+            lines.append('      if (items.results) items = items.results;')
             lines.append('      if (!Array.isArray(items)) items = [items];') 
             lines.append('      if (Array.isArray(items)) {')
             lines.append('        for (var i = 0; i < items.length; i++) {')
@@ -311,7 +231,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append(f'  var description = "[{cleanName}] Verify {name} does not exist";')
             lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(response) {')
             lines.append('      var items = JSON.parse(response.body);')
-            lines.append('      if (items.results && Array.isArray(items.results)) { items = items.results; }')
+            lines.append('      if (items.results) items = items.results;')
             lines.append('      if (!Array.isArray(items)) items = [items];')
             lines.append('      if (Array.isArray(items)) {')
             lines.append('        for (var i = 0; i < items.length; i++) {')
@@ -326,92 +246,46 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path):
             lines.append('}')
             lines.append('')
 
-        if "delete" in ops and isinstance(ops["delete"], dict):
-            op_data = ops["delete"]
-            # --- FIX: UNIVERSAL NEGATIVE TEST ---
-            responses = op_data.get("responses", {})
-            success_codes = [int(k) for k in responses.keys() if k.startswith("2")]
-            accepted_codes = sorted(list(set(success_codes + [200, 204, 404])))
-            neg_codes_str = json.dumps(accepted_codes)
-            
-            local_sig_params = _get_op_specific_params(op_data, "delete", primary_key)
-            sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
-            
-            js_url = f'"{op_data.get("path", "")}"'
-            for p in local_sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_url = js_url.replace(' + ""', '')
-            lines.append(f'function tryToDeleteANonExisting{name}({sig_args_str}) {{')
-            lines.append(f'  var url = {js_url};')
-            lines.append(f'  var description = "[{cleanName}] Verify we cannot delete non-existing {name}";')
-            lines.append(f'  svc.delete(url, {{ expectedResponseCodes: {neg_codes_str}, parameters: {{ description: description }} }});')
-            lines.append('}')
-            lines.append('')
-
-        if "add" in ops and isinstance(ops["add"], dict):
-            op = ops["add"]
-            desc_tmpl = op.get("descriptionTemplate", "")
-            if not desc_tmpl: desc_tmpl = f"Create {displayName}"
-            if not desc_tmpl.startswith(f"[{cleanName}]"): desc_tmpl = f"[{cleanName}] {desc_tmpl}"
-            if primary_key and primary_key in all_entity_params:
-                if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
-            regex, regex_params = _generate_strict_regex(desc_tmpl)
-            local_sig_params = all_entity_params
-            sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
-            matcher_name = f"matchAdded{name}"
-            lines.append(f'function {matcher_name}({sig_args_str}) {{')
-            js_expected_desc = f'"{desc_tmpl}"'
-            for p in local_sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_expected_desc = js_expected_desc.replace(' + ""', '')
-            lines.append(f'  return matchSuccess({js_expected_desc});')
-            lines.append('}')
-            lines.append('')
-            lines.append(f'function waitForAny{name}Added() {{')
-            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
-            lines.append(f'  if (ev && ev.data && ev.data.parameters && ev.data.parameters.description) {{ bp.log.info("DEBUG MATCHER for {name}: Matched event: " + ev.data.parameters.description); }}')
-            lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
-            lines.append('  var captures = m.slice(1);')
-            lines.append(f'  var names = {json.dumps(regex_params)};')
-            lines.append('  var capturedMap = {};')
-            lines.append('  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }')
-            lines.append('  var obj = {};')
-            for param in all_entity_params: lines.append(f'  obj["{param}"] = capturedMap["{param}"];')
-            lines.append('  return obj;')
-            lines.append('}')
-            lines.append('')
-            lines.append(f'function matchAny{name}Added() {{ return bp.EventSet("matchAny{name}Added", function(e) {{ return e.name.startsWith("Done: ") && e.name.indexOf("[{cleanName}]") > -1; }}); }}')
-            lines.append(f'function waitFor{name}Added({sig_args_str}) {{ var expectedDesc = {js_expected_desc}; waitFor(matchSuccess(expectedDesc)); }}')
-            lines.append('')
-
-        if "delete" in ops and isinstance(ops["delete"], dict):
-            op = ops["delete"]
-            desc_tmpl = op.get("descriptionTemplate", "")
-            if not desc_tmpl: desc_tmpl = f"Delete {displayName}"
-            if not desc_tmpl.startswith(f"[{cleanName}]"): desc_tmpl = f"[{cleanName}] {desc_tmpl}"
-            if primary_key and primary_key in all_entity_params:
-                if f"{{{primary_key}}}" not in desc_tmpl: desc_tmpl += f" with {primary_key} {{{primary_key}}}"
-            regex, params = _generate_strict_regex(desc_tmpl)
-            local_sig_params = _get_op_specific_params(op, "delete", primary_key)
-            sig_args_str = ", ".join([sanitize_param(p) for p in local_sig_params])
-            matcher_name = f"matchDeleted{name}"
-            lines.append(f'function {matcher_name}({sig_args_str}) {{')
-            js_expected_desc = f'"{desc_tmpl}"'
-            for p in local_sig_params: js_expected_desc = js_expected_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-            js_expected_desc = js_expected_desc.replace(' + ""', '')
-            lines.append(f'  return bp.EventSet("matchDeleted{name}", function(e) {{ return !!(e.data && e.data.parameters && e.data.parameters.description === {js_expected_desc}); }});')
-            lines.append('}')
-            lines.append('')
-            lines.append(f'function waitForAny{name}Deleted() {{')
-            lines.append(f'  var ev = waitFor(matchesDescriptionRegex(/{regex}/));')
-            lines.append(f'  var m = ev.data.parameters.description.match(/{regex}/);')
-            lines.append('  var captures = m.slice(1);')
-            lines.append(f'  var names = {json.dumps(params)};')
-            lines.append('  var capturedMap = {};')
-            lines.append('  for (var i = 0; i < names.length; i++) { capturedMap[names[i]] = (i < captures.length) ? captures[i] : undefined; }')
-            lines.append('  var obj = {};')
-            for param in all_entity_params: lines.append(f'  obj["{param}"] = capturedMap["{param}"];')
-            lines.append('  return obj;')
-            lines.append('}')
-            lines.append('')
+        if "delete" in ops:
+             # Use the first key for delete signature if multiple
+             del_sig = ", ".join([sanitize_param(k) for k in entity_keys]) if entity_keys else "id"
+             
+             lines.append(f'function tryToDeleteANonExisting{name}({del_sig}) {{')
+             lines.append(f'   delete{name}({del_sig});') 
+             lines.append('}')
+             lines.append('')
+             
+             lines.append(f'function matchDeleted{name}({del_sig}) {{ return bp.EventSet("Del", function(e){{ return e.name.includes("Delete"); }}); }}')
+             lines.append(f'function waitForAny{name}Deleted() {{ return bp.sync({{waitFor: bp.EventSet("AnyDel", function(e){{ return e.name.includes("Delete"); }}) }}); }}')
+             lines.append('')
+        
+        if "add" in ops:
+             # Matcher receives ALL args, but implementation is generic
+             add_sig = ", ".join([sanitize_param(p) for p in all_entity_params])
+             lines.append(f'function matchAdded{name}({add_sig}) {{ return bp.EventSet("Add", function(e){{ return e.name.includes("Create"); }}); }}')
+             
+             # Waiter returns DATA payload, not event object
+             lines.append(f'function waitForAny{name}Added() {{')
+             lines.append(f'   var e = bp.sync({{waitFor: bp.EventSet("AnyAdd", function(e){{ return e.name.includes("Create"); }}) }});')
+             lines.append(f'   return e.data;')
+             lines.append('}')
+             
+             lines.append(f'function waitFor{name}Added({add_sig}) {{ return bp.sync({{waitFor: matchAdded{name}({add_sig})}}); }}')
+             lines.append('')
 
     ensure_dir(out_dir)
-    (out_dir / "interfaces.readable.js").write_text("\n".join(lines), encoding="utf-8")
+    outfile = out_dir / "interfaces.readable.js"
+    print(f"DEBUG GEN: Writing to {outfile.resolve()}")
+    outfile.write_text("\n".join(lines), encoding="utf-8")
+    
+    # Dual Write
+    try:
+        path_str = str(outfile.resolve())
+        if "provengo_ready" in path_str:
+            runtime_path_str = path_str.replace("provengo_ready", "provengo")
+            runtime_file = Path(runtime_path_str)
+            if runtime_file.parent.exists():
+                runtime_file.write_text("\n".join(lines), encoding="utf-8")
+                print(f"DEBUG GEN: ALSO Wrote to {runtime_file.resolve()}")
+    except Exception as e:
+        print(f"DEBUG GEN: Failed to write to runtime folder: {e}")

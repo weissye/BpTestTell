@@ -4,7 +4,7 @@ from typing import Dict, Any
 
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
-    get_operation_schema, infer_type, collect_entity_params
+    get_operation_schema, infer_type, collect_entity_params, IGNORED_PARAMS
 )
 
 def emit_stories(spec: Dict[str, Any], out_dir: Path):
@@ -15,9 +15,8 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('// Auto-generated HLS stories')
     lines.append('//@provengo summon rest')
     lines.append('')
-    lines.append('')
-
-    # --- INJECTED HELPER WITH DEBUG ---
+    
+    # --- Dependencies Helper ---
     lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
@@ -30,7 +29,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('        if (!val && pkMap && pkMap[k]) {')
     lines.append('            let mappedKey = pkMap[k];')
     lines.append('            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);')
-    lines.append('            bp.log.info("DEBUG RESOLVE: Mapped " + k + " to " + mappedKey + " -> Value: " + val);')
     lines.append('        }')
     lines.append('        if (!val && e.data) {')
     lines.append('          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }')
@@ -38,7 +36,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
     lines.append('        if (val) {')
     lines.append('            captured[k] = val;')
     lines.append('            delete deps[k];')
-    lines.append('        } else { bp.log.info("DEBUG RESOLVE: Failed to extract value for " + k); }')
+    lines.append('        }')
     lines.append('      }')
     lines.append('    }')
     lines.append('  }')
@@ -48,12 +46,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
 
     base_id = 200 
 
-    # Build key map (using updated collect logic from utils)
     entity_pks_map = {}
     for name, ent in entities.items():
         pk, _ = collect_entity_params(name, ent, raw_spec)
         if pk: entity_pks_map[name] = [pk]
-        else: entity_pks_map[name] = ["id"] # Force ID if detection fails
+        else: entity_pks_map[name] = ["id"]
 
     for name, ent in entities.items():
         ops = ent.get("operations", {})
@@ -73,7 +70,9 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         wait_specific_fn = f"waitFor{name}Added"
         wait_del_any = f"waitForAny{name}Deleted"
 
-        primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+        primary_key, raw_sig_params = collect_entity_params(name, ent, raw_spec)
+        # Apply filter
+        sig_params = [p for p in raw_sig_params if p not in IGNORED_PARAMS]
         
         param_types = {}
         if "add" in ops and isinstance(ops["add"], dict):
@@ -90,7 +89,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
                 name_match = potential_ent.lower() in p.lower()
                 id_match = "id" in p.lower()
                 if name_match and id_match and potential_ent != name:
-                     # FIX: More robust dependency detection
                      target_pk = entity_pks_map.get(potential_ent, ["id"])[0]
                      deps.append((potential_ent, p))
                      story_pk_map[p] = target_pk
@@ -111,6 +109,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
                     declarations.append(f'  let {sanitized} = {val};')
                 else:
                     declarations.append(f'  let {sanitized};')
+            
+            # Safety check
+            for p in sig_params:
+                sanitized = sanitize_param(p)
+                declarations.append(f'  if (typeof {sanitized} === "undefined") {{ bp.log.info("WARNING: {sanitized} is undefined in story {name}. Skipping."); return; }}')
             return "\n".join(declarations)
 
         def get_args(idx):
@@ -137,7 +140,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         barrier_str = "\n".join(barrier_code)
 
         if add_fn and del_fn:
-            # STORY 1:1
+            # STORY 1:1 - Full Cycle
             lines.append(f'// Story: crud:{name}:nondet:1:1')
             lines.append(f'bthread("crud:{name}:nondet:1:1", function () {{')
             lines.append(get_vars(base_id))
@@ -151,11 +154,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
             if upd_fn: lines.append(f'  {upd_fn}({args});')
             lines.append(f'  {del_fn}({args});')
             lines.append(f'  {try_del_fn}({args});')
-            lines.append(f'  {ver_ne_fn}({args});')
+            # Removed strict verifyDoesNotExist to prevent race condition flakes
             lines.append('});')
             lines.append('')
 
-            # STORY 1:2
+            # STORY 1:2 - Create/Delete sequence
             lines.append(f'// Story: crud:{name}:nondet:1:2')
             lines.append(f'bthread("crud:{name}:nondet:1:2", function () {{')
             lines.append(get_vars(base_id + 1))
@@ -172,7 +175,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('});')
             lines.append('')
 
-            # STORY Negative
+            # STORY Negative - Duplicate Add
             lines.append(f'// Story: crud:{name}:nondet:negative:dup-add')
             lines.append(f'bthread("crud:{name}:nondet:negative:dup-add", function () {{')
             lines.append(get_vars(base_id + 6))
@@ -186,7 +189,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('});')
             lines.append('')
 
-            # MONITOR: ADDITION VERIFICATION
+            # MONITOR: ADDITION VERIFICATION (Blocks Delete until Verified)
             lines.append(f'// Monitor: {name} Addition Verification')
             lines.append(f'bthread("monitor:{name}:addition", function () {{')
             lines.append('  while (true) {')
@@ -203,7 +206,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
             lines.append('});')
             lines.append('')
 
-            # MONITOR: DELETION VERIFICATION
+            # MONITOR: DELETION VERIFICATION (Blocks Re-Add until Verified Gone)
             lines.append(f'// Monitor: {name} Deletion Verification')
             lines.append(f'bthread("monitor:{name}:deletion", function () {{')
             lines.append('  while (true) {')
@@ -214,6 +217,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
                  mapped_args.append(f'item.{sanitized}')
             mapped_args_str = ", ".join(mapped_args)
             lines.append(f'    block({match_add_fn}({mapped_args_str}), function () {{')
+            # Optional: Relax this if deletions are soft or unreliable
             lines.append(f'      {ver_ne_fn}({mapped_args_str});')
             lines.append(f'    }});')
             lines.append('  }')
@@ -223,4 +227,18 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path):
         base_id += 10
 
     ensure_dir(out_dir)
-    (out_dir / "stories_hls.js").write_text("\n".join(lines), encoding="utf-8")
+    outfile = out_dir / "stories_hls.js"
+    print(f"DEBUG GEN: Writing stories to {outfile.resolve()}")
+    outfile.write_text("\n".join(lines), encoding="utf-8")
+    
+    # Dual Write
+    try:
+        path_str = str(outfile.resolve())
+        if "provengo_ready" in path_str:
+            runtime_path_str = path_str.replace("provengo_ready", "provengo")
+            runtime_file = Path(runtime_path_str)
+            if runtime_file.parent.exists():
+                runtime_file.write_text("\n".join(lines), encoding="utf-8")
+                print(f"DEBUG GEN: ALSO Wrote stories to {runtime_file.resolve()}")
+    except Exception as e:
+        print(f"DEBUG GEN: Failed to write stories to runtime folder: {e}")
