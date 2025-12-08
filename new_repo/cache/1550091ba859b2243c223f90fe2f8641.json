@@ -1,0 +1,446 @@
+{
+  "IPSecProposals": {
+    "operations": {
+      "get": {
+        "name": "vpn_ipsec_proposals_retrieve",
+        "descriptionTemplate": "Get a IPSec proposal object.",
+        "method": "GET",
+        "path": "/api/vpn/ipsec-proposals/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "vpn_ipsec_proposals_update",
+        "descriptionTemplate": "Put a IPSec proposal object.",
+        "method": "PUT",
+        "path": "/api/vpn/ipsec-proposals/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "patch": {
+        "name": "vpn_ipsec_proposals_partial_update",
+        "descriptionTemplate": "Patch a IPSec proposal object.",
+        "method": "PATCH",
+        "path": "/api/vpn/ipsec-proposals/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "delete": {
+        "name": "vpn_ipsec_proposals_destroy",
+        "descriptionTemplate": "Delete a IPSec proposal object.",
+        "method": "DELETE",
+        "path": "/api/vpn/ipsec-proposals/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "L2VPNTerminations": {
+    "operations": {
+      "list": {
+        "name": "vpn_l2vpn_terminations_list",
+        "descriptionTemplate": "Get a list of L2VPN termination objects.",
+        "method": "GET",
+        "path": "/api/vpn/l2vpn-terminations/",
+        "params": [
+          "assigned_object_id",
+          "assigned_object_id__empty",
+          "assigned_object_id__gt",
+          "assigned_object_id__gte",
+          "assigned_object_id__lt",
+          "assigned_object_id__lte",
+          "assigned_object_id__n",
+          "assigned_object_type",
+          "assigned_object_type__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "device",
+          "device__n",
+          "device_id",
+          "device_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "interface",
+          "interface__n",
+          "interface_id",
+          "interface_id__n",
+          "l2vpn",
+          "l2vpn__n",
+          "l2vpn_id",
+          "l2vpn_id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "q",
+          "region",
+          "region_id",
+          "site",
+          "site_id",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request",
+          "virtual_machine",
+          "virtual_machine__n",
+          "virtual_machine_id",
+          "virtual_machine_id__n",
+          "vlan",
+          "vlan__n",
+          "vlan_id",
+          "vlan_id__n",
+          "vlan_vid",
+          "vlan_vid__empty",
+          "vlan_vid__gt",
+          "vlan_vid__gte",
+          "vlan_vid__lt",
+          "vlan_vid__lte",
+          "vlan_vid__n",
+          "vminterface",
+          "vminterface__n",
+          "vminterface_id",
+          "vminterface_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "vpn_l2vpn_terminations_create",
+        "descriptionTemplate": "Post a list of L2VPN termination objects.",
+        "method": "POST",
+        "path": "/api/vpn/l2vpn-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "update": {
+        "name": "vpn_l2vpn_terminations_bulk_update",
+        "descriptionTemplate": "Put a list of L2VPN termination objects.",
+        "method": "PUT",
+        "path": "/api/vpn/l2vpn-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "patch": {
+        "name": "vpn_l2vpn_terminations_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of L2VPN termination objects.",
+        "method": "PATCH",
+        "path": "/api/vpn/l2vpn-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "delete": {
+        "name": "vpn_l2vpn_terminations_bulk_destroy",
+        "descriptionTemplate": "Delete a list of L2VPN termination objects.",
+        "method": "DELETE",
+        "path": "/api/vpn/l2vpn-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "get": {
+        "name": "vpn_l2vpn_terminations_retrieve",
+        "descriptionTemplate": "Get a L2VPN termination object.",
+        "method": "GET",
+        "path": "/api/vpn/l2vpn-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateSingle": {
+        "name": "vpn_l2vpn_terminations_update",
+        "descriptionTemplate": "Put a L2VPN termination object.",
+        "method": "PUT",
+        "path": "/api/vpn/l2vpn-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "patchSingle": {
+        "name": "vpn_l2vpn_terminations_partial_update",
+        "descriptionTemplate": "Patch a L2VPN termination object.",
+        "method": "PATCH",
+        "path": "/api/vpn/l2vpn-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "deleteSingle": {
+        "name": "vpn_l2vpn_terminations_destroy",
+        "descriptionTemplate": "Delete a L2VPN termination object.",
+        "method": "DELETE",
+        "path": "/api/vpn/l2vpn-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "L2VPNs": {
+    "operations": {
+      "list": {
+        "name": "vpn_l2vpns_list",
+        "descriptionTemplate": "Get a list of L2VPN objects.",
+        "method": "GET",
+        "path": "/api/vpn/l2vpns/",
+        "params": [
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "export_target",
+          "export_target__n",
+          "export_target_id",
+          "export_target_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "identifier",
+          "identifier__empty",
+          "identifier__gt",
+          "identifier__gte",
+          "identifier__lt",
+          "identifier__lte",
+          "identifier__n",
+          "import_target",
+          "import_target__n",
+          "import_target_id",
+          "import_target_id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "type",
+          "type__empty",
+          "type__ic",
+          "type__ie",
+          "type__iew",
+          "type__iregex",
+          "type__isw",
+          "type__n",
+          "type__nic",
+          "type__nie",
+          "type__niew",
+          "type__nisw",
+          "type__regex",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "vpn_l2vpns_create",
+        "descriptionTemplate": "Post a list of L2VPN objects.",
+        "method": "POST",
+        "path": "/api/vpn/l2vpns/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "update": {
+        "name": "vpn_l2vpns_bulk_update",
+        "descriptionTemplate": "Put a list of L2VPN objects.",
+        "method": "PUT",
+        "path": "/api/vpn/l2vpns/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "patch": {
+        "name": "vpn_l2vpns_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of L2VPN objects.",
+        "method": "PATCH",
+        "path": "/api/vpn/l2vpns/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "delete": {
+        "name": "vpn_l2vpns_bulk_destroy",
+        "descriptionTemplate": "Delete a list of L2VPN objects.",
+        "method": "DELETE",
+        "path": "/api/vpn/l2vpns/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "get": {
+        "name": "vpn_l2vpns_retrieve",
+        "descriptionTemplate": "Get a L2VPN object.",
+        "method": "GET",
+        "path": "/api/vpn/l2vpns/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateSingle": {
+        "name": "vpn_l2vpns_update",
+        "descriptionTemplate": "Put a L2VPN object.",
+        "method": "PUT",
+        "path": "/api/vpn/l2vpns/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "patchSingle": {
+        "name": "vpn_l2vpns_partial_update",
+        "descriptionTemplate": "Patch a L2VPN object.",
+        "method": "PATCH",
+        "path": "/api/vpn/l2vpns/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        }
+      },
+      "deleteSingle": {
+        "name": "vpn_l2vpns_destroy",
+        "descriptionTemplate": "Delete a L2VPN object.",
+        "method": "DELETE",
+        "path": "/api/vpn/l2vpns/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,438 @@
+{
+  "CustomFields": {
+    "operations": {
+      "get": {
+        "name": "extras_custom_fields_retrieve",
+        "descriptionTemplate": "Get a custom field object.",
+        "method": "GET",
+        "path": "/api/extras/custom-fields/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "extras_custom_fields_update",
+        "descriptionTemplate": "Put a custom field object.",
+        "method": "PUT",
+        "path": "/api/extras/custom-fields/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "patch": {
+        "name": "extras_custom_fields_partial_update",
+        "descriptionTemplate": "Patch a custom field object.",
+        "method": "PATCH",
+        "path": "/api/extras/custom-fields/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "delete": {
+        "name": "extras_custom_fields_destroy",
+        "descriptionTemplate": "Delete a custom field object.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-fields/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "CustomLinks": {
+    "operations": {
+      "list": {
+        "name": "extras_custom_links_list",
+        "descriptionTemplate": "Get a list of custom link objects.",
+        "method": "GET",
+        "path": "/api/extras/custom-links/",
+        "params": [
+          "button_class",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "enabled",
+          "group_name",
+          "group_name__empty",
+          "group_name__ic",
+          "group_name__ie",
+          "group_name__iew",
+          "group_name__iregex",
+          "group_name__isw",
+          "group_name__n",
+          "group_name__nic",
+          "group_name__nie",
+          "group_name__niew",
+          "group_name__nisw",
+          "group_name__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "link_text",
+          "link_text__ic",
+          "link_text__ie",
+          "link_text__iew",
+          "link_text__iregex",
+          "link_text__isw",
+          "link_text__n",
+          "link_text__nic",
+          "link_text__nie",
+          "link_text__niew",
+          "link_text__nisw",
+          "link_text__regex",
+          "link_url",
+          "link_url__ic",
+          "link_url__ie",
+          "link_url__iew",
+          "link_url__iregex",
+          "link_url__isw",
+          "link_url__n",
+          "link_url__nic",
+          "link_url__nie",
+          "link_url__niew",
+          "link_url__nisw",
+          "link_url__regex",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "new_window",
+          "object_type",
+          "object_type__ic",
+          "object_type__ie",
+          "object_type__iew",
+          "object_type__iregex",
+          "object_type__isw",
+          "object_type__n",
+          "object_type__nic",
+          "object_type__nie",
+          "object_type__niew",
+          "object_type__nisw",
+          "object_type__regex",
+          "object_type_id",
+          "object_type_id__n",
+          "offset",
+          "ordering",
+          "q",
+          "updated_by_request",
+          "weight",
+          "weight__empty",
+          "weight__gt",
+          "weight__gte",
+          "weight__lt",
+          "weight__lte",
+          "weight__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_custom_links_create",
+        "descriptionTemplate": "Post a list of custom link objects.",
+        "method": "POST",
+        "path": "/api/extras/custom-links/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "update": {
+        "name": "extras_custom_links_bulk_update",
+        "descriptionTemplate": "Put a list of custom link objects.",
+        "method": "PUT",
+        "path": "/api/extras/custom-links/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "patch": {
+        "name": "extras_custom_links_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of custom link objects.",
+        "method": "PATCH",
+        "path": "/api/extras/custom-links/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "delete": {
+        "name": "extras_custom_links_bulk_destroy",
+        "descriptionTemplate": "Delete a list of custom link objects.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-links/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "get": {
+        "name": "extras_custom_links_retrieve",
+        "descriptionTemplate": "Get a custom link object.",
+        "method": "GET",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update_single": {
+        "name": "extras_custom_links_update",
+        "descriptionTemplate": "Put a custom link object.",
+        "method": "PUT",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "patch_single": {
+        "name": "extras_custom_links_partial_update",
+        "descriptionTemplate": "Patch a custom link object.",
+        "method": "PATCH",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "delete_single": {
+        "name": "extras_custom_links_destroy",
+        "descriptionTemplate": "Delete a custom link object.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "Dashboard": {
+    "operations": {
+      "list": {
+        "name": "extras_dashboard_retrieve",
+        "descriptionTemplate": "Get a list of dashboard objects.",
+        "method": "GET",
+        "path": "/api/extras/dashboard/",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "extras_dashboard_update",
+        "descriptionTemplate": "Put a list of dashboard objects.",
+        "method": "PUT",
+        "path": "/api/extras/dashboard/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "patch": {
+        "name": "extras_dashboard_partial_update",
+        "descriptionTemplate": "Patch a list of dashboard objects.",
+        "method": "PATCH",
+        "path": "/api/extras/dashboard/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "delete": {
+        "name": "extras_dashboard_destroy",
+        "descriptionTemplate": "Delete a list of dashboard objects.",
+        "method": "DELETE",
+        "path": "/api/extras/dashboard/",
+        "params": [],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "EventRules": {
+    "operations": {
+      "list": {
+        "name": "extras_event_rules_list",
+        "descriptionTemplate": "Get a list of event rule objects.",
+        "method": "GET",
+        "path": "/api/extras/event-rules/",
+        "params": [
+          "action_object_id",
+          "action_object_id__empty",
+          "action_object_id__gt",
+          "action_object_id__gte",
+          "action_object_id__lt",
+          "action_object_id__lte",
+          "action_object_id__n",
+          "action_object_type",
+          "action_object_type__n",
+          "action_type",
+          "action_type__empty",
+          "action_type__ic",
+          "action_type__ie",
+          "action_type__iew",
+          "action_type__iregex",
+          "action_type__isw",
+          "action_type__n",
+          "action_type__nic",
+          "action_type__nie",
+          "action_type__niew",
+          "action_type__nisw",
+          "action_type__regex",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "enabled",
+          "event_type",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "object_type",
+          "object_type__ic",
+          "object_type__ie",
+          "object_type__iew",
+          "object_type__iregex",
+          "object_type__isw",
+          "object_type__n",
+          "object_type__nic",
+          "object_type__nie",
+          "object_type__niew",
+          "object_type__nisw",
+          "object_type__regex",
+          "object_type_id",
+          "object_type_id__n",
+          "offset",
+          "ordering",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_event_rules_create",
+        "descriptionTemplate": "Post a list of event rule objects.",
+        "method": "POST",
+        "path": "/api/extras/event-rules/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "update": {
+        "name": "extras_event_rules_bulk_update",
+        "descriptionTemplate": "Put a list of event rule objects.",
+        "method": "PUT",
+        "path": "/api/extras/event-rules/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "patch": {
+        "name": "extras_event_rules_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of event rule objects.",
+        "method": "PATCH",
+        "path": "/api/extras/event-rules/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      },
+      "delete": {
+        "name": "extras_event_rules_bulk_destroy",
+        "descriptionTemplate": "Delete a list of event rule objects.",
+        "method": "DELETE",
+        "path": "/api/extras/event-rules/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        }
+      }
+    }
+  }
+}

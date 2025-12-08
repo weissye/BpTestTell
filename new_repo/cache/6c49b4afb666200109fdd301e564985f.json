@@ -7,7 +7,7 @@
         "method": "GET",
         "path": "/inventory",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "add": {
         "name": "createInventory",
@@ -21,17 +21,17 @@
       },
       "get": {
         "name": "getInventory",
-        "descriptionTemplate": "Get inventory by NDC",
+        "descriptionTemplate": "Get inventory",
         "method": "GET",
         "path": "/inventory/{ndc}",
         "params": [
           "ndc"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "update": {
         "name": "updateInventory",
-        "descriptionTemplate": "Update inventory by NDC",
+        "descriptionTemplate": "Update inventory",
         "method": "PUT",
         "path": "/inventory/{ndc}",
         "params": [
@@ -43,13 +43,13 @@
       },
       "delete": {
         "name": "deleteInventory",
-        "descriptionTemplate": "Delete inventory by NDC",
+        "descriptionTemplate": "Delete inventory (idempotent)",
         "method": "DELETE",
         "path": "/inventory/{ndc}",
         "params": [
           "ndc"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "x-negative-delete-expected-codes": [
           200,
           404,

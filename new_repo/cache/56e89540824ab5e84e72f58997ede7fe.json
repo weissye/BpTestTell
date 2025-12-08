@@ -1,0 +1,305 @@
+{
+  "ASNRange": {
+    "operations": {
+      "list": {
+        "name": "ipam_asn_ranges_list",
+        "descriptionTemplate": "Get a list of ASN range objects.",
+        "method": "GET",
+        "path": "/api/ipam/asn-ranges/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "end",
+          "end__empty",
+          "end__gt",
+          "end__gte",
+          "end__lt",
+          "end__lte",
+          "end__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "rir",
+          "rir__n",
+          "rir_id",
+          "rir_id__n",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "start",
+          "start__empty",
+          "start__gt",
+          "start__gte",
+          "start__lt",
+          "start__lte",
+          "start__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_asn_ranges_create",
+        "descriptionTemplate": "Post a list of ASN range objects.",
+        "method": "POST",
+        "path": "/api/ipam/asn-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "asn_range": "{asn_range}"
+        }
+      },
+      "update": {
+        "name": "ipam_asn_ranges_bulk_update",
+        "descriptionTemplate": "Put a list of ASN range objects.",
+        "method": "PUT",
+        "path": "/api/ipam/asn-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "asn_range": "{asn_range}"
+        }
+      },
+      "delete": {
+        "name": "ipam_asn_ranges_bulk_destroy",
+        "descriptionTemplate": "Delete a list of ASN range objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/asn-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "asn_range": "{asn_range}"
+        }
+      },
+      "get": {
+        "name": "ipam_asn_ranges_retrieve",
+        "descriptionTemplate": "Get a ASN range object.",
+        "method": "GET",
+        "path": "/api/ipam/asn-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "patch": {
+        "name": "ipam_asn_ranges_partial_update",
+        "descriptionTemplate": "Patch a ASN range object.",
+        "method": "PATCH",
+        "path": "/api/ipam/asn-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "asn_range": "{asn_range}"
+        }
+      }
+    }
+  },
+  "ASN": {
+    "operations": {
+      "list": {
+        "name": "ipam_asns_list",
+        "descriptionTemplate": "Get a list of ASN objects.",
+        "method": "GET",
+        "path": "/api/ipam/asns/",
+        "params": [
+          "asn",
+          "asn__empty",
+          "asn__gt",
+          "asn__gte",
+          "asn__lt",
+          "asn__lte",
+          "asn__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "provider",
+          "provider__n",
+          "provider_id",
+          "provider_id__n",
+          "q",
+          "rir",
+          "rir__n",
+          "rir_id",
+          "rir_id__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_asns_create",
+        "descriptionTemplate": "Post a list of ASN objects.",
+        "method": "POST",
+        "path": "/api/ipam/asns/",
+        "params": [],
+        "bodyTemplate": {
+          "asn": "{asn}"
+        }
+      },
+      "update": {
+        "name": "ipam_asns_bulk_update",
+        "descriptionTemplate": "Put a list of ASN objects.",
+        "method": "PUT",
+        "path": "/api/ipam/asns/",
+        "params": [],
+        "bodyTemplate": {
+          "asn": "{asn}"
+        }
+      },
+      "delete": {
+        "name": "ipam_asns_bulk_destroy",
+        "descriptionTemplate": "Delete a list of ASN objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/asns/",
+        "params": [],
+        "bodyTemplate": {
+          "asn": "{asn}"
+        }
+      },
+      "get": {
+        "name": "ipam_asns_retrieve",
+        "descriptionTemplate": "Get a ASN object.",
+        "method": "GET",
+        "path": "/api/ipam/asns/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "patch": {
+        "name": "ipam_asns_partial_update",
+        "descriptionTemplate": "Patch a ASN object.",
+        "method": "PATCH",
+        "path": "/api/ipam/asns/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "asn": "{asn}"
+        }
+      }
+    }
+  }
+}

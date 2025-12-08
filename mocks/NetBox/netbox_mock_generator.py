@@ -4,7 +4,7 @@ import os
 
 # Configuration paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Path to the OpenAPI spec
+# Path to the OpenAPI spec (Adjust if needed relative to where you run this script)
 OPENAPI_PATH = os.path.join(BASE_DIR, '..', '..', 'packs', 'real_world', 'netbox', 'openapi.json')
 # Output file
 OUTPUT_PATH = os.path.join(BASE_DIR, 'netbox_mock.py')
@@ -87,6 +87,19 @@ def generate_mock(spec_path, output_path):
 
     # POST (Create)
     code.append("    elif request.method == 'POST':")
+    
+    # --- FIX: Expanded Action Verb List ---
+    code.append("        # FIX: Check for Action endpoints that should return 200 OK")
+    code.append("        action_verbs = (")
+    code.append("            'sync', 'clean', 'archive', 'disconnect', 'connect', 'trace', ")
+    code.append("            'requeue', 'enqueue', 'stop', 'delete', ")
+    code.append("            'render', 'render-config', 'provision', 'deprovision'")
+    code.append("        )")
+    code.append("        if resource_path.rstrip('/').endswith(action_verbs):")
+    code.append("             print(f\"DEBUG POST ACTION: {resource_path}. Returning 200 OK.\")")
+    code.append("             return jsonify({'status': 'success', 'message': 'Action completed successfully'}), 200")
+    # --- FIX END ---
+
     code.append("        new_item = request.json")
     code.append("        if not new_item: new_item = {}")
     code.append("        ")
@@ -112,7 +125,7 @@ def generate_mock(spec_path, output_path):
     # PUT/PATCH (Update)
     code.append("    elif request.method in ['PUT', 'PATCH']:")
     code.append("        if item_id is None:")
-    code.append("            # FIX: Allow Bulk Updates (defined in OpenAPI)")
+    code.append("            # Allow Bulk Updates")
     code.append("            print(f\"DEBUG {request.method}: Bulk update on {resource_key}. returning 200.\")")
     code.append("            return jsonify([{'id': 0, 'status': 'bulk updated'}]), 200")
     code.append("        ")
@@ -132,7 +145,7 @@ def generate_mock(spec_path, output_path):
     code.append("                 return '', 204")
     code.append("             return jsonify({'detail': 'Not found.'}), 404")
     code.append("        else:")
-    code.append("            # Bulk Delete (Optional support)")
+    code.append("            # Bulk Delete")
     code.append("            return jsonify({'detail': 'Bulk delete not implemented in simple mock'}), 405")
     code.append("")
     code.append("    return jsonify({'detail': 'Not implemented'}), 501")

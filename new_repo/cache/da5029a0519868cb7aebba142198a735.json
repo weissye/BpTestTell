@@ -1,0 +1,392 @@
+{
+  "TableConfigs": {
+    "operations": {
+      "list": {
+        "name": "extras_table_configs_list",
+        "descriptionTemplate": "Get a list of table config objects.",
+        "method": "GET",
+        "path": "/api/extras/table-configs/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "enabled",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "object_type",
+          "object_type__n",
+          "object_type_id",
+          "object_type_id__n",
+          "offset",
+          "ordering",
+          "q",
+          "shared",
+          "table",
+          "table__empty",
+          "table__ic",
+          "table__ie",
+          "table__iew",
+          "table__iregex",
+          "table__isw",
+          "table__n",
+          "table__nic",
+          "table__nie",
+          "table__niew",
+          "table__nisw",
+          "table__regex",
+          "updated_by_request",
+          "usable",
+          "user",
+          "user__n",
+          "user_id",
+          "user_id__n",
+          "weight",
+          "weight__empty",
+          "weight__gt",
+          "weight__gte",
+          "weight__lt",
+          "weight__lte",
+          "weight__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_table_configs_create",
+        "descriptionTemplate": "Post a list of table config objects.",
+        "method": "POST",
+        "path": "/api/extras/table-configs/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TableConfigRequest": "{TableConfigRequest}"
+          }
+        }
+      },
+      "update": {
+        "name": "extras_table_configs_bulk_update",
+        "descriptionTemplate": "Put a list of table config objects.",
+        "method": "PUT",
+        "path": "/api/extras/table-configs/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TableConfigRequest": "{TableConfigRequest}"
+          }
+        }
+      },
+      "patch": {
+        "name": "extras_table_configs_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of table config objects.",
+        "method": "PATCH",
+        "path": "/api/extras/table-configs/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TableConfigRequest": "{TableConfigRequest}"
+          }
+        }
+      },
+      "delete": {
+        "name": "extras_table_configs_bulk_destroy",
+        "descriptionTemplate": "Delete a list of table config objects.",
+        "method": "DELETE",
+        "path": "/api/extras/table-configs/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TableConfigRequest": "{TableConfigRequest}"
+          }
+        }
+      },
+      "get": {
+        "name": "extras_table_configs_retrieve",
+        "descriptionTemplate": "Get a table config object.",
+        "method": "GET",
+        "path": "/api/extras/table-configs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "extras_table_configs_update",
+        "descriptionTemplate": "Put a table config object.",
+        "method": "PUT",
+        "path": "/api/extras/table-configs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "TableConfigRequest": "{TableConfigRequest}"
+        }
+      },
+      "patchItem": {
+        "name": "extras_table_configs_partial_update",
+        "descriptionTemplate": "Patch a table config object.",
+        "method": "PATCH",
+        "path": "/api/extras/table-configs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedTableConfigRequest": "{PatchedTableConfigRequest}"
+        }
+      },
+      "deleteItem": {
+        "name": "extras_table_configs_destroy",
+        "descriptionTemplate": "Delete a table config object.",
+        "method": "DELETE",
+        "path": "/api/extras/table-configs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "TaggedObjects": {
+    "operations": {
+      "list": {
+        "name": "extras_tagged_objects_list",
+        "descriptionTemplate": "Get a list of tagged item objects.",
+        "method": "GET",
+        "path": "/api/extras/tagged-objects/",
+        "params": [
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "limit",
+          "object_id",
+          "object_id__empty",
+          "object_id__gt",
+          "object_id__gte",
+          "object_id__lt",
+          "object_id__lte",
+          "object_id__n",
+          "object_type",
+          "object_type__n",
+          "object_type_id",
+          "object_type_id__n",
+          "offset",
+          "ordering",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "extras_tagged_objects_retrieve",
+        "descriptionTemplate": "Get a tagged item object.",
+        "method": "GET",
+        "path": "/api/extras/tagged-objects/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "Tags": {
+    "operations": {
+      "list": {
+        "name": "extras_tags_list",
+        "descriptionTemplate": "Get a list of tag objects.",
+        "method": "GET",
+        "path": "/api/extras/tags/",
+        "params": [
+          "color",
+          "color__empty",
+          "color__ic",
+          "color__ie",
+          "color__iew",
+          "color__iregex",
+          "color__isw",
+          "color__n",
+          "color__nic",
+          "color__nie",
+          "color__niew",
+          "color__nisw",
+          "color__regex",
+          "content_type",
+          "content_type_id",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "for_object_type_id",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "object_types",
+          "object_types__n",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "updated_by_request",
+          "weight",
+          "weight__empty",
+          "weight__gt",
+          "weight__gte",
+          "weight__lt",
+          "weight__lte",
+          "weight__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_tags_create",
+        "descriptionTemplate": "Post a list of tag objects.",
+        "method": "POST",
+        "path": "/api/extras/tags/",
+        "params": [],
+        "bodyTemplate": {
+          "TagRequest": "{TagRequest}"
+        }
+      },
+      "update": {
+        "name": "extras_tags_bulk_update",
+        "descriptionTemplate": "Put a list of tag objects.",
+        "method": "PUT",
+        "path": "/api/extras/tags/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TagRequest": "{TagRequest}"
+          }
+        }
+      },
+      "patch": {
+        "name": "extras_tags_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of tag objects.",
+        "method": "PATCH",
+        "path": "/api/extras/tags/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TagRequest": "{TagRequest}"
+          }
+        }
+      },
+      "delete": {
+        "name": "extras_tags_bulk_destroy",
+        "descriptionTemplate": "Delete a list of tag objects.",
+        "method": "DELETE",
+        "path": "/api/extras/tags/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "TagRequest": "{TagRequest}"
+          }
+        }
+      }
+    }
+  }
+}

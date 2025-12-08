@@ -1,0 +1,166 @@
+{
+  "Jobs": {
+    "operations": {
+      "get": {
+        "name": "core_jobs_retrieve",
+        "descriptionTemplate": "Retrieve a list of job results",
+        "method": "GET",
+        "path": "/api/core/jobs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "ObjectChanges": {
+    "operations": {
+      "list": {
+        "name": "core_object_changes_list",
+        "descriptionTemplate": "Retrieve a list of recent changes.",
+        "method": "GET",
+        "path": "/api/core/object-changes/",
+        "params": [
+          "action",
+          "changed_object_id",
+          "changed_object_id__empty",
+          "changed_object_id__gt",
+          "changed_object_id__gte",
+          "changed_object_id__lt",
+          "changed_object_id__lte",
+          "changed_object_id__n",
+          "changed_object_type",
+          "changed_object_type__n",
+          "changed_object_type_id",
+          "changed_object_type_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "limit",
+          "object_repr",
+          "object_repr__empty",
+          "object_repr__ic",
+          "object_repr__ie",
+          "object_repr__iew",
+          "object_repr__iregex",
+          "object_repr__isw",
+          "object_repr__n",
+          "object_repr__nic",
+          "object_repr__nie",
+          "object_repr__niew",
+          "object_repr__nisw",
+          "object_repr__regex",
+          "offset",
+          "ordering",
+          "q",
+          "related_object_id",
+          "related_object_id__empty",
+          "related_object_id__gt",
+          "related_object_id__gte",
+          "related_object_id__lt",
+          "related_object_id__lte",
+          "related_object_id__n",
+          "related_object_type",
+          "related_object_type__n",
+          "request_id",
+          "time_after",
+          "time_before",
+          "user",
+          "user__n",
+          "user_id",
+          "user_id__n",
+          "user_name",
+          "user_name__empty",
+          "user_name__ic",
+          "user_name__ie",
+          "user_name__iew",
+          "user_name__iregex",
+          "user_name__isw",
+          "user_name__n",
+          "user_name__nic",
+          "user_name__nie",
+          "user_name__niew",
+          "user_name__nisw",
+          "user_name__regex"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "core_object_changes_retrieve",
+        "descriptionTemplate": "Retrieve a list of recent changes.",
+        "method": "GET",
+        "path": "/api/core/object-changes/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "ObjectTypes": {
+    "operations": {
+      "list": {
+        "name": "core_object_types_list",
+        "descriptionTemplate": "Read-only list of ObjectTypes.",
+        "method": "GET",
+        "path": "/api/core/object-types/",
+        "params": [
+          "app_label",
+          "app_label__empty",
+          "app_label__ic",
+          "app_label__ie",
+          "app_label__iew",
+          "app_label__iregex",
+          "app_label__isw",
+          "app_label__n",
+          "app_label__nic",
+          "app_label__nie",
+          "app_label__niew",
+          "app_label__nisw",
+          "app_label__regex",
+          "features",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "limit",
+          "model",
+          "model__empty",
+          "model__ic",
+          "model__ie",
+          "model__iew",
+          "model__iregex",
+          "model__isw",
+          "model__n",
+          "model__nic",
+          "model__nie",
+          "model__niew",
+          "model__nisw",
+          "model__regex",
+          "offset",
+          "ordering",
+          "public",
+          "q"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "core_object_types_retrieve",
+        "descriptionTemplate": "Read-only list of ObjectTypes.",
+        "method": "GET",
+        "path": "/api/core/object-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  }
+}

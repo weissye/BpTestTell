@@ -21,10 +21,10 @@
           "bodyTemplate": {
             "vin": "{vin}",
             "make": "{make}",
-            "model": "{model}",
-            "year": "{year}",
             "mileage": "{mileage}",
+            "model": "{model}",
             "ownerCustomerId": "{ownerCustomerId}",
+            "year": "{year}",
             "homeGarageId": "{homeGarageId}"
           }
         },
@@ -48,10 +48,10 @@
           ],
           "bodyTemplate": {
             "make": "{make}",
-            "model": "{model}",
-            "year": "{year}",
             "mileage": "{mileage}",
+            "model": "{model}",
             "ownerCustomerId": "{ownerCustomerId}",
+            "year": "{year}",
             "homeGarageId": "{homeGarageId}"
           }
         },
@@ -278,7 +278,7 @@
           "method": "GET",
           "path": "/periodic-maintenance",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "add": {
           "name": "createPMPlan",
@@ -291,9 +291,10 @@
             "carVin": "{carVin}",
             "garageId": "{garageId}",
             "planType": "{planType}",
-            "tasks": [
-              "{task}"
-            ]
+            "tasks": "{tasks}",
+            "intervalKm": "{intervalKm}",
+            "intervalMonths": "{intervalMonths}",
+            "status": "{status}"
           }
         },
         "get": {
@@ -304,7 +305,7 @@
           "params": [
             "pmId"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "update": {
           "name": "updatePMPlan",
@@ -317,13 +318,11 @@
           "bodyTemplate": {
             "carVin": "{carVin}",
             "garageId": "{garageId}",
+            "planType": "{planType}",
+            "tasks": "{tasks}",
             "intervalKm": "{intervalKm}",
             "intervalMonths": "{intervalMonths}",
-            "planType": "{planType}",
-            "status": "{status}",
-            "tasks": [
-              "{task}"
-            ]
+            "status": "{status}"
           }
         },
         "delete": {
@@ -334,7 +333,7 @@
           "params": [
             "pmId"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "x-negative-delete-expected-codes": [
             404
           ]
@@ -349,7 +348,7 @@
           "method": "GET",
           "path": "/repair-orders",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "add": {
           "name": "createRepairOrder",
@@ -362,7 +361,8 @@
             "carVin": "{carVin}",
             "customerId": "{customerId}",
             "garageId": "{garageId}",
-            "complaint": "{complaint}"
+            "complaint": "{complaint}",
+            "status": "{status}"
           }
         },
         "get": {
@@ -373,7 +373,7 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "update": {
           "name": "updateRepairOrder",
@@ -385,9 +385,9 @@
           ],
           "bodyTemplate": {
             "carVin": "{carVin}",
-            "complaint": "{complaint}",
             "customerId": "{customerId}",
             "garageId": "{garageId}",
+            "complaint": "{complaint}",
             "status": "{status}"
           }
         },
@@ -399,7 +399,7 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "x-negative-delete-expected-codes": [
             404
           ]
@@ -412,7 +412,7 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "close": {
           "name": "closeRepairOrder",
@@ -422,7 +422,7 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         }
       }
     }

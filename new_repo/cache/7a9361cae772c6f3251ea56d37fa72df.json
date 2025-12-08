@@ -1,0 +1,460 @@
+{
+  "IPAddress": {
+    "operations": {
+      "get": {
+        "name": "ipam_ip_addresses_retrieve",
+        "descriptionTemplate": "Get a IP address object.",
+        "method": "GET",
+        "path": "/api/ipam/ip-addresses/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "ipam_ip_addresses_update",
+        "descriptionTemplate": "Put a IP address object.",
+        "method": "PUT",
+        "path": "/api/ipam/ip-addresses/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableIPAddressRequest"
+        }
+      },
+      "patch": {
+        "name": "ipam_ip_addresses_partial_update",
+        "descriptionTemplate": "Patch a IP address object.",
+        "method": "PATCH",
+        "path": "/api/ipam/ip-addresses/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedWritableIPAddressRequest"
+        }
+      },
+      "delete": {
+        "name": "ipam_ip_addresses_destroy",
+        "descriptionTemplate": "Delete a IP address object.",
+        "method": "DELETE",
+        "path": "/api/ipam/ip-addresses/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "IPRange": {
+    "operations": {
+      "list": {
+        "name": "ipam_ip_ranges_list",
+        "descriptionTemplate": "Get a list of IP range objects.",
+        "method": "GET",
+        "path": "/api/ipam/ip-ranges/",
+        "params": [
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "contains",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "end_address",
+          "family",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "mark_populated",
+          "mark_utilized",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "parent",
+          "q",
+          "role",
+          "role__n",
+          "role_id",
+          "role_id__n",
+          "size",
+          "size__empty",
+          "size__gt",
+          "size__gte",
+          "size__lt",
+          "size__lte",
+          "size__n",
+          "start_address",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request",
+          "vrf",
+          "vrf__n",
+          "vrf_id",
+          "vrf_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_ip_ranges_create",
+        "descriptionTemplate": "Post a list of IP range objects.",
+        "method": "POST",
+        "path": "/api/ipam/ip-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableIPRangeRequest"
+        }
+      },
+      "update": {
+        "name": "ipam_ip_ranges_bulk_update",
+        "descriptionTemplate": "Put a list of IP range objects.",
+        "method": "PUT",
+        "path": "/api/ipam/ip-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/IPRangeRequest"
+        }
+      },
+      "patch": {
+        "name": "ipam_ip_ranges_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of IP range objects.",
+        "method": "PATCH",
+        "path": "/api/ipam/ip-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/IPRangeRequest"
+        }
+      },
+      "delete": {
+        "name": "ipam_ip_ranges_bulk_destroy",
+        "descriptionTemplate": "Delete a list of IP range objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/ip-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/IPRangeRequest"
+        }
+      },
+      "get": {
+        "name": "ipam_ip_ranges_retrieve",
+        "descriptionTemplate": "Get a IP range object.",
+        "method": "GET",
+        "path": "/api/ipam/ip-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update_single": {
+        "name": "ipam_ip_ranges_update",
+        "descriptionTemplate": "Put a IP range object.",
+        "method": "PUT",
+        "path": "/api/ipam/ip-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableIPRangeRequest"
+        }
+      },
+      "patch_single": {
+        "name": "ipam_ip_ranges_partial_update",
+        "descriptionTemplate": "Patch a IP range object.",
+        "method": "PATCH",
+        "path": "/api/ipam/ip-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedWritableIPRangeRequest"
+        }
+      },
+      "delete_single": {
+        "name": "ipam_ip_ranges_destroy",
+        "descriptionTemplate": "Delete a IP range object.",
+        "method": "DELETE",
+        "path": "/api/ipam/ip-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "list_available_ips": {
+        "name": "ipam_ip_ranges_available_ips_list",
+        "descriptionTemplate": "Get a IP address object.",
+        "method": "GET",
+        "path": "/api/ipam/ip-ranges/{id}/available-ips/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "add_available_ips": {
+        "name": "ipam_ip_ranges_available_ips_create",
+        "descriptionTemplate": "Post a IP address object.",
+        "method": "POST",
+        "path": "/api/ipam/ip-ranges/{id}/available-ips/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/IPAddressRequest"
+        }
+      }
+    }
+  },
+  "Prefix": {
+    "operations": {
+      "list": {
+        "name": "ipam_prefixes_list",
+        "descriptionTemplate": "Get a list of prefix objects.",
+        "method": "GET",
+        "path": "/api/ipam/prefixes/",
+        "params": [
+          "children",
+          "children__empty",
+          "children__gt",
+          "children__gte",
+          "children__lt",
+          "children__lte",
+          "children__n",
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "contains",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "depth",
+          "depth__empty",
+          "depth__gt",
+          "depth__gte",
+          "depth__lt",
+          "depth__lte",
+          "depth__n",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "family",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "is_pool",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "location",
+          "location__n",
+          "location_id",
+          "location_id__n",
+          "mark_utilized",
+          "mask_length",
+          "mask_length__gte",
+          "mask_length__lte",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "prefix",
+          "present_in_vrf",
+          "present_in_vrf_id",
+          "q",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "role",
+          "role__n",
+          "role_id",
+          "role_id__n",
+          "scope_id",
+          "scope_id__empty",
+          "scope_id__gt",
+          "scope_id__gte",
+          "scope_id__lt",
+          "scope_id__lte",
+          "scope_id__n",
+          "scope_type",
+          "scope_type__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request",
+          "vlan_group",
+          "vlan_group__n",
+          "vlan_group_id",
+          "vlan_group_id__n",
+          "vlan_id",
+          "vlan_id__n",
+          "vlan_vid",
+          "vlan_vid__empty",
+          "vlan_vid__gt",
+          "vlan_vid__gte",
+          "vlan_vid__lt",
+          "vlan_vid__lte",
+          "vlan_vid__n",
+          "vrf",
+          "vrf__n",
+          "vrf_id",
+          "vrf_id__n",
+          "within",
+          "within_include"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_prefixes_create",
+        "descriptionTemplate": "Post a list of prefix objects.",
+        "method": "POST",
+        "path": "/api/ipam/prefixes/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritablePrefixRequest"
+        }
+      },
+      "update": {
+        "name": "ipam_prefixes_bulk_update",
+        "descriptionTemplate": "Put a list of prefix objects.",
+        "method": "PUT",
+        "path": "/api/ipam/prefixes/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PrefixRequest"
+        }
+      },
+      "patch": {
+        "name": "ipam_prefixes_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of prefix objects.",
+        "method": "PATCH",
+        "path": "/api/ipam/prefixes/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PrefixRequest"
+        }
+      },
+      "delete": {
+        "name": "ipam_prefixes_bulk_destroy",
+        "descriptionTemplate": "Delete a list of prefix objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/prefixes/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PrefixRequest"
+        }
+      }
+    }
+  }
+}

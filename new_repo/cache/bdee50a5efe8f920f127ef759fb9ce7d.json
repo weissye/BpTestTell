@@ -1,0 +1,241 @@
+{
+  "DeviceRoles": {
+    "operations": {
+      "delete": {
+        "name": "dcim_device_roles_destroy",
+        "descriptionTemplate": "Delete a device role object.",
+        "method": "DELETE",
+        "path": "/api/dcim/device-roles/{id}/",
+        "params": [
+          "id"
+        ]
+      },
+      "get": {
+        "name": "dcim_device_roles_retrieve",
+        "descriptionTemplate": "Get a device role object.",
+        "method": "GET",
+        "path": "/api/dcim/device-roles/{id}/",
+        "params": [
+          "id"
+        ]
+      },
+      "update": {
+        "name": "dcim_device_roles_update",
+        "descriptionTemplate": "Put a device role object.",
+        "method": "PUT",
+        "path": "/api/dcim/device-roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      }
+    }
+  },
+  "DeviceTypes": {
+    "operations": {
+      "delete": {
+        "name": "dcim_device_types_bulk_destroy",
+        "descriptionTemplate": "Delete a list of device type objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/device-types/",
+        "params": [],
+        "bodyTemplate": {
+          "device_type": "{device_type}"
+        }
+      },
+      "list": {
+        "name": "dcim_device_types_list",
+        "descriptionTemplate": "Get a list of device type objects.",
+        "method": "GET",
+        "path": "/api/dcim/device-types/",
+        "params": [
+          "airflow",
+          "console_port_template_count",
+          "console_ports",
+          "created",
+          "default_platform",
+          "description",
+          "device_bay_template_count",
+          "device_bays",
+          "exclude_from_utilization",
+          "front_port_template_count",
+          "has_front_image",
+          "has_rear_image",
+          "id",
+          "interface_template_count",
+          "interfaces",
+          "inventory_item_template_count",
+          "inventory_items",
+          "is_full_depth",
+          "last_updated",
+          "limit",
+          "manufacturer",
+          "model",
+          "module_bay_template_count",
+          "module_bays",
+          "offset",
+          "ordering",
+          "part_number",
+          "pass_through_ports",
+          "power_outlet_template_count",
+          "power_outlets",
+          "power_port_template_count",
+          "power_ports",
+          "q",
+          "rear_port_template_count",
+          "slug",
+          "subdevice_role",
+          "tag",
+          "u_height",
+          "weight",
+          "weight_unit"
+        ]
+      },
+      "add": {
+        "name": "dcim_device_types_create",
+        "descriptionTemplate": "Post a list of device type objects.",
+        "method": "POST",
+        "path": "/api/dcim/device-types/",
+        "params": [],
+        "bodyTemplate": {
+          "model": "{model}",
+          "manufacturer": "{manufacturer}"
+        }
+      },
+      "update": {
+        "name": "dcim_device_types_update",
+        "descriptionTemplate": "Put a device type object.",
+        "method": "PUT",
+        "path": "/api/dcim/device-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "model": "{model}",
+          "manufacturer": "{manufacturer}"
+        }
+      }
+    }
+  },
+  "Devices": {
+    "operations": {
+      "delete": {
+        "name": "dcim_devices_bulk_destroy",
+        "descriptionTemplate": "Delete a list of device objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/devices/",
+        "params": [],
+        "bodyTemplate": {
+          "device": "{device}"
+        }
+      },
+      "list": {
+        "name": "dcim_devices_list",
+        "descriptionTemplate": "Get a list of device objects.",
+        "method": "GET",
+        "path": "/api/dcim/devices/",
+        "params": [
+          "airflow",
+          "asset_tag",
+          "cluster_group",
+          "cluster_id",
+          "config_template_id",
+          "console_port_count",
+          "console_ports",
+          "console_server_port_count",
+          "console_server_ports",
+          "contact",
+          "contact_group",
+          "contact_role",
+          "created",
+          "description",
+          "device_bay_count",
+          "device_bays",
+          "device_type",
+          "face",
+          "front_port_count",
+          "has_oob_ip",
+          "has_primary_ip",
+          "has_virtual_device_context",
+          "id",
+          "interface_count",
+          "interfaces",
+          "inventory_item_count",
+          "is_full_depth",
+          "last_updated",
+          "latitude",
+          "limit",
+          "local_context_data",
+          "location",
+          "longitude",
+          "mac_address",
+          "manufacturer",
+          "model",
+          "module_bay_count",
+          "module_bays",
+          "name",
+          "offset",
+          "oob_ip_id",
+          "ordering",
+          "parent_bay_id",
+          "parent_device_id",
+          "pass_through_ports",
+          "platform",
+          "position",
+          "power_outlet_count",
+          "power_outlets",
+          "power_port_count",
+          "power_ports",
+          "primary_ip4",
+          "primary_ip6",
+          "q",
+          "rack_id",
+          "rear_port_count",
+          "region",
+          "role",
+          "serial",
+          "site",
+          "site_group",
+          "site_id",
+          "status",
+          "tag",
+          "tenant",
+          "tenant_group",
+          "tenant_id",
+          "updated_by_request",
+          "vc_position",
+          "vc_priority",
+          "virtual_chassis_id",
+          "virtual_chassis_member"
+        ]
+      },
+      "add": {
+        "name": "dcim_devices_create",
+        "descriptionTemplate": "Post a list of device objects.",
+        "method": "POST",
+        "path": "/api/dcim/devices/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "update": {
+        "name": "dcim_devices_update",
+        "descriptionTemplate": "Put a device object.",
+        "method": "PUT",
+        "path": "/api/dcim/devices/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      }
+    }
+  }
+}

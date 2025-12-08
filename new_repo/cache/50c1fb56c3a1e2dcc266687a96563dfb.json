@@ -1,0 +1,322 @@
+{
+  "ImageAttachments": {
+    "operations": {
+      "get": {
+        "name": "extras_image_attachments_retrieve",
+        "descriptionTemplate": "Get a image attachment object.",
+        "method": "GET",
+        "path": "/api/extras/image-attachments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "delete": {
+        "name": "extras_image_attachments_destroy",
+        "descriptionTemplate": "Delete a image attachment object.",
+        "method": "DELETE",
+        "path": "/api/extras/image-attachments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "extras_image_attachments_update",
+        "descriptionTemplate": "Put a image attachment object.",
+        "method": "PUT",
+        "path": "/api/extras/image-attachments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "image": "{image}",
+          "name": "{name}"
+        }
+      },
+      "patch": {
+        "name": "extras_image_attachments_partial_update",
+        "descriptionTemplate": "Patch a image attachment object.",
+        "method": "PATCH",
+        "path": "/api/extras/image-attachments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "image": "{image}",
+          "name": "{name}"
+        }
+      }
+    }
+  },
+  "JournalEntries": {
+    "operations": {
+      "list": {
+        "name": "extras_journal_entries_list",
+        "descriptionTemplate": "Get a list of journal entry objects.",
+        "method": "GET",
+        "path": "/api/extras/journal-entries/",
+        "params": [
+          "assigned_object_id",
+          "assigned_object_id__empty",
+          "assigned_object_id__gt",
+          "assigned_object_id__gte",
+          "assigned_object_id__lt",
+          "assigned_object_id__lte",
+          "assigned_object_id__n",
+          "assigned_object_type",
+          "assigned_object_type__n",
+          "assigned_object_type_id",
+          "assigned_object_type_id__n",
+          "created_after",
+          "created_before",
+          "created_by",
+          "created_by__n",
+          "created_by_id",
+          "created_by_id__n",
+          "created_by_request",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "kind",
+          "kind__empty",
+          "kind__ic",
+          "kind__ie",
+          "kind__iew",
+          "kind__iregex",
+          "kind__isw",
+          "kind__n",
+          "kind__nic",
+          "kind__nie",
+          "kind__niew",
+          "kind__nisw",
+          "kind__regex",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_journal_entries_create",
+        "descriptionTemplate": "Post a list of journal entry objects.",
+        "method": "POST",
+        "path": "/api/extras/journal-entries/",
+        "params": [],
+        "bodyTemplate": {
+          "entry": "{entry}",
+          "kind": "{kind}",
+          "comments": "{comments}"
+        }
+      },
+      "update": {
+        "name": "extras_journal_entries_bulk_update",
+        "descriptionTemplate": "Put a list of journal entry objects.",
+        "method": "PUT",
+        "path": "/api/extras/journal-entries/",
+        "params": [],
+        "bodyTemplate": {
+          "entry": "{entry}",
+          "kind": "{kind}",
+          "comments": "{comments}"
+        }
+      },
+      "patch": {
+        "name": "extras_journal_entries_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of journal entry objects.",
+        "method": "PATCH",
+        "path": "/api/extras/journal-entries/",
+        "params": [],
+        "bodyTemplate": {
+          "entry": "{entry}",
+          "kind": "{kind}",
+          "comments": "{comments}"
+        }
+      },
+      "delete": {
+        "name": "extras_journal_entries_bulk_destroy",
+        "descriptionTemplate": "Delete a list of journal entry objects.",
+        "method": "DELETE",
+        "path": "/api/extras/journal-entries/",
+        "params": [],
+        "bodyTemplate": {
+          "entry": "{entry}",
+          "kind": "{kind}",
+          "comments": "{comments}"
+        }
+      },
+      "get": {
+        "name": "extras_journal_entries_retrieve",
+        "descriptionTemplate": "Get a journal entry object.",
+        "method": "GET",
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "delete_single": {
+        "name": "extras_journal_entries_destroy",
+        "descriptionTemplate": "Delete a journal entry object.",
+        "method": "DELETE",
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update_single": {
+        "name": "extras_journal_entries_update",
+        "descriptionTemplate": "Put a journal entry object.",
+        "method": "PUT",
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "entry": "{entry}",
+          "kind": "{kind}",
+          "comments": "{comments}"
+        }
+      },
+      "patch_single": {
+        "name": "extras_journal_entries_partial_update",
+        "descriptionTemplate": "Patch a journal entry object.",
+        "method": "PATCH",
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "entry": "{entry}",
+          "kind": "{kind}",
+          "comments": "{comments}"
+        }
+      }
+    }
+  },
+  "NotificationGroups": {
+    "operations": {
+      "list": {
+        "name": "extras_notification_groups_list",
+        "descriptionTemplate": "Get a list of notification group objects.",
+        "method": "GET",
+        "path": "/api/extras/notification-groups/",
+        "params": [
+          "limit",
+          "offset",
+          "ordering"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_notification_groups_create",
+        "descriptionTemplate": "Post a list of notification group objects.",
+        "method": "POST",
+        "path": "/api/extras/notification-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "extras_notification_groups_bulk_update",
+        "descriptionTemplate": "Put a list of notification group objects.",
+        "method": "PUT",
+        "path": "/api/extras/notification-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "extras_notification_groups_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of notification group objects.",
+        "method": "PATCH",
+        "path": "/api/extras/notification-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "delete": {
+        "name": "extras_notification_groups_bulk_destroy",
+        "descriptionTemplate": "Delete a list of notification group objects.",
+        "method": "DELETE",
+        "path": "/api/extras/notification-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "get": {
+        "name": "extras_notification_groups_retrieve",
+        "descriptionTemplate": "Get a notification group object.",
+        "method": "GET",
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "delete_single": {
+        "name": "extras_notification_groups_destroy",
+        "descriptionTemplate": "Delete a notification group object.",
+        "method": "DELETE",
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update_single": {
+        "name": "extras_notification_groups_update",
+        "descriptionTemplate": "Put a notification group object.",
+        "method": "PUT",
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "patch_single": {
+        "name": "extras_notification_groups_partial_update",
+        "descriptionTemplate": "Patch a notification group object.",
+        "method": "PATCH",
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      }
+    }
+  }
+}

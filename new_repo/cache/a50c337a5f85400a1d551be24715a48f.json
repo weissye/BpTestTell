@@ -1,0 +1,279 @@
+{
+  "ConfigTemplates": {
+    "operations": {
+      "add": {
+        "name": "extras_config_templates_sync_create",
+        "descriptionTemplate": "Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).",
+        "method": "POST",
+        "path": "/api/extras/config-templates/{id}/sync/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "ConfigTemplateRequest": "{ConfigTemplateRequest}"
+        }
+      }
+    }
+  },
+  "CustomFieldChoiceSets": {
+    "operations": {
+      "list": {
+        "name": "extras_custom_field_choice_sets_choices_retrieve",
+        "descriptionTemplate": "Provides an endpoint to iterate through each choice in a set.",
+        "method": "GET",
+        "path": "/api/extras/custom-field-choice-sets/{id}/choices/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_custom_field_choice_sets_create",
+        "descriptionTemplate": "Post a list of custom field choice set objects.",
+        "method": "POST",
+        "path": "/api/extras/custom-field-choice-sets/",
+        "params": [],
+        "bodyTemplate": {
+          "WritableCustomFieldChoiceSetRequest": "{WritableCustomFieldChoiceSetRequest}"
+        }
+      },
+      "update": {
+        "name": "extras_custom_field_choice_sets_update",
+        "descriptionTemplate": "Put a custom field choice set object.",
+        "method": "PUT",
+        "path": "/api/extras/custom-field-choice-sets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "WritableCustomFieldChoiceSetRequest": "{WritableCustomFieldChoiceSetRequest}"
+        }
+      },
+      "delete": {
+        "name": "extras_custom_field_choice_sets_destroy",
+        "descriptionTemplate": "Delete a custom field choice set object.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-field-choice-sets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "extras_custom_field_choice_sets_retrieve",
+        "descriptionTemplate": "Get a custom field choice set object.",
+        "method": "GET",
+        "path": "/api/extras/custom-field-choice-sets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "CustomFields": {
+    "operations": {
+      "list": {
+        "name": "extras_custom_fields_list",
+        "descriptionTemplate": "Get a list of custom field objects.",
+        "method": "GET",
+        "path": "/api/extras/custom-fields/",
+        "params": [
+          "choice_set",
+          "choice_set__n",
+          "choice_set_id",
+          "choice_set_id__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "filter_logic",
+          "group_name",
+          "group_name__empty",
+          "group_name__ic",
+          "group_name__ie",
+          "group_name__iew",
+          "group_name__iregex",
+          "group_name__isw",
+          "group_name__n",
+          "group_name__nic",
+          "group_name__nie",
+          "group_name__niew",
+          "group_name__nisw",
+          "group_name__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "is_cloneable",
+          "label",
+          "label__empty",
+          "label__ic",
+          "label__ie",
+          "label__iew",
+          "label__iregex",
+          "label__isw",
+          "label__n",
+          "label__nic",
+          "label__nie",
+          "label__niew",
+          "label__nisw",
+          "label__regex",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "object_type",
+          "object_type__ic",
+          "object_type__ie",
+          "object_type__iew",
+          "object_type__iregex",
+          "object_type__isw",
+          "object_type__n",
+          "object_type__nic",
+          "object_type__nie",
+          "object_type__niew",
+          "object_type__nisw",
+          "object_type__regex",
+          "object_type_id",
+          "object_type_id__n",
+          "offset",
+          "ordering",
+          "q",
+          "related_object_type",
+          "related_object_type__n",
+          "related_object_type_id",
+          "related_object_type_id__n",
+          "required",
+          "search_weight",
+          "search_weight__empty",
+          "search_weight__gt",
+          "search_weight__gte",
+          "search_weight__lt",
+          "search_weight__lte",
+          "search_weight__n",
+          "type",
+          "type__empty",
+          "type__ic",
+          "type__ie",
+          "type__iew",
+          "type__iregex",
+          "type__isw",
+          "type__n",
+          "type__nic",
+          "type__nie",
+          "type__niew",
+          "type__nisw",
+          "type__regex",
+          "ui_editable",
+          "ui_visible",
+          "unique",
+          "updated_by_request",
+          "validation_maximum",
+          "validation_maximum__empty",
+          "validation_maximum__gt",
+          "validation_maximum__gte",
+          "validation_maximum__lt",
+          "validation_maximum__lte",
+          "validation_maximum__n",
+          "validation_minimum",
+          "validation_minimum__empty",
+          "validation_minimum__gt",
+          "validation_minimum__gte",
+          "validation_minimum__lt",
+          "validation_minimum__lte",
+          "validation_minimum__n",
+          "validation_regex",
+          "validation_regex__empty",
+          "validation_regex__ic",
+          "validation_regex__ie",
+          "validation_regex__iew",
+          "validation_regex__iregex",
+          "validation_regex__isw",
+          "validation_regex__n",
+          "validation_regex__nic",
+          "validation_regex__nie",
+          "validation_regex__niew",
+          "validation_regex__nisw",
+          "validation_regex__regex",
+          "weight",
+          "weight__empty",
+          "weight__gt",
+          "weight__gte",
+          "weight__lt",
+          "weight__lte",
+          "weight__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_custom_fields_create",
+        "descriptionTemplate": "Post a list of custom field objects.",
+        "method": "POST",
+        "path": "/api/extras/custom-fields/",
+        "params": [],
+        "bodyTemplate": {
+          "WritableCustomFieldRequest": "{WritableCustomFieldRequest}"
+        }
+      },
+      "update": {
+        "name": "extras_custom_fields_bulk_update",
+        "descriptionTemplate": "Put a list of custom field objects.",
+        "method": "PUT",
+        "path": "/api/extras/custom-fields/",
+        "params": [],
+        "bodyTemplate": {
+          "CustomFieldRequest": "{CustomFieldRequest}"
+        }
+      },
+      "delete": {
+        "name": "extras_custom_fields_bulk_destroy",
+        "descriptionTemplate": "Delete a list of custom field objects.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-fields/",
+        "params": [],
+        "bodyTemplate": {
+          "CustomFieldRequest": "{CustomFieldRequest}"
+        }
+      }
+    }
+  }
+}

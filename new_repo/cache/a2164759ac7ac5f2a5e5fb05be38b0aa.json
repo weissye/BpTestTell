@@ -1,0 +1,320 @@
+{
+  "TenantGroups": {
+    "operations": {
+      "delete": {
+        "name": "tenancy_tenant_groups_destroy",
+        "descriptionTemplate": "Delete a tenant group object.",
+        "method": "DELETE",
+        "path": "/api/tenancy/tenant-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "tenancy_tenant_groups_retrieve",
+        "descriptionTemplate": "Get a tenant group object.",
+        "method": "GET",
+        "path": "/api/tenancy/tenant-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "tenancy_tenant_groups_update",
+        "descriptionTemplate": "Put a tenant group object.",
+        "method": "PUT",
+        "path": "/api/tenancy/tenant-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "tenancy_tenant_groups_partial_update",
+        "descriptionTemplate": "Patch a tenant group object.",
+        "method": "PATCH",
+        "path": "/api/tenancy/tenant-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "Tenants": {
+    "operations": {
+      "delete": {
+        "name": "tenancy_tenants_destroy",
+        "descriptionTemplate": "Delete a tenant object.",
+        "method": "DELETE",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "tenancy_tenants_retrieve",
+        "descriptionTemplate": "Get a tenant object.",
+        "method": "GET",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "tenancy_tenants_update",
+        "descriptionTemplate": "Put a tenant object.",
+        "method": "PUT",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "tenancy_tenants_partial_update",
+        "descriptionTemplate": "Patch a tenant object.",
+        "method": "PATCH",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "list": {
+        "name": "tenancy_tenants_list",
+        "descriptionTemplate": "Get a list of tenant objects.",
+        "method": "GET",
+        "path": "/api/tenancy/tenants/",
+        "params": [
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "group",
+          "group__n",
+          "group_id",
+          "group_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "tenancy_tenants_create",
+        "descriptionTemplate": "Post a list of tenant objects.",
+        "method": "POST",
+        "path": "/api/tenancy/tenants/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "UserConfig": {
+    "operations": {
+      "get": {
+        "name": "users_config_retrieve",
+        "descriptionTemplate": "An API endpoint via which a user can update his or her own UserConfig data (but no one else's).",
+        "method": "GET",
+        "path": "/api/users/config/",
+        "params": [],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "Groups": {
+    "operations": {
+      "delete": {
+        "name": "users_groups_bulk_destroy",
+        "descriptionTemplate": "Delete a list of group objects.",
+        "method": "DELETE",
+        "path": "/api/users/groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "get": {
+        "name": "users_groups_list",
+        "descriptionTemplate": "Get a list of group objects.",
+        "method": "GET",
+        "path": "/api/users/groups/",
+        "params": [
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "limit",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "notification_group_id",
+          "notification_group_id__n",
+          "offset",
+          "ordering",
+          "permission_id",
+          "permission_id__n",
+          "q",
+          "user_id",
+          "user_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "users_groups_create",
+        "descriptionTemplate": "Post a list of group objects.",
+        "method": "POST",
+        "path": "/api/users/groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "users_groups_bulk_update",
+        "descriptionTemplate": "Put a list of group objects.",
+        "method": "PUT",
+        "path": "/api/users/groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "users_groups_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of group objects.",
+        "method": "PATCH",
+        "path": "/api/users/groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      }
+    }
+  }
+}

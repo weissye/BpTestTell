@@ -375,7 +375,7 @@ bthread("crud:PeriodicMaintenance:linear:1", function () {
   let planType = "planType_410";
   let pmId = "pmId_410";
   let status = "status_410";
-  let task = "task_410";
+  let tasks = "tasks_410";
   // Dependency Barrier
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
@@ -384,13 +384,13 @@ bthread("crud:PeriodicMaintenance:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   carVin = captured["carVin"];
   garageId = captured["garageId"];
-  createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
+  createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
 });
 
 // Story: crud:PeriodicMaintenance:linear:2
@@ -402,7 +402,7 @@ bthread("crud:PeriodicMaintenance:linear:2", function () {
   let planType = "planType_420";
   let pmId = "pmId_420";
   let status = "status_420";
-  let task = "task_420";
+  let tasks = "tasks_420";
   // Dependency Barrier
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
@@ -411,13 +411,13 @@ bthread("crud:PeriodicMaintenance:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   carVin = captured["carVin"];
   garageId = captured["garageId"];
-  createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
+  createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
 });
 
 // Story: crud:PeriodicMaintenance:linear:3
@@ -429,7 +429,7 @@ bthread("crud:PeriodicMaintenance:linear:3", function () {
   let planType = "planType_430";
   let pmId = "pmId_430";
   let status = "status_430";
-  let task = "task_430";
+  let tasks = "tasks_430";
   // Dependency Barrier
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
@@ -438,13 +438,13 @@ bthread("crud:PeriodicMaintenance:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   carVin = captured["carVin"];
   garageId = captured["garageId"];
-  createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
-  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
+  createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
+  verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
 });
 
 // Monitor: PeriodicMaintenance Verification
@@ -458,10 +458,10 @@ bthread("monitor:PeriodicMaintenance", function () {
     let planType = (e.data.parameters && e.data.parameters.planType) ? e.data.parameters.planType : e.data.planType;
     let pmId = (e.data.parameters && e.data.parameters.pmId) ? e.data.parameters.pmId : e.data.pmId;
     let status = (e.data.parameters && e.data.parameters.status) ? e.data.parameters.status : e.data.status;
-    let task = (e.data.parameters && e.data.parameters.task) ? e.data.parameters.task : e.data.task;
+    let tasks = (e.data.parameters && e.data.parameters.tasks) ? e.data.parameters.tasks : e.data.tasks;
     // Block Deletion while Verifying Existence
-    block(matchDeletedPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task), function() {
-        verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task);
+    block(matchDeletedPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks), function() {
+        verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks);
     });
   }
 });

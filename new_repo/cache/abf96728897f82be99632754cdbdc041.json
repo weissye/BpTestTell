@@ -7,7 +7,7 @@
         "method": "GET",
         "path": "/drugs",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "add": {
         "name": "createDrug",
@@ -28,7 +28,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "update": {
         "name": "updateDrug",
@@ -51,7 +51,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "x-negative-delete-expected-codes": [
           200,
           404,
@@ -68,7 +68,7 @@
         "method": "GET",
         "path": "/orders",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "add": {
         "name": "createOrder",
@@ -88,7 +88,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "update": {
         "name": "updateOrder",
@@ -110,7 +110,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "x-negative-delete-expected-codes": [
           200,
           404,
@@ -127,7 +127,7 @@
         "method": "GET",
         "path": "/patients",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "add": {
         "name": "createPatient",
@@ -148,7 +148,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "update": {
         "name": "updatePatient",
@@ -171,7 +171,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "x-negative-delete-expected-codes": [
           200,
           404,
@@ -188,7 +188,7 @@
         "method": "GET",
         "path": "/prescriptions",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "add": {
         "name": "createPrescription",
@@ -208,7 +208,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null
       },
       "update": {
         "name": "updatePrescription",
@@ -230,7 +230,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "x-negative-delete-expected-codes": [
           200,
           404,

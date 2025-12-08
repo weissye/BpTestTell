@@ -3,7 +3,6 @@ import json
 import re
 from typing import Dict, Any, List, Tuple, Optional
 
-# --- JavaScript Reserved Words ---
 JS_RESERVED = {
     "abstract", "arguments", "await", "boolean", "break", "byte", "case", "catch",
     "char", "class", "const", "continue", "debugger", "default", "delete", "do",
@@ -60,13 +59,14 @@ def render_body_js(template: Any, indent=4) -> str:
             clean_var = sanitize_param(var_name)
             lower_var = var_name.lower()
             
-            # 1. Handle Integers
-            if lower_var in ["year", "mileage", "baycount", "intervalkm", "intervalmonths"]:
+            # 1. Handle Integers (Expanded List)
+            # FIX: Added "id", "userid", "bookid", etc. to strictly force Number()
+            if lower_var in ["id", "userid", "bookid", "year", "mileage", "baycount", "intervalkm", "intervalmonths"]:
                  return f'Number({clean_var})'
             
-            # 2. Handle Booleans (FIXED)
+            # 2. Handle Booleans
             if lower_var in ["active", "enabled", "visible"]:
-                 return clean_var # Return variable directly (true/false), no String() wrapper
+                 return clean_var 
                  
             # 3. Default to String
             return f'String({clean_var})'
@@ -83,23 +83,18 @@ def get_raw_spec(spec):
 def get_response_codes(path, method, full_spec):
     raw_spec = get_raw_spec(full_spec)
     if not raw_spec: return []
-    
     paths = raw_spec.get("paths", {})
     path_item = paths.get(path)
     if not path_item: return []
-    
     op = path_item.get(method.lower())
     if not op: return []
-    
     responses = op.get("responses", {})
     codes = []
     for code in responses.keys():
         if code.isdigit():
             codes.append(int(code))
-    
     if method.upper() == "DELETE":
         if 204 in codes and 200 not in codes: codes.append(200)
-    
     return sorted(list(set(codes)))
 
 def get_operation_schema(path, method, raw_spec):
@@ -110,12 +105,10 @@ def get_operation_schema(path, method, raw_spec):
     if not path_item: return {}, []
     op = path_item.get(method)
     if not op: return {}, []
-    
     req_body = op.get("requestBody", {})
     content = req_body.get("content", {})
     json_media = content.get("application/json", {})
     schema_ref = json_media.get("schema", {})
-    
     return schema_ref, []
 
 def infer_type(param_name, known_type="string"):
@@ -137,17 +130,13 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
             if matches:
                 primary_key = matches[0]
                 break
-    
     if not primary_key: primary_key = "id"
-
     all_params_set = set()
     if primary_key: all_params_set.add(primary_key)
-    
     for op in ops.values():
         if isinstance(op, dict):
             for p in op.get("params", []):
                 if p and p not in ["...", "…"]: all_params_set.add(p)
-            
             if "bodyTemplate" in op and isinstance(op["bodyTemplate"], dict):
                 for v in op["bodyTemplate"].values():
                     if isinstance(v, str) and v.startswith("{") and v.endswith("}"):
@@ -158,5 +147,4 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
                             if isinstance(item, str) and item.startswith("{") and item.endswith("}"):
                                 clean = item.strip("{}")
                                 if clean: all_params_set.add(clean)
-
     return primary_key, sorted(list(all_params_set))

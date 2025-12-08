@@ -18,10 +18,10 @@
         "bodyTemplate": {
           "vin": "{vin}",
           "make": "{make}",
-          "model": "{model}",
-          "year": "{year}",
           "mileage": "{mileage}",
+          "model": "{model}",
           "ownerCustomerId": "{ownerCustomerId}",
+          "year": "{year}",
           "homeGarageId": "{homeGarageId}"
         }
       },
@@ -45,10 +45,10 @@
         ],
         "bodyTemplate": {
           "make": "{make}",
-          "model": "{model}",
-          "year": "{year}",
           "mileage": "{mileage}",
+          "model": "{model}",
           "ownerCustomerId": "{ownerCustomerId}",
+          "year": "{year}",
           "homeGarageId": "{homeGarageId}"
         }
       },

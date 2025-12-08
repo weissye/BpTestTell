@@ -12,7 +12,7 @@
           "params": [
             "q"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "add": {
           "name": "createBook",
@@ -21,8 +21,8 @@
           "path": "/books",
           "params": [],
           "bodyTemplate": {
-            "id": "{integer}",
-            "title": "{string}"
+            "id": "{id}",
+            "title": "{title}"
           }
         },
         "get": {
@@ -33,7 +33,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "delete": {
           "name": "deleteBook",
@@ -43,7 +43,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "x-negative-delete-expected-codes": [
             404
           ]
@@ -58,7 +58,7 @@
           "method": "GET",
           "path": "/holds",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "add": {
           "name": "createHold",
@@ -67,9 +67,9 @@
           "path": "/holds",
           "params": [],
           "bodyTemplate": {
-            "id": "{integer}",
-            "userId": "{integer}",
-            "bookId": "{integer}"
+            "id": "{id}",
+            "userId": "{userId}",
+            "bookId": "{bookId}"
           }
         },
         "delete": {
@@ -80,7 +80,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         }
       }
     },
@@ -95,7 +95,7 @@
             "userId",
             "bookId"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "add": {
           "name": "createLoan",
@@ -104,8 +104,8 @@
           "path": "/loans",
           "params": [],
           "bodyTemplate": {
-            "userId": "{integer}",
-            "bookId": "{integer}"
+            "userId": "{userId}",
+            "bookId": "{bookId}"
           }
         },
         "delete": {
@@ -117,7 +117,7 @@
             "userId",
             "bookId"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "x-negative-delete-expected-codes": [
             404
           ]
@@ -134,7 +134,7 @@
           "params": [
             "q"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null
         },
         "add": {
           "name": "createUser",
@@ -143,8 +143,8 @@
           "path": "/users",
           "params": [],
           "bodyTemplate": {
-            "id": "{integer}",
-            "name": "{string}"
+            "id": "{id}",
+            "name": "{name}"
           }
         },
         "delete": {
@@ -155,7 +155,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "x-negative-delete-expected-codes": [
             404
           ]

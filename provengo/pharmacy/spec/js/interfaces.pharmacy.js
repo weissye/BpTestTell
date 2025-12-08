@@ -1,6 +1,6 @@
 //@provengo summon rest
 // === Auto-generated interfaces for pharmacy ===
-var host = (typeof host !== 'undefined') ? host : '192.168.225.36';
+var host = (typeof host !== 'undefined') ? host : '10.100.102.6';
 var port = (typeof port !== 'undefined') ? port : 5014;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
@@ -21,7 +21,7 @@ function createDrug(id, name) {
   var url = "/drugs";
   var description = "Create drug";
   var body = {
-    "id": String(id),
+    "id": Number(id),
     "name": String(name),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
@@ -38,7 +38,7 @@ function updateDrug(id, name) {
   var url = "/drugs/" + id;
   var description = "Update drug";
   var body = {
-    "id": String(id),
+    "id": Number(id),
     "name": String(name),
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
@@ -55,7 +55,7 @@ function tryToAddExistingDrugs(id, name) {
   var url = "/drugs";
   var description = "Try Add Existing Drugs";
   var body = {
-    "id": String(id),
+    "id": Number(id),
     "name": String(name),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
@@ -107,7 +107,7 @@ function createOrder(id) {
   var url = "/orders";
   var description = "Create order";
   var body = {
-    "id": String(id),
+    "id": Number(id),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
@@ -123,7 +123,7 @@ function updateOrder(id) {
   var url = "/orders/" + id;
   var description = "Update order";
   var body = {
-    "id": String(id),
+    "id": Number(id),
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
@@ -139,7 +139,7 @@ function tryToAddExistingOrders(id) {
   var url = "/orders";
   var description = "Try Add Existing Orders";
   var body = {
-    "id": String(id),
+    "id": Number(id),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -190,7 +190,7 @@ function createPatient(id, name) {
   var url = "/patients";
   var description = "Create patient";
   var body = {
-    "id": String(id),
+    "id": Number(id),
     "name": String(name),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
@@ -207,7 +207,7 @@ function updatePatient(id, name) {
   var url = "/patients/" + id;
   var description = "Update patient";
   var body = {
-    "id": String(id),
+    "id": Number(id),
     "name": String(name),
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
@@ -224,7 +224,7 @@ function tryToAddExistingPatients(id, name) {
   var url = "/patients";
   var description = "Try Add Existing Patients";
   var body = {
-    "id": String(id),
+    "id": Number(id),
     "name": String(name),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
@@ -276,7 +276,7 @@ function createPrescription(id) {
   var url = "/prescriptions";
   var description = "Create prescription";
   var body = {
-    "id": String(id),
+    "id": Number(id),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
@@ -292,7 +292,7 @@ function updatePrescription(id) {
   var url = "/prescriptions/" + id;
   var description = "Update prescription";
   var body = {
-    "id": String(id),
+    "id": Number(id),
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
@@ -308,7 +308,7 @@ function tryToAddExistingPrescriptions(id) {
   var url = "/prescriptions";
   var description = "Try Add Existing Prescriptions";
   var body = {
-    "id": String(id),
+    "id": Number(id),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -367,13 +367,13 @@ function createInventory(ndc) {
 
 function getInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Get inventory by NDC";
+  var description = "Get inventory";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
 function updateInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Update inventory by NDC";
+  var description = "Update inventory";
   var body = {
     "ndc": String(ndc),
   };
@@ -383,7 +383,7 @@ function updateInventory(ndc) {
 
 function deleteInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Delete inventory by NDC";
+  var description = "Delete inventory (idempotent)";
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
@@ -418,7 +418,7 @@ function tryToDeleteANonExistingInventory(ndc) {
 
 function matchDeletedInventory(ndc) {
   return bp.EventSet("Delete Inventory", function(e) {
-      return e.name === "Done: " + "Delete inventory by NDC";
+      return e.name === "Done: " + "Delete inventory (idempotent)";
   });
 }
 

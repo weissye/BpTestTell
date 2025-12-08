@@ -52,6 +52,18 @@ def handle_request(resource_path):
             return jsonify(data)
 
     elif request.method == 'POST':
+        # FIX: Check for Action endpoints that should return 200 OK
+        # This list covers all identified actions in your OpenAPI spec
+        action_verbs = (
+            'sync', 'clean', 'archive', 'disconnect', 'connect', 'trace', 
+            'requeue', 'enqueue', 'stop', 'delete', 
+            'render', 'render-config', 'provision', 'deprovision'
+        )
+        
+        if resource_path.rstrip('/').endswith(action_verbs):
+             print(f"DEBUG POST ACTION: {resource_path}. Returning 200 OK.")
+             return jsonify({'status': 'success', 'message': 'Action completed successfully'}), 200
+             
         new_item = request.json
         if not new_item: new_item = {}
         
@@ -75,7 +87,7 @@ def handle_request(resource_path):
 
     elif request.method in ['PUT', 'PATCH']:
         if item_id is None:
-            # FIX: Allow Bulk Updates (defined in OpenAPI)
+            # Allow Bulk Updates
             print(f"DEBUG {request.method}: Bulk update on {resource_key}. returning 200.")
             return jsonify([{'id': 0, 'status': 'bulk updated'}]), 200
         
@@ -93,7 +105,7 @@ def handle_request(resource_path):
                  return '', 204
              return jsonify({'detail': 'Not found.'}), 404
         else:
-            # Bulk Delete (Optional support)
+            # Bulk Delete
             return jsonify({'detail': 'Bulk delete not implemented in simple mock'}), 405
 
     return jsonify({'detail': 'Not implemented'}), 501

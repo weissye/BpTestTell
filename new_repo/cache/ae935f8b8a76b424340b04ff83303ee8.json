@@ -1,0 +1,254 @@
+{
+  "RackTypes": {
+    "operations": {
+      "get": {
+        "name": "dcim_rack_types_retrieve",
+        "descriptionTemplate": "Get a rack type object.",
+        "method": "GET",
+        "path": "/api/dcim/rack-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "dcim_rack_types_update",
+        "descriptionTemplate": "Put a rack type object.",
+        "method": "PUT",
+        "path": "/api/dcim/rack-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "patch": {
+        "name": "dcim_rack_types_partial_update",
+        "descriptionTemplate": "Patch a rack type object.",
+        "method": "PATCH",
+        "path": "/api/dcim/rack-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "delete": {
+        "name": "dcim_rack_types_destroy",
+        "descriptionTemplate": "Delete a rack type object.",
+        "method": "DELETE",
+        "path": "/api/dcim/rack-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "Racks": {
+    "operations": {
+      "list": {
+        "name": "dcim_racks_list",
+        "descriptionTemplate": "Get a list of rack objects.",
+        "method": "GET",
+        "path": "/api/dcim/racks/",
+        "params": [
+          "airflow",
+          "asset_tag",
+          "limit",
+          "offset",
+          "q"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "dcim_racks_create",
+        "descriptionTemplate": "Post a list of rack objects.",
+        "method": "POST",
+        "path": "/api/dcim/racks/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "update": {
+        "name": "dcim_racks_bulk_update",
+        "descriptionTemplate": "Put a list of rack objects.",
+        "method": "PUT",
+        "path": "/api/dcim/racks/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "patch": {
+        "name": "dcim_racks_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of rack objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/racks/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "delete": {
+        "name": "dcim_racks_bulk_destroy",
+        "descriptionTemplate": "Delete a list of rack objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/racks/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "get": {
+        "name": "dcim_racks_retrieve",
+        "descriptionTemplate": "Get a rack object.",
+        "method": "GET",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateSingle": {
+        "name": "dcim_racks_update",
+        "descriptionTemplate": "Put a rack object.",
+        "method": "PUT",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "patchSingle": {
+        "name": "dcim_racks_partial_update",
+        "descriptionTemplate": "Patch a rack object.",
+        "method": "PATCH",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "deleteSingle": {
+        "name": "dcim_racks_destroy",
+        "descriptionTemplate": "Delete a rack object.",
+        "method": "DELETE",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "getElevation": {
+        "name": "dcim_racks_elevation_retrieve",
+        "descriptionTemplate": "Rack elevation representing the list of rack units. Also supports rendering the elevation as an SVG.",
+        "method": "GET",
+        "path": "/api/dcim/racks/{id}/elevation/",
+        "params": [
+          "id",
+          "exclude",
+          "expand_devices",
+          "face",
+          "include_images",
+          "legend_width",
+          "limit",
+          "margin_width",
+          "offset",
+          "q",
+          "render",
+          "unit_height",
+          "unit_width"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "RearPortTemplates": {
+    "operations": {
+      "list": {
+        "name": "dcim_rear_port_templates_list",
+        "descriptionTemplate": "Get a list of rear port template objects.",
+        "method": "GET",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [
+          "color",
+          "created",
+          "description",
+          "device_type_id",
+          "id",
+          "label",
+          "last_updated",
+          "limit",
+          "module_type_id",
+          "name",
+          "offset",
+          "ordering",
+          "positions",
+          "q",
+          "type"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "dcim_rear_port_templates_create",
+        "descriptionTemplate": "Post a list of rear port template objects.",
+        "method": "POST",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "update": {
+        "name": "dcim_rear_port_templates_bulk_update",
+        "descriptionTemplate": "Put a list of rear port template objects.",
+        "method": "PUT",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "patch": {
+        "name": "dcim_rear_port_templates_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of rear port template objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      },
+      "delete": {
+        "name": "dcim_rear_port_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of rear port template objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        }
+      }
+    }
+  }
+}

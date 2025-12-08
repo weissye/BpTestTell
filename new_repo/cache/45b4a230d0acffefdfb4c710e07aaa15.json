@@ -1,0 +1,464 @@
+{
+  "RearPortTemplates": {
+    "operations": {
+      "delete": {
+        "name": "dcim_rear_port_templates_destroy",
+        "descriptionTemplate": "Delete a rear port template object.",
+        "method": "DELETE",
+        "path": "/api/dcim/rear-port-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "dcim_rear_port_templates_retrieve",
+        "descriptionTemplate": "Get a rear port template object.",
+        "method": "GET",
+        "path": "/api/dcim/rear-port-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "dcim_rear_port_templates_partial_update",
+        "descriptionTemplate": "Patch a rear port template object.",
+        "method": "PATCH",
+        "path": "/api/dcim/rear-port-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedWritableRearPortTemplateRequest": "{PatchedWritableRearPortTemplateRequest}"
+        }
+      },
+      "put": {
+        "name": "dcim_rear_port_templates_update",
+        "descriptionTemplate": "Put a rear port template object.",
+        "method": "PUT",
+        "path": "/api/dcim/rear-port-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "WritableRearPortTemplateRequest": "{WritableRearPortTemplateRequest}"
+        }
+      }
+    }
+  },
+  "RearPorts": {
+    "operations": {
+      "delete": {
+        "name": "dcim_rear_ports_bulk_destroy",
+        "descriptionTemplate": "Delete a list of rear port objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/rear-ports/",
+        "params": [],
+        "bodyTemplate": {
+          "RearPortRequest": "[{RearPortRequest}]"
+        }
+      },
+      "list": {
+        "name": "dcim_rear_ports_list",
+        "descriptionTemplate": "Get a list of rear port objects.",
+        "method": "GET",
+        "path": "/api/dcim/rear-ports/",
+        "params": [
+          "cable_end",
+          "cable_id",
+          "cable_id__n",
+          "cabled",
+          "color",
+          "color__empty",
+          "color__ic",
+          "color__ie",
+          "color__iew",
+          "color__iregex",
+          "color__isw",
+          "color__n",
+          "color__nic",
+          "color__nie",
+          "color__niew",
+          "color__nisw",
+          "color__regex",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "device",
+          "device__n",
+          "device_id",
+          "device_id__n",
+          "device_role",
+          "device_role__n",
+          "device_role_id",
+          "device_role_id__n",
+          "device_status",
+          "device_status__empty",
+          "device_status__ic",
+          "device_status__ie",
+          "device_status__iew",
+          "device_status__iregex",
+          "device_status__isw",
+          "device_status__n",
+          "device_status__nic",
+          "device_status__nie",
+          "device_status__niew",
+          "device_status__nisw",
+          "device_status__regex",
+          "device_type",
+          "device_type__n",
+          "device_type_id",
+          "device_type_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "label",
+          "label__empty",
+          "label__ic",
+          "label__ie",
+          "label__iew",
+          "label__iregex",
+          "label__isw",
+          "label__n",
+          "label__nic",
+          "label__nie",
+          "label__niew",
+          "label__nisw",
+          "label__regex",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "location",
+          "location__n",
+          "location_id",
+          "location_id__n",
+          "mark_connected",
+          "modified_by_request",
+          "module_id",
+          "module_id__n",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "occupied",
+          "offset",
+          "ordering",
+          "positions",
+          "positions__empty",
+          "positions__gt",
+          "positions__gte",
+          "positions__lt",
+          "positions__lte",
+          "positions__n",
+          "q",
+          "rack",
+          "rack__n",
+          "rack_id",
+          "rack_id__n",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "type",
+          "type__empty",
+          "type__ic",
+          "type__ie",
+          "type__iew",
+          "type__iregex",
+          "type__isw",
+          "type__n",
+          "type__nic",
+          "type__nie",
+          "type__niew",
+          "type__nisw",
+          "type__regex",
+          "updated_by_request",
+          "virtual_chassis",
+          "virtual_chassis__n",
+          "virtual_chassis_id",
+          "virtual_chassis_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "dcim_rear_ports_create",
+        "descriptionTemplate": "Post a list of rear port objects.",
+        "method": "POST",
+        "path": "/api/dcim/rear-ports/",
+        "params": [],
+        "bodyTemplate": {
+          "WritableRearPortRequest": "{WritableRearPortRequest}"
+        }
+      },
+      "update": {
+        "name": "dcim_rear_ports_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of rear port objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/rear-ports/",
+        "params": [],
+        "bodyTemplate": {
+          "RearPortRequest": "[{RearPortRequest}]"
+        }
+      },
+      "put": {
+        "name": "dcim_rear_ports_bulk_update",
+        "descriptionTemplate": "Put a list of rear port objects.",
+        "method": "PUT",
+        "path": "/api/dcim/rear-ports/",
+        "params": [],
+        "bodyTemplate": {
+          "RearPortRequest": "[{RearPortRequest}]"
+        }
+      }
+    }
+  },
+  "RearPort": {
+    "operations": {
+      "delete": {
+        "name": "dcim_rear_ports_destroy",
+        "descriptionTemplate": "Delete a rear port object.",
+        "method": "DELETE",
+        "path": "/api/dcim/rear-ports/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "dcim_rear_ports_retrieve",
+        "descriptionTemplate": "Get a rear port object.",
+        "method": "GET",
+        "path": "/api/dcim/rear-ports/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "dcim_rear_ports_partial_update",
+        "descriptionTemplate": "Patch a rear port object.",
+        "method": "PATCH",
+        "path": "/api/dcim/rear-ports/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedWritableRearPortRequest": "{PatchedWritableRearPortRequest}"
+        }
+      },
+      "put": {
+        "name": "dcim_rear_ports_update",
+        "descriptionTemplate": "Put a rear port object.",
+        "method": "PUT",
+        "path": "/api/dcim/rear-ports/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "WritableRearPortRequest": "{WritableRearPortRequest}"
+        }
+      }
+    }
+  },
+  "RearPortPaths": {
+    "operations": {
+      "get": {
+        "name": "dcim_rear_ports_paths_retrieve",
+        "descriptionTemplate": "Return all CablePaths which traverse a given pass-through port.",
+        "method": "GET",
+        "path": "/api/dcim/rear-ports/{id}/paths/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "Regions": {
+    "operations": {
+      "delete": {
+        "name": "dcim_regions_bulk_destroy",
+        "descriptionTemplate": "Delete a list of region objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/regions/",
+        "params": [],
+        "bodyTemplate": {
+          "RegionRequest": "[{RegionRequest}]"
+        }
+      },
+      "list": {
+        "name": "dcim_regions_list",
+        "descriptionTemplate": "Get a list of region objects.",
+        "method": "GET",
+        "path": "/api/dcim/regions/",
+        "params": [
+          "ancestor",
+          "ancestor__n",
+          "ancestor_id",
+          "ancestor_id__n",
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "parent",
+          "parent__n",
+          "parent_id",
+          "parent_id__n",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "dcim_regions_create",
+        "descriptionTemplate": "Post a list of region objects.",
+        "method": "POST",
+        "path": "/api/dcim/regions/",
+        "params": [],
+        "bodyTemplate": {
+          "WritableRegionRequest": "{WritableRegionRequest}"
+        }
+      },
+      "update": {
+        "name": "dcim_regions_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of region objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/regions/",
+        "params": [],
+        "bodyTemplate": {
+          "RegionRequest": "[{RegionRequest}]"
+        }
+      },
+      "put": {
+        "name": "dcim_regions_bulk_update",
+        "descriptionTemplate": "Put a list of region objects.",
+        "method": "PUT",
+        "path": "/api/dcim/regions/",
+        "params": [],
+        "bodyTemplate": {
+          "RegionRequest": "[{RegionRequest}]"
+        }
+      }
+    }
+  }
+}

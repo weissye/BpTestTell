@@ -1,0 +1,323 @@
+{
+  "DataFiles": {
+    "operations": {
+      "get": {
+        "name": "core_data_files_retrieve",
+        "descriptionTemplate": "Get a data file object.",
+        "method": "GET",
+        "path": "/api/core/data-files/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "DataSources": {
+    "operations": {
+      "list": {
+        "name": "core_data_sources_list",
+        "descriptionTemplate": "Get a list of data source objects.",
+        "method": "GET",
+        "path": "/api/core/data-sources/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "enabled",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_synced",
+          "last_synced__empty",
+          "last_synced__gt",
+          "last_synced__gte",
+          "last_synced__lt",
+          "last_synced__lte",
+          "last_synced__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "source_url",
+          "source_url__empty",
+          "source_url__ic",
+          "source_url__ie",
+          "source_url__iew",
+          "source_url__iregex",
+          "source_url__isw",
+          "source_url__n",
+          "source_url__nic",
+          "source_url__nie",
+          "source_url__niew",
+          "source_url__nisw",
+          "source_url__regex",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "sync_interval",
+          "sync_interval__ic",
+          "sync_interval__ie",
+          "sync_interval__iew",
+          "sync_interval__iregex",
+          "sync_interval__isw",
+          "sync_interval__n",
+          "sync_interval__nic",
+          "sync_interval__nie",
+          "sync_interval__niew",
+          "sync_interval__nisw",
+          "sync_interval__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "type",
+          "type__empty",
+          "type__ic",
+          "type__ie",
+          "type__iew",
+          "type__iregex",
+          "type__isw",
+          "type__n",
+          "type__nic",
+          "type__nie",
+          "type__niew",
+          "type__nisw",
+          "type__regex",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "core_data_sources_create",
+        "descriptionTemplate": "Post a list of data source objects.",
+        "method": "POST",
+        "path": "/api/core/data-sources/",
+        "params": [],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      },
+      "update": {
+        "name": "core_data_sources_bulk_update",
+        "descriptionTemplate": "Put a list of data source objects.",
+        "method": "PUT",
+        "path": "/api/core/data-sources/",
+        "params": [],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      },
+      "patch": {
+        "name": "core_data_sources_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of data source objects.",
+        "method": "PATCH",
+        "path": "/api/core/data-sources/",
+        "params": [],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      },
+      "delete": {
+        "name": "core_data_sources_bulk_destroy",
+        "descriptionTemplate": "Delete a list of data source objects.",
+        "method": "DELETE",
+        "path": "/api/core/data-sources/",
+        "params": [],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      },
+      "get": {
+        "name": "core_data_sources_retrieve",
+        "descriptionTemplate": "Get a data source object.",
+        "method": "GET",
+        "path": "/api/core/data-sources/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "core_data_sources_update",
+        "descriptionTemplate": "Put a data source object.",
+        "method": "PUT",
+        "path": "/api/core/data-sources/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      },
+      "patchItem": {
+        "name": "core_data_sources_partial_update",
+        "descriptionTemplate": "Patch a data source object.",
+        "method": "PATCH",
+        "path": "/api/core/data-sources/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      },
+      "deleteItem": {
+        "name": "core_data_sources_destroy",
+        "descriptionTemplate": "Delete a data source object.",
+        "method": "DELETE",
+        "path": "/api/core/data-sources/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "sync": {
+        "name": "core_data_sources_sync_create",
+        "descriptionTemplate": "Enqueue a job to synchronize the DataSource.",
+        "method": "POST",
+        "path": "/api/core/data-sources/{id}/sync/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "dataSource": "{dataSource}"
+        }
+      }
+    }
+  },
+  "Jobs": {
+    "operations": {
+      "list": {
+        "name": "core_jobs_list",
+        "descriptionTemplate": "Retrieve a list of job results",
+        "method": "GET",
+        "path": "/api/core/jobs/",
+        "params": [
+          "completed",
+          "completed__after",
+          "completed__before",
+          "created",
+          "created__after",
+          "created__before",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "interval",
+          "interval__empty",
+          "interval__gt",
+          "interval__gte",
+          "interval__lt",
+          "interval__lte",
+          "interval__n",
+          "job_id",
+          "limit",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "object_id",
+          "object_id__empty",
+          "object_id__gt",
+          "object_id__gte",
+          "object_id__lt",
+          "object_id__lte",
+          "object_id__n",
+          "object_type",
+          "object_type__n",
+          "offset",
+          "ordering",
+          "q",
+          "scheduled",
+          "scheduled__after",
+          "scheduled__before",
+          "started",
+          "started__after",
+          "started__before",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "user",
+          "user__n"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  }
+}

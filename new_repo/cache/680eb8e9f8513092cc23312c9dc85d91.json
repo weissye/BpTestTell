@@ -1,0 +1,319 @@
+{
+  "Group": {
+    "operations": {
+      "delete": {
+        "name": "users_groups_destroy",
+        "descriptionTemplate": "Delete a group object.",
+        "method": "DELETE",
+        "path": "/api/users/groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "users_groups_retrieve",
+        "descriptionTemplate": "Get a group object.",
+        "method": "GET",
+        "path": "/api/users/groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "users_groups_update",
+        "descriptionTemplate": "Put a group object.",
+        "method": "PUT",
+        "path": "/api/users/groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "permissions": "{permissions}"
+        }
+      },
+      "patch": {
+        "name": "users_groups_partial_update",
+        "descriptionTemplate": "Patch a group object.",
+        "method": "PATCH",
+        "path": "/api/users/groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "permissions": "{permissions}"
+        }
+      }
+    }
+  },
+  "Permission": {
+    "operations": {
+      "delete": {
+        "name": "users_permissions_destroy",
+        "descriptionTemplate": "Delete a permission object.",
+        "method": "DELETE",
+        "path": "/api/users/permissions/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "users_permissions_retrieve",
+        "descriptionTemplate": "Get a permission object.",
+        "method": "GET",
+        "path": "/api/users/permissions/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "users_permissions_update",
+        "descriptionTemplate": "Put a permission object.",
+        "method": "PUT",
+        "path": "/api/users/permissions/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "codename": "{codename}",
+          "content_type": "{content_type}"
+        }
+      },
+      "patch": {
+        "name": "users_permissions_partial_update",
+        "descriptionTemplate": "Patch a permission object.",
+        "method": "PATCH",
+        "path": "/api/users/permissions/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "codename": "{codename}",
+          "content_type": "{content_type}"
+        }
+      },
+      "list": {
+        "name": "users_permissions_list",
+        "descriptionTemplate": "Get a list of permission objects.",
+        "method": "GET",
+        "path": "/api/users/permissions/",
+        "params": [
+          "can_add",
+          "can_change",
+          "can_delete",
+          "can_view",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "enabled",
+          "group",
+          "group__n",
+          "group_id",
+          "group_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "limit",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "object_type",
+          "object_type__ic",
+          "object_type__ie",
+          "object_type__iew",
+          "object_type__iregex",
+          "object_type__isw",
+          "object_type__n",
+          "object_type__nic",
+          "object_type__nie",
+          "object_type__niew",
+          "object_type__nisw",
+          "object_type__regex",
+          "object_type_id",
+          "object_type_id__n",
+          "object_types",
+          "object_types__n",
+          "offset",
+          "ordering",
+          "q",
+          "user",
+          "user__n",
+          "user_id",
+          "user_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "users_permissions_create",
+        "descriptionTemplate": "Post a list of permission objects.",
+        "method": "POST",
+        "path": "/api/users/permissions/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "codename": "{codename}",
+          "content_type": "{content_type}"
+        }
+      }
+    }
+  },
+  "Token": {
+    "operations": {
+      "delete": {
+        "name": "users_tokens_destroy",
+        "descriptionTemplate": "Delete a token object.",
+        "method": "DELETE",
+        "path": "/api/users/tokens/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "users_tokens_retrieve",
+        "descriptionTemplate": "Get a token object.",
+        "method": "GET",
+        "path": "/api/users/tokens/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "users_tokens_update",
+        "descriptionTemplate": "Put a token object.",
+        "method": "PUT",
+        "path": "/api/users/tokens/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}",
+          "user": "{user}",
+          "expires": "{expires}"
+        }
+      },
+      "patch": {
+        "name": "users_tokens_partial_update",
+        "descriptionTemplate": "Patch a token object.",
+        "method": "PATCH",
+        "path": "/api/users/tokens/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}",
+          "user": "{user}",
+          "expires": "{expires}"
+        }
+      },
+      "list": {
+        "name": "users_tokens_list",
+        "descriptionTemplate": "Get a list of token objects.",
+        "method": "GET",
+        "path": "/api/users/tokens/",
+        "params": [
+          "created",
+          "created__gte",
+          "created__lte",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "expires",
+          "expires__gte",
+          "expires__lte",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "key",
+          "key__empty",
+          "key__ic",
+          "key__ie",
+          "key__iew",
+          "key__iregex",
+          "key__isw",
+          "key__n",
+          "key__nic",
+          "key__nie",
+          "key__niew",
+          "key__nisw",
+          "key__regex",
+          "last_used",
+          "last_used__empty",
+          "last_used__gt",
+          "last_used__gte",
+          "last_used__lt",
+          "last_used__lte",
+          "last_used__n",
+          "limit",
+          "offset",
+          "ordering",
+          "q",
+          "user",
+          "user__n",
+          "user_id",
+          "user_id__n",
+          "write_enabled"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "users_tokens_create",
+        "descriptionTemplate": "Post a list of token objects.",
+        "method": "POST",
+        "path": "/api/users/tokens/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}",
+          "user": "{user}",
+          "expires": "{expires}"
+        }
+      }
+    }
+  }
+}

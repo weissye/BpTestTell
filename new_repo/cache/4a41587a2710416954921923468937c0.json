@@ -1,0 +1,506 @@
+{
+  "VMInterfaces": {
+    "operations": {
+      "get": {
+        "name": "virtualization_interfaces_retrieve",
+        "descriptionTemplate": "Get a interface object.",
+        "method": "GET",
+        "path": "/api/virtualization/interfaces/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "virtualization_interfaces_update",
+        "descriptionTemplate": "Put a interface object.",
+        "method": "PUT",
+        "path": "/api/virtualization/interfaces/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableVMInterfaceRequest"
+        }
+      },
+      "patch": {
+        "name": "virtualization_interfaces_partial_update",
+        "descriptionTemplate": "Patch a interface object.",
+        "method": "PATCH",
+        "path": "/api/virtualization/interfaces/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedWritableVMInterfaceRequest"
+        }
+      },
+      "delete": {
+        "name": "virtualization_interfaces_destroy",
+        "descriptionTemplate": "Delete a interface object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/interfaces/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "VirtualDisks": {
+    "operations": {
+      "list": {
+        "name": "virtualization_virtual_disks_list",
+        "descriptionTemplate": "Get a list of virtual disk objects.",
+        "method": "GET",
+        "path": "/api/virtualization/virtual-disks/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "size",
+          "size__empty",
+          "size__gt",
+          "size__gte",
+          "size__lt",
+          "size__lte",
+          "size__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request",
+          "virtual_machine",
+          "virtual_machine__n",
+          "virtual_machine_id",
+          "virtual_machine_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "virtualization_virtual_disks_create",
+        "descriptionTemplate": "Post a list of virtual disk objects.",
+        "method": "POST",
+        "path": "/api/virtualization/virtual-disks/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualDiskRequest"
+        }
+      },
+      "update": {
+        "name": "virtualization_virtual_disks_bulk_update",
+        "descriptionTemplate": "Put a list of virtual disk objects.",
+        "method": "PUT",
+        "path": "/api/virtualization/virtual-disks/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualDiskRequest"
+        }
+      },
+      "patch": {
+        "name": "virtualization_virtual_disks_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of virtual disk objects.",
+        "method": "PATCH",
+        "path": "/api/virtualization/virtual-disks/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualDiskRequest"
+        }
+      },
+      "delete": {
+        "name": "virtualization_virtual_disks_bulk_destroy",
+        "descriptionTemplate": "Delete a list of virtual disk objects.",
+        "method": "DELETE",
+        "path": "/api/virtualization/virtual-disks/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualDiskRequest"
+        }
+      },
+      "get": {
+        "name": "virtualization_virtual_disks_retrieve",
+        "descriptionTemplate": "Get a virtual disk object.",
+        "method": "GET",
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update_single": {
+        "name": "virtualization_virtual_disks_update",
+        "descriptionTemplate": "Put a virtual disk object.",
+        "method": "PUT",
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualDiskRequest"
+        }
+      },
+      "patch_single": {
+        "name": "virtualization_virtual_disks_partial_update",
+        "descriptionTemplate": "Patch a virtual disk object.",
+        "method": "PATCH",
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedVirtualDiskRequest"
+        }
+      },
+      "delete_single": {
+        "name": "virtualization_virtual_disks_destroy",
+        "descriptionTemplate": "Delete a virtual disk object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "VirtualMachines": {
+    "operations": {
+      "list": {
+        "name": "virtualization_virtual_machines_list",
+        "descriptionTemplate": "Get a list of virtual machine objects.",
+        "method": "GET",
+        "path": "/api/virtualization/virtual-machines/",
+        "params": [
+          "cluster",
+          "cluster__n",
+          "cluster_group",
+          "cluster_group__n",
+          "cluster_group_id",
+          "cluster_group_id__n",
+          "cluster_id",
+          "cluster_id__n",
+          "cluster_type",
+          "cluster_type__n",
+          "cluster_type_id",
+          "cluster_type_id__n",
+          "config_template_id",
+          "config_template_id__n",
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "device",
+          "device__n",
+          "device_id",
+          "device_id__n",
+          "disk",
+          "disk__empty",
+          "disk__gt",
+          "disk__gte",
+          "disk__lt",
+          "disk__lte",
+          "disk__n",
+          "has_primary_ip",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "interface_count",
+          "interface_count__empty",
+          "interface_count__gt",
+          "interface_count__gte",
+          "interface_count__lt",
+          "interface_count__lte",
+          "interface_count__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "local_context_data",
+          "mac_address",
+          "mac_address__ic",
+          "mac_address__ie",
+          "mac_address__iew",
+          "mac_address__iregex",
+          "mac_address__isw",
+          "mac_address__n",
+          "mac_address__nic",
+          "mac_address__nie",
+          "mac_address__niew",
+          "mac_address__nisw",
+          "mac_address__regex",
+          "memory",
+          "memory__empty",
+          "memory__gt",
+          "memory__gte",
+          "memory__lt",
+          "memory__lte",
+          "memory__n",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "platform",
+          "platform__n",
+          "platform_id",
+          "platform_id__n",
+          "primary_ip4",
+          "primary_ip4__n",
+          "primary_ip4_id",
+          "primary_ip4_id__n",
+          "primary_ip6",
+          "primary_ip6__n",
+          "primary_ip6_id",
+          "primary_ip6_id__n",
+          "q",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "role",
+          "role__n",
+          "role_id",
+          "role_id__n",
+          "serial",
+          "serial__empty",
+          "serial__ic",
+          "serial__ie",
+          "serial__iew",
+          "serial__iregex",
+          "serial__isw",
+          "serial__n",
+          "serial__nic",
+          "serial__nie",
+          "serial__niew",
+          "serial__nisw",
+          "serial__regex",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request",
+          "vcpus",
+          "vcpus__empty",
+          "vcpus__gt",
+          "vcpus__gte",
+          "vcpus__lt",
+          "vcpus__lte",
+          "vcpus__n",
+          "virtual_disk_count",
+          "virtual_disk_count__empty",
+          "virtual_disk_count__gt",
+          "virtual_disk_count__gte",
+          "virtual_disk_count__lt",
+          "virtual_disk_count__lte",
+          "virtual_disk_count__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "virtualization_virtual_machines_create",
+        "descriptionTemplate": "Post a list of virtual machine objects.",
+        "method": "POST",
+        "path": "/api/virtualization/virtual-machines/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
+        }
+      },
+      "update": {
+        "name": "virtualization_virtual_machines_bulk_update",
+        "descriptionTemplate": "Put a list of virtual machine objects.",
+        "method": "PUT",
+        "path": "/api/virtualization/virtual-machines/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualMachineWithConfigContextRequest"
+        }
+      },
+      "patch": {
+        "name": "virtualization_virtual_machines_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of virtual machine objects.",
+        "method": "PATCH",
+        "path": "/api/virtualization/virtual-machines/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualMachineWithConfigContextRequest"
+        }
+      },
+      "delete": {
+        "name": "virtualization_virtual_machines_bulk_destroy",
+        "descriptionTemplate": "Delete a list of virtual machine objects.",
+        "method": "DELETE",
+        "path": "/api/virtualization/virtual-machines/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/VirtualMachineWithConfigContextRequest"
+        }
+      },
+      "get": {
+        "name": "virtualization_virtual_machines_retrieve",
+        "descriptionTemplate": "Get a virtual machine object.",
+        "method": "GET",
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update_single": {
+        "name": "virtualization_virtual_machines_update",
+        "descriptionTemplate": "Put a virtual machine object.",
+        "method": "PUT",
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
+        }
+      },
+      "patch_single": {
+        "name": "virtualization_virtual_machines_partial_update",
+        "descriptionTemplate": "Patch a virtual machine object.",
+        "method": "PATCH",
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedWritableVirtualMachineWithConfigContextRequest"
+        }
+      },
+      "delete_single": {
+        "name": "virtualization_virtual_machines_destroy",
+        "descriptionTemplate": "Delete a virtual machine object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  }
+}

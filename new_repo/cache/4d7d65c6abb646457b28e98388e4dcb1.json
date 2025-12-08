@@ -1,0 +1,342 @@
+{
+  "ServiceTemplates": {
+    "operations": {
+      "delete": {
+        "name": "ipam_service_templates_destroy",
+        "descriptionTemplate": "Delete a application service template object.",
+        "method": "DELETE",
+        "path": "/api/ipam/service-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "ipam_service_templates_retrieve",
+        "descriptionTemplate": "Get a application service template object.",
+        "method": "GET",
+        "path": "/api/ipam/service-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "ipam_service_templates_update",
+        "descriptionTemplate": "Put a application service template object.",
+        "method": "PUT",
+        "path": "/api/ipam/service-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "template": "{template}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "Services": {
+    "operations": {
+      "delete": {
+        "name": "ipam_services_destroy",
+        "descriptionTemplate": "Delete a application service object.",
+        "method": "DELETE",
+        "path": "/api/ipam/services/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "ipam_services_retrieve",
+        "descriptionTemplate": "Get a application service object.",
+        "method": "GET",
+        "path": "/api/ipam/services/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "list": {
+        "name": "ipam_services_list",
+        "descriptionTemplate": "Get a list of application service objects.",
+        "method": "GET",
+        "path": "/api/ipam/services/",
+        "params": [
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "device",
+          "device_id",
+          "fhrpgroup",
+          "fhrpgroup_id",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "ip_address",
+          "ip_address__n",
+          "ip_address_id",
+          "ip_address_id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "parent_object_id",
+          "parent_object_id__empty",
+          "parent_object_id__gt",
+          "parent_object_id__gte",
+          "parent_object_id__lt",
+          "parent_object_id__lte",
+          "parent_object_id__n",
+          "parent_object_type",
+          "parent_object_type__n",
+          "port",
+          "port__empty",
+          "port__gt",
+          "port__gte",
+          "port__lt",
+          "port__lte",
+          "port__n",
+          "protocol",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request",
+          "virtual_machine",
+          "virtual_machine_id"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_services_create",
+        "descriptionTemplate": "Post a list of application service objects.",
+        "method": "POST",
+        "path": "/api/ipam/services/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "protocol": "{protocol}"
+        }
+      },
+      "update": {
+        "name": "ipam_services_update",
+        "descriptionTemplate": "Put a application service object.",
+        "method": "PUT",
+        "path": "/api/ipam/services/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "protocol": "{protocol}"
+        }
+      }
+    }
+  },
+  "VLANGroups": {
+    "operations": {
+      "delete": {
+        "name": "ipam_vlan_groups_destroy",
+        "descriptionTemplate": "Delete a VLAN group object.",
+        "method": "DELETE",
+        "path": "/api/ipam/vlan-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "ipam_vlan_groups_retrieve",
+        "descriptionTemplate": "Get a VLAN group object.",
+        "method": "GET",
+        "path": "/api/ipam/vlan-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "list": {
+        "name": "ipam_vlan_groups_list",
+        "descriptionTemplate": "Get a list of VLAN group objects.",
+        "method": "GET",
+        "path": "/api/ipam/vlan-groups/",
+        "params": [
+          "cluster",
+          "cluster_group",
+          "contains_vid",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "location",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "rack",
+          "region",
+          "scope_id",
+          "scope_id__empty",
+          "scope_id__gt",
+          "scope_id__gte",
+          "scope_id__lt",
+          "scope_id__lte",
+          "scope_id__n",
+          "scope_type",
+          "scope_type__n",
+          "site",
+          "site_group",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_vlan_groups_create",
+        "descriptionTemplate": "Post a list of VLAN group objects.",
+        "method": "POST",
+        "path": "/api/ipam/vlan-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "ipam_vlan_groups_update",
+        "descriptionTemplate": "Put a VLAN group object.",
+        "method": "PUT",
+        "path": "/api/ipam/vlan-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      }
+    }
+  }
+}

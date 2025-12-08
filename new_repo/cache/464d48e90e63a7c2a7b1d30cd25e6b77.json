@@ -1,0 +1,500 @@
+{
+  "CircuitTerminations": {
+    "operations": {
+      "get": {
+        "name": "circuits_circuit_terminations_retrieve",
+        "descriptionTemplate": "Get a circuit termination object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "delete": {
+        "name": "circuits_circuit_terminations_destroy",
+        "descriptionTemplate": "Delete a circuit termination object.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "circuits_circuit_terminations_update",
+        "descriptionTemplate": "Put a circuit termination object.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "circuit": "{circuit}",
+          "term_side": "{term_side}",
+          "port_speed": "{port_speed}",
+          "upstream_speed": "{upstream_speed}",
+          "xconnect_id": "{xconnect_id}",
+          "pp_info": "{pp_info}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_terminations_partial_update",
+        "descriptionTemplate": "Patch a circuit termination object.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "circuit": "{circuit}",
+          "term_side": "{term_side}",
+          "port_speed": "{port_speed}",
+          "upstream_speed": "{upstream_speed}",
+          "xconnect_id": "{xconnect_id}",
+          "pp_info": "{pp_info}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "CircuitTerminationPaths": {
+    "operations": {
+      "list": {
+        "name": "circuits_circuit_terminations_paths_retrieve",
+        "descriptionTemplate": "Return all CablePaths which traverse a given pass-through port.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-terminations/{id}/paths/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "CircuitTypes": {
+    "operations": {
+      "list": {
+        "name": "circuits_circuit_types_list",
+        "descriptionTemplate": "Get a list of circuit type objects.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-types/",
+        "params": [
+          "color",
+          "color__empty",
+          "color__ic",
+          "color__ie",
+          "color__iew",
+          "color__iregex",
+          "color__isw",
+          "color__n",
+          "color__nic",
+          "color__nie",
+          "color__niew",
+          "color__nisw",
+          "color__regex",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "circuits_circuit_types_create",
+        "descriptionTemplate": "Post a list of circuit type objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_types_bulk_update",
+        "descriptionTemplate": "Put a list of circuit type objects.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_types_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of circuit type objects.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "delete": {
+        "name": "circuits_circuit_types_bulk_destroy",
+        "descriptionTemplate": "Delete a list of circuit type objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "CircuitType": {
+    "operations": {
+      "get": {
+        "name": "circuits_circuit_types_retrieve",
+        "descriptionTemplate": "Get a circuit type object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "delete": {
+        "name": "circuits_circuit_types_destroy",
+        "descriptionTemplate": "Delete a circuit type object.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "circuits_circuit_types_update",
+        "descriptionTemplate": "Put a circuit type object.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_types_partial_update",
+        "descriptionTemplate": "Patch a circuit type object.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "Circuits": {
+    "operations": {
+      "list": {
+        "name": "circuits_circuits_list",
+        "descriptionTemplate": "Get a list of circuit objects.",
+        "method": "GET",
+        "path": "/api/circuits/circuits/",
+        "params": [
+          "cid",
+          "cid__empty",
+          "cid__ic",
+          "cid__ie",
+          "cid__iew",
+          "cid__iregex",
+          "cid__isw",
+          "cid__n",
+          "cid__nic",
+          "cid__nie",
+          "cid__niew",
+          "cid__nisw",
+          "cid__regex",
+          "commit_rate",
+          "commit_rate__empty",
+          "commit_rate__gt",
+          "commit_rate__gte",
+          "commit_rate__lt",
+          "commit_rate__lte",
+          "commit_rate__n",
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "distance",
+          "distance__empty",
+          "distance__gt",
+          "distance__gte",
+          "distance__lt",
+          "distance__lte",
+          "distance__n",
+          "distance_unit",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "install_date",
+          "install_date__empty",
+          "install_date__gt",
+          "install_date__gte",
+          "install_date__lt",
+          "install_date__lte",
+          "install_date__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "location_id",
+          "location_id__n",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "provider",
+          "provider__n",
+          "provider_account",
+          "provider_account__n",
+          "provider_account_id",
+          "provider_account_id__n",
+          "provider_id",
+          "provider_id__n",
+          "provider_network_id",
+          "provider_network_id__n",
+          "q",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "termination_a_id",
+          "termination_a_id__n",
+          "termination_date",
+          "termination_date__empty",
+          "termination_date__gt",
+          "termination_date__gte",
+          "termination_date__lt",
+          "termination_date__lte",
+          "termination_date__n",
+          "termination_z_id",
+          "termination_z_id__n",
+          "type",
+          "type__n",
+          "type_id",
+          "type_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "circuits_circuits_create",
+        "descriptionTemplate": "Post a list of circuit objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuits/",
+        "params": [],
+        "bodyTemplate": {
+          "cid": "{cid}",
+          "provider": "{provider}",
+          "type": "{type}",
+          "status": "{status}",
+          "install_date": "{install_date}",
+          "termination_date": "{termination_date}",
+          "commit_rate": "{commit_rate}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "circuits_circuits_bulk_update",
+        "descriptionTemplate": "Put a list of circuit objects.",
+        "method": "PUT",
+        "path": "/api/circuits/circuits/",
+        "params": [],
+        "bodyTemplate": {
+          "cid": "{cid}",
+          "provider": "{provider}",
+          "type": "{type}",
+          "status": "{status}",
+          "install_date": "{install_date}",
+          "termination_date": "{termination_date}",
+          "commit_rate": "{commit_rate}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuits_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of circuit objects.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuits/",
+        "params": [],
+        "bodyTemplate": {
+          "cid": "{cid}",
+          "provider": "{provider}",
+          "type": "{type}",
+          "status": "{status}",
+          "install_date": "{install_date}",
+          "termination_date": "{termination_date}",
+          "commit_rate": "{commit_rate}",
+          "description": "{description}"
+        }
+      },
+      "delete": {
+        "name": "circuits_circuits_bulk_destroy",
+        "descriptionTemplate": "Delete a list of circuit objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuits/",
+        "params": [],
+        "bodyTemplate": {
+          "cid": "{cid}",
+          "provider": "{provider}",
+          "type": "{type}",
+          "status": "{status}",
+          "install_date": "{install_date}",
+          "termination_date": "{termination_date}",
+          "commit_rate": "{commit_rate}",
+          "description": "{description}"
+        }
+      }
+    }
+  }
+}

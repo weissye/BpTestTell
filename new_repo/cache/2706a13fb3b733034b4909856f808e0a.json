@@ -1,0 +1,447 @@
+{
+  "VirtualChassis": {
+    "operations": {
+      "list": {
+        "name": "dcim_virtual_chassis_list",
+        "descriptionTemplate": "Get a list of virtual chassis objects.",
+        "method": "GET",
+        "path": "/api/dcim/virtual-chassis/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "domain",
+          "domain__empty",
+          "domain__ic",
+          "domain__ie",
+          "domain__iew",
+          "domain__iregex",
+          "domain__isw",
+          "domain__n",
+          "domain__nic",
+          "domain__nie",
+          "domain__niew",
+          "domain__nisw",
+          "domain__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "master",
+          "master__n",
+          "master_id",
+          "master_id__n",
+          "member_count",
+          "member_count__empty",
+          "member_count__gt",
+          "member_count__gte",
+          "member_count__lt",
+          "member_count__lte",
+          "member_count__n",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "dcim_virtual_chassis_create",
+        "descriptionTemplate": "Post a list of virtual chassis objects.",
+        "method": "POST",
+        "path": "/api/dcim/virtual-chassis/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "domain": "{domain}",
+          "master": "{master}",
+          "members": "{members}"
+        }
+      },
+      "update": {
+        "name": "dcim_virtual_chassis_bulk_update",
+        "descriptionTemplate": "Put a list of virtual chassis objects.",
+        "method": "PUT",
+        "path": "/api/dcim/virtual-chassis/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "domain": "{domain}",
+          "master": "{master}",
+          "members": "{members}"
+        }
+      },
+      "delete": {
+        "name": "dcim_virtual_chassis_bulk_destroy",
+        "descriptionTemplate": "Delete a list of virtual chassis objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/virtual-chassis/",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      },
+      "get": {
+        "name": "dcim_virtual_chassis_retrieve",
+        "descriptionTemplate": "Get a virtual chassis object.",
+        "method": "GET",
+        "path": "/api/dcim/virtual-chassis/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "dcim_virtual_chassis_update",
+        "descriptionTemplate": "Put a virtual chassis object.",
+        "method": "PUT",
+        "path": "/api/dcim/virtual-chassis/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "domain": "{domain}",
+          "master": "{master}",
+          "members": "{members}"
+        }
+      },
+      "deleteItem": {
+        "name": "dcim_virtual_chassis_destroy",
+        "descriptionTemplate": "Delete a virtual chassis object.",
+        "method": "DELETE",
+        "path": "/api/dcim/virtual-chassis/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "VirtualDeviceContext": {
+    "operations": {
+      "list": {
+        "name": "dcim_virtual_device_contexts_list",
+        "descriptionTemplate": "Get a list of virtual device context objects.",
+        "method": "GET",
+        "path": "/api/dcim/virtual-device-contexts/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "device",
+          "device__n",
+          "device_id",
+          "device_id__n",
+          "has_primary_ip",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "identifier",
+          "identifier__empty",
+          "identifier__gt",
+          "identifier__gte",
+          "identifier__lt",
+          "identifier__lte",
+          "identifier__n",
+          "interface_id",
+          "interface_id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "primary_ip4",
+          "primary_ip4__n",
+          "primary_ip4_id",
+          "primary_ip4_id__n",
+          "primary_ip6",
+          "primary_ip6__n",
+          "primary_ip6_id",
+          "primary_ip6_id__n",
+          "q",
+          "status",
+          "status__empty",
+          "status__ic",
+          "status__ie",
+          "status__iew",
+          "status__iregex",
+          "status__isw",
+          "status__n",
+          "status__nic",
+          "status__nie",
+          "status__niew",
+          "status__nisw",
+          "status__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "dcim_virtual_device_contexts_create",
+        "descriptionTemplate": "Post a list of virtual device context objects.",
+        "method": "POST",
+        "path": "/api/dcim/virtual-device-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device": "{device}",
+          "identifier": "{identifier}",
+          "status": "{status}"
+        }
+      },
+      "update": {
+        "name": "dcim_virtual_device_contexts_bulk_update",
+        "descriptionTemplate": "Put a list of virtual device context objects.",
+        "method": "PUT",
+        "path": "/api/dcim/virtual-device-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device": "{device}",
+          "identifier": "{identifier}",
+          "status": "{status}"
+        }
+      },
+      "delete": {
+        "name": "dcim_virtual_device_contexts_bulk_destroy",
+        "descriptionTemplate": "Delete a list of virtual device context objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/virtual-device-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      },
+      "get": {
+        "name": "dcim_virtual_device_contexts_retrieve",
+        "descriptionTemplate": "Get a virtual device context object.",
+        "method": "GET",
+        "path": "/api/dcim/virtual-device-contexts/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "dcim_virtual_device_contexts_update",
+        "descriptionTemplate": "Put a virtual device context object.",
+        "method": "PUT",
+        "path": "/api/dcim/virtual-device-contexts/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device": "{device}",
+          "identifier": "{identifier}",
+          "status": "{status}"
+        }
+      },
+      "deleteItem": {
+        "name": "dcim_virtual_device_contexts_destroy",
+        "descriptionTemplate": "Delete a virtual device context object.",
+        "method": "DELETE",
+        "path": "/api/dcim/virtual-device-contexts/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "Bookmarks": {
+    "operations": {
+      "list": {
+        "name": "extras_bookmarks_list",
+        "descriptionTemplate": "Get a list of bookmark objects.",
+        "method": "GET",
+        "path": "/api/extras/bookmarks/",
+        "params": [
+          "created",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "limit",
+          "object_id",
+          "object_id__empty",
+          "object_id__gt",
+          "object_id__gte",
+          "object_id__lt",
+          "object_id__lte",
+          "object_id__n",
+          "object_type",
+          "object_type__n",
+          "object_type_id",
+          "object_type_id__empty",
+          "object_type_id__gt",
+          "object_type_id__gte",
+          "object_type_id__lt",
+          "object_type_id__lte",
+          "object_type_id__n",
+          "offset",
+          "ordering",
+          "user",
+          "user__n",
+          "user_id",
+          "user_id__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_bookmarks_create",
+        "descriptionTemplate": "Post a list of bookmark objects.",
+        "method": "POST",
+        "path": "/api/extras/bookmarks/",
+        "params": [],
+        "bodyTemplate": {
+          "object_id": "{object_id}",
+          "object_type": "{object_type}",
+          "user": "{user}"
+        }
+      },
+      "update": {
+        "name": "extras_bookmarks_bulk_update",
+        "descriptionTemplate": "Put a list of bookmark objects.",
+        "method": "PUT",
+        "path": "/api/extras/bookmarks/",
+        "params": [],
+        "bodyTemplate": {
+          "object_id": "{object_id}",
+          "object_type": "{object_type}",
+          "user": "{user}"
+        }
+      },
+      "delete": {
+        "name": "extras_bookmarks_bulk_destroy",
+        "descriptionTemplate": "Delete a list of bookmark objects.",
+        "method": "DELETE",
+        "path": "/api/extras/bookmarks/",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      }
+    }
+  }
+}

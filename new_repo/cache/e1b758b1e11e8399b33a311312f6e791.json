@@ -1,0 +1,308 @@
+{
+  "TokenProvision": {
+    "operations": {
+      "add": {
+        "name": "users_tokens_provision_create",
+        "descriptionTemplate": "Non-authenticated REST API endpoint via which a user may create a Token.",
+        "method": "POST",
+        "path": "/api/users/tokens/provision/",
+        "params": [],
+        "bodyTemplate": {
+          "token": "{token}",
+          "user": "{user}"
+        }
+      }
+    }
+  },
+  "Users": {
+    "operations": {
+      "list": {
+        "name": "users_users_list",
+        "descriptionTemplate": "Get a list of user objects.",
+        "method": "GET",
+        "path": "/api/users/users/",
+        "params": [
+          "date_joined",
+          "date_joined__empty",
+          "date_joined__gt",
+          "date_joined__gte",
+          "date_joined__lt",
+          "date_joined__lte",
+          "date_joined__n",
+          "email",
+          "email__empty",
+          "email__ic",
+          "email__ie",
+          "email__iew",
+          "email__iregex",
+          "email__isw",
+          "email__n",
+          "email__nic",
+          "email__nie",
+          "email__niew",
+          "email__nisw",
+          "email__regex",
+          "first_name",
+          "first_name__empty",
+          "first_name__ic",
+          "first_name__ie",
+          "first_name__iew",
+          "first_name__iregex",
+          "first_name__isw",
+          "first_name__n",
+          "first_name__nic",
+          "first_name__nie",
+          "first_name__niew",
+          "first_name__nisw",
+          "first_name__regex",
+          "group",
+          "group__n",
+          "group_id",
+          "group_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "is_active",
+          "is_staff",
+          "is_superuser",
+          "last_login",
+          "last_login__empty",
+          "last_login__gt",
+          "last_login__gte",
+          "last_login__lt",
+          "last_login__lte",
+          "last_login__n",
+          "last_name",
+          "last_name__empty",
+          "last_name__ic",
+          "last_name__ie",
+          "last_name__iew",
+          "last_name__iregex",
+          "last_name__isw",
+          "last_name__n",
+          "last_name__nic",
+          "last_name__nie",
+          "last_name__niew",
+          "last_name__nisw",
+          "last_name__regex",
+          "limit",
+          "notification_group_id",
+          "notification_group_id__n",
+          "offset",
+          "ordering",
+          "permission_id",
+          "permission_id__n",
+          "q",
+          "username",
+          "username__empty",
+          "username__ic",
+          "username__ie",
+          "username__iew",
+          "username__iregex",
+          "username__isw",
+          "username__n",
+          "username__nic",
+          "username__nie",
+          "username__niew",
+          "username__nisw",
+          "username__regex"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "users_users_create",
+        "descriptionTemplate": "Post a list of user objects.",
+        "method": "POST",
+        "path": "/api/users/users/",
+        "params": [],
+        "bodyTemplate": {
+          "username": "{username}",
+          "email": "{email}",
+          "first_name": "{first_name}",
+          "last_name": "{last_name}",
+          "is_active": "{is_active}",
+          "is_staff": "{is_staff}",
+          "is_superuser": "{is_superuser}"
+        }
+      },
+      "update": {
+        "name": "users_users_update",
+        "descriptionTemplate": "Put a user object.",
+        "method": "PUT",
+        "path": "/api/users/users/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "username": "{username}",
+          "email": "{email}",
+          "first_name": "{first_name}",
+          "last_name": "{last_name}",
+          "is_active": "{is_active}",
+          "is_staff": "{is_staff}",
+          "is_superuser": "{is_superuser}"
+        }
+      },
+      "delete": {
+        "name": "users_users_destroy",
+        "descriptionTemplate": "Delete a user object.",
+        "method": "DELETE",
+        "path": "/api/users/users/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "users_users_retrieve",
+        "descriptionTemplate": "Get a user object.",
+        "method": "GET",
+        "path": "/api/users/users/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "ClusterGroups": {
+    "operations": {
+      "list": {
+        "name": "virtualization_cluster_groups_list",
+        "descriptionTemplate": "Get a list of cluster group objects.",
+        "method": "GET",
+        "path": "/api/virtualization/cluster-groups/",
+        "params": [
+          "contact",
+          "contact__n",
+          "contact_group",
+          "contact_group__n",
+          "contact_role",
+          "contact_role__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "virtualization_cluster_groups_create",
+        "descriptionTemplate": "Post a list of cluster group objects.",
+        "method": "POST",
+        "path": "/api/virtualization/cluster-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}"
+        }
+      },
+      "update": {
+        "name": "virtualization_cluster_groups_update",
+        "descriptionTemplate": "Put a cluster group object.",
+        "method": "PUT",
+        "path": "/api/virtualization/cluster-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}"
+        }
+      },
+      "delete": {
+        "name": "virtualization_cluster_groups_destroy",
+        "descriptionTemplate": "Delete a cluster group object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/cluster-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "virtualization_cluster_groups_retrieve",
+        "descriptionTemplate": "Get a cluster group object.",
+        "method": "GET",
+        "path": "/api/virtualization/cluster-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  }
+}

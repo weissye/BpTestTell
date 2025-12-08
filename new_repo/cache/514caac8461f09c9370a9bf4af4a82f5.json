@@ -1,0 +1,388 @@
+{
+  "Bookmark": {
+    "operations": {
+      "get": {
+        "name": "extras_bookmarks_retrieve",
+        "descriptionTemplate": "Get a bookmark object.",
+        "method": "GET",
+        "path": "/api/extras/bookmarks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "delete": {
+        "name": "extras_bookmarks_destroy",
+        "descriptionTemplate": "Delete a bookmark object.",
+        "method": "DELETE",
+        "path": "/api/extras/bookmarks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "extras_bookmarks_update",
+        "descriptionTemplate": "Put a bookmark object.",
+        "method": "PUT",
+        "path": "/api/extras/bookmarks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "url": "{url}"
+        }
+      },
+      "patch": {
+        "name": "extras_bookmarks_partial_update",
+        "descriptionTemplate": "Patch a bookmark object.",
+        "method": "PATCH",
+        "path": "/api/extras/bookmarks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "url": "{url}"
+        }
+      }
+    }
+  },
+  "ConfigContextProfile": {
+    "operations": {
+      "list": {
+        "name": "extras_config_context_profiles_list",
+        "descriptionTemplate": "Get a list of config context profile objects.",
+        "method": "GET",
+        "path": "/api/extras/config-context-profiles/",
+        "params": [
+          "auto_sync_enabled",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "data_file_id",
+          "data_file_id__n",
+          "data_source_id",
+          "data_source_id__n",
+          "data_synced",
+          "data_synced__empty",
+          "data_synced__gt",
+          "data_synced__gte",
+          "data_synced__lt",
+          "data_synced__lte",
+          "data_synced__n",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_config_context_profiles_create",
+        "descriptionTemplate": "Post a list of config context profile objects.",
+        "method": "POST",
+        "path": "/api/extras/config-context-profiles/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "extras_config_context_profiles_update",
+        "descriptionTemplate": "Put a config context profile object.",
+        "method": "PUT",
+        "path": "/api/extras/config-context-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "extras_config_context_profiles_partial_update",
+        "descriptionTemplate": "Patch a config context profile object.",
+        "method": "PATCH",
+        "path": "/api/extras/config-context-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "delete": {
+        "name": "extras_config_context_profiles_destroy",
+        "descriptionTemplate": "Delete a config context profile object.",
+        "method": "DELETE",
+        "path": "/api/extras/config-context-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "get": {
+        "name": "extras_config_context_profiles_retrieve",
+        "descriptionTemplate": "Get a config context profile object.",
+        "method": "GET",
+        "path": "/api/extras/config-context-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "sync": {
+        "name": "extras_config_context_profiles_sync_create",
+        "descriptionTemplate": "Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).",
+        "method": "POST",
+        "path": "/api/extras/config-context-profiles/{id}/sync/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      }
+    }
+  },
+  "ConfigContext": {
+    "operations": {
+      "list": {
+        "name": "extras_config_contexts_list",
+        "descriptionTemplate": "Get a list of config context objects.",
+        "method": "GET",
+        "path": "/api/extras/config-contexts/",
+        "params": [
+          "auto_sync_enabled",
+          "cluster_group",
+          "cluster_group__n",
+          "cluster_group_id",
+          "cluster_group_id__n",
+          "cluster_id",
+          "cluster_id__n",
+          "cluster_type",
+          "cluster_type__n",
+          "cluster_type_id",
+          "cluster_type_id__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "data_file_id",
+          "data_file_id__n",
+          "data_source_id",
+          "data_source_id__n",
+          "data_synced",
+          "data_synced__empty",
+          "data_synced__gt",
+          "data_synced__gte",
+          "data_synced__lt",
+          "data_synced__lte",
+          "data_synced__n",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "device_role",
+          "device_role__n",
+          "device_role_id",
+          "device_role_id__n",
+          "device_type_id",
+          "device_type_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "is_active",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "location",
+          "location__n",
+          "location_id",
+          "location_id__n",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "platform",
+          "platform__n",
+          "platform_id",
+          "platform_id__n",
+          "profile",
+          "profile__n",
+          "profile_id",
+          "profile_id__n",
+          "q",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request",
+          "weight",
+          "weight__empty",
+          "weight__gt",
+          "weight__gte",
+          "weight__lt",
+          "weight__lte",
+          "weight__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "extras_config_contexts_create",
+        "descriptionTemplate": "Post a list of config context objects.",
+        "method": "POST",
+        "path": "/api/extras/config-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "update": {
+        "name": "extras_config_contexts_bulk_update",
+        "descriptionTemplate": "Put a list of config context objects.",
+        "method": "PUT",
+        "path": "/api/extras/config-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "patch": {
+        "name": "extras_config_contexts_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of config context objects.",
+        "method": "PATCH",
+        "path": "/api/extras/config-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      },
+      "delete": {
+        "name": "extras_config_contexts_bulk_destroy",
+        "descriptionTemplate": "Delete a list of config context objects.",
+        "method": "DELETE",
+        "path": "/api/extras/config-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}"
+        }
+      }
+    }
+  }
+}

@@ -98,6 +98,21 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         
         ops = ent.get("operations", {})
 
+        # --- LOGIC CHECK: Can we verify/control ID? ---
+        item_get_op = ops.get("get")
+        has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
+        
+        # Check if Primary Key is in the POST body template
+        pk_in_body = False
+        if "add" in ops and isinstance(ops["add"], dict):
+            body_tmpl = ops["add"].get("bodyTemplate", {})
+            if isinstance(body_tmpl, dict) and primary_key in body_tmpl:
+                pk_in_body = True
+        
+        # We only generate verifiers/negatives IF we have specific get AND we control the ID
+        can_verify = has_specific_get and pk_in_body
+        # ----------------------------------------------
+
         for op_type, op_data in ops.items():
             if op_type in ["verifyExists", "verifyDoesntExist"]: continue
             if not op_data: continue
@@ -105,18 +120,19 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
 
-        if "add" in ops and isinstance(ops["add"], dict):
+        # Wrapper: Try Add Existing (Only if we control ID)
+        if "add" in ops and isinstance(ops["add"], dict) and can_verify:
              lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
              lines.append('')
 
-        item_get_op = ops.get("get")
-        if item_get_op and "{" in item_get_op.get("path", ""):
+        # Verification Logic
+        if can_verify:
+            # OPTION A: ID-based Verification
             path_tmpl = item_get_op.get("path", "")
             js_item_url = f'"{path_tmpl}"'
             for p in sig_params: js_item_url = js_item_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
             js_item_url = js_item_url.replace(' + ""', '')
 
-            # --- FIX: Dynamic Description with ID ---
             safe_pk = sanitize_param(primary_key)
             lines.append(f'function verify{name}Exists({sig_args_str}) {{')
             lines.append(f'  var url = {js_item_url};')
@@ -133,7 +149,12 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append(f'  pvg.success("{name} not found");')
             lines.append('}')
             lines.append('')
+        elif not pk_in_body:
+             # If we don't control ID, we explicitly DO NOT generate verifiers
+             # because we can't reliably check for the item we just created.
+             lines.append(f'// No verify{name}Exists generated: Primary Key "{primary_key}" is not in POST body (Server-Generated ID).')
         else:
+            # Fallback for List scanning (only if we control ID but lack GET /id)
             list_op = ops.get("list")
             coll_url = list_op.get("path", "") if list_op else ""
             if coll_url:
@@ -152,23 +173,11 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 lines.append('  }});')
                 lines.append('}')
                 lines.append('')
-                lines.append(f'function verify{name}DoesNotExist({sig_args_str}) {{')
-                lines.append(f'  var url = {js_coll_url};')
-                lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(res){')
-                lines.append('      var data = JSON.parse(res.body);')
-                lines.append('      if(data.results) data = data.results;')
-                lines.append('      if(!Array.isArray(data)) data = [data];')
-                sanitized_pk = sanitize_param(primary_key)
-                lines.append(f'      for(var i=0; i<data.length; i++) {{ if(String(data[i].{primary_key}) === String({sanitized_pk})) return pvg.fail("Found but should not exist"); }}')
-                lines.append(f'      pvg.success("Item not found in list");')
-                lines.append('  }});')
-                lines.append('}')
-                lines.append('')
             else:
                  lines.append(f'function verify{name}Exists({sig_args_str}) {{ pvg.fail("No GET operation found"); }}')
-                 lines.append(f'function verify{name}DoesNotExist({sig_args_str}) {{ pvg.fail("No GET operation found"); }}')
 
-        if "delete" in ops and isinstance(ops["delete"], dict):
+        # Negative Delete (Only if we control ID)
+        if "delete" in ops and isinstance(ops["delete"], dict) and can_verify:
             neg_codes = ops["delete"].get("x-negative-delete-expected-codes", [404])
             path = ops["delete"].get("path", "")
             js_url = f'"{path}"'
@@ -193,8 +202,10 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append('}')
             lines.append('')
 
+        # Waiters - Always generate
+        desc_tmpl = "Create " + name
         if "add" in ops and isinstance(ops["add"], dict):
-             desc_tmpl = ops["add"].get("descriptionTemplate", f"Create {name}")
+             desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
              lines.append(f'function waitFor{name}Added({sig_args_str}) {{')
              js_desc = f'"{desc_tmpl}"'
              for p in sig_params: js_desc = js_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
@@ -202,14 +213,14 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'  waitFor(matchSuccess({js_desc}));')
              lines.append('}')
              lines.append('')
-             
-             regex_start = f"Done: {desc_tmpl}".split("{")[0]
-             lines.append(f'function matchAny{name}Added() {{')
-             lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{')
-             lines.append(f'      return e.name.startsWith("{regex_start}");')
-             lines.append(f'  }});')
-             lines.append('}')
-             lines.append('')
+        
+        regex_start = f"Done: {desc_tmpl}".split("{")[0]
+        lines.append(f'function matchAny{name}Added() {{')
+        lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{')
+        lines.append(f'      return e.name.startsWith("{regex_start}");')
+        lines.append(f'  }});')
+        lines.append('}')
+        lines.append('')
 
     ensure_dir(out_dir)
     (out_dir / f"interfaces.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")

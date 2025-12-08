@@ -1,0 +1,523 @@
+{
+  "Roles": {
+    "operations": {
+      "list": {
+        "name": "ipam_roles_list",
+        "descriptionTemplate": "Get a list of role objects.",
+        "method": "GET",
+        "path": "/api/ipam/roles/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request",
+          "weight",
+          "weight__empty",
+          "weight__gt",
+          "weight__gte",
+          "weight__lt",
+          "weight__lte",
+          "weight__n"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_roles_create",
+        "descriptionTemplate": "Post a list of role objects.",
+        "method": "POST",
+        "path": "/api/ipam/roles/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "update": {
+        "name": "ipam_roles_bulk_update",
+        "descriptionTemplate": "Put a list of role objects.",
+        "method": "PUT",
+        "path": "/api/ipam/roles/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "patch": {
+        "name": "ipam_roles_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of role objects.",
+        "method": "PATCH",
+        "path": "/api/ipam/roles/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "delete": {
+        "name": "ipam_roles_bulk_destroy",
+        "descriptionTemplate": "Delete a list of role objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/roles/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "get": {
+        "name": "ipam_roles_retrieve",
+        "descriptionTemplate": "Get a role object.",
+        "method": "GET",
+        "path": "/api/ipam/roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "ipam_roles_update",
+        "descriptionTemplate": "Put a role object.",
+        "method": "PUT",
+        "path": "/api/ipam/roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "patchItem": {
+        "name": "ipam_roles_partial_update",
+        "descriptionTemplate": "Patch a role object.",
+        "method": "PATCH",
+        "path": "/api/ipam/roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "deleteItem": {
+        "name": "ipam_roles_destroy",
+        "descriptionTemplate": "Delete a role object.",
+        "method": "DELETE",
+        "path": "/api/ipam/roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "RouteTargets": {
+    "operations": {
+      "list": {
+        "name": "ipam_route_targets_list",
+        "descriptionTemplate": "Get a list of route target objects.",
+        "method": "GET",
+        "path": "/api/ipam/route-targets/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "exporting_l2vpn",
+          "exporting_l2vpn__n",
+          "exporting_l2vpn_id",
+          "exporting_l2vpn_id__n",
+          "exporting_vrf",
+          "exporting_vrf__n",
+          "exporting_vrf_id",
+          "exporting_vrf_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "importing_l2vpn",
+          "importing_l2vpn__n",
+          "importing_l2vpn_id",
+          "importing_l2vpn_id__n",
+          "importing_vrf",
+          "importing_vrf__n",
+          "importing_vrf_id",
+          "importing_vrf_id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_route_targets_create",
+        "descriptionTemplate": "Post a list of route target objects.",
+        "method": "POST",
+        "path": "/api/ipam/route-targets/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "update": {
+        "name": "ipam_route_targets_bulk_update",
+        "descriptionTemplate": "Put a list of route target objects.",
+        "method": "PUT",
+        "path": "/api/ipam/route-targets/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "patch": {
+        "name": "ipam_route_targets_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of route target objects.",
+        "method": "PATCH",
+        "path": "/api/ipam/route-targets/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "delete": {
+        "name": "ipam_route_targets_bulk_destroy",
+        "descriptionTemplate": "Delete a list of route target objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/route-targets/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "get": {
+        "name": "ipam_route_targets_retrieve",
+        "descriptionTemplate": "Get a route target object.",
+        "method": "GET",
+        "path": "/api/ipam/route-targets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "ipam_route_targets_update",
+        "descriptionTemplate": "Put a route target object.",
+        "method": "PUT",
+        "path": "/api/ipam/route-targets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "patchItem": {
+        "name": "ipam_route_targets_partial_update",
+        "descriptionTemplate": "Patch a route target object.",
+        "method": "PATCH",
+        "path": "/api/ipam/route-targets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "deleteItem": {
+        "name": "ipam_route_targets_destroy",
+        "descriptionTemplate": "Delete a route target object.",
+        "method": "DELETE",
+        "path": "/api/ipam/route-targets/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "ServiceTemplates": {
+    "operations": {
+      "list": {
+        "name": "ipam_service_templates_list",
+        "descriptionTemplate": "Get a list of application service template objects.",
+        "method": "GET",
+        "path": "/api/ipam/service-templates/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "port",
+          "port__empty",
+          "port__gt",
+          "port__gte",
+          "port__lt",
+          "port__lte",
+          "port__n",
+          "protocol",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "ipam_service_templates_create",
+        "descriptionTemplate": "Post a list of application service template objects.",
+        "method": "POST",
+        "path": "/api/ipam/service-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "update": {
+        "name": "ipam_service_templates_bulk_update",
+        "descriptionTemplate": "Put a list of application service template objects.",
+        "method": "PUT",
+        "path": "/api/ipam/service-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "patch": {
+        "name": "ipam_service_templates_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of application service template objects.",
+        "method": "PATCH",
+        "path": "/api/ipam/service-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      },
+      "delete": {
+        "name": "ipam_service_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of application service template objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/service-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "slug": "{slug}",
+          "weight": "{weight}"
+        }
+      }
+    }
+  }
+}

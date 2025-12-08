@@ -1,0 +1,505 @@
+{
+  "CircuitGroupAssignments": {
+    "operations": {
+      "list": {
+        "name": "circuits_circuit_group_assignments_list",
+        "descriptionTemplate": "Get a list of Circuit group assignment objects.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-group-assignments/",
+        "params": [
+          "circuit",
+          "circuit_id",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "group",
+          "group__n",
+          "group_id",
+          "group_id__n",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "member_id",
+          "member_id__empty",
+          "member_id__gt",
+          "member_id__gte",
+          "member_id__lt",
+          "member_id__lte",
+          "member_id__n",
+          "member_type",
+          "member_type__n",
+          "modified_by_request",
+          "offset",
+          "ordering",
+          "priority",
+          "provider",
+          "provider_id",
+          "q",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "updated_by_request",
+          "virtual_circuit",
+          "virtual_circuit_id"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "circuits_circuit_group_assignments_create",
+        "descriptionTemplate": "Post a list of Circuit group assignment objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuit-group-assignments/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{WritableCircuitGroupAssignmentRequest}"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_group_assignments_bulk_update",
+        "descriptionTemplate": "Put a list of Circuit group assignment objects.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-group-assignments/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupAssignmentRequest}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_group_assignments_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of Circuit group assignment objects.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-group-assignments/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupAssignmentRequest}"
+        }
+      },
+      "delete": {
+        "name": "circuits_circuit_group_assignments_bulk_destroy",
+        "descriptionTemplate": "Delete a list of Circuit group assignment objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-group-assignments/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupAssignmentRequest}"
+        }
+      },
+      "get": {
+        "name": "circuits_circuit_group_assignments_retrieve",
+        "descriptionTemplate": "Get a Circuit group assignment object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-group-assignments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "circuits_circuit_group_assignments_update",
+        "descriptionTemplate": "Put a Circuit group assignment object.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-group-assignments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{WritableCircuitGroupAssignmentRequest}"
+        }
+      },
+      "patchItem": {
+        "name": "circuits_circuit_group_assignments_partial_update",
+        "descriptionTemplate": "Patch a Circuit group assignment object.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-group-assignments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{PatchedWritableCircuitGroupAssignmentRequest}"
+        }
+      },
+      "deleteItem": {
+        "name": "circuits_circuit_group_assignments_destroy",
+        "descriptionTemplate": "Delete a Circuit group assignment object.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-group-assignments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "CircuitGroups": {
+    "operations": {
+      "list": {
+        "name": "circuits_circuit_groups_list",
+        "descriptionTemplate": "Get a list of circuit group objects.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-groups/",
+        "params": [
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "modified_by_request",
+          "name",
+          "name__empty",
+          "name__ic",
+          "name__ie",
+          "name__iew",
+          "name__iregex",
+          "name__isw",
+          "name__n",
+          "name__nic",
+          "name__nie",
+          "name__niew",
+          "name__nisw",
+          "name__regex",
+          "offset",
+          "ordering",
+          "q",
+          "slug",
+          "slug__empty",
+          "slug__ic",
+          "slug__ie",
+          "slug__iew",
+          "slug__iregex",
+          "slug__isw",
+          "slug__n",
+          "slug__nic",
+          "slug__nie",
+          "slug__niew",
+          "slug__nisw",
+          "slug__regex",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "tenant",
+          "tenant__n",
+          "tenant_group",
+          "tenant_group__n",
+          "tenant_group_id",
+          "tenant_group_id__n",
+          "tenant_id",
+          "tenant_id__n",
+          "updated_by_request"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "circuits_circuit_groups_create",
+        "descriptionTemplate": "Post a list of circuit group objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuit-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupRequest}"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_groups_bulk_update",
+        "descriptionTemplate": "Put a list of circuit group objects.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupRequest}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_groups_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of circuit group objects.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupRequest}"
+        }
+      },
+      "delete": {
+        "name": "circuits_circuit_groups_bulk_destroy",
+        "descriptionTemplate": "Delete a list of circuit group objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitGroupRequest}"
+        }
+      },
+      "get": {
+        "name": "circuits_circuit_groups_retrieve",
+        "descriptionTemplate": "Get a circuit group object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "updateItem": {
+        "name": "circuits_circuit_groups_update",
+        "descriptionTemplate": "Put a circuit group object.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{CircuitGroupRequest}"
+        }
+      },
+      "patchItem": {
+        "name": "circuits_circuit_groups_partial_update",
+        "descriptionTemplate": "Patch a circuit group object.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{PatchedCircuitGroupRequest}"
+        }
+      },
+      "deleteItem": {
+        "name": "circuits_circuit_groups_destroy",
+        "descriptionTemplate": "Delete a circuit group object.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  },
+  "CircuitTerminations": {
+    "operations": {
+      "list": {
+        "name": "circuits_circuit_terminations_list",
+        "descriptionTemplate": "Get a list of circuit termination objects.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-terminations/",
+        "params": [
+          "cable_end",
+          "cable_id",
+          "cable_id__n",
+          "cabled",
+          "circuit_id",
+          "circuit_id__n",
+          "created",
+          "created__empty",
+          "created__gt",
+          "created__gte",
+          "created__lt",
+          "created__lte",
+          "created__n",
+          "created_by_request",
+          "description",
+          "description__empty",
+          "description__ic",
+          "description__ie",
+          "description__iew",
+          "description__iregex",
+          "description__isw",
+          "description__n",
+          "description__nic",
+          "description__nie",
+          "description__niew",
+          "description__nisw",
+          "description__regex",
+          "id",
+          "id__empty",
+          "id__gt",
+          "id__gte",
+          "id__lt",
+          "id__lte",
+          "id__n",
+          "last_updated",
+          "last_updated__empty",
+          "last_updated__gt",
+          "last_updated__gte",
+          "last_updated__lt",
+          "last_updated__lte",
+          "last_updated__n",
+          "limit",
+          "location",
+          "location__n",
+          "location_id",
+          "location_id__n",
+          "mark_connected",
+          "modified_by_request",
+          "occupied",
+          "offset",
+          "ordering",
+          "port_speed",
+          "port_speed__empty",
+          "port_speed__gt",
+          "port_speed__gte",
+          "port_speed__lt",
+          "port_speed__lte",
+          "port_speed__n",
+          "pp_info",
+          "pp_info__empty",
+          "pp_info__ic",
+          "pp_info__ie",
+          "pp_info__iew",
+          "pp_info__iregex",
+          "pp_info__isw",
+          "pp_info__n",
+          "pp_info__nic",
+          "pp_info__nie",
+          "pp_info__niew",
+          "pp_info__nisw",
+          "pp_info__regex",
+          "provider",
+          "provider__n",
+          "provider_id",
+          "provider_id__n",
+          "provider_network_id",
+          "provider_network_id__n",
+          "q",
+          "region",
+          "region__n",
+          "region_id",
+          "region_id__n",
+          "site",
+          "site__n",
+          "site_group",
+          "site_group__n",
+          "site_group_id",
+          "site_group_id__n",
+          "site_id",
+          "site_id__n",
+          "tag",
+          "tag__n",
+          "tag_id",
+          "tag_id__n",
+          "term_side",
+          "termination_id",
+          "termination_id__empty",
+          "termination_id__gt",
+          "termination_id__gte",
+          "termination_id__lt",
+          "termination_id__lte",
+          "termination_id__n",
+          "termination_type",
+          "termination_type__n",
+          "updated_by_request",
+          "upstream_speed",
+          "upstream_speed__empty",
+          "upstream_speed__gt",
+          "upstream_speed__gte",
+          "upstream_speed__lt",
+          "upstream_speed__lte",
+          "upstream_speed__n",
+          "xconnect_id",
+          "xconnect_id__empty",
+          "xconnect_id__ic",
+          "xconnect_id__ie",
+          "xconnect_id__iew",
+          "xconnect_id__iregex",
+          "xconnect_id__isw",
+          "xconnect_id__n",
+          "xconnect_id__nic",
+          "xconnect_id__nie",
+          "xconnect_id__niew",
+          "xconnect_id__nisw",
+          "xconnect_id__regex"
+        ],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "circuits_circuit_terminations_create",
+        "descriptionTemplate": "Post a list of circuit termination objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuit-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitTerminationRequest}"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_terminations_bulk_update",
+        "descriptionTemplate": "Put a list of circuit termination objects.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitTerminationRequest}"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_terminations_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of circuit termination objects.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitTerminationRequest}"
+        }
+      },
+      "delete": {
+        "name": "circuits_circuit_terminations_bulk_destroy",
+        "descriptionTemplate": "Delete a list of circuit termination objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{CircuitTerminationRequest}"
+        }
+      }
+    }
+  }
+}

@@ -23,10 +23,10 @@ function createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, yea
   var body = {
     "vin": String(vin),
     "make": String(make),
-    "model": String(model),
-    "year": Number(year),
     "mileage": Number(mileage),
+    "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
+    "year": Number(year),
     "homeGarageId": String(homeGarageId),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400], parameters: { description: description } });
@@ -44,10 +44,10 @@ function updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, yea
   var description = "Update car";
   var body = {
     "make": String(make),
-    "model": String(model),
-    "year": Number(year),
     "mileage": Number(mileage),
+    "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
+    "year": Number(year),
     "homeGarageId": String(homeGarageId),
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
@@ -66,10 +66,10 @@ function tryToAddExistingCars(homeGarageId, make, mileage, model, ownerCustomerI
   var body = {
     "vin": String(vin),
     "make": String(make),
-    "model": String(model),
-    "year": Number(year),
     "mileage": Number(mileage),
+    "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
+    "year": Number(year),
     "homeGarageId": String(homeGarageId),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
@@ -405,13 +405,13 @@ function matchAnyGaragesAdded() {
   });
 }
 
-function listPMPlans(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function listPMPlans(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance";
   var description = "List PM plans";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance";
   var description = "Create PM plan";
   var body = {
@@ -419,41 +419,44 @@ function createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pm
     "carVin": String(carVin),
     "garageId": String(garageId),
     "planType": String(planType),
-    "tasks": [String(task)],
+    "tasks": String(tasks),
+    "intervalKm": Number(intervalKm),
+    "intervalMonths": Number(intervalMonths),
+    "status": String(status),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "status": status, "task": task}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "status": status, "tasks": tasks}) });
 }
 
-function readPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function readPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Read PM plan";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
 }
 
-function updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Update PM plan";
   var body = {
     "carVin": String(carVin),
     "garageId": String(garageId),
+    "planType": String(planType),
+    "tasks": String(tasks),
     "intervalKm": Number(intervalKm),
     "intervalMonths": Number(intervalMonths),
-    "planType": String(planType),
     "status": String(status),
-    "tasks": [String(task)],
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "status": status, "task": task}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "status": status, "tasks": tasks}) });
 }
 
-function deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function deletePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Delete PM plan";
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance";
   var description = "Try Add Existing PeriodicMaintenance";
   var body = {
@@ -461,38 +464,41 @@ function tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, inter
     "carVin": String(carVin),
     "garageId": String(garageId),
     "planType": String(planType),
-    "tasks": [String(task)],
+    "tasks": String(tasks),
+    "intervalKm": Number(intervalKm),
+    "intervalMonths": Number(intervalMonths),
+    "status": String(status),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function verifyPeriodicMaintenanceExists(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Verify PeriodicMaintenance " + pmId + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("PeriodicMaintenance found");
 }
 
-function verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function verifyPeriodicMaintenanceDoesNotExist(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Verify PeriodicMaintenance " + pmId + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("PeriodicMaintenance not found");
 }
 
-function tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function tryToDeleteANonExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Verify negative delete for PeriodicMaintenance";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function matchDeletedPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   return bp.EventSet("Delete PeriodicMaintenance", function(e) {
       return e.name === "Done: " + "Delete PM plan";
   });
 }
 
-function waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, task) {
+function waitForPeriodicMaintenanceAdded(carVin, garageId, intervalKm, intervalMonths, planType, pmId, status, tasks) {
   waitFor(matchSuccess("Create PM plan"));
 }
 
@@ -517,6 +523,7 @@ function createRepairOrder(carVin, complaint, customerId, garageId, roId, status
     "customerId": String(customerId),
     "garageId": String(garageId),
     "complaint": String(complaint),
+    "status": String(status),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
@@ -533,9 +540,9 @@ function updateRepairOrder(carVin, complaint, customerId, garageId, roId, status
   var description = "Update repair order";
   var body = {
     "carVin": String(carVin),
-    "complaint": String(complaint),
     "customerId": String(customerId),
     "garageId": String(garageId),
+    "complaint": String(complaint),
     "status": String(status),
   };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
@@ -551,7 +558,13 @@ function deleteRepairOrder(carVin, complaint, customerId, garageId, roId, status
 function approveRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId + "/approve";
   var description = "Approve RO (move to in-progress if allowed)";
-  var body = undefined;
+  var body = {
+    "carVin": String(carVin),
+    "complaint": String(complaint),
+    "customerId": String(customerId),
+    "garageId": String(garageId),
+    "status": String(status),
+  };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
 }
@@ -559,7 +572,13 @@ function approveRepairOrder(carVin, complaint, customerId, garageId, roId, statu
 function closeRepairOrder(carVin, complaint, customerId, garageId, roId, status) {
   var url = "/repair-orders/" + roId + "/close";
   var description = "Close RO (sets status=closed)";
-  var body = undefined;
+  var body = {
+    "carVin": String(carVin),
+    "complaint": String(complaint),
+    "customerId": String(customerId),
+    "garageId": String(garageId),
+    "status": String(status),
+  };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
 }
@@ -573,6 +592,7 @@ function tryToAddExistingRepairOrder(carVin, complaint, customerId, garageId, ro
     "customerId": String(customerId),
     "garageId": String(garageId),
     "complaint": String(complaint),
+    "status": String(status),
   };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
