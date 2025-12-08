@@ -1,0 +1,158 @@
+{
+  "PeriodicMaintenance": {
+    "operations": {
+      "list": {
+        "name": "listPMPlans",
+        "descriptionTemplate": "List PM plans",
+        "method": "GET",
+        "path": "/periodic-maintenance",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createPMPlan",
+        "descriptionTemplate": "Create PM plan",
+        "method": "POST",
+        "path": "/periodic-maintenance",
+        "params": [],
+        "bodyTemplate": {
+          "pmId": "{pmId}",
+          "carVin": "{carVin}",
+          "garageId": "{garageId}",
+          "planType": "{planType}",
+          "tasks": [
+            "{task}"
+          ]
+        }
+      },
+      "get": {
+        "name": "readPMPlan",
+        "descriptionTemplate": "Read PM plan",
+        "method": "GET",
+        "path": "/periodic-maintenance/{pmId}",
+        "params": [
+          "pmId"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updatePMPlan",
+        "descriptionTemplate": "Update PM plan",
+        "method": "PUT",
+        "path": "/periodic-maintenance/{pmId}",
+        "params": [
+          "pmId"
+        ],
+        "bodyTemplate": {
+          "carVin": "{carVin}",
+          "garageId": "{garageId}",
+          "intervalKm": "{intervalKm}",
+          "intervalMonths": "{intervalMonths}",
+          "planType": "{planType}",
+          "status": "{status}",
+          "tasks": [
+            "{task}"
+          ]
+        }
+      },
+      "delete": {
+        "name": "deletePMPlan",
+        "descriptionTemplate": "Delete PM plan",
+        "method": "DELETE",
+        "path": "/periodic-maintenance/{pmId}",
+        "params": [
+          "pmId"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "RepairOrder": {
+    "operations": {
+      "list": {
+        "name": "listRepairOrders",
+        "descriptionTemplate": "List repair orders",
+        "method": "GET",
+        "path": "/repair-orders",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createRepairOrder",
+        "descriptionTemplate": "Create repair order",
+        "method": "POST",
+        "path": "/repair-orders",
+        "params": [],
+        "bodyTemplate": {
+          "roId": "{roId}",
+          "carVin": "{carVin}",
+          "customerId": "{customerId}",
+          "garageId": "{garageId}",
+          "complaint": "{complaint}"
+        }
+      },
+      "get": {
+        "name": "readRepairOrder",
+        "descriptionTemplate": "Read repair order",
+        "method": "GET",
+        "path": "/repair-orders/{roId}",
+        "params": [
+          "roId"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updateRepairOrder",
+        "descriptionTemplate": "Update repair order",
+        "method": "PUT",
+        "path": "/repair-orders/{roId}",
+        "params": [
+          "roId"
+        ],
+        "bodyTemplate": {
+          "carVin": "{carVin}",
+          "complaint": "{complaint}",
+          "customerId": "{customerId}",
+          "garageId": "{garageId}",
+          "status": "{status}"
+        }
+      },
+      "delete": {
+        "name": "deleteRepairOrder",
+        "descriptionTemplate": "Delete repair order",
+        "method": "DELETE",
+        "path": "/repair-orders/{roId}",
+        "params": [
+          "roId"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "approve": {
+        "name": "approveRepairOrder",
+        "descriptionTemplate": "Approve RO (move to in-progress if allowed)",
+        "method": "POST",
+        "path": "/repair-orders/{roId}/approve",
+        "params": [
+          "roId"
+        ],
+        "bodyTemplate": {}
+      },
+      "close": {
+        "name": "closeRepairOrder",
+        "descriptionTemplate": "Close RO (sets status=closed)",
+        "method": "POST",
+        "path": "/repair-orders/{roId}/close",
+        "params": [
+          "roId"
+        ],
+        "bodyTemplate": {}
+      }
+    }
+  }
+}

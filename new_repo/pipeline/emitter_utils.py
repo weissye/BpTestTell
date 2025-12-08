@@ -16,21 +16,17 @@ JS_RESERVED = {
     "with", "yield"
 }
 
-def ensure_dir(path: Path):
+def ensure_directory_exists(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
-# Alias for compatibility with other scripts
-ensure_directory_exists = ensure_dir
+ensure_dir = ensure_directory_exists
 
 def sanitize_param(name: str) -> str:
-    """
-    Sanitizes a parameter name for use as a JS variable.
-    """
     if not name: return "undefined_var"
     if name == "..." or name == "…": return "_ellipsis"
         
     clean_name = re.sub(r'[^a-zA-Z0-9_$]', '_', name)
-    if clean_name[0].isdigit():
+    if clean_name and clean_name[0].isdigit():
         clean_name = "_" + clean_name
     
     if clean_name in JS_RESERVED:
@@ -38,7 +34,15 @@ def sanitize_param(name: str) -> str:
     return clean_name
 
 def render_body_js(template: Any, indent=4) -> str:
+    """Recursively renders a JSON body template into a JS string."""
     if not template: return "undefined"
+    
+    if isinstance(template, list):
+        items = []
+        for item in template:
+            items.append(render_body_js(item, indent))
+        return "[" + ", ".join(items) + "]"
+
     if isinstance(template, dict):
         lines = ["{"]
         for k, v in template.items():
@@ -47,12 +51,28 @@ def render_body_js(template: Any, indent=4) -> str:
             lines.append(f'{" " * indent}"{k}": {val_str},')
         lines.append(f'{" " * (indent-2)}}}')
         return "\n".join(lines)
+    
     if isinstance(template, str):
         if template.startswith("{") and template.endswith("}"):
             var_name = template.strip("{}")
             if var_name == "..." or var_name == "…": return '"..."'
-            return f'String({sanitize_param(var_name)})'
+            
+            clean_var = sanitize_param(var_name)
+            lower_var = var_name.lower()
+            
+            # 1. Handle Integers
+            if lower_var in ["year", "mileage", "baycount", "intervalkm", "intervalmonths"]:
+                 return f'Number({clean_var})'
+            
+            # 2. Handle Booleans (FIXED)
+            if lower_var in ["active", "enabled", "visible"]:
+                 return clean_var # Return variable directly (true/false), no String() wrapper
+                 
+            # 3. Default to String
+            return f'String({clean_var})'
+            
         return f'"{template}"'
+    
     return str(template)
 
 def get_raw_spec(spec):
@@ -77,7 +97,6 @@ def get_response_codes(path, method, full_spec):
         if code.isdigit():
             codes.append(int(code))
     
-    # Heuristic: If 204 exists but 200 doesn't, add 200 as generic success logic often expects it
     if method.upper() == "DELETE":
         if 204 in codes and 200 not in codes: codes.append(200)
     
@@ -97,20 +116,19 @@ def get_operation_schema(path, method, raw_spec):
     json_media = content.get("application/json", {})
     schema_ref = json_media.get("schema", {})
     
-    # Basic resolve (non-recursive for simplicity here, recursion in interfaces recommended)
     return schema_ref, []
 
 def infer_type(param_name, known_type="string"):
     if known_type != "string": return known_type
     lower = param_name.lower()
-    if lower in ["year", "mileage", "age", "count", "amount", "quantity", "id"]: return "string" # IDs are strings in JS usually
-    if lower in ["active", "enabled", "visible"]: return "boolean"
+    if lower in ["year", "mileage", "age", "count", "amount", "quantity", "id", "pk", "baycount", "intervalkm", "intervalmonths"]: 
+        return "integer"
+    if lower in ["active", "enabled", "visible"]: 
+        return "boolean"
     return "string"
 
 def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, Any]) -> Tuple[str, List[str]]:
     ops = ent.get("operations", {})
-    
-    # 1. Detect Primary Key
     primary_key = None
     check_ops = [ops.get('get'), ops.get('delete'), ops.get('update')]
     for op in check_ops:
@@ -120,10 +138,8 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
                 primary_key = matches[0]
                 break
     
-    # Default PK if not found
     if not primary_key: primary_key = "id"
 
-    # 2. Collect all params
     all_params_set = set()
     if primary_key: all_params_set.add(primary_key)
     
@@ -137,5 +153,10 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
                     if isinstance(v, str) and v.startswith("{") and v.endswith("}"):
                         clean = v.strip("{}")
                         if clean and clean not in ["...", "…"]: all_params_set.add(clean)
+                    elif isinstance(v, list):
+                        for item in v:
+                            if isinstance(item, str) and item.startswith("{") and item.endswith("}"):
+                                clean = item.strip("{}")
+                                if clean: all_params_set.add(clean)
 
     return primary_key, sorted(list(all_params_set))
