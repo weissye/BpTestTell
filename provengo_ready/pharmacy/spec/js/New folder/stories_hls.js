@@ -2,298 +2,297 @@
 //@provengo summon rest
 
 
+function resolveDependencies(deps, pkMap) {
+  let captured = {};
+  while (Object.keys(deps).length > 0) {
+    let missingEventSets = Object.values(deps);
+    let e = bp.sync({waitFor: missingEventSets});
+    for (let k in deps) {
+      if (deps[k].contains(e)) {
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
+        if (!val && pkMap && pkMap[k]) {
+            let mappedKey = pkMap[k];
+            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
+        }
+        if (!val && e.data) {
+          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }
+        }
+        if (val) {
+            captured[k] = val;
+            delete deps[k];
+        }
+      }
+    }
+  }
+  return captured;
+}
+
 // Story: crud:Drug:nondet:1:1
-bp.registerBThread("crud:Drug:nondet:1:1", function () {
-  let name = "name_200";
+bthread("crud:Drug:nondet:1:1", function () {
   let id = 200;
-  createDrug("name_200", 200);
-  waitForDrugAdded("name_200", 200);
-  tryToAddExistingDrug("name_200", 200);
-  verifyDrugExists("name_200", 200);
-  updateDrug("name_200", 200);
-  deleteDrug("name_200", 200);
-  tryToDeleteANonExistingDrug("name_200", 200);
-  verifyDrugDoesNotExist("name_200", 200);
+  createDrug(id);
+  waitForDrugAdded(id);
+  tryToAddExistingDrug(id);
+  verifyDrugExists(id);
+  updateDrug(id);
+  deleteDrug(id);
+  tryToDeleteANonExistingDrug(id);
+  verifyDrugDoesNotExist(id);
 });
 
 // Story: crud:Drug:nondet:1:2
-bp.registerBThread("crud:Drug:nondet:1:2", function () {
-  let name = "name_201";
+bthread("crud:Drug:nondet:1:2", function () {
   let id = 201;
-  createDrug("name_201", 201);
-  waitForDrugAdded("name_201", 201);
-  tryToAddExistingDrug("name_201", 201);
-  updateDrug("name_201", 201);
-  verifyDrugExists("name_201", 201);
-  deleteDrug("name_201", 201);
-  tryToDeleteANonExistingDrug("name_201", 201);
-  verifyDrugDoesNotExist("name_201", 201);
+  createDrug(id);
+  tryToAddExistingDrug(id);
+  updateDrug(id);
+  verifyDrugExists(id);
+  deleteDrug(id);
+  tryToDeleteANonExistingDrug(id);
+  verifyDrugDoesNotExist(id);
 });
 
 // Story: crud:Drug:nondet:negative:dup-add
-bp.registerBThread("crud:Drug:nondet:negative:dup-add", function () {
-  let name = "name_206";
+bthread("crud:Drug:nondet:negative:dup-add", function () {
   let id = 206;
-  createDrug("name_206", 206);
-  waitForDrugAdded("name_206", 206);
-  verifyDrugExists("name_206", 206);
-  tryToAddExistingDrug("name_206", 206);
-  verifyDrugExists("name_206", 206);
+  createDrug(id);
+  verifyDrugExists(id);
+  tryToAddExistingDrug(id);
+  verifyDrugExists(id);
 });
 
-// Story: crud:Drug:nondet:existing:update
-bp.registerBThread("crud:Drug:nondet:existing:update", function () {
-  let ev = waitForAnyDrugAdded();
-  let args = Object.values(ev);
-  block(matchDeletedDrug.apply(null, args), function () {
-    verifyDrugExists.apply(null, args);
-    updateDrug.apply(null, args);
-    verifyDrugExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Drug:add
-bp.registerBThread("monitor:Drug:add", function () {
+// Monitor: Drug Addition Verification
+bthread("monitor:Drug:addition", function () {
   while (true) {
-    let ev = waitForAnyDrugAdded();
-    let args = Object.values(ev);
-    block(matchDeletedDrug.apply(null, args), function () {
-      verifyDrugExists.apply(null, args);
+    let item = waitForAnyDrugAdded();
+    block(matchDeletedDrug(item.id), function () {
+      verifyDrugExists(item.id);
+    });
+  }
+});
+
+// Monitor: Drug Deletion Verification
+bthread("monitor:Drug:deletion", function () {
+  while (true) {
+    let item = waitForAnyDrugDeleted();
+    block(matchAddedDrug(item.id), function () {
+      verifyDrugDoesNotExist(item.id);
     });
   }
 });
 
 // Story: crud:Patient:nondet:1:1
-bp.registerBThread("crud:Patient:nondet:1:1", function () {
-  let name = "name_210";
+bthread("crud:Patient:nondet:1:1", function () {
   let id = 210;
-  createPatient("name_210", 210);
-  waitForPatientAdded("name_210", 210);
-  tryToAddExistingPatient("name_210", 210);
-  verifyPatientExists("name_210", 210);
-  updatePatient("name_210", 210);
-  deletePatient("name_210", 210);
-  tryToDeleteANonExistingPatient("name_210", 210);
-  verifyPatientDoesNotExist("name_210", 210);
+  createPatient(id);
+  waitForPatientAdded(id);
+  tryToAddExistingPatient(id);
+  verifyPatientExists(id);
+  updatePatient(id);
+  deletePatient(id);
+  tryToDeleteANonExistingPatient(id);
+  verifyPatientDoesNotExist(id);
 });
 
 // Story: crud:Patient:nondet:1:2
-bp.registerBThread("crud:Patient:nondet:1:2", function () {
-  let name = "name_211";
+bthread("crud:Patient:nondet:1:2", function () {
   let id = 211;
-  createPatient("name_211", 211);
-  waitForPatientAdded("name_211", 211);
-  tryToAddExistingPatient("name_211", 211);
-  updatePatient("name_211", 211);
-  verifyPatientExists("name_211", 211);
-  deletePatient("name_211", 211);
-  tryToDeleteANonExistingPatient("name_211", 211);
-  verifyPatientDoesNotExist("name_211", 211);
+  createPatient(id);
+  tryToAddExistingPatient(id);
+  updatePatient(id);
+  verifyPatientExists(id);
+  deletePatient(id);
+  tryToDeleteANonExistingPatient(id);
+  verifyPatientDoesNotExist(id);
 });
 
 // Story: crud:Patient:nondet:negative:dup-add
-bp.registerBThread("crud:Patient:nondet:negative:dup-add", function () {
-  let name = "name_216";
+bthread("crud:Patient:nondet:negative:dup-add", function () {
   let id = 216;
-  createPatient("name_216", 216);
-  waitForPatientAdded("name_216", 216);
-  verifyPatientExists("name_216", 216);
-  tryToAddExistingPatient("name_216", 216);
-  verifyPatientExists("name_216", 216);
+  createPatient(id);
+  verifyPatientExists(id);
+  tryToAddExistingPatient(id);
+  verifyPatientExists(id);
 });
 
-// Story: crud:Patient:nondet:existing:update
-bp.registerBThread("crud:Patient:nondet:existing:update", function () {
-  let ev = waitForAnyPatientAdded();
-  let args = Object.values(ev);
-  block(matchDeletedPatient.apply(null, args), function () {
-    verifyPatientExists.apply(null, args);
-    updatePatient.apply(null, args);
-    verifyPatientExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Patient:add
-bp.registerBThread("monitor:Patient:add", function () {
+// Monitor: Patient Addition Verification
+bthread("monitor:Patient:addition", function () {
   while (true) {
-    let ev = waitForAnyPatientAdded();
-    let args = Object.values(ev);
-    block(matchDeletedPatient.apply(null, args), function () {
-      verifyPatientExists.apply(null, args);
+    let item = waitForAnyPatientAdded();
+    block(matchDeletedPatient(item.id), function () {
+      verifyPatientExists(item.id);
+    });
+  }
+});
+
+// Monitor: Patient Deletion Verification
+bthread("monitor:Patient:deletion", function () {
+  while (true) {
+    let item = waitForAnyPatientDeleted();
+    block(matchAddedPatient(item.id), function () {
+      verifyPatientDoesNotExist(item.id);
     });
   }
 });
 
 // Story: crud:Order:nondet:1:1
-bp.registerBThread("crud:Order:nondet:1:1", function () {
+bthread("crud:Order:nondet:1:1", function () {
   let id = 220;
-  createOrder(220);
-  waitForOrderAdded(220);
-  tryToAddExistingOrder(220);
-  verifyOrderExists(220);
-  updateOrder(220);
-  deleteOrder(220);
-  tryToDeleteANonExistingOrder(220);
-  verifyOrderDoesNotExist(220);
+  createOrder(id);
+  waitForOrderAdded(id);
+  tryToAddExistingOrder(id);
+  verifyOrderExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrder(id);
+  verifyOrderDoesNotExist(id);
 });
 
 // Story: crud:Order:nondet:1:2
-bp.registerBThread("crud:Order:nondet:1:2", function () {
+bthread("crud:Order:nondet:1:2", function () {
   let id = 221;
-  createOrder(221);
-  waitForOrderAdded(221);
-  tryToAddExistingOrder(221);
-  updateOrder(221);
-  verifyOrderExists(221);
-  deleteOrder(221);
-  tryToDeleteANonExistingOrder(221);
-  verifyOrderDoesNotExist(221);
+  createOrder(id);
+  tryToAddExistingOrder(id);
+  updateOrder(id);
+  verifyOrderExists(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrder(id);
+  verifyOrderDoesNotExist(id);
 });
 
 // Story: crud:Order:nondet:negative:dup-add
-bp.registerBThread("crud:Order:nondet:negative:dup-add", function () {
+bthread("crud:Order:nondet:negative:dup-add", function () {
   let id = 226;
-  createOrder(226);
-  waitForOrderAdded(226);
-  verifyOrderExists(226);
-  tryToAddExistingOrder(226);
-  verifyOrderExists(226);
+  createOrder(id);
+  verifyOrderExists(id);
+  tryToAddExistingOrder(id);
+  verifyOrderExists(id);
 });
 
-// Story: crud:Order:nondet:existing:update
-bp.registerBThread("crud:Order:nondet:existing:update", function () {
-  let ev = waitForAnyOrderAdded();
-  let args = Object.values(ev);
-  block(matchDeletedOrder.apply(null, args), function () {
-    verifyOrderExists.apply(null, args);
-    updateOrder.apply(null, args);
-    verifyOrderExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Order:add
-bp.registerBThread("monitor:Order:add", function () {
+// Monitor: Order Addition Verification
+bthread("monitor:Order:addition", function () {
   while (true) {
-    let ev = waitForAnyOrderAdded();
-    let args = Object.values(ev);
-    block(matchDeletedOrder.apply(null, args), function () {
-      verifyOrderExists.apply(null, args);
+    let item = waitForAnyOrderAdded();
+    block(matchDeletedOrder(item.id), function () {
+      verifyOrderExists(item.id);
+    });
+  }
+});
+
+// Monitor: Order Deletion Verification
+bthread("monitor:Order:deletion", function () {
+  while (true) {
+    let item = waitForAnyOrderDeleted();
+    block(matchAddedOrder(item.id), function () {
+      verifyOrderDoesNotExist(item.id);
     });
   }
 });
 
 // Story: crud:Prescription:nondet:1:1
-bp.registerBThread("crud:Prescription:nondet:1:1", function () {
+bthread("crud:Prescription:nondet:1:1", function () {
   let id = 230;
-  createPrescription(230);
-  waitForPrescriptionAdded(230);
-  tryToAddExistingPrescription(230);
-  verifyPrescriptionExists(230);
-  updatePrescription(230);
-  deletePrescription(230);
-  tryToDeleteANonExistingPrescription(230);
-  verifyPrescriptionDoesNotExist(230);
+  createPrescription(id);
+  waitForPrescriptionAdded(id);
+  tryToAddExistingPrescription(id);
+  verifyPrescriptionExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescription(id);
+  verifyPrescriptionDoesNotExist(id);
 });
 
 // Story: crud:Prescription:nondet:1:2
-bp.registerBThread("crud:Prescription:nondet:1:2", function () {
+bthread("crud:Prescription:nondet:1:2", function () {
   let id = 231;
-  createPrescription(231);
-  waitForPrescriptionAdded(231);
-  tryToAddExistingPrescription(231);
-  updatePrescription(231);
-  verifyPrescriptionExists(231);
-  deletePrescription(231);
-  tryToDeleteANonExistingPrescription(231);
-  verifyPrescriptionDoesNotExist(231);
+  createPrescription(id);
+  tryToAddExistingPrescription(id);
+  updatePrescription(id);
+  verifyPrescriptionExists(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescription(id);
+  verifyPrescriptionDoesNotExist(id);
 });
 
 // Story: crud:Prescription:nondet:negative:dup-add
-bp.registerBThread("crud:Prescription:nondet:negative:dup-add", function () {
+bthread("crud:Prescription:nondet:negative:dup-add", function () {
   let id = 236;
-  createPrescription(236);
-  waitForPrescriptionAdded(236);
-  verifyPrescriptionExists(236);
-  tryToAddExistingPrescription(236);
-  verifyPrescriptionExists(236);
+  createPrescription(id);
+  verifyPrescriptionExists(id);
+  tryToAddExistingPrescription(id);
+  verifyPrescriptionExists(id);
 });
 
-// Story: crud:Prescription:nondet:existing:update
-bp.registerBThread("crud:Prescription:nondet:existing:update", function () {
-  let ev = waitForAnyPrescriptionAdded();
-  let args = Object.values(ev);
-  block(matchDeletedPrescription.apply(null, args), function () {
-    verifyPrescriptionExists.apply(null, args);
-    updatePrescription.apply(null, args);
-    verifyPrescriptionExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Prescription:add
-bp.registerBThread("monitor:Prescription:add", function () {
+// Monitor: Prescription Addition Verification
+bthread("monitor:Prescription:addition", function () {
   while (true) {
-    let ev = waitForAnyPrescriptionAdded();
-    let args = Object.values(ev);
-    block(matchDeletedPrescription.apply(null, args), function () {
-      verifyPrescriptionExists.apply(null, args);
+    let item = waitForAnyPrescriptionAdded();
+    block(matchDeletedPrescription(item.id), function () {
+      verifyPrescriptionExists(item.id);
+    });
+  }
+});
+
+// Monitor: Prescription Deletion Verification
+bthread("monitor:Prescription:deletion", function () {
+  while (true) {
+    let item = waitForAnyPrescriptionDeleted();
+    block(matchAddedPrescription(item.id), function () {
+      verifyPrescriptionDoesNotExist(item.id);
     });
   }
 });
 
 // Story: crud:Inventory:nondet:1:1
-bp.registerBThread("crud:Inventory:nondet:1:1", function () {
-  let ndc = "ndc_240";
-  createInventory("ndc_240");
-  waitForInventoryAdded("ndc_240");
-  tryToAddExistingInventory("ndc_240");
-  verifyInventoryExists("ndc_240");
-  updateInventory("ndc_240");
-  deleteInventory("ndc_240");
-  tryToDeleteANonExistingInventory("ndc_240");
-  verifyInventoryDoesNotExist("ndc_240");
+bthread("crud:Inventory:nondet:1:1", function () {
+  let ndc = 240;
+  createInventory(ndc);
+  waitForInventoryAdded(ndc);
+  tryToAddExistingInventory(ndc);
+  verifyInventoryExists(ndc);
+  updateInventory(ndc);
+  deleteInventory(ndc);
+  tryToDeleteANonExistingInventory(ndc);
+  verifyInventoryDoesNotExist(ndc);
 });
 
 // Story: crud:Inventory:nondet:1:2
-bp.registerBThread("crud:Inventory:nondet:1:2", function () {
-  let ndc = "ndc_241";
-  createInventory("ndc_241");
-  waitForInventoryAdded("ndc_241");
-  tryToAddExistingInventory("ndc_241");
-  updateInventory("ndc_241");
-  verifyInventoryExists("ndc_241");
-  deleteInventory("ndc_241");
-  tryToDeleteANonExistingInventory("ndc_241");
-  verifyInventoryDoesNotExist("ndc_241");
+bthread("crud:Inventory:nondet:1:2", function () {
+  let ndc = 241;
+  createInventory(ndc);
+  tryToAddExistingInventory(ndc);
+  updateInventory(ndc);
+  verifyInventoryExists(ndc);
+  deleteInventory(ndc);
+  tryToDeleteANonExistingInventory(ndc);
+  verifyInventoryDoesNotExist(ndc);
 });
 
 // Story: crud:Inventory:nondet:negative:dup-add
-bp.registerBThread("crud:Inventory:nondet:negative:dup-add", function () {
-  let ndc = "ndc_246";
-  createInventory("ndc_246");
-  waitForInventoryAdded("ndc_246");
-  verifyInventoryExists("ndc_246");
-  tryToAddExistingInventory("ndc_246");
-  verifyInventoryExists("ndc_246");
+bthread("crud:Inventory:nondet:negative:dup-add", function () {
+  let ndc = 246;
+  createInventory(ndc);
+  verifyInventoryExists(ndc);
+  tryToAddExistingInventory(ndc);
+  verifyInventoryExists(ndc);
 });
 
-// Story: crud:Inventory:nondet:existing:update
-bp.registerBThread("crud:Inventory:nondet:existing:update", function () {
-  let ev = waitForAnyInventoryAdded();
-  let args = Object.values(ev);
-  block(matchDeletedInventory.apply(null, args), function () {
-    verifyInventoryExists.apply(null, args);
-    updateInventory.apply(null, args);
-    verifyInventoryExists.apply(null, args);
-  });
-});
-
-// Story: monitor:Inventory:add
-bp.registerBThread("monitor:Inventory:add", function () {
+// Monitor: Inventory Addition Verification
+bthread("monitor:Inventory:addition", function () {
   while (true) {
-    let ev = waitForAnyInventoryAdded();
-    let args = Object.values(ev);
-    block(matchDeletedInventory.apply(null, args), function () {
-      verifyInventoryExists.apply(null, args);
+    let item = waitForAnyInventoryAdded();
+    block(matchDeletedInventory(item.ndc), function () {
+      verifyInventoryExists(item.ndc);
+    });
+  }
+});
+
+// Monitor: Inventory Deletion Verification
+bthread("monitor:Inventory:deletion", function () {
+  while (true) {
+    let item = waitForAnyInventoryDeleted();
+    block(matchAddedInventory(item.ndc), function () {
+      verifyInventoryDoesNotExist(item.ndc);
     });
   }
 });

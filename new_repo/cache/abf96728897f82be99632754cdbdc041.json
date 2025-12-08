@@ -1,0 +1,242 @@
+{
+  "Drugs": {
+    "operations": {
+      "list": {
+        "name": "listDrugs",
+        "descriptionTemplate": "List drugs",
+        "method": "GET",
+        "path": "/drugs",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createDrug",
+        "descriptionTemplate": "Create drug",
+        "method": "POST",
+        "path": "/drugs",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}",
+          "name": "{name}"
+        }
+      },
+      "get": {
+        "name": "getDrug",
+        "descriptionTemplate": "Get drug",
+        "method": "GET",
+        "path": "/drugs/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updateDrug",
+        "descriptionTemplate": "Update drug",
+        "method": "PUT",
+        "path": "/drugs/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "id": "{id}",
+          "name": "{name}"
+        }
+      },
+      "delete": {
+        "name": "deleteDrug",
+        "descriptionTemplate": "Delete drug (idempotent)",
+        "method": "DELETE",
+        "path": "/drugs/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    }
+  },
+  "Orders": {
+    "operations": {
+      "list": {
+        "name": "listOrders",
+        "descriptionTemplate": "List orders",
+        "method": "GET",
+        "path": "/orders",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createOrder",
+        "descriptionTemplate": "Create order",
+        "method": "POST",
+        "path": "/orders",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      },
+      "get": {
+        "name": "getOrder",
+        "descriptionTemplate": "Get order",
+        "method": "GET",
+        "path": "/orders/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updateOrder",
+        "descriptionTemplate": "Update order",
+        "method": "PUT",
+        "path": "/orders/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      },
+      "delete": {
+        "name": "deleteOrder",
+        "descriptionTemplate": "Delete order (idempotent)",
+        "method": "DELETE",
+        "path": "/orders/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    }
+  },
+  "Patients": {
+    "operations": {
+      "list": {
+        "name": "listPatients",
+        "descriptionTemplate": "List patients",
+        "method": "GET",
+        "path": "/patients",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createPatient",
+        "descriptionTemplate": "Create patient",
+        "method": "POST",
+        "path": "/patients",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}",
+          "name": "{name}"
+        }
+      },
+      "get": {
+        "name": "getPatient",
+        "descriptionTemplate": "Get patient",
+        "method": "GET",
+        "path": "/patients/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updatePatient",
+        "descriptionTemplate": "Update patient",
+        "method": "PUT",
+        "path": "/patients/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "id": "{id}",
+          "name": "{name}"
+        }
+      },
+      "delete": {
+        "name": "deletePatient",
+        "descriptionTemplate": "Delete patient (idempotent)",
+        "method": "DELETE",
+        "path": "/patients/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    }
+  },
+  "Prescriptions": {
+    "operations": {
+      "list": {
+        "name": "listPrescriptions",
+        "descriptionTemplate": "List prescriptions",
+        "method": "GET",
+        "path": "/prescriptions",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createPrescription",
+        "descriptionTemplate": "Create prescription",
+        "method": "POST",
+        "path": "/prescriptions",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      },
+      "get": {
+        "name": "getPrescription",
+        "descriptionTemplate": "Get prescription",
+        "method": "GET",
+        "path": "/prescriptions/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updatePrescription",
+        "descriptionTemplate": "Update prescription",
+        "method": "PUT",
+        "path": "/prescriptions/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "id": "{id}"
+        }
+      },
+      "delete": {
+        "name": "deletePrescription",
+        "descriptionTemplate": "Delete prescription (idempotent)",
+        "method": "DELETE",
+        "path": "/prescriptions/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    }
+  }
+}

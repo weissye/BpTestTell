@@ -1,155 +1,168 @@
 {
-  "sut": "library",
+  "sut_name": "library",
   "base_url": "http://localhost:8080",
   "entities": {
-    "User": {
-      "displayName": "user",
-      "params": [
-        "id"
-      ],
+    "Books": {
       "operations": {
-        "add": {
-          "name": "createUser",
-          "method": "POST",
-          "path": "/users",
-          "descriptionTemplate": "Create user {id}",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "get": {
-          "name": "listUsers",
+        "list": {
+          "name": "listBooks",
+          "descriptionTemplate": "List/search books",
           "method": "GET",
-          "path": "/users",
-          "descriptionTemplate": "List/search users with query {q}",
+          "path": "/books",
           "params": [
             "q"
-          ]
+          ],
+          "bodyTemplate": {}
         },
-        "delete": {
-          "name": "deleteUser",
-          "method": "DELETE",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Delete user {id}",
-          "params": [
-            "id"
-          ]
-        }
-      }
-    },
-    "Book": {
-      "displayName": "book",
-      "params": [
-        "id"
-      ],
-      "operations": {
         "add": {
           "name": "createBook",
+          "descriptionTemplate": "Create a book",
           "method": "POST",
           "path": "/books",
-          "descriptionTemplate": "Create book {id}",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {
+            "id": "{integer}",
+            "title": "{string}"
+          }
         },
         "get": {
-          "name": "listBooks",
-          "method": "GET",
-          "path": "/books",
-          "descriptionTemplate": "List/search books with query {q}",
-          "params": [
-            "q"
-          ]
-        },
-        "getById": {
           "name": "getBook",
+          "descriptionTemplate": "Get book by id",
           "method": "GET",
           "path": "/books/{id}",
-          "descriptionTemplate": "Get book by id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": {}
         },
         "delete": {
           "name": "deleteBook",
+          "descriptionTemplate": "Delete a book",
           "method": "DELETE",
           "path": "/books/{id}",
-          "descriptionTemplate": "Delete book {id}",
           "params": [
             "id"
+          ],
+          "bodyTemplate": {},
+          "x-negative-delete-expected-codes": [
+            404
           ]
         }
       }
     },
-    "Loan": {
-      "displayName": "loan",
-      "params": [
-        "userId",
-        "bookId"
-      ],
+    "Holds": {
       "operations": {
-        "add": {
-          "name": "createLoan",
-          "method": "POST",
-          "path": "/loans",
-          "descriptionTemplate": "Create loan for user {userId} and book {bookId}",
+        "list": {
+          "name": "listHolds",
+          "descriptionTemplate": "List holds",
+          "method": "GET",
+          "path": "/holds",
           "params": [],
           "bodyTemplate": {}
         },
-        "get": {
-          "name": "listLoans",
-          "method": "GET",
-          "path": "/loans",
-          "descriptionTemplate": "List/search loans with userId {userId} and bookId {bookId}",
-          "params": [
-            "userId",
-            "bookId"
-          ]
-        },
-        "delete": {
-          "name": "deleteLoan",
-          "method": "DELETE",
-          "path": "/loans/{userId}/{bookId}",
-          "descriptionTemplate": "Delete loan for user {userId} and book {bookId}",
-          "params": [
-            "userId",
-            "bookId"
-          ]
-        }
-      }
-    },
-    "Hold": {
-      "displayName": "hold",
-      "params": [
-        "id"
-      ],
-      "operations": {
         "add": {
           "name": "createHold",
+          "descriptionTemplate": "Create a hold",
           "method": "POST",
           "path": "/holds",
-          "descriptionTemplate": "Create hold {id}",
           "params": [],
-          "bodyTemplate": {}
-        },
-        "get": {
-          "name": "listHolds",
-          "method": "GET",
-          "path": "/holds",
-          "descriptionTemplate": "List holds",
-          "params": []
+          "bodyTemplate": {
+            "id": "{integer}",
+            "userId": "{integer}",
+            "bookId": "{integer}"
+          }
         },
         "delete": {
           "name": "deleteHold",
+          "descriptionTemplate": "Delete a hold",
           "method": "DELETE",
           "path": "/holds/{id}",
-          "descriptionTemplate": "Delete hold {id}",
           "params": [
             "id"
+          ],
+          "bodyTemplate": {}
+        }
+      }
+    },
+    "Loans": {
+      "operations": {
+        "list": {
+          "name": "listLoans",
+          "descriptionTemplate": "List/search loans",
+          "method": "GET",
+          "path": "/loans",
+          "params": [
+            "userId",
+            "bookId"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createLoan",
+          "descriptionTemplate": "Create a loan",
+          "method": "POST",
+          "path": "/loans",
+          "params": [],
+          "bodyTemplate": {
+            "userId": "{integer}",
+            "bookId": "{integer}"
+          }
+        },
+        "delete": {
+          "name": "deleteLoan",
+          "descriptionTemplate": "Delete a loan by composite id",
+          "method": "DELETE",
+          "path": "/loans/{userId}/{bookId}",
+          "params": [
+            "userId",
+            "bookId"
+          ],
+          "bodyTemplate": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        }
+      }
+    },
+    "Users": {
+      "operations": {
+        "list": {
+          "name": "listUsers",
+          "descriptionTemplate": "List/search users",
+          "method": "GET",
+          "path": "/users",
+          "params": [
+            "q"
+          ],
+          "bodyTemplate": {}
+        },
+        "add": {
+          "name": "createUser",
+          "descriptionTemplate": "Create a user",
+          "method": "POST",
+          "path": "/users",
+          "params": [],
+          "bodyTemplate": {
+            "id": "{integer}",
+            "name": "{string}"
+          }
+        },
+        "delete": {
+          "name": "deleteUser",
+          "descriptionTemplate": "Delete a user",
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "x-negative-delete-expected-codes": [
+            404
           ]
         }
       }
     }
   },
-  "stories": [],
   "original_spec": {
     "openapi": "3.0.3",
     "info": {

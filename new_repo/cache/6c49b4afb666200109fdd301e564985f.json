@@ -1,0 +1,61 @@
+{
+  "Inventory": {
+    "operations": {
+      "list": {
+        "name": "listInventory",
+        "descriptionTemplate": "List inventory",
+        "method": "GET",
+        "path": "/inventory",
+        "params": [],
+        "bodyTemplate": {}
+      },
+      "add": {
+        "name": "createInventory",
+        "descriptionTemplate": "Create inventory",
+        "method": "POST",
+        "path": "/inventory",
+        "params": [],
+        "bodyTemplate": {
+          "ndc": "{ndc}"
+        }
+      },
+      "get": {
+        "name": "getInventory",
+        "descriptionTemplate": "Get inventory by NDC",
+        "method": "GET",
+        "path": "/inventory/{ndc}",
+        "params": [
+          "ndc"
+        ],
+        "bodyTemplate": {}
+      },
+      "update": {
+        "name": "updateInventory",
+        "descriptionTemplate": "Update inventory by NDC",
+        "method": "PUT",
+        "path": "/inventory/{ndc}",
+        "params": [
+          "ndc"
+        ],
+        "bodyTemplate": {
+          "ndc": "{ndc}"
+        }
+      },
+      "delete": {
+        "name": "deleteInventory",
+        "descriptionTemplate": "Delete inventory by NDC",
+        "method": "DELETE",
+        "path": "/inventory/{ndc}",
+        "params": [
+          "ndc"
+        ],
+        "bodyTemplate": {},
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    }
+  }
+}
