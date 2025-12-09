@@ -8,6 +8,7 @@ from new_repo.pipeline.emitter_utils import (
 
 def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     entities = spec.get("entities", {})
+    dependencies = spec.get("dependencies", {}) # Loaded from JSON
     raw_spec = get_raw_spec(spec)
     
     lines = []
@@ -67,13 +68,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         item_get_op = ops.get("get")
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         
-        pk_in_body = False
-        if "add" in ops and isinstance(ops["add"], dict):
-            body_tmpl = ops["add"].get("bodyTemplate", {})
-            if isinstance(body_tmpl, dict) and primary_key in body_tmpl:
-                pk_in_body = True
-        
-        can_fully_test = has_specific_get and pk_in_body
+        can_fully_test = has_specific_get
 
         try_add_fn = f"tryToAddExisting{safe_entity_name}"
         try_del_fn = f"tryToDeleteANonExisting{safe_entity_name}"
@@ -94,31 +89,29 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
         deps = []
         story_pk_map = {}
-        for p in sig_params:
-            # --- GLOBAL FIX: Expanded Auth/Config Exclusion List ---
-            # These parameters are almost always static configuration, not dynamic dependencies.
-            auth_params = [
-                "key", "token", "api_key", "apikey", "authorization", "auth",
-                "client_id", "client_secret", "access_token", "refresh_token",
-                "session", "session_id", "cookie", "x_api_key", "x_auth_token"
-            ]
-            if p.lower() in auth_params:
-                continue
-            # -------------------------------------------------------
+        
+        # --- NEW: Use Pre-Calculated Dependencies from JSON ---
+        parent_entities = dependencies.get(name, [])
+        if not isinstance(parent_entities, list): parent_entities = []
+        
+        for parent in parent_entities:
+            # Find the parameter in this entity that links to the parent
+            # Usually we look for 'id' or 'parentId' or similar in sig_params
             
-            for potential_ent in entities:
-                if potential_ent == name: continue
-                target_pk = entity_pks_map.get(potential_ent)
-                if not target_pk: continue
-                p_lower = p.lower()
-                ent_lower = potential_ent.lower()
-                pk_lower = target_pk.lower()
-                ent_singular = ent_lower[:-1] if ent_lower.endswith('s') else ent_lower
-                name_match = ent_singular in p_lower
-                pk_match = pk_lower in p_lower or (pk_lower == "id" and "id" in p_lower)
-                if name_match and pk_match:
-                     deps.append((potential_ent, p))
-                     story_pk_map[p] = target_pk
+            # Simple heuristic to find which param maps to the parent:
+            # 1. Check if parent name is in param name (e.g. parent="Board", param="idBoard")
+            target_param = None
+            parent_pk = entity_pks_map.get(parent, "id")
+            
+            for p in sig_params:
+                if parent.lower() in p.lower() or p == "id": # "id" often used in path params
+                    target_param = p
+                    break
+            
+            if target_param and parent in entity_pks_map:
+                 deps.append((parent, target_param))
+                 story_pk_map[target_param] = parent_pk
+        # ------------------------------------------------------
 
         def get_vars(idx):
             declarations = []

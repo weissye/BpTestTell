@@ -47,6 +47,33 @@ Your task is to analyze a small subset of OpenAPI paths and extract "Entities" a
 }
 """
 
+DEPENDENCY_PROMPT = """
+You are a Test Architect. Analyze this list of API Entities and their creation (POST) schemas.
+
+### Task:
+Identify the **Dependencies** for each entity.
+A "Dependency" is another Entity that MUST exist before the target Entity can be created.
+
+### Rules:
+1. Look at path parameters (e.g., /boards/{idBoard}/lists -> List depends on Board).
+2. Look at body parameters (e.g., "board_id": "..." -> depends on Board).
+3. Use semantic reasoning (e.g., "owner" usually means User or Organization).
+4. Ignore "id", "key", "token", "auth" parameters.
+
+### Input Data:
+{summary}
+
+### Output Format (Strict JSON):
+Return a simple mapping where key is the Entity and value is a list of Parent Entities.
+Example:
+{
+  "List": ["Board"],
+  "Card": ["List", "Member"],
+  "Board": ["Organization"]
+}
+If no dependencies, return an empty list or omit the key.
+"""
+
 def get_cache_path(content_hash: str) -> Path:
     return CACHE_DIR / f"{content_hash}.json"
 
@@ -107,6 +134,42 @@ def merge_specs(main_entities: Dict[str, Any], new_entities: Dict[str, Any]):
         if "operations" in ent_data:
             main_entities[ent_name]["operations"].update(ent_data["operations"])
 
+def map_dependencies(entities: Dict[str, Any]) -> Dict[str, List[str]]:
+    """
+    Sends a condensed summary of all entities to the LLM to map dependencies globally.
+    """
+    print("   > 🔗 Mapping global dependencies...")
+    
+    # Condense data to save tokens
+    summary = {}
+    for name, data in entities.items():
+        ops = data.get("operations", {})
+        add_op = ops.get("add", {})
+        if not add_op: continue 
+        
+        summary[name] = {
+            "path": add_op.get("path"),
+            "params": add_op.get("params", []),
+            "body_fields": list(add_op.get("paramTypes", {}).keys())
+        }
+    
+    if not summary:
+        return {}
+
+    prompt_content = DEPENDENCY_PROMPT.replace("{summary}", json.dumps(summary, indent=2))
+    
+    try:
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            response_format={"type": "json_object"},
+            messages=[{"role": "user", "content": prompt_content}],
+            temperature=0
+        )
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        print(f"   ❌ Error mapping dependencies: {e}")
+        return {}
+
 def load_openapi(path: Path) -> Dict[str, Any]:
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
@@ -135,10 +198,15 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
         print(f"\n❌ FATAL: Pipeline stopped. Reason: {e}")
         sys.exit(1)
 
+    # --- NEW STEP: Map Dependencies ---
+    dependencies = map_dependencies(all_entities)
+    # ----------------------------------
+
     context = {
         "sut_name": sut_name,
         "base_url": raw_spec.get("servers", [{}])[0].get("url", "http://localhost:8000"),
         "entities": all_entities,
+        "dependencies": dependencies, # Saved here
         "original_spec": raw_spec
     }
 

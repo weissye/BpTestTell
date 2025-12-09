@@ -20,7 +20,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
     if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
     
-    # Escape special chars in strings
     def escape_js_str(s):
         return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '')
 
@@ -63,7 +62,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
     
-    # Sanitize Function Name
     safe_fn_name = sanitize_param(fn_name)
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     
@@ -89,8 +87,13 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     base_url = spec.get("base_url", "http://localhost:8080")
     parsed = urlparse(base_url)
+    
     default_host = parsed.hostname or "localhost"
-    default_port = parsed.port or (80 if parsed.scheme == "http" else 443)
+    default_scheme = parsed.scheme or "http"
+    default_port = parsed.port or (80 if default_scheme == "http" else 443)
+    
+    if "localhost" in default_host or "127.0.0.1" in default_host:
+        default_scheme = "http" 
     
     raw_spec = get_raw_spec(spec)
     entities = spec.get("entities", {})
@@ -100,7 +103,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     lines.append(f'// === Auto-generated interfaces for {sut_name} ===')
     lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
     lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
-    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{parsed.scheme or 'http'}';")
+    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
     lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });')
     
     lines.append('const pvg = {')
@@ -114,7 +117,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
     for name, ent in entities.items():
         safe_entity_name = sanitize_param(name)
-        
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
         sig_params = [p for p in sig_params if _is_valid_js_identifier(sanitize_param(p))]
         sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
@@ -124,18 +126,14 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         item_get_op = ops.get("get")
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         
-        pk_in_body = False
-        if "add" in ops and isinstance(ops["add"], dict):
-            body_tmpl = ops["add"].get("bodyTemplate", {})
-            if isinstance(body_tmpl, dict) and primary_key in body_tmpl:
-                pk_in_body = True
-        
-        can_verify = has_specific_get and pk_in_body
+        # --- MODIFIED: Assume testability if we have a GET endpoint ---
+        # We removed the 'pk_in_body' check. If we can GET it by ID, we can verify it.
+        can_verify = has_specific_get 
+        # -------------------------------------------------------------
 
         for op_type, op_data in ops.items():
             if op_type in ["verifyExists", "verifyDoesntExist"]: continue
             if not op_data: continue
-            # Pass Raw Name to generator, generator sanitizes it
             fn_name = op_data.get("name", f"{op_type}{name}")
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
@@ -167,30 +165,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append(f'  pvg.success("{name} not found");')
             lines.append('}')
             lines.append('')
-        elif not pk_in_body:
-             lines.append(f'// No verify{safe_entity_name}Exists generated: Primary Key "{primary_key}" is not in POST body (Server-Generated ID).')
         else:
-            list_op = ops.get("list")
-            coll_url = list_op.get("path", "") if list_op else ""
-            if coll_url:
-                safe_url = coll_url.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
-                js_coll_url = f'"{safe_url}"'
-                for p in sig_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
-                js_coll_url = js_coll_url.replace(' + ""', '')
-                lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{')
-                lines.append(f'  var url = {js_coll_url};')
-                lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(res){')
-                lines.append('      var data = JSON.parse(res.body);')
-                lines.append('      if(data.results) data = data.results;')
-                lines.append('      if(!Array.isArray(data)) data = [data];')
-                sanitized_pk = sanitize_param(primary_key)
-                lines.append(f'      for(var i=0; i<data.length; i++) {{ if(String(data[i].{primary_key}) === String({sanitized_pk})) return pvg.success("Found"); }}')
-                lines.append(f'      pvg.fail("Item not found in list");')
-                lines.append('  }});')
-                lines.append('}')
-                lines.append('')
-            else:
-                 lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{ pvg.fail("No GET operation found"); }}')
+             lines.append(f'// verify{safe_entity_name}Exists skipped: No GET /{{id}} operation detected.')
 
         if "delete" in ops and isinstance(ops["delete"], dict) and can_verify:
             neg_codes = ops["delete"].get("x-negative-delete-expected-codes", [404])

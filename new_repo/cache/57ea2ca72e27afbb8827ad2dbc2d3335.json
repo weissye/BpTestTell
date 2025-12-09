@@ -124,27 +124,40 @@
         "path": "/api/circuits/circuit-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "circuit": "{circuit}",
+              "group": "{group}",
+              "member": "{member}"
+            }
+          ]
         },
         "paramTypes": {
-          "items": "array"
+          "circuit": "string",
+          "group": "string",
+          "member": "string"
         },
         "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "circuits_circuit_group_assignments_update",
-        "descriptionTemplate": "Put a Circuit group assignment object.",
+        "name": "circuits_circuit_group_assignments_bulk_update",
+        "descriptionTemplate": "Put a list of Circuit group assignment objects.",
         "method": "PUT",
-        "path": "/api/circuits/circuit-group-assignments/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/circuits/circuit-group-assignments/",
+        "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "circuit": "{circuit}",
+              "group": "{group}",
+              "member": "{member}"
+            }
+          ]
         },
         "paramTypes": {
-          "id": "integer",
-          "items": "array"
+          "circuit": "string",
+          "group": "string",
+          "member": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -359,27 +372,40 @@
         "path": "/api/circuits/circuit-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
-          "items": "array"
+          "name": "string",
+          "slug": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "circuits_circuit_groups_update",
-        "descriptionTemplate": "Put a circuit group object.",
+        "name": "circuits_circuit_groups_bulk_update",
+        "descriptionTemplate": "Put a list of circuit group objects.",
         "method": "PUT",
-        "path": "/api/circuits/circuit-groups/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/circuits/circuit-groups/",
+        "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
-          "id": "integer",
-          "items": "array"
+          "name": "string",
+          "slug": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -686,10 +712,18 @@
         "path": "/api/circuits/circuit-terminations/",
         "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "circuit": "{circuit}",
+              "term_side": "{term_side}",
+              "port_speed": "{port_speed}"
+            }
+          ]
         },
         "paramTypes": {
-          "items": "array"
+          "circuit": "string",
+          "term_side": "string",
+          "port_speed": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -700,10 +734,18 @@
         "path": "/api/circuits/circuit-terminations/",
         "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "circuit": "{circuit}",
+              "term_side": "{term_side}",
+              "port_speed": "{port_speed}"
+            }
+          ]
         },
         "paramTypes": {
-          "items": "array"
+          "circuit": "string",
+          "term_side": "string",
+          "port_speed": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -714,10 +756,18 @@
         "path": "/api/circuits/circuit-terminations/",
         "params": [],
         "bodyTemplate": {
-          "items": "{items}"
+          "items": [
+            {
+              "circuit": "{circuit}",
+              "term_side": "{term_side}",
+              "port_speed": "{port_speed}"
+            }
+          ]
         },
         "paramTypes": {
-          "items": "array"
+          "circuit": "string",
+          "term_side": "string",
+          "port_speed": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
