@@ -1,0 +1,233 @@
+{
+  "MembersBio": {
+    "operations": {
+      "update": {
+        "name": "updateMembersBioByIdMember",
+        "descriptionTemplate": "updateMembersBioByIdMember()",
+        "method": "PUT",
+        "path": "/members/{idMember}/bio",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_bio"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        }
+      }
+    }
+  },
+  "MembersBoardBackgrounds": {
+    "operations": {
+      "list": {
+        "name": "getMembersBoardBackgroundsByIdMember",
+        "descriptionTemplate": "getMembersBoardBackgroundsByIdMember()",
+        "method": "GET",
+        "path": "/members/{idMember}/boardBackgrounds",
+        "params": [
+          "idMember",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "add": {
+        "name": "addMembersBoardBackgroundsByIdMember",
+        "descriptionTemplate": "addMembersBoardBackgroundsByIdMember()",
+        "method": "POST",
+        "path": "/members/{idMember}/boardBackgrounds",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_boardBackgrounds"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "get": {
+        "name": "getMembersBoardBackgroundsByIdMemberByIdBoardBackground",
+        "descriptionTemplate": "getMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
+        "method": "GET",
+        "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+        "params": [
+          "idMember",
+          "idBoardBackground",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardBackground": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "update": {
+        "name": "updateMembersBoardBackgroundsByIdMemberByIdBoardBackground",
+        "descriptionTemplate": "updateMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
+        "method": "PUT",
+        "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+        "params": [
+          "idMember",
+          "idBoardBackground",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_boardBackgrounds"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardBackground": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "delete": {
+        "name": "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground",
+        "descriptionTemplate": "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
+        "method": "DELETE",
+        "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+        "params": [
+          "idMember",
+          "idBoardBackground",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardBackground": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "MembersBoardStars": {
+    "operations": {
+      "list": {
+        "name": "getMembersBoardStarsByIdMember",
+        "descriptionTemplate": "getMembersBoardStarsByIdMember()",
+        "method": "GET",
+        "path": "/members/{idMember}/boardStars",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "add": {
+        "name": "addMembersBoardStarsByIdMember",
+        "descriptionTemplate": "addMembersBoardStarsByIdMember()",
+        "method": "POST",
+        "path": "/members/{idMember}/boardStars",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_boardStars"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "get": {
+        "name": "getMembersBoardStarsByIdMemberByIdBoardStar",
+        "descriptionTemplate": "getMembersBoardStarsByIdMemberByIdBoardStar()",
+        "method": "GET",
+        "path": "/members/{idMember}/boardStars/{idBoardStar}",
+        "params": [
+          "idMember",
+          "idBoardStar",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardStar": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "update": {
+        "name": "updateMembersBoardStarsByIdMemberByIdBoardStar",
+        "descriptionTemplate": "updateMembersBoardStarsByIdMemberByIdBoardStar()",
+        "method": "PUT",
+        "path": "/members/{idMember}/boardStars/{idBoardStar}",
+        "params": [
+          "idMember",
+          "idBoardStar",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_boardStars"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardStar": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "delete": {
+        "name": "deleteMembersBoardStarsByIdMemberByIdBoardStar",
+        "descriptionTemplate": "deleteMembersBoardStarsByIdMemberByIdBoardStar()",
+        "method": "DELETE",
+        "path": "/members/{idMember}/boardStars/{idBoardStar}",
+        "params": [
+          "idMember",
+          "idBoardStar",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardStar": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

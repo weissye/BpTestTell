@@ -11,8 +11,16 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
-        }
+          "config_context": "{config_context}"
+        },
+        "paramTypes": {
+          "format": "string",
+          "id": "integer",
+          "config_context": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -124,7 +132,111 @@
           "version__nisw",
           "version__regex"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "boolean",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ike_proposal": "string",
+          "ike_proposal__n": "string",
+          "ike_proposal_id": "integer",
+          "ike_proposal_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "boolean",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mode": "string",
+          "mode__empty": "boolean",
+          "mode__ic": "string",
+          "mode__ie": "string",
+          "mode__iew": "string",
+          "mode__iregex": "string",
+          "mode__isw": "string",
+          "mode__n": "string",
+          "mode__nic": "string",
+          "mode__nie": "string",
+          "mode__niew": "string",
+          "mode__nisw": "string",
+          "mode__regex": "string",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "preshared_key": "string",
+          "preshared_key__ic": "string",
+          "preshared_key__ie": "string",
+          "preshared_key__iew": "string",
+          "preshared_key__iregex": "string",
+          "preshared_key__isw": "string",
+          "preshared_key__n": "string",
+          "preshared_key__nic": "string",
+          "preshared_key__nie": "string",
+          "preshared_key__niew": "string",
+          "preshared_key__nisw": "string",
+          "preshared_key__regex": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "version": "integer",
+          "version__ic": "integer",
+          "version__ie": "integer",
+          "version__iew": "integer",
+          "version__iregex": "integer",
+          "version__isw": "integer",
+          "version__n": "integer",
+          "version__nic": "integer",
+          "version__nie": "integer",
+          "version__niew": "integer",
+          "version__nisw": "integer",
+          "version__regex": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "vpn_ike_policies_create",
@@ -133,8 +245,16 @@
         "path": "/api/vpn/ike-policies/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIKEPolicyRequest"
-        }
+          "name": "{name}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "vpn_ike_policies_update",
@@ -145,8 +265,17 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIKEPolicyRequest"
-        }
+          "name": "{name}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "vpn_ike_policies_destroy",
@@ -156,7 +285,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "vpn_ike_policies_retrieve",
@@ -166,7 +301,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -299,7 +440,132 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "authentication_algorithm": "string",
+          "authentication_algorithm__empty": "boolean",
+          "authentication_algorithm__ic": "string",
+          "authentication_algorithm__ie": "string",
+          "authentication_algorithm__iew": "string",
+          "authentication_algorithm__iregex": "string",
+          "authentication_algorithm__isw": "string",
+          "authentication_algorithm__n": "string",
+          "authentication_algorithm__nic": "string",
+          "authentication_algorithm__nie": "string",
+          "authentication_algorithm__niew": "string",
+          "authentication_algorithm__nisw": "string",
+          "authentication_algorithm__regex": "string",
+          "authentication_method": "string",
+          "authentication_method__empty": "boolean",
+          "authentication_method__ic": "string",
+          "authentication_method__ie": "string",
+          "authentication_method__iew": "string",
+          "authentication_method__iregex": "string",
+          "authentication_method__isw": "string",
+          "authentication_method__n": "string",
+          "authentication_method__nic": "string",
+          "authentication_method__nie": "string",
+          "authentication_method__niew": "string",
+          "authentication_method__nisw": "string",
+          "authentication_method__regex": "string",
+          "created": "string",
+          "created__empty": "boolean",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "encryption_algorithm": "string",
+          "encryption_algorithm__empty": "boolean",
+          "encryption_algorithm__ic": "string",
+          "encryption_algorithm__ie": "string",
+          "encryption_algorithm__iew": "string",
+          "encryption_algorithm__iregex": "string",
+          "encryption_algorithm__isw": "string",
+          "encryption_algorithm__n": "string",
+          "encryption_algorithm__nic": "string",
+          "encryption_algorithm__nie": "string",
+          "encryption_algorithm__niew": "string",
+          "encryption_algorithm__nisw": "string",
+          "encryption_algorithm__regex": "string",
+          "group": "integer",
+          "group__ic": "integer",
+          "group__ie": "integer",
+          "group__iew": "integer",
+          "group__iregex": "integer",
+          "group__isw": "integer",
+          "group__n": "integer",
+          "group__nic": "integer",
+          "group__nie": "integer",
+          "group__niew": "integer",
+          "group__nisw": "integer",
+          "group__regex": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ike_policy": "string",
+          "ike_policy__n": "string",
+          "ike_policy_id": "integer",
+          "ike_policy_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "boolean",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "sa_lifetime": "integer",
+          "sa_lifetime__empty": "boolean",
+          "sa_lifetime__gt": "integer",
+          "sa_lifetime__gte": "integer",
+          "sa_lifetime__lt": "integer",
+          "sa_lifetime__lte": "integer",
+          "sa_lifetime__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "vpn_ike_proposals_create",
@@ -308,8 +574,16 @@
         "path": "/api/vpn/ike-proposals/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIKEProposalRequest"
-        }
+          "name": "{name}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "vpn_ike_proposals_update",
@@ -320,8 +594,17 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIKEProposalRequest"
-        }
+          "name": "{name}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "vpn_ike_proposals_destroy",
@@ -331,7 +614,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "vpn_ike_proposals_retrieve",
@@ -341,7 +630,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

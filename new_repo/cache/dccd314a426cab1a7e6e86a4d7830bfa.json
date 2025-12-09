@@ -1,0 +1,199 @@
+{
+  "Transcriptions": {
+    "operations": {
+      "add": {
+        "name": "CreateRealtimeTranscription",
+        "descriptionTemplate": "Create a Transcription",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+        "params": [
+          "AccountSid",
+          "CallSid"
+        ],
+        "bodyTemplate": {
+          "EnableAutomaticPunctuation": "{EnableAutomaticPunctuation}",
+          "Hints": "{Hints}",
+          "InboundTrackLabel": "{InboundTrackLabel}",
+          "IntelligenceService": "{IntelligenceService}",
+          "LanguageCode": "{LanguageCode}",
+          "Name": "{Name}",
+          "OutboundTrackLabel": "{OutboundTrackLabel}",
+          "PartialResults": "{PartialResults}",
+          "ProfanityFilter": "{ProfanityFilter}",
+          "SpeechModel": "{SpeechModel}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}",
+          "StatusCallbackUrl": "{StatusCallbackUrl}",
+          "Track": "{Track}",
+          "TranscriptionEngine": "{TranscriptionEngine}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "CallSid": "string",
+          "EnableAutomaticPunctuation": "boolean",
+          "Hints": "string",
+          "InboundTrackLabel": "string",
+          "IntelligenceService": "string",
+          "LanguageCode": "string",
+          "Name": "string",
+          "OutboundTrackLabel": "string",
+          "PartialResults": "boolean",
+          "ProfanityFilter": "boolean",
+          "SpeechModel": "string",
+          "StatusCallbackMethod": "string",
+          "StatusCallbackUrl": "string",
+          "Track": "string",
+          "TranscriptionEngine": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateRealtimeTranscription",
+        "descriptionTemplate": "Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "CallSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "Status": "{Status}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "CallSid": "string",
+          "Sid": "string",
+          "Status": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Queues": {
+    "operations": {
+      "list": {
+        "name": "ListQueue",
+        "descriptionTemplate": "Retrieve a list of queues belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+        "params": [
+          "AccountSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateQueue",
+        "descriptionTemplate": "Create a queue",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}",
+          "MaxSize": "{MaxSize}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "FriendlyName": "string",
+          "MaxSize": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Recordings": {
+    "operations": {
+      "list": {
+        "name": "ListRecording",
+        "descriptionTemplate": "Retrieve a list of recordings belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+        "params": [
+          "AccountSid",
+          "DateCreated",
+          "DateCreated<",
+          "DateCreated>",
+          "CallSid",
+          "ConferenceSid",
+          "IncludeSoftDeleted",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DateCreated": "string",
+          "DateCreated<": "string",
+          "DateCreated>": "string",
+          "CallSid": "string",
+          "ConferenceSid": "string",
+          "IncludeSoftDeleted": "boolean",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchRecording",
+        "descriptionTemplate": "Fetch an instance of a recording",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid",
+          "IncludeSoftDeleted"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "IncludeSoftDeleted": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteRecording",
+        "descriptionTemplate": "Delete a recording from your account",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

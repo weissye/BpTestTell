@@ -1,0 +1,100 @@
+{
+  "SIP": {
+    "operations": {}
+  },
+  "Auth": {
+    "operations": {}
+  },
+  "AuthCalls": {
+    "operations": {}
+  },
+  "AuthCallsCredentialListMapping": {
+    "operations": {
+      "list": {
+        "name": "ListSipAuthCallsCredentialListMapping",
+        "descriptionTemplate": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateSipAuthCallsCredentialListMapping",
+        "descriptionTemplate": "Create a new credential list mapping resource",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+        "params": [
+          "AccountSid",
+          "DomainSid"
+        ],
+        "bodyTemplate": {
+          "CredentialListSid": "{CredentialListSid}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "CredentialListSid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchSipAuthCallsCredentialListMapping",
+        "descriptionTemplate": "Fetch a specific instance of a credential list mapping",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteSipAuthCallsCredentialListMapping",
+        "descriptionTemplate": "Delete a credential list mapping from the requested domain",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

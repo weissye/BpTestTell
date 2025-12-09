@@ -1,0 +1,298 @@
+{
+  "SipDomains": {
+    "operations": {
+      "list": {
+        "name": "ListSipDomain",
+        "descriptionTemplate": "Retrieve a list of domains belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+        "params": [
+          "AccountSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateSipDomain",
+        "descriptionTemplate": "Create a new Domain",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "ByocTrunkSid": "{ByocTrunkSid}",
+          "DomainName": "{DomainName}",
+          "EmergencyCallerSid": "{EmergencyCallerSid}",
+          "EmergencyCallingEnabled": "{EmergencyCallingEnabled}",
+          "FriendlyName": "{FriendlyName}",
+          "Secure": "{Secure}",
+          "SipRegistration": "{SipRegistration}",
+          "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+          "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+          "VoiceMethod": "{VoiceMethod}",
+          "VoiceStatusCallbackMethod": "{VoiceStatusCallbackMethod}",
+          "VoiceStatusCallbackUrl": "{VoiceStatusCallbackUrl}",
+          "VoiceUrl": "{VoiceUrl}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "ByocTrunkSid": "string",
+          "DomainName": "string",
+          "EmergencyCallerSid": "string",
+          "EmergencyCallingEnabled": "boolean",
+          "FriendlyName": "string",
+          "Secure": "boolean",
+          "SipRegistration": "boolean",
+          "VoiceFallbackMethod": "string",
+          "VoiceFallbackUrl": "string",
+          "VoiceMethod": "string",
+          "VoiceStatusCallbackMethod": "string",
+          "VoiceStatusCallbackUrl": "string",
+          "VoiceUrl": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchSipDomain",
+        "descriptionTemplate": "Fetch an instance of a Domain",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateSipDomain",
+        "descriptionTemplate": "Update the attributes of a domain",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "ByocTrunkSid": "{ByocTrunkSid}",
+          "DomainName": "{DomainName}",
+          "EmergencyCallerSid": "{EmergencyCallerSid}",
+          "EmergencyCallingEnabled": "{EmergencyCallingEnabled}",
+          "FriendlyName": "{FriendlyName}",
+          "Secure": "{Secure}",
+          "SipRegistration": "{SipRegistration}",
+          "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+          "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+          "VoiceMethod": "{VoiceMethod}",
+          "VoiceStatusCallbackMethod": "{VoiceStatusCallbackMethod}",
+          "VoiceStatusCallbackUrl": "{VoiceStatusCallbackUrl}",
+          "VoiceUrl": "{VoiceUrl}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "ByocTrunkSid": "string",
+          "DomainName": "string",
+          "EmergencyCallerSid": "string",
+          "EmergencyCallingEnabled": "boolean",
+          "FriendlyName": "string",
+          "Secure": "boolean",
+          "SipRegistration": "boolean",
+          "VoiceFallbackMethod": "string",
+          "VoiceFallbackUrl": "string",
+          "VoiceMethod": "string",
+          "VoiceStatusCallbackMethod": "string",
+          "VoiceStatusCallbackUrl": "string",
+          "VoiceUrl": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteSipDomain",
+        "descriptionTemplate": "Delete an instance of a Domain",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "SipCredentialListMappings": {
+    "operations": {
+      "get": {
+        "name": "FetchSipCredentialListMapping",
+        "descriptionTemplate": "Fetch a single CredentialListMapping resource from an account.",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteSipCredentialListMapping",
+        "descriptionTemplate": "Delete a CredentialListMapping resource from an account.",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "SipIpAccessControlLists": {
+    "operations": {
+      "list": {
+        "name": "ListSipIpAccessControlList",
+        "descriptionTemplate": "Retrieve a list of IpAccessControlLists that belong to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+        "params": [
+          "AccountSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateSipIpAccessControlList",
+        "descriptionTemplate": "Create a new IpAccessControlList resource",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "FriendlyName": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchSipIpAccessControlList",
+        "descriptionTemplate": "Fetch a specific instance of an IpAccessControlList",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateSipIpAccessControlList",
+        "descriptionTemplate": "Rename an IpAccessControlList",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "FriendlyName": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteSipIpAccessControlList",
+        "descriptionTemplate": "Delete an IpAccessControlList from the requested account",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

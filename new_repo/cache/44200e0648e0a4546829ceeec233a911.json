@@ -1,0 +1,198 @@
+{
+  "Repository": {
+    "operations": {
+      "get": {
+        "name": "repoValidateIssueConfig",
+        "descriptionTemplate": "Returns the validation information for a issue config",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issue_config/validate",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "list": {
+        "name": "repoGetIssueTemplates",
+        "descriptionTemplate": "Get available issue templates for a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issue_templates",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "Issue": {
+    "operations": {
+      "list": {
+        "name": "issueListIssues",
+        "descriptionTemplate": "List a repository's issues",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues",
+        "params": [
+          "owner",
+          "repo",
+          "state",
+          "labels",
+          "q",
+          "type",
+          "milestones",
+          "since",
+          "before",
+          "created_by",
+          "assigned_by",
+          "mentioned_by",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "state": "string",
+          "labels": "string",
+          "q": "string",
+          "type": "string",
+          "milestones": "string",
+          "since": "string",
+          "before": "string",
+          "created_by": "string",
+          "assigned_by": "string",
+          "mentioned_by": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "add": {
+        "name": "issueCreateIssue",
+        "descriptionTemplate": "Create an issue. If using deadline only the date will be taken into account, and time of day ignored.",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "title": "{title}",
+          "body": "{body}",
+          "assignee": "{assignee}",
+          "milestone": "{milestone}",
+          "labels": "{labels}",
+          "assignees": "{assignees}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "title": "string",
+          "body": "string",
+          "assignee": "string",
+          "milestone": "integer",
+          "labels": "array",
+          "assignees": "array"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "Comment": {
+    "operations": {
+      "list": {
+        "name": "issueGetRepoComments",
+        "descriptionTemplate": "List all comments in a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments",
+        "params": [
+          "owner",
+          "repo",
+          "since",
+          "before",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "since": "string",
+          "before": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "get": {
+        "name": "issueGetComment",
+        "descriptionTemplate": "Get a comment",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "update": {
+        "name": "issueEditComment",
+        "descriptionTemplate": "Edit a comment",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "body": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "delete": {
+        "name": "issueDeleteComment",
+        "descriptionTemplate": "Delete a comment",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

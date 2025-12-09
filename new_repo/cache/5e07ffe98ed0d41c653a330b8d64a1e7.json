@@ -1,0 +1,153 @@
+{
+  "Forks": {
+    "operations": {
+      "list": {
+        "name": "listForks",
+        "descriptionTemplate": "List a repository's forks",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/forks",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "createFork",
+        "descriptionTemplate": "Fork a repository",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/forks",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "body": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Blobs": {
+    "operations": {
+      "get": {
+        "name": "GetBlob",
+        "descriptionTemplate": "Gets the blob of a repository.",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/blobs/{sha}",
+        "params": [
+          "owner",
+          "repo",
+          "sha"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Commits": {
+    "operations": {
+      "get": {
+        "name": "repoGetSingleCommit",
+        "descriptionTemplate": "Get a single commit from a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/commits/{sha}",
+        "params": [
+          "owner",
+          "repo",
+          "sha",
+          "stat",
+          "verification",
+          "files"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string",
+          "stat": "boolean",
+          "verification": "boolean",
+          "files": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "getDiffOrPatch": {
+        "name": "repoDownloadCommitDiffOrPatch",
+        "descriptionTemplate": "Get a commit's diff or patch",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/commits/{sha}.{diffType}",
+        "params": [
+          "owner",
+          "repo",
+          "sha",
+          "diffType"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string",
+          "diffType": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Notes": {
+    "operations": {
+      "get": {
+        "name": "repoGetNote",
+        "descriptionTemplate": "Get a note corresponding to a single commit from a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/notes/{sha}",
+        "params": [
+          "owner",
+          "repo",
+          "sha",
+          "verification",
+          "files"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string",
+          "verification": "boolean",
+          "files": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

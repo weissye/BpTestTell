@@ -106,7 +106,108 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "domain": "string",
+          "domain__empty": "boolean",
+          "domain__ic": "string",
+          "domain__ie": "string",
+          "domain__iew": "string",
+          "domain__iregex": "string",
+          "domain__isw": "string",
+          "domain__n": "string",
+          "domain__nic": "string",
+          "domain__nie": "string",
+          "domain__niew": "string",
+          "domain__nisw": "string",
+          "domain__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "master": "string",
+          "master__n": "string",
+          "master_id": "integer",
+          "master_id__n": "integer",
+          "member_count": "integer",
+          "member_count__empty": "boolean",
+          "member_count__gt": "integer",
+          "member_count__gte": "integer",
+          "member_count__lt": "integer",
+          "member_count__lte": "integer",
+          "member_count__n": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_virtual_chassis_create",
@@ -117,9 +218,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "domain": "{domain}",
-          "master": "{master}",
-          "members": "{members}"
-        }
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "domain": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_virtual_chassis_bulk_update",
@@ -130,9 +236,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "domain": "{domain}",
-          "master": "{master}",
-          "members": "{members}"
-        }
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "domain": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_virtual_chassis_bulk_destroy",
@@ -141,8 +252,18 @@
         "path": "/api/dcim/virtual-chassis/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
-        }
+          "name": "{name}",
+          "domain": "{domain}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "domain": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_virtual_chassis_retrieve",
@@ -152,36 +273,15 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "updateItem": {
-        "name": "dcim_virtual_chassis_update",
-        "descriptionTemplate": "Put a virtual chassis object.",
-        "method": "PUT",
-        "path": "/api/dcim/virtual-chassis/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "domain": "{domain}",
-          "master": "{master}",
-          "members": "{members}"
-        }
-      },
-      "deleteItem": {
-        "name": "dcim_virtual_chassis_destroy",
-        "descriptionTemplate": "Delete a virtual chassis object.",
-        "method": "DELETE",
-        "path": "/api/dcim/virtual-chassis/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
-  "VirtualDeviceContext": {
+  "VirtualDeviceContexts": {
     "operations": {
       "list": {
         "name": "dcim_virtual_device_contexts_list",
@@ -291,7 +391,111 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "integer",
+          "device__n": "integer",
+          "device_id": "integer",
+          "device_id__n": "integer",
+          "has_primary_ip": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "identifier": "integer",
+          "identifier__empty": "boolean",
+          "identifier__gt": "integer",
+          "identifier__gte": "integer",
+          "identifier__lt": "integer",
+          "identifier__lte": "integer",
+          "identifier__n": "integer",
+          "interface_id": "integer",
+          "interface_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "primary_ip4": "string",
+          "primary_ip4__n": "string",
+          "primary_ip4_id": "integer",
+          "primary_ip4_id__n": "integer",
+          "primary_ip6": "string",
+          "primary_ip6__n": "string",
+          "primary_ip6_id": "integer",
+          "primary_ip6_id__n": "integer",
+          "q": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_virtual_device_contexts_create",
@@ -302,9 +506,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}",
-          "identifier": "{identifier}",
-          "status": "{status}"
-        }
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "integer",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_virtual_device_contexts_bulk_update",
@@ -315,9 +524,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}",
-          "identifier": "{identifier}",
-          "status": "{status}"
-        }
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "integer",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_virtual_device_contexts_bulk_destroy",
@@ -326,8 +540,18 @@
         "path": "/api/dcim/virtual-device-contexts/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
-        }
+          "name": "{name}",
+          "device": "{device}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "integer",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_virtual_device_contexts_retrieve",
@@ -337,32 +561,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "updateItem": {
-        "name": "dcim_virtual_device_contexts_update",
-        "descriptionTemplate": "Put a virtual device context object.",
-        "method": "PUT",
-        "path": "/api/dcim/virtual-device-contexts/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "device": "{device}",
-          "identifier": "{identifier}",
-          "status": "{status}"
-        }
-      },
-      "deleteItem": {
-        "name": "dcim_virtual_device_contexts_destroy",
-        "descriptionTemplate": "Delete a virtual device context object.",
-        "method": "DELETE",
-        "path": "/api/dcim/virtual-device-contexts/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -406,7 +609,41 @@
           "user_id",
           "user_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "limit": "integer",
+          "object_id": "integer",
+          "object_id__empty": "boolean",
+          "object_id__gt": "integer",
+          "object_id__gte": "integer",
+          "object_id__lt": "integer",
+          "object_id__lte": "integer",
+          "object_id__n": "integer",
+          "object_type": "string",
+          "object_type__n": "string",
+          "object_type_id": "integer",
+          "object_type_id__empty": "integer",
+          "object_type_id__gt": "integer",
+          "object_type_id__gte": "integer",
+          "object_type_id__lt": "integer",
+          "object_type_id__lte": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "user": "string",
+          "user__n": "string",
+          "user_id": "integer",
+          "user_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "extras_bookmarks_create",
@@ -415,10 +652,16 @@
         "path": "/api/extras/bookmarks/",
         "params": [],
         "bodyTemplate": {
+          "name": "{name}",
           "object_id": "{object_id}",
-          "object_type": "{object_type}",
-          "user": "{user}"
-        }
+          "object_type": "{object_type}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "object_id": "integer",
+          "object_type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "extras_bookmarks_bulk_update",
@@ -427,10 +670,16 @@
         "path": "/api/extras/bookmarks/",
         "params": [],
         "bodyTemplate": {
+          "name": "{name}",
           "object_id": "{object_id}",
-          "object_type": "{object_type}",
-          "user": "{user}"
-        }
+          "object_type": "{object_type}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "object_id": "integer",
+          "object_type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "extras_bookmarks_bulk_destroy",
@@ -439,8 +688,18 @@
         "path": "/api/extras/bookmarks/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
-        }
+          "name": "{name}",
+          "object_id": "{object_id}",
+          "object_type": "{object_type}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "object_id": "integer",
+          "object_type": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

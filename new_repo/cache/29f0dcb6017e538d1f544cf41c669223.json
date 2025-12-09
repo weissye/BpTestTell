@@ -141,7 +141,143 @@
           "voltage__lte",
           "voltage__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "amperage": "integer",
+          "amperage__empty": "boolean",
+          "amperage__gt": "integer",
+          "amperage__gte": "integer",
+          "amperage__lt": "integer",
+          "amperage__lte": "integer",
+          "amperage__n": "integer",
+          "available_power": "integer",
+          "available_power__empty": "boolean",
+          "available_power__gt": "integer",
+          "available_power__gte": "integer",
+          "available_power__lt": "integer",
+          "available_power__lte": "integer",
+          "available_power__n": "integer",
+          "cable_end": "string",
+          "cable_id": "integer",
+          "cable_id__n": "integer",
+          "cabled": "boolean",
+          "connected": "boolean",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mark_connected": "boolean",
+          "max_utilization": "integer",
+          "max_utilization__empty": "boolean",
+          "max_utilization__gt": "integer",
+          "max_utilization__gte": "integer",
+          "max_utilization__lt": "integer",
+          "max_utilization__lte": "integer",
+          "max_utilization__n": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "occupied": "boolean",
+          "offset": "integer",
+          "ordering": "string",
+          "phase": "string",
+          "power_panel_id": "integer",
+          "power_panel_id__n": "integer",
+          "q": "string",
+          "rack_id": "integer",
+          "rack_id__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "supply": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "type": "string",
+          "updated_by_request": "string",
+          "voltage": "integer",
+          "voltage__empty": "boolean",
+          "voltage__gt": "integer",
+          "voltage__gte": "integer",
+          "voltage__lt": "integer",
+          "voltage__lte": "integer",
+          "voltage__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_power_feeds_create",
@@ -152,7 +288,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_power_feeds_bulk_update",
@@ -163,7 +304,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_power_feeds_bulk_destroy",
@@ -174,7 +320,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_power_feeds_retrieve",
@@ -184,7 +337,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "trace": {
         "name": "dcim_power_feeds_trace_retrieve",
@@ -194,7 +351,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -294,7 +455,97 @@
           "type",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "feed_leg": "string",
+          "feed_leg__empty": "boolean",
+          "feed_leg__ic": "string",
+          "feed_leg__ie": "string",
+          "feed_leg__iew": "string",
+          "feed_leg__iregex": "string",
+          "feed_leg__isw": "string",
+          "feed_leg__n": "string",
+          "feed_leg__nic": "string",
+          "feed_leg__nie": "string",
+          "feed_leg__niew": "string",
+          "feed_leg__nisw": "string",
+          "feed_leg__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "module_type_id": "integer",
+          "module_type_id__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "power_port_id": "integer",
+          "power_port_id__n": "integer",
+          "q": "string",
+          "type": "string",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_power_outlet_templates_create",
@@ -305,7 +556,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_power_outlet_templates_bulk_update",
@@ -316,7 +572,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_power_outlet_templates_bulk_destroy",
@@ -327,7 +588,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_power_outlet_templates_retrieve",
@@ -337,7 +605,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

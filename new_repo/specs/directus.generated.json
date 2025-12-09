@@ -1,263 +1,658 @@
 {
-  "sut": "directus",
-  "base_url": "http://localhost:8080",
+  "sut_name": "directus",
+  "base_url": "http://localhost:8000",
   "entities": {
-    "User": {
-      "displayName": "user",
-      "params": [
-        "id"
-      ],
+    "Activity": {
       "operations": {
-        "add": {
-          "name": "createUser",
-          "method": "POST",
-          "path": "/users",
-          "descriptionTemplate": "Create user with id {id}",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "delete": {
-          "name": "deleteUser",
-          "method": "DELETE",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Delete user with id {id}",
+        "list": {
+          "name": "getActivities",
+          "descriptionTemplate": "Returns a list of activity actions.",
+          "method": "GET",
+          "path": "/activity",
           "params": [
-            "id"
+            "fields",
+            "limit",
+            "meta",
+            "offset",
+            "sort",
+            "filter",
+            "search"
           ],
-          "bodyTemplate": {}
-        },
-        "update": {
-          "name": "updateUser",
-          "method": "PATCH",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Update user with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "bodyTemplate": null,
+          "paramTypes": {
+            "fields": "string",
+            "limit": "integer",
+            "meta": "string",
+            "offset": "integer",
+            "sort": "string",
+            "filter": "string",
+            "search": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
-          "name": "getUser",
+          "name": "getActivity",
+          "descriptionTemplate": "Retrieves the details of an existing activity action.",
           "method": "GET",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Retrieve user with id {id}",
+          "path": "/activity/{id}",
           "params": [
-            "id"
+            "id",
+            "fields",
+            "meta"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string",
+            "fields": "string",
+            "meta": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         }
       }
     },
-    "AuthLogin": {
-      "displayName": "auth login",
-      "params": [],
+    "Assets": {
       "operations": {
-        "add": {
-          "name": "login",
-          "method": "POST",
-          "path": "/auth/login",
-          "descriptionTemplate": "Retrieve a Temporary Access Token for {email}",
+        "get": {
+          "name": "getAsset",
+          "descriptionTemplate": "Image typed files can be dynamically resized and transformed to fit any need.",
+          "method": "GET",
+          "path": "/assets/{id}",
           "params": [
-            "email",
-            "password"
+            "id",
+            "key",
+            "transforms",
+            "download"
           ],
-          "bodyTemplate": {
-            "email": "{email}",
-            "password": "{password}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string",
+            "key": "string",
+            "transforms": "string",
+            "download": "boolean"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         }
       }
     },
-    "AuthRefresh": {
-      "displayName": "auth refresh",
-      "params": [],
-      "operations": {
-        "add": {
-          "name": "refresh",
-          "method": "POST",
-          "path": "/auth/refresh",
-          "descriptionTemplate": "Refresh Token",
-          "params": [],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "AuthLogout": {
-      "displayName": "auth logout",
-      "params": [],
-      "operations": {
-        "add": {
-          "name": "logout",
-          "method": "POST",
-          "path": "/auth/logout",
-          "descriptionTemplate": "Log Out",
-          "params": [],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "AuthPasswordRequest": {
-      "displayName": "auth password request",
-      "params": [],
-      "operations": {
-        "add": {
-          "name": "passwordRequest",
-          "method": "POST",
-          "path": "/auth/password/request",
-          "descriptionTemplate": "Request a Password Reset for {email}",
-          "params": [
-            "email"
-          ],
-          "bodyTemplate": {
-            "email": "{email}"
-          }
-        }
-      }
-    },
-    "AuthPasswordReset": {
-      "displayName": "auth password reset",
-      "params": [],
+    "Authentication": {
       "operations": {
         "add": {
           "name": "passwordReset",
+          "descriptionTemplate": "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password.",
           "method": "POST",
           "path": "/auth/password/reset",
-          "descriptionTemplate": "Reset a Password with token {token}",
-          "params": [
-            "token",
-            "password"
-          ],
+          "params": [],
           "bodyTemplate": {
-            "token": "{token}",
-            "password": "{password}"
-          }
-        }
-      }
-    },
-    "AuthOAuthProvider": {
-      "displayName": "auth oauth provider",
-      "params": [
-        "provider"
-      ],
-      "operations": {
-        "get": {
-          "name": "oauthProvider",
-          "method": "GET",
-          "path": "/auth/oauth/{provider}",
-          "descriptionTemplate": "Authenticated using OAuth provider {provider}",
-          "params": [
-            "provider"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "AuthOAuth": {
-      "displayName": "auth oauth",
-      "params": [],
-      "operations": {
-        "get": {
+            "password": "{password}",
+            "token": "{token}"
+          },
+          "paramTypes": {
+            "password": "string",
+            "token": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "list": {
           "name": "oauth",
+          "descriptionTemplate": "List configured OAuth providers.",
           "method": "GET",
           "path": "/auth/oauth",
-          "descriptionTemplate": "List OAuth Providers",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {
+            "data": "array",
+            "public": "boolean"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "get": {
+          "name": "oauthProvider",
+          "descriptionTemplate": "Start OAuth flow using the specified provider",
+          "method": "GET",
+          "path": "/auth/oauth/{provider}",
+          "params": [
+            "provider",
+            "redirect"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "provider": "string",
+            "redirect": "string",
+            "data": "object",
+            "public": "boolean"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         }
       }
     },
-    "ContentVersion": {
-      "displayName": "content version",
-      "params": [
-        "id"
-      ],
+    "Collections": {
       "operations": {
-        "add": {
-          "name": "createContentVersion",
-          "method": "POST",
-          "path": "/versions",
-          "descriptionTemplate": "Create content version with id {id}",
+        "list": {
+          "name": "getCollections",
+          "descriptionTemplate": "Returns a list of the collections available in the project.",
+          "method": "GET",
+          "path": "/collections",
           "params": [
-            "id"
+            "Offset",
+            "Meta"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Offset": "string",
+            "Meta": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "add": {
+          "name": "createCollection",
+          "descriptionTemplate": "Create a new collection in Directus.",
+          "method": "POST",
+          "path": "/collections",
+          "params": [
+            "Meta"
           ],
           "bodyTemplate": {
-            "id": "{id}"
-          }
+            "archive_app_filter": "{archive_app_filter}",
+            "archive_field": "{archive_field}",
+            "archive_value": "{archive_value}",
+            "collection": "{collection}",
+            "display_template": "{display_template}",
+            "fields": "{fields}",
+            "hidden": "{hidden}",
+            "icon": "{icon}",
+            "note": "{note}",
+            "singleton": "{singleton}",
+            "sort_field": "{sort_field}",
+            "translation": "{translation}",
+            "unarchive_value": "{unarchive_value}",
+            "versioning": "{versioning}"
+          },
+          "paramTypes": {
+            "Meta": "string",
+            "archive_app_filter": "string",
+            "archive_field": "string",
+            "archive_value": "string",
+            "collection": "string",
+            "display_template": "string",
+            "fields": "array",
+            "hidden": "boolean",
+            "icon": "string",
+            "note": "string",
+            "singleton": "boolean",
+            "sort_field": "string",
+            "translation": "string",
+            "unarchive_value": "string",
+            "versioning": "boolean"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "delete": {
-          "name": "deleteContentVersion",
+          "name": "deleteCollection",
+          "descriptionTemplate": "Delete an existing collection. Warning: This will delete the whole collection, including the items within. Proceed with caution.",
           "method": "DELETE",
-          "path": "/versions/{id}",
-          "descriptionTemplate": "Delete content version with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateContentVersion",
-          "method": "PATCH",
-          "path": "/versions/{id}",
-          "descriptionTemplate": "Update content version with id {id}",
+          "path": "/collections/{id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
-          "name": "getContentVersion",
+          "name": "getCollection",
+          "descriptionTemplate": "Retrieves the details of a single collection.",
           "method": "GET",
-          "path": "/versions/{id}",
-          "descriptionTemplate": "Retrieve content version with id {id}",
+          "path": "/collections/{id}",
           "params": [
             "id"
-          ]
-        }
-      }
-    },
-    "Extension": {
-      "displayName": "extension",
-      "params": [
-        "name"
-      ],
-      "operations": {
-        "get": {
-          "name": "listExtensions",
-          "method": "GET",
-          "path": "/extensions",
-          "descriptionTemplate": "List extensions",
-          "params": [],
-          "bodyTemplate": {}
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          }
         },
         "update": {
-          "name": "updateExtensions",
+          "name": "updateCollection",
+          "descriptionTemplate": "Update an existing collection.",
           "method": "PATCH",
-          "path": "/extensions/{name}",
-          "descriptionTemplate": "Update extension {name}",
+          "path": "/collections/{id}",
           "params": [
-            "name"
+            "id"
           ],
           "bodyTemplate": {
             "meta": {
-              "enabled": "{enabled}"
+              "archive_app_filter": "{archive_app_filter}",
+              "archive_field": "{archive_field}",
+              "archive_value": "{archive_value}",
+              "color": "{color}",
+              "display_template": "{display_template}",
+              "hidden": "{hidden}",
+              "icon": "{icon}",
+              "note": "{note}",
+              "singleton": "{singleton}",
+              "sort_field": "{sort_field}",
+              "translation": "{translation}",
+              "unarchive_value": "{unarchive_value}",
+              "versioning": "{versioning}"
             }
+          },
+          "paramTypes": {
+            "id": "string",
+            "archive_app_filter": "string",
+            "archive_field": "string",
+            "archive_value": "string",
+            "color": "string",
+            "display_template": "string",
+            "hidden": "boolean",
+            "icon": "string",
+            "note": "string",
+            "singleton": "boolean",
+            "sort_field": "string",
+            "translation": "string",
+            "unarchive_value": "string",
+            "versioning": "boolean"
           }
         }
       }
     },
-    "ExtensionBundle": {
-      "displayName": "extension bundle",
-      "params": [
-        "bundle",
-        "name"
-      ],
+    "Items": {
       "operations": {
+        "list": {
+          "name": "getItems",
+          "descriptionTemplate": "List the items.",
+          "method": "GET",
+          "path": "/items/{collection}",
+          "params": [
+            "Fields",
+            "Limit",
+            "Meta",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search",
+            "Collection"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "string",
+            "Meta": "string",
+            "Offset": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Collection": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "add": {
+          "name": "createItem",
+          "descriptionTemplate": "Create a new item.",
+          "method": "POST",
+          "path": "/items/{collection}",
+          "params": [
+            "Meta"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Meta": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "update": {
+          "name": "updateItem",
+          "descriptionTemplate": "Update an existing item.",
+          "method": "PATCH",
+          "path": "/items/{collection}/{id}",
+          "params": [
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "delete": {
+          "name": "deleteItem",
+          "descriptionTemplate": "Delete an existing item.",
+          "method": "DELETE",
+          "path": "/items/{collection}/{id}",
+          "params": [
+            "Collection",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Collection": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "get": {
+          "name": "getItem",
+          "descriptionTemplate": "Retrieve a single item by unique identifier.",
+          "method": "GET",
+          "path": "/items/{collection}/{id}",
+          "params": [
+            "Fields",
+            "Meta",
+            "Version",
+            "Collection",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "Version": "string",
+            "Collection": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        }
+      }
+    },
+    "Presets": {
+      "operations": {
+        "list": {
+          "name": "getPresets",
+          "descriptionTemplate": "List the presets.",
+          "method": "GET",
+          "path": "/presets",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Page",
+            "Sort",
+            "Filter",
+            "Search",
+            "Meta"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "string",
+            "Offset": "string",
+            "Page": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Meta": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "add": {
+          "name": "createPreset",
+          "descriptionTemplate": "Create a new preset.",
+          "method": "POST",
+          "path": "/presets",
+          "params": [
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "filters": "{filters}",
+            "layout": "{layout}",
+            "layout_options": "{layout_options}",
+            "layout_query": "{layout_query}",
+            "role": "{role}",
+            "search": "{search}",
+            "title": "{title}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "collection": "string",
+            "filters": "array",
+            "layout": "string",
+            "layout_options": "string",
+            "layout_query": "string",
+            "role": "string",
+            "search": "string",
+            "title": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "update": {
+          "name": "updatePreset",
+          "descriptionTemplate": "Update an existing preset.",
+          "method": "PATCH",
+          "path": "/presets/{id}",
+          "params": [
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "filters": "{filters}",
+            "role": "{role}",
+            "search_query": "{search_query}",
+            "title": "{title}",
+            "translation": "{translation}",
+            "view_options": "{view_options}",
+            "view_query": "{view_query}",
+            "view_type": "{view_type}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "collection": "string",
+            "filters": "array",
+            "role": "integer",
+            "search_query": "string",
+            "title": "string",
+            "translation": "object",
+            "view_options": "string",
+            "view_query": "string",
+            "view_type": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "delete": {
+          "name": "deletePreset",
+          "descriptionTemplate": "Delete an existing preset.",
+          "method": "DELETE",
+          "path": "/presets/{id}",
+          "params": [
+            "Id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "get": {
+          "name": "getPreset",
+          "descriptionTemplate": "Retrieve a single preset by unique identifier.",
+          "method": "GET",
+          "path": "/presets/{id}",
+          "params": [
+            "Fields",
+            "Meta",
+            "Id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "Id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        }
+      }
+    },
+    "Comments": {
+      "operations": {
+        "delete": {
+          "name": "deleteComments",
+          "descriptionTemplate": "Delete multiple existing comments.",
+          "method": "DELETE",
+          "path": "/comments",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
+        },
+        "list": {
+          "name": "getComments",
+          "descriptionTemplate": "List the comments.",
+          "method": "GET",
+          "path": "/comments",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {}
+        },
+        "update": {
+          "name": "updateComments",
+          "descriptionTemplate": "Update multiple comments at the same time.",
+          "method": "PATCH",
+          "path": "/comments",
+          "params": [],
+          "bodyTemplate": {
+            "data": {
+              "collection": "{collection}",
+              "comment": "{comment}",
+              "item": "{item}"
+            },
+            "keys": [
+              "{key}"
+            ]
+          },
+          "paramTypes": {
+            "collection": "string",
+            "comment": "string",
+            "item": "string",
+            "key": "string"
+          }
+        },
+        "add": {
+          "name": "createComment",
+          "descriptionTemplate": "Create a new comment.",
+          "method": "POST",
+          "path": "/comments",
+          "params": [],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "item": "{item}"
+          },
+          "paramTypes": {
+            "collection": "string",
+            "comment": "string",
+            "item": "string"
+          }
+        },
+        "deleteSingle": {
+          "name": "deleteComment",
+          "descriptionTemplate": "Delete an existing comment.",
+          "method": "DELETE",
+          "path": "/comments/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "get": {
+          "name": "getComment",
+          "descriptionTemplate": "Retrieve a single comment by unique identifier.",
+          "method": "GET",
+          "path": "/comments/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          }
+        },
+        "updateSingle": {
+          "name": "updateComment",
+          "descriptionTemplate": "Update an existing comment.",
+          "method": "PATCH",
+          "path": "/comments/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "item": "{item}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "collection": "string",
+            "comment": "string",
+            "item": "string"
+          }
+        }
+      }
+    },
+    "Extensions": {
+      "operations": {
+        "list": {
+          "name": "listExtensions",
+          "descriptionTemplate": "List the installed extensions and their configuration in the project.",
+          "method": "GET",
+          "path": "/extensions",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {}
+        },
         "update": {
           "name": "updateExtensionBundle",
+          "descriptionTemplate": "Update an existing extension.",
           "method": "PATCH",
           "path": "/extensions/{bundle}/{name}",
-          "descriptionTemplate": "Update extension bundle {bundle} extension {name}",
           "params": [
             "bundle",
             "name"
@@ -266,696 +661,890 @@
             "meta": {
               "enabled": "{enabled}"
             }
-          }
+          },
+          "paramTypes": {
+            "bundle": "string",
+            "name": "string",
+            "enabled": "boolean"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         }
       }
     },
-    "Field": {
-      "displayName": "field",
-      "params": [
-        "collection",
-        "id"
-      ],
+    "Fields": {
       "operations": {
+        "list": {
+          "name": "getFields",
+          "descriptionTemplate": "Returns a list of the fields available in the project.",
+          "method": "GET",
+          "path": "/fields",
+          "params": [
+            "Limit",
+            "Sort"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Limit": "integer",
+            "Sort": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "listCollection": {
+          "name": "getCollectionFields",
+          "descriptionTemplate": "Returns a list of the fields available in the given collection.",
+          "method": "GET",
+          "path": "/fields/{collection}",
+          "params": [
+            "Sort",
+            "collection"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Sort": "string",
+            "collection": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
         "add": {
           "name": "createField",
+          "descriptionTemplate": "Create a new field in a given collection.",
           "method": "POST",
           "path": "/fields/{collection}",
-          "descriptionTemplate": "Create field {field} in collection {collection} with type {type} and length {length}",
           "params": [
             "collection"
           ],
           "bodyTemplate": {
             "field": "{field}",
-            "datatype": "{datatype}",
-            "type": "{type}",
-            "length": "{length}"
-          }
+            "meta": {
+              "collection": "{collection}",
+              "display": "{display}",
+              "display_options": "{display_options}",
+              "field": "{field}",
+              "group": "{group}",
+              "hidden": "{hidden}",
+              "id": "{id}",
+              "locked": "{locked}",
+              "note": "{note}",
+              "options": "{options}",
+              "readonly": "{readonly}",
+              "sort": "{sort}",
+              "special": "{special}",
+              "system-interface": "{system-interface}",
+              "translation": "{translation}",
+              "width": "{width}"
+            },
+            "schema": {
+              "comment": "{comment}",
+              "default_value": "{default_value}",
+              "foreign_key_column": "{foreign_key_column}",
+              "foreign_key_schema": "{foreign_key_schema}",
+              "foreign_key_table": "{foreign_key_table}",
+              "has_auto_increment": "{has_auto_increment}",
+              "is_nullable": "{is_nullable}",
+              "is_primary_key": "{is_primary_key}",
+              "max_length": "{max_length}",
+              "name": "{name}",
+              "schema": "{schema}",
+              "table": "{table}",
+              "type": "{type}"
+            },
+            "type": "{type}"
+          },
+          "paramTypes": {
+            "collection": "string",
+            "field": "string",
+            "display": "string",
+            "display_options": "object",
+            "group": "integer",
+            "hidden": "boolean",
+            "id": "integer",
+            "locked": "boolean",
+            "note": "string",
+            "options": "object",
+            "readonly": "boolean",
+            "sort": "integer",
+            "special": "array",
+            "system-interface": "string",
+            "translation": "object",
+            "width": "string",
+            "comment": "string",
+            "default_value": "string",
+            "foreign_key_column": "string",
+            "foreign_key_schema": "string",
+            "foreign_key_table": "string",
+            "has_auto_increment": "boolean",
+            "is_nullable": "boolean",
+            "is_primary_key": "boolean",
+            "max_length": "integer",
+            "name": "string",
+            "schema": "string",
+            "table": "string",
+            "type": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
           "name": "getCollectionField",
+          "descriptionTemplate": "Retrieves the details of a single field in a given collection.",
           "method": "GET",
           "path": "/fields/{collection}/{id}",
-          "descriptionTemplate": "Retrieve field {id} in collection {collection}",
           "params": [
             "collection",
             "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "collection": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
           ]
         },
         "update": {
           "name": "updateField",
+          "descriptionTemplate": "Update an existing field.",
           "method": "PATCH",
           "path": "/fields/{collection}/{id}",
-          "descriptionTemplate": "Update field {id} in collection {collection}",
           "params": [
             "collection",
             "id"
           ],
           "bodyTemplate": {
             "field": "{field}",
-            "type": "{type}",
-            "schema": "{schema}",
-            "meta": "{meta}"
-          }
+            "meta": {
+              "collection": "{collection}",
+              "display": "{display}",
+              "display_options": "{display_options}",
+              "field": "{field}",
+              "group": "{group}",
+              "hidden": "{hidden}",
+              "id": "{id}",
+              "locked": "{locked}",
+              "note": "{note}",
+              "options": "{options}",
+              "readonly": "{readonly}",
+              "sort": "{sort}",
+              "special": "{special}",
+              "system-interface": "{system-interface}",
+              "translation": "{translation}",
+              "width": "{width}"
+            },
+            "schema": {
+              "comment": "{comment}",
+              "default_value": "{default_value}",
+              "foreign_key_column": "{foreign_key_column}",
+              "foreign_key_schema": "{foreign_key_schema}",
+              "foreign_key_table": "{foreign_key_table}",
+              "has_auto_increment": "{has_auto_increment}",
+              "is_nullable": "{is_nullable}",
+              "is_primary_key": "{is_primary_key}",
+              "max_length": "{max_length}",
+              "name": "{name}",
+              "schema": "{schema}",
+              "table": "{table}",
+              "type": "{type}"
+            },
+            "type": "{type}"
+          },
+          "paramTypes": {
+            "collection": "string",
+            "id": "integer",
+            "field": "string",
+            "display": "string",
+            "display_options": "object",
+            "group": "integer",
+            "hidden": "boolean",
+            "locked": "boolean",
+            "note": "string",
+            "options": "object",
+            "readonly": "boolean",
+            "sort": "integer",
+            "special": "array",
+            "system-interface": "string",
+            "translation": "object",
+            "width": "string",
+            "comment": "string",
+            "default_value": "string",
+            "foreign_key_column": "string",
+            "foreign_key_schema": "string",
+            "foreign_key_table": "string",
+            "has_auto_increment": "boolean",
+            "is_nullable": "boolean",
+            "is_primary_key": "boolean",
+            "max_length": "integer",
+            "name": "string",
+            "schema": "string",
+            "table": "string",
+            "type": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "delete": {
           "name": "deleteField",
+          "descriptionTemplate": "Delete an existing field.",
           "method": "DELETE",
           "path": "/fields/{collection}/{id}",
-          "descriptionTemplate": "Delete field {id} in collection {collection}",
           "params": [
             "collection",
             "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "collection": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
           ]
         }
       }
     },
-    "Permission": {
-      "displayName": "permission",
-      "params": [
-        "id"
-      ],
+    "Files": {
       "operations": {
-        "add": {
-          "name": "createPermission",
-          "method": "POST",
-          "path": "/permissions",
-          "descriptionTemplate": "Create permission for role {role} on collection {collection}",
-          "params": [
-            "role",
-            "collection"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "comment": "{comment}",
-            "create": "{create}",
-            "delete": "{delete}",
-            "explain": "{explain}",
-            "read": "{read}",
-            "role": "{role}",
-            "read_field_blacklist": "{read_field_blacklist}",
-            "status": "{status}",
-            "status_blacklist": "{status_blacklist}",
-            "update": "{update}",
-            "write_field_blacklist": "{write_field_blacklist}"
-          }
-        },
-        "delete": {
-          "name": "deletePermission",
-          "method": "DELETE",
-          "path": "/permissions/{id}",
-          "descriptionTemplate": "Delete permission with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updatePermission",
-          "method": "PATCH",
-          "path": "/permissions/{id}",
-          "descriptionTemplate": "Update permission with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "comment": "{comment}",
-            "create": "{create}",
-            "delete": "{delete}",
-            "explain": "{explain}",
-            "read": "{read}",
-            "read_field_blacklist": "{read_field_blacklist}",
-            "role": "{role}",
-            "status": "{status}",
-            "status_blacklist": "{status_blacklist}",
-            "update": "{update}",
-            "write_field_blacklist": "{write_field_blacklist}"
-          }
-        },
-        "get": {
-          "name": "getPermission",
-          "method": "GET",
-          "path": "/permissions/{id}",
-          "descriptionTemplate": "Retrieve permission with id {id}",
-          "params": [
-            "id"
-          ]
-        }
-      }
-    },
-    "Activity": {
-      "displayName": "activity",
-      "params": [
-        "id"
-      ],
-      "operations": {
-        "get": {
-          "name": "getActivity",
-          "method": "GET",
-          "path": "/activity/{id}",
-          "descriptionTemplate": "Retrieve an Activity Action with id {id}",
-          "params": [
-            "id"
-          ]
-        },
         "list": {
-          "name": "getActivities",
+          "name": "getFiles",
+          "descriptionTemplate": "List the files.",
           "method": "GET",
-          "path": "/activity",
-          "descriptionTemplate": "List Activity Actions"
-        }
-      }
-    },
-    "Item": {
-      "displayName": "item",
-      "params": [
-        "collection",
-        "id"
-      ],
-      "operations": {
-        "add": {
-          "name": "createItem",
-          "method": "POST",
-          "path": "/items/{collection}",
-          "descriptionTemplate": "Create item in collection {collection}",
+          "path": "/files",
           "params": [
-            "collection"
+            "Fields",
+            "Limit",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search",
+            "Meta"
           ],
-          "bodyTemplate": {}
-        },
-        "delete": {
-          "name": "deleteItem",
-          "method": "DELETE",
-          "path": "/items/{collection}/{id}",
-          "descriptionTemplate": "Delete item {id} from collection {collection}",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "update": {
-          "name": "updateItem",
-          "method": "PATCH",
-          "path": "/items/{collection}/{id}",
-          "descriptionTemplate": "Update item {id} in collection {collection}",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "bodyTemplate": {}
-        },
-        "get": {
-          "name": "getItem",
-          "method": "GET",
-          "path": "/items/{collection}/{id}",
-          "descriptionTemplate": "Get item {id} from collection {collection}",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "Preset": {
-      "displayName": "preset",
-      "params": [
-        "id"
-      ],
-      "operations": {
-        "add": {
-          "name": "createPreset",
-          "method": "POST",
-          "path": "/presets",
-          "descriptionTemplate": "Create preset for collection {collection}",
-          "params": [
-            "collection"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "title": "{title}",
-            "role": "{role}",
-            "search": "{search}",
-            "filters": "{filters}",
-            "layout": "{layout}",
-            "layout_query": "{layout_query}",
-            "layout_options": "{layout_options}"
-          }
-        },
-        "delete": {
-          "name": "deletePreset",
-          "method": "DELETE",
-          "path": "/presets/{id}",
-          "descriptionTemplate": "Delete preset with id {id}",
-          "params": [
-            "id"
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Meta": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
           ]
         },
-        "update": {
-          "name": "updatePreset",
-          "method": "PATCH",
-          "path": "/presets/{id}",
-          "descriptionTemplate": "Update preset with id {id} for collection {collection}",
-          "params": [
-            "id",
-            "collection"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "title": "{title}",
-            "role": "{role}",
-            "search_query": "{search_query}",
-            "filters": "{filters}",
-            "view_type": "{view_type}",
-            "view_query": "{view_query}",
-            "view_options": "{view_options}",
-            "translation": "{translation}"
-          }
-        },
-        "get": {
-          "name": "getPreset",
-          "method": "GET",
-          "path": "/presets/{id}",
-          "descriptionTemplate": "Retrieve preset with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "updateMultiple": {
-          "name": "updatePresets",
-          "method": "PATCH",
-          "path": "/presets",
-          "descriptionTemplate": "Update multiple presets with keys {keys}",
-          "params": [
-            "keys",
-            "collection"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "title": "{title}",
-            "role": "{role}",
-            "search": "{search}",
-            "filters": "{filters}",
-            "layout": "{layout}",
-            "layout_query": "{layout_query}",
-            "layout_options": "{layout_options}"
-          }
-        },
-        "deleteMultiple": {
-          "name": "deletePresets",
-          "method": "DELETE",
-          "path": "/presets",
-          "descriptionTemplate": "Delete multiple presets"
-        },
-        "list": {
-          "name": "getPresets",
-          "method": "GET",
-          "path": "/presets",
-          "descriptionTemplate": "List presets"
-        }
-      }
-    },
-    "Collection": {
-      "displayName": "collection",
-      "params": [
-        "id",
-        "collection"
-      ],
-      "operations": {
-        "add": {
-          "name": "createCollection",
-          "method": "POST",
-          "path": "/collections",
-          "descriptionTemplate": "Create collection {collection} with id {id}",
-          "params": [
-            "collection",
-            "id"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "fields": "{fields}",
-            "icon": "{icon}",
-            "note": "{note}",
-            "display_template": "{display_template}",
-            "hidden": "{hidden}",
-            "singleton": "{singleton}",
-            "translation": "{translation}",
-            "versioning": "{versioning}",
-            "archive_field": "{archive_field}",
-            "archive_app_filter": "{archive_app_filter}",
-            "archive_value": "{archive_value}",
-            "unarchive_value": "{unarchive_value}",
-            "sort_field": "{sort_field}"
-          }
-        },
-        "get": {
-          "name": "getCollection",
-          "method": "GET",
-          "path": "/collections/{id}",
-          "descriptionTemplate": "Retrieve collection with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateCollection",
-          "method": "PATCH",
-          "path": "/collections/{id}",
-          "descriptionTemplate": "Update collection with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "meta": {
-              "icon": "{icon}",
-              "color": "{color}",
-              "note": "{note}",
-              "display_template": "{display_template}",
-              "hidden": "{hidden}",
-              "singleton": "{singleton}",
-              "translation": "{translation}",
-              "versioning": "{versioning}",
-              "archive_field": "{archive_field}",
-              "archive_app_filter": "{archive_app_filter}",
-              "archive_value": "{archive_value}",
-              "unarchive_value": "{unarchive_value}",
-              "sort_field": "{sort_field}"
-            }
-          }
-        },
-        "delete": {
-          "name": "deleteCollection",
-          "method": "DELETE",
-          "path": "/collections/{id}",
-          "descriptionTemplate": "Delete collection with id {id}",
-          "params": [
-            "id"
-          ]
-        }
-      }
-    },
-    "Comment": {
-      "displayName": "comment",
-      "params": [
-        "id",
-        "collection",
-        "item",
-        "comment"
-      ],
-      "operations": {
-        "add": {
-          "name": "createComment",
-          "method": "POST",
-          "path": "/comments",
-          "descriptionTemplate": "Create comment on collection {collection} item {item} with comment {comment}",
-          "params": [
-            "collection",
-            "item",
-            "comment"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "item": "{item}",
-            "comment": "{comment}"
-          }
-        },
-        "delete": {
-          "name": "deleteComment",
-          "method": "DELETE",
-          "path": "/comments/{id}",
-          "descriptionTemplate": "Delete comment with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateComment",
-          "method": "PATCH",
-          "path": "/comments/{id}",
-          "descriptionTemplate": "Update comment with id {id} on collection {collection} item {item} with comment {comment}",
-          "params": [
-            "id",
-            "collection",
-            "item",
-            "comment"
-          ],
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "item": "{item}",
-            "comment": "{comment}"
-          }
-        },
-        "get": {
-          "name": "getComment",
-          "method": "GET",
-          "path": "/comments/{id}",
-          "descriptionTemplate": "Get comment with id {id}",
-          "params": [
-            "id"
-          ]
-        }
-      }
-    },
-    "File": {
-      "displayName": "file",
-      "params": [
-        "id"
-      ],
-      "operations": {
         "add": {
           "name": "createFile",
+          "descriptionTemplate": "Create a new file",
           "method": "POST",
           "path": "/files",
-          "descriptionTemplate": "Create file with data {data}",
           "params": [],
           "bodyTemplate": {
             "data": "{data}"
+          },
+          "paramTypes": {
+            "data": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "update": {
+          "name": "updateFile",
+          "descriptionTemplate": "Update an existing file, and/or replace its file contents.",
+          "method": "PATCH",
+          "path": "/files/{id}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "filename_download": "{filename_download}",
+            "folder": "{folder}",
+            "tags": [
+              "{tags}"
+            ],
+            "title": "{title}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string",
+            "description": "string",
+            "filename_download": "string",
+            "folder": "string",
+            "tags": "string",
+            "title": "string"
           }
         },
         "delete": {
           "name": "deleteFile",
+          "descriptionTemplate": "Delete an existing file.",
           "method": "DELETE",
           "path": "/files/{id}",
-          "descriptionTemplate": "Delete file with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "update": {
-          "name": "updateFile",
-          "method": "PATCH",
-          "path": "/files/{id}",
-          "descriptionTemplate": "Update file with id {id} and title {title}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "title": "{title}",
-            "filename_download": "{filename_download}",
-            "description": "{description}",
-            "folder": "{folder}",
-            "tags": "{tags}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
           "name": "getFile",
+          "descriptionTemplate": "Retrieve a single file by unique identifier.",
           "method": "GET",
           "path": "/files/{id}",
-          "descriptionTemplate": "Get file with id {id}",
           "params": [
-            "id"
+            "id",
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string"
+          }
         }
       }
     },
-    "Flow": {
-      "displayName": "flow",
-      "params": [
-        "id"
-      ],
+    "Flows": {
       "operations": {
+        "list": {
+          "name": "getFlows",
+          "descriptionTemplate": "Get all flows.",
+          "method": "GET",
+          "path": "/flows",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {}
+        },
         "add": {
           "name": "createFlow",
+          "descriptionTemplate": "Create a new flow.",
           "method": "POST",
           "path": "/flows",
-          "descriptionTemplate": "Create a flow with id {id}",
           "params": [
-            "id"
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "data": "string"
+          }
+        },
+        "update": {
+          "name": "updateFlow",
+          "descriptionTemplate": "Update an existing flow",
+          "method": "PATCH",
+          "path": "/flows/{id}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string",
+            "data": "string"
           }
         },
         "delete": {
           "name": "deleteFlow",
+          "descriptionTemplate": "Delete an existing flow",
           "method": "DELETE",
           "path": "/flows/{id}",
-          "descriptionTemplate": "Delete flow with id {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateFlow",
-          "method": "PATCH",
-          "path": "/flows/{id}",
-          "descriptionTemplate": "Update flow with id {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
           "name": "getFlow",
+          "descriptionTemplate": "Retrieve a single flow by unique identifier.",
           "method": "GET",
           "path": "/flows/{id}",
-          "descriptionTemplate": "Retrieve flow with id {id}",
           "params": [
             "id"
-          ]
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          }
         }
       }
     },
-    "Folder": {
-      "displayName": "folder",
-      "params": [
-        "id",
-        "name"
-      ],
+    "Folders": {
       "operations": {
+        "list": {
+          "name": "getFolders",
+          "descriptionTemplate": "List the folders.",
+          "method": "GET",
+          "path": "/folders",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search",
+            "Meta"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Meta": "string"
+          }
+        },
         "add": {
           "name": "createFolder",
+          "descriptionTemplate": "Create a new folder.",
           "method": "POST",
           "path": "/folders",
-          "descriptionTemplate": "Create folder {name}",
           "params": [
-            "name"
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {
-            "name": "{name}"
+            "name": "{name}",
+            "parent": "{parent}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "name": "string",
+            "parent": "integer"
+          }
+        },
+        "update": {
+          "name": "updateFolder",
+          "descriptionTemplate": "Update an existing folder",
+          "method": "PATCH",
+          "path": "/folders/{id}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "parent": "{parent}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string",
+            "name": "string",
+            "parent": "integer"
           }
         },
         "delete": {
           "name": "deleteFolder",
+          "descriptionTemplate": "Delete an existing folder",
           "method": "DELETE",
           "path": "/folders/{id}",
-          "descriptionTemplate": "Delete folder {id}",
           "params": [
             "id"
-          ]
-        },
-        "update": {
-          "name": "updateFolder",
-          "method": "PATCH",
-          "path": "/folders/{id}",
-          "descriptionTemplate": "Update folder {id} with name {name}",
-          "params": [
-            "id",
-            "name"
           ],
-          "bodyTemplate": {
-            "name": "{name}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
           "name": "getFolder",
+          "descriptionTemplate": "Retrieve a single folder by unique identifier.",
           "method": "GET",
           "path": "/folders/{id}",
-          "descriptionTemplate": "Get folder {id}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string"
+          }
+        }
+      }
+    },
+    "Operations": {
+      "operations": {
+        "list": {
+          "name": "getOperations",
+          "descriptionTemplate": "Get all operations.",
+          "method": "GET",
+          "path": "/operations",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
+        },
+        "add": {
+          "name": "createOperation",
+          "descriptionTemplate": "Create a new operation.",
+          "method": "POST",
+          "path": "/operations",
+          "params": [],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "data": "object"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "update": {
+          "name": "updateOperations",
+          "descriptionTemplate": "Update multiple operations at the same time.",
+          "method": "PATCH",
+          "path": "/operations",
+          "params": [],
+          "bodyTemplate": {
+            "data": "{data}",
+            "keys": "{keys}"
+          },
+          "paramTypes": {
+            "data": "object",
+            "keys": "array"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "delete": {
+          "name": "deleteOperations",
+          "descriptionTemplate": "Delete multiple existing operations.",
+          "method": "DELETE",
+          "path": "/operations",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "get": {
+          "name": "getOperation",
+          "descriptionTemplate": "Retrieve a single operation by unique identifier.",
+          "method": "GET",
+          "path": "/operations/{id}",
           "params": [
             "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "updateSingle": {
+          "name": "updateOperation",
+          "descriptionTemplate": "Update an existing operation",
+          "method": "PATCH",
+          "path": "/operations/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "data": "object"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "deleteSingle": {
+          "name": "deleteOperation",
+          "descriptionTemplate": "Delete an existing operation",
+          "method": "DELETE",
+          "path": "/operations/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
           ]
         }
       }
     },
-    "Operation": {
-      "displayName": "operation",
-      "params": [
-        "id"
-      ],
+    "Permissions": {
       "operations": {
-        "add": {
-          "name": "createOperation",
-          "method": "POST",
-          "path": "/operations",
-          "descriptionTemplate": "Create an Operation",
+        "list": {
+          "name": "getPermissions",
+          "descriptionTemplate": "List all permissions.",
+          "method": "GET",
+          "path": "/permissions",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
         },
-        "delete": {
-          "name": "deleteOperation",
-          "method": "DELETE",
-          "path": "/operations/{id}",
-          "descriptionTemplate": "Delete an Operation with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+        "add": {
+          "name": "createPermission",
+          "descriptionTemplate": "Create a new permission.",
+          "method": "POST",
+          "path": "/permissions",
+          "params": [],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "create": "{create}",
+            "delete": "{delete}",
+            "explain": "{explain}",
+            "read": "{read}",
+            "read_field_blacklist": "{read_field_blacklist}",
+            "role": "{role}",
+            "status": "{status}",
+            "status_blacklist": "{status_blacklist}",
+            "update": "{update}",
+            "write_field_blacklist": "{write_field_blacklist}"
+          },
+          "paramTypes": {
+            "collection": "string",
+            "comment": "string",
+            "create": "string",
+            "delete": "string",
+            "explain": "string",
+            "read": "string",
+            "read_field_blacklist": "array",
+            "role": "integer",
+            "status": "string",
+            "status_blacklist": "array",
+            "update": "string",
+            "write_field_blacklist": "array"
+          },
+          "x-negative-delete-expected-codes": []
         },
         "update": {
-          "name": "updateOperation",
+          "name": "updatePermissions",
+          "descriptionTemplate": "Update multiple permissions at the same time.",
           "method": "PATCH",
-          "path": "/operations/{id}",
-          "descriptionTemplate": "Update an Operation with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
+          "path": "/permissions",
+          "params": [],
+          "bodyTemplate": {
+            "data": "{data}",
+            "keys": "{keys}"
+          },
+          "paramTypes": {
+            "data": "object",
+            "keys": "array"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "delete": {
+          "name": "deletePermissions",
+          "descriptionTemplate": "Delete multiple existing permissions.",
+          "method": "DELETE",
+          "path": "/permissions",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
-          "name": "getOperation",
+          "name": "getPermission",
+          "descriptionTemplate": "Retrieve a single permissions object by unique identifier.",
           "method": "GET",
-          "path": "/operations/{id}",
-          "descriptionTemplate": "Retrieve an Operation with id {id}",
+          "path": "/permissions/{id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "updateSingle": {
+          "name": "updatePermission",
+          "descriptionTemplate": "Update an existing permission",
+          "method": "PATCH",
+          "path": "/permissions/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "create": "{create}",
+            "delete": "{delete}",
+            "explain": "{explain}",
+            "read": "{read}",
+            "read_field_blacklist": "{read_field_blacklist}",
+            "role": "{role}",
+            "status": "{status}",
+            "status_blacklist": "{status_blacklist}",
+            "update": "{update}",
+            "write_field_blacklist": "{write_field_blacklist}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "collection": "string",
+            "comment": "string",
+            "create": "string",
+            "delete": "string",
+            "explain": "string",
+            "read": "string",
+            "read_field_blacklist": "array",
+            "role": "integer",
+            "status": "string",
+            "status_blacklist": "array",
+            "update": "string",
+            "write_field_blacklist": "array"
+          },
+          "x-negative-delete-expected-codes": []
+        },
+        "deleteSingle": {
+          "name": "deletePermission",
+          "descriptionTemplate": "Delete an existing permission",
+          "method": "DELETE",
+          "path": "/permissions/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "listMy": {
+          "name": "getMyPermissions",
+          "descriptionTemplate": "List the permissions that apply to the current user.",
+          "method": "GET",
+          "path": "/permissions/me",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
         }
       }
     },
-    "Relation": {
-      "displayName": "relation",
-      "params": [
-        "id"
-      ],
+    "Relations": {
       "operations": {
+        "list": {
+          "name": "getRelations",
+          "descriptionTemplate": "List the relations.",
+          "method": "GET",
+          "path": "/relations",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search",
+            "Page"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Meta": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Page": "integer"
+          }
+        },
         "add": {
           "name": "createRelation",
+          "descriptionTemplate": "Create a new relation.",
           "method": "POST",
           "path": "/relations",
-          "descriptionTemplate": "Create relation with collection_many {collection_many} and collection_one {collection_one}",
-          "params": [],
+          "params": [
+            "Fields",
+            "Meta"
+          ],
           "bodyTemplate": {
             "collection_many": "{collection_many}",
             "collection_one": "{collection_one}",
             "field_many": "{field_many}",
             "field_one": "{field_one}",
             "junction_field": "{junction_field}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "collection_many": "string",
+            "collection_one": "string",
+            "field_many": "string",
+            "field_one": "string",
+            "junction_field": "string"
           }
         },
         "get": {
           "name": "getRelation",
+          "descriptionTemplate": "Retrieve a single relation by unique identifier.",
           "method": "GET",
           "path": "/relations/{id}",
-          "descriptionTemplate": "Retrieve relation with id {id}",
           "params": [
-            "id"
+            "Id",
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Id": "string",
+            "Fields": "string",
+            "Meta": "string"
+          }
         },
         "update": {
           "name": "updateRelation",
+          "descriptionTemplate": "Update an existing relation",
           "method": "PATCH",
           "path": "/relations/{id}",
-          "descriptionTemplate": "Update relation with id {id}",
           "params": [
-            "id"
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {
             "collection_many": "{collection_many}",
@@ -963,55 +1552,121 @@
             "field_many": "{field_many}",
             "field_one": "{field_one}",
             "junction_field": "{junction_field}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "collection_many": "string",
+            "collection_one": "string",
+            "field_many": "string",
+            "field_one": "string",
+            "junction_field": "string"
           }
         },
         "delete": {
           "name": "deleteRelation",
+          "descriptionTemplate": "Delete an existing relation.",
           "method": "DELETE",
           "path": "/relations/{id}",
-          "descriptionTemplate": "Delete relation with id {id}",
           "params": [
-            "id"
+            "Id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         }
       }
     },
-    "Revision": {
-      "displayName": "revision",
-      "params": [
-        "id"
-      ],
+    "Revisions": {
       "operations": {
-        "get": {
-          "name": "getRevision",
-          "method": "GET",
-          "path": "/revisions/{id}",
-          "descriptionTemplate": "Retrieve a Revision with id {id}",
-          "params": [
-            "id"
-          ]
-        },
         "list": {
           "name": "getRevisions",
+          "descriptionTemplate": "List the revisions.",
           "method": "GET",
           "path": "/revisions",
-          "descriptionTemplate": "List Revisions"
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search",
+            "Page"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Meta": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Page": "integer"
+          }
+        },
+        "get": {
+          "name": "getRevision",
+          "descriptionTemplate": "Retrieve a single revision by unique identifier.",
+          "method": "GET",
+          "path": "/revisions/{id}",
+          "params": [
+            "Id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Id": "string",
+            "Fields": "string",
+            "Meta": "string"
+          }
         }
       }
     },
-    "Role": {
-      "displayName": "role",
-      "params": [
-        "id"
-      ],
+    "Roles": {
       "operations": {
+        "list": {
+          "name": "getRoles",
+          "descriptionTemplate": "List the roles.",
+          "method": "GET",
+          "path": "/roles",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search",
+            "Page"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Meta": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Page": "integer"
+          }
+        },
         "add": {
           "name": "createRole",
+          "descriptionTemplate": "Create a new role.",
           "method": "POST",
           "path": "/roles",
-          "descriptionTemplate": "Create role {name}",
-          "params": [],
+          "params": [
+            "Fields",
+            "Meta"
+          ],
           "bodyTemplate": {
             "description": "{description}",
             "enforce_tfa": "{enforce_tfa}",
@@ -1019,184 +1674,605 @@
             "ip_access": "{ip_access}",
             "module_listing": "{module_listing}",
             "name": "{name}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "description": "string",
+            "enforce_tfa": "boolean",
+            "external_id": "string",
+            "ip_access": "array",
+            "module_listing": "string",
+            "name": "string"
+          }
+        },
+        "update": {
+          "name": "updateRole",
+          "descriptionTemplate": "Update an existing role",
+          "method": "PATCH",
+          "path": "/roles/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "description": "{description}",
+            "enforce_tfa": "{enforce_tfa}",
+            "external_id": "{external_id}",
+            "ip_access": [
+              "{ip_access}"
+            ],
+            "module_listing": "{module_listing}",
+            "name": "{name}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "description": "string",
+            "enforce_tfa": "boolean",
+            "external_id": "string",
+            "ip_access": "string",
+            "module_listing": "string",
+            "name": "string"
           }
         },
         "delete": {
           "name": "deleteRole",
+          "descriptionTemplate": "Delete an existing role",
           "method": "DELETE",
           "path": "/roles/{id}",
-          "descriptionTemplate": "Delete role {id}",
-          "params": [
-            "id"
-          ]
-        },
-        "update": {
-          "name": "updateRole",
-          "method": "PATCH",
-          "path": "/roles/{id}",
-          "descriptionTemplate": "Update role {id} with name {name}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "description": "{description}",
-            "enforce_tfa": "{enforce_tfa}",
-            "external_id": "{external_id}",
-            "ip_access": "{ip_access}",
-            "module_listing": "{module_listing}",
-            "name": "{name}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
           "name": "getRole",
+          "descriptionTemplate": "Retrieve a single role by unique identifier.",
           "method": "GET",
           "path": "/roles/{id}",
-          "descriptionTemplate": "Get role {id}",
           "params": [
             "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          }
+        }
+      }
+    },
+    "Schema": {
+      "operations": {
+        "add": {
+          "name": "schemaDiff",
+          "descriptionTemplate": "Compare the current instance's schema against the schema snapshot in JSON request body or a JSON/YAML file and retrieve the difference. This endpoint is only available to admin users.",
+          "method": "POST",
+          "path": "/schema/diff",
+          "params": [
+            "force"
+          ],
+          "bodyTemplate": {
+            "data": "{data}",
+            "file": "{file}"
+          },
+          "paramTypes": {
+            "force": "boolean",
+            "data": "string",
+            "file": "string"
+          }
+        },
+        "get": {
+          "name": "schemaSnapshot",
+          "descriptionTemplate": "Retrieve the current schema. This endpoint is only available to admin users.",
+          "method": "GET",
+          "path": "/schema/snapshot",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {}
+        }
+      }
+    },
+    "Server": {
+      "operations": {
+        "get": {
+          "name": "serverInfo",
+          "descriptionTemplate": "Perform a system status check and return the options.",
+          "method": "GET",
+          "path": "/server/info",
+          "params": [
+            "super_admin_token"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "super_admin_token": "integer"
+          }
+        },
+        "list": {
+          "name": "ping",
+          "descriptionTemplate": "Ping, pong. Ping.. pong.",
+          "method": "GET",
+          "path": "/server/ping",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
+        }
+      }
+    },
+    "Settings": {
+      "operations": {
+        "list": {
+          "name": "getSettings",
+          "descriptionTemplate": "List the settings.",
+          "method": "GET",
+          "path": "/settings",
+          "params": [
+            "Limit",
+            "Offset",
+            "Meta",
+            "Page"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Limit": "integer",
+            "Offset": "integer",
+            "Meta": "boolean",
+            "Page": "integer"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "update": {
+          "name": "updateSetting",
+          "descriptionTemplate": "Update the settings",
+          "method": "PATCH",
+          "path": "/settings",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
           ]
         }
       }
     },
-    "Webhook": {
-      "displayName": "webhook",
-      "params": [
-        "id"
-      ],
+    "Users": {
       "operations": {
+        "list": {
+          "name": "getUsers",
+          "descriptionTemplate": "List the users.",
+          "method": "GET",
+          "path": "/users",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Meta": "boolean",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
         "add": {
-          "name": "createWebhook",
+          "name": "acceptInvite",
+          "descriptionTemplate": "Accepts and enables an invited user using a JWT invitation token.",
           "method": "POST",
-          "path": "/webhooks",
-          "descriptionTemplate": "Create webhook {name}",
+          "path": "/users/invite/accept",
           "params": [],
           "bodyTemplate": {
-            "name": "{name}",
-            "method": "{method}",
-            "url": "{url}",
-            "status": "{status}",
-            "data": "{data}",
-            "actions": "{actions}",
-            "system-collections": "{system-collections}"
-          }
+            "password": "{password}",
+            "token": "{token}"
+          },
+          "paramTypes": {
+            "password": "string",
+            "token": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "update": {
+          "name": "updateMe",
+          "descriptionTemplate": "Update the currently authenticated user.",
+          "method": "PATCH",
+          "path": "/users/me",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "delete": {
-          "name": "deleteWebhook",
+          "name": "deleteUsers",
+          "descriptionTemplate": "Delete multiple existing users.",
           "method": "DELETE",
-          "path": "/webhooks/{id}",
-          "descriptionTemplate": "Delete webhook {id}",
+          "path": "/users",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
+        },
+        "invite": {
+          "name": "invite",
+          "descriptionTemplate": "Invites one or more users to this project.",
+          "method": "POST",
+          "path": "/users/invite",
+          "params": [],
+          "bodyTemplate": {
+            "email": "{email}"
+          },
+          "paramTypes": {
+            "email": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "get": {
+          "name": "getMe",
+          "descriptionTemplate": "Retrieve the currently authenticated user.",
+          "method": "GET",
+          "path": "/users/me",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "updateSingle": {
+          "name": "updateUser",
+          "descriptionTemplate": "Update an existing user",
+          "method": "PATCH",
+          "path": "/users/{id}",
+          "params": [
+            "Fields",
+            "Meta",
+            "UUId"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "boolean",
+            "UUId": "string",
+            "data": "object"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "deleteSingle": {
+          "name": "deleteUser",
+          "descriptionTemplate": "Delete an existing user",
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "params": [
+            "UUId"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "UUId": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "disable": {
+          "name": "meTfaDisable",
+          "descriptionTemplate": "Disables two-factor authentication for the currently authenticated user.",
+          "method": "POST",
+          "path": "/users/me/tfa/disable",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "enable": {
+          "name": "meTfaEnable",
+          "descriptionTemplate": "Enables two-factor authentication for the currently authenticated user.",
+          "method": "POST",
+          "path": "/users/me/tfa/enable",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "updateLastUsedPage": {
+          "name": "updateLastUsedPageMe",
+          "descriptionTemplate": "Updates the last used page field of the currently authenticated user.",
+          "method": "PATCH",
+          "path": "/users/me/track/page",
+          "params": [],
+          "bodyTemplate": {
+            "last_page": "{last_page}"
+          },
+          "paramTypes": {
+            "last_page": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        }
+      }
+    },
+    "Utilities": {
+      "operations": {
+        "add": {
+          "name": "clearCache",
+          "descriptionTemplate": "Resets both the data and schema cache of Directus.",
+          "method": "POST",
+          "path": "/utils/cache/clear",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": []
+        },
+        "list": {
+          "name": "random",
+          "descriptionTemplate": "Returns a random string of given length.",
+          "method": "GET",
+          "path": "/utils/random/string",
+          "params": [
+            "length"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "length": "integer"
+          },
+          "x-negative-delete-expected-codes": []
+        }
+      }
+    },
+    "Versions": {
+      "operations": {
+        "delete": {
+          "name": "deleteContentVersion",
+          "descriptionTemplate": "Delete an existing Content Version.",
+          "method": "DELETE",
+          "path": "/versions/{id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "list": {
+          "name": "getContentVersions",
+          "descriptionTemplate": "Get all Content Versions.",
+          "method": "GET",
+          "path": "/versions",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Meta": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "update": {
+          "name": "updateContentVersion",
+          "descriptionTemplate": "Update an existing Content Version.",
+          "method": "PATCH",
+          "path": "/versions/{id}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string",
+            "data": "object"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "add": {
+          "name": "promoteContentVersion",
+          "descriptionTemplate": "Pass the current hash of the main version of the item along with an optional array of field names to be promoted.",
+          "method": "POST",
+          "path": "/versions/{id}/promote",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "fields": "{fields}",
+            "mainHash": "{mainHash}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "fields": "string",
+            "mainHash": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "get": {
+          "name": "compareContentVersion",
+          "descriptionTemplate": "Compare an existing Content Version with the main version of the item.",
+          "method": "GET",
+          "path": "/versions/{id}/compare",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        }
+      }
+    },
+    "Webhooks": {
+      "operations": {
+        "list": {
+          "name": "getWebhooks",
+          "descriptionTemplate": "Get all webhooks.",
+          "method": "GET",
+          "path": "/webhooks",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "add": {
+          "name": "createWebhook",
+          "descriptionTemplate": "Create a new webhook.",
+          "method": "POST",
+          "path": "/webhooks",
+          "params": [
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "actions": "{actions}",
+            "data": "{data}",
+            "method": "{method}",
+            "name": "{name}",
+            "status": "{status}",
+            "system-collections": "{system-collections}",
+            "url": "{url}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "actions": "string",
+            "data": "boolean",
+            "method": "string",
+            "name": "string",
+            "status": "string",
+            "system-collections": "string",
+            "url": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "update": {
           "name": "updateWebhook",
+          "descriptionTemplate": "Update an existing webhook",
           "method": "PATCH",
           "path": "/webhooks/{id}",
-          "descriptionTemplate": "Update webhook {id} with name {name}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "actions": "{actions}",
+            "data": "{data}",
+            "method": "{method}",
+            "name": "{name}",
+            "status": "{status}",
+            "system-collections": "{system-collections}",
+            "url": "{url}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string",
+            "actions": "string",
+            "data": "boolean",
+            "method": "string",
+            "name": "string",
+            "status": "string",
+            "system-collections": "string",
+            "url": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
+        },
+        "delete": {
+          "name": "deleteWebhook",
+          "descriptionTemplate": "Delete an existing webhook",
+          "method": "DELETE",
+          "path": "/webhooks/{id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "method": "{method}",
-            "url": "{url}",
-            "status": "{status}",
-            "data": "{data}",
-            "actions": "{actions}",
-            "system-collections": "{system-collections}"
-          }
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         },
         "get": {
           "name": "getWebhook",
+          "descriptionTemplate": "Retrieve a single webhook by unique identifier.",
           "method": "GET",
           "path": "/webhooks/{id}",
-          "descriptionTemplate": "Get webhook {id}",
           "params": [
             "id"
           ],
-          "bodyTemplate": {}
-        },
-        "list": {
-          "name": "getWebhooks",
-          "method": "GET",
-          "path": "/webhooks",
-          "descriptionTemplate": "List webhooks",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "deleteMultiple": {
-          "name": "deleteWebhooks",
-          "method": "DELETE",
-          "path": "/webhooks",
-          "descriptionTemplate": "Delete multiple webhooks",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "updateMultiple": {
-          "name": "updateWebhooks",
-          "method": "PATCH",
-          "path": "/webhooks",
-          "descriptionTemplate": "Update multiple webhooks",
-          "params": [],
-          "bodyTemplate": {
-            "data": {
-              "name": "{name}",
-              "method": "{method}",
-              "url": "{url}",
-              "status": "{status}",
-              "data": "{data}",
-              "actions": "{actions}",
-              "system-collections": "{system-collections}"
-            },
-            "keys": "{keys}"
-          }
-        }
-      }
-    },
-    "Asset": {
-      "displayName": "asset",
-      "params": [
-        "id"
-      ],
-      "operations": {
-        "get": {
-          "name": "getAsset",
-          "method": "GET",
-          "path": "/assets/{id}",
-          "descriptionTemplate": "Get an Asset with id {id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "Setting": {
-      "displayName": "setting",
-      "params": [],
-      "operations": {
-        "get": {
-          "name": "getSettings",
-          "method": "GET",
-          "path": "/settings",
-          "descriptionTemplate": "Retrieve settings",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "update": {
-          "name": "updateSetting",
-          "method": "PATCH",
-          "path": "/settings",
-          "descriptionTemplate": "Update settings",
-          "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ]
         }
       }
     }
   },
-  "stories": [],
   "original_spec": {
     "openapi": "3.0.1",
     "info": {

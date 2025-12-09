@@ -1,0 +1,73 @@
+{
+  "Members": {
+    "operations": {
+      "update": {
+        "name": "updateMembersUsernameByIdMember",
+        "descriptionTemplate": "updateMembersUsernameByIdMember()",
+        "method": "PUT",
+        "path": "/members/{idMember}/username",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "members_username": "{members_username}"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string",
+          "members_username": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "list": {
+        "name": "getMembersTokensByIdMember",
+        "descriptionTemplate": "getMembersTokensByIdMember()",
+        "method": "GET",
+        "path": "/members/{idMember}/tokens",
+        "params": [
+          "idMember",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getMembersByIdMemberByField",
+        "descriptionTemplate": "getMembersByIdMemberByField()",
+        "method": "GET",
+        "path": "/members/{idMember}/{field}",
+        "params": [
+          "idMember",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "Notifications": {
+    "operations": {
+      "get": {
+        "name": "getNotificationsByIdNotificationByField",
+        "descriptionTemplate": "getNotificationsByIdNotificationByField()",
+        "method": "GET",
+        "path": "/notifications/{idNotification}/{field}",
+        "params": [
+          "idNotification",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idNotification": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateNotificationsUnreadByIdNotification",
+        "descriptionTemplate": "updateNotificationsUnreadByIdNotification()",
+        "method": "PUT",
+        "path": "/notifications/{idNotification}/unread",
+        "params": [
+          "idNotification",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/notifications_unread"
+        },
+        "paramTypes": {
+          "idNotification": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Organizations": {
+    "operations": {
+      "add": {
+        "name": "addOrganizations",
+        "descriptionTemplate": "addOrganizations()",
+        "method": "POST",
+        "path": "/organizations",
+        "params": [
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/organizations"
+        },
+        "paramTypes": {
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteOrganizationsByIdOrg",
+        "descriptionTemplate": "deleteOrganizationsByIdOrg()",
+        "method": "DELETE",
+        "path": "/organizations/{idOrg}",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getOrganizationsByIdOrg",
+        "descriptionTemplate": "getOrganizationsByIdOrg()",
+        "method": "GET",
+        "path": "/organizations/{idOrg}",
+        "params": [
+          "idOrg",
+          "actions",
+          "actions_entities",
+          "actions_display",
+          "actions_limit",
+          "action_fields",
+          "memberships",
+          "memberships_member",
+          "memberships_member_fields",
+          "members",
+          "member_fields",
+          "member_activity",
+          "membersInvited",
+          "membersInvited_fields",
+          "boards",
+          "board_fields",
+          "board_actions",
+          "board_actions_entities",
+          "board_actions_display",
+          "board_actions_format",
+          "board_actions_since",
+          "board_actions_limit",
+          "board_action_fields",
+          "board_lists",
+          "paid_account",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idOrg": "string",
+          "actions": "string",
+          "actions_entities": "string",
+          "actions_display": "string",
+          "actions_limit": "string",
+          "action_fields": "string",
+          "memberships": "string",
+          "memberships_member": "string",
+          "memberships_member_fields": "string",
+          "members": "string",
+          "member_fields": "string",
+          "member_activity": "string",
+          "membersInvited": "string",
+          "membersInvited_fields": "string",
+          "boards": "string",
+          "board_fields": "string",
+          "board_actions": "string",
+          "board_actions_entities": "string",
+          "board_actions_display": "string",
+          "board_actions_format": "string",
+          "board_actions_since": "string",
+          "board_actions_limit": "string",
+          "board_action_fields": "string",
+          "board_lists": "string",
+          "paid_account": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateOrganizationsByIdOrg",
+        "descriptionTemplate": "updateOrganizationsByIdOrg()",
+        "method": "PUT",
+        "path": "/organizations/{idOrg}",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/organizations"
+        },
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

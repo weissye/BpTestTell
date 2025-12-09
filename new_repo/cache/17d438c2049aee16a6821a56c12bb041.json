@@ -103,7 +103,105 @@
           "user_id",
           "user_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "string",
+          "location_id__n": "string",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "rack_id": "integer",
+          "rack_id__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "unit": "number",
+          "unit__empty": "number",
+          "unit__gt": "number",
+          "unit__gte": "number",
+          "unit__lt": "number",
+          "unit__lte": "number",
+          "unit__n": "number",
+          "updated_by_request": "string",
+          "user": "string",
+          "user__n": "string",
+          "user_id": "integer",
+          "user_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_rack_reservations_create",
@@ -113,19 +211,25 @@
         "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_rack_reservations_update",
-        "descriptionTemplate": "Put a rack reservation object.",
+        "name": "dcim_rack_reservations_bulk_update",
+        "descriptionTemplate": "Put a list of rack reservation objects.",
         "method": "PUT",
-        "path": "/api/dcim/rack-reservations/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/dcim/rack-reservations/",
+        "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_rack_reservations_destroy",
@@ -135,7 +239,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_rack_reservations_retrieve",
@@ -145,7 +255,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -242,7 +356,94 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "color": "string",
+          "color__empty": "boolean",
+          "color__ic": "string",
+          "color__ie": "string",
+          "color__iew": "string",
+          "color__iregex": "string",
+          "color__isw": "string",
+          "color__n": "string",
+          "color__nic": "string",
+          "color__nie": "string",
+          "color__niew": "string",
+          "color__nisw": "string",
+          "color__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_rack_roles_create",
@@ -252,19 +453,25 @@
         "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_rack_roles_update",
-        "descriptionTemplate": "Put a rack role object.",
+        "name": "dcim_rack_roles_bulk_update",
+        "descriptionTemplate": "Put a list of rack role objects.",
         "method": "PUT",
-        "path": "/api/dcim/rack-roles/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/dcim/rack-roles/",
+        "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_rack_roles_destroy",
@@ -274,7 +481,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_rack_roles_retrieve",
@@ -284,7 +497,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -456,7 +673,169 @@
           "width__nisw",
           "width__regex"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "desc_units": "boolean",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "form_factor": "string",
+          "form_factor__empty": "boolean",
+          "form_factor__ic": "string",
+          "form_factor__ie": "string",
+          "form_factor__iew": "string",
+          "form_factor__iregex": "string",
+          "form_factor__isw": "string",
+          "form_factor__n": "string",
+          "form_factor__nic": "string",
+          "form_factor__nie": "string",
+          "form_factor__niew": "string",
+          "form_factor__nisw": "string",
+          "form_factor__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "manufacturer": "string",
+          "manufacturer__n": "string",
+          "manufacturer_id": "integer",
+          "manufacturer_id__n": "integer",
+          "max_weight": "integer",
+          "max_weight__empty": "boolean",
+          "max_weight__gt": "integer",
+          "max_weight__gte": "integer",
+          "max_weight__lt": "integer",
+          "max_weight__lte": "integer",
+          "max_weight__n": "integer",
+          "model": "string",
+          "model__empty": "boolean",
+          "model__ic": "string",
+          "model__ie": "string",
+          "model__iew": "string",
+          "model__iregex": "string",
+          "model__isw": "string",
+          "model__n": "string",
+          "model__nic": "string",
+          "model__nie": "string",
+          "model__niew": "string",
+          "model__nisw": "string",
+          "model__regex": "string",
+          "modified_by_request": "string",
+          "mounting_depth": "integer",
+          "mounting_depth__empty": "boolean",
+          "mounting_depth__gt": "integer",
+          "mounting_depth__gte": "integer",
+          "mounting_depth__lt": "integer",
+          "mounting_depth__lte": "integer",
+          "mounting_depth__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "outer_depth": "integer",
+          "outer_depth__empty": "boolean",
+          "outer_depth__gt": "integer",
+          "outer_depth__gte": "integer",
+          "outer_depth__lt": "integer",
+          "outer_depth__lte": "integer",
+          "outer_depth__n": "integer",
+          "outer_height": "integer",
+          "outer_height__empty": "boolean",
+          "outer_height__gt": "integer",
+          "outer_height__gte": "integer",
+          "outer_height__lt": "integer",
+          "outer_height__lte": "integer",
+          "outer_height__n": "integer",
+          "outer_unit": "string",
+          "outer_width": "integer",
+          "outer_width__empty": "boolean",
+          "outer_width__gt": "integer",
+          "outer_width__gte": "integer",
+          "outer_width__lt": "integer",
+          "outer_width__lte": "integer",
+          "outer_width__n": "integer",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "starting_unit": "integer",
+          "starting_unit__empty": "boolean",
+          "starting_unit__gt": "integer",
+          "starting_unit__gte": "integer",
+          "starting_unit__lt": "integer",
+          "starting_unit__lte": "integer",
+          "starting_unit__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "u_height": "integer",
+          "u_height__empty": "boolean",
+          "u_height__gt": "integer",
+          "u_height__gte": "integer",
+          "u_height__lt": "integer",
+          "u_height__lte": "integer",
+          "u_height__n": "integer",
+          "updated_by_request": "string",
+          "weight": "number",
+          "weight__empty": "boolean",
+          "weight__gt": "number",
+          "weight__gte": "number",
+          "weight__lt": "number",
+          "weight__lte": "number",
+          "weight__n": "number",
+          "weight_unit": "string",
+          "width": "integer",
+          "width__ic": "integer",
+          "width__ie": "integer",
+          "width__iew": "integer",
+          "width__iregex": "integer",
+          "width__isw": "integer",
+          "width__n": "integer",
+          "width__nic": "integer",
+          "width__nie": "integer",
+          "width__niew": "integer",
+          "width__nisw": "integer",
+          "width__regex": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_rack_types_create",
@@ -466,7 +845,11 @@
         "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_rack_types_bulk_update",
@@ -476,7 +859,11 @@
         "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_rack_types_bulk_destroy",
@@ -486,7 +873,13 @@
         "params": [],
         "bodyTemplate": {
           "schema": "{schema}"
-        }
+        },
+        "paramTypes": {
+          "schema": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

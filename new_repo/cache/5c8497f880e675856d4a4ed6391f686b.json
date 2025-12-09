@@ -79,7 +79,81 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "virtualization_cluster_types_create",
@@ -91,31 +165,47 @@
           "name": "{name}",
           "slug": "{slug}",
           "description": "{description}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "virtualization_cluster_types_update",
-        "descriptionTemplate": "Put a cluster type object.",
+        "name": "virtualization_cluster_types_bulk_update",
+        "descriptionTemplate": "Put a list of cluster type objects.",
         "method": "PUT",
-        "path": "/api/virtualization/cluster-types/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/virtualization/cluster-types/",
+        "params": [],
         "bodyTemplate": {
           "name": "{name}",
           "slug": "{slug}",
           "description": "{description}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "virtualization_cluster_types_destroy",
-        "descriptionTemplate": "Delete a cluster type object.",
+        "name": "virtualization_cluster_types_bulk_destroy",
+        "descriptionTemplate": "Delete a list of cluster type objects.",
         "method": "DELETE",
-        "path": "/api/virtualization/cluster-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/virtualization/cluster-types/",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "virtualization_cluster_types_retrieve",
@@ -125,7 +215,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -256,7 +350,128 @@
           "type_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "group": "string",
+          "group__n": "string",
+          "group_id": "integer",
+          "group_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "string",
+          "location_id__n": "string",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "scope_id": "integer",
+          "scope_id__empty": "boolean",
+          "scope_id__gt": "integer",
+          "scope_id__gte": "integer",
+          "scope_id__lt": "integer",
+          "scope_id__lte": "integer",
+          "scope_id__n": "integer",
+          "scope_type": "string",
+          "scope_type__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "type": "string",
+          "type__n": "string",
+          "type_id": "integer",
+          "type_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "virtualization_clusters_create",
@@ -269,32 +484,50 @@
           "type": "{type}",
           "group": "{group}",
           "description": "{description}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "type": "string",
+          "group": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "virtualization_clusters_update",
-        "descriptionTemplate": "Put a cluster object.",
+        "name": "virtualization_clusters_bulk_update",
+        "descriptionTemplate": "Put a list of cluster objects.",
         "method": "PUT",
-        "path": "/api/virtualization/clusters/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/virtualization/clusters/",
+        "params": [],
         "bodyTemplate": {
           "name": "{name}",
           "type": "{type}",
           "group": "{group}",
           "description": "{description}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "type": "string",
+          "group": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "virtualization_clusters_destroy",
-        "descriptionTemplate": "Delete a cluster object.",
+        "name": "virtualization_clusters_bulk_destroy",
+        "descriptionTemplate": "Delete a list of cluster objects.",
         "method": "DELETE",
-        "path": "/api/virtualization/clusters/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/virtualization/clusters/",
+        "params": [],
+        "bodyTemplate": {
+          "id": "{id}"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "virtualization_clusters_retrieve",
@@ -304,7 +537,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -438,7 +675,131 @@
           "vrf_id",
           "vrf_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "bridge_id": "integer",
+          "bridge_id__n": "integer",
+          "cluster": "string",
+          "cluster__n": "string",
+          "cluster_id": "integer",
+          "cluster_id__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "enabled": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "l2vpn": "integer",
+          "l2vpn__n": "integer",
+          "l2vpn_id": "integer",
+          "l2vpn_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mac_address": "string",
+          "mac_address__ic": "string",
+          "mac_address__ie": "string",
+          "mac_address__iew": "string",
+          "mac_address__iregex": "string",
+          "mac_address__isw": "string",
+          "mac_address__n": "string",
+          "mac_address__nic": "string",
+          "mac_address__nie": "string",
+          "mac_address__niew": "string",
+          "mac_address__nisw": "string",
+          "mac_address__regex": "string",
+          "mode": "string",
+          "mode__empty": "boolean",
+          "mode__ic": "string",
+          "mode__ie": "string",
+          "mode__iew": "string",
+          "mode__iregex": "string",
+          "mode__isw": "string",
+          "mode__n": "string",
+          "mode__nic": "string",
+          "mode__nie": "string",
+          "mode__niew": "string",
+          "mode__nisw": "string",
+          "mode__regex": "string",
+          "modified_by_request": "string",
+          "mtu": "integer",
+          "mtu__empty": "boolean",
+          "mtu__gt": "integer",
+          "mtu__gte": "integer",
+          "mtu__lt": "integer",
+          "mtu__lte": "integer",
+          "mtu__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "primary_mac_address": "string",
+          "primary_mac_address__n": "string",
+          "primary_mac_address_id": "integer",
+          "primary_mac_address_id__n": "integer",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_machine": "string",
+          "virtual_machine__n": "string",
+          "virtual_machine_id": "integer",
+          "virtual_machine_id__n": "integer",
+          "vlan": "string",
+          "vlan_id": "string",
+          "vlan_translation_policy": "string",
+          "vlan_translation_policy__n": "string",
+          "vlan_translation_policy_id": "integer",
+          "vlan_translation_policy_id__n": "integer",
+          "vrf": "string",
+          "vrf__n": "string",
+          "vrf_id": "integer",
+          "vrf_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "virtualization_interfaces_create",
@@ -448,10 +809,17 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
+          "enabled": "{enabled}",
           "mac_address": "{mac_address}",
-          "mtu": "{mtu}",
-          "enabled": "{enabled}"
-        }
+          "mtu": "{mtu}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "enabled": "boolean",
+          "mac_address": "string",
+          "mtu": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "virtualization_interfaces_bulk_update",
@@ -461,10 +829,17 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
+          "enabled": "{enabled}",
           "mac_address": "{mac_address}",
-          "mtu": "{mtu}",
-          "enabled": "{enabled}"
-        }
+          "mtu": "{mtu}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "enabled": "boolean",
+          "mac_address": "string",
+          "mtu": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "virtualization_interfaces_bulk_destroy",
@@ -474,7 +849,13 @@
         "params": [],
         "bodyTemplate": {
           "id": "{id}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

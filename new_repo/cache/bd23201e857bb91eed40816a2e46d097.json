@@ -7,7 +7,9 @@
         "method": "GET",
         "path": "/api/status/",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -74,7 +76,64 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "contact_id": "integer",
+          "contact_id__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "group": "string",
+          "group__n": "string",
+          "group_id": "string",
+          "group_id__n": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "object_id": "integer",
+          "object_id__empty": "boolean",
+          "object_id__gt": "integer",
+          "object_id__gte": "integer",
+          "object_id__lt": "integer",
+          "object_id__lte": "integer",
+          "object_id__n": "integer",
+          "object_type": "string",
+          "object_type__n": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "priority": "string",
+          "q": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "integer",
+          "role_id__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "tenancy_contact_assignments_create",
@@ -84,9 +143,19 @@
         "params": [],
         "bodyTemplate": {
           "contact": "{contact}",
-          "object": "{object}",
+          "object_id": "{object_id}",
+          "object_type": "{object_type}",
+          "priority": "{priority}",
           "role": "{role}"
-        }
+        },
+        "paramTypes": {
+          "contact": "integer",
+          "object_id": "integer",
+          "object_type": "string",
+          "priority": "string",
+          "role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "tenancy_contact_assignments_bulk_update",
@@ -96,33 +165,35 @@
         "params": [],
         "bodyTemplate": {
           "contact": "{contact}",
-          "object": "{object}",
+          "object_id": "{object_id}",
+          "object_type": "{object_type}",
+          "priority": "{priority}",
           "role": "{role}"
-        }
-      },
-      "patch": {
-        "name": "tenancy_contact_assignments_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of contact assignment objects.",
-        "method": "PATCH",
-        "path": "/api/tenancy/contact-assignments/",
-        "params": [],
-        "bodyTemplate": {
-          "contact": "{contact}",
-          "object": "{object}",
-          "role": "{role}"
-        }
+        },
+        "paramTypes": {
+          "contact": "integer",
+          "object_id": "integer",
+          "object_type": "string",
+          "priority": "string",
+          "role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "tenancy_contact_assignments_bulk_destroy",
-        "descriptionTemplate": "Delete a list of contact assignment objects.",
+        "name": "tenancy_contact_assignments_destroy",
+        "descriptionTemplate": "Delete a contact assignment object.",
         "method": "DELETE",
-        "path": "/api/tenancy/contact-assignments/",
-        "params": [],
-        "bodyTemplate": {
-          "contact": "{contact}",
-          "object": "{object}",
-          "role": "{role}"
-        }
+        "path": "/api/tenancy/contact-assignments/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "tenancy_contact_assignments_retrieve",
@@ -132,23 +203,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "tenancy_contact_assignments_update",
-        "descriptionTemplate": "Put a contact assignment object.",
-        "method": "PUT",
-        "path": "/api/tenancy/contact-assignments/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "contact": "{contact}",
-          "object": "{object}",
-          "role": "{role}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "tenancy_contact_assignments_partial_update",
         "descriptionTemplate": "Patch a contact assignment object.",
         "method": "PATCH",
@@ -158,19 +219,20 @@
         ],
         "bodyTemplate": {
           "contact": "{contact}",
-          "object": "{object}",
+          "object_id": "{object_id}",
+          "object_type": "{object_type}",
+          "priority": "{priority}",
           "role": "{role}"
-        }
-      },
-      "deleteItem": {
-        "name": "tenancy_contact_assignments_destroy",
-        "descriptionTemplate": "Delete a contact assignment object.",
-        "method": "DELETE",
-        "path": "/api/tenancy/contact-assignments/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        },
+        "paramTypes": {
+          "id": "integer",
+          "contact": "integer",
+          "object_id": "integer",
+          "object_type": "string",
+          "priority": "string",
+          "role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -264,7 +326,91 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "ancestor": "string",
+          "ancestor__n": "string",
+          "ancestor_id": "string",
+          "ancestor_id__n": "string",
+          "contact_id": "integer",
+          "contact_id__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent": "string",
+          "parent__n": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "tenancy_contact_groups_create",
@@ -277,7 +423,14 @@
           "slug": "{slug}",
           "description": "{description}",
           "parent": "{parent}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string",
+          "parent": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "tenancy_contact_groups_bulk_update",
@@ -290,33 +443,30 @@
           "slug": "{slug}",
           "description": "{description}",
           "parent": "{parent}"
-        }
-      },
-      "patch": {
-        "name": "tenancy_contact_groups_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of contact group objects.",
-        "method": "PATCH",
-        "path": "/api/tenancy/contact-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}",
-          "parent": "{parent}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string",
+          "parent": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "tenancy_contact_groups_bulk_destroy",
-        "descriptionTemplate": "Delete a list of contact group objects.",
+        "name": "tenancy_contact_groups_destroy",
+        "descriptionTemplate": "Delete a contact group object.",
         "method": "DELETE",
-        "path": "/api/tenancy/contact-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}",
-          "parent": "{parent}"
-        }
+        "path": "/api/tenancy/contact-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "tenancy_contact_groups_retrieve",
@@ -326,24 +476,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "tenancy_contact_groups_update",
-        "descriptionTemplate": "Put a contact group object.",
-        "method": "PUT",
-        "path": "/api/tenancy/contact-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}",
-          "parent": "{parent}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "tenancy_contact_groups_partial_update",
         "descriptionTemplate": "Patch a contact group object.",
         "method": "PATCH",
@@ -356,17 +495,15 @@
           "slug": "{slug}",
           "description": "{description}",
           "parent": "{parent}"
-        }
-      },
-      "deleteItem": {
-        "name": "tenancy_contact_groups_destroy",
-        "descriptionTemplate": "Delete a contact group object.",
-        "method": "DELETE",
-        "path": "/api/tenancy/contact-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string",
+          "parent": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

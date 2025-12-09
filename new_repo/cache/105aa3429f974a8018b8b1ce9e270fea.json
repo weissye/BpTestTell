@@ -1,0 +1,176 @@
+{
+  "UserBlocks": {
+    "operations": {
+      "delete": {
+        "name": "userUnblockUser",
+        "descriptionTemplate": "Unblock a user",
+        "method": "DELETE",
+        "path": "/user/blocks/{username}",
+        "params": [
+          "username"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "userCheckUserBlock",
+        "descriptionTemplate": "Check if a user is blocked by the authenticated user",
+        "method": "GET",
+        "path": "/user/blocks/{username}",
+        "params": [
+          "username"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string"
+        }
+      },
+      "update": {
+        "name": "userBlockUser",
+        "descriptionTemplate": "Block a user",
+        "method": "PUT",
+        "path": "/user/blocks/{username}",
+        "params": [
+          "username",
+          "note"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string",
+          "note": "string"
+        }
+      }
+    }
+  },
+  "UserEmails": {
+    "operations": {
+      "delete": {
+        "name": "userDeleteEmail",
+        "descriptionTemplate": "Delete email addresses",
+        "method": "DELETE",
+        "path": "/user/emails",
+        "params": [],
+        "bodyTemplate": {
+          "email": "{email}"
+        },
+        "paramTypes": {
+          "email": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "list": {
+        "name": "userListEmails",
+        "descriptionTemplate": "List the authenticated user's email addresses",
+        "method": "GET",
+        "path": "/user/emails",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {}
+      },
+      "add": {
+        "name": "userAddEmail",
+        "descriptionTemplate": "Add email addresses",
+        "method": "POST",
+        "path": "/user/emails",
+        "params": [],
+        "bodyTemplate": {
+          "email": "{email}"
+        },
+        "paramTypes": {
+          "email": "string"
+        }
+      }
+    }
+  },
+  "UserFollowers": {
+    "operations": {
+      "list": {
+        "name": "userCurrentListFollowers",
+        "descriptionTemplate": "List the authenticated user's followers",
+        "method": "GET",
+        "path": "/user/followers",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  },
+  "UserFollowing": {
+    "operations": {
+      "list": {
+        "name": "userCurrentListFollowing",
+        "descriptionTemplate": "List the users that the authenticated user is following",
+        "method": "GET",
+        "path": "/user/following",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  },
+  "UserFollowingSpecific": {
+    "operations": {
+      "delete": {
+        "name": "userCurrentDeleteFollow",
+        "descriptionTemplate": "Unfollow a user",
+        "method": "DELETE",
+        "path": "/user/following/{username}",
+        "params": [
+          "username"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "userCurrentCheckFollowing",
+        "descriptionTemplate": "Check whether a user is followed by the authenticated user",
+        "method": "GET",
+        "path": "/user/following/{username}",
+        "params": [
+          "username"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string"
+        }
+      },
+      "update": {
+        "name": "userCurrentPutFollow",
+        "descriptionTemplate": "Follow a user",
+        "method": "PUT",
+        "path": "/user/following/{username}",
+        "params": [
+          "username"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string"
+        }
+      }
+    }
+  }
+}

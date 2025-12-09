@@ -1,0 +1,221 @@
+{
+  "Server": {
+    "operations": {
+      "list": {
+        "name": "ping",
+        "descriptionTemplate": "Ping, pong. Ping.. pong.",
+        "method": "GET",
+        "path": "/server/ping",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "Settings": {
+    "operations": {
+      "list": {
+        "name": "getSettings",
+        "descriptionTemplate": "List the settings.",
+        "method": "GET",
+        "path": "/settings",
+        "params": [
+          "Limit",
+          "Offset",
+          "Meta",
+          "Page"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "Limit": "integer",
+          "Offset": "integer",
+          "Meta": "boolean",
+          "Page": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateSetting",
+        "descriptionTemplate": "Update the settings",
+        "method": "PATCH",
+        "path": "/settings",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Users": {
+    "operations": {
+      "list": {
+        "name": "getUsers",
+        "descriptionTemplate": "List the users.",
+        "method": "GET",
+        "path": "/users",
+        "params": [
+          "Fields",
+          "Limit",
+          "Offset",
+          "Meta",
+          "Sort",
+          "Filter",
+          "Search"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "Fields": "string",
+          "Limit": "integer",
+          "Offset": "integer",
+          "Meta": "boolean",
+          "Sort": "string",
+          "Filter": "string",
+          "Search": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "createUser",
+        "descriptionTemplate": "Create a new user.",
+        "method": "POST",
+        "path": "/users",
+        "params": [
+          "Meta"
+        ],
+        "bodyTemplate": {
+          "data": "{data}"
+        },
+        "paramTypes": {
+          "Meta": "boolean",
+          "data": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateUsers",
+        "descriptionTemplate": "Update multiple users at the same time.",
+        "method": "PATCH",
+        "path": "/users",
+        "params": [
+          "Fields",
+          "Limit",
+          "Meta",
+          "Offset",
+          "Sort",
+          "Filter",
+          "Search"
+        ],
+        "bodyTemplate": {
+          "data": "{data}",
+          "keys": "{keys}"
+        },
+        "paramTypes": {
+          "Fields": "string",
+          "Limit": "integer",
+          "Meta": "boolean",
+          "Offset": "integer",
+          "Sort": "string",
+          "Filter": "string",
+          "Search": "string",
+          "data": "object",
+          "keys": "array"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "delete": {
+        "name": "deleteUsers",
+        "descriptionTemplate": "Delete multiple existing users.",
+        "method": "DELETE",
+        "path": "/users",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      },
+      "invite": {
+        "name": "invite",
+        "descriptionTemplate": "Invites one or more users to this project.",
+        "method": "POST",
+        "path": "/users/invite",
+        "params": [],
+        "bodyTemplate": {
+          "email": "{email}"
+        },
+        "paramTypes": {
+          "email": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getUser",
+        "descriptionTemplate": "Retrieve a single user by unique identifier.",
+        "method": "GET",
+        "path": "/users/{id}",
+        "params": [
+          "Fields",
+          "Meta",
+          "UUId"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "boolean",
+          "UUId": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateSingle": {
+        "name": "updateUser",
+        "descriptionTemplate": "Update an existing user",
+        "method": "PATCH",
+        "path": "/users/{id}",
+        "params": [
+          "Fields",
+          "Meta",
+          "UUId"
+        ],
+        "bodyTemplate": {
+          "data": "{data}"
+        },
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "boolean",
+          "UUId": "string",
+          "data": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "deleteSingle": {
+        "name": "deleteUser",
+        "descriptionTemplate": "Delete an existing user",
+        "method": "DELETE",
+        "path": "/users/{id}",
+        "params": [
+          "UUId"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "UUId": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

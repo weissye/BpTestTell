@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -87,7 +93,77 @@
           "user_name__nisw",
           "user_name__regex"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "action": "string",
+          "changed_object_id": "integer",
+          "changed_object_id__empty": "boolean",
+          "changed_object_id__gt": "integer",
+          "changed_object_id__gte": "integer",
+          "changed_object_id__lt": "integer",
+          "changed_object_id__lte": "integer",
+          "changed_object_id__n": "integer",
+          "changed_object_type": "string",
+          "changed_object_type__n": "string",
+          "changed_object_type_id": "integer",
+          "changed_object_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "limit": "integer",
+          "object_repr": "string",
+          "object_repr__empty": "boolean",
+          "object_repr__ic": "string",
+          "object_repr__ie": "string",
+          "object_repr__iew": "string",
+          "object_repr__iregex": "string",
+          "object_repr__isw": "string",
+          "object_repr__n": "string",
+          "object_repr__nic": "string",
+          "object_repr__nie": "string",
+          "object_repr__niew": "string",
+          "object_repr__nisw": "string",
+          "object_repr__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "related_object_id": "integer",
+          "related_object_id__empty": "boolean",
+          "related_object_id__gt": "integer",
+          "related_object_id__gte": "integer",
+          "related_object_id__lt": "integer",
+          "related_object_id__lte": "integer",
+          "related_object_id__n": "integer",
+          "related_object_type": "integer",
+          "related_object_type__n": "integer",
+          "request_id": "string",
+          "time_after": "string",
+          "time_before": "string",
+          "user": "string",
+          "user__n": "string",
+          "user_id": "integer",
+          "user_id__n": "integer",
+          "user_name": "string",
+          "user_name__empty": "boolean",
+          "user_name__ic": "string",
+          "user_name__ie": "string",
+          "user_name__iew": "string",
+          "user_name__iregex": "string",
+          "user_name__isw": "string",
+          "user_name__n": "string",
+          "user_name__nic": "string",
+          "user_name__nie": "string",
+          "user_name__niew": "string",
+          "user_name__nisw": "string",
+          "user_name__regex": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "core_object_changes_retrieve",
@@ -97,7 +173,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -149,7 +231,51 @@
           "public",
           "q"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "app_label": "string",
+          "app_label__empty": "boolean",
+          "app_label__ic": "string",
+          "app_label__ie": "string",
+          "app_label__iew": "string",
+          "app_label__iregex": "string",
+          "app_label__isw": "string",
+          "app_label__n": "string",
+          "app_label__nic": "string",
+          "app_label__nie": "string",
+          "app_label__niew": "string",
+          "app_label__nisw": "string",
+          "app_label__regex": "string",
+          "features": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "limit": "integer",
+          "model": "string",
+          "model__empty": "boolean",
+          "model__ic": "string",
+          "model__ie": "string",
+          "model__iew": "string",
+          "model__iregex": "string",
+          "model__isw": "string",
+          "model__n": "string",
+          "model__nic": "string",
+          "model__nie": "string",
+          "model__niew": "string",
+          "model__nisw": "string",
+          "model__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "public": "boolean",
+          "q": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "core_object_types_retrieve",
@@ -159,7 +285,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

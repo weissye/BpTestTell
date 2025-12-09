@@ -1,0 +1,244 @@
+{
+  "Cards": {
+    "operations": {
+      "add": {
+        "name": "addCards",
+        "descriptionTemplate": "Attributes of \"Cards\" to be added.",
+        "method": "POST",
+        "path": "/cards",
+        "params": [
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "cards": "{cards}"
+        },
+        "paramTypes": {
+          "key": "string",
+          "token": "string",
+          "cards": "object"
+        }
+      },
+      "delete": {
+        "name": "deleteCardsByIdCard",
+        "descriptionTemplate": "Delete a card by its ID or shortlink.",
+        "method": "DELETE",
+        "path": "/cards/{idCard}",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getCardsByIdCard",
+        "descriptionTemplate": "Get a card by its ID or shortlink.",
+        "method": "GET",
+        "path": "/cards/{idCard}",
+        "params": [
+          "idCard",
+          "actions",
+          "actions_entities",
+          "actions_display",
+          "actions_limit",
+          "action_fields",
+          "action_memberCreator_fields",
+          "attachments",
+          "attachment_fields",
+          "members",
+          "member_fields",
+          "membersVoted",
+          "memberVoted_fields",
+          "checkItemStates",
+          "checkItemState_fields",
+          "checklists",
+          "checklist_fields",
+          "board",
+          "board_fields",
+          "list",
+          "list_fields",
+          "stickers",
+          "sticker_fields",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "actions": "string",
+          "actions_entities": "string",
+          "actions_display": "string",
+          "actions_limit": "string",
+          "action_fields": "string",
+          "action_memberCreator_fields": "string",
+          "attachments": "string",
+          "attachment_fields": "string",
+          "members": "string",
+          "member_fields": "string",
+          "membersVoted": "string",
+          "memberVoted_fields": "string",
+          "checkItemStates": "string",
+          "checkItemState_fields": "string",
+          "checklists": "string",
+          "checklist_fields": "string",
+          "board": "string",
+          "board_fields": "string",
+          "list": "string",
+          "list_fields": "string",
+          "stickers": "string",
+          "sticker_fields": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "update": {
+        "name": "updateCardsByIdCard",
+        "descriptionTemplate": "Attributes of \"Cards\" to be updated.",
+        "method": "PUT",
+        "path": "/cards/{idCard}",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "cards": "{cards}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "cards": "object"
+        }
+      }
+    }
+  },
+  "CardsActions": {
+    "operations": {
+      "list": {
+        "name": "getCardsActionsByIdCard",
+        "descriptionTemplate": "List actions for a card by its ID or shortlink.",
+        "method": "GET",
+        "path": "/cards/{idCard}/actions",
+        "params": [
+          "idCard",
+          "entities",
+          "display",
+          "filter",
+          "fields",
+          "limit",
+          "format",
+          "since",
+          "before",
+          "page",
+          "idModels",
+          "member",
+          "member_fields",
+          "memberCreator",
+          "memberCreator_fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "entities": "string",
+          "display": "string",
+          "filter": "string",
+          "fields": "string",
+          "limit": "string",
+          "format": "string",
+          "since": "string",
+          "before": "string",
+          "page": "string",
+          "idModels": "string",
+          "member": "string",
+          "member_fields": "string",
+          "memberCreator": "string",
+          "memberCreator_fields": "string",
+          "key": "string",
+          "token": "string"
+        }
+      }
+    }
+  },
+  "CardsActionsComments": {
+    "operations": {
+      "add": {
+        "name": "addCardsActionsCommentsByIdCard",
+        "descriptionTemplate": "Attributes of \"Actions Comments\" to be added.",
+        "method": "POST",
+        "path": "/cards/{idCard}/actions/comments",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "actions_comments": "{actions_comments}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "actions_comments": "object"
+        }
+      },
+      "delete": {
+        "name": "deleteCardsActionsCommentsByIdCardByIdAction",
+        "descriptionTemplate": "Delete a comment by its ID or shortlink.",
+        "method": "DELETE",
+        "path": "/cards/{idCard}/actions/{idAction}/comments",
+        "params": [
+          "idCard",
+          "idAction",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "idAction": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateCardsActionsCommentsByIdCardByIdAction",
+        "descriptionTemplate": "Attributes of \"Cards Actions Comments\" to be updated.",
+        "method": "PUT",
+        "path": "/cards/{idCard}/actions/{idAction}/comments",
+        "params": [
+          "idCard",
+          "idAction",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "cards_actions_comments": "{cards_actions_comments}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "idAction": "string",
+          "key": "string",
+          "token": "string",
+          "cards_actions_comments": "object"
+        }
+      }
+    }
+  }
+}

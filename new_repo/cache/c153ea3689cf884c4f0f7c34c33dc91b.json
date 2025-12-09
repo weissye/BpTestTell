@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "extras_custom_fields_update",
@@ -20,20 +26,19 @@
           "id"
         ],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
-        "name": "extras_custom_fields_partial_update",
-        "descriptionTemplate": "Patch a custom field object.",
-        "method": "PATCH",
-        "path": "/api/extras/custom-fields/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "name": "{name}",
+          "type": "{type}",
+          "required": "{required}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "type": "string",
+          "required": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "extras_custom_fields_destroy",
@@ -43,7 +48,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -158,7 +169,114 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "button_class": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "enabled": "boolean",
+          "group_name": "string",
+          "group_name__empty": "boolean",
+          "group_name__ic": "string",
+          "group_name__ie": "string",
+          "group_name__iew": "string",
+          "group_name__iregex": "string",
+          "group_name__isw": "string",
+          "group_name__n": "string",
+          "group_name__nic": "string",
+          "group_name__nie": "string",
+          "group_name__niew": "string",
+          "group_name__nisw": "string",
+          "group_name__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "link_text": "string",
+          "link_text__ic": "string",
+          "link_text__ie": "string",
+          "link_text__iew": "string",
+          "link_text__iregex": "string",
+          "link_text__isw": "string",
+          "link_text__n": "string",
+          "link_text__nic": "string",
+          "link_text__nie": "string",
+          "link_text__niew": "string",
+          "link_text__nisw": "string",
+          "link_text__regex": "string",
+          "link_url": "string",
+          "link_url__ic": "string",
+          "link_url__ie": "string",
+          "link_url__iew": "string",
+          "link_url__iregex": "string",
+          "link_url__isw": "string",
+          "link_url__n": "string",
+          "link_url__nic": "string",
+          "link_url__nie": "string",
+          "link_url__niew": "string",
+          "link_url__nisw": "string",
+          "link_url__regex": "string",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "new_window": "boolean",
+          "object_type": "string",
+          "object_type__ic": "string",
+          "object_type__ie": "string",
+          "object_type__iew": "string",
+          "object_type__iregex": "string",
+          "object_type__isw": "string",
+          "object_type__n": "string",
+          "object_type__nic": "string",
+          "object_type__nie": "string",
+          "object_type__niew": "string",
+          "object_type__nisw": "string",
+          "object_type__regex": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "updated_by_request": "string",
+          "weight": "integer",
+          "weight__empty": "boolean",
+          "weight__gt": "integer",
+          "weight__gte": "integer",
+          "weight__lt": "integer",
+          "weight__lte": "integer",
+          "weight__n": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "extras_custom_links_create",
@@ -167,8 +285,18 @@
         "path": "/api/extras/custom-links/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "name": "{name}",
+          "url": "{url}",
+          "weight": "{weight}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "url": "string",
+          "weight": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "extras_custom_links_bulk_update",
@@ -177,18 +305,18 @@
         "path": "/api/extras/custom-links/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
-        "name": "extras_custom_links_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of custom link objects.",
-        "method": "PATCH",
-        "path": "/api/extras/custom-links/",
-        "params": [],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "name": "{name}",
+          "url": "{url}",
+          "weight": "{weight}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "url": "string",
+          "weight": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "extras_custom_links_bulk_destroy",
@@ -197,52 +325,14 @@
         "path": "/api/extras/custom-links/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "get": {
-        "name": "extras_custom_links_retrieve",
-        "descriptionTemplate": "Get a custom link object.",
-        "method": "GET",
-        "path": "/api/extras/custom-links/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "update_single": {
-        "name": "extras_custom_links_update",
-        "descriptionTemplate": "Put a custom link object.",
-        "method": "PUT",
-        "path": "/api/extras/custom-links/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch_single": {
-        "name": "extras_custom_links_partial_update",
-        "descriptionTemplate": "Patch a custom link object.",
-        "method": "PATCH",
-        "path": "/api/extras/custom-links/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "delete_single": {
-        "name": "extras_custom_links_destroy",
-        "descriptionTemplate": "Delete a custom link object.",
-        "method": "DELETE",
-        "path": "/api/extras/custom-links/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+          "ids": "{ids}"
+        },
+        "paramTypes": {
+          "ids": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -254,7 +344,11 @@
         "method": "GET",
         "path": "/api/extras/dashboard/",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "extras_dashboard_update",
@@ -263,18 +357,16 @@
         "path": "/api/extras/dashboard/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
-        "name": "extras_dashboard_partial_update",
-        "descriptionTemplate": "Patch a list of dashboard objects.",
-        "method": "PATCH",
-        "path": "/api/extras/dashboard/",
-        "params": [],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "title": "{title}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "title": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "extras_dashboard_destroy",
@@ -282,7 +374,11 @@
         "method": "DELETE",
         "path": "/api/extras/dashboard/",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -391,7 +487,108 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "action_object_id": "integer",
+          "action_object_id__empty": "integer",
+          "action_object_id__gt": "integer",
+          "action_object_id__gte": "integer",
+          "action_object_id__lt": "integer",
+          "action_object_id__lte": "integer",
+          "action_object_id__n": "integer",
+          "action_object_type": "string",
+          "action_object_type__n": "string",
+          "action_type": "string",
+          "action_type__empty": "boolean",
+          "action_type__ic": "string",
+          "action_type__ie": "string",
+          "action_type__iew": "string",
+          "action_type__iregex": "string",
+          "action_type__isw": "string",
+          "action_type__n": "string",
+          "action_type__nic": "string",
+          "action_type__nie": "string",
+          "action_type__niew": "string",
+          "action_type__nisw": "string",
+          "action_type__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "enabled": "boolean",
+          "event_type": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "object_type": "string",
+          "object_type__ic": "string",
+          "object_type__ie": "string",
+          "object_type__iew": "string",
+          "object_type__iregex": "string",
+          "object_type__isw": "string",
+          "object_type__n": "string",
+          "object_type__nic": "string",
+          "object_type__nie": "string",
+          "object_type__niew": "string",
+          "object_type__nisw": "string",
+          "object_type__regex": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "extras_event_rules_create",
@@ -400,8 +597,18 @@
         "path": "/api/extras/event-rules/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "enabled": "{enabled}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "enabled": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "extras_event_rules_bulk_update",
@@ -410,18 +617,18 @@
         "path": "/api/extras/event-rules/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
-        "name": "extras_event_rules_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of event rule objects.",
-        "method": "PATCH",
-        "path": "/api/extras/event-rules/",
-        "params": [],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "enabled": "{enabled}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "enabled": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "extras_event_rules_bulk_destroy",
@@ -430,8 +637,14 @@
         "path": "/api/extras/event-rules/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
-        }
+          "ids": "{ids}"
+        },
+        "paramTypes": {
+          "ids": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

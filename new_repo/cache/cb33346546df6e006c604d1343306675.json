@@ -1,0 +1,174 @@
+{
+  "CardsChecklistCheckItemPos": {
+    "operations": {
+      "update": {
+        "name": "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem()",
+        "method": "PUT",
+        "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos",
+        "params": [
+          "idCard",
+          "idChecklist",
+          "idCheckItem",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "pos": "{pos}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "key": "string",
+          "token": "string",
+          "pos": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "CardsChecklistCheckItemState": {
+    "operations": {
+      "update": {
+        "name": "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem()",
+        "method": "PUT",
+        "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state",
+        "params": [
+          "idCard",
+          "idChecklist",
+          "idCheckItem",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "state": "{state}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "key": "string",
+          "token": "string",
+          "state": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "CardsChecklists": {
+    "operations": {
+      "list": {
+        "name": "getCardsChecklistsByIdCard",
+        "descriptionTemplate": "getCardsChecklistsByIdCard()",
+        "method": "GET",
+        "path": "/cards/{idCard}/checklists",
+        "params": [
+          "idCard",
+          "cards",
+          "card_fields",
+          "checkItems",
+          "checkItem_fields",
+          "filter",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "cards": "string",
+          "card_fields": "string",
+          "checkItems": "string",
+          "checkItem_fields": "string",
+          "filter": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addCardsChecklistsByIdCard",
+        "descriptionTemplate": "addCardsChecklistsByIdCard()",
+        "method": "POST",
+        "path": "/cards/{idCard}/checklists",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "pos": "{pos}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string",
+          "pos": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteCardsChecklistsByIdCardByIdChecklist",
+        "descriptionTemplate": "deleteCardsChecklistsByIdCardByIdChecklist()",
+        "method": "DELETE",
+        "path": "/cards/{idCard}/checklists/{idChecklist}",
+        "params": [
+          "idCard",
+          "idChecklist",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "idChecklist": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "CardsClosed": {
+    "operations": {
+      "update": {
+        "name": "updateCardsClosedByIdCard",
+        "descriptionTemplate": "updateCardsClosedByIdCard()",
+        "method": "PUT",
+        "path": "/cards/{idCard}/closed",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "value": "{value}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "value": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

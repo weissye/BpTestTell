@@ -1,16 +1,6 @@
 {
   "PowerPortTemplates": {
     "operations": {
-      "delete": {
-        "name": "dcim_power_port_templates_bulk_destroy",
-        "descriptionTemplate": "Delete a list of power port template objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/power-port-templates/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{PowerPortTemplateRequest}"
-        }
-      },
       "list": {
         "name": "dcim_power_port_templates_list",
         "descriptionTemplate": "Get a list of power port template objects.",
@@ -104,7 +94,96 @@
           "type",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "allocated_draw": "integer",
+          "allocated_draw__empty": "boolean",
+          "allocated_draw__gt": "integer",
+          "allocated_draw__gte": "integer",
+          "allocated_draw__lt": "integer",
+          "allocated_draw__lte": "integer",
+          "allocated_draw__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "maximum_draw": "integer",
+          "maximum_draw__empty": "boolean",
+          "maximum_draw__gt": "integer",
+          "maximum_draw__gte": "integer",
+          "maximum_draw__lt": "integer",
+          "maximum_draw__lte": "integer",
+          "maximum_draw__n": "integer",
+          "modified_by_request": "string",
+          "module_type_id": "integer",
+          "module_type_id__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "type": "string",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_power_port_templates_create",
@@ -113,8 +192,14 @@
         "path": "/api/dcim/power-port-templates/",
         "params": [],
         "bodyTemplate": {
-          "WritablePowerPortTemplateRequest": "{WritablePowerPortTemplateRequest}"
-        }
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_power_port_templates_bulk_update",
@@ -123,18 +208,32 @@
         "path": "/api/dcim/power-port-templates/",
         "params": [],
         "bodyTemplate": {
-          "items": "{PowerPortTemplateRequest}"
-        }
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "patch": {
-        "name": "dcim_power_port_templates_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of power port template objects.",
-        "method": "PATCH",
+      "delete": {
+        "name": "dcim_power_port_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of power port template objects.",
+        "method": "DELETE",
         "path": "/api/dcim/power-port-templates/",
         "params": [],
         "bodyTemplate": {
-          "items": "{PowerPortTemplateRequest}"
-        }
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_power_port_templates_retrieve",
@@ -144,56 +243,16 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "deleteItem": {
-        "name": "dcim_power_port_templates_destroy",
-        "descriptionTemplate": "Delete a power port template object.",
-        "method": "DELETE",
-        "path": "/api/dcim/power-port-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "updateItem": {
-        "name": "dcim_power_port_templates_update",
-        "descriptionTemplate": "Put a power port template object.",
-        "method": "PUT",
-        "path": "/api/dcim/power-port-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "WritablePowerPortTemplateRequest": "{WritablePowerPortTemplateRequest}"
-        }
-      },
-      "patchItem": {
-        "name": "dcim_power_port_templates_partial_update",
-        "descriptionTemplate": "Patch a power port template object.",
-        "method": "PATCH",
-        "path": "/api/dcim/power-port-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "PatchedWritablePowerPortTemplateRequest": "{PatchedWritablePowerPortTemplateRequest}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
   "PowerPorts": {
     "operations": {
-      "delete": {
-        "name": "dcim_power_ports_bulk_destroy",
-        "descriptionTemplate": "Delete a list of power port objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/power-ports/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{PowerPortRequest}"
-        }
-      },
       "list": {
         "name": "dcim_power_ports_list",
         "descriptionTemplate": "Get a list of power port objects.",
@@ -357,7 +416,166 @@
           "virtual_chassis_id",
           "virtual_chassis_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "allocated_draw": "integer",
+          "allocated_draw__empty": "boolean",
+          "allocated_draw__gt": "integer",
+          "allocated_draw__gte": "integer",
+          "allocated_draw__lt": "integer",
+          "allocated_draw__lte": "integer",
+          "allocated_draw__n": "integer",
+          "cable_end": "string",
+          "cable_id": "integer",
+          "cable_id__n": "integer",
+          "cabled": "boolean",
+          "connected": "boolean",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device__n": "string",
+          "device_id": "integer",
+          "device_id__n": "integer",
+          "device_role": "string",
+          "device_role__n": "string",
+          "device_role_id": "integer",
+          "device_role_id__n": "integer",
+          "device_status": "string",
+          "device_status__empty": "boolean",
+          "device_status__ic": "string",
+          "device_status__ie": "string",
+          "device_status__iew": "string",
+          "device_status__iregex": "string",
+          "device_status__isw": "string",
+          "device_status__n": "string",
+          "device_status__nic": "string",
+          "device_status__nie": "string",
+          "device_status__niew": "string",
+          "device_status__nisw": "string",
+          "device_status__regex": "string",
+          "device_type": "string",
+          "device_type__n": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "integer",
+          "location_id__n": "integer",
+          "mark_connected": "boolean",
+          "maximum_draw": "integer",
+          "maximum_draw__empty": "boolean",
+          "maximum_draw__gt": "integer",
+          "maximum_draw__gte": "integer",
+          "maximum_draw__lt": "integer",
+          "maximum_draw__lte": "integer",
+          "maximum_draw__n": "integer",
+          "modified_by_request": "string",
+          "module_id": "integer",
+          "module_id__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "occupied": "boolean",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "rack": "string",
+          "rack__n": "string",
+          "rack_id": "integer",
+          "rack_id__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "type": "string",
+          "type__empty": "boolean",
+          "type__ic": "string",
+          "type__ie": "string",
+          "type__iew": "string",
+          "type__iregex": "string",
+          "type__isw": "string",
+          "type__n": "string",
+          "type__nic": "string",
+          "type__nie": "string",
+          "type__niew": "string",
+          "type__nisw": "string",
+          "type__regex": "string",
+          "updated_by_request": "string",
+          "virtual_chassis": "string",
+          "virtual_chassis__n": "string",
+          "virtual_chassis_id": "integer",
+          "virtual_chassis_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_power_ports_create",
@@ -366,8 +584,14 @@
         "path": "/api/dcim/power-ports/",
         "params": [],
         "bodyTemplate": {
-          "WritablePowerPortRequest": "{WritablePowerPortRequest}"
-        }
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_power_ports_bulk_update",
@@ -376,18 +600,32 @@
         "path": "/api/dcim/power-ports/",
         "params": [],
         "bodyTemplate": {
-          "items": "{PowerPortRequest}"
-        }
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "patch": {
-        "name": "dcim_power_ports_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of power port objects.",
-        "method": "PATCH",
+      "delete": {
+        "name": "dcim_power_ports_bulk_destroy",
+        "descriptionTemplate": "Delete a list of power port objects.",
+        "method": "DELETE",
         "path": "/api/dcim/power-ports/",
         "params": [],
         "bodyTemplate": {
-          "items": "{PowerPortRequest}"
-        }
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_power_ports_retrieve",
@@ -397,41 +635,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "deleteItem": {
-        "name": "dcim_power_ports_destroy",
-        "descriptionTemplate": "Delete a power port object.",
-        "method": "DELETE",
-        "path": "/api/dcim/power-ports/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "updateItem": {
-        "name": "dcim_power_ports_update",
-        "descriptionTemplate": "Put a power port object.",
-        "method": "PUT",
-        "path": "/api/dcim/power-ports/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "WritablePowerPortRequest": "{WritablePowerPortRequest}"
-        }
-      },
-      "patchItem": {
-        "name": "dcim_power_ports_partial_update",
-        "descriptionTemplate": "Patch a power port object.",
-        "method": "PATCH",
-        "path": "/api/dcim/power-ports/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "PatchedWritablePowerPortRequest": "{PatchedWritablePowerPortRequest}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "trace": {
         "name": "dcim_power_ports_trace_retrieve",
@@ -441,7 +649,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

@@ -1,0 +1,220 @@
+{
+  "MembersBoardsInvited": {
+    "operations": {
+      "get": {
+        "name": "getMembersBoardsInvitedByIdMemberByField",
+        "descriptionTemplate": "Retrieve invited boards for a member by specific field.",
+        "method": "GET",
+        "path": "/members/{idMember}/boardsInvited/{field}",
+        "params": [
+          "idMember",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "MembersCards": {
+    "operations": {
+      "list": {
+        "name": "getMembersCardsByIdMember",
+        "descriptionTemplate": "List all cards for a member.",
+        "method": "GET",
+        "path": "/members/{idMember}/cards",
+        "params": [
+          "idMember",
+          "actions",
+          "attachments",
+          "attachment_fields",
+          "stickers",
+          "members",
+          "member_fields",
+          "checkItemStates",
+          "checklists",
+          "limit",
+          "since",
+          "before",
+          "filter",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "actions": "string",
+          "attachments": "string",
+          "attachment_fields": "string",
+          "stickers": "string",
+          "members": "string",
+          "member_fields": "string",
+          "checkItemStates": "string",
+          "checklists": "string",
+          "limit": "string",
+          "since": "string",
+          "before": "string",
+          "filter": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getMembersCardsByIdMemberByFilter",
+        "descriptionTemplate": "Retrieve cards for a member by filter.",
+        "method": "GET",
+        "path": "/members/{idMember}/cards/{filter}",
+        "params": [
+          "idMember",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "MembersCustomBoardBackgrounds": {
+    "operations": {
+      "list": {
+        "name": "getMembersCustomBoardBackgroundsByIdMember",
+        "descriptionTemplate": "List custom board backgrounds for a member.",
+        "method": "GET",
+        "path": "/members/{idMember}/customBoardBackgrounds",
+        "params": [
+          "idMember",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addMembersCustomBoardBackgroundsByIdMember",
+        "descriptionTemplate": "Add a custom board background for a member.",
+        "method": "POST",
+        "path": "/members/{idMember}/customBoardBackgrounds",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "customBoardBackgrounds": "{customBoardBackgrounds}"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string",
+          "customBoardBackgrounds": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground",
+        "descriptionTemplate": "Retrieve a specific custom board background for a member.",
+        "method": "GET",
+        "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+        "params": [
+          "idMember",
+          "idBoardBackground",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardBackground": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground",
+        "descriptionTemplate": "Update a specific custom board background for a member.",
+        "method": "PUT",
+        "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+        "params": [
+          "idMember",
+          "idBoardBackground",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "customBoardBackgrounds": "{customBoardBackgrounds}"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardBackground": "string",
+          "key": "string",
+          "token": "string",
+          "customBoardBackgrounds": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground",
+        "descriptionTemplate": "Delete a specific custom board background for a member.",
+        "method": "DELETE",
+        "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+        "params": [
+          "idMember",
+          "idBoardBackground",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idMember": "string",
+          "idBoardBackground": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

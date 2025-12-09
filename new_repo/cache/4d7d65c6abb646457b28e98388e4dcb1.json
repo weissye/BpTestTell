@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_service_templates_retrieve",
@@ -19,7 +25,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "ipam_service_templates_update",
@@ -30,8 +39,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "template": "{template}",
-          "description": "{description}"
+          "templateField1": "{templateField1}",
+          "templateField2": "{templateField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "templateField1": "string",
+          "templateField2": "integer"
+        }
+      },
+      "patch": {
+        "name": "ipam_service_templates_partial_update",
+        "descriptionTemplate": "Patch a application service template object.",
+        "method": "PATCH",
+        "path": "/api/ipam/service-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "templateField1": "{templateField1}",
+          "templateField2": "{templateField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "templateField1": "string",
+          "templateField2": "integer"
         }
       }
     }
@@ -46,7 +78,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_services_retrieve",
@@ -56,7 +94,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "ipam_services_list",
@@ -156,7 +197,100 @@
           "virtual_machine",
           "virtual_machine_id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device_id": "integer",
+          "fhrpgroup": "string",
+          "fhrpgroup_id": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ip_address": "string",
+          "ip_address__n": "string",
+          "ip_address_id": "integer",
+          "ip_address_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent_object_id": "integer",
+          "parent_object_id__empty": "boolean",
+          "parent_object_id__gt": "integer",
+          "parent_object_id__gte": "integer",
+          "parent_object_id__lt": "integer",
+          "parent_object_id__lte": "integer",
+          "parent_object_id__n": "integer",
+          "parent_object_type": "integer",
+          "parent_object_type__n": "integer",
+          "port": "number",
+          "port__empty": "number",
+          "port__gt": "number",
+          "port__gte": "number",
+          "port__lt": "number",
+          "port__lte": "number",
+          "port__n": "number",
+          "protocol": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_machine": "string",
+          "virtual_machine_id": "integer"
+        }
       },
       "add": {
         "name": "ipam_services_create",
@@ -165,9 +299,12 @@
         "path": "/api/ipam/services/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "protocol": "{protocol}"
+          "serviceField1": "{serviceField1}",
+          "serviceField2": "{serviceField2}"
+        },
+        "paramTypes": {
+          "serviceField1": "string",
+          "serviceField2": "integer"
         }
       },
       "update": {
@@ -179,9 +316,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "protocol": "{protocol}"
+          "serviceField1": "{serviceField1}",
+          "serviceField2": "{serviceField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "serviceField1": "string",
+          "serviceField2": "integer"
+        }
+      },
+      "patch": {
+        "name": "ipam_services_partial_update",
+        "descriptionTemplate": "Patch a application service object.",
+        "method": "PATCH",
+        "path": "/api/ipam/services/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "serviceField1": "{serviceField1}",
+          "serviceField2": "{serviceField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "serviceField1": "string",
+          "serviceField2": "integer"
         }
       }
     }
@@ -196,7 +355,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_vlan_groups_retrieve",
@@ -206,7 +371,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "ipam_vlan_groups_list",
@@ -311,7 +479,105 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "cluster": "integer",
+          "cluster_group": "integer",
+          "contains_vid": "number",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "rack": "integer",
+          "region": "integer",
+          "scope_id": "integer",
+          "scope_id__empty": "boolean",
+          "scope_id__gt": "integer",
+          "scope_id__gte": "integer",
+          "scope_id__lt": "integer",
+          "scope_id__lte": "integer",
+          "scope_id__n": "integer",
+          "scope_type": "string",
+          "scope_type__n": "string",
+          "site": "integer",
+          "site_group": "integer",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "ipam_vlan_groups_create",
@@ -320,8 +586,12 @@
         "path": "/api/ipam/vlan-groups/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "vlanGroupField1": "{vlanGroupField1}",
+          "vlanGroupField2": "{vlanGroupField2}"
+        },
+        "paramTypes": {
+          "vlanGroupField1": "string",
+          "vlanGroupField2": "integer"
         }
       },
       "update": {
@@ -333,8 +603,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "vlanGroupField1": "{vlanGroupField1}",
+          "vlanGroupField2": "{vlanGroupField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "vlanGroupField1": "string",
+          "vlanGroupField2": "integer"
+        }
+      },
+      "patch": {
+        "name": "ipam_vlan_groups_partial_update",
+        "descriptionTemplate": "Patch a VLAN group object.",
+        "method": "PATCH",
+        "path": "/api/ipam/vlan-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "vlanGroupField1": "{vlanGroupField1}",
+          "vlanGroupField2": "{vlanGroupField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "vlanGroupField1": "string",
+          "vlanGroupField2": "integer"
         }
       }
     }

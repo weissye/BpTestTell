@@ -1,5 +1,5 @@
 {
-  "Group": {
+  "Groups": {
     "operations": {
       "delete": {
         "name": "users_groups_destroy",
@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "users_groups_retrieve",
@@ -19,7 +25,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "users_groups_update",
@@ -32,6 +41,11 @@
         "bodyTemplate": {
           "name": "{name}",
           "permissions": "{permissions}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "permissions": "array"
         }
       },
       "patch": {
@@ -45,11 +59,16 @@
         "bodyTemplate": {
           "name": "{name}",
           "permissions": "{permissions}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "permissions": "array"
         }
       }
     }
   },
-  "Permission": {
+  "Permissions": {
     "operations": {
       "delete": {
         "name": "users_permissions_destroy",
@@ -59,7 +78,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "users_permissions_retrieve",
@@ -69,7 +94,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "users_permissions_update",
@@ -81,8 +109,12 @@
         ],
         "bodyTemplate": {
           "name": "{name}",
-          "codename": "{codename}",
-          "content_type": "{content_type}"
+          "permissions": "{permissions}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "permissions": "array"
         }
       },
       "patch": {
@@ -95,8 +127,12 @@
         ],
         "bodyTemplate": {
           "name": "{name}",
-          "codename": "{codename}",
-          "content_type": "{content_type}"
+          "permissions": "{permissions}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "permissions": "array"
         }
       },
       "list": {
@@ -172,7 +208,75 @@
           "user_id",
           "user_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "can_add": "boolean",
+          "can_change": "boolean",
+          "can_delete": "boolean",
+          "can_view": "boolean",
+          "description": "array",
+          "description__empty": "boolean",
+          "description__ic": "array",
+          "description__ie": "array",
+          "description__iew": "array",
+          "description__iregex": "array",
+          "description__isw": "array",
+          "description__n": "array",
+          "description__nic": "array",
+          "description__nie": "array",
+          "description__niew": "array",
+          "description__nisw": "array",
+          "description__regex": "array",
+          "enabled": "boolean",
+          "group": "array",
+          "group__n": "array",
+          "group_id": "array",
+          "group_id__n": "array",
+          "id": "array",
+          "id__empty": "boolean",
+          "id__gt": "array",
+          "id__gte": "array",
+          "id__lt": "array",
+          "id__lte": "array",
+          "id__n": "array",
+          "limit": "integer",
+          "name": "array",
+          "name__empty": "boolean",
+          "name__ic": "array",
+          "name__ie": "array",
+          "name__iew": "array",
+          "name__iregex": "array",
+          "name__isw": "array",
+          "name__n": "array",
+          "name__nic": "array",
+          "name__nie": "array",
+          "name__niew": "array",
+          "name__nisw": "array",
+          "name__regex": "array",
+          "object_type": "string",
+          "object_type__ic": "string",
+          "object_type__ie": "string",
+          "object_type__iew": "string",
+          "object_type__iregex": "string",
+          "object_type__isw": "string",
+          "object_type__n": "string",
+          "object_type__nic": "string",
+          "object_type__nie": "string",
+          "object_type__niew": "string",
+          "object_type__nisw": "string",
+          "object_type__regex": "string",
+          "object_type_id": "array",
+          "object_type_id__n": "array",
+          "object_types": "array",
+          "object_types__n": "array",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "user": "array",
+          "user__n": "array",
+          "user_id": "array",
+          "user_id__n": "array"
+        }
       },
       "add": {
         "name": "users_permissions_create",
@@ -182,13 +286,16 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "codename": "{codename}",
-          "content_type": "{content_type}"
+          "permissions": "{permissions}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "permissions": "array"
         }
       }
     }
   },
-  "Token": {
+  "Tokens": {
     "operations": {
       "delete": {
         "name": "users_tokens_destroy",
@@ -198,7 +305,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "users_tokens_retrieve",
@@ -208,7 +321,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "users_tokens_update",
@@ -220,8 +336,12 @@
         ],
         "bodyTemplate": {
           "key": "{key}",
-          "user": "{user}",
           "expires": "{expires}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string",
+          "expires": "string"
         }
       },
       "patch": {
@@ -234,8 +354,12 @@
         ],
         "bodyTemplate": {
           "key": "{key}",
-          "user": "{user}",
           "expires": "{expires}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string",
+          "expires": "string"
         }
       },
       "list": {
@@ -300,7 +424,64 @@
           "user_id__n",
           "write_enabled"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__gte": "string",
+          "created__lte": "string",
+          "description": "array",
+          "description__empty": "boolean",
+          "description__ic": "array",
+          "description__ie": "array",
+          "description__iew": "array",
+          "description__iregex": "array",
+          "description__isw": "array",
+          "description__n": "array",
+          "description__nic": "array",
+          "description__nie": "array",
+          "description__niew": "array",
+          "description__nisw": "array",
+          "description__regex": "array",
+          "expires": "string",
+          "expires__gte": "string",
+          "expires__lte": "string",
+          "id": "array",
+          "id__empty": "boolean",
+          "id__gt": "array",
+          "id__gte": "array",
+          "id__lt": "array",
+          "id__lte": "array",
+          "id__n": "array",
+          "key": "array",
+          "key__empty": "boolean",
+          "key__ic": "array",
+          "key__ie": "array",
+          "key__iew": "array",
+          "key__iregex": "array",
+          "key__isw": "array",
+          "key__n": "array",
+          "key__nic": "array",
+          "key__nie": "array",
+          "key__niew": "array",
+          "key__nisw": "array",
+          "key__regex": "array",
+          "last_used": "array",
+          "last_used__empty": "boolean",
+          "last_used__gt": "array",
+          "last_used__gte": "array",
+          "last_used__lt": "array",
+          "last_used__lte": "array",
+          "last_used__n": "array",
+          "limit": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "user": "array",
+          "user__n": "array",
+          "user_id": "array",
+          "user_id__n": "array",
+          "write_enabled": "boolean"
+        }
       },
       "add": {
         "name": "users_tokens_create",
@@ -310,8 +491,11 @@
         "params": [],
         "bodyTemplate": {
           "key": "{key}",
-          "user": "{user}",
           "expires": "{expires}"
+        },
+        "paramTypes": {
+          "key": "string",
+          "expires": "string"
         }
       }
     }

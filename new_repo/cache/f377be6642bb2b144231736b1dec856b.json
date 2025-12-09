@@ -1,0 +1,182 @@
+{
+  "BoardsLists": {
+    "operations": {
+      "list": {
+        "name": "getBoardsListsByIdBoard",
+        "descriptionTemplate": "Retrieve lists for a specific board.",
+        "method": "GET",
+        "path": "/boards/{idBoard}/lists",
+        "params": [
+          "idBoard",
+          "cards",
+          "card_fields",
+          "filter",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "cards": "string",
+          "card_fields": "string",
+          "filter": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addBoardsListsByIdBoard",
+        "descriptionTemplate": "Add a new list to a specific board.",
+        "method": "POST",
+        "path": "/boards/{idBoard}/lists",
+        "params": [
+          "idBoard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "pos": "{pos}"
+        },
+        "paramTypes": {
+          "idBoard": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string",
+          "pos": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getBoardsListsByIdBoardByFilter",
+        "descriptionTemplate": "Retrieve lists for a specific board with a filter.",
+        "method": "GET",
+        "path": "/boards/{idBoard}/lists/{filter}",
+        "params": [
+          "idBoard",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "BoardsMarkAsViewed": {
+    "operations": {
+      "add": {
+        "name": "addBoardsMarkAsViewedByIdBoard",
+        "descriptionTemplate": "Mark a board as viewed.",
+        "method": "POST",
+        "path": "/boards/{idBoard}/markAsViewed",
+        "params": [
+          "idBoard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "BoardsMembers": {
+    "operations": {
+      "list": {
+        "name": "getBoardsMembersByIdBoard",
+        "descriptionTemplate": "Retrieve members of a specific board.",
+        "method": "GET",
+        "path": "/boards/{idBoard}/members",
+        "params": [
+          "idBoard",
+          "filter",
+          "fields",
+          "activity",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "filter": "string",
+          "fields": "string",
+          "activity": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateBoardsMembersByIdBoard",
+        "descriptionTemplate": "Update members of a specific board.",
+        "method": "PUT",
+        "path": "/boards/{idBoard}/members",
+        "params": [
+          "idBoard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "memberType": "{memberType}",
+          "fullName": "{fullName}"
+        },
+        "paramTypes": {
+          "idBoard": "string",
+          "key": "string",
+          "token": "string",
+          "memberType": "string",
+          "fullName": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getBoardsMembersByIdBoardByFilter",
+        "descriptionTemplate": "Retrieve members of a specific board with a filter.",
+        "method": "GET",
+        "path": "/boards/{idBoard}/members/{filter}",
+        "params": [
+          "idBoard",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

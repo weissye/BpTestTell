@@ -1,0 +1,100 @@
+{
+  "Activity": {
+    "operations": {
+      "list": {
+        "name": "getActivities",
+        "descriptionTemplate": "Returns a list of activity actions.",
+        "method": "GET",
+        "path": "/activity",
+        "params": [
+          "fields",
+          "limit",
+          "meta",
+          "offset",
+          "sort",
+          "filter",
+          "search"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "fields": "string",
+          "limit": "integer",
+          "meta": "string",
+          "offset": "integer",
+          "sort": "string",
+          "filter": "string",
+          "search": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getActivity",
+        "descriptionTemplate": "Retrieves the details of an existing activity action.",
+        "method": "GET",
+        "path": "/activity/{id}",
+        "params": [
+          "id",
+          "fields",
+          "meta"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string",
+          "fields": "string",
+          "meta": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Assets": {
+    "operations": {
+      "get": {
+        "name": "getAsset",
+        "descriptionTemplate": "Image typed files can be dynamically resized and transformed to fit any need.",
+        "method": "GET",
+        "path": "/assets/{id}",
+        "params": [
+          "id",
+          "key",
+          "transforms",
+          "download"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string",
+          "key": "string",
+          "transforms": "string",
+          "download": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Authentication": {
+    "operations": {
+      "add": {
+        "name": "refresh",
+        "descriptionTemplate": "Refresh a Temporary Access Token.",
+        "method": "POST",
+        "path": "/auth/refresh",
+        "params": [],
+        "bodyTemplate": {
+          "mode": "{mode}",
+          "refresh_token": "{refresh_token}"
+        },
+        "paramTypes": {
+          "mode": "string",
+          "refresh_token": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  }
+}

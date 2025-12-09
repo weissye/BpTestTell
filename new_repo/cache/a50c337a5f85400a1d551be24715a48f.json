@@ -11,7 +11,14 @@
         ],
         "bodyTemplate": {
           "ConfigTemplateRequest": "{ConfigTemplateRequest}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer",
+          "ConfigTemplateRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -25,7 +32,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "extras_custom_field_choice_sets_create",
@@ -35,7 +48,13 @@
         "params": [],
         "bodyTemplate": {
           "WritableCustomFieldChoiceSetRequest": "{WritableCustomFieldChoiceSetRequest}"
-        }
+        },
+        "paramTypes": {
+          "WritableCustomFieldChoiceSetRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "extras_custom_field_choice_sets_update",
@@ -47,7 +66,14 @@
         ],
         "bodyTemplate": {
           "WritableCustomFieldChoiceSetRequest": "{WritableCustomFieldChoiceSetRequest}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer",
+          "WritableCustomFieldChoiceSetRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "extras_custom_field_choice_sets_destroy",
@@ -57,7 +83,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "extras_custom_field_choice_sets_retrieve",
@@ -67,7 +99,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -242,7 +280,174 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "choice_set": "array",
+          "choice_set__n": "array",
+          "choice_set_id": "array",
+          "choice_set_id__n": "array",
+          "created": "array",
+          "created__empty": "array",
+          "created__gt": "array",
+          "created__gte": "array",
+          "created__lt": "array",
+          "created__lte": "array",
+          "created__n": "array",
+          "created_by_request": "string",
+          "description": "array",
+          "description__empty": "boolean",
+          "description__ic": "array",
+          "description__ie": "array",
+          "description__iew": "array",
+          "description__iregex": "array",
+          "description__isw": "array",
+          "description__n": "array",
+          "description__nic": "array",
+          "description__nie": "array",
+          "description__niew": "array",
+          "description__nisw": "array",
+          "description__regex": "array",
+          "filter_logic": "string",
+          "group_name": "array",
+          "group_name__empty": "boolean",
+          "group_name__ic": "array",
+          "group_name__ie": "array",
+          "group_name__iew": "array",
+          "group_name__iregex": "array",
+          "group_name__isw": "array",
+          "group_name__n": "array",
+          "group_name__nic": "array",
+          "group_name__nie": "array",
+          "group_name__niew": "array",
+          "group_name__nisw": "array",
+          "group_name__regex": "array",
+          "id": "array",
+          "id__empty": "boolean",
+          "id__gt": "array",
+          "id__gte": "array",
+          "id__lt": "array",
+          "id__lte": "array",
+          "id__n": "array",
+          "is_cloneable": "boolean",
+          "label": "array",
+          "label__empty": "boolean",
+          "label__ic": "array",
+          "label__ie": "array",
+          "label__iew": "array",
+          "label__iregex": "array",
+          "label__isw": "array",
+          "label__n": "array",
+          "label__nic": "array",
+          "label__nie": "array",
+          "label__niew": "array",
+          "label__nisw": "array",
+          "label__regex": "array",
+          "last_updated": "array",
+          "last_updated__empty": "array",
+          "last_updated__gt": "array",
+          "last_updated__gte": "array",
+          "last_updated__lt": "array",
+          "last_updated__lte": "array",
+          "last_updated__n": "array",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "array",
+          "name__empty": "boolean",
+          "name__ic": "array",
+          "name__ie": "array",
+          "name__iew": "array",
+          "name__iregex": "array",
+          "name__isw": "array",
+          "name__n": "array",
+          "name__nic": "array",
+          "name__nie": "array",
+          "name__niew": "array",
+          "name__nisw": "array",
+          "name__regex": "array",
+          "object_type": "string",
+          "object_type__ic": "string",
+          "object_type__ie": "string",
+          "object_type__iew": "string",
+          "object_type__iregex": "string",
+          "object_type__isw": "string",
+          "object_type__n": "string",
+          "object_type__nic": "string",
+          "object_type__nie": "string",
+          "object_type__niew": "string",
+          "object_type__nisw": "string",
+          "object_type__regex": "string",
+          "object_type_id": "array",
+          "object_type_id__n": "array",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "related_object_type": "string",
+          "related_object_type__n": "string",
+          "related_object_type_id": "array",
+          "related_object_type_id__n": "array",
+          "required": "boolean",
+          "search_weight": "array",
+          "search_weight__empty": "boolean",
+          "search_weight__gt": "array",
+          "search_weight__gte": "array",
+          "search_weight__lt": "array",
+          "search_weight__lte": "array",
+          "search_weight__n": "array",
+          "type": "array",
+          "type__empty": "boolean",
+          "type__ic": "array",
+          "type__ie": "array",
+          "type__iew": "array",
+          "type__iregex": "array",
+          "type__isw": "array",
+          "type__n": "array",
+          "type__nic": "array",
+          "type__nie": "array",
+          "type__niew": "array",
+          "type__nisw": "array",
+          "type__regex": "array",
+          "ui_editable": "string",
+          "ui_visible": "string",
+          "unique": "boolean",
+          "updated_by_request": "string",
+          "validation_maximum": "array",
+          "validation_maximum__empty": "boolean",
+          "validation_maximum__gt": "array",
+          "validation_maximum__gte": "array",
+          "validation_maximum__lt": "array",
+          "validation_maximum__lte": "array",
+          "validation_maximum__n": "array",
+          "validation_minimum": "array",
+          "validation_minimum__empty": "boolean",
+          "validation_minimum__gt": "array",
+          "validation_minimum__gte": "array",
+          "validation_minimum__lt": "array",
+          "validation_minimum__lte": "array",
+          "validation_minimum__n": "array",
+          "validation_regex": "array",
+          "validation_regex__empty": "boolean",
+          "validation_regex__ic": "array",
+          "validation_regex__ie": "array",
+          "validation_regex__iew": "array",
+          "validation_regex__iregex": "array",
+          "validation_regex__isw": "array",
+          "validation_regex__n": "array",
+          "validation_regex__nic": "array",
+          "validation_regex__nie": "array",
+          "validation_regex__niew": "array",
+          "validation_regex__nisw": "array",
+          "validation_regex__regex": "array",
+          "weight": "array",
+          "weight__empty": "boolean",
+          "weight__gt": "array",
+          "weight__gte": "array",
+          "weight__lt": "array",
+          "weight__lte": "array",
+          "weight__n": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "extras_custom_fields_create",
@@ -252,7 +457,13 @@
         "params": [],
         "bodyTemplate": {
           "WritableCustomFieldRequest": "{WritableCustomFieldRequest}"
-        }
+        },
+        "paramTypes": {
+          "WritableCustomFieldRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "extras_custom_fields_bulk_update",
@@ -262,7 +473,13 @@
         "params": [],
         "bodyTemplate": {
           "CustomFieldRequest": "{CustomFieldRequest}"
-        }
+        },
+        "paramTypes": {
+          "CustomFieldRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "extras_custom_fields_bulk_destroy",
@@ -272,7 +489,13 @@
         "params": [],
         "bodyTemplate": {
           "CustomFieldRequest": "{CustomFieldRequest}"
-        }
+        },
+        "paramTypes": {
+          "CustomFieldRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

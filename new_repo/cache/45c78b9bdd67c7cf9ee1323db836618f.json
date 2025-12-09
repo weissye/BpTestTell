@@ -1,0 +1,220 @@
+{
+  "Milestones": {
+    "operations": {
+      "delete": {
+        "name": "issueDeleteMilestone",
+        "descriptionTemplate": "Delete a milestone",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/milestones/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "issueGetMilestone",
+        "descriptionTemplate": "Get a milestone",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/milestones/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "string"
+        }
+      },
+      "update": {
+        "name": "issueEditMilestone",
+        "descriptionTemplate": "Update a milestone",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/milestones/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {
+          "title": "{title}",
+          "state": "{state}",
+          "description": "{description}",
+          "due_on": "{due_on}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "string",
+          "title": "string",
+          "state": "string",
+          "description": "string",
+          "due_on": "string"
+        }
+      }
+    }
+  },
+  "MirrorSync": {
+    "operations": {
+      "add": {
+        "name": "repoMirrorSync",
+        "descriptionTemplate": "Sync a mirrored repository",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/mirror-sync",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      }
+    }
+  },
+  "NewPinAllowed": {
+    "operations": {
+      "get": {
+        "name": "repoNewPinAllowed",
+        "descriptionTemplate": "Returns if new Issue Pins are allowed",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/new_pin_allowed",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      }
+    }
+  },
+  "Notifications": {
+    "operations": {
+      "list": {
+        "name": "notifyGetRepoList",
+        "descriptionTemplate": "List users's notification threads on a specific repo",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/notifications",
+        "params": [
+          "owner",
+          "repo",
+          "all",
+          "status-types",
+          "subject-type",
+          "since",
+          "before",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "all": "boolean",
+          "status-types": "array",
+          "subject-type": "array",
+          "since": "string",
+          "before": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "update": {
+        "name": "notifyReadRepoList",
+        "descriptionTemplate": "Mark notification threads as read, pinned or unread on a specific repo",
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/notifications",
+        "params": [
+          "owner",
+          "repo",
+          "all",
+          "status-types",
+          "to-status",
+          "last_read_at"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "all": "string",
+          "status-types": "array",
+          "to-status": "string",
+          "last_read_at": "string"
+        }
+      }
+    }
+  },
+  "PullRequests": {
+    "operations": {
+      "list": {
+        "name": "repoListPullRequests",
+        "descriptionTemplate": "List a repo's pull requests",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls",
+        "params": [
+          "owner",
+          "repo",
+          "state",
+          "sort",
+          "milestone",
+          "labels",
+          "poster",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "state": "string",
+          "sort": "string",
+          "milestone": "integer",
+          "labels": "array",
+          "poster": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "repoCreatePullRequest",
+        "descriptionTemplate": "Create a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "title": "{title}",
+          "head": "{head}",
+          "base": "{base}",
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "title": "string",
+          "head": "string",
+          "base": "string",
+          "body": "string"
+        }
+      }
+    }
+  }
+}

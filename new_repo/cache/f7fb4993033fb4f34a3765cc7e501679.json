@@ -1,0 +1,52 @@
+{
+  "Cards": {
+    "operations": {
+      "update": {
+        "name": "updateCardsIdBoardByIdCard",
+        "descriptionTemplate": "updateCardsIdBoardByIdCard()",
+        "method": "PUT",
+        "path": "/cards/{idCard}/idBoard",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "idBoard": "{idBoard}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "idBoard": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addCardsIdLabelsByIdCard",
+        "descriptionTemplate": "addCardsIdLabelsByIdCard()",
+        "method": "POST",
+        "path": "/cards/{idCard}/idLabels",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "idLabels": "{idLabels}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "idLabels": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

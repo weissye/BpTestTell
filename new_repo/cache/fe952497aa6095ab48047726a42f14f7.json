@@ -1,0 +1,122 @@
+{
+  "Lists": {
+    "operations": {
+      "update": {
+        "name": "updateListsIdBoardByIdList",
+        "descriptionTemplate": "Update the board ID for a specific list.",
+        "method": "PUT",
+        "path": "/lists/{idList}/idBoard",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "idBoard": "{idBoard}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "idBoard": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addListsMoveAllCardsByIdList",
+        "descriptionTemplate": "Move all cards from one list to another.",
+        "method": "POST",
+        "path": "/lists/{idList}/moveAllCards",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "idBoard": "{idBoard}",
+          "idList": "{idList}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "idBoard": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateName": {
+        "name": "updateListsNameByIdList",
+        "descriptionTemplate": "Update the name of a specific list.",
+        "method": "PUT",
+        "path": "/lists/{idList}/name",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updatePos": {
+        "name": "updateListsPosByIdList",
+        "descriptionTemplate": "Update the position of a specific list.",
+        "method": "PUT",
+        "path": "/lists/{idList}/pos",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "pos": "{pos}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "pos": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateSubscribed": {
+        "name": "updateListsSubscribedByIdList",
+        "descriptionTemplate": "Update the subscription status of a specific list.",
+        "method": "PUT",
+        "path": "/lists/{idList}/subscribed",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "subscribed": "{subscribed}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "subscribed": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

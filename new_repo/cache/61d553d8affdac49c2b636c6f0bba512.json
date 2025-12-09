@@ -1,0 +1,137 @@
+{
+  "Collaborators": {
+    "operations": {
+      "get": {
+        "name": "repoGetRepoPermissions",
+        "descriptionTemplate": "Get repository permissions for a user",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}/permission",
+        "params": [
+          "owner",
+          "repo",
+          "collaborator"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "collaborator": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Commits": {
+    "operations": {
+      "list": {
+        "name": "repoGetAllCommits",
+        "descriptionTemplate": "Get a list of all commits from a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits",
+        "params": [
+          "owner",
+          "repo",
+          "sha",
+          "path",
+          "stat",
+          "verification",
+          "files",
+          "page",
+          "limit",
+          "not"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string",
+          "path": "string",
+          "stat": "boolean",
+          "verification": "boolean",
+          "files": "boolean",
+          "page": "integer",
+          "limit": "integer",
+          "not": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          409
+        ]
+      },
+      "get": {
+        "name": "repoGetCombinedStatusByRef",
+        "descriptionTemplate": "Get a commit's combined status, by branch/tag/commit reference",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits/{ref}/status",
+        "params": [
+          "owner",
+          "repo",
+          "ref",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "ref": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "listStatuses": {
+        "name": "repoListStatusesByRef",
+        "descriptionTemplate": "Get a commit's statuses, by branch/tag/commit reference",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits/{ref}/statuses",
+        "params": [
+          "owner",
+          "repo",
+          "ref",
+          "sort",
+          "state",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "ref": "string",
+          "sort": "string",
+          "state": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "getPullRequest": {
+        "name": "repoGetCommitPullRequest",
+        "descriptionTemplate": "Get the merged pull request of the commit",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits/{sha}/pull",
+        "params": [
+          "owner",
+          "repo",
+          "sha"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

@@ -1,6 +1,22 @@
 {
-  "IPAddress": {
+  "IPAddresses": {
     "operations": {
+      "delete": {
+        "name": "ipam_ip_addresses_destroy",
+        "descriptionTemplate": "Delete a IP address object.",
+        "method": "DELETE",
+        "path": "/api/ipam/ip-addresses/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "get": {
         "name": "ipam_ip_addresses_retrieve",
         "descriptionTemplate": "Get a IP address object.",
@@ -9,7 +25,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "ipam_ip_addresses_update",
@@ -21,6 +40,9 @@
         ],
         "bodyTemplate": {
           "$ref": "#/components/schemas/WritableIPAddressRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
         }
       },
       "patch": {
@@ -33,22 +55,29 @@
         ],
         "bodyTemplate": {
           "$ref": "#/components/schemas/PatchedWritableIPAddressRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
         }
-      },
-      "delete": {
-        "name": "ipam_ip_addresses_destroy",
-        "descriptionTemplate": "Delete a IP address object.",
-        "method": "DELETE",
-        "path": "/api/ipam/ip-addresses/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
       }
     }
   },
-  "IPRange": {
+  "IPRanges": {
     "operations": {
+      "delete": {
+        "name": "ipam_ip_ranges_bulk_destroy",
+        "descriptionTemplate": "Delete a list of IP range objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/ip-ranges/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "$ref": "#/components/schemas/IPRangeRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {}
+      },
       "list": {
         "name": "ipam_ip_ranges_list",
         "descriptionTemplate": "Get a list of IP range objects.",
@@ -150,7 +179,103 @@
           "vrf_id",
           "vrf_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "contains": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "end_address": "string",
+          "family": "number",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mark_populated": "boolean",
+          "mark_utilized": "boolean",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent": "string",
+          "q": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "integer",
+          "role_id__n": "integer",
+          "size": "integer",
+          "size__empty": "boolean",
+          "size__gt": "integer",
+          "size__gte": "integer",
+          "size__lt": "integer",
+          "size__lte": "integer",
+          "size__n": "integer",
+          "start_address": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "vrf": "string",
+          "vrf__n": "string",
+          "vrf_id": "integer",
+          "vrf_id__n": "integer"
+        }
       },
       "add": {
         "name": "ipam_ip_ranges_create",
@@ -160,7 +285,8 @@
         "params": [],
         "bodyTemplate": {
           "$ref": "#/components/schemas/WritableIPRangeRequest"
-        }
+        },
+        "paramTypes": {}
       },
       "update": {
         "name": "ipam_ip_ranges_bulk_update",
@@ -169,8 +295,12 @@
         "path": "/api/ipam/ip-ranges/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/IPRangeRequest"
-        }
+          "items": {
+            "$ref": "#/components/schemas/IPRangeRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {}
       },
       "patch": {
         "name": "ipam_ip_ranges_bulk_partial_update",
@@ -179,18 +309,32 @@
         "path": "/api/ipam/ip-ranges/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/IPRangeRequest"
-        }
-      },
+          "items": {
+            "$ref": "#/components/schemas/IPRangeRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {}
+      }
+    }
+  },
+  "IPRange": {
+    "operations": {
       "delete": {
-        "name": "ipam_ip_ranges_bulk_destroy",
-        "descriptionTemplate": "Delete a list of IP range objects.",
+        "name": "ipam_ip_ranges_destroy",
+        "descriptionTemplate": "Delete a IP range object.",
         "method": "DELETE",
-        "path": "/api/ipam/ip-ranges/",
-        "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/IPRangeRequest"
-        }
+        "path": "/api/ipam/ip-ranges/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_ip_ranges_retrieve",
@@ -200,9 +344,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
-      "update_single": {
+      "update": {
         "name": "ipam_ip_ranges_update",
         "descriptionTemplate": "Put a IP range object.",
         "method": "PUT",
@@ -212,9 +359,12 @@
         ],
         "bodyTemplate": {
           "$ref": "#/components/schemas/WritableIPRangeRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "patch_single": {
+      "patch": {
         "name": "ipam_ip_ranges_partial_update",
         "descriptionTemplate": "Patch a IP range object.",
         "method": "PATCH",
@@ -224,19 +374,16 @@
         ],
         "bodyTemplate": {
           "$ref": "#/components/schemas/PatchedWritableIPRangeRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
         }
-      },
-      "delete_single": {
-        "name": "ipam_ip_ranges_destroy",
-        "descriptionTemplate": "Delete a IP range object.",
-        "method": "DELETE",
-        "path": "/api/ipam/ip-ranges/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "list_available_ips": {
+      }
+    }
+  },
+  "AvailableIPs": {
+    "operations": {
+      "list": {
         "name": "ipam_ip_ranges_available_ips_list",
         "descriptionTemplate": "Get a IP address object.",
         "method": "GET",
@@ -244,9 +391,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
-      "add_available_ips": {
+      "add": {
         "name": "ipam_ip_ranges_available_ips_create",
         "descriptionTemplate": "Post a IP address object.",
         "method": "POST",
@@ -255,13 +405,33 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/IPAddressRequest"
+          "items": {
+            "$ref": "#/components/schemas/IPAddressRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {
+          "id": "integer"
         }
       }
     }
   },
-  "Prefix": {
+  "Prefixes": {
     "operations": {
+      "delete": {
+        "name": "ipam_prefixes_bulk_destroy",
+        "descriptionTemplate": "Delete a list of prefix objects.",
+        "method": "DELETE",
+        "path": "/api/ipam/prefixes/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "$ref": "#/components/schemas/PrefixRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {}
+      },
       "list": {
         "name": "ipam_prefixes_list",
         "descriptionTemplate": "Get a list of prefix objects.",
@@ -413,7 +583,153 @@
           "within",
           "within_include"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "children": "integer",
+          "children__empty": "integer",
+          "children__gt": "integer",
+          "children__gte": "integer",
+          "children__lt": "integer",
+          "children__lte": "integer",
+          "children__n": "integer",
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "contains": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "depth": "integer",
+          "depth__empty": "integer",
+          "depth__gt": "integer",
+          "depth__gte": "integer",
+          "depth__lt": "integer",
+          "depth__lte": "integer",
+          "depth__n": "integer",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "family": "number",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "is_pool": "boolean",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "string",
+          "location_id__n": "string",
+          "mark_utilized": "boolean",
+          "mask_length": "integer",
+          "mask_length__gte": "number",
+          "mask_length__lte": "number",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "prefix": "string",
+          "present_in_vrf": "string",
+          "present_in_vrf_id": "string",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "integer",
+          "role_id__n": "integer",
+          "scope_id": "integer",
+          "scope_id__empty": "boolean",
+          "scope_id__gt": "integer",
+          "scope_id__gte": "integer",
+          "scope_id__lt": "integer",
+          "scope_id__lte": "integer",
+          "scope_id__n": "integer",
+          "scope_type": "string",
+          "scope_type__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "vlan_group": "string",
+          "vlan_group__n": "string",
+          "vlan_group_id": "integer",
+          "vlan_group_id__n": "integer",
+          "vlan_id": "integer",
+          "vlan_id__n": "integer",
+          "vlan_vid": "integer",
+          "vlan_vid__empty": "integer",
+          "vlan_vid__gt": "integer",
+          "vlan_vid__gte": "integer",
+          "vlan_vid__lt": "integer",
+          "vlan_vid__lte": "integer",
+          "vlan_vid__n": "integer",
+          "vrf": "string",
+          "vrf__n": "string",
+          "vrf_id": "integer",
+          "vrf_id__n": "integer",
+          "within": "string",
+          "within_include": "string"
+        }
       },
       "add": {
         "name": "ipam_prefixes_create",
@@ -423,7 +739,8 @@
         "params": [],
         "bodyTemplate": {
           "$ref": "#/components/schemas/WritablePrefixRequest"
-        }
+        },
+        "paramTypes": {}
       },
       "update": {
         "name": "ipam_prefixes_bulk_update",
@@ -432,8 +749,12 @@
         "path": "/api/ipam/prefixes/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PrefixRequest"
-        }
+          "items": {
+            "$ref": "#/components/schemas/PrefixRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {}
       },
       "patch": {
         "name": "ipam_prefixes_bulk_partial_update",
@@ -442,18 +763,12 @@
         "path": "/api/ipam/prefixes/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PrefixRequest"
-        }
-      },
-      "delete": {
-        "name": "ipam_prefixes_bulk_destroy",
-        "descriptionTemplate": "Delete a list of prefix objects.",
-        "method": "DELETE",
-        "path": "/api/ipam/prefixes/",
-        "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PrefixRequest"
-        }
+          "items": {
+            "$ref": "#/components/schemas/PrefixRequest"
+          },
+          "type": "array"
+        },
+        "paramTypes": {}
       }
     }
   }

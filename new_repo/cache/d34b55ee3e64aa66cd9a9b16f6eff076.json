@@ -138,7 +138,140 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "auth_cipher": "string",
+          "auth_cipher__empty": "boolean",
+          "auth_cipher__ic": "string",
+          "auth_cipher__ie": "string",
+          "auth_cipher__iew": "string",
+          "auth_cipher__iregex": "string",
+          "auth_cipher__isw": "string",
+          "auth_cipher__n": "string",
+          "auth_cipher__nic": "string",
+          "auth_cipher__nie": "string",
+          "auth_cipher__niew": "string",
+          "auth_cipher__nisw": "string",
+          "auth_cipher__regex": "string",
+          "auth_psk": "string",
+          "auth_psk__empty": "boolean",
+          "auth_psk__ic": "string",
+          "auth_psk__ie": "string",
+          "auth_psk__iew": "string",
+          "auth_psk__iregex": "string",
+          "auth_psk__isw": "string",
+          "auth_psk__n": "string",
+          "auth_psk__nic": "string",
+          "auth_psk__nie": "string",
+          "auth_psk__niew": "string",
+          "auth_psk__nisw": "string",
+          "auth_psk__regex": "string",
+          "auth_type": "string",
+          "auth_type__empty": "boolean",
+          "auth_type__ic": "string",
+          "auth_type__ie": "string",
+          "auth_type__iew": "string",
+          "auth_type__iregex": "string",
+          "auth_type__isw": "string",
+          "auth_type__n": "string",
+          "auth_type__nic": "string",
+          "auth_type__nie": "string",
+          "auth_type__niew": "string",
+          "auth_type__nisw": "string",
+          "auth_type__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "distance": "number",
+          "distance__empty": "boolean",
+          "distance__gt": "number",
+          "distance__gte": "number",
+          "distance__lt": "number",
+          "distance__lte": "number",
+          "distance__n": "number",
+          "distance_unit": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface_a_id": "integer",
+          "interface_a_id__n": "integer",
+          "interface_b_id": "integer",
+          "interface_b_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "ssid": "string",
+          "ssid__empty": "boolean",
+          "ssid__ic": "string",
+          "ssid__ie": "string",
+          "ssid__iew": "string",
+          "ssid__iregex": "string",
+          "ssid__isw": "string",
+          "ssid__n": "string",
+          "ssid__nic": "string",
+          "ssid__nie": "string",
+          "ssid__niew": "string",
+          "ssid__nisw": "string",
+          "ssid__regex": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "wireless_wireless_links_create",
@@ -147,8 +280,12 @@
         "path": "/api/wireless/wireless-links/",
         "params": [],
         "bodyTemplate": {
-          "wirelessLinkRequest": "{wirelessLinkRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/WritableWirelessLinkRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "wireless_wireless_links_bulk_update",
@@ -157,18 +294,12 @@
         "path": "/api/wireless/wireless-links/",
         "params": [],
         "bodyTemplate": {
-          "wirelessLinkRequest": "{wirelessLinkRequest}"
-        }
-      },
-      "patch": {
-        "name": "wireless_wireless_links_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of wireless link objects.",
-        "method": "PATCH",
-        "path": "/api/wireless/wireless-links/",
-        "params": [],
-        "bodyTemplate": {
-          "wirelessLinkRequest": "{wirelessLinkRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/WirelessLinkRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "wireless_wireless_links_bulk_destroy",
@@ -177,8 +308,14 @@
         "path": "/api/wireless/wireless-links/",
         "params": [],
         "bodyTemplate": {
-          "wirelessLinkRequest": "{wirelessLinkRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/WirelessLinkRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "wireless_wireless_links_retrieve",
@@ -188,21 +325,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "wireless_wireless_links_update",
-        "descriptionTemplate": "Put a wireless link object.",
-        "method": "PUT",
-        "path": "/api/wireless/wireless-links/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "wirelessLinkRequest": "{wirelessLinkRequest}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "wireless_wireless_links_partial_update",
         "descriptionTemplate": "Patch a wireless link object.",
         "method": "PATCH",
@@ -211,10 +340,14 @@
           "id"
         ],
         "bodyTemplate": {
-          "wirelessLinkRequest": "{wirelessLinkRequest}"
-        }
+          "$ref": "#/components/schemas/PatchedWritableWirelessLinkRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "deleteItem": {
+      "delete_single": {
         "name": "wireless_wireless_links_destroy",
         "descriptionTemplate": "Delete a wireless link object.",
         "method": "DELETE",
@@ -222,7 +355,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

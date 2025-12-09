@@ -1,0 +1,170 @@
+{
+  "CardsMembersVoted": {
+    "operations": {
+      "list": {
+        "name": "getCardsMembersVotedByIdCard",
+        "descriptionTemplate": "Retrieve members who voted on a card by card ID.",
+        "method": "GET",
+        "path": "/cards/{idCard}/membersVoted",
+        "params": [
+          "idCard",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "add": {
+        "name": "addCardsMembersVotedByIdCard",
+        "descriptionTemplate": "Add a member vote to a card by card ID.",
+        "method": "POST",
+        "path": "/cards/{idCard}/membersVoted",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "memberId": "{memberId}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "memberId": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "delete": {
+        "name": "deleteCardsMembersVotedByIdCardByIdMember",
+        "descriptionTemplate": "Remove a member vote from a card by card ID and member ID.",
+        "method": "DELETE",
+        "path": "/cards/{idCard}/membersVoted/{idMember}",
+        "params": [
+          "idCard",
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "CardsName": {
+    "operations": {
+      "update": {
+        "name": "updateCardsNameByIdCard",
+        "descriptionTemplate": "Update the name of a card by card ID.",
+        "method": "PUT",
+        "path": "/cards/{idCard}/name",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "CardsPos": {
+    "operations": {
+      "update": {
+        "name": "updateCardsPosByIdCard",
+        "descriptionTemplate": "Update the position of a card by card ID.",
+        "method": "PUT",
+        "path": "/cards/{idCard}/pos",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "pos": "{pos}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "pos": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "CardsStickers": {
+    "operations": {
+      "list": {
+        "name": "getCardsStickersByIdCard",
+        "descriptionTemplate": "Retrieve stickers on a card by card ID.",
+        "method": "GET",
+        "path": "/cards/{idCard}/stickers",
+        "params": [
+          "idCard",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "add": {
+        "name": "addCardsStickersByIdCard",
+        "descriptionTemplate": "Add a sticker to a card by card ID.",
+        "method": "POST",
+        "path": "/cards/{idCard}/stickers",
+        "params": [
+          "idCard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "image": "{image}",
+          "left": "{left}",
+          "top": "{top}",
+          "zIndex": "{zIndex}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "key": "string",
+          "token": "string",
+          "image": "string",
+          "left": "number",
+          "top": "number",
+          "zIndex": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  }
+}

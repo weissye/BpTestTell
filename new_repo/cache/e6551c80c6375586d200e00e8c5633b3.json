@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_prefixes_retrieve",
@@ -19,7 +25,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "ipam_prefixes_update",
@@ -32,6 +41,11 @@
         "bodyTemplate": {
           "prefix": "{prefix}",
           "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "prefix": "string",
+          "description": "string"
         }
       },
       "patch": {
@@ -45,6 +59,11 @@
         "bodyTemplate": {
           "prefix": "{prefix}",
           "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "prefix": "string",
+          "description": "string"
         }
       }
     }
@@ -59,7 +78,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "add": {
         "name": "ipam_prefixes_available_ips_create",
@@ -70,7 +92,17 @@
           "id"
         ],
         "bodyTemplate": {
-          "ip_address": "{ip_address}"
+          "addresses": [
+            {
+              "address": "{address}",
+              "status": "{status}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "id": "integer",
+          "address": "string",
+          "status": "string"
         }
       }
     }
@@ -85,7 +117,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "add": {
         "name": "ipam_prefixes_available_prefixes_create",
@@ -96,7 +131,17 @@
           "id"
         ],
         "bodyTemplate": {
-          "prefix": "{prefix}"
+          "prefixes": [
+            {
+              "prefix": "{prefix}",
+              "status": "{status}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "id": "integer",
+          "prefix": "string",
+          "status": "string"
         }
       }
     }
@@ -182,7 +227,81 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "is_private": "boolean",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "ipam_rirs_create",
@@ -191,8 +310,14 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
+          "rir": {
+            "name": "{name}",
+            "slug": "{slug}"
+          }
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
         }
       },
       "update": {
@@ -202,8 +327,16 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
+          "rirs": [
+            {
+              "name": "{name}",
+              "slug": "{slug}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
         }
       },
       "patch": {
@@ -213,8 +346,16 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
+          "rirs": [
+            {
+              "name": "{name}",
+              "slug": "{slug}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
         }
       },
       "delete": {
@@ -224,10 +365,25 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        }
-      },
+          "rirs": [
+            {
+              "name": "{name}",
+              "slug": "{slug}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "RIR": {
+    "operations": {
       "get": {
         "name": "ipam_rirs_retrieve",
         "descriptionTemplate": "Get a RIR object.",
@@ -236,9 +392,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
-      "update_single": {
+      "update": {
         "name": "ipam_rirs_update",
         "descriptionTemplate": "Put a RIR object.",
         "method": "PUT",
@@ -249,9 +408,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "slug": "{slug}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string"
         }
       },
-      "patch_single": {
+      "patch": {
         "name": "ipam_rirs_partial_update",
         "descriptionTemplate": "Patch a RIR object.",
         "method": "PATCH",
@@ -262,9 +426,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "slug": "{slug}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string"
         }
       },
-      "delete_single": {
+      "delete": {
         "name": "ipam_rirs_destroy",
         "descriptionTemplate": "Delete a RIR object.",
         "method": "DELETE",
@@ -272,7 +441,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

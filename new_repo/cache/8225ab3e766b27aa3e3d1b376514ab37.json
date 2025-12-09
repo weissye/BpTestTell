@@ -1,0 +1,260 @@
+{
+  "Messages": {
+    "operations": {
+      "list": {
+        "name": "ListMessage",
+        "descriptionTemplate": "Retrieve a list of Message resources associated with a Twilio Account",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+        "params": [
+          "AccountSid",
+          "To",
+          "From",
+          "DateSent",
+          "DateSent<",
+          "DateSent>",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "To": "string",
+          "From": "string",
+          "DateSent": "string",
+          "DateSent<": "string",
+          "DateSent>": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateMessage",
+        "descriptionTemplate": "Send a message",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "ApplicationSid": "{ApplicationSid}",
+          "Body": "{Body}",
+          "From": "{From}",
+          "MediaUrl": [
+            "{MediaUrl}"
+          ],
+          "PersistentAction": [
+            "{PersistentAction}"
+          ],
+          "StatusCallback": "{StatusCallback}",
+          "Tags": "{Tags}",
+          "To": "{To}",
+          "MessagingServiceSid": "{MessagingServiceSid}",
+          "ScheduleType": "{ScheduleType}",
+          "ContentSid": "{ContentSid}",
+          "ContentVariables": "{ContentVariables}",
+          "ForceDelivery": "{ForceDelivery}",
+          "MaxPrice": "{MaxPrice}",
+          "ProvideFeedback": "{ProvideFeedback}",
+          "RiskCheck": "{RiskCheck}",
+          "SendAsMms": "{SendAsMms}",
+          "SendAt": "{SendAt}",
+          "ShortenUrls": "{ShortenUrls}",
+          "SmartEncoded": "{SmartEncoded}",
+          "TrafficType": "{TrafficType}",
+          "ValidityPeriod": "{ValidityPeriod}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "ApplicationSid": "string",
+          "Body": "string",
+          "From": "string",
+          "MediaUrl": "string",
+          "PersistentAction": "string",
+          "StatusCallback": "string",
+          "Tags": "string",
+          "To": "string",
+          "MessagingServiceSid": "string",
+          "ScheduleType": "string",
+          "ContentSid": "string",
+          "ContentVariables": "string",
+          "ForceDelivery": "boolean",
+          "MaxPrice": "number",
+          "ProvideFeedback": "boolean",
+          "RiskCheck": "string",
+          "SendAsMms": "boolean",
+          "SendAt": "string",
+          "ShortenUrls": "boolean",
+          "SmartEncoded": "boolean",
+          "TrafficType": "string",
+          "ValidityPeriod": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchMessage",
+        "descriptionTemplate": "Fetch a specific Message",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateMessage",
+        "descriptionTemplate": "Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "Body": "{Body}",
+          "Status": "{Status}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "Body": "string",
+          "Status": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteMessage",
+        "descriptionTemplate": "Deletes a Message resource from your account",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "MessageFeedback": {
+    "operations": {
+      "add": {
+        "name": "CreateMessageFeedback",
+        "descriptionTemplate": "Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+        "params": [
+          "AccountSid",
+          "MessageSid"
+        ],
+        "bodyTemplate": {
+          "Outcome": "{Outcome}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "MessageSid": "string",
+          "Outcome": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "QueueMembers": {
+    "operations": {
+      "list": {
+        "name": "ListMember",
+        "descriptionTemplate": "Retrieve the members of the queue",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+        "params": [
+          "AccountSid",
+          "QueueSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "QueueSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchMember",
+        "descriptionTemplate": "Fetch a specific member from the queue",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+        "params": [
+          "AccountSid",
+          "QueueSid",
+          "CallSid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "QueueSid": "string",
+          "CallSid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateMember",
+        "descriptionTemplate": "Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+        "params": [
+          "AccountSid",
+          "QueueSid",
+          "CallSid"
+        ],
+        "bodyTemplate": {
+          "Method": "{Method}",
+          "Url": "{Url}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "QueueSid": "string",
+          "CallSid": "string",
+          "Method": "string",
+          "Url": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

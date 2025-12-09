@@ -1,0 +1,138 @@
+{
+  "Lists": {
+    "operations": {
+      "get": {
+        "name": "getListsCardsByIdListByFilter",
+        "descriptionTemplate": "Retrieve cards from a list filtered by a specific criterion.",
+        "method": "GET",
+        "path": "/lists/{idList}/cards/{filter}",
+        "params": [
+          "idList",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idList": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "list": {
+        "name": "getListsCardsByIdList",
+        "descriptionTemplate": "Retrieve cards associated with a specific list.",
+        "method": "GET",
+        "path": "/lists/{idList}/cards",
+        "params": [
+          "idList",
+          "actions",
+          "attachments",
+          "attachment_fields",
+          "stickers",
+          "members",
+          "member_fields",
+          "checkItemStates",
+          "checklists",
+          "limit",
+          "since",
+          "before",
+          "filter",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idList": "string",
+          "actions": "string",
+          "attachments": "string",
+          "attachment_fields": "string",
+          "stickers": "string",
+          "members": "string",
+          "member_fields": "string",
+          "checkItemStates": "string",
+          "checklists": "string",
+          "limit": "string",
+          "since": "string",
+          "before": "string",
+          "filter": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addListsCardsByIdList",
+        "descriptionTemplate": "Add a card to a specific list.",
+        "method": "POST",
+        "path": "/lists/{idList}/cards",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "desc": "{desc}",
+          "pos": "{pos}",
+          "due": "{due}",
+          "idMembers": "{idMembers}",
+          "idLabels": "{idLabels}",
+          "urlSource": "{urlSource}",
+          "fileSource": "{fileSource}",
+          "idCardSource": "{idCardSource}",
+          "keepFromSource": "{keepFromSource}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string",
+          "desc": "string",
+          "pos": "string",
+          "due": "string",
+          "idMembers": "string",
+          "idLabels": "string",
+          "urlSource": "string",
+          "fileSource": "string",
+          "idCardSource": "string",
+          "keepFromSource": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateListsClosedByIdList",
+        "descriptionTemplate": "Update the closed status of a specific list.",
+        "method": "PUT",
+        "path": "/lists/{idList}/closed",
+        "params": [
+          "idList",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "value": "{value}"
+        },
+        "paramTypes": {
+          "idList": "string",
+          "key": "string",
+          "token": "string",
+          "value": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

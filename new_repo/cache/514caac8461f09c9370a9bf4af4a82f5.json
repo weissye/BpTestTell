@@ -1,16 +1,6 @@
 {
-  "Bookmark": {
+  "Bookmarks": {
     "operations": {
-      "get": {
-        "name": "extras_bookmarks_retrieve",
-        "descriptionTemplate": "Get a bookmark object.",
-        "method": "GET",
-        "path": "/api/extras/bookmarks/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
       "delete": {
         "name": "extras_bookmarks_destroy",
         "descriptionTemplate": "Delete a bookmark object.",
@@ -19,22 +9,28 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
-      "update": {
-        "name": "extras_bookmarks_update",
-        "descriptionTemplate": "Put a bookmark object.",
-        "method": "PUT",
+      "get": {
+        "name": "extras_bookmarks_retrieve",
+        "descriptionTemplate": "Get a bookmark object.",
+        "method": "GET",
         "path": "/api/extras/bookmarks/{id}/",
         "params": [
           "id"
         ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "url": "{url}"
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "patch": {
+      "update": {
         "name": "extras_bookmarks_partial_update",
         "descriptionTemplate": "Patch a bookmark object.",
         "method": "PATCH",
@@ -43,14 +39,49 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "url": "{url}"
+          "PatchedBookmarkRequest": "{PatchedBookmarkRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedBookmarkRequest": "object"
+        }
+      },
+      "put": {
+        "name": "extras_bookmarks_update",
+        "descriptionTemplate": "Put a bookmark object.",
+        "method": "PUT",
+        "path": "/api/extras/bookmarks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "BookmarkRequest": "{BookmarkRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "BookmarkRequest": "object"
         }
       }
     }
   },
-  "ConfigContextProfile": {
+  "ConfigContextProfiles": {
     "operations": {
+      "delete": {
+        "name": "extras_config_context_profiles_bulk_destroy",
+        "descriptionTemplate": "Delete a list of config context profile objects.",
+        "method": "DELETE",
+        "path": "/api/extras/config-context-profiles/",
+        "params": [],
+        "bodyTemplate": {
+          "ConfigContextProfileRequest": "[{ConfigContextProfileRequest}]"
+        },
+        "paramTypes": {
+          "ConfigContextProfileRequest": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "extras_config_context_profiles_list",
         "descriptionTemplate": "Get a list of config context profile objects.",
@@ -128,7 +159,79 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "auto_sync_enabled": "boolean",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "data_file_id": "integer",
+          "data_file_id__n": "integer",
+          "data_source_id": "integer",
+          "data_source_id__n": "integer",
+          "data_synced": "string",
+          "data_synced__empty": "boolean",
+          "data_synced__gt": "string",
+          "data_synced__gte": "string",
+          "data_synced__lt": "string",
+          "data_synced__lte": "string",
+          "data_synced__n": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "extras_config_context_profiles_create",
@@ -137,36 +240,42 @@
         "path": "/api/extras/config-context-profiles/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "ConfigContextProfileRequest": "{ConfigContextProfileRequest}"
+        },
+        "paramTypes": {
+          "ConfigContextProfileRequest": "object"
         }
       },
       "update": {
-        "name": "extras_config_context_profiles_update",
-        "descriptionTemplate": "Put a config context profile object.",
-        "method": "PUT",
-        "path": "/api/extras/config-context-profiles/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
-        }
-      },
-      "patch": {
-        "name": "extras_config_context_profiles_partial_update",
-        "descriptionTemplate": "Patch a config context profile object.",
+        "name": "extras_config_context_profiles_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of config context profile objects.",
         "method": "PATCH",
-        "path": "/api/extras/config-context-profiles/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/extras/config-context-profiles/",
+        "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "ConfigContextProfileRequest": "[{ConfigContextProfileRequest}]"
+        },
+        "paramTypes": {
+          "ConfigContextProfileRequest": "array"
         }
       },
+      "put": {
+        "name": "extras_config_context_profiles_bulk_update",
+        "descriptionTemplate": "Put a list of config context profile objects.",
+        "method": "PUT",
+        "path": "/api/extras/config-context-profiles/",
+        "params": [],
+        "bodyTemplate": {
+          "ConfigContextProfileRequest": "[{ConfigContextProfileRequest}]"
+        },
+        "paramTypes": {
+          "ConfigContextProfileRequest": "array"
+        }
+      }
+    }
+  },
+  "ConfigContextProfile": {
+    "operations": {
       "delete": {
         "name": "extras_config_context_profiles_destroy",
         "descriptionTemplate": "Delete a config context profile object.",
@@ -175,7 +284,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "extras_config_context_profiles_retrieve",
@@ -185,9 +300,48 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
       },
-      "sync": {
+      "update": {
+        "name": "extras_config_context_profiles_partial_update",
+        "descriptionTemplate": "Patch a config context profile object.",
+        "method": "PATCH",
+        "path": "/api/extras/config-context-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedConfigContextProfileRequest": "{PatchedConfigContextProfileRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedConfigContextProfileRequest": "object"
+        }
+      },
+      "put": {
+        "name": "extras_config_context_profiles_update",
+        "descriptionTemplate": "Put a config context profile object.",
+        "method": "PUT",
+        "path": "/api/extras/config-context-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "ConfigContextProfileRequest": "{ConfigContextProfileRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "ConfigContextProfileRequest": "object"
+        }
+      }
+    }
+  },
+  "ConfigContextProfileSync": {
+    "operations": {
+      "add": {
         "name": "extras_config_context_profiles_sync_create",
         "descriptionTemplate": "Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).",
         "method": "POST",
@@ -196,14 +350,33 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "ConfigContextProfileRequest": "{ConfigContextProfileRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "ConfigContextProfileRequest": "object"
         }
       }
     }
   },
-  "ConfigContext": {
+  "ConfigContexts": {
     "operations": {
+      "delete": {
+        "name": "extras_config_contexts_bulk_destroy",
+        "descriptionTemplate": "Delete a list of config context objects.",
+        "method": "DELETE",
+        "path": "/api/extras/config-contexts/",
+        "params": [],
+        "bodyTemplate": {
+          "ConfigContextRequest": "[{ConfigContextRequest}]"
+        },
+        "paramTypes": {
+          "ConfigContextRequest": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "extras_config_contexts_list",
         "descriptionTemplate": "Get a list of config context objects.",
@@ -337,7 +510,135 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "auto_sync_enabled": "boolean",
+          "cluster_group": "string",
+          "cluster_group__n": "string",
+          "cluster_group_id": "integer",
+          "cluster_group_id__n": "integer",
+          "cluster_id": "integer",
+          "cluster_id__n": "integer",
+          "cluster_type": "string",
+          "cluster_type__n": "string",
+          "cluster_type_id": "integer",
+          "cluster_type_id__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "data_file_id": "integer",
+          "data_file_id__n": "integer",
+          "data_source_id": "integer",
+          "data_source_id__n": "integer",
+          "data_synced": "string",
+          "data_synced__empty": "boolean",
+          "data_synced__gt": "string",
+          "data_synced__gte": "string",
+          "data_synced__lt": "string",
+          "data_synced__lte": "string",
+          "data_synced__n": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device_role": "string",
+          "device_role__n": "string",
+          "device_role_id": "integer",
+          "device_role_id__n": "integer",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "is_active": "boolean",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "integer",
+          "location_id__n": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "platform": "string",
+          "platform__n": "string",
+          "platform_id": "integer",
+          "platform_id__n": "integer",
+          "profile": "string",
+          "profile__n": "string",
+          "profile_id": "integer",
+          "profile_id__n": "integer",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "integer",
+          "region_id__n": "integer",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "integer",
+          "site_group_id__n": "integer",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "integer",
+          "tenant_group_id__n": "integer",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "weight": "integer",
+          "weight__empty": "boolean",
+          "weight__gt": "integer",
+          "weight__gte": "integer",
+          "weight__lt": "integer",
+          "weight__lte": "integer",
+          "weight__n": "integer"
+        }
       },
       "add": {
         "name": "extras_config_contexts_create",
@@ -346,41 +647,36 @@
         "path": "/api/extras/config-contexts/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "ConfigContextRequest": "{ConfigContextRequest}"
+        },
+        "paramTypes": {
+          "ConfigContextRequest": "object"
         }
       },
       "update": {
-        "name": "extras_config_contexts_bulk_update",
-        "descriptionTemplate": "Put a list of config context objects.",
-        "method": "PUT",
-        "path": "/api/extras/config-contexts/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
-        }
-      },
-      "patch": {
         "name": "extras_config_contexts_bulk_partial_update",
         "descriptionTemplate": "Patch a list of config context objects.",
         "method": "PATCH",
         "path": "/api/extras/config-contexts/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "ConfigContextRequest": "[{ConfigContextRequest}]"
+        },
+        "paramTypes": {
+          "ConfigContextRequest": "array"
         }
       },
-      "delete": {
-        "name": "extras_config_contexts_bulk_destroy",
-        "descriptionTemplate": "Delete a list of config context objects.",
-        "method": "DELETE",
+      "put": {
+        "name": "extras_config_contexts_bulk_update",
+        "descriptionTemplate": "Put a list of config context objects.",
+        "method": "PUT",
         "path": "/api/extras/config-contexts/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "ConfigContextRequest": "[{ConfigContextRequest}]"
+        },
+        "paramTypes": {
+          "ConfigContextRequest": "array"
         }
       }
     }

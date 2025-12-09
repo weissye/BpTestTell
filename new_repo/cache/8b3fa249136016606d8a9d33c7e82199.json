@@ -1,0 +1,76 @@
+{
+  "GitignoreTemplates": {
+    "operations": {
+      "list": {
+        "name": "listGitignoresTemplates",
+        "descriptionTemplate": "Returns a list of all gitignore templates",
+        "method": "GET",
+        "path": "/gitignore/templates",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      },
+      "get": {
+        "name": "getGitignoreTemplateInfo",
+        "descriptionTemplate": "Returns information about a gitignore template",
+        "method": "GET",
+        "path": "/gitignore/templates/{name}",
+        "params": [
+          "name"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "LabelTemplates": {
+    "operations": {
+      "list": {
+        "name": "listLabelTemplates",
+        "descriptionTemplate": "Returns a list of all label templates",
+        "method": "GET",
+        "path": "/label/templates",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      },
+      "get": {
+        "name": "getLabelTemplateInfo",
+        "descriptionTemplate": "Returns all labels in a template",
+        "method": "GET",
+        "path": "/label/templates/{name}",
+        "params": [
+          "name"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "LicenseTemplates": {
+    "operations": {
+      "list": {
+        "name": "listLicenseTemplates",
+        "descriptionTemplate": "Returns a list of all license templates",
+        "method": "GET",
+        "path": "/licenses",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "Members": {
+    "operations": {
+      "update": {
+        "name": "updateMembersInitialsByIdMember",
+        "descriptionTemplate": "updateMembersInitialsByIdMember()",
+        "method": "PUT",
+        "path": "/members/{idMember}/initials",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_initials"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "list": {
+        "name": "getMembersNotificationsByIdMember",
+        "descriptionTemplate": "getMembersNotificationsByIdMember()",
+        "method": "GET",
+        "path": "/members/{idMember}/notifications",
+        "params": [
+          "idMember",
+          "entities",
+          "display",
+          "filter",
+          "read_filter",
+          "fields",
+          "limit",
+          "page",
+          "before",
+          "since",
+          "memberCreator",
+          "memberCreator_fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "entities": "string",
+          "display": "string",
+          "filter": "string",
+          "read_filter": "string",
+          "fields": "string",
+          "limit": "string",
+          "page": "string",
+          "before": "string",
+          "since": "string",
+          "memberCreator": "string",
+          "memberCreator_fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getMembersNotificationsByIdMemberByFilter",
+        "descriptionTemplate": "getMembersNotificationsByIdMemberByFilter()",
+        "method": "GET",
+        "path": "/members/{idMember}/notifications/{filter}",
+        "params": [
+          "idMember",
+          "filter",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "idMember": "string",
+          "filter": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addMembersOneTimeMessagesDismissedByIdMember",
+        "descriptionTemplate": "addMembersOneTimeMessagesDismissedByIdMember()",
+        "method": "POST",
+        "path": "/members/{idMember}/oneTimeMessagesDismissed",
+        "params": [
+          "idMember",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/members_oneTimeMessagesDismissed"
+        },
+        "paramTypes": {
+          "idMember": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

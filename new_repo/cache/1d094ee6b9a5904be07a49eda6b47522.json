@@ -1,0 +1,199 @@
+{
+  "Hooks": {
+    "operations": {
+      "list": {
+        "name": "orgListHooks",
+        "descriptionTemplate": "List an organization's webhooks",
+        "method": "GET",
+        "path": "/orgs/{org}/hooks",
+        "params": [
+          "org",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "orgCreateHook",
+        "descriptionTemplate": "Create a hook",
+        "method": "POST",
+        "path": "/orgs/{org}/hooks",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "body": "object"
+        }
+      },
+      "get": {
+        "name": "orgGetHook",
+        "descriptionTemplate": "Get a hook",
+        "method": "GET",
+        "path": "/orgs/{org}/hooks/{id}",
+        "params": [
+          "org",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "orgEditHook",
+        "descriptionTemplate": "Update a hook",
+        "method": "PATCH",
+        "path": "/orgs/{org}/hooks/{id}",
+        "params": [
+          "org",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "id": "integer",
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "orgDeleteHook",
+        "descriptionTemplate": "Delete a hook",
+        "method": "DELETE",
+        "path": "/orgs/{org}/hooks/{id}",
+        "params": [
+          "org",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Labels": {
+    "operations": {
+      "list": {
+        "name": "orgListLabels",
+        "descriptionTemplate": "List an organization's labels",
+        "method": "GET",
+        "path": "/orgs/{org}/labels",
+        "params": [
+          "org",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "orgCreateLabel",
+        "descriptionTemplate": "Create a label for an organization",
+        "method": "POST",
+        "path": "/orgs/{org}/labels",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "body": "object"
+        }
+      },
+      "get": {
+        "name": "orgGetLabel",
+        "descriptionTemplate": "Get a single label",
+        "method": "GET",
+        "path": "/orgs/{org}/labels/{id}",
+        "params": [
+          "org",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "orgEditLabel",
+        "descriptionTemplate": "Update a label",
+        "method": "PATCH",
+        "path": "/orgs/{org}/labels/{id}",
+        "params": [
+          "org",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "id": "integer",
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "orgDeleteLabel",
+        "descriptionTemplate": "Delete a label",
+        "method": "DELETE",
+        "path": "/orgs/{org}/labels/{id}",
+        "params": [
+          "org",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Members": {
+    "operations": {
+      "list": {
+        "name": "orgListMembers",
+        "descriptionTemplate": "List an organization's members",
+        "method": "GET",
+        "path": "/orgs/{org}/members",
+        "params": [
+          "org",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  }
+}

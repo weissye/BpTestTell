@@ -18,18 +18,15 @@ SYSTEM_PROMPT = """
 You are an expert Test Automation Architect. 
 Your task is to analyze a small subset of OpenAPI paths and extract "Entities" and "Operations".
 
-### context
-- You are receiving ONLY the paths. 
-- The schema definitions (components) are omitted to save space.
-- If you see a reference like "$ref": "#/components/schemas/Device", assume the Entity is "Device".
-
 ### Rules:
 1. **Identify Entities:** Group paths by the resource they manage (e.g., /dcim/devices/{id} -> Entity "Devices").
 2. **Identify Operations:** Map methods to: "add" (POST), "get" (GET item), "list" (GET collection), "update" (PUT/PATCH), "delete" (DELETE).
 3. **Extract Parameters:** List path/query params.
 4. **Body Template:** Create a JSON template for POST/PUT. 
-   - **CRITICAL:** Use placeholders matching the **Property Name** (e.g. "{name}", "{device_role}").
-   - Do NOT use generic types like "{string}".
+   - Use placeholders matching the **Property Name** (e.g. "{name}", "{device_role}").
+5. **Extract Types (CRITICAL):** For EVERY parameter (in path, query, or body fields), identify its primitive type.
+   - Format: "string", "integer", "boolean", "number".
+   - If a field is an enum, treat as its base type (usually string).
 
 ### Output Format (Strict JSON):
 {
@@ -41,7 +38,9 @@ Your task is to analyze a small subset of OpenAPI paths and extract "Entities" a
         "method": "METHOD",
         "path": "/path",
         "params": ["p1"],
-        "bodyTemplate": {"key": "{key}"}
+        "bodyTemplate": {"key": "{key}"},
+        "paramTypes": {"p1": "string", "key": "integer", "isActive": "boolean"},
+        "x-negative-delete-expected-codes": [404] 
       }
     }
   }
@@ -88,20 +87,16 @@ def call_llm(chunk_data: Dict[str, Any], force: bool) -> Dict[str, Any]:
             
         except Exception as e:
             print(f"   ❌ LLM Error: {e}")
-            # Non-transient error? Break immediately.
             raise e
             
-    raise Exception("Max retries exceeded. Aborting to prevent incomplete generation.")
+    raise Exception("Max retries exceeded.")
 
 def chunk_openapi(raw_spec: Dict[str, Any], batch_size=5) -> List[Dict[str, Any]]:
     paths = list(raw_spec.get("paths", {}).items())
     chunks = []
     for i in range(0, len(paths), batch_size):
         chunk_paths = dict(paths[i:i + batch_size])
-        # OPTIMIZATION: Do NOT send "components" or "info"
-        chunk = {
-            "paths": chunk_paths
-        }
+        chunk = { "paths": chunk_paths }
         chunks.append(chunk)
     return chunks
 
@@ -126,9 +121,8 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
     print(f"[Processor] Loading OpenAPI from {openapi_path}...")
     raw_spec = load_openapi(openapi_path)
     
-    # Process
     chunks = chunk_openapi(raw_spec, batch_size=5)
-    print(f"[Processor] Optimized Split: {len(chunks)} chunks (Components excluded from prompts).")
+    print(f"[Processor] Optimized Split: {len(chunks)} chunks.")
     
     all_entities = {}
     try:
@@ -136,10 +130,10 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
             print(f"[Batch {i+1}/{len(chunks)}]")
             extracted = call_llm(chunk, force)
             merge_specs(all_entities, extracted)
-            time.sleep(0.5) # Gentle pacing
+            time.sleep(0.5) 
     except Exception as e:
         print(f"\n❌ FATAL: Pipeline stopped. Reason: {e}")
-        sys.exit(1) # STOP EVERYTHING
+        sys.exit(1)
 
     context = {
         "sut_name": sut_name,

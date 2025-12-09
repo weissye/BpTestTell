@@ -47,7 +47,49 @@
           "termination_type__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "cable": "integer",
+          "cable__n": "integer",
+          "cable_end": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "termination_id": "integer",
+          "termination_id__empty": "boolean",
+          "termination_id__gt": "integer",
+          "termination_id__gte": "integer",
+          "termination_id__lt": "integer",
+          "termination_id__lte": "integer",
+          "termination_id__n": "integer",
+          "termination_type": "string",
+          "termination_type__n": "string",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_cable_terminations_create",
@@ -57,49 +99,13 @@
         "params": [],
         "bodyTemplate": {
           "CableTerminationRequest": "{CableTerminationRequest}"
-        }
+        },
+        "paramTypes": {
+          "CableTerminationRequest": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_cable_terminations_bulk_update",
-        "descriptionTemplate": "Put a list of cable termination objects.",
-        "method": "PUT",
-        "path": "/api/dcim/cable-terminations/",
-        "params": [],
-        "bodyTemplate": {
-          "CableTerminationRequest": "{CableTerminationRequest}"
-        }
-      },
-      "patch": {
-        "name": "dcim_cable_terminations_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of cable termination objects.",
-        "method": "PATCH",
-        "path": "/api/dcim/cable-terminations/",
-        "params": [],
-        "bodyTemplate": {
-          "CableTerminationRequest": "{CableTerminationRequest}"
-        }
-      },
-      "delete": {
-        "name": "dcim_cable_terminations_bulk_destroy",
-        "descriptionTemplate": "Delete a list of cable termination objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/cable-terminations/",
-        "params": [],
-        "bodyTemplate": {
-          "CableTerminationRequest": "{CableTerminationRequest}"
-        }
-      },
-      "get": {
-        "name": "dcim_cable_terminations_retrieve",
-        "descriptionTemplate": "Get a cable termination object.",
-        "method": "GET",
-        "path": "/api/dcim/cable-terminations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "updateItem": {
         "name": "dcim_cable_terminations_update",
         "descriptionTemplate": "Put a cable termination object.",
         "method": "PUT",
@@ -109,21 +115,14 @@
         ],
         "bodyTemplate": {
           "CableTerminationRequest": "{CableTerminationRequest}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer",
+          "CableTerminationRequest": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "patchItem": {
-        "name": "dcim_cable_terminations_partial_update",
-        "descriptionTemplate": "Patch a cable termination object.",
-        "method": "PATCH",
-        "path": "/api/dcim/cable-terminations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "PatchedCableTerminationRequest": "{PatchedCableTerminationRequest}"
-        }
-      },
-      "deleteItem": {
+      "delete": {
         "name": "dcim_cable_terminations_destroy",
         "descriptionTemplate": "Delete a cable termination object.",
         "method": "DELETE",
@@ -131,7 +130,27 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_cable_terminations_retrieve",
+        "descriptionTemplate": "Get a cable termination object.",
+        "method": "GET",
+        "path": "/api/dcim/cable-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -281,7 +300,147 @@
           "unterminated",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "circuittermination_id": "integer",
+          "color": "string",
+          "color__empty": "boolean",
+          "color__ic": "string",
+          "color__ie": "string",
+          "color__iew": "string",
+          "color__iregex": "string",
+          "color__isw": "string",
+          "color__n": "string",
+          "color__nic": "string",
+          "color__nie": "string",
+          "color__niew": "string",
+          "color__nisw": "string",
+          "color__regex": "string",
+          "consoleport_id": "integer",
+          "consoleserverport_id": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device_id": "integer",
+          "frontport_id": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface_id": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "length": "number",
+          "length__empty": "boolean",
+          "length__gt": "number",
+          "length__gte": "number",
+          "length__lt": "number",
+          "length__lte": "number",
+          "length__n": "number",
+          "length_unit": "string",
+          "limit": "integer",
+          "location": "string",
+          "location_id": "integer",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "powerfeed_id": "integer",
+          "poweroutlet_id": "integer",
+          "powerport_id": "integer",
+          "q": "string",
+          "rack": "string",
+          "rack_id": "integer",
+          "rearport_id": "integer",
+          "site": "string",
+          "site_id": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "termination_a_id": "integer",
+          "termination_a_type": "string",
+          "termination_a_type__n": "string",
+          "termination_b_id": "integer",
+          "termination_b_type": "string",
+          "termination_b_type__n": "string",
+          "type": "string",
+          "type__empty": "boolean",
+          "type__ic": "string",
+          "type__ie": "string",
+          "type__iew": "string",
+          "type__iregex": "string",
+          "type__isw": "string",
+          "type__n": "string",
+          "type__nic": "string",
+          "type__nie": "string",
+          "type__niew": "string",
+          "type__nisw": "string",
+          "type__regex": "string",
+          "unterminated": "boolean",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_cables_create",
@@ -291,49 +450,13 @@
         "params": [],
         "bodyTemplate": {
           "WritableCableRequest": "{WritableCableRequest}"
-        }
+        },
+        "paramTypes": {
+          "WritableCableRequest": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_cables_bulk_update",
-        "descriptionTemplate": "Put a list of cable objects.",
-        "method": "PUT",
-        "path": "/api/dcim/cables/",
-        "params": [],
-        "bodyTemplate": {
-          "CableRequest": "{CableRequest}"
-        }
-      },
-      "patch": {
-        "name": "dcim_cables_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of cable objects.",
-        "method": "PATCH",
-        "path": "/api/dcim/cables/",
-        "params": [],
-        "bodyTemplate": {
-          "CableRequest": "{CableRequest}"
-        }
-      },
-      "delete": {
-        "name": "dcim_cables_bulk_destroy",
-        "descriptionTemplate": "Delete a list of cable objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/cables/",
-        "params": [],
-        "bodyTemplate": {
-          "CableRequest": "{CableRequest}"
-        }
-      },
-      "get": {
-        "name": "dcim_cables_retrieve",
-        "descriptionTemplate": "Get a cable object.",
-        "method": "GET",
-        "path": "/api/dcim/cables/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "updateItem": {
         "name": "dcim_cables_update",
         "descriptionTemplate": "Put a cable object.",
         "method": "PUT",
@@ -343,21 +466,14 @@
         ],
         "bodyTemplate": {
           "WritableCableRequest": "{WritableCableRequest}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer",
+          "WritableCableRequest": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "patchItem": {
-        "name": "dcim_cables_partial_update",
-        "descriptionTemplate": "Patch a cable object.",
-        "method": "PATCH",
-        "path": "/api/dcim/cables/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "PatchedWritableCableRequest": "{PatchedWritableCableRequest}"
-        }
-      },
-      "deleteItem": {
+      "delete": {
         "name": "dcim_cables_destroy",
         "descriptionTemplate": "Delete a cable object.",
         "method": "DELETE",
@@ -365,7 +481,27 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_cables_retrieve",
+        "descriptionTemplate": "Get a cable object.",
+        "method": "GET",
+        "path": "/api/dcim/cables/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -380,7 +516,12 @@
           "peer_device",
           "peer_interface"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "peer_device": "string",
+          "peer_interface": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

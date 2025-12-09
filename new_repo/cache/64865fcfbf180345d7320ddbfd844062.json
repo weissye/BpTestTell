@@ -1,0 +1,128 @@
+{
+  "Checklists": {
+    "operations": {
+      "delete": {
+        "name": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem()",
+        "method": "DELETE",
+        "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+        "params": [
+          "idChecklist",
+          "idCheckItem",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getChecklistsCheckItemsByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "getChecklistsCheckItemsByIdChecklistByIdCheckItem()",
+        "method": "GET",
+        "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+        "params": [
+          "idChecklist",
+          "idCheckItem",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        }
+      },
+      "update": {
+        "name": "updateChecklistsIdCardByIdChecklist",
+        "descriptionTemplate": "updateChecklistsIdCardByIdChecklist()",
+        "method": "PUT",
+        "path": "/checklists/{idChecklist}/idCard",
+        "params": [
+          "idChecklist",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "idCard": "{idCard}"
+        },
+        "paramTypes": {
+          "idChecklist": "string",
+          "key": "string",
+          "token": "string",
+          "idCard": "string"
+        }
+      },
+      "updateName": {
+        "name": "updateChecklistsNameByIdChecklist",
+        "descriptionTemplate": "updateChecklistsNameByIdChecklist()",
+        "method": "PUT",
+        "path": "/checklists/{idChecklist}/name",
+        "params": [
+          "idChecklist",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}"
+        },
+        "paramTypes": {
+          "idChecklist": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string"
+        }
+      },
+      "updatePos": {
+        "name": "updateChecklistsPosByIdChecklist",
+        "descriptionTemplate": "updateChecklistsPosByIdChecklist()",
+        "method": "PUT",
+        "path": "/checklists/{idChecklist}/pos",
+        "params": [
+          "idChecklist",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "pos": "{pos}"
+        },
+        "paramTypes": {
+          "idChecklist": "string",
+          "key": "string",
+          "token": "string",
+          "pos": "string"
+        }
+      },
+      "getField": {
+        "name": "getChecklistsByIdChecklistByField",
+        "descriptionTemplate": "getChecklistsByIdChecklistByField()",
+        "method": "GET",
+        "path": "/checklists/{idChecklist}/{field}",
+        "params": [
+          "idChecklist",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idChecklist": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        }
+      }
+    }
+  }
+}

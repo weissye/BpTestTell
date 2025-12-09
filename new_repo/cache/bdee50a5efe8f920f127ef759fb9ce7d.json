@@ -8,6 +8,13 @@
         "path": "/api/dcim/device-roles/{id}/",
         "params": [
           "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
         ]
       },
       "get": {
@@ -17,7 +24,11 @@
         "path": "/api/dcim/device-roles/{id}/",
         "params": [
           "id"
-        ]
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "dcim_device_roles_update",
@@ -30,22 +41,17 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device_role": "string"
         }
       }
     }
   },
   "DeviceTypes": {
     "operations": {
-      "delete": {
-        "name": "dcim_device_types_bulk_destroy",
-        "descriptionTemplate": "Delete a list of device type objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/device-types/",
-        "params": [],
-        "bodyTemplate": {
-          "device_type": "{device_type}"
-        }
-      },
       "list": {
         "name": "dcim_device_types_list",
         "descriptionTemplate": "Get a list of device type objects.",
@@ -92,7 +98,50 @@
           "u_height",
           "weight",
           "weight_unit"
-        ]
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "airflow": "string",
+          "console_port_template_count": "integer",
+          "console_ports": "boolean",
+          "created": "string",
+          "default_platform": "string",
+          "description": "string",
+          "device_bay_template_count": "integer",
+          "device_bays": "boolean",
+          "exclude_from_utilization": "boolean",
+          "front_port_template_count": "integer",
+          "has_front_image": "boolean",
+          "has_rear_image": "boolean",
+          "id": "integer",
+          "interface_template_count": "integer",
+          "interfaces": "boolean",
+          "inventory_item_template_count": "integer",
+          "inventory_items": "boolean",
+          "is_full_depth": "boolean",
+          "last_updated": "string",
+          "limit": "integer",
+          "manufacturer": "string",
+          "model": "string",
+          "module_bay_template_count": "integer",
+          "module_bays": "boolean",
+          "offset": "integer",
+          "ordering": "string",
+          "part_number": "string",
+          "pass_through_ports": "boolean",
+          "power_outlet_template_count": "integer",
+          "power_outlets": "boolean",
+          "power_port_template_count": "integer",
+          "power_ports": "boolean",
+          "q": "string",
+          "rear_port_template_count": "integer",
+          "slug": "string",
+          "subdevice_role": "string",
+          "tag": "string",
+          "u_height": "number",
+          "weight": "number",
+          "weight_unit": "string"
+        }
       },
       "add": {
         "name": "dcim_device_types_create",
@@ -101,8 +150,12 @@
         "path": "/api/dcim/device-types/",
         "params": [],
         "bodyTemplate": {
-          "model": "{model}",
-          "manufacturer": "{manufacturer}"
+          "name": "{name}",
+          "device_type": "{device_type}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_type": "string"
         }
       },
       "update": {
@@ -114,24 +167,35 @@
           "id"
         ],
         "bodyTemplate": {
-          "model": "{model}",
-          "manufacturer": "{manufacturer}"
+          "name": "{name}",
+          "device_type": "{device_type}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device_type": "string"
         }
+      },
+      "delete": {
+        "name": "dcim_device_types_destroy",
+        "descriptionTemplate": "Delete a device type object.",
+        "method": "DELETE",
+        "path": "/api/dcim/device-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
   "Devices": {
     "operations": {
-      "delete": {
-        "name": "dcim_devices_bulk_destroy",
-        "descriptionTemplate": "Delete a list of device objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/devices/",
-        "params": [],
-        "bodyTemplate": {
-          "device": "{device}"
-        }
-      },
       "list": {
         "name": "dcim_devices_list",
         "descriptionTemplate": "Get a list of device objects.",
@@ -210,7 +274,82 @@
           "vc_priority",
           "virtual_chassis_id",
           "virtual_chassis_member"
-        ]
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "airflow": "string",
+          "asset_tag": "string",
+          "cluster_group": "string",
+          "cluster_id": "integer",
+          "config_template_id": "integer",
+          "console_port_count": "integer",
+          "console_ports": "boolean",
+          "console_server_port_count": "integer",
+          "console_server_ports": "boolean",
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "description": "string",
+          "device_bay_count": "integer",
+          "device_bays": "boolean",
+          "device_type": "string",
+          "face": "string",
+          "front_port_count": "integer",
+          "has_oob_ip": "boolean",
+          "has_primary_ip": "boolean",
+          "has_virtual_device_context": "boolean",
+          "id": "integer",
+          "interface_count": "integer",
+          "interfaces": "boolean",
+          "inventory_item_count": "integer",
+          "is_full_depth": "boolean",
+          "last_updated": "string",
+          "latitude": "number",
+          "limit": "integer",
+          "local_context_data": "boolean",
+          "location": "string",
+          "longitude": "number",
+          "mac_address": "string",
+          "manufacturer": "string",
+          "model": "string",
+          "module_bay_count": "integer",
+          "module_bays": "boolean",
+          "name": "string",
+          "offset": "integer",
+          "oob_ip_id": "integer",
+          "ordering": "string",
+          "parent_bay_id": "integer",
+          "parent_device_id": "integer",
+          "pass_through_ports": "boolean",
+          "platform": "string",
+          "position": "number",
+          "power_outlet_count": "integer",
+          "power_outlets": "boolean",
+          "power_port_count": "integer",
+          "power_ports": "boolean",
+          "primary_ip4": "string",
+          "primary_ip6": "string",
+          "q": "string",
+          "rack_id": "integer",
+          "rear_port_count": "integer",
+          "region": "string",
+          "role": "string",
+          "serial": "string",
+          "site": "string",
+          "site_group": "string",
+          "site_id": "integer",
+          "status": "string",
+          "tag": "string",
+          "tenant": "string",
+          "tenant_group": "string",
+          "tenant_id": "integer",
+          "updated_by_request": "string",
+          "vc_position": "integer",
+          "vc_priority": "integer",
+          "virtual_chassis_id": "integer",
+          "virtual_chassis_member": "boolean"
+        }
       },
       "add": {
         "name": "dcim_devices_create",
@@ -220,7 +359,11 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_role": "{device_role}"
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "string"
         }
       },
       "update": {
@@ -233,8 +376,29 @@
         ],
         "bodyTemplate": {
           "name": "{name}",
-          "device_role": "{device_role}"
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device": "string"
         }
+      },
+      "delete": {
+        "name": "dcim_devices_destroy",
+        "descriptionTemplate": "Delete a device object.",
+        "method": "DELETE",
+        "path": "/api/dcim/devices/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

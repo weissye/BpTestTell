@@ -15,7 +15,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     lines.append('//@provengo summon rest')
     lines.append('')
     
-    # --- Helper: Dependency Resolution ---
     lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
     lines.append('  while (Object.keys(deps).length > 0) {')
@@ -44,8 +43,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
     global_base_id = 200 
 
-    # --- Step 1: Pre-calculate Primary Keys for ALL Entities ---
-    # This allows us to know that "Cars" uses "vin" without hardcoding "vin"
     entity_pks_map = {}
     for name, ent in entities.items():
         pk, _ = collect_entity_params(name, ent, raw_spec)
@@ -53,58 +50,72 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             entity_pks_map[name] = pk
 
     for name, ent in entities.items():
+        safe_entity_name = sanitize_param(name)
+        
         ops = ent.get("operations", {})
-        add_fn = ops.get("add", {}).get("name") if isinstance(ops.get("add"), dict) else None
-        del_fn = ops.get("delete", {}).get("name") if isinstance(ops.get("delete"), dict) else None
-        upd_fn = ops.get("update", {}).get("name") if isinstance(ops.get("update"), dict) else None
         
-        try_add_fn = f"tryToAddExisting{name}"
-        try_del_fn = f"tryToDeleteANonExisting{name}"
-        ver_ex_fn = f"verify{name}Exists"
-        ver_ne_fn = f"verify{name}DoesNotExist"
-        
-        match_add_any = f"matchAny{name}Added"
-        match_del_specific = f"matchDeleted{name}"
+        def get_safe_fn(op_key):
+            raw_fn = ops.get(op_key, {}).get("name")
+            return sanitize_param(raw_fn) if raw_fn else None
+
+        add_fn = get_safe_fn("add")
+        del_fn = get_safe_fn("delete")
+        upd_fn = get_safe_fn("update")
         
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+
+        item_get_op = ops.get("get")
+        has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         
-        # --- Type Inference ---
+        pk_in_body = False
+        if "add" in ops and isinstance(ops["add"], dict):
+            body_tmpl = ops["add"].get("bodyTemplate", {})
+            if isinstance(body_tmpl, dict) and primary_key in body_tmpl:
+                pk_in_body = True
+        
+        can_fully_test = has_specific_get and pk_in_body
+
+        try_add_fn = f"tryToAddExisting{safe_entity_name}"
+        try_del_fn = f"tryToDeleteANonExisting{safe_entity_name}"
+        ver_ex_fn = f"verify{safe_entity_name}Exists"
+        ver_ne_fn = f"verify{safe_entity_name}DoesNotExist"
+        
+        match_add_any = f"matchAny{safe_entity_name}Added"
+        match_del_specific = f"matchDeleted{safe_entity_name}"
+        
         param_types = {}
         if "add" in ops and isinstance(ops["add"], dict):
-            schema, _ = get_operation_schema(ops["add"].get("path"), "POST", raw_spec)
-            props = schema.get("properties", {})
-            for p in sig_params: param_types[p] = props.get(p, {}).get("type", infer_type(p))
+            llm_types = ops["add"].get("paramTypes", {})
+            for p in sig_params:
+                if p in llm_types:
+                    param_types[p] = llm_types[p]
+                else:
+                    param_types[p] = "string"
 
-        # --- Step 2: Generic Dependency Detection ---
         deps = []
         story_pk_map = {}
-        
         for p in sig_params:
+            # --- GLOBAL FIX: Expanded Auth/Config Exclusion List ---
+            # These parameters are almost always static configuration, not dynamic dependencies.
+            auth_params = [
+                "key", "token", "api_key", "apikey", "authorization", "auth",
+                "client_id", "client_secret", "access_token", "refresh_token",
+                "session", "session_id", "cookie", "x_api_key", "x_auth_token"
+            ]
+            if p.lower() in auth_params:
+                continue
+            # -------------------------------------------------------
+            
             for potential_ent in entities:
-                if potential_ent == name: continue # Don't depend on self
-                
-                # Get the REAL Primary Key of the potential target (e.g., "vin")
+                if potential_ent == name: continue
                 target_pk = entity_pks_map.get(potential_ent)
                 if not target_pk: continue
-
-                # Normalize strings for comparison
                 p_lower = p.lower()
                 ent_lower = potential_ent.lower()
                 pk_lower = target_pk.lower()
-                
-                # Handle Plural/Singular (e.g. "Cars" entity vs "car" parameter)
                 ent_singular = ent_lower[:-1] if ent_lower.endswith('s') else ent_lower
-
-                # --- THE GENERIC HEURISTIC ---
-                # A parameter is a dependency IF:
-                # 1. It contains the Entity Name (e.g. "car" in "carVin")
-                #    AND
-                # 2. It contains the Entity's PK (e.g. "vin" in "carVin")
-                #    OR the Entity's PK is generic "id" and param has "id" (e.g. "userId" vs "id")
-                
                 name_match = ent_singular in p_lower
                 pk_match = pk_lower in p_lower or (pk_lower == "id" and "id" in p_lower)
-                
                 if name_match and pk_match:
                      deps.append((potential_ent, p))
                      story_pk_map[p] = target_pk
@@ -115,13 +126,12 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 is_dep = False
                 for d_ent, d_var in deps:
                     if d_var == p: is_dep = True
-                
                 sanitized = sanitize_param(p)
                 if not is_dep:
-                    ptype = param_types.get(p, "string")
+                    ptype = param_types.get(p, "string").lower()
                     p_lower = p.lower()
                     
-                    if ptype in ["integer", "number"]:
+                    if ptype in ["integer", "number", "int", "float", "double"]:
                         if "year" in p_lower: val = f'{2020 + (idx % 5)}'
                         elif "mileage" in p_lower: val = f'{10000 + idx}'
                         elif "bay" in p_lower: val = f'{5 + (idx % 5)}'
@@ -131,7 +141,7 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                     elif ptype == "boolean":
                         val = "true"
                     else: 
-                        val = f'"{p}_{idx}"'
+                        val = json.dumps(f"{p}_{idx}")
                         
                     declarations.append(f'  let {sanitized} = {val};')
                 else:
@@ -143,19 +153,20 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
         map_vars_code = []
         for p in sig_params:
-             map_vars_code.append(f'    let {sanitize_param(p)} = (e.data.parameters && e.data.parameters.{p}) ? e.data.parameters.{p} : e.data.{p};')
+             safe_p = sanitize_param(p)
+             json_key = json.dumps(p)
+             map_vars_code.append(f'    let {safe_p} = (e.data.parameters && e.data.parameters[{json_key}]) ? e.data.parameters[{json_key}] : e.data[{json_key}];')
 
         barrier_code = []
         if deps:
             barrier_code.append('  // Dependency Barrier')
             barrier_code.append('  let deps = {};')
             for target_ent, var_name in deps:
-                 barrier_code.append(f'  deps["{sanitize_param(var_name)}"] = matchAny{target_ent}Added();')
-            
+                 safe_target_ent = sanitize_param(target_ent)
+                 barrier_code.append(f'  deps["{sanitize_param(var_name)}"] = matchAny{safe_target_ent}Added();')
             pk_map_str = json.dumps(story_pk_map)
             barrier_code.append(f'  let pkMap = {pk_map_str};')
             barrier_code.append('  let captured = resolveDependencies(deps, pkMap);')
-            
             for target_ent, var_name in deps:
                 sanitized = sanitize_param(var_name)
                 barrier_code.append(f'  {sanitized} = captured["{sanitized}"];')
@@ -172,28 +183,32 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 lines.append(get_vars(story_id))
                 if barrier_str: lines.append(barrier_str)
                 lines.append(f'  {add_fn}({get_args_vars()});')
-                lines.append(f'  {try_add_fn}({get_args_vars()});')
-                lines.append(f'  {ver_ex_fn}({get_args_vars()});')
-                if upd_fn: lines.append(f'  {upd_fn}({get_args_vars()});')
-                lines.append(f'  {del_fn}({get_args_vars()});')
-                lines.append(f'  {try_del_fn}({get_args_vars()});')
-                lines.append(f'  {ver_ne_fn}({get_args_vars()});')
+                
+                if can_fully_test:
+                    lines.append(f'  {try_add_fn}({get_args_vars()});')
+                    lines.append(f'  {ver_ex_fn}({get_args_vars()});')
+                    if upd_fn: lines.append(f'  {upd_fn}({get_args_vars()});')
+                    lines.append(f'  {del_fn}({get_args_vars()});')
+                    lines.append(f'  {try_del_fn}({get_args_vars()});')
+                    lines.append(f'  {ver_ne_fn}({get_args_vars()});')
+                
                 lines.append('});')
                 lines.append('')
 
-            lines.append(f'// Monitor: {name} Verification')
-            lines.append(f'bthread("monitor:{name}", function () {{')
-            lines.append('  while (true) {')
-            lines.append(f'    let e = bp.sync({{ waitFor: {match_add_any}() }});') 
-            lines.append("\n".join(map_vars_code))
-            args_str = get_args_vars()
-            lines.append(f'    // Block Deletion while Verifying Existence')
-            lines.append(f'    block({match_del_specific}({args_str}), function() {{')
-            lines.append(f'        {ver_ex_fn}({args_str});') 
-            lines.append(f'    }});')
-            lines.append('  }')
-            lines.append('});')
-            lines.append('')
+            if can_fully_test:
+                lines.append(f'// Monitor: {name} Verification')
+                lines.append(f'bthread("monitor:{name}", function () {{')
+                lines.append('  while (true) {')
+                lines.append(f'    let e = bp.sync({{ waitFor: {match_add_any}() }});') 
+                lines.append("\n".join(map_vars_code))
+                args_str = get_args_vars()
+                lines.append(f'    // Block Deletion while Verifying Existence')
+                lines.append(f'    block({match_del_specific}({args_str}), function() {{')
+                lines.append(f'        {ver_ex_fn}({args_str});') 
+                lines.append(f'    }});')
+                lines.append('  }')
+                lines.append('});')
+                lines.append('')
 
         global_base_id += 50
 

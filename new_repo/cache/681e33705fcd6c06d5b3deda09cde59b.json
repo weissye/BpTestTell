@@ -1,0 +1,181 @@
+{
+  "GitHooks": {
+    "operations": {
+      "list": {
+        "name": "repoListGitHooks",
+        "descriptionTemplate": "List the Git hooks in a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks/git",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      },
+      "get": {
+        "name": "repoGetGitHook",
+        "descriptionTemplate": "Get a Git hook",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks/git/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "string"
+        }
+      },
+      "update": {
+        "name": "repoEditGitHook",
+        "descriptionTemplate": "Edit a Git hook in a repository",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/hooks/git/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "string",
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteGitHook",
+        "descriptionTemplate": "Delete a Git hook in a repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/hooks/git/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Hooks": {
+    "operations": {
+      "get": {
+        "name": "repoGetHook",
+        "descriptionTemplate": "Get a hook",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "repoEditHook",
+        "descriptionTemplate": "Edit a hook in a repository",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/hooks/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteHook",
+        "descriptionTemplate": "Delete a hook in a repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/hooks/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "HookTests": {
+    "operations": {
+      "add": {
+        "name": "repoTestHook",
+        "descriptionTemplate": "Test a push webhook",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/hooks/{id}/tests",
+        "params": [
+          "owner",
+          "repo",
+          "id",
+          "ref"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "ref": "string"
+        }
+      }
+    }
+  },
+  "IssueConfig": {
+    "operations": {
+      "get": {
+        "name": "repoGetIssueConfig",
+        "descriptionTemplate": "Returns the issue config for a repo",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issue_config",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      }
+    }
+  }
+}

@@ -93,7 +93,95 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "enabled": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "object_type": "string",
+          "object_type__n": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "shared": "boolean",
+          "table": "string",
+          "table__empty": "boolean",
+          "table__ic": "string",
+          "table__ie": "string",
+          "table__iew": "string",
+          "table__iregex": "string",
+          "table__isw": "string",
+          "table__n": "string",
+          "table__nic": "string",
+          "table__nie": "string",
+          "table__niew": "string",
+          "table__nisw": "string",
+          "table__regex": "string",
+          "updated_by_request": "string",
+          "usable": "boolean",
+          "user": "string",
+          "user__n": "string",
+          "user_id": "integer",
+          "user_id__n": "integer",
+          "weight": "integer",
+          "weight__empty": "boolean",
+          "weight__gt": "integer",
+          "weight__gte": "integer",
+          "weight__lt": "integer",
+          "weight__lte": "integer",
+          "weight__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "extras_table_configs_create",
@@ -103,9 +191,11 @@
         "params": [],
         "bodyTemplate": {
           "items": {
-            "TableConfigRequest": "{TableConfigRequest}"
+            "$ref": "#/components/schemas/TableConfigRequest"
           }
-        }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "extras_table_configs_bulk_update",
@@ -115,21 +205,11 @@
         "params": [],
         "bodyTemplate": {
           "items": {
-            "TableConfigRequest": "{TableConfigRequest}"
+            "$ref": "#/components/schemas/TableConfigRequest"
           }
-        }
-      },
-      "patch": {
-        "name": "extras_table_configs_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of table config objects.",
-        "method": "PATCH",
-        "path": "/api/extras/table-configs/",
-        "params": [],
-        "bodyTemplate": {
-          "items": {
-            "TableConfigRequest": "{TableConfigRequest}"
-          }
-        }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "extras_table_configs_bulk_destroy",
@@ -139,9 +219,13 @@
         "params": [],
         "bodyTemplate": {
           "items": {
-            "TableConfigRequest": "{TableConfigRequest}"
+            "$ref": "#/components/schemas/TableConfigRequest"
           }
-        }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "extras_table_configs_retrieve",
@@ -151,21 +235,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "extras_table_configs_update",
-        "descriptionTemplate": "Put a table config object.",
-        "method": "PUT",
-        "path": "/api/extras/table-configs/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "TableConfigRequest": "{TableConfigRequest}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "extras_table_configs_partial_update",
         "descriptionTemplate": "Patch a table config object.",
         "method": "PATCH",
@@ -174,18 +250,12 @@
           "id"
         ],
         "bodyTemplate": {
-          "PatchedTableConfigRequest": "{PatchedTableConfigRequest}"
-        }
-      },
-      "deleteItem": {
-        "name": "extras_table_configs_destroy",
-        "descriptionTemplate": "Delete a table config object.",
-        "method": "DELETE",
-        "path": "/api/extras/table-configs/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+          "$ref": "#/components/schemas/PatchedTableConfigRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -224,7 +294,36 @@
           "tag_id",
           "tag_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "limit": "integer",
+          "object_id": "integer",
+          "object_id__empty": "boolean",
+          "object_id__gt": "integer",
+          "object_id__gte": "integer",
+          "object_id__lt": "integer",
+          "object_id__lte": "integer",
+          "object_id__n": "integer",
+          "object_type": "string",
+          "object_type__n": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "get": {
         "name": "extras_tagged_objects_retrieve",
@@ -234,7 +333,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -339,7 +442,102 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "color": "string",
+          "color__empty": "boolean",
+          "color__ic": "string",
+          "color__ie": "string",
+          "color__iew": "string",
+          "color__iregex": "string",
+          "color__isw": "string",
+          "color__n": "string",
+          "color__nic": "string",
+          "color__nie": "string",
+          "color__niew": "string",
+          "color__nisw": "string",
+          "color__regex": "string",
+          "content_type": "string",
+          "content_type_id": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "for_object_type_id": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "object_types": "integer",
+          "object_types__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "updated_by_request": "string",
+          "weight": "integer",
+          "weight__empty": "boolean",
+          "weight__gt": "integer",
+          "weight__gte": "integer",
+          "weight__lt": "integer",
+          "weight__lte": "integer",
+          "weight__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "extras_tags_create",
@@ -348,8 +546,10 @@
         "path": "/api/extras/tags/",
         "params": [],
         "bodyTemplate": {
-          "TagRequest": "{TagRequest}"
-        }
+          "$ref": "#/components/schemas/TagRequest"
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "extras_tags_bulk_update",
@@ -359,21 +559,11 @@
         "params": [],
         "bodyTemplate": {
           "items": {
-            "TagRequest": "{TagRequest}"
+            "$ref": "#/components/schemas/TagRequest"
           }
-        }
-      },
-      "patch": {
-        "name": "extras_tags_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of tag objects.",
-        "method": "PATCH",
-        "path": "/api/extras/tags/",
-        "params": [],
-        "bodyTemplate": {
-          "items": {
-            "TagRequest": "{TagRequest}"
-          }
-        }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "extras_tags_bulk_destroy",
@@ -383,9 +573,13 @@
         "params": [],
         "bodyTemplate": {
           "items": {
-            "TagRequest": "{TagRequest}"
+            "$ref": "#/components/schemas/TagRequest"
           }
-        }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

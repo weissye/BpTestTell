@@ -1,0 +1,85 @@
+{
+  "Settings": {
+    "operations": {
+      "list": {
+        "name": "getGeneralUISettings",
+        "descriptionTemplate": "Get instance's global settings for ui",
+        "method": "GET",
+        "path": "/settings/ui",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "Miscellaneous": {
+    "operations": {
+      "get": {
+        "name": "getSigningKey",
+        "descriptionTemplate": "Get default signing-key.gpg",
+        "method": "GET",
+        "path": "/signing-key.gpg",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "Teams": {
+    "operations": {
+      "get": {
+        "name": "orgGetTeam",
+        "descriptionTemplate": "Get a team",
+        "method": "GET",
+        "path": "/teams/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "orgDeleteTeam",
+        "descriptionTemplate": "Delete a team",
+        "method": "DELETE",
+        "path": "/teams/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "orgEditTeam",
+        "descriptionTemplate": "Edit a team",
+        "method": "PATCH",
+        "path": "/teams/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

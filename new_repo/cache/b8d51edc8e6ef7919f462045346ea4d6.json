@@ -1,0 +1,27 @@
+{
+  "Utilities": {
+    "operations": {
+      "add": {
+        "name": "sort",
+        "descriptionTemplate": "Re-sort items in collection based on start and to value of item",
+        "method": "POST",
+        "path": "/utils/sort/{collection}",
+        "params": [
+          "collection"
+        ],
+        "bodyTemplate": {
+          "item": "{item}",
+          "to": "{to}"
+        },
+        "paramTypes": {
+          "collection": "string",
+          "item": "number",
+          "to": "number"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

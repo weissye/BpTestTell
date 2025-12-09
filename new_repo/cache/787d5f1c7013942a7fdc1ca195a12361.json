@@ -1,0 +1,111 @@
+{
+  "Roles": {
+    "operations": {
+      "delete": {
+        "name": "deleteRole",
+        "descriptionTemplate": "Delete an existing role",
+        "method": "DELETE",
+        "path": "/roles/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getRole",
+        "descriptionTemplate": "Retrieve a single role by unique identifier.",
+        "method": "GET",
+        "path": "/roles/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        }
+      },
+      "update": {
+        "name": "updateRole",
+        "descriptionTemplate": "Update an existing role",
+        "method": "PATCH",
+        "path": "/roles/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "description": "{description}",
+          "enforce_tfa": "{enforce_tfa}",
+          "external_id": "{external_id}",
+          "ip_access": [
+            "{ip_access}"
+          ],
+          "module_listing": "{module_listing}",
+          "name": "{name}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "description": "string",
+          "enforce_tfa": "boolean",
+          "external_id": "string",
+          "ip_access": "string",
+          "module_listing": "string",
+          "name": "string"
+        }
+      }
+    }
+  },
+  "Schema": {
+    "operations": {
+      "add": {
+        "name": "schemaDiff",
+        "descriptionTemplate": "Compare the current instance's schema against the schema snapshot in JSON request body or a JSON/YAML file and retrieve the difference. This endpoint is only available to admin users.",
+        "method": "POST",
+        "path": "/schema/diff",
+        "params": [
+          "force"
+        ],
+        "bodyTemplate": {
+          "data": "{data}",
+          "file": "{file}"
+        },
+        "paramTypes": {
+          "force": "boolean",
+          "data": "string",
+          "file": "string"
+        }
+      },
+      "get": {
+        "name": "schemaSnapshot",
+        "descriptionTemplate": "Retrieve the current schema. This endpoint is only available to admin users.",
+        "method": "GET",
+        "path": "/schema/snapshot",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {}
+      }
+    }
+  },
+  "Server": {
+    "operations": {
+      "get": {
+        "name": "serverInfo",
+        "descriptionTemplate": "Perform a system status check and return the options.",
+        "method": "GET",
+        "path": "/server/info",
+        "params": [
+          "super_admin_token"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "super_admin_token": "integer"
+        }
+      }
+    }
+  }
+}

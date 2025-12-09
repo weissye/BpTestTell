@@ -200,7 +200,202 @@
           "virtual_chassis_id",
           "virtual_chassis_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "asset_tag": "string",
+          "asset_tag__empty": "boolean",
+          "asset_tag__ic": "string",
+          "asset_tag__ie": "string",
+          "asset_tag__iew": "string",
+          "asset_tag__iregex": "string",
+          "asset_tag__isw": "string",
+          "asset_tag__n": "string",
+          "asset_tag__nic": "string",
+          "asset_tag__nie": "string",
+          "asset_tag__niew": "string",
+          "asset_tag__nisw": "string",
+          "asset_tag__regex": "string",
+          "component_id": "integer",
+          "component_id__empty": "integer",
+          "component_id__gt": "integer",
+          "component_id__gte": "integer",
+          "component_id__lt": "integer",
+          "component_id__lte": "integer",
+          "component_id__n": "integer",
+          "component_type": "string",
+          "component_type__n": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device__n": "string",
+          "device_id": "integer",
+          "device_id__n": "integer",
+          "device_role": "string",
+          "device_role__n": "string",
+          "device_role_id": "integer",
+          "device_role_id__n": "integer",
+          "device_status": "string",
+          "device_status__empty": "boolean",
+          "device_status__ic": "string",
+          "device_status__ie": "string",
+          "device_status__iew": "string",
+          "device_status__iregex": "string",
+          "device_status__isw": "string",
+          "device_status__n": "string",
+          "device_status__nic": "string",
+          "device_status__nie": "string",
+          "device_status__niew": "string",
+          "device_status__nisw": "string",
+          "device_status__regex": "string",
+          "device_type": "string",
+          "device_type__n": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "discovered": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "integer",
+          "location_id__n": "integer",
+          "manufacturer": "string",
+          "manufacturer__n": "string",
+          "manufacturer_id": "integer",
+          "manufacturer_id__n": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "part_id": "string",
+          "part_id__empty": "boolean",
+          "part_id__ic": "string",
+          "part_id__ie": "string",
+          "part_id__iew": "string",
+          "part_id__iregex": "string",
+          "part_id__isw": "string",
+          "part_id__n": "string",
+          "part_id__nic": "string",
+          "part_id__nie": "string",
+          "part_id__niew": "string",
+          "part_id__nisw": "string",
+          "part_id__regex": "string",
+          "q": "string",
+          "rack": "string",
+          "rack__n": "string",
+          "rack_id": "integer",
+          "rack_id__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "integer",
+          "role_id__n": "integer",
+          "serial": "string",
+          "serial__empty": "boolean",
+          "serial__ic": "string",
+          "serial__ie": "string",
+          "serial__iew": "string",
+          "serial__iregex": "string",
+          "serial__isw": "string",
+          "serial__n": "string",
+          "serial__nic": "string",
+          "serial__nie": "string",
+          "serial__niew": "string",
+          "serial__nisw": "string",
+          "serial__regex": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_chassis": "string",
+          "virtual_chassis__n": "string",
+          "virtual_chassis_id": "integer",
+          "virtual_chassis_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_inventory_items_create",
@@ -211,7 +406,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_inventory_items_bulk_update",
@@ -222,7 +422,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_inventory_items_bulk_destroy",
@@ -233,7 +438,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device_role": "{device_role}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_inventory_items_retrieve",
@@ -243,20 +455,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "patch": {
-        "name": "dcim_inventory_items_partial_update",
-        "descriptionTemplate": "Patch a inventory item object.",
-        "method": "PATCH",
-        "path": "/api/dcim/inventory-items/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "device_role": "{device_role}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -400,7 +603,141 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "ancestor": "string",
+          "ancestor__n": "string",
+          "ancestor_id": "string",
+          "ancestor_id__n": "string",
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "facility": "string",
+          "facility__empty": "boolean",
+          "facility__ic": "string",
+          "facility__ie": "string",
+          "facility__iew": "string",
+          "facility__iregex": "string",
+          "facility__isw": "string",
+          "facility__n": "string",
+          "facility__nic": "string",
+          "facility__nie": "string",
+          "facility__niew": "string",
+          "facility__nisw": "string",
+          "facility__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent": "string",
+          "parent__n": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_locations_create",
@@ -410,8 +747,13 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "description": "{description}"
-        }
+          "slug": "{slug}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_locations_bulk_update",
@@ -421,8 +763,13 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "description": "{description}"
-        }
+          "slug": "{slug}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_locations_bulk_destroy",
@@ -432,8 +779,15 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "description": "{description}"
-        }
+          "slug": "{slug}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_locations_retrieve",
@@ -443,20 +797,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "patch": {
-        "name": "dcim_locations_partial_update",
-        "descriptionTemplate": "Patch a location object.",
-        "method": "PATCH",
-        "path": "/api/dcim/locations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -547,7 +892,88 @@
           "vminterface_id",
           "vminterface_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "assigned_object_id": "integer",
+          "assigned_object_id__empty": "boolean",
+          "assigned_object_id__gt": "integer",
+          "assigned_object_id__gte": "integer",
+          "assigned_object_id__lt": "integer",
+          "assigned_object_id__lte": "integer",
+          "assigned_object_id__n": "integer",
+          "assigned_object_type": "integer",
+          "assigned_object_type__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device_id": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface": "string",
+          "interface__n": "string",
+          "interface_id": "integer",
+          "interface_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mac_address": "string",
+          "mac_address__ic": "string",
+          "mac_address__ie": "string",
+          "mac_address__iew": "string",
+          "mac_address__iregex": "string",
+          "mac_address__isw": "string",
+          "mac_address__n": "string",
+          "mac_address__nic": "string",
+          "mac_address__nie": "string",
+          "mac_address__niew": "string",
+          "mac_address__nisw": "string",
+          "mac_address__regex": "string",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_machine": "string",
+          "virtual_machine_id": "integer",
+          "vminterface": "string",
+          "vminterface__n": "string",
+          "vminterface_id": "integer",
+          "vminterface_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_mac_addresses_create",
@@ -557,8 +983,13 @@
         "params": [],
         "bodyTemplate": {
           "mac_address": "{mac_address}",
-          "description": "{description}"
-        }
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "mac_address": "string",
+          "device": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_mac_addresses_bulk_update",
@@ -568,8 +999,13 @@
         "params": [],
         "bodyTemplate": {
           "mac_address": "{mac_address}",
-          "description": "{description}"
-        }
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "mac_address": "string",
+          "device": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_mac_addresses_bulk_destroy",
@@ -579,8 +1015,15 @@
         "params": [],
         "bodyTemplate": {
           "mac_address": "{mac_address}",
-          "description": "{description}"
-        }
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "mac_address": "string",
+          "device": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

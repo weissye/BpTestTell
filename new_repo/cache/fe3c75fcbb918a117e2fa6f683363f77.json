@@ -82,7 +82,84 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ipsec_proposal": "string",
+          "ipsec_proposal__n": "string",
+          "ipsec_proposal_id": "integer",
+          "ipsec_proposal_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "pfs_group": "integer",
+          "pfs_group__ic": "integer",
+          "pfs_group__ie": "integer",
+          "pfs_group__iew": "integer",
+          "pfs_group__iregex": "integer",
+          "pfs_group__isw": "integer",
+          "pfs_group__n": "integer",
+          "pfs_group__nic": "integer",
+          "pfs_group__nie": "integer",
+          "pfs_group__niew": "integer",
+          "pfs_group__nisw": "integer",
+          "pfs_group__regex": "integer",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "vpn_ipsec_policies_create",
@@ -91,10 +168,16 @@
         "path": "/api/vpn/ipsec-policies/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/WritableIPSecPolicyRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "ipsec_proposal": "{ipsec_proposal}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "ipsec_proposal": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "vpn_ipsec_policies_bulk_update",
@@ -103,10 +186,16 @@
         "path": "/api/vpn/ipsec-policies/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPSecPolicyRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "ipsec_proposal": "{ipsec_proposal}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "ipsec_proposal": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "vpn_ipsec_policies_bulk_destroy",
@@ -115,10 +204,18 @@
         "path": "/api/vpn/ipsec-policies/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPSecPolicyRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "ipsec_proposal": "{ipsec_proposal}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "ipsec_proposal": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "vpn_ipsec_policies_retrieve",
@@ -128,19 +225,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "patch": {
-        "name": "vpn_ipsec_policies_partial_update",
-        "descriptionTemplate": "Patch a IPSec policy object.",
-        "method": "PATCH",
-        "path": "/api/vpn/ipsec-policies/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableIPSecPolicyRequest"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -232,7 +321,89 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ike_policy": "string",
+          "ike_policy__n": "string",
+          "ike_policy_id": "integer",
+          "ike_policy_id__n": "integer",
+          "ipsec_policy": "string",
+          "ipsec_policy__n": "string",
+          "ipsec_policy_id": "integer",
+          "ipsec_policy_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mode": "string",
+          "mode__empty": "boolean",
+          "mode__ic": "string",
+          "mode__ie": "string",
+          "mode__iew": "string",
+          "mode__iregex": "string",
+          "mode__isw": "string",
+          "mode__n": "string",
+          "mode__nic": "string",
+          "mode__nie": "string",
+          "mode__niew": "string",
+          "mode__nisw": "string",
+          "mode__regex": "string",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "vpn_ipsec_profiles_create",
@@ -241,8 +412,16 @@
         "path": "/api/vpn/ipsec-profiles/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIPSecProfileRequest"
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "ike_policy": "{ike_policy}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "ike_policy": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "vpn_ipsec_profiles_bulk_update",
@@ -251,10 +430,16 @@
         "path": "/api/vpn/ipsec-profiles/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPSecProfileRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "ike_policy": "{ike_policy}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "ike_policy": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "vpn_ipsec_profiles_bulk_destroy",
@@ -263,10 +448,18 @@
         "path": "/api/vpn/ipsec-profiles/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPSecProfileRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "ike_policy": "{ike_policy}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "ike_policy": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "vpn_ipsec_profiles_retrieve",
@@ -276,19 +469,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "patch": {
-        "name": "vpn_ipsec_profiles_partial_update",
-        "descriptionTemplate": "Patch a IPSec profile object.",
-        "method": "PATCH",
-        "path": "/api/vpn/ipsec-profiles/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableIPSecProfileRequest"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -403,7 +588,112 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "authentication_algorithm": "string",
+          "authentication_algorithm__empty": "boolean",
+          "authentication_algorithm__ic": "string",
+          "authentication_algorithm__ie": "string",
+          "authentication_algorithm__iew": "string",
+          "authentication_algorithm__iregex": "string",
+          "authentication_algorithm__isw": "string",
+          "authentication_algorithm__n": "string",
+          "authentication_algorithm__nic": "string",
+          "authentication_algorithm__nie": "string",
+          "authentication_algorithm__niew": "string",
+          "authentication_algorithm__nisw": "string",
+          "authentication_algorithm__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "encryption_algorithm": "string",
+          "encryption_algorithm__empty": "boolean",
+          "encryption_algorithm__ic": "string",
+          "encryption_algorithm__ie": "string",
+          "encryption_algorithm__iew": "string",
+          "encryption_algorithm__iregex": "string",
+          "encryption_algorithm__isw": "string",
+          "encryption_algorithm__n": "string",
+          "encryption_algorithm__nic": "string",
+          "encryption_algorithm__nie": "string",
+          "encryption_algorithm__niew": "string",
+          "encryption_algorithm__nisw": "string",
+          "encryption_algorithm__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ipsec_policy": "string",
+          "ipsec_policy__n": "string",
+          "ipsec_policy_id": "integer",
+          "ipsec_policy_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "sa_lifetime_data": "integer",
+          "sa_lifetime_data__empty": "boolean",
+          "sa_lifetime_data__gt": "integer",
+          "sa_lifetime_data__gte": "integer",
+          "sa_lifetime_data__lt": "integer",
+          "sa_lifetime_data__lte": "integer",
+          "sa_lifetime_data__n": "integer",
+          "sa_lifetime_seconds": "integer",
+          "sa_lifetime_seconds__empty": "boolean",
+          "sa_lifetime_seconds__gt": "integer",
+          "sa_lifetime_seconds__gte": "integer",
+          "sa_lifetime_seconds__lt": "integer",
+          "sa_lifetime_seconds__lte": "integer",
+          "sa_lifetime_seconds__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "vpn_ipsec_proposals_create",
@@ -412,8 +702,16 @@
         "path": "/api/vpn/ipsec-proposals/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIPSecProposalRequest"
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "authentication_algorithm": "{authentication_algorithm}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "authentication_algorithm": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "vpn_ipsec_proposals_bulk_update",
@@ -422,10 +720,16 @@
         "path": "/api/vpn/ipsec-proposals/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPSecProposalRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "authentication_algorithm": "{authentication_algorithm}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "authentication_algorithm": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "vpn_ipsec_proposals_bulk_destroy",
@@ -434,10 +738,32 @@
         "path": "/api/vpn/ipsec-proposals/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPSecProposalRequest"
-          }
-        }
+          "name": "{name}",
+          "description": "{description}",
+          "authentication_algorithm": "{authentication_algorithm}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string",
+          "authentication_algorithm": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "vpn_ipsec_proposals_retrieve",
+        "descriptionTemplate": "Get a IPSec proposal object.",
+        "method": "GET",
+        "path": "/api/vpn/ipsec-proposals/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

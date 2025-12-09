@@ -1,0 +1,282 @@
+{
+  "AvailablePhoneNumbers": {
+    "operations": {
+      "list": {
+        "name": "ListAvailablePhoneNumberTollFree",
+        "descriptionTemplate": "Available toll free phone numbers",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+        "params": [
+          "AccountSid",
+          "CountryCode",
+          "AreaCode",
+          "Contains",
+          "SmsEnabled",
+          "MmsEnabled",
+          "VoiceEnabled",
+          "ExcludeAllAddressRequired",
+          "ExcludeLocalAddressRequired",
+          "ExcludeForeignAddressRequired",
+          "Beta",
+          "NearNumber",
+          "NearLatLong",
+          "Distance",
+          "InPostalCode",
+          "InRegion",
+          "InRateCenter",
+          "InLata",
+          "InLocality",
+          "FaxEnabled",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "CountryCode": "string",
+          "AreaCode": "integer",
+          "Contains": "string",
+          "SmsEnabled": "boolean",
+          "MmsEnabled": "boolean",
+          "VoiceEnabled": "boolean",
+          "ExcludeAllAddressRequired": "boolean",
+          "ExcludeLocalAddressRequired": "boolean",
+          "ExcludeForeignAddressRequired": "boolean",
+          "Beta": "boolean",
+          "NearNumber": "string",
+          "NearLatLong": "string",
+          "Distance": "integer",
+          "InPostalCode": "string",
+          "InRegion": "string",
+          "InRateCenter": "string",
+          "InLata": "string",
+          "InLocality": "string",
+          "FaxEnabled": "boolean",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Balance": {
+    "operations": {
+      "get": {
+        "name": "FetchBalance",
+        "descriptionTemplate": "Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Calls": {
+    "operations": {
+      "list": {
+        "name": "ListCall",
+        "descriptionTemplate": "Retrieves a collection of calls made to and from your account",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+        "params": [
+          "AccountSid",
+          "To",
+          "From",
+          "ParentCallSid",
+          "Status",
+          "StartTime",
+          "StartTime<",
+          "StartTime>",
+          "EndTime",
+          "EndTime<",
+          "EndTime>",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "To": "string",
+          "From": "string",
+          "ParentCallSid": "string",
+          "Status": "string",
+          "StartTime": "string",
+          "StartTime<": "string",
+          "StartTime>": "string",
+          "EndTime": "string",
+          "EndTime<": "string",
+          "EndTime>": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateCall",
+        "descriptionTemplate": "Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "ApplicationSid": "{ApplicationSid}",
+          "AsyncAmd": "{AsyncAmd}",
+          "AsyncAmdStatusCallback": "{AsyncAmdStatusCallback}",
+          "AsyncAmdStatusCallbackMethod": "{AsyncAmdStatusCallbackMethod}",
+          "Byoc": "{Byoc}",
+          "CallReason": "{CallReason}",
+          "CallToken": "{CallToken}",
+          "CallerId": "{CallerId}",
+          "ClientNotificationUrl": "{ClientNotificationUrl}",
+          "FallbackMethod": "{FallbackMethod}",
+          "FallbackUrl": "{FallbackUrl}",
+          "From": "{From}",
+          "IfMachine": "{IfMachine}",
+          "MachineDetection": "{MachineDetection}",
+          "MachineDetectionSilenceTimeout": "{MachineDetectionSilenceTimeout}",
+          "MachineDetectionSpeechEndThreshold": "{MachineDetectionSpeechEndThreshold}",
+          "MachineDetectionSpeechThreshold": "{MachineDetectionSpeechThreshold}",
+          "MachineDetectionTimeout": "{MachineDetectionTimeout}",
+          "Method": "{Method}",
+          "Record": "{Record}",
+          "SendDigits": "{SendDigits}",
+          "StatusCallback": "{StatusCallback}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}",
+          "TimeLimit": "{TimeLimit}",
+          "Timeout": "{Timeout}",
+          "To": "{To}",
+          "Transcribe": "{Transcribe}",
+          "TranscriptionConfiguration": "{TranscriptionConfiguration}",
+          "Trim": "{Trim}",
+          "Url": "{Url}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "ApplicationSid": "string",
+          "AsyncAmd": "string",
+          "AsyncAmdStatusCallback": "string",
+          "AsyncAmdStatusCallbackMethod": "string",
+          "Byoc": "string",
+          "CallReason": "string",
+          "CallToken": "string",
+          "CallerId": "string",
+          "ClientNotificationUrl": "string",
+          "FallbackMethod": "string",
+          "FallbackUrl": "string",
+          "From": "string",
+          "IfMachine": "string",
+          "MachineDetection": "string",
+          "MachineDetectionSilenceTimeout": "integer",
+          "MachineDetectionSpeechEndThreshold": "integer",
+          "MachineDetectionSpeechThreshold": "integer",
+          "MachineDetectionTimeout": "integer",
+          "Method": "string",
+          "Record": "boolean",
+          "SendDigits": "string",
+          "StatusCallback": "string",
+          "StatusCallbackMethod": "string",
+          "TimeLimit": "integer",
+          "Timeout": "integer",
+          "To": "string",
+          "Transcribe": "boolean",
+          "TranscriptionConfiguration": "string",
+          "Trim": "string",
+          "Url": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchCall",
+        "descriptionTemplate": "Fetch the call specified by the provided Call SID",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateCall",
+        "descriptionTemplate": "Initiates a call redirect or terminates a call",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "FallbackMethod": "{FallbackMethod}",
+          "FallbackUrl": "{FallbackUrl}",
+          "Method": "{Method}",
+          "Status": "{Status}",
+          "StatusCallback": "{StatusCallback}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}",
+          "TimeLimit": "{TimeLimit}",
+          "Twiml": "{Twiml}",
+          "Url": "{Url}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "FallbackMethod": "string",
+          "FallbackUrl": "string",
+          "Method": "string",
+          "Status": "string",
+          "StatusCallback": "string",
+          "StatusCallbackMethod": "string",
+          "TimeLimit": "integer",
+          "Twiml": "string",
+          "Url": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteCall",
+        "descriptionTemplate": "Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

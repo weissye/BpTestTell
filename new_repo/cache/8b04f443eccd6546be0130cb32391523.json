@@ -1,0 +1,180 @@
+{
+  "SipAuthCallsIpAccessControlListMapping": {
+    "operations": {
+      "list": {
+        "name": "ListSipAuthCallsIpAccessControlListMapping",
+        "descriptionTemplate": "Retrieve a list of IP Access Control List mappings belonging to the domain used in the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateSipAuthCallsIpAccessControlListMapping",
+        "descriptionTemplate": "Create a new IP Access Control List mapping",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+        "params": [
+          "AccountSid",
+          "DomainSid"
+        ],
+        "bodyTemplate": {
+          "IpAccessControlListSid": "{IpAccessControlListSid}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "IpAccessControlListSid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchSipAuthCallsIpAccessControlListMapping",
+        "descriptionTemplate": "Fetch a specific instance of an IP Access Control List mapping",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteSipAuthCallsIpAccessControlListMapping",
+        "descriptionTemplate": "Delete an IP Access Control List mapping from the requested domain",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "SipAuthRegistrationsCredentialListMapping": {
+    "operations": {
+      "list": {
+        "name": "ListSipAuthRegistrationsCredentialListMapping",
+        "descriptionTemplate": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateSipAuthRegistrationsCredentialListMapping",
+        "descriptionTemplate": "Create a new credential list mapping resource",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+        "params": [
+          "AccountSid",
+          "DomainSid"
+        ],
+        "bodyTemplate": {
+          "CredentialListSid": "{CredentialListSid}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "CredentialListSid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchSipAuthRegistrationsCredentialListMapping",
+        "descriptionTemplate": "Fetch a specific instance of a credential list mapping",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteSipAuthRegistrationsCredentialListMapping",
+        "descriptionTemplate": "Delete a credential list mapping from the requested domain",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "DomainSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "DomainSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

@@ -8,6 +8,13 @@
         "path": "/api/extras/config-contexts/{id}/",
         "params": [
           "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
         ]
       },
       "get": {
@@ -17,7 +24,11 @@
         "path": "/api/extras/config-contexts/{id}/",
         "params": [
           "id"
-        ]
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "extras_config_contexts_partial_update",
@@ -28,7 +39,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "patchedConfigContextRequest": "{patchedConfigContextRequest}"
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
         }
       },
       "put": {
@@ -40,7 +55,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "configContextRequest": "{configContextRequest}"
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
         }
       },
       "add": {
@@ -52,7 +71,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "configContextRequest": "{configContextRequest}"
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
         }
       }
     }
@@ -66,6 +89,13 @@
         "path": "/api/extras/config-templates/{id}/",
         "params": [
           "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
         ]
       },
       "list": {
@@ -184,7 +214,138 @@
           "tag_id",
           "tag_id__n",
           "updated_by_request"
-        ]
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "as_attachment": "boolean",
+          "auto_sync_enabled": "boolean",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "data_file_id": "integer",
+          "data_file_id__n": "integer",
+          "data_source_id": "integer",
+          "data_source_id__n": "integer",
+          "data_synced": "string",
+          "data_synced__empty": "boolean",
+          "data_synced__gt": "string",
+          "data_synced__gte": "string",
+          "data_synced__lt": "string",
+          "data_synced__lte": "string",
+          "data_synced__n": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "file_extension": "string",
+          "file_extension__empty": "boolean",
+          "file_extension__ic": "string",
+          "file_extension__ie": "string",
+          "file_extension__iew": "string",
+          "file_extension__iregex": "string",
+          "file_extension__isw": "string",
+          "file_extension__n": "string",
+          "file_extension__nic": "string",
+          "file_extension__nie": "string",
+          "file_extension__niew": "string",
+          "file_extension__nisw": "string",
+          "file_extension__regex": "string",
+          "file_name": "string",
+          "file_name__empty": "boolean",
+          "file_name__ic": "string",
+          "file_name__ie": "string",
+          "file_name__iew": "string",
+          "file_name__iregex": "string",
+          "file_name__isw": "string",
+          "file_name__n": "string",
+          "file_name__nic": "string",
+          "file_name__nie": "string",
+          "file_name__niew": "string",
+          "file_name__nisw": "string",
+          "file_name__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mime_type": "string",
+          "mime_type__empty": "boolean",
+          "mime_type__ic": "string",
+          "mime_type__ie": "string",
+          "mime_type__iew": "string",
+          "mime_type__iregex": "string",
+          "mime_type__isw": "string",
+          "mime_type__n": "string",
+          "mime_type__nic": "string",
+          "mime_type__nie": "string",
+          "mime_type__niew": "string",
+          "mime_type__nisw": "string",
+          "mime_type__regex": "string",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        }
+      },
+      "add": {
+        "name": "extras_config_templates_render_create",
+        "descriptionTemplate": "Render a ConfigTemplate using the context data provided (if any).",
+        "method": "POST",
+        "path": "/api/extras/config-templates/{id}/render/",
+        "params": [
+          "format",
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "format": "string",
+          "id": "integer",
+          "key": "string"
+        }
       },
       "update": {
         "name": "extras_config_templates_partial_update",
@@ -195,20 +356,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "patchedConfigTemplateRequest": "{patchedConfigTemplateRequest}"
-        }
-      },
-      "add": {
-        "name": "extras_config_templates_render_create",
-        "descriptionTemplate": "Render a ConfigTemplate using the context data provided (if any). If the client requests \"text/plain\" data, return the raw rendered content, rather than serialized JSON.",
-        "method": "POST",
-        "path": "/api/extras/config-templates/{id}/render/",
-        "params": [
-          "format",
-          "id"
-        ],
-        "bodyTemplate": {
-          "configTemplateRequest": "{configTemplateRequest}"
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
         }
       },
       "put": {
@@ -220,7 +372,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "configTemplateRequest": "{configTemplateRequest}"
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
         }
       },
       "get": {
@@ -230,7 +386,11 @@
         "path": "/api/extras/config-templates/{id}/",
         "params": [
           "id"
-        ]
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       }
     }
   }

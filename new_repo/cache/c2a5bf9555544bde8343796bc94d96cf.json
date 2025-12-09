@@ -1,0 +1,51 @@
+{
+  "Webhooks": {
+    "operations": {
+      "update": {
+        "name": "updateWebhooksIdModelByIdWebhook",
+        "descriptionTemplate": "updateWebhooksIdModelByIdWebhook()",
+        "method": "PUT",
+        "path": "/webhooks/{idWebhook}/idModel",
+        "params": [
+          "idWebhook",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "idModel": "{idModel}"
+        },
+        "paramTypes": {
+          "idWebhook": "string",
+          "key": "string",
+          "token": "string",
+          "idModel": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getWebhooksByIdWebhookByField",
+        "descriptionTemplate": "getWebhooksByIdWebhookByField()",
+        "method": "GET",
+        "path": "/webhooks/{idWebhook}/{field}",
+        "params": [
+          "idWebhook",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idWebhook": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

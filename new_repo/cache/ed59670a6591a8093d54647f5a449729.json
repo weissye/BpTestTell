@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_module_types_retrieve",
@@ -19,21 +25,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "update": {
-        "name": "dcim_module_types_partial_update",
-        "descriptionTemplate": "Patch a module type object.",
-        "method": "PATCH",
-        "path": "/api/dcim/module-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "patchedWritableModuleTypeRequest": "{patchedWritableModuleTypeRequest}"
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "put": {
+      "update": {
         "name": "dcim_module_types_update",
         "descriptionTemplate": "Put a module type object.",
         "method": "PUT",
@@ -42,7 +39,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "writableModuleTypeRequest": "{writableModuleTypeRequest}"
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device_role": "string"
         }
       }
     }
@@ -57,168 +60,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "list": {
-        "name": "dcim_modules_list",
-        "descriptionTemplate": "Get a list of module objects.",
-        "method": "GET",
-        "path": "/api/dcim/modules/",
-        "params": [
-          "asset_tag",
-          "asset_tag__empty",
-          "asset_tag__ic",
-          "asset_tag__ie",
-          "asset_tag__iew",
-          "asset_tag__iregex",
-          "asset_tag__isw",
-          "asset_tag__n",
-          "asset_tag__nic",
-          "asset_tag__nie",
-          "asset_tag__niew",
-          "asset_tag__nisw",
-          "asset_tag__regex",
-          "created",
-          "created__empty",
-          "created__gt",
-          "created__gte",
-          "created__lt",
-          "created__lte",
-          "created__n",
-          "created_by_request",
-          "description",
-          "description__empty",
-          "description__ic",
-          "description__ie",
-          "description__iew",
-          "description__iregex",
-          "description__isw",
-          "description__n",
-          "description__nic",
-          "description__nie",
-          "description__niew",
-          "description__nisw",
-          "description__regex",
-          "device",
-          "device__n",
-          "device_id",
-          "device_id__n",
-          "id",
-          "id__empty",
-          "id__gt",
-          "id__gte",
-          "id__lt",
-          "id__lte",
-          "id__n",
-          "last_updated",
-          "last_updated__empty",
-          "last_updated__gt",
-          "last_updated__gte",
-          "last_updated__lt",
-          "last_updated__lte",
-          "last_updated__n",
-          "limit",
-          "location",
-          "location__n",
-          "location_id",
-          "location_id__n",
-          "manufacturer",
-          "manufacturer__n",
-          "manufacturer_id",
-          "manufacturer_id__n",
-          "modified_by_request",
-          "module_bay_id",
-          "module_bay_id__n",
-          "module_type",
-          "module_type__n",
-          "module_type_id",
-          "module_type_id__n",
-          "offset",
-          "ordering",
-          "q",
-          "rack",
-          "rack__n",
-          "rack_id",
-          "rack_id__n",
-          "region",
-          "region__n",
-          "region_id",
-          "region_id__n",
-          "serial",
-          "serial__empty",
-          "serial__ic",
-          "serial__ie",
-          "serial__iew",
-          "serial__iregex",
-          "serial__isw",
-          "serial__n",
-          "serial__nic",
-          "serial__nie",
-          "serial__niew",
-          "serial__nisw",
-          "serial__regex",
-          "site",
-          "site__n",
-          "site_group",
-          "site_group__n",
-          "site_group_id",
-          "site_group_id__n",
-          "site_id",
-          "site_id__n",
-          "status",
-          "status__empty",
-          "status__ic",
-          "status__ie",
-          "status__iew",
-          "status__iregex",
-          "status__isw",
-          "status__n",
-          "status__nic",
-          "status__nie",
-          "status__niew",
-          "status__nisw",
-          "status__regex",
-          "tag",
-          "tag__n",
-          "tag_id",
-          "tag_id__n",
-          "updated_by_request"
-        ],
-        "bodyTemplate": {}
-      },
-      "add": {
-        "name": "dcim_modules_create",
-        "descriptionTemplate": "Post a list of module objects.",
-        "method": "POST",
-        "path": "/api/dcim/modules/",
-        "params": [],
-        "bodyTemplate": {
-          "writableModuleRequest": "{writableModuleRequest}"
-        }
-      },
-      "update": {
-        "name": "dcim_modules_partial_update",
-        "descriptionTemplate": "Patch a module object.",
-        "method": "PATCH",
-        "path": "/api/dcim/modules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "patchedWritableModuleRequest": "{patchedWritableModuleRequest}"
-        }
-      },
-      "put": {
-        "name": "dcim_modules_update",
-        "descriptionTemplate": "Put a module object.",
-        "method": "PUT",
-        "path": "/api/dcim/modules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "writableModuleRequest": "{writableModuleRequest}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_modules_retrieve",
@@ -228,7 +76,66 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "list": {
+        "name": "dcim_modules_list",
+        "descriptionTemplate": "Get a list of module objects.",
+        "method": "GET",
+        "path": "/api/dcim/modules/",
+        "params": [
+          "asset_tag",
+          "asset_tag__empty",
+          "created",
+          "limit",
+          "offset",
+          "ordering"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "asset_tag": "string",
+          "asset_tag__empty": "boolean",
+          "created": "string",
+          "limit": "integer",
+          "offset": "integer",
+          "ordering": "string"
+        }
+      },
+      "add": {
+        "name": "dcim_modules_create",
+        "descriptionTemplate": "Post a list of module objects.",
+        "method": "POST",
+        "path": "/api/dcim/modules/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        }
+      },
+      "update": {
+        "name": "dcim_modules_update",
+        "descriptionTemplate": "Put a module object.",
+        "method": "PUT",
+        "path": "/api/dcim/modules/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device_role": "string"
+        }
       }
     }
   },
@@ -242,136 +149,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "list": {
-        "name": "dcim_platforms_list",
-        "descriptionTemplate": "Get a list of platform objects.",
-        "method": "GET",
-        "path": "/api/dcim/platforms/",
-        "params": [
-          "ancestor",
-          "ancestor__n",
-          "ancestor_id",
-          "ancestor_id__n",
-          "available_for_device_type",
-          "config_template_id",
-          "config_template_id__n",
-          "created",
-          "created__empty",
-          "created__gt",
-          "created__gte",
-          "created__lt",
-          "created__lte",
-          "created__n",
-          "created_by_request",
-          "description",
-          "description__empty",
-          "description__ic",
-          "description__ie",
-          "description__iew",
-          "description__iregex",
-          "description__isw",
-          "description__n",
-          "description__nic",
-          "description__nie",
-          "description__niew",
-          "description__nisw",
-          "description__regex",
-          "id",
-          "id__empty",
-          "id__gt",
-          "id__gte",
-          "id__lt",
-          "id__lte",
-          "id__n",
-          "last_updated",
-          "last_updated__empty",
-          "last_updated__gt",
-          "last_updated__gte",
-          "last_updated__lt",
-          "last_updated__lte",
-          "last_updated__n",
-          "limit",
-          "manufacturer",
-          "manufacturer__n",
-          "manufacturer_id",
-          "manufacturer_id__n",
-          "modified_by_request",
-          "name",
-          "name__empty",
-          "name__ic",
-          "name__ie",
-          "name__iew",
-          "name__iregex",
-          "name__isw",
-          "name__n",
-          "name__nic",
-          "name__nie",
-          "name__niew",
-          "name__nisw",
-          "name__regex",
-          "offset",
-          "ordering",
-          "parent",
-          "parent__n",
-          "parent_id",
-          "parent_id__n",
-          "q",
-          "slug",
-          "slug__empty",
-          "slug__ic",
-          "slug__ie",
-          "slug__iew",
-          "slug__iregex",
-          "slug__isw",
-          "slug__n",
-          "slug__nic",
-          "slug__nie",
-          "slug__niew",
-          "slug__nisw",
-          "slug__regex",
-          "tag",
-          "tag__n",
-          "tag_id",
-          "tag_id__n",
-          "updated_by_request"
-        ],
-        "bodyTemplate": {}
-      },
-      "add": {
-        "name": "dcim_platforms_create",
-        "descriptionTemplate": "Post a list of platform objects.",
-        "method": "POST",
-        "path": "/api/dcim/platforms/",
-        "params": [],
-        "bodyTemplate": {
-          "writablePlatformRequest": "{writablePlatformRequest}"
-        }
-      },
-      "update": {
-        "name": "dcim_platforms_partial_update",
-        "descriptionTemplate": "Patch a platform object.",
-        "method": "PATCH",
-        "path": "/api/dcim/platforms/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "patchedWritablePlatformRequest": "{patchedWritablePlatformRequest}"
-        }
-      },
-      "put": {
-        "name": "dcim_platforms_update",
-        "descriptionTemplate": "Put a platform object.",
-        "method": "PUT",
-        "path": "/api/dcim/platforms/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "writablePlatformRequest": "{writablePlatformRequest}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_platforms_retrieve",
@@ -381,7 +165,64 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "list": {
+        "name": "dcim_platforms_list",
+        "descriptionTemplate": "Get a list of platform objects.",
+        "method": "GET",
+        "path": "/api/dcim/platforms/",
+        "params": [
+          "ancestor",
+          "available_for_device_type",
+          "limit",
+          "offset",
+          "ordering"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "ancestor": "string",
+          "available_for_device_type": "string",
+          "limit": "integer",
+          "offset": "integer",
+          "ordering": "string"
+        }
+      },
+      "add": {
+        "name": "dcim_platforms_create",
+        "descriptionTemplate": "Post a list of platform objects.",
+        "method": "POST",
+        "path": "/api/dcim/platforms/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_role": "string"
+        }
+      },
+      "update": {
+        "name": "dcim_platforms_update",
+        "descriptionTemplate": "Put a platform object.",
+        "method": "PUT",
+        "path": "/api/dcim/platforms/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device_role": "string"
+        }
       }
     }
   }

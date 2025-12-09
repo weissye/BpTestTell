@@ -1,0 +1,141 @@
+{
+  "Notifications": {
+    "operations": {
+      "list": {
+        "name": "notifyGetList",
+        "descriptionTemplate": "List users's notification threads",
+        "method": "GET",
+        "path": "/notifications",
+        "params": [
+          "all",
+          "status-types",
+          "subject-type",
+          "since",
+          "before",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "all": "boolean",
+          "status-types": "string",
+          "subject-type": "string",
+          "since": "string",
+          "before": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "update": {
+        "name": "notifyReadList",
+        "descriptionTemplate": "Mark notification threads as read, pinned or unread",
+        "method": "PUT",
+        "path": "/notifications",
+        "params": [
+          "last_read_at",
+          "all",
+          "status-types",
+          "to-status"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "last_read_at": "string",
+          "all": "string",
+          "status-types": "string",
+          "to-status": "string"
+        }
+      },
+      "get": {
+        "name": "notifyGetThread",
+        "descriptionTemplate": "Get notification thread by ID",
+        "method": "GET",
+        "path": "/notifications/threads/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateThread": {
+        "name": "notifyReadThread",
+        "descriptionTemplate": "Mark notification thread as read by ID",
+        "method": "PATCH",
+        "path": "/notifications/threads/{id}",
+        "params": [
+          "id",
+          "to-status"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "string",
+          "to-status": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "checkNew": {
+        "name": "notifyNewAvailable",
+        "descriptionTemplate": "Check if unread notifications exist",
+        "method": "GET",
+        "path": "/notifications/new",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {}
+      }
+    }
+  },
+  "Organization": {
+    "operations": {
+      "list": {
+        "name": "orgGetAll",
+        "descriptionTemplate": "Get list of organizations",
+        "method": "GET",
+        "path": "/orgs",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "orgCreate",
+        "descriptionTemplate": "Create an organization",
+        "method": "POST",
+        "path": "/orgs",
+        "params": [],
+        "bodyTemplate": {
+          "organization": "{organization}"
+        },
+        "paramTypes": {
+          "organization": "string"
+        }
+      },
+      "addRepo": {
+        "name": "createOrgRepoDeprecated",
+        "descriptionTemplate": "Create a repository in an organization",
+        "method": "POST",
+        "path": "/org/{org}/repos",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "body": "string"
+        }
+      }
+    }
+  }
+}

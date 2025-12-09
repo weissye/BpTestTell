@@ -1,0 +1,161 @@
+{
+  "Issues": {
+    "operations": {
+      "update": {
+        "name": "moveIssuePin",
+        "descriptionTemplate": "Moves the Pin to the given Position",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/{index}/pin/{position}",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "position"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "position": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "issueDeleteIssueReaction",
+        "descriptionTemplate": "Remove a reaction from an issue",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {
+          "content": "{content}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "content": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "list": {
+        "name": "issueGetIssueReactions",
+        "descriptionTemplate": "Get a list reactions of an issue",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "issuePostIssueReaction",
+        "descriptionTemplate": "Add a reaction to an issue",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {
+          "content": "{content}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "content": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "deleteStopwatch": {
+        "name": "issueDeleteStopWatch",
+        "descriptionTemplate": "Delete an issue's existing stopwatch.",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/delete",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          409
+        ]
+      },
+      "startStopwatch": {
+        "name": "issueStartStopWatch",
+        "descriptionTemplate": "Start stopwatch on an issue.",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          409
+        ]
+      },
+      "stopStopwatch": {
+        "name": "issueStopStopWatch",
+        "descriptionTemplate": "Stop an issue's existing stopwatch.",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          409
+        ]
+      }
+    }
+  }
+}

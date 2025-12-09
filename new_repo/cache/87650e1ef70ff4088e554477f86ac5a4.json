@@ -1,0 +1,51 @@
+{
+  "Boards": {
+    "operations": {
+      "update": {
+        "name": "updateBoardsSubscribedByIdBoard",
+        "descriptionTemplate": "updateBoardsSubscribedByIdBoard()",
+        "method": "PUT",
+        "path": "/boards/{idBoard}/subscribed",
+        "params": [
+          "idBoard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "boards_subscribed": "{boards_subscribed}"
+        },
+        "paramTypes": {
+          "idBoard": "string",
+          "key": "string",
+          "token": "string",
+          "boards_subscribed": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getBoardsByIdBoardByField",
+        "descriptionTemplate": "getBoardsByIdBoardByField()",
+        "method": "GET",
+        "path": "/boards/{idBoard}/{field}",
+        "params": [
+          "idBoard",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

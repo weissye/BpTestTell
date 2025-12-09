@@ -1,0 +1,134 @@
+{
+  "Emails": {
+    "operations": {
+      "list": {
+        "name": "adminSearchEmails",
+        "descriptionTemplate": "Search all emails",
+        "method": "GET",
+        "path": "/admin/emails/search",
+        "params": [
+          "q",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "q": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  },
+  "Hooks": {
+    "operations": {
+      "list": {
+        "name": "adminListHooks",
+        "descriptionTemplate": "List system's webhooks",
+        "method": "GET",
+        "path": "/admin/hooks",
+        "params": [
+          "page",
+          "limit",
+          "type"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer",
+          "type": "string"
+        }
+      },
+      "add": {
+        "name": "adminCreateHook",
+        "descriptionTemplate": "Create a hook",
+        "method": "POST",
+        "path": "/admin/hooks",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "string"
+        }
+      },
+      "get": {
+        "name": "adminGetHook",
+        "descriptionTemplate": "Get a hook",
+        "method": "GET",
+        "path": "/admin/hooks/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "adminEditHook",
+        "descriptionTemplate": "Update a hook",
+        "method": "PATCH",
+        "path": "/admin/hooks/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "body": "string"
+        }
+      },
+      "delete": {
+        "name": "adminDeleteHook",
+        "descriptionTemplate": "Delete a hook",
+        "method": "DELETE",
+        "path": "/admin/hooks/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Organizations": {
+    "operations": {
+      "list": {
+        "name": "adminGetAllOrgs",
+        "descriptionTemplate": "List all organizations",
+        "method": "GET",
+        "path": "/admin/orgs",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  },
+  "Runners": {
+    "operations": {
+      "get": {
+        "name": "adminGetRunnerRegistrationToken",
+        "descriptionTemplate": "Get an global actions runner registration token",
+        "method": "GET",
+        "path": "/admin/runners/registration-token",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {}
+      }
+    }
+  }
+}

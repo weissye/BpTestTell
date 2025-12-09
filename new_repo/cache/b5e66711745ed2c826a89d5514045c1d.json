@@ -1,0 +1,209 @@
+{
+  "Repository": {
+    "operations": {
+      "add": {
+        "name": "repoMigrate",
+        "descriptionTemplate": "Migrate a remote git repository",
+        "method": "POST",
+        "path": "/repos/migrate",
+        "params": [],
+        "bodyTemplate": {
+          "clone_addr": "{clone_addr}",
+          "auth_username": "{auth_username}",
+          "auth_password": "{auth_password}",
+          "auth_token": "{auth_token}",
+          "mirror": "{mirror}",
+          "private": "{private}",
+          "uid": "{uid}",
+          "repo_name": "{repo_name}",
+          "description": "{description}",
+          "wiki": "{wiki}",
+          "issues": "{issues}",
+          "labels": "{labels}",
+          "milestones": "{milestones}",
+          "pull_requests": "{pull_requests}",
+          "releases": "{releases}",
+          "default_branch": "{default_branch}",
+          "archived": "{archived}",
+          "template": "{template}"
+        },
+        "paramTypes": {
+          "clone_addr": "string",
+          "auth_username": "string",
+          "auth_password": "string",
+          "auth_token": "string",
+          "mirror": "boolean",
+          "private": "boolean",
+          "uid": "integer",
+          "repo_name": "string",
+          "description": "string",
+          "wiki": "boolean",
+          "issues": "boolean",
+          "labels": "boolean",
+          "milestones": "boolean",
+          "pull_requests": "boolean",
+          "releases": "boolean",
+          "default_branch": "string",
+          "archived": "boolean",
+          "template": "boolean"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "list": {
+        "name": "repoSearch",
+        "descriptionTemplate": "Search for repositories",
+        "method": "GET",
+        "path": "/repos/search",
+        "params": [
+          "q",
+          "topic",
+          "includeDesc",
+          "uid",
+          "priority_owner_id",
+          "team_id",
+          "starredBy",
+          "private",
+          "is_private",
+          "template",
+          "archived",
+          "mode",
+          "exclusive",
+          "sort",
+          "order",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "q": "string",
+          "topic": "boolean",
+          "includeDesc": "boolean",
+          "uid": "integer",
+          "priority_owner_id": "integer",
+          "team_id": "integer",
+          "starredBy": "integer",
+          "private": "boolean",
+          "is_private": "boolean",
+          "template": "boolean",
+          "archived": "boolean",
+          "mode": "string",
+          "exclusive": "boolean",
+          "sort": "string",
+          "order": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "get": {
+        "name": "repoGet",
+        "descriptionTemplate": "Get a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "repoEdit",
+        "descriptionTemplate": "Edit a repository's properties. Only fields that are set will be changed.",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "description": "{description}",
+          "website": "{website}",
+          "private": "{private}",
+          "has_issues": "{has_issues}",
+          "has_wiki": "{has_wiki}",
+          "default_branch": "{default_branch}",
+          "archived": "{archived}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "name": "string",
+          "description": "string",
+          "website": "string",
+          "private": "boolean",
+          "has_issues": "boolean",
+          "has_wiki": "boolean",
+          "default_branch": "string",
+          "archived": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "repoDelete",
+        "descriptionTemplate": "Delete a repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "getRunnerRegistrationToken": {
+        "name": "repoGetRunnerRegistrationToken",
+        "descriptionTemplate": "Get a repository's actions runner registration token",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/runners/registration-token",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "listActionsSecrets": {
+        "name": "repoListActionsSecrets",
+        "descriptionTemplate": "List an repo's actions secrets",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/secrets",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

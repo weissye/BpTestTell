@@ -9,7 +9,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -106,7 +112,96 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "color": "string",
+          "color__empty": "boolean",
+          "color__ic": "string",
+          "color__ie": "string",
+          "color__iew": "string",
+          "color__iregex": "string",
+          "color__isw": "string",
+          "color__n": "string",
+          "color__nic": "string",
+          "color__nie": "string",
+          "color__niew": "string",
+          "color__nisw": "string",
+          "color__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "dcim_inventory_item_roles_create",
@@ -116,39 +211,45 @@
         "params": [],
         "bodyTemplate": {
           "items": "{InventoryItemRoleRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
-        "name": "dcim_inventory_item_roles_update",
-        "descriptionTemplate": "Put a inventory item role object.",
+        "name": "dcim_inventory_item_roles_bulk_update",
+        "descriptionTemplate": "Put a list of inventory item role objects.",
         "method": "PUT",
-        "path": "/api/dcim/inventory-item-roles/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/dcim/inventory-item-roles/",
+        "params": [],
         "bodyTemplate": {
           "items": "{InventoryItemRoleRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
-        "name": "dcim_inventory_item_roles_destroy",
-        "descriptionTemplate": "Delete a inventory item role object.",
+        "name": "dcim_inventory_item_roles_bulk_destroy",
+        "descriptionTemplate": "Delete a list of inventory item role objects.",
         "method": "DELETE",
-        "path": "/api/dcim/inventory-item-roles/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "get": {
-        "name": "dcim_inventory_item_roles_retrieve",
-        "descriptionTemplate": "Get a inventory item role object.",
-        "method": "GET",
-        "path": "/api/dcim/inventory-item-roles/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/dcim/inventory-item-roles/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{InventoryItemRoleRequest}"
+        },
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -262,7 +363,113 @@
           "role_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "component_id": "integer",
+          "component_id__empty": "integer",
+          "component_id__gt": "integer",
+          "component_id__gte": "integer",
+          "component_id__lt": "integer",
+          "component_id__lte": "integer",
+          "component_id__n": "integer",
+          "component_type": "string",
+          "component_type__n": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "manufacturer": "string",
+          "manufacturer__n": "string",
+          "manufacturer_id": "integer",
+          "manufacturer_id__n": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "part_id": "string",
+          "part_id__empty": "boolean",
+          "part_id__ic": "string",
+          "part_id__ie": "string",
+          "part_id__iew": "string",
+          "part_id__iregex": "string",
+          "part_id__isw": "string",
+          "part_id__n": "string",
+          "part_id__nic": "string",
+          "part_id__nie": "string",
+          "part_id__niew": "string",
+          "part_id__nisw": "string",
+          "part_id__regex": "string",
+          "q": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "integer",
+          "role_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "dcim_inventory_item_templates_create",
@@ -272,39 +479,45 @@
         "params": [],
         "bodyTemplate": {
           "items": "{InventoryItemTemplateRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
-        "name": "dcim_inventory_item_templates_update",
-        "descriptionTemplate": "Put a inventory item template object.",
+        "name": "dcim_inventory_item_templates_bulk_update",
+        "descriptionTemplate": "Put a list of inventory item template objects.",
         "method": "PUT",
-        "path": "/api/dcim/inventory-item-templates/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/dcim/inventory-item-templates/",
+        "params": [],
         "bodyTemplate": {
           "items": "{InventoryItemTemplateRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
-        "name": "dcim_inventory_item_templates_destroy",
-        "descriptionTemplate": "Delete a inventory item template object.",
+        "name": "dcim_inventory_item_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of inventory item template objects.",
         "method": "DELETE",
-        "path": "/api/dcim/inventory-item-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "get": {
-        "name": "dcim_inventory_item_templates_retrieve",
-        "descriptionTemplate": "Get a inventory item template object.",
-        "method": "GET",
-        "path": "/api/dcim/inventory-item-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/dcim/inventory-item-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{InventoryItemTemplateRequest}"
+        },
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

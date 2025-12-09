@@ -1,0 +1,278 @@
+{
+  "PullRequests": {
+    "operations": {
+      "list": {
+        "name": "repoGetPullRequestFiles",
+        "descriptionTemplate": "Get changed files for a pull request",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/files",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "skip-to",
+          "whitespace",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "skip-to": "string",
+          "whitespace": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "repoCancelScheduledAutoMerge",
+        "descriptionTemplate": "Cancel the scheduled auto merge for the given pull request",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/merge",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          403,
+          423
+        ]
+      },
+      "get": {
+        "name": "repoPullRequestIsMerged",
+        "descriptionTemplate": "Check if a pull request has been merged",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/merge",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "repoMergePullRequest",
+        "descriptionTemplate": "Merge a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/merge",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          405,
+          409,
+          423
+        ]
+      }
+    }
+  },
+  "PullReviewRequests": {
+    "operations": {
+      "delete": {
+        "name": "repoDeletePullReviewRequests",
+        "descriptionTemplate": "Cancel review requests for a pull request",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/requested_reviewers",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          403,
+          422
+        ]
+      },
+      "add": {
+        "name": "repoCreatePullReviewRequests",
+        "descriptionTemplate": "Create review requests for a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/requested_reviewers",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          422
+        ]
+      }
+    }
+  },
+  "PullReviews": {
+    "operations": {
+      "list": {
+        "name": "repoListPullReviews",
+        "descriptionTemplate": "List all reviews for a pull request",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "repoCreatePullReview",
+        "descriptionTemplate": "Create a review to a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews",
+        "params": [
+          "owner",
+          "repo",
+          "index"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          422
+        ]
+      },
+      "delete": {
+        "name": "repoDeletePullReview",
+        "descriptionTemplate": "Delete a specific review from a pull request",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          403
+        ]
+      },
+      "get": {
+        "name": "repoGetPullReview",
+        "descriptionTemplate": "Get a specific review for a pull request",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "submit": {
+        "name": "repoSubmitPullReview",
+        "descriptionTemplate": "Submit a pending review to a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "id": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          422
+        ]
+      }
+    }
+  }
+}

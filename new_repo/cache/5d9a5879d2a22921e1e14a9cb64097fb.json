@@ -9,7 +9,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -139,7 +143,127 @@
           "type__regex",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "enabled": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_synced": "string",
+          "last_synced__empty": "boolean",
+          "last_synced__gt": "string",
+          "last_synced__gte": "string",
+          "last_synced__lt": "string",
+          "last_synced__lte": "string",
+          "last_synced__n": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "source_url": "string",
+          "source_url__empty": "boolean",
+          "source_url__ic": "string",
+          "source_url__ie": "string",
+          "source_url__iew": "string",
+          "source_url__iregex": "string",
+          "source_url__isw": "string",
+          "source_url__n": "string",
+          "source_url__nic": "string",
+          "source_url__nie": "string",
+          "source_url__niew": "string",
+          "source_url__nisw": "string",
+          "source_url__regex": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "sync_interval": "integer",
+          "sync_interval__ic": "integer",
+          "sync_interval__ie": "integer",
+          "sync_interval__iew": "integer",
+          "sync_interval__iregex": "integer",
+          "sync_interval__isw": "integer",
+          "sync_interval__n": "integer",
+          "sync_interval__nic": "integer",
+          "sync_interval__nie": "integer",
+          "sync_interval__niew": "integer",
+          "sync_interval__nisw": "integer",
+          "sync_interval__regex": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "type": "string",
+          "type__empty": "boolean",
+          "type__ic": "string",
+          "type__ie": "string",
+          "type__iew": "string",
+          "type__iregex": "string",
+          "type__isw": "string",
+          "type__n": "string",
+          "type__nic": "string",
+          "type__nie": "string",
+          "type__niew": "string",
+          "type__nisw": "string",
+          "type__regex": "string",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "core_data_sources_create",
@@ -148,8 +272,12 @@
         "path": "/api/core/data-sources/",
         "params": [],
         "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
+          "dataSourceRequest": "{dataSourceRequest}"
+        },
+        "paramTypes": {
+          "dataSourceRequest": "object"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "core_data_sources_bulk_update",
@@ -158,18 +286,12 @@
         "path": "/api/core/data-sources/",
         "params": [],
         "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
-      },
-      "patch": {
-        "name": "core_data_sources_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of data source objects.",
-        "method": "PATCH",
-        "path": "/api/core/data-sources/",
-        "params": [],
-        "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
+          "dataSourceRequest": "{dataSourceRequest}"
+        },
+        "paramTypes": {
+          "dataSourceRequest": "object"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "core_data_sources_bulk_destroy",
@@ -178,8 +300,14 @@
         "path": "/api/core/data-sources/",
         "params": [],
         "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
+          "dataSourceRequest": "{dataSourceRequest}"
+        },
+        "paramTypes": {
+          "dataSourceRequest": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "core_data_sources_retrieve",
@@ -189,21 +317,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "core_data_sources_update",
-        "descriptionTemplate": "Put a data source object.",
-        "method": "PUT",
-        "path": "/api/core/data-sources/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "core_data_sources_partial_update",
         "descriptionTemplate": "Patch a data source object.",
         "method": "PATCH",
@@ -212,18 +332,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
-      },
-      "deleteItem": {
-        "name": "core_data_sources_destroy",
-        "descriptionTemplate": "Delete a data source object.",
-        "method": "DELETE",
-        "path": "/api/core/data-sources/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+          "patchedWritableDataSourceRequest": "{patchedWritableDataSourceRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "patchedWritableDataSourceRequest": "object"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "sync": {
         "name": "core_data_sources_sync_create",
@@ -234,8 +349,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "dataSource": "{dataSource}"
-        }
+          "writableDataSourceRequest": "{writableDataSourceRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "writableDataSourceRequest": "object"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -316,7 +436,78 @@
           "user",
           "user__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "completed": "string",
+          "completed__after": "string",
+          "completed__before": "string",
+          "created": "string",
+          "created__after": "string",
+          "created__before": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interval": "integer",
+          "interval__empty": "boolean",
+          "interval__gt": "integer",
+          "interval__gte": "integer",
+          "interval__lt": "integer",
+          "interval__lte": "integer",
+          "interval__n": "integer",
+          "job_id": "string",
+          "limit": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "object_id": "integer",
+          "object_id__empty": "boolean",
+          "object_id__gt": "integer",
+          "object_id__gte": "integer",
+          "object_id__lt": "integer",
+          "object_id__lte": "integer",
+          "object_id__n": "integer",
+          "object_type": "integer",
+          "object_type__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "scheduled": "string",
+          "scheduled__after": "string",
+          "scheduled__before": "string",
+          "started": "string",
+          "started__after": "string",
+          "started__before": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "user": "integer",
+          "user__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

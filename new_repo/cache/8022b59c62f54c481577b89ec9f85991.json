@@ -8,6 +8,13 @@
         "path": "/api/extras/saved-filters/{id}/",
         "params": [
           "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
         ]
       },
       "get": {
@@ -17,22 +24,13 @@
         "path": "/api/extras/saved-filters/{id}/",
         "params": [
           "id"
-        ]
-      },
-      "update": {
-        "name": "extras_saved_filters_update",
-        "descriptionTemplate": "Put a saved filter object.",
-        "method": "PUT",
-        "path": "/api/extras/saved-filters/{id}/",
-        "params": [
-          "id"
         ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "filter": "{filter}"
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "patch": {
+      "update": {
         "name": "extras_saved_filters_partial_update",
         "descriptionTemplate": "Patch a saved filter object.",
         "method": "PATCH",
@@ -41,8 +39,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "filter": "{filter}"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "integer"
+        }
+      },
+      "put": {
+        "name": "extras_saved_filters_update",
+        "descriptionTemplate": "Put a saved filter object.",
+        "method": "PUT",
+        "path": "/api/extras/saved-filters/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "integer"
         }
       }
     }
@@ -82,7 +103,37 @@
           "offset",
           "ordering",
           "q"
-        ]
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "array",
+          "id__empty": "boolean",
+          "id__gt": "array",
+          "id__gte": "array",
+          "id__lt": "array",
+          "id__lte": "array",
+          "id__n": "array",
+          "is_executable": "boolean",
+          "limit": "integer",
+          "module_id": "array",
+          "module_id__n": "array",
+          "name": "array",
+          "name__empty": "boolean",
+          "name__ic": "array",
+          "name__ie": "array",
+          "name__iew": "array",
+          "name__iregex": "array",
+          "name__isw": "array",
+          "name__n": "array",
+          "name__nic": "array",
+          "name__nie": "array",
+          "name__niew": "array",
+          "name__nisw": "array",
+          "name__regex": "array",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string"
+        }
       },
       "add": {
         "name": "extras_scripts_create",
@@ -91,8 +142,12 @@
         "path": "/api/extras/scripts/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "script": "{script}"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
         }
       },
       "delete": {
@@ -102,6 +157,13 @@
         "path": "/api/extras/scripts/{id}/",
         "params": [
           "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
         ]
       },
       "get": {
@@ -111,22 +173,13 @@
         "path": "/api/extras/scripts/{id}/",
         "params": [
           "id"
-        ]
-      },
-      "update": {
-        "name": "extras_scripts_update",
-        "descriptionTemplate": "Put a script object.",
-        "method": "PUT",
-        "path": "/api/extras/scripts/{id}/",
-        "params": [
-          "id"
         ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "script": "{script}"
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "string"
         }
       },
-      "patch": {
+      "update": {
         "name": "extras_scripts_partial_update",
         "descriptionTemplate": "Patch a script object.",
         "method": "PATCH",
@@ -135,8 +188,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "script": "{script}"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "field1": "string",
+          "field2": "integer"
+        }
+      },
+      "put": {
+        "name": "extras_scripts_update",
+        "descriptionTemplate": "Put a script object.",
+        "method": "PUT",
+        "path": "/api/extras/scripts/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "field1": "string",
+          "field2": "integer"
         }
       }
     }
@@ -152,7 +228,13 @@
           "limit",
           "offset",
           "ordering"
-        ]
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "limit": "integer",
+          "offset": "integer",
+          "ordering": "string"
+        }
       },
       "add": {
         "name": "extras_subscriptions_create",
@@ -161,8 +243,12 @@
         "path": "/api/extras/subscriptions/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "subscription": "{subscription}"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
         }
       },
       "delete": {
@@ -172,6 +258,13 @@
         "path": "/api/extras/subscriptions/{id}/",
         "params": [
           "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
         ]
       },
       "get": {
@@ -181,22 +274,13 @@
         "path": "/api/extras/subscriptions/{id}/",
         "params": [
           "id"
-        ]
-      },
-      "update": {
-        "name": "extras_subscriptions_update",
-        "descriptionTemplate": "Put a subscription object.",
-        "method": "PUT",
-        "path": "/api/extras/subscriptions/{id}/",
-        "params": [
-          "id"
         ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "subscription": "{subscription}"
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "patch": {
+      "update": {
         "name": "extras_subscriptions_partial_update",
         "descriptionTemplate": "Patch a subscription object.",
         "method": "PATCH",
@@ -205,8 +289,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "subscription": "{subscription}"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "integer"
+        }
+      },
+      "put": {
+        "name": "extras_subscriptions_update",
+        "descriptionTemplate": "Put a subscription object.",
+        "method": "PUT",
+        "path": "/api/extras/subscriptions/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "integer"
         }
       }
     }

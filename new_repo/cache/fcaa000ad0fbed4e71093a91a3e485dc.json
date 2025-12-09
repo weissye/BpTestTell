@@ -145,7 +145,147 @@
           "vid__n",
           "vminterface_id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "available_at_site": "string",
+          "available_on_device": "string",
+          "available_on_virtualmachine": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "group": "string",
+          "group__n": "string",
+          "group_id": "integer",
+          "group_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface_id": "integer",
+          "l2vpn": "integer",
+          "l2vpn__n": "integer",
+          "l2vpn_id": "integer",
+          "l2vpn_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "qinq_role": "string",
+          "qinq_role__empty": "boolean",
+          "qinq_role__ic": "string",
+          "qinq_role__ie": "string",
+          "qinq_role__iew": "string",
+          "qinq_role__iregex": "string",
+          "qinq_role__isw": "string",
+          "qinq_role__n": "string",
+          "qinq_role__nic": "string",
+          "qinq_role__nie": "string",
+          "qinq_role__niew": "string",
+          "qinq_role__nisw": "string",
+          "qinq_role__regex": "string",
+          "qinq_svlan_id": "integer",
+          "qinq_svlan_id__n": "integer",
+          "qinq_svlan_vid": "integer",
+          "qinq_svlan_vid__empty": "integer",
+          "qinq_svlan_vid__gt": "integer",
+          "qinq_svlan_vid__gte": "integer",
+          "qinq_svlan_vid__lt": "integer",
+          "qinq_svlan_vid__lte": "integer",
+          "qinq_svlan_vid__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "integer",
+          "role_id__n": "integer",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "vid": "integer",
+          "vid__empty": "boolean",
+          "vid__gt": "integer",
+          "vid__gte": "integer",
+          "vid__lt": "integer",
+          "vid__lte": "integer",
+          "vid__n": "integer",
+          "vminterface_id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "ipam_vlans_create",
@@ -155,7 +295,11 @@
         "params": [],
         "bodyTemplate": {
           "vlan": "{vlan}"
-        }
+        },
+        "paramTypes": {
+          "vlan": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "ipam_vlans_bulk_update",
@@ -165,7 +309,11 @@
         "params": [],
         "bodyTemplate": {
           "vlan": "{vlan}"
-        }
+        },
+        "paramTypes": {
+          "vlan": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "ipam_vlans_bulk_destroy",
@@ -175,7 +323,13 @@
         "params": [],
         "bodyTemplate": {
           "vlan": "{vlan}"
-        }
+        },
+        "paramTypes": {
+          "vlan": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_vlans_retrieve",
@@ -185,7 +339,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "patch": {
         "name": "ipam_vlans_partial_update",
@@ -197,7 +355,12 @@
         ],
         "bodyTemplate": {
           "vlan": "{vlan}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer",
+          "vlan": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -298,7 +461,98 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "enforce_unique": "boolean",
+          "export_target": "string",
+          "export_target__n": "string",
+          "export_target_id": "integer",
+          "export_target_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "import_target": "string",
+          "import_target__n": "string",
+          "import_target_id": "integer",
+          "import_target_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "rd": "string",
+          "rd__empty": "boolean",
+          "rd__ic": "string",
+          "rd__ie": "string",
+          "rd__iew": "string",
+          "rd__iregex": "string",
+          "rd__isw": "string",
+          "rd__n": "string",
+          "rd__nic": "string",
+          "rd__nie": "string",
+          "rd__niew": "string",
+          "rd__nisw": "string",
+          "rd__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "ipam_vrfs_create",
@@ -308,7 +562,11 @@
         "params": [],
         "bodyTemplate": {
           "vrf": "{vrf}"
-        }
+        },
+        "paramTypes": {
+          "vrf": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "ipam_vrfs_bulk_update",
@@ -318,7 +576,11 @@
         "params": [],
         "bodyTemplate": {
           "vrf": "{vrf}"
-        }
+        },
+        "paramTypes": {
+          "vrf": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "ipam_vrfs_bulk_destroy",
@@ -328,7 +590,13 @@
         "params": [],
         "bodyTemplate": {
           "vrf": "{vrf}"
-        }
+        },
+        "paramTypes": {
+          "vrf": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_vrfs_retrieve",
@@ -338,7 +606,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "patch": {
         "name": "ipam_vrfs_partial_update",
@@ -350,7 +622,12 @@
         ],
         "bodyTemplate": {
           "vrf": "{vrf}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer",
+          "vrf": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -358,14 +635,19 @@
     "operations": {
       "get": {
         "name": "schema_retrieve",
-        "descriptionTemplate": "OpenApi3 schema for this API. Format can be selected via content negotiation.",
+        "descriptionTemplate": "OpenApi3 schema for this API. Format can be selected via content negotiation.\n\n- YAML: application/vnd.oai.openapi\n- JSON: application/vnd.oai.openapi+json",
         "method": "GET",
         "path": "/api/schema/",
         "params": [
           "format",
           "lang"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "format": "string",
+          "lang": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

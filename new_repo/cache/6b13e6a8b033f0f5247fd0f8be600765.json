@@ -1,0 +1,215 @@
+{
+  "Notifications": {
+    "operations": {
+      "list": {
+        "name": "ListNotification",
+        "descriptionTemplate": "Retrieve a list of notifications belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+        "params": [
+          "AccountSid",
+          "Log",
+          "MessageDate",
+          "MessageDate<",
+          "MessageDate>",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Log": "integer",
+          "MessageDate": "string",
+          "MessageDate<": "string",
+          "MessageDate>": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchNotification",
+        "descriptionTemplate": "Fetch a notification belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "OutgoingCallerIds": {
+    "operations": {
+      "list": {
+        "name": "ListOutgoingCallerId",
+        "descriptionTemplate": "Retrieve a list of outgoing-caller-ids belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+        "params": [
+          "AccountSid",
+          "PhoneNumber",
+          "FriendlyName",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "PhoneNumber": "string",
+          "FriendlyName": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateValidationRequest",
+        "descriptionTemplate": "Create a new validation request for an outgoing caller ID",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "CallDelay": "{CallDelay}",
+          "Extension": "{Extension}",
+          "FriendlyName": "{FriendlyName}",
+          "PhoneNumber": "{PhoneNumber}",
+          "StatusCallback": "{StatusCallback}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "CallDelay": "integer",
+          "Extension": "string",
+          "FriendlyName": "string",
+          "PhoneNumber": "string",
+          "StatusCallback": "string",
+          "StatusCallbackMethod": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchOutgoingCallerId",
+        "descriptionTemplate": "Fetch an outgoing-caller-id belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateOutgoingCallerId",
+        "descriptionTemplate": "Updates the caller-id",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "FriendlyName": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteOutgoingCallerId",
+        "descriptionTemplate": "Delete the caller-id specified from the account",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "SigningKeys": {
+    "operations": {
+      "list": {
+        "name": "ListSigningKey",
+        "descriptionTemplate": "Retrieve a list of signing keys belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+        "params": [
+          "AccountSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateNewSigningKey",
+        "descriptionTemplate": "Create a new Signing Key for the account making the request.",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "FriendlyName": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

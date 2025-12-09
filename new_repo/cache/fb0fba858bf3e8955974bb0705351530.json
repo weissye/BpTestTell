@@ -1,16 +1,6 @@
 {
-  "Tunnel": {
+  "VPN Tunnels": {
     "operations": {
-      "get": {
-        "name": "vpn_tunnels_retrieve",
-        "descriptionTemplate": "Get a tunnel object.",
-        "method": "GET",
-        "path": "/api/vpn/tunnels/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
       "delete": {
         "name": "vpn_tunnels_destroy",
         "descriptionTemplate": "Delete a tunnel object.",
@@ -19,21 +9,28 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
-      "update": {
-        "name": "vpn_tunnels_update",
-        "descriptionTemplate": "Put a tunnel object.",
-        "method": "PUT",
+      "get": {
+        "name": "vpn_tunnels_retrieve",
+        "descriptionTemplate": "Get a tunnel object.",
+        "method": "GET",
         "path": "/api/vpn/tunnels/{id}/",
         "params": [
           "id"
         ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableTunnelRequest"
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "patch": {
+      "update": {
         "name": "vpn_tunnels_partial_update",
         "descriptionTemplate": "Patch a tunnel object.",
         "method": "PATCH",
@@ -42,13 +39,59 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableTunnelRequest"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "integer"
+        }
+      },
+      "put": {
+        "name": "vpn_tunnels_update",
+        "descriptionTemplate": "Put a tunnel object.",
+        "method": "PUT",
+        "path": "/api/vpn/tunnels/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "integer"
         }
       }
     }
   },
-  "WirelessLANGroup": {
+  "Wireless LAN Groups": {
     "operations": {
+      "delete": {
+        "name": "wireless_wireless_lan_groups_bulk_destroy",
+        "descriptionTemplate": "Delete a list of wireless LAN group objects.",
+        "method": "DELETE",
+        "path": "/api/wireless/wireless-lan-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "wireless_wireless_lan_groups_list",
         "descriptionTemplate": "Get a list of wireless LAN group objects.",
@@ -135,7 +178,88 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "ancestor": "string",
+          "ancestor__n": "string",
+          "ancestor_id": "string",
+          "ancestor_id__n": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent": "string",
+          "parent__n": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "wireless_wireless_lan_groups_create",
@@ -144,57 +268,78 @@
         "path": "/api/wireless/wireless-lan-groups/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableWirelessLANGroupRequest"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
         }
       },
       "update": {
-        "name": "wireless_wireless_lan_groups_update",
-        "descriptionTemplate": "Put a wireless LAN group object.",
-        "method": "PUT",
-        "path": "/api/wireless/wireless-lan-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableWirelessLANGroupRequest"
-        }
-      },
-      "patch": {
-        "name": "wireless_wireless_lan_groups_partial_update",
-        "descriptionTemplate": "Patch a wireless LAN group object.",
+        "name": "wireless_wireless_lan_groups_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of wireless LAN group objects.",
         "method": "PATCH",
-        "path": "/api/wireless/wireless-lan-groups/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/wireless/wireless-lan-groups/",
+        "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableWirelessLANGroupRequest"
+          "items": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
         }
       },
-      "delete": {
-        "name": "wireless_wireless_lan_groups_destroy",
-        "descriptionTemplate": "Delete a wireless LAN group object.",
-        "method": "DELETE",
-        "path": "/api/wireless/wireless-lan-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "get": {
-        "name": "wireless_wireless_lan_groups_retrieve",
-        "descriptionTemplate": "Get a wireless LAN group object.",
-        "method": "GET",
-        "path": "/api/wireless/wireless-lan-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+      "put": {
+        "name": "wireless_wireless_lan_groups_bulk_update",
+        "descriptionTemplate": "Put a list of wireless LAN group objects.",
+        "method": "PUT",
+        "path": "/api/wireless/wireless-lan-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
+        }
       }
     }
   },
-  "WirelessLAN": {
+  "Wireless LAN": {
     "operations": {
+      "delete": {
+        "name": "wireless_wireless_lans_bulk_destroy",
+        "descriptionTemplate": "Delete a list of wireless LAN objects.",
+        "method": "DELETE",
+        "path": "/api/wireless/wireless-lans/",
+        "params": [],
+        "bodyTemplate": {
+          "items": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "wireless_wireless_lans_list",
         "descriptionTemplate": "Get a list of wireless LAN objects.",
@@ -353,7 +498,160 @@
           "vlan_id",
           "vlan_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "auth_cipher": "string",
+          "auth_cipher__empty": "boolean",
+          "auth_cipher__ic": "string",
+          "auth_cipher__ie": "string",
+          "auth_cipher__iew": "string",
+          "auth_cipher__iregex": "string",
+          "auth_cipher__isw": "string",
+          "auth_cipher__n": "string",
+          "auth_cipher__nic": "string",
+          "auth_cipher__nie": "string",
+          "auth_cipher__niew": "string",
+          "auth_cipher__nisw": "string",
+          "auth_cipher__regex": "string",
+          "auth_psk": "string",
+          "auth_psk__empty": "boolean",
+          "auth_psk__ic": "string",
+          "auth_psk__ie": "string",
+          "auth_psk__iew": "string",
+          "auth_psk__iregex": "string",
+          "auth_psk__isw": "string",
+          "auth_psk__n": "string",
+          "auth_psk__nic": "string",
+          "auth_psk__nie": "string",
+          "auth_psk__niew": "string",
+          "auth_psk__nisw": "string",
+          "auth_psk__regex": "string",
+          "auth_type": "string",
+          "auth_type__empty": "boolean",
+          "auth_type__ic": "string",
+          "auth_type__ie": "string",
+          "auth_type__iew": "string",
+          "auth_type__iregex": "string",
+          "auth_type__isw": "string",
+          "auth_type__n": "string",
+          "auth_type__nic": "string",
+          "auth_type__nie": "string",
+          "auth_type__niew": "string",
+          "auth_type__nisw": "string",
+          "auth_type__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "group": "string",
+          "group__n": "string",
+          "group_id": "string",
+          "group_id__n": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface_id": "integer",
+          "interface_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "string",
+          "location_id__n": "string",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "scope_id": "integer",
+          "scope_id__empty": "boolean",
+          "scope_id__gt": "integer",
+          "scope_id__gte": "integer",
+          "scope_id__lt": "integer",
+          "scope_id__lte": "integer",
+          "scope_id__n": "integer",
+          "scope_type": "string",
+          "scope_type__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "ssid": "string",
+          "ssid__empty": "boolean",
+          "ssid__ic": "string",
+          "ssid__ie": "string",
+          "ssid__iew": "string",
+          "ssid__iregex": "string",
+          "ssid__isw": "string",
+          "ssid__n": "string",
+          "ssid__nic": "string",
+          "ssid__nie": "string",
+          "ssid__niew": "string",
+          "ssid__nisw": "string",
+          "ssid__regex": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "vlan_id": "integer",
+          "vlan_id__n": "integer"
+        }
       },
       "add": {
         "name": "wireless_wireless_lans_create",
@@ -362,52 +660,51 @@
         "path": "/api/wireless/wireless-lans/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableWirelessLANRequest"
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
         }
       },
       "update": {
-        "name": "wireless_wireless_lans_update",
-        "descriptionTemplate": "Put a wireless LAN object.",
-        "method": "PUT",
-        "path": "/api/wireless/wireless-lans/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableWirelessLANRequest"
-        }
-      },
-      "patch": {
-        "name": "wireless_wireless_lans_partial_update",
-        "descriptionTemplate": "Patch a wireless LAN object.",
+        "name": "wireless_wireless_lans_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of wireless LAN objects.",
         "method": "PATCH",
-        "path": "/api/wireless/wireless-lans/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/wireless/wireless-lans/",
+        "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableWirelessLANRequest"
+          "items": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
         }
       },
-      "delete": {
-        "name": "wireless_wireless_lans_destroy",
-        "descriptionTemplate": "Delete a wireless LAN object.",
-        "method": "DELETE",
-        "path": "/api/wireless/wireless-lans/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "get": {
-        "name": "wireless_wireless_lans_retrieve",
-        "descriptionTemplate": "Get a wireless LAN object.",
-        "method": "GET",
-        "path": "/api/wireless/wireless-lans/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+      "put": {
+        "name": "wireless_wireless_lans_bulk_update",
+        "descriptionTemplate": "Put a list of wireless LAN objects.",
+        "method": "PUT",
+        "path": "/api/wireless/wireless-lans/",
+        "params": [],
+        "bodyTemplate": {
+          "items": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "integer"
+        }
       }
     }
   }

@@ -11,7 +11,12 @@
           "offset",
           "ordering"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "limit": "integer",
+          "offset": "integer",
+          "ordering": "string"
+        }
       },
       "add": {
         "name": "extras_notifications_create",
@@ -20,42 +25,77 @@
         "path": "/api/extras/notifications/",
         "params": [],
         "bodyTemplate": {
-          "items": "{NotificationRequest}"
+          "notifications": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
         }
       },
       "update": {
-        "name": "extras_notifications_update",
-        "descriptionTemplate": "Put a notification object.",
+        "name": "extras_notifications_bulk_update",
+        "descriptionTemplate": "Put a list of notification objects.",
         "method": "PUT",
-        "path": "/api/extras/notifications/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/extras/notifications/",
+        "params": [],
         "bodyTemplate": {
-          "items": "{NotificationRequest}"
+          "notifications": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
         }
       },
       "patch": {
-        "name": "extras_notifications_partial_update",
-        "descriptionTemplate": "Patch a notification object.",
+        "name": "extras_notifications_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of notification objects.",
         "method": "PATCH",
-        "path": "/api/extras/notifications/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/extras/notifications/",
+        "params": [],
         "bodyTemplate": {
-          "items": "{PatchedNotificationRequest}"
+          "notifications": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
         }
       },
       "delete": {
-        "name": "extras_notifications_destroy",
-        "descriptionTemplate": "Delete a notification object.",
+        "name": "extras_notifications_bulk_destroy",
+        "descriptionTemplate": "Delete a list of notification objects.",
         "method": "DELETE",
-        "path": "/api/extras/notifications/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/extras/notifications/",
+        "params": [],
+        "bodyTemplate": {
+          "notifications": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "extras_notifications_retrieve",
@@ -65,7 +105,62 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "deleteSingle": {
+        "name": "extras_notifications_destroy",
+        "descriptionTemplate": "Delete a notification object.",
+        "method": "DELETE",
+        "path": "/api/extras/notifications/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateSingle": {
+        "name": "extras_notifications_update",
+        "descriptionTemplate": "Put a notification object.",
+        "method": "PUT",
+        "path": "/api/extras/notifications/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "string"
+        }
+      },
+      "patchSingle": {
+        "name": "extras_notifications_partial_update",
+        "descriptionTemplate": "Patch a notification object.",
+        "method": "PATCH",
+        "path": "/api/extras/notifications/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "field1": "{field1}",
+          "field2": "{field2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "field1": "string",
+          "field2": "string"
+        }
       }
     }
   },
@@ -117,7 +212,48 @@
           "public",
           "q"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "app_label": "string",
+          "app_label__empty": "boolean",
+          "app_label__ic": "string",
+          "app_label__ie": "string",
+          "app_label__iew": "string",
+          "app_label__iregex": "string",
+          "app_label__isw": "string",
+          "app_label__n": "string",
+          "app_label__nic": "string",
+          "app_label__nie": "string",
+          "app_label__niew": "string",
+          "app_label__nisw": "string",
+          "app_label__regex": "string",
+          "features": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "limit": "integer",
+          "model": "string",
+          "model__empty": "boolean",
+          "model__ic": "string",
+          "model__ie": "string",
+          "model__iew": "string",
+          "model__iregex": "string",
+          "model__isw": "string",
+          "model__n": "string",
+          "model__nic": "string",
+          "model__nie": "string",
+          "model__niew": "string",
+          "model__nisw": "string",
+          "model__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "public": "boolean",
+          "q": "string"
+        }
       },
       "get": {
         "name": "extras_object_types_retrieve",
@@ -127,7 +263,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       }
     }
   },
@@ -235,7 +374,104 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "enabled": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "object_type": "string",
+          "object_type__ic": "string",
+          "object_type__ie": "string",
+          "object_type__iew": "string",
+          "object_type__iregex": "string",
+          "object_type__isw": "string",
+          "object_type__n": "string",
+          "object_type__nic": "string",
+          "object_type__nie": "string",
+          "object_type__niew": "string",
+          "object_type__nisw": "string",
+          "object_type__regex": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "shared": "boolean",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "updated_by_request": "string",
+          "usable": "boolean",
+          "user": "string",
+          "user__n": "string",
+          "user_id": "integer",
+          "user_id__n": "integer",
+          "weight": "integer",
+          "weight__empty": "boolean",
+          "weight__gt": "integer",
+          "weight__gte": "integer",
+          "weight__lt": "integer",
+          "weight__lte": "integer",
+          "weight__n": "integer"
+        }
       },
       "add": {
         "name": "extras_saved_filters_create",
@@ -244,7 +480,16 @@
         "path": "/api/extras/saved-filters/",
         "params": [],
         "bodyTemplate": {
-          "items": "{SavedFilterRequest}"
+          "savedFilters": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
         }
       },
       "update": {
@@ -254,7 +499,16 @@
         "path": "/api/extras/saved-filters/",
         "params": [],
         "bodyTemplate": {
-          "items": "{SavedFilterRequest}"
+          "savedFilters": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
         }
       },
       "patch": {
@@ -264,7 +518,16 @@
         "path": "/api/extras/saved-filters/",
         "params": [],
         "bodyTemplate": {
-          "items": "{SavedFilterRequest}"
+          "savedFilters": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
         }
       },
       "delete": {
@@ -274,8 +537,20 @@
         "path": "/api/extras/saved-filters/",
         "params": [],
         "bodyTemplate": {
-          "items": "{SavedFilterRequest}"
-        }
+          "savedFilters": [
+            {
+              "field1": "{field1}",
+              "field2": "{field2}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "field1": "string",
+          "field2": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

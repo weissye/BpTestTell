@@ -1,0 +1,83 @@
+{
+  "Organizations": {
+    "operations": {
+      "update": {
+        "name": "updateOrganizationsWebsiteByIdOrg",
+        "descriptionTemplate": "updateOrganizationsWebsiteByIdOrg()",
+        "method": "PUT",
+        "path": "/organizations/{idOrg}/website",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "website": "{website}"
+        },
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string",
+          "website": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getOrganizationsByIdOrgByField",
+        "descriptionTemplate": "getOrganizationsByIdOrgByField()",
+        "method": "GET",
+        "path": "/organizations/{idOrg}/{field}",
+        "params": [
+          "idOrg",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idOrg": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Search": {
+    "operations": {
+      "list": {
+        "name": "getSearchMembers",
+        "descriptionTemplate": "getSearchMembers()",
+        "method": "GET",
+        "path": "/search/members",
+        "params": [
+          "query",
+          "limit",
+          "idBoard",
+          "idOrganization",
+          "onlyOrgMembers",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "query": "string",
+          "limit": "string",
+          "idBoard": "string",
+          "idOrganization": "string",
+          "onlyOrgMembers": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

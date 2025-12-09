@@ -1,0 +1,126 @@
+{
+  "BoardsOrganization": {
+    "operations": {
+      "get": {
+        "name": "getBoardsOrganizationByIdBoard",
+        "descriptionTemplate": "Retrieve the organization of a board by its ID.",
+        "method": "GET",
+        "path": "/boards/{idBoard}/organization",
+        "params": [
+          "idBoard",
+          "fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "getField": {
+        "name": "getBoardsOrganizationByIdBoardByField",
+        "descriptionTemplate": "Retrieve a specific field of the organization of a board by its ID.",
+        "method": "GET",
+        "path": "/boards/{idBoard}/organization/{field}",
+        "params": [
+          "idBoard",
+          "field",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "field": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "BoardsPowerUps": {
+    "operations": {
+      "add": {
+        "name": "addBoardsPowerUpsByIdBoard",
+        "descriptionTemplate": "Add power-ups to a board by its ID.",
+        "method": "POST",
+        "path": "/boards/{idBoard}/powerUps",
+        "params": [
+          "idBoard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "powerUpId": "{powerUpId}"
+        },
+        "paramTypes": {
+          "idBoard": "string",
+          "key": "string",
+          "token": "string",
+          "powerUpId": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteBoardsPowerUpsByIdBoardByPowerUp",
+        "descriptionTemplate": "Delete a specific power-up from a board by its ID.",
+        "method": "DELETE",
+        "path": "/boards/{idBoard}/powerUps/{powerUp}",
+        "params": [
+          "idBoard",
+          "powerUp",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idBoard": "string",
+          "powerUp": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "BoardsPrefsBackground": {
+    "operations": {
+      "update": {
+        "name": "updateBoardsPrefsBackgroundByIdBoard",
+        "descriptionTemplate": "Update the background preferences of a board by its ID.",
+        "method": "PUT",
+        "path": "/boards/{idBoard}/prefs/background",
+        "params": [
+          "idBoard",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "background": "{background}"
+        },
+        "paramTypes": {
+          "idBoard": "string",
+          "key": "string",
+          "token": "string",
+          "background": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

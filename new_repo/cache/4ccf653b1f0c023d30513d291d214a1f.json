@@ -1,0 +1,167 @@
+{
+  "PullReviewComments": {
+    "operations": {
+      "get": {
+        "name": "repoGetPullReviewComments",
+        "descriptionTemplate": "Get a specific review for a pull request",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/comments",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "PullReviewDismissals": {
+    "operations": {
+      "add": {
+        "name": "repoDismissPullReview",
+        "descriptionTemplate": "Dismiss a review for a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "id": "integer",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          403,
+          422
+        ]
+      }
+    }
+  },
+  "PullReviewUndismissals": {
+    "operations": {
+      "add": {
+        "name": "repoUnDismissPullReview",
+        "descriptionTemplate": "Cancel to dismiss a review for a pull request",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          403,
+          422
+        ]
+      }
+    }
+  },
+  "PullRequests": {
+    "operations": {
+      "update": {
+        "name": "repoUpdatePullRequest",
+        "descriptionTemplate": "Merge PR's baseBranch into headBranch",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/update",
+        "params": [
+          "owner",
+          "repo",
+          "index",
+          "style"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "index": "integer",
+          "style": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          403,
+          409,
+          422
+        ]
+      }
+    }
+  },
+  "PushMirrors": {
+    "operations": {
+      "list": {
+        "name": "repoListPushMirrors",
+        "descriptionTemplate": "Get all push mirrors of the repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/push_mirrors",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          400,
+          403
+        ]
+      },
+      "add": {
+        "name": "repoAddPushMirror",
+        "descriptionTemplate": "add a push mirror to the repository",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/push_mirrors",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404,
+          400,
+          403
+        ]
+      }
+    }
+  }
+}

@@ -1,40 +1,6 @@
 {
   "EventRules": {
     "operations": {
-      "get": {
-        "name": "extras_event_rules_retrieve",
-        "descriptionTemplate": "Get a event rule object.",
-        "method": "GET",
-        "path": "/api/extras/event-rules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "update": {
-        "name": "extras_event_rules_update",
-        "descriptionTemplate": "Put a event rule object.",
-        "method": "PUT",
-        "path": "/api/extras/event-rules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
-        "name": "extras_event_rules_partial_update",
-        "descriptionTemplate": "Patch a event rule object.",
-        "method": "PATCH",
-        "path": "/api/extras/event-rules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
       "delete": {
         "name": "extras_event_rules_destroy",
         "descriptionTemplate": "Delete a event rule object.",
@@ -43,12 +9,79 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "extras_event_rules_retrieve",
+        "descriptionTemplate": "Get a event rule object.",
+        "method": "GET",
+        "path": "/api/extras/event-rules/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "extras_event_rules_partial_update",
+        "descriptionTemplate": "Patch a event rule object.",
+        "method": "PATCH",
+        "path": "/api/extras/event-rules/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedWritableEventRuleRequest": "{PatchedWritableEventRuleRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedWritableEventRuleRequest": "object"
+        }
+      },
+      "put": {
+        "name": "extras_event_rules_update",
+        "descriptionTemplate": "Put a event rule object.",
+        "method": "PUT",
+        "path": "/api/extras/event-rules/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "WritableEventRuleRequest": "{WritableEventRuleRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "WritableEventRuleRequest": "object"
+        }
       }
     }
   },
   "ExportTemplates": {
     "operations": {
+      "delete": {
+        "name": "extras_export_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of export template objects.",
+        "method": "DELETE",
+        "path": "/api/extras/export-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "ExportTemplateRequest": "[{ExportTemplateRequest}]"
+        },
+        "paramTypes": {
+          "ExportTemplateRequest": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "extras_export_templates_list",
         "descriptionTemplate": "Get a list of export template objects.",
@@ -176,7 +209,129 @@
           "q",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "as_attachment": "boolean",
+          "auto_sync_enabled": "boolean",
+          "created": "array",
+          "created__empty": "array",
+          "created__gt": "array",
+          "created__gte": "array",
+          "created__lt": "array",
+          "created__lte": "array",
+          "created__n": "array",
+          "created_by_request": "string",
+          "data_file_id": "array",
+          "data_file_id__n": "array",
+          "data_source_id": "array",
+          "data_source_id__n": "array",
+          "data_synced": "array",
+          "data_synced__empty": "boolean",
+          "data_synced__gt": "array",
+          "data_synced__gte": "array",
+          "data_synced__lt": "array",
+          "data_synced__lte": "array",
+          "data_synced__n": "array",
+          "description": "array",
+          "description__empty": "boolean",
+          "description__ic": "array",
+          "description__ie": "array",
+          "description__iew": "array",
+          "description__iregex": "array",
+          "description__isw": "array",
+          "description__n": "array",
+          "description__nic": "array",
+          "description__nie": "array",
+          "description__niew": "array",
+          "description__nisw": "array",
+          "description__regex": "array",
+          "file_extension": "array",
+          "file_extension__empty": "boolean",
+          "file_extension__ic": "array",
+          "file_extension__ie": "array",
+          "file_extension__iew": "array",
+          "file_extension__iregex": "array",
+          "file_extension__isw": "array",
+          "file_extension__n": "array",
+          "file_extension__nic": "array",
+          "file_extension__nie": "array",
+          "file_extension__niew": "array",
+          "file_extension__nisw": "array",
+          "file_extension__regex": "array",
+          "file_name": "array",
+          "file_name__empty": "boolean",
+          "file_name__ic": "array",
+          "file_name__ie": "array",
+          "file_name__iew": "array",
+          "file_name__iregex": "array",
+          "file_name__isw": "array",
+          "file_name__n": "array",
+          "file_name__nic": "array",
+          "file_name__nie": "array",
+          "file_name__niew": "array",
+          "file_name__nisw": "array",
+          "file_name__regex": "array",
+          "id": "array",
+          "id__empty": "boolean",
+          "id__gt": "array",
+          "id__gte": "array",
+          "id__lt": "array",
+          "id__lte": "array",
+          "id__n": "array",
+          "last_updated": "array",
+          "last_updated__empty": "array",
+          "last_updated__gt": "array",
+          "last_updated__gte": "array",
+          "last_updated__lt": "array",
+          "last_updated__lte": "array",
+          "last_updated__n": "array",
+          "limit": "integer",
+          "mime_type": "array",
+          "mime_type__empty": "boolean",
+          "mime_type__ic": "array",
+          "mime_type__ie": "array",
+          "mime_type__iew": "array",
+          "mime_type__iregex": "array",
+          "mime_type__isw": "array",
+          "mime_type__n": "array",
+          "mime_type__nic": "array",
+          "mime_type__nie": "array",
+          "mime_type__niew": "array",
+          "mime_type__nisw": "array",
+          "mime_type__regex": "array",
+          "modified_by_request": "string",
+          "name": "array",
+          "name__empty": "boolean",
+          "name__ic": "array",
+          "name__ie": "array",
+          "name__iew": "array",
+          "name__iregex": "array",
+          "name__isw": "array",
+          "name__n": "array",
+          "name__nic": "array",
+          "name__nie": "array",
+          "name__niew": "array",
+          "name__nisw": "array",
+          "name__regex": "array",
+          "object_type": "string",
+          "object_type__ic": "string",
+          "object_type__ie": "string",
+          "object_type__iew": "string",
+          "object_type__iregex": "string",
+          "object_type__isw": "string",
+          "object_type__n": "string",
+          "object_type__nic": "string",
+          "object_type__nie": "string",
+          "object_type__niew": "string",
+          "object_type__nisw": "string",
+          "object_type__regex": "string",
+          "object_type_id": "array",
+          "object_type_id__n": "array",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "extras_export_templates_create",
@@ -185,38 +340,57 @@
         "path": "/api/extras/export-templates/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ExportTemplateRequest": "{ExportTemplateRequest}"
+        },
+        "paramTypes": {
+          "ExportTemplateRequest": "object"
         }
       },
       "update": {
-        "name": "extras_export_templates_bulk_update",
-        "descriptionTemplate": "Put a list of export template objects.",
-        "method": "PUT",
-        "path": "/api/extras/export-templates/",
-        "params": [],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
         "name": "extras_export_templates_bulk_partial_update",
         "descriptionTemplate": "Patch a list of export template objects.",
         "method": "PATCH",
         "path": "/api/extras/export-templates/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ExportTemplateRequest": "[{ExportTemplateRequest}]"
+        },
+        "paramTypes": {
+          "ExportTemplateRequest": "array"
         }
       },
-      "delete": {
-        "name": "extras_export_templates_bulk_destroy",
-        "descriptionTemplate": "Delete a list of export template objects.",
-        "method": "DELETE",
+      "put": {
+        "name": "extras_export_templates_bulk_update",
+        "descriptionTemplate": "Put a list of export template objects.",
+        "method": "PUT",
         "path": "/api/extras/export-templates/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ExportTemplateRequest": "[{ExportTemplateRequest}]"
+        },
+        "paramTypes": {
+          "ExportTemplateRequest": "array"
         }
+      }
+    }
+  },
+  "ExportTemplate": {
+    "operations": {
+      "delete": {
+        "name": "extras_export_templates_destroy",
+        "descriptionTemplate": "Delete a export template object.",
+        "method": "DELETE",
+        "path": "/api/extras/export-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "extras_export_templates_retrieve",
@@ -226,21 +400,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "update_single": {
-        "name": "extras_export_templates_update",
-        "descriptionTemplate": "Put a export template object.",
-        "method": "PUT",
-        "path": "/api/extras/export-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "schema": "{schema}"
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
         }
       },
-      "patch_single": {
+      "update": {
         "name": "extras_export_templates_partial_update",
         "descriptionTemplate": "Patch a export template object.",
         "method": "PATCH",
@@ -249,20 +414,34 @@
           "id"
         ],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "PatchedExportTemplateRequest": "{PatchedExportTemplateRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedExportTemplateRequest": "object"
         }
       },
-      "delete_single": {
-        "name": "extras_export_templates_destroy",
-        "descriptionTemplate": "Delete a export template object.",
-        "method": "DELETE",
+      "put": {
+        "name": "extras_export_templates_update",
+        "descriptionTemplate": "Put a export template object.",
+        "method": "PUT",
         "path": "/api/extras/export-templates/{id}/",
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "sync": {
+        "bodyTemplate": {
+          "ExportTemplateRequest": "{ExportTemplateRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "ExportTemplateRequest": "object"
+        }
+      }
+    }
+  },
+  "ExportTemplateSync": {
+    "operations": {
+      "add": {
         "name": "extras_export_templates_sync_create",
         "descriptionTemplate": "Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).",
         "method": "POST",
@@ -271,13 +450,33 @@
           "id"
         ],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ExportTemplateRequest": "{ExportTemplateRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "ExportTemplateRequest": "object"
         }
       }
     }
   },
   "ImageAttachments": {
     "operations": {
+      "delete": {
+        "name": "extras_image_attachments_bulk_destroy",
+        "descriptionTemplate": "Delete a list of image attachment objects.",
+        "method": "DELETE",
+        "path": "/api/extras/image-attachments/",
+        "params": [],
+        "bodyTemplate": {
+          "ImageAttachmentRequest": "[{ImageAttachmentRequest}]"
+        },
+        "paramTypes": {
+          "ImageAttachmentRequest": "array"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "extras_image_attachments_list",
         "descriptionTemplate": "Get a list of image attachment objects.",
@@ -364,7 +563,88 @@
           "q",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "array",
+          "created__empty": "array",
+          "created__gt": "array",
+          "created__gte": "array",
+          "created__lt": "array",
+          "created__lte": "array",
+          "created__n": "array",
+          "created_by_request": "string",
+          "description": "array",
+          "description__empty": "boolean",
+          "description__ic": "array",
+          "description__ie": "array",
+          "description__iew": "array",
+          "description__iregex": "array",
+          "description__isw": "array",
+          "description__n": "array",
+          "description__nic": "array",
+          "description__nie": "array",
+          "description__niew": "array",
+          "description__nisw": "array",
+          "description__regex": "array",
+          "id": "array",
+          "id__empty": "boolean",
+          "id__gt": "array",
+          "id__gte": "array",
+          "id__lt": "array",
+          "id__lte": "array",
+          "id__n": "array",
+          "image_height": "array",
+          "image_height__empty": "boolean",
+          "image_height__gt": "array",
+          "image_height__gte": "array",
+          "image_height__lt": "array",
+          "image_height__lte": "array",
+          "image_height__n": "array",
+          "image_width": "array",
+          "image_width__empty": "boolean",
+          "image_width__gt": "array",
+          "image_width__gte": "array",
+          "image_width__lt": "array",
+          "image_width__lte": "array",
+          "image_width__n": "array",
+          "last_updated": "array",
+          "last_updated__empty": "array",
+          "last_updated__gt": "array",
+          "last_updated__gte": "array",
+          "last_updated__lt": "array",
+          "last_updated__lte": "array",
+          "last_updated__n": "array",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "array",
+          "name__empty": "boolean",
+          "name__ic": "array",
+          "name__ie": "array",
+          "name__iew": "array",
+          "name__iregex": "array",
+          "name__isw": "array",
+          "name__n": "array",
+          "name__nic": "array",
+          "name__nie": "array",
+          "name__niew": "array",
+          "name__nisw": "array",
+          "name__regex": "array",
+          "object_id": "array",
+          "object_id__empty": "boolean",
+          "object_id__gt": "array",
+          "object_id__gte": "array",
+          "object_id__lt": "array",
+          "object_id__lte": "array",
+          "object_id__n": "array",
+          "object_type": "string",
+          "object_type__n": "string",
+          "object_type_id": "integer",
+          "object_type_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "extras_image_attachments_create",
@@ -373,37 +653,36 @@
         "path": "/api/extras/image-attachments/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ImageAttachmentRequest": "{ImageAttachmentRequest}"
+        },
+        "paramTypes": {
+          "ImageAttachmentRequest": "object"
         }
       },
       "update": {
-        "name": "extras_image_attachments_bulk_update",
-        "descriptionTemplate": "Put a list of image attachment objects.",
-        "method": "PUT",
-        "path": "/api/extras/image-attachments/",
-        "params": [],
-        "bodyTemplate": {
-          "schema": "{schema}"
-        }
-      },
-      "patch": {
         "name": "extras_image_attachments_bulk_partial_update",
         "descriptionTemplate": "Patch a list of image attachment objects.",
         "method": "PATCH",
         "path": "/api/extras/image-attachments/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ImageAttachmentRequest": "[{ImageAttachmentRequest}]"
+        },
+        "paramTypes": {
+          "ImageAttachmentRequest": "array"
         }
       },
-      "delete": {
-        "name": "extras_image_attachments_bulk_destroy",
-        "descriptionTemplate": "Delete a list of image attachment objects.",
-        "method": "DELETE",
+      "put": {
+        "name": "extras_image_attachments_bulk_update",
+        "descriptionTemplate": "Put a list of image attachment objects.",
+        "method": "PUT",
         "path": "/api/extras/image-attachments/",
         "params": [],
         "bodyTemplate": {
-          "schema": "{schema}"
+          "ImageAttachmentRequest": "[{ImageAttachmentRequest}]"
+        },
+        "paramTypes": {
+          "ImageAttachmentRequest": "array"
         }
       }
     }

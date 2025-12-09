@@ -1,0 +1,227 @@
+{
+  "Releases": {
+    "operations": {
+      "delete": {
+        "name": "repoDeleteReleaseByTag",
+        "descriptionTemplate": "Delete a release by tag name",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/releases/tags/{tag}",
+        "params": [
+          "owner",
+          "repo",
+          "tag"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "tag": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "repoGetReleaseByTag",
+        "descriptionTemplate": "Get a release by tag name",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/tags/{tag}",
+        "params": [
+          "owner",
+          "repo",
+          "tag"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "tag": "string"
+        }
+      },
+      "deleteById": {
+        "name": "repoDeleteRelease",
+        "descriptionTemplate": "Delete a release",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/releases/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "getById": {
+        "name": "repoGetRelease",
+        "descriptionTemplate": "Get a release",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "repoEditRelease",
+        "descriptionTemplate": "Update a release",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/releases/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "ReleaseAttachments": {
+    "operations": {
+      "list": {
+        "name": "repoListReleaseAttachments",
+        "descriptionTemplate": "List release's attachments",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        }
+      },
+      "add": {
+        "name": "repoCreateReleaseAttachment",
+        "descriptionTemplate": "Create a release attachment",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets",
+        "params": [
+          "owner",
+          "repo",
+          "id",
+          "name",
+          "attachment"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "attachment": "{attachment}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "name": "string",
+          "attachment": "file"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteReleaseAttachment",
+        "descriptionTemplate": "Delete a release attachment",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}",
+        "params": [
+          "owner",
+          "repo",
+          "id",
+          "attachment_id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "attachment_id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "repoGetReleaseAttachment",
+        "descriptionTemplate": "Get a release attachment",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}",
+        "params": [
+          "owner",
+          "repo",
+          "id",
+          "attachment_id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "attachment_id": "integer"
+        }
+      },
+      "update": {
+        "name": "repoEditReleaseAttachment",
+        "descriptionTemplate": "Edit a release attachment",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}",
+        "params": [
+          "owner",
+          "repo",
+          "id",
+          "attachment_id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "attachment_id": "integer",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "Reviewers": {
+    "operations": {
+      "list": {
+        "name": "repoGetReviewers",
+        "descriptionTemplate": "Return all users that can be requested to review in this repo",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/reviewers",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      }
+    }
+  }
+}

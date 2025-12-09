@@ -1,0 +1,81 @@
+{
+  "CardsChecklistCheckItem": {
+    "operations": {
+      "update": {
+        "name": "updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem()",
+        "method": "PUT",
+        "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/name",
+        "params": [
+          "idCard",
+          "idChecklist",
+          "idCheckItem",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "name": "{name}"
+        },
+        "paramTypes": {
+          "idCard": "string",
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "key": "string",
+          "token": "string",
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem()",
+        "method": "POST",
+        "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard",
+        "params": [
+          "idCard",
+          "idChecklist",
+          "idCheckItem",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem",
+        "descriptionTemplate": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem()",
+        "method": "DELETE",
+        "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}",
+        "params": [
+          "idCard",
+          "idChecklist",
+          "idCheckItem",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idCard": "string",
+          "idChecklist": "string",
+          "idCheckItem": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

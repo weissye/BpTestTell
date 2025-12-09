@@ -1,0 +1,193 @@
+{
+  "TagProtections": {
+    "operations": {
+      "list": {
+        "name": "repoListTagProtection",
+        "descriptionTemplate": "List tag protections for a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tag_protections",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      },
+      "add": {
+        "name": "repoCreateTagProtection",
+        "descriptionTemplate": "Create a tag protection for a repository",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/tag_protections",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "body": "string"
+        }
+      },
+      "get": {
+        "name": "repoGetTagProtection",
+        "descriptionTemplate": "Get a specific tag protection for the repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tag_protections/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "repoEditTagProtection",
+        "descriptionTemplate": "Edit a tag protection for a repository. Only fields that are set will be changed",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/tag_protections/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer",
+          "body": "string"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteTagProtection",
+        "descriptionTemplate": "Delete a specific tag protection for the repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/tag_protections/{id}",
+        "params": [
+          "owner",
+          "repo",
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Tags": {
+    "operations": {
+      "list": {
+        "name": "repoListTags",
+        "descriptionTemplate": "List a repository's tags",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tags",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "repoCreateTag",
+        "descriptionTemplate": "Create a new git tag in a repository",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/tags",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "body": "string"
+        }
+      },
+      "get": {
+        "name": "repoGetTag",
+        "descriptionTemplate": "Get the tag of a repository by tag name",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tags/{tag}",
+        "params": [
+          "owner",
+          "repo",
+          "tag"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "tag": "string"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteTag",
+        "descriptionTemplate": "Delete a repository's tag by name",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/tags/{tag}",
+        "params": [
+          "owner",
+          "repo",
+          "tag"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "tag": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Teams": {
+    "operations": {
+      "list": {
+        "name": "repoListTeams",
+        "descriptionTemplate": "List a repository's teams",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/teams",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        }
+      }
+    }
+  }
+}

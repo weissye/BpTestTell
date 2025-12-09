@@ -1,0 +1,184 @@
+{
+  "OrganizationsMemberships": {
+    "operations": {
+      "list": {
+        "name": "getOrganizationsMembershipsByIdOrg",
+        "descriptionTemplate": "Retrieve a list of memberships for a specific organization.",
+        "method": "GET",
+        "path": "/organizations/{idOrg}/memberships",
+        "params": [
+          "idOrg",
+          "filter",
+          "member",
+          "member_fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idOrg": "string",
+          "filter": "string",
+          "member": "string",
+          "member_fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getOrganizationsMembershipsByIdOrgByIdMembership",
+        "descriptionTemplate": "Retrieve a specific membership by ID for a specific organization.",
+        "method": "GET",
+        "path": "/organizations/{idOrg}/memberships/{idMembership}",
+        "params": [
+          "idOrg",
+          "idMembership",
+          "member",
+          "member_fields",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idOrg": "string",
+          "idMembership": "string",
+          "member": "string",
+          "member_fields": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateOrganizationsMembershipsByIdOrgByIdMembership",
+        "descriptionTemplate": "Update a specific membership by ID for a specific organization.",
+        "method": "PUT",
+        "path": "/organizations/{idOrg}/memberships/{idMembership}",
+        "params": [
+          "idOrg",
+          "idMembership",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "organizations_memberships": "{organizations_memberships}"
+        },
+        "paramTypes": {
+          "idOrg": "string",
+          "idMembership": "string",
+          "key": "string",
+          "token": "string",
+          "organizations_memberships": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "OrganizationsName": {
+    "operations": {
+      "update": {
+        "name": "updateOrganizationsNameByIdOrg",
+        "descriptionTemplate": "Update the name of a specific organization.",
+        "method": "PUT",
+        "path": "/organizations/{idOrg}/name",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "organizations_name": "{organizations_name}"
+        },
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string",
+          "organizations_name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "OrganizationsPrefsAssociatedDomain": {
+    "operations": {
+      "delete": {
+        "name": "deleteOrganizationsPrefsAssociatedDomainByIdOrg",
+        "descriptionTemplate": "Delete the associated domain preference for a specific organization.",
+        "method": "DELETE",
+        "path": "/organizations/{idOrg}/prefs/associatedDomain",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateOrganizationsPrefsAssociatedDomainByIdOrg",
+        "descriptionTemplate": "Update the associated domain preference for a specific organization.",
+        "method": "PUT",
+        "path": "/organizations/{idOrg}/prefs/associatedDomain",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "prefs_associatedDomain": "{prefs_associatedDomain}"
+        },
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string",
+          "prefs_associatedDomain": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "OrganizationsPrefsBoardVisibilityRestrict": {
+    "operations": {
+      "update": {
+        "name": "updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg",
+        "descriptionTemplate": "Update the board visibility restriction preference for a specific organization.",
+        "method": "PUT",
+        "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
+        "params": [
+          "idOrg",
+          "key",
+          "token"
+        ],
+        "bodyTemplate": {
+          "prefs_boardVisibilityRestrict": "{prefs_boardVisibilityRestrict}"
+        },
+        "paramTypes": {
+          "idOrg": "string",
+          "key": "string",
+          "token": "string",
+          "prefs_boardVisibilityRestrict": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

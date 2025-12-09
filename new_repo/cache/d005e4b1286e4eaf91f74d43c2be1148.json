@@ -80,7 +80,82 @@
           "type",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "module_type_id": "integer",
+          "module_type_id__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "type": "string",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_console_port_templates_create",
@@ -94,7 +169,15 @@
           "module_type": "{module_type}",
           "label": "{label}",
           "type": "{type}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_type": "string",
+          "module_type": "string",
+          "label": "string",
+          "type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_console_port_templates_bulk_update",
@@ -108,7 +191,15 @@
           "module_type": "{module_type}",
           "label": "{label}",
           "type": "{type}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_type": "string",
+          "module_type": "string",
+          "label": "string",
+          "type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_console_port_templates_bulk_destroy",
@@ -118,7 +209,13 @@
         "params": [],
         "bodyTemplate": {
           "id": "{id}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_console_port_templates_retrieve",
@@ -128,23 +225,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "patch": {
-        "name": "dcim_console_port_templates_partial_update",
-        "descriptionTemplate": "Patch a console port template object.",
-        "method": "PATCH",
-        "path": "/api/dcim/console-port-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "device_type": "{device_type}",
-          "module_type": "{module_type}",
-          "label": "{label}",
-          "type": "{type}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -300,7 +385,153 @@
           "virtual_chassis_id",
           "virtual_chassis_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "cable_end": "string",
+          "cable_id": "integer",
+          "cable_id__n": "integer",
+          "cabled": "boolean",
+          "connected": "boolean",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device__n": "string",
+          "device_id": "integer",
+          "device_id__n": "integer",
+          "device_role": "string",
+          "device_role__n": "string",
+          "device_role_id": "integer",
+          "device_role_id__n": "integer",
+          "device_status": "string",
+          "device_status__empty": "boolean",
+          "device_status__ic": "string",
+          "device_status__ie": "string",
+          "device_status__iew": "string",
+          "device_status__iregex": "string",
+          "device_status__isw": "string",
+          "device_status__n": "string",
+          "device_status__nic": "string",
+          "device_status__nie": "string",
+          "device_status__niew": "string",
+          "device_status__nisw": "string",
+          "device_status__regex": "string",
+          "device_type": "string",
+          "device_type__n": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "integer",
+          "location_id__n": "integer",
+          "mark_connected": "boolean",
+          "modified_by_request": "string",
+          "module_id": "integer",
+          "module_id__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "occupied": "boolean",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "rack": "string",
+          "rack__n": "string",
+          "rack_id": "integer",
+          "rack_id__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "speed": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "type": "string",
+          "type__empty": "boolean",
+          "type__ic": "string",
+          "type__ie": "string",
+          "type__iew": "string",
+          "type__iregex": "string",
+          "type__isw": "string",
+          "type__n": "string",
+          "type__nic": "string",
+          "type__nie": "string",
+          "type__niew": "string",
+          "type__nisw": "string",
+          "type__regex": "string",
+          "updated_by_request": "string",
+          "virtual_chassis": "string",
+          "virtual_chassis__n": "string",
+          "virtual_chassis_id": "integer",
+          "virtual_chassis_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_console_ports_create",
@@ -313,7 +544,14 @@
           "device": "{device}",
           "label": "{label}",
           "type": "{type}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "string",
+          "label": "string",
+          "type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_console_ports_bulk_update",
@@ -326,7 +564,14 @@
           "device": "{device}",
           "label": "{label}",
           "type": "{type}"
-        }
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "string",
+          "label": "string",
+          "type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_console_ports_bulk_destroy",
@@ -336,7 +581,13 @@
         "params": [],
         "bodyTemplate": {
           "id": "{id}"
-        }
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_console_ports_retrieve",
@@ -346,22 +597,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
-      },
-      "patch": {
-        "name": "dcim_console_ports_partial_update",
-        "descriptionTemplate": "Patch a console port object.",
-        "method": "PATCH",
-        "path": "/api/dcim/console-ports/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "device": "{device}",
-          "label": "{label}",
-          "type": "{type}"
-        }
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "trace": {
         "name": "dcim_console_ports_trace_retrieve",
@@ -371,7 +611,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

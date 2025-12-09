@@ -57,7 +57,59 @@
           "virtual_machine",
           "virtual_machine_id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "device": "string",
+          "device_id": "integer",
+          "group_id": "integer",
+          "group_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface_id": "integer",
+          "interface_id__empty": "boolean",
+          "interface_id__gt": "integer",
+          "interface_id__gte": "integer",
+          "interface_id__lt": "integer",
+          "interface_id__lte": "integer",
+          "interface_id__n": "integer",
+          "interface_type": "string",
+          "interface_type__n": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "priority": "integer",
+          "priority__empty": "boolean",
+          "priority__gt": "integer",
+          "priority__gte": "integer",
+          "priority__lt": "integer",
+          "priority__lte": "integer",
+          "priority__n": "integer",
+          "updated_by_request": "string",
+          "virtual_machine": "string",
+          "virtual_machine_id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "ipam_fhrp_group_assignments_create",
@@ -66,8 +118,12 @@
         "path": "/api/ipam/fhrp-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": "{FHRPGroupAssignmentRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/FHRPGroupAssignmentRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "ipam_fhrp_group_assignments_bulk_update",
@@ -76,18 +132,12 @@
         "path": "/api/ipam/fhrp-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": "{FHRPGroupAssignmentRequest}"
-        }
-      },
-      "patch": {
-        "name": "ipam_fhrp_group_assignments_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of FHRP group assignment objects.",
-        "method": "PATCH",
-        "path": "/api/ipam/fhrp-group-assignments/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{FHRPGroupAssignmentRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/FHRPGroupAssignmentRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "ipam_fhrp_group_assignments_bulk_destroy",
@@ -96,8 +146,14 @@
         "path": "/api/ipam/fhrp-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": "{FHRPGroupAssignmentRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/FHRPGroupAssignmentRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_fhrp_group_assignments_retrieve",
@@ -107,21 +163,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "ipam_fhrp_group_assignments_update",
-        "descriptionTemplate": "Put a FHRP group assignment object.",
-        "method": "PUT",
-        "path": "/api/ipam/fhrp-group-assignments/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "FHRPGroupAssignmentRequest": "{FHRPGroupAssignmentRequest}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "ipam_fhrp_group_assignments_partial_update",
         "descriptionTemplate": "Patch a FHRP group assignment object.",
         "method": "PATCH",
@@ -130,18 +178,12 @@
           "id"
         ],
         "bodyTemplate": {
-          "PatchedFHRPGroupAssignmentRequest": "{PatchedFHRPGroupAssignmentRequest}"
-        }
-      },
-      "deleteItem": {
-        "name": "ipam_fhrp_group_assignments_destroy",
-        "descriptionTemplate": "Delete a FHRP group assignment object.",
-        "method": "DELETE",
-        "path": "/api/ipam/fhrp-group-assignments/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+          "$ref": "#/components/schemas/PatchedFHRPGroupAssignmentRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -259,7 +301,115 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "auth_key": "string",
+          "auth_key__empty": "boolean",
+          "auth_key__ic": "string",
+          "auth_key__ie": "string",
+          "auth_key__iew": "string",
+          "auth_key__iregex": "string",
+          "auth_key__isw": "string",
+          "auth_key__n": "string",
+          "auth_key__nic": "string",
+          "auth_key__nie": "string",
+          "auth_key__niew": "string",
+          "auth_key__nisw": "string",
+          "auth_key__regex": "string",
+          "auth_type": "string",
+          "auth_type__empty": "boolean",
+          "auth_type__ic": "string",
+          "auth_type__ie": "string",
+          "auth_type__iew": "string",
+          "auth_type__iregex": "string",
+          "auth_type__isw": "string",
+          "auth_type__n": "string",
+          "auth_type__nic": "string",
+          "auth_type__nie": "string",
+          "auth_type__niew": "string",
+          "auth_type__nisw": "string",
+          "auth_type__regex": "string",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "group_id": "integer",
+          "group_id__empty": "boolean",
+          "group_id__gt": "integer",
+          "group_id__gte": "integer",
+          "group_id__lt": "integer",
+          "group_id__lte": "integer",
+          "group_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "protocol": "string",
+          "protocol__empty": "boolean",
+          "protocol__ic": "string",
+          "protocol__ie": "string",
+          "protocol__iew": "string",
+          "protocol__iregex": "string",
+          "protocol__isw": "string",
+          "protocol__n": "string",
+          "protocol__nic": "string",
+          "protocol__nie": "string",
+          "protocol__niew": "string",
+          "protocol__nisw": "string",
+          "protocol__regex": "string",
+          "q": "string",
+          "related_ip": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "ipam_fhrp_groups_create",
@@ -268,8 +418,10 @@
         "path": "/api/ipam/fhrp-groups/",
         "params": [],
         "bodyTemplate": {
-          "FHRPGroupRequest": "{FHRPGroupRequest}"
-        }
+          "$ref": "#/components/schemas/FHRPGroupRequest"
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "ipam_fhrp_groups_bulk_update",
@@ -278,18 +430,12 @@
         "path": "/api/ipam/fhrp-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": "{FHRPGroupRequest}"
-        }
-      },
-      "patch": {
-        "name": "ipam_fhrp_groups_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of FHRP group objects.",
-        "method": "PATCH",
-        "path": "/api/ipam/fhrp-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{FHRPGroupRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/FHRPGroupRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "ipam_fhrp_groups_bulk_destroy",
@@ -298,8 +444,14 @@
         "path": "/api/ipam/fhrp-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": "{FHRPGroupRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/FHRPGroupRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "ipam_fhrp_groups_retrieve",
@@ -309,21 +461,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "updateItem": {
-        "name": "ipam_fhrp_groups_update",
-        "descriptionTemplate": "Put a FHRP group object.",
-        "method": "PUT",
-        "path": "/api/ipam/fhrp-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "FHRPGroupRequest": "{FHRPGroupRequest}"
-        }
-      },
-      "patchItem": {
+      "patch": {
         "name": "ipam_fhrp_groups_partial_update",
         "descriptionTemplate": "Patch a FHRP group object.",
         "method": "PATCH",
@@ -332,18 +476,12 @@
           "id"
         ],
         "bodyTemplate": {
-          "PatchedFHRPGroupRequest": "{PatchedFHRPGroupRequest}"
-        }
-      },
-      "deleteItem": {
-        "name": "ipam_fhrp_groups_destroy",
-        "descriptionTemplate": "Delete a FHRP group object.",
-        "method": "DELETE",
-        "path": "/api/ipam/fhrp-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+          "$ref": "#/components/schemas/PatchedFHRPGroupRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -495,7 +633,149 @@
           "vrf_id",
           "vrf_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": {},
+        "paramTypes": {
+          "address": "string",
+          "assigned": "boolean",
+          "assigned_object_id": "integer",
+          "assigned_object_id__empty": "boolean",
+          "assigned_object_id__gt": "integer",
+          "assigned_object_id__gte": "integer",
+          "assigned_object_id__lt": "integer",
+          "assigned_object_id__lte": "integer",
+          "assigned_object_id__n": "integer",
+          "assigned_object_type": "integer",
+          "assigned_object_type__n": "integer",
+          "assigned_to_interface": "boolean",
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device_id": "integer",
+          "dns_name": "string",
+          "dns_name__empty": "boolean",
+          "dns_name__ic": "string",
+          "dns_name__ie": "string",
+          "dns_name__iew": "string",
+          "dns_name__iregex": "string",
+          "dns_name__isw": "string",
+          "dns_name__n": "string",
+          "dns_name__nic": "string",
+          "dns_name__nie": "string",
+          "dns_name__niew": "string",
+          "dns_name__nisw": "string",
+          "dns_name__regex": "string",
+          "family": "number",
+          "fhrpgroup_id": "integer",
+          "fhrpgroup_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface": "string",
+          "interface__n": "string",
+          "interface_id": "integer",
+          "interface_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "mask_length": "integer",
+          "mask_length__gte": "number",
+          "mask_length__lte": "number",
+          "modified_by_request": "string",
+          "nat_inside_id": "integer",
+          "nat_inside_id__n": "integer",
+          "offset": "integer",
+          "ordering": "string",
+          "parent": "string",
+          "present_in_vrf": "string",
+          "present_in_vrf_id": "string",
+          "q": "string",
+          "role": "string",
+          "role__empty": "boolean",
+          "role__ic": "string",
+          "role__ie": "string",
+          "role__iew": "string",
+          "role__iregex": "string",
+          "role__isw": "string",
+          "role__n": "string",
+          "role__nic": "string",
+          "role__nie": "string",
+          "role__niew": "string",
+          "role__nisw": "string",
+          "role__regex": "string",
+          "service_id": "integer",
+          "service_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_machine": "string",
+          "virtual_machine_id": "integer",
+          "vminterface": "string",
+          "vminterface__n": "string",
+          "vminterface_id": "integer",
+          "vminterface_id__n": "integer",
+          "vrf": "string",
+          "vrf__n": "string",
+          "vrf_id": "integer",
+          "vrf_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "ipam_ip_addresses_create",
@@ -504,8 +784,10 @@
         "path": "/api/ipam/ip-addresses/",
         "params": [],
         "bodyTemplate": {
-          "WritableIPAddressRequest": "{WritableIPAddressRequest}"
-        }
+          "$ref": "#/components/schemas/WritableIPAddressRequest"
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "ipam_ip_addresses_bulk_update",
@@ -514,18 +796,12 @@
         "path": "/api/ipam/ip-addresses/",
         "params": [],
         "bodyTemplate": {
-          "items": "{IPAddressRequest}"
-        }
-      },
-      "patch": {
-        "name": "ipam_ip_addresses_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of IP address objects.",
-        "method": "PATCH",
-        "path": "/api/ipam/ip-addresses/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{IPAddressRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/IPAddressRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "ipam_ip_addresses_bulk_destroy",
@@ -534,8 +810,14 @@
         "path": "/api/ipam/ip-addresses/",
         "params": [],
         "bodyTemplate": {
-          "items": "{IPAddressRequest}"
-        }
+          "items": {
+            "$ref": "#/components/schemas/IPAddressRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

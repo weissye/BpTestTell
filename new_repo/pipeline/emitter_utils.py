@@ -1,7 +1,7 @@
 from pathlib import Path
 import json
 import re
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple, Optional, Set
 
 JS_RESERVED = {
     "abstract", "arguments", "await", "boolean", "break", "byte", "case", "catch",
@@ -23,30 +23,26 @@ ensure_dir = ensure_directory_exists
 def sanitize_param(name: str) -> str:
     if not name: return "undefined_var"
     if name == "..." or name == "…": return "_ellipsis"
-        
     clean_name = re.sub(r'[^a-zA-Z0-9_$]', '_', name)
     if clean_name and clean_name[0].isdigit():
         clean_name = "_" + clean_name
-    
     if clean_name in JS_RESERVED:
         return f"_{clean_name}"
     return clean_name
 
-def render_body_js(template: Any, indent=4) -> str:
-    """Recursively renders a JSON body template into a JS string."""
+def render_body_js(template: Any, type_map: Dict[str, str] = {}, indent=4) -> str:
+    """Recursively renders a JSON body template into a JS string using type_map."""
     if not template: return "undefined"
     
     if isinstance(template, list):
-        items = []
-        for item in template:
-            items.append(render_body_js(item, indent))
+        items = [render_body_js(item, type_map, indent) for item in template]
         return "[" + ", ".join(items) + "]"
 
     if isinstance(template, dict):
         lines = ["{"]
         for k, v in template.items():
             if k == "..." or not k: continue
-            val_str = render_body_js(v, indent + 2)
+            val_str = render_body_js(v, type_map, indent + 2)
             lines.append(f'{" " * indent}"{k}": {val_str},')
         lines.append(f'{" " * (indent-2)}}}')
         return "\n".join(lines)
@@ -57,18 +53,16 @@ def render_body_js(template: Any, indent=4) -> str:
             if var_name == "..." or var_name == "…": return '"..."'
             
             clean_var = sanitize_param(var_name)
-            lower_var = var_name.lower()
             
-            # 1. Handle Integers (Expanded List)
-            # FIX: Added "id", "userid", "bookid", etc. to strictly force Number()
-            if lower_var in ["id", "userid", "bookid", "year", "mileage", "baycount", "intervalkm", "intervalmonths"]:
-                 return f'Number({clean_var})'
+            # STRICT TYPE LOOKUP
+            ptype = type_map.get(var_name, "string").lower()
             
-            # 2. Handle Booleans
-            if lower_var in ["active", "enabled", "visible"]:
-                 return clean_var 
-                 
-            # 3. Default to String
+            if ptype in ["integer", "number", "int", "float", "double"]:
+                return f'Number({clean_var})'
+            
+            if ptype == "boolean":
+                return clean_var 
+            
             return f'String({clean_var})'
             
         return f'"{template}"'
@@ -106,19 +100,29 @@ def get_operation_schema(path, method, raw_spec):
     op = path_item.get(method)
     if not op: return {}, []
     req_body = op.get("requestBody", {})
+    if not req_body: return {}, []
     content = req_body.get("content", {})
-    json_media = content.get("application/json", {})
+    if not content: return {}, []
+    json_media = content.get("application/json") or content.get("application/vnd.api+json") or {}
     schema_ref = json_media.get("schema", {})
+    if schema_ref is None: return {}, []
     return schema_ref, []
 
 def infer_type(param_name, known_type="string"):
-    if known_type != "string": return known_type
-    lower = param_name.lower()
-    if lower in ["year", "mileage", "age", "count", "amount", "quantity", "id", "pk", "baycount", "intervalkm", "intervalmonths"]: 
-        return "integer"
-    if lower in ["active", "enabled", "visible"]: 
-        return "boolean"
-    return "string"
+    return known_type
+
+def _recursive_collect_params(template: Any, params_set: Set[str]):
+    if isinstance(template, dict):
+        for v in template.values():
+            _recursive_collect_params(v, params_set)
+    elif isinstance(template, list):
+        for item in template:
+            _recursive_collect_params(item, params_set)
+    elif isinstance(template, str):
+        if template.startswith("{") and template.endswith("}"):
+            clean = template.strip("{}")
+            if clean and clean not in ["...", "…"]:
+                params_set.add(clean)
 
 def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, Any]) -> Tuple[str, List[str]]:
     ops = ent.get("operations", {})
@@ -138,13 +142,5 @@ def collect_entity_params(name: str, ent: Dict[str, Any], raw_spec: Dict[str, An
             for p in op.get("params", []):
                 if p and p not in ["...", "…"]: all_params_set.add(p)
             if "bodyTemplate" in op and isinstance(op["bodyTemplate"], dict):
-                for v in op["bodyTemplate"].values():
-                    if isinstance(v, str) and v.startswith("{") and v.endswith("}"):
-                        clean = v.strip("{}")
-                        if clean and clean not in ["...", "…"]: all_params_set.add(clean)
-                    elif isinstance(v, list):
-                        for item in v:
-                            if isinstance(item, str) and item.startswith("{") and item.endswith("}"):
-                                clean = item.strip("{}")
-                                if clean: all_params_set.add(clean)
+                _recursive_collect_params(op["bodyTemplate"], all_params_set)
     return primary_key, sorted(list(all_params_set))

@@ -1,0 +1,145 @@
+{
+  "GitRefs": {
+    "operations": {
+      "list": {
+        "name": "repoListAllGitRefs",
+        "descriptionTemplate": "Get specified ref or filtered repository's refs",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/refs",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "repoListGitRefs",
+        "descriptionTemplate": "Get specified ref or filtered repository's refs",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/refs/{ref}",
+        "params": [
+          "owner",
+          "repo",
+          "ref"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "ref": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "GitTags": {
+    "operations": {
+      "get": {
+        "name": "GetAnnotatedTag",
+        "descriptionTemplate": "Gets the tag object of an annotated tag (not lightweight tags)",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/tags/{sha}",
+        "params": [
+          "owner",
+          "repo",
+          "sha"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "GitTrees": {
+    "operations": {
+      "get": {
+        "name": "GetTree",
+        "descriptionTemplate": "Gets the tree of a repository.",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/trees/{sha}",
+        "params": [
+          "owner",
+          "repo",
+          "sha",
+          "recursive",
+          "page",
+          "per_page"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "sha": "string",
+          "recursive": "boolean",
+          "page": "integer",
+          "per_page": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Hooks": {
+    "operations": {
+      "list": {
+        "name": "repoListHooks",
+        "descriptionTemplate": "List the hooks in a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "repoCreateHook",
+        "descriptionTemplate": "Create a hook",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/hooks",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "Collections": {
+    "operations": {
+      "list": {
+        "name": "getCollections",
+        "descriptionTemplate": "Returns a list of the collections available in the project.",
+        "method": "GET",
+        "path": "/collections",
+        "params": [
+          "Offset",
+          "Meta"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Offset": "string",
+          "Meta": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "createCollection",
+        "descriptionTemplate": "Create a new collection in Directus.",
+        "method": "POST",
+        "path": "/collections",
+        "params": [
+          "Meta"
+        ],
+        "bodyTemplate": {
+          "archive_app_filter": "{archive_app_filter}",
+          "archive_field": "{archive_field}",
+          "archive_value": "{archive_value}",
+          "collection": "{collection}",
+          "display_template": "{display_template}",
+          "fields": "{fields}",
+          "hidden": "{hidden}",
+          "icon": "{icon}",
+          "note": "{note}",
+          "singleton": "{singleton}",
+          "sort_field": "{sort_field}",
+          "translation": "{translation}",
+          "unarchive_value": "{unarchive_value}",
+          "versioning": "{versioning}"
+        },
+        "paramTypes": {
+          "Meta": "string",
+          "archive_app_filter": "string",
+          "archive_field": "string",
+          "archive_value": "string",
+          "collection": "string",
+          "display_template": "string",
+          "fields": "array",
+          "hidden": "boolean",
+          "icon": "string",
+          "note": "string",
+          "singleton": "boolean",
+          "sort_field": "string",
+          "translation": "string",
+          "unarchive_value": "string",
+          "versioning": "boolean"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Items": {
+    "operations": {
+      "list": {
+        "name": "getItems",
+        "descriptionTemplate": "List the items.",
+        "method": "GET",
+        "path": "/items/{collection}",
+        "params": [
+          "Fields",
+          "Limit",
+          "Meta",
+          "Offset",
+          "Sort",
+          "Filter",
+          "Search",
+          "Collection"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Fields": "string",
+          "Limit": "string",
+          "Meta": "string",
+          "Offset": "string",
+          "Sort": "string",
+          "Filter": "string",
+          "Search": "string",
+          "Collection": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "createItem",
+        "descriptionTemplate": "Create a new item.",
+        "method": "POST",
+        "path": "/items/{collection}",
+        "params": [
+          "Meta"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Meta": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateItem",
+        "descriptionTemplate": "Update an existing item.",
+        "method": "PATCH",
+        "path": "/items/{collection}/{id}",
+        "params": [
+          "Fields",
+          "Meta"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteItem",
+        "descriptionTemplate": "Delete an existing item.",
+        "method": "DELETE",
+        "path": "/items/{collection}/{id}",
+        "params": [
+          "Collection",
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Collection": "string",
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getItem",
+        "descriptionTemplate": "Retrieve a single item by unique identifier.",
+        "method": "GET",
+        "path": "/items/{collection}/{id}",
+        "params": [
+          "Fields",
+          "Meta",
+          "Version",
+          "Collection",
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "string",
+          "Version": "string",
+          "Collection": "string",
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Presets": {
+    "operations": {
+      "list": {
+        "name": "getPresets",
+        "descriptionTemplate": "List the presets.",
+        "method": "GET",
+        "path": "/presets",
+        "params": [
+          "Fields",
+          "Limit",
+          "Offset",
+          "Page",
+          "Sort",
+          "Filter",
+          "Search",
+          "Meta"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Fields": "string",
+          "Limit": "string",
+          "Offset": "string",
+          "Page": "string",
+          "Sort": "string",
+          "Filter": "string",
+          "Search": "string",
+          "Meta": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "createPreset",
+        "descriptionTemplate": "Create a new preset.",
+        "method": "POST",
+        "path": "/presets",
+        "params": [
+          "Fields",
+          "Meta"
+        ],
+        "bodyTemplate": {
+          "collection": "{collection}",
+          "filters": "{filters}",
+          "layout": "{layout}",
+          "layout_options": "{layout_options}",
+          "layout_query": "{layout_query}",
+          "role": "{role}",
+          "search": "{search}",
+          "title": "{title}"
+        },
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "string",
+          "collection": "string",
+          "filters": "array",
+          "layout": "string",
+          "layout_options": "string",
+          "layout_query": "string",
+          "role": "string",
+          "search": "string",
+          "title": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updatePreset",
+        "descriptionTemplate": "Update an existing preset.",
+        "method": "PATCH",
+        "path": "/presets/{id}",
+        "params": [
+          "Fields",
+          "Meta"
+        ],
+        "bodyTemplate": {
+          "collection": "{collection}",
+          "filters": "{filters}",
+          "role": "{role}",
+          "search_query": "{search_query}",
+          "title": "{title}",
+          "translation": "{translation}",
+          "view_options": "{view_options}",
+          "view_query": "{view_query}",
+          "view_type": "{view_type}"
+        },
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "string",
+          "collection": "string",
+          "filters": "array",
+          "role": "integer",
+          "search_query": "string",
+          "title": "string",
+          "translation": "object",
+          "view_options": "string",
+          "view_query": "string",
+          "view_type": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deletePreset",
+        "descriptionTemplate": "Delete an existing preset.",
+        "method": "DELETE",
+        "path": "/presets/{id}",
+        "params": [
+          "Id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getPreset",
+        "descriptionTemplate": "Retrieve a single preset by unique identifier.",
+        "method": "GET",
+        "path": "/presets/{id}",
+        "params": [
+          "Fields",
+          "Meta",
+          "Id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "string",
+          "Id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

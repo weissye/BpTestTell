@@ -1,0 +1,26 @@
+{
+  "UserDefinedMessageSubscriptions": {
+    "operations": {
+      "delete": {
+        "name": "DeleteUserDefinedMessageSubscription",
+        "descriptionTemplate": "Delete a specific User Defined Message Subscription.",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "CallSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "CallSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

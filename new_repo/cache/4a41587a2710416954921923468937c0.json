@@ -1,6 +1,22 @@
 {
-  "VMInterfaces": {
+  "Interfaces": {
     "operations": {
+      "delete": {
+        "name": "virtualization_interfaces_destroy",
+        "descriptionTemplate": "Delete a interface object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/interfaces/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "get": {
         "name": "virtualization_interfaces_retrieve",
         "descriptionTemplate": "Get a interface object.",
@@ -9,7 +25,10 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "virtualization_interfaces_update",
@@ -20,7 +39,15 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableVMInterfaceRequest"
+          "name": "{name}",
+          "type": "{type}",
+          "enabled": "{enabled}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "type": "string",
+          "enabled": "boolean"
         }
       },
       "patch": {
@@ -32,23 +59,41 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableVMInterfaceRequest"
+          "name": "{name}",
+          "type": "{type}",
+          "enabled": "{enabled}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "type": "string",
+          "enabled": "boolean"
         }
-      },
-      "delete": {
-        "name": "virtualization_interfaces_destroy",
-        "descriptionTemplate": "Delete a interface object.",
-        "method": "DELETE",
-        "path": "/api/virtualization/interfaces/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
       }
     }
   },
   "VirtualDisks": {
     "operations": {
+      "delete": {
+        "name": "virtualization_virtual_disks_bulk_destroy",
+        "descriptionTemplate": "Delete a list of virtual disk objects.",
+        "method": "DELETE",
+        "path": "/api/virtualization/virtual-disks/",
+        "params": [],
+        "bodyTemplate": [
+          {
+            "name": "{name}",
+            "size": "{size}"
+          }
+        ],
+        "paramTypes": {
+          "name": "string",
+          "size": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "virtualization_virtual_disks_list",
         "descriptionTemplate": "Get a list of virtual disk objects.",
@@ -125,7 +170,78 @@
           "virtual_machine_id",
           "virtual_machine_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "size": "integer",
+          "size__empty": "boolean",
+          "size__gt": "integer",
+          "size__gte": "integer",
+          "size__lt": "integer",
+          "size__lte": "integer",
+          "size__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_machine": "string",
+          "virtual_machine__n": "string",
+          "virtual_machine_id": "integer",
+          "virtual_machine_id__n": "integer"
+        }
       },
       "add": {
         "name": "virtualization_virtual_disks_create",
@@ -134,7 +250,12 @@
         "path": "/api/virtualization/virtual-disks/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualDiskRequest"
+          "name": "{name}",
+          "size": "{size}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "size": "integer"
         }
       },
       "update": {
@@ -143,8 +264,15 @@
         "method": "PUT",
         "path": "/api/virtualization/virtual-disks/",
         "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualDiskRequest"
+        "bodyTemplate": [
+          {
+            "name": "{name}",
+            "size": "{size}"
+          }
+        ],
+        "paramTypes": {
+          "name": "string",
+          "size": "integer"
         }
       },
       "patch": {
@@ -153,68 +281,43 @@
         "method": "PATCH",
         "path": "/api/virtualization/virtual-disks/",
         "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualDiskRequest"
-        }
-      },
-      "delete": {
-        "name": "virtualization_virtual_disks_bulk_destroy",
-        "descriptionTemplate": "Delete a list of virtual disk objects.",
-        "method": "DELETE",
-        "path": "/api/virtualization/virtual-disks/",
-        "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualDiskRequest"
-        }
-      },
-      "get": {
-        "name": "virtualization_virtual_disks_retrieve",
-        "descriptionTemplate": "Get a virtual disk object.",
-        "method": "GET",
-        "path": "/api/virtualization/virtual-disks/{id}/",
-        "params": [
-          "id"
+        "bodyTemplate": [
+          {
+            "name": "{name}",
+            "size": "{size}"
+          }
         ],
-        "bodyTemplate": {}
-      },
-      "update_single": {
-        "name": "virtualization_virtual_disks_update",
-        "descriptionTemplate": "Put a virtual disk object.",
-        "method": "PUT",
-        "path": "/api/virtualization/virtual-disks/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualDiskRequest"
+        "paramTypes": {
+          "name": "string",
+          "size": "integer"
         }
-      },
-      "patch_single": {
-        "name": "virtualization_virtual_disks_partial_update",
-        "descriptionTemplate": "Patch a virtual disk object.",
-        "method": "PATCH",
-        "path": "/api/virtualization/virtual-disks/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedVirtualDiskRequest"
-        }
-      },
-      "delete_single": {
-        "name": "virtualization_virtual_disks_destroy",
-        "descriptionTemplate": "Delete a virtual disk object.",
-        "method": "DELETE",
-        "path": "/api/virtualization/virtual-disks/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
       }
     }
   },
   "VirtualMachines": {
     "operations": {
+      "delete": {
+        "name": "virtualization_virtual_machines_bulk_destroy",
+        "descriptionTemplate": "Delete a list of virtual machine objects.",
+        "method": "DELETE",
+        "path": "/api/virtualization/virtual-machines/",
+        "params": [],
+        "bodyTemplate": [
+          {
+            "name": "{name}",
+            "vcpus": "{vcpus}",
+            "memory": "{memory}"
+          }
+        ],
+        "paramTypes": {
+          "name": "string",
+          "vcpus": "number",
+          "memory": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "virtualization_virtual_machines_list",
         "descriptionTemplate": "Get a list of virtual machine objects.",
@@ -415,7 +518,202 @@
           "virtual_disk_count__lte",
           "virtual_disk_count__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "cluster": "string",
+          "cluster__n": "string",
+          "cluster_group": "string",
+          "cluster_group__n": "string",
+          "cluster_group_id": "integer",
+          "cluster_group_id__n": "integer",
+          "cluster_id": "integer",
+          "cluster_id__n": "integer",
+          "cluster_type": "string",
+          "cluster_type__n": "string",
+          "cluster_type_id": "integer",
+          "cluster_type_id__n": "integer",
+          "config_template_id": "integer",
+          "config_template_id__n": "integer",
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device__n": "string",
+          "device_id": "integer",
+          "device_id__n": "integer",
+          "disk": "integer",
+          "disk__empty": "boolean",
+          "disk__gt": "integer",
+          "disk__gte": "integer",
+          "disk__lt": "integer",
+          "disk__lte": "integer",
+          "disk__n": "integer",
+          "has_primary_ip": "boolean",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface_count": "integer",
+          "interface_count__empty": "boolean",
+          "interface_count__gt": "integer",
+          "interface_count__gte": "integer",
+          "interface_count__lt": "integer",
+          "interface_count__lte": "integer",
+          "interface_count__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "local_context_data": "boolean",
+          "mac_address": "string",
+          "mac_address__ic": "string",
+          "mac_address__ie": "string",
+          "mac_address__iew": "string",
+          "mac_address__iregex": "string",
+          "mac_address__isw": "string",
+          "mac_address__n": "string",
+          "mac_address__nic": "string",
+          "mac_address__nie": "string",
+          "mac_address__niew": "string",
+          "mac_address__nisw": "string",
+          "mac_address__regex": "string",
+          "memory": "integer",
+          "memory__empty": "boolean",
+          "memory__gt": "integer",
+          "memory__gte": "integer",
+          "memory__lt": "integer",
+          "memory__lte": "integer",
+          "memory__n": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "platform": "string",
+          "platform__n": "string",
+          "platform_id": "string",
+          "platform_id__n": "string",
+          "primary_ip4": "string",
+          "primary_ip4__n": "string",
+          "primary_ip4_id": "integer",
+          "primary_ip4_id__n": "integer",
+          "primary_ip6": "string",
+          "primary_ip6__n": "string",
+          "primary_ip6_id": "integer",
+          "primary_ip6_id__n": "integer",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "role": "string",
+          "role__n": "string",
+          "role_id": "string",
+          "role_id__n": "string",
+          "serial": "string",
+          "serial__empty": "boolean",
+          "serial__ic": "string",
+          "serial__ie": "string",
+          "serial__iew": "string",
+          "serial__iregex": "string",
+          "serial__isw": "string",
+          "serial__n": "string",
+          "serial__nic": "string",
+          "serial__nie": "string",
+          "serial__niew": "string",
+          "serial__nisw": "string",
+          "serial__regex": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "updated_by_request": "string",
+          "vcpus": "number",
+          "vcpus__empty": "boolean",
+          "vcpus__gt": "number",
+          "vcpus__gte": "number",
+          "vcpus__lt": "number",
+          "vcpus__lte": "number",
+          "vcpus__n": "number",
+          "virtual_disk_count": "integer",
+          "virtual_disk_count__empty": "boolean",
+          "virtual_disk_count__gt": "integer",
+          "virtual_disk_count__gte": "integer",
+          "virtual_disk_count__lt": "integer",
+          "virtual_disk_count__lte": "integer",
+          "virtual_disk_count__n": "integer"
+        }
       },
       "add": {
         "name": "virtualization_virtual_machines_create",
@@ -424,7 +722,14 @@
         "path": "/api/virtualization/virtual-machines/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
+          "name": "{name}",
+          "vcpus": "{vcpus}",
+          "memory": "{memory}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "vcpus": "number",
+          "memory": "integer"
         }
       },
       "update": {
@@ -433,8 +738,17 @@
         "method": "PUT",
         "path": "/api/virtualization/virtual-machines/",
         "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualMachineWithConfigContextRequest"
+        "bodyTemplate": [
+          {
+            "name": "{name}",
+            "vcpus": "{vcpus}",
+            "memory": "{memory}"
+          }
+        ],
+        "paramTypes": {
+          "name": "string",
+          "vcpus": "number",
+          "memory": "integer"
         }
       },
       "patch": {
@@ -443,63 +757,18 @@
         "method": "PATCH",
         "path": "/api/virtualization/virtual-machines/",
         "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualMachineWithConfigContextRequest"
-        }
-      },
-      "delete": {
-        "name": "virtualization_virtual_machines_bulk_destroy",
-        "descriptionTemplate": "Delete a list of virtual machine objects.",
-        "method": "DELETE",
-        "path": "/api/virtualization/virtual-machines/",
-        "params": [],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/VirtualMachineWithConfigContextRequest"
-        }
-      },
-      "get": {
-        "name": "virtualization_virtual_machines_retrieve",
-        "descriptionTemplate": "Get a virtual machine object.",
-        "method": "GET",
-        "path": "/api/virtualization/virtual-machines/{id}/",
-        "params": [
-          "id"
+        "bodyTemplate": [
+          {
+            "name": "{name}",
+            "vcpus": "{vcpus}",
+            "memory": "{memory}"
+          }
         ],
-        "bodyTemplate": {}
-      },
-      "update_single": {
-        "name": "virtualization_virtual_machines_update",
-        "descriptionTemplate": "Put a virtual machine object.",
-        "method": "PUT",
-        "path": "/api/virtualization/virtual-machines/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
+        "paramTypes": {
+          "name": "string",
+          "vcpus": "number",
+          "memory": "integer"
         }
-      },
-      "patch_single": {
-        "name": "virtualization_virtual_machines_partial_update",
-        "descriptionTemplate": "Patch a virtual machine object.",
-        "method": "PATCH",
-        "path": "/api/virtualization/virtual-machines/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableVirtualMachineWithConfigContextRequest"
-        }
-      },
-      "delete_single": {
-        "name": "virtualization_virtual_machines_destroy",
-        "descriptionTemplate": "Delete a virtual machine object.",
-        "method": "DELETE",
-        "path": "/api/virtualization/virtual-machines/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
       }
     }
   }

@@ -9,7 +9,11 @@
         "params": [
           "name"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -21,7 +25,9 @@
         "method": "GET",
         "path": "/api/core/background-tasks/",
         "params": [],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
       },
       "get": {
         "name": "core_background_tasks_retrieve_by_id",
@@ -31,9 +37,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "delete": {
+      "add": {
         "name": "core_background_tasks_delete_create",
         "descriptionTemplate": "Retrieve a list of RQ Tasks.",
         "method": "POST",
@@ -42,10 +52,17 @@
           "id"
         ],
         "bodyTemplate": {
-          "BackgroundTaskRequest": "{BackgroundTaskRequest}"
-        }
+          "task_name": "{task_name}",
+          "task_params": "{task_params}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "task_name": "string",
+          "task_params": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
-      "add": {
+      "enqueue": {
         "name": "core_background_tasks_enqueue_create",
         "descriptionTemplate": "Retrieve a list of RQ Tasks.",
         "method": "POST",
@@ -54,8 +71,15 @@
           "id"
         ],
         "bodyTemplate": {
-          "BackgroundTaskRequest": "{BackgroundTaskRequest}"
-        }
+          "task_name": "{task_name}",
+          "task_params": "{task_params}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "task_name": "string",
+          "task_params": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

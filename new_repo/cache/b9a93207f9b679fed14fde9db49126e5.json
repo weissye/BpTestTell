@@ -1,0 +1,294 @@
+{
+  "Accounts": {
+    "operations": {
+      "list": {
+        "name": "ListAccount",
+        "descriptionTemplate": "Retrieves a collection of Accounts belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts.json",
+        "params": [
+          "FriendlyName",
+          "Status",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "FriendlyName": "string",
+          "Status": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateAccount",
+        "descriptionTemplate": "Create a new Twilio Subaccount from the account making the request",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts.json",
+        "params": [],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}"
+        },
+        "paramTypes": {
+          "FriendlyName": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchAccount",
+        "descriptionTemplate": "Fetch the account specified by the provided Account Sid",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{Sid}.json",
+        "params": [
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateAccount",
+        "descriptionTemplate": "Modify the properties of a given Account",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{Sid}.json",
+        "params": [
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}",
+          "Status": "{Status}"
+        },
+        "paramTypes": {
+          "Sid": "string",
+          "FriendlyName": "string",
+          "Status": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Addresses": {
+    "operations": {
+      "list": {
+        "name": "ListAddress",
+        "descriptionTemplate": "Retrieve a list of addresses associated with the account",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+        "params": [
+          "AccountSid",
+          "CustomerName",
+          "FriendlyName",
+          "EmergencyEnabled",
+          "IsoCountry",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "CustomerName": "string",
+          "FriendlyName": "string",
+          "EmergencyEnabled": "boolean",
+          "IsoCountry": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateAddress",
+        "descriptionTemplate": "Create a new address resource",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "City": "{City}",
+          "CustomerName": "{CustomerName}",
+          "FriendlyName": "{FriendlyName}",
+          "IsoCountry": "{IsoCountry}",
+          "PostalCode": "{PostalCode}",
+          "Region": "{Region}",
+          "Street": "{Street}",
+          "StreetSecondary": "{StreetSecondary}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "City": "string",
+          "CustomerName": "string",
+          "FriendlyName": "string",
+          "IsoCountry": "string",
+          "PostalCode": "string",
+          "Region": "string",
+          "Street": "string",
+          "StreetSecondary": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchAddress",
+        "descriptionTemplate": "Fetch a specific address resource",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateAddress",
+        "descriptionTemplate": "Update a specific address resource",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "City": "{City}",
+          "CustomerName": "{CustomerName}",
+          "FriendlyName": "{FriendlyName}",
+          "PostalCode": "{PostalCode}",
+          "Region": "{Region}",
+          "Street": "{Street}",
+          "StreetSecondary": "{StreetSecondary}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "City": "string",
+          "CustomerName": "string",
+          "FriendlyName": "string",
+          "PostalCode": "string",
+          "Region": "string",
+          "Street": "string",
+          "StreetSecondary": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteAddress",
+        "descriptionTemplate": "Delete a specific address resource",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Applications": {
+    "operations": {
+      "list": {
+        "name": "ListApplication",
+        "descriptionTemplate": "Retrieve a list of applications representing an application within the requesting account",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+        "params": [
+          "AccountSid",
+          "FriendlyName",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "FriendlyName": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateApplication",
+        "descriptionTemplate": "Create a new application within your account",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "FriendlyName": "{FriendlyName}",
+          "MessageStatusCallback": "{MessageStatusCallback}",
+          "PublicApplicationConnectEnabled": "{PublicApplicationConnectEnabled}",
+          "SmsFallbackMethod": "{SmsFallbackMethod}",
+          "SmsFallbackUrl": "{SmsFallbackUrl}",
+          "SmsMethod": "{SmsMethod}",
+          "SmsStatusCallback": "{SmsStatusCallback}",
+          "SmsUrl": "{SmsUrl}",
+          "StatusCallback": "{StatusCallback}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}",
+          "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+          "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+          "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+          "VoiceMethod": "{VoiceMethod}",
+          "VoiceUrl": "{VoiceUrl}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "FriendlyName": "string",
+          "MessageStatusCallback": "string",
+          "PublicApplicationConnectEnabled": "boolean",
+          "SmsFallbackMethod": "string",
+          "SmsFallbackUrl": "string",
+          "SmsMethod": "string",
+          "SmsStatusCallback": "string",
+          "SmsUrl": "string",
+          "StatusCallback": "string",
+          "StatusCallbackMethod": "string",
+          "VoiceCallerIdLookup": "boolean",
+          "VoiceFallbackMethod": "string",
+          "VoiceFallbackUrl": "string",
+          "VoiceMethod": "string",
+          "VoiceUrl": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

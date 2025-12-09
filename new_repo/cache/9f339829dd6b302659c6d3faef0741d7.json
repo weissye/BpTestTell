@@ -1,0 +1,241 @@
+{
+  "BranchProtections": {
+    "operations": {
+      "delete": {
+        "name": "repoDeleteBranchProtection",
+        "descriptionTemplate": "Delete a specific branch protection for the repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/branch_protections/{name}",
+        "params": [
+          "owner",
+          "repo",
+          "name"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "repoGetBranchProtection",
+        "descriptionTemplate": "Get a specific branch protection for the repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branch_protections/{name}",
+        "params": [
+          "owner",
+          "repo",
+          "name"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "name": "string"
+        }
+      },
+      "update": {
+        "name": "repoEditBranchProtection",
+        "descriptionTemplate": "Edit a branch protections for a repository. Only fields that are set will be changed",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/branch_protections/{name}",
+        "params": [
+          "owner",
+          "repo",
+          "name"
+        ],
+        "bodyTemplate": {
+          "body": "{EditBranchProtectionOption}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "name": "string",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "Branches": {
+    "operations": {
+      "list": {
+        "name": "repoListBranches",
+        "descriptionTemplate": "List a repository's branches",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branches",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "repoCreateBranch",
+        "descriptionTemplate": "Create a branch",
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/branches",
+        "params": [
+          "owner",
+          "repo"
+        ],
+        "bodyTemplate": {
+          "body": "{CreateBranchRepoOption}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteBranch",
+        "descriptionTemplate": "Delete a specific branch from a repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/branches/{branch}",
+        "params": [
+          "owner",
+          "repo",
+          "branch"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "branch": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "repoGetBranch",
+        "descriptionTemplate": "Retrieve a specific branch from a repository, including its effective branch protection",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branches/{branch}",
+        "params": [
+          "owner",
+          "repo",
+          "branch"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "branch": "string"
+        }
+      },
+      "update": {
+        "name": "repoUpdateBranch",
+        "descriptionTemplate": "Update a branch",
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/branches/{branch}",
+        "params": [
+          "owner",
+          "repo",
+          "branch"
+        ],
+        "bodyTemplate": {
+          "body": "{UpdateBranchRepoOption}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "branch": "string",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "Collaborators": {
+    "operations": {
+      "list": {
+        "name": "repoListCollaborators",
+        "descriptionTemplate": "List a repository's collaborators",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/collaborators",
+        "params": [
+          "owner",
+          "repo",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "delete": {
+        "name": "repoDeleteCollaborator",
+        "descriptionTemplate": "Delete a collaborator from a repository",
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}",
+        "params": [
+          "owner",
+          "repo",
+          "collaborator"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "collaborator": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "repoCheckCollaborator",
+        "descriptionTemplate": "Check if a user is a collaborator of a repository",
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}",
+        "params": [
+          "owner",
+          "repo",
+          "collaborator"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "collaborator": "string"
+        }
+      },
+      "add": {
+        "name": "repoAddCollaborator",
+        "descriptionTemplate": "Add or Update a collaborator to a repository",
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}",
+        "params": [
+          "owner",
+          "repo",
+          "collaborator"
+        ],
+        "bodyTemplate": {
+          "body": "{AddCollaboratorOption}"
+        },
+        "paramTypes": {
+          "owner": "string",
+          "repo": "string",
+          "collaborator": "string",
+          "body": "object"
+        }
+      }
+    }
+  }
+}

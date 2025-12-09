@@ -1,0 +1,190 @@
+{
+  "UserVariables": {
+    "operations": {
+      "delete": {
+        "name": "deleteUserVariable",
+        "descriptionTemplate": "Delete a user-level variable which is created by current doer",
+        "method": "DELETE",
+        "path": "/user/actions/variables/{variablename}",
+        "params": [
+          "variablename"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "variablename": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getUserVariable",
+        "descriptionTemplate": "Get a user-level variable which is created by current doer",
+        "method": "GET",
+        "path": "/user/actions/variables/{variablename}",
+        "params": [
+          "variablename"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "variablename": "string"
+        }
+      },
+      "add": {
+        "name": "createUserVariable",
+        "descriptionTemplate": "Create a user-level variable",
+        "method": "POST",
+        "path": "/user/actions/variables/{variablename}",
+        "params": [
+          "variablename"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "variablename": "string",
+          "body": "object"
+        }
+      },
+      "update": {
+        "name": "updateUserVariable",
+        "descriptionTemplate": "Update a user-level variable which is created by current doer",
+        "method": "PUT",
+        "path": "/user/actions/variables/{variablename}",
+        "params": [
+          "variablename"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "variablename": "string",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "OAuth2Applications": {
+    "operations": {
+      "list": {
+        "name": "userGetOauth2Application",
+        "descriptionTemplate": "List the authenticated user's oauth2 applications",
+        "method": "GET",
+        "path": "/user/applications/oauth2",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "userCreateOAuth2Application",
+        "descriptionTemplate": "creates a new OAuth2 application",
+        "method": "POST",
+        "path": "/user/applications/oauth2",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "userDeleteOAuth2Application",
+        "descriptionTemplate": "delete an OAuth2 Application",
+        "method": "DELETE",
+        "path": "/user/applications/oauth2/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "userGetOAuth2Application",
+        "descriptionTemplate": "get an OAuth2 Application",
+        "method": "GET",
+        "path": "/user/applications/oauth2/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "userUpdateOAuth2Application",
+        "descriptionTemplate": "update an OAuth2 Application, this includes regenerating the client secret",
+        "method": "PATCH",
+        "path": "/user/applications/oauth2/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "UserAvatar": {
+    "operations": {
+      "delete": {
+        "name": "userDeleteAvatar",
+        "descriptionTemplate": "Delete Avatar",
+        "method": "DELETE",
+        "path": "/user/avatar",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      },
+      "add": {
+        "name": "userUpdateAvatar",
+        "descriptionTemplate": "Update Avatar",
+        "method": "POST",
+        "path": "/user/avatar",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "object"
+        }
+      }
+    }
+  },
+  "UserBlocks": {
+    "operations": {
+      "list": {
+        "name": "userListBlocks",
+        "descriptionTemplate": "List users blocked by the authenticated user",
+        "method": "GET",
+        "path": "/user/blocks",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  }
+}

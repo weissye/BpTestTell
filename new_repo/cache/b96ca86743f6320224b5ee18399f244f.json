@@ -85,7 +85,87 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "vpn_tunnel_groups_create",
@@ -95,29 +175,41 @@
         "params": [],
         "bodyTemplate": {
           "items": "{TunnelGroupRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "vpn_tunnel_groups_update",
-        "descriptionTemplate": "Put a tunnel group object.",
+        "name": "vpn_tunnel_groups_bulk_update",
+        "descriptionTemplate": "Put a list of tunnel group objects.",
         "method": "PUT",
-        "path": "/api/vpn/tunnel-groups/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/vpn/tunnel-groups/",
+        "params": [],
         "bodyTemplate": {
           "items": "{TunnelGroupRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "vpn_tunnel_groups_destroy",
-        "descriptionTemplate": "Delete a tunnel group object.",
+        "name": "vpn_tunnel_groups_bulk_destroy",
+        "descriptionTemplate": "Delete a list of tunnel group objects.",
         "method": "DELETE",
-        "path": "/api/vpn/tunnel-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/vpn/tunnel-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{TunnelGroupRequest}"
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "vpn_tunnel_groups_retrieve",
@@ -127,7 +219,28 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "vpn_tunnel_groups_partial_update",
+        "descriptionTemplate": "Patch a tunnel group object.",
+        "method": "PATCH",
+        "path": "/api/vpn/tunnel-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{PatchedTunnelGroupRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -208,7 +321,78 @@
           "vminterface_id",
           "vminterface_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interface": "string",
+          "interface__n": "string",
+          "interface_id": "integer",
+          "interface_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "outside_ip_id": "integer",
+          "outside_ip_id__n": "integer",
+          "q": "string",
+          "role": "string",
+          "role__empty": "boolean",
+          "role__ic": "string",
+          "role__ie": "string",
+          "role__iew": "string",
+          "role__iregex": "string",
+          "role__isw": "string",
+          "role__n": "string",
+          "role__nic": "string",
+          "role__nie": "string",
+          "role__niew": "string",
+          "role__nisw": "string",
+          "role__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "termination_id": "integer",
+          "termination_id__empty": "boolean",
+          "termination_id__gt": "integer",
+          "termination_id__gte": "integer",
+          "termination_id__lt": "integer",
+          "termination_id__lte": "integer",
+          "termination_id__n": "integer",
+          "termination_type": "string",
+          "termination_type__n": "string",
+          "tunnel": "string",
+          "tunnel__n": "string",
+          "tunnel_id": "integer",
+          "tunnel_id__n": "integer",
+          "updated_by_request": "string",
+          "vminterface": "string",
+          "vminterface__n": "string",
+          "vminterface_id": "integer",
+          "vminterface_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "vpn_tunnel_terminations_create",
@@ -218,29 +402,41 @@
         "params": [],
         "bodyTemplate": {
           "items": "{WritableTunnelTerminationRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "vpn_tunnel_terminations_update",
-        "descriptionTemplate": "Put a tunnel termination object.",
+        "name": "vpn_tunnel_terminations_bulk_update",
+        "descriptionTemplate": "Put a list of tunnel termination objects.",
         "method": "PUT",
-        "path": "/api/vpn/tunnel-terminations/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/vpn/tunnel-terminations/",
+        "params": [],
         "bodyTemplate": {
-          "items": "{WritableTunnelTerminationRequest}"
-        }
+          "items": "{TunnelTerminationRequest}"
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "vpn_tunnel_terminations_destroy",
-        "descriptionTemplate": "Delete a tunnel termination object.",
+        "name": "vpn_tunnel_terminations_bulk_destroy",
+        "descriptionTemplate": "Delete a list of tunnel termination objects.",
         "method": "DELETE",
-        "path": "/api/vpn/tunnel-terminations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
+        "path": "/api/vpn/tunnel-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{TunnelTerminationRequest}"
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "vpn_tunnel_terminations_retrieve",
@@ -250,7 +446,28 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "vpn_tunnel_terminations_partial_update",
+        "descriptionTemplate": "Patch a tunnel termination object.",
+        "method": "PATCH",
+        "path": "/api/vpn/tunnel-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{PatchedWritableTunnelTerminationRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -376,7 +593,123 @@
           "tunnel_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "encapsulation": "string",
+          "encapsulation__empty": "boolean",
+          "encapsulation__ic": "string",
+          "encapsulation__ie": "string",
+          "encapsulation__iew": "string",
+          "encapsulation__iregex": "string",
+          "encapsulation__isw": "string",
+          "encapsulation__n": "string",
+          "encapsulation__nic": "string",
+          "encapsulation__nie": "string",
+          "encapsulation__niew": "string",
+          "encapsulation__nisw": "string",
+          "encapsulation__regex": "string",
+          "group": "string",
+          "group__n": "string",
+          "group_id": "integer",
+          "group_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "ipsec_profile": "string",
+          "ipsec_profile__n": "string",
+          "ipsec_profile_id": "integer",
+          "ipsec_profile_id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "tunnel_id": "integer",
+          "tunnel_id__empty": "boolean",
+          "tunnel_id__gt": "integer",
+          "tunnel_id__gte": "integer",
+          "tunnel_id__lt": "integer",
+          "tunnel_id__lte": "integer",
+          "tunnel_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "vpn_tunnels_create",
@@ -386,7 +719,11 @@
         "params": [],
         "bodyTemplate": {
           "items": "{WritableTunnelRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "vpn_tunnels_bulk_update",
@@ -396,7 +733,11 @@
         "params": [],
         "bodyTemplate": {
           "items": "{TunnelRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "vpn_tunnels_bulk_destroy",
@@ -406,7 +747,13 @@
         "params": [],
         "bodyTemplate": {
           "items": "{TunnelRequest}"
-        }
+        },
+        "paramTypes": {
+          "items": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

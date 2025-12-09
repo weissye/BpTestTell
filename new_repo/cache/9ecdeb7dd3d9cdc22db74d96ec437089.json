@@ -1,0 +1,165 @@
+{
+  "Hooks": {
+    "operations": {
+      "delete": {
+        "name": "userDeleteHook",
+        "descriptionTemplate": "Delete a hook",
+        "method": "DELETE",
+        "path": "/user/hooks/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "userGetHook",
+        "descriptionTemplate": "Get a hook",
+        "method": "GET",
+        "path": "/user/hooks/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "userEditHook",
+        "descriptionTemplate": "Update a hook",
+        "method": "PATCH",
+        "path": "/user/hooks/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "body": "object"
+        }
+      }
+    }
+  },
+  "Keys": {
+    "operations": {
+      "list": {
+        "name": "userCurrentListKeys",
+        "descriptionTemplate": "List the authenticated user's public keys",
+        "method": "GET",
+        "path": "/user/keys",
+        "params": [
+          "fingerprint",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "fingerprint": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "userCurrentPostKey",
+        "descriptionTemplate": "Create a public key",
+        "method": "POST",
+        "path": "/user/keys",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "object"
+        }
+      },
+      "delete": {
+        "name": "userCurrentDeleteKey",
+        "descriptionTemplate": "Delete a public key",
+        "method": "DELETE",
+        "path": "/user/keys/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "userCurrentGetKey",
+        "descriptionTemplate": "Get a public key",
+        "method": "GET",
+        "path": "/user/keys/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
+      }
+    }
+  },
+  "Organizations": {
+    "operations": {
+      "list": {
+        "name": "orgListCurrentUserOrgs",
+        "descriptionTemplate": "List the current user's organizations",
+        "method": "GET",
+        "path": "/user/orgs",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  },
+  "Repositories": {
+    "operations": {
+      "list": {
+        "name": "userCurrentListRepos",
+        "descriptionTemplate": "List the repos that the authenticated user owns",
+        "method": "GET",
+        "path": "/user/repos",
+        "params": [
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "add": {
+        "name": "createCurrentUserRepo",
+        "descriptionTemplate": "Create a repository",
+        "method": "POST",
+        "path": "/user/repos",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "object"
+        }
+      }
+    }
+  }
+}

@@ -147,7 +147,149 @@
           "virtual_chassis_id",
           "virtual_chassis_id__n"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "device": "string",
+          "device__n": "string",
+          "device_id": "integer",
+          "device_id__n": "integer",
+          "device_role": "string",
+          "device_role__n": "string",
+          "device_role_id": "integer",
+          "device_role_id__n": "integer",
+          "device_status": "string",
+          "device_status__empty": "boolean",
+          "device_status__ic": "string",
+          "device_status__ie": "string",
+          "device_status__iew": "string",
+          "device_status__iregex": "string",
+          "device_status__isw": "string",
+          "device_status__n": "string",
+          "device_status__nic": "string",
+          "device_status__nie": "string",
+          "device_status__niew": "string",
+          "device_status__nisw": "string",
+          "device_status__regex": "string",
+          "device_type": "string",
+          "device_type__n": "string",
+          "device_type_id": "integer",
+          "device_type_id__n": "integer",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "installed_module_id": "integer",
+          "installed_module_id__n": "integer",
+          "label": "string",
+          "label__empty": "boolean",
+          "label__ic": "string",
+          "label__ie": "string",
+          "label__iew": "string",
+          "label__iregex": "string",
+          "label__isw": "string",
+          "label__n": "string",
+          "label__nic": "string",
+          "label__nie": "string",
+          "label__niew": "string",
+          "label__nisw": "string",
+          "label__regex": "string",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location": "string",
+          "location__n": "string",
+          "location_id": "integer",
+          "location_id__n": "integer",
+          "modified_by_request": "string",
+          "module_id": "integer",
+          "module_id__n": "integer",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "parent_id": "integer",
+          "parent_id__n": "integer",
+          "position": "string",
+          "position__empty": "boolean",
+          "position__ic": "string",
+          "position__ie": "string",
+          "position__iew": "string",
+          "position__iregex": "string",
+          "position__isw": "string",
+          "position__n": "string",
+          "position__nic": "string",
+          "position__nie": "string",
+          "position__niew": "string",
+          "position__nisw": "string",
+          "position__regex": "string",
+          "q": "string",
+          "rack": "string",
+          "rack__n": "string",
+          "rack_id": "integer",
+          "rack_id__n": "integer",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "virtual_chassis": "string",
+          "virtual_chassis__n": "string",
+          "virtual_chassis_id": "integer",
+          "virtual_chassis_id__n": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_module_bays_create",
@@ -156,8 +298,12 @@
         "path": "/api/dcim/module-bays/",
         "params": [],
         "bodyTemplate": {
-          "module_bay_request": "{module_bay_request}"
-        }
+          "module_bay": "{module_bay}"
+        },
+        "paramTypes": {
+          "module_bay": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_module_bays_bulk_update",
@@ -166,8 +312,12 @@
         "path": "/api/dcim/module-bays/",
         "params": [],
         "bodyTemplate": {
-          "module_bay_request": "{module_bay_request}"
-        }
+          "module_bay": "{module_bay}"
+        },
+        "paramTypes": {
+          "module_bay": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_module_bays_bulk_destroy",
@@ -176,8 +326,14 @@
         "path": "/api/dcim/module-bays/",
         "params": [],
         "bodyTemplate": {
-          "module_bay_request": "{module_bay_request}"
-        }
+          "module_bay": "{module_bay}"
+        },
+        "paramTypes": {
+          "module_bay": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_module_bays_retrieve",
@@ -187,7 +343,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "patch": {
         "name": "dcim_module_bays_partial_update",
@@ -198,8 +358,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "patched_module_bay_request": "{patched_module_bay_request}"
-        }
+          "module_bay": "{module_bay}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "module_bay": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -270,7 +435,68 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_module_type_profiles_create",
@@ -279,8 +505,12 @@
         "path": "/api/dcim/module-type-profiles/",
         "params": [],
         "bodyTemplate": {
-          "module_type_profile_request": "{module_type_profile_request}"
-        }
+          "module_type_profile": "{module_type_profile}"
+        },
+        "paramTypes": {
+          "module_type_profile": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_module_type_profiles_bulk_update",
@@ -289,8 +519,12 @@
         "path": "/api/dcim/module-type-profiles/",
         "params": [],
         "bodyTemplate": {
-          "module_type_profile_request": "{module_type_profile_request}"
-        }
+          "module_type_profile": "{module_type_profile}"
+        },
+        "paramTypes": {
+          "module_type_profile": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_module_type_profiles_bulk_destroy",
@@ -299,8 +533,14 @@
         "path": "/api/dcim/module-type-profiles/",
         "params": [],
         "bodyTemplate": {
-          "module_type_profile_request": "{module_type_profile_request}"
-        }
+          "module_type_profile": "{module_type_profile}"
+        },
+        "paramTypes": {
+          "module_type_profile": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "get": {
         "name": "dcim_module_type_profiles_retrieve",
@@ -310,7 +550,11 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "patch": {
         "name": "dcim_module_type_profiles_partial_update",
@@ -321,8 +565,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "patched_module_type_profile_request": "{patched_module_type_profile_request}"
-        }
+          "module_type_profile": "{module_type_profile}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "module_type_profile": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -429,7 +678,104 @@
           "weight__n",
           "weight_unit"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "airflow": "string",
+          "console_ports": "boolean",
+          "console_server_ports": "boolean",
+          "created": "string",
+          "created__empty": "string",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "interfaces": "boolean",
+          "last_updated": "string",
+          "last_updated__empty": "string",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "manufacturer": "string",
+          "manufacturer__n": "string",
+          "manufacturer_id": "integer",
+          "manufacturer_id__n": "integer",
+          "model": "string",
+          "model__empty": "boolean",
+          "model__ic": "string",
+          "model__ie": "string",
+          "model__iew": "string",
+          "model__iregex": "string",
+          "model__isw": "string",
+          "model__n": "string",
+          "model__nic": "string",
+          "model__nie": "string",
+          "model__niew": "string",
+          "model__nisw": "string",
+          "model__regex": "string",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "part_number": "string",
+          "part_number__empty": "boolean",
+          "part_number__ic": "string",
+          "part_number__ie": "string",
+          "part_number__iew": "string",
+          "part_number__iregex": "string",
+          "part_number__isw": "string",
+          "part_number__n": "string",
+          "part_number__nic": "string",
+          "part_number__nie": "string",
+          "part_number__niew": "string",
+          "part_number__nisw": "string",
+          "part_number__regex": "string",
+          "pass_through_ports": "boolean",
+          "power_outlets": "boolean",
+          "power_ports": "boolean",
+          "profile": "string",
+          "profile__n": "string",
+          "profile_id": "integer",
+          "profile_id__n": "integer",
+          "q": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string",
+          "weight": "number",
+          "weight__empty": "boolean",
+          "weight__gt": "number",
+          "weight__gte": "number",
+          "weight__lt": "number",
+          "weight__lte": "number",
+          "weight__n": "number",
+          "weight_unit": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_module_types_create",
@@ -438,8 +784,12 @@
         "path": "/api/dcim/module-types/",
         "params": [],
         "bodyTemplate": {
-          "writable_module_type_request": "{writable_module_type_request}"
-        }
+          "module_type": "{module_type}"
+        },
+        "paramTypes": {
+          "module_type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_module_types_bulk_update",
@@ -448,8 +798,12 @@
         "path": "/api/dcim/module-types/",
         "params": [],
         "bodyTemplate": {
-          "module_type_request": "{module_type_request}"
-        }
+          "module_type": "{module_type}"
+        },
+        "paramTypes": {
+          "module_type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_module_types_bulk_destroy",
@@ -458,8 +812,45 @@
         "path": "/api/dcim/module-types/",
         "params": [],
         "bodyTemplate": {
-          "module_type_request": "{module_type_request}"
-        }
+          "module_type": "{module_type}"
+        },
+        "paramTypes": {
+          "module_type": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_module_types_retrieve",
+        "descriptionTemplate": "Get a module type object.",
+        "method": "GET",
+        "path": "/api/dcim/module-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "dcim_module_types_partial_update",
+        "descriptionTemplate": "Patch a module type object.",
+        "method": "PATCH",
+        "path": "/api/dcim/module-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "module_type": "{module_type}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "module_type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

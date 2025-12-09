@@ -1,0 +1,218 @@
+{
+  "Collections": {
+    "operations": {
+      "delete": {
+        "name": "deleteCollection",
+        "descriptionTemplate": "Delete an existing collection. Warning: This will delete the whole collection, including the items within. Proceed with caution.",
+        "method": "DELETE",
+        "path": "/collections/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getCollection",
+        "descriptionTemplate": "Retrieves the details of a single collection.",
+        "method": "GET",
+        "path": "/collections/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        }
+      },
+      "update": {
+        "name": "updateCollection",
+        "descriptionTemplate": "Update an existing collection.",
+        "method": "PATCH",
+        "path": "/collections/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "meta": {
+            "archive_app_filter": "{archive_app_filter}",
+            "archive_field": "{archive_field}",
+            "archive_value": "{archive_value}",
+            "color": "{color}",
+            "display_template": "{display_template}",
+            "hidden": "{hidden}",
+            "icon": "{icon}",
+            "note": "{note}",
+            "singleton": "{singleton}",
+            "sort_field": "{sort_field}",
+            "translation": "{translation}",
+            "unarchive_value": "{unarchive_value}",
+            "versioning": "{versioning}"
+          }
+        },
+        "paramTypes": {
+          "id": "string",
+          "archive_app_filter": "string",
+          "archive_field": "string",
+          "archive_value": "string",
+          "color": "string",
+          "display_template": "string",
+          "hidden": "boolean",
+          "icon": "string",
+          "note": "string",
+          "singleton": "boolean",
+          "sort_field": "string",
+          "translation": "string",
+          "unarchive_value": "string",
+          "versioning": "boolean"
+        }
+      }
+    }
+  },
+  "Comments": {
+    "operations": {
+      "delete": {
+        "name": "deleteComments",
+        "descriptionTemplate": "Delete multiple existing comments.",
+        "method": "DELETE",
+        "path": "/comments",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      },
+      "list": {
+        "name": "getComments",
+        "descriptionTemplate": "List the comments.",
+        "method": "GET",
+        "path": "/comments",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {}
+      },
+      "update": {
+        "name": "updateComments",
+        "descriptionTemplate": "Update multiple comments at the same time.",
+        "method": "PATCH",
+        "path": "/comments",
+        "params": [],
+        "bodyTemplate": {
+          "data": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "item": "{item}"
+          },
+          "keys": [
+            "{key}"
+          ]
+        },
+        "paramTypes": {
+          "collection": "string",
+          "comment": "string",
+          "item": "string",
+          "key": "string"
+        }
+      },
+      "add": {
+        "name": "createComment",
+        "descriptionTemplate": "Create a new comment.",
+        "method": "POST",
+        "path": "/comments",
+        "params": [],
+        "bodyTemplate": {
+          "collection": "{collection}",
+          "comment": "{comment}",
+          "item": "{item}"
+        },
+        "paramTypes": {
+          "collection": "string",
+          "comment": "string",
+          "item": "string"
+        }
+      },
+      "deleteSingle": {
+        "name": "deleteComment",
+        "descriptionTemplate": "Delete an existing comment.",
+        "method": "DELETE",
+        "path": "/comments/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "get": {
+        "name": "getComment",
+        "descriptionTemplate": "Retrieve a single comment by unique identifier.",
+        "method": "GET",
+        "path": "/comments/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        }
+      },
+      "updateSingle": {
+        "name": "updateComment",
+        "descriptionTemplate": "Update an existing comment.",
+        "method": "PATCH",
+        "path": "/comments/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "collection": "{collection}",
+          "comment": "{comment}",
+          "item": "{item}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "collection": "string",
+          "comment": "string",
+          "item": "string"
+        }
+      }
+    }
+  },
+  "Extensions": {
+    "operations": {
+      "list": {
+        "name": "listExtensions",
+        "descriptionTemplate": "List the installed extensions and their configuration in the project.",
+        "method": "GET",
+        "path": "/extensions",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {}
+      },
+      "update": {
+        "name": "updateExtensions",
+        "descriptionTemplate": "Update an existing extension.",
+        "method": "PATCH",
+        "path": "/extensions/{name}",
+        "params": [
+          "name"
+        ],
+        "bodyTemplate": {
+          "meta": {
+            "enabled": "{enabled}"
+          }
+        },
+        "paramTypes": {
+          "name": "string",
+          "enabled": "boolean"
+        }
+      }
+    }
+  }
+}

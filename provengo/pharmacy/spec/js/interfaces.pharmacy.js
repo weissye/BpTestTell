@@ -1,433 +1,230 @@
-//@provengo summon rest
-// === Auto-generated interfaces for pharmacy ===
-var host = (typeof host !== 'undefined') ? host : '10.100.102.6';
-var port = (typeof port !== 'undefined') ? port : 5014;
-var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
-const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
-const pvg = {
-  success: function(msg) { bp.log.info(msg); },
-  fail: function(msg) { bp.log.error(msg); throw new Error(msg); }
-};
-function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
-function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
-function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listDrugs(id, name) {
-  var url = "/drugs";
-  var description = "List drugs";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+import re
+import json
+from pathlib import Path
+from urllib.parse import urlparse
+from typing import Dict, Any
+from new_repo.pipeline.emitter_utils import (
+    ensure_dir, sanitize_param, render_body_js, 
+    get_raw_spec, get_response_codes, collect_entity_params
+)
 
-function createDrug(id, name) {
-  var url = "/drugs";
-  var description = "Create drug";
-  var body = {
-    "id": Number(id),
-    "name": String(name),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
-}
+def _is_valid_js_identifier(name: str) -> bool:
+    if not name or not isinstance(name, str): return False
+    if "..." in name or "…" in name or name.strip() == "": return False
+    return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
 
-function getDrug(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Get drug";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
+    lines = []
+    method = (method_override or op_data.get("method", "GET")).upper()
+    path_tmpl = op_data.get("path", "")
+    desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
+    if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
+    
+    js_url = f'"{path_tmpl}"'
+    js_desc = f'"{desc_tmpl}"'
+    for p in sig_params:
+        safe_p = sanitize_param(p)
+        js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
+    js_url = js_url.replace(' + ""', '')
+    js_desc = js_desc.replace(' + ""', '')
 
-function updateDrug(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Update drug";
-  var body = {
-    "id": Number(id),
-    "name": String(name),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
-}
+    # --- FIX: Pass Types to Body Renderer ---
+    param_types = op_data.get("paramTypes", {})
+    
+    body_js = "undefined"
+    if method in ["POST", "PUT", "PATCH"]:
+        if "bodyTemplate" in op_data and isinstance(op_data["bodyTemplate"], dict):
+            body_js = render_body_js(op_data["bodyTemplate"], param_types)
+        else:
+            b_lines = ["{"]
+            for p in sig_params:
+                 if p != primary_key: 
+                     # Fallback to string if no type info (though LLM should provide it now)
+                     ptype = param_types.get(p, "string")
+                     cast = "String"
+                     if ptype in ["integer", "number"]: cast = "Number"
+                     elif ptype == "boolean": cast = "" # Raw
+                     
+                     if cast:
+                         b_lines.append(f'    "{p}": {cast}({sanitize_param(p)}),')
+                     else:
+                         b_lines.append(f'    "{p}": {sanitize_param(p)},')
+                         
+            b_lines.append("  }")
+            body_js = "\n".join(b_lines)
+    if "..." in body_js: body_js = "{}"
 
-function deleteDrug(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Delete drug (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+    if codes_override: codes_str = json.dumps(codes_override)
+    else: codes_str = json.dumps(get_response_codes(path_tmpl, method, spec))
 
-function tryToAddExistingDrugs(id, name) {
-  var url = "/drugs";
-  var description = "Try Add Existing Drugs";
-  var body = {
-    "id": Number(id),
-    "name": String(name),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
+    sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+    lines.append(f'function {fn_name}({sig_args_str}) {{')
+    lines.append(f'  var url = {js_url};')
+    lines.append(f'  var description = {js_desc};')
+    
+    if method in ["POST", "PUT", "PATCH"]:
+        lines.append(f'  var body = {body_js};')
+        lines.append(f'  svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: description }} }});')
+        
+        if not codes_override:
+             payload_parts = []
+             for p in sig_params:
+                 s_p = sanitize_param(p)
+                 payload_parts.append(f'"{s_p}": {s_p}')
+             payload_str = "{" + ", ".join(payload_parts) + "}"
+             lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {payload_str}) }});')
+    else:
+        lines.append(f'  svc.{method.lower()}(url, {{ parameters: {{ description: description }}, expectedResponseCodes: {codes_str} }});')
+    lines.append('}')
+    return lines
 
-function verifyDrugsExists(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Verify Drugs " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Drugs found");
-}
+def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
+    # ... (Rest of the file is identical to the one provided in previous step "Smart Skipping") ...
+    # (Just reusing the structure from the previous message for brevity, the critical change is in _generate_js_operation above)
+    base_url = spec.get("base_url", "http://localhost:8080")
+    parsed = urlparse(base_url)
+    default_host = parsed.hostname or "localhost"
+    default_port = parsed.port or (80 if parsed.scheme == "http" else 443)
+    
+    raw_spec = get_raw_spec(spec)
+    entities = spec.get("entities", {})
+    
+    lines = []
+    lines.append('//@provengo summon rest')
+    lines.append(f'// === Auto-generated interfaces for {sut_name} ===')
+    lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
+    lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
+    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{parsed.scheme or 'http'}';")
+    lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });')
+    
+    lines.append('const pvg = {')
+    lines.append('  success: function(msg) { bp.log.info(msg); },')
+    lines.append('  fail: function(msg) { bp.log.error(msg); throw new Error(msg); }')
+    lines.append('};')
 
-function verifyDrugsDoesNotExist(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Verify Drugs " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Drugs not found");
-}
+    lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
+    lines.append('function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }')
+    lines.append('function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }')
 
-function tryToDeleteANonExistingDrugs(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Verify negative delete for Drugs";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
-}
+    for name, ent in entities.items():
+        primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+        sig_params = [p for p in sig_params if _is_valid_js_identifier(sanitize_param(p))]
+        sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+        
+        ops = ent.get("operations", {})
 
-function matchDeletedDrugs(id, name) {
-  return bp.EventSet("Delete Drugs", function(e) {
-      return e.name === "Done: " + "Delete drug (idempotent)";
-  });
-}
+        item_get_op = ops.get("get")
+        has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
+        
+        pk_in_body = False
+        if "add" in ops and isinstance(ops["add"], dict):
+            body_tmpl = ops["add"].get("bodyTemplate", {})
+            if isinstance(body_tmpl, dict) and primary_key in body_tmpl:
+                pk_in_body = True
+        
+        can_verify = has_specific_get and pk_in_body
 
-function waitForDrugsAdded(id, name) {
-  waitFor(matchSuccess("Create drug"));
-}
+        for op_type, op_data in ops.items():
+            if op_type in ["verifyExists", "verifyDoesntExist"]: continue
+            if not op_data: continue
+            fn_name = op_data.get("name", f"{op_type}{name}")
+            lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
+            lines.append('')
 
-function matchAnyDrugsAdded() {
-  return bp.EventSet("Any Drugs Added", function(e) {
-      return e.name.startsWith("Done: Create drug");
-  });
-}
+        if "add" in ops and isinstance(ops["add"], dict) and can_verify:
+             lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
+             lines.append('')
 
-function listOrders(id) {
-  var url = "/orders";
-  var description = "List orders";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+        if can_verify:
+            path_tmpl = item_get_op.get("path", "")
+            js_item_url = f'"{path_tmpl}"'
+            for p in sig_params: js_item_url = js_item_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_item_url = js_item_url.replace(' + ""', '')
 
-function createOrder(id) {
-  var url = "/orders";
-  var description = "Create order";
-  var body = {
-    "id": Number(id),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
-}
+            safe_pk = sanitize_param(primary_key)
+            lines.append(f'function verify{name}Exists({sig_args_str}) {{')
+            lines.append(f'  var url = {js_item_url};')
+            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " exists";')
+            lines.append(f'  svc.get(url, {{ expectedResponseCodes: [200], parameters: {{ description: description }} }});')
+            lines.append(f'  pvg.success("{name} found");')
+            lines.append('}')
+            lines.append('')
 
-function getOrder(id) {
-  var url = "/orders/" + id;
-  var description = "Get order";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+            lines.append(f'function verify{name}DoesNotExist({sig_args_str}) {{')
+            lines.append(f'  var url = {js_item_url};')
+            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " does not exist";')
+            lines.append(f'  svc.get(url, {{ expectedResponseCodes: [404], parameters: {{ description: description }} }});')
+            lines.append(f'  pvg.success("{name} not found");')
+            lines.append('}')
+            lines.append('')
+        elif not pk_in_body:
+             lines.append(f'// No verify{name}Exists generated: Primary Key "{primary_key}" is not in POST body (Server-Generated ID).')
+        else:
+            list_op = ops.get("list")
+            coll_url = list_op.get("path", "") if list_op else ""
+            if coll_url:
+                js_coll_url = f'"{coll_url}"'
+                for p in sig_params: js_coll_url = js_coll_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+                js_coll_url = js_coll_url.replace(' + ""', '')
+                lines.append(f'function verify{name}Exists({sig_args_str}) {{')
+                lines.append(f'  var url = {js_coll_url};')
+                lines.append('  svc.get(url, { expectedResponseCodes: [200], callback: function(res){')
+                lines.append('      var data = JSON.parse(res.body);')
+                lines.append('      if(data.results) data = data.results;')
+                lines.append('      if(!Array.isArray(data)) data = [data];')
+                sanitized_pk = sanitize_param(primary_key)
+                lines.append(f'      for(var i=0; i<data.length; i++) {{ if(String(data[i].{primary_key}) === String({sanitized_pk})) return pvg.success("Found"); }}')
+                lines.append(f'      pvg.fail("Item not found in list");')
+                lines.append('  }});')
+                lines.append('}')
+                lines.append('')
+            else:
+                 lines.append(f'function verify{name}Exists({sig_args_str}) {{ pvg.fail("No GET operation found"); }}')
 
-function updateOrder(id) {
-  var url = "/orders/" + id;
-  var description = "Update order";
-  var body = {
-    "id": Number(id),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
-}
+        if "delete" in ops and isinstance(ops["delete"], dict) and can_verify:
+            neg_codes = ops["delete"].get("x-negative-delete-expected-codes", [404])
+            path = ops["delete"].get("path", "")
+            js_url = f'"{path}"'
+            for p in sig_params: js_url = js_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_url = js_url.replace(' + ""', '')
+            lines.append(f'function tryToDeleteANonExisting{name}({sig_args_str}) {{')
+            lines.append(f'  var url = {js_url};')
+            lines.append(f'  var description = "Verify negative delete for {name}";')
+            lines.append(f'  svc.delete(url, {{ expectedResponseCodes: {json.dumps(neg_codes)}, parameters: {{ description: description }} }});')
+            lines.append('}')
+            lines.append('')
+            
+            desc_tmpl = ops["delete"].get("descriptionTemplate", f"Delete {name}")
+            js_desc_match = f'"{desc_tmpl}"'
+            for p in sig_params: js_desc_match = js_desc_match.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_desc_match = js_desc_match.replace(' + ""', '')
+            
+            lines.append(f'function matchDeleted{name}({sig_args_str}) {{')
+            lines.append(f'  return bp.EventSet("Delete {name}", function(e) {{')
+            lines.append(f'      return e.name === "Done: " + {js_desc_match};')
+            lines.append(f'  }});')
+            lines.append('}')
+            lines.append('')
 
-function deleteOrder(id) {
-  var url = "/orders/" + id;
-  var description = "Delete order (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+        desc_tmpl = "Create " + name
+        if "add" in ops and isinstance(ops["add"], dict):
+             desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
+             lines.append(f'function waitFor{name}Added({sig_args_str}) {{')
+             js_desc = f'"{desc_tmpl}"'
+             for p in sig_params: js_desc = js_desc.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+             js_desc = js_desc.replace(' + ""', '')
+             lines.append(f'  waitFor(matchSuccess({js_desc}));')
+             lines.append('}')
+             lines.append('')
+        
+        regex_start = f"Done: {desc_tmpl}".split("{")[0]
+        lines.append(f'function matchAny{name}Added() {{')
+        lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{')
+        lines.append(f'      return e.name.startsWith("{regex_start}");')
+        lines.append(f'  }});')
+        lines.append('}')
+        lines.append('')
 
-function tryToAddExistingOrders(id) {
-  var url = "/orders";
-  var description = "Try Add Existing Orders";
-  var body = {
-    "id": Number(id),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyOrdersExists(id) {
-  var url = "/orders/" + id;
-  var description = "Verify Orders " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Orders found");
-}
-
-function verifyOrdersDoesNotExist(id) {
-  var url = "/orders/" + id;
-  var description = "Verify Orders " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Orders not found");
-}
-
-function tryToDeleteANonExistingOrders(id) {
-  var url = "/orders/" + id;
-  var description = "Verify negative delete for Orders";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
-}
-
-function matchDeletedOrders(id) {
-  return bp.EventSet("Delete Orders", function(e) {
-      return e.name === "Done: " + "Delete order (idempotent)";
-  });
-}
-
-function waitForOrdersAdded(id) {
-  waitFor(matchSuccess("Create order"));
-}
-
-function matchAnyOrdersAdded() {
-  return bp.EventSet("Any Orders Added", function(e) {
-      return e.name.startsWith("Done: Create order");
-  });
-}
-
-function listPatients(id, name) {
-  var url = "/patients";
-  var description = "List patients";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function createPatient(id, name) {
-  var url = "/patients";
-  var description = "Create patient";
-  var body = {
-    "id": Number(id),
-    "name": String(name),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
-}
-
-function getPatient(id, name) {
-  var url = "/patients/" + id;
-  var description = "Get patient";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function updatePatient(id, name) {
-  var url = "/patients/" + id;
-  var description = "Update patient";
-  var body = {
-    "id": Number(id),
-    "name": String(name),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
-}
-
-function deletePatient(id, name) {
-  var url = "/patients/" + id;
-  var description = "Delete patient (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function tryToAddExistingPatients(id, name) {
-  var url = "/patients";
-  var description = "Try Add Existing Patients";
-  var body = {
-    "id": Number(id),
-    "name": String(name),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyPatientsExists(id, name) {
-  var url = "/patients/" + id;
-  var description = "Verify Patients " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Patients found");
-}
-
-function verifyPatientsDoesNotExist(id, name) {
-  var url = "/patients/" + id;
-  var description = "Verify Patients " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Patients not found");
-}
-
-function tryToDeleteANonExistingPatients(id, name) {
-  var url = "/patients/" + id;
-  var description = "Verify negative delete for Patients";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
-}
-
-function matchDeletedPatients(id, name) {
-  return bp.EventSet("Delete Patients", function(e) {
-      return e.name === "Done: " + "Delete patient (idempotent)";
-  });
-}
-
-function waitForPatientsAdded(id, name) {
-  waitFor(matchSuccess("Create patient"));
-}
-
-function matchAnyPatientsAdded() {
-  return bp.EventSet("Any Patients Added", function(e) {
-      return e.name.startsWith("Done: Create patient");
-  });
-}
-
-function listPrescriptions(id) {
-  var url = "/prescriptions";
-  var description = "List prescriptions";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function createPrescription(id) {
-  var url = "/prescriptions";
-  var description = "Create prescription";
-  var body = {
-    "id": Number(id),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
-}
-
-function getPrescription(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Get prescription";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function updatePrescription(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Update prescription";
-  var body = {
-    "id": Number(id),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
-}
-
-function deletePrescription(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Delete prescription (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function tryToAddExistingPrescriptions(id) {
-  var url = "/prescriptions";
-  var description = "Try Add Existing Prescriptions";
-  var body = {
-    "id": Number(id),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyPrescriptionsExists(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Verify Prescriptions " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Prescriptions found");
-}
-
-function verifyPrescriptionsDoesNotExist(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Verify Prescriptions " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Prescriptions not found");
-}
-
-function tryToDeleteANonExistingPrescriptions(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Verify negative delete for Prescriptions";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
-}
-
-function matchDeletedPrescriptions(id) {
-  return bp.EventSet("Delete Prescriptions", function(e) {
-      return e.name === "Done: " + "Delete prescription (idempotent)";
-  });
-}
-
-function waitForPrescriptionsAdded(id) {
-  waitFor(matchSuccess("Create prescription"));
-}
-
-function matchAnyPrescriptionsAdded() {
-  return bp.EventSet("Any Prescriptions Added", function(e) {
-      return e.name.startsWith("Done: Create prescription");
-  });
-}
-
-function listInventory(ndc) {
-  var url = "/inventory";
-  var description = "List inventory";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function createInventory(ndc) {
-  var url = "/inventory";
-  var description = "Create inventory";
-  var body = {
-    "ndc": String(ndc),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"ndc": ndc}) });
-}
-
-function getInventory(ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Get inventory";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function updateInventory(ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Update inventory";
-  var body = {
-    "ndc": String(ndc),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"ndc": ndc}) });
-}
-
-function deleteInventory(ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Delete inventory (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function tryToAddExistingInventory(ndc) {
-  var url = "/inventory";
-  var description = "Try Add Existing Inventory";
-  var body = {
-    "ndc": String(ndc),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyInventoryExists(ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Verify Inventory " + ndc + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Inventory found");
-}
-
-function verifyInventoryDoesNotExist(ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Verify Inventory " + ndc + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Inventory not found");
-}
-
-function tryToDeleteANonExistingInventory(ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Verify negative delete for Inventory";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
-}
-
-function matchDeletedInventory(ndc) {
-  return bp.EventSet("Delete Inventory", function(e) {
-      return e.name === "Done: " + "Delete inventory (idempotent)";
-  });
-}
-
-function waitForInventoryAdded(ndc) {
-  waitFor(matchSuccess("Create inventory"));
-}
-
-function matchAnyInventoryAdded() {
-  return bp.EventSet("Any Inventory Added", function(e) {
-      return e.name.startsWith("Done: Create inventory");
-  });
-}
+    ensure_dir(out_dir)
+    (out_dir / f"interfaces.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")

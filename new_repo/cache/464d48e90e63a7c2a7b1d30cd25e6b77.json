@@ -1,16 +1,6 @@
 {
   "CircuitTerminations": {
     "operations": {
-      "get": {
-        "name": "circuits_circuit_terminations_retrieve",
-        "descriptionTemplate": "Get a circuit termination object.",
-        "method": "GET",
-        "path": "/api/circuits/circuit-terminations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
       "delete": {
         "name": "circuits_circuit_terminations_destroy",
         "descriptionTemplate": "Delete a circuit termination object.",
@@ -19,7 +9,26 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "circuits_circuit_terminations_retrieve",
+        "descriptionTemplate": "Get a circuit termination object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "circuits_circuit_terminations_update",
@@ -37,6 +46,16 @@
           "xconnect_id": "{xconnect_id}",
           "pp_info": "{pp_info}",
           "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "circuit": "string",
+          "term_side": "string",
+          "port_speed": "integer",
+          "upstream_speed": "integer",
+          "xconnect_id": "string",
+          "pp_info": "string",
+          "description": "string"
         }
       },
       "patch": {
@@ -55,26 +74,108 @@
           "xconnect_id": "{xconnect_id}",
           "pp_info": "{pp_info}",
           "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "circuit": "string",
+          "term_side": "string",
+          "port_speed": "integer",
+          "upstream_speed": "integer",
+          "xconnect_id": "string",
+          "pp_info": "string",
+          "description": "string"
         }
-      }
-    }
-  },
-  "CircuitTerminationPaths": {
-    "operations": {
-      "list": {
-        "name": "circuits_circuit_terminations_paths_retrieve",
-        "descriptionTemplate": "Return all CablePaths which traverse a given pass-through port.",
-        "method": "GET",
-        "path": "/api/circuits/circuit-terminations/{id}/paths/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
       }
     }
   },
   "CircuitTypes": {
     "operations": {
+      "delete": {
+        "name": "circuits_circuit_types_destroy",
+        "descriptionTemplate": "Delete a circuit type object.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "circuits_circuit_types_retrieve",
+        "descriptionTemplate": "Get a circuit type object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_types_update",
+        "descriptionTemplate": "Put a circuit type object.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_types_partial_update",
+        "descriptionTemplate": "Patch a circuit type object.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "add": {
+        "name": "circuits_circuit_types_create",
+        "descriptionTemplate": "Post a list of circuit type objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
       "list": {
         "name": "circuits_circuit_types_list",
         "descriptionTemplate": "Get a list of circuit type objects.",
@@ -166,113 +267,129 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
-      },
-      "add": {
-        "name": "circuits_circuit_types_create",
-        "descriptionTemplate": "Post a list of circuit type objects.",
-        "method": "POST",
-        "path": "/api/circuits/circuit-types/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        }
-      },
-      "update": {
-        "name": "circuits_circuit_types_bulk_update",
-        "descriptionTemplate": "Put a list of circuit type objects.",
-        "method": "PUT",
-        "path": "/api/circuits/circuit-types/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        }
-      },
-      "patch": {
-        "name": "circuits_circuit_types_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of circuit type objects.",
-        "method": "PATCH",
-        "path": "/api/circuits/circuit-types/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        }
-      },
-      "delete": {
-        "name": "circuits_circuit_types_bulk_destroy",
-        "descriptionTemplate": "Delete a list of circuit type objects.",
-        "method": "DELETE",
-        "path": "/api/circuits/circuit-types/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        }
-      }
-    }
-  },
-  "CircuitType": {
-    "operations": {
-      "get": {
-        "name": "circuits_circuit_types_retrieve",
-        "descriptionTemplate": "Get a circuit type object.",
-        "method": "GET",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "delete": {
-        "name": "circuits_circuit_types_destroy",
-        "descriptionTemplate": "Delete a circuit type object.",
-        "method": "DELETE",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {}
-      },
-      "update": {
-        "name": "circuits_circuit_types_update",
-        "descriptionTemplate": "Put a circuit type object.",
-        "method": "PUT",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        }
-      },
-      "patch": {
-        "name": "circuits_circuit_types_partial_update",
-        "descriptionTemplate": "Patch a circuit type object.",
-        "method": "PATCH",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
+        "bodyTemplate": null,
+        "paramTypes": {
+          "color": "string",
+          "color__empty": "boolean",
+          "color__ic": "string",
+          "color__ie": "string",
+          "color__iew": "string",
+          "color__iregex": "string",
+          "color__isw": "string",
+          "color__n": "string",
+          "color__nic": "string",
+          "color__nie": "string",
+          "color__niew": "string",
+          "color__nisw": "string",
+          "color__regex": "string",
+          "created": "string",
+          "created__empty": "boolean",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "last_updated": "string",
+          "last_updated__empty": "boolean",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "modified_by_request": "string",
+          "name": "string",
+          "name__empty": "boolean",
+          "name__ic": "string",
+          "name__ie": "string",
+          "name__iew": "string",
+          "name__iregex": "string",
+          "name__isw": "string",
+          "name__n": "string",
+          "name__nic": "string",
+          "name__nie": "string",
+          "name__niew": "string",
+          "name__nisw": "string",
+          "name__regex": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "q": "string",
+          "slug": "string",
+          "slug__empty": "boolean",
+          "slug__ic": "string",
+          "slug__ie": "string",
+          "slug__iew": "string",
+          "slug__iregex": "string",
+          "slug__isw": "string",
+          "slug__n": "string",
+          "slug__nic": "string",
+          "slug__nie": "string",
+          "slug__niew": "string",
+          "slug__nisw": "string",
+          "slug__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "updated_by_request": "string"
         }
       }
     }
   },
   "Circuits": {
     "operations": {
-      "list": {
+      "delete": {
+        "name": "circuits_circuits_bulk_destroy",
+        "descriptionTemplate": "Delete a list of circuit objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuits/",
+        "params": [],
+        "bodyTemplate": {
+          "circuit": "{circuit}",
+          "provider": "{provider}",
+          "type": "{type}",
+          "status": "{status}",
+          "tenant": "{tenant}",
+          "install_date": "{install_date}",
+          "commit_rate": "{commit_rate}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "circuit": "string",
+          "provider": "string",
+          "type": "string",
+          "status": "string",
+          "tenant": "string",
+          "install_date": "string",
+          "commit_rate": "integer",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
         "name": "circuits_circuits_list",
         "descriptionTemplate": "Get a list of circuit objects.",
         "method": "GET",
@@ -425,7 +542,155 @@
           "type_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {}
+        "bodyTemplate": null,
+        "paramTypes": {
+          "cid": "string",
+          "cid__empty": "boolean",
+          "cid__ic": "string",
+          "cid__ie": "string",
+          "cid__iew": "string",
+          "cid__iregex": "string",
+          "cid__isw": "string",
+          "cid__n": "string",
+          "cid__nic": "string",
+          "cid__nie": "string",
+          "cid__niew": "string",
+          "cid__nisw": "string",
+          "cid__regex": "string",
+          "commit_rate": "integer",
+          "commit_rate__empty": "boolean",
+          "commit_rate__gt": "integer",
+          "commit_rate__gte": "integer",
+          "commit_rate__lt": "integer",
+          "commit_rate__lte": "integer",
+          "commit_rate__n": "integer",
+          "contact": "integer",
+          "contact__n": "integer",
+          "contact_group": "string",
+          "contact_group__n": "string",
+          "contact_role": "integer",
+          "contact_role__n": "integer",
+          "created": "string",
+          "created__empty": "boolean",
+          "created__gt": "string",
+          "created__gte": "string",
+          "created__lt": "string",
+          "created__lte": "string",
+          "created__n": "string",
+          "created_by_request": "string",
+          "description": "string",
+          "description__empty": "boolean",
+          "description__ic": "string",
+          "description__ie": "string",
+          "description__iew": "string",
+          "description__iregex": "string",
+          "description__isw": "string",
+          "description__n": "string",
+          "description__nic": "string",
+          "description__nie": "string",
+          "description__niew": "string",
+          "description__nisw": "string",
+          "description__regex": "string",
+          "distance": "number",
+          "distance__empty": "boolean",
+          "distance__gt": "number",
+          "distance__gte": "number",
+          "distance__lt": "number",
+          "distance__lte": "number",
+          "distance__n": "number",
+          "distance_unit": "string",
+          "id": "integer",
+          "id__empty": "boolean",
+          "id__gt": "integer",
+          "id__gte": "integer",
+          "id__lt": "integer",
+          "id__lte": "integer",
+          "id__n": "integer",
+          "install_date": "string",
+          "install_date__empty": "boolean",
+          "install_date__gt": "string",
+          "install_date__gte": "string",
+          "install_date__lt": "string",
+          "install_date__lte": "string",
+          "install_date__n": "string",
+          "last_updated": "string",
+          "last_updated__empty": "boolean",
+          "last_updated__gt": "string",
+          "last_updated__gte": "string",
+          "last_updated__lt": "string",
+          "last_updated__lte": "string",
+          "last_updated__n": "string",
+          "limit": "integer",
+          "location_id": "integer",
+          "location_id__n": "integer",
+          "modified_by_request": "string",
+          "offset": "integer",
+          "ordering": "string",
+          "provider": "string",
+          "provider__n": "string",
+          "provider_account": "string",
+          "provider_account__n": "string",
+          "provider_account_id": "integer",
+          "provider_account_id__n": "integer",
+          "provider_id": "integer",
+          "provider_id__n": "integer",
+          "provider_network_id": "integer",
+          "provider_network_id__n": "integer",
+          "q": "string",
+          "region": "string",
+          "region__n": "string",
+          "region_id": "string",
+          "region_id__n": "string",
+          "site": "string",
+          "site__n": "string",
+          "site_group": "string",
+          "site_group__n": "string",
+          "site_group_id": "string",
+          "site_group_id__n": "string",
+          "site_id": "integer",
+          "site_id__n": "integer",
+          "status": "string",
+          "status__empty": "boolean",
+          "status__ic": "string",
+          "status__ie": "string",
+          "status__iew": "string",
+          "status__iregex": "string",
+          "status__isw": "string",
+          "status__n": "string",
+          "status__nic": "string",
+          "status__nie": "string",
+          "status__niew": "string",
+          "status__nisw": "string",
+          "status__regex": "string",
+          "tag": "string",
+          "tag__n": "string",
+          "tag_id": "integer",
+          "tag_id__n": "integer",
+          "tenant": "string",
+          "tenant__n": "string",
+          "tenant_group": "string",
+          "tenant_group__n": "string",
+          "tenant_group_id": "string",
+          "tenant_group_id__n": "string",
+          "tenant_id": "integer",
+          "tenant_id__n": "integer",
+          "termination_a_id": "integer",
+          "termination_a_id__n": "integer",
+          "termination_date": "string",
+          "termination_date__empty": "boolean",
+          "termination_date__gt": "string",
+          "termination_date__gte": "string",
+          "termination_date__lt": "string",
+          "termination_date__lte": "string",
+          "termination_date__n": "string",
+          "termination_z_id": "integer",
+          "termination_z_id__n": "integer",
+          "type": "string",
+          "type__n": "string",
+          "type_id": "integer",
+          "type_id__n": "integer",
+          "updated_by_request": "string"
+        }
       },
       "add": {
         "name": "circuits_circuits_create",
@@ -434,14 +699,24 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "cid": "{cid}",
+          "circuit": "{circuit}",
           "provider": "{provider}",
           "type": "{type}",
           "status": "{status}",
+          "tenant": "{tenant}",
           "install_date": "{install_date}",
-          "termination_date": "{termination_date}",
           "commit_rate": "{commit_rate}",
           "description": "{description}"
+        },
+        "paramTypes": {
+          "circuit": "string",
+          "provider": "string",
+          "type": "string",
+          "status": "string",
+          "tenant": "string",
+          "install_date": "string",
+          "commit_rate": "integer",
+          "description": "string"
         }
       },
       "update": {
@@ -451,14 +726,24 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "cid": "{cid}",
+          "circuit": "{circuit}",
           "provider": "{provider}",
           "type": "{type}",
           "status": "{status}",
+          "tenant": "{tenant}",
           "install_date": "{install_date}",
-          "termination_date": "{termination_date}",
           "commit_rate": "{commit_rate}",
           "description": "{description}"
+        },
+        "paramTypes": {
+          "circuit": "string",
+          "provider": "string",
+          "type": "string",
+          "status": "string",
+          "tenant": "string",
+          "install_date": "string",
+          "commit_rate": "integer",
+          "description": "string"
         }
       },
       "patch": {
@@ -468,31 +753,24 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "cid": "{cid}",
+          "circuit": "{circuit}",
           "provider": "{provider}",
           "type": "{type}",
           "status": "{status}",
+          "tenant": "{tenant}",
           "install_date": "{install_date}",
-          "termination_date": "{termination_date}",
           "commit_rate": "{commit_rate}",
           "description": "{description}"
-        }
-      },
-      "delete": {
-        "name": "circuits_circuits_bulk_destroy",
-        "descriptionTemplate": "Delete a list of circuit objects.",
-        "method": "DELETE",
-        "path": "/api/circuits/circuits/",
-        "params": [],
-        "bodyTemplate": {
-          "cid": "{cid}",
-          "provider": "{provider}",
-          "type": "{type}",
-          "status": "{status}",
-          "install_date": "{install_date}",
-          "termination_date": "{termination_date}",
-          "commit_rate": "{commit_rate}",
-          "description": "{description}"
+        },
+        "paramTypes": {
+          "circuit": "string",
+          "provider": "string",
+          "type": "string",
+          "status": "string",
+          "tenant": "string",
+          "install_date": "string",
+          "commit_rate": "integer",
+          "description": "string"
         }
       }
     }

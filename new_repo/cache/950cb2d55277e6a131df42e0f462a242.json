@@ -1,0 +1,291 @@
+{
+  "DependentPhoneNumbers": {
+    "operations": {
+      "list": {
+        "name": "ListDependentPhoneNumber",
+        "descriptionTemplate": "Phone numbers dependent on an Address resource",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json",
+        "params": [
+          "AccountSid",
+          "AddressSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "AddressSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "ConnectApps": {
+    "operations": {
+      "list": {
+        "name": "ListConnectApp",
+        "descriptionTemplate": "Retrieve a list of connect-apps belonging to the account used to make the request",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+        "params": [
+          "AccountSid",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "IncomingPhoneNumbers": {
+    "operations": {
+      "list": {
+        "name": "ListIncomingPhoneNumber",
+        "descriptionTemplate": "Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+        "params": [
+          "AccountSid",
+          "Beta",
+          "FriendlyName",
+          "PhoneNumber",
+          "Origin",
+          "PageSize",
+          "Page",
+          "PageToken"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Beta": "boolean",
+          "FriendlyName": "string",
+          "PhoneNumber": "string",
+          "Origin": "string",
+          "PageSize": "integer",
+          "Page": "integer",
+          "PageToken": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "add": {
+        "name": "CreateIncomingPhoneNumber",
+        "descriptionTemplate": "Purchase a phone-number for the account.",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+        "params": [
+          "AccountSid"
+        ],
+        "bodyTemplate": {
+          "AddressSid": "{AddressSid}",
+          "ApiVersion": "{ApiVersion}",
+          "AreaCode": "{AreaCode}",
+          "BundleSid": "{BundleSid}",
+          "EmergencyAddressSid": "{EmergencyAddressSid}",
+          "EmergencyStatus": "{EmergencyStatus}",
+          "FriendlyName": "{FriendlyName}",
+          "IdentitySid": "{IdentitySid}",
+          "PhoneNumber": "{PhoneNumber}",
+          "SmsApplicationSid": "{SmsApplicationSid}",
+          "SmsFallbackMethod": "{SmsFallbackMethod}",
+          "SmsFallbackUrl": "{SmsFallbackUrl}",
+          "SmsMethod": "{SmsMethod}",
+          "SmsUrl": "{SmsUrl}",
+          "StatusCallback": "{StatusCallback}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}",
+          "VoiceApplicationSid": "{VoiceApplicationSid}",
+          "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+          "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+          "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+          "VoiceMethod": "{VoiceMethod}",
+          "VoiceUrl": "{VoiceUrl}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "AddressSid": "string",
+          "ApiVersion": "string",
+          "AreaCode": "string",
+          "BundleSid": "string",
+          "EmergencyAddressSid": "string",
+          "EmergencyStatus": "string",
+          "FriendlyName": "string",
+          "IdentitySid": "string",
+          "PhoneNumber": "string",
+          "SmsApplicationSid": "string",
+          "SmsFallbackMethod": "string",
+          "SmsFallbackUrl": "string",
+          "SmsMethod": "string",
+          "SmsUrl": "string",
+          "StatusCallback": "string",
+          "StatusCallbackMethod": "string",
+          "VoiceApplicationSid": "string",
+          "VoiceCallerIdLookup": "boolean",
+          "VoiceFallbackMethod": "string",
+          "VoiceFallbackUrl": "string",
+          "VoiceMethod": "string",
+          "VoiceUrl": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "FetchIncomingPhoneNumber",
+        "descriptionTemplate": "Fetch an incoming-phone-number belonging to the account used to make the request.",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "UpdateIncomingPhoneNumber",
+        "descriptionTemplate": "Update an incoming-phone-number instance.",
+        "method": "POST",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {
+          "AccountSid": "{AccountSid}",
+          "AddressSid": "{AddressSid}",
+          "ApiVersion": "{ApiVersion}",
+          "BundleSid": "{BundleSid}",
+          "EmergencyAddressSid": "{EmergencyAddressSid}",
+          "EmergencyStatus": "{EmergencyStatus}",
+          "FriendlyName": "{FriendlyName}",
+          "IdentitySid": "{IdentitySid}",
+          "SmsApplicationSid": "{SmsApplicationSid}",
+          "SmsFallbackMethod": "{SmsFallbackMethod}",
+          "SmsFallbackUrl": "{SmsFallbackUrl}",
+          "SmsMethod": "{SmsMethod}",
+          "SmsUrl": "{SmsUrl}",
+          "StatusCallback": "{StatusCallback}",
+          "StatusCallbackMethod": "{StatusCallbackMethod}",
+          "VoiceApplicationSid": "{VoiceApplicationSid}",
+          "VoiceCallerIdLookup": "{VoiceCallerIdLookup}",
+          "VoiceFallbackMethod": "{VoiceFallbackMethod}",
+          "VoiceFallbackUrl": "{VoiceFallbackUrl}",
+          "VoiceMethod": "{VoiceMethod}",
+          "VoiceUrl": "{VoiceUrl}"
+        },
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string",
+          "AddressSid": "string",
+          "ApiVersion": "string",
+          "BundleSid": "string",
+          "EmergencyAddressSid": "string",
+          "EmergencyStatus": "string",
+          "FriendlyName": "string",
+          "IdentitySid": "string",
+          "SmsApplicationSid": "string",
+          "SmsFallbackMethod": "string",
+          "SmsFallbackUrl": "string",
+          "SmsMethod": "string",
+          "SmsUrl": "string",
+          "StatusCallback": "string",
+          "StatusCallbackMethod": "string",
+          "VoiceApplicationSid": "string",
+          "VoiceCallerIdLookup": "boolean",
+          "VoiceFallbackMethod": "string",
+          "VoiceFallbackUrl": "string",
+          "VoiceMethod": "string",
+          "VoiceUrl": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteIncomingPhoneNumber",
+        "descriptionTemplate": "Delete a phone-numbers belonging to the account used to make the request.",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "AssignedAddOns": {
+    "operations": {
+      "get": {
+        "name": "FetchIncomingPhoneNumberAssignedAddOn",
+        "descriptionTemplate": "Fetch an instance of an Add-on installation currently assigned to this Number.",
+        "method": "GET",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "ResourceSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "ResourceSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "DeleteIncomingPhoneNumberAssignedAddOn",
+        "descriptionTemplate": "Remove the assignment of an Add-on installation from the Number specified.",
+        "method": "DELETE",
+        "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+        "params": [
+          "AccountSid",
+          "ResourceSid",
+          "Sid"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "AccountSid": "string",
+          "ResourceSid": "string",
+          "Sid": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

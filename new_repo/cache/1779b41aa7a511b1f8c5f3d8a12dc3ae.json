@@ -1,0 +1,88 @@
+{
+  "Users": {
+    "operations": {
+      "add": {
+        "name": "acceptInvite",
+        "descriptionTemplate": "Accepts and enables an invited user using a JWT invitation token.",
+        "method": "POST",
+        "path": "/users/invite/accept",
+        "params": [],
+        "bodyTemplate": {
+          "password": "{password}",
+          "token": "{token}"
+        },
+        "paramTypes": {
+          "password": "string",
+          "token": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "getMe",
+        "descriptionTemplate": "Retrieve the currently authenticated user.",
+        "method": "GET",
+        "path": "/users/me",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update": {
+        "name": "updateMe",
+        "descriptionTemplate": "Update the currently authenticated user.",
+        "method": "PATCH",
+        "path": "/users/me",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "disable": {
+        "name": "meTfaDisable",
+        "descriptionTemplate": "Disables two-factor authentication for the currently authenticated user.",
+        "method": "POST",
+        "path": "/users/me/tfa/disable",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "enable": {
+        "name": "meTfaEnable",
+        "descriptionTemplate": "Enables two-factor authentication for the currently authenticated user.",
+        "method": "POST",
+        "path": "/users/me/tfa/enable",
+        "params": [],
+        "bodyTemplate": {},
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateLastUsedPage": {
+        "name": "updateLastUsedPageMe",
+        "descriptionTemplate": "Updates the last used page field of the currently authenticated user.",
+        "method": "PATCH",
+        "path": "/users/me/track/page",
+        "params": [],
+        "bodyTemplate": {
+          "last_page": "{last_page}"
+        },
+        "paramTypes": {
+          "last_page": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

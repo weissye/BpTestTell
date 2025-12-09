@@ -1,0 +1,86 @@
+{
+  "Licenses": {
+    "operations": {
+      "get": {
+        "name": "getLicenseTemplateInfo",
+        "descriptionTemplate": "Returns information about a license template",
+        "method": "GET",
+        "path": "/licenses/{name}",
+        "params": [
+          "name"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "name": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  },
+  "Markdown": {
+    "operations": {
+      "add": {
+        "name": "renderMarkdown",
+        "descriptionTemplate": "Render a markdown document as HTML",
+        "method": "POST",
+        "path": "/markdown",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "addRaw": {
+        "name": "renderMarkdownRaw",
+        "descriptionTemplate": "Render raw markdown as HTML",
+        "method": "POST",
+        "path": "/markdown/raw",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "Markup": {
+    "operations": {
+      "add": {
+        "name": "renderMarkup",
+        "descriptionTemplate": "Render a markup document as HTML",
+        "method": "POST",
+        "path": "/markup",
+        "params": [],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "body": "object"
+        },
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  },
+  "NodeInfo": {
+    "operations": {
+      "get": {
+        "name": "getNodeInfo",
+        "descriptionTemplate": "Returns the nodeinfo of the Gitea application",
+        "method": "GET",
+        "path": "/nodeinfo",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      }
+    }
+  }
+}

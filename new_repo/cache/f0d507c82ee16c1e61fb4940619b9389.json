@@ -1,0 +1,46 @@
+{
+  "User": {
+    "operations": {
+      "list": {
+        "name": "userListActivityFeeds",
+        "descriptionTemplate": "List a user's activity feeds",
+        "method": "GET",
+        "path": "/users/{username}/activities/feeds",
+        "params": [
+          "username",
+          "only-performed-by",
+          "date",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string",
+          "only-performed-by": "boolean",
+          "date": "string",
+          "page": "integer",
+          "limit": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "userGet",
+        "descriptionTemplate": "Get a user",
+        "method": "GET",
+        "path": "/users/{username}",
+        "params": [
+          "username"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "username": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      }
+    }
+  }
+}

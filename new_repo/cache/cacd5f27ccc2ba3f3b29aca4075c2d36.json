@@ -1,0 +1,134 @@
+{
+  "Organization": {
+    "operations": {
+      "delete": {
+        "name": "orgDelete",
+        "descriptionTemplate": "Delete an organization",
+        "method": "DELETE",
+        "path": "/orgs/{org}",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "orgGet",
+        "descriptionTemplate": "Get an organization",
+        "method": "GET",
+        "path": "/orgs/{org}",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string"
+        }
+      },
+      "update": {
+        "name": "orgEdit",
+        "descriptionTemplate": "Edit an organization",
+        "method": "PATCH",
+        "path": "/orgs/{org}",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "body": "object"
+        }
+      },
+      "getRunnerRegistrationToken": {
+        "name": "orgGetRunnerRegistrationToken",
+        "descriptionTemplate": "Get an organization's actions runner registration token",
+        "method": "GET",
+        "path": "/orgs/{org}/actions/runners/registration-token",
+        "params": [
+          "org"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string"
+        }
+      },
+      "listActionsSecrets": {
+        "name": "orgListActionsSecrets",
+        "descriptionTemplate": "List an organization's actions secrets",
+        "method": "GET",
+        "path": "/orgs/{org}/actions/secrets",
+        "params": [
+          "org",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      },
+      "deleteSecret": {
+        "name": "deleteOrgSecret",
+        "descriptionTemplate": "Delete a secret in an organization",
+        "method": "DELETE",
+        "path": "/orgs/{org}/actions/secrets/{secretname}",
+        "params": [
+          "org",
+          "secretname"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "secretname": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateSecret": {
+        "name": "updateOrgSecret",
+        "descriptionTemplate": "Create or Update a secret value in an organization",
+        "method": "PUT",
+        "path": "/orgs/{org}/actions/secrets/{secretname}",
+        "params": [
+          "org",
+          "secretname"
+        ],
+        "bodyTemplate": {
+          "body": "{body}"
+        },
+        "paramTypes": {
+          "org": "string",
+          "secretname": "string",
+          "body": "object"
+        }
+      },
+      "listVariables": {
+        "name": "getOrgVariablesList",
+        "descriptionTemplate": "Get an org-level variables list",
+        "method": "GET",
+        "path": "/orgs/{org}/actions/variables",
+        "params": [
+          "org",
+          "page",
+          "limit"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "org": "string",
+          "page": "integer",
+          "limit": "integer"
+        }
+      }
+    }
+  }
+}
