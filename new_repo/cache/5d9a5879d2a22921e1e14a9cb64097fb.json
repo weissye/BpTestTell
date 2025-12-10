@@ -272,10 +272,12 @@
         "path": "/api/core/data-sources/",
         "params": [],
         "bodyTemplate": {
-          "dataSourceRequest": "{dataSourceRequest}"
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
         },
         "paramTypes": {
-          "dataSourceRequest": "object"
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -286,10 +288,28 @@
         "path": "/api/core/data-sources/",
         "params": [],
         "bodyTemplate": {
-          "dataSourceRequest": "{dataSourceRequest}"
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
         },
         "paramTypes": {
-          "dataSourceRequest": "object"
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "core_data_sources_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of data source objects.",
+        "method": "PATCH",
+        "path": "/api/core/data-sources/",
+        "params": [],
+        "bodyTemplate": {
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
+        },
+        "paramTypes": {
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -300,10 +320,12 @@
         "path": "/api/core/data-sources/",
         "params": [],
         "bodyTemplate": {
-          "dataSourceRequest": "{dataSourceRequest}"
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
         },
         "paramTypes": {
-          "dataSourceRequest": "object"
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -323,7 +345,42 @@
         },
         "x-negative-delete-expected-codes": []
       },
-      "patch": {
+      "deleteItem": {
+        "name": "core_data_sources_destroy",
+        "descriptionTemplate": "Delete a data source object.",
+        "method": "DELETE",
+        "path": "/api/core/data-sources/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "updateItem": {
+        "name": "core_data_sources_update",
+        "descriptionTemplate": "Put a data source object.",
+        "method": "PUT",
+        "path": "/api/core/data-sources/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patchItem": {
         "name": "core_data_sources_partial_update",
         "descriptionTemplate": "Patch a data source object.",
         "method": "PATCH",
@@ -332,11 +389,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "patchedWritableDataSourceRequest": "{patchedWritableDataSourceRequest}"
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
         },
         "paramTypes": {
           "id": "integer",
-          "patchedWritableDataSourceRequest": "object"
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -349,11 +408,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "writableDataSourceRequest": "{writableDataSourceRequest}"
+          "dataSourceField1": "{dataSourceField1}",
+          "dataSourceField2": "{dataSourceField2}"
         },
         "paramTypes": {
           "id": "integer",
-          "writableDataSourceRequest": "object"
+          "dataSourceField1": "string",
+          "dataSourceField2": "integer"
         },
         "x-negative-delete-expected-codes": []
       }

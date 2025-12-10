@@ -388,18 +388,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}",
-          "power_port": "{power_port}",
-          "feed_leg": "{feed_leg}",
-          "type": "{type}",
-          "description": "{description}"
+          "type": "{type}"
         },
         "paramTypes": {
           "name": "string",
           "device": "string",
-          "power_port": "string",
-          "feed_leg": "string",
-          "type": "string",
-          "description": "string"
+          "type": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -412,18 +406,12 @@
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}",
-          "power_port": "{power_port}",
-          "feed_leg": "{feed_leg}",
-          "type": "{type}",
-          "description": "{description}"
+          "type": "{type}"
         },
         "paramTypes": {
           "name": "string",
           "device": "string",
-          "power_port": "string",
-          "feed_leg": "string",
-          "type": "string",
-          "description": "string"
+          "type": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -651,15 +639,11 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "site": "{site}",
-          "location": "{location}",
-          "description": "{description}"
+          "location": "{location}"
         },
         "paramTypes": {
           "name": "string",
-          "site": "string",
-          "location": "string",
-          "description": "string"
+          "location": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -671,15 +655,11 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "site": "{site}",
-          "location": "{location}",
-          "description": "{description}"
+          "location": "{location}"
         },
         "paramTypes": {
           "name": "string",
-          "site": "string",
-          "location": "string",
-          "description": "string"
+          "location": "string"
         },
         "x-negative-delete-expected-codes": []
       },

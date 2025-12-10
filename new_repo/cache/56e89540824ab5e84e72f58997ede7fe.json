@@ -105,7 +105,7 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "created": "string",
           "created__empty": "string",
@@ -214,10 +214,10 @@
         "path": "/api/ipam/asn-ranges/",
         "params": [],
         "bodyTemplate": {
-          "asn_range_request": "{asn_range_request}"
+          "asn_range": "{asn_range}"
         },
         "paramTypes": {
-          "asn_range_request": "string"
+          "asn_range": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -228,10 +228,10 @@
         "path": "/api/ipam/asn-ranges/",
         "params": [],
         "bodyTemplate": {
-          "asn_range_request": "{asn_range_request}"
+          "asn_range": "{asn_range}"
         },
         "paramTypes": {
-          "asn_range_request": "string"
+          "asn_range": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -242,10 +242,10 @@
         "path": "/api/ipam/asn-ranges/",
         "params": [],
         "bodyTemplate": {
-          "asn_range_request": "{asn_range_request}"
+          "asn_range": "{asn_range}"
         },
         "paramTypes": {
-          "asn_range_request": "string"
+          "asn_range": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -259,7 +259,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -352,7 +352,7 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "asn": "integer",
           "asn__empty": "boolean",
@@ -440,10 +440,10 @@
         "path": "/api/ipam/asns/",
         "params": [],
         "bodyTemplate": {
-          "asn_request": "{asn_request}"
+          "asn": "{asn}"
         },
         "paramTypes": {
-          "asn_request": "string"
+          "asn": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -454,10 +454,10 @@
         "path": "/api/ipam/asns/",
         "params": [],
         "bodyTemplate": {
-          "asn_request": "{asn_request}"
+          "asn": "{asn}"
         },
         "paramTypes": {
-          "asn_request": "string"
+          "asn": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -468,10 +468,10 @@
         "path": "/api/ipam/asns/",
         "params": [],
         "bodyTemplate": {
-          "asn_request": "{asn_request}"
+          "asn": "{asn}"
         },
         "paramTypes": {
-          "asn_request": "string"
+          "asn": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -485,7 +485,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },

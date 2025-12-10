@@ -198,15 +198,23 @@
         "path": "/api/virtualization/cluster-types/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "slug": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
+      }
+    }
+  },
+  "ClusterType": {
+    "operations": {
       "get": {
         "name": "virtualization_cluster_types_retrieve",
         "descriptionTemplate": "Get a cluster type object.",
@@ -220,6 +228,43 @@
           "id": "integer"
         },
         "x-negative-delete-expected-codes": []
+      },
+      "update": {
+        "name": "virtualization_cluster_types_update",
+        "descriptionTemplate": "Put a cluster type object.",
+        "method": "PUT",
+        "path": "/api/virtualization/cluster-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "delete": {
+        "name": "virtualization_cluster_types_destroy",
+        "descriptionTemplate": "Delete a cluster type object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/cluster-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -520,15 +565,25 @@
         "path": "/api/virtualization/clusters/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "type": "{type}",
+          "group": "{group}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "type": "string",
+          "group": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
+      }
+    }
+  },
+  "Cluster": {
+    "operations": {
       "get": {
         "name": "virtualization_clusters_retrieve",
         "descriptionTemplate": "Get a cluster object.",
@@ -542,6 +597,45 @@
           "id": "integer"
         },
         "x-negative-delete-expected-codes": []
+      },
+      "update": {
+        "name": "virtualization_clusters_update",
+        "descriptionTemplate": "Put a cluster object.",
+        "method": "PUT",
+        "path": "/api/virtualization/clusters/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "type": "{type}",
+          "group": "{group}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "type": "string",
+          "group": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "delete": {
+        "name": "virtualization_clusters_destroy",
+        "descriptionTemplate": "Delete a cluster object.",
+        "method": "DELETE",
+        "path": "/api/virtualization/clusters/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -810,14 +904,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "enabled": "{enabled}",
-          "mac_address": "{mac_address}",
-          "mtu": "{mtu}"
+          "mtu": "{mtu}",
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
           "enabled": "boolean",
-          "mac_address": "string",
-          "mtu": "integer"
+          "mtu": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -830,14 +924,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "enabled": "{enabled}",
-          "mac_address": "{mac_address}",
-          "mtu": "{mtu}"
+          "mtu": "{mtu}",
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
           "enabled": "boolean",
-          "mac_address": "string",
-          "mtu": "integer"
+          "mtu": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -848,10 +942,16 @@
         "path": "/api/virtualization/interfaces/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "enabled": "{enabled}",
+          "mtu": "{mtu}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "enabled": "boolean",
+          "mtu": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404

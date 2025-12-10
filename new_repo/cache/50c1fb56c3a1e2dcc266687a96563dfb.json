@@ -9,7 +9,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -25,28 +25,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         }
       },
       "update": {
-        "name": "extras_image_attachments_partial_update",
-        "descriptionTemplate": "Patch a image attachment object.",
-        "method": "PATCH",
-        "path": "/api/extras/image-attachments/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "key": "{key}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "key": "string"
-        }
-      },
-      "put": {
         "name": "extras_image_attachments_update",
         "descriptionTemplate": "Put a image attachment object.",
         "method": "PUT",
@@ -67,20 +51,33 @@
   "JournalEntries": {
     "operations": {
       "delete": {
-        "name": "extras_journal_entries_bulk_destroy",
-        "descriptionTemplate": "Delete a list of journal entry objects.",
+        "name": "extras_journal_entries_destroy",
+        "descriptionTemplate": "Delete a journal entry object.",
         "method": "DELETE",
-        "path": "/api/extras/journal-entries/",
-        "params": [],
-        "bodyTemplate": {
-          "key": "{key}"
-        },
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "key": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "extras_journal_entries_retrieve",
+        "descriptionTemplate": "Get a journal entry object.",
+        "method": "GET",
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "extras_journal_entries_list",
@@ -144,7 +141,7 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "assigned_object_id": "integer",
           "assigned_object_id__empty": "boolean",
@@ -217,28 +214,18 @@
         }
       },
       "update": {
-        "name": "extras_journal_entries_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of journal entry objects.",
-        "method": "PATCH",
-        "path": "/api/extras/journal-entries/",
-        "params": [],
-        "bodyTemplate": {
-          "key": "{key}"
-        },
-        "paramTypes": {
-          "key": "string"
-        }
-      },
-      "put": {
-        "name": "extras_journal_entries_bulk_update",
-        "descriptionTemplate": "Put a list of journal entry objects.",
+        "name": "extras_journal_entries_update",
+        "descriptionTemplate": "Put a journal entry object.",
         "method": "PUT",
-        "path": "/api/extras/journal-entries/",
-        "params": [],
+        "path": "/api/extras/journal-entries/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
           "key": "{key}"
         },
         "paramTypes": {
+          "id": "integer",
           "key": "string"
         }
       }
@@ -247,20 +234,33 @@
   "NotificationGroups": {
     "operations": {
       "delete": {
-        "name": "extras_notification_groups_bulk_destroy",
-        "descriptionTemplate": "Delete a list of notification group objects.",
+        "name": "extras_notification_groups_destroy",
+        "descriptionTemplate": "Delete a notification group object.",
         "method": "DELETE",
-        "path": "/api/extras/notification-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "key": "{key}"
-        },
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "key": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "extras_notification_groups_retrieve",
+        "descriptionTemplate": "Get a notification group object.",
+        "method": "GET",
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "extras_notification_groups_list",
@@ -272,7 +272,7 @@
           "offset",
           "ordering"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "limit": "integer",
           "offset": "integer",
@@ -293,28 +293,18 @@
         }
       },
       "update": {
-        "name": "extras_notification_groups_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of notification group objects.",
-        "method": "PATCH",
-        "path": "/api/extras/notification-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "key": "{key}"
-        },
-        "paramTypes": {
-          "key": "string"
-        }
-      },
-      "put": {
-        "name": "extras_notification_groups_bulk_update",
-        "descriptionTemplate": "Put a list of notification group objects.",
+        "name": "extras_notification_groups_update",
+        "descriptionTemplate": "Put a notification group object.",
         "method": "PUT",
-        "path": "/api/extras/notification-groups/",
-        "params": [],
+        "path": "/api/extras/notification-groups/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
           "key": "{key}"
         },
         "paramTypes": {
+          "id": "integer",
           "key": "string"
         }
       }

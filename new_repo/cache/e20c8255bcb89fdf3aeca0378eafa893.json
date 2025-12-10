@@ -29,36 +29,18 @@
   "Fields": {
     "operations": {
       "list": {
-        "name": "getFields",
-        "descriptionTemplate": "Returns a list of the fields available in the project.",
-        "method": "GET",
-        "path": "/fields",
-        "params": [
-          "Limit",
-          "Sort"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "Limit": "integer",
-          "Sort": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "listCollection": {
         "name": "getCollectionFields",
         "descriptionTemplate": "Returns a list of the fields available in the given collection.",
         "method": "GET",
         "path": "/fields/{collection}",
         "params": [
-          "Sort",
-          "collection"
+          "collection",
+          "Sort"
         ],
         "bodyTemplate": null,
         "paramTypes": {
-          "Sort": "string",
-          "collection": "string"
+          "collection": "string",
+          "Sort": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -210,7 +192,7 @@
         },
         "paramTypes": {
           "collection": "string",
-          "id": "integer",
+          "id": "string",
           "field": "string",
           "display": "string",
           "display_options": "object",
@@ -282,8 +264,8 @@
         "bodyTemplate": null,
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
-          "Offset": "integer",
+          "Limit": "string",
+          "Offset": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string",
@@ -327,13 +309,15 @@
           "data": {
             "data": "{data}"
           },
-          "keys": "{keys}"
+          "keys": [
+            "{keys}"
+          ]
         },
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
+          "Limit": "string",
           "Meta": "string",
-          "Offset": "integer",
+          "Offset": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string",

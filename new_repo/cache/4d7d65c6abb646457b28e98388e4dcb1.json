@@ -9,7 +9,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": null,
+        "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
         },
@@ -25,7 +25,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": null,
+        "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
         }
@@ -47,56 +47,24 @@
           "templateField1": "string",
           "templateField2": "integer"
         }
-      },
-      "patch": {
-        "name": "ipam_service_templates_partial_update",
-        "descriptionTemplate": "Patch a application service template object.",
-        "method": "PATCH",
-        "path": "/api/ipam/service-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "templateField1": "{templateField1}",
-          "templateField2": "{templateField2}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "templateField1": "string",
-          "templateField2": "integer"
-        }
       }
     }
   },
   "Services": {
     "operations": {
-      "delete": {
-        "name": "ipam_services_destroy",
-        "descriptionTemplate": "Delete a application service object.",
-        "method": "DELETE",
-        "path": "/api/ipam/services/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
+      "add": {
+        "name": "ipam_services_create",
+        "descriptionTemplate": "Post a list of application service objects.",
+        "method": "POST",
+        "path": "/api/ipam/services/",
+        "params": [],
+        "bodyTemplate": {
+          "serviceField1": "{serviceField1}",
+          "serviceField2": "{serviceField2}"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "get": {
-        "name": "ipam_services_retrieve",
-        "descriptionTemplate": "Get a application service object.",
-        "method": "GET",
-        "path": "/api/ipam/services/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
         "paramTypes": {
-          "id": "integer"
+          "serviceField1": "string",
+          "serviceField2": "integer"
         }
       },
       "list": {
@@ -197,7 +165,7 @@
           "virtual_machine",
           "virtual_machine_id"
         ],
-        "bodyTemplate": null,
+        "bodyTemplate": {},
         "paramTypes": {
           "contact": "integer",
           "contact__n": "integer",
@@ -292,19 +260,33 @@
           "virtual_machine_id": "integer"
         }
       },
-      "add": {
-        "name": "ipam_services_create",
-        "descriptionTemplate": "Post a list of application service objects.",
-        "method": "POST",
-        "path": "/api/ipam/services/",
-        "params": [],
-        "bodyTemplate": {
-          "serviceField1": "{serviceField1}",
-          "serviceField2": "{serviceField2}"
-        },
+      "delete": {
+        "name": "ipam_services_destroy",
+        "descriptionTemplate": "Delete a application service object.",
+        "method": "DELETE",
+        "path": "/api/ipam/services/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
         "paramTypes": {
-          "serviceField1": "string",
-          "serviceField2": "integer"
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "ipam_services_retrieve",
+        "descriptionTemplate": "Get a application service object.",
+        "method": "GET",
+        "path": "/api/ipam/services/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
         }
       },
       "update": {
@@ -324,56 +306,24 @@
           "serviceField1": "string",
           "serviceField2": "integer"
         }
-      },
-      "patch": {
-        "name": "ipam_services_partial_update",
-        "descriptionTemplate": "Patch a application service object.",
-        "method": "PATCH",
-        "path": "/api/ipam/services/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "serviceField1": "{serviceField1}",
-          "serviceField2": "{serviceField2}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "serviceField1": "string",
-          "serviceField2": "integer"
-        }
       }
     }
   },
   "VLANGroups": {
     "operations": {
-      "delete": {
-        "name": "ipam_vlan_groups_destroy",
-        "descriptionTemplate": "Delete a VLAN group object.",
-        "method": "DELETE",
-        "path": "/api/ipam/vlan-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
+      "add": {
+        "name": "ipam_vlan_groups_create",
+        "descriptionTemplate": "Post a list of VLAN group objects.",
+        "method": "POST",
+        "path": "/api/ipam/vlan-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "vlanGroupField1": "{vlanGroupField1}",
+          "vlanGroupField2": "{vlanGroupField2}"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "get": {
-        "name": "ipam_vlan_groups_retrieve",
-        "descriptionTemplate": "Get a VLAN group object.",
-        "method": "GET",
-        "path": "/api/ipam/vlan-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
         "paramTypes": {
-          "id": "integer"
+          "vlanGroupField1": "string",
+          "vlanGroupField2": "integer"
         }
       },
       "list": {
@@ -479,7 +429,7 @@
           "tenant_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": null,
+        "bodyTemplate": {},
         "paramTypes": {
           "cluster": "integer",
           "cluster_group": "integer",
@@ -579,43 +529,39 @@
           "updated_by_request": "string"
         }
       },
-      "add": {
-        "name": "ipam_vlan_groups_create",
-        "descriptionTemplate": "Post a list of VLAN group objects.",
-        "method": "POST",
-        "path": "/api/ipam/vlan-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "vlanGroupField1": "{vlanGroupField1}",
-          "vlanGroupField2": "{vlanGroupField2}"
-        },
+      "delete": {
+        "name": "ipam_vlan_groups_destroy",
+        "descriptionTemplate": "Delete a VLAN group object.",
+        "method": "DELETE",
+        "path": "/api/ipam/vlan-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
         "paramTypes": {
-          "vlanGroupField1": "string",
-          "vlanGroupField2": "integer"
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "ipam_vlan_groups_retrieve",
+        "descriptionTemplate": "Get a VLAN group object.",
+        "method": "GET",
+        "path": "/api/ipam/vlan-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
         }
       },
       "update": {
         "name": "ipam_vlan_groups_update",
         "descriptionTemplate": "Put a VLAN group object.",
         "method": "PUT",
-        "path": "/api/ipam/vlan-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "vlanGroupField1": "{vlanGroupField1}",
-          "vlanGroupField2": "{vlanGroupField2}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "vlanGroupField1": "string",
-          "vlanGroupField2": "integer"
-        }
-      },
-      "patch": {
-        "name": "ipam_vlan_groups_partial_update",
-        "descriptionTemplate": "Patch a VLAN group object.",
-        "method": "PATCH",
         "path": "/api/ipam/vlan-groups/{id}/",
         "params": [
           "id"

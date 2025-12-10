@@ -16,11 +16,8 @@
         "paramTypes": {
           "format": "string",
           "id": "integer",
-          "config_context": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "config_context": "object"
+        }
       }
     }
   },
@@ -155,7 +152,7 @@
           "color__nisw": "string",
           "color__regex": "string",
           "created": "string",
-          "created__empty": "boolean",
+          "created__empty": "string",
           "created__gt": "string",
           "created__gte": "string",
           "created__lt": "string",
@@ -198,7 +195,7 @@
           "label__nisw": "string",
           "label__regex": "string",
           "last_updated": "string",
-          "last_updated__empty": "boolean",
+          "last_updated__empty": "string",
           "last_updated__gt": "string",
           "last_updated__gte": "string",
           "last_updated__lt": "string",
@@ -247,10 +244,7 @@
           "type__nisw": "string",
           "type__regex": "string",
           "updated_by_request": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "add": {
         "name": "dcim_front_port_templates_create",
@@ -261,16 +255,13 @@
         "bodyTemplate": {
           "name": "{name}",
           "type": "{type}",
-          "device_type_id": "{device_type_id}"
+          "color": "{color}"
         },
         "paramTypes": {
           "name": "string",
           "type": "string",
-          "device_type_id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "color": "string"
+        }
       },
       "update": {
         "name": "dcim_front_port_templates_update",
@@ -283,17 +274,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "type": "{type}",
-          "device_type_id": "{device_type_id}"
+          "color": "{color}"
         },
         "paramTypes": {
           "id": "integer",
           "name": "string",
           "type": "string",
-          "device_type_id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "color": "string"
+        }
       },
       "delete": {
         "name": "dcim_front_port_templates_destroy",
@@ -322,10 +310,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   },
@@ -521,7 +506,7 @@
           "color__nisw": "string",
           "color__regex": "string",
           "created": "string",
-          "created__empty": "boolean",
+          "created__empty": "string",
           "created__gt": "string",
           "created__gte": "string",
           "created__lt": "string",
@@ -587,7 +572,7 @@
           "label__nisw": "string",
           "label__regex": "string",
           "last_updated": "string",
-          "last_updated__empty": "boolean",
+          "last_updated__empty": "string",
           "last_updated__gt": "string",
           "last_updated__gte": "string",
           "last_updated__lt": "string",
@@ -666,10 +651,7 @@
           "virtual_chassis__n": "string",
           "virtual_chassis_id": "integer",
           "virtual_chassis_id__n": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "add": {
         "name": "dcim_front_ports_create",
@@ -680,16 +662,13 @@
         "bodyTemplate": {
           "name": "{name}",
           "type": "{type}",
-          "device_id": "{device_id}"
+          "color": "{color}"
         },
         "paramTypes": {
           "name": "string",
           "type": "string",
-          "device_id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "color": "string"
+        }
       },
       "update": {
         "name": "dcim_front_ports_update",
@@ -702,17 +681,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "type": "{type}",
-          "device_id": "{device_id}"
+          "color": "{color}"
         },
         "paramTypes": {
           "id": "integer",
           "name": "string",
           "type": "string",
-          "device_id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "color": "string"
+        }
       },
       "delete": {
         "name": "dcim_front_ports_destroy",
@@ -741,10 +717,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   }

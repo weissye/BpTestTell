@@ -153,9 +153,7 @@
           "tag_id__n": "integer",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "tenancy_contact_roles_create",
@@ -171,9 +169,7 @@
           "name": "string",
           "slug": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "tenancy_contact_roles_bulk_update",
@@ -189,9 +185,7 @@
           "name": "string",
           "slug": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "tenancy_contact_roles_bulk_destroy",
@@ -200,14 +194,30 @@
         "path": "/api/tenancy/contact-roles/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "slug": "{slug}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "slug": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "tenancy_contact_roles_retrieve",
+        "descriptionTemplate": "Get a contact role object.",
+        "method": "GET",
+        "path": "/api/tenancy/contact-roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -477,9 +487,7 @@
           "title__regex": "string",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "tenancy_contacts_create",
@@ -497,9 +505,7 @@
           "email": "string",
           "phone": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "tenancy_contacts_bulk_update",
@@ -517,9 +523,7 @@
           "email": "string",
           "phone": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "tenancy_contacts_bulk_destroy",
@@ -528,14 +532,32 @@
         "path": "/api/tenancy/contacts/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "email": "{email}",
+          "phone": "{phone}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "email": "string",
+          "phone": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "tenancy_contacts_retrieve",
+        "descriptionTemplate": "Get a contact object.",
+        "method": "GET",
+        "path": "/api/tenancy/contacts/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -709,9 +731,7 @@
           "tag_id__n": "integer",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "tenancy_tenant_groups_create",
@@ -727,9 +747,7 @@
           "name": "string",
           "slug": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "tenancy_tenant_groups_bulk_update",
@@ -745,9 +763,7 @@
           "name": "string",
           "slug": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "tenancy_tenant_groups_bulk_destroy",
@@ -756,10 +772,12 @@
         "path": "/api/tenancy/tenant-groups/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "slug": "{slug}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "slug": "string"
         },
         "x-negative-delete-expected-codes": [
           404

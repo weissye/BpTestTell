@@ -6,18 +6,18 @@
         "descriptionTemplate": "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password.",
         "method": "POST",
         "path": "/auth/password/reset",
-        "params": [],
+        "params": [
+          "token",
+          "password"
+        ],
         "bodyTemplate": {
-          "password": "{password}",
-          "token": "{token}"
+          "token": "{token}",
+          "password": "{password}"
         },
         "paramTypes": {
-          "password": "string",
-          "token": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "token": "string",
+          "password": "string"
+        }
       },
       "list": {
         "name": "oauth",
@@ -25,14 +25,10 @@
         "method": "GET",
         "path": "/auth/oauth",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
-          "data": "array",
           "public": "boolean"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "get": {
         "name": "oauthProvider",
@@ -43,16 +39,11 @@
           "provider",
           "redirect"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "provider": "string",
-          "redirect": "string",
-          "data": "object",
-          "public": "boolean"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "redirect": "string"
+        }
       }
     }
   }

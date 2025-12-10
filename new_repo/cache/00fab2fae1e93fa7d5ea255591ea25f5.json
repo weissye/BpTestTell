@@ -12,8 +12,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       },
       "add": {
         "name": "ipam_vlan_groups_available_vlans_create",
@@ -29,8 +28,7 @@
         "paramTypes": {
           "id": "integer",
           "items": "array"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       }
     }
   },
@@ -161,8 +159,7 @@
           "tag_id": "array",
           "tag_id__n": "array",
           "updated_by_request": "string"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       },
       "add": {
         "name": "ipam_vlan_translation_policies_create",
@@ -171,12 +168,11 @@
         "path": "/api/ipam/vlan-translation-policies/",
         "params": [],
         "bodyTemplate": {
-          "VLANTranslationPolicyRequest": "{VLANTranslationPolicyRequest}"
+          "items": "{VLANTranslationPolicyRequest}"
         },
         "paramTypes": {
-          "VLANTranslationPolicyRequest": "object"
-        },
-        "x-negative-delete-expected-codes": []
+          "items": "array"
+        }
       },
       "update": {
         "name": "ipam_vlan_translation_policies_bulk_update",
@@ -189,59 +185,7 @@
         },
         "paramTypes": {
           "items": "array"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "delete": {
-        "name": "ipam_vlan_translation_policies_bulk_destroy",
-        "descriptionTemplate": "Delete a list of VLAN translation policy objects.",
-        "method": "DELETE",
-        "path": "/api/ipam/vlan-translation-policies/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{VLANTranslationPolicyRequest}"
-        },
-        "paramTypes": {
-          "items": "array"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      }
-    }
-  },
-  "VLANTranslationPolicy": {
-    "operations": {
-      "get": {
-        "name": "ipam_vlan_translation_policies_retrieve",
-        "descriptionTemplate": "Get a VLAN translation policy object.",
-        "method": "GET",
-        "path": "/api/ipam/vlan-translation-policies/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {},
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "update": {
-        "name": "ipam_vlan_translation_policies_update",
-        "descriptionTemplate": "Put a VLAN translation policy object.",
-        "method": "PUT",
-        "path": "/api/ipam/vlan-translation-policies/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "VLANTranslationPolicyRequest": "{VLANTranslationPolicyRequest}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "VLANTranslationPolicyRequest": "object"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       },
       "delete": {
         "name": "ipam_vlan_translation_policies_destroy",
@@ -258,6 +202,35 @@
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "ipam_vlan_translation_policies_retrieve",
+        "descriptionTemplate": "Get a VLAN translation policy object.",
+        "method": "GET",
+        "path": "/api/ipam/vlan-translation-policies/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "patch": {
+        "name": "ipam_vlan_translation_policies_partial_update",
+        "descriptionTemplate": "Patch a VLAN translation policy object.",
+        "method": "PATCH",
+        "path": "/api/ipam/vlan-translation-policies/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{PatchedVLANTranslationPolicyRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "items": "array"
+        }
       }
     }
   },
@@ -398,8 +371,7 @@
           "tag_id": "array",
           "tag_id__n": "array",
           "updated_by_request": "string"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       },
       "add": {
         "name": "ipam_vlan_translation_rules_create",
@@ -408,12 +380,11 @@
         "path": "/api/ipam/vlan-translation-rules/",
         "params": [],
         "bodyTemplate": {
-          "VLANTranslationRuleRequest": "{VLANTranslationRuleRequest}"
+          "items": "{VLANTranslationRuleRequest}"
         },
         "paramTypes": {
-          "VLANTranslationRuleRequest": "object"
-        },
-        "x-negative-delete-expected-codes": []
+          "items": "array"
+        }
       },
       "update": {
         "name": "ipam_vlan_translation_rules_bulk_update",
@@ -426,59 +397,7 @@
         },
         "paramTypes": {
           "items": "array"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "delete": {
-        "name": "ipam_vlan_translation_rules_bulk_destroy",
-        "descriptionTemplate": "Delete a list of VLAN translation rule objects.",
-        "method": "DELETE",
-        "path": "/api/ipam/vlan-translation-rules/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{VLANTranslationRuleRequest}"
-        },
-        "paramTypes": {
-          "items": "array"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      }
-    }
-  },
-  "VLANTranslationRule": {
-    "operations": {
-      "get": {
-        "name": "ipam_vlan_translation_rules_retrieve",
-        "descriptionTemplate": "Get a VLAN translation rule object.",
-        "method": "GET",
-        "path": "/api/ipam/vlan-translation-rules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {},
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "update": {
-        "name": "ipam_vlan_translation_rules_update",
-        "descriptionTemplate": "Put a VLAN translation rule object.",
-        "method": "PUT",
-        "path": "/api/ipam/vlan-translation-rules/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "VLANTranslationRuleRequest": "{VLANTranslationRuleRequest}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "VLANTranslationRuleRequest": "object"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       },
       "delete": {
         "name": "ipam_vlan_translation_rules_destroy",
@@ -495,6 +414,35 @@
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "ipam_vlan_translation_rules_retrieve",
+        "descriptionTemplate": "Get a VLAN translation rule object.",
+        "method": "GET",
+        "path": "/api/ipam/vlan-translation-rules/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "patch": {
+        "name": "ipam_vlan_translation_rules_partial_update",
+        "descriptionTemplate": "Patch a VLAN translation rule object.",
+        "method": "PATCH",
+        "path": "/api/ipam/vlan-translation-rules/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{PatchedVLANTranslationRuleRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "items": "array"
+        }
       }
     }
   }

@@ -8,11 +8,10 @@
         "path": "/utils/cache/clear",
         "params": [],
         "bodyTemplate": {},
-        "paramTypes": {},
-        "x-negative-delete-expected-codes": []
+        "paramTypes": {}
       },
       "list": {
-        "name": "random",
+        "name": "getRandomString",
         "descriptionTemplate": "Returns a random string of given length.",
         "method": "GET",
         "path": "/utils/random/string",
@@ -22,8 +21,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "length": "integer"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       }
     }
   },
@@ -68,10 +66,7 @@
           "Sort": "string",
           "Filter": "string",
           "Search": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "update": {
         "name": "updateContentVersion",
@@ -91,10 +86,7 @@
           "Fields": "string",
           "Meta": "string",
           "data": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "add": {
         "name": "saveContentVersion",
@@ -107,10 +99,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "id": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "get": {
         "name": "getContentVersion",
@@ -127,10 +116,7 @@
           "id": "string",
           "Fields": "string",
           "Meta": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   }

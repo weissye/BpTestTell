@@ -19,13 +19,13 @@
         "bodyTemplate": null,
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
-          "Offset": "integer",
+          "Limit": "string",
+          "Offset": "string",
           "Meta": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string",
-          "Page": "integer"
+          "Page": "string"
         }
       },
       "add": {
@@ -60,15 +60,15 @@
         "method": "GET",
         "path": "/relations/{id}",
         "params": [
-          "Id",
           "Fields",
-          "Meta"
+          "Meta",
+          "id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
-          "Id": "string",
           "Fields": "string",
-          "Meta": "string"
+          "Meta": "string",
+          "id": "string"
         }
       },
       "update": {
@@ -78,7 +78,8 @@
         "path": "/relations/{id}",
         "params": [
           "Fields",
-          "Meta"
+          "Meta",
+          "id"
         ],
         "bodyTemplate": {
           "collection_many": "{collection_many}",
@@ -90,6 +91,7 @@
         "paramTypes": {
           "Fields": "string",
           "Meta": "string",
+          "id": "string",
           "collection_many": "string",
           "collection_one": "string",
           "field_many": "string",
@@ -103,11 +105,11 @@
         "method": "DELETE",
         "path": "/relations/{id}",
         "params": [
-          "Id"
+          "id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
-          "Id": "string"
+          "id": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -135,13 +137,13 @@
         "bodyTemplate": null,
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
-          "Offset": "integer",
+          "Limit": "string",
+          "Offset": "string",
           "Meta": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string",
-          "Page": "integer"
+          "Page": "string"
         }
       },
       "get": {
@@ -152,13 +154,15 @@
         "params": [
           "Id",
           "Fields",
-          "Meta"
+          "Meta",
+          "id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
           "Id": "string",
           "Fields": "string",
-          "Meta": "string"
+          "Meta": "string",
+          "id": "string"
         }
       }
     }
@@ -183,13 +187,13 @@
         "bodyTemplate": null,
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
-          "Offset": "integer",
+          "Limit": "string",
+          "Offset": "string",
           "Meta": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string",
-          "Page": "integer"
+          "Page": "string"
         }
       },
       "add": {
@@ -247,9 +251,9 @@
         },
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
+          "Limit": "string",
           "Meta": "string",
-          "Offset": "integer",
+          "Offset": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string",

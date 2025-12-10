@@ -39,10 +39,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/MACAddressRequest"
+          "mac_address": "{mac_address}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "id": "integer",
+          "mac_address": "string",
+          "description": "string"
         }
       },
       "patch": {
@@ -54,75 +57,19 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedMACAddressRequest"
+          "mac_address": "{mac_address}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "id": "integer",
+          "mac_address": "string",
+          "description": "string"
         }
       }
     }
   },
   "Manufacturers": {
     "operations": {
-      "delete": {
-        "name": "dcim_manufacturers_destroy",
-        "descriptionTemplate": "Delete a manufacturer object.",
-        "method": "DELETE",
-        "path": "/api/dcim/manufacturers/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "get": {
-        "name": "dcim_manufacturers_retrieve",
-        "descriptionTemplate": "Get a manufacturer object.",
-        "method": "GET",
-        "path": "/api/dcim/manufacturers/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "update": {
-        "name": "dcim_manufacturers_update",
-        "descriptionTemplate": "Put a manufacturer object.",
-        "method": "PUT",
-        "path": "/api/dcim/manufacturers/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/ManufacturerRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "patch": {
-        "name": "dcim_manufacturers_partial_update",
-        "descriptionTemplate": "Patch a manufacturer object.",
-        "method": "PATCH",
-        "path": "/api/dcim/manufacturers/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedManufacturerRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
       "list": {
         "name": "dcim_manufacturers_list",
         "descriptionTemplate": "Get a list of manufacturer objects.",
@@ -295,19 +242,128 @@
         "path": "/api/dcim/manufacturers/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/ManufacturerRequest"
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
         },
-        "paramTypes": {}
-      }
-    }
-  },
-  "ModuleBayTemplates": {
-    "operations": {
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "update": {
+        "name": "dcim_manufacturers_bulk_update",
+        "descriptionTemplate": "Put a list of manufacturer objects.",
+        "method": "PUT",
+        "path": "/api/dcim/manufacturers/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "patch": {
+        "name": "dcim_manufacturers_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of manufacturer objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/manufacturers/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
       "delete": {
-        "name": "dcim_module_bay_templates_destroy",
-        "descriptionTemplate": "Delete a module bay template object.",
+        "name": "dcim_manufacturers_bulk_destroy",
+        "descriptionTemplate": "Delete a list of manufacturer objects.",
         "method": "DELETE",
-        "path": "/api/dcim/module-bay-templates/{id}/",
+        "path": "/api/dcim/manufacturers/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_manufacturers_retrieve",
+        "descriptionTemplate": "Get a manufacturer object.",
+        "method": "GET",
+        "path": "/api/dcim/manufacturers/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "updateSingle": {
+        "name": "dcim_manufacturers_update",
+        "descriptionTemplate": "Put a manufacturer object.",
+        "method": "PUT",
+        "path": "/api/dcim/manufacturers/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "patchSingle": {
+        "name": "dcim_manufacturers_partial_update",
+        "descriptionTemplate": "Patch a manufacturer object.",
+        "method": "PATCH",
+        "path": "/api/dcim/manufacturers/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "deleteSingle": {
+        "name": "dcim_manufacturers_destroy",
+        "descriptionTemplate": "Delete a manufacturer object.",
+        "method": "DELETE",
+        "path": "/api/dcim/manufacturers/{id}/",
         "params": [
           "id"
         ],
@@ -318,50 +374,11 @@
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "dcim_module_bay_templates_retrieve",
-        "descriptionTemplate": "Get a module bay template object.",
-        "method": "GET",
-        "path": "/api/dcim/module-bay-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "update": {
-        "name": "dcim_module_bay_templates_update",
-        "descriptionTemplate": "Put a module bay template object.",
-        "method": "PUT",
-        "path": "/api/dcim/module-bay-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/ModuleBayTemplateRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "patch": {
-        "name": "dcim_module_bay_templates_partial_update",
-        "descriptionTemplate": "Patch a module bay template object.",
-        "method": "PATCH",
-        "path": "/api/dcim/module-bay-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedModuleBayTemplateRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
+      }
+    }
+  },
+  "ModuleBayTemplates": {
+    "operations": {
       "list": {
         "name": "dcim_module_bay_templates_list",
         "descriptionTemplate": "Get a list of module bay template objects.",
@@ -548,9 +565,138 @@
         "path": "/api/dcim/module-bay-templates/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/ModuleBayTemplateRequest"
+          "name": "{name}",
+          "label": "{label}",
+          "description": "{description}"
         },
-        "paramTypes": {}
+        "paramTypes": {
+          "name": "string",
+          "label": "string",
+          "description": "string"
+        }
+      },
+      "update": {
+        "name": "dcim_module_bay_templates_bulk_update",
+        "descriptionTemplate": "Put a list of module bay template objects.",
+        "method": "PUT",
+        "path": "/api/dcim/module-bay-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "label": "{label}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "label": "string",
+          "description": "string"
+        }
+      },
+      "patch": {
+        "name": "dcim_module_bay_templates_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of module bay template objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/module-bay-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "label": "{label}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "label": "string",
+          "description": "string"
+        }
+      },
+      "delete": {
+        "name": "dcim_module_bay_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of module bay template objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/module-bay-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "label": "{label}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "label": "string",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_module_bay_templates_retrieve",
+        "descriptionTemplate": "Get a module bay template object.",
+        "method": "GET",
+        "path": "/api/dcim/module-bay-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "updateSingle": {
+        "name": "dcim_module_bay_templates_update",
+        "descriptionTemplate": "Put a module bay template object.",
+        "method": "PUT",
+        "path": "/api/dcim/module-bay-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "label": "{label}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "label": "string",
+          "description": "string"
+        }
+      },
+      "patchSingle": {
+        "name": "dcim_module_bay_templates_partial_update",
+        "descriptionTemplate": "Patch a module bay template object.",
+        "method": "PATCH",
+        "path": "/api/dcim/module-bay-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "label": "{label}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "label": "string",
+          "description": "string"
+        }
+      },
+      "deleteSingle": {
+        "name": "dcim_module_bay_templates_destroy",
+        "descriptionTemplate": "Delete a module bay template object.",
+        "method": "DELETE",
+        "path": "/api/dcim/module-bay-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

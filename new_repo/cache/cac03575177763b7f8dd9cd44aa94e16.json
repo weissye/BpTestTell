@@ -47,24 +47,6 @@
           "name": "string",
           "slug": "string"
         }
-      },
-      "patch": {
-        "name": "dcim_regions_partial_update",
-        "descriptionTemplate": "Patch a region object.",
-        "method": "PATCH",
-        "path": "/api/dcim/regions/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string"
-        }
       }
     }
   },
@@ -97,42 +79,6 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
-        }
-      },
-      "update": {
-        "name": "dcim_site_groups_update",
-        "descriptionTemplate": "Put a site group object.",
-        "method": "PUT",
-        "path": "/api/dcim/site-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string"
-        }
-      },
-      "patch": {
-        "name": "dcim_site_groups_partial_update",
-        "descriptionTemplate": "Patch a site group object.",
-        "method": "PATCH",
-        "path": "/api/dcim/site-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string"
         }
       },
       "list": {
@@ -330,6 +276,24 @@
           "name": "string",
           "slug": "string"
         }
+      },
+      "update": {
+        "name": "dcim_site_groups_update",
+        "descriptionTemplate": "Put a site group object.",
+        "method": "PUT",
+        "path": "/api/dcim/site-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string"
+        }
       }
     }
   },
@@ -362,42 +326,6 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
-        }
-      },
-      "update": {
-        "name": "dcim_sites_update",
-        "descriptionTemplate": "Put a site object.",
-        "method": "PUT",
-        "path": "/api/dcim/sites/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string"
-        }
-      },
-      "patch": {
-        "name": "dcim_sites_partial_update",
-        "descriptionTemplate": "Patch a site object.",
-        "method": "PATCH",
-        "path": "/api/dcim/sites/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string"
         }
       },
       "list": {
@@ -720,6 +648,24 @@
           "slug": "{slug}"
         },
         "paramTypes": {
+          "name": "string",
+          "slug": "string"
+        }
+      },
+      "update": {
+        "name": "dcim_sites_update",
+        "descriptionTemplate": "Put a site object.",
+        "method": "PUT",
+        "path": "/api/dcim/sites/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}"
+        },
+        "paramTypes": {
+          "id": "integer",
           "name": "string",
           "slug": "string"
         }

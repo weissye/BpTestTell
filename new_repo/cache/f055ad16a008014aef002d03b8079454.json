@@ -155,9 +155,7 @@
           "type": "string",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_console_server_port_templates_create",
@@ -167,21 +165,19 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_type_id": "{device_type_id}",
-          "module_type_id": "{module_type_id}",
+          "device_type": "{device_type}",
+          "module_type": "{module_type}",
           "label": "{label}",
-          "type": "{type}"
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_type_id": "integer",
-          "module_type_id": "integer",
+          "device_type": "string",
+          "module_type": "string",
           "label": "string",
-          "type": "string"
+          "description": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_console_server_port_templates_bulk_update",
@@ -191,21 +187,19 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_type_id": "{device_type_id}",
-          "module_type_id": "{module_type_id}",
+          "device_type": "{device_type}",
+          "module_type": "{module_type}",
           "label": "{label}",
-          "type": "{type}"
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_type_id": "integer",
-          "module_type_id": "integer",
+          "device_type": "string",
+          "module_type": "string",
           "label": "string",
-          "type": "string"
+          "description": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_console_server_port_templates_bulk_destroy",
@@ -235,9 +229,7 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -539,9 +531,7 @@
           "virtual_chassis_id": "integer",
           "virtual_chassis_id__n": "integer"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_console_server_ports_create",
@@ -551,19 +541,19 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_id": "{device_id}",
+          "device": "{device}",
+          "module": "{module}",
           "label": "{label}",
-          "type": "{type}"
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_id": "integer",
+          "device": "string",
+          "module": "string",
           "label": "string",
-          "type": "string"
+          "description": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "dcim_console_server_ports_bulk_update",
@@ -573,19 +563,19 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_id": "{device_id}",
+          "device": "{device}",
+          "module": "{module}",
           "label": "{label}",
-          "type": "{type}"
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_id": "integer",
+          "device": "string",
+          "module": "string",
           "label": "string",
-          "type": "string"
+          "description": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "delete": {
         "name": "dcim_console_server_ports_bulk_destroy",
@@ -615,9 +605,7 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "trace": {
         "name": "dcim_console_server_ports_trace_retrieve",
@@ -631,9 +619,7 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       }
     }
   }

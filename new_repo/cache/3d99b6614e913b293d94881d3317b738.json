@@ -194,28 +194,18 @@
         "path": "/api/dcim/device-bay-templates/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "device_type": "{device_type}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "device_type": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "dcim_device_bay_templates_retrieve",
-        "descriptionTemplate": "Get a device bay template object.",
-        "method": "GET",
-        "path": "/api/dcim/device-bay-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -524,28 +514,18 @@
         "path": "/api/dcim/device-bays/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "device": "{device}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "device": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "dcim_device_bays_retrieve",
-        "descriptionTemplate": "Get a device bay object.",
-        "method": "GET",
-        "path": "/api/dcim/device-bays/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -796,10 +776,14 @@
         "path": "/api/dcim/device-roles/",
         "params": [],
         "bodyTemplate": {
-          "id": "{id}"
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "slug": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404

@@ -13,21 +13,20 @@
           "offset",
           "sort",
           "filter",
-          "search"
+          "search",
+          "id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
           "fields": "string",
-          "limit": "integer",
+          "limit": "string",
           "meta": "string",
-          "offset": "integer",
+          "offset": "string",
           "sort": "string",
           "filter": "string",
-          "search": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "search": "string",
+          "id": "string"
+        }
       },
       "get": {
         "name": "getActivity",
@@ -44,10 +43,7 @@
           "id": "string",
           "fields": "string",
           "meta": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   },
@@ -70,10 +66,7 @@
           "key": "string",
           "transforms": "string",
           "download": "boolean"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   },
@@ -84,16 +77,18 @@
         "descriptionTemplate": "Refresh a Temporary Access Token.",
         "method": "POST",
         "path": "/auth/refresh",
-        "params": [],
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
           "mode": "{mode}",
           "refresh_token": "{refresh_token}"
         },
         "paramTypes": {
           "mode": "string",
-          "refresh_token": "string"
-        },
-        "x-negative-delete-expected-codes": []
+          "refresh_token": "string",
+          "id": "string"
+        }
       }
     }
   }

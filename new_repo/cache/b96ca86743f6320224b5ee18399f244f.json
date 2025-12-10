@@ -174,10 +174,26 @@
         "path": "/api/vpn/tunnel-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelGroupRequest}"
+          "name": "{name}",
+          "description": "{description}",
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "last_updated": "{last_updated}",
+          "slug": "{slug}",
+          "tag": "{tag}"
         },
         "paramTypes": {
-          "items": "string"
+          "name": "string",
+          "description": "string",
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "last_updated": "string",
+          "slug": "string",
+          "tag": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -188,10 +204,26 @@
         "path": "/api/vpn/tunnel-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelGroupRequest}"
+          "name": "{name}",
+          "description": "{description}",
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "last_updated": "{last_updated}",
+          "slug": "{slug}",
+          "tag": "{tag}"
         },
         "paramTypes": {
-          "items": "string"
+          "name": "string",
+          "description": "string",
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "last_updated": "string",
+          "slug": "string",
+          "tag": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -202,10 +234,26 @@
         "path": "/api/vpn/tunnel-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelGroupRequest}"
+          "name": "{name}",
+          "description": "{description}",
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "last_updated": "{last_updated}",
+          "slug": "{slug}",
+          "tag": "{tag}"
         },
         "paramTypes": {
-          "items": "string"
+          "name": "string",
+          "description": "string",
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "last_updated": "string",
+          "slug": "string",
+          "tag": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -234,11 +282,27 @@
           "id"
         ],
         "bodyTemplate": {
-          "items": "{PatchedTunnelGroupRequest}"
+          "name": "{name}",
+          "description": "{description}",
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "last_updated": "{last_updated}",
+          "slug": "{slug}",
+          "tag": "{tag}"
         },
         "paramTypes": {
           "id": "integer",
-          "items": "string"
+          "name": "string",
+          "description": "string",
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "last_updated": "string",
+          "slug": "string",
+          "tag": "string"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -401,10 +465,30 @@
         "path": "/api/vpn/tunnel-terminations/",
         "params": [],
         "bodyTemplate": {
-          "items": "{WritableTunnelTerminationRequest}"
+          "interface": "{interface}",
+          "interface_id": "{interface_id}",
+          "outside_ip_id": "{outside_ip_id}",
+          "role": "{role}",
+          "tag": "{tag}",
+          "termination_id": "{termination_id}",
+          "termination_type": "{termination_type}",
+          "tunnel": "{tunnel}",
+          "tunnel_id": "{tunnel_id}",
+          "vminterface": "{vminterface}",
+          "vminterface_id": "{vminterface_id}"
         },
         "paramTypes": {
-          "items": "string"
+          "interface": "string",
+          "interface_id": "integer",
+          "outside_ip_id": "integer",
+          "role": "string",
+          "tag": "string",
+          "termination_id": "integer",
+          "termination_type": "string",
+          "tunnel": "string",
+          "tunnel_id": "integer",
+          "vminterface": "string",
+          "vminterface_id": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -415,10 +499,30 @@
         "path": "/api/vpn/tunnel-terminations/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelTerminationRequest}"
+          "interface": "{interface}",
+          "interface_id": "{interface_id}",
+          "outside_ip_id": "{outside_ip_id}",
+          "role": "{role}",
+          "tag": "{tag}",
+          "termination_id": "{termination_id}",
+          "termination_type": "{termination_type}",
+          "tunnel": "{tunnel}",
+          "tunnel_id": "{tunnel_id}",
+          "vminterface": "{vminterface}",
+          "vminterface_id": "{vminterface_id}"
         },
         "paramTypes": {
-          "items": "string"
+          "interface": "string",
+          "interface_id": "integer",
+          "outside_ip_id": "integer",
+          "role": "string",
+          "tag": "string",
+          "termination_id": "integer",
+          "termination_type": "string",
+          "tunnel": "string",
+          "tunnel_id": "integer",
+          "vminterface": "string",
+          "vminterface_id": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -429,10 +533,30 @@
         "path": "/api/vpn/tunnel-terminations/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelTerminationRequest}"
+          "interface": "{interface}",
+          "interface_id": "{interface_id}",
+          "outside_ip_id": "{outside_ip_id}",
+          "role": "{role}",
+          "tag": "{tag}",
+          "termination_id": "{termination_id}",
+          "termination_type": "{termination_type}",
+          "tunnel": "{tunnel}",
+          "tunnel_id": "{tunnel_id}",
+          "vminterface": "{vminterface}",
+          "vminterface_id": "{vminterface_id}"
         },
         "paramTypes": {
-          "items": "string"
+          "interface": "string",
+          "interface_id": "integer",
+          "outside_ip_id": "integer",
+          "role": "string",
+          "tag": "string",
+          "termination_id": "integer",
+          "termination_type": "string",
+          "tunnel": "string",
+          "tunnel_id": "integer",
+          "vminterface": "string",
+          "vminterface_id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -461,11 +585,31 @@
           "id"
         ],
         "bodyTemplate": {
-          "items": "{PatchedWritableTunnelTerminationRequest}"
+          "interface": "{interface}",
+          "interface_id": "{interface_id}",
+          "outside_ip_id": "{outside_ip_id}",
+          "role": "{role}",
+          "tag": "{tag}",
+          "termination_id": "{termination_id}",
+          "termination_type": "{termination_type}",
+          "tunnel": "{tunnel}",
+          "tunnel_id": "{tunnel_id}",
+          "vminterface": "{vminterface}",
+          "vminterface_id": "{vminterface_id}"
         },
         "paramTypes": {
           "id": "integer",
-          "items": "string"
+          "interface": "string",
+          "interface_id": "integer",
+          "outside_ip_id": "integer",
+          "role": "string",
+          "tag": "string",
+          "termination_id": "integer",
+          "termination_type": "string",
+          "tunnel": "string",
+          "tunnel_id": "integer",
+          "vminterface": "string",
+          "vminterface_id": "integer"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -718,10 +862,40 @@
         "path": "/api/vpn/tunnels/",
         "params": [],
         "bodyTemplate": {
-          "items": "{WritableTunnelRequest}"
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "description": "{description}",
+          "encapsulation": "{encapsulation}",
+          "group": "{group}",
+          "ipsec_profile": "{ipsec_profile}",
+          "last_updated": "{last_updated}",
+          "name": "{name}",
+          "status": "{status}",
+          "tag": "{tag}",
+          "tenant": "{tenant}",
+          "tenant_group": "{tenant_group}",
+          "tenant_id": "{tenant_id}",
+          "tunnel_id": "{tunnel_id}"
         },
         "paramTypes": {
-          "items": "string"
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "description": "string",
+          "encapsulation": "string",
+          "group": "string",
+          "ipsec_profile": "string",
+          "last_updated": "string",
+          "name": "string",
+          "status": "string",
+          "tag": "string",
+          "tenant": "string",
+          "tenant_group": "string",
+          "tenant_id": "integer",
+          "tunnel_id": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -732,10 +906,40 @@
         "path": "/api/vpn/tunnels/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelRequest}"
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "description": "{description}",
+          "encapsulation": "{encapsulation}",
+          "group": "{group}",
+          "ipsec_profile": "{ipsec_profile}",
+          "last_updated": "{last_updated}",
+          "name": "{name}",
+          "status": "{status}",
+          "tag": "{tag}",
+          "tenant": "{tenant}",
+          "tenant_group": "{tenant_group}",
+          "tenant_id": "{tenant_id}",
+          "tunnel_id": "{tunnel_id}"
         },
         "paramTypes": {
-          "items": "string"
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "description": "string",
+          "encapsulation": "string",
+          "group": "string",
+          "ipsec_profile": "string",
+          "last_updated": "string",
+          "name": "string",
+          "status": "string",
+          "tag": "string",
+          "tenant": "string",
+          "tenant_group": "string",
+          "tenant_id": "integer",
+          "tunnel_id": "integer"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -746,10 +950,40 @@
         "path": "/api/vpn/tunnels/",
         "params": [],
         "bodyTemplate": {
-          "items": "{TunnelRequest}"
+          "contact": "{contact}",
+          "contact_group": "{contact_group}",
+          "contact_role": "{contact_role}",
+          "created": "{created}",
+          "description": "{description}",
+          "encapsulation": "{encapsulation}",
+          "group": "{group}",
+          "ipsec_profile": "{ipsec_profile}",
+          "last_updated": "{last_updated}",
+          "name": "{name}",
+          "status": "{status}",
+          "tag": "{tag}",
+          "tenant": "{tenant}",
+          "tenant_group": "{tenant_group}",
+          "tenant_id": "{tenant_id}",
+          "tunnel_id": "{tunnel_id}"
         },
         "paramTypes": {
-          "items": "string"
+          "contact": "integer",
+          "contact_group": "string",
+          "contact_role": "integer",
+          "created": "string",
+          "description": "string",
+          "encapsulation": "string",
+          "group": "string",
+          "ipsec_profile": "string",
+          "last_updated": "string",
+          "name": "string",
+          "status": "string",
+          "tag": "string",
+          "tenant": "string",
+          "tenant_group": "string",
+          "tenant_id": "integer",
+          "tunnel_id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404

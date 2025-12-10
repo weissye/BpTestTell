@@ -1,22 +1,6 @@
 {
   "Roles": {
     "operations": {
-      "delete": {
-        "name": "deleteRole",
-        "descriptionTemplate": "Delete an existing role",
-        "method": "DELETE",
-        "path": "/roles/{id}",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
       "get": {
         "name": "getRole",
         "descriptionTemplate": "Retrieve a single role by unique identifier.",
@@ -53,10 +37,26 @@
           "description": "string",
           "enforce_tfa": "boolean",
           "external_id": "string",
-          "ip_access": "string",
+          "ip_access": "array",
           "module_listing": "string",
           "name": "string"
         }
+      },
+      "delete": {
+        "name": "deleteRole",
+        "descriptionTemplate": "Delete an existing role",
+        "method": "DELETE",
+        "path": "/roles/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -64,7 +64,7 @@
     "operations": {
       "add": {
         "name": "schemaDiff",
-        "descriptionTemplate": "Compare the current instance's schema against the schema snapshot in JSON request body or a JSON/YAML file and retrieve the difference. This endpoint is only available to admin users.",
+        "descriptionTemplate": "Compare the current instance's schema against the schema snapshot in JSON request body or a JSON/YAML file and retrieve the difference.",
         "method": "POST",
         "path": "/schema/diff",
         "params": [
@@ -76,13 +76,13 @@
         },
         "paramTypes": {
           "force": "boolean",
-          "data": "string",
+          "data": "object",
           "file": "string"
         }
       },
       "get": {
         "name": "schemaSnapshot",
-        "descriptionTemplate": "Retrieve the current schema. This endpoint is only available to admin users.",
+        "descriptionTemplate": "Retrieve the current schema.",
         "method": "GET",
         "path": "/schema/snapshot",
         "params": [],

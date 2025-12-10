@@ -23,11 +23,13 @@
         "method": "GET",
         "path": "/collections/{id}",
         "params": [
-          "id"
+          "id",
+          "meta"
         ],
         "bodyTemplate": null,
         "paramTypes": {
-          "id": "string"
+          "id": "string",
+          "meta": "object"
         }
       },
       "update": {
@@ -36,7 +38,8 @@
         "method": "PATCH",
         "path": "/collections/{id}",
         "params": [
-          "id"
+          "id",
+          "meta"
         ],
         "bodyTemplate": {
           "meta": {
@@ -57,6 +60,7 @@
         },
         "paramTypes": {
           "id": "string",
+          "meta": "object",
           "archive_app_filter": "string",
           "archive_field": "string",
           "archive_value": "string",
@@ -77,65 +81,6 @@
   "Comments": {
     "operations": {
       "delete": {
-        "name": "deleteComments",
-        "descriptionTemplate": "Delete multiple existing comments.",
-        "method": "DELETE",
-        "path": "/comments",
-        "params": [],
-        "bodyTemplate": null,
-        "paramTypes": {},
-        "x-negative-delete-expected-codes": []
-      },
-      "list": {
-        "name": "getComments",
-        "descriptionTemplate": "List the comments.",
-        "method": "GET",
-        "path": "/comments",
-        "params": [],
-        "bodyTemplate": null,
-        "paramTypes": {}
-      },
-      "update": {
-        "name": "updateComments",
-        "descriptionTemplate": "Update multiple comments at the same time.",
-        "method": "PATCH",
-        "path": "/comments",
-        "params": [],
-        "bodyTemplate": {
-          "data": {
-            "collection": "{collection}",
-            "comment": "{comment}",
-            "item": "{item}"
-          },
-          "keys": [
-            "{key}"
-          ]
-        },
-        "paramTypes": {
-          "collection": "string",
-          "comment": "string",
-          "item": "string",
-          "key": "string"
-        }
-      },
-      "add": {
-        "name": "createComment",
-        "descriptionTemplate": "Create a new comment.",
-        "method": "POST",
-        "path": "/comments",
-        "params": [],
-        "bodyTemplate": {
-          "collection": "{collection}",
-          "comment": "{comment}",
-          "item": "{item}"
-        },
-        "paramTypes": {
-          "collection": "string",
-          "comment": "string",
-          "item": "string"
-        }
-      },
-      "deleteSingle": {
         "name": "deleteComment",
         "descriptionTemplate": "Delete an existing comment.",
         "method": "DELETE",
@@ -146,29 +91,44 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
-        },
-        "x-negative-delete-expected-codes": []
+        }
       },
-      "get": {
-        "name": "getComment",
-        "descriptionTemplate": "Retrieve a single comment by unique identifier.",
+      "list": {
+        "name": "getComments",
+        "descriptionTemplate": "List the comments.",
         "method": "GET",
-        "path": "/comments/{id}",
+        "path": "/comments",
         "params": [
-          "id"
+          "fields",
+          "limit",
+          "offset",
+          "page",
+          "sort",
+          "filter",
+          "search",
+          "meta"
         ],
         "bodyTemplate": null,
         "paramTypes": {
-          "id": "string"
+          "fields": "string",
+          "limit": "integer",
+          "offset": "integer",
+          "page": "integer",
+          "sort": "string",
+          "filter": "string",
+          "search": "string",
+          "meta": "object"
         }
       },
-      "updateSingle": {
+      "update": {
         "name": "updateComment",
         "descriptionTemplate": "Update an existing comment.",
         "method": "PATCH",
         "path": "/comments/{id}",
         "params": [
-          "id"
+          "id",
+          "fields",
+          "meta"
         ],
         "bodyTemplate": {
           "collection": "{collection}",
@@ -177,9 +137,50 @@
         },
         "paramTypes": {
           "id": "string",
+          "fields": "string",
+          "meta": "object",
           "collection": "string",
           "comment": "string",
           "item": "string"
+        }
+      },
+      "add": {
+        "name": "createComment",
+        "descriptionTemplate": "Create a new comment.",
+        "method": "POST",
+        "path": "/comments",
+        "params": [
+          "fields",
+          "meta"
+        ],
+        "bodyTemplate": {
+          "collection": "{collection}",
+          "comment": "{comment}",
+          "item": "{item}"
+        },
+        "paramTypes": {
+          "fields": "string",
+          "meta": "object",
+          "collection": "string",
+          "comment": "string",
+          "item": "string"
+        }
+      },
+      "get": {
+        "name": "getComment",
+        "descriptionTemplate": "Retrieve a single comment by unique identifier.",
+        "method": "GET",
+        "path": "/comments/{id}",
+        "params": [
+          "id",
+          "fields",
+          "meta"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string",
+          "fields": "string",
+          "meta": "object"
         }
       }
     }

@@ -1,5 +1,5 @@
 {
-  "VPN Tunnels": {
+  "Tunnels": {
     "operations": {
       "delete": {
         "name": "vpn_tunnels_destroy",
@@ -9,7 +9,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -25,30 +25,12 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         }
       },
       "update": {
-        "name": "vpn_tunnels_partial_update",
-        "descriptionTemplate": "Patch a tunnel object.",
-        "method": "PATCH",
-        "path": "/api/vpn/tunnels/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "field1": "{field1}",
-          "field2": "{field2}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "field1": "string",
-          "field2": "integer"
-        }
-      },
-      "put": {
         "name": "vpn_tunnels_update",
         "descriptionTemplate": "Put a tunnel object.",
         "method": "PUT",
@@ -57,18 +39,32 @@
           "id"
         ],
         "bodyTemplate": {
-          "field1": "{field1}",
-          "field2": "{field2}"
+          "key": "{key}"
         },
         "paramTypes": {
           "id": "integer",
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
+        }
+      },
+      "patch": {
+        "name": "vpn_tunnels_partial_update",
+        "descriptionTemplate": "Patch a tunnel object.",
+        "method": "PATCH",
+        "path": "/api/vpn/tunnels/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
         }
       }
     }
   },
-  "Wireless LAN Groups": {
+  "WirelessLANGroups": {
     "operations": {
       "delete": {
         "name": "wireless_wireless_lan_groups_bulk_destroy",
@@ -77,16 +73,10 @@
         "path": "/api/wireless/wireless-lan-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": [
-            {
-              "field1": "{field1}",
-              "field2": "{field2}"
-            }
-          ]
+          "key": "{key}"
         },
         "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -178,7 +168,7 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "ancestor": "string",
           "ancestor__n": "string",
@@ -268,55 +258,41 @@
         "path": "/api/wireless/wireless-lan-groups/",
         "params": [],
         "bodyTemplate": {
-          "field1": "{field1}",
-          "field2": "{field2}"
+          "key": "{key}"
         },
         "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
         }
       },
       "update": {
-        "name": "wireless_wireless_lan_groups_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of wireless LAN group objects.",
-        "method": "PATCH",
-        "path": "/api/wireless/wireless-lan-groups/",
-        "params": [],
-        "bodyTemplate": {
-          "items": [
-            {
-              "field1": "{field1}",
-              "field2": "{field2}"
-            }
-          ]
-        },
-        "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
-        }
-      },
-      "put": {
         "name": "wireless_wireless_lan_groups_bulk_update",
         "descriptionTemplate": "Put a list of wireless LAN group objects.",
         "method": "PUT",
         "path": "/api/wireless/wireless-lan-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": [
-            {
-              "field1": "{field1}",
-              "field2": "{field2}"
-            }
-          ]
+          "key": "{key}"
         },
         "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
+        }
+      },
+      "patch": {
+        "name": "wireless_wireless_lan_groups_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of wireless LAN group objects.",
+        "method": "PATCH",
+        "path": "/api/wireless/wireless-lan-groups/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "key": "string"
         }
       }
     }
   },
-  "Wireless LAN": {
+  "WirelessLAN": {
     "operations": {
       "delete": {
         "name": "wireless_wireless_lans_bulk_destroy",
@@ -325,16 +301,10 @@
         "path": "/api/wireless/wireless-lans/",
         "params": [],
         "bodyTemplate": {
-          "items": [
-            {
-              "field1": "{field1}",
-              "field2": "{field2}"
-            }
-          ]
+          "key": "{key}"
         },
         "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -498,7 +468,7 @@
           "vlan_id",
           "vlan_id__n"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "auth_cipher": "string",
           "auth_cipher__empty": "boolean",
@@ -660,50 +630,36 @@
         "path": "/api/wireless/wireless-lans/",
         "params": [],
         "bodyTemplate": {
-          "field1": "{field1}",
-          "field2": "{field2}"
+          "key": "{key}"
         },
         "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
         }
       },
       "update": {
-        "name": "wireless_wireless_lans_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of wireless LAN objects.",
-        "method": "PATCH",
-        "path": "/api/wireless/wireless-lans/",
-        "params": [],
-        "bodyTemplate": {
-          "items": [
-            {
-              "field1": "{field1}",
-              "field2": "{field2}"
-            }
-          ]
-        },
-        "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
-        }
-      },
-      "put": {
         "name": "wireless_wireless_lans_bulk_update",
         "descriptionTemplate": "Put a list of wireless LAN objects.",
         "method": "PUT",
         "path": "/api/wireless/wireless-lans/",
         "params": [],
         "bodyTemplate": {
-          "items": [
-            {
-              "field1": "{field1}",
-              "field2": "{field2}"
-            }
-          ]
+          "key": "{key}"
         },
         "paramTypes": {
-          "field1": "string",
-          "field2": "integer"
+          "key": "string"
+        }
+      },
+      "patch": {
+        "name": "wireless_wireless_lans_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of wireless LAN objects.",
+        "method": "PATCH",
+        "path": "/api/wireless/wireless-lans/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "key": "string"
         }
       }
     }

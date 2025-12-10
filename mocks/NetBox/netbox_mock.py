@@ -152,9 +152,11 @@ PATH_STATUS_CODES = {
 }
 
 def get_success_code(resource_path):
-    # Common NetBox action verbs always return 200
-    if resource_path.endswith('/sync') or resource_path.endswith('/provision'):
-        return 200
+    # These action suffixes imply an RPC operation, not a creation.
+    action_suffixes = ['/sync', '/clean', '/render-config', '/napalm', '/trace', '/requeue', '/enqueue', '/stop']
+    for suffix in action_suffixes:
+        if resource_path.endswith(suffix):
+            return 200
     if resource_path in PATH_STATUS_CODES:
         return PATH_STATUS_CODES[resource_path]
     for path_pattern, code in PATH_STATUS_CODES.items():
@@ -247,7 +249,7 @@ def handle_request(resource_path):
                 return jsonify({'detail': 'Duplicate entry detected.'}), 409
 
         mock_db[resource_key].append(new_item)
-        print(f"DEBUG POST: Added to '{resource_key}'. ID: {new_item.get('id')}")
+        print(f"DEBUG POST: Added to '{resource_key}'. Returning {success_code}")
         return jsonify(new_item), success_code
 
     elif request.method in ['PUT', 'PATCH']:

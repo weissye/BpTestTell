@@ -41,19 +41,84 @@
         "bodyTemplate": {
           "name": "{name}",
           "slug": "{slug}",
-          "description": "{description}"
+          "description": "{description}",
+          "u_height": "{u_height}",
+          "is_full_depth": "{is_full_depth}",
+          "weight": "{weight}",
+          "weight_unit": "{weight_unit}"
         },
         "paramTypes": {
           "id": "integer",
           "name": "string",
           "slug": "string",
-          "description": "string"
+          "description": "string",
+          "u_height": "integer",
+          "is_full_depth": "boolean",
+          "weight": "number",
+          "weight_unit": "string"
+        }
+      },
+      "patch": {
+        "name": "dcim_rack_types_partial_update",
+        "descriptionTemplate": "Patch a rack type object.",
+        "method": "PATCH",
+        "path": "/api/dcim/rack-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}",
+          "u_height": "{u_height}",
+          "is_full_depth": "{is_full_depth}",
+          "weight": "{weight}",
+          "weight_unit": "{weight_unit}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string",
+          "u_height": "integer",
+          "is_full_depth": "boolean",
+          "weight": "number",
+          "weight_unit": "string"
         }
       }
     }
   },
   "Racks": {
     "operations": {
+      "delete": {
+        "name": "dcim_racks_destroy",
+        "descriptionTemplate": "Delete a rack object.",
+        "method": "DELETE",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_racks_retrieve",
+        "descriptionTemplate": "Get a rack object.",
+        "method": "GET",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
       "list": {
         "name": "dcim_racks_list",
         "descriptionTemplate": "Get a list of rack objects.",
@@ -64,9 +129,11 @@
           "asset_tag",
           "asset_tag__empty",
           "contact",
+          "created",
           "limit",
           "offset",
-          "ordering"
+          "ordering",
+          "q"
         ],
         "bodyTemplate": null,
         "paramTypes": {
@@ -74,9 +141,11 @@
           "asset_tag": "array",
           "asset_tag__empty": "boolean",
           "contact": "array",
+          "created": "array",
           "limit": "integer",
           "offset": "integer",
-          "ordering": "string"
+          "ordering": "string",
+          "q": "string"
         }
       },
       "add": {
@@ -89,8 +158,7 @@
           "name": "{name}",
           "facility_id": "{facility_id}",
           "site": "{site}",
-          "group": "{group}",
-          "tenant": "{tenant}",
+          "location": "{location}",
           "status": "{status}",
           "role": "{role}",
           "serial": "{serial}",
@@ -102,14 +170,14 @@
           "outer_width": "{outer_width}",
           "outer_depth": "{outer_depth}",
           "outer_unit": "{outer_unit}",
-          "comments": "{comments}"
+          "comments": "{comments}",
+          "tags": "{tags}"
         },
         "paramTypes": {
           "name": "string",
           "facility_id": "string",
           "site": "string",
-          "group": "string",
-          "tenant": "string",
+          "location": "string",
           "status": "string",
           "role": "string",
           "serial": "string",
@@ -121,30 +189,133 @@
           "outer_width": "integer",
           "outer_depth": "integer",
           "outer_unit": "string",
-          "comments": "string"
+          "comments": "string",
+          "tags": "array"
         }
       },
-      "delete": {
-        "name": "dcim_racks_bulk_destroy",
-        "descriptionTemplate": "Delete a list of rack objects.",
-        "method": "DELETE",
-        "path": "/api/dcim/racks/",
-        "params": [],
+      "update": {
+        "name": "dcim_racks_update",
+        "descriptionTemplate": "Put a rack object.",
+        "method": "PUT",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
-          "ids": "{ids}"
+          "name": "{name}",
+          "facility_id": "{facility_id}",
+          "site": "{site}",
+          "location": "{location}",
+          "status": "{status}",
+          "role": "{role}",
+          "serial": "{serial}",
+          "asset_tag": "{asset_tag}",
+          "type": "{type}",
+          "width": "{width}",
+          "u_height": "{u_height}",
+          "desc_units": "{desc_units}",
+          "outer_width": "{outer_width}",
+          "outer_depth": "{outer_depth}",
+          "outer_unit": "{outer_unit}",
+          "comments": "{comments}",
+          "tags": "{tags}"
         },
         "paramTypes": {
-          "ids": "array"
+          "id": "integer",
+          "name": "string",
+          "facility_id": "string",
+          "site": "string",
+          "location": "string",
+          "status": "string",
+          "role": "string",
+          "serial": "string",
+          "asset_tag": "string",
+          "type": "string",
+          "width": "integer",
+          "u_height": "integer",
+          "desc_units": "boolean",
+          "outer_width": "integer",
+          "outer_depth": "integer",
+          "outer_unit": "string",
+          "comments": "string",
+          "tags": "array"
+        }
+      },
+      "patch": {
+        "name": "dcim_racks_partial_update",
+        "descriptionTemplate": "Patch a rack object.",
+        "method": "PATCH",
+        "path": "/api/dcim/racks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "facility_id": "{facility_id}",
+          "site": "{site}",
+          "location": "{location}",
+          "status": "{status}",
+          "role": "{role}",
+          "serial": "{serial}",
+          "asset_tag": "{asset_tag}",
+          "type": "{type}",
+          "width": "{width}",
+          "u_height": "{u_height}",
+          "desc_units": "{desc_units}",
+          "outer_width": "{outer_width}",
+          "outer_depth": "{outer_depth}",
+          "outer_unit": "{outer_unit}",
+          "comments": "{comments}",
+          "tags": "{tags}"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "facility_id": "string",
+          "site": "string",
+          "location": "string",
+          "status": "string",
+          "role": "string",
+          "serial": "string",
+          "asset_tag": "string",
+          "type": "string",
+          "width": "integer",
+          "u_height": "integer",
+          "desc_units": "boolean",
+          "outer_width": "integer",
+          "outer_depth": "integer",
+          "outer_unit": "string",
+          "comments": "string",
+          "tags": "array"
+        }
       }
     }
   },
   "RearPortTemplates": {
     "operations": {
-      "list": {
+      "delete": {
+        "name": "dcim_rear_port_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of rear port template objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "type": "{type}",
+          "positions": "{positions}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "type": "string",
+          "positions": "integer",
+          "description": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
         "name": "dcim_rear_port_templates_list",
         "descriptionTemplate": "Get a list of rear port template objects.",
         "method": "GET",
@@ -152,25 +323,19 @@
         "params": [
           "color",
           "created",
-          "description",
-          "device_type_id",
-          "id",
-          "label",
           "limit",
           "offset",
-          "ordering"
+          "ordering",
+          "q"
         ],
         "bodyTemplate": null,
         "paramTypes": {
           "color": "array",
           "created": "array",
-          "description": "array",
-          "device_type_id": "array",
-          "id": "array",
-          "label": "array",
           "limit": "integer",
           "offset": "integer",
-          "ordering": "string"
+          "ordering": "string",
+          "q": "string"
         }
       },
       "add": {
@@ -192,21 +357,43 @@
           "description": "string"
         }
       },
-      "delete": {
-        "name": "dcim_rear_port_templates_bulk_destroy",
-        "descriptionTemplate": "Delete a list of rear port template objects.",
-        "method": "DELETE",
+      "update": {
+        "name": "dcim_rear_port_templates_bulk_update",
+        "descriptionTemplate": "Put a list of rear port template objects.",
+        "method": "PUT",
         "path": "/api/dcim/rear-port-templates/",
         "params": [],
         "bodyTemplate": {
-          "ids": "{ids}"
+          "name": "{name}",
+          "type": "{type}",
+          "positions": "{positions}",
+          "description": "{description}"
         },
         "paramTypes": {
-          "ids": "array"
+          "name": "string",
+          "type": "string",
+          "positions": "integer",
+          "description": "string"
+        }
+      },
+      "patch": {
+        "name": "dcim_rear_port_templates_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of rear port template objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/rear-port-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "type": "{type}",
+          "positions": "{positions}",
+          "description": "{description}"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "paramTypes": {
+          "name": "string",
+          "type": "string",
+          "positions": "integer",
+          "description": "string"
+        }
       }
     }
   }

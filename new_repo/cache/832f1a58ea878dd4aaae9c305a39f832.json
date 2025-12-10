@@ -57,7 +57,7 @@
           "virtual_machine",
           "virtual_machine_id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "created": "string",
           "created__empty": "string",
@@ -118,11 +118,11 @@
         "path": "/api/ipam/fhrp-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/FHRPGroupAssignmentRequest"
-          }
+          "FHRPGroupAssignmentRequest": "{FHRPGroupAssignmentRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "FHRPGroupAssignmentRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "update": {
@@ -132,11 +132,11 @@
         "path": "/api/ipam/fhrp-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/FHRPGroupAssignmentRequest"
-          }
+          "FHRPGroupAssignmentRequest": "{FHRPGroupAssignmentRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "FHRPGroupAssignmentRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
@@ -146,11 +146,11 @@
         "path": "/api/ipam/fhrp-group-assignments/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/FHRPGroupAssignmentRequest"
-          }
+          "FHRPGroupAssignmentRequest": "{FHRPGroupAssignmentRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "FHRPGroupAssignmentRequest": "object"
+        },
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -163,7 +163,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -178,10 +178,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedFHRPGroupAssignmentRequest"
+          "PatchedFHRPGroupAssignmentRequest": "{PatchedFHRPGroupAssignmentRequest}"
         },
         "paramTypes": {
-          "id": "integer"
+          "id": "integer",
+          "PatchedFHRPGroupAssignmentRequest": "object"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -301,7 +302,7 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "auth_key": "string",
           "auth_key__empty": "boolean",
@@ -418,9 +419,11 @@
         "path": "/api/ipam/fhrp-groups/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/FHRPGroupRequest"
+          "FHRPGroupRequest": "{FHRPGroupRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "FHRPGroupRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "update": {
@@ -430,11 +433,11 @@
         "path": "/api/ipam/fhrp-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/FHRPGroupRequest"
-          }
+          "FHRPGroupRequest": "{FHRPGroupRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "FHRPGroupRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
@@ -444,11 +447,11 @@
         "path": "/api/ipam/fhrp-groups/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/FHRPGroupRequest"
-          }
+          "FHRPGroupRequest": "{FHRPGroupRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "FHRPGroupRequest": "object"
+        },
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -461,7 +464,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -476,10 +479,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedFHRPGroupRequest"
+          "PatchedFHRPGroupRequest": "{PatchedFHRPGroupRequest}"
         },
         "paramTypes": {
-          "id": "integer"
+          "id": "integer",
+          "PatchedFHRPGroupRequest": "object"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -633,7 +637,7 @@
           "vrf_id",
           "vrf_id__n"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "address": "string",
           "assigned": "boolean",
@@ -784,9 +788,11 @@
         "path": "/api/ipam/ip-addresses/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIPAddressRequest"
+          "WritableIPAddressRequest": "{WritableIPAddressRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "WritableIPAddressRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "update": {
@@ -796,11 +802,11 @@
         "path": "/api/ipam/ip-addresses/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPAddressRequest"
-          }
+          "IPAddressRequest": "{IPAddressRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "IPAddressRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
@@ -810,11 +816,11 @@
         "path": "/api/ipam/ip-addresses/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPAddressRequest"
-          }
+          "IPAddressRequest": "{IPAddressRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "IPAddressRequest": "object"
+        },
         "x-negative-delete-expected-codes": [
           404
         ]

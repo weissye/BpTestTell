@@ -49,50 +49,39 @@
           "type": "string",
           "enabled": "boolean"
         }
-      },
-      "patch": {
-        "name": "virtualization_interfaces_partial_update",
-        "descriptionTemplate": "Patch a interface object.",
-        "method": "PATCH",
-        "path": "/api/virtualization/interfaces/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "type": "{type}",
-          "enabled": "{enabled}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "type": "string",
-          "enabled": "boolean"
-        }
       }
     }
   },
   "VirtualDisks": {
     "operations": {
       "delete": {
-        "name": "virtualization_virtual_disks_bulk_destroy",
-        "descriptionTemplate": "Delete a list of virtual disk objects.",
+        "name": "virtualization_virtual_disks_destroy",
+        "descriptionTemplate": "Delete a virtual disk object.",
         "method": "DELETE",
-        "path": "/api/virtualization/virtual-disks/",
-        "params": [],
-        "bodyTemplate": [
-          {
-            "name": "{name}",
-            "size": "{size}"
-          }
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
         ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "name": "string",
-          "size": "integer"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "virtualization_virtual_disks_retrieve",
+        "descriptionTemplate": "Get a virtual disk object.",
+        "method": "GET",
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "virtualization_virtual_disks_list",
@@ -251,45 +240,33 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "size": "{size}"
+          "size": "{size}",
+          "virtual_machine": "{virtual_machine}"
         },
         "paramTypes": {
           "name": "string",
-          "size": "integer"
+          "size": "integer",
+          "virtual_machine": "string"
         }
       },
       "update": {
-        "name": "virtualization_virtual_disks_bulk_update",
-        "descriptionTemplate": "Put a list of virtual disk objects.",
+        "name": "virtualization_virtual_disks_update",
+        "descriptionTemplate": "Put a virtual disk object.",
         "method": "PUT",
-        "path": "/api/virtualization/virtual-disks/",
-        "params": [],
-        "bodyTemplate": [
-          {
-            "name": "{name}",
-            "size": "{size}"
-          }
+        "path": "/api/virtualization/virtual-disks/{id}/",
+        "params": [
+          "id"
         ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "size": "{size}",
+          "virtual_machine": "{virtual_machine}"
+        },
         "paramTypes": {
+          "id": "integer",
           "name": "string",
-          "size": "integer"
-        }
-      },
-      "patch": {
-        "name": "virtualization_virtual_disks_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of virtual disk objects.",
-        "method": "PATCH",
-        "path": "/api/virtualization/virtual-disks/",
-        "params": [],
-        "bodyTemplate": [
-          {
-            "name": "{name}",
-            "size": "{size}"
-          }
-        ],
-        "paramTypes": {
-          "name": "string",
-          "size": "integer"
+          "size": "integer",
+          "virtual_machine": "string"
         }
       }
     }
@@ -297,26 +274,33 @@
   "VirtualMachines": {
     "operations": {
       "delete": {
-        "name": "virtualization_virtual_machines_bulk_destroy",
-        "descriptionTemplate": "Delete a list of virtual machine objects.",
+        "name": "virtualization_virtual_machines_destroy",
+        "descriptionTemplate": "Delete a virtual machine object.",
         "method": "DELETE",
-        "path": "/api/virtualization/virtual-machines/",
-        "params": [],
-        "bodyTemplate": [
-          {
-            "name": "{name}",
-            "vcpus": "{vcpus}",
-            "memory": "{memory}"
-          }
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
         ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "name": "string",
-          "vcpus": "number",
-          "memory": "integer"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "virtualization_virtual_machines_retrieve",
+        "descriptionTemplate": "Get a virtual machine object.",
+        "method": "GET",
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "virtualization_virtual_machines_list",
@@ -723,51 +707,33 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "vcpus": "{vcpus}",
-          "memory": "{memory}"
+          "status": "{status}",
+          "cluster": "{cluster}"
         },
         "paramTypes": {
           "name": "string",
-          "vcpus": "number",
-          "memory": "integer"
+          "status": "string",
+          "cluster": "string"
         }
       },
       "update": {
-        "name": "virtualization_virtual_machines_bulk_update",
-        "descriptionTemplate": "Put a list of virtual machine objects.",
+        "name": "virtualization_virtual_machines_update",
+        "descriptionTemplate": "Put a virtual machine object.",
         "method": "PUT",
-        "path": "/api/virtualization/virtual-machines/",
-        "params": [],
-        "bodyTemplate": [
-          {
-            "name": "{name}",
-            "vcpus": "{vcpus}",
-            "memory": "{memory}"
-          }
+        "path": "/api/virtualization/virtual-machines/{id}/",
+        "params": [
+          "id"
         ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "status": "{status}",
+          "cluster": "{cluster}"
+        },
         "paramTypes": {
+          "id": "integer",
           "name": "string",
-          "vcpus": "number",
-          "memory": "integer"
-        }
-      },
-      "patch": {
-        "name": "virtualization_virtual_machines_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of virtual machine objects.",
-        "method": "PATCH",
-        "path": "/api/virtualization/virtual-machines/",
-        "params": [],
-        "bodyTemplate": [
-          {
-            "name": "{name}",
-            "vcpus": "{vcpus}",
-            "memory": "{memory}"
-          }
-        ],
-        "paramTypes": {
-          "name": "string",
-          "vcpus": "number",
-          "memory": "integer"
+          "status": "string",
+          "cluster": "string"
         }
       }
     }

@@ -218,12 +218,16 @@
         "bodyTemplate": {
           "name": "{name}",
           "domain": "{domain}",
-          "description": "{description}"
+          "site": "{site}",
+          "region": "{region}",
+          "tenant": "{tenant}"
         },
         "paramTypes": {
           "name": "string",
           "domain": "string",
-          "description": "string"
+          "site": "string",
+          "region": "string",
+          "tenant": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -236,12 +240,16 @@
         "bodyTemplate": {
           "name": "{name}",
           "domain": "{domain}",
-          "description": "{description}"
+          "site": "{site}",
+          "region": "{region}",
+          "tenant": "{tenant}"
         },
         "paramTypes": {
           "name": "string",
           "domain": "string",
-          "description": "string"
+          "site": "string",
+          "region": "string",
+          "tenant": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -252,14 +260,10 @@
         "path": "/api/dcim/virtual-chassis/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "domain": "{domain}",
-          "description": "{description}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "domain": "string",
-          "description": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -506,12 +510,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}",
-          "description": "{description}"
+          "status": "{status}",
+          "tenant": "{tenant}"
         },
         "paramTypes": {
           "name": "string",
           "device": "integer",
-          "description": "string"
+          "status": "string",
+          "tenant": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -524,12 +530,14 @@
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}",
-          "description": "{description}"
+          "status": "{status}",
+          "tenant": "{tenant}"
         },
         "paramTypes": {
           "name": "string",
           "device": "integer",
-          "description": "string"
+          "status": "string",
+          "tenant": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -540,14 +548,10 @@
         "path": "/api/dcim/virtual-device-contexts/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "device": "{device}",
-          "description": "{description}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "device": "integer",
-          "description": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -652,14 +656,14 @@
         "path": "/api/extras/bookmarks/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
           "object_id": "{object_id}",
-          "object_type": "{object_type}"
+          "object_type": "{object_type}",
+          "user": "{user}"
         },
         "paramTypes": {
-          "name": "string",
           "object_id": "integer",
-          "object_type": "string"
+          "object_type": "string",
+          "user": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -670,14 +674,14 @@
         "path": "/api/extras/bookmarks/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
           "object_id": "{object_id}",
-          "object_type": "{object_type}"
+          "object_type": "{object_type}",
+          "user": "{user}"
         },
         "paramTypes": {
-          "name": "string",
           "object_id": "integer",
-          "object_type": "string"
+          "object_type": "string",
+          "user": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -688,14 +692,10 @@
         "path": "/api/extras/bookmarks/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "object_id": "{object_id}",
-          "object_type": "{object_type}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "object_id": "integer",
-          "object_type": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404

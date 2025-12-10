@@ -52,13 +52,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "task_name": "{task_name}",
-          "task_params": "{task_params}"
+          "taskName": "{taskName}",
+          "isActive": "{isActive}"
         },
         "paramTypes": {
           "id": "string",
-          "task_name": "string",
-          "task_params": "string"
+          "taskName": "string",
+          "isActive": "boolean"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -71,13 +71,13 @@
           "id"
         ],
         "bodyTemplate": {
-          "task_name": "{task_name}",
-          "task_params": "{task_params}"
+          "taskName": "{taskName}",
+          "isActive": "{isActive}"
         },
         "paramTypes": {
           "id": "string",
-          "task_name": "string",
-          "task_params": "string"
+          "taskName": "string",
+          "isActive": "boolean"
         },
         "x-negative-delete-expected-codes": []
       }

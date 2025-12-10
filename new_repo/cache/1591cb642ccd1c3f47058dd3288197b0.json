@@ -1,53 +1,6 @@
 {
   "Files": {
     "operations": {
-      "get": {
-        "name": "getFile",
-        "descriptionTemplate": "Retrieve a single file by unique identifier.",
-        "method": "GET",
-        "path": "/files/{id}",
-        "params": [
-          "id",
-          "Fields",
-          "Meta"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "string",
-          "Fields": "string",
-          "Meta": "string"
-        }
-      },
-      "update": {
-        "name": "updateFile",
-        "descriptionTemplate": "Update an existing file, and/or replace its file contents.",
-        "method": "PATCH",
-        "path": "/files/{id}",
-        "params": [
-          "id",
-          "Fields",
-          "Meta"
-        ],
-        "bodyTemplate": {
-          "description": "{description}",
-          "filename_download": "{filename_download}",
-          "folder": "{folder}",
-          "tags": [
-            "{tags}"
-          ],
-          "title": "{title}"
-        },
-        "paramTypes": {
-          "id": "string",
-          "Fields": "string",
-          "Meta": "string",
-          "description": "string",
-          "filename_download": "string",
-          "folder": "string",
-          "tags": "string",
-          "title": "string"
-        }
-      },
       "delete": {
         "name": "deleteFile",
         "descriptionTemplate": "Delete an existing file.",
@@ -63,58 +16,50 @@
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "getFile",
+        "descriptionTemplate": "Retrieve a single file by unique identifier.",
+        "method": "GET",
+        "path": "/files/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "string"
+        }
+      },
+      "update": {
+        "name": "updateFile",
+        "descriptionTemplate": "Update an existing file, and/or replace its file contents.",
+        "method": "PATCH",
+        "path": "/files/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "description": "{description}",
+          "filename_download": "{filename_download}",
+          "folder": "{folder}",
+          "tags": [
+            "{tags}"
+          ],
+          "title": "{title}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "description": "string",
+          "filename_download": "string",
+          "folder": "string",
+          "tags": "array",
+          "title": "string"
+        }
       }
     }
   },
   "Flows": {
     "operations": {
-      "list": {
-        "name": "getFlows",
-        "descriptionTemplate": "Get all flows.",
-        "method": "GET",
-        "path": "/flows",
-        "params": [],
-        "bodyTemplate": null,
-        "paramTypes": {}
-      },
-      "add": {
-        "name": "createFlow",
-        "descriptionTemplate": "Create a new flow.",
-        "method": "POST",
-        "path": "/flows",
-        "params": [
-          "Fields",
-          "Meta"
-        ],
-        "bodyTemplate": {
-          "data": "{data}"
-        },
-        "paramTypes": {
-          "Fields": "string",
-          "Meta": "string",
-          "data": "string"
-        }
-      },
-      "update": {
-        "name": "updateFlow",
-        "descriptionTemplate": "Update an existing flow",
-        "method": "PATCH",
-        "path": "/flows/{id}",
-        "params": [
-          "id",
-          "Fields",
-          "Meta"
-        ],
-        "bodyTemplate": {
-          "data": "{data}"
-        },
-        "paramTypes": {
-          "id": "string",
-          "Fields": "string",
-          "Meta": "string",
-          "data": "string"
-        }
-      },
       "delete": {
         "name": "deleteFlow",
         "descriptionTemplate": "Delete an existing flow",
@@ -130,6 +75,44 @@
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "list": {
+        "name": "getFlows",
+        "descriptionTemplate": "Get all flows.",
+        "method": "GET",
+        "path": "/flows",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {}
+      },
+      "update": {
+        "name": "updateFlow",
+        "descriptionTemplate": "Update an existing flow",
+        "method": "PATCH",
+        "path": "/flows/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "data": "{data}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "data": "object"
+        }
+      },
+      "add": {
+        "name": "createFlow",
+        "descriptionTemplate": "Create a new flow.",
+        "method": "POST",
+        "path": "/flows",
+        "params": [],
+        "bodyTemplate": {
+          "data": "{data}"
+        },
+        "paramTypes": {
+          "data": "object"
+        }
       },
       "get": {
         "name": "getFlow",
@@ -148,73 +131,6 @@
   },
   "Folders": {
     "operations": {
-      "list": {
-        "name": "getFolders",
-        "descriptionTemplate": "List the folders.",
-        "method": "GET",
-        "path": "/folders",
-        "params": [
-          "Fields",
-          "Limit",
-          "Offset",
-          "Sort",
-          "Filter",
-          "Search",
-          "Meta"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "Fields": "string",
-          "Limit": "integer",
-          "Offset": "integer",
-          "Sort": "string",
-          "Filter": "string",
-          "Search": "string",
-          "Meta": "string"
-        }
-      },
-      "add": {
-        "name": "createFolder",
-        "descriptionTemplate": "Create a new folder.",
-        "method": "POST",
-        "path": "/folders",
-        "params": [
-          "Fields",
-          "Meta"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "parent": "{parent}"
-        },
-        "paramTypes": {
-          "Fields": "string",
-          "Meta": "string",
-          "name": "string",
-          "parent": "integer"
-        }
-      },
-      "update": {
-        "name": "updateFolder",
-        "descriptionTemplate": "Update an existing folder",
-        "method": "PATCH",
-        "path": "/folders/{id}",
-        "params": [
-          "id",
-          "Fields",
-          "Meta"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "parent": "{parent}"
-        },
-        "paramTypes": {
-          "id": "string",
-          "Fields": "string",
-          "Meta": "string",
-          "name": "string",
-          "parent": "integer"
-        }
-      },
       "delete": {
         "name": "deleteFolder",
         "descriptionTemplate": "Delete an existing folder",
@@ -231,21 +147,59 @@
           404
         ]
       },
+      "list": {
+        "name": "getFolders",
+        "descriptionTemplate": "List the folders.",
+        "method": "GET",
+        "path": "/folders",
+        "params": [],
+        "bodyTemplate": null,
+        "paramTypes": {}
+      },
+      "update": {
+        "name": "updateFolder",
+        "descriptionTemplate": "Update an existing folder",
+        "method": "PATCH",
+        "path": "/folders/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "parent": "{parent}"
+        },
+        "paramTypes": {
+          "id": "string",
+          "name": "string",
+          "parent": "integer"
+        }
+      },
+      "add": {
+        "name": "createFolder",
+        "descriptionTemplate": "Create a new folder.",
+        "method": "POST",
+        "path": "/folders",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "parent": "{parent}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "parent": "integer"
+        }
+      },
       "get": {
         "name": "getFolder",
         "descriptionTemplate": "Retrieve a single folder by unique identifier.",
         "method": "GET",
         "path": "/folders/{id}",
         "params": [
-          "id",
-          "Fields",
-          "Meta"
+          "id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
-          "id": "string",
-          "Fields": "string",
-          "Meta": "string"
+          "id": "string"
         }
       }
     }

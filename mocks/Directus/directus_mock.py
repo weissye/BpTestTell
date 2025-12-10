@@ -6,8 +6,8 @@ import re
 # Auto-generated Mock for Directus
 app = Flask(__name__)
 mock_db = defaultdict(list)
+TRACED_RESOURCE_KEY = 'flows'
 
-# Map of API paths to their expected POST success code
 PATH_STATUS_CODES = {
     "auth/login": 200,
     "auth/refresh": 200,
@@ -24,6 +24,7 @@ PATH_STATUS_CODES = {
     "permissions": 200,
     "relations": 200,
     "roles": 200,
+    "schema/apply": 204,
     "schema/diff": 200,
     "users": 200,
     "users/invite": 200,
@@ -43,92 +44,85 @@ PATH_STATUS_CODES = {
 }
 
 def get_success_code(resource_path):
-    # Exact match
-    if resource_path in PATH_STATUS_CODES:
-        return PATH_STATUS_CODES[resource_path]
-    # Regex match for dynamic paths
+    # Directus-specific overrides
+    if 'auth/password/reset' in resource_path: return 401
+    if 'invite/accept' in resource_path: return 200
+    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
     for path_pattern, code in PATH_STATUS_CODES.items():
         if '{' in path_pattern:
-            regex = path_pattern.replace('{', '(?P<').replace('}', '>[^/]+)')
-            # Escape forward slashes for regex safety
+            regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
             regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path):
-                return code
-    # Default to 201
-    return 201
+            if re.fullmatch(regex, resource_path): return code
+    return 200
 
 def mock_retrieve(resource_key, item_id):
     for item in mock_db[resource_key]:
-        if str(item.get('id')) == str(item_id):
-            return item
+        if str(item.get('id')) == str(item_id): return item
     return None
 
 def mock_list(resource_key, filters):
     items = mock_db[resource_key]
-    filtered_results = []
-    for item in items:
-        match = True
-        for key, value in filters.items():
-            if key in ['limit', 'offset', 'sort', 'search', 'filter', 'fields', 'meta']: continue
-            if key in item and str(item[key]) != str(value):
-                match = False
-                break
-        if match:
-            filtered_results.append(item)
-    return filtered_results
+    return items
 
 @app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def handle_request(resource_path):
-    resource_key = resource_path.strip('/')
+    resource_path = resource_path.rstrip('/')
+    resource_key = resource_path
     parts = resource_key.split('/')
     item_id = None
-    
-    potential_id = parts[-1]
-    non_id_endings = ['promote', 'accept', 'invite', 'enable', 'disable', 'refresh', 'login', 'logout', 'generate', 'import', 'export', 'diff']
-    if len(parts) > 1 and potential_id not in non_id_endings:
-        item_id = potential_id
-        resource_key = '/'.join(parts[:-1])
-
+    if len(parts) > 1:
+        last_part = parts[-1]
+        if last_part.isdigit() or len(last_part) > 30 or last_part.startswith('id_'):
+            item_id = last_part
+            resource_key = '/'.join(parts[:-1])
     print(f'[{request.method}] Path: {resource_path} | Key: {resource_key} | ID: {item_id}')
 
     if request.method == 'GET':
         if item_id is not None:
             item = mock_retrieve(resource_key, item_id)
             if item: return jsonify({'data': item})
-            return jsonify({'errors': [{'message': 'Not found', 'code': 'NOT_FOUND'}]}), 404
+            return jsonify({'errors': [{'message': 'Not Found'}]}), 404
         else:
             data = mock_list(resource_key, request.args)
             return jsonify({'data': data})
 
     elif request.method == 'POST':
-        success_code = get_success_code(resource_path.strip('/'))
-
-        new_item = request.json
-        if not new_item: new_item = {}
+        success_code = get_success_code(resource_path)
+        try: new_item = request.get_json(silent=True) or {}
+        except: new_item = {}
+        if 'id' not in new_item: new_item['id'] = random.randint(1000, 9999)
         
-        if 'id' in new_item:
-            target_id = str(new_item['id'])
-        else:
-            target_id = str(random.randint(1000, 9999))
-            new_item['id'] = int(target_id)
-
+        # Whitelist Actions ONLY (Bypass duplicate check for RPCs)
+        known_actions = ['clear', 'promote', 'diff', 'accept', 'invite', 'enable', 'disable', 'reset', 'generate', 'verify', 'ping', 'logout', 'refresh']
+        if any(resource_path.endswith(a) for a in known_actions):
+             mock_db[resource_key].append(new_item)
+             return jsonify({'data': new_item}), success_code
+        
+        # Duplicate Check for RESOURCES (Strict Mode: return 409)
+        unique_fields = ['name', 'email', 'title', 'key', 'collection', 'filename_download', 'external_id', 'slug']
         for item in mock_db[resource_key]:
-            if str(item.get('id')) == str(target_id):
-                print(f"DEBUG POST: Duplicate ID {target_id}. Returning 409.")
-                return jsonify({'errors': [{'message': 'Unique constraint violation', 'code': 'RECORD_NOT_UNIQUE'}]}), 409
-
+            if str(item.get('id')) == str(new_item['id']):
+                return jsonify({'errors': [{'message': 'Unique violation'}]}), 409
+            is_exact = True
+            for k, v in new_item.items():
+                if k == 'id': continue
+                if k not in item or str(item[k]) != str(v): is_exact = False; break
+            if is_exact:
+                return jsonify({'errors': [{'message': 'Duplicate'}]}), 409
+            for f in unique_fields:
+                if f in new_item and f in item and str(new_item[f]) == str(item[f]):
+                    return jsonify({'errors': [{'message': f'Unique: {f}'}]}), 409
         mock_db[resource_key].append(new_item)
-        print(f"DEBUG POST: Added to '{resource_key}'. Returning {success_code}.")
         return jsonify({'data': new_item}), success_code
 
     elif request.method in ['PUT', 'PATCH']:
-        if item_id is None:
-            return jsonify({'data': []}), 200
+        if item_id is None: return jsonify({'data': []}), 200
         existing_item = mock_retrieve(resource_key, item_id)
         if existing_item:
-            existing_item.update(request.json)
+            try: existing_item.update(request.get_json(silent=True) or {})
+            except: pass
             return jsonify({'data': existing_item})
-        return jsonify({'errors': [{'message': 'Not found', 'code': 'NOT_FOUND'}]}), 404
+        return jsonify({'errors': [{'message': 'Not Found'}]}), 404
 
     elif request.method == 'DELETE':
         if item_id is not None:
@@ -136,12 +130,11 @@ def handle_request(resource_path):
              mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
              if len(mock_db[resource_key]) < initial_len:
                  return '', 204
-             return jsonify({'errors': [{'message': 'Not found', 'code': 'NOT_FOUND'}]}), 404
+             return jsonify({'errors': [{'message': 'Not Found'}]}), 404
+        
+        # Collection-root DELETE (Batch Delete) Logic
         else:
-            return jsonify({'errors': [{'message': 'Method not allowed', 'code': 'METHOD_NOT_ALLOWED'}]}), 405
-
-    return jsonify({'errors': [{'message': 'Not implemented'}]}), 501
-
+             mock_db[resource_key].clear()
+             return '', 204
 if __name__ == '__main__':
-    print('🚀 Directus Mock Server (RAM Only) running on http://127.0.0.1:8000')
     app.run(debug=False, port=8000)

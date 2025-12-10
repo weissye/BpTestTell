@@ -12,14 +12,11 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "add": {
         "name": "promoteContentVersion",
-        "descriptionTemplate": "Pass the current hash of the main version of the item along with an optional array of field names to be promoted.",
+        "descriptionTemplate": "Pass the current hash of the main version of the item (obtained from the `compare` endpoint) along with an optional array of field names of which the values are to be promoted (by default, all fields are selected).",
         "method": "POST",
         "path": "/versions/{id}/promote",
         "params": [
@@ -33,10 +30,7 @@
           "id": "string",
           "fields": "string",
           "mainHash": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   },
@@ -49,10 +43,7 @@
         "path": "/webhooks",
         "params": [],
         "bodyTemplate": null,
-        "paramTypes": {},
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "paramTypes": {}
       },
       "add": {
         "name": "createWebhook",
@@ -82,10 +73,7 @@
           "status": "string",
           "system-collections": "string",
           "url": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "update": {
         "name": "updateWebhook",
@@ -117,10 +105,7 @@
           "status": "string",
           "system-collections": "string",
           "url": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "delete": {
         "name": "deleteWebhook",
@@ -149,10 +134,7 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   }

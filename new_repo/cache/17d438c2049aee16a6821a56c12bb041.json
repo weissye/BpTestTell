@@ -232,16 +232,16 @@
         "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "dcim_rack_reservations_destroy",
-        "descriptionTemplate": "Delete a rack reservation object.",
+        "name": "dcim_rack_reservations_bulk_destroy",
+        "descriptionTemplate": "Delete a list of rack reservation objects.",
         "method": "DELETE",
-        "path": "/api/dcim/rack-reservations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
+        "path": "/api/dcim/rack-reservations/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        },
         "paramTypes": {
-          "id": "integer"
+          "schema": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -474,16 +474,16 @@
         "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "dcim_rack_roles_destroy",
-        "descriptionTemplate": "Delete a rack role object.",
+        "name": "dcim_rack_roles_bulk_destroy",
+        "descriptionTemplate": "Delete a list of rack role objects.",
         "method": "DELETE",
-        "path": "/api/dcim/rack-roles/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
+        "path": "/api/dcim/rack-roles/",
+        "params": [],
+        "bodyTemplate": {
+          "schema": "{schema}"
+        },
         "paramTypes": {
-          "id": "integer"
+          "schema": "string"
         },
         "x-negative-delete-expected-codes": [
           404

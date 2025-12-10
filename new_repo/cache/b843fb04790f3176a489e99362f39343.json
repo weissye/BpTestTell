@@ -404,8 +404,12 @@
         "path": "/api/dcim/inventory-items/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "device_role": "{device_role}"
+          "items": [
+            {
+              "name": "{name}",
+              "device_role": "{device_role}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
@@ -420,8 +424,12 @@
         "path": "/api/dcim/inventory-items/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "device_role": "{device_role}"
+          "items": [
+            {
+              "name": "{name}",
+              "device_role": "{device_role}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
@@ -436,8 +444,12 @@
         "path": "/api/dcim/inventory-items/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "device_role": "{device_role}"
+          "items": [
+            {
+              "name": "{name}",
+              "device_role": "{device_role}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
@@ -746,12 +758,16 @@
         "path": "/api/dcim/locations/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
+          "items": [
+            {
+              "name": "{name}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
-          "slug": "string"
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -762,12 +778,16 @@
         "path": "/api/dcim/locations/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
+          "items": [
+            {
+              "name": "{name}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
-          "slug": "string"
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -778,12 +798,16 @@
         "path": "/api/dcim/locations/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
+          "items": [
+            {
+              "name": "{name}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
-          "slug": "string"
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -982,8 +1006,12 @@
         "path": "/api/dcim/mac-addresses/",
         "params": [],
         "bodyTemplate": {
-          "mac_address": "{mac_address}",
-          "device": "{device}"
+          "items": [
+            {
+              "mac_address": "{mac_address}",
+              "device": "{device}"
+            }
+          ]
         },
         "paramTypes": {
           "mac_address": "string",
@@ -998,8 +1026,12 @@
         "path": "/api/dcim/mac-addresses/",
         "params": [],
         "bodyTemplate": {
-          "mac_address": "{mac_address}",
-          "device": "{device}"
+          "items": [
+            {
+              "mac_address": "{mac_address}",
+              "device": "{device}"
+            }
+          ]
         },
         "paramTypes": {
           "mac_address": "string",
@@ -1014,8 +1046,12 @@
         "path": "/api/dcim/mac-addresses/",
         "params": [],
         "bodyTemplate": {
-          "mac_address": "{mac_address}",
-          "device": "{device}"
+          "items": [
+            {
+              "mac_address": "{mac_address}",
+              "device": "{device}"
+            }
+          ]
         },
         "paramTypes": {
           "mac_address": "string",

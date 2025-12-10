@@ -9,7 +9,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -25,12 +25,32 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         }
       },
       "update": {
+        "name": "tenancy_tenant_groups_partial_update",
+        "descriptionTemplate": "Patch a tenant group object.",
+        "method": "PATCH",
+        "path": "/api/tenancy/tenant-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "put": {
         "name": "tenancy_tenant_groups_update",
         "descriptionTemplate": "Put a tenant group object.",
         "method": "PUT",
@@ -55,33 +75,28 @@
   "Tenants": {
     "operations": {
       "delete": {
-        "name": "tenancy_tenants_destroy",
-        "descriptionTemplate": "Delete a tenant object.",
+        "name": "tenancy_tenants_bulk_destroy",
+        "descriptionTemplate": "Delete a list of tenant objects.",
         "method": "DELETE",
-        "path": "/api/tenancy/tenants/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {},
+        "path": "/api/tenancy/tenants/",
+        "params": [],
+        "bodyTemplate": {
+          "tenants": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
+        },
         "paramTypes": {
-          "id": "integer"
+          "name": "string",
+          "slug": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "tenancy_tenants_retrieve",
-        "descriptionTemplate": "Get a tenant object.",
-        "method": "GET",
-        "path": "/api/tenancy/tenants/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {},
-        "paramTypes": {
-          "id": "integer"
-        }
       },
       "list": {
         "name": "tenancy_tenants_list",
@@ -171,7 +186,7 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "contact": "integer",
           "contact__n": "integer",
@@ -274,6 +289,101 @@
         }
       },
       "update": {
+        "name": "tenancy_tenants_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of tenant objects.",
+        "method": "PATCH",
+        "path": "/api/tenancy/tenants/",
+        "params": [],
+        "bodyTemplate": {
+          "tenants": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "put": {
+        "name": "tenancy_tenants_bulk_update",
+        "descriptionTemplate": "Put a list of tenant objects.",
+        "method": "PUT",
+        "path": "/api/tenancy/tenants/",
+        "params": [],
+        "bodyTemplate": {
+          "tenants": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      }
+    }
+  },
+  "Tenant": {
+    "operations": {
+      "delete": {
+        "name": "tenancy_tenants_destroy",
+        "descriptionTemplate": "Delete a tenant object.",
+        "method": "DELETE",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "tenancy_tenants_retrieve",
+        "descriptionTemplate": "Get a tenant object.",
+        "method": "GET",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "tenancy_tenants_partial_update",
+        "descriptionTemplate": "Patch a tenant object.",
+        "method": "PATCH",
+        "path": "/api/tenancy/tenants/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "put": {
         "name": "tenancy_tenants_update",
         "descriptionTemplate": "Put a tenant object.",
         "method": "PUT",
@@ -303,7 +413,7 @@
         "method": "GET",
         "path": "/api/users/config/",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {}
       }
     }
@@ -317,8 +427,12 @@
         "path": "/api/users/groups/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "groups": [
+            {
+              "name": "{name}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",
@@ -328,7 +442,7 @@
           404
         ]
       },
-      "get": {
+      "list": {
         "name": "users_groups_list",
         "descriptionTemplate": "Get a list of group objects.",
         "method": "GET",
@@ -378,7 +492,7 @@
           "user_id",
           "user_id__n"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "description": "string",
           "description__empty": "boolean",
@@ -441,14 +555,37 @@
         }
       },
       "update": {
+        "name": "users_groups_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of group objects.",
+        "method": "PATCH",
+        "path": "/api/users/groups/",
+        "params": [],
+        "bodyTemplate": {
+          "groups": [
+            {
+              "name": "{name}",
+              "description": "{description}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "description": "string"
+        }
+      },
+      "put": {
         "name": "users_groups_bulk_update",
         "descriptionTemplate": "Put a list of group objects.",
         "method": "PUT",
         "path": "/api/users/groups/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "groups": [
+            {
+              "name": "{name}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
           "name": "string",

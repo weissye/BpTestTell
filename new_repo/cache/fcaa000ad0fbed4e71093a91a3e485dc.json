@@ -297,7 +297,7 @@
           "vlan": "{vlan}"
         },
         "paramTypes": {
-          "vlan": "string"
+          "vlan": "object"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -311,7 +311,7 @@
           "vlan": "{vlan}"
         },
         "paramTypes": {
-          "vlan": "string"
+          "vlan": "object"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -325,7 +325,7 @@
           "vlan": "{vlan}"
         },
         "paramTypes": {
-          "vlan": "string"
+          "vlan": "object"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -358,7 +358,7 @@
         },
         "paramTypes": {
           "id": "integer",
-          "vlan": "string"
+          "vlan": "object"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -564,7 +564,7 @@
           "vrf": "{vrf}"
         },
         "paramTypes": {
-          "vrf": "string"
+          "vrf": "object"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -578,7 +578,7 @@
           "vrf": "{vrf}"
         },
         "paramTypes": {
-          "vrf": "string"
+          "vrf": "object"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -592,7 +592,7 @@
           "vrf": "{vrf}"
         },
         "paramTypes": {
-          "vrf": "string"
+          "vrf": "object"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -625,7 +625,7 @@
         },
         "paramTypes": {
           "id": "integer",
-          "vrf": "string"
+          "vrf": "object"
         },
         "x-negative-delete-expected-codes": []
       }

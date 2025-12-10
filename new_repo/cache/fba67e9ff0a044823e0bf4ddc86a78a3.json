@@ -11,16 +11,12 @@
           "id"
         ],
         "bodyTemplate": {
-          "config_context": "{config_context}"
+          "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
         },
         "paramTypes": {
           "format": "string",
-          "id": "integer",
-          "config_context": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "id": "integer"
+        }
       }
     }
   },
@@ -167,7 +163,7 @@
           "ike_proposal_id": "integer",
           "ike_proposal_id__n": "integer",
           "last_updated": "string",
-          "last_updated__empty": "boolean",
+          "last_updated__empty": "string",
           "last_updated__gt": "string",
           "last_updated__gte": "string",
           "last_updated__lt": "string",
@@ -233,10 +229,7 @@
           "version__niew": "integer",
           "version__nisw": "integer",
           "version__regex": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "add": {
         "name": "vpn_ike_policies_create",
@@ -245,16 +238,9 @@
         "path": "/api/vpn/ike-policies/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "$ref": "#/components/schemas/WritableIKEPolicyRequest"
         },
-        "paramTypes": {
-          "name": "string",
-          "description": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "paramTypes": {}
       },
       "update": {
         "name": "vpn_ike_policies_update",
@@ -265,17 +251,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "$ref": "#/components/schemas/WritableIKEPolicyRequest"
         },
         "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "description": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "id": "integer"
+        }
       },
       "delete": {
         "name": "vpn_ike_policies_destroy",
@@ -304,10 +284,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   },
@@ -526,7 +503,7 @@
           "ike_policy_id": "integer",
           "ike_policy_id__n": "integer",
           "last_updated": "string",
-          "last_updated__empty": "boolean",
+          "last_updated__empty": "string",
           "last_updated__gt": "string",
           "last_updated__gte": "string",
           "last_updated__lt": "string",
@@ -562,10 +539,7 @@
           "tag_id": "integer",
           "tag_id__n": "integer",
           "updated_by_request": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       },
       "add": {
         "name": "vpn_ike_proposals_create",
@@ -574,16 +548,9 @@
         "path": "/api/vpn/ike-proposals/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "$ref": "#/components/schemas/WritableIKEProposalRequest"
         },
-        "paramTypes": {
-          "name": "string",
-          "description": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "paramTypes": {}
       },
       "update": {
         "name": "vpn_ike_proposals_update",
@@ -594,17 +561,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}"
+          "$ref": "#/components/schemas/WritableIKEProposalRequest"
         },
         "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "description": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "id": "integer"
+        }
       },
       "delete": {
         "name": "vpn_ike_proposals_destroy",
@@ -633,10 +594,7 @@
         "bodyTemplate": {},
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   }

@@ -88,93 +88,48 @@
       }
     }
   },
-  "CircuitTypes": {
+  "CircuitTerminationPaths": {
     "operations": {
-      "delete": {
-        "name": "circuits_circuit_types_destroy",
-        "descriptionTemplate": "Delete a circuit type object.",
-        "method": "DELETE",
-        "path": "/api/circuits/circuit-types/{id}/",
+      "get": {
+        "name": "circuits_circuit_terminations_paths_retrieve",
+        "descriptionTemplate": "Return all CablePaths which traverse a given pass-through port.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-terminations/{id}/paths/",
         "params": [
           "id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
+        }
+      }
+    }
+  },
+  "CircuitTypes": {
+    "operations": {
+      "delete": {
+        "name": "circuits_circuit_types_bulk_destroy",
+        "descriptionTemplate": "Delete a list of circuit type objects.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "circuit_types": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "circuits_circuit_types_retrieve",
-        "descriptionTemplate": "Get a circuit type object.",
-        "method": "GET",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "update": {
-        "name": "circuits_circuit_types_update",
-        "descriptionTemplate": "Put a circuit type object.",
-        "method": "PUT",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string",
-          "description": "string"
-        }
-      },
-      "patch": {
-        "name": "circuits_circuit_types_partial_update",
-        "descriptionTemplate": "Patch a circuit type object.",
-        "method": "PATCH",
-        "path": "/api/circuits/circuit-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string",
-          "description": "string"
-        }
-      },
-      "add": {
-        "name": "circuits_circuit_types_create",
-        "descriptionTemplate": "Post a list of circuit type objects.",
-        "method": "POST",
-        "path": "/api/circuits/circuit-types/",
-        "params": [],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "description": "{description}"
-        },
-        "paramTypes": {
-          "name": "string",
-          "slug": "string",
-          "description": "string"
-        }
       },
       "list": {
         "name": "circuits_circuit_types_list",
@@ -354,6 +309,138 @@
           "tag_id__n": "integer",
           "updated_by_request": "string"
         }
+      },
+      "add": {
+        "name": "circuits_circuit_types_create",
+        "descriptionTemplate": "Post a list of circuit type objects.",
+        "method": "POST",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_types_bulk_update",
+        "descriptionTemplate": "Put a list of circuit type objects.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "circuit_types": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_types_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of circuit type objects.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-types/",
+        "params": [],
+        "bodyTemplate": {
+          "circuit_types": [
+            {
+              "name": "{name}",
+              "slug": "{slug}",
+              "description": "{description}"
+            }
+          ]
+        },
+        "paramTypes": {
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      }
+    }
+  },
+  "CircuitType": {
+    "operations": {
+      "delete": {
+        "name": "circuits_circuit_types_destroy",
+        "descriptionTemplate": "Delete a circuit type object.",
+        "method": "DELETE",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "circuits_circuit_types_retrieve",
+        "descriptionTemplate": "Get a circuit type object.",
+        "method": "GET",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "update": {
+        "name": "circuits_circuit_types_update",
+        "descriptionTemplate": "Put a circuit type object.",
+        "method": "PUT",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
+      },
+      "patch": {
+        "name": "circuits_circuit_types_partial_update",
+        "descriptionTemplate": "Patch a circuit type object.",
+        "method": "PATCH",
+        "path": "/api/circuits/circuit-types/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "slug": "{slug}",
+          "description": "{description}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "slug": "string",
+          "description": "string"
+        }
       }
     }
   },
@@ -366,22 +453,26 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "circuit": "{circuit}",
-          "provider": "{provider}",
-          "type": "{type}",
-          "status": "{status}",
-          "tenant": "{tenant}",
-          "install_date": "{install_date}",
-          "commit_rate": "{commit_rate}",
-          "description": "{description}"
+          "circuits": [
+            {
+              "cid": "{cid}",
+              "provider": "{provider}",
+              "type": "{type}",
+              "status": "{status}",
+              "install_date": "{install_date}",
+              "termination_date": "{termination_date}",
+              "commit_rate": "{commit_rate}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
-          "circuit": "string",
+          "cid": "string",
           "provider": "string",
           "type": "string",
           "status": "string",
-          "tenant": "string",
           "install_date": "string",
+          "termination_date": "string",
           "commit_rate": "integer",
           "description": "string"
         },
@@ -389,7 +480,7 @@
           404
         ]
       },
-      "get": {
+      "list": {
         "name": "circuits_circuits_list",
         "descriptionTemplate": "Get a list of circuit objects.",
         "method": "GET",
@@ -699,22 +790,22 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "circuit": "{circuit}",
+          "cid": "{cid}",
           "provider": "{provider}",
           "type": "{type}",
           "status": "{status}",
-          "tenant": "{tenant}",
           "install_date": "{install_date}",
+          "termination_date": "{termination_date}",
           "commit_rate": "{commit_rate}",
           "description": "{description}"
         },
         "paramTypes": {
-          "circuit": "string",
+          "cid": "string",
           "provider": "string",
           "type": "string",
           "status": "string",
-          "tenant": "string",
           "install_date": "string",
+          "termination_date": "string",
           "commit_rate": "integer",
           "description": "string"
         }
@@ -726,22 +817,26 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "circuit": "{circuit}",
-          "provider": "{provider}",
-          "type": "{type}",
-          "status": "{status}",
-          "tenant": "{tenant}",
-          "install_date": "{install_date}",
-          "commit_rate": "{commit_rate}",
-          "description": "{description}"
+          "circuits": [
+            {
+              "cid": "{cid}",
+              "provider": "{provider}",
+              "type": "{type}",
+              "status": "{status}",
+              "install_date": "{install_date}",
+              "termination_date": "{termination_date}",
+              "commit_rate": "{commit_rate}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
-          "circuit": "string",
+          "cid": "string",
           "provider": "string",
           "type": "string",
           "status": "string",
-          "tenant": "string",
           "install_date": "string",
+          "termination_date": "string",
           "commit_rate": "integer",
           "description": "string"
         }
@@ -753,22 +848,26 @@
         "path": "/api/circuits/circuits/",
         "params": [],
         "bodyTemplate": {
-          "circuit": "{circuit}",
-          "provider": "{provider}",
-          "type": "{type}",
-          "status": "{status}",
-          "tenant": "{tenant}",
-          "install_date": "{install_date}",
-          "commit_rate": "{commit_rate}",
-          "description": "{description}"
+          "circuits": [
+            {
+              "cid": "{cid}",
+              "provider": "{provider}",
+              "type": "{type}",
+              "status": "{status}",
+              "install_date": "{install_date}",
+              "termination_date": "{termination_date}",
+              "commit_rate": "{commit_rate}",
+              "description": "{description}"
+            }
+          ]
         },
         "paramTypes": {
-          "circuit": "string",
+          "cid": "string",
           "provider": "string",
           "type": "string",
           "status": "string",
-          "tenant": "string",
           "install_date": "string",
+          "termination_date": "string",
           "commit_rate": "integer",
           "description": "string"
         }

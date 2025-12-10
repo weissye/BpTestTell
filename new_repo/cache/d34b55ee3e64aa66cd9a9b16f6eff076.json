@@ -301,6 +301,20 @@
         "paramTypes": {},
         "x-negative-delete-expected-codes": []
       },
+      "patch": {
+        "name": "wireless_wireless_links_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of wireless link objects.",
+        "method": "PATCH",
+        "path": "/api/wireless/wireless-links/",
+        "params": [],
+        "bodyTemplate": {
+          "items": {
+            "$ref": "#/components/schemas/WirelessLinkRequest"
+          }
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": []
+      },
       "delete": {
         "name": "wireless_wireless_links_bulk_destroy",
         "descriptionTemplate": "Delete a list of wireless link objects.",
@@ -331,7 +345,23 @@
         },
         "x-negative-delete-expected-codes": []
       },
-      "patch": {
+      "updateSingle": {
+        "name": "wireless_wireless_links_update",
+        "descriptionTemplate": "Put a wireless link object.",
+        "method": "PUT",
+        "path": "/api/wireless/wireless-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/WritableWirelessLinkRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patchSingle": {
         "name": "wireless_wireless_links_partial_update",
         "descriptionTemplate": "Patch a wireless link object.",
         "method": "PATCH",
@@ -347,7 +377,7 @@
         },
         "x-negative-delete-expected-codes": []
       },
-      "delete_single": {
+      "deleteSingle": {
         "name": "wireless_wireless_links_destroy",
         "descriptionTemplate": "Delete a wireless link object.",
         "method": "DELETE",

@@ -216,20 +216,6 @@
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "dcim_console_port_templates_retrieve",
-        "descriptionTemplate": "Get a console port template object.",
-        "method": "GET",
-        "path": "/api/dcim/console-port-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -588,34 +574,6 @@
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "dcim_console_ports_retrieve",
-        "descriptionTemplate": "Get a console port object.",
-        "method": "GET",
-        "path": "/api/dcim/console-ports/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "trace": {
-        "name": "dcim_console_ports_trace_retrieve",
-        "descriptionTemplate": "Trace a complete cable path and return each segment as a three-tuple of (termination, cable, termination).",
-        "method": "GET",
-        "path": "/api/dcim/console-ports/{id}/trace/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
       }
     }
   }

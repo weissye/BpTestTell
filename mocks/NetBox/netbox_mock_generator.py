@@ -60,11 +60,14 @@ def generate_mock(spec_path, output_path):
     code.append("")
 
     code.append("def get_success_code(resource_path):")
-    # --- FIX: Heuristic for Actions (Sync, Provision, etc.) ---
-    code.append("    # Common NetBox action verbs always return 200")
-    code.append("    if resource_path.endswith('/sync') or resource_path.endswith('/provision'):")
-    code.append("        return 200")
-    # ----------------------------------------------------------
+    # --- FIX: Heuristic for Actions (Sync, Render, Clean, etc.) ---
+    code.append("    # These action suffixes imply an RPC operation, not a creation.")
+    code.append("    action_suffixes = ['/sync', '/clean', '/render-config', '/napalm', '/trace']")
+    code.append("    for suffix in action_suffixes:")
+    code.append("        if resource_path.endswith(suffix):")
+    code.append("            return 200")
+    # -------------------------------------------------------------
+    
     code.append("    if resource_path in PATH_STATUS_CODES:")
     code.append("        return PATH_STATUS_CODES[resource_path]")
     code.append("    for path_pattern, code in PATH_STATUS_CODES.items():")
@@ -164,7 +167,7 @@ def generate_mock(spec_path, output_path):
     code.append("                return jsonify({'detail': 'Duplicate entry detected.'}), 409")
     code.append("")
     code.append("        mock_db[resource_key].append(new_item)")
-    code.append("        print(f\"DEBUG POST: Added to '{resource_key}'. ID: {new_item.get('id')}\")")
+    code.append("        print(f\"DEBUG POST: Added to '{resource_key}'. Returning {success_code}\")")
     code.append("        return jsonify(new_item), success_code")
     code.append("")
 

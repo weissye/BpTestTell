@@ -9,7 +9,23 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "extras_custom_fields_destroy",
+        "descriptionTemplate": "Delete a custom field object.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-fields/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
@@ -26,29 +42,26 @@
           "id"
         ],
         "bodyTemplate": {
-          "name": "{name}",
-          "type": "{type}",
-          "required": "{required}"
+          "$ref": "#/components/schemas/WritableCustomFieldRequest"
         },
         "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "type": "string",
-          "required": "boolean"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
       },
-      "delete": {
-        "name": "extras_custom_fields_destroy",
-        "descriptionTemplate": "Delete a custom field object.",
-        "method": "DELETE",
+      "patch": {
+        "name": "extras_custom_fields_partial_update",
+        "descriptionTemplate": "Patch a custom field object.",
+        "method": "PATCH",
         "path": "/api/extras/custom-fields/{id}/",
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedWritableCustomFieldRequest"
+        },
         "paramTypes": {
           "id": "integer"
         },
@@ -169,7 +182,7 @@
           "weight__lte",
           "weight__n"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "button_class": "string",
           "created": "string",
@@ -285,15 +298,9 @@
         "path": "/api/extras/custom-links/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "url": "{url}",
-          "weight": "{weight}"
+          "$ref": "#/components/schemas/CustomLinkRequest"
         },
-        "paramTypes": {
-          "name": "string",
-          "url": "string",
-          "weight": "integer"
-        },
+        "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -305,15 +312,23 @@
         "path": "/api/extras/custom-links/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "url": "{url}",
-          "weight": "{weight}"
+          "$ref": "#/components/schemas/CustomLinkRequest"
         },
-        "paramTypes": {
-          "name": "string",
-          "url": "string",
-          "weight": "integer"
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "patch": {
+        "name": "extras_custom_links_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of custom link objects.",
+        "method": "PATCH",
+        "path": "/api/extras/custom-links/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/CustomLinkRequest"
         },
+        "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -325,10 +340,76 @@
         "path": "/api/extras/custom-links/",
         "params": [],
         "bodyTemplate": {
-          "ids": "{ids}"
+          "$ref": "#/components/schemas/CustomLinkRequest"
+        },
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "extras_custom_links_retrieve",
+        "descriptionTemplate": "Get a custom link object.",
+        "method": "GET",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete_single": {
+        "name": "extras_custom_links_destroy",
+        "descriptionTemplate": "Delete a custom link object.",
+        "method": "DELETE",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "update_single": {
+        "name": "extras_custom_links_update",
+        "descriptionTemplate": "Put a custom link object.",
+        "method": "PUT",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/CustomLinkRequest"
         },
         "paramTypes": {
-          "ids": "array"
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "patch_single": {
+        "name": "extras_custom_links_partial_update",
+        "descriptionTemplate": "Patch a custom link object.",
+        "method": "PATCH",
+        "path": "/api/extras/custom-links/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedCustomLinkRequest"
+        },
+        "paramTypes": {
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -344,7 +425,19 @@
         "method": "GET",
         "path": "/api/extras/dashboard/",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "extras_dashboard_destroy",
+        "descriptionTemplate": "Delete a list of dashboard objects.",
+        "method": "DELETE",
+        "path": "/api/extras/dashboard/",
+        "params": [],
+        "bodyTemplate": null,
         "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
@@ -357,24 +450,22 @@
         "path": "/api/extras/dashboard/",
         "params": [],
         "bodyTemplate": {
-          "title": "{title}",
-          "description": "{description}"
+          "$ref": "#/components/schemas/DashboardRequest"
         },
-        "paramTypes": {
-          "title": "string",
-          "description": "string"
-        },
+        "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
         ]
       },
-      "delete": {
-        "name": "extras_dashboard_destroy",
-        "descriptionTemplate": "Delete a list of dashboard objects.",
-        "method": "DELETE",
+      "patch": {
+        "name": "extras_dashboard_partial_update",
+        "descriptionTemplate": "Patch a list of dashboard objects.",
+        "method": "PATCH",
         "path": "/api/extras/dashboard/",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/PatchedDashboardRequest"
+        },
         "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
@@ -487,7 +578,7 @@
           "tag_id__n",
           "updated_by_request"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "action_object_id": "integer",
           "action_object_id__empty": "integer",
@@ -597,15 +688,9 @@
         "path": "/api/extras/event-rules/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "enabled": "{enabled}"
+          "$ref": "#/components/schemas/WritableEventRuleRequest"
         },
-        "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "enabled": "boolean"
-        },
+        "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -617,15 +702,23 @@
         "path": "/api/extras/event-rules/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "enabled": "{enabled}"
+          "$ref": "#/components/schemas/EventRuleRequest"
         },
-        "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "enabled": "boolean"
+        "paramTypes": {},
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "patch": {
+        "name": "extras_event_rules_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of event rule objects.",
+        "method": "PATCH",
+        "path": "/api/extras/event-rules/",
+        "params": [],
+        "bodyTemplate": {
+          "$ref": "#/components/schemas/EventRuleRequest"
         },
+        "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -637,11 +730,9 @@
         "path": "/api/extras/event-rules/",
         "params": [],
         "bodyTemplate": {
-          "ids": "{ids}"
+          "$ref": "#/components/schemas/EventRuleRequest"
         },
-        "paramTypes": {
-          "ids": "array"
-        },
+        "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
         ]

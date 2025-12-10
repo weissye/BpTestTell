@@ -168,14 +168,10 @@
         "path": "/api/vpn/ipsec-policies/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "ipsec_proposal": "{ipsec_proposal}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "ipsec_proposal": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -186,14 +182,10 @@
         "path": "/api/vpn/ipsec-policies/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "ipsec_proposal": "{ipsec_proposal}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "ipsec_proposal": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -204,14 +196,10 @@
         "path": "/api/vpn/ipsec-policies/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "ipsec_proposal": "{ipsec_proposal}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "ipsec_proposal": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -228,6 +216,23 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "vpn_ipsec_policies_partial_update",
+        "descriptionTemplate": "Patch a IPSec policy object.",
+        "method": "PATCH",
+        "path": "/api/vpn/ipsec-policies/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{items}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -412,14 +417,10 @@
         "path": "/api/vpn/ipsec-profiles/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "ike_policy": "{ike_policy}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "ike_policy": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -430,14 +431,10 @@
         "path": "/api/vpn/ipsec-profiles/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "ike_policy": "{ike_policy}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "ike_policy": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -448,14 +445,10 @@
         "path": "/api/vpn/ipsec-profiles/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "ike_policy": "{ike_policy}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "ike_policy": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -472,6 +465,23 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "vpn_ipsec_profiles_partial_update",
+        "descriptionTemplate": "Patch a IPSec profile object.",
+        "method": "PATCH",
+        "path": "/api/vpn/ipsec-profiles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "items": "{items}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -702,14 +712,10 @@
         "path": "/api/vpn/ipsec-proposals/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "authentication_algorithm": "{authentication_algorithm}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "authentication_algorithm": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -720,14 +726,10 @@
         "path": "/api/vpn/ipsec-proposals/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "authentication_algorithm": "{authentication_algorithm}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "authentication_algorithm": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -738,32 +740,14 @@
         "path": "/api/vpn/ipsec-proposals/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "description": "{description}",
-          "authentication_algorithm": "{authentication_algorithm}"
+          "items": "{items}"
         },
         "paramTypes": {
-          "name": "string",
-          "description": "string",
-          "authentication_algorithm": "string"
+          "items": "array"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "vpn_ipsec_proposals_retrieve",
-        "descriptionTemplate": "Get a IPSec proposal object.",
-        "method": "GET",
-        "path": "/api/vpn/ipsec-proposals/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
       }
     }
   }

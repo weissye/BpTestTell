@@ -28,14 +28,12 @@
         ],
         "bodyTemplate": {},
         "paramTypes": {
-          "Limit": "integer",
-          "Offset": "integer",
-          "Meta": "boolean",
-          "Page": "integer"
+          "Limit": "string",
+          "Offset": "string",
+          "Meta": "string",
+          "Page": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "update": {
         "name": "updateSetting",
@@ -45,9 +43,7 @@
         "params": [],
         "bodyTemplate": {},
         "paramTypes": {},
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -70,78 +66,16 @@
         "bodyTemplate": {},
         "paramTypes": {
           "Fields": "string",
-          "Limit": "integer",
-          "Offset": "integer",
-          "Meta": "boolean",
+          "Limit": "string",
+          "Offset": "string",
+          "Meta": "string",
           "Sort": "string",
           "Filter": "string",
           "Search": "string"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
       },
       "add": {
-        "name": "createUser",
-        "descriptionTemplate": "Create a new user.",
-        "method": "POST",
-        "path": "/users",
-        "params": [
-          "Meta"
-        ],
-        "bodyTemplate": {
-          "data": "{data}"
-        },
-        "paramTypes": {
-          "Meta": "boolean",
-          "data": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "update": {
-        "name": "updateUsers",
-        "descriptionTemplate": "Update multiple users at the same time.",
-        "method": "PATCH",
-        "path": "/users",
-        "params": [
-          "Fields",
-          "Limit",
-          "Meta",
-          "Offset",
-          "Sort",
-          "Filter",
-          "Search"
-        ],
-        "bodyTemplate": {
-          "data": "{data}",
-          "keys": "{keys}"
-        },
-        "paramTypes": {
-          "Fields": "string",
-          "Limit": "integer",
-          "Meta": "boolean",
-          "Offset": "integer",
-          "Sort": "string",
-          "Filter": "string",
-          "Search": "string",
-          "data": "object",
-          "keys": "array"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "delete": {
-        "name": "deleteUsers",
-        "descriptionTemplate": "Delete multiple existing users.",
-        "method": "DELETE",
-        "path": "/users",
-        "params": [],
-        "bodyTemplate": {},
-        "paramTypes": {},
-        "x-negative-delete-expected-codes": []
-      },
-      "invite": {
         "name": "invite",
         "descriptionTemplate": "Invites one or more users to this project.",
         "method": "POST",
@@ -152,6 +86,43 @@
         },
         "paramTypes": {
           "email": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "update": {
+        "name": "updateUser",
+        "descriptionTemplate": "Update an existing user",
+        "method": "PATCH",
+        "path": "/users/{id}",
+        "params": [
+          "Fields",
+          "Meta",
+          "id"
+        ],
+        "bodyTemplate": {
+          "data": "{data}"
+        },
+        "paramTypes": {
+          "Fields": "string",
+          "Meta": "string",
+          "id": "string",
+          "data": "object"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "delete": {
+        "name": "deleteUser",
+        "descriptionTemplate": "Delete an existing user",
+        "method": "DELETE",
+        "path": "/users/{id}",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -165,52 +136,13 @@
         "params": [
           "Fields",
           "Meta",
-          "UUId"
+          "id"
         ],
         "bodyTemplate": {},
         "paramTypes": {
           "Fields": "string",
-          "Meta": "boolean",
-          "UUId": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "updateSingle": {
-        "name": "updateUser",
-        "descriptionTemplate": "Update an existing user",
-        "method": "PATCH",
-        "path": "/users/{id}",
-        "params": [
-          "Fields",
-          "Meta",
-          "UUId"
-        ],
-        "bodyTemplate": {
-          "data": "{data}"
-        },
-        "paramTypes": {
-          "Fields": "string",
-          "Meta": "boolean",
-          "UUId": "string",
-          "data": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "deleteSingle": {
-        "name": "deleteUser",
-        "descriptionTemplate": "Delete an existing user",
-        "method": "DELETE",
-        "path": "/users/{id}",
-        "params": [
-          "UUId"
-        ],
-        "bodyTemplate": {},
-        "paramTypes": {
-          "UUId": "string"
+          "Meta": "string",
+          "id": "string"
         },
         "x-negative-delete-expected-codes": [
           404

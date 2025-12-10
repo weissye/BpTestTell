@@ -9,7 +9,9 @@
         "params": [],
         "bodyTemplate": {},
         "paramTypes": {},
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -133,7 +135,9 @@
           "tag_id__n": "integer",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "tenancy_contact_assignments_create",
@@ -155,7 +159,9 @@
           "priority": "string",
           "role": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "tenancy_contact_assignments_bulk_update",
@@ -177,7 +183,9 @@
           "priority": "string",
           "role": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "tenancy_contact_assignments_destroy",
@@ -207,7 +215,9 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "patch": {
         "name": "tenancy_contact_assignments_partial_update",
@@ -232,7 +242,9 @@
           "priority": "string",
           "role": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -410,7 +422,9 @@
           "tag_id__n": "integer",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "tenancy_contact_groups_create",
@@ -428,9 +442,11 @@
           "name": "string",
           "slug": "string",
           "description": "string",
-          "parent": "integer"
+          "parent": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "tenancy_contact_groups_bulk_update",
@@ -448,9 +464,11 @@
           "name": "string",
           "slug": "string",
           "description": "string",
-          "parent": "integer"
+          "parent": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "tenancy_contact_groups_destroy",
@@ -480,7 +498,9 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "patch": {
         "name": "tenancy_contact_groups_partial_update",
@@ -501,9 +521,11 @@
           "name": "string",
           "slug": "string",
           "description": "string",
-          "parent": "integer"
+          "parent": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

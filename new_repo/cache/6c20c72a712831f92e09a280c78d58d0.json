@@ -83,16 +83,16 @@
   "ConfigTemplates": {
     "operations": {
       "delete": {
-        "name": "extras_config_templates_destroy",
-        "descriptionTemplate": "Delete a config template object.",
+        "name": "extras_config_templates_bulk_destroy",
+        "descriptionTemplate": "Delete a list of config template objects.",
         "method": "DELETE",
-        "path": "/api/extras/config-templates/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
+        "path": "/api/extras/config-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
         "paramTypes": {
-          "id": "integer"
+          "key": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -330,24 +330,74 @@
         }
       },
       "add": {
-        "name": "extras_config_templates_render_create",
-        "descriptionTemplate": "Render a ConfigTemplate using the context data provided (if any).",
+        "name": "extras_config_templates_create",
+        "descriptionTemplate": "Post a list of config template objects.",
         "method": "POST",
-        "path": "/api/extras/config-templates/{id}/render/",
-        "params": [
-          "format",
-          "id"
-        ],
+        "path": "/api/extras/config-templates/",
+        "params": [],
         "bodyTemplate": {
           "key": "{key}"
         },
         "paramTypes": {
-          "format": "string",
-          "id": "integer",
           "key": "string"
         }
       },
       "update": {
+        "name": "extras_config_templates_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of config template objects.",
+        "method": "PATCH",
+        "path": "/api/extras/config-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "key": "string"
+        }
+      },
+      "put": {
+        "name": "extras_config_templates_bulk_update",
+        "descriptionTemplate": "Put a list of config template objects.",
+        "method": "PUT",
+        "path": "/api/extras/config-templates/",
+        "params": [],
+        "bodyTemplate": {
+          "key": "{key}"
+        },
+        "paramTypes": {
+          "key": "string"
+        }
+      },
+      "deleteItem": {
+        "name": "extras_config_templates_destroy",
+        "descriptionTemplate": "Delete a config template object.",
+        "method": "DELETE",
+        "path": "/api/extras/config-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "getItem": {
+        "name": "extras_config_templates_retrieve",
+        "descriptionTemplate": "Get a config template object.",
+        "method": "GET",
+        "path": "/api/extras/config-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
+      },
+      "updateItem": {
         "name": "extras_config_templates_partial_update",
         "descriptionTemplate": "Patch a config template object.",
         "method": "PATCH",
@@ -363,7 +413,7 @@
           "key": "string"
         }
       },
-      "put": {
+      "putItem": {
         "name": "extras_config_templates_update",
         "descriptionTemplate": "Put a config template object.",
         "method": "PUT",
@@ -379,17 +429,22 @@
           "key": "string"
         }
       },
-      "get": {
-        "name": "extras_config_templates_retrieve",
-        "descriptionTemplate": "Get a config template object.",
-        "method": "GET",
-        "path": "/api/extras/config-templates/{id}/",
+      "render": {
+        "name": "extras_config_templates_render_create",
+        "descriptionTemplate": "Render a ConfigTemplate using the context data provided (if any). If the client requests \"text/plain\" data, return the raw rendered content, rather than serialized JSON.",
+        "method": "POST",
+        "path": "/api/extras/config-templates/{id}/render/",
         "params": [
+          "format",
           "id"
         ],
-        "bodyTemplate": null,
+        "bodyTemplate": {
+          "key": "{key}"
+        },
         "paramTypes": {
-          "id": "integer"
+          "format": "string",
+          "id": "integer",
+          "key": "string"
         }
       }
     }

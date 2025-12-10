@@ -8,30 +8,11 @@
         "path": "/api/users/users/",
         "params": [],
         "bodyTemplate": {
-          "userRequest": "{userRequest}"
+          "user": "{user}"
         },
         "paramTypes": {
-          "userRequest": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "get": {
-        "name": "users_users_retrieve",
-        "descriptionTemplate": "Get a user object.",
-        "method": "GET",
-        "path": "/api/users/users/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {},
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "user": "object"
+        }
       },
       "list": {
         "name": "users_users_list",
@@ -218,10 +199,20 @@
           "username__niew": "string",
           "username__nisw": "string",
           "username__regex": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
+      },
+      "get": {
+        "name": "users_users_retrieve",
+        "descriptionTemplate": "Get a user object.",
+        "method": "GET",
+        "path": "/api/users/users/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "users_users_update",
@@ -232,15 +223,12 @@
           "id"
         ],
         "bodyTemplate": {
-          "userRequest": "{userRequest}"
+          "user": "{user}"
         },
         "paramTypes": {
           "id": "integer",
-          "userRequest": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "user": "object"
+        }
       },
       "delete": {
         "name": "users_users_destroy",
@@ -269,30 +257,11 @@
         "path": "/api/virtualization/cluster-groups/",
         "params": [],
         "bodyTemplate": {
-          "clusterGroupRequest": "{clusterGroupRequest}"
+          "clusterGroup": "{clusterGroup}"
         },
         "paramTypes": {
-          "clusterGroupRequest": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      },
-      "get": {
-        "name": "virtualization_cluster_groups_retrieve",
-        "descriptionTemplate": "Get a cluster group object.",
-        "method": "GET",
-        "path": "/api/virtualization/cluster-groups/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {},
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "clusterGroup": "object"
+        }
       },
       "list": {
         "name": "virtualization_cluster_groups_list",
@@ -457,10 +426,20 @@
           "tag_id": "integer",
           "tag_id__n": "integer",
           "updated_by_request": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
+      },
+      "get": {
+        "name": "virtualization_cluster_groups_retrieve",
+        "descriptionTemplate": "Get a cluster group object.",
+        "method": "GET",
+        "path": "/api/virtualization/cluster-groups/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {},
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "update": {
         "name": "virtualization_cluster_groups_update",
@@ -471,15 +450,12 @@
           "id"
         ],
         "bodyTemplate": {
-          "clusterGroupRequest": "{clusterGroupRequest}"
+          "clusterGroup": "{clusterGroup}"
         },
         "paramTypes": {
           "id": "integer",
-          "clusterGroupRequest": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+          "clusterGroup": "object"
+        }
       },
       "delete": {
         "name": "virtualization_cluster_groups_destroy",
@@ -512,10 +488,7 @@
         },
         "paramTypes": {
           "tokenProvisionRequest": "object"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        }
       }
     }
   }

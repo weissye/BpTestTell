@@ -41,37 +41,13 @@
         "bodyTemplate": {
           "name": "{name}",
           "slug": "{slug}",
-          "color": "{color}",
-          "description": "{description}"
+          "color": "{color}"
         },
         "paramTypes": {
           "id": "integer",
           "name": "string",
           "slug": "string",
-          "color": "string",
-          "description": "string"
-        }
-      },
-      "patch": {
-        "name": "extras_tags_partial_update",
-        "descriptionTemplate": "Patch a tag object.",
-        "method": "PATCH",
-        "path": "/api/extras/tags/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "color": "{color}",
-          "description": "{description}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string",
-          "color": "string",
-          "description": "string"
+          "color": "string"
         }
       }
     }
@@ -79,28 +55,33 @@
   "Webhooks": {
     "operations": {
       "delete": {
-        "name": "extras_webhooks_bulk_destroy",
-        "descriptionTemplate": "Delete a list of webhook objects.",
+        "name": "extras_webhooks_destroy",
+        "descriptionTemplate": "Delete a webhook object.",
         "method": "DELETE",
-        "path": "/api/extras/webhooks/",
-        "params": [],
-        "bodyTemplate": {
-          "webhooks": [
-            {
-              "name": "{name}",
-              "type": "{type}",
-              "url": "{url}"
-            }
-          ]
-        },
+        "path": "/api/extras/webhooks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "name": "string",
-          "type": "string",
-          "url": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "extras_webhooks_retrieve",
+        "descriptionTemplate": "Get a webhook object.",
+        "method": "GET",
+        "path": "/api/extras/webhooks/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "extras_webhooks_list",
@@ -109,50 +90,36 @@
         "path": "/api/extras/webhooks/",
         "params": [
           "ca_file_path",
-          "ca_file_path__empty",
           "created",
-          "created_by_request",
           "description",
           "http_content_type",
           "http_method",
           "id",
           "last_updated",
           "limit",
-          "modified_by_request",
-          "name",
           "offset",
           "ordering",
-          "payload_url",
           "q",
-          "secret",
           "ssl_verification",
           "tag",
-          "tag_id",
-          "updated_by_request"
+          "tag_id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
           "ca_file_path": "string",
-          "ca_file_path__empty": "boolean",
           "created": "string",
-          "created_by_request": "string",
           "description": "string",
           "http_content_type": "string",
           "http_method": "string",
           "id": "integer",
           "last_updated": "string",
           "limit": "integer",
-          "modified_by_request": "string",
-          "name": "string",
           "offset": "integer",
           "ordering": "string",
-          "payload_url": "string",
           "q": "string",
-          "secret": "string",
           "ssl_verification": "boolean",
           "tag": "string",
-          "tag_id": "integer",
-          "updated_by_request": "string"
+          "tag_id": "integer"
         }
       },
       "add": {
@@ -173,42 +140,20 @@
         }
       },
       "update": {
-        "name": "extras_webhooks_bulk_update",
-        "descriptionTemplate": "Put a list of webhook objects.",
+        "name": "extras_webhooks_update",
+        "descriptionTemplate": "Put a webhook object.",
         "method": "PUT",
-        "path": "/api/extras/webhooks/",
-        "params": [],
+        "path": "/api/extras/webhooks/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
-          "webhooks": [
-            {
-              "name": "{name}",
-              "type": "{type}",
-              "url": "{url}"
-            }
-          ]
+          "name": "{name}",
+          "type": "{type}",
+          "url": "{url}"
         },
         "paramTypes": {
-          "name": "string",
-          "type": "string",
-          "url": "string"
-        }
-      },
-      "patch": {
-        "name": "extras_webhooks_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of webhook objects.",
-        "method": "PATCH",
-        "path": "/api/extras/webhooks/",
-        "params": [],
-        "bodyTemplate": {
-          "webhooks": [
-            {
-              "name": "{name}",
-              "type": "{type}",
-              "url": "{url}"
-            }
-          ]
-        },
-        "paramTypes": {
+          "id": "integer",
           "name": "string",
           "type": "string",
           "url": "string"
@@ -219,26 +164,33 @@
   "Aggregates": {
     "operations": {
       "delete": {
-        "name": "ipam_aggregates_bulk_destroy",
-        "descriptionTemplate": "Delete a list of aggregate objects.",
+        "name": "ipam_aggregates_destroy",
+        "descriptionTemplate": "Delete a aggregate object.",
         "method": "DELETE",
-        "path": "/api/ipam/aggregates/",
-        "params": [],
-        "bodyTemplate": {
-          "aggregates": [
-            {
-              "prefix": "{prefix}",
-              "rir": "{rir}"
-            }
-          ]
-        },
+        "path": "/api/ipam/aggregates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "prefix": "string",
-          "rir": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
+      },
+      "get": {
+        "name": "ipam_aggregates_retrieve",
+        "descriptionTemplate": "Get a aggregate object.",
+        "method": "GET",
+        "path": "/api/ipam/aggregates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
+        }
       },
       "list": {
         "name": "ipam_aggregates_list",
@@ -250,14 +202,12 @@
           "contact_group",
           "contact_role",
           "created",
-          "created_by_request",
           "date_added",
           "description",
           "family",
           "id",
           "last_updated",
           "limit",
-          "modified_by_request",
           "offset",
           "ordering",
           "prefix",
@@ -269,8 +219,7 @@
           "tenant",
           "tenant_group",
           "tenant_group_id",
-          "tenant_id",
-          "updated_by_request"
+          "tenant_id"
         ],
         "bodyTemplate": null,
         "paramTypes": {
@@ -278,14 +227,12 @@
           "contact_group": "string",
           "contact_role": "integer",
           "created": "string",
-          "created_by_request": "string",
           "date_added": "string",
           "description": "string",
           "family": "number",
           "id": "integer",
           "last_updated": "string",
           "limit": "integer",
-          "modified_by_request": "string",
           "offset": "integer",
           "ordering": "string",
           "prefix": "string",
@@ -297,8 +244,7 @@
           "tenant": "string",
           "tenant_group": "string",
           "tenant_group_id": "string",
-          "tenant_id": "integer",
-          "updated_by_request": "string"
+          "tenant_id": "integer"
         }
       },
       "add": {
@@ -309,49 +255,33 @@
         "params": [],
         "bodyTemplate": {
           "prefix": "{prefix}",
-          "rir": "{rir}"
+          "rir": "{rir}",
+          "tenant": "{tenant}"
         },
         "paramTypes": {
           "prefix": "string",
-          "rir": "string"
+          "rir": "string",
+          "tenant": "string"
         }
       },
       "update": {
-        "name": "ipam_aggregates_bulk_update",
-        "descriptionTemplate": "Put a list of aggregate objects.",
+        "name": "ipam_aggregates_update",
+        "descriptionTemplate": "Put a aggregate object.",
         "method": "PUT",
-        "path": "/api/ipam/aggregates/",
-        "params": [],
+        "path": "/api/ipam/aggregates/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
-          "aggregates": [
-            {
-              "prefix": "{prefix}",
-              "rir": "{rir}"
-            }
-          ]
+          "prefix": "{prefix}",
+          "rir": "{rir}",
+          "tenant": "{tenant}"
         },
         "paramTypes": {
+          "id": "integer",
           "prefix": "string",
-          "rir": "string"
-        }
-      },
-      "patch": {
-        "name": "ipam_aggregates_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of aggregate objects.",
-        "method": "PATCH",
-        "path": "/api/ipam/aggregates/",
-        "params": [],
-        "bodyTemplate": {
-          "aggregates": [
-            {
-              "prefix": "{prefix}",
-              "rir": "{rir}"
-            }
-          ]
-        },
-        "paramTypes": {
-          "prefix": "string",
-          "rir": "string"
+          "rir": "string",
+          "tenant": "string"
         }
       }
     }

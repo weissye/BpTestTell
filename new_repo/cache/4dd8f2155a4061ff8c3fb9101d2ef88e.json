@@ -7,7 +7,7 @@
         "method": "GET",
         "path": "/operations",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {},
         "x-negative-delete-expected-codes": []
       },
@@ -17,12 +17,8 @@
         "method": "POST",
         "path": "/operations",
         "params": [],
-        "bodyTemplate": {
-          "data": "{data}"
-        },
-        "paramTypes": {
-          "data": "object"
-        },
+        "bodyTemplate": {},
+        "paramTypes": {},
         "x-negative-delete-expected-codes": []
       },
       "update": {
@@ -33,7 +29,9 @@
         "params": [],
         "bodyTemplate": {
           "data": "{data}",
-          "keys": "{keys}"
+          "keys": [
+            "{keys}"
+          ]
         },
         "paramTypes": {
           "data": "object",
@@ -47,7 +45,7 @@
         "method": "DELETE",
         "path": "/operations",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
@@ -61,7 +59,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
         },
@@ -92,7 +90,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
         },
@@ -110,7 +108,7 @@
         "method": "GET",
         "path": "/permissions",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {},
         "x-negative-delete-expected-codes": []
       },
@@ -127,12 +125,18 @@
           "delete": "{delete}",
           "explain": "{explain}",
           "read": "{read}",
-          "read_field_blacklist": "{read_field_blacklist}",
+          "read_field_blacklist": [
+            "{read_field_blacklist}"
+          ],
           "role": "{role}",
           "status": "{status}",
-          "status_blacklist": "{status_blacklist}",
+          "status_blacklist": [
+            "{status_blacklist}"
+          ],
           "update": "{update}",
-          "write_field_blacklist": "{write_field_blacklist}"
+          "write_field_blacklist": [
+            "{write_field_blacklist}"
+          ]
         },
         "paramTypes": {
           "collection": "string",
@@ -157,8 +161,29 @@
         "path": "/permissions",
         "params": [],
         "bodyTemplate": {
-          "data": "{data}",
-          "keys": "{keys}"
+          "data": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "create": "{create}",
+            "delete": "{delete}",
+            "explain": "{explain}",
+            "read": "{read}",
+            "read_field_blacklist": [
+              "{read_field_blacklist}"
+            ],
+            "role": "{role}",
+            "status": "{status}",
+            "status_blacklist": [
+              "{status_blacklist}"
+            ],
+            "update": "{update}",
+            "write_field_blacklist": [
+              "{write_field_blacklist}"
+            ]
+          },
+          "keys": [
+            "{keys}"
+          ]
         },
         "paramTypes": {
           "data": "object",
@@ -172,7 +197,7 @@
         "method": "DELETE",
         "path": "/permissions",
         "params": [],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {},
         "x-negative-delete-expected-codes": [
           404
@@ -186,7 +211,7 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
         },
@@ -216,18 +241,18 @@
         },
         "paramTypes": {
           "id": "string",
-          "collection": "string",
+          "collection": "object",
           "comment": "string",
           "create": "string",
           "delete": "string",
           "explain": "string",
           "read": "string",
-          "read_field_blacklist": "array",
-          "role": "integer",
-          "status": "string",
-          "status_blacklist": "array",
+          "read_field_blacklist": "object",
+          "role": "object",
+          "status": "object",
+          "status_blacklist": "object",
           "update": "string",
-          "write_field_blacklist": "array"
+          "write_field_blacklist": "object"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -239,23 +264,13 @@
         "params": [
           "id"
         ],
-        "bodyTemplate": {},
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "string"
         },
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "listMy": {
-        "name": "getMyPermissions",
-        "descriptionTemplate": "List the permissions that apply to the current user.",
-        "method": "GET",
-        "path": "/permissions/me",
-        "params": [],
-        "bodyTemplate": {},
-        "paramTypes": {},
-        "x-negative-delete-expected-codes": []
       }
     }
   }

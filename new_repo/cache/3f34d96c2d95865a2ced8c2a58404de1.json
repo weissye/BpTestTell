@@ -106,33 +106,30 @@
         "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_cable_terminations_update",
-        "descriptionTemplate": "Put a cable termination object.",
+        "name": "dcim_cable_terminations_bulk_update",
+        "descriptionTemplate": "Put a list of cable termination objects.",
         "method": "PUT",
-        "path": "/api/dcim/cable-terminations/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/dcim/cable-terminations/",
+        "params": [],
         "bodyTemplate": {
           "CableTerminationRequest": "{CableTerminationRequest}"
         },
         "paramTypes": {
-          "id": "integer",
           "CableTerminationRequest": "string"
         },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "dcim_cable_terminations_destroy",
-        "descriptionTemplate": "Delete a cable termination object.",
+        "name": "dcim_cable_terminations_bulk_destroy",
+        "descriptionTemplate": "Delete a list of cable termination objects.",
         "method": "DELETE",
-        "path": "/api/dcim/cable-terminations/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
+        "path": "/api/dcim/cable-terminations/",
+        "params": [],
+        "bodyTemplate": {
+          "CableTerminationRequest": "{CableTerminationRequest}"
+        },
         "paramTypes": {
-          "id": "integer"
+          "CableTerminationRequest": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -149,6 +146,23 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "dcim_cable_terminations_partial_update",
+        "descriptionTemplate": "Patch a cable termination object.",
+        "method": "PATCH",
+        "path": "/api/dcim/cable-terminations/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedCableTerminationRequest": "{PatchedCableTerminationRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedCableTerminationRequest": "string"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -457,33 +471,30 @@
         "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_cables_update",
-        "descriptionTemplate": "Put a cable object.",
+        "name": "dcim_cables_bulk_update",
+        "descriptionTemplate": "Put a list of cable objects.",
         "method": "PUT",
-        "path": "/api/dcim/cables/{id}/",
-        "params": [
-          "id"
-        ],
+        "path": "/api/dcim/cables/",
+        "params": [],
         "bodyTemplate": {
-          "WritableCableRequest": "{WritableCableRequest}"
+          "CableRequest": "{CableRequest}"
         },
         "paramTypes": {
-          "id": "integer",
-          "WritableCableRequest": "string"
+          "CableRequest": "string"
         },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
-        "name": "dcim_cables_destroy",
-        "descriptionTemplate": "Delete a cable object.",
+        "name": "dcim_cables_bulk_destroy",
+        "descriptionTemplate": "Delete a list of cable objects.",
         "method": "DELETE",
-        "path": "/api/dcim/cables/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
+        "path": "/api/dcim/cables/",
+        "params": [],
+        "bodyTemplate": {
+          "CableRequest": "{CableRequest}"
+        },
         "paramTypes": {
-          "id": "integer"
+          "CableRequest": "string"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -500,6 +511,23 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "dcim_cables_partial_update",
+        "descriptionTemplate": "Patch a cable object.",
+        "method": "PATCH",
+        "path": "/api/dcim/cables/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "PatchedWritableCableRequest": "{PatchedWritableCableRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedWritableCableRequest": "string"
         },
         "x-negative-delete-expected-codes": []
       }

@@ -92,7 +92,8 @@
           "created",
           "limit",
           "offset",
-          "ordering"
+          "ordering",
+          "q"
         ],
         "bodyTemplate": null,
         "paramTypes": {
@@ -101,7 +102,8 @@
           "created": "string",
           "limit": "integer",
           "offset": "integer",
-          "ordering": "string"
+          "ordering": "string",
+          "q": "string"
         }
       },
       "add": {
@@ -180,7 +182,8 @@
           "available_for_device_type",
           "limit",
           "offset",
-          "ordering"
+          "ordering",
+          "q"
         ],
         "bodyTemplate": null,
         "paramTypes": {
@@ -188,7 +191,8 @@
           "available_for_device_type": "string",
           "limit": "integer",
           "offset": "integer",
-          "ordering": "string"
+          "ordering": "string",
+          "q": "string"
         }
       },
       "add": {

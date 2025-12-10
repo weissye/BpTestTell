@@ -167,7 +167,9 @@
           "weight__lte": "integer",
           "weight__n": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "ipam_roles_create",
@@ -185,7 +187,9 @@
           "slug": "string",
           "weight": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "ipam_roles_bulk_update",
@@ -203,7 +207,9 @@
           "slug": "string",
           "weight": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "ipam_roles_bulk_destroy",
@@ -212,14 +218,10 @@
         "path": "/api/ipam/roles/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "weight": "{weight}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "slug": "string",
-          "weight": "integer"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -237,7 +239,9 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -417,7 +421,9 @@
           "tenant_id__n": "integer",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "ipam_route_targets_create",
@@ -435,7 +441,9 @@
           "slug": "string",
           "weight": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "ipam_route_targets_bulk_update",
@@ -453,7 +461,9 @@
           "slug": "string",
           "weight": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "ipam_route_targets_bulk_destroy",
@@ -462,14 +472,10 @@
         "path": "/api/ipam/route-targets/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "weight": "{weight}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "slug": "string",
-          "weight": "integer"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -487,7 +493,9 @@
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -635,7 +643,9 @@
           "tag_id__n": "integer",
           "updated_by_request": "string"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "add": {
         "name": "ipam_service_templates_create",
@@ -653,7 +663,9 @@
           "slug": "string",
           "weight": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "update": {
         "name": "ipam_service_templates_bulk_update",
@@ -671,7 +683,9 @@
           "slug": "string",
           "weight": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       },
       "delete": {
         "name": "ipam_service_templates_bulk_destroy",
@@ -680,14 +694,26 @@
         "path": "/api/ipam/service-templates/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}",
-          "weight": "{weight}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "slug": "string",
-          "weight": "integer"
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "ipam_service_templates_retrieve",
+        "descriptionTemplate": "Get a service template object.",
+        "method": "GET",
+        "path": "/api/ipam/service-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404

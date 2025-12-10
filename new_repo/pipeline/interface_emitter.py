@@ -18,6 +18,10 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     method = (method_override or op_data.get("method", "GET")).upper()
     path_tmpl = op_data.get("path", "")
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
+    
+    # FIX: Inject the Primary Key into the description
+    if primary_key in sig_params and primary_key not in desc_tmpl:
+         desc_tmpl = desc_tmpl + " {" + primary_key + "}"
     if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
     
     def escape_js_str(s):
@@ -40,25 +44,54 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     body_js = "undefined"
     if method in ["POST", "PUT", "PATCH"]:
-        if "bodyTemplate" in op_data and isinstance(op_data["bodyTemplate"], dict):
-            body_js = render_body_js(op_data["bodyTemplate"], param_types)
-        else:
-            b_lines = ["{"]
-            for p in sig_params:
-                 if p != primary_key:
-                     ptype = param_types.get(p, "string").lower()
-                     cast = "String"
-                     if ptype in ["integer", "number"]: cast = "Number"
-                     elif ptype == "boolean": cast = "" 
+        
+        # --- CRITICAL FIX 2: Explicitly include all payload parameters for uniqueness ---
+        # This generic logic solves the Flow's 409 error by including the 'data' field.
+        excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
+        b_lines = ["{"]
+        
+        for p in sig_params:
+             # Skip standard query/meta fields; everything else is assumed to be part of the JSON body.
+             if p.lower() in excluded_query_params:
+                 continue
+                 
+             if p in op_data.get("paramTypes", {}): 
+                 sanitized_p = sanitize_param(p)
+                 
+                 ptype = param_types.get(p, "string").lower()
+                 cast = "String"
+                 if ptype in ["integer", "number"]: cast = "Number"
+                 elif ptype == "boolean": cast = "" 
+                 
+                 if param_types.get(p, "") == "array":
+                     b_lines.append(f'    "{p}": [{cast}({sanitized_p})],')
+                 else:
+                     if cast: 
+                         b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
+                     else: 
+                         b_lines.append(f'    "{p}": {sanitized_p},')
                      
-                     if cast: b_lines.append(f'    "{p}": {cast}({sanitize_param(p)}),')
-                     else: b_lines.append(f'    "{p}": {sanitize_param(p)},')
-            b_lines.append("  }")
+        b_lines = [l for l in b_lines if l.strip()]
+        if len(b_lines) > 1:
+            b_lines.append("}")
             body_js = "\n".join(b_lines)
+        else:
+            body_js = "undefined"
+        # ----------------------------------------------------------------------------------
+
     if "..." in body_js: body_js = "{}"
 
-    if codes_override: codes_str = json.dumps(codes_override)
-    else: codes_str = json.dumps(get_response_codes(path_tmpl, method, spec))
+    # --- CODE GENERATION LOGIC (204 & 409 INJECTION) ---
+    if codes_override: 
+        codes_list = codes_override
+    else: 
+        codes_list = get_response_codes(path_tmpl, method, spec)
+        
+        if method == "POST" and 409 not in codes_list: codes_list.append(409)
+        if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
+            
+    codes_str = json.dumps(sorted(codes_list))
+    # ---------------------------------------------------
 
     sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
     
@@ -76,7 +109,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
              payload_parts = []
              for p in sig_params:
                  s_p = sanitize_param(p)
-                 payload_parts.append(f'"{s_p}": {s_p}')
+                 payload_parts.append(f'"{p}": {s_p}')
              payload_str = "{" + ", ".join(payload_parts) + "}"
              lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {payload_str}) }});')
     else:
@@ -125,20 +158,18 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
         item_get_op = ops.get("get")
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
-        
-        # --- MODIFIED: Assume testability if we have a GET endpoint ---
-        # We removed the 'pk_in_body' check. If we can GET it by ID, we can verify it.
         can_verify = has_specific_get 
-        # -------------------------------------------------------------
 
         for op_type, op_data in ops.items():
-            if op_type in ["verifyExists", "verifyDoesntExist"]: continue
+            # Skip generation of negative test functions here, as they are generated below
+            if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
             if not op_data: continue
             fn_name = op_data.get("name", f"{op_type}{name}")
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
 
         if "add" in ops and isinstance(ops["add"], dict) and can_verify:
+             # Generates the tryToAddExisting function
              lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{safe_entity_name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
              lines.append('')
 
@@ -160,7 +191,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
             lines.append(f'function verify{safe_entity_name}DoesNotExist({sig_args_str}) {{')
             lines.append(f'  var url = {js_item_url};')
-            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " does not exist";')
+            var_name = sanitize_param(primary_key)
+            lines.append(f'  var description = "Verify {name} " + {var_name} + " does not exist";')
             lines.append(f'  svc.get(url, {{ expectedResponseCodes: [404], parameters: {{ description: description }} }});')
             lines.append(f'  pvg.success("{name} not found");')
             lines.append('}')
@@ -169,6 +201,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'// verify{safe_entity_name}Exists skipped: No GET /{{id}} operation detected.')
 
         if "delete" in ops and isinstance(ops["delete"], dict) and can_verify:
+            
             neg_codes = ops["delete"].get("x-negative-delete-expected-codes", [404])
             path = ops["delete"].get("path", "")
             safe_path = path.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')

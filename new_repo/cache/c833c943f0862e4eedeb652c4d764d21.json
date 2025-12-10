@@ -210,7 +210,7 @@
         "path": "/api/dcim/inventory-item-roles/",
         "params": [],
         "bodyTemplate": {
-          "items": "{InventoryItemRoleRequest}"
+          "items": "{items}"
         },
         "paramTypes": {
           "items": "array"
@@ -220,15 +220,18 @@
         ]
       },
       "update": {
-        "name": "dcim_inventory_item_roles_bulk_update",
-        "descriptionTemplate": "Put a list of inventory item role objects.",
+        "name": "dcim_inventory_item_roles_update",
+        "descriptionTemplate": "Put a inventory item role object.",
         "method": "PUT",
-        "path": "/api/dcim/inventory-item-roles/",
-        "params": [],
+        "path": "/api/dcim/inventory-item-roles/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
-          "items": "{InventoryItemRoleRequest}"
+          "items": "{items}"
         },
         "paramTypes": {
+          "id": "integer",
           "items": "array"
         },
         "x-negative-delete-expected-codes": [
@@ -236,16 +239,32 @@
         ]
       },
       "delete": {
-        "name": "dcim_inventory_item_roles_bulk_destroy",
-        "descriptionTemplate": "Delete a list of inventory item role objects.",
+        "name": "dcim_inventory_item_roles_destroy",
+        "descriptionTemplate": "Delete a inventory item role object.",
         "method": "DELETE",
-        "path": "/api/dcim/inventory-item-roles/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{InventoryItemRoleRequest}"
-        },
+        "path": "/api/dcim/inventory-item-roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "items": "array"
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_inventory_item_roles_retrieve",
+        "descriptionTemplate": "Get a inventory item role object.",
+        "method": "GET",
+        "path": "/api/dcim/inventory-item-roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -478,7 +497,7 @@
         "path": "/api/dcim/inventory-item-templates/",
         "params": [],
         "bodyTemplate": {
-          "items": "{InventoryItemTemplateRequest}"
+          "items": "{items}"
         },
         "paramTypes": {
           "items": "array"
@@ -488,15 +507,18 @@
         ]
       },
       "update": {
-        "name": "dcim_inventory_item_templates_bulk_update",
-        "descriptionTemplate": "Put a list of inventory item template objects.",
+        "name": "dcim_inventory_item_templates_update",
+        "descriptionTemplate": "Put a inventory item template object.",
         "method": "PUT",
-        "path": "/api/dcim/inventory-item-templates/",
-        "params": [],
+        "path": "/api/dcim/inventory-item-templates/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
-          "items": "{InventoryItemTemplateRequest}"
+          "items": "{items}"
         },
         "paramTypes": {
+          "id": "integer",
           "items": "array"
         },
         "x-negative-delete-expected-codes": [
@@ -504,16 +526,32 @@
         ]
       },
       "delete": {
-        "name": "dcim_inventory_item_templates_bulk_destroy",
-        "descriptionTemplate": "Delete a list of inventory item template objects.",
+        "name": "dcim_inventory_item_templates_destroy",
+        "descriptionTemplate": "Delete a inventory item template object.",
         "method": "DELETE",
-        "path": "/api/dcim/inventory-item-templates/",
-        "params": [],
-        "bodyTemplate": {
-          "items": "{InventoryItemTemplateRequest}"
-        },
+        "path": "/api/dcim/inventory-item-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
-          "items": "array"
+          "id": "integer"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
+      "get": {
+        "name": "dcim_inventory_item_templates_retrieve",
+        "descriptionTemplate": "Get a inventory item template object.",
+        "method": "GET",
+        "path": "/api/dcim/inventory-item-templates/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
+        "paramTypes": {
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404

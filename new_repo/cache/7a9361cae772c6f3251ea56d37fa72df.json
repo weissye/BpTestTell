@@ -39,45 +39,17 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIPAddressRequest"
+          "key": "{key}"
         },
         "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "patch": {
-        "name": "ipam_ip_addresses_partial_update",
-        "descriptionTemplate": "Patch a IP address object.",
-        "method": "PATCH",
-        "path": "/api/ipam/ip-addresses/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableIPAddressRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
+          "id": "integer",
+          "key": "string"
         }
       }
     }
   },
   "IPRanges": {
     "operations": {
-      "delete": {
-        "name": "ipam_ip_ranges_bulk_destroy",
-        "descriptionTemplate": "Delete a list of IP range objects.",
-        "method": "DELETE",
-        "path": "/api/ipam/ip-ranges/",
-        "params": [],
-        "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPRangeRequest"
-          },
-          "type": "array"
-        },
-        "paramTypes": {}
-      },
       "list": {
         "name": "ipam_ip_ranges_list",
         "descriptionTemplate": "Get a list of IP range objects.",
@@ -284,42 +256,28 @@
         "path": "/api/ipam/ip-ranges/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIPRangeRequest"
+          "key": "{key}"
         },
-        "paramTypes": {}
+        "paramTypes": {
+          "key": "string"
+        }
       },
       "update": {
-        "name": "ipam_ip_ranges_bulk_update",
-        "descriptionTemplate": "Put a list of IP range objects.",
+        "name": "ipam_ip_ranges_update",
+        "descriptionTemplate": "Put a IP range object.",
         "method": "PUT",
-        "path": "/api/ipam/ip-ranges/",
-        "params": [],
+        "path": "/api/ipam/ip-ranges/{id}/",
+        "params": [
+          "id"
+        ],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPRangeRequest"
-          },
-          "type": "array"
+          "key": "{key}"
         },
-        "paramTypes": {}
+        "paramTypes": {
+          "id": "integer",
+          "key": "string"
+        }
       },
-      "patch": {
-        "name": "ipam_ip_ranges_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of IP range objects.",
-        "method": "PATCH",
-        "path": "/api/ipam/ip-ranges/",
-        "params": [],
-        "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPRangeRequest"
-          },
-          "type": "array"
-        },
-        "paramTypes": {}
-      }
-    }
-  },
-  "IPRange": {
-    "operations": {
       "delete": {
         "name": "ipam_ip_ranges_destroy",
         "descriptionTemplate": "Delete a IP range object.",
@@ -335,103 +293,11 @@
         "x-negative-delete-expected-codes": [
           404
         ]
-      },
-      "get": {
-        "name": "ipam_ip_ranges_retrieve",
-        "descriptionTemplate": "Get a IP range object.",
-        "method": "GET",
-        "path": "/api/ipam/ip-ranges/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "update": {
-        "name": "ipam_ip_ranges_update",
-        "descriptionTemplate": "Put a IP range object.",
-        "method": "PUT",
-        "path": "/api/ipam/ip-ranges/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/WritableIPRangeRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "patch": {
-        "name": "ipam_ip_ranges_partial_update",
-        "descriptionTemplate": "Patch a IP range object.",
-        "method": "PATCH",
-        "path": "/api/ipam/ip-ranges/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedWritableIPRangeRequest"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
-      }
-    }
-  },
-  "AvailableIPs": {
-    "operations": {
-      "list": {
-        "name": "ipam_ip_ranges_available_ips_list",
-        "descriptionTemplate": "Get a IP address object.",
-        "method": "GET",
-        "path": "/api/ipam/ip-ranges/{id}/available-ips/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "add": {
-        "name": "ipam_ip_ranges_available_ips_create",
-        "descriptionTemplate": "Post a IP address object.",
-        "method": "POST",
-        "path": "/api/ipam/ip-ranges/{id}/available-ips/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/IPAddressRequest"
-          },
-          "type": "array"
-        },
-        "paramTypes": {
-          "id": "integer"
-        }
       }
     }
   },
   "Prefixes": {
     "operations": {
-      "delete": {
-        "name": "ipam_prefixes_bulk_destroy",
-        "descriptionTemplate": "Delete a list of prefix objects.",
-        "method": "DELETE",
-        "path": "/api/ipam/prefixes/",
-        "params": [],
-        "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/PrefixRequest"
-          },
-          "type": "array"
-        },
-        "paramTypes": {}
-      },
       "list": {
         "name": "ipam_prefixes_list",
         "descriptionTemplate": "Get a list of prefix objects.",
@@ -738,37 +604,40 @@
         "path": "/api/ipam/prefixes/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/WritablePrefixRequest"
+          "key": "{key}"
         },
-        "paramTypes": {}
+        "paramTypes": {
+          "key": "string"
+        }
       },
       "update": {
-        "name": "ipam_prefixes_bulk_update",
+        "name": "ipam_prefixes_update",
         "descriptionTemplate": "Put a list of prefix objects.",
         "method": "PUT",
         "path": "/api/ipam/prefixes/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/PrefixRequest"
-          },
-          "type": "array"
+          "key": "{key}"
         },
-        "paramTypes": {}
+        "paramTypes": {
+          "key": "string"
+        }
       },
-      "patch": {
-        "name": "ipam_prefixes_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of prefix objects.",
-        "method": "PATCH",
+      "delete": {
+        "name": "ipam_prefixes_bulk_destroy",
+        "descriptionTemplate": "Delete a list of prefix objects.",
+        "method": "DELETE",
         "path": "/api/ipam/prefixes/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/PrefixRequest"
-          },
-          "type": "array"
+          "key": "{key}"
         },
-        "paramTypes": {}
+        "paramTypes": {
+          "key": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   }

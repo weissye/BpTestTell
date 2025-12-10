@@ -28,9 +28,29 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
-        }
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
+        "name": "dcim_device_roles_partial_update",
+        "descriptionTemplate": "Patch a device role object.",
+        "method": "PATCH",
+        "path": "/api/dcim/device-roles/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_role": "{device_role}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "name": "string",
+          "device_role": "string"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "put": {
         "name": "dcim_device_roles_update",
         "descriptionTemplate": "Put a device role object.",
         "method": "PUT",
@@ -46,12 +66,29 @@
           "id": "integer",
           "name": "string",
           "device_role": "string"
-        }
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
   "DeviceTypes": {
     "operations": {
+      "delete": {
+        "name": "dcim_device_types_bulk_destroy",
+        "descriptionTemplate": "Delete a list of device type objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/device-types/",
+        "params": [],
+        "bodyTemplate": {
+          "device_type": "{device_type}"
+        },
+        "paramTypes": {
+          "device_type": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "dcim_device_types_list",
         "descriptionTemplate": "Get a list of device type objects.",
@@ -96,6 +133,7 @@
           "subdevice_role",
           "tag",
           "u_height",
+          "updated_by_request",
           "weight",
           "weight_unit"
         ],
@@ -139,9 +177,11 @@
           "subdevice_role": "string",
           "tag": "string",
           "u_height": "number",
+          "updated_by_request": "string",
           "weight": "number",
           "weight_unit": "string"
-        }
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_device_types_create",
@@ -156,46 +196,61 @@
         "paramTypes": {
           "name": "string",
           "device_type": "string"
-        }
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_device_types_update",
-        "descriptionTemplate": "Put a device type object.",
-        "method": "PUT",
-        "path": "/api/dcim/device-types/{id}/",
-        "params": [
-          "id"
-        ],
+        "name": "dcim_device_types_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of device type objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/device-types/",
+        "params": [],
         "bodyTemplate": {
           "name": "{name}",
           "device_type": "{device_type}"
         },
         "paramTypes": {
-          "id": "integer",
           "name": "string",
           "device_type": "string"
-        }
-      },
-      "delete": {
-        "name": "dcim_device_types_destroy",
-        "descriptionTemplate": "Delete a device type object.",
-        "method": "DELETE",
-        "path": "/api/dcim/device-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
+      },
+      "put": {
+        "name": "dcim_device_types_bulk_update",
+        "descriptionTemplate": "Put a list of device type objects.",
+        "method": "PUT",
+        "path": "/api/dcim/device-types/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device_type": "{device_type}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device_type": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   },
   "Devices": {
     "operations": {
+      "delete": {
+        "name": "dcim_devices_bulk_destroy",
+        "descriptionTemplate": "Delete a list of device objects.",
+        "method": "DELETE",
+        "path": "/api/dcim/devices/",
+        "params": [],
+        "bodyTemplate": {
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "device": "string"
+        },
+        "x-negative-delete-expected-codes": [
+          404
+        ]
+      },
       "list": {
         "name": "dcim_devices_list",
         "descriptionTemplate": "Get a list of device objects.",
@@ -215,6 +270,7 @@
           "contact_group",
           "contact_role",
           "created",
+          "created_by_request",
           "description",
           "device_bay_count",
           "device_bays",
@@ -238,6 +294,7 @@
           "mac_address",
           "manufacturer",
           "model",
+          "modified_by_request",
           "module_bay_count",
           "module_bays",
           "name",
@@ -290,6 +347,7 @@
           "contact_group": "string",
           "contact_role": "integer",
           "created": "string",
+          "created_by_request": "string",
           "description": "string",
           "device_bay_count": "integer",
           "device_bays": "boolean",
@@ -313,6 +371,7 @@
           "mac_address": "string",
           "manufacturer": "string",
           "model": "string",
+          "modified_by_request": "string",
           "module_bay_count": "integer",
           "module_bays": "boolean",
           "name": "string",
@@ -349,7 +408,8 @@
           "vc_priority": "integer",
           "virtual_chassis_id": "integer",
           "virtual_chassis_member": "boolean"
-        }
+        },
+        "x-negative-delete-expected-codes": []
       },
       "add": {
         "name": "dcim_devices_create",
@@ -364,41 +424,40 @@
         "paramTypes": {
           "name": "string",
           "device": "string"
-        }
+        },
+        "x-negative-delete-expected-codes": []
       },
       "update": {
-        "name": "dcim_devices_update",
-        "descriptionTemplate": "Put a device object.",
-        "method": "PUT",
-        "path": "/api/dcim/devices/{id}/",
-        "params": [
-          "id"
-        ],
+        "name": "dcim_devices_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of device objects.",
+        "method": "PATCH",
+        "path": "/api/dcim/devices/",
+        "params": [],
         "bodyTemplate": {
           "name": "{name}",
           "device": "{device}"
         },
         "paramTypes": {
-          "id": "integer",
           "name": "string",
           "device": "string"
-        }
-      },
-      "delete": {
-        "name": "dcim_devices_destroy",
-        "descriptionTemplate": "Delete a device object.",
-        "method": "DELETE",
-        "path": "/api/dcim/devices/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
         },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
+        "x-negative-delete-expected-codes": []
+      },
+      "put": {
+        "name": "dcim_devices_bulk_update",
+        "descriptionTemplate": "Put a list of device objects.",
+        "method": "PUT",
+        "path": "/api/dcim/devices/",
+        "params": [],
+        "bodyTemplate": {
+          "name": "{name}",
+          "device": "{device}"
+        },
+        "paramTypes": {
+          "name": "string",
+          "device": "string"
+        },
+        "x-negative-delete-expected-codes": []
       }
     }
   }

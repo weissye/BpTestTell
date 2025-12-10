@@ -47,24 +47,6 @@
           "prefix": "string",
           "description": "string"
         }
-      },
-      "patch": {
-        "name": "ipam_prefixes_partial_update",
-        "descriptionTemplate": "Patch a prefix object.",
-        "method": "PATCH",
-        "path": "/api/ipam/prefixes/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "prefix": "{prefix}",
-          "description": "{description}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "prefix": "string",
-          "description": "string"
-        }
       }
     }
   },
@@ -92,17 +74,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "addresses": [
-            {
-              "address": "{address}",
-              "status": "{status}"
-            }
-          ]
+          "ip_address": "{ip_address}"
         },
         "paramTypes": {
           "id": "integer",
-          "address": "string",
-          "status": "string"
+          "ip_address": "string"
         }
       }
     }
@@ -131,17 +107,11 @@
           "id"
         ],
         "bodyTemplate": {
-          "prefixes": [
-            {
-              "prefix": "{prefix}",
-              "status": "{status}"
-            }
-          ]
+          "prefix": "{prefix}"
         },
         "paramTypes": {
           "id": "integer",
-          "prefix": "string",
-          "status": "string"
+          "prefix": "string"
         }
       }
     }
@@ -310,10 +280,8 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "rir": {
-            "name": "{name}",
-            "slug": "{slug}"
-          }
+          "name": "{name}",
+          "slug": "{slug}"
         },
         "paramTypes": {
           "name": "string",
@@ -327,31 +295,8 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "rirs": [
-            {
-              "name": "{name}",
-              "slug": "{slug}"
-            }
-          ]
-        },
-        "paramTypes": {
-          "name": "string",
-          "slug": "string"
-        }
-      },
-      "patch": {
-        "name": "ipam_rirs_bulk_partial_update",
-        "descriptionTemplate": "Patch a list of RIR objects.",
-        "method": "PATCH",
-        "path": "/api/ipam/rirs/",
-        "params": [],
-        "bodyTemplate": {
-          "rirs": [
-            {
-              "name": "{name}",
-              "slug": "{slug}"
-            }
-          ]
+          "name": "{name}",
+          "slug": "{slug}"
         },
         "paramTypes": {
           "name": "string",
@@ -365,85 +310,12 @@
         "path": "/api/ipam/rirs/",
         "params": [],
         "bodyTemplate": {
-          "rirs": [
-            {
-              "name": "{name}",
-              "slug": "{slug}"
-            }
-          ]
-        },
-        "paramTypes": {
-          "name": "string",
-          "slug": "string"
-        },
-        "x-negative-delete-expected-codes": [
-          404
-        ]
-      }
-    }
-  },
-  "RIR": {
-    "operations": {
-      "get": {
-        "name": "ipam_rirs_retrieve",
-        "descriptionTemplate": "Get a RIR object.",
-        "method": "GET",
-        "path": "/api/ipam/rirs/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        }
-      },
-      "update": {
-        "name": "ipam_rirs_update",
-        "descriptionTemplate": "Put a RIR object.",
-        "method": "PUT",
-        "path": "/api/ipam/rirs/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
           "name": "{name}",
           "slug": "{slug}"
         },
         "paramTypes": {
-          "id": "integer",
           "name": "string",
           "slug": "string"
-        }
-      },
-      "patch": {
-        "name": "ipam_rirs_partial_update",
-        "descriptionTemplate": "Patch a RIR object.",
-        "method": "PATCH",
-        "path": "/api/ipam/rirs/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "name": "{name}",
-          "slug": "{slug}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "name": "string",
-          "slug": "string"
-        }
-      },
-      "delete": {
-        "name": "ipam_rirs_destroy",
-        "descriptionTemplate": "Delete a RIR object.",
-        "method": "DELETE",
-        "path": "/api/ipam/rirs/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404

@@ -193,11 +193,17 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_role": "{device_role}"
+          "device_type": "{device_type}",
+          "maximum_draw": "{maximum_draw}",
+          "allocated_draw": "{allocated_draw}",
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_role": "string"
+          "device_type": "string",
+          "maximum_draw": "integer",
+          "allocated_draw": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -209,11 +215,17 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_role": "{device_role}"
+          "device_type": "{device_type}",
+          "maximum_draw": "{maximum_draw}",
+          "allocated_draw": "{allocated_draw}",
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_role": "string"
+          "device_type": "string",
+          "maximum_draw": "integer",
+          "allocated_draw": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -224,12 +236,10 @@
         "path": "/api/dcim/power-port-templates/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "device_role": "{device_role}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "device_role": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -585,11 +595,17 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_role": "{device_role}"
+          "device": "{device}",
+          "maximum_draw": "{maximum_draw}",
+          "allocated_draw": "{allocated_draw}",
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_role": "string"
+          "device": "string",
+          "maximum_draw": "integer",
+          "allocated_draw": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -601,11 +617,17 @@
         "params": [],
         "bodyTemplate": {
           "name": "{name}",
-          "device_role": "{device_role}"
+          "device": "{device}",
+          "maximum_draw": "{maximum_draw}",
+          "allocated_draw": "{allocated_draw}",
+          "description": "{description}"
         },
         "paramTypes": {
           "name": "string",
-          "device_role": "string"
+          "device": "string",
+          "maximum_draw": "integer",
+          "allocated_draw": "integer",
+          "description": "string"
         },
         "x-negative-delete-expected-codes": []
       },
@@ -616,12 +638,10 @@
         "path": "/api/dcim/power-ports/",
         "params": [],
         "bodyTemplate": {
-          "name": "{name}",
-          "device_role": "{device_role}"
+          "id": "{id}"
         },
         "paramTypes": {
-          "name": "string",
-          "device_role": "string"
+          "id": "integer"
         },
         "x-negative-delete-expected-codes": [
           404
@@ -632,20 +652,6 @@
         "descriptionTemplate": "Get a power port object.",
         "method": "GET",
         "path": "/api/dcim/power-ports/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": null,
-        "paramTypes": {
-          "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "trace": {
-        "name": "dcim_power_ports_trace_retrieve",
-        "descriptionTemplate": "Trace a complete cable path and return each segment as a three-tuple of (termination, cable, termination).",
-        "method": "GET",
-        "path": "/api/dcim/power-ports/{id}/trace/",
         "params": [
           "id"
         ],

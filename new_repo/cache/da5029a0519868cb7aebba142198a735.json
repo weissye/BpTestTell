@@ -190,11 +190,11 @@
         "path": "/api/extras/table-configs/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/TableConfigRequest"
-          }
+          "items": "{TableConfigRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "items": "array"
+        },
         "x-negative-delete-expected-codes": []
       },
       "update": {
@@ -204,11 +204,25 @@
         "path": "/api/extras/table-configs/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/TableConfigRequest"
-          }
+          "items": "{TableConfigRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "extras_table_configs_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of table config objects.",
+        "method": "PATCH",
+        "path": "/api/extras/table-configs/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{TableConfigRequest}"
+        },
+        "paramTypes": {
+          "items": "array"
+        },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
@@ -218,11 +232,11 @@
         "path": "/api/extras/table-configs/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/TableConfigRequest"
-          }
+          "items": "{TableConfigRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "items": "array"
+        },
         "x-negative-delete-expected-codes": [
           404
         ]
@@ -241,7 +255,24 @@
         },
         "x-negative-delete-expected-codes": []
       },
-      "patch": {
+      "updateSingle": {
+        "name": "extras_table_configs_update",
+        "descriptionTemplate": "Put a table config object.",
+        "method": "PUT",
+        "path": "/api/extras/table-configs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": {
+          "TableConfigRequest": "{TableConfigRequest}"
+        },
+        "paramTypes": {
+          "id": "integer",
+          "TableConfigRequest": "object"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patchSingle": {
         "name": "extras_table_configs_partial_update",
         "descriptionTemplate": "Patch a table config object.",
         "method": "PATCH",
@@ -250,12 +281,29 @@
           "id"
         ],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/PatchedTableConfigRequest"
+          "PatchedTableConfigRequest": "{PatchedTableConfigRequest}"
         },
+        "paramTypes": {
+          "id": "integer",
+          "PatchedTableConfigRequest": "object"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "deleteSingle": {
+        "name": "extras_table_configs_destroy",
+        "descriptionTemplate": "Delete a table config object.",
+        "method": "DELETE",
+        "path": "/api/extras/table-configs/{id}/",
+        "params": [
+          "id"
+        ],
+        "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
         },
-        "x-negative-delete-expected-codes": []
+        "x-negative-delete-expected-codes": [
+          404
+        ]
       }
     }
   },
@@ -546,9 +594,11 @@
         "path": "/api/extras/tags/",
         "params": [],
         "bodyTemplate": {
-          "$ref": "#/components/schemas/TagRequest"
+          "TagRequest": "{TagRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "TagRequest": "object"
+        },
         "x-negative-delete-expected-codes": []
       },
       "update": {
@@ -558,11 +608,25 @@
         "path": "/api/extras/tags/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/TagRequest"
-          }
+          "items": "{TagRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "items": "array"
+        },
+        "x-negative-delete-expected-codes": []
+      },
+      "patch": {
+        "name": "extras_tags_bulk_partial_update",
+        "descriptionTemplate": "Patch a list of tag objects.",
+        "method": "PATCH",
+        "path": "/api/extras/tags/",
+        "params": [],
+        "bodyTemplate": {
+          "items": "{TagRequest}"
+        },
+        "paramTypes": {
+          "items": "array"
+        },
         "x-negative-delete-expected-codes": []
       },
       "delete": {
@@ -572,11 +636,11 @@
         "path": "/api/extras/tags/",
         "params": [],
         "bodyTemplate": {
-          "items": {
-            "$ref": "#/components/schemas/TagRequest"
-          }
+          "items": "{TagRequest}"
         },
-        "paramTypes": {},
+        "paramTypes": {
+          "items": "array"
+        },
         "x-negative-delete-expected-codes": [
           404
         ]

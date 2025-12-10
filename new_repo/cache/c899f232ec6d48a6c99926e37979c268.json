@@ -348,23 +348,6 @@
           "id": "integer"
         },
         "x-negative-delete-expected-codes": []
-      },
-      "patch": {
-        "name": "dcim_module_bays_partial_update",
-        "descriptionTemplate": "Patch a module bay object.",
-        "method": "PATCH",
-        "path": "/api/dcim/module-bays/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "module_bay": "{module_bay}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "module_bay": "string"
-        },
-        "x-negative-delete-expected-codes": []
       }
     }
   },
@@ -553,23 +536,6 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "patch": {
-        "name": "dcim_module_type_profiles_partial_update",
-        "descriptionTemplate": "Patch a module type profile object.",
-        "method": "PATCH",
-        "path": "/api/dcim/module-type-profiles/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "module_type_profile": "{module_type_profile}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "module_type_profile": "string"
         },
         "x-negative-delete-expected-codes": []
       }
@@ -832,23 +798,6 @@
         "bodyTemplate": null,
         "paramTypes": {
           "id": "integer"
-        },
-        "x-negative-delete-expected-codes": []
-      },
-      "patch": {
-        "name": "dcim_module_types_partial_update",
-        "descriptionTemplate": "Patch a module type object.",
-        "method": "PATCH",
-        "path": "/api/dcim/module-types/{id}/",
-        "params": [
-          "id"
-        ],
-        "bodyTemplate": {
-          "module_type": "{module_type}"
-        },
-        "paramTypes": {
-          "id": "integer",
-          "module_type": "string"
         },
         "x-negative-delete-expected-codes": []
       }

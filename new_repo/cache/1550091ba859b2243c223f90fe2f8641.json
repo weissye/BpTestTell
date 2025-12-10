@@ -57,7 +57,11 @@
         "path": "/api/vpn/l2vpn-terminations/",
         "params": [],
         "bodyTemplate": {
-          "key": "{key}"
+          "items": [
+            {
+              "key": "{key}"
+            }
+          ]
         },
         "paramTypes": {
           "key": "string"
@@ -249,7 +253,11 @@
         "path": "/api/vpn/l2vpn-terminations/",
         "params": [],
         "bodyTemplate": {
-          "key": "{key}"
+          "items": [
+            {
+              "key": "{key}"
+            }
+          ]
         },
         "paramTypes": {
           "key": "string"
@@ -266,7 +274,11 @@
         "path": "/api/vpn/l2vpns/",
         "params": [],
         "bodyTemplate": {
-          "key": "{key}"
+          "items": [
+            {
+              "key": "{key}"
+            }
+          ]
         },
         "paramTypes": {
           "key": "string"
@@ -558,7 +570,11 @@
         "path": "/api/vpn/l2vpns/",
         "params": [],
         "bodyTemplate": {
-          "key": "{key}"
+          "items": [
+            {
+              "key": "{key}"
+            }
+          ]
         },
         "paramTypes": {
           "key": "string"
